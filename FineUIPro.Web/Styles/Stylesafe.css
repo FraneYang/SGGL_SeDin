@@ -1,0 +1,17 @@
+﻿.textboxStyleNone  
+    {
+        border:none;
+        HEIGHT: 16px;
+    } 
+#beizhu .r{color:Red;}
+#beizhu .gongshi{font-weight:bold;}
+#T .title{width:10%; height:16px; text-align:center;}
+.textboxStyle  
+    {
+        border-bottom: black 1px solid;   
+        border-top-style: none;    
+        border-right-style: none;    
+        border-left-style: none;    
+        background-color: transparent;
+ }
+ #Table2 tr td{text-align:center;}

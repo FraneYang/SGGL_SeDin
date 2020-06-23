@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>  
+<TreeNode id="A0D8A8F7-EF3A-4F81-B9C1-F9F2ECD63360" Text="法律法规/标准规范" NavigateUrl="" >
+  <TreeNode id="C85CCDFC-E721-4B9D-B73F-F83C7578EE9B" Text="法律法规辨识" NavigateUrl="InformationProject/LawRegulationIdentify.aspx" ></TreeNode>
+<TreeNode id="28B0235F-3DB5-4C15-A7E3-6F5DF52C8FDC" Text="标准规范清单" NavigateUrl="InformationProject/ConstructionStandardIdentify.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="E38EE43D-C526-493F-A177-712BA9B22291" Text="项目策划" NavigateUrl="" >
+  <TreeNode id="CBC47C8B-141C-446B-90D9-CE8F5AE66CE4" Text="安全实施计划" NavigateUrl="ActionPlan/ActionPlanList.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="7944B1C6-636B-4AD8-980C-A2F6D44883D3" Text="安全管理规定" NavigateUrl="" ><TreeNode id="775EFCF4-DE5C-46E9-8EA3-B16270E2F6A6" Text="安全管理规定" NavigateUrl="ActionPlan/ManagerRule.aspx" ></TreeNode>
+<TreeNode id="703D90A7-C40B-4753-943B-8A59AABDC043" Text="管理规定清单" NavigateUrl="ActionPlan/ManagerRuleList.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="EE260447-028F-46AF-8864-9A5DC9DAA5BD" Text="人员信息" NavigateUrl="" >
+  <TreeNode id="AD6FC259-CF40-41C7-BA3F-15AC50C1DD20" Text="人员信息档案" NavigateUrl="SitePerson/PersonList.aspx" ></TreeNode>
+<TreeNode id="8F15D3BE-BE21-4A6F-AD5C-2BBECEE46149" Text="人工时日报" NavigateUrl="SitePerson/DayReport.aspx" ></TreeNode>
+<TreeNode id="6C97E014-AF13-46E5-ADB2-03D327C560EC" Text="人工时月报" NavigateUrl="SitePerson/MonthReport.aspx" ></TreeNode>
+<TreeNode id="7ACB0CB1-15D8-4E8E-A54D-0CDC5F69B39A" Text="发卡管理" NavigateUrl="SitePerson/SendCard.aspx" ></TreeNode>
+<TreeNode id="12F7123B-C2ED-4011-9859-83260AC91F09" Text="现场人员考勤管理" NavigateUrl="SitePerson/PersonInfo.aspx" ></TreeNode>
+<TreeNode id="7D36E853-CC79-48B9-9E7F-E34797B4E87E" Text="现场人员考勤统计" NavigateUrl="SitePerson/PersonStatistic.aspx" ></TreeNode>
+<TreeNode id="EBEA762D-1F46-47C5-9EAD-759E13D9B41C" Text="特种作业人员资质" NavigateUrl="QualityAudit/PersonQuality.aspx" ></TreeNode>
+<TreeNode id="750F5074-45B9-470E-AE1E-6204957421E6" Text="安管人员资质" NavigateUrl="QualityAudit/SafePersonQuality.aspx" ></TreeNode>
+<TreeNode id="96FB96FF-20D8-4CE9-AF57-C19717BB5D3E" Text="特种设备作业人员资质" NavigateUrl="QualityAudit/EquipmentPersonQuality.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="26FDE187-F2EE-41D0-95EA-4E8E026F19E5" Text="资质审核" NavigateUrl="" ><TreeNode id="DFDFEDA3-FECB-40DA-9216-C67B48002A8A" Text="施工分包资质" NavigateUrl="QualityAudit/SubUnitQuality.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="6A0506EB-05CE-4BB3-9BA9-866389F01E1C" Text="教育培训" NavigateUrl=""><TreeNode id="1182E353-FAB9-4DB1-A1EC-F41A00892128" Text="培训记录" NavigateUrl="EduTrain/TrainRecord.aspx" ></TreeNode>
+<TreeNode id="F81E3F54-B3A9-4DDB-9C8C-1574317E040F" Text="人员培训查询" NavigateUrl="EduTrain/TrainFind.aspx" ></TreeNode>
+<TreeNode id="B782A26B-D85C-4F84-8B45-F7AA47B3159E" Text="培训计划" NavigateUrl="EduTrain/Plan.aspx" ></TreeNode>
+<TreeNode id="E108F75D-89D0-4DCA-8356-A156C328805C" Text="培训任务" NavigateUrl="EduTrain/Task.aspx" ></TreeNode>
+<TreeNode id="6C314522-AF62-4476-893E-5F42C09C3077" Text="培训试题" NavigateUrl="EduTrain/TestTrainRecord.aspx" ></TreeNode>
+<TreeNode id="FAF7F4A4-A4BC-4D94-9E88-0CF5A380DB34" Text="考试计划" NavigateUrl="EduTrain/TestPlan.aspx" ></TreeNode>
+<TreeNode id="0EEB138D-84F9-4686-8CBB-CAEAA6CF1B2A" Text="考试记录" NavigateUrl="EduTrain/TestRecord.aspx" ></TreeNode>
+<TreeNode id="6FF941C1-8A00-4A74-8111-C892FC30A8DA" Text="考试统计" NavigateUrl="EduTrain/TestStatistics.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="473A87D2-1365-4A68-BD38-06F312F81BC2" Text="作业许可" NavigateUrl="" ><TreeNode id="2E58D4F1-2FF1-450E-8A00-1CE3BBCF8D4B" Text="动火作业票" NavigateUrl="License/FireWork.aspx" ></TreeNode>
+<TreeNode id="DA1CAE8E-B5BF-4AC0-9996-AF6CAA412CA9" Text="高处作业票" NavigateUrl="License/HeightWork.aspx" ></TreeNode>
+<TreeNode id="AEC9166D-1C91-45F0-8BFE-D3D0479A28C7" Text="受限空间作业票" NavigateUrl="License/LimitedSpace.aspx" ></TreeNode>
+<TreeNode id="F72FF20B-D3EB-46A5-97F7-C99B2473A140" Text="射线作业票" NavigateUrl="License/RadialWork.aspx" ></TreeNode>
+<TreeNode id="4E607E83-41FC-4F49-B26F-A21CFE38328F" Text="断路(占道)作业票" NavigateUrl="License/OpenCircuit.aspx" ></TreeNode>
+<TreeNode id="755C6AC9-2E38-4D4F-AF33-33CB1744A907" Text="动土作业票" NavigateUrl="License/BreakGround.aspx" ></TreeNode>
+<TreeNode id="7BBAE649-7B00-4475-A911-BFE3A37AC55B" Text="夜间施工作业票" NavigateUrl="License/NightWork.aspx" ></TreeNode>
+<TreeNode id="A1BE3AB6-9D4A-41E7-8870-E73423165451" Text="吊装作业票" NavigateUrl="License/LiftingWork.aspx" ></TreeNode>
+<TreeNode id="0E9B7084-D021-4CA3-B9D2-9CBAA27A571B" Text="作业票（定稿）" NavigateUrl="License/LicenseManager.aspx" ></TreeNode>
+<TreeNode id="49485F7E-8E71-4EED-87B4-BF6CC180C69C" Text="安全技术交底" NavigateUrl="License/HSETechnical.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="9A3212F8-2392-4F21-A8C7-FF5EE3B191F1" Text="危险源辨识与评价" NavigateUrl="" ><TreeNode id="762F0BF9-471B-4115-B35E-03A26C573877" Text="环境因素识别与评价" NavigateUrl="Hazard/EnvironmentalRiskList.aspx" ></TreeNode>
+<TreeNode id="EDC50857-7762-4498-83C6-5BDE85036BAB" Text="职业健康安全危险源辨识与评价" NavigateUrl="Hazard/HazardList.aspx" ></TreeNode>
+<TreeNode id="F6A6D53A-150E-43DB-A3C4-6FA18E9401E9" Text="风险提示" NavigateUrl="Hazard/HazardPrompt.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="5FF7BBD8-3E0A-4C90-8976-AFF5CE7E17A5" Text="施工方案" NavigateUrl=""><TreeNode id="D5F6DFAA-4051-4E0E-818B-2A45F985C5A4" Text="方案模板" NavigateUrl="Solution/SolutionTemplate.aspx" ></TreeNode>
+<TreeNode id="9B42977B-FA0B-48EF-8616-D53FC14E5127" Text="施工方案/审查" NavigateUrl="Solution/ConstructSolution.aspx" ></TreeNode>
+<TreeNode id="5B3D3F7B-9B50-4927-B131-11D13D4D1C19" Text="危大工程施工方案清单" NavigateUrl="Solution/LargerHazardList.aspx" ></TreeNode>
+<TreeNode id="27DE7248-C4FF-4288-BBAC-11CB8741AD67" Text="专家论证清单" NavigateUrl="Solution/ExpertArgumentList.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="467A0CB9-737D-4451-965E-869EBC3A4BD6" Text="安全检查" NavigateUrl="" ><TreeNode id="9CEB4059-5826-4B8C-923C-6FE4131ED636" Text="检查项目设置" NavigateUrl="Check/CheckItemSet.aspx" ></TreeNode>
+<TreeNode id="2FC8AA2A-F421-4174-A05E-2711167AF141" Text="安全巡检" NavigateUrl="HiddenInspection/HiddenRectificationList.aspx" ></TreeNode>
+<TreeNode id="1B08048F-93ED-4E84-AE65-DB7917EA2DFB" Text="专项检查" NavigateUrl="Check/CheckSpecial.aspx" ></TreeNode>
+<TreeNode id="C3B6B222-44DC-46F3-B783-B1FC0F743C48" Text="隐患整改单(赛鼎)" NavigateUrl="Check/RectifyNotices.aspx" ></TreeNode>
+<TreeNode id="C81DB7ED-165E-4C69-86B0-A3AAE37059FE" Text="工程暂停令" NavigateUrl="Check/PauseNotice.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="B6FBD6B6-F9A0-49B1-87F9-160748162131" Text="应急信息" NavigateUrl="" ><TreeNode id="ABD84F93-A84E-448C-8A67-AB0FE4E8D10C" Text="应急预案管理清单" NavigateUrl="Emergency/EmergencyList.aspx" ></TreeNode>
+<TreeNode id="39244F05-0D9E-4750-B12E-CEA5E11338A8" Text="应急物资管理" NavigateUrl="Emergency/EmergencySupply.aspx" ></TreeNode>
+<TreeNode id="6FDF9DAE-2161-4F67-931F-85DEAFC3842A" Text="应急队伍与培训" NavigateUrl="Emergency/EmergencyTeamAndTrain.aspx" ></TreeNode>
+<TreeNode id="A5D0287B-2410-4DB1-8BD4-E0534EBAE308" Text="应急流程" NavigateUrl="Emergency/EmergencyProcess.aspx" ></TreeNode>
+</TreeNode>
+  <TreeNode id="012DF857-AD6B-49AA-87A8-030CD5F66D4C" Text="安全奖惩" NavigateUrl="" >
+    <TreeNode id="96F21A83-6871-4CC4-8901-1B99C376395C" Text="奖励通知单" NavigateUrl="Check/IncentiveNotice.aspx" ></TreeNode>
+    <TreeNode id="C13F1CE7-DAEF-4604-A13F-192621D28DF5" Text="奖励统计" NavigateUrl="Check/IncentiveNoticeStatistics.aspx" ></TreeNode>
+    <TreeNode id="755F1C1D-2178-47D8-9F82-A501B53A2436" Text="处罚通知单" NavigateUrl="Check/PunishNotice.aspx" ></TreeNode>
+    <TreeNode id="CCD0E55B-300A-454B-8559-155ADAD386AE" Text="处罚统计" NavigateUrl="Check/PunishNoticeStatistics.aspx" ></TreeNode>
+  </TreeNode>
+<TreeNode id="5309E7E0-395E-4F11-8F5E-D52E11526A2A" Text="安全会议" NavigateUrl="" ><TreeNode id="5236B1D9-8B57-495E-8644-231DF5D066CE" Text="安全周例会" NavigateUrl="Meeting/WeekMeeting.aspx" ></TreeNode>
+<TreeNode id="D5DD5EBD-A5F2-4A43-BA4C-E9A242B43684" Text="安全月例会" NavigateUrl="Meeting/MonthMeeting.aspx" ></TreeNode>
+<TreeNode id="BB6CEC48-283B-46AD-BEDD-F964D261698F" Text="安全专题会议" NavigateUrl="Meeting/SpecialMeeting.aspx" ></TreeNode>
+<TreeNode id="B2DA78EF-EECA-4AF4-9FAC-ECCFF1D6E459" Text="其他会议记录" NavigateUrl="Meeting/AttendMeeting.aspx" ></TreeNode>
+<TreeNode id="F8ADCDBC-AAAD-4884-9935-2B63562E4779" Text="班前会" NavigateUrl="Meeting/ClassMeeting.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="28C8EDB9-F1C2-4287-8013-28A976B093E2" Text="施工机具" NavigateUrl="" ><TreeNode id="3E167389-4775-4AC3-9D31-2E570682EDA1" Text="特种设备机具入场报批" NavigateUrl="InApproveManager/EquipmentIn.aspx" ></TreeNode>
+<TreeNode id="A4832598-E3D4-4906-88E5-A3886A85FC5A" Text="特种设备机具出场报批" NavigateUrl="InApproveManager/EquipmentOut.aspx" ></TreeNode>
+<TreeNode id="06EA1483-7397-46DD-818D-56911EA7B679" Text="一般设备机具入场报批" NavigateUrl="InApproveManager/GeneralEquipmentIn.aspx" ></TreeNode>
+<TreeNode id="56F241A9-0AA3-4EDB-8C5C-999C487C06DA" Text="一般设备机具出场报批" NavigateUrl="InApproveManager/GeneralEquipmentOut.aspx" ></TreeNode>
+<TreeNode id="42E7E869-67EA-446E-A910-BE7BF95EDC00" Text="特种设备审批" NavigateUrl="InApproveManager/EquipmentQualityIn.aspx" ></TreeNode>
+<TreeNode id="BFD62699-47F0-49FA-AD39-FAEE8A6C3313" Text="一般机具设备资质" NavigateUrl="QualityAudit/GeneralEquipmentQuality.aspx" ></TreeNode>
+<TreeNode id="2DEDD752-8BAF-43CD-933D-932AF9AF2F58" Text="特殊机具设备资质" NavigateUrl="QualityAudit/EquipmentQuality.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="20ECB69E-28C4-4FAC-941A-15F446AEB634" Text="安全投入费用" NavigateUrl="" ><TreeNode id="EEE7CBBE-2EFB-4D64-96A6-A932E20FF9DB" Text="安全费用计划" NavigateUrl="CostGoods/Expense.aspx" ></TreeNode>
+<TreeNode id="0C311396-C859-40B0-9D72-6A8B20733002" Text="安全费用支出" NavigateUrl="CostGoods/CostSmallDetail.aspx" ></TreeNode>
+<TreeNode id="FF68C697-B058-4687-A98F-71C591650E02" Text="分包商HSE费用申请" NavigateUrl="CostGoods/CostManage.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="7788B48E-8D80-4B22-BBD5-6192758E5DFC" Text="职业健康" NavigateUrl="" ><TreeNode id="DD5E76FC-C45E-4F4F-8889-A2F4703F93DD" Text="危害检测" NavigateUrl="OccupationHealth/HazardDetection.aspx" Icon="Page"></TreeNode>
+<TreeNode id="9EACCED2-B646-489C-84AD-1C22066F00AE" Text="体检管理" NavigateUrl="OccupationHealth/PhysicalExamination.aspx" Icon="Page"></TreeNode>
+<TreeNode id="775B77C0-E28D-4746-BCFE-F3E927D515A8" Text="职业病事故" NavigateUrl="OccupationHealth/OccupationalDiseaseAccident.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="E765DADB-B7BF-4F01-AFBC-F20E9D2F62D6" Text="环境保护" NavigateUrl="" ><TreeNode id="342B5DEA-ECE1-46A4-BAA6-F0DB5276C769" Text="环境监测数据" NavigateUrl="Environmental/EnvironmentalMonitoring.aspx" Icon="Page"></TreeNode>
+<TreeNode id="74F23370-56D8-426E-822D-5E367F620546" Text="突发环境事件" NavigateUrl="Environmental/UnexpectedEnvironmental.aspx" Icon="Page"></TreeNode>
+<TreeNode id="3EF6E488-21D2-47BB-AA33-4FB0E9FED606" Text="环境事件应急预案" NavigateUrl="Environmental/EnvironmentalEmergencyPlan.aspx" Icon="Page"></TreeNode>
+<TreeNode id="97DCAFD1-DDA5-48B4-8E2D-E82702BA899B" Text="环评报告" NavigateUrl="Environmental/EIAReport.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="0ED3E0CC-75E0-4FF3-8832-067217A6CD4D" Text="事故处理/预防" NavigateUrl="" ><TreeNode id="FB5C66FF-3BFB-490F-A14F-0DD5B5A4D110" Text="安全事故(对人员)记录" NavigateUrl="Accident/AccidentPersonRecord.aspx" ></TreeNode>
+<TreeNode id="9A9D6805-6C98-46E4-943E-130C4A3EB9A2" Text="安全事故(含未遂)处理" NavigateUrl="Accident/AccidentHandle.aspx" ></TreeNode>
+<TreeNode id="27C681E5-135A-414F-9FC2-D86D27805E6A" Text="事故报告登记" NavigateUrl="Accident/AccidentReport.aspx" ></TreeNode>
+<TreeNode id="B0A341A2-954A-4E24-BFC3-53D7F50628EE" Text="事故调查处理报告" NavigateUrl="Accident/AccidentReportOther.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="D3576E49-DBC9-43EA-9822-EA5F4D96CA24" Text="绩效评价管理" NavigateUrl="" ><TreeNode id="EED8DBEE-83F6-4B5B-8382-AF40EB66B0A9" Text="分包方绩效评价" NavigateUrl="Perfomance/PerfomanceRecord.aspx" ></TreeNode>
+<TreeNode id="1320A6D8-713B-43D4-BB00-CDA3DE6D24CB" Text="个人绩效评价" NavigateUrl="Perfomance/PersonPerfomance.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="03235B30-960D-4FCF-99F7-97773A2EE108" Text="工作报告" NavigateUrl="" ><TreeNode id="D0EC3002-E1FA-457D-AC3B-4C7B2D71DD82" Text="月报(赛鼎)" NavigateUrl="Manager/ManagerMonth_SeDin.aspx" ></TreeNode>
+<TreeNode id="88AE0EF8-D29E-409F-A154-CCA3999B00AE" Text="安全完工报告" NavigateUrl="Manager/CompletionReport.aspx" ></TreeNode>
+<TreeNode id="8E5B4A8E-B06E-4C8A-A2C8-1091A9BCAF72" Text="工程师HSE日志" NavigateUrl="Manager/HSEDiary.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="66DFD649-FBC2-463F-BD1A-04095D713C8E" Text="来往文件管理" NavigateUrl=""><TreeNode id="B06EC998-60D2-4CBF-8080-9F000A1595AA" Text="管理通知" NavigateUrl="InformationProject/Notice.aspx" ></TreeNode>
+<TreeNode id="4F5C00F3-DA7D-4B2D-B1EF-310DFFCA77DD" Text="一般来文管理" NavigateUrl="InformationProject/ReceiveFileManager.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="0C23EAED-82AC-4D6C-9C0A-0E7BDD0F157E" Text="项目亮点" NavigateUrl="" >
+  <TreeNode id="B58179BE-FE6E-4E91-84FC-D211E4692354" Text="项目图片" NavigateUrl="InformationProject/Picture.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="E1BBA25B-DAE5-4CFF-B72A-6C6044917D2B" Text="文件柜" NavigateUrl="" >
+  <TreeNode id="C69B7409-BE1E-4754-AC90-57B56EEE198B" Text="文件柜A(检查类)" NavigateUrl="InformationProject/FileCabinetA.aspx" ></TreeNode>
+<TreeNode id="200019A4-E24F-4C87-8C52-9970F78DBF73" Text="文件柜B(内业)" NavigateUrl="InformationProject/FileCabinetB.aspx" ></TreeNode>
+</TreeNode>
+<TreeNode id="C554E471-B740-4559-B543-E00F247289FD" Text="集团安全报表上报" NavigateUrl="" >
+  <TreeNode id="6E7DC075-A7AF-4E42-8F8B-0174EFDD54A1" Text="百万工时安全统计月报" NavigateUrl="InformationProject/MillionsMonthlyReport.aspx" ></TreeNode>
+<TreeNode id="38E948BA-E043-4E89-9038-0CE1B508FA19" Text="职工伤亡事故原因分析报" NavigateUrl="InformationProject/AccidentCauseReport.aspx" ></TreeNode>
+<TreeNode id="8B17DC64-A4B9-4283-B7A1-D2E944205FA5" Text="安全生产数据季报" NavigateUrl="InformationProject/SafetyQuarterlyReport.aspx" ></TreeNode>
+<TreeNode id="0CDFC1BE-0796-4817-ADB8-7A0B48655E00" Text="应急演练开展情况季报" NavigateUrl="InformationProject/DrillConductedQuarterlyReport.aspx" ></TreeNode>
+<TreeNode id="0973EE1C-CD2A-4116-BD67-1ABAD71D6C7C" Text="应急演练工作计划半年报" NavigateUrl="InformationProject/DrillPlanHalfYearReport.aspx" ></TreeNode>
+</TreeNode>
+</Tree>

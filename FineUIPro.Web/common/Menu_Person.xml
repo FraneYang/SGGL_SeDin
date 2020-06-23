@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工信息" NavigateUrl="Personal/PersonalInfo.aspx" >
+  </TreeNode>
+  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工总结" NavigateUrl="Personal/PersonalInfo.aspx" >
+  </TreeNode>
+  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工培训" NavigateUrl="Personal/PersonalInfo.aspx" >
+  </TreeNode>
+  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工责任书" NavigateUrl="Personal/PersonalInfo.aspx" >
+  </TreeNode>
+  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工考核" NavigateUrl="Personal/PersonalInfo.aspx" >
+  </TreeNode>
+  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="分流管理" NavigateUrl="Personal/PersonalInfo.aspx" >
+  </TreeNode>
+<TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="知识竞赛" >
+  <TreeNode id="A6994B53-6237-4C2B-BDC5-E7E79A1E7F88" Text="制定计划" NavigateUrl="Personal/PersonalFolder.aspx"></TreeNode>
+  <TreeNode id="A6994B53-6237-4C2B-BDC5-E7E79A1E7F88" Text="答题记录" NavigateUrl="Personal/PersonalFolder.aspx"></TreeNode>
+  <TreeNode id="A6994B53-6237-4C2B-BDC5-E7E79A1E7F88" Text="成绩排名" NavigateUrl="Personal/PersonalFolder.aspx"></TreeNode>
+</TreeNode>
+
+</Tree>

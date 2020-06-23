@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="发布通知" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="已发布通知" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="发布智能报表" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="已发布智能报表" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+</Tree>

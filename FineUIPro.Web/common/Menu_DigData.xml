@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="查询" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="资料库" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="数据库" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="数据作战室" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+</Tree>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="6B988160-2F4D-4428-92D9-20392593B9D2" Text="项目概况" NavigateUrl="ProjectData/ProjectProfile.aspx">
+  </TreeNode>
+<TreeNode id="336FE0BB-AE1D-4F15-A35B-1FC582E01A14" Text="项目主项" NavigateUrl="ProjectData/MainItem.aspx"></TreeNode>
+<TreeNode id="CBA3833A-C705-4B4E-A4A7-ACC27D0ECDCE" Text="单位工程" NavigateUrl="ProjectData/UnitWork.aspx"></TreeNode>
+<TreeNode id="64690369-3049-4009-82EE-437DF2E606BA" Text="项目单位" NavigateUrl="ProjectData/ProjectUnit.aspx"></TreeNode>
+<TreeNode id="CDB80E91-61A8-4E4D-BA97-3ADDC3208B66" Text="项目用户" NavigateUrl="ProjectData/ProjectUser.aspx"></TreeNode>
+<TreeNode id="2C970C89-8C69-4A6C-B832-8A64B8A701CA" Text="施工班组" NavigateUrl="ProjectData/TeamGroup.aspx"></TreeNode>
+<TreeNode id="D24ACD3C-086C-4AC8-9AFA-16D48893215E" Text="项目状态" NavigateUrl="ProjectData/ProjectShutdown.aspx"></TreeNode>
+</Tree>

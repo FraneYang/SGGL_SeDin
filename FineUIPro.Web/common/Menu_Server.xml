@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="发起检查" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="检查记录" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="项目绩效评价" NavigateUrl="Personal/FileSearch.aspx" >
+  </TreeNode>
+</Tree>

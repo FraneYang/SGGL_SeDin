@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FD1E1931-1688-4B4A-BCD6-335A81465343}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Model</RootNamespace>
+    <AssemblyName>Model</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EmitMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmitMapper.1.0.0\lib\EmitMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIItem\BaseInfoItem.cs" />
+    <Compile Include="APIItem\ChartAnalysisItem.cs" />
+    <Compile Include="APIItem\CheckSpecialDetailItem.cs" />
+    <Compile Include="APIItem\CheckSpecialItem.cs" />
+    <Compile Include="APIItem\ConstructSolutionItem.cs" />
+    <Compile Include="APIItem\EmergencyProcessItem.cs" />
+    <Compile Include="APIItem\EmergencyTeamItem.cs" />
+    <Compile Include="APIItem\EquipmentQualityItem.cs" />
+    <Compile Include="APIItem\FileInfoItem.cs" />
+    <Compile Include="APIItem\FlowOperateItem.cs" />
+    <Compile Include="APIItem\FlowReceiveItem.cs" />
+    <Compile Include="APIItem\HazardListItem.cs" />
+    <Compile Include="APIItem\HazardListSelectedItem.cs" />
+    <Compile Include="APIItem\HazardRegisterItem.cs" />
+    <Compile Include="APIItem\HJGL\HJGL_PreWeldingDailyItem.cs" />
+    <Compile Include="APIItem\HSEDiaryItem.cs" />
+    <Compile Include="APIItem\HSEMonthItem.cs" />
+    <Compile Include="APIItem\IncentiveNoticeItem.cs" />
+    <Compile Include="APIItem\LicenseDataItem.cs" />
+    <Compile Include="APIItem\LicenseItem.cs" />
+    <Compile Include="APIItem\MeetingItem.cs" />
+    <Compile Include="APIItem\NextFlowOperateItem.cs" />
+    <Compile Include="APIItem\NoticeItem.cs" />
+    <Compile Include="APIItem\PauseNoticeItem.cs" />
+    <Compile Include="APIItem\PersonInOutItem.cs" />
+    <Compile Include="APIItem\PersonItem.cs" />
+    <Compile Include="APIItem\PersonQualityItem.cs" />
+    <Compile Include="APIItem\PictureItem.cs" />
+    <Compile Include="APIItem\ProjectItem.cs" />
+    <Compile Include="APIItem\PunishNoticeItem.cs" />
+    <Compile Include="APIItem\PunishNoticeItemItem.cs" />
+    <Compile Include="APIItem\ReceiveFileManagerItem.cs" />
+    <Compile Include="APIItem\RectifyNoticesFlowOperateItem.cs" />
+    <Compile Include="APIItem\RectifyNoticesItem.cs" />
+    <Compile Include="APIItem\RectifyNoticesItemItem.cs" />
+    <Compile Include="APIItem\ResourcesItem.cs" />
+    <Compile Include="APIItem\SeDinMonthReport10Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport11Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport12Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport1Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport2Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport3Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport4Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport5Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport6Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport7Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport8Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport8ItemItem.cs" />
+    <Compile Include="APIItem\SeDinMonthReport9Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport9ItemRectification.cs" />
+    <Compile Include="APIItem\SeDinMonthReport9ItemSpecial.cs" />
+    <Compile Include="APIItem\SeDinMonthReport9ItemStoppage.cs" />
+    <Compile Include="APIItem\SeDinMonthReportItem.cs" />
+    <Compile Include="APIItem\SubscribeMessageItem.cs" />
+    <Compile Include="APIItem\SubUnitQualityItem.cs" />
+    <Compile Include="APIItem\SysTestRuleItem.cs" />
+    <Compile Include="APIItem\TestPlanItem.cs" />
+    <Compile Include="APIItem\TestPlanTrainingItem.cs" />
+    <Compile Include="APIItem\TestRecordItem.cs" />
+    <Compile Include="APIItem\TestRecordItemItem.cs" />
+    <Compile Include="APIItem\TestTrainingResourcesItem.cs" />
+    <Compile Include="APIItem\ToDoItem.cs" />
+    <Compile Include="APIItem\TrainingPlanItem.cs" />
+    <Compile Include="APIItem\TrainingPlanItemItem.cs" />
+    <Compile Include="APIItem\TrainingTaskItem.cs" />
+    <Compile Include="APIItem\TrainingTaskItemItem.cs" />
+    <Compile Include="APIItem\TrainRecordItem.cs" />
+    <Compile Include="APIItem\UnitItem.cs" />
+    <Compile Include="APIItem\UserItem.cs" />
+    <Compile Include="APIItem\UserReadItem.cs" />
+    <Compile Include="Chart\DataSourceChart.cs" />
+    <Compile Include="Chart\DataSourcePoint.cs" />
+    <Compile Include="Chart\DataSourceTeam.cs" />
+    <Compile Include="ErrorInfo.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="ModelProc.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpSysMenuItem.cs" />
+    <Compile Include="SpSysUserItem.cs" />
+    <Compile Include="APIItem\ResponeData.cs" />
+    <Compile Include="SpTDesktopItem.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

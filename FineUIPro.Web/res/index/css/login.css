@@ -1,0 +1,2853 @@
+/* fine-decision-webui 20-02-28 16:38:00 */
+.dec-migration-fail .message-board,.dec-status-change-fail .message-board {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -o-user-select: text
+}
+
+body .b-font {
+  font-size: 24px
+}
+
+input {
+  line-height: 36px\9
+}
+
+.dec-login-item .bi-icon-combo .bi-icon-change-button .b-font,.dec-login-item .item-icon {
+  color: #3685F2;
+  font-size: 16px
+}
+
+.dec-login-item .error {
+  color: #FF2F3E;
+  border-top-color: #FF2F3E
+}
+
+.dec-login-item input::-webkit-input-placeholder {
+  color: #9ea6b2
+}
+
+.dec-login-item input:-moz-placeholder {
+  color: #9ea6b2
+}
+
+.dec-login-item input::-moz-placeholder {
+  color: #9ea6b2
+}
+
+.dec-login-item input:-ms-input-placeholder {
+  color: #9ea6b2
+}
+
+.dec-login-item input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset
+}
+
+.dec-login .login-card {
+  -webkit-box-shadow: 0 10px 30px 0 rgba(0,63,163,.1);
+  -moz-box-shadow: 0 10px 30px 0 rgba(0,63,163,.1);
+  box-shadow: 0 10px 30px 0 rgba(0,63,163,.1)
+}
+
+.dec-login .dec-login-left-color {
+  background-color: rgba(0,84,230,.7);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#b30054e6, endColorstr=#b30054e6);
+  color: #fff;
+  font-size: 20px
+}
+
+.dec-login .dec-login-left-color .b-font {
+  font-size: 50px
+}
+
+.dec-login .login-button {
+  background: #3685F2;
+  color: #fff;
+  -webkit-box-shadow: 0 5px 15px 0 rgba(2,92,236,.2);
+  -moz-box-shadow: 0 5px 15px 0 rgba(2,92,236,.2);
+  box-shadow: 0 5px 15px 0 rgba(2,92,236,.2);
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  font-size: 16px
+}
+
+.dec-login .login-button.reset {
+  background: #99ADCC
+}
+
+.dec-login .login-back-font {
+  color: #3685f2;
+  font-size: 14px
+}
+
+.dec-login .login-error {
+  color: #FF2F3E;
+  text-align: left
+}
+
+.dec-login .login-error .password-btn {
+  color: #3685F2;
+  cursor: pointer
+}
+
+.dec-login .warning-text {
+  color: #e65251
+}
+
+.dec-login .password-success-font .b-font {
+  font-size: 96px
+}
+
+.dec-login .dec-copyright a {
+  color: #868F9D
+}
+
+.dec-login .dec-copyright a:active,.dec-login .dec-copyright a:hover {
+  color: #3685f2
+}
+
+.dec-login-slider .slider-track {
+  background: #FAFBFC;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px
+}
+
+.dec-login-slider .slider-trigger {
+  background: #fff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px
+}
+
+.dec-login-slider .track-moved {
+  background: #3685f2;
+  -moz-border-radius-topleft: 2px;
+  -webkit-border-top-left-radius: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px
+}
+
+.dec-login-slider.slider-moving .track-moved {
+  border: 1px solid #3685F2;
+  background-color: rgba(54,133,242,.2);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#333685f2, endColorstr=#333685f2)
+}
+
+.dec-login-slider.slider-moving .slider-trigger {
+  border-color: #3685F2;
+  background: #3685F2;
+  color: #fff
+}
+
+.dec-login-slider.slider-success .track-moved {
+  border: 1px solid #13CD66;
+  background-color: rgba(19,205,102,.2);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#3313cd66, endColorstr=#3313cd66)
+}
+
+.dec-login-slider.slider-success .slider-trigger {
+  border-color: #13CD66;
+  color: #fff;
+  background: #13CD66
+}
+
+.dec-login-slider.slider-fail .track-moved {
+  border: 1px solid #e65251;
+  background-color: rgba(230,82,81,.2);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#33e65251, endColorstr=#33e65251)
+}
+
+.dec-login-slider.slider-fail .slider-trigger {
+  border-color: #e65251;
+  color: #fff;
+  background: #e65251
+}
+
+.dec-login-slider .rollback-font {
+  color: #fff
+}
+
+.bi-icon-combo-trigger .login-trigger-font,.dec-login-icon-text-trigger .icon-combo-trigger-icon,.dec-login-icon-text-trigger .trigger-btn {
+  color: #3685f2
+}
+
+.bi-icon-combo-trigger .login-trigger-font .b-font {
+  font-size: 12px
+}
+
+.dec-icon-select-text-trigger .item-icon {
+  color: #3685F2
+}
+
+.dec-icon-select-text-trigger .b-font {
+  font-size: 16px
+}
+
+.dec-icon-select-text-trigger .trigger {
+  color: #647185
+}
+
+.dec-migration-fail .message-board {
+  user-select: text
+}
+
+.dec-migration-fail .error-background {
+  background: #F2F4F7
+}
+
+.dec-migration-progress .dec-progress-bar {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px
+}
+
+.dec-migration-progress .dec-progress-bar .blue-track {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background: #48CEFF;
+  background: -webkit-gradient(linear,0 0,0 100%,from(#48CEFF) to(#4D9CF9));
+  background: -webkit-linear-gradient(90deg,#48CEFF,#4D9CF9);
+  background: -moz-linear-gradient(90deg,#48CEFF,#4D9CF9);
+  background: -ms-linear-gradient(90deg,#48CEFF,#4D9CF9);
+  background: -o-linear-gradient(90deg,#48CEFF,#4D9CF9);
+  background: linear-gradient(90deg,#48CEFF,#4D9CF9);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#48CEFF', endColorstr='#4D9CF9', GradientType='0')
+}
+
+.dec-migration-progress .dec-progress-bar .gray-track {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: rgba(153,153,153,.3)
+}
+
+.dec-common-card-item {
+  background-color: #F0F3F7
+}
+
+.dec-common-icon-item .icon-container {
+  background: center center no-repeat;
+  background-size: contain
+}
+
+.dec-closeable-editor,.dec-common-icon-text-item,.dec-common-img-icon-text-item,.dec-common-img-icon-text-node {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px
+}
+
+.dec-page-table .next-masker {
+  background-color: rgba(255,255,255,0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00ffffff, endColorstr=#00ffffff)
+}
+
+.dec-components-error-tip .error-background,.dec-list-table-header,.dec-status-change-fail .error-background {
+  background: #F2F4F7
+}
+
+.dec-status-change-fail .message-board {
+  user-select: text
+}
+
+.dec-components-error-tip .message-board,.dec-msg-wrapper {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -o-user-select: text;
+  -khtml-user-select: text
+}
+
+.dec-component-emotional-tip .bi-tips {
+  font-size: 14px
+}
+
+.dec-components-error-tip .message-board {
+  user-select: text
+}
+
+.dec-page-table-header {
+  background-color: rgba(54,133,242,.1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#1a3685f2, endColorstr=#1a3685f2)
+}
+
+.dec-page-table-row {
+  border-bottom: 1px solid #dceafa
+}
+
+.dec-page-table-row.row-even {
+  background: #FBFDFF
+}
+
+.dec-page-table-row:hover {
+  background: #F2F4F7
+}
+
+.dec-error-label .bi-bubble {
+  font-size: 12px
+}
+
+.dec-msg-wrapper {
+  z-index: 1000000000;
+  position: fixed!important;
+  user-select: text
+}
+
+.dec-link-button {
+  cursor: pointer
+}
+
+#nprogress {
+  pointer-events: none
+}
+
+#nprogress .bar {
+  background: #29d;
+  position: fixed;
+  z-index: 2147483647;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #29d,0 0 5px #29d;
+  opacity: 1;
+  -webkit-transform: rotate(3deg) translate(0,-4px);
+  -ms-transform: rotate(3deg) translate(0,-4px);
+  transform: rotate(3deg) translate(0,-4px)
+}
+
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 2147483647;
+  top: 15px;
+  right: 15px
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-top-color: #29d;
+  border-left-color: #29d;
+  border-radius: 50%;
+  -webkit-animation: nprogress-spinner .4s linear infinite;
+  animation: nprogress-spinner .4s linear infinite
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative
+}
+
+.nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner {
+  position: absolute
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0% {
+      -webkit-transform: rotate(0)
+  }
+
+  100% {
+      -webkit-transform: rotate(360deg)
+  }
+}
+
+@keyframes nprogress-spinner {
+  0% {
+      transform: rotate(0)
+  }
+
+  100% {
+      transform: rotate(360deg)
+  }
+}
+
+.bi-resize-h-tape-layout .resizeable-handler {
+  background-color: #13CD66
+}
+
+.bi-resize-h-tape-layout .resize-handle {
+  cursor: ew-resize;
+  font-size: 16px;
+  z-index: 1
+}
+
+.bi-switch-button {
+  background-color: #d0d4da;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px
+}
+
+.bi-switch-button .circle-button {
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px
+}
+
+.bi-switch-button .inner-label {
+  font-size: 16px;
+  color: #fff
+}
+
+.bi-switch-button.active {
+  background-color: #3685f2
+}
+
+.bi-switch-button.disabled {
+  background-color: #F0F3F7
+}
+
+.dec-user-account-setting .dec-user-account-cards {
+  min-height: 400px
+}
+
+.dec-fr-login .input-wrapper .login-input {
+  font-size: 16px
+}
+
+.dec-fr-login .item-error {
+  color: #FF2F3E
+}
+
+.dec-fr-login .login-button {
+  background: #3685f2;
+  color: #fff;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  font-size: 20px
+}
+
+.dec-fr-login .login-button:hover {
+  opacity: .8;
+  filter: alpha(opacity=80)
+}
+
+.dec-fr-account-manage .fr-account-trigger {
+  color: #3685f2
+}
+
+.dec-fr-account-manage .fr-account-trigger .account-down-arrow-font {
+  font-size: 16px
+}
+
+.dec-password-strength .list-view-shadow {
+  -webkit-box-shadow: 0 1px 5px 0 rgba(35,46,64,.2);
+  -moz-box-shadow: 0 1px 5px 0 rgba(35,46,64,.2);
+  box-shadow: 0 1px 5px 0 rgba(35,46,64,.2);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px
+}
+
+.dec-password-strength .triangle-wrapper .bubble-combo-triangle-left {
+  z-index: 1;
+  position: absolute;
+  width: 6px;
+  height: 16px;
+  text-align: left
+}
+
+.dec-password-strength .triangle-wrapper .bubble-combo-triangle-left:before {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin-left: 2px;
+  margin-top: 3px;
+  content: "";
+  transform: rotate(135deg);
+  background-color: #fff;
+  border-bottom: 1px solid #f2f4f7;
+  border-right: 1px solid #f2f4f7
+}
+
+.dec-custom-checkbox {
+  font-size: 14px
+}
+
+.dec-error-masker .dec-error-tip-text {
+  font-size: 16px
+}
+
+.dec-components-login-last .info-example-header {
+  background: #F2F4F7
+}
+
+.dec-components-login-last .time-tip {
+  font-size: 14px
+}
+
+.dec-components-login-last .time-tip .b-font {
+  color: #FAAA39;
+  font-size: 30px
+}
+
+.dec-multi-step-first-item.active .step-content,.dec-multi-step-last-item.active,.dec-pager .dec-pager-button:active {
+  color: #3685f2
+}
+
+.dec-pager .dec-pager-button {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #e8eaed
+}
+
+.dec-pager .dec-pager-button.disabled {
+  border-color: #d0d4da!important;
+  background-color: #F2F4F7!important
+}
+
+.dec-pager .dec-pager-button:hover {
+  border: 1px solid #3685f2
+}
+
+.dec-common-scroll-view .dec-common-scroll-bar {
+  visibility: hidden
+}
+
+.dec-common-scroll-view:hover .dec-common-scroll-bar {
+  visibility: visible
+}
+
+.dec-common-scroll-view .dec-common-scroll-bar-thumb {
+  background-color: rgba(35,46,64,.3);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4d232e40, endColorstr=#4d232e40);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-transition: background-color .3s ease;
+  -moz-transition: background-color .3s ease;
+  -o-transition: background-color .3s ease;
+  transition: background-color .3s ease
+}
+
+.dec-common-scroll-view .dec-common-scroll-bar-thumb:hover {
+  background-color: rgba(35,46,64,.6);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99232e40, endColorstr=#99232e40)
+}
+
+.dec-common-scroll-view .dec-common-scroll-bar-thumb.dragging {
+  visibility: visible!important
+}
+
+.dec-common-scroll-view .dec-common-scroll-bar {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background-color: rgba(35,46,64,.05);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0d232e40, endColorstr=#0d232e40);
+  -webkit-transition: visibility .3s ease;
+  -moz-transition: visibility .3s ease;
+  -o-transition: visibility .3s ease;
+  transition: visibility .3s ease
+}
+
+.bi-theme-dark .dec-common-scroll-view .dec-common-scroll-bar {
+  visibility: hidden
+}
+
+.bi-theme-dark .dec-common-scroll-view:hover .dec-common-scroll-bar {
+  visibility: visible
+}
+
+.bi-theme-dark .dec-common-scroll-view .dec-common-scroll-bar-thumb {
+  background-color: rgba(255,255,255,.3);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4dffffff, endColorstr=#4dffffff);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-transition: background-color .3s ease;
+  -moz-transition: background-color .3s ease;
+  -o-transition: background-color .3s ease;
+  transition: background-color .3s ease
+}
+
+.bi-theme-dark .dec-common-scroll-view .dec-common-scroll-bar-thumb:hover {
+  background-color: rgba(255,255,255,.6);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff)
+}
+
+.bi-theme-dark .dec-common-scroll-view .dec-common-scroll-bar-thumb.dragging {
+  visibility: visible!important
+}
+
+.bi-theme-dark .dec-common-scroll-view .dec-common-scroll-bar {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background-color: rgba(255,255,255,.05);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0dffffff, endColorstr=#0dffffff);
+  -webkit-transition: visibility .3s ease;
+  -moz-transition: visibility .3s ease;
+  -o-transition: visibility .3s ease;
+  transition: visibility .3s ease
+}
+
+.dec-frame-theme-dark .dec-common-scroll-view .dec-common-scroll-bar {
+  visibility: hidden
+}
+
+.dec-frame-theme-dark .dec-common-scroll-view:hover .dec-common-scroll-bar {
+  visibility: visible
+}
+
+.dec-frame-theme-dark .dec-common-scroll-view .dec-common-scroll-bar-thumb {
+  background-color: rgba(255,255,255,.3);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4dffffff, endColorstr=#4dffffff);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-transition: background-color .3s ease;
+  -moz-transition: background-color .3s ease;
+  -o-transition: background-color .3s ease;
+  transition: background-color .3s ease
+}
+
+.dec-frame-theme-dark .dec-common-scroll-view .dec-common-scroll-bar-thumb:hover {
+  background-color: rgba(255,255,255,.6);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99ffffff, endColorstr=#99ffffff)
+}
+
+.dec-frame-theme-dark .dec-common-scroll-view .dec-common-scroll-bar-thumb.dragging {
+  visibility: visible!important
+}
+
+.dec-frame-theme-dark .dec-common-scroll-view .dec-common-scroll-bar {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background-color: rgba(255,255,255,.05);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0dffffff, endColorstr=#0dffffff);
+  -webkit-transition: visibility .3s ease;
+  -moz-transition: visibility .3s ease;
+  -o-transition: visibility .3s ease;
+  transition: visibility .3s ease
+}
+
+.dec-multi-step-first-item .step-content,.dec-multi-step-last-item .step-content {
+  background-color: #fff
+}
+
+.dec-common-search-list .search-list-loader {
+  min-width: 100%
+}
+
+.dec-slider .dec-slider-animate {
+  -webkit-transition: width .3s;
+  -moz-transition: width .3s;
+  -o-transition: width .3s;
+  transition: width .3s
+}
+
+.dec-page-table-sortable-label .label-icon {
+  font-size: 16px
+}
+
+.dec-multi-step-first-item,.dec-multi-step-last-item {
+  font-size: 14px
+}
+
+.dec-multi-step-last-item .step-wrap {
+  background: #fff
+}
+
+.dec-text-bubble-combo {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -o-user-select: text;
+  user-select: text
+}
+
+.dec-no-select-text-item {
+  color: #9ea6b2
+}
+
+.dec-tip-icon-popover .left-icon .b-font {
+  font-size: 48px
+}
+
+#wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden
+}
+
+.dec-schedule-steps .dec-schedule-step-item {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/step_line.png) center center repeat-x
+}
+
+.dec-schedule-steps .dec-schedule-step-item.active {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/step_line_active.png) center center repeat-x
+}
+
+.dec-multi-step-first-item {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/step_line.png) center center repeat-x
+}
+
+.dec-multi-step-first-item.active {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/step_line_active.png) center center repeat-x
+}
+
+.add-sort-column-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/add_sort_column.png) center center no-repeat
+}
+
+.pack-no-data-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/pack_no_data.png) center center no-repeat;
+  background-size: contain
+}
+
+.pack-no-data-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/pack_no_data.png) center center no-repeat
+}
+
+.data-connection-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/data-connection-tip.png) center center no-repeat;
+  background-size: contain
+}
+
+.data-connection-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/data-connection-tip.png) center center no-repeat
+}
+
+.system-sql-keyword-empty-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/system-sql-keyword-empty.png) center center no-repeat;
+  background-size: contain
+}
+
+.system-sql-keyword-empty-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/system-sql-keyword-empty.png) center center no-repeat
+}
+
+.system-sql-char-empty-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/system-sql-char-empty.png) center center no-repeat;
+  background-size: contain
+}
+
+.system-sql-char-empty-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/system-sql-char-empty.png) center center no-repeat
+}
+
+.dec-login-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/login.png) center center no-repeat
+}
+
+.dec-login-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/login.png) center center no-repeat
+}
+
+.dec-login-background {
+  background-size: cover
+}
+
+.dec-login-img-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/login-img.png) center center no-repeat
+}
+
+.dec-login-img-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/login-img.png) center center no-repeat
+}
+
+.dec-login-img-background {
+  background-size: cover
+}
+
+.dec-login-logo {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/logo.png) center center no-repeat;
+  background-size: contain
+}
+
+.dec-login-logo.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/logo.png) center center no-repeat
+}
+
+.dec-theme-style-select-item .select-style {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/right_top_triangle_check.png) center center no-repeat;
+  background-size: contain
+}
+
+.dec-theme-style-select-item .select-style.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/right_top_triangle_check.png) center center no-repeat
+}
+
+.dec-block-item-triangle-active {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/right_top_triangle_check.png) center center no-repeat;
+  background-size: contain
+}
+
+.dec-block-item-triangle-active.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/right_top_triangle_check.png) center center no-repeat
+}
+
+.dec-no-selected-tip {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/tip_no_selected.png) center center no-repeat;
+  background-size: contain
+}
+
+.dec-no-selected-tip.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/tip_no_selected.png) center center no-repeat
+}
+
+.dec-no-users-tip {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/tip_no_users.png) center center no-repeat;
+  background-size: contain
+}
+
+.dec-no-users-tip.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/tip_no_users.png) center center no-repeat
+}
+
+.dec-error-tip-masker {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/error_masker.png) center center no-repeat;
+  background-size: contain
+}
+
+.dec-error-tip-masker.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/error_masker.png) center center no-repeat
+}
+
+.no-search-result-tip {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/no_search_result.png) center center no-repeat;
+  background-size: contain
+}
+
+.no-search-result-tip.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/no_search_result.png) center center no-repeat
+}
+
+.not-support-backup-tip {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/backup-tip.png) center center no-repeat;
+  background-size: contain
+}
+
+.not-support-backup-tip.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/backup-tip.png) center center no-repeat
+}
+
+.performance-problem-template {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/performance-problem-template.png) center center no-repeat;
+  background-size: contain
+}
+
+.performance-problem-template.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/performance-problem-template.png) center center no-repeat
+}
+
+.no-result-tip {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/tip_no_result.png) center center no-repeat;
+  background-size: contain
+}
+
+.no-result-tip.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/tip_no_result.png) center center no-repeat
+}
+
+.not-support-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/not-support.png) center center no-repeat;
+  background-size: contain
+}
+
+.not-support-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/not-support.png) center center no-repeat
+}
+
+.leaflet-draw-toolbar a {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/spritesheet.png) center center no-repeat;
+  background-size: 270px 30px
+}
+
+.init-steps-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/init_step_bg.png) center center no-repeat;
+  background-size: contain
+}
+
+.init-steps-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/init_step_bg.png) center center no-repeat
+}
+
+.empty-operate-target {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/empty_operate_target.png) center center no-repeat;
+  background-size: contain
+}
+
+.empty-operate-target.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/empty_operate_target.png) center center no-repeat
+}
+
+.preview-fail-tip-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/preview_fail.png) center center no-repeat;
+  background-size: contain
+}
+
+.preview-fail-tip-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/preview_fail.png) center center no-repeat
+}
+
+.single-template-entry-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/single_template.png) center center no-repeat;
+  background-size: contain
+}
+
+.single-template-entry-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/single_template.png) center center no-repeat
+}
+
+.cloud-operations-internet-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/cloud_operations_internet.png) left center no-repeat;
+  background-size: contain
+}
+
+.cloud-operations-internet-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/cloud_operations_internet.png) left center no-repeat
+}
+
+.cloud-operations-intranet-background {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/background/cloud_operations_intranet.png) left center no-repeat;
+  background-size: contain
+}
+
+.cloud-operations-intranet-background.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/background/cloud_operations_intranet.png) left center no-repeat
+}
+
+.setting-font .b-font:before,.setting-font.disabled .b-font:before {
+  content: "\e6cb";
+  color: inherit
+}
+
+.asc-font .b-font:before,.asc-font.disabled .b-font:before {
+  content: "\e631";
+  color: inherit
+}
+
+.desc-font .b-font:before,.desc-font.disabled .b-font:before {
+  content: "\e632";
+  color: inherit
+}
+
+.add-department-font .b-font:before,.add-department-font.disabled .b-font:before {
+  content: "\e6dd";
+  color: #13cd66
+}
+
+.delete-font-red .b-font:before,.delete-font-red.disabled .b-font:before {
+  content: "\e6c4";
+  color: #e65251
+}
+
+.default-delete-font .b-font:before,.default-delete-font.disabled .b-font:before {
+  content: "\e6c4";
+  color: inherit
+}
+
+.delete-node-font .b-font:before,.delete-node-font.disabled .b-font:before {
+  content: "\e6c4";
+  color: #3d4d66
+}
+
+.add-user-font .b-font:before,.add-user-font.disabled .b-font:before {
+  content: "\e63f";
+  color: #13cd66
+}
+
+.disable-edit-user-font .b-font:before,.disable-edit-user-font.disabled .b-font:before {
+  content: "\e607";
+  color: inherit
+}
+
+.import-user-font .b-font:before,.import-user-font.disabled .b-font:before {
+  content: "\e63e";
+  color: #13cd66
+}
+
+.edit-user-font .b-font:before,.edit-user-font.disabled .b-font:before {
+  content: "\e63d";
+  color: #3685f2
+}
+
+.rename-font .b-font:before,.rename-font.disabled .b-font:before {
+  content: "\e6cc";
+  color: inherit
+}
+
+.rename-dept-font .b-font:before,.rename-dept-font.disabled .b-font:before {
+  content: "\e6cc";
+  color: #3d4d66
+}
+
+.edit-role-font .b-font:before,.edit-role-font.disabled .b-font:before {
+  content: "\e6ba";
+  color: #3d4d66
+}
+
+.disable-user-font .b-font:before,.disable-user-font.disabled .b-font:before {
+  content: "\e648";
+  color: inherit
+}
+
+.enable-user-font .b-font:before,.enable-user-font.disabled .b-font:before {
+  content: "\e646";
+  color: inherit
+}
+
+.delete-user-font .b-font:before,.delete-user-font.disabled .b-font:before {
+  content: "\e6c4";
+  color: inherit
+}
+
+.font-drag .b-font:before,.font-drag.disabled .b-font:before {
+  content: "\e639";
+  color: inherit
+}
+
+.confirm-font .b-font:before,.confirm-font.disabled .b-font:before {
+  content: "\e6cf";
+  color: #13cd66
+}
+
+.add-char-font .b-font:before,.add-char-font.disabled .b-font:before,.add-keyword-font .b-font:before,.add-keyword-font.disabled .b-font:before,.add-post-font .b-font:before,.add-post-font.disabled .b-font:before,.add-role-font .b-font:before,.add-role-font.disabled .b-font:before {
+  content: "\e6dd";
+  color: #13cd66
+}
+
+.reuse-font .b-font:before,.reuse-font.disabled .b-font:before {
+  content: "\e61f";
+  color: inherit
+}
+
+.platform-expander-trigger-triangle-collapse-font .b-font:before,.platform-expander-trigger-triangle-collapse-font.disabled .b-font:before {
+  content: "\e6d8";
+  color: inherit
+}
+
+.platform-expander-trigger-triangle-expand-font .b-font:before,.platform-expander-trigger-triangle-expand-font.disabled .b-font:before {
+  content: "\e6d7";
+  color: inherit
+}
+
+.manage-directory-font .b-font:before,.manage-directory-font.disabled .b-font:before {
+  content: "\e73e";
+  color: #13CD66
+}
+
+.manage-directory-cpt-font .b-font:before,.manage-directory-cpt-font.disabled .b-font:before {
+  content: "\e746";
+  color: #FAAA39
+}
+
+.manage-directory-default-font .b-font:before,.manage-directory-default-font.disabled .b-font:before {
+  content: "\e614";
+  color: #FAAA39
+}
+
+.manage-more-font .b-font:before,.manage-more-font.disabled .b-font:before {
+  content: "\e6ce";
+  color: inherit
+}
+
+.manage-refresh-font .b-font:before,.manage-refresh-font.disabled .b-font:before {
+  content: "\e683";
+  color: #a0d468
+}
+
+.magena-delete-font .b-font:before,.magena-delete-font.disabled .b-font:before {
+  content: "\e6c4";
+  color: #ed5565
+}
+
+.management-common-help .b-font:before,.management-common-help.disabled .b-font:before,.management-directory-font .b-font:before,.management-directory-font.disabled .b-font:before {
+  content: "\e76f";
+  color: inherit
+}
+
+.management-user-font .b-font:before,.management-user-font.disabled .b-font:before {
+  content: "\e77c";
+  color: inherit
+}
+
+.management-look-font .b-font:before,.management-look-font.disabled .b-font:before {
+  content: "\e772";
+  color: inherit
+}
+
+.management-authority-font .b-font:before,.management-authority-font.disabled .b-font:before {
+  content: "\e773";
+  color: inherit
+}
+
+.management-schedule-font .b-font:before,.management-schedule-font.disabled .b-font:before {
+  content: "\e76c";
+  color: inherit
+}
+
+.management-mobile-font .b-font:before,.management-mobile-font.disabled .b-font:before {
+  content: "\e776";
+  color: inherit
+}
+
+.management-register-font .b-font:before,.management-register-font.disabled .b-font:before {
+  content: "\e779";
+  color: inherit
+}
+
+.management-maintenance-font .b-font:before,.management-maintenance-font.disabled .b-font:before {
+  content: "\e77a";
+  color: inherit
+}
+
+.management-maintenance-memory-font .b-font:before,.management-maintenance-memory-font.disabled .b-font:before {
+  content: "\e77b";
+  color: inherit
+}
+
+.management-maintenance-backup-font .b-font:before,.management-maintenance-backup-font.disabled .b-font:before {
+  content: "\e76e";
+  color: inherit
+}
+
+.management-maintenance-detect-font .b-font:before,.management-maintenance-detect-font.disabled .b-font:before {
+  content: "\e778";
+  color: inherit
+}
+
+.management-maintenance-system-font .b-font:before,.management-maintenance-system-font.disabled .b-font:before {
+  content: "\e775";
+  color: inherit
+}
+
+.management-data-link-font .b-font:before,.management-data-link-font.disabled .b-font:before {
+  content: "\e771";
+  color: inherit
+}
+
+.management-data-set-font .b-font:before,.management-data-set-font.disabled .b-font:before {
+  content: "\e7cb";
+  color: inherit
+}
+
+.management-connection-font .b-font:before,.management-connection-font.disabled .b-font:before {
+  content: "\e7cc";
+  color: inherit
+}
+
+.management-maintenance-cluster-font .b-font:before,.management-maintenance-cluster-font.disabled .b-font:before {
+  content: "\e67c";
+  color: inherit
+}
+
+.management-security-font .b-font:before,.management-security-font.disabled .b-font:before {
+  content: "\e687";
+  color: inherit
+}
+
+.management-log-font .b-font:before,.management-log-font.disabled .b-font:before {
+  content: "\e78e";
+  color: inherit
+}
+
+.management-bi-template-font .b-font:before,.management-bi-template-font.disabled .b-font:before {
+  content: "\e794";
+  color: inherit
+}
+
+.management-map-config-font .b-font:before,.management-map-config-font.disabled .b-font:before {
+  content: "\e795";
+  color: inherit
+}
+
+.management-plugin-font .b-font:before,.management-plugin-font.disabled .b-font:before {
+  content: "\e770";
+  color: inherit
+}
+
+.management-notification-font .b-font:before,.management-notification-font.disabled .b-font:before {
+  content: "\e774";
+  color: inherit
+}
+
+.management-maintenance-cloud-font .b-font:before,.management-maintenance-cloud-font.disabled .b-font:before {
+  content: "\e69b";
+  color: inherit
+}
+
+.management-migration-font .b-font:before,.management-migration-font.disabled .b-font:before {
+  content: "\e6a6";
+  color: inherit
+}
+
+.jump-font .b-font:before,.jump-font.disabled .b-font:before {
+  content: "\e660";
+  color: inherit
+}
+
+.edit-font .b-font:before,.edit-font.disabled .b-font:before,.normal-edit-font .b-font:before,.normal-edit-font.disabled .b-font:before {
+  content: "\e6ba";
+  color: inherit
+}
+
+.detail-font .b-font:before,.detail-font.disabled .b-font:before {
+  content: "\e6eb";
+  color: inherit
+}
+
+.remark-font .b-font:before,.remark-font.disabled .b-font:before {
+  content: "\e63c";
+  color: inherit
+}
+
+.red-remark-font .b-font:before,.red-remark-font.disabled .b-font:before {
+  content: "\e63c";
+  color: #FF2F3E
+}
+
+.blue-remark-font .b-font:before,.blue-remark-font.disabled .b-font:before {
+  content: "\e63c";
+  color: #3685f2
+}
+
+.sure-font .b-font:before,.sure-font.disabled .b-font:before {
+  content: "\e67e";
+  color: inherit
+}
+
+.tick-font .b-font:before,.tick-font.disabled .b-font:before {
+  content: "\e6a1";
+  color: #3685f2
+}
+
+.refresh-font .b-font:before,.refresh-font.disabled .b-font:before {
+  content: "\e6fb";
+  color: #3685f2
+}
+
+.plus-font .b-font:before,.plus-font.disabled .b-font:before {
+  content: "\e6dd";
+  color: #13cd66
+}
+
+.run-font .b-font:before,.run-font.disabled .b-font:before {
+  content: "\e618";
+  color: inherit
+}
+
+.pause-font .b-font:before,.pause-font.disabled .b-font:before {
+  content: "\e605";
+  color: inherit
+}
+
+.run-once-font .b-font:before,.run-once-font.disabled .b-font:before {
+  content: "\e606";
+  color: inherit
+}
+
+.copy-font .b-font:before,.copy-font.disabled .b-font:before {
+  content: "\e6bd";
+  color: inherit
+}
+
+.view-font .b-font:before,.view-font.disabled .b-font:before {
+  content: "\e602";
+  color: inherit
+}
+
+.table-delete-font .b-font:before,.table-delete-font.disabled .b-font:before {
+  content: "\e6c4";
+  color: #e65251
+}
+
+.table-set-read-font .b-font:before,.table-set-read-font.disabled .b-font:before {
+  content: "\e783";
+  color: #3685f2
+}
+
+.system-message-font .b-font:before,.system-message-font.disabled .b-font:before {
+  content: "\e774";
+  color: inherit
+}
+
+.message-expand-font .b-font:before,.message-expand-font.disabled .b-font:before {
+  content: "\e6da";
+  color: #3685f2
+}
+
+.sort-font .b-font:before,.sort-font.disabled .b-font:before {
+  content: "\e633";
+  color: inherit
+}
+
+.order-font .b-font:before,.order-font.disabled .b-font:before {
+  content: "\e632";
+  color: inherit
+}
+
+.inverted-order-font .b-font:before,.inverted-order-font.disabled .b-font:before {
+  content: "\e631";
+  color: inherit
+}
+
+.secret-key-font .b-font:before,.secret-key-font.disabled .b-font:before {
+  content: "\e662";
+  color: inherit
+}
+
+.rollback-font .b-font:before,.rollback-font.disabled .b-font:before {
+  content: "\e663";
+  color: inherit
+}
+
+.refresh-highlight-font .b-font:before,.refresh-highlight-font.disabled .b-font:before {
+  content: "\e663";
+  color: #3685f2
+}
+
+.test-connect-font .b-font:before,.test-connect-font.disabled .b-font:before {
+  content: "\e763";
+  color: inherit
+}
+
+.data-connection-font .b-font:before,.data-connection-font.disabled .b-font:before {
+  content: "\e759";
+  color: inherit
+}
+
+.auth-on-font .b-font:before,.auth-on-font.disabled .b-font:before {
+  content: "\e63b";
+  color: #3685f2
+}
+
+.auth-off-font .b-font:before,.auth-off-font.disabled .b-font:before {
+  content: "\e63a";
+  color: inherit
+}
+
+.visible-font .b-font:before,.visible-font.disabled .b-font:before {
+  content: "\e623";
+  color: #3685f2
+}
+
+.invisible-font .b-font:before,.invisible-font.disabled .b-font:before {
+  content: "\e625";
+  color: inherit
+}
+
+.separate-authority-font .b-font:before,.separate-authority-font.disabled .b-font:before {
+  content: "\e758";
+  color: #ffc101
+}
+
+.recovery-authority-font .b-font:before,.recovery-authority-font.disabled .b-font:before {
+  content: "\e709";
+  color: inherit
+}
+
+.dec-pager-first-font .b-font:before,.dec-pager-first-font.disabled .b-font:before {
+  content: "\e638";
+  color: inherit
+}
+
+.dec-pager-last-font .b-font:before,.dec-pager-last-font.disabled .b-font:before {
+  content: "\e637";
+  color: inherit
+}
+
+.dec-pager-next-font .b-font:before,.dec-pager-next-font.disabled .b-font:before {
+  content: "\e70c";
+  color: inherit
+}
+
+.dec-pager-prev-font .b-font:before,.dec-pager-prev-font.disabled .b-font:before {
+  content: "\e70d";
+  color: inherit
+}
+
+.account-down-arrow-font .b-font:before,.account-down-arrow-font.disabled .b-font:before {
+  content: "\e70b";
+  color: inherit
+}
+
+.account-up-arrow-font .b-font:before,.account-up-arrow-font.disabled .b-font:before {
+  content: "\e70a";
+  color: inherit
+}
+
+.search-font .b-font:before,.search-font.disabled .b-font:before {
+  content: "\e6dc";
+  color: inherit
+}
+
+.pin-font .b-font:before,.pin-font.disabled .b-font:before {
+  content: "\e749";
+  color: inherit
+}
+
+.unpin-font .b-font:before,.unpin-font.disabled .b-font:before {
+  content: "\e74d";
+  color: inherit
+}
+
+.widget-close-font .b-font:before,.widget-close-font.disabled .b-font:before {
+  content: "\e6d5";
+  color: inherit
+}
+
+.table-refresh-font .b-font:before,.table-refresh-font.disabled .b-font:before {
+  content: "\e6ef";
+  color: inherit
+}
+
+.end-talk-font .b-font:before,.end-talk-font.disabled .b-font:before {
+  content: "\e615";
+  color: inherit
+}
+
+.filter-condition-font .b-font:before,.filter-condition-font.disabled .b-font:before {
+  content: "\e6c7";
+  color: #e65251
+}
+
+.filter-formula-font .b-font:before,.filter-formula-font.disabled .b-font:before {
+  content: "\e6c6";
+  color: #e65251
+}
+
+.directory-menu-font .b-font:before,.directory-menu-font.disabled .b-font:before {
+  content: "\e750";
+  color: inherit
+}
+
+.config-menu-font .b-font:before,.config-menu-font.disabled .b-font:before {
+  content: "\e751";
+  color: inherit
+}
+
+.analysis-menu-font .b-font:before,.analysis-menu-font.disabled .b-font:before {
+  content: "\e752";
+  color: inherit
+}
+
+.management-menu-font .b-font:before,.management-menu-font.disabled .b-font:before {
+  content: "\e74f";
+  color: inherit
+}
+
+.create-menu-font .b-font:before,.create-menu-font.disabled .b-font:before {
+  content: "\e74e";
+  color: inherit
+}
+
+.directory-font .b-font:before,.directory-font.disabled .b-font:before {
+  content: "\e748";
+  color: inherit
+}
+
+.favorite-font .b-font:before,.favorite-font.disabled .b-font:before {
+  content: "\e754";
+  color: inherit
+}
+
+.already-favorite-font .b-font:before,.already-favorite-font.disabled .b-font:before {
+  content: "\e765";
+  color: inherit
+}
+
+.share-to-me-font .b-font:before,.share-to-me-font.disabled .b-font:before {
+  content: "\e746";
+  color: inherit
+}
+
+.platform-search-font .b-font:before,.platform-search-font.disabled .b-font:before {
+  content: "\e6dc";
+  color: inherit
+}
+
+.right-expand-font .b-font:before,.right-expand-font.disabled .b-font:before {
+  content: "\e70e";
+  color: inherit
+}
+
+.dir-panel-template-font .b-font:before,.dir-panel-template-font.disabled .b-font:before {
+  content: "\e65b";
+  color: inherit
+}
+
+.dir-panel-folder-font .b-font:before,.dir-panel-folder-font.disabled .b-font:before {
+  content: "\e65c";
+  color: inherit
+}
+
+.user-font .b-font:before,.user-font.disabled .b-font:before {
+  content: "\e74c";
+  color: inherit
+}
+
+.msg-font .b-font:before,.msg-font.disabled .b-font:before {
+  content: "\e74a";
+  color: inherit
+}
+
+.logo-font .b-font:before,.logo-font.disabled .b-font:before {
+  content: "\e6ed";
+  color: inherit
+}
+
+.home-font .b-font:before,.home-font.disabled .b-font:before {
+  content: "\e747";
+  color: inherit
+}
+
+.more-tabs-font .b-font:before,.more-tabs-font.disabled .b-font:before {
+  content: "\e753";
+  color: inherit
+}
+
+.refresh-tab-font .b-font:before,.refresh-tab-font.disabled .b-font:before {
+  content: "\e6fb";
+  color: inherit
+}
+
+.time-tip-font .b-font:before,.time-tip-font.disabled .b-font:before {
+  content: "\e659";
+  color: inherit
+}
+
+.prompt-warning-font .b-font:before,.prompt-warning-font.disabled .b-font:before {
+  content: "\e611";
+  color: #e65251
+}
+
+.unlock-font .b-font:before,.unlock-font.disabled .b-font:before {
+  content: "\e63b";
+  color: inherit
+}
+
+.upload-font .b-font:before,.upload-font.disabled .b-font:before {
+  content: "\e6c5";
+  color: inherit
+}
+
+.login-username-font .b-font:before,.login-username-font.disabled .b-font:before {
+  content: "\e725";
+  color: inherit
+}
+
+.login-password-font .b-font:before,.login-password-font.disabled .b-font:before {
+  content: "\e61b";
+  color: inherit
+}
+
+.login-new-password-font .b-font:before,.login-new-password-font.disabled .b-font:before {
+  content: "\e781";
+  color: inherit
+}
+
+.login-confirm-password-font .b-font:before,.login-confirm-password-font.disabled .b-font:before {
+  content: "\e780";
+  color: inherit
+}
+
+.login-mobile-font .b-font:before,.login-mobile-font.disabled .b-font:before {
+  content: "\e77e";
+  color: inherit
+}
+
+.login-email-font .b-font:before,.login-email-font.disabled .b-font:before {
+  content: "\e77d";
+  color: inherit
+}
+
+.login-back-font .b-font:before,.login-back-font.disabled .b-font:before {
+  content: "\e76a";
+  color: inherit
+}
+
+.fr-logo-font .b-font:before,.fr-logo-font.disabled .b-font:before {
+  content: "\e65a";
+  color: inherit
+}
+
+.pull-up-font .b-font:before,.pull-up-font.disabled .b-font:before {
+  content: "\e70a";
+  color: inherit
+}
+
+.login-trigger-font .b-font:before,.login-trigger-font.disabled .b-font:before {
+  content: "\e77f";
+  color: inherit
+}
+
+.login-slider-trigger-font .b-font:before,.login-slider-trigger-font.disabled .b-font:before {
+  content: "\e69e";
+  color: inherit
+}
+
+.login-slider-success-font .b-font:before,.login-slider-success-font.disabled .b-font:before {
+  content: "\e6a0";
+  color: inherit
+}
+
+.login-slider-fail-font .b-font:before,.login-slider-fail-font.disabled .b-font:before {
+  content: "\e69f";
+  color: inherit
+}
+
+.password-check-success-font .b-font:before,.password-check-success-font.disabled .b-font:before {
+  content: "\e756";
+  color: #4DBF80
+}
+
+.password-check-font .b-font:before,.password-check-font.disabled .b-font:before {
+  content: "\e74b";
+  color: #d0d4da
+}
+
+.password-success-font .b-font:before,.password-success-font.disabled .b-font:before {
+  content: "\e7b4";
+  color: #3685f2
+}
+
+.triangle-expand-font .b-font:before,.triangle-expand-font.disabled .b-font:before {
+  content: "\e6d7";
+  color: inherit
+}
+
+.triangle-collapse-font .b-font:before,.triangle-collapse-font.disabled .b-font:before {
+  content: "\e6d8";
+  color: inherit
+}
+
+.triangle-up-font .b-font:before,.triangle-up-font.disabled .b-font:before {
+  content: "\e6d6";
+  color: inherit
+}
+
+.dir-folder-font .b-font:before,.dir-folder-font.disabled .b-font:before {
+  content: "\e65c";
+  color: #faaa39
+}
+
+.dir-template-font .b-font:before,.dir-template-font.disabled .b-font:before {
+  content: "\e65b";
+  color: #3685f2
+}
+
+.dir-bi-template-font .b-font:before,.dir-bi-template-font.disabled .b-font:before {
+  content: "\e65b";
+  color: #37B4AA
+}
+
+.dir-card-template-font .b-font:before,.dir-card-template-font.disabled .b-font:before {
+  content: "\e78a";
+  color: #3685f2
+}
+
+.dir-link-font .b-font:before,.dir-link-font.disabled .b-font:before {
+  content: "\e65e";
+  color: #23BEEF
+}
+
+.dir-submit-font .b-font:before,.dir-submit-font.disabled .b-font:before {
+  content: "\e65d";
+  color: #13CD66
+}
+
+.dir-homepage-font .b-font:before,.dir-homepage-font.disabled .b-font:before {
+  content: "\e65f";
+  color: #3685f2
+}
+
+.pack-folder-font .b-font:before,.pack-folder-font.disabled .b-font:before {
+  content: "\e65c";
+  color: #FAAA39
+}
+
+.back-font .b-font:before,.back-font.disabled .b-font:before {
+  content: "\e6ae";
+  color: #3685f2
+}
+
+.create-sql-table-font .b-font:before,.create-sql-table-font.disabled .b-font:before {
+  content: "\e6b9";
+  color: inherit
+}
+
+.create-database-table-font .b-font:before,.create-database-table-font.disabled .b-font:before {
+  content: "\e6b4";
+  color: inherit
+}
+
+.create-excel-table-font .b-font:before,.create-excel-table-font.disabled .b-font:before {
+  content: "\e6b5";
+  color: inherit
+}
+
+.create-analysis-table-font .b-font:before,.create-analysis-table-font.disabled .b-font:before {
+  content: "\e6b3";
+  color: inherit
+}
+
+.letter-sort-font .b-font:before,.letter-sort-font.hover .b-font:before,.letter-sort-font:hover .b-font:before {
+  content: "\e732";
+  color: inherit
+}
+
+.letter-sort-font.active .b-font:before,.letter-sort-font:active .b-font:before {
+  content: "\e732";
+  color: #3685f2
+}
+
+.letter-sort-font.disabled .b-font:before {
+  content: "\e732";
+  color: inherit
+}
+
+.time-sort-font .b-font:before,.time-sort-font.hover .b-font:before,.time-sort-font:hover .b-font:before {
+  content: "\e731";
+  color: inherit
+}
+
+.time-sort-font.active .b-font:before,.time-sort-font:active .b-font:before {
+  content: "\e731";
+  color: #3685f2
+}
+
+.time-sort-font.disabled .b-font:before {
+  content: "\e731";
+  color: inherit
+}
+
+.string-field-font .b-font:before,.string-field-font.disabled .b-font:before {
+  content: "\e6b8";
+  color: #13CD66
+}
+
+.number-field-font .b-font:before,.number-field-font.disabled .b-font:before {
+  content: "\e6b0";
+  color: #13CD66
+}
+
+.date-field-font .b-font:before,.date-field-font.disabled .b-font:before {
+  content: "\e6b1";
+  color: #FAAA39
+}
+
+.setting-filter-font .b-font:before,.setting-filter-font.disabled .b-font:before {
+  content: "\e6c7";
+  color: #13CD66
+}
+
+.auth-edit-on-font .b-font:before,.auth-edit-on-font.disabled .b-font:before {
+  content: "\e6ba";
+  color: #3685F2
+}
+
+.auth-edit-off-font .b-font:before,.auth-edit-off-font.disabled .b-font:before {
+  content: "\e6ba";
+  color: inherit
+}
+
+.select-data-field-string-font .b-font:before,.select-data-field-string-font.hover .b-font:before,.select-data-field-string-font:hover .b-font:before {
+  content: "\e6b8";
+  color: inherit
+}
+
+.select-data-field-string-font.active .b-font:before,.select-data-field-string-font:active .b-font:before {
+  content: "\e6b8";
+  color: #fff
+}
+
+.select-data-field-string-font.disabled .b-font:before {
+  content: "\e6b8";
+  color: inherit
+}
+
+.select-data-field-number-font .b-font:before,.select-data-field-number-font.hover .b-font:before,.select-data-field-number-font:hover .b-font:before {
+  content: "\e6b0";
+  color: inherit
+}
+
+.select-data-field-number-font.active .b-font:before,.select-data-field-number-font:active .b-font:before {
+  content: "\e6b0";
+  color: #fff
+}
+
+.select-data-field-number-font.disabled .b-font:before {
+  content: "\e6b0";
+  color: inherit
+}
+
+.select-data-field-date-font .b-font:before,.select-data-field-date-font.hover .b-font:before,.select-data-field-date-font:hover .b-font:before {
+  content: "\e6b1";
+  color: inherit
+}
+
+.select-data-field-date-font.active .b-font:before,.select-data-field-date-font:active .b-font:before {
+  content: "\e6b1";
+  color: #fff
+}
+
+.select-data-field-date-font.disabled .b-font:before {
+  content: "\e6b1";
+  color: inherit
+}
+
+.dir-font-1 .b-font:before,.dir-font-1.disabled .b-font:before {
+  content: "\e67b";
+  color: inherit
+}
+
+.dir-font-2 .b-font:before,.dir-font-2.disabled .b-font:before {
+  content: "\e67a";
+  color: inherit
+}
+
+.dir-font-3 .b-font:before,.dir-font-3.disabled .b-font:before {
+  content: "\e679";
+  color: inherit
+}
+
+.dir-font-4 .b-font:before,.dir-font-4.disabled .b-font:before {
+  content: "\e678";
+  color: inherit
+}
+
+.dir-font-5 .b-font:before,.dir-font-5.disabled .b-font:before {
+  content: "\e677";
+  color: inherit
+}
+
+.dir-font-6 .b-font:before,.dir-font-6.disabled .b-font:before {
+  content: "\e676";
+  color: inherit
+}
+
+.dir-font-7 .b-font:before,.dir-font-7.disabled .b-font:before {
+  content: "\e675";
+  color: inherit
+}
+
+.dir-font-8 .b-font:before,.dir-font-8.disabled .b-font:before {
+  content: "\e674";
+  color: inherit
+}
+
+.dir-font-9 .b-font:before,.dir-font-9.disabled .b-font:before {
+  content: "\e673";
+  color: inherit
+}
+
+.dir-font-10 .b-font:before,.dir-font-10.disabled .b-font:before {
+  content: "\e672";
+  color: inherit
+}
+
+.dir-font-11 .b-font:before,.dir-font-11.disabled .b-font:before {
+  content: "\e671";
+  color: inherit
+}
+
+.dir-font-12 .b-font:before,.dir-font-12.disabled .b-font:before {
+  content: "\e670";
+  color: inherit
+}
+
+.dir-font-13 .b-font:before,.dir-font-13.disabled .b-font:before {
+  content: "\e66f";
+  color: inherit
+}
+
+.dir-font-14 .b-font:before,.dir-font-14.disabled .b-font:before {
+  content: "\e66e";
+  color: inherit
+}
+
+.dir-font-15 .b-font:before,.dir-font-15.disabled .b-font:before {
+  content: "\e66d";
+  color: inherit
+}
+
+.dir-font-16 .b-font:before,.dir-font-16.disabled .b-font:before {
+  content: "\e66c";
+  color: inherit
+}
+
+.dir-font-17 .b-font:before,.dir-font-17.disabled .b-font:before {
+  content: "\e66b";
+  color: inherit
+}
+
+.dir-font-18 .b-font:before,.dir-font-18.disabled .b-font:before {
+  content: "\e66a";
+  color: inherit
+}
+
+.dir-font-19 .b-font:before,.dir-font-19.disabled .b-font:before {
+  content: "\e669";
+  color: inherit
+}
+
+.dir-font-20 .b-font:before,.dir-font-20.disabled .b-font:before {
+  content: "\e668";
+  color: inherit
+}
+
+.dashboard-share-font .b-font:before,.dashboard-share-font.disabled .b-font:before {
+  content: "\e745";
+  color: inherit
+}
+
+.dashboard-not-share-font .b-font:before,.dashboard-not-share-font.disabled .b-font:before {
+  content: "\e6ad";
+  color: inherit
+}
+
+.dashboard-linear-preview-font .b-font:before,.dashboard-linear-preview-font.disabled .b-font:before {
+  content: "\e788";
+  color: inherit
+}
+
+.dashboard-list-view-font .b-font:before {
+  content: "\e743";
+  color: inherit
+}
+
+.dashboard-list-view-font.active .b-font:before,.dashboard-list-view-font.hover .b-font:before,.dashboard-list-view-font:active .b-font:before,.dashboard-list-view-font:hover .b-font:before {
+  content: "\e743";
+  color: #3685f2
+}
+
+.dashboard-list-view-font.disabled .b-font:before {
+  content: "\e743";
+  color: inherit
+}
+
+.dashboard-card-view-font .b-font:before {
+  content: "\e744";
+  color: inherit
+}
+
+.dashboard-card-view-font.active .b-font:before,.dashboard-card-view-font.hover .b-font:before,.dashboard-card-view-font:active .b-font:before,.dashboard-card-view-font:hover .b-font:before {
+  content: "\e744";
+  color: #3685f2
+}
+
+.dashboard-card-view-font.disabled .b-font:before {
+  content: "\e744";
+  color: inherit
+}
+
+.already-hangout-font .b-font:before,.already-hangout-font.disabled .b-font:before {
+  content: "\e790";
+  color: #13cd66
+}
+
+.not-yet-hangout-font .b-font:before,.not-yet-hangout-font.disabled .b-font:before {
+  content: "\e790";
+  color: #faaa39
+}
+
+.quick-hangout-font .b-font:before,.quick-hangout-font.disabled .b-font:before {
+  content: "\e791";
+  color: inherit
+}
+
+.cancel-hangout-font .b-font:before,.cancel-hangout-font.disabled .b-font:before {
+  content: "\e78f";
+  color: inherit
+}
+
+.dashboard-public-link-open-font .b-font:before,.dashboard-public-link-open-font.disabled .b-font:before {
+  content: "\e72a";
+  color: inherit
+}
+
+.dashboard-public-link-close-font .b-font:before,.dashboard-public-link-close-font.disabled .b-font:before {
+  content: "\e729";
+  color: inherit
+}
+
+.transverse-more-font .b-font:before,.transverse-more-font.disabled .b-font:before {
+  content: "\e796";
+  color: inherit
+}
+
+.mobile-add-icon-button .b-font:before,.mobile-add-icon-button.disabled .b-font:before {
+  content: "\e6dd";
+  color: #D8D8D8
+}
+
+.mobile-delete-icon-button .b-font:before,.mobile-delete-icon-button.disabled .b-font:before {
+  content: "\e6d0";
+  color: #fff
+}
+
+.export-font .b-font:before,.export-font.disabled .b-font:before {
+  content: "\e727";
+  color: inherit
+}
+
+.template-auth-font .b-font:before,.template-auth-font.disabled .b-font:before {
+  content: "\e601";
+  color: inherit
+}
+
+.excel-submit-font .b-font:before,.excel-submit-font.disabled .b-font:before {
+  content: "\e68d";
+  color: #3685f2
+}
+
+.map-directory-addition-font .b-font:before,.map-directory-addition-font.disabled .b-font:before {
+  content: "\e68f";
+  color: inherit
+}
+
+.map-import-excel-data .b-font:before,.map-import-excel-data.disabled .b-font:before {
+  content: "\e68d";
+  color: inherit
+}
+
+.deployment-success-font .b-font:before,.deployment-success-font.disabled .b-font:before {
+  content: "\e6de";
+  color: inherit
+}
+
+.deployment-warning-font .b-font:before,.deployment-warning-font.disabled .b-font:before {
+  content: "\e6b6";
+  color: inherit
+}
+
+.deployment-error-font .b-font:before,.deployment-error-font.disabled .b-font:before {
+  content: "\e705";
+  color: inherit
+}
+
+.deployment-solutions-font .b-font:before,.deployment-solutions-font.disabled .b-font:before {
+  content: "\e706";
+  color: inherit
+}
+
+.deployment-guide-font .b-font:before,.deployment-guide-font.disabled .b-font:before {
+  content: "\e707";
+  color: inherit
+}
+
+.deployment-detail-font .b-font:before,.deployment-detail-font.disabled .b-font:before {
+  content: "\e708";
+  color: inherit
+}
+
+.entry-cover-font .b-font:before,.entry-cover-font.disabled .b-font:before {
+  content: "\e7c6";
+  color: inherit
+}
+
+.entry-icon-font .b-font:before,.entry-icon-font.disabled .b-font:before {
+  content: "\e7c5";
+  color: inherit
+}
+
+.entry-preview-font .b-font:before,.entry-preview-font.disabled .b-font:before {
+  content: "\e6c9";
+  color: inherit
+}
+
+.modern-zoom-in-font .b-font:before,.modern-zoom-in-font.disabled .b-font:before {
+  content: "\e7c3";
+  color: inherit
+}
+
+.modern-zoom-out-font .b-font:before,.modern-zoom-out-font.disabled .b-font:before {
+  content: "\e7c4";
+  color: inherit
+}
+
+.dataset-tree-font .b-font:before,.dataset-tree-font.disabled .b-font:before {
+  content: "\e7ca";
+  color: inherit
+}
+
+.dataset-other-font .b-font:before,.dataset-other-font.disabled .b-font:before {
+  content: "\e788";
+  color: inherit
+}
+
+.user-clear-font .b-font:before,.user-clear-font.disabled .b-font:before {
+  content: "\e797";
+  color: #e65251
+}
+
+.user-sync-success-font .b-font:before,.user-sync-success-font.disabled .b-font:before {
+  content: "\e756";
+  color: inherit
+}
+
+.user-sync-failed-font .b-font:before,.user-sync-failed-font.disabled .b-font:before {
+  content: "\e757";
+  color: inherit
+}
+
+.user-sync-warning-font .b-font:before,.user-sync-warning-font.disabled .b-font:before {
+  content: "\e755";
+  color: inherit
+}
+
+.user-sync-font .b-font:before,.user-sync-font.disabled .b-font:before {
+  content: "\e7ce";
+  color: #3685f2
+}
+
+.loading-font .b-font:before,.loading-font.disabled .b-font:before {
+  content: "\e7cd";
+  color: inherit
+}
+
+.dec-list-item-active.hover,.dec-list-item-active.hover .bi-input,.dec-list-item-active.hover .bi-textarea,.dec-list-item-active:hover,.dec-list-item-active:hover .bi-input,.dec-list-item-active:hover .bi-textarea {
+  color: #232e40
+}
+
+.cube-package-normal-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/businessPackage.png) center center no-repeat;
+  background-size: contain
+}
+
+.cube-package-normal-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/businessPackage.png) center center no-repeat
+}
+
+.step-radio-before-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/step_radio_before.png) center center no-repeat;
+  background-size: contain
+}
+
+.step-radio-before-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/step_radio_before.png) center center no-repeat
+}
+
+.step-radio-now-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/step_radio_now.png) center center no-repeat;
+  background-size: contain
+}
+
+.step-radio-now-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/step_radio_now.png) center center no-repeat
+}
+
+.step-radio-after-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/step_radio_after.png) center center no-repeat;
+  background-size: contain
+}
+
+.step-radio-after-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/step_radio_after.png) center center no-repeat
+}
+
+.upload-loading-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/upload_loading.gif) center center no-repeat;
+  background-size: contain
+}
+
+.upload-loading-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/upload_loading.gif) center center no-repeat
+}
+
+.upload-success-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/upload_success.png) center center no-repeat;
+  background-size: contain
+}
+
+.upload-success-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/upload_success.png) center center no-repeat
+}
+
+.upload-fail-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/upload_fail.png) center center no-repeat;
+  background-size: contain
+}
+
+.upload-fail-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/upload_fail.png) center center no-repeat
+}
+
+.manage-add-templet-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/add_templet.png) center center no-repeat;
+  background-size: contain
+}
+
+.manage-add-templet-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/add_templet.png) center center no-repeat
+}
+
+.manage-add-homepage-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/add_homepage.png) center center no-repeat;
+  background-size: contain
+}
+
+.manage-add-homepage-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/add_homepage.png) center center no-repeat
+}
+
+.manage-submit-tag-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/submit_tag.png) center center no-repeat;
+  background-size: contain
+}
+
+.manage-submit-tag-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/submit_tag.png) center center no-repeat
+}
+
+.manage-add-directory-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/add_directory.png) center center no-repeat;
+  background-size: contain
+}
+
+.manage-add-directory-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/add_directory.png) center center no-repeat
+}
+
+.manage-add-link-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/add_link.png) center center no-repeat;
+  background-size: contain
+}
+
+.manage-add-link-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/add_link.png) center center no-repeat
+}
+
+.manage-add-bi-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/add_BI.png) center center no-repeat;
+  background-size: contain
+}
+
+.manage-add-bi-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/add_BI.png) center center no-repeat
+}
+
+.set-auth-tip-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/tip_set_auth.png) center center no-repeat;
+  background-size: contain
+}
+
+.set-auth-tip-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/tip_set_auth.png) center center no-repeat
+}
+
+.no-auth-tip-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/no_authority.png) center center no-repeat;
+  background-size: contain
+}
+
+.no-auth-tip-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/no_authority.png) center center no-repeat
+}
+
+.set-template-auth-tip-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/setting_tip.png) center center no-repeat;
+  background-size: contain
+}
+
+.set-template-auth-tip-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/setting_tip.png) center center no-repeat
+}
+
+.upload-file-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/upload_file.png) center center no-repeat;
+  background-size: contain
+}
+
+.upload-file-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/upload_file.png) center center no-repeat
+}
+
+.database-selected-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database-selected.png) center center no-repeat;
+  background-size: contain
+}
+
+.database-selected-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database-selected.png) center center no-repeat
+}
+
+.database-ads-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/ads.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-ads-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/ads.jpg) center center no-repeat
+}
+
+.database-amazon-redshift-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/amazon-redshift.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-amazon-redshift-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/amazon-redshift.jpg) center center no-repeat
+}
+
+.database-apache-impala-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/apache-impala.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-apache-impala-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/apache-impala.jpg) center center no-repeat
+}
+
+.database-apache-kylin-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/apache-kylin.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-apache-kylin-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/apache-kylin.jpg) center center no-repeat
+}
+
+.database-apache-phoenix-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/apache-phoenix.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-apache-phoenix-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/apache-phoenix.jpg) center center no-repeat
+}
+
+.database-derby-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/derby.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-derby-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/derby.jpg) center center no-repeat
+}
+
+.database-gbase-8a-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/gbase-8a.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-gbase-8a-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/gbase-8a.jpg) center center no-repeat
+}
+
+.database-gbase-8s-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/gbase-8s.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-gbase-8s-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/gbase-8s.jpg) center center no-repeat
+}
+
+.database-gbase-8t-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/gbase-8t.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-gbase-8t-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/gbase-8t.jpg) center center no-repeat
+}
+
+.database-h2-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/h2.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-h2-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/h2.jpg) center center no-repeat
+}
+
+.database-hw-elk-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/hw-elk.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-hw-elk-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/hw-elk.jpg) center center no-repeat
+}
+
+.database-hw-fusioninsight-hd-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/hw-fusioninsight-hd.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-hw-fusioninsight-hd-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/hw-fusioninsight-hd.jpg) center center no-repeat
+}
+
+.database-hp-vertica-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/hp-vertica.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-hp-vertica-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/hp-vertica.jpg) center center no-repeat
+}
+
+.database-hadoop-hive-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/hadoop-hive.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-hadoop-hive-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/hadoop-hive.jpg) center center no-repeat
+}
+
+.database-hbase-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/hbase.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-hbase-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/hbase.jpg) center center no-repeat
+}
+
+.database-hsql-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/hsql.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-hsql-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/hsql.jpg) center center no-repeat
+}
+
+.database-ibm-db2-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/ibm-db2.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-ibm-db2-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/ibm-db2.jpg) center center no-repeat
+}
+
+.database-informix-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/informix.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-informix-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/informix.jpg) center center no-repeat
+}
+
+.database-kingbase-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/kingbase.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-kingbase-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/kingbase.jpg) center center no-repeat
+}
+
+.database-mysql-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/mysql.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-mysql-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/mysql.jpg) center center no-repeat
+}
+
+.database-oracle-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/oracle.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-oracle-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/oracle.jpg) center center no-repeat
+}
+
+.database-pivotal-greenplum-database-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/pivotal-greenplum-database.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-pivotal-greenplum-database-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/pivotal-greenplum-database.jpg) center center no-repeat
+}
+
+.database-postgresql-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/postgresql.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-postgresql-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/postgresql.jpg) center center no-repeat
+}
+
+.database-presto-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/presto.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-presto-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/presto.jpg) center center no-repeat
+}
+
+.database-sql-server-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/sql-server.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-sql-server-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/sql-server.jpg) center center no-repeat
+}
+
+.database-sap-hana-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/sap-hana.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-sap-hana-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/sap-hana.jpg) center center no-repeat
+}
+
+.database-sap-sybase-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/sap-sybase.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-sap-sybase-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/sap-sybase.jpg) center center no-repeat
+}
+
+.database-spark-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/spark.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-spark-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/spark.jpg) center center no-repeat
+}
+
+.database-sqlite-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/sqlite.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-sqlite-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/sqlite.jpg) center center no-repeat
+}
+
+.database-teradata-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/teradata.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-teradata-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/teradata.jpg) center center no-repeat
+}
+
+.database-transwarp-inceptor-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/transwarp-inceptor.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-transwarp-inceptor-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/transwarp-inceptor.jpg) center center no-repeat
+}
+
+.database-hw-dws-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/hw-dws.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-hw-dws-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/hw-dws.jpg) center center no-repeat
+}
+
+.database-hw-libr-a-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database/hw-libr-a.jpg) center center no-repeat;
+  background-size: contain
+}
+
+.database-hw-libr-a-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database/hw-libr-a.jpg) center center no-repeat
+}
+
+.password-success-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/password-success.png) center center no-repeat;
+  background-size: contain
+}
+
+.password-success-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/password-success.png) center center no-repeat
+}
+
+.init-basic-hsql-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/hsql.png) center center no-repeat;
+  background-size: contain
+}
+
+.init-basic-hsql-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/hsql.png) center center no-repeat
+}
+
+.init-basic-database-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/database.png) center center no-repeat;
+  background-size: contain
+}
+
+.init-basic-database-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/database.png) center center no-repeat
+}
+
+.platform-logo-type1-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/logo_FR_white.png) center center no-repeat;
+  background-size: contain
+}
+
+.platform-logo-type1-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/logo_FR_white.png) center center no-repeat
+}
+
+.platform-logo-type2-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/logo_FR.png) center center no-repeat;
+  background-size: contain
+}
+
+.platform-logo-type2-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/logo_FR.png) center center no-repeat
+}
+
+.cloud-large-calculation .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/cloud/large-calculation.png) center center no-repeat;
+  background-size: contain
+}
+
+.cloud-large-calculation .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/cloud/large-calculation.png) center center no-repeat
+}
+
+.cloud-zero-cost .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/cloud/zero-cost.png) center center no-repeat;
+  background-size: contain
+}
+
+.cloud-zero-cost .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/cloud/zero-cost.png) center center no-repeat
+}
+
+.cloud-low-threshold .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/cloud/low-threshold.png) center center no-repeat;
+  background-size: contain
+}
+
+.cloud-low-threshold .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/cloud/low-threshold.png) center center no-repeat
+}
+
+.cloud-high-growth .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/cloud/high-growth.png) center center no-repeat;
+  background-size: contain
+}
+
+.cloud-high-growth .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/cloud/high-growth.png) center center no-repeat
+}
+
+.cloud-data-desensitization .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/cloud/data-desensitization.png) center center no-repeat;
+  background-size: contain
+}
+
+.cloud-data-desensitization .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/cloud/data-desensitization.png) center center no-repeat
+}
+
+.cloud-data-disclosure .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/cloud/data-disclosure.png) center center no-repeat;
+  background-size: contain
+}
+
+.cloud-data-disclosure .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/cloud/data-disclosure.png) center center no-repeat
+}
+
+.cloud-confidentiality-agreement .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/cloud/confidentiality-agreement.png) center center no-repeat;
+  background-size: contain
+}
+
+.cloud-confidentiality-agreement .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/cloud/confidentiality-agreement.png) center center no-repeat
+}
+
+.map-data-import-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/data_import.png) center center no-repeat;
+  background-size: contain
+}
+
+.map-data-import-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/data_import.png) center center no-repeat
+}
+
+.import-failed-icon .x-icon {
+  display: block;
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/2x/icon/import_failed.png) center center no-repeat;
+  background-size: contain
+}
+
+.import-failed-icon .x-icon.hack {
+  background: url(/decision/resources?path=/com/fr/web/resources/dist/images/1x/icon/import_failed.png) center center no-repeat
+}
+
+.dec-list-item-active.active,.dec-list-item-active.hover,.dec-list-item-active:active,.dec-list-item-active:hover {
+  background-color: rgba(54,133,242,.1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#1a3685f2, endColorstr=#1a3685f2)
+}
+
+.icon-size-12 .b-font {
+  font-size: 12px
+}
+
+.icon-size-16 .b-font {
+  font-size: 16px
+}
+
+.icon-size-24 .b-font {
+  font-size: 24px
+}
+
+.icon-size-30 .b-font {
+  font-size: 30px
+}
+
+.icon-size-50 .b-font {
+  font-size: 50px
+}
+
+.icon-size-70 .b-font {
+  font-size: 70px
+}
+
+.dec-font-size-14 {
+  font-size: 14px
+}
+
+.dec-font-size-16 {
+  font-size: 16px
+}
+
+.dec-font-size-20 {
+  font-size: 20px
+}
+
+.dec-list-item-active.active,.dec-list-item-active.active .bi-input,.dec-list-item-active.active .bi-textarea,.dec-list-item-active:active,.dec-list-item-active:active .bi-input,.dec-list-item-active:active .bi-textarea {
+  color: #3685f2
+}
+
+.dec-list-item-active.disabled,.dec-list-item-active.disabled:active,.dec-list-item-active.disabled:hover {
+  background-color: transparent!important;
+  color: #9ea6b2!important
+}
+
+.dec-list-item-active.disabled .bi-high-light,.dec-list-item-active.disabled .bi-input,.dec-list-item-active.disabled .bi-textarea,.dec-list-item-active.disabled:active .bi-high-light,.dec-list-item-active.disabled:active .bi-input,.dec-list-item-active.disabled:active .bi-textarea,.dec-list-item-active.disabled:hover .bi-high-light,.dec-list-item-active.disabled:hover .bi-input,.dec-list-item-active.disabled:hover .bi-textarea {
+  color: #9ea6b2!important
+}
+
+.dec-font-weight-bold {
+  font-weight: 700
+}
+
+.dec-font-weight-medium {
+  font-weight: 500
+}
+
+.cursor-wait {
+  cursor: wait
+}
+
+.dec-frame-popover.un-pined {
+  -webkit-box-shadow: 20px 0 20px -20px rgba(43,66,102,.15);
+  -moz-box-shadow: 20px 0 20px -20px rgba(43,66,102,.15);
+  box-shadow: 20px 0 20px -20px rgba(43,66,102,.15)
+}

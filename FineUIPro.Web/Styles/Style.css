@@ -1,0 +1,170 @@
+﻿.bg1 {
+	BACKGROUND-COLOR: #fdfdfd
+}
+
+.bg2 {
+	BACKGROUND-COLOR: #f7fbff
+}
+
+.bg3 {
+	height: 24px;
+	BACKGROUND-COLOR: #CEDFF7
+}
+
+table {
+	FONT-FAMILY: "Microsoft YaHei";
+	FONT-SIZE: 12px;
+}
+
+
+.table {
+	FONT-FAMILY: "Microsoft YaHei";
+	FONT-SIZE: 12px;
+	BORDER-RIGHT: #bcd2e7 2px solid;
+	BORDER-TOP: #bcd2e7 2px solid;
+	BORDER-LEFT: #bcd2e7 2px solid;
+	BORDER-BOTTOM: #bcd2e7 2px solid;
+	BACKGROUND-COLOR: #ffffff
+}
+
+td {
+	FONT-FAMILY: "Microsoft YaHei";
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: none;
+	PADDING-RIGHT: 1px;
+	PADDING-LEFT: 1px;
+	PADDING-BOTTOM: 1px;
+	PADDING-TOP: 1px
+}
+
+.th {
+	FONT-FAMILY: "Microsoft YaHei";
+	FONT-SIZE: 12px;
+	text-align: left;
+	FONT-WEIGHT: bold;
+	BACKGROUND-IMAGE: url('th_bg.jpg');
+	height: 24px;
+}
+
+.input {
+	height: 20px;
+	BORDER-TOP-WIDTH: 1px;
+	BORDER-LEFT-WIDTH: 1px;
+	FONT-SIZE: 12px;
+	BORDER-BOTTOM-WIDTH: 1px;
+	BORDER-RIGHT-WIDTH: 1px;
+	border: 1px #A4C1F0 solid
+}
+
+select {
+	FONT-SIZE: 12px;
+	HEIGHT: 18px;
+	BACKGROUND: #f8fafc
+}
+
+body {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Microsoft YaHei";
+	TEXT-DECORATION: none;
+	text-align: center;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px
+}
+
+a {
+	color:#000000;
+	FONT-SIZE: 12px;
+	TEXT-DECORATION: none
+}
+
+a:hover {
+	FONT-SIZE: 12px;
+	color:#0066CC
+}
+
+  .textboxStyle  
+    {
+        border-bottom: #6699FF 1px solid;   
+        border-top-style: none;    
+        border-right-style: none;    
+        border-left-style: none;    
+        background-color: transparent;
+ }
+ 
+   .textboxnonebordercenter
+    {
+        border-bottom: none;
+        border-top-style: none;    
+        border-right-style: none;    
+        border-left-style: none;    
+        background-color: transparent;
+        text-align:center;
+ }
+ 
+  .textboxnoneborder
+    {
+        border-bottom: none;
+        border-top-style: none;    
+        border-right-style: none;    
+        border-left-style: none;    
+        background-color: transparent;
+ }
+ 
+   .textboxRedStyle  
+    {
+        border-bottom: black 1px solid;   
+        border-top-style: none;    
+        border-right-style: none;    
+        border-left-style: none;    
+        background-color: transparent;
+        color:Red;
+        font-weight:bold;
+ }
+ 
+   .textboxBlueStyle  
+    {
+        border-bottom: black 1px solid;   
+        border-top-style: none;    
+        border-right-style: none;    
+        border-left-style: none;    
+        background-color: transparent;
+        color:Blue;
+        font-weight:bold;
+ }
+ 
+    .textboxGreenStyle  
+    {
+        border-bottom: black 1px solid;   
+        border-top-style: none;    
+        border-right-style: none;    
+        border-left-style: none;    
+        background-color: transparent;
+        color:Green;
+        font-weight:bold;
+    }
+
+    .textboxBlackStyle  
+    {
+        border:1px solid #000000;   
+    }
+ 
+    .textboxStyleNone  
+    {
+         border:none;
+        HEIGHT: 16px;
+    } 
+    .textboxStyleRight  
+    {
+        border-right:1px solid #000000;
+    }
+    .textboxAllStyle  
+    {
+        border: #6699FF 1px solid;     
+        background-color: transparent;
+ }
+ 
+ .GridBgColr {background:#ECF5FF;height:22px}
+ .GridBgColr A{color:Black}
+ .GridRow{height:22px;}
+ A.ItemLink{text-decoration:underline;color:blue}
