@@ -22015,6 +22015,8 @@ namespace Model
 		
 		private System.Nullable<bool> _IsOutside;
 		
+		private string _WelderCode;
+		
 		private EntitySet<HJGL_Batch_PointBatch> _HJGL_Batch_PointBatch;
 		
 		private EntitySet<HJGL_RepairRecord> _HJGL_RepairRecord;
@@ -22129,6 +22131,8 @@ namespace Model
     partial void OnIsForeignChanged();
     partial void OnIsOutsideChanging(System.Nullable<bool> value);
     partial void OnIsOutsideChanged();
+    partial void OnWelderCodeChanging(string value);
+    partial void OnWelderCodeChanged();
     #endregion
 		
 		public SitePerson_Person()
@@ -22945,6 +22949,26 @@ namespace Model
 					this._IsOutside = value;
 					this.SendPropertyChanged("IsOutside");
 					this.OnIsOutsideChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WelderCode", DbType="NVarChar(50)")]
+		public string WelderCode
+		{
+			get
+			{
+				return this._WelderCode;
+			}
+			set
+			{
+				if ((this._WelderCode != value))
+				{
+					this.OnWelderCodeChanging(value);
+					this.SendPropertyChanging();
+					this._WelderCode = value;
+					this.SendPropertyChanged("WelderCode");
+					this.OnWelderCodeChanged();
 				}
 			}
 		}

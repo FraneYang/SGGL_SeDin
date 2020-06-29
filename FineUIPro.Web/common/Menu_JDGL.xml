@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="合同管理" >
-  </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="合同管理" >
-  </TreeNode>
+  <TreeNode id="BAC3D994-03A8-466C-8975-A31039998BCC" Text="施工进度统计" NavigateUrl="Check/ProgressShow.aspx" ></TreeNode>
+  <TreeNode id="1172B112-2A12-4410-AD66-E5BA6B461475" Text="施工进度赢得值曲线" NavigateUrl="Check/ProgressStatistics.aspx" ></TreeNode>
 </Tree>

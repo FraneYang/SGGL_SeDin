@@ -86,12 +86,14 @@
                 }
                 if (this.CurrUser.LastIsOffice == true)
                 {   ////本部菜单
-                    url = "index.aspx?menuType=" + this.CurrUser.LastMenuType;
+                    //   url = "index.aspx?menuType=" + this.CurrUser.LastMenuType;
+                    url = "index.aspx";
                 }
                 else
                 {
                     //// 项目菜单
-                    url = "indexProject.aspx?menuType=" + this.CurrUser.LastMenuType + "&projectId=" + this.CurrUser.LastProjectId;
+                    //url = "indexProject.aspx?menuType=" + this.CurrUser.LastMenuType + "&projectId=" + this.CurrUser.LastProjectId;
+                    url = "indexProject.aspx?projectId=" + this.CurrUser.LastProjectId;
                 }
 
                 LogService.AddSys_Log(this.CurrUser, this.CurrUser.UserName, this.CurrUser.UserId, Const.UserMenuId, Const.BtnLogin);

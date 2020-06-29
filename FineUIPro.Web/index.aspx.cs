@@ -288,6 +288,11 @@ namespace FineUIPro.Web
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
                 this.InitLangMenuButton();
+                this.btnRetweet.Hidden = true;
+                if (this.CurrUser.UserId == Const.hfnbdId)
+                {
+                    this.btnRetweet.Hidden = false;
+                }
             }
         }
 
@@ -379,8 +384,17 @@ namespace FineUIPro.Web
         }
 
         protected void btnHome_Click(object sender, EventArgs e)
-        {           
-            this.MenuSwitchMethod(string.Empty);
+        {
+            if (this.leftPanel.Hidden)
+            {
+                string url = "~/indexProject.aspx?projectId=" + this.CurrUser.LastProjectId;
+                UserService.UpdateLastUserInfo(this.CurrUser.UserId, null, false, this.CurrUser.LastProjectId);
+                PageContext.Redirect(url, "_top");
+            }
+            else
+            {
+                this.MenuSwitchMethod(string.Empty);
+            }
         }
 
         protected void btnPerson_Click(object sender, EventArgs e)

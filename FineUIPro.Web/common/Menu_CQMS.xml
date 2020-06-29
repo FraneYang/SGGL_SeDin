@@ -50,7 +50,8 @@
 <TreeNode id="0A54D274-547C-4555-9D00-D8D5034E8849" Text="质量月报" NavigateUrl="Check/CheckMonthFile.aspx" ></TreeNode>
 <TreeNode id="03CEB246-0CE5-48CB-9D6B-1B84AC2E27B3" Text="重要文件" NavigateUrl="Check/FileCabinet.aspx" ></TreeNode>
 </TreeNode>
-<TreeNode id="6890E0DD-9606-41BC-8700-D32FA5B65B66" Text="施工进度" NavigateUrl="" ><TreeNode id="BAC3D994-03A8-466C-8975-A31039998BCC" Text="施工进度统计" NavigateUrl="Check/ProgressShow.aspx" ></TreeNode>
+<TreeNode id="6890E0DD-9606-41BC-8700-D32FA5B65B66" Text="施工进度" NavigateUrl="" >
+  <TreeNode id="BAC3D994-03A8-466C-8975-A31039998BCC" Text="施工进度统计" NavigateUrl="Check/ProgressShow.aspx" ></TreeNode>
 <TreeNode id="1172B112-2A12-4410-AD66-E5BA6B461475" Text="施工进度赢得值曲线" NavigateUrl="Check/ProgressStatistics.aspx" ></TreeNode>
 </TreeNode>
 </Tree>

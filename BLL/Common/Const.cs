@@ -70,6 +70,12 @@ namespace BLL
         /// 提交
         /// </summary>
         public const string BtnSubmit = "提交";
+
+        /// <summary>
+        /// 查看
+        /// </summary>
+        public const string BtnSee = "查看";
+
         /// <summary>
         /// 保存并上报
         /// </summary>
@@ -2148,7 +2154,181 @@ namespace BLL
         #endregion
 
         #endregion
-        
+
+        #region 焊接管理
+        #region 基础信息
+        /// <summary>
+        /// 焊接耗材
+        /// </summary>
+        public const string HJGL_ConsumablesMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0004";
+
+        /// <summary>
+        /// 管道等级
+        /// </summary>
+        public const string HJGL_PipingClassMenuId = "8IDKGJE2-09B1-1234-VC6D-865CE48F0005";
+
+        /// <summary>
+        /// 焊接方法
+        /// </summary>
+        public const string HJGL_WeldingMethodMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0010";
+
+        /// <summary>
+        /// 安装组件
+        /// </summary>
+        public const string HJGL_ComponentsMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0009";
+
+        /// <summary>
+        /// 探伤类型
+        /// </summary>
+        public const string HJGL_DetectionTypeMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0006";
+
+        /// <summary>
+        /// 探伤比例
+        /// </summary>
+        public const string HJGL_DetectionRateMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0007";
+
+        /// <summary>
+        /// 焊缝类型
+        /// </summary>
+        public const string HJGL_WeldTypeMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0008";
+
+        /// <summary>
+        /// 坡口类型
+        /// </summary>
+        public const string HJGL_GrooveTypeMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0012";
+
+        /// <summary>
+        /// 材质定义
+        /// </summary>
+        public const string HJGL_MaterialMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0013";
+
+        /// <summary>
+        /// 介质定义
+        /// </summary>
+        public const string HJGL_MediumMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0014";
+
+        /// <summary>
+        /// 直径寸径对照
+        /// </summary>
+        public const string HJGL_DNCompareMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0011";
+
+        /// <summary>
+        /// 安装组件
+        /// </summary>
+        public const string HJGL_PipeAssemblyMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0009";
+
+        /// <summary>
+        /// 缺陷性质
+        /// </summary>
+        public const string HJGL_DefectMenuId = "D68AE881-7472-4C48-953D-E13C46D6E2A4";
+
+        /// <summary>
+        /// 试压类型
+        /// </summary>
+        public const string HJGL_PressureMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0015";
+
+        #endregion
+
+        #region 人员管理
+        /// <summary>
+        /// 焊工信息
+        /// </summary>
+        public const string WelderManageMenuId = "1908E4C9-4A63-4A6C-6666-DA4910C2A8C7";
+        #endregion
+
+        #region 焊接工艺评定
+        /// <summary>
+        /// 焊接工艺评定图片
+        /// </summary>
+        public const string WPQListMenuId = "63CD1C52-1A87-4946-9CA7-8C3C2CB0CA2E";
+
+        /// <summary>
+        /// 焊接工艺评定查询
+        /// </summary>
+        public const string HJGL_WeldingProcedureSearchMenuId = "EFDSFVDE-RTHN-7UMG-6666-5TGED48F8IOL";
+        #endregion
+
+        #region 焊接管理
+
+        /// <summary>
+        /// 管线信息
+        /// </summary>
+        public const string HJGL_PipelineMenuId = "32F5CC8C-E0F4-456C-AB88-77E36269FA50";
+
+        /// <summary>
+        /// 焊口信息
+        /// </summary>
+        public const string HJGL_WeldJointMenuId = "32F5CC8C-E0F4-456C-AB88-77E36269FA50";
+
+        /// <summary>
+        /// 焊接日常管理
+        /// </summary>
+        public const string HJGL_WeldReportMenuId = "5TYHMD2F-2582-4DEB-905E-6E9DCFEFBGHO";
+        #endregion
+
+        #region 热处理/硬度委托
+        /// <summary>
+        /// 热处理委托及数据录入
+        /// </summary>
+        public const string HJGL_HotProessTrustMenuId = "90579BE7-E38C-4CD2-A3BC-755169FF3BB2";
+
+        /// <summary>
+        /// 热处理反馈及硬度委托
+        /// </summary>
+        public const string HJGL_HotProessFeedbackMenuId = "DAA6042B-6E65-49E4-9337-355E4420E25D";
+
+        /// <summary>
+        /// 硬度委托录入
+        /// </summary>
+        public const string HJGL_HotHardManageEditMenuId = "72B3E508-1315-4CC3-6666-E840FA701A0E";
+
+        /// <summary>
+        /// 硬度检验结果反馈
+        /// </summary>
+        public const string HJGL_HardFeedbackMenuId = "B0355AED-E873-4398-963C-07243E296A1D";
+        #endregion
+
+        #region 点口管理
+        public const string HJGL_PointBatchMenuId = "3ACE25CE-C5CE-4CEC-AD27-0D5CF1DF2F01";
+        #endregion
+
+        #region 无损检测委托
+        public const string HJGL_TrustBatchMenuId = "0CA58EC2-7934-49B3-A2C3-327FAD27C541";
+        #endregion
+
+        #region 无损检测
+        public const string HJGL_NDTBatchMenuId = "CDECC461-1897-4D88-BD13-0824E540F565";
+        #endregion
+
+        #region 试压包
+        /// <summary>
+        /// 试压包录入
+        /// </summary>
+        public const string TestPackageEditMenuId = "1C6F9CA9-FDAC-4CE5-A19C-5536538851E1";
+
+        /// <summary>
+        /// 试压前尾项A检查
+        /// </summary>
+        public const string AItemEndCheckMenuId = "24941EDC-CED6-4176-8CCD-EB5F08156D08";
+
+        /// <summary>
+        /// 试压包审核
+        /// </summary>
+        public const string TestPackageAuditMenuId = "55976B16-2C33-406E-B514-2FE42D031071";
+
+        /// <summary>
+        /// 试压前尾项B检查
+        /// </summary>
+        public const string BItemEndCheckMenuId = "B7EF02DC-45AB-4CFB-ADC8-8340D85D57AD";
+
+        /// <summary>
+        /// 试压包完成
+        /// </summary>
+        public const string TestPackageCompleteMenuId = "82951D78-9029-4F69-A032-00C47551B3E6";
+        #endregion
+
+        #endregion
+
         #endregion
 
         #region 模版文件原始的虚拟路径

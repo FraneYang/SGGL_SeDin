@@ -74,6 +74,7 @@
     <Compile Include="APIItem\HazardListSelectedItem.cs" />
     <Compile Include="APIItem\HazardRegisterItem.cs" />
     <Compile Include="APIItem\HJGL\HJGL_PreWeldingDailyItem.cs" />
+    <Compile Include="APIItem\HJGL\WeldJointItem.cs" />
     <Compile Include="APIItem\HSEDiaryItem.cs" />
     <Compile Include="APIItem\HSEMonthItem.cs" />
     <Compile Include="APIItem\IncentiveNoticeItem.cs" />

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="60F4B988-4D1D-48D6-A959-2EA4BD2978A1" Text="焊接基础设置" NavigateUrl="">
+  <TreeNode id="60F4B988-4D1D-48D6-A959-2EA4BD2978A1" Text="基础设置" NavigateUrl="">
     <TreeNode id="8IDKGJE2-09B1-1234-VC6D-865CE48F0005" Text="管道等级" NavigateUrl="HJGL/BaseInfo/PipingClass.aspx">
     </TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0009" Text="安装组件" NavigateUrl="HJGL/BaseInfo/Components.aspx"></TreeNode>
 <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0014" Text="管道介质" NavigateUrl="HJGL/BaseInfo/Medium.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0009" Text="安装组件" NavigateUrl="HJGL/BaseInfo/Components.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="3EFCE9C3-1983-4AEC-8FA1-D7A90F08CBCB" Text="焊工管理" NavigateUrl=""><TreeNode id="1908E4C9-4A63-4A6C-6666-DA4910C2A8C7" Text="焊工信息" NavigateUrl="HJGL/PersonManage/WelderManage.aspx"></TreeNode>
 <TreeNode id="13F11D51-1B54-400F-BDBB-36685BC94819" Text="无损检测工信息" NavigateUrl="HJGL/PersonManage/CheckerManage.aspx"></TreeNode>

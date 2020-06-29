@@ -174,6 +174,8 @@
     <Content Include="BaseInfo\QualityQuestionType.aspx" />
     <Content Include="BaseInfo\QualityQuestionTypeEdit.aspx" />
     <Content Include="BaseInfo\QualityQuestionTypeView.aspx" />
+    <Content Include="common\mainMenu_JDGL.aspx" />
+    <Content Include="common\mainMenu_HJGL.aspx" />
     <Content Include="common\mainMenu_CQMS.aspx" />
     <Content Include="common\mainMenu_HSSE.aspx" />
     <Content Include="common\mainProject.aspx" />
@@ -182,6 +184,7 @@
     <Content Include="common\Menu_DigitalSite.xml" />
     <Content Include="common\Menu_HJGL.xml" />
     <Content Include="common\Menu_HSSE.xml" />
+    <Content Include="common\Menu_HTGL.xml" />
     <Content Include="common\Menu_JDGL.xml" />
     <Content Include="common\Menu_Notice.xml" />
     <Content Include="common\Menu_Party.xml" />
@@ -196,6 +199,9 @@
     <Content Include="common\Menu_TestRun.xml" />
     <Content Include="common\Menu_ZHGL.xml" />
     <Content Include="common\themes.aspx" />
+    <Content Include="HJGL\BaseInfo\Detection.aspx" />
+    <Content Include="HJGL\BaseInfo\DetectionEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\DetectionView.aspx" />
     <Content Include="indexProject.aspx" />
     <Content Include="font\iconfont.svg" />
     <Content Include="index.aspx" />
@@ -4320,6 +4326,20 @@
     <Compile Include="BaseInfo\QualityQuestionTypeView.aspx.designer.cs">
       <DependentUpon>QualityQuestionTypeView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="common\mainMenu_JDGL.aspx.cs">
+      <DependentUpon>mainMenu_JDGL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mainMenu_JDGL.aspx.designer.cs">
+      <DependentUpon>mainMenu_JDGL.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\mainMenu_HJGL.aspx.cs">
+      <DependentUpon>mainMenu_HJGL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mainMenu_HJGL.aspx.designer.cs">
+      <DependentUpon>mainMenu_HJGL.aspx</DependentUpon>
+    </Compile>
     <Compile Include="common\mainMenu_CQMS.aspx.cs">
       <DependentUpon>mainMenu_CQMS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4347,6 +4367,27 @@
     </Compile>
     <Compile Include="common\themes.aspx.designer.cs">
       <DependentUpon>themes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\Detection.aspx.cs">
+      <DependentUpon>Detection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\Detection.aspx.designer.cs">
+      <DependentUpon>Detection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\DetectionEdit.aspx.cs">
+      <DependentUpon>DetectionEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\DetectionEdit.aspx.designer.cs">
+      <DependentUpon>DetectionEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\DetectionView.aspx.cs">
+      <DependentUpon>DetectionView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\DetectionView.aspx.designer.cs">
+      <DependentUpon>DetectionView.aspx</DependentUpon>
     </Compile>
     <Compile Include="indexProject.aspx.cs">
       <DependentUpon>indexProject.aspx</DependentUpon>

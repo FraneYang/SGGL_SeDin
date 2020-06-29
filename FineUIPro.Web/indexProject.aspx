@@ -157,7 +157,7 @@
                             <div class="headerwrap">
                                 <div class="header">
                                     <div class="projcet-select">
-                                        <f:DropDownList runat="server" Width="220px" ID="drpProject" OnSelectedIndexChanged="drpProject_SelectedIndexChanged"
+                                        <f:DropDownList runat="server" Width="200px" ID="drpProject" OnSelectedIndexChanged="drpProject_SelectedIndexChanged"
                                             AutoPostBack="true" EnableEdit="true">
                                         </f:DropDownList>
                                     </div>
@@ -212,8 +212,8 @@
                                         </f:Button>
                                     </li>
                                     <li>
-                                        <f:Button runat="server" CssClass="bgbtn" Text="进度管理" OnClick="btnCQMS_Click" OnClientClick="parent.removeActiveTab();"
-                                            EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" ID="Button4">
+                                        <f:Button runat="server" CssClass="bgbtn" Text="进度管理" OnClick="btnJDGL_Click" OnClientClick="parent.removeActiveTab();"
+                                            EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" ID="btnJDGL">
                                         </f:Button>
                                     </li>
                                     <li>

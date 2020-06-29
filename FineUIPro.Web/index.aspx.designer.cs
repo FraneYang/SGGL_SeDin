@@ -103,24 +103,6 @@ namespace FineUIPro.Web {
         protected global::FineUIPro.Button btnRetweet;
         
         /// <summary>
-        /// btnPerson 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnPerson;
-        
-        /// <summary>
-        /// btnNotice 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnNotice;
-        
-        /// <summary>
         /// btnProject 控件。
         /// </summary>
         /// <remarks>
@@ -128,6 +110,24 @@ namespace FineUIPro.Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnProject;
+        
+        /// <summary>
+        /// btnDigData 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnDigData;
+        
+        /// <summary>
+        /// btnContract 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnContract;
         
         /// <summary>
         /// btnServer 控件。
@@ -148,22 +148,22 @@ namespace FineUIPro.Web {
         protected global::FineUIPro.Button btnHome;
         
         /// <summary>
-        /// btnContract 控件。
+        /// btnNotice 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnContract;
+        protected global::FineUIPro.Button btnNotice;
         
         /// <summary>
-        /// btnDigData 控件。
+        /// btnPerson 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnDigData;
+        protected global::FineUIPro.Button btnPerson;
         
         /// <summary>
         /// btnZHGL 控件。

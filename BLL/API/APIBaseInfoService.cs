@@ -31,7 +31,13 @@ namespace BLL
             var getDataLists = (from x in Funs.DB.WBS_UnitWork
                                 where x.ProjectId == projectId
                                 orderby x.UnitWorkCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.UnitWorkId, BaseInfoCode = x.UnitWorkCode, BaseInfoName = x.UnitWorkName }).ToList();
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.UnitWorkId,
+                                    BaseInfoCode = x.UnitWorkCode,
+                                    BaseInfoName = x.UnitWorkName + "(" + Funs.GetUnitWorkType(x.ProjectType) + ")"
+                                }
+                                ).ToList();
             return getDataLists;
         }
         #endregion

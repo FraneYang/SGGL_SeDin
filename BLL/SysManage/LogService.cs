@@ -19,55 +19,58 @@ namespace BLL
         /// <param name="strOperationName">²Ù×÷Ãû³Æ</param>
         public static void AddSys_Log(Model.Sys_User CurrUser, string code, string dataId, string strMenuId, string strOperationName)
         {
-            if (CurrUser != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                Model.Sys_Log syslog = new Model.Sys_Log
+                if (CurrUser != null)
                 {
-                    LogId = SQLHelper.GetNewID(),
-                    HostName = Dns.GetHostName(),
-                    OperationTime = DateTime.Now,
-                    UserId = CurrUser.UserId,
-                    MenuId = strMenuId,
-                    OperationName = strOperationName,
-                    DataId=dataId,
-                    LogSource = 1,
-                };
-
-                IPAddress[] ips = Dns.GetHostAddresses(syslog.HostName);
-                if (ips.Length > 0)
-                {
-                    foreach (IPAddress ip in ips)
+                    Model.Sys_Log syslog = new Model.Sys_Log
                     {
-                        if (ip.ToString().IndexOf('.') != -1)
+                        LogId = SQLHelper.GetNewID(),
+                        HostName = Dns.GetHostName(),
+                        OperationTime = DateTime.Now,
+                        UserId = CurrUser.UserId,
+                        MenuId = strMenuId,
+                        OperationName = strOperationName,
+                        DataId = dataId,
+                        LogSource = 1,
+                    };
+
+                    IPAddress[] ips = Dns.GetHostAddresses(syslog.HostName);
+                    if (ips.Length > 0)
+                    {
+                        foreach (IPAddress ip in ips)
                         {
-                            syslog.Ip = ip.ToString();
+                            if (ip.ToString().IndexOf('.') != -1)
+                            {
+                                syslog.Ip = ip.ToString();
+                            }
                         }
                     }
-                }
-                string opLog = string.Empty;
-                var menu = Funs.DB.Sys_Menu.FirstOrDefault(x => x.MenuId == strMenuId);
-                if (menu != null)
-                {
-                    opLog = menu.MenuName + ":";
-                }
+                    string opLog = string.Empty;
+                    var menu = db.Sys_Menu.FirstOrDefault(x => x.MenuId == strMenuId);
+                    if (menu != null)
+                    {
+                        opLog = menu.MenuName + ":";
+                    }
 
-                if (!string.IsNullOrEmpty(strOperationName))
-                {
-                    opLog += strOperationName;
-                }
+                    if (!string.IsNullOrEmpty(strOperationName))
+                    {
+                        opLog += strOperationName;
+                    }
 
-                if (!string.IsNullOrEmpty(code))
-                {
-                    syslog.OperationLog = opLog + "£»" + code + "¡£";
-                }
-                                
-                if (!string.IsNullOrEmpty( CurrUser.LoginProjectId))
-                {
-                    syslog.ProjectId = CurrUser.LoginProjectId;
-                }
+                    if (!string.IsNullOrEmpty(code))
+                    {
+                        syslog.OperationLog = opLog + "£»" + code + "¡£";
+                    }
 
-                Funs.DB.Sys_Log.InsertOnSubmit(syslog);
-                Funs.DB.SubmitChanges();
+                    if (!string.IsNullOrEmpty(CurrUser.LoginProjectId))
+                    {
+                        syslog.ProjectId = CurrUser.LoginProjectId;
+                    }
+
+                    db.Sys_Log.InsertOnSubmit(syslog);
+                    db.SubmitChanges();
+                }
             }
         }
 

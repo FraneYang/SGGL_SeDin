@@ -737,8 +737,27 @@ namespace BLL
             return Funs.GetNewDateTimeOrNow(year + "-" + startMonth + "-01");
         }
 
-        #region  获取大写金额事件
-        public static string NumericCapitalization(decimal num)
+        /// <summary>
+        /// 获取单位工程类型
+        /// </summary>
+        /// <param name="projectType"></param>
+        /// <returns></returns>
+        public static string GetUnitWorkType(string projectType)
+        {
+            string type = string.Empty;
+            if (projectType == "1")
+            {
+                type = "建筑";
+            }
+            if (projectType == "2")
+            {
+                type = "安装";
+            }
+            return type;
+        }
+
+            #region  获取大写金额事件
+            public static string NumericCapitalization(decimal num)
         {
             string str1 = "零壹贰叁肆伍陆柒捌玖";            //0-9所对应的汉字 
             string str2 = "万仟佰拾亿仟佰拾万仟佰拾元角分"; //数字位所对应的汉字 

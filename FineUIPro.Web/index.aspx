@@ -168,17 +168,17 @@
                                     <div>
                                         <ul class="item-s">
                                             <li>
-                                                <f:Button runat="server" CssClass="bgbtn" Text="员工管理" ID="btnPerson" OnClick="btnPerson_Click"
-                                                    EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
-                                                </f:Button>
-                                            </li>
-                                            <li>
-                                                <f:Button runat="server" CssClass="bgbtn" Text="通知管理" ID="btnNotice" OnClick="btnNotice_Click"
-                                                    EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
-                                                </f:Button>
-                                            </li>
-                                            <li>
                                                 <f:Button runat="server" CssClass="bgbtn" Text="项目清单" ID="btnProject" OnClick="btnProject_Click"
+                                                    EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
+                                                </f:Button>
+                                            </li>
+                                                 <li>
+                                                <f:Button runat="server" CssClass="bgbtn" Text="大数据中心" ID="btnDigData" OnClick="btnDigData_Click"
+                                                    EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
+                                                </f:Button>
+                                            </li>
+                                              <li>
+                                                <f:Button runat="server" CssClass="bgbtn" Text="合同管理" ID="btnContract" OnClick="btnContract_Click"
                                                     EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
                                                 </f:Button>
                                             </li>
@@ -198,22 +198,22 @@
                                     <div>
                                         <ul class="item-s">
                                             <li>
-                                                <f:Button runat="server" CssClass="bgbtn" Text="合同管理" ID="btnContract" OnClick="btnContract_Click"
+                                                <f:Button runat="server" CssClass="bgbtn" Text="通知管理" ID="btnNotice" OnClick="btnNotice_Click"
                                                     EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
                                                 </f:Button>
                                             </li>
                                             <li>
-                                                <f:Button runat="server" CssClass="bgbtn" Text="大数据中心" ID="btnDigData" OnClick="btnDigData_Click"
+                                                <f:Button runat="server" CssClass="bgbtn" Text="员工管理" ID="btnPerson" OnClick="btnPerson_Click"
                                                     EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
                                                 </f:Button>
-                                            </li>
+                                            </li>                                       
                                             <li>
                                                 <f:Button runat="server" CssClass="bgbtn" Text="综合管理" ID="btnZHGL" OnClick="btnZHGL_Click"
                                                     EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
                                                 </f:Button>
                                             </li>
                                             <li>
-                                                <f:Button runat="server" CssClass="bgbtn" Text="党建群团" ID="btnParty" OnClick="btnParty_Click"
+                                                <f:Button runat="server" CssClass="bgbtn" Text="党工群团" ID="btnParty" OnClick="btnParty_Click"
                                                     EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
                                                 </f:Button>
                                             </li>

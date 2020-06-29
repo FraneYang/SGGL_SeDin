@@ -487,7 +487,7 @@ namespace FineUIPro.Web
         protected void btnHome_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(this.CurrUser.LoginProjectId) 
-                && (this.CurrUser.UnitId == Const.UnitId_SEDIN || this.CurrUser.UserId == Const.sysglyId))
+                && (this.CurrUser.UnitId == Const.UnitId_SEDIN || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId))
             {
                 PageContext.Redirect("~/index.aspx", "_top");
             }else
@@ -543,6 +543,11 @@ namespace FineUIPro.Web
         protected void btnPDigData_Click(object sender, EventArgs e)
         {
             this.MenuSwitchMethod(Const.Menu_PDigData);
+        }
+
+        protected void btnJDGL_Click(object sender, EventArgs e)
+        {
+            this.MenuSwitchMethod(Const.Menu_JDGL);
         }
     }
 }
