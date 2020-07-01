@@ -165,7 +165,7 @@
                                     </div>
                                 </div>
                                 <div class="up-wrap">
-                                    <div>
+                                    <div class="flex2">
                                         <ul class="item-s">
                                             <li>
                                                 <f:Button runat="server" CssClass="bgbtn" Text="项目清单" ID="btnProject" OnClick="btnProject_Click"
@@ -193,9 +193,9 @@
                                         <f:Button runat="server" CssClass="bgbtn2" EnablePostBack="true" OnClick="btnHome_Click"
                                             EnableDefaultState="true" EnableDefaultCorner="false" ID="btnHome" OnClientClick="parent.removeActiveTab();">
                                         </f:Button>
-                                        <img src="res/index/images/bigtitle.png" alt="施工管理信息平台" />
+                                        <%--<img src="res/index/images/bigtitle3.png" alt="施工管理信息平台" />--%>
                                     </div>
-                                    <div>
+                                    <div class="flex2">
                                         <ul class="item-s">
                                             <li>
                                                 <f:Button runat="server" CssClass="bgbtn" Text="通知管理" ID="btnNotice" OnClick="btnNotice_Click"

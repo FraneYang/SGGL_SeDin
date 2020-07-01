@@ -756,7 +756,7 @@ namespace BLL
             return type;
         }
 
-            #region  获取大写金额事件
+        #region  获取大写金额事件
             public static string NumericCapitalization(decimal num)
         {
             string str1 = "零壹贰叁肆伍陆柒捌玖";            //0-9所对应的汉字 

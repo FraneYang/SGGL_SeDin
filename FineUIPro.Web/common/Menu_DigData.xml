@@ -1,11 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="查询" NavigateUrl="Personal/FileSearch.aspx" >
+  <TreeNode id="DA7D64F8-A107-4DBC-B7E4-5C79409EB9FA" Text="查询" NavigateUrl="">
   </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="资料库" NavigateUrl="Personal/FileSearch.aspx" >
-  </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="数据库" NavigateUrl="Personal/FileSearch.aspx" >
-  </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="数据作战室" NavigateUrl="Personal/FileSearch.aspx" >
-  </TreeNode>
+<TreeNode id="6A992AB8-A32D-448F-B06F-8DD4C112CC91" Text="资料库" NavigateUrl=""><TreeNode id="CF1F59BB-215A-4E9D-9F19-DE188D322477" Text="标准规范库" NavigateUrl=""><TreeNode id="8B550B58-C681-4F34-83F0-F1E99CE04A47" Text="法律法规" NavigateUrl=""></TreeNode>
+<TreeNode id="97D1E401-EA0F-4C90-B7DC-61D568BAE617" Text="标准规范" NavigateUrl=""></TreeNode>
+<TreeNode id="11ADD6DF-F33E-4AE4-8FED-DB967C7FAF34" Text="企业标准制度" NavigateUrl=""></TreeNode>
+<TreeNode id="311063A2-ADE9-4154-97E4-CD6741295429" Text="岗位工作手册" NavigateUrl=""></TreeNode>
+</TreeNode>
+<TreeNode id="436D5B71-D4B1-47D4-9D74-DF88D52CD10C" Text="施工管理模板库" NavigateUrl=""><TreeNode id="4A646C2D-96BF-4DF1-8AC4-AD258D80AB15" Text="表格模板" NavigateUrl=""></TreeNode>
+<TreeNode id="A0E14C24-5E6D-4AE9-BC62-330C897FDF4D" Text="文件模板" NavigateUrl=""></TreeNode>
+</TreeNode>
+<TreeNode id="A5D13C77-33B2-4D47-B7FD-5256543A8DC1" Text="施工管理资源库" NavigateUrl=""></TreeNode>
+<TreeNode id="FDVXFGDS-5THM-CCDE-DCS2-TGHNO48F7UKM" Text="安全公共资源库" NavigateUrl=""><TreeNode id="F4B02718-0616-4623-ABCE-885698DDBEB1" Text="安全法律法规" NavigateUrl="HSSE/Law/LawRegulationList.aspx"></TreeNode>
+<TreeNode id="EFDSFVDE-RTHN-7UMG-4THA-5TGED48F8IOL" Text="安全标准规范" NavigateUrl="HSSE/Law/HSSEStandardList.aspx"></TreeNode>
+<TreeNode id="DF1413F3-4CE5-40B3-A574-E01CE64FEA25" Text="安全规章制度" NavigateUrl="HSSE/Law/RulesRegulations.aspx"></TreeNode>
+<TreeNode id="56960940-81A8-43D1-9565-C306EC7AFD12" Text="安全管理规定" NavigateUrl="HSSE/Law/ManageRule.aspx"></TreeNode>
+</TreeNode>
+</TreeNode>
+<TreeNode id="FF0D9166-4509-4411-8039-F035BC251114" Text="数据库" NavigateUrl=""></TreeNode>
+<TreeNode id="B87413D8-4EFB-42F3-A4F6-9D21C0CD3DFE" Text="数据作战室" NavigateUrl=""></TreeNode>
 </Tree>

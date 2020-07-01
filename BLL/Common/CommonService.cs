@@ -283,6 +283,30 @@ namespace BLL
         }
         #endregion
 
+        #region 根据用户ID判断是否 本单位本部用户或管理员
+        /// <summary>
+        /// 根据用户UnitId判断是否为本单位用户或管理员
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsThisUnitLeaderOfficeOrManage(string userId)
+        {
+            bool result = false;
+            if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
+            {
+                result = true;
+            }
+            else
+            {             
+                var user = BLL.UserService.GetUserByUserId(userId);
+                if (user != null && user.IsOffice == true)
+                {
+                    result = true;
+                }               
+            }
+
+            return result;
+        }
+        #endregion
 
         /// <summary>
         ///根据主键删除附件
@@ -326,5 +350,18 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        ///根据主键删除流程
+        /// </summary>
+        /// <param name="lawRegulationId"></param>
+        public static void DeleteFlowOperateByID(string id)
+        {
+            var flowOperateList = from x in Funs.DB.Sys_FlowOperate where x.DataId == id select x;
+            if (flowOperateList.Count() > 0)
+            {
+                Funs.DB.Sys_FlowOperate.DeleteAllOnSubmit(flowOperateList);
+                Funs.DB.SubmitChanges();
+            }
+        }
     }
 }

@@ -12,9 +12,9 @@
 </head>
 <body>
     <div class="wrap">     
-        <div class="bottom-wrap">
+        <div class="bottom-wrap flex">
             <!--左侧-->
-            <div class="bw-s">
+            <div class="bw-s flex1">
                 <div class="bw-item">
                     <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="" />
                     <div class="bw-item-content">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <!--中间-->
-            <div class="bw-b">
+            <div class="bw-b flex2">
                 <div class="bw-b-bottom ptop6">
                     <div class="bw-b-bottom-up">
                         <div class="tab-wrap">
@@ -143,7 +143,7 @@
                 </div>
             </div>
             <!--右侧-->
-            <div class="bw-s">
+            <div class="bw-s flex1">
                 <div class="bw-item">
                     <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">
                     <div class="bw-item-content">

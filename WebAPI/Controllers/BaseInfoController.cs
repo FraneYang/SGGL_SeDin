@@ -33,9 +33,9 @@ namespace WebAPI.Controllers
         //}
         //#endregion
 
-        #region 根据projectId获取区域表
-         /// <summary>
-        ///  根据projectId获取区域表
+        #region 根据projectId获取单位工程
+        /// <summary>
+        ///  根据projectId获取单位工程
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>

@@ -87,19 +87,40 @@
     <Compile Include="API\APIGetHttpService.cs" />
     <Compile Include="API\APIIDCardInfoService.cs" />
     <Compile Include="API\APIPersonService.cs" />
+    <Compile Include="API\APIProjectService.cs" />
     <Compile Include="API\APIUnitService.cs" />
     <Compile Include="API\APIUpLoadFileService.cs" />
     <Compile Include="API\APIUserService.cs" />
     <Compile Include="API\HJGL\APIPipeJointService.cs" />
     <Compile Include="API\HJGL\APIPreWeldingDailyService.cs" />
+    <Compile Include="BaseInfo\AccidentTypeService.cs" />
+    <Compile Include="BaseInfo\CertificateService.cs" />
     <Compile Include="BaseInfo\CNProfessionalService.cs" />
+    <Compile Include="BaseInfo\CostTypeService.cs" />
     <Compile Include="BaseInfo\DesignProfessionalService.cs" />
+    <Compile Include="BaseInfo\EmergencyTypeService.cs" />
+    <Compile Include="BaseInfo\HSSEStandardListTypeService.cs" />
+    <Compile Include="BaseInfo\LawsRegulationsTypeService.cs" />
+    <Compile Include="BaseInfo\LicenseTypeService.cs" />
+    <Compile Include="BaseInfo\ManageRuleTypeService.cs" />
+    <Compile Include="BaseInfo\PictureTypeService.cs" />
+    <Compile Include="BaseInfo\PositionService.cs" />
+    <Compile Include="BaseInfo\PostTitleService.cs" />
     <Compile Include="BaseInfo\QualityQuestionTypeService.cs" />
+    <Compile Include="BaseInfo\RulesRegulationsTypeService.cs" />
+    <Compile Include="BaseInfo\SafetyMeasuresService.cs" />
+    <Compile Include="BaseInfo\SolutionTempleteTypeService.cs" />
+    <Compile Include="BaseInfo\SpecialEquipmentService.cs" />
+    <Compile Include="BaseInfo\SpecialSchemeTypeService.cs" />
+    <Compile Include="BaseInfo\TrainLevelService.cs" />
+    <Compile Include="BaseInfo\TrainTypeService.cs" />
     <Compile Include="BaseInfo\UnitTypeService.cs" />
     <Compile Include="BaseInfo\WorkPostService.cs" />
+    <Compile Include="BaseInfo\WorkStageService.cs" />
     <Compile Include="Common\AttachFileService.cs" />
     <Compile Include="Common\CodeRecordsService.cs" />
     <Compile Include="Common\CommonService.cs" />
+    <Compile Include="Common\ProjectDataFlowSetService.cs" />
     <Compile Include="Common\UploadFileService.cs" />
     <Compile Include="Common\UpLoadImageService.cs" />
     <Compile Include="Common\WeekDayService.cs" />
@@ -119,6 +140,11 @@
     <Compile Include="HJGL\BaseInfo\Base_WeldingLocationServie.cs" />
     <Compile Include="HJGL\BaseInfo\Base_WeldingMethodService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_WeldTypeService.cs" />
+    <Compile Include="HSSE\InformationProject\LawRegulationIdentifyService.cs" />
+    <Compile Include="HSSE\InformationProject\LawRegulationSelectedItemService.cs" />
+    <Compile Include="HSSE\Law\HSSEStandardsListService.cs" />
+    <Compile Include="HSSE\SecuritySystem\SafetyOrganizationService.cs" />
+    <Compile Include="HSSE\Law\LawRegulationListService.cs" />
     <Compile Include="OpenService\MonitorService.cs" />
     <Compile Include="DynamicTHeaderHepler.cs" />
     <Compile Include="OpenService\GetDataService.cs" />
@@ -177,6 +203,7 @@
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -76,7 +76,7 @@
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
-            runat="server" Text="编辑" Hidden ="true" Icon="TableEdit">
+            runat="server" Text="编辑" Hidden ="true" Icon="Pencil">
         </f:MenuButton>       
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"  Icon="Delete"
             ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Hidden ="true">

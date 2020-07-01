@@ -32,6 +32,9 @@ namespace Model
     partial void InsertAttachFile(AttachFile instance);
     partial void UpdateAttachFile(AttachFile instance);
     partial void DeleteAttachFile(AttachFile instance);
+    partial void InsertBase_AccidentType(Base_AccidentType instance);
+    partial void UpdateBase_AccidentType(Base_AccidentType instance);
+    partial void DeleteBase_AccidentType(Base_AccidentType instance);
     partial void InsertBase_Certificate(Base_Certificate instance);
     partial void UpdateBase_Certificate(Base_Certificate instance);
     partial void DeleteBase_Certificate(Base_Certificate instance);
@@ -44,6 +47,9 @@ namespace Model
     partial void InsertBase_Consumables(Base_Consumables instance);
     partial void UpdateBase_Consumables(Base_Consumables instance);
     partial void DeleteBase_Consumables(Base_Consumables instance);
+    partial void InsertBase_CostType(Base_CostType instance);
+    partial void UpdateBase_CostType(Base_CostType instance);
+    partial void DeleteBase_CostType(Base_CostType instance);
     partial void InsertBase_Defect(Base_Defect instance);
     partial void UpdateBase_Defect(Base_Defect instance);
     partial void DeleteBase_Defect(Base_Defect instance);
@@ -62,15 +68,33 @@ namespace Model
     partial void InsertBase_DNCompare(Base_DNCompare instance);
     partial void UpdateBase_DNCompare(Base_DNCompare instance);
     partial void DeleteBase_DNCompare(Base_DNCompare instance);
+    partial void InsertBase_EmergencyType(Base_EmergencyType instance);
+    partial void UpdateBase_EmergencyType(Base_EmergencyType instance);
+    partial void DeleteBase_EmergencyType(Base_EmergencyType instance);
     partial void InsertBase_GrooveType(Base_GrooveType instance);
     partial void UpdateBase_GrooveType(Base_GrooveType instance);
     partial void DeleteBase_GrooveType(Base_GrooveType instance);
+    partial void InsertBase_HSSEStandardListType(Base_HSSEStandardListType instance);
+    partial void UpdateBase_HSSEStandardListType(Base_HSSEStandardListType instance);
+    partial void DeleteBase_HSSEStandardListType(Base_HSSEStandardListType instance);
+    partial void InsertBase_LawsRegulationsType(Base_LawsRegulationsType instance);
+    partial void UpdateBase_LawsRegulationsType(Base_LawsRegulationsType instance);
+    partial void DeleteBase_LawsRegulationsType(Base_LawsRegulationsType instance);
+    partial void InsertBase_LicenseType(Base_LicenseType instance);
+    partial void UpdateBase_LicenseType(Base_LicenseType instance);
+    partial void DeleteBase_LicenseType(Base_LicenseType instance);
+    partial void InsertBase_ManageRuleType(Base_ManageRuleType instance);
+    partial void UpdateBase_ManageRuleType(Base_ManageRuleType instance);
+    partial void DeleteBase_ManageRuleType(Base_ManageRuleType instance);
     partial void InsertBase_Material(Base_Material instance);
     partial void UpdateBase_Material(Base_Material instance);
     partial void DeleteBase_Material(Base_Material instance);
     partial void InsertBase_Medium(Base_Medium instance);
     partial void UpdateBase_Medium(Base_Medium instance);
     partial void DeleteBase_Medium(Base_Medium instance);
+    partial void InsertBase_PictureType(Base_PictureType instance);
+    partial void UpdateBase_PictureType(Base_PictureType instance);
+    partial void DeleteBase_PictureType(Base_PictureType instance);
     partial void InsertBase_PipingClass(Base_PipingClass instance);
     partial void UpdateBase_PipingClass(Base_PipingClass instance);
     partial void DeleteBase_PipingClass(Base_PipingClass instance);
@@ -89,9 +113,30 @@ namespace Model
     partial void InsertBase_QualityQuestionType(Base_QualityQuestionType instance);
     partial void UpdateBase_QualityQuestionType(Base_QualityQuestionType instance);
     partial void DeleteBase_QualityQuestionType(Base_QualityQuestionType instance);
+    partial void InsertBase_RulesRegulationsType(Base_RulesRegulationsType instance);
+    partial void UpdateBase_RulesRegulationsType(Base_RulesRegulationsType instance);
+    partial void DeleteBase_RulesRegulationsType(Base_RulesRegulationsType instance);
+    partial void InsertBase_SafetyMeasures(Base_SafetyMeasures instance);
+    partial void UpdateBase_SafetyMeasures(Base_SafetyMeasures instance);
+    partial void DeleteBase_SafetyMeasures(Base_SafetyMeasures instance);
+    partial void InsertBase_SolutionTempleteType(Base_SolutionTempleteType instance);
+    partial void UpdateBase_SolutionTempleteType(Base_SolutionTempleteType instance);
+    partial void DeleteBase_SolutionTempleteType(Base_SolutionTempleteType instance);
+    partial void InsertBase_SpecialEquipment(Base_SpecialEquipment instance);
+    partial void UpdateBase_SpecialEquipment(Base_SpecialEquipment instance);
+    partial void DeleteBase_SpecialEquipment(Base_SpecialEquipment instance);
+    partial void InsertBase_SpecialSchemeType(Base_SpecialSchemeType instance);
+    partial void UpdateBase_SpecialSchemeType(Base_SpecialSchemeType instance);
+    partial void DeleteBase_SpecialSchemeType(Base_SpecialSchemeType instance);
+    partial void InsertBase_TrainLevel(Base_TrainLevel instance);
+    partial void UpdateBase_TrainLevel(Base_TrainLevel instance);
+    partial void DeleteBase_TrainLevel(Base_TrainLevel instance);
     partial void InsertBase_TrainType(Base_TrainType instance);
     partial void UpdateBase_TrainType(Base_TrainType instance);
     partial void DeleteBase_TrainType(Base_TrainType instance);
+    partial void InsertBase_TrainTypeItem(Base_TrainTypeItem instance);
+    partial void UpdateBase_TrainTypeItem(Base_TrainTypeItem instance);
+    partial void DeleteBase_TrainTypeItem(Base_TrainTypeItem instance);
     partial void InsertBase_Unit(Base_Unit instance);
     partial void UpdateBase_Unit(Base_Unit instance);
     partial void DeleteBase_Unit(Base_Unit instance);
@@ -110,6 +155,9 @@ namespace Model
     partial void InsertBase_WorkPost(Base_WorkPost instance);
     partial void UpdateBase_WorkPost(Base_WorkPost instance);
     partial void DeleteBase_WorkPost(Base_WorkPost instance);
+    partial void InsertBase_WorkStage(Base_WorkStage instance);
+    partial void UpdateBase_WorkStage(Base_WorkStage instance);
+    partial void DeleteBase_WorkStage(Base_WorkStage instance);
     partial void InsertHJGL_Batch_BatchTrustItem(HJGL_Batch_BatchTrustItem instance);
     partial void UpdateHJGL_Batch_BatchTrustItem(HJGL_Batch_BatchTrustItem instance);
     partial void DeleteHJGL_Batch_BatchTrustItem(HJGL_Batch_BatchTrustItem instance);
@@ -158,12 +206,27 @@ namespace Model
     partial void InsertHJGL_WeldJoint(HJGL_WeldJoint instance);
     partial void UpdateHJGL_WeldJoint(HJGL_WeldJoint instance);
     partial void DeleteHJGL_WeldJoint(HJGL_WeldJoint instance);
+    partial void InsertLaw_HSSEStandardsList(Law_HSSEStandardsList instance);
+    partial void UpdateLaw_HSSEStandardsList(Law_HSSEStandardsList instance);
+    partial void DeleteLaw_HSSEStandardsList(Law_HSSEStandardsList instance);
+    partial void InsertLaw_LawRegulationIdentify(Law_LawRegulationIdentify instance);
+    partial void UpdateLaw_LawRegulationIdentify(Law_LawRegulationIdentify instance);
+    partial void DeleteLaw_LawRegulationIdentify(Law_LawRegulationIdentify instance);
+    partial void InsertLaw_LawRegulationList(Law_LawRegulationList instance);
+    partial void UpdateLaw_LawRegulationList(Law_LawRegulationList instance);
+    partial void DeleteLaw_LawRegulationList(Law_LawRegulationList instance);
+    partial void InsertLaw_LawRegulationSelectedItem(Law_LawRegulationSelectedItem instance);
+    partial void UpdateLaw_LawRegulationSelectedItem(Law_LawRegulationSelectedItem instance);
+    partial void DeleteLaw_LawRegulationSelectedItem(Law_LawRegulationSelectedItem instance);
     partial void InsertProject_ProjectUnit(Project_ProjectUnit instance);
     partial void UpdateProject_ProjectUnit(Project_ProjectUnit instance);
     partial void DeleteProject_ProjectUnit(Project_ProjectUnit instance);
     partial void InsertProject_ProjectUser(Project_ProjectUser instance);
     partial void UpdateProject_ProjectUser(Project_ProjectUser instance);
     partial void DeleteProject_ProjectUser(Project_ProjectUser instance);
+    partial void InsertProjectData_FlowOperate(ProjectData_FlowOperate instance);
+    partial void UpdateProjectData_FlowOperate(ProjectData_FlowOperate instance);
+    partial void DeleteProjectData_FlowOperate(ProjectData_FlowOperate instance);
     partial void InsertProjectData_MainItem(ProjectData_MainItem instance);
     partial void UpdateProjectData_MainItem(ProjectData_MainItem instance);
     partial void DeleteProjectData_MainItem(ProjectData_MainItem instance);
@@ -191,6 +254,9 @@ namespace Model
     partial void InsertQualityAudit_SafePersonQuality(QualityAudit_SafePersonQuality instance);
     partial void UpdateQualityAudit_SafePersonQuality(QualityAudit_SafePersonQuality instance);
     partial void DeleteQualityAudit_SafePersonQuality(QualityAudit_SafePersonQuality instance);
+    partial void InsertSecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization instance);
+    partial void UpdateSecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization instance);
+    partial void DeleteSecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization instance);
     partial void InsertSitePerson_Person(SitePerson_Person instance);
     partial void UpdateSitePerson_Person(SitePerson_Person instance);
     partial void DeleteSitePerson_Person(SitePerson_Person instance);
@@ -212,6 +278,9 @@ namespace Model
     partial void InsertSys_ErrLogInfo(Sys_ErrLogInfo instance);
     partial void UpdateSys_ErrLogInfo(Sys_ErrLogInfo instance);
     partial void DeleteSys_ErrLogInfo(Sys_ErrLogInfo instance);
+    partial void InsertSys_FlowOperate(Sys_FlowOperate instance);
+    partial void UpdateSys_FlowOperate(Sys_FlowOperate instance);
+    partial void DeleteSys_FlowOperate(Sys_FlowOperate instance);
     partial void InsertSys_Log(Sys_Log instance);
     partial void UpdateSys_Log(Sys_Log instance);
     partial void DeleteSys_Log(Sys_Log instance);
@@ -239,6 +308,9 @@ namespace Model
     partial void InsertSys_UserShowColumns(Sys_UserShowColumns instance);
     partial void UpdateSys_UserShowColumns(Sys_UserShowColumns instance);
     partial void DeleteSys_UserShowColumns(Sys_UserShowColumns instance);
+    partial void InsertTraining_TestTraining(Training_TestTraining instance);
+    partial void UpdateTraining_TestTraining(Training_TestTraining instance);
+    partial void DeleteTraining_TestTraining(Training_TestTraining instance);
     partial void InsertWBS_ControlItemAndCycle(WBS_ControlItemAndCycle instance);
     partial void UpdateWBS_ControlItemAndCycle(WBS_ControlItemAndCycle instance);
     partial void DeleteWBS_ControlItemAndCycle(WBS_ControlItemAndCycle instance);
@@ -288,6 +360,14 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<Base_AccidentType> Base_AccidentType
+		{
+			get
+			{
+				return this.GetTable<Base_AccidentType>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Base_Certificate> Base_Certificate
 		{
 			get
@@ -317,6 +397,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<Base_Consumables>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_CostType> Base_CostType
+		{
+			get
+			{
+				return this.GetTable<Base_CostType>();
 			}
 		}
 		
@@ -368,11 +456,51 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<Base_EmergencyType> Base_EmergencyType
+		{
+			get
+			{
+				return this.GetTable<Base_EmergencyType>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Base_GrooveType> Base_GrooveType
 		{
 			get
 			{
 				return this.GetTable<Base_GrooveType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_HSSEStandardListType> Base_HSSEStandardListType
+		{
+			get
+			{
+				return this.GetTable<Base_HSSEStandardListType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_LawsRegulationsType> Base_LawsRegulationsType
+		{
+			get
+			{
+				return this.GetTable<Base_LawsRegulationsType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_LicenseType> Base_LicenseType
+		{
+			get
+			{
+				return this.GetTable<Base_LicenseType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_ManageRuleType> Base_ManageRuleType
+		{
+			get
+			{
+				return this.GetTable<Base_ManageRuleType>();
 			}
 		}
 		
@@ -389,6 +517,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<Base_Medium>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_PictureType> Base_PictureType
+		{
+			get
+			{
+				return this.GetTable<Base_PictureType>();
 			}
 		}
 		
@@ -440,11 +576,67 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<Base_RulesRegulationsType> Base_RulesRegulationsType
+		{
+			get
+			{
+				return this.GetTable<Base_RulesRegulationsType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_SafetyMeasures> Base_SafetyMeasures
+		{
+			get
+			{
+				return this.GetTable<Base_SafetyMeasures>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_SolutionTempleteType> Base_SolutionTempleteType
+		{
+			get
+			{
+				return this.GetTable<Base_SolutionTempleteType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_SpecialEquipment> Base_SpecialEquipment
+		{
+			get
+			{
+				return this.GetTable<Base_SpecialEquipment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_SpecialSchemeType> Base_SpecialSchemeType
+		{
+			get
+			{
+				return this.GetTable<Base_SpecialSchemeType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_TrainLevel> Base_TrainLevel
+		{
+			get
+			{
+				return this.GetTable<Base_TrainLevel>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Base_TrainType> Base_TrainType
 		{
 			get
 			{
 				return this.GetTable<Base_TrainType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_TrainTypeItem> Base_TrainTypeItem
+		{
+			get
+			{
+				return this.GetTable<Base_TrainTypeItem>();
 			}
 		}
 		
@@ -493,6 +685,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<Base_WorkPost>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Base_WorkStage> Base_WorkStage
+		{
+			get
+			{
+				return this.GetTable<Base_WorkStage>();
 			}
 		}
 		
@@ -624,6 +824,38 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<Law_HSSEStandardsList> Law_HSSEStandardsList
+		{
+			get
+			{
+				return this.GetTable<Law_HSSEStandardsList>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Law_LawRegulationIdentify> Law_LawRegulationIdentify
+		{
+			get
+			{
+				return this.GetTable<Law_LawRegulationIdentify>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Law_LawRegulationList> Law_LawRegulationList
+		{
+			get
+			{
+				return this.GetTable<Law_LawRegulationList>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Law_LawRegulationSelectedItem> Law_LawRegulationSelectedItem
+		{
+			get
+			{
+				return this.GetTable<Law_LawRegulationSelectedItem>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Project_ProjectUnit> Project_ProjectUnit
 		{
 			get
@@ -637,6 +869,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<Project_ProjectUser>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ProjectData_FlowOperate> ProjectData_FlowOperate
+		{
+			get
+			{
+				return this.GetTable<ProjectData_FlowOperate>();
 			}
 		}
 		
@@ -712,6 +952,14 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<SecuritySystem_SafetyOrganization> SecuritySystem_SafetyOrganization
+		{
+			get
+			{
+				return this.GetTable<SecuritySystem_SafetyOrganization>();
+			}
+		}
+		
 		public System.Data.Linq.Table<SitePerson_Person> SitePerson_Person
 		{
 			get
@@ -765,6 +1013,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<Sys_ErrLogInfo>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Sys_FlowOperate> Sys_FlowOperate
+		{
+			get
+			{
+				return this.GetTable<Sys_FlowOperate>();
 			}
 		}
 		
@@ -837,6 +1093,38 @@ namespace Model
 			get
 			{
 				return this.GetTable<Sys_UserShowColumns>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Training_TestTraining> Training_TestTraining
+		{
+			get
+			{
+				return this.GetTable<Training_TestTraining>();
+			}
+		}
+		
+		public System.Data.Linq.Table<View_Law_LawRegulationList> View_Law_LawRegulationList
+		{
+			get
+			{
+				return this.GetTable<View_Law_LawRegulationList>();
+			}
+		}
+		
+		public System.Data.Linq.Table<View_Law_LawRegulationSelectedItem> View_Law_LawRegulationSelectedItem
+		{
+			get
+			{
+				return this.GetTable<View_Law_LawRegulationSelectedItem>();
+			}
+		}
+		
+		public System.Data.Linq.Table<View_ProjectData_FlowOperate> View_ProjectData_FlowOperate
+		{
+			get
+			{
+				return this.GetTable<View_ProjectData_FlowOperate>();
 			}
 		}
 		
@@ -1054,6 +1342,140 @@ namespace Model
 					this._AttachPath = value;
 					this.SendPropertyChanged("AttachPath");
 					this.OnAttachPathChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_AccidentType")]
+	public partial class Base_AccidentType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _AccidentTypeId;
+		
+		private string _AccidentTypeCode;
+		
+		private string _AccidentTypeName;
+		
+		private string _Remark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAccidentTypeIdChanging(string value);
+    partial void OnAccidentTypeIdChanged();
+    partial void OnAccidentTypeCodeChanging(string value);
+    partial void OnAccidentTypeCodeChanged();
+    partial void OnAccidentTypeNameChanging(string value);
+    partial void OnAccidentTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_AccidentType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AccidentTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string AccidentTypeId
+		{
+			get
+			{
+				return this._AccidentTypeId;
+			}
+			set
+			{
+				if ((this._AccidentTypeId != value))
+				{
+					this.OnAccidentTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._AccidentTypeId = value;
+					this.SendPropertyChanged("AccidentTypeId");
+					this.OnAccidentTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AccidentTypeCode", DbType="NVarChar(50)")]
+		public string AccidentTypeCode
+		{
+			get
+			{
+				return this._AccidentTypeCode;
+			}
+			set
+			{
+				if ((this._AccidentTypeCode != value))
+				{
+					this.OnAccidentTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._AccidentTypeCode = value;
+					this.SendPropertyChanged("AccidentTypeCode");
+					this.OnAccidentTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AccidentTypeName", DbType="NVarChar(50)")]
+		public string AccidentTypeName
+		{
+			get
+			{
+				return this._AccidentTypeName;
+			}
+			set
+			{
+				if ((this._AccidentTypeName != value))
+				{
+					this.OnAccidentTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._AccidentTypeName = value;
+					this.SendPropertyChanged("AccidentTypeName");
+					this.OnAccidentTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
 				}
 			}
 		}
@@ -1885,6 +2307,140 @@ namespace Model
 		{
 			this.SendPropertyChanging();
 			entity.WeldingWireBase_Consumables = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_CostType")]
+	public partial class Base_CostType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _CostTypeId;
+		
+		private string _CostTypeCode;
+		
+		private string _CostTypeName;
+		
+		private string _Remark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCostTypeIdChanging(string value);
+    partial void OnCostTypeIdChanged();
+    partial void OnCostTypeCodeChanging(string value);
+    partial void OnCostTypeCodeChanged();
+    partial void OnCostTypeNameChanging(string value);
+    partial void OnCostTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_CostType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CostTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string CostTypeId
+		{
+			get
+			{
+				return this._CostTypeId;
+			}
+			set
+			{
+				if ((this._CostTypeId != value))
+				{
+					this.OnCostTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._CostTypeId = value;
+					this.SendPropertyChanged("CostTypeId");
+					this.OnCostTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CostTypeCode", DbType="NVarChar(50)")]
+		public string CostTypeCode
+		{
+			get
+			{
+				return this._CostTypeCode;
+			}
+			set
+			{
+				if ((this._CostTypeCode != value))
+				{
+					this.OnCostTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._CostTypeCode = value;
+					this.SendPropertyChanged("CostTypeCode");
+					this.OnCostTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CostTypeName", DbType="NVarChar(50)")]
+		public string CostTypeName
+		{
+			get
+			{
+				return this._CostTypeName;
+			}
+			set
+			{
+				if ((this._CostTypeName != value))
+				{
+					this.OnCostTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._CostTypeName = value;
+					this.SendPropertyChanged("CostTypeName");
+					this.OnCostTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -3248,6 +3804,140 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_EmergencyType")]
+	public partial class Base_EmergencyType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _EmergencyTypeId;
+		
+		private string _EmergencyTypeCode;
+		
+		private string _EmergencyTypeName;
+		
+		private string _Remark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEmergencyTypeIdChanging(string value);
+    partial void OnEmergencyTypeIdChanged();
+    partial void OnEmergencyTypeCodeChanging(string value);
+    partial void OnEmergencyTypeCodeChanged();
+    partial void OnEmergencyTypeNameChanging(string value);
+    partial void OnEmergencyTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_EmergencyType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmergencyTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string EmergencyTypeId
+		{
+			get
+			{
+				return this._EmergencyTypeId;
+			}
+			set
+			{
+				if ((this._EmergencyTypeId != value))
+				{
+					this.OnEmergencyTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._EmergencyTypeId = value;
+					this.SendPropertyChanged("EmergencyTypeId");
+					this.OnEmergencyTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmergencyTypeCode", DbType="NVarChar(50)")]
+		public string EmergencyTypeCode
+		{
+			get
+			{
+				return this._EmergencyTypeCode;
+			}
+			set
+			{
+				if ((this._EmergencyTypeCode != value))
+				{
+					this.OnEmergencyTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._EmergencyTypeCode = value;
+					this.SendPropertyChanged("EmergencyTypeCode");
+					this.OnEmergencyTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmergencyTypeName", DbType="NVarChar(100)")]
+		public string EmergencyTypeName
+		{
+			get
+			{
+				return this._EmergencyTypeName;
+			}
+			set
+			{
+				if ((this._EmergencyTypeName != value))
+				{
+					this.OnEmergencyTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._EmergencyTypeName = value;
+					this.SendPropertyChanged("EmergencyTypeName");
+					this.OnEmergencyTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(1000)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_GrooveType")]
 	public partial class Base_GrooveType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3407,6 +4097,622 @@ namespace Model
 		{
 			this.SendPropertyChanging();
 			entity.Base_GrooveType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_HSSEStandardListType")]
+	public partial class Base_HSSEStandardListType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _TypeId;
+		
+		private string _TypeCode;
+		
+		private string _TypeName;
+		
+		private string _Remark;
+		
+		private EntitySet<Law_HSSEStandardsList> _Law_HSSEStandardsList;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTypeIdChanging(string value);
+    partial void OnTypeIdChanged();
+    partial void OnTypeCodeChanging(string value);
+    partial void OnTypeCodeChanged();
+    partial void OnTypeNameChanging(string value);
+    partial void OnTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_HSSEStandardListType()
+		{
+			this._Law_HSSEStandardsList = new EntitySet<Law_HSSEStandardsList>(new Action<Law_HSSEStandardsList>(this.attach_Law_HSSEStandardsList), new Action<Law_HSSEStandardsList>(this.detach_Law_HSSEStandardsList));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string TypeId
+		{
+			get
+			{
+				return this._TypeId;
+			}
+			set
+			{
+				if ((this._TypeId != value))
+				{
+					this.OnTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._TypeId = value;
+					this.SendPropertyChanged("TypeId");
+					this.OnTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeCode", DbType="NVarChar(50)")]
+		public string TypeCode
+		{
+			get
+			{
+				return this._TypeCode;
+			}
+			set
+			{
+				if ((this._TypeCode != value))
+				{
+					this.OnTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._TypeCode = value;
+					this.SendPropertyChanged("TypeCode");
+					this.OnTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeName", DbType="NVarChar(50)")]
+		public string TypeName
+		{
+			get
+			{
+				return this._TypeName;
+			}
+			set
+			{
+				if ((this._TypeName != value))
+				{
+					this.OnTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._TypeName = value;
+					this.SendPropertyChanged("TypeName");
+					this.OnTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(200)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_HSSEStandardsList_Base_HSSEStandardListType", Storage="_Law_HSSEStandardsList", ThisKey="TypeId", OtherKey="TypeId", DeleteRule="NO ACTION")]
+		public EntitySet<Law_HSSEStandardsList> Law_HSSEStandardsList
+		{
+			get
+			{
+				return this._Law_HSSEStandardsList;
+			}
+			set
+			{
+				this._Law_HSSEStandardsList.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Law_HSSEStandardsList(Law_HSSEStandardsList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_HSSEStandardListType = this;
+		}
+		
+		private void detach_Law_HSSEStandardsList(Law_HSSEStandardsList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_HSSEStandardListType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_LawsRegulationsType")]
+	public partial class Base_LawsRegulationsType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Id;
+		
+		private string _Code;
+		
+		private string _Name;
+		
+		private string _Remark;
+		
+		private EntitySet<Law_LawRegulationList> _Law_LawRegulationList;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(string value);
+    partial void OnIdChanged();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_LawsRegulationsType()
+		{
+			this._Law_LawRegulationList = new EntitySet<Law_LawRegulationList>(new Action<Law_LawRegulationList>(this.attach_Law_LawRegulationList), new Action<Law_LawRegulationList>(this.detach_Law_LawRegulationList));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="NVarChar(50)")]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationList_Base_LawsRegulationsType", Storage="_Law_LawRegulationList", ThisKey="Id", OtherKey="LawsRegulationsTypeId", DeleteRule="NO ACTION")]
+		public EntitySet<Law_LawRegulationList> Law_LawRegulationList
+		{
+			get
+			{
+				return this._Law_LawRegulationList;
+			}
+			set
+			{
+				this._Law_LawRegulationList.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Law_LawRegulationList(Law_LawRegulationList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_LawsRegulationsType = this;
+		}
+		
+		private void detach_Law_LawRegulationList(Law_LawRegulationList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_LawsRegulationsType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_LicenseType")]
+	public partial class Base_LicenseType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _LicenseTypeId;
+		
+		private string _LicenseTypeCode;
+		
+		private string _LicenseTypeName;
+		
+		private string _Remark;
+		
+		private string _LicenseContents;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLicenseTypeIdChanging(string value);
+    partial void OnLicenseTypeIdChanged();
+    partial void OnLicenseTypeCodeChanging(string value);
+    partial void OnLicenseTypeCodeChanged();
+    partial void OnLicenseTypeNameChanging(string value);
+    partial void OnLicenseTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnLicenseContentsChanging(string value);
+    partial void OnLicenseContentsChanged();
+    #endregion
+		
+		public Base_LicenseType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LicenseTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string LicenseTypeId
+		{
+			get
+			{
+				return this._LicenseTypeId;
+			}
+			set
+			{
+				if ((this._LicenseTypeId != value))
+				{
+					this.OnLicenseTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._LicenseTypeId = value;
+					this.SendPropertyChanged("LicenseTypeId");
+					this.OnLicenseTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LicenseTypeCode", DbType="NVarChar(50)")]
+		public string LicenseTypeCode
+		{
+			get
+			{
+				return this._LicenseTypeCode;
+			}
+			set
+			{
+				if ((this._LicenseTypeCode != value))
+				{
+					this.OnLicenseTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._LicenseTypeCode = value;
+					this.SendPropertyChanged("LicenseTypeCode");
+					this.OnLicenseTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LicenseTypeName", DbType="NVarChar(50)")]
+		public string LicenseTypeName
+		{
+			get
+			{
+				return this._LicenseTypeName;
+			}
+			set
+			{
+				if ((this._LicenseTypeName != value))
+				{
+					this.OnLicenseTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._LicenseTypeName = value;
+					this.SendPropertyChanged("LicenseTypeName");
+					this.OnLicenseTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LicenseContents", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string LicenseContents
+		{
+			get
+			{
+				return this._LicenseContents;
+			}
+			set
+			{
+				if ((this._LicenseContents != value))
+				{
+					this.OnLicenseContentsChanging(value);
+					this.SendPropertyChanging();
+					this._LicenseContents = value;
+					this.SendPropertyChanged("LicenseContents");
+					this.OnLicenseContentsChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_ManageRuleType")]
+	public partial class Base_ManageRuleType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _ManageRuleTypeId;
+		
+		private string _ManageRuleTypeCode;
+		
+		private string _ManageRuleTypeName;
+		
+		private string _Remark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnManageRuleTypeIdChanging(string value);
+    partial void OnManageRuleTypeIdChanged();
+    partial void OnManageRuleTypeCodeChanging(string value);
+    partial void OnManageRuleTypeCodeChanged();
+    partial void OnManageRuleTypeNameChanging(string value);
+    partial void OnManageRuleTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_ManageRuleType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ManageRuleTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string ManageRuleTypeId
+		{
+			get
+			{
+				return this._ManageRuleTypeId;
+			}
+			set
+			{
+				if ((this._ManageRuleTypeId != value))
+				{
+					this.OnManageRuleTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._ManageRuleTypeId = value;
+					this.SendPropertyChanged("ManageRuleTypeId");
+					this.OnManageRuleTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ManageRuleTypeCode", DbType="NVarChar(50)")]
+		public string ManageRuleTypeCode
+		{
+			get
+			{
+				return this._ManageRuleTypeCode;
+			}
+			set
+			{
+				if ((this._ManageRuleTypeCode != value))
+				{
+					this.OnManageRuleTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ManageRuleTypeCode = value;
+					this.SendPropertyChanged("ManageRuleTypeCode");
+					this.OnManageRuleTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ManageRuleTypeName", DbType="NVarChar(50)")]
+		public string ManageRuleTypeName
+		{
+			get
+			{
+				return this._ManageRuleTypeName;
+			}
+			set
+			{
+				if ((this._ManageRuleTypeName != value))
+				{
+					this.OnManageRuleTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._ManageRuleTypeName = value;
+					this.SendPropertyChanged("ManageRuleTypeName");
+					this.OnManageRuleTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(1000)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -4000,6 +5306,140 @@ namespace Model
 		{
 			this.SendPropertyChanging();
 			entity.Base_Medium = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_PictureType")]
+	public partial class Base_PictureType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _PictureTypeId;
+		
+		private string _Code;
+		
+		private string _Name;
+		
+		private string _Remark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPictureTypeIdChanging(string value);
+    partial void OnPictureTypeIdChanged();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_PictureType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PictureTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string PictureTypeId
+		{
+			get
+			{
+				return this._PictureTypeId;
+			}
+			set
+			{
+				if ((this._PictureTypeId != value))
+				{
+					this.OnPictureTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._PictureTypeId = value;
+					this.SendPropertyChanged("PictureTypeId");
+					this.OnPictureTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="NVarChar(50)")]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -4810,6 +6250,8 @@ namespace Model
 		
 		private EntitySet<HJGL_HotProess_Trust> _HJGL_HotProess_Trust;
 		
+		private EntitySet<Law_LawRegulationIdentify> _Law_LawRegulationIdentify;
+		
 		private EntitySet<HJGL_WeldingDaily> _HJGL_WeldingDaily;
 		
 		private EntitySet<Project_ProjectUnit> _Project_ProjectUnit;
@@ -4822,9 +6264,13 @@ namespace Model
 		
 		private EntitySet<PTP_TestPackage> _PTP_TestPackage;
 		
+		private EntitySet<SecuritySystem_SafetyOrganization> _SecuritySystem_SafetyOrganization;
+		
 		private EntitySet<SitePerson_Person> _SitePerson_Person;
 		
 		private EntitySet<Sys_CodeRecords> _Sys_CodeRecords;
+		
+		private EntitySet<Sys_FlowOperate> _Sys_FlowOperate;
 		
 		private EntitySet<Sys_Log> _Sys_Log;
 		
@@ -4891,14 +6337,17 @@ namespace Model
 			this._HJGL_RepairRecord = new EntitySet<HJGL_RepairRecord>(new Action<HJGL_RepairRecord>(this.attach_HJGL_RepairRecord), new Action<HJGL_RepairRecord>(this.detach_HJGL_RepairRecord));
 			this._HJGL_WeldJoint = new EntitySet<HJGL_WeldJoint>(new Action<HJGL_WeldJoint>(this.attach_HJGL_WeldJoint), new Action<HJGL_WeldJoint>(this.detach_HJGL_WeldJoint));
 			this._HJGL_HotProess_Trust = new EntitySet<HJGL_HotProess_Trust>(new Action<HJGL_HotProess_Trust>(this.attach_HJGL_HotProess_Trust), new Action<HJGL_HotProess_Trust>(this.detach_HJGL_HotProess_Trust));
+			this._Law_LawRegulationIdentify = new EntitySet<Law_LawRegulationIdentify>(new Action<Law_LawRegulationIdentify>(this.attach_Law_LawRegulationIdentify), new Action<Law_LawRegulationIdentify>(this.detach_Law_LawRegulationIdentify));
 			this._HJGL_WeldingDaily = new EntitySet<HJGL_WeldingDaily>(new Action<HJGL_WeldingDaily>(this.attach_HJGL_WeldingDaily), new Action<HJGL_WeldingDaily>(this.detach_HJGL_WeldingDaily));
 			this._Project_ProjectUnit = new EntitySet<Project_ProjectUnit>(new Action<Project_ProjectUnit>(this.attach_Project_ProjectUnit), new Action<Project_ProjectUnit>(this.detach_Project_ProjectUnit));
 			this._Project_ProjectUser = new EntitySet<Project_ProjectUser>(new Action<Project_ProjectUser>(this.attach_Project_ProjectUser), new Action<Project_ProjectUser>(this.detach_Project_ProjectUser));
 			this._ProjectData_MainItem = new EntitySet<ProjectData_MainItem>(new Action<ProjectData_MainItem>(this.attach_ProjectData_MainItem), new Action<ProjectData_MainItem>(this.detach_ProjectData_MainItem));
 			this._ProjectData_TeamGroup = new EntitySet<ProjectData_TeamGroup>(new Action<ProjectData_TeamGroup>(this.attach_ProjectData_TeamGroup), new Action<ProjectData_TeamGroup>(this.detach_ProjectData_TeamGroup));
 			this._PTP_TestPackage = new EntitySet<PTP_TestPackage>(new Action<PTP_TestPackage>(this.attach_PTP_TestPackage), new Action<PTP_TestPackage>(this.detach_PTP_TestPackage));
+			this._SecuritySystem_SafetyOrganization = new EntitySet<SecuritySystem_SafetyOrganization>(new Action<SecuritySystem_SafetyOrganization>(this.attach_SecuritySystem_SafetyOrganization), new Action<SecuritySystem_SafetyOrganization>(this.detach_SecuritySystem_SafetyOrganization));
 			this._SitePerson_Person = new EntitySet<SitePerson_Person>(new Action<SitePerson_Person>(this.attach_SitePerson_Person), new Action<SitePerson_Person>(this.detach_SitePerson_Person));
 			this._Sys_CodeRecords = new EntitySet<Sys_CodeRecords>(new Action<Sys_CodeRecords>(this.attach_Sys_CodeRecords), new Action<Sys_CodeRecords>(this.detach_Sys_CodeRecords));
+			this._Sys_FlowOperate = new EntitySet<Sys_FlowOperate>(new Action<Sys_FlowOperate>(this.attach_Sys_FlowOperate), new Action<Sys_FlowOperate>(this.detach_Sys_FlowOperate));
 			this._Sys_Log = new EntitySet<Sys_Log>(new Action<Sys_Log>(this.attach_Sys_Log), new Action<Sys_Log>(this.detach_Sys_Log));
 			this._Sys_UserRead = new EntitySet<Sys_UserRead>(new Action<Sys_UserRead>(this.attach_Sys_UserRead), new Action<Sys_UserRead>(this.detach_Sys_UserRead));
 			OnCreated();
@@ -5492,6 +6941,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationIdentify_Base_Project", Storage="_Law_LawRegulationIdentify", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<Law_LawRegulationIdentify> Law_LawRegulationIdentify
+		{
+			get
+			{
+				return this._Law_LawRegulationIdentify;
+			}
+			set
+			{
+				this._Law_LawRegulationIdentify.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Pipeline_WeldingDaily_Base_Project", Storage="_HJGL_WeldingDaily", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
 		public EntitySet<HJGL_WeldingDaily> HJGL_WeldingDaily
 		{
@@ -5570,6 +7032,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SecuritySystem_SafetyOrganization_Base_Project", Storage="_SecuritySystem_SafetyOrganization", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<SecuritySystem_SafetyOrganization> SecuritySystem_SafetyOrganization
+		{
+			get
+			{
+				return this._SecuritySystem_SafetyOrganization;
+			}
+			set
+			{
+				this._SecuritySystem_SafetyOrganization.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Person_Base_Project", Storage="_SitePerson_Person", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
 		public EntitySet<SitePerson_Person> SitePerson_Person
 		{
@@ -5593,6 +7068,19 @@ namespace Model
 			set
 			{
 				this._Sys_CodeRecords.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Sys_FlowOperate_Base_Project", Storage="_Sys_FlowOperate", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<Sys_FlowOperate> Sys_FlowOperate
+		{
+			get
+			{
+				return this._Sys_FlowOperate;
+			}
+			set
+			{
+				this._Sys_FlowOperate.Assign(value);
 			}
 		}
 		
@@ -5762,6 +7250,18 @@ namespace Model
 			entity.Base_Project = null;
 		}
 		
+		private void attach_Law_LawRegulationIdentify(Law_LawRegulationIdentify entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_Law_LawRegulationIdentify(Law_LawRegulationIdentify entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
 		private void attach_HJGL_WeldingDaily(HJGL_WeldingDaily entity)
 		{
 			this.SendPropertyChanging();
@@ -5834,6 +7334,18 @@ namespace Model
 			entity.Base_Project = null;
 		}
 		
+		private void attach_SecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_SecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
 		private void attach_SitePerson_Person(SitePerson_Person entity)
 		{
 			this.SendPropertyChanging();
@@ -5853,6 +7365,18 @@ namespace Model
 		}
 		
 		private void detach_Sys_CodeRecords(Sys_CodeRecords entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_Sys_FlowOperate(Sys_FlowOperate entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_Sys_FlowOperate(Sys_FlowOperate entity)
 		{
 			this.SendPropertyChanging();
 			entity.Base_Project = null;
@@ -5993,6 +7517,858 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_RulesRegulationsType")]
+	public partial class Base_RulesRegulationsType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _RulesRegulationsTypeId;
+		
+		private string _RulesRegulationsTypeCode;
+		
+		private string _RulesRegulationsTypeName;
+		
+		private string _Remark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRulesRegulationsTypeIdChanging(string value);
+    partial void OnRulesRegulationsTypeIdChanged();
+    partial void OnRulesRegulationsTypeCodeChanging(string value);
+    partial void OnRulesRegulationsTypeCodeChanged();
+    partial void OnRulesRegulationsTypeNameChanging(string value);
+    partial void OnRulesRegulationsTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_RulesRegulationsType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RulesRegulationsTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string RulesRegulationsTypeId
+		{
+			get
+			{
+				return this._RulesRegulationsTypeId;
+			}
+			set
+			{
+				if ((this._RulesRegulationsTypeId != value))
+				{
+					this.OnRulesRegulationsTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._RulesRegulationsTypeId = value;
+					this.SendPropertyChanged("RulesRegulationsTypeId");
+					this.OnRulesRegulationsTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RulesRegulationsTypeCode", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string RulesRegulationsTypeCode
+		{
+			get
+			{
+				return this._RulesRegulationsTypeCode;
+			}
+			set
+			{
+				if ((this._RulesRegulationsTypeCode != value))
+				{
+					this.OnRulesRegulationsTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._RulesRegulationsTypeCode = value;
+					this.SendPropertyChanged("RulesRegulationsTypeCode");
+					this.OnRulesRegulationsTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RulesRegulationsTypeName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string RulesRegulationsTypeName
+		{
+			get
+			{
+				return this._RulesRegulationsTypeName;
+			}
+			set
+			{
+				if ((this._RulesRegulationsTypeName != value))
+				{
+					this.OnRulesRegulationsTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._RulesRegulationsTypeName = value;
+					this.SendPropertyChanged("RulesRegulationsTypeName");
+					this.OnRulesRegulationsTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_SafetyMeasures")]
+	public partial class Base_SafetyMeasures : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _SafetyMeasuresId;
+		
+		private System.Nullable<int> _SortIndex;
+		
+		private string _SafetyMeasures;
+		
+		private string _LicenseType;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSafetyMeasuresIdChanging(string value);
+    partial void OnSafetyMeasuresIdChanged();
+    partial void OnSortIndexChanging(System.Nullable<int> value);
+    partial void OnSortIndexChanged();
+    partial void OnSafetyMeasuresChanging(string value);
+    partial void OnSafetyMeasuresChanged();
+    partial void OnLicenseTypeChanging(string value);
+    partial void OnLicenseTypeChanged();
+    #endregion
+		
+		public Base_SafetyMeasures()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyMeasuresId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string SafetyMeasuresId
+		{
+			get
+			{
+				return this._SafetyMeasuresId;
+			}
+			set
+			{
+				if ((this._SafetyMeasuresId != value))
+				{
+					this.OnSafetyMeasuresIdChanging(value);
+					this.SendPropertyChanging();
+					this._SafetyMeasuresId = value;
+					this.SendPropertyChanged("SafetyMeasuresId");
+					this.OnSafetyMeasuresIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortIndex", DbType="Int")]
+		public System.Nullable<int> SortIndex
+		{
+			get
+			{
+				return this._SortIndex;
+			}
+			set
+			{
+				if ((this._SortIndex != value))
+				{
+					this.OnSortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._SortIndex = value;
+					this.SendPropertyChanged("SortIndex");
+					this.OnSortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyMeasures", DbType="NVarChar(2000)")]
+		public string SafetyMeasures
+		{
+			get
+			{
+				return this._SafetyMeasures;
+			}
+			set
+			{
+				if ((this._SafetyMeasures != value))
+				{
+					this.OnSafetyMeasuresChanging(value);
+					this.SendPropertyChanging();
+					this._SafetyMeasures = value;
+					this.SendPropertyChanged("SafetyMeasures");
+					this.OnSafetyMeasuresChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LicenseType", DbType="NVarChar(50)")]
+		public string LicenseType
+		{
+			get
+			{
+				return this._LicenseType;
+			}
+			set
+			{
+				if ((this._LicenseType != value))
+				{
+					this.OnLicenseTypeChanging(value);
+					this.SendPropertyChanging();
+					this._LicenseType = value;
+					this.SendPropertyChanged("LicenseType");
+					this.OnLicenseTypeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_SolutionTempleteType")]
+	public partial class Base_SolutionTempleteType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _SolutionTempleteTypeCode;
+		
+		private string _SolutionTempleteTypeName;
+		
+		private string _Remark;
+		
+		private System.Nullable<int> _SortIndex;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSolutionTempleteTypeCodeChanging(string value);
+    partial void OnSolutionTempleteTypeCodeChanged();
+    partial void OnSolutionTempleteTypeNameChanging(string value);
+    partial void OnSolutionTempleteTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnSortIndexChanging(System.Nullable<int> value);
+    partial void OnSortIndexChanged();
+    #endregion
+		
+		public Base_SolutionTempleteType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutionTempleteTypeCode", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string SolutionTempleteTypeCode
+		{
+			get
+			{
+				return this._SolutionTempleteTypeCode;
+			}
+			set
+			{
+				if ((this._SolutionTempleteTypeCode != value))
+				{
+					this.OnSolutionTempleteTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._SolutionTempleteTypeCode = value;
+					this.SendPropertyChanged("SolutionTempleteTypeCode");
+					this.OnSolutionTempleteTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutionTempleteTypeName", DbType="NVarChar(50)")]
+		public string SolutionTempleteTypeName
+		{
+			get
+			{
+				return this._SolutionTempleteTypeName;
+			}
+			set
+			{
+				if ((this._SolutionTempleteTypeName != value))
+				{
+					this.OnSolutionTempleteTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._SolutionTempleteTypeName = value;
+					this.SendPropertyChanged("SolutionTempleteTypeName");
+					this.OnSolutionTempleteTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortIndex", DbType="Int")]
+		public System.Nullable<int> SortIndex
+		{
+			get
+			{
+				return this._SortIndex;
+			}
+			set
+			{
+				if ((this._SortIndex != value))
+				{
+					this.OnSortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._SortIndex = value;
+					this.SendPropertyChanged("SortIndex");
+					this.OnSortIndexChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_SpecialEquipment")]
+	public partial class Base_SpecialEquipment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _SpecialEquipmentId;
+		
+		private string _SpecialEquipmentCode;
+		
+		private string _SpecialEquipmentName;
+		
+		private string _Remark;
+		
+		private System.Nullable<bool> _IsSpecial;
+		
+		private string _SpecialEquipmentType;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSpecialEquipmentIdChanging(string value);
+    partial void OnSpecialEquipmentIdChanged();
+    partial void OnSpecialEquipmentCodeChanging(string value);
+    partial void OnSpecialEquipmentCodeChanged();
+    partial void OnSpecialEquipmentNameChanging(string value);
+    partial void OnSpecialEquipmentNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnIsSpecialChanging(System.Nullable<bool> value);
+    partial void OnIsSpecialChanged();
+    partial void OnSpecialEquipmentTypeChanging(string value);
+    partial void OnSpecialEquipmentTypeChanged();
+    #endregion
+		
+		public Base_SpecialEquipment()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialEquipmentId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string SpecialEquipmentId
+		{
+			get
+			{
+				return this._SpecialEquipmentId;
+			}
+			set
+			{
+				if ((this._SpecialEquipmentId != value))
+				{
+					this.OnSpecialEquipmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._SpecialEquipmentId = value;
+					this.SendPropertyChanged("SpecialEquipmentId");
+					this.OnSpecialEquipmentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialEquipmentCode", DbType="NVarChar(50)")]
+		public string SpecialEquipmentCode
+		{
+			get
+			{
+				return this._SpecialEquipmentCode;
+			}
+			set
+			{
+				if ((this._SpecialEquipmentCode != value))
+				{
+					this.OnSpecialEquipmentCodeChanging(value);
+					this.SendPropertyChanging();
+					this._SpecialEquipmentCode = value;
+					this.SendPropertyChanged("SpecialEquipmentCode");
+					this.OnSpecialEquipmentCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialEquipmentName", DbType="NVarChar(50)")]
+		public string SpecialEquipmentName
+		{
+			get
+			{
+				return this._SpecialEquipmentName;
+			}
+			set
+			{
+				if ((this._SpecialEquipmentName != value))
+				{
+					this.OnSpecialEquipmentNameChanging(value);
+					this.SendPropertyChanging();
+					this._SpecialEquipmentName = value;
+					this.SendPropertyChanged("SpecialEquipmentName");
+					this.OnSpecialEquipmentNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSpecial", DbType="Bit")]
+		public System.Nullable<bool> IsSpecial
+		{
+			get
+			{
+				return this._IsSpecial;
+			}
+			set
+			{
+				if ((this._IsSpecial != value))
+				{
+					this.OnIsSpecialChanging(value);
+					this.SendPropertyChanging();
+					this._IsSpecial = value;
+					this.SendPropertyChanged("IsSpecial");
+					this.OnIsSpecialChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialEquipmentType", DbType="VarChar(2)")]
+		public string SpecialEquipmentType
+		{
+			get
+			{
+				return this._SpecialEquipmentType;
+			}
+			set
+			{
+				if ((this._SpecialEquipmentType != value))
+				{
+					this.OnSpecialEquipmentTypeChanging(value);
+					this.SendPropertyChanging();
+					this._SpecialEquipmentType = value;
+					this.SendPropertyChanged("SpecialEquipmentType");
+					this.OnSpecialEquipmentTypeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_SpecialSchemeType")]
+	public partial class Base_SpecialSchemeType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _SpecialSchemeTypeId;
+		
+		private string _SpecialSchemeTypeCode;
+		
+		private string _SpecialSchemeTypeName;
+		
+		private string _Remark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSpecialSchemeTypeIdChanging(string value);
+    partial void OnSpecialSchemeTypeIdChanged();
+    partial void OnSpecialSchemeTypeCodeChanging(string value);
+    partial void OnSpecialSchemeTypeCodeChanged();
+    partial void OnSpecialSchemeTypeNameChanging(string value);
+    partial void OnSpecialSchemeTypeNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_SpecialSchemeType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialSchemeTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string SpecialSchemeTypeId
+		{
+			get
+			{
+				return this._SpecialSchemeTypeId;
+			}
+			set
+			{
+				if ((this._SpecialSchemeTypeId != value))
+				{
+					this.OnSpecialSchemeTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._SpecialSchemeTypeId = value;
+					this.SendPropertyChanged("SpecialSchemeTypeId");
+					this.OnSpecialSchemeTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialSchemeTypeCode", DbType="NVarChar(50)")]
+		public string SpecialSchemeTypeCode
+		{
+			get
+			{
+				return this._SpecialSchemeTypeCode;
+			}
+			set
+			{
+				if ((this._SpecialSchemeTypeCode != value))
+				{
+					this.OnSpecialSchemeTypeCodeChanging(value);
+					this.SendPropertyChanging();
+					this._SpecialSchemeTypeCode = value;
+					this.SendPropertyChanged("SpecialSchemeTypeCode");
+					this.OnSpecialSchemeTypeCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialSchemeTypeName", DbType="NVarChar(500)")]
+		public string SpecialSchemeTypeName
+		{
+			get
+			{
+				return this._SpecialSchemeTypeName;
+			}
+			set
+			{
+				if ((this._SpecialSchemeTypeName != value))
+				{
+					this.OnSpecialSchemeTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._SpecialSchemeTypeName = value;
+					this.SendPropertyChanged("SpecialSchemeTypeName");
+					this.OnSpecialSchemeTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(2000)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_TrainLevel")]
+	public partial class Base_TrainLevel : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _TrainLevelId;
+		
+		private string _TrainLevelCode;
+		
+		private string _TrainLevelName;
+		
+		private string _Remark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTrainLevelIdChanging(string value);
+    partial void OnTrainLevelIdChanged();
+    partial void OnTrainLevelCodeChanging(string value);
+    partial void OnTrainLevelCodeChanged();
+    partial void OnTrainLevelNameChanging(string value);
+    partial void OnTrainLevelNameChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public Base_TrainLevel()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainLevelId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string TrainLevelId
+		{
+			get
+			{
+				return this._TrainLevelId;
+			}
+			set
+			{
+				if ((this._TrainLevelId != value))
+				{
+					this.OnTrainLevelIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainLevelId = value;
+					this.SendPropertyChanged("TrainLevelId");
+					this.OnTrainLevelIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainLevelCode", DbType="NVarChar(50)")]
+		public string TrainLevelCode
+		{
+			get
+			{
+				return this._TrainLevelCode;
+			}
+			set
+			{
+				if ((this._TrainLevelCode != value))
+				{
+					this.OnTrainLevelCodeChanging(value);
+					this.SendPropertyChanging();
+					this._TrainLevelCode = value;
+					this.SendPropertyChanged("TrainLevelCode");
+					this.OnTrainLevelCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainLevelName", DbType="NVarChar(50)")]
+		public string TrainLevelName
+		{
+			get
+			{
+				return this._TrainLevelName;
+			}
+			set
+			{
+				if ((this._TrainLevelName != value))
+				{
+					this.OnTrainLevelNameChanging(value);
+					this.SendPropertyChanging();
+					this._TrainLevelName = value;
+					this.SendPropertyChanged("TrainLevelName");
+					this.OnTrainLevelNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_TrainType")]
 	public partial class Base_TrainType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -6010,6 +8386,10 @@ namespace Model
 		private System.Nullable<bool> _IsAboutSendCard;
 		
 		private System.Nullable<bool> _IsRepeat;
+		
+		private EntitySet<Base_TrainTypeItem> _Base_TrainTypeItem;
+		
+		private EntitySet<Training_TestTraining> _Training_TestTraining;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -6031,6 +8411,8 @@ namespace Model
 		
 		public Base_TrainType()
 		{
+			this._Base_TrainTypeItem = new EntitySet<Base_TrainTypeItem>(new Action<Base_TrainTypeItem>(this.attach_Base_TrainTypeItem), new Action<Base_TrainTypeItem>(this.detach_Base_TrainTypeItem));
+			this._Training_TestTraining = new EntitySet<Training_TestTraining>(new Action<Training_TestTraining>(this.attach_Training_TestTraining), new Action<Training_TestTraining>(this.detach_Training_TestTraining));
 			OnCreated();
 		}
 		
@@ -6154,6 +8536,320 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Base_TrainTypeItem_Base_TrainType", Storage="_Base_TrainTypeItem", ThisKey="TrainTypeId", OtherKey="TrainTypeId", DeleteRule="NO ACTION")]
+		public EntitySet<Base_TrainTypeItem> Base_TrainTypeItem
+		{
+			get
+			{
+				return this._Base_TrainTypeItem;
+			}
+			set
+			{
+				this._Base_TrainTypeItem.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_TestTraining_Base_TrainType", Storage="_Training_TestTraining", ThisKey="TrainTypeId", OtherKey="TrainTypeId", DeleteRule="NO ACTION")]
+		public EntitySet<Training_TestTraining> Training_TestTraining
+		{
+			get
+			{
+				return this._Training_TestTraining;
+			}
+			set
+			{
+				this._Training_TestTraining.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Base_TrainTypeItem(Base_TrainTypeItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainType = this;
+		}
+		
+		private void detach_Base_TrainTypeItem(Base_TrainTypeItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainType = null;
+		}
+		
+		private void attach_Training_TestTraining(Training_TestTraining entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainType = this;
+		}
+		
+		private void detach_Training_TestTraining(Training_TestTraining entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_TrainTypeItem")]
+	public partial class Base_TrainTypeItem : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _TrainTypeItemId;
+		
+		private string _TrainTypeId;
+		
+		private string _TrainingId;
+		
+		private int _SCount;
+		
+		private int _MCount;
+		
+		private int _JCount;
+		
+		private EntityRef<Base_TrainType> _Base_TrainType;
+		
+		private EntityRef<Training_TestTraining> _Training_TestTraining;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTrainTypeItemIdChanging(string value);
+    partial void OnTrainTypeItemIdChanged();
+    partial void OnTrainTypeIdChanging(string value);
+    partial void OnTrainTypeIdChanged();
+    partial void OnTrainingIdChanging(string value);
+    partial void OnTrainingIdChanged();
+    partial void OnSCountChanging(int value);
+    partial void OnSCountChanged();
+    partial void OnMCountChanging(int value);
+    partial void OnMCountChanged();
+    partial void OnJCountChanging(int value);
+    partial void OnJCountChanged();
+    #endregion
+		
+		public Base_TrainTypeItem()
+		{
+			this._Base_TrainType = default(EntityRef<Base_TrainType>);
+			this._Training_TestTraining = default(EntityRef<Training_TestTraining>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainTypeItemId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string TrainTypeItemId
+		{
+			get
+			{
+				return this._TrainTypeItemId;
+			}
+			set
+			{
+				if ((this._TrainTypeItemId != value))
+				{
+					this.OnTrainTypeItemIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainTypeItemId = value;
+					this.SendPropertyChanged("TrainTypeItemId");
+					this.OnTrainTypeItemIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainTypeId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TrainTypeId
+		{
+			get
+			{
+				return this._TrainTypeId;
+			}
+			set
+			{
+				if ((this._TrainTypeId != value))
+				{
+					if (this._Base_TrainType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrainTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainTypeId = value;
+					this.SendPropertyChanged("TrainTypeId");
+					this.OnTrainTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainingId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TrainingId
+		{
+			get
+			{
+				return this._TrainingId;
+			}
+			set
+			{
+				if ((this._TrainingId != value))
+				{
+					if (this._Training_TestTraining.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrainingIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainingId = value;
+					this.SendPropertyChanged("TrainingId");
+					this.OnTrainingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SCount", DbType="Int NOT NULL")]
+		public int SCount
+		{
+			get
+			{
+				return this._SCount;
+			}
+			set
+			{
+				if ((this._SCount != value))
+				{
+					this.OnSCountChanging(value);
+					this.SendPropertyChanging();
+					this._SCount = value;
+					this.SendPropertyChanged("SCount");
+					this.OnSCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MCount", DbType="Int NOT NULL")]
+		public int MCount
+		{
+			get
+			{
+				return this._MCount;
+			}
+			set
+			{
+				if ((this._MCount != value))
+				{
+					this.OnMCountChanging(value);
+					this.SendPropertyChanging();
+					this._MCount = value;
+					this.SendPropertyChanged("MCount");
+					this.OnMCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JCount", DbType="Int NOT NULL")]
+		public int JCount
+		{
+			get
+			{
+				return this._JCount;
+			}
+			set
+			{
+				if ((this._JCount != value))
+				{
+					this.OnJCountChanging(value);
+					this.SendPropertyChanging();
+					this._JCount = value;
+					this.SendPropertyChanged("JCount");
+					this.OnJCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Base_TrainTypeItem_Base_TrainType", Storage="_Base_TrainType", ThisKey="TrainTypeId", OtherKey="TrainTypeId", IsForeignKey=true)]
+		public Base_TrainType Base_TrainType
+		{
+			get
+			{
+				return this._Base_TrainType.Entity;
+			}
+			set
+			{
+				Base_TrainType previousValue = this._Base_TrainType.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_TrainType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_TrainType.Entity = null;
+						previousValue.Base_TrainTypeItem.Remove(this);
+					}
+					this._Base_TrainType.Entity = value;
+					if ((value != null))
+					{
+						value.Base_TrainTypeItem.Add(this);
+						this._TrainTypeId = value.TrainTypeId;
+					}
+					else
+					{
+						this._TrainTypeId = default(string);
+					}
+					this.SendPropertyChanged("Base_TrainType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Base_TrainTypeItem_Training_TestTraining", Storage="_Training_TestTraining", ThisKey="TrainingId", OtherKey="TrainingId", IsForeignKey=true)]
+		public Training_TestTraining Training_TestTraining
+		{
+			get
+			{
+				return this._Training_TestTraining.Entity;
+			}
+			set
+			{
+				Training_TestTraining previousValue = this._Training_TestTraining.Entity;
+				if (((previousValue != value) 
+							|| (this._Training_TestTraining.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Training_TestTraining.Entity = null;
+						previousValue.Base_TrainTypeItem.Remove(this);
+					}
+					this._Training_TestTraining.Entity = value;
+					if ((value != null))
+					{
+						value.Base_TrainTypeItem.Add(this);
+						this._TrainingId = value.TrainingId;
+					}
+					else
+					{
+						this._TrainingId = default(string);
+					}
+					this.SendPropertyChanged("Training_TestTraining");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -6241,6 +8937,8 @@ namespace Model
 		
 		private EntitySet<PTP_TestPackage> _PTP_TestPackage;
 		
+		private EntitySet<SecuritySystem_SafetyOrganization> _SecuritySystem_SafetyOrganization;
+		
 		private EntitySet<SitePerson_Person> _SitePerson_Person;
 		
 		private EntitySet<Sys_User> _Sys_User;
@@ -6305,6 +9003,7 @@ namespace Model
 			this._Project_ProjectUser = new EntitySet<Project_ProjectUser>(new Action<Project_ProjectUser>(this.attach_Project_ProjectUser), new Action<Project_ProjectUser>(this.detach_Project_ProjectUser));
 			this._ProjectData_TeamGroup = new EntitySet<ProjectData_TeamGroup>(new Action<ProjectData_TeamGroup>(this.attach_ProjectData_TeamGroup), new Action<ProjectData_TeamGroup>(this.detach_ProjectData_TeamGroup));
 			this._PTP_TestPackage = new EntitySet<PTP_TestPackage>(new Action<PTP_TestPackage>(this.attach_PTP_TestPackage), new Action<PTP_TestPackage>(this.detach_PTP_TestPackage));
+			this._SecuritySystem_SafetyOrganization = new EntitySet<SecuritySystem_SafetyOrganization>(new Action<SecuritySystem_SafetyOrganization>(this.attach_SecuritySystem_SafetyOrganization), new Action<SecuritySystem_SafetyOrganization>(this.detach_SecuritySystem_SafetyOrganization));
 			this._SitePerson_Person = new EntitySet<SitePerson_Person>(new Action<SitePerson_Person>(this.attach_SitePerson_Person), new Action<SitePerson_Person>(this.detach_SitePerson_Person));
 			this._Sys_User = new EntitySet<Sys_User>(new Action<Sys_User>(this.attach_Sys_User), new Action<Sys_User>(this.detach_Sys_User));
 			this._WBS_UnitWork = new EntitySet<WBS_UnitWork>(new Action<WBS_UnitWork>(this.attach_WBS_UnitWork), new Action<WBS_UnitWork>(this.detach_WBS_UnitWork));
@@ -6815,6 +9514,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SecuritySystem_SafetyOrganization_Base_Unit", Storage="_SecuritySystem_SafetyOrganization", ThisKey="UnitId", OtherKey="UnitId", DeleteRule="NO ACTION")]
+		public EntitySet<SecuritySystem_SafetyOrganization> SecuritySystem_SafetyOrganization
+		{
+			get
+			{
+				return this._SecuritySystem_SafetyOrganization;
+			}
+			set
+			{
+				this._SecuritySystem_SafetyOrganization.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Person_Base_Unit", Storage="_SitePerson_Person", ThisKey="UnitId", OtherKey="UnitId", DeleteRule="NO ACTION")]
 		public EntitySet<SitePerson_Person> SitePerson_Person
 		{
@@ -7063,6 +9775,18 @@ namespace Model
 		}
 		
 		private void detach_PTP_TestPackage(PTP_TestPackage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = null;
+		}
+		
+		private void attach_SecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = this;
+		}
+		
+		private void detach_SecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization entity)
 		{
 			this.SendPropertyChanging();
 			entity.Base_Unit = null;
@@ -8032,6 +10756,140 @@ namespace Model
 		{
 			this.SendPropertyChanging();
 			entity.Base_WorkPost = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Base_WorkStage")]
+	public partial class Base_WorkStage : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _WorkStageId;
+		
+		private string _WorkStageCode;
+		
+		private string _WorkStageName;
+		
+		private string _Remarks;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnWorkStageIdChanging(string value);
+    partial void OnWorkStageIdChanged();
+    partial void OnWorkStageCodeChanging(string value);
+    partial void OnWorkStageCodeChanged();
+    partial void OnWorkStageNameChanging(string value);
+    partial void OnWorkStageNameChanged();
+    partial void OnRemarksChanging(string value);
+    partial void OnRemarksChanged();
+    #endregion
+		
+		public Base_WorkStage()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkStageId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string WorkStageId
+		{
+			get
+			{
+				return this._WorkStageId;
+			}
+			set
+			{
+				if ((this._WorkStageId != value))
+				{
+					this.OnWorkStageIdChanging(value);
+					this.SendPropertyChanging();
+					this._WorkStageId = value;
+					this.SendPropertyChanged("WorkStageId");
+					this.OnWorkStageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkStageCode", DbType="NVarChar(50)")]
+		public string WorkStageCode
+		{
+			get
+			{
+				return this._WorkStageCode;
+			}
+			set
+			{
+				if ((this._WorkStageCode != value))
+				{
+					this.OnWorkStageCodeChanging(value);
+					this.SendPropertyChanging();
+					this._WorkStageCode = value;
+					this.SendPropertyChanged("WorkStageCode");
+					this.OnWorkStageCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkStageName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string WorkStageName
+		{
+			get
+			{
+				return this._WorkStageName;
+			}
+			set
+			{
+				if ((this._WorkStageName != value))
+				{
+					this.OnWorkStageNameChanging(value);
+					this.SendPropertyChanging();
+					this._WorkStageName = value;
+					this.SendPropertyChanged("WorkStageName");
+					this.OnWorkStageNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remarks", DbType="NVarChar(150)")]
+		public string Remarks
+		{
+			get
+			{
+				return this._Remarks;
+			}
+			set
+			{
+				if ((this._Remarks != value))
+				{
+					this.OnRemarksChanging(value);
+					this.SendPropertyChanging();
+					this._Remarks = value;
+					this.SendPropertyChanged("Remarks");
+					this.OnRemarksChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -17057,6 +19915,2253 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Law_HSSEStandardsList")]
+	public partial class Law_HSSEStandardsList : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _StandardId;
+		
+		private string _StandardGrade;
+		
+		private string _StandardNo;
+		
+		private string _StandardName;
+		
+		private string _TypeId;
+		
+		private string _AttachUrl;
+		
+		private System.Nullable<bool> _IsSelected1;
+		
+		private System.Nullable<bool> _IsSelected2;
+		
+		private System.Nullable<bool> _IsSelected3;
+		
+		private System.Nullable<bool> _IsSelected4;
+		
+		private System.Nullable<bool> _IsSelected5;
+		
+		private System.Nullable<bool> _IsSelected6;
+		
+		private System.Nullable<bool> _IsSelected7;
+		
+		private System.Nullable<bool> _IsSelected8;
+		
+		private System.Nullable<bool> _IsSelected9;
+		
+		private System.Nullable<bool> _IsSelected10;
+		
+		private System.Nullable<bool> _IsSelected11;
+		
+		private System.Nullable<bool> _IsSelected12;
+		
+		private System.Nullable<bool> _IsSelected13;
+		
+		private System.Nullable<bool> _IsSelected14;
+		
+		private System.Nullable<bool> _IsSelected15;
+		
+		private System.Nullable<bool> _IsSelected16;
+		
+		private System.Nullable<bool> _IsSelected17;
+		
+		private System.Nullable<bool> _IsSelected18;
+		
+		private System.Nullable<bool> _IsSelected19;
+		
+		private System.Nullable<bool> _IsSelected20;
+		
+		private System.Nullable<bool> _IsSelected21;
+		
+		private System.Nullable<bool> _IsSelected22;
+		
+		private System.Nullable<bool> _IsSelected23;
+		
+		private System.Nullable<bool> _IsSelected90;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AuditMan;
+		
+		private System.Nullable<System.DateTime> _AuditDate;
+		
+		private System.Nullable<bool> _IsPass;
+		
+		private string _UnitId;
+		
+		private System.Nullable<bool> _IsBuild;
+		
+		private string _UpState;
+		
+		private System.Nullable<bool> _IsSelected24;
+		
+		private System.Nullable<bool> _IsSelected25;
+		
+		private EntityRef<Base_HSSEStandardListType> _Base_HSSEStandardListType;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStandardIdChanging(string value);
+    partial void OnStandardIdChanged();
+    partial void OnStandardGradeChanging(string value);
+    partial void OnStandardGradeChanged();
+    partial void OnStandardNoChanging(string value);
+    partial void OnStandardNoChanged();
+    partial void OnStandardNameChanging(string value);
+    partial void OnStandardNameChanged();
+    partial void OnTypeIdChanging(string value);
+    partial void OnTypeIdChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnIsSelected1Changing(System.Nullable<bool> value);
+    partial void OnIsSelected1Changed();
+    partial void OnIsSelected2Changing(System.Nullable<bool> value);
+    partial void OnIsSelected2Changed();
+    partial void OnIsSelected3Changing(System.Nullable<bool> value);
+    partial void OnIsSelected3Changed();
+    partial void OnIsSelected4Changing(System.Nullable<bool> value);
+    partial void OnIsSelected4Changed();
+    partial void OnIsSelected5Changing(System.Nullable<bool> value);
+    partial void OnIsSelected5Changed();
+    partial void OnIsSelected6Changing(System.Nullable<bool> value);
+    partial void OnIsSelected6Changed();
+    partial void OnIsSelected7Changing(System.Nullable<bool> value);
+    partial void OnIsSelected7Changed();
+    partial void OnIsSelected8Changing(System.Nullable<bool> value);
+    partial void OnIsSelected8Changed();
+    partial void OnIsSelected9Changing(System.Nullable<bool> value);
+    partial void OnIsSelected9Changed();
+    partial void OnIsSelected10Changing(System.Nullable<bool> value);
+    partial void OnIsSelected10Changed();
+    partial void OnIsSelected11Changing(System.Nullable<bool> value);
+    partial void OnIsSelected11Changed();
+    partial void OnIsSelected12Changing(System.Nullable<bool> value);
+    partial void OnIsSelected12Changed();
+    partial void OnIsSelected13Changing(System.Nullable<bool> value);
+    partial void OnIsSelected13Changed();
+    partial void OnIsSelected14Changing(System.Nullable<bool> value);
+    partial void OnIsSelected14Changed();
+    partial void OnIsSelected15Changing(System.Nullable<bool> value);
+    partial void OnIsSelected15Changed();
+    partial void OnIsSelected16Changing(System.Nullable<bool> value);
+    partial void OnIsSelected16Changed();
+    partial void OnIsSelected17Changing(System.Nullable<bool> value);
+    partial void OnIsSelected17Changed();
+    partial void OnIsSelected18Changing(System.Nullable<bool> value);
+    partial void OnIsSelected18Changed();
+    partial void OnIsSelected19Changing(System.Nullable<bool> value);
+    partial void OnIsSelected19Changed();
+    partial void OnIsSelected20Changing(System.Nullable<bool> value);
+    partial void OnIsSelected20Changed();
+    partial void OnIsSelected21Changing(System.Nullable<bool> value);
+    partial void OnIsSelected21Changed();
+    partial void OnIsSelected22Changing(System.Nullable<bool> value);
+    partial void OnIsSelected22Changed();
+    partial void OnIsSelected23Changing(System.Nullable<bool> value);
+    partial void OnIsSelected23Changed();
+    partial void OnIsSelected90Changing(System.Nullable<bool> value);
+    partial void OnIsSelected90Changed();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAuditManChanging(string value);
+    partial void OnAuditManChanged();
+    partial void OnAuditDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnAuditDateChanged();
+    partial void OnIsPassChanging(System.Nullable<bool> value);
+    partial void OnIsPassChanged();
+    partial void OnUnitIdChanging(string value);
+    partial void OnUnitIdChanged();
+    partial void OnIsBuildChanging(System.Nullable<bool> value);
+    partial void OnIsBuildChanged();
+    partial void OnUpStateChanging(string value);
+    partial void OnUpStateChanged();
+    partial void OnIsSelected24Changing(System.Nullable<bool> value);
+    partial void OnIsSelected24Changed();
+    partial void OnIsSelected25Changing(System.Nullable<bool> value);
+    partial void OnIsSelected25Changed();
+    #endregion
+		
+		public Law_HSSEStandardsList()
+		{
+			this._Base_HSSEStandardListType = default(EntityRef<Base_HSSEStandardListType>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StandardId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string StandardId
+		{
+			get
+			{
+				return this._StandardId;
+			}
+			set
+			{
+				if ((this._StandardId != value))
+				{
+					this.OnStandardIdChanging(value);
+					this.SendPropertyChanging();
+					this._StandardId = value;
+					this.SendPropertyChanged("StandardId");
+					this.OnStandardIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StandardGrade", DbType="NChar(12)")]
+		public string StandardGrade
+		{
+			get
+			{
+				return this._StandardGrade;
+			}
+			set
+			{
+				if ((this._StandardGrade != value))
+				{
+					this.OnStandardGradeChanging(value);
+					this.SendPropertyChanging();
+					this._StandardGrade = value;
+					this.SendPropertyChanged("StandardGrade");
+					this.OnStandardGradeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StandardNo", DbType="NVarChar(25)")]
+		public string StandardNo
+		{
+			get
+			{
+				return this._StandardNo;
+			}
+			set
+			{
+				if ((this._StandardNo != value))
+				{
+					this.OnStandardNoChanging(value);
+					this.SendPropertyChanging();
+					this._StandardNo = value;
+					this.SendPropertyChanged("StandardNo");
+					this.OnStandardNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StandardName", DbType="NVarChar(100)")]
+		public string StandardName
+		{
+			get
+			{
+				return this._StandardName;
+			}
+			set
+			{
+				if ((this._StandardName != value))
+				{
+					this.OnStandardNameChanging(value);
+					this.SendPropertyChanging();
+					this._StandardName = value;
+					this.SendPropertyChanged("StandardName");
+					this.OnStandardNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeId", DbType="NVarChar(50)")]
+		public string TypeId
+		{
+			get
+			{
+				return this._TypeId;
+			}
+			set
+			{
+				if ((this._TypeId != value))
+				{
+					if (this._Base_HSSEStandardListType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._TypeId = value;
+					this.SendPropertyChanged("TypeId");
+					this.OnTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(2000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected1", DbType="Bit")]
+		public System.Nullable<bool> IsSelected1
+		{
+			get
+			{
+				return this._IsSelected1;
+			}
+			set
+			{
+				if ((this._IsSelected1 != value))
+				{
+					this.OnIsSelected1Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected1 = value;
+					this.SendPropertyChanged("IsSelected1");
+					this.OnIsSelected1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected2", DbType="Bit")]
+		public System.Nullable<bool> IsSelected2
+		{
+			get
+			{
+				return this._IsSelected2;
+			}
+			set
+			{
+				if ((this._IsSelected2 != value))
+				{
+					this.OnIsSelected2Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected2 = value;
+					this.SendPropertyChanged("IsSelected2");
+					this.OnIsSelected2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected3", DbType="Bit")]
+		public System.Nullable<bool> IsSelected3
+		{
+			get
+			{
+				return this._IsSelected3;
+			}
+			set
+			{
+				if ((this._IsSelected3 != value))
+				{
+					this.OnIsSelected3Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected3 = value;
+					this.SendPropertyChanged("IsSelected3");
+					this.OnIsSelected3Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected4", DbType="Bit")]
+		public System.Nullable<bool> IsSelected4
+		{
+			get
+			{
+				return this._IsSelected4;
+			}
+			set
+			{
+				if ((this._IsSelected4 != value))
+				{
+					this.OnIsSelected4Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected4 = value;
+					this.SendPropertyChanged("IsSelected4");
+					this.OnIsSelected4Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected5", DbType="Bit")]
+		public System.Nullable<bool> IsSelected5
+		{
+			get
+			{
+				return this._IsSelected5;
+			}
+			set
+			{
+				if ((this._IsSelected5 != value))
+				{
+					this.OnIsSelected5Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected5 = value;
+					this.SendPropertyChanged("IsSelected5");
+					this.OnIsSelected5Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected6", DbType="Bit")]
+		public System.Nullable<bool> IsSelected6
+		{
+			get
+			{
+				return this._IsSelected6;
+			}
+			set
+			{
+				if ((this._IsSelected6 != value))
+				{
+					this.OnIsSelected6Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected6 = value;
+					this.SendPropertyChanged("IsSelected6");
+					this.OnIsSelected6Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected7", DbType="Bit")]
+		public System.Nullable<bool> IsSelected7
+		{
+			get
+			{
+				return this._IsSelected7;
+			}
+			set
+			{
+				if ((this._IsSelected7 != value))
+				{
+					this.OnIsSelected7Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected7 = value;
+					this.SendPropertyChanged("IsSelected7");
+					this.OnIsSelected7Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected8", DbType="Bit")]
+		public System.Nullable<bool> IsSelected8
+		{
+			get
+			{
+				return this._IsSelected8;
+			}
+			set
+			{
+				if ((this._IsSelected8 != value))
+				{
+					this.OnIsSelected8Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected8 = value;
+					this.SendPropertyChanged("IsSelected8");
+					this.OnIsSelected8Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected9", DbType="Bit")]
+		public System.Nullable<bool> IsSelected9
+		{
+			get
+			{
+				return this._IsSelected9;
+			}
+			set
+			{
+				if ((this._IsSelected9 != value))
+				{
+					this.OnIsSelected9Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected9 = value;
+					this.SendPropertyChanged("IsSelected9");
+					this.OnIsSelected9Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected10", DbType="Bit")]
+		public System.Nullable<bool> IsSelected10
+		{
+			get
+			{
+				return this._IsSelected10;
+			}
+			set
+			{
+				if ((this._IsSelected10 != value))
+				{
+					this.OnIsSelected10Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected10 = value;
+					this.SendPropertyChanged("IsSelected10");
+					this.OnIsSelected10Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected11", DbType="Bit")]
+		public System.Nullable<bool> IsSelected11
+		{
+			get
+			{
+				return this._IsSelected11;
+			}
+			set
+			{
+				if ((this._IsSelected11 != value))
+				{
+					this.OnIsSelected11Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected11 = value;
+					this.SendPropertyChanged("IsSelected11");
+					this.OnIsSelected11Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected12", DbType="Bit")]
+		public System.Nullable<bool> IsSelected12
+		{
+			get
+			{
+				return this._IsSelected12;
+			}
+			set
+			{
+				if ((this._IsSelected12 != value))
+				{
+					this.OnIsSelected12Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected12 = value;
+					this.SendPropertyChanged("IsSelected12");
+					this.OnIsSelected12Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected13", DbType="Bit")]
+		public System.Nullable<bool> IsSelected13
+		{
+			get
+			{
+				return this._IsSelected13;
+			}
+			set
+			{
+				if ((this._IsSelected13 != value))
+				{
+					this.OnIsSelected13Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected13 = value;
+					this.SendPropertyChanged("IsSelected13");
+					this.OnIsSelected13Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected14", DbType="Bit")]
+		public System.Nullable<bool> IsSelected14
+		{
+			get
+			{
+				return this._IsSelected14;
+			}
+			set
+			{
+				if ((this._IsSelected14 != value))
+				{
+					this.OnIsSelected14Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected14 = value;
+					this.SendPropertyChanged("IsSelected14");
+					this.OnIsSelected14Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected15", DbType="Bit")]
+		public System.Nullable<bool> IsSelected15
+		{
+			get
+			{
+				return this._IsSelected15;
+			}
+			set
+			{
+				if ((this._IsSelected15 != value))
+				{
+					this.OnIsSelected15Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected15 = value;
+					this.SendPropertyChanged("IsSelected15");
+					this.OnIsSelected15Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected16", DbType="Bit")]
+		public System.Nullable<bool> IsSelected16
+		{
+			get
+			{
+				return this._IsSelected16;
+			}
+			set
+			{
+				if ((this._IsSelected16 != value))
+				{
+					this.OnIsSelected16Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected16 = value;
+					this.SendPropertyChanged("IsSelected16");
+					this.OnIsSelected16Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected17", DbType="Bit")]
+		public System.Nullable<bool> IsSelected17
+		{
+			get
+			{
+				return this._IsSelected17;
+			}
+			set
+			{
+				if ((this._IsSelected17 != value))
+				{
+					this.OnIsSelected17Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected17 = value;
+					this.SendPropertyChanged("IsSelected17");
+					this.OnIsSelected17Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected18", DbType="Bit")]
+		public System.Nullable<bool> IsSelected18
+		{
+			get
+			{
+				return this._IsSelected18;
+			}
+			set
+			{
+				if ((this._IsSelected18 != value))
+				{
+					this.OnIsSelected18Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected18 = value;
+					this.SendPropertyChanged("IsSelected18");
+					this.OnIsSelected18Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected19", DbType="Bit")]
+		public System.Nullable<bool> IsSelected19
+		{
+			get
+			{
+				return this._IsSelected19;
+			}
+			set
+			{
+				if ((this._IsSelected19 != value))
+				{
+					this.OnIsSelected19Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected19 = value;
+					this.SendPropertyChanged("IsSelected19");
+					this.OnIsSelected19Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected20", DbType="Bit")]
+		public System.Nullable<bool> IsSelected20
+		{
+			get
+			{
+				return this._IsSelected20;
+			}
+			set
+			{
+				if ((this._IsSelected20 != value))
+				{
+					this.OnIsSelected20Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected20 = value;
+					this.SendPropertyChanged("IsSelected20");
+					this.OnIsSelected20Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected21", DbType="Bit")]
+		public System.Nullable<bool> IsSelected21
+		{
+			get
+			{
+				return this._IsSelected21;
+			}
+			set
+			{
+				if ((this._IsSelected21 != value))
+				{
+					this.OnIsSelected21Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected21 = value;
+					this.SendPropertyChanged("IsSelected21");
+					this.OnIsSelected21Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected22", DbType="Bit")]
+		public System.Nullable<bool> IsSelected22
+		{
+			get
+			{
+				return this._IsSelected22;
+			}
+			set
+			{
+				if ((this._IsSelected22 != value))
+				{
+					this.OnIsSelected22Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected22 = value;
+					this.SendPropertyChanged("IsSelected22");
+					this.OnIsSelected22Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected23", DbType="Bit")]
+		public System.Nullable<bool> IsSelected23
+		{
+			get
+			{
+				return this._IsSelected23;
+			}
+			set
+			{
+				if ((this._IsSelected23 != value))
+				{
+					this.OnIsSelected23Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected23 = value;
+					this.SendPropertyChanged("IsSelected23");
+					this.OnIsSelected23Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected90", DbType="Bit")]
+		public System.Nullable<bool> IsSelected90
+		{
+			get
+			{
+				return this._IsSelected90;
+			}
+			set
+			{
+				if ((this._IsSelected90 != value))
+				{
+					this.OnIsSelected90Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected90 = value;
+					this.SendPropertyChanged("IsSelected90");
+					this.OnIsSelected90Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditMan", DbType="NVarChar(50)")]
+		public string AuditMan
+		{
+			get
+			{
+				return this._AuditMan;
+			}
+			set
+			{
+				if ((this._AuditMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAuditManChanging(value);
+					this.SendPropertyChanging();
+					this._AuditMan = value;
+					this.SendPropertyChanged("AuditMan");
+					this.OnAuditManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> AuditDate
+		{
+			get
+			{
+				return this._AuditDate;
+			}
+			set
+			{
+				if ((this._AuditDate != value))
+				{
+					this.OnAuditDateChanging(value);
+					this.SendPropertyChanging();
+					this._AuditDate = value;
+					this.SendPropertyChanged("AuditDate");
+					this.OnAuditDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPass", DbType="Bit")]
+		public System.Nullable<bool> IsPass
+		{
+			get
+			{
+				return this._IsPass;
+			}
+			set
+			{
+				if ((this._IsPass != value))
+				{
+					this.OnIsPassChanging(value);
+					this.SendPropertyChanging();
+					this._IsPass = value;
+					this.SendPropertyChanged("IsPass");
+					this.OnIsPassChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					this.OnUnitIdChanging(value);
+					this.SendPropertyChanging();
+					this._UnitId = value;
+					this.SendPropertyChanged("UnitId");
+					this.OnUnitIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsBuild", DbType="Bit")]
+		public System.Nullable<bool> IsBuild
+		{
+			get
+			{
+				return this._IsBuild;
+			}
+			set
+			{
+				if ((this._IsBuild != value))
+				{
+					this.OnIsBuildChanging(value);
+					this.SendPropertyChanging();
+					this._IsBuild = value;
+					this.SendPropertyChanged("IsBuild");
+					this.OnIsBuildChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpState", DbType="Char(1)")]
+		public string UpState
+		{
+			get
+			{
+				return this._UpState;
+			}
+			set
+			{
+				if ((this._UpState != value))
+				{
+					this.OnUpStateChanging(value);
+					this.SendPropertyChanging();
+					this._UpState = value;
+					this.SendPropertyChanged("UpState");
+					this.OnUpStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected24", DbType="Bit")]
+		public System.Nullable<bool> IsSelected24
+		{
+			get
+			{
+				return this._IsSelected24;
+			}
+			set
+			{
+				if ((this._IsSelected24 != value))
+				{
+					this.OnIsSelected24Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected24 = value;
+					this.SendPropertyChanged("IsSelected24");
+					this.OnIsSelected24Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSelected25", DbType="Bit")]
+		public System.Nullable<bool> IsSelected25
+		{
+			get
+			{
+				return this._IsSelected25;
+			}
+			set
+			{
+				if ((this._IsSelected25 != value))
+				{
+					this.OnIsSelected25Changing(value);
+					this.SendPropertyChanging();
+					this._IsSelected25 = value;
+					this.SendPropertyChanged("IsSelected25");
+					this.OnIsSelected25Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_HSSEStandardsList_Base_HSSEStandardListType", Storage="_Base_HSSEStandardListType", ThisKey="TypeId", OtherKey="TypeId", IsForeignKey=true)]
+		public Base_HSSEStandardListType Base_HSSEStandardListType
+		{
+			get
+			{
+				return this._Base_HSSEStandardListType.Entity;
+			}
+			set
+			{
+				Base_HSSEStandardListType previousValue = this._Base_HSSEStandardListType.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_HSSEStandardListType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_HSSEStandardListType.Entity = null;
+						previousValue.Law_HSSEStandardsList.Remove(this);
+					}
+					this._Base_HSSEStandardListType.Entity = value;
+					if ((value != null))
+					{
+						value.Law_HSSEStandardsList.Add(this);
+						this._TypeId = value.TypeId;
+					}
+					else
+					{
+						this._TypeId = default(string);
+					}
+					this.SendPropertyChanged("Base_HSSEStandardListType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_HSSEStandardsList_Sys_User2", Storage="_Sys_User", ThisKey="AuditMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Law_HSSEStandardsList.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Law_HSSEStandardsList.Add(this);
+						this._AuditMan = value.UserId;
+					}
+					else
+					{
+						this._AuditMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Law_LawRegulationIdentify")]
+	public partial class Law_LawRegulationIdentify : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _LawRegulationIdentifyId;
+		
+		private string _LawRegulationIdentifyCode;
+		
+		private string _VersionNumber;
+		
+		private string _ProjectId;
+		
+		private string _IdentifyPerson;
+		
+		private System.Nullable<System.DateTime> _IdentifyDate;
+		
+		private string _ManagerContent;
+		
+		private string _IdentifyConclude;
+		
+		private string _States;
+		
+		private string _GroupMember;
+		
+		private string _Remark;
+		
+		private System.Nullable<System.DateTime> _UpdateDate;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntitySet<Law_LawRegulationSelectedItem> _Law_LawRegulationSelectedItem;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLawRegulationIdentifyIdChanging(string value);
+    partial void OnLawRegulationIdentifyIdChanged();
+    partial void OnLawRegulationIdentifyCodeChanging(string value);
+    partial void OnLawRegulationIdentifyCodeChanged();
+    partial void OnVersionNumberChanging(string value);
+    partial void OnVersionNumberChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnIdentifyPersonChanging(string value);
+    partial void OnIdentifyPersonChanged();
+    partial void OnIdentifyDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnIdentifyDateChanged();
+    partial void OnManagerContentChanging(string value);
+    partial void OnManagerContentChanged();
+    partial void OnIdentifyConcludeChanging(string value);
+    partial void OnIdentifyConcludeChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    partial void OnGroupMemberChanging(string value);
+    partial void OnGroupMemberChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnUpdateDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdateDateChanged();
+    #endregion
+		
+		public Law_LawRegulationIdentify()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Law_LawRegulationSelectedItem = new EntitySet<Law_LawRegulationSelectedItem>(new Action<Law_LawRegulationSelectedItem>(this.attach_Law_LawRegulationSelectedItem), new Action<Law_LawRegulationSelectedItem>(this.detach_Law_LawRegulationSelectedItem));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationIdentifyId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string LawRegulationIdentifyId
+		{
+			get
+			{
+				return this._LawRegulationIdentifyId;
+			}
+			set
+			{
+				if ((this._LawRegulationIdentifyId != value))
+				{
+					this.OnLawRegulationIdentifyIdChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationIdentifyId = value;
+					this.SendPropertyChanged("LawRegulationIdentifyId");
+					this.OnLawRegulationIdentifyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationIdentifyCode", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string LawRegulationIdentifyCode
+		{
+			get
+			{
+				return this._LawRegulationIdentifyCode;
+			}
+			set
+			{
+				if ((this._LawRegulationIdentifyCode != value))
+				{
+					this.OnLawRegulationIdentifyCodeChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationIdentifyCode = value;
+					this.SendPropertyChanged("LawRegulationIdentifyCode");
+					this.OnLawRegulationIdentifyCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VersionNumber", DbType="NVarChar(10)")]
+		public string VersionNumber
+		{
+			get
+			{
+				return this._VersionNumber;
+			}
+			set
+			{
+				if ((this._VersionNumber != value))
+				{
+					this.OnVersionNumberChanging(value);
+					this.SendPropertyChanging();
+					this._VersionNumber = value;
+					this.SendPropertyChanged("VersionNumber");
+					this.OnVersionNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdentifyPerson", DbType="NVarChar(50)")]
+		public string IdentifyPerson
+		{
+			get
+			{
+				return this._IdentifyPerson;
+			}
+			set
+			{
+				if ((this._IdentifyPerson != value))
+				{
+					this.OnIdentifyPersonChanging(value);
+					this.SendPropertyChanging();
+					this._IdentifyPerson = value;
+					this.SendPropertyChanged("IdentifyPerson");
+					this.OnIdentifyPersonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdentifyDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> IdentifyDate
+		{
+			get
+			{
+				return this._IdentifyDate;
+			}
+			set
+			{
+				if ((this._IdentifyDate != value))
+				{
+					this.OnIdentifyDateChanging(value);
+					this.SendPropertyChanging();
+					this._IdentifyDate = value;
+					this.SendPropertyChanged("IdentifyDate");
+					this.OnIdentifyDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ManagerContent", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string ManagerContent
+		{
+			get
+			{
+				return this._ManagerContent;
+			}
+			set
+			{
+				if ((this._ManagerContent != value))
+				{
+					this.OnManagerContentChanging(value);
+					this.SendPropertyChanging();
+					this._ManagerContent = value;
+					this.SendPropertyChanged("ManagerContent");
+					this.OnManagerContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdentifyConclude", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string IdentifyConclude
+		{
+			get
+			{
+				return this._IdentifyConclude;
+			}
+			set
+			{
+				if ((this._IdentifyConclude != value))
+				{
+					this.OnIdentifyConcludeChanging(value);
+					this.SendPropertyChanging();
+					this._IdentifyConclude = value;
+					this.SendPropertyChanged("IdentifyConclude");
+					this.OnIdentifyConcludeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="NChar(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GroupMember", DbType="NVarChar(150)")]
+		public string GroupMember
+		{
+			get
+			{
+				return this._GroupMember;
+			}
+			set
+			{
+				if ((this._GroupMember != value))
+				{
+					this.OnGroupMemberChanging(value);
+					this.SendPropertyChanging();
+					this._GroupMember = value;
+					this.SendPropertyChanged("GroupMember");
+					this.OnGroupMemberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(150)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdateDate
+		{
+			get
+			{
+				return this._UpdateDate;
+			}
+			set
+			{
+				if ((this._UpdateDate != value))
+				{
+					this.OnUpdateDateChanging(value);
+					this.SendPropertyChanging();
+					this._UpdateDate = value;
+					this.SendPropertyChanged("UpdateDate");
+					this.OnUpdateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationIdentify_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.Law_LawRegulationIdentify.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.Law_LawRegulationIdentify.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationSelectedItem_Law_LawRegulationIdentify", Storage="_Law_LawRegulationSelectedItem", ThisKey="LawRegulationIdentifyId", OtherKey="LawRegulationIdentifyId", DeleteRule="NO ACTION")]
+		public EntitySet<Law_LawRegulationSelectedItem> Law_LawRegulationSelectedItem
+		{
+			get
+			{
+				return this._Law_LawRegulationSelectedItem;
+			}
+			set
+			{
+				this._Law_LawRegulationSelectedItem.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Law_LawRegulationSelectedItem(Law_LawRegulationSelectedItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Law_LawRegulationIdentify = this;
+		}
+		
+		private void detach_Law_LawRegulationSelectedItem(Law_LawRegulationSelectedItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Law_LawRegulationIdentify = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Law_LawRegulationList")]
+	public partial class Law_LawRegulationList : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _LawRegulationId;
+		
+		private string _LawRegulationCode;
+		
+		private string _LawRegulationName;
+		
+		private System.Nullable<System.DateTime> _ApprovalDate;
+		
+		private System.Nullable<System.DateTime> _EffectiveDate;
+		
+		private string _Description;
+		
+		private string _AttachUrl;
+		
+		private string _LawsRegulationsTypeId;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AuditMan;
+		
+		private System.Nullable<System.DateTime> _AuditDate;
+		
+		private System.Nullable<bool> _IsPass;
+		
+		private string _UnitId;
+		
+		private System.Nullable<bool> _IsBuild;
+		
+		private string _UpState;
+		
+		private EntityRef<Base_LawsRegulationsType> _Base_LawsRegulationsType;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+		private EntitySet<Law_LawRegulationSelectedItem> _Law_LawRegulationSelectedItem;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLawRegulationIdChanging(string value);
+    partial void OnLawRegulationIdChanged();
+    partial void OnLawRegulationCodeChanging(string value);
+    partial void OnLawRegulationCodeChanged();
+    partial void OnLawRegulationNameChanging(string value);
+    partial void OnLawRegulationNameChanged();
+    partial void OnApprovalDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnApprovalDateChanged();
+    partial void OnEffectiveDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEffectiveDateChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnLawsRegulationsTypeIdChanging(string value);
+    partial void OnLawsRegulationsTypeIdChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAuditManChanging(string value);
+    partial void OnAuditManChanged();
+    partial void OnAuditDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnAuditDateChanged();
+    partial void OnIsPassChanging(System.Nullable<bool> value);
+    partial void OnIsPassChanged();
+    partial void OnUnitIdChanging(string value);
+    partial void OnUnitIdChanged();
+    partial void OnIsBuildChanging(System.Nullable<bool> value);
+    partial void OnIsBuildChanged();
+    partial void OnUpStateChanging(string value);
+    partial void OnUpStateChanged();
+    #endregion
+		
+		public Law_LawRegulationList()
+		{
+			this._Base_LawsRegulationsType = default(EntityRef<Base_LawsRegulationsType>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			this._Law_LawRegulationSelectedItem = new EntitySet<Law_LawRegulationSelectedItem>(new Action<Law_LawRegulationSelectedItem>(this.attach_Law_LawRegulationSelectedItem), new Action<Law_LawRegulationSelectedItem>(this.detach_Law_LawRegulationSelectedItem));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string LawRegulationId
+		{
+			get
+			{
+				return this._LawRegulationId;
+			}
+			set
+			{
+				if ((this._LawRegulationId != value))
+				{
+					this.OnLawRegulationIdChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationId = value;
+					this.SendPropertyChanged("LawRegulationId");
+					this.OnLawRegulationIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationCode", DbType="NVarChar(300)")]
+		public string LawRegulationCode
+		{
+			get
+			{
+				return this._LawRegulationCode;
+			}
+			set
+			{
+				if ((this._LawRegulationCode != value))
+				{
+					this.OnLawRegulationCodeChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationCode = value;
+					this.SendPropertyChanged("LawRegulationCode");
+					this.OnLawRegulationCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationName", DbType="NVarChar(500)")]
+		public string LawRegulationName
+		{
+			get
+			{
+				return this._LawRegulationName;
+			}
+			set
+			{
+				if ((this._LawRegulationName != value))
+				{
+					this.OnLawRegulationNameChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationName = value;
+					this.SendPropertyChanged("LawRegulationName");
+					this.OnLawRegulationNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovalDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ApprovalDate
+		{
+			get
+			{
+				return this._ApprovalDate;
+			}
+			set
+			{
+				if ((this._ApprovalDate != value))
+				{
+					this.OnApprovalDateChanging(value);
+					this.SendPropertyChanging();
+					this._ApprovalDate = value;
+					this.SendPropertyChanged("ApprovalDate");
+					this.OnApprovalDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffectiveDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EffectiveDate
+		{
+			get
+			{
+				return this._EffectiveDate;
+			}
+			set
+			{
+				if ((this._EffectiveDate != value))
+				{
+					this.OnEffectiveDateChanging(value);
+					this.SendPropertyChanging();
+					this._EffectiveDate = value;
+					this.SendPropertyChanged("EffectiveDate");
+					this.OnEffectiveDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1000)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(2000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawsRegulationsTypeId", DbType="NVarChar(50)")]
+		public string LawsRegulationsTypeId
+		{
+			get
+			{
+				return this._LawsRegulationsTypeId;
+			}
+			set
+			{
+				if ((this._LawsRegulationsTypeId != value))
+				{
+					if (this._Base_LawsRegulationsType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnLawsRegulationsTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._LawsRegulationsTypeId = value;
+					this.SendPropertyChanged("LawsRegulationsTypeId");
+					this.OnLawsRegulationsTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditMan", DbType="NVarChar(50)")]
+		public string AuditMan
+		{
+			get
+			{
+				return this._AuditMan;
+			}
+			set
+			{
+				if ((this._AuditMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAuditManChanging(value);
+					this.SendPropertyChanging();
+					this._AuditMan = value;
+					this.SendPropertyChanged("AuditMan");
+					this.OnAuditManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> AuditDate
+		{
+			get
+			{
+				return this._AuditDate;
+			}
+			set
+			{
+				if ((this._AuditDate != value))
+				{
+					this.OnAuditDateChanging(value);
+					this.SendPropertyChanging();
+					this._AuditDate = value;
+					this.SendPropertyChanged("AuditDate");
+					this.OnAuditDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPass", DbType="Bit")]
+		public System.Nullable<bool> IsPass
+		{
+			get
+			{
+				return this._IsPass;
+			}
+			set
+			{
+				if ((this._IsPass != value))
+				{
+					this.OnIsPassChanging(value);
+					this.SendPropertyChanging();
+					this._IsPass = value;
+					this.SendPropertyChanged("IsPass");
+					this.OnIsPassChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					this.OnUnitIdChanging(value);
+					this.SendPropertyChanging();
+					this._UnitId = value;
+					this.SendPropertyChanged("UnitId");
+					this.OnUnitIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsBuild", DbType="Bit")]
+		public System.Nullable<bool> IsBuild
+		{
+			get
+			{
+				return this._IsBuild;
+			}
+			set
+			{
+				if ((this._IsBuild != value))
+				{
+					this.OnIsBuildChanging(value);
+					this.SendPropertyChanging();
+					this._IsBuild = value;
+					this.SendPropertyChanged("IsBuild");
+					this.OnIsBuildChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpState", DbType="Char(1)")]
+		public string UpState
+		{
+			get
+			{
+				return this._UpState;
+			}
+			set
+			{
+				if ((this._UpState != value))
+				{
+					this.OnUpStateChanging(value);
+					this.SendPropertyChanging();
+					this._UpState = value;
+					this.SendPropertyChanged("UpState");
+					this.OnUpStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationList_Base_LawsRegulationsType", Storage="_Base_LawsRegulationsType", ThisKey="LawsRegulationsTypeId", OtherKey="Id", IsForeignKey=true)]
+		public Base_LawsRegulationsType Base_LawsRegulationsType
+		{
+			get
+			{
+				return this._Base_LawsRegulationsType.Entity;
+			}
+			set
+			{
+				Base_LawsRegulationsType previousValue = this._Base_LawsRegulationsType.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_LawsRegulationsType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_LawsRegulationsType.Entity = null;
+						previousValue.Law_LawRegulationList.Remove(this);
+					}
+					this._Base_LawsRegulationsType.Entity = value;
+					if ((value != null))
+					{
+						value.Law_LawRegulationList.Add(this);
+						this._LawsRegulationsTypeId = value.Id;
+					}
+					else
+					{
+						this._LawsRegulationsTypeId = default(string);
+					}
+					this.SendPropertyChanged("Base_LawsRegulationsType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationList_Sys_User1", Storage="_Sys_User", ThisKey="AuditMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Law_LawRegulationList.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Law_LawRegulationList.Add(this);
+						this._AuditMan = value.UserId;
+					}
+					else
+					{
+						this._AuditMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationSelectedItem_Law_LawRegulationList", Storage="_Law_LawRegulationSelectedItem", ThisKey="LawRegulationId", OtherKey="LawRegulationId", DeleteRule="NO ACTION")]
+		public EntitySet<Law_LawRegulationSelectedItem> Law_LawRegulationSelectedItem
+		{
+			get
+			{
+				return this._Law_LawRegulationSelectedItem;
+			}
+			set
+			{
+				this._Law_LawRegulationSelectedItem.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Law_LawRegulationSelectedItem(Law_LawRegulationSelectedItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Law_LawRegulationList = this;
+		}
+		
+		private void detach_Law_LawRegulationSelectedItem(Law_LawRegulationSelectedItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Law_LawRegulationList = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Law_LawRegulationSelectedItem")]
+	public partial class Law_LawRegulationSelectedItem : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _LawRegulationSelectedItemId;
+		
+		private string _LawRegulationIdentifyId;
+		
+		private string _LawRegulationGrade;
+		
+		private string _FitPerfomance;
+		
+		private string _LawRegulationId;
+		
+		private EntityRef<Law_LawRegulationIdentify> _Law_LawRegulationIdentify;
+		
+		private EntityRef<Law_LawRegulationList> _Law_LawRegulationList;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLawRegulationSelectedItemIdChanging(string value);
+    partial void OnLawRegulationSelectedItemIdChanged();
+    partial void OnLawRegulationIdentifyIdChanging(string value);
+    partial void OnLawRegulationIdentifyIdChanged();
+    partial void OnLawRegulationGradeChanging(string value);
+    partial void OnLawRegulationGradeChanged();
+    partial void OnFitPerfomanceChanging(string value);
+    partial void OnFitPerfomanceChanged();
+    partial void OnLawRegulationIdChanging(string value);
+    partial void OnLawRegulationIdChanged();
+    #endregion
+		
+		public Law_LawRegulationSelectedItem()
+		{
+			this._Law_LawRegulationIdentify = default(EntityRef<Law_LawRegulationIdentify>);
+			this._Law_LawRegulationList = default(EntityRef<Law_LawRegulationList>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationSelectedItemId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string LawRegulationSelectedItemId
+		{
+			get
+			{
+				return this._LawRegulationSelectedItemId;
+			}
+			set
+			{
+				if ((this._LawRegulationSelectedItemId != value))
+				{
+					this.OnLawRegulationSelectedItemIdChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationSelectedItemId = value;
+					this.SendPropertyChanged("LawRegulationSelectedItemId");
+					this.OnLawRegulationSelectedItemIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationIdentifyId", DbType="NVarChar(50)")]
+		public string LawRegulationIdentifyId
+		{
+			get
+			{
+				return this._LawRegulationIdentifyId;
+			}
+			set
+			{
+				if ((this._LawRegulationIdentifyId != value))
+				{
+					if (this._Law_LawRegulationIdentify.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnLawRegulationIdentifyIdChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationIdentifyId = value;
+					this.SendPropertyChanged("LawRegulationIdentifyId");
+					this.OnLawRegulationIdentifyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationGrade", DbType="NVarChar(50)")]
+		public string LawRegulationGrade
+		{
+			get
+			{
+				return this._LawRegulationGrade;
+			}
+			set
+			{
+				if ((this._LawRegulationGrade != value))
+				{
+					this.OnLawRegulationGradeChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationGrade = value;
+					this.SendPropertyChanged("LawRegulationGrade");
+					this.OnLawRegulationGradeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FitPerfomance", DbType="NVarChar(100)")]
+		public string FitPerfomance
+		{
+			get
+			{
+				return this._FitPerfomance;
+			}
+			set
+			{
+				if ((this._FitPerfomance != value))
+				{
+					this.OnFitPerfomanceChanging(value);
+					this.SendPropertyChanging();
+					this._FitPerfomance = value;
+					this.SendPropertyChanged("FitPerfomance");
+					this.OnFitPerfomanceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationId", DbType="NVarChar(50)")]
+		public string LawRegulationId
+		{
+			get
+			{
+				return this._LawRegulationId;
+			}
+			set
+			{
+				if ((this._LawRegulationId != value))
+				{
+					if (this._Law_LawRegulationList.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnLawRegulationIdChanging(value);
+					this.SendPropertyChanging();
+					this._LawRegulationId = value;
+					this.SendPropertyChanged("LawRegulationId");
+					this.OnLawRegulationIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationSelectedItem_Law_LawRegulationIdentify", Storage="_Law_LawRegulationIdentify", ThisKey="LawRegulationIdentifyId", OtherKey="LawRegulationIdentifyId", IsForeignKey=true)]
+		public Law_LawRegulationIdentify Law_LawRegulationIdentify
+		{
+			get
+			{
+				return this._Law_LawRegulationIdentify.Entity;
+			}
+			set
+			{
+				Law_LawRegulationIdentify previousValue = this._Law_LawRegulationIdentify.Entity;
+				if (((previousValue != value) 
+							|| (this._Law_LawRegulationIdentify.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Law_LawRegulationIdentify.Entity = null;
+						previousValue.Law_LawRegulationSelectedItem.Remove(this);
+					}
+					this._Law_LawRegulationIdentify.Entity = value;
+					if ((value != null))
+					{
+						value.Law_LawRegulationSelectedItem.Add(this);
+						this._LawRegulationIdentifyId = value.LawRegulationIdentifyId;
+					}
+					else
+					{
+						this._LawRegulationIdentifyId = default(string);
+					}
+					this.SendPropertyChanged("Law_LawRegulationIdentify");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationSelectedItem_Law_LawRegulationList", Storage="_Law_LawRegulationList", ThisKey="LawRegulationId", OtherKey="LawRegulationId", IsForeignKey=true)]
+		public Law_LawRegulationList Law_LawRegulationList
+		{
+			get
+			{
+				return this._Law_LawRegulationList.Entity;
+			}
+			set
+			{
+				Law_LawRegulationList previousValue = this._Law_LawRegulationList.Entity;
+				if (((previousValue != value) 
+							|| (this._Law_LawRegulationList.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Law_LawRegulationList.Entity = null;
+						previousValue.Law_LawRegulationSelectedItem.Remove(this);
+					}
+					this._Law_LawRegulationList.Entity = value;
+					if ((value != null))
+					{
+						value.Law_LawRegulationSelectedItem.Add(this);
+						this._LawRegulationId = value.LawRegulationId;
+					}
+					else
+					{
+						this._LawRegulationId = default(string);
+					}
+					this.SendPropertyChanged("Law_LawRegulationList");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Project_ProjectUnit")]
 	public partial class Project_ProjectUnit : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -17743,6 +22848,301 @@ namespace Model
 					else
 					{
 						this._UserId = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProjectData_FlowOperate")]
+	public partial class ProjectData_FlowOperate : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FlowOperateId;
+		
+		private string _MenuId;
+		
+		private string _DataId;
+		
+		private System.Nullable<int> _SortIndex;
+		
+		private string _OperaterId;
+		
+		private System.Nullable<System.DateTime> _OperaterTime;
+		
+		private string _State;
+		
+		private string _Opinion;
+		
+		private System.Nullable<bool> _IsClosed;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlowOperateIdChanging(string value);
+    partial void OnFlowOperateIdChanged();
+    partial void OnMenuIdChanging(string value);
+    partial void OnMenuIdChanged();
+    partial void OnDataIdChanging(string value);
+    partial void OnDataIdChanged();
+    partial void OnSortIndexChanging(System.Nullable<int> value);
+    partial void OnSortIndexChanged();
+    partial void OnOperaterIdChanging(string value);
+    partial void OnOperaterIdChanged();
+    partial void OnOperaterTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnOperaterTimeChanged();
+    partial void OnStateChanging(string value);
+    partial void OnStateChanged();
+    partial void OnOpinionChanging(string value);
+    partial void OnOpinionChanged();
+    partial void OnIsClosedChanging(System.Nullable<bool> value);
+    partial void OnIsClosedChanged();
+    #endregion
+		
+		public ProjectData_FlowOperate()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlowOperateId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FlowOperateId
+		{
+			get
+			{
+				return this._FlowOperateId;
+			}
+			set
+			{
+				if ((this._FlowOperateId != value))
+				{
+					this.OnFlowOperateIdChanging(value);
+					this.SendPropertyChanging();
+					this._FlowOperateId = value;
+					this.SendPropertyChanged("FlowOperateId");
+					this.OnFlowOperateIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuId", DbType="NVarChar(50)")]
+		public string MenuId
+		{
+			get
+			{
+				return this._MenuId;
+			}
+			set
+			{
+				if ((this._MenuId != value))
+				{
+					this.OnMenuIdChanging(value);
+					this.SendPropertyChanging();
+					this._MenuId = value;
+					this.SendPropertyChanged("MenuId");
+					this.OnMenuIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataId", DbType="NVarChar(50)")]
+		public string DataId
+		{
+			get
+			{
+				return this._DataId;
+			}
+			set
+			{
+				if ((this._DataId != value))
+				{
+					this.OnDataIdChanging(value);
+					this.SendPropertyChanging();
+					this._DataId = value;
+					this.SendPropertyChanged("DataId");
+					this.OnDataIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortIndex", DbType="Int")]
+		public System.Nullable<int> SortIndex
+		{
+			get
+			{
+				return this._SortIndex;
+			}
+			set
+			{
+				if ((this._SortIndex != value))
+				{
+					this.OnSortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._SortIndex = value;
+					this.SendPropertyChanged("SortIndex");
+					this.OnSortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperaterId", DbType="NVarChar(50)")]
+		public string OperaterId
+		{
+			get
+			{
+				return this._OperaterId;
+			}
+			set
+			{
+				if ((this._OperaterId != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOperaterIdChanging(value);
+					this.SendPropertyChanging();
+					this._OperaterId = value;
+					this.SendPropertyChanged("OperaterId");
+					this.OnOperaterIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperaterTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> OperaterTime
+		{
+			get
+			{
+				return this._OperaterTime;
+			}
+			set
+			{
+				if ((this._OperaterTime != value))
+				{
+					this.OnOperaterTimeChanging(value);
+					this.SendPropertyChanging();
+					this._OperaterTime = value;
+					this.SendPropertyChanged("OperaterTime");
+					this.OnOperaterTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Char(1)")]
+		public string State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Opinion", DbType="NVarChar(1000)")]
+		public string Opinion
+		{
+			get
+			{
+				return this._Opinion;
+			}
+			set
+			{
+				if ((this._Opinion != value))
+				{
+					this.OnOpinionChanging(value);
+					this.SendPropertyChanging();
+					this._Opinion = value;
+					this.SendPropertyChanged("Opinion");
+					this.OnOpinionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsClosed", DbType="Bit")]
+		public System.Nullable<bool> IsClosed
+		{
+			get
+			{
+				return this._IsClosed;
+			}
+			set
+			{
+				if ((this._IsClosed != value))
+				{
+					this.OnIsClosedChanging(value);
+					this.SendPropertyChanging();
+					this._IsClosed = value;
+					this.SendPropertyChanged("IsClosed");
+					this.OnIsClosedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ProjectData_FlowOperate_Sys_User", Storage="_Sys_User", ThisKey="OperaterId", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.ProjectData_FlowOperate.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.ProjectData_FlowOperate.Add(this);
+						this._OperaterId = value.UserId;
+					}
+					else
+					{
+						this._OperaterId = default(string);
 					}
 					this.SendPropertyChanged("Sys_User");
 				}
@@ -21933,6 +27333,366 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SecuritySystem_SafetyOrganization")]
+	public partial class SecuritySystem_SafetyOrganization : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _SafetyOrganizationId;
+		
+		private string _ProjectId;
+		
+		private string _UnitId;
+		
+		private string _Post;
+		
+		private string _Names;
+		
+		private string _Telephone;
+		
+		private string _MobilePhone;
+		
+		private string _EMail;
+		
+		private string _Duty;
+		
+		private string _SortIndex;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Base_Unit> _Base_Unit;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSafetyOrganizationIdChanging(string value);
+    partial void OnSafetyOrganizationIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnUnitIdChanging(string value);
+    partial void OnUnitIdChanged();
+    partial void OnPostChanging(string value);
+    partial void OnPostChanged();
+    partial void OnNamesChanging(string value);
+    partial void OnNamesChanged();
+    partial void OnTelephoneChanging(string value);
+    partial void OnTelephoneChanged();
+    partial void OnMobilePhoneChanging(string value);
+    partial void OnMobilePhoneChanged();
+    partial void OnEMailChanging(string value);
+    partial void OnEMailChanged();
+    partial void OnDutyChanging(string value);
+    partial void OnDutyChanged();
+    partial void OnSortIndexChanging(string value);
+    partial void OnSortIndexChanged();
+    #endregion
+		
+		public SecuritySystem_SafetyOrganization()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Base_Unit = default(EntityRef<Base_Unit>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyOrganizationId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string SafetyOrganizationId
+		{
+			get
+			{
+				return this._SafetyOrganizationId;
+			}
+			set
+			{
+				if ((this._SafetyOrganizationId != value))
+				{
+					this.OnSafetyOrganizationIdChanging(value);
+					this.SendPropertyChanging();
+					this._SafetyOrganizationId = value;
+					this.SendPropertyChanged("SafetyOrganizationId");
+					this.OnSafetyOrganizationIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					if (this._Base_Unit.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUnitIdChanging(value);
+					this.SendPropertyChanging();
+					this._UnitId = value;
+					this.SendPropertyChanged("UnitId");
+					this.OnUnitIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post", DbType="NVarChar(50)")]
+		public string Post
+		{
+			get
+			{
+				return this._Post;
+			}
+			set
+			{
+				if ((this._Post != value))
+				{
+					this.OnPostChanging(value);
+					this.SendPropertyChanging();
+					this._Post = value;
+					this.SendPropertyChanged("Post");
+					this.OnPostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Names", DbType="NVarChar(10)")]
+		public string Names
+		{
+			get
+			{
+				return this._Names;
+			}
+			set
+			{
+				if ((this._Names != value))
+				{
+					this.OnNamesChanging(value);
+					this.SendPropertyChanging();
+					this._Names = value;
+					this.SendPropertyChanged("Names");
+					this.OnNamesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telephone", DbType="NVarChar(20)")]
+		public string Telephone
+		{
+			get
+			{
+				return this._Telephone;
+			}
+			set
+			{
+				if ((this._Telephone != value))
+				{
+					this.OnTelephoneChanging(value);
+					this.SendPropertyChanging();
+					this._Telephone = value;
+					this.SendPropertyChanged("Telephone");
+					this.OnTelephoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MobilePhone", DbType="NVarChar(20)")]
+		public string MobilePhone
+		{
+			get
+			{
+				return this._MobilePhone;
+			}
+			set
+			{
+				if ((this._MobilePhone != value))
+				{
+					this.OnMobilePhoneChanging(value);
+					this.SendPropertyChanging();
+					this._MobilePhone = value;
+					this.SendPropertyChanged("MobilePhone");
+					this.OnMobilePhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMail", DbType="NVarChar(50)")]
+		public string EMail
+		{
+			get
+			{
+				return this._EMail;
+			}
+			set
+			{
+				if ((this._EMail != value))
+				{
+					this.OnEMailChanging(value);
+					this.SendPropertyChanging();
+					this._EMail = value;
+					this.SendPropertyChanged("EMail");
+					this.OnEMailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Duty", DbType="NVarChar(2000)")]
+		public string Duty
+		{
+			get
+			{
+				return this._Duty;
+			}
+			set
+			{
+				if ((this._Duty != value))
+				{
+					this.OnDutyChanging(value);
+					this.SendPropertyChanging();
+					this._Duty = value;
+					this.SendPropertyChanged("Duty");
+					this.OnDutyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortIndex", DbType="NVarChar(50)")]
+		public string SortIndex
+		{
+			get
+			{
+				return this._SortIndex;
+			}
+			set
+			{
+				if ((this._SortIndex != value))
+				{
+					this.OnSortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._SortIndex = value;
+					this.SendPropertyChanged("SortIndex");
+					this.OnSortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SecuritySystem_SafetyOrganization_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.SecuritySystem_SafetyOrganization.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.SecuritySystem_SafetyOrganization.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SecuritySystem_SafetyOrganization_Base_Unit", Storage="_Base_Unit", ThisKey="UnitId", OtherKey="UnitId", IsForeignKey=true)]
+		public Base_Unit Base_Unit
+		{
+			get
+			{
+				return this._Base_Unit.Entity;
+			}
+			set
+			{
+				Base_Unit previousValue = this._Base_Unit.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Unit.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Unit.Entity = null;
+						previousValue.SecuritySystem_SafetyOrganization.Remove(this);
+					}
+					this._Base_Unit.Entity = value;
+					if ((value != null))
+					{
+						value.SecuritySystem_SafetyOrganization.Add(this);
+						this._UnitId = value.UnitId;
+					}
+					else
+					{
+						this._UnitId = default(string);
+					}
+					this.SendPropertyChanged("Base_Unit");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_Person")]
 	public partial class SitePerson_Person : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -24866,6 +30626,414 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sys_FlowOperate")]
+	public partial class Sys_FlowOperate : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FlowOperateId;
+		
+		private string _MenuId;
+		
+		private string _DataId;
+		
+		private System.Nullable<int> _SortIndex;
+		
+		private string _AuditFlowName;
+		
+		private string _OperaterId;
+		
+		private System.Nullable<System.DateTime> _OperaterTime;
+		
+		private string _Opinion;
+		
+		private System.Nullable<bool> _IsClosed;
+		
+		private string _State;
+		
+		private string _ProjectId;
+		
+		private string _Url;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFlowOperateIdChanging(string value);
+    partial void OnFlowOperateIdChanged();
+    partial void OnMenuIdChanging(string value);
+    partial void OnMenuIdChanged();
+    partial void OnDataIdChanging(string value);
+    partial void OnDataIdChanged();
+    partial void OnSortIndexChanging(System.Nullable<int> value);
+    partial void OnSortIndexChanged();
+    partial void OnAuditFlowNameChanging(string value);
+    partial void OnAuditFlowNameChanged();
+    partial void OnOperaterIdChanging(string value);
+    partial void OnOperaterIdChanged();
+    partial void OnOperaterTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnOperaterTimeChanged();
+    partial void OnOpinionChanging(string value);
+    partial void OnOpinionChanged();
+    partial void OnIsClosedChanging(System.Nullable<bool> value);
+    partial void OnIsClosedChanged();
+    partial void OnStateChanging(string value);
+    partial void OnStateChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnUrlChanging(string value);
+    partial void OnUrlChanged();
+    #endregion
+		
+		public Sys_FlowOperate()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlowOperateId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FlowOperateId
+		{
+			get
+			{
+				return this._FlowOperateId;
+			}
+			set
+			{
+				if ((this._FlowOperateId != value))
+				{
+					this.OnFlowOperateIdChanging(value);
+					this.SendPropertyChanging();
+					this._FlowOperateId = value;
+					this.SendPropertyChanged("FlowOperateId");
+					this.OnFlowOperateIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuId", DbType="NVarChar(50)")]
+		public string MenuId
+		{
+			get
+			{
+				return this._MenuId;
+			}
+			set
+			{
+				if ((this._MenuId != value))
+				{
+					this.OnMenuIdChanging(value);
+					this.SendPropertyChanging();
+					this._MenuId = value;
+					this.SendPropertyChanged("MenuId");
+					this.OnMenuIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataId", DbType="NVarChar(50)")]
+		public string DataId
+		{
+			get
+			{
+				return this._DataId;
+			}
+			set
+			{
+				if ((this._DataId != value))
+				{
+					this.OnDataIdChanging(value);
+					this.SendPropertyChanging();
+					this._DataId = value;
+					this.SendPropertyChanged("DataId");
+					this.OnDataIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortIndex", DbType="Int")]
+		public System.Nullable<int> SortIndex
+		{
+			get
+			{
+				return this._SortIndex;
+			}
+			set
+			{
+				if ((this._SortIndex != value))
+				{
+					this.OnSortIndexChanging(value);
+					this.SendPropertyChanging();
+					this._SortIndex = value;
+					this.SendPropertyChanged("SortIndex");
+					this.OnSortIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditFlowName", DbType="NVarChar(50)")]
+		public string AuditFlowName
+		{
+			get
+			{
+				return this._AuditFlowName;
+			}
+			set
+			{
+				if ((this._AuditFlowName != value))
+				{
+					this.OnAuditFlowNameChanging(value);
+					this.SendPropertyChanging();
+					this._AuditFlowName = value;
+					this.SendPropertyChanged("AuditFlowName");
+					this.OnAuditFlowNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperaterId", DbType="NVarChar(50)")]
+		public string OperaterId
+		{
+			get
+			{
+				return this._OperaterId;
+			}
+			set
+			{
+				if ((this._OperaterId != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOperaterIdChanging(value);
+					this.SendPropertyChanging();
+					this._OperaterId = value;
+					this.SendPropertyChanged("OperaterId");
+					this.OnOperaterIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperaterTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> OperaterTime
+		{
+			get
+			{
+				return this._OperaterTime;
+			}
+			set
+			{
+				if ((this._OperaterTime != value))
+				{
+					this.OnOperaterTimeChanging(value);
+					this.SendPropertyChanging();
+					this._OperaterTime = value;
+					this.SendPropertyChanged("OperaterTime");
+					this.OnOperaterTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Opinion", DbType="NVarChar(1000)")]
+		public string Opinion
+		{
+			get
+			{
+				return this._Opinion;
+			}
+			set
+			{
+				if ((this._Opinion != value))
+				{
+					this.OnOpinionChanging(value);
+					this.SendPropertyChanging();
+					this._Opinion = value;
+					this.SendPropertyChanged("Opinion");
+					this.OnOpinionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsClosed", DbType="Bit")]
+		public System.Nullable<bool> IsClosed
+		{
+			get
+			{
+				return this._IsClosed;
+			}
+			set
+			{
+				if ((this._IsClosed != value))
+				{
+					this.OnIsClosedChanging(value);
+					this.SendPropertyChanging();
+					this._IsClosed = value;
+					this.SendPropertyChanged("IsClosed");
+					this.OnIsClosedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Char(1)")]
+		public string State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(500)")]
+		public string Url
+		{
+			get
+			{
+				return this._Url;
+			}
+			set
+			{
+				if ((this._Url != value))
+				{
+					this.OnUrlChanging(value);
+					this.SendPropertyChanging();
+					this._Url = value;
+					this.SendPropertyChanged("Url");
+					this.OnUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Sys_FlowOperate_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.Sys_FlowOperate.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.Sys_FlowOperate.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Sys_FlowOperate_Sys_User", Storage="_Sys_User", ThisKey="OperaterId", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Sys_FlowOperate.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Sys_FlowOperate.Add(this);
+						this._OperaterId = value.UserId;
+					}
+					else
+					{
+						this._OperaterId = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sys_Log")]
 	public partial class Sys_Log : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -26521,9 +32689,15 @@ namespace Model
 		
 		private string _LastProjectId;
 		
+		private EntitySet<Law_HSSEStandardsList> _Law_HSSEStandardsList;
+		
+		private EntitySet<Law_LawRegulationList> _Law_LawRegulationList;
+		
 		private EntitySet<HJGL_WeldingDaily> _HJGL_WeldingDaily;
 		
 		private EntitySet<Project_ProjectUser> _Project_ProjectUser;
+		
+		private EntitySet<ProjectData_FlowOperate> _ProjectData_FlowOperate;
 		
 		private EntitySet<QualityAudit_EquipmentPersonQuality> _QualityAudit_EquipmentPersonQuality;
 		
@@ -26538,6 +32712,8 @@ namespace Model
 		private EntitySet<QualityAudit_SafePersonQuality> _QualityAudit_SafePersonQuality_Sys_User_AuditorId;
 		
 		private EntitySet<SitePerson_Person> _SitePerson_Person;
+		
+		private EntitySet<Sys_FlowOperate> _Sys_FlowOperate;
 		
 		private EntitySet<Sys_Log> _Sys_Log;
 		
@@ -26621,8 +32797,11 @@ namespace Model
 		
 		public Sys_User()
 		{
+			this._Law_HSSEStandardsList = new EntitySet<Law_HSSEStandardsList>(new Action<Law_HSSEStandardsList>(this.attach_Law_HSSEStandardsList), new Action<Law_HSSEStandardsList>(this.detach_Law_HSSEStandardsList));
+			this._Law_LawRegulationList = new EntitySet<Law_LawRegulationList>(new Action<Law_LawRegulationList>(this.attach_Law_LawRegulationList), new Action<Law_LawRegulationList>(this.detach_Law_LawRegulationList));
 			this._HJGL_WeldingDaily = new EntitySet<HJGL_WeldingDaily>(new Action<HJGL_WeldingDaily>(this.attach_HJGL_WeldingDaily), new Action<HJGL_WeldingDaily>(this.detach_HJGL_WeldingDaily));
 			this._Project_ProjectUser = new EntitySet<Project_ProjectUser>(new Action<Project_ProjectUser>(this.attach_Project_ProjectUser), new Action<Project_ProjectUser>(this.detach_Project_ProjectUser));
+			this._ProjectData_FlowOperate = new EntitySet<ProjectData_FlowOperate>(new Action<ProjectData_FlowOperate>(this.attach_ProjectData_FlowOperate), new Action<ProjectData_FlowOperate>(this.detach_ProjectData_FlowOperate));
 			this._QualityAudit_EquipmentPersonQuality = new EntitySet<QualityAudit_EquipmentPersonQuality>(new Action<QualityAudit_EquipmentPersonQuality>(this.attach_QualityAudit_EquipmentPersonQuality), new Action<QualityAudit_EquipmentPersonQuality>(this.detach_QualityAudit_EquipmentPersonQuality));
 			this._User = new EntitySet<QualityAudit_EquipmentPersonQuality>(new Action<QualityAudit_EquipmentPersonQuality>(this.attach_User), new Action<QualityAudit_EquipmentPersonQuality>(this.detach_User));
 			this._QualityAudit_PersonQuality = new EntitySet<QualityAudit_PersonQuality>(new Action<QualityAudit_PersonQuality>(this.attach_QualityAudit_PersonQuality), new Action<QualityAudit_PersonQuality>(this.detach_QualityAudit_PersonQuality));
@@ -26630,6 +32809,7 @@ namespace Model
 			this._QualityAudit_SafePersonQuality = new EntitySet<QualityAudit_SafePersonQuality>(new Action<QualityAudit_SafePersonQuality>(this.attach_QualityAudit_SafePersonQuality), new Action<QualityAudit_SafePersonQuality>(this.detach_QualityAudit_SafePersonQuality));
 			this._QualityAudit_SafePersonQuality_Sys_User_AuditorId = new EntitySet<QualityAudit_SafePersonQuality>(new Action<QualityAudit_SafePersonQuality>(this.attach_QualityAudit_SafePersonQuality_Sys_User_AuditorId), new Action<QualityAudit_SafePersonQuality>(this.detach_QualityAudit_SafePersonQuality_Sys_User_AuditorId));
 			this._SitePerson_Person = new EntitySet<SitePerson_Person>(new Action<SitePerson_Person>(this.attach_SitePerson_Person), new Action<SitePerson_Person>(this.detach_SitePerson_Person));
+			this._Sys_FlowOperate = new EntitySet<Sys_FlowOperate>(new Action<Sys_FlowOperate>(this.attach_Sys_FlowOperate), new Action<Sys_FlowOperate>(this.detach_Sys_FlowOperate));
 			this._Sys_Log = new EntitySet<Sys_Log>(new Action<Sys_Log>(this.attach_Sys_Log), new Action<Sys_Log>(this.detach_Sys_Log));
 			this._Base_Depart = default(EntityRef<Base_Depart>);
 			this._Base_Unit = default(EntityRef<Base_Unit>);
@@ -27305,6 +33485,32 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_HSSEStandardsList_Sys_User2", Storage="_Law_HSSEStandardsList", ThisKey="UserId", OtherKey="AuditMan", DeleteRule="NO ACTION")]
+		public EntitySet<Law_HSSEStandardsList> Law_HSSEStandardsList
+		{
+			get
+			{
+				return this._Law_HSSEStandardsList;
+			}
+			set
+			{
+				this._Law_HSSEStandardsList.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Law_LawRegulationList_Sys_User1", Storage="_Law_LawRegulationList", ThisKey="UserId", OtherKey="AuditMan", DeleteRule="NO ACTION")]
+		public EntitySet<Law_LawRegulationList> Law_LawRegulationList
+		{
+			get
+			{
+				return this._Law_LawRegulationList;
+			}
+			set
+			{
+				this._Law_LawRegulationList.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Pipeline_WeldingDaily_Sys_User", Storage="_HJGL_WeldingDaily", ThisKey="UserId", OtherKey="Tabler", DeleteRule="NO ACTION")]
 		public EntitySet<HJGL_WeldingDaily> HJGL_WeldingDaily
 		{
@@ -27328,6 +33534,19 @@ namespace Model
 			set
 			{
 				this._Project_ProjectUser.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ProjectData_FlowOperate_Sys_User", Storage="_ProjectData_FlowOperate", ThisKey="UserId", OtherKey="OperaterId", DeleteRule="NO ACTION")]
+		public EntitySet<ProjectData_FlowOperate> ProjectData_FlowOperate
+		{
+			get
+			{
+				return this._ProjectData_FlowOperate;
+			}
+			set
+			{
+				this._ProjectData_FlowOperate.Assign(value);
 			}
 		}
 		
@@ -27419,6 +33638,19 @@ namespace Model
 			set
 			{
 				this._SitePerson_Person.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Sys_FlowOperate_Sys_User", Storage="_Sys_FlowOperate", ThisKey="UserId", OtherKey="OperaterId", DeleteRule="NO ACTION")]
+		public EntitySet<Sys_FlowOperate> Sys_FlowOperate
+		{
+			get
+			{
+				return this._Sys_FlowOperate;
+			}
+			set
+			{
+				this._Sys_FlowOperate.Assign(value);
 			}
 		}
 		
@@ -27536,6 +33768,30 @@ namespace Model
 			}
 		}
 		
+		private void attach_Law_HSSEStandardsList(Law_HSSEStandardsList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Law_HSSEStandardsList(Law_HSSEStandardsList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Law_LawRegulationList(Law_LawRegulationList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Law_LawRegulationList(Law_LawRegulationList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
 		private void attach_HJGL_WeldingDaily(HJGL_WeldingDaily entity)
 		{
 			this.SendPropertyChanging();
@@ -27555,6 +33811,18 @@ namespace Model
 		}
 		
 		private void detach_Project_ProjectUser(Project_ProjectUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_ProjectData_FlowOperate(ProjectData_FlowOperate entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_ProjectData_FlowOperate(ProjectData_FlowOperate entity)
 		{
 			this.SendPropertyChanging();
 			entity.Sys_User = null;
@@ -27639,6 +33907,18 @@ namespace Model
 		}
 		
 		private void detach_SitePerson_Person(SitePerson_Person entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Sys_FlowOperate(Sys_FlowOperate entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Sys_FlowOperate(Sys_FlowOperate entity)
 		{
 			this.SendPropertyChanging();
 			entity.Sys_User = null;
@@ -28063,6 +34343,1256 @@ namespace Model
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Training_TestTraining")]
+	public partial class Training_TestTraining : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _TrainingId;
+		
+		private string _TrainingCode;
+		
+		private string _TrainingName;
+		
+		private string _SupTrainingId;
+		
+		private System.Nullable<bool> _IsEndLever;
+		
+		private string _TrainTypeId;
+		
+		private EntitySet<Base_TrainTypeItem> _Base_TrainTypeItem;
+		
+		private EntityRef<Base_TrainType> _Base_TrainType;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTrainingIdChanging(string value);
+    partial void OnTrainingIdChanged();
+    partial void OnTrainingCodeChanging(string value);
+    partial void OnTrainingCodeChanged();
+    partial void OnTrainingNameChanging(string value);
+    partial void OnTrainingNameChanged();
+    partial void OnSupTrainingIdChanging(string value);
+    partial void OnSupTrainingIdChanged();
+    partial void OnIsEndLeverChanging(System.Nullable<bool> value);
+    partial void OnIsEndLeverChanged();
+    partial void OnTrainTypeIdChanging(string value);
+    partial void OnTrainTypeIdChanged();
+    #endregion
+		
+		public Training_TestTraining()
+		{
+			this._Base_TrainTypeItem = new EntitySet<Base_TrainTypeItem>(new Action<Base_TrainTypeItem>(this.attach_Base_TrainTypeItem), new Action<Base_TrainTypeItem>(this.detach_Base_TrainTypeItem));
+			this._Base_TrainType = default(EntityRef<Base_TrainType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainingId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string TrainingId
+		{
+			get
+			{
+				return this._TrainingId;
+			}
+			set
+			{
+				if ((this._TrainingId != value))
+				{
+					this.OnTrainingIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainingId = value;
+					this.SendPropertyChanged("TrainingId");
+					this.OnTrainingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainingCode", DbType="NVarChar(50)")]
+		public string TrainingCode
+		{
+			get
+			{
+				return this._TrainingCode;
+			}
+			set
+			{
+				if ((this._TrainingCode != value))
+				{
+					this.OnTrainingCodeChanging(value);
+					this.SendPropertyChanging();
+					this._TrainingCode = value;
+					this.SendPropertyChanged("TrainingCode");
+					this.OnTrainingCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainingName", DbType="NVarChar(100)")]
+		public string TrainingName
+		{
+			get
+			{
+				return this._TrainingName;
+			}
+			set
+			{
+				if ((this._TrainingName != value))
+				{
+					this.OnTrainingNameChanging(value);
+					this.SendPropertyChanging();
+					this._TrainingName = value;
+					this.SendPropertyChanged("TrainingName");
+					this.OnTrainingNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupTrainingId", DbType="NVarChar(50)")]
+		public string SupTrainingId
+		{
+			get
+			{
+				return this._SupTrainingId;
+			}
+			set
+			{
+				if ((this._SupTrainingId != value))
+				{
+					this.OnSupTrainingIdChanging(value);
+					this.SendPropertyChanging();
+					this._SupTrainingId = value;
+					this.SendPropertyChanged("SupTrainingId");
+					this.OnSupTrainingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsEndLever", DbType="Bit")]
+		public System.Nullable<bool> IsEndLever
+		{
+			get
+			{
+				return this._IsEndLever;
+			}
+			set
+			{
+				if ((this._IsEndLever != value))
+				{
+					this.OnIsEndLeverChanging(value);
+					this.SendPropertyChanging();
+					this._IsEndLever = value;
+					this.SendPropertyChanged("IsEndLever");
+					this.OnIsEndLeverChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainTypeId", DbType="NVarChar(50)")]
+		public string TrainTypeId
+		{
+			get
+			{
+				return this._TrainTypeId;
+			}
+			set
+			{
+				if ((this._TrainTypeId != value))
+				{
+					if (this._Base_TrainType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrainTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainTypeId = value;
+					this.SendPropertyChanged("TrainTypeId");
+					this.OnTrainTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Base_TrainTypeItem_Training_TestTraining", Storage="_Base_TrainTypeItem", ThisKey="TrainingId", OtherKey="TrainingId", DeleteRule="NO ACTION")]
+		public EntitySet<Base_TrainTypeItem> Base_TrainTypeItem
+		{
+			get
+			{
+				return this._Base_TrainTypeItem;
+			}
+			set
+			{
+				this._Base_TrainTypeItem.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_TestTraining_Base_TrainType", Storage="_Base_TrainType", ThisKey="TrainTypeId", OtherKey="TrainTypeId", IsForeignKey=true)]
+		public Base_TrainType Base_TrainType
+		{
+			get
+			{
+				return this._Base_TrainType.Entity;
+			}
+			set
+			{
+				Base_TrainType previousValue = this._Base_TrainType.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_TrainType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_TrainType.Entity = null;
+						previousValue.Training_TestTraining.Remove(this);
+					}
+					this._Base_TrainType.Entity = value;
+					if ((value != null))
+					{
+						value.Training_TestTraining.Add(this);
+						this._TrainTypeId = value.TrainTypeId;
+					}
+					else
+					{
+						this._TrainTypeId = default(string);
+					}
+					this.SendPropertyChanged("Base_TrainType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Base_TrainTypeItem(Base_TrainTypeItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Training_TestTraining = this;
+		}
+		
+		private void detach_Base_TrainTypeItem(Base_TrainTypeItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Training_TestTraining = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_Law_LawRegulationList")]
+	public partial class View_Law_LawRegulationList
+	{
+		
+		private string _LawRegulationId;
+		
+		private string _LawRegulationCode;
+		
+		private string _LawRegulationName;
+		
+		private System.Nullable<System.DateTime> _ApprovalDate;
+		
+		private System.Nullable<System.DateTime> _EffectiveDate;
+		
+		private string _Description;
+		
+		private string _LawsRegulationsTypeId;
+		
+		private string _CompileMan;
+		
+		private string _CompileManName;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AuditMan;
+		
+		private string _AuditManName;
+		
+		private System.Nullable<System.DateTime> _AuditDate;
+		
+		private System.Nullable<bool> _IsPass;
+		
+		private System.Nullable<bool> _IsBuild;
+		
+		private string _UpState;
+		
+		private string _LawsRegulationsTypeCode;
+		
+		private string _LawsRegulationsTypeName;
+		
+		private string _IsPassName;
+		
+		private string _AttachUrlName;
+		
+		private string _UnitId;
+		
+		private string _UpStates;
+		
+		private string _UpStateName;
+		
+		private string _IsBuildName;
+		
+		private string _AttachFileId;
+		
+		private string _AttachSource;
+		
+		private string _ToKeyId;
+		
+		private string _AttachUrl;
+		
+		public View_Law_LawRegulationList()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string LawRegulationId
+		{
+			get
+			{
+				return this._LawRegulationId;
+			}
+			set
+			{
+				if ((this._LawRegulationId != value))
+				{
+					this._LawRegulationId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationCode", DbType="NVarChar(300)")]
+		public string LawRegulationCode
+		{
+			get
+			{
+				return this._LawRegulationCode;
+			}
+			set
+			{
+				if ((this._LawRegulationCode != value))
+				{
+					this._LawRegulationCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationName", DbType="NVarChar(500)")]
+		public string LawRegulationName
+		{
+			get
+			{
+				return this._LawRegulationName;
+			}
+			set
+			{
+				if ((this._LawRegulationName != value))
+				{
+					this._LawRegulationName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovalDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ApprovalDate
+		{
+			get
+			{
+				return this._ApprovalDate;
+			}
+			set
+			{
+				if ((this._ApprovalDate != value))
+				{
+					this._ApprovalDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffectiveDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EffectiveDate
+		{
+			get
+			{
+				return this._EffectiveDate;
+			}
+			set
+			{
+				if ((this._EffectiveDate != value))
+				{
+					this._EffectiveDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1000)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this._Description = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawsRegulationsTypeId", DbType="NVarChar(50)")]
+		public string LawsRegulationsTypeId
+		{
+			get
+			{
+				return this._LawsRegulationsTypeId;
+			}
+			set
+			{
+				if ((this._LawsRegulationsTypeId != value))
+				{
+					this._LawsRegulationsTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					this._CompileMan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileManName", DbType="NVarChar(50)")]
+		public string CompileManName
+		{
+			get
+			{
+				return this._CompileManName;
+			}
+			set
+			{
+				if ((this._CompileManName != value))
+				{
+					this._CompileManName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this._CompileDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditMan", DbType="NVarChar(50)")]
+		public string AuditMan
+		{
+			get
+			{
+				return this._AuditMan;
+			}
+			set
+			{
+				if ((this._AuditMan != value))
+				{
+					this._AuditMan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditManName", DbType="NVarChar(50)")]
+		public string AuditManName
+		{
+			get
+			{
+				return this._AuditManName;
+			}
+			set
+			{
+				if ((this._AuditManName != value))
+				{
+					this._AuditManName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuditDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> AuditDate
+		{
+			get
+			{
+				return this._AuditDate;
+			}
+			set
+			{
+				if ((this._AuditDate != value))
+				{
+					this._AuditDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPass", DbType="Bit")]
+		public System.Nullable<bool> IsPass
+		{
+			get
+			{
+				return this._IsPass;
+			}
+			set
+			{
+				if ((this._IsPass != value))
+				{
+					this._IsPass = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsBuild", DbType="Bit")]
+		public System.Nullable<bool> IsBuild
+		{
+			get
+			{
+				return this._IsBuild;
+			}
+			set
+			{
+				if ((this._IsBuild != value))
+				{
+					this._IsBuild = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpState", DbType="Char(1)")]
+		public string UpState
+		{
+			get
+			{
+				return this._UpState;
+			}
+			set
+			{
+				if ((this._UpState != value))
+				{
+					this._UpState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawsRegulationsTypeCode", DbType="NVarChar(50)")]
+		public string LawsRegulationsTypeCode
+		{
+			get
+			{
+				return this._LawsRegulationsTypeCode;
+			}
+			set
+			{
+				if ((this._LawsRegulationsTypeCode != value))
+				{
+					this._LawsRegulationsTypeCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawsRegulationsTypeName", DbType="NVarChar(50)")]
+		public string LawsRegulationsTypeName
+		{
+			get
+			{
+				return this._LawsRegulationsTypeName;
+			}
+			set
+			{
+				if ((this._LawsRegulationsTypeName != value))
+				{
+					this._LawsRegulationsTypeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPassName", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string IsPassName
+		{
+			get
+			{
+				return this._IsPassName;
+			}
+			set
+			{
+				if ((this._IsPassName != value))
+				{
+					this._IsPassName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrlName", DbType="NVarChar(2000)")]
+		public string AttachUrlName
+		{
+			get
+			{
+				return this._AttachUrlName;
+			}
+			set
+			{
+				if ((this._AttachUrlName != value))
+				{
+					this._AttachUrlName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					this._UnitId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpStates", DbType="VarChar(8)")]
+		public string UpStates
+		{
+			get
+			{
+				return this._UpStates;
+			}
+			set
+			{
+				if ((this._UpStates != value))
+				{
+					this._UpStates = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpStateName", DbType="NVarChar(100)")]
+		public string UpStateName
+		{
+			get
+			{
+				return this._UpStateName;
+			}
+			set
+			{
+				if ((this._UpStateName != value))
+				{
+					this._UpStateName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsBuildName", DbType="VarChar(4) NOT NULL", CanBeNull=false)]
+		public string IsBuildName
+		{
+			get
+			{
+				return this._IsBuildName;
+			}
+			set
+			{
+				if ((this._IsBuildName != value))
+				{
+					this._IsBuildName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachFileId", DbType="NVarChar(50)")]
+		public string AttachFileId
+		{
+			get
+			{
+				return this._AttachFileId;
+			}
+			set
+			{
+				if ((this._AttachFileId != value))
+				{
+					this._AttachFileId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachSource", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string AttachSource
+		{
+			get
+			{
+				return this._AttachSource;
+			}
+			set
+			{
+				if ((this._AttachSource != value))
+				{
+					this._AttachSource = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToKeyId", DbType="NVarChar(50)")]
+		public string ToKeyId
+		{
+			get
+			{
+				return this._ToKeyId;
+			}
+			set
+			{
+				if ((this._ToKeyId != value))
+				{
+					this._ToKeyId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this._AttachUrl = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_Law_LawRegulationSelectedItem")]
+	public partial class View_Law_LawRegulationSelectedItem
+	{
+		
+		private string _LawRegulationSelectedItemId;
+		
+		private string _LawRegulationIdentifyId;
+		
+		private string _LawRegulationId;
+		
+		private string _LawRegulationCode;
+		
+		private string _LawsRegulationsTypeId;
+		
+		private string _FitPerfomance;
+		
+		private string _LawRegulationName;
+		
+		private System.Nullable<System.DateTime> _ApprovalDate;
+		
+		private System.Nullable<System.DateTime> _EffectiveDate;
+		
+		private string _Description;
+		
+		private string _LawsRegulationsTypeName;
+		
+		private string _ShortDescription;
+		
+		public View_Law_LawRegulationSelectedItem()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationSelectedItemId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string LawRegulationSelectedItemId
+		{
+			get
+			{
+				return this._LawRegulationSelectedItemId;
+			}
+			set
+			{
+				if ((this._LawRegulationSelectedItemId != value))
+				{
+					this._LawRegulationSelectedItemId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationIdentifyId", DbType="NVarChar(50)")]
+		public string LawRegulationIdentifyId
+		{
+			get
+			{
+				return this._LawRegulationIdentifyId;
+			}
+			set
+			{
+				if ((this._LawRegulationIdentifyId != value))
+				{
+					this._LawRegulationIdentifyId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationId", DbType="NVarChar(50)")]
+		public string LawRegulationId
+		{
+			get
+			{
+				return this._LawRegulationId;
+			}
+			set
+			{
+				if ((this._LawRegulationId != value))
+				{
+					this._LawRegulationId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationCode", DbType="NVarChar(300)")]
+		public string LawRegulationCode
+		{
+			get
+			{
+				return this._LawRegulationCode;
+			}
+			set
+			{
+				if ((this._LawRegulationCode != value))
+				{
+					this._LawRegulationCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawsRegulationsTypeId", DbType="NVarChar(50)")]
+		public string LawsRegulationsTypeId
+		{
+			get
+			{
+				return this._LawsRegulationsTypeId;
+			}
+			set
+			{
+				if ((this._LawsRegulationsTypeId != value))
+				{
+					this._LawsRegulationsTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FitPerfomance", DbType="NVarChar(100)")]
+		public string FitPerfomance
+		{
+			get
+			{
+				return this._FitPerfomance;
+			}
+			set
+			{
+				if ((this._FitPerfomance != value))
+				{
+					this._FitPerfomance = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawRegulationName", DbType="NVarChar(500)")]
+		public string LawRegulationName
+		{
+			get
+			{
+				return this._LawRegulationName;
+			}
+			set
+			{
+				if ((this._LawRegulationName != value))
+				{
+					this._LawRegulationName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovalDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ApprovalDate
+		{
+			get
+			{
+				return this._ApprovalDate;
+			}
+			set
+			{
+				if ((this._ApprovalDate != value))
+				{
+					this._ApprovalDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EffectiveDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EffectiveDate
+		{
+			get
+			{
+				return this._EffectiveDate;
+			}
+			set
+			{
+				if ((this._EffectiveDate != value))
+				{
+					this._EffectiveDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1000)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this._Description = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LawsRegulationsTypeName", DbType="NVarChar(50)")]
+		public string LawsRegulationsTypeName
+		{
+			get
+			{
+				return this._LawsRegulationsTypeName;
+			}
+			set
+			{
+				if ((this._LawsRegulationsTypeName != value))
+				{
+					this._LawsRegulationsTypeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortDescription", DbType="NVarChar(1000)")]
+		public string ShortDescription
+		{
+			get
+			{
+				return this._ShortDescription;
+			}
+			set
+			{
+				if ((this._ShortDescription != value))
+				{
+					this._ShortDescription = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_ProjectData_FlowOperate")]
+	public partial class View_ProjectData_FlowOperate
+	{
+		
+		private string _FlowOperateId;
+		
+		private string _MenuId;
+		
+		private string _DataId;
+		
+		private System.Nullable<int> _SortIndex;
+		
+		private string _OperaterId;
+		
+		private System.Nullable<System.DateTime> _OperaterTime;
+		
+		private string _State;
+		
+		private string _Opinion;
+		
+		private System.Nullable<bool> _IsClosed;
+		
+		private string _MenuName;
+		
+		private string _OperaterName;
+		
+		private string _UnitId;
+		
+		private string _UnitName;
+		
+		private string _StateName;
+		
+		public View_ProjectData_FlowOperate()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FlowOperateId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string FlowOperateId
+		{
+			get
+			{
+				return this._FlowOperateId;
+			}
+			set
+			{
+				if ((this._FlowOperateId != value))
+				{
+					this._FlowOperateId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuId", DbType="NVarChar(50)")]
+		public string MenuId
+		{
+			get
+			{
+				return this._MenuId;
+			}
+			set
+			{
+				if ((this._MenuId != value))
+				{
+					this._MenuId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataId", DbType="NVarChar(50)")]
+		public string DataId
+		{
+			get
+			{
+				return this._DataId;
+			}
+			set
+			{
+				if ((this._DataId != value))
+				{
+					this._DataId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortIndex", DbType="Int")]
+		public System.Nullable<int> SortIndex
+		{
+			get
+			{
+				return this._SortIndex;
+			}
+			set
+			{
+				if ((this._SortIndex != value))
+				{
+					this._SortIndex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperaterId", DbType="NVarChar(50)")]
+		public string OperaterId
+		{
+			get
+			{
+				return this._OperaterId;
+			}
+			set
+			{
+				if ((this._OperaterId != value))
+				{
+					this._OperaterId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperaterTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> OperaterTime
+		{
+			get
+			{
+				return this._OperaterTime;
+			}
+			set
+			{
+				if ((this._OperaterTime != value))
+				{
+					this._OperaterTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Char(1)")]
+		public string State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this._State = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Opinion", DbType="NVarChar(1000)")]
+		public string Opinion
+		{
+			get
+			{
+				return this._Opinion;
+			}
+			set
+			{
+				if ((this._Opinion != value))
+				{
+					this._Opinion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsClosed", DbType="Bit")]
+		public System.Nullable<bool> IsClosed
+		{
+			get
+			{
+				return this._IsClosed;
+			}
+			set
+			{
+				if ((this._IsClosed != value))
+				{
+					this._IsClosed = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MenuName", DbType="NVarChar(50)")]
+		public string MenuName
+		{
+			get
+			{
+				return this._MenuName;
+			}
+			set
+			{
+				if ((this._MenuName != value))
+				{
+					this._MenuName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperaterName", DbType="NVarChar(50)")]
+		public string OperaterName
+		{
+			get
+			{
+				return this._OperaterName;
+			}
+			set
+			{
+				if ((this._OperaterName != value))
+				{
+					this._OperaterName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					this._UnitId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(200)")]
+		public string UnitName
+		{
+			get
+			{
+				return this._UnitName;
+			}
+			set
+			{
+				if ((this._UnitName != value))
+				{
+					this._UnitName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StateName", DbType="VarChar(4) NOT NULL", CanBeNull=false)]
+		public string StateName
+		{
+			get
+			{
+				return this._StateName;
+			}
+			set
+			{
+				if ((this._StateName != value))
+				{
+					this._StateName = value;
+				}
 			}
 		}
 	}

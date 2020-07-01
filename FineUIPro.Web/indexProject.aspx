@@ -132,14 +132,14 @@
             position: relative;
         }
 
-            .header .item-big {
+            .header .item-pbig {
                 position: absolute;
                 top: 0;
                 left: 50%;
                 transform: translateX(-50%);
             }
 
-        .item-big img {
+        .item-pbig img {
             height: 48px;
             width: auto;
         }
@@ -161,7 +161,7 @@
                                             AutoPostBack="true" EnableEdit="true">
                                         </f:DropDownList>
                                     </div>
-                                    <div class="item-big">
+                                    <div class="item-pbig">
                                         <f:Button runat="server" CssClass="bgbtn2" EnablePostBack="true" OnClick="btnHome_Click"
                                             EnableDefaultState="true" EnableDefaultCorner="false" ID="Button21">
                                         </f:Button>
@@ -650,7 +650,7 @@
                 $item.attr('style', ";display:block !important;")
             });
 
-            $(".item-big").click(function () {
+            $(".item-pbig").click(function () {
                 var $item = $('.f-tabstrip-header')
                 $item.attr('style', ";display:none !important;")
             });

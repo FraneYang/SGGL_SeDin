@@ -35,10 +35,20 @@ namespace BLL
                                 {
                                     BaseInfoId = x.UnitWorkId,
                                     BaseInfoCode = x.UnitWorkCode,
-                                    BaseInfoName = x.UnitWorkName + "(" + Funs.GetUnitWorkType(x.ProjectType) + ")"
+                                    BaseInfoName = getUnitWorkName(x.UnitWorkId)
                                 }
                                 ).ToList();
             return getDataLists;
+        }
+        private static string getUnitWorkName(string unitWorkId)
+        {
+            string name = string.Empty;
+            var getu = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == unitWorkId);
+            if (getu != null)
+            {
+                name = getu.UnitWorkName + "(" + Funs.GetUnitWorkType(getu.ProjectType) + ")";
+            }
+            return name;
         }
         #endregion
 
@@ -101,7 +111,7 @@ namespace BLL
         //        States = Const.State_2,
         //        CompileMan = picture.CompileManId,
         //    };
-                        
+
         //    if (string.IsNullOrEmpty(newPicture.PictureId))
         //    {
         //        newPicture.PictureId = SQLHelper.GetNewID();
@@ -467,7 +477,7 @@ namespace BLL
         //    return getDataLists;
         //}
         //#endregion
-        
+
         //#region 获取部门
         ///// <summary>
         ///// 获取图片分类
