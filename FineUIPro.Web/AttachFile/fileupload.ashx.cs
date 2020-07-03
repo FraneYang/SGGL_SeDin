@@ -25,9 +25,8 @@ namespace FineUIPro.Web.AttachFile
 
             string owner = context.Request.Form["owner"];
             string sessionName = owner.Split('|')[0];
-            string attachPath = owner.Split('|')[1];
-
-            string initFullPath = BLL.Funs.RootPath + attachPath;
+            string attachPath = owner.Split('|')[1] + "/" + DateTime.Now.ToString("yyyy-MM");
+            string initFullPath = BLL.Funs.RootPath + attachPath ;
             if (!Directory.Exists(initFullPath))
             {
                 Directory.CreateDirectory(initFullPath);
@@ -49,7 +48,7 @@ namespace FineUIPro.Web.AttachFile
             string fileName = postedFile.FileName;
             // 文件名保存的服务器路径
             string savedFileName = GetSavedFileName(fileName);
-            postedFile.SaveAs(context.Server.MapPath("~/" + attachPath + "/" + savedFileName));
+            postedFile.SaveAs(context.Server.MapPath("~/" + attachPath+ "/" + savedFileName));
 
             string shortFileName = GetFileName(fileName);
             string fileType = GetFileType(fileName);
@@ -64,6 +63,15 @@ namespace FineUIPro.Web.AttachFile
             fileObj.Add("savedName", savedFileName);
             fileObj.Add("size", fileSize);
             fileObj.Add("id", fileId);
+
+            string attachUrl = (attachPath + "/" + savedFileName).Replace('/', '\\');
+            int strInt = attachUrl.LastIndexOf("~");
+            if (strInt < 0)
+            {
+                strInt = attachUrl.LastIndexOf("\\");
+            }
+            string folder = attachUrl.Substring(0, strInt + 1).Replace('\\', '/');
+            fileObj.Add("folder", folder);
 
             SaveToDatabase(context, sessionName, fileObj);
 

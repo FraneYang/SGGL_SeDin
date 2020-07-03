@@ -27,6 +27,43 @@ namespace Model
         }
 
         /// <summary>
+        /// 焊口标识
+        /// </summary>
+        public string WeldJointIdentify
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 焊口绝对位置
+        /// </summary>
+        public string Position
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 项目ID
+        /// </summary>
+        public string ProjectId
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
+        /// 单位工程
+        /// </summary>
+        public string UnitWorkId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 管线ID
         /// </summary>
         public string PipelineId
@@ -45,13 +82,92 @@ namespace Model
         }
 
         /// <summary>
-        /// 单位工程
+        /// 单线图号
         /// </summary>
-        public string UnitWorkId
+        public string SingleNumber
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// 管道等级
+        /// </summary>
+        public string PipingClass
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 介质代号
+        /// </summary>
+        public string  Medium
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 探伤比例
+        /// </summary>
+        public string DetectionRate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 探伤类型
+        /// </summary>
+        public string DetectionType
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 试验压力
+        /// </summary>
+        public decimal? TestPressure
+        {
+            get;
+            set;
+        }
+
+        public string TestMedium
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 焊缝类型
+        /// </summary>
+        public string WeldType
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 材质1
+        /// </summary>
+        public string Material1
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 材质2
+        /// </summary>
+        public string Material2
+        {
+            get;
+            set;
+        }
+
 
         /// <summary>
         /// 打底焊工ID
@@ -90,6 +206,15 @@ namespace Model
         }
 
         /// <summary>
+        /// 焊接日期
+        /// </summary>
+        public DateTime? WeldingDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 焊接区域
         /// </summary>
         public string JointArea
@@ -98,7 +223,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 焊口属性
+        /// 焊口属性(活动口，固定口)
         /// </summary>
         public string JointAttribute
         {
@@ -144,9 +269,54 @@ namespace Model
         }
 
         /// <summary>
+        /// 焊口规格
+        /// </summary>
+        public string Specification
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 焊接方法
         /// </summary>
         public string WeldingMethodCode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 坡口类型
+        /// </summary>
+        public string GrooveType
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 焊接位置
+        /// </summary>
+        public string WeldingLocation
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 焊丝牌号
+        /// </summary>
+        public string WeldingWire
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 焊条牌号
+        /// </summary>
+        public string WeldingRod
         {
             get;
             set;

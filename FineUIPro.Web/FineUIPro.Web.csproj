@@ -62,6 +62,10 @@
     <Reference Include="Apache.NMS.ActiveMQ, Version=1.7.2.4108, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
       <HintPath>..\packages\Apache.NMS.ActiveMQ.1.7.2\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
     </Reference>
+    <Reference Include="Aspose.Words, Version=10.5.0.0, Culture=neutral, PublicKeyToken=fa9a48344f15a022, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Aspose.Words.dll</HintPath>
+    </Reference>
     <Reference Include="AxInterop.SYNCARDOCXLib">
       <HintPath>..\Lib\AxInterop.SYNCARDOCXLib.dll</HintPath>
     </Reference>
@@ -164,6 +168,7 @@
     <Content Include="AttachFile\res\webuploader\Uploader.swf" />
     <Content Include="AttachFile\res\webuploader\webuploader.nolog.js" />
     <Content Include="AttachFile\res\webuploader\webuploader.nolog.min.js" />
+    <Content Include="AttachFile\uploader.aspx" />
     <Content Include="AttachFile\webuploader.aspx" />
     <Content Include="BaseInfo\AccidentType.aspx" />
     <Content Include="BaseInfo\Certificate.aspx" />
@@ -223,9 +228,98 @@
     <Content Include="common\Menu_ZHGL.xml" />
     <Content Include="common\themes.aspx" />
     <Content Include="Controls\FlowOperateControl.ascx" />
+    <Content Include="CQMS\BaseInfo\ProjectSysSet.aspx" />
+    <Content Include="CQMS\Check\CheckEquipment.aspx" />
+    <Content Include="CQMS\Check\CheckList.aspx" />
+    <Content Include="CQMS\Check\ChecklistEdit.aspx" />
+    <Content Include="CQMS\Check\CheckListFile.aspx" />
+    <Content Include="CQMS\Check\CheckListView.aspx" />
+    <Content Include="CQMS\Check\CheckMonth.aspx" />
+    <Content Include="CQMS\Check\CheckMonthFile.aspx" />
+    <Content Include="CQMS\Check\ConstructSolutionFile.aspx" />
+    <Content Include="CQMS\Check\Design.aspx" />
+    <Content Include="CQMS\Check\DesignFile.aspx" />
+    <Content Include="CQMS\Check\DesignView.aspx" />
+    <Content Include="CQMS\Check\Draw.aspx" />
+    <Content Include="CQMS\Check\DrawEdit.aspx" />
+    <Content Include="CQMS\Check\DrawView.aspx" />
+    <Content Include="CQMS\Check\EditCheckEquipment.aspx" />
+    <Content Include="CQMS\Check\EditCheckEquipmentTwo.aspx" />
+    <Content Include="CQMS\Check\EditCheckMonth.aspx" />
+    <Content Include="CQMS\Check\EditDesign.aspx" />
+    <Content Include="CQMS\Check\EditJointCheck.aspx" />
+    <Content Include="CQMS\Check\EditJointCheckTwo.aspx" />
+    <Content Include="CQMS\Check\EditSportDataCheck.aspx" />
+    <Content Include="CQMS\Check\EditSpotCheck.aspx" />
+    <Content Include="CQMS\Check\EditTechnicalContactList.aspx" />
+    <Content Include="CQMS\Check\FileCabinet.aspx" />
+    <Content Include="CQMS\Check\FileCabinetEdit.aspx" />
+    <Content Include="CQMS\Check\JointCheck.aspx" />
+    <Content Include="CQMS\Check\JointCheckFile.aspx" />
+    <Content Include="CQMS\Check\JointCheckView.aspx" />
+    <Content Include="CQMS\Check\ShowWBS.aspx" />
+    <Content Include="CQMS\Check\SpotCheck.aspx" />
+    <Content Include="CQMS\Check\SpotCheckFile.aspx" />
+    <Content Include="CQMS\Check\SpotCheckStatistics.aspx" />
+    <Content Include="CQMS\Check\SpotCheckView.aspx" />
+    <Content Include="CQMS\Check\SpotDataCheck.aspx" />
+    <Content Include="CQMS\Check\SpotDataCheckView.aspx" />
+    <Content Include="CQMS\Check\TechnicalContactList.aspx" />
+    <Content Include="CQMS\Check\TechnicalContactListFile.aspx" />
+    <Content Include="CQMS\Check\TechnicalContactView.aspx" />
+    <Content Include="CQMS\Check\WorkContactFile.aspx" />
+    <Content Include="CQMS\Solution\ConstructSolution.aspx" />
+    <Content Include="CQMS\Solution\ConstructSolutionView.aspx" />
+    <Content Include="CQMS\Solution\EditConstructSolution.aspx" />
+    <Content Include="CQMS\Unqualified\AddWorkContactFinalFile.aspx" />
+    <Content Include="CQMS\Unqualified\ContactList.aspx" />
+    <Content Include="CQMS\Unqualified\EditWorkContact.aspx" />
+    <Content Include="CQMS\Unqualified\WorkContactFinalFileView.aspx" />
+    <Content Include="CQMS\Unqualified\WorkContactView.aspx" />
+    <Content Include="CQMS\WBS\ControlItemAndCycle.aspx" />
+    <Content Include="CQMS\WBS\ControlItemAndCycleEdit.aspx" />
+    <Content Include="CQMS\WBS\ControlItemAndCycleSearch.aspx" />
+    <Content Include="CQMS\WBS\ControlItemAndCycleSet.aspx" />
+    <Content Include="CQMS\WBS\ControlItemAndCycleShow.aspx" />
+    <Content Include="CQMS\WBS\ControlItemInitEdit.aspx" />
+    <Content Include="CQMS\WBS\ControlItemInitSet.aspx" />
+    <Content Include="CQMS\WBS\ControlItemProjectEdit.aspx" />
+    <Content Include="CQMS\WBS\ProjectControlItemInitSet.aspx" />
+    <Content Include="CQMS\WBS\WorkPackageInitEdit.aspx" />
+    <Content Include="CQMS\WBS\WorkPackageProjectEdit.aspx" />
+    <Content Include="CQMS\WBS\WorkPackageSet1.aspx" />
+    <Content Include="CQMS\WBS\WorkPackageSet2.aspx" />
     <Content Include="HJGL\BaseInfo\Detection.aspx" />
     <Content Include="HJGL\BaseInfo\DetectionEdit.aspx" />
     <Content Include="HJGL\BaseInfo\DetectionView.aspx" />
+    <Content Include="HSSE\ActionPlan\ActionPlanList.aspx" />
+    <Content Include="HSSE\ActionPlan\ActionPlanListEdit.aspx" />
+    <Content Include="HSSE\ActionPlan\ActionPlanListView.aspx" />
+    <Content Include="HSSE\ActionPlan\EditManagerRuleTemplate.aspx" />
+    <Content Include="HSSE\ActionPlan\ManagerRule.aspx" />
+    <Content Include="HSSE\ActionPlan\ManagerRuleEdit.aspx" />
+    <Content Include="HSSE\ActionPlan\ManagerRuleList.aspx" />
+    <Content Include="HSSE\ActionPlan\ManagerRuleView.aspx" />
+    <Content Include="HSSE\EduTrain\CompanyTraining.aspx" />
+    <Content Include="HSSE\EduTrain\CompanyTrainingItemSave.aspx" />
+    <Content Include="HSSE\EduTrain\CompanyTrainingSave.aspx" />
+    <Content Include="HSSE\EduTrain\TestTraining.aspx" />
+    <Content Include="HSSE\EduTrain\TestTrainingItemIn.aspx" />
+    <Content Include="HSSE\EduTrain\TestTrainingItemSave.aspx" />
+    <Content Include="HSSE\EduTrain\TestTrainingOut.aspx" />
+    <Content Include="HSSE\EduTrain\TestTrainingSave.aspx" />
+    <Content Include="HSSE\EduTrain\TrainDB.aspx" />
+    <Content Include="HSSE\EduTrain\TrainingItemSave.aspx" />
+    <Content Include="HSSE\EduTrain\TrainingSave.aspx" />
+    <Content Include="HSSE\EduTrain\TrainTestDB.aspx" />
+    <Content Include="HSSE\EduTrain\TrainTestDBEdit.aspx" />
+    <Content Include="HSSE\EduTrain\TrainTestDBSelectCloumn.aspx" />
+    <Content Include="HSSE\EduTrain\TrainTestItemEdit.aspx" />
+    <Content Include="HSSE\HSSESystem\HSSEMainDuty.aspx" />
+    <Content Include="HSSE\HSSESystem\HSSEMainDutyEdit.aspx" />
+    <Content Include="HSSE\InformationProject\ConstructionStandardIdentify.aspx" />
+    <Content Include="HSSE\InformationProject\ConstructionStandardIdentifyEdit.aspx" />
+    <Content Include="HSSE\InformationProject\ConstructionStandardIdentifyView.aspx" />
     <Content Include="HSSE\InformationProject\CreateLawRegulationIdentify.aspx" />
     <Content Include="HSSE\InformationProject\LawRegulationIdentify.aspx" />
     <Content Include="HSSE\InformationProject\LawRegulationIdentifyEdit.aspx" />
@@ -236,11 +330,26 @@
     <Content Include="HSSE\Law\LawRegulationList.aspx" />
     <Content Include="HSSE\Law\LawRegulationListEdit.aspx" />
     <Content Include="HSSE\Law\LawRegulationListSelectCloumn.aspx" />
+    <Content Include="HSSE\Law\ManageRule.aspx" />
+    <Content Include="HSSE\Law\ManageRuleEdit.aspx" />
+    <Content Include="HSSE\Law\ManageRuleSelectCloumn.aspx" />
+    <Content Include="HSSE\Law\RulesRegulations.aspx" />
+    <Content Include="HSSE\Law\RulesRegulationsEdit.aspx" />
+    <Content Include="HSSE\Law\RulesRegulationsSelectCloumn.aspx" />
+    <Content Include="HSSE\QualityAudit\SubUnitQuality.aspx" />
+    <Content Include="HSSE\QualityAudit\SubUnitQualityAudit.aspx" />
+    <Content Include="HSSE\QualityAudit\SubUnitQualityAuditEdit.aspx" />
+    <Content Include="HSSE\QualityAudit\SubUnitQualityAuditView.aspx" />
+    <Content Include="HSSE\QualityAudit\SubUnitQualityEdit.aspx" />
+    <Content Include="HSSE\Resources\SignManage.aspx" />
+    <Content Include="HSSE\Resources\SignManageEdit.aspx" />
     <Content Include="HSSE\SecuritySystem\SafetyOrganization.aspx" />
     <Content Include="HSSE\SecuritySystem\SafetyOrganizationEdit.aspx" />
     <Content Include="indexProject.aspx" />
     <Content Include="font\iconfont.svg" />
     <Content Include="index.aspx" />
+    <Content Include="JDGL\Check\ProgressShow.aspx" />
+    <Content Include="JDGL\Check\ProgressStatistics.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Personal\FileSearch.aspx" />
     <Content Include="ProjectData\MainItem.aspx" />
@@ -277,6 +386,19 @@
     <Content Include="font\iconfont.ttf" />
     <Content Include="font\iconfont.woff" />
     <Content Include="font\iconfont.woff2" />
+    <Content Include="File\Word\CQMS\Check\工作联系单.doc" />
+    <Content Include="File\Word\CQMS\Check\工作联系单2.doc" />
+    <Content Include="File\Word\CQMS\Check\工程联络单.doc" />
+    <Content Include="File\Word\CQMS\Check\工程联络单2.doc" />
+    <Content Include="File\Word\CQMS\Check\施工方案.doc" />
+    <Content Include="File\Word\CQMS\Check\施工质量检查记录.doc" />
+    <Content Include="File\Word\CQMS\Check\施工质量问题整改单.doc" />
+    <Content Include="File\Word\CQMS\Check\施工质量问题整改单2.doc" />
+    <Content Include="File\Word\CQMS\Check\设计变更.doc" />
+    <Content Include="File\Word\CQMS\Check\质量共检通知单.doc" />
+    <Content Include="File\Word\CQMS\Check\质量月报.doc" />
+    <Content Include="File\Word\CQMS\Solution\施工方案模板.doc" />
+    <Content Include="File\Word\CQMS\Solution\施工组织设计模板.doc" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -2998,6 +3120,7 @@
     <Content Include="res\images\nav_hover_highlight_2.gif" />
     <Content Include="res\images\no_data_found.jpg" />
     <Content Include="res\images\no_data_found.png" />
+    <Content Include="res\images\Page-01.jpg" />
     <Content Include="res\images\pagemenu-separator.gif" />
     <Content Include="res\images\pagemenu_toolbar_background.gif" />
     <Content Include="res\images\pkg.gif" />
@@ -4292,6 +4415,13 @@
     <Compile Include="AttachFile\player.aspx.designer.cs">
       <DependentUpon>player.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AttachFile\uploader.aspx.cs">
+      <DependentUpon>uploader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AttachFile\uploader.aspx.designer.cs">
+      <DependentUpon>uploader.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AttachFile\webuploader.aspx.cs">
       <DependentUpon>webuploader.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4572,6 +4702,433 @@
     <Compile Include="Controls\FlowOperateControl.ascx.designer.cs">
       <DependentUpon>FlowOperateControl.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CQMS\BaseInfo\ProjectSysSet.aspx.cs">
+      <DependentUpon>ProjectSysSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\BaseInfo\ProjectSysSet.aspx.designer.cs">
+      <DependentUpon>ProjectSysSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckEquipment.aspx.cs">
+      <DependentUpon>CheckEquipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckEquipment.aspx.designer.cs">
+      <DependentUpon>CheckEquipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckList.aspx.cs">
+      <DependentUpon>CheckList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckList.aspx.designer.cs">
+      <DependentUpon>CheckList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\ChecklistEdit.aspx.cs">
+      <DependentUpon>ChecklistEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\ChecklistEdit.aspx.designer.cs">
+      <DependentUpon>ChecklistEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckListFile.aspx.cs">
+      <DependentUpon>CheckListFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckListFile.aspx.designer.cs">
+      <DependentUpon>CheckListFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckListView.aspx.cs">
+      <DependentUpon>CheckListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckListView.aspx.designer.cs">
+      <DependentUpon>CheckListView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckMonth.aspx.cs">
+      <DependentUpon>CheckMonth.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckMonth.aspx.designer.cs">
+      <DependentUpon>CheckMonth.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckMonthFile.aspx.cs">
+      <DependentUpon>CheckMonthFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\CheckMonthFile.aspx.designer.cs">
+      <DependentUpon>CheckMonthFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\ConstructSolutionFile.aspx.cs">
+      <DependentUpon>ConstructSolutionFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\ConstructSolutionFile.aspx.designer.cs">
+      <DependentUpon>ConstructSolutionFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\Design.aspx.cs">
+      <DependentUpon>Design.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\Design.aspx.designer.cs">
+      <DependentUpon>Design.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\DesignFile.aspx.cs">
+      <DependentUpon>DesignFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\DesignFile.aspx.designer.cs">
+      <DependentUpon>DesignFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\DesignView.aspx.cs">
+      <DependentUpon>DesignView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\DesignView.aspx.designer.cs">
+      <DependentUpon>DesignView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\Draw.aspx.cs">
+      <DependentUpon>Draw.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\Draw.aspx.designer.cs">
+      <DependentUpon>Draw.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\DrawEdit.aspx.cs">
+      <DependentUpon>DrawEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\DrawEdit.aspx.designer.cs">
+      <DependentUpon>DrawEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\DrawView.aspx.cs">
+      <DependentUpon>DrawView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\DrawView.aspx.designer.cs">
+      <DependentUpon>DrawView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditCheckEquipment.aspx.cs">
+      <DependentUpon>EditCheckEquipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditCheckEquipment.aspx.designer.cs">
+      <DependentUpon>EditCheckEquipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditCheckEquipmentTwo.aspx.cs">
+      <DependentUpon>EditCheckEquipmentTwo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditCheckEquipmentTwo.aspx.designer.cs">
+      <DependentUpon>EditCheckEquipmentTwo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditCheckMonth.aspx.cs">
+      <DependentUpon>EditCheckMonth.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditCheckMonth.aspx.designer.cs">
+      <DependentUpon>EditCheckMonth.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditDesign.aspx.cs">
+      <DependentUpon>EditDesign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditDesign.aspx.designer.cs">
+      <DependentUpon>EditDesign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditJointCheck.aspx.cs">
+      <DependentUpon>EditJointCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditJointCheck.aspx.designer.cs">
+      <DependentUpon>EditJointCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditJointCheckTwo.aspx.cs">
+      <DependentUpon>EditJointCheckTwo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditJointCheckTwo.aspx.designer.cs">
+      <DependentUpon>EditJointCheckTwo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditSportDataCheck.aspx.cs">
+      <DependentUpon>EditSportDataCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditSportDataCheck.aspx.designer.cs">
+      <DependentUpon>EditSportDataCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditSpotCheck.aspx.cs">
+      <DependentUpon>EditSpotCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditSpotCheck.aspx.designer.cs">
+      <DependentUpon>EditSpotCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\EditTechnicalContactList.aspx.cs">
+      <DependentUpon>EditTechnicalContactList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\EditTechnicalContactList.aspx.designer.cs">
+      <DependentUpon>EditTechnicalContactList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\FileCabinet.aspx.cs">
+      <DependentUpon>FileCabinet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\FileCabinet.aspx.designer.cs">
+      <DependentUpon>FileCabinet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\FileCabinetEdit.aspx.cs">
+      <DependentUpon>FileCabinetEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\FileCabinetEdit.aspx.designer.cs">
+      <DependentUpon>FileCabinetEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\JointCheck.aspx.cs">
+      <DependentUpon>JointCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\JointCheck.aspx.designer.cs">
+      <DependentUpon>JointCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\JointCheckFile.aspx.cs">
+      <DependentUpon>JointCheckFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\JointCheckFile.aspx.designer.cs">
+      <DependentUpon>JointCheckFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\JointCheckView.aspx.cs">
+      <DependentUpon>JointCheckView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\JointCheckView.aspx.designer.cs">
+      <DependentUpon>JointCheckView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\ShowWBS.aspx.cs">
+      <DependentUpon>ShowWBS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\ShowWBS.aspx.designer.cs">
+      <DependentUpon>ShowWBS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotCheck.aspx.cs">
+      <DependentUpon>SpotCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotCheck.aspx.designer.cs">
+      <DependentUpon>SpotCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotCheckFile.aspx.cs">
+      <DependentUpon>SpotCheckFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotCheckFile.aspx.designer.cs">
+      <DependentUpon>SpotCheckFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotCheckStatistics.aspx.cs">
+      <DependentUpon>SpotCheckStatistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotCheckStatistics.aspx.designer.cs">
+      <DependentUpon>SpotCheckStatistics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotCheckView.aspx.cs">
+      <DependentUpon>SpotCheckView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotCheckView.aspx.designer.cs">
+      <DependentUpon>SpotCheckView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotDataCheck.aspx.cs">
+      <DependentUpon>SpotDataCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotDataCheck.aspx.designer.cs">
+      <DependentUpon>SpotDataCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotDataCheckView.aspx.cs">
+      <DependentUpon>SpotDataCheckView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\SpotDataCheckView.aspx.designer.cs">
+      <DependentUpon>SpotDataCheckView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\TechnicalContactList.aspx.cs">
+      <DependentUpon>TechnicalContactList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\TechnicalContactList.aspx.designer.cs">
+      <DependentUpon>TechnicalContactList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\TechnicalContactListFile.aspx.cs">
+      <DependentUpon>TechnicalContactListFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\TechnicalContactListFile.aspx.designer.cs">
+      <DependentUpon>TechnicalContactListFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\TechnicalContactView.aspx.cs">
+      <DependentUpon>TechnicalContactView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\TechnicalContactView.aspx.designer.cs">
+      <DependentUpon>TechnicalContactView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Check\WorkContactFile.aspx.cs">
+      <DependentUpon>WorkContactFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Check\WorkContactFile.aspx.designer.cs">
+      <DependentUpon>WorkContactFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Solution\ConstructSolution.aspx.cs">
+      <DependentUpon>ConstructSolution.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Solution\ConstructSolution.aspx.designer.cs">
+      <DependentUpon>ConstructSolution.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Solution\ConstructSolutionView.aspx.cs">
+      <DependentUpon>ConstructSolutionView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Solution\ConstructSolutionView.aspx.designer.cs">
+      <DependentUpon>ConstructSolutionView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Solution\EditConstructSolution.aspx.cs">
+      <DependentUpon>EditConstructSolution.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Solution\EditConstructSolution.aspx.designer.cs">
+      <DependentUpon>EditConstructSolution.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\AddWorkContactFinalFile.aspx.cs">
+      <DependentUpon>AddWorkContactFinalFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\AddWorkContactFinalFile.aspx.designer.cs">
+      <DependentUpon>AddWorkContactFinalFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\ContactList.aspx.cs">
+      <DependentUpon>ContactList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\ContactList.aspx.designer.cs">
+      <DependentUpon>ContactList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\EditWorkContact.aspx.cs">
+      <DependentUpon>EditWorkContact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\EditWorkContact.aspx.designer.cs">
+      <DependentUpon>EditWorkContact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\WorkContactFinalFileView.aspx.cs">
+      <DependentUpon>WorkContactFinalFileView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\WorkContactFinalFileView.aspx.designer.cs">
+      <DependentUpon>WorkContactFinalFileView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\WorkContactView.aspx.cs">
+      <DependentUpon>WorkContactView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\Unqualified\WorkContactView.aspx.designer.cs">
+      <DependentUpon>WorkContactView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycle.aspx.cs">
+      <DependentUpon>ControlItemAndCycle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycle.aspx.designer.cs">
+      <DependentUpon>ControlItemAndCycle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycleEdit.aspx.cs">
+      <DependentUpon>ControlItemAndCycleEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycleEdit.aspx.designer.cs">
+      <DependentUpon>ControlItemAndCycleEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycleSearch.aspx.cs">
+      <DependentUpon>ControlItemAndCycleSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycleSearch.aspx.designer.cs">
+      <DependentUpon>ControlItemAndCycleSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycleSet.aspx.cs">
+      <DependentUpon>ControlItemAndCycleSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycleSet.aspx.designer.cs">
+      <DependentUpon>ControlItemAndCycleSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycleShow.aspx.cs">
+      <DependentUpon>ControlItemAndCycleShow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemAndCycleShow.aspx.designer.cs">
+      <DependentUpon>ControlItemAndCycleShow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemInitEdit.aspx.cs">
+      <DependentUpon>ControlItemInitEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemInitEdit.aspx.designer.cs">
+      <DependentUpon>ControlItemInitEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemInitSet.aspx.cs">
+      <DependentUpon>ControlItemInitSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemInitSet.aspx.designer.cs">
+      <DependentUpon>ControlItemInitSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemProjectEdit.aspx.cs">
+      <DependentUpon>ControlItemProjectEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ControlItemProjectEdit.aspx.designer.cs">
+      <DependentUpon>ControlItemProjectEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\ProjectControlItemInitSet.aspx.cs">
+      <DependentUpon>ProjectControlItemInitSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\ProjectControlItemInitSet.aspx.designer.cs">
+      <DependentUpon>ProjectControlItemInitSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\WorkPackageInitEdit.aspx.cs">
+      <DependentUpon>WorkPackageInitEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\WorkPackageInitEdit.aspx.designer.cs">
+      <DependentUpon>WorkPackageInitEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\WorkPackageProjectEdit.aspx.cs">
+      <DependentUpon>WorkPackageProjectEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\WorkPackageProjectEdit.aspx.designer.cs">
+      <DependentUpon>WorkPackageProjectEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\WorkPackageSet1.aspx.cs">
+      <DependentUpon>WorkPackageSet1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\WorkPackageSet1.aspx.designer.cs">
+      <DependentUpon>WorkPackageSet1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CQMS\WBS\WorkPackageSet2.aspx.cs">
+      <DependentUpon>WorkPackageSet2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CQMS\WBS\WorkPackageSet2.aspx.designer.cs">
+      <DependentUpon>WorkPackageSet2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\BaseInfo\Detection.aspx.cs">
       <DependentUpon>Detection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4592,6 +5149,202 @@
     </Compile>
     <Compile Include="HJGL\BaseInfo\DetectionView.aspx.designer.cs">
       <DependentUpon>DetectionView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ActionPlanList.aspx.cs">
+      <DependentUpon>ActionPlanList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ActionPlanList.aspx.designer.cs">
+      <DependentUpon>ActionPlanList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ActionPlanListEdit.aspx.cs">
+      <DependentUpon>ActionPlanListEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ActionPlanListEdit.aspx.designer.cs">
+      <DependentUpon>ActionPlanListEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ActionPlanListView.aspx.cs">
+      <DependentUpon>ActionPlanListView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ActionPlanListView.aspx.designer.cs">
+      <DependentUpon>ActionPlanListView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\EditManagerRuleTemplate.aspx.cs">
+      <DependentUpon>EditManagerRuleTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\EditManagerRuleTemplate.aspx.designer.cs">
+      <DependentUpon>EditManagerRuleTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ManagerRule.aspx.cs">
+      <DependentUpon>ManagerRule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ManagerRule.aspx.designer.cs">
+      <DependentUpon>ManagerRule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ManagerRuleEdit.aspx.cs">
+      <DependentUpon>ManagerRuleEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ManagerRuleEdit.aspx.designer.cs">
+      <DependentUpon>ManagerRuleEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ManagerRuleList.aspx.cs">
+      <DependentUpon>ManagerRuleList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ManagerRuleList.aspx.designer.cs">
+      <DependentUpon>ManagerRuleList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ManagerRuleView.aspx.cs">
+      <DependentUpon>ManagerRuleView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ManagerRuleView.aspx.designer.cs">
+      <DependentUpon>ManagerRuleView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\CompanyTraining.aspx.cs">
+      <DependentUpon>CompanyTraining.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\CompanyTraining.aspx.designer.cs">
+      <DependentUpon>CompanyTraining.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\CompanyTrainingItemSave.aspx.cs">
+      <DependentUpon>CompanyTrainingItemSave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\CompanyTrainingItemSave.aspx.designer.cs">
+      <DependentUpon>CompanyTrainingItemSave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\CompanyTrainingSave.aspx.cs">
+      <DependentUpon>CompanyTrainingSave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\CompanyTrainingSave.aspx.designer.cs">
+      <DependentUpon>CompanyTrainingSave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTraining.aspx.cs">
+      <DependentUpon>TestTraining.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTraining.aspx.designer.cs">
+      <DependentUpon>TestTraining.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainingItemIn.aspx.cs">
+      <DependentUpon>TestTrainingItemIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainingItemIn.aspx.designer.cs">
+      <DependentUpon>TestTrainingItemIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainingItemSave.aspx.cs">
+      <DependentUpon>TestTrainingItemSave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainingItemSave.aspx.designer.cs">
+      <DependentUpon>TestTrainingItemSave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainingOut.aspx.cs">
+      <DependentUpon>TestTrainingOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainingOut.aspx.designer.cs">
+      <DependentUpon>TestTrainingOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainingSave.aspx.cs">
+      <DependentUpon>TestTrainingSave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainingSave.aspx.designer.cs">
+      <DependentUpon>TestTrainingSave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainDB.aspx.cs">
+      <DependentUpon>TrainDB.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainDB.aspx.designer.cs">
+      <DependentUpon>TrainDB.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainingItemSave.aspx.cs">
+      <DependentUpon>TrainingItemSave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainingItemSave.aspx.designer.cs">
+      <DependentUpon>TrainingItemSave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainingSave.aspx.cs">
+      <DependentUpon>TrainingSave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainingSave.aspx.designer.cs">
+      <DependentUpon>TrainingSave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestDB.aspx.cs">
+      <DependentUpon>TrainTestDB.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestDB.aspx.designer.cs">
+      <DependentUpon>TrainTestDB.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestDBEdit.aspx.cs">
+      <DependentUpon>TrainTestDBEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestDBEdit.aspx.designer.cs">
+      <DependentUpon>TrainTestDBEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestDBSelectCloumn.aspx.cs">
+      <DependentUpon>TrainTestDBSelectCloumn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestDBSelectCloumn.aspx.designer.cs">
+      <DependentUpon>TrainTestDBSelectCloumn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestItemEdit.aspx.cs">
+      <DependentUpon>TrainTestItemEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestItemEdit.aspx.designer.cs">
+      <DependentUpon>TrainTestItemEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\HSSESystem\HSSEMainDuty.aspx.cs">
+      <DependentUpon>HSSEMainDuty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\HSSESystem\HSSEMainDuty.aspx.designer.cs">
+      <DependentUpon>HSSEMainDuty.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\HSSESystem\HSSEMainDutyEdit.aspx.cs">
+      <DependentUpon>HSSEMainDutyEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\HSSESystem\HSSEMainDutyEdit.aspx.designer.cs">
+      <DependentUpon>HSSEMainDutyEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\InformationProject\ConstructionStandardIdentify.aspx.cs">
+      <DependentUpon>ConstructionStandardIdentify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\InformationProject\ConstructionStandardIdentify.aspx.designer.cs">
+      <DependentUpon>ConstructionStandardIdentify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\InformationProject\ConstructionStandardIdentifyEdit.aspx.cs">
+      <DependentUpon>ConstructionStandardIdentifyEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\InformationProject\ConstructionStandardIdentifyEdit.aspx.designer.cs">
+      <DependentUpon>ConstructionStandardIdentifyEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\InformationProject\ConstructionStandardIdentifyView.aspx.cs">
+      <DependentUpon>ConstructionStandardIdentifyView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\InformationProject\ConstructionStandardIdentifyView.aspx.designer.cs">
+      <DependentUpon>ConstructionStandardIdentifyView.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\InformationProject\CreateLawRegulationIdentify.aspx.cs">
       <DependentUpon>CreateLawRegulationIdentify.aspx</DependentUpon>
@@ -4663,6 +5416,97 @@
     <Compile Include="HSSE\Law\LawRegulationListSelectCloumn.aspx.designer.cs">
       <DependentUpon>LawRegulationListSelectCloumn.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\Law\ManageRule.aspx.cs">
+      <DependentUpon>ManageRule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Law\ManageRule.aspx.designer.cs">
+      <DependentUpon>ManageRule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Law\ManageRuleEdit.aspx.cs">
+      <DependentUpon>ManageRuleEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Law\ManageRuleEdit.aspx.designer.cs">
+      <DependentUpon>ManageRuleEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Law\ManageRuleSelectCloumn.aspx.cs">
+      <DependentUpon>ManageRuleSelectCloumn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Law\ManageRuleSelectCloumn.aspx.designer.cs">
+      <DependentUpon>ManageRuleSelectCloumn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Law\RulesRegulations.aspx.cs">
+      <DependentUpon>RulesRegulations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Law\RulesRegulations.aspx.designer.cs">
+      <DependentUpon>RulesRegulations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Law\RulesRegulationsEdit.aspx.cs">
+      <DependentUpon>RulesRegulationsEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Law\RulesRegulationsEdit.aspx.designer.cs">
+      <DependentUpon>RulesRegulationsEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Law\RulesRegulationsSelectCloumn.aspx.cs">
+      <DependentUpon>RulesRegulationsSelectCloumn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Law\RulesRegulationsSelectCloumn.aspx.designer.cs">
+      <DependentUpon>RulesRegulationsSelectCloumn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQuality.aspx.cs">
+      <DependentUpon>SubUnitQuality.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQuality.aspx.designer.cs">
+      <DependentUpon>SubUnitQuality.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQualityAudit.aspx.cs">
+      <DependentUpon>SubUnitQualityAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQualityAudit.aspx.designer.cs">
+      <DependentUpon>SubUnitQualityAudit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQualityAuditEdit.aspx.cs">
+      <DependentUpon>SubUnitQualityAuditEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQualityAuditEdit.aspx.designer.cs">
+      <DependentUpon>SubUnitQualityAuditEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQualityAuditView.aspx.cs">
+      <DependentUpon>SubUnitQualityAuditView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQualityAuditView.aspx.designer.cs">
+      <DependentUpon>SubUnitQualityAuditView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQualityEdit.aspx.cs">
+      <DependentUpon>SubUnitQualityEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\QualityAudit\SubUnitQualityEdit.aspx.designer.cs">
+      <DependentUpon>SubUnitQualityEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Resources\SignManage.aspx.cs">
+      <DependentUpon>SignManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Resources\SignManage.aspx.designer.cs">
+      <DependentUpon>SignManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Resources\SignManageEdit.aspx.cs">
+      <DependentUpon>SignManageEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Resources\SignManageEdit.aspx.designer.cs">
+      <DependentUpon>SignManageEdit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\SecuritySystem\SafetyOrganization.aspx.cs">
       <DependentUpon>SafetyOrganization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4690,6 +5534,20 @@
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="JDGL\Check\ProgressShow.aspx.cs">
+      <DependentUpon>ProgressShow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JDGL\Check\ProgressShow.aspx.designer.cs">
+      <DependentUpon>ProgressShow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="JDGL\Check\ProgressStatistics.aspx.cs">
+      <DependentUpon>ProgressStatistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JDGL\Check\ProgressStatistics.aspx.designer.cs">
+      <DependentUpon>ProgressStatistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -5141,7 +5999,6 @@
   <ItemGroup>
     <Folder Include="App_Themes\Default\Images\" />
     <Folder Include="FileUpload\" />
-    <Folder Include="File\Word\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

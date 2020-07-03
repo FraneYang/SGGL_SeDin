@@ -97,11 +97,83 @@ namespace WebAPI.Controllers
             return responeData;
         }
 
+
+         #region 根据焊口标识获取焊口详细信息
+        /// <summary>
+        /// 根据焊口标识获取焊口详细信息
+        /// </summary>
+        /// <param name="weldJointIdentify"></param>
+        /// <returns></returns>
+        public Model.ResponeData getWeldJointByIdentify(string weldJointIdentify)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIPipeJointService.getWeldJointByIdentify(weldJointIdentify);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 保存管线焊口信息
+        /// <summary>
+        /// 保存管线焊口信息
+        /// </summary>
+        /// <param name="addItem">管线焊口项</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SavePipeWeldJoint([FromBody] Model.WeldJointItem addItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIPipeJointService.SavePipeWeldJoint(addItem);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 批量保存管线焊口信息
+        /// <summary>
+        /// 批量保存管线焊口信息
+        /// </summary>
+        /// <param name="addItems">管线焊口项</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SavePipeWeldJointList([FromBody] List<Model.WeldJointItem> addItems)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIPipeJointService.SavePipeWeldJointList(addItems);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 保存预焊接日报
         /// <summary>
-        /// 保存PreWeldingDaily
+        /// 保存预焊接日报
         /// </summary>
-        /// <param name="addItem">施工方案</param>
+        /// <param name="addItem"></param>
         /// <returns></returns>
         [HttpPost]
         public Model.ResponeData SavePreWeldingDaily([FromBody] Model.WeldJointItem addItem)

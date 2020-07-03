@@ -180,7 +180,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="安全标准规范" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1100px" Height="550px">
+        Width="1200px" Height="500px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"

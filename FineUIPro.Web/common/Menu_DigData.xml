@@ -10,11 +10,32 @@
 <TreeNode id="436D5B71-D4B1-47D4-9D74-DF88D52CD10C" Text="施工管理模板库" NavigateUrl=""><TreeNode id="4A646C2D-96BF-4DF1-8AC4-AD258D80AB15" Text="表格模板" NavigateUrl=""></TreeNode>
 <TreeNode id="A0E14C24-5E6D-4AE9-BC62-330C897FDF4D" Text="文件模板" NavigateUrl=""></TreeNode>
 </TreeNode>
+<TreeNode id="DCVVBDE3-1B48-4615-FCD0-VDBCDS3ET4D9" Text="施工WBS基础数据库" NavigateUrl="CQMS/WBS/ControlItemInitSet.aspx"></TreeNode>
 <TreeNode id="A5D13C77-33B2-4D47-B7FD-5256543A8DC1" Text="施工管理资源库" NavigateUrl=""></TreeNode>
-<TreeNode id="FDVXFGDS-5THM-CCDE-DCS2-TGHNO48F7UKM" Text="安全公共资源库" NavigateUrl=""><TreeNode id="F4B02718-0616-4623-ABCE-885698DDBEB1" Text="安全法律法规" NavigateUrl="HSSE/Law/LawRegulationList.aspx"></TreeNode>
+<TreeNode id="664094A9-3DEF-4674-8FE2-ACF30B71B8DB" Text="安全公共资源库" NavigateUrl=""><TreeNode id="FDVXFGDS-5THM-CCDE-DCS2-TGHNO48F7UKM" Text="安全合规" NavigateUrl=""><TreeNode id="F4B02718-0616-4623-ABCE-885698DDBEB1" Text="安全法律法规" NavigateUrl="HSSE/Law/LawRegulationList.aspx"></TreeNode>
 <TreeNode id="EFDSFVDE-RTHN-7UMG-4THA-5TGED48F8IOL" Text="安全标准规范" NavigateUrl="HSSE/Law/HSSEStandardList.aspx"></TreeNode>
 <TreeNode id="DF1413F3-4CE5-40B3-A574-E01CE64FEA25" Text="安全规章制度" NavigateUrl="HSSE/Law/RulesRegulations.aspx"></TreeNode>
 <TreeNode id="56960940-81A8-43D1-9565-C306EC7AFD12" Text="安全管理规定" NavigateUrl="HSSE/Law/ManageRule.aspx"></TreeNode>
+</TreeNode>
+<TreeNode id="2B49BFE2-734F-489E-91B9-D05F02E1976D" Text="安全体系" NavigateUrl=""><TreeNode id="1DB91420-47D3-4219-AAB4-7E613FCBCC90" Text="安全主体责任" NavigateUrl="HSSE/HSSESystem/HSSEMainDuty.aspx"></TreeNode>
+</TreeNode>
+<TreeNode id="E26D223B-4CA2-4A6D-82D0-224CC9C8676D" Text="安全教育" NavigateUrl=""><TreeNode id="9D99A981-7380-4085-84FA-8C3B1AFA6202" Text="培训教材库" NavigateUrl="HSSE/EduTrain/TrainDB.aspx"></TreeNode>
+<TreeNode id="9D4F76A1-CD2E-4E66-B833-49425CD879EB" Text="公司教材库" NavigateUrl="HSSE/EduTrain/CompanyTraining.aspx"></TreeNode>
+<TreeNode id="4D6BD686-DA06-45CC-9DB8-54B342651724" Text="考试试题库" NavigateUrl="HSSE/EduTrain/TestTraining.aspx"></TreeNode>
+<TreeNode id="F58EE8ED-9EB5-47C7-9D7F-D751EFEA44CA" Text="安全试题库" NavigateUrl="HSSE/EduTrain/TrainTestDB.aspx"></TreeNode>
+<TreeNode id="D86917DB-D00A-4E18-9793-C290B5BBA84C" Text="事故案例库" NavigateUrl="HSSE/EduTrain/AccidentCase.aspx"></TreeNode>
+</TreeNode>
+<TreeNode id="D70D9BF5-C72E-414D-941B-CF9B4065F6BA" Text="安全技术" NavigateUrl=""><TreeNode id="8333727B-A2CE-4CE2-A019-21AC9EE61A4C" Text="危险源清单" NavigateUrl="Technique/HazardList.aspx"></TreeNode>
+<TreeNode id="C0018E8C-C88B-4E25-BCFC-F0BF3CACC63A" Text="公司危险源清单" NavigateUrl="HSSE/Technique/CompanyHazardList.aspx"></TreeNode>
+<TreeNode id="773B59F9-61F9-4F5E-9D68-A1BF9322AFFA" Text="环境因素危险源" NavigateUrl="HSSE/Technique/Environmental.aspx"></TreeNode>
+<TreeNode id="DC2AA8C2-82A8-4F7A-832D-9889C65AA228" Text="公司环境因素危险源" NavigateUrl="HSSE/Technique/CompanyEnvironmental.aspx"></TreeNode>
+<TreeNode id="2D86AD87-4108-428C-BA3D-F81FB85511FE" Text="安全隐患" NavigateUrl="HSSE/Technique/Rectify.aspx"></TreeNode>
+<TreeNode id="9C26BF2A-091D-4AC3-8678-334DE4E1CED7" Text="项目安全检查项" NavigateUrl="HSSE/Technique/CheckItemSet.aspx"></TreeNode>
+<TreeNode id="D11BFC83-BE64-457D-B8FA-11C37D35CD72" Text="应急预案" NavigateUrl="HSSE/Technique/Emergency.aspx"></TreeNode>
+<TreeNode id="3E2F2FFD-ED2E-4914-8370-D97A68398814" Text="施工方案" NavigateUrl="HSSE/Technique/SpecialScheme.aspx"></TreeNode>
+</TreeNode>
+<TreeNode id="1B688B07-AEF4-43D8-BF31-1907522967ED" Text="标牌管理" NavigateUrl=""><TreeNode id="022CA9C1-70F0-4C07-996C-0736D32B442A" Text="标牌管理" NavigateUrl="HSSE/Resources/SignManage.aspx"></TreeNode>
+</TreeNode>
 </TreeNode>
 </TreeNode>
 <TreeNode id="FF0D9166-4509-4411-8039-F035BC251114" Text="数据库" NavigateUrl=""></TreeNode>

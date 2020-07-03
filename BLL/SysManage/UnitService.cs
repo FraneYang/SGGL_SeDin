@@ -418,6 +418,77 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        ///  单位表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUnitNotsub(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitId";
+            dropName.DataTextField = "UnitName";
+            dropName.DataSource = BLL.UnitService.GetAllNoSubUnitList(projectId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 获取非分包所有单位
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_Unit> GetAllNoSubUnitList(string projectId)
+        {
+            var q = (from x in Funs.DB.Base_Unit
+                     orderby x.UnitCode
+                     select x).ToList();
+            if (!string.IsNullOrEmpty(projectId))
+            {
+                q = (from x in q
+                     join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
+                     where (y.ProjectId == projectId && y.UnitType != Const.ProjectUnitType_2)
+                     select x).ToList();
+            }
+            q = q.OrderByDescending(x => x.UnitCode).ToList();
+            return q;
+        }
+
+        /// <summary>
+        ///  单位表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void GetUnit(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitId";
+            dropName.DataTextField = "UnitName";
+            dropName.DataSource = GetUnitByProjectIdList(projectId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 根据项目Id获取单位名称下拉选择项
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUnitByProjectIdUnitTypeDropDownList1(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitId";
+            dropName.DataTextField = "UnitName";
+            dropName.DataSource = BLL.UnitService.GetUnitByProjectIdList(projectId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
         #region 根据多单位ID得到单位名称字符串
         /// <summary>
         /// 根据多单位ID得到单位名称字符串

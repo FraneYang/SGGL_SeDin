@@ -163,6 +163,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BaseInfoController.cs" />
+    <Compile Include="Controllers\HJGL\HotProcessHardController.cs" />
+    <Compile Include="Controllers\HJGL\NDETrustController.cs" />
     <Compile Include="Controllers\HJGL\PipeJointController.cs" />
     <Compile Include="Controllers\HJGL\PreWeldingDailyController.cs" />
     <Compile Include="Controllers\IDCardController.cs" />

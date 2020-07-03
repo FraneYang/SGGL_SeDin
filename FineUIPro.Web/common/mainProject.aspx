@@ -73,6 +73,16 @@
         .height130{
             height:130px;
         }
+
+        /*将中间地图变成监控背景图*/
+        .bg-img {
+            displayb:block;
+            height:100%;
+            width:100%;
+            border-radius:16px;
+            /*background: url(../images/Page-01.jpg) center center no-repeat;
+            background-size: 100% 100%;*/
+        }
     </style>
 </head>
 <body >
@@ -168,7 +178,8 @@
             <!--中间-->
             <div class="bw-b flex2 ptop6">
                 <div class="bw-b-bottom">
-                    <div class="bw-b-bottom-up">
+                    <div class="bw-b-bottom-up ">
+                        <img src="../res/images/Page-01.jpg" alt="Alternate Text"  class="bg-img"/>
                         <div class="tab-wrap">
                             <div class="tab" data-value="0">
                                 <div class="t-item ">监控</div>
@@ -176,7 +187,7 @@
                                 <div class="t-item active">平面图</div>
                             </div>
                         </div>
-                        <div id='map' style="width: 100%; height: 100%;"></div>
+                        <%--<div id='map' style="width: 100%; height: 100%;"></div>--%>
                     </div>
                 </div>
                 <div class="bw-b-bottom flex">
@@ -272,7 +283,7 @@
                 </div>
             </div>
             <!--右侧-->
-            <div class="bw-s flex1">
+            <div class="bw-s flex1" style="padding-top:6px">
                 <div class="bg-item height260">
                     <div class="tab-wrap tab-small">
                         <div class="tab" data-value="3">
@@ -560,7 +571,7 @@
     }
     pieTxt('four', "安全人工时", "800安全人工时")
 </script>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     function randomData() {
         return Math.round(Math.random() * 1000);
     }
@@ -816,7 +827,7 @@
         myChart.setOption(optionMap);
     }
 
-</script>
+</script>--%>
 <script type="text/javascript">
     $(".tab .t-item").click(function () {
         var $this = $(this)

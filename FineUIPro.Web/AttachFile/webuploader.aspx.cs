@@ -151,15 +151,15 @@ namespace FineUIPro.Web.AttachFile
                     {
                         try
                         {
+                          
                             string savedName = item.Value<string>("savedName");
                             string folder = item.Value<string>("folder");
-                            string  xnUrl= AttachPath + "\\" + savedName;
-                        
+                            string xnUrl = AttachPath + "\\" + savedName;
                             if (!string.IsNullOrEmpty(folder))
                             {
                                 xnUrl = folder + savedName;
                             }
-
+                           
                             string url = Funs.RootPath + xnUrl;
                             if (savedName.Contains("FileUpLoad"))
                             {
@@ -263,7 +263,12 @@ namespace FineUIPro.Web.AttachFile
                     try
                     {
                         string savedName = item.Value<string>("savedName");
-                        File.Delete(Server.MapPath("~/" + AttachPath + "\\" + savedName));
+                        string attachUrl = AttachPath + "\\" + savedName;
+                        if (!string.IsNullOrEmpty(item.Value<string>("folder")))
+                        {
+                            attachUrl = item.Value<string>("folder") + savedName ;
+                        }
+                        File.Delete(Server.MapPath("~/" + attachUrl));
                         BLL.LogService.AddSys_Log(this.CurrUser, "删除附件！", null, this.MenuId, BLL.Const.BtnDelete);
                     }
                     catch (Exception)
@@ -295,7 +300,7 @@ namespace FineUIPro.Web.AttachFile
                     JObject item = source[i] as JObject;
                     if (!string.IsNullOrEmpty(item.Value<string>("folder")))
                     {
-                        attachUrl += item.Value<string>("folder") + "/" + item.Value<string>("savedName") + ",";                        
+                        attachUrl += item.Value<string>("folder") + item.Value<string>("savedName") + ",";                        
                     }
                     else
                     {

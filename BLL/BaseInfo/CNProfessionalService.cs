@@ -70,7 +70,7 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
-        public static void InitCNProfessionalDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        public static void InitCNProfessionalDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
             dropName.DataValueField = "Value";
             dropName.DataTextField = "Text";
@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="dropName"></param>
         /// <param name="projectId"></param>
         /// <param name="isShowPlease"></param>
-        public static void InitCNProfessional(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        public static void InitCNProfessional(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
             dropName.DataValueField = "Text";
             dropName.DataTextField = "Text";
@@ -130,7 +130,7 @@ namespace BLL
             if (!string.IsNullOrEmpty(cnProfessionalCode))
             {
                 string[] codes = cnProfessionalCode.Split(',');
-                var list = Funs.DB.Base_CNProfessional.Where(x => codes.Contains(x.CNProfessionalCode));
+                var list = Funs.DB.Base_CNProfessional.Where(x => codes.Contains(x.CNProfessionalId));
                 foreach (var item in list)
                 {
                     res += item.ProfessionalName + ",";

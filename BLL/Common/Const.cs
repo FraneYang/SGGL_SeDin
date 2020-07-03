@@ -34,6 +34,16 @@ namespace BLL
         public const string _ALL = "all";
 
         /// <summary>
+        /// 是 字符串
+        /// </summary>
+        public const string _True = "True";
+
+        /// <summary>
+        ///  否 字符串
+        /// </summary>
+        public const string _False = "False";
+
+        /// <summary>
         /// 默认用户密码
         /// </summary>
         public const string Password = "123";
@@ -144,6 +154,30 @@ namespace BLL
         /// 登录
         /// </summary>
         public const string BtnLogin = "登录";
+        /// <summary>
+        /// 生成委托单
+        /// </summary>
+        public const string BtnGenerate = "生成";
+        /// <summary>
+        /// 审核
+        /// </summary>
+        public const string BtnPointAudit = "点口审核";
+        /// <summary>
+        /// 打开重新点口 
+        /// </summary>
+        public const string BtnOpenResetPoint = "打开重新点口";
+        /// <summary>
+        /// 生成返修通知单
+        /// </summary>
+        public const string BtnRepairNotice = "生成返修通知单";
+        /// <summary>
+        /// 取消审核
+        /// </summary>
+        public const string BtnCancelAuditing = "取消审核";
+        /// <summary>
+        /// 试压包完成
+        /// </summary>
+        public const string BtnTestComplete = "试压包完成";
         #endregion
 
         #region 定义常量
@@ -236,6 +270,11 @@ namespace BLL
         /// 焊工岗位Id
         /// </summary>
         public static string WorkPost_Welder = "19B8F2A9-28D3-4F20-867A-1B2237C2E228";
+
+        /// <summary>
+        /// 无损检测工岗位Id
+        /// </summary>
+        public static string WorkPost_Checker = "595999E9-75A8-4064-9BD1-9EE02F236297";
         #endregion
 
         #region 系统环境设置常量
@@ -292,8 +331,7 @@ namespace BLL
         /// </summary>
         public const string HalfYearDate_2 = "HalfYearDate_2";
         #endregion              
-
-
+        
         #region 内置项目角色定义
         /// <summary>
         /// 项目经理
@@ -351,6 +389,46 @@ namespace BLL
         /// HSSE工程师
         /// </summary>
         public const string HSSEEngineer = "66D2ECB4-2946-4C6E-8E4B-1C4CD096B8A5";
+        /// <summary>
+        /// 执行经理
+        /// </summary>
+        public static string ZXPrincipalRole = "52F3101F-A191-43C3-B2FD-E26ED31E2B71";
+        /// <summary>
+        /// 项目技术负责人
+        /// </summary>
+        public static string TechnicalPrincipalRole = "BGFBHRRE-0813-6666-828E-FDSAFDSFVDDF";
+        /// <summary>
+        /// 费控工程师
+        /// </summary>
+        public static string KZEngineer = "CADC4D2C-E101-44E0-978A-9AD86C3B5F48";
+        /// <summary>
+        /// 质量工程师
+        /// </summary>
+        public static string CQEngineer = "eb2646ae-36dd-4199-a75e-55a6f42935ad";
+        /// <summary>
+        /// 土建工程师
+        /// </summary>
+        public static string CVEngineer = "012B3348-0813-46C0-828E-41CB6457FACD";
+        /// <summary>
+        /// 设备工程师
+        /// </summary>
+        public static string FEEngineer = "FAFDSFDD-5555-46C0-828E-9OPYTT54TRET";
+        /// <summary>
+        /// 管道工程师
+        /// </summary>
+        public static string PDEngineer = "VBFSDVFF-0813-46C0-7777-54GTRT56HRRE";
+        /// <summary>
+        /// 电气工程师
+        /// </summary>
+        public static string EHEngineer = "DVDASFDE-0813-46C0-828E-VBFDBGDFEWER";
+        /// <summary>
+        /// 仪表工程师
+        /// </summary>
+        public static string EAEngineer = "AAE5734F-A249-4336-BAFE-7FB4D5753451";
+        /// <summary>
+        /// 焊接工程师
+        /// </summary>
+        public static string HJEngineer = "17F2C0B6-5505-46FA-AB34-54CEECD5CF66";
         #endregion
 
         #region 报表流程定义
@@ -761,7 +839,7 @@ namespace BLL
         /// <summary>
         /// 安全主体责任
         /// </summary>
-        public const string HSSEMainDutyMenuId = "3ACE25CE-C5CE-4CEC-AD27-0D5CF1DF2F01";
+        public const string HSSEMainDutyMenuId = "1DB91420-47D3-4219-AAB4-7E613FCBCC90";
         /// <summary>
         /// 安全制度
         /// </summary>
@@ -826,7 +904,7 @@ namespace BLL
         /// <summary>
         /// 危险源清单
         /// </summary>
-        public const string HazardListMenuId = "66A76F90-96A7-4C1F-B8D9-125DDEACEF52";
+        public const string HazardListMenuId = "8333727B-A2CE-4CE2-A019-21AC9EE61A4C";
         /// <summary>
         /// 公司危险源清单
         /// </summary>
@@ -842,11 +920,11 @@ namespace BLL
         /// <summary>
         /// 安全隐患
         /// </summary>
-        public const string RectifyMenuId = "88CDDC68-54DE-4E24-9524-A33B80EC0E12";
+        public const string RectifyMenuId = "2D86AD87-4108-428C-BA3D-F81FB85511FE";
         /// <summary>
         /// 检查项
         /// </summary>
-        public const string TechniqueCheckItemSetMenuId = "4D92095C-8222-49D2-AF96-CD1972D4F4F8";
+        public const string TechniqueCheckItemSetMenuId = "9C26BF2A-091D-4AC3-8678-334DE4E1CED7";
         /// <summary>
         /// HAZOP管理
         /// </summary>
@@ -862,7 +940,7 @@ namespace BLL
         /// <summary>
         /// 应急预案
         /// </summary>
-        public const string EmergencyMenuId = "575C5154-A135-4737-8682-A129EA717660";
+        public const string EmergencyMenuId = "D11BFC83-BE64-457D-B8FA-11C37D35CD72";
         /// <summary>
         /// 施工方案
         /// </summary>
@@ -2226,7 +2304,10 @@ namespace BLL
         /// 试压类型
         /// </summary>
         public const string HJGL_PressureMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0015";
-
+        /// <summary>
+        /// 焊接位置
+        /// </summary>
+        public const string HJGL_WeldingLocationMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0015";
         #endregion
 
         #region 人员管理
@@ -2537,6 +2618,553 @@ namespace BLL
         /// 安全巡检
         /// </summary>
         public const string APP_HazardRegisterMenuId = "F21FFCAA-872A-4995-BB5B-E9C430950845";
+        #endregion
+
+        #region 质量
+        #region  质量管理
+        #region 基础设置
+        /// <summary>
+        /// 项目环境设置
+        /// </summary>
+        public const string CQMSSysSetMenuId = "9c62332c-d31f-4575-a323-49537bf335e8";
+        #endregion
+
+        #region WBS定制管理
+        /// <summary>
+        /// 施工WBS基础数据库
+        /// </summary>
+        public const string ControlItemInitSetMenuId = "DCVVBDE3-1B48-4615-FCD0-VDBCDS3ET4D9";
+
+        /// <summary>
+        /// 项目WBS基础数据库
+        /// </summary>
+        public const string ControlItemProjectSetMenuId = "F0E4A87F-0D1E-499D-A9EF-9D42ABF4422F";
+
+        /// <summary>
+        /// 装置/单元包含工作包设置
+        /// </summary>
+        public const string InstallToPackageMenuId = "7BA846E7-D9B2-4F08-9098-DF4DBD676611";
+
+        /// <summary>
+        /// 项目施工WBS定制
+        /// </summary>
+        public const string ControlItemAndCycleMenuId = "7BA846E7-D9B2-4F08-9098-DF4DBD654789";
+
+        /// <summary>
+        /// 项目施工WBS展示
+        /// </summary>
+        public const string ControlItemAndCycleShowMenuId = "94217974-201A-4D4F-A832-D9477ACD63A5";
+
+        #endregion
+
+        #region 工序验收
+        /// <summary>
+        /// 实体验收记录
+        /// </summary>
+        public const string SpotCheckMenuId = "CC43E208-335D-4AE3-A1CE-B2D8510AE854";
+
+        /// <summary>
+        /// 工序资料记录
+        /// </summary>
+        public const string SpotDataCheckMenuId = "8317C0F7-3A69-48AB-87E5-03E96C543B1C";
+        #endregion
+
+        #region 质量巡检记录
+        /// <summary>
+        /// 质量巡检记录
+        /// </summary>
+        public const string CheckListMenuId = "B3E99BD9-FDC7-4F15-8C3C-A7821AC9E306";
+        #endregion
+
+        #region 质量共检
+        /// <summary>
+        /// 质量共检
+        /// </summary>
+        public const string JointCheckMenuId = "E6703F32-4E42-4D03-84B3-5EC0E8E48E0F";
+        #endregion
+
+        #region 工程联络单
+        /// <summary>
+        /// 工程联络单
+        /// </summary>
+        public const string TechnicalContactListMenuId = "87867EA8-576A-4166-AE7A-7416115DF30B";
+        #endregion
+
+        #region 工作联系单
+        /// <summary>
+        /// 工作联系单
+        /// </summary>
+        public const string WorkContactMenuId = "43E96F2A-9497-4C37-998F-0EB324000609";
+        #endregion
+
+        #region 设计变更
+        /// <summary>
+        /// 设计变更
+        /// </summary>
+        public const string DesignMenuId = "38F11FC6-E9F0-4ABD-BD78-BB1807EA3CE3";
+        #endregion
+
+        #region 施工方案及审查
+        /// <summary>
+        /// 施工方案及审查
+        /// </summary>
+        public const string CQMSConstructSolutionMenuId = "91C4BFDB-0A51-4992-99CC-EB4EC185593D";
+        #endregion
+
+        #region 施工图纸管理
+        /// <summary>
+        /// 施工图纸管理
+        /// </summary>
+        public const string DrawMenuId = "3A9039B2-20DC-47FA-A943-E3604FBBF699";
+        #endregion
+
+        #region 检试验设备及测量器具
+        /// <summary>
+        /// 检试验设备及测量器具
+        /// </summary>
+        public const string CheckEquipmentMenuId = "BB8EB284-A014-442E-A1D7-956AA11272AE";
+        #endregion
+
+        #region 质量月报
+        /// <summary>
+        /// 质量月报
+        /// </summary>
+        public const string CheckMonthMenuId = "786864C0-2875-49CD-B55E-0B5C8253295D";
+        #endregion
+
+        #region 文件柜
+        /// <summary>
+        /// 重要文件
+        /// </summary>
+        public const string FileCabinetMenuId = "03CEB246-0CE5-48CB-9D6B-1B84AC2E27B3";
+        #endregion
+        #endregion
+
+        #region 质量流程定义
+        #region 工序验收流程定义
+        /// <summary>
+        /// 重新整理
+        /// </summary>
+        public const string SpotCheck_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public const string SpotCheck_Compile = "1";
+
+        /// <summary>
+        /// 分包负责人确认
+        /// </summary>
+        public static string SpotCheck_Audit1 = "2";
+
+        /// <summary>
+        /// 总包专业工程师确认
+        /// </summary>
+        public static string SpotCheck_Audit2 = "3";
+
+        /// <summary>
+        /// 监理专业工程师确认
+        /// </summary>
+        public static string SpotCheck_Audit3 = "4";
+
+        /// <summary>
+        /// 建设单位确认
+        /// </summary>
+        public static string SpotCheck_Audit4 = "5";
+
+        /// <summary>
+        /// 分包专业工程师上传资料
+        /// </summary>
+        public static string SpotCheck_Audit5 = "6";
+
+        /// <summary>
+        /// 总包专业工程师确认
+        /// </summary>
+        public static string SpotCheck_Audit6 = "7";
+
+        /// <summary>
+        /// 分包负责人确认
+        /// </summary>
+        public static string SpotCheck_Audit7 = "Q";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string SpotCheck_Complete = "8";
+
+        /// <summary>
+        /// 分包专业工程师重新上传资料
+        /// </summary>
+        public static string SpotCheck_Audit5R = "9";
+
+        /// <summary>
+        /// 资料验收中
+        /// </summary>
+        public static string SpotCheck_Z = "Z";
+
+        #endregion
+
+        #region 质量巡检流程定义
+        /// <summary>
+        /// 重新编制
+        /// </summary>
+        public const string CheckControl_ReCompile = "0";//总包
+
+        /// <summary>
+        /// 总包专业工程师编制
+        /// </summary>
+        public const string CheckControl_Compile = "1";//总包
+
+        /// <summary>
+        /// 总包负责人审批
+        /// </summary>
+        public static string CheckControl_Audit1 = "2";//总包
+
+        /// <summary>
+        /// 分包专业工程师回复
+        /// </summary>
+        public static string CheckControl_Audit2 = "3";//分包
+
+        /// <summary>
+        /// 分包负责人审批
+        /// </summary>
+        public static string CheckControl_Audit3 = "4";//分包
+
+        /// <summary>
+        /// 总包专业工程师确认
+        /// </summary>
+        public static string CheckControl_Audit4 = "5";//总包
+
+        /// <summary>
+        /// 总包负责人审批
+        /// </summary>
+        public static string CheckControl_Audit5 = "6";//总包
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string CheckControl_Complete = "7";
+
+        /// <summary>
+        /// 分包专业工程师重新回复
+        /// </summary>
+        public const string CheckControl_ReCompile2 = "8";//分包
+
+        #endregion
+
+        #region 质量共检流程定义
+        /// <summary>
+        /// 重新整理
+        /// </summary>
+        public const string JointCheck_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public const string JointCheck_Compile = "1";
+
+        /// <summary>
+        /// 分包专工回复
+        /// </summary>
+        public static string JointCheck_Audit1 = "2";
+
+        /// <summary>
+        /// 分包负责人审批
+        /// </summary>
+        public static string JointCheck_Audit2 = "3";
+
+        /// <summary>
+        /// 总包专工回复
+        /// </summary>
+        public static string JointCheck_Audit3 = "4";
+
+        /// <summary>
+        /// 总包负责人审批
+        /// </summary>
+        public static string JointCheck_Audit4 = "5";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string JointCheck_Complete = "6";
+
+        /// <summary>
+        /// 分包专工重新回复
+        /// </summary>
+        public static string JointCheck_Audit1R = "7";
+
+        /// <summary>
+        /// 整改中
+        /// </summary>
+        public static string JointCheck_Z = "Z";
+
+        #endregion
+
+        #region 工程联络单流程定义
+        /// <summary>
+        /// 重新编制
+        /// </summary>
+        public const string TechnicalContactList_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public const string TechnicalContactList_Compile = "1";
+
+        /// <summary>
+        /// 分包负责人审批
+        /// </summary>
+        public static string TechnicalContactList_Audit1 = "2";
+
+        /// <summary>
+        /// 总包专工确认
+        /// </summary>
+        public static string TechnicalContactList_Audit2 = "3";
+
+        /// <summary>
+        /// 总包负责人审批
+        /// </summary>
+        public static string TechnicalContactList_Audit3 = "4";
+
+        /// <summary>
+        /// 总包设计人员回复
+        /// </summary>
+        public static string TechnicalContactList_Audit4 = "5";
+
+        /// <summary>
+        /// 分包专工回复
+        /// </summary>
+        public static string TechnicalContactList_Audit6 = "7";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string TechnicalContactList_Complete = "8";
+
+        /// <summary>
+        /// 分包专工重新回复
+        /// </summary>
+        public static string TechnicalContactList_Audit6R = "F";
+
+        /// <summary>
+        /// 总包专工重新回复
+        /// </summary>
+        public static string TechnicalContactList_Audit2R = "Z";
+
+        /// <summary>
+        /// 总包设计人员重新回复
+        /// </summary>
+        public static string TechnicalContactList_Audit4R = "J";
+
+        /// <summary>
+        /// 总包专工回复
+        /// </summary>
+        public static string TechnicalContactList_Audit2H = "H";
+        #endregion
+
+        #region 工作联系单流程定义
+        /// <summary>
+        /// 重新编制
+        /// </summary>
+        public const string WorkContact_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public static string WorkContact_Compile = "1";
+
+        /// <summary>
+        /// 分包负责人审核
+        /// </summary>
+        public static string WorkContact_Audit1 = "2";
+
+        /// <summary>
+        /// 总包专工回复
+        /// </summary>
+        public static string WorkContact_Audit2 = "3";
+
+        /// <summary>
+        /// 总包负责人审核
+        /// </summary>
+        public static string WorkContact_Audit3 = "4";
+
+        /// <summary>
+        /// 审核完结
+        /// </summary>
+        public static string WorkContact_Complete = "5";
+
+        /// <summary>
+        /// 分包专工重新回复
+        /// </summary>
+        public static string WorkContact_Audit1R = "6";
+
+        /// <summary>
+        /// 总包专工重新回复
+        /// </summary>
+        public static string WorkContact_Audit2R = "7";
+
+        /// <summary>
+        /// 分包专工回复
+        /// </summary>
+        public static string WorkContact_Audit4 = "8";
+
+        #endregion
+
+        #region 设计变更流程定义
+        /// <summary>
+        /// 重新编制
+        /// </summary>
+        public const string Design_ReCompile = "0";
+
+        /// <summary>
+        /// 变更录入
+        /// </summary>
+        public const string Design_Compile = "1";
+
+        /// <summary>
+        /// 变更分析
+        /// </summary>
+        public static string Design_Audit1 = "2";
+
+        /// <summary>
+        /// 变更分析审核
+        /// </summary>
+        public static string Design_Audit2 = "3";
+
+        /// <summary>
+        /// 变更实施
+        /// </summary>
+        public static string Design_Audit3 = "4";
+
+        /// <summary>
+        /// 变更实施审核
+        /// </summary>
+        public static string Design_Audit4 = "5";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string Design_Complete = "6";
+
+        #endregion
+
+        #region 施工方案及审查流程定义
+
+        /// <summary>
+        /// 重报
+        /// </summary>
+        public const string CQMSConstructSolution_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public static string CQMSConstructSolution_Compile = "1";
+
+        /// <summary>
+        /// 会签
+        /// </summary>
+        public static string CQMSConstructSolution_Audit = "2";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string CQMSConstructSolution_Complete = "3";
+
+        #endregion
+
+        #region 检试验设备及测量器具流程定义
+        /// <summary>
+        /// 重新编制
+        /// </summary>
+        public const string CheckEquipment_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public const string CheckEquipment_Compile = "1";
+
+        /// <summary>
+        /// 审核
+        /// </summary>
+        public static string CheckEquipment_Approve = "2";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string CheckEquipment_Complete = "3";
+        #endregion
+        #endregion
+
+        #region 质量模板文件路径
+        /// <summary>
+        /// 工程联络单的虚拟路径
+        /// </summary>
+        public const string TechnicalContactListTemplateUrl = "File\\Word\\CQMS\\Check\\工程联络单.doc";
+        /// <summary>
+        /// 工程联络单2的虚拟路径
+        /// </summary>
+        public const string TechnicalContactListTemplateUrl2 = "File\\Word\\CQMS\\Check\\工程联络单2.doc";
+        /// <summary>
+        /// 施工方案模版文件原始的虚拟路径
+        /// </summary>
+        public const string CQMSConstructSolutionTemplateUrl3 = "File\\Word\\CQMS\\Solution\\施工方案模板.doc";
+        /// <summary>
+        /// 施工组织设计模版文件原始的虚拟路径
+        /// </summary>
+        public const string CQMSConstructSolutionTemplateUrl1 = "File\\Word\\CQMS\\Solution\\施工组织设计模板.doc";
+        /// <summary>
+        /// 工作联系单2的虚拟路径
+        /// </summary>
+        public const string WorkContactTemplateUrl2 = "File\\Word\\CQMS\\Check\\工作联系单2.doc";
+        /// <summary>
+        /// 工作联系单的虚拟路径
+        /// </summary>
+        public const string WorkContactTemplateUrl = "File\\Word\\CQMS\\Check\\工作联系单.doc";
+        /// <summary>
+        /// 施工方案的虚拟路径
+        /// </summary>
+        public const string ConstructSolutionTemplateUrl = "File\\Word\\CQMS\\Check\\施工方案.doc";
+        /// <summary>
+        /// 质量月报的虚拟路径
+        /// </summary>
+        public const string CheckMonthTemplateUrl = "File\\Word\\CQMS\\Check\\质量月报.doc";
+        /// <summary>
+        /// 设计变更的虚拟路径
+        /// </summary>
+        public const string DesignTemplateUrl = "File\\Word\\CQMS\\Check\\设计变更.doc";
+        /// <summary>
+        /// 施工质量检查记录的虚拟路径
+        /// </summary>
+        public const string JointCheckTemplateUrl = "File\\Word\\CQMS\\Check\\施工质量检查记录.doc";
+        /// <summary>
+        /// 施工质量问题整改单的虚拟路径
+        /// </summary>
+        public const string CheckListTemplateUrl = "File\\Word\\CQMS\\Check\\施工质量问题整改单.doc";
+        /// <summary>
+        /// 施工质量问题整改单2的虚拟路径
+        /// </summary>
+        public const string CheckListTemplateUrl2 = "File\\Word\\CQMS\\Check\\施工质量问题整改单2.doc";
+        /// <summary>
+        /// 质量共检通知单的虚拟路径
+        /// </summary>
+        public const string SpotCheckTemplateUrl = "File\\Word\\CQMS\\Check\\质量共检通知单.doc";
+        #endregion
+
+        #endregion
+
+        #region  焊接管理
+
+       
+
+        /// <summary>
+        /// 焊工照片上传路径
+        /// </summary>
+        public static string WelderFilePath = "FileUpload\\Welder\\";
+        /// <summary>
+        /// PDMS导入模版文件原始的虚拟路径
+        /// </summary>
+        public const string WPQTemplateUrl = "File\\Excel\\焊接工艺评定导入模版.xls";
+
         #endregion
     }
 }

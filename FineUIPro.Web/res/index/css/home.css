@@ -90,12 +90,16 @@ body{
   /* height: 800px; */
   /* background-color: black; */
 }
-.bw-item{
-  width: 100%;
-  height: 220px;
-  position: relative;
-  z-index: 1;
-  margin-bottom: 5px;
+.bw-item {
+    width: 100%;
+    height: 220px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 5px;
+    box-shadow: 0 0 10px rgb(0,162,233);
+    border: 1px solid rgb(0,162,233);
+    border-radius: 15px;
+    margin: 20px 0px;
 }
 .bw-item-h{
   height: 280px;
@@ -322,7 +326,7 @@ body{
     cursor: pointer;
     font-size: 14px;
     float: left;
-    width: 120px;
+    width: 11%;
     margin: 0 5px;
     height: 36px;
     line-height: 36px;

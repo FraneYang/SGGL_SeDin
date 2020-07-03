@@ -16,26 +16,26 @@
             <!--左侧-->
             <div class="bw-s flex1">
                 <div class="bw-item">
-                    <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="" />
+                   <%-- <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="" />--%>
                     <div class="bw-item-content">
                         <div id='main' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
                 <div class="bw-item">
-                    <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">
+                    <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='line' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
                 <div class="bw-item bw-item-h">
-                    <img class="bw-img bw-img-h" src="../res/index/images/Bg-S-2.png" alt="">
+                    <%--<img class="bw-img bw-img-h" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='radar' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
             </div>
             <!--中间-->
-            <div class="bw-b flex2">
+            <div class="bw-b flex2" style="margin-top:15px">
                 <div class="bw-b-bottom ptop6">
                     <div class="bw-b-bottom-up">
                         <div class="tab-wrap">
@@ -50,7 +50,7 @@
                 </div>
                 <div class="bw-b-bottom" style="display: flex;">
                     <div class="bw-item" style="flex: 1; width: 50%;">
-                        <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">
+                        <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                         <div class="bw-item-content">
                             <div id='swiper1' class="swiper-container" style="height: 180px;">
                                 <ul class="content-ul swiper-wrapper">
@@ -96,7 +96,7 @@
                     </div>
                     <div class="spline"></div>
                     <div class="bw-item" style="flex: 1; width: 50%;">
-                        <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">
+                        <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                         <div class="bw-item-content">
                             <div class="swiper-container" id='swiper2' style="height: 180px;">
                                 <ul class="content-ul swiper-wrapper">
@@ -145,19 +145,19 @@
             <!--右侧-->
             <div class="bw-s flex1">
                 <div class="bw-item">
-                    <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">
+                    <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='echartsBar' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
                 <div class="bw-item">
-                    <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">
+                    <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='line1' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
                 <div class="bw-item bw-item-h">
-                    <img class="bw-img bw-img-h" src="../res/index/images/Bg-S-2.png" alt="">
+                    <%--<img class="bw-img bw-img-h" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='Accumulation' style="width: 100%; height: 100%;"></div>
                     </div>

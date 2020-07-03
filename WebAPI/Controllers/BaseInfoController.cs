@@ -33,6 +33,51 @@ namespace WebAPI.Controllers
         //}
         //#endregion
 
+        #region 获取项目列表
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getProjectList()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIBaseInfoService.getProjectList();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 根据项目号获取项目信息
+        /// <summary>
+        ///  根据项目号获取项目信息
+        /// </summary>
+        /// <param name="projectCode"></param>
+        /// <returns></returns>
+        public Model.ResponeData getProjectByCode(string projectCode)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIBaseInfoService.getProjectByCode(projectCode);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 根据projectId获取单位工程
         /// <summary>
         ///  根据projectId获取单位工程

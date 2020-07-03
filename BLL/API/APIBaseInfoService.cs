@@ -20,6 +20,47 @@ namespace BLL
         }
         #endregion
 
+        #region 获取项目列表
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getProjectList()
+        {
+            var getDataLists = (from x in Funs.DB.Base_Project
+                                orderby x.ProjectCode
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.ProjectId,
+                                    BaseInfoCode = x.ProjectCode,
+                                    BaseInfoName = x.ProjectName
+                                }
+                                ).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 根据项目号获取项目信息
+        /// <summary>
+        /// 根据项目号获取项目信息
+        /// </summary>
+        /// <param name="projectCode"></param>
+        /// <returns></returns>
+        public static Model.BaseInfoItem getProjectByCode(string projectCode)
+        {
+            var getDataLists = (from x in Funs.DB.Base_Project
+                                where x.ProjectCode == projectCode
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.ProjectId,
+                                    BaseInfoCode = x.ProjectCode,
+                                    BaseInfoName = x.ProjectName
+                                }
+                                ).FirstOrDefault();
+            return getDataLists;
+        }
+        #endregion
+
         #region 根据项目id获取区域表
         /// <summary>
         /// 根据项目id获取区域表

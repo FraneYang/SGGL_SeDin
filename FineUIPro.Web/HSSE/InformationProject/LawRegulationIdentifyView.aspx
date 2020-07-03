@@ -37,7 +37,7 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="法律法规清单" EnableCollapse="true"
                         runat="server" BoxFlex="1" DataKeyNames="LawRegulationId,LawRegulationSelectedItemId" Height="240px"
                         AllowCellEditing="true" EnableColumnLines="true" ClicksToEdit="1" DataIDField="LawRegulationSelectedItemId"
-                        AllowSorting="true" SortField="LawRegulationCode"> 
+                        AllowSorting="true" SortField="LawRegulationCode" PageSize="500"> 
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>

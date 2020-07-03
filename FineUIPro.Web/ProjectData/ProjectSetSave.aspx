@@ -64,7 +64,8 @@
                    <f:TextBox ID="txtPostCode" runat="server" Label="邮编" MaxLength="20"></f:TextBox>
                </Items>    
                <Items>
-                    <f:DropDownList ID="drpProjectManager" runat="server" Label="项目经理" EnableEdit="true" Required="true" ShowRedStar="true">
+                    <f:DropDownList ID="drpProjectManager" runat="server" Label="项目经理" 
+                        EnableEdit="true" Required="true" ShowRedStar="true">
                     </f:DropDownList>     
                 </Items>
             </f:FormRow>  

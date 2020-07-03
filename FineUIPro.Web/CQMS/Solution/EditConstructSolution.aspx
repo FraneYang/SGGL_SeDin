@@ -1,0 +1,297 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditConstructSolution.aspx.cs" Inherits="FineUIPro.Web.CQMS.Solution.EditConstructSolution" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title>施工方案</title>
+    <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .labcenter {
+            text-align: center;
+        }
+
+        .f-grid-row .f-grid-cell-inner {
+            white-space: normal;
+            word-break: break-all;
+        }
+
+        .f-grid-row.red {
+            background-color: #FF7575;
+            background-image: none;
+        }
+
+        .fontred {
+            color: #FF7575;
+            background-image: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <f:PageManager ID="PageManager1" AutoSizePanelID="SimpleForm1" runat="server" />
+        <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
+            BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+            <Rows>
+                <f:FormRow>
+                    <Items>
+                        <f:ContentPanel ID="ContentPanel2" Title="施工方案" ShowBorder="true"
+                            BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
+                            runat="server">
+                            <f:Form ID="Form2" ShowBorder="false" ShowHeader="false" AutoScroll="true"
+                                BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+                                <Rows>
+
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:TextBox ID="txtProjectName" runat="server" Readonly="true" Label="项目名称" LabelAlign="Right"
+                                                MaxLength="50">
+                                            </f:TextBox>
+                                            <f:TextBox ID="txtCode" runat="server" Required="true" ShowRedStar="true" Label="编号" LabelAlign="Right"
+                                                MaxLength="50">
+                                            </f:TextBox>
+
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:DropDownList ID="drpUnit" ShowRedStar="true"
+                                                runat="server" Required="true" Label="施工单位" EmptyText="--请选择--" AutoSelectFirstItem="false" LabelAlign="Right" EnableEdit="true">
+                                            </f:DropDownList>
+
+                                            <f:DropDownList ID="drpModelType" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" Required="true" runat="server" Width="350px" Label="方案类别" LabelAlign="Right" EnableEdit="true">
+                                            </f:DropDownList>
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:DatePicker ID="txtCompileDate" ShowRedStar="true" Required="true" runat="server" Label="编制时间" LabelAlign="Right"
+                                                EnableEdit="true">
+                                            </f:DatePicker>
+                                            <f:Panel ID="plfile" ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
+                                                <Items>
+
+                                                    <f:Panel ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
+                                                        <Items>
+                                                          
+                                                            <f:Label runat="server" Text="<span style='color:red;'>*</span>附件：" EncodeText="false"  ShowRedStar="true" Label="附件："   CssStyle="padding-left:48px"  Width="102px" CssClass="marginr" ShowLabel="false"></f:Label>
+                                                            <f:Button ID="imgBtnFile" Text="附件" ToolTip="上传及查看" Icon="TableCell" OnClick="imgBtnFile_Click" runat="server">
+                                                            </f:Button>
+                                                        </Items>
+                                                    </f:Panel>
+                                                </Items>
+                                            </f:Panel>
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:TextBox ID="txtSolutionName" runat="server" ShowRedStar="true" Required="true" Label="方案名称" LabelAlign="Right"
+                                                MaxLength="50">
+                                            </f:TextBox>
+                                            <f:NumberBox ID="txtEdition" Label="版次" runat="server" NoDecimal="true" Readonly="true"
+                                                LabelWidth="100px" NoNegative="true" ShowRedStar="true" MaxLength="3" Required="true">
+                                            </f:NumberBox>
+                                        </Items>
+                                    </f:FormRow>
+
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:DropDownBox runat="server" Label="专业" ShowRedStar="true" Required="true" ID="txtCNProfessional" EmptyText="--请选择--" DataControlID="txtCNProfessional" EnableMultiSelect="true" MatchFieldWidth="true">
+                                                <PopPanel>
+                                                    <f:Grid ID="gvCNPro" BoxFlex="1"
+                                                        DataIDField="CNProfessionalCode" DataTextField="ProfessionalName" EnableMultiSelect="true" KeepCurrentSelection="true"
+                                                        ShowBorder="true" ShowHeader="false" ForceFit="true"
+                                                        runat="server" EnableCheckBoxSelect="true" DataKeyNames="CNProfessionalCode" Hidden="true">
+                                                        <Columns>
+                                                            <%--<f:RowNumberField />--%>
+                                                            <f:BoundField Width="100px" DataField="CNProfessionalCode" SortField="CNProfessionalCode" DataFormatString="{0}" Hidden="true" />
+                                                            <f:BoundField Width="100px" DataField="ProfessionalName" SortField="ProfessionalName" DataFormatString="{0}"
+                                                                 HeaderText="名称" />
+                                                        </Columns>
+                                                    </f:Grid>
+                                                </PopPanel>
+                                            </f:DropDownBox>
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:DropDownBox runat="server" Label="单位工程" ShowRedStar="true"
+                                                Required="true" ID="txtUnitWork" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="false">
+                                                <PopPanel>
+                                                    <f:Grid ID="gvUnitWork" DataIDField="UnitWorkId" DataTextField="UnitWorkName" DataKeyNames="UnitWorkId"
+                                                        EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true"
+                                                        ShowBorder="true" ShowHeader="false" ForceFit="true"
+                                                        runat="server" EnableCheckBoxSelect="true">
+                                                        <Columns>
+                                                            <f:BoundField Width="100px" DataField="UnitWorkId" SortField="UnitWorkId" DataFormatString="{0}" Hidden="true" />
+                                                            <f:BoundField Width="100px" DataField="UnitWorkName" SortField="UnitWorkName" DataFormatString="{0}"
+                                                                 HeaderText="工程名称" />
+                                                        </Columns>
+                                                    </f:Grid>
+                                                </PopPanel>
+                                            </f:DropDownBox>
+                                        </Items>
+                                    </f:FormRow>
+
+                                </Rows>
+                            </f:Form>
+                        </f:ContentPanel>
+                    </Items>
+                </f:FormRow>
+
+                <f:FormRow>
+                    <Items>
+                        <f:Panel ID="Panel2" IsFluid="true" CssClass="mytable blockpanel" runat="server" AutoScroll="true" ShowBorder="true"
+                            Layout="Table" TableConfigColumns="3" ShowHeader="true" Title="总包会签">
+                            <Items>
+                                <f:Panel ID="Panel1" Title="Panel1"
+                                    TableRowspan="5" runat="server" BodyPadding="10px" ShowBorder="false" ShowHeader="false" Height="200px">
+                                    <Items>
+                                        <f:Tree runat="server" ID="trOne" ShowHeader="false" AutoScroll="true" ShowBorder="false" OnNodeCheck="trOne_NodeCheck" EnableArrows="true">
+                                        </f:Tree>
+                                    </Items>
+                                </f:Panel>
+                                <f:Panel ID="Panel3" Title="Panel1" Width="200px" AutoScroll="true" Height="200px"
+                                    TableRowspan="5" runat="server" BodyPadding="10px" ShowBorder="false" ShowHeader="false">
+                                    <Items>
+                                        <f:Tree runat="server" ID="trTwo" ShowHeader="false" ShowBorder="false" OnNodeCheck="trTwo_NodeCheck">
+                                            <Nodes>
+                                            </Nodes>
+                                        </f:Tree>
+                                    </Items>
+                                </f:Panel>
+                                <f:Panel ID="Panel4" Title="Panel1" Width="200px" AutoScroll="true" Height="200px"
+                                    TableRowspan="5" runat="server" BodyPadding="10px" ShowBorder="false" ShowHeader="false">
+                                    <Items>
+                                        <f:Tree runat="server" ID="trThree" ShowHeader="false" ShowBorder="false" OnNodeCheck="trThree_NodeCheck">
+                                            <Nodes>
+                                            </Nodes>
+                                        </f:Tree>
+                                    </Items>
+                                </f:Panel>
+                                <f:Panel ID="Panel5" Title="Panel1" Width="200px" AutoScroll="true" Height="200px"
+                                    TableRowspan="5" runat="server" BodyPadding="10px" ShowBorder="false" ShowHeader="false">
+                                    <Items>
+                                        <f:Tree runat="server" ID="trFour" ShowHeader="false" ShowBorder="false" OnNodeCheck="trFour_NodeCheck">
+                                            <Nodes>
+                                            </Nodes>
+                                        </f:Tree>
+                                    </Items>
+                                </f:Panel>
+                                <f:Panel ID="Panel6" Title="Panel1" Width="200px" AutoScroll="true" Height="200px"
+                                    TableRowspan="5" runat="server" BodyPadding="10px" ShowBorder="false" ShowHeader="false">
+                                    <Items>
+                                        <f:Tree runat="server" ID="trFive" ShowHeader="false" ShowBorder="false" OnNodeCheck="trFive_NodeCheck">
+                                            <Nodes>
+                                            </Nodes>
+                                        </f:Tree>
+                                    </Items>
+                                </f:Panel>
+                                <f:Panel ID="Panel7" Title="Panel1" Width="200px" AutoScroll="true" Height="200px"
+                                    TableRowspan="5" runat="server" BodyPadding="10px" ShowBorder="false" ShowHeader="false">
+                                    <Items>
+                                        <f:Tree runat="server" ID="trSixe" ShowHeader="false" ShowBorder="false" OnNodeCheck="trSixe_NodeCheck">
+                                            <Nodes>
+                                            </Nodes>
+                                        </f:Tree>
+                                    </Items>
+                                </f:Panel>
+                            </Items>
+                        </f:Panel>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow ID="agree">
+                    <Items>
+
+                        <f:RadioButtonList runat="server" ID="rblIsAgree" Label="是否同意" ShowRedStar="true" AutoPostBack="true">
+                            <f:RadioItem Text="同意" Value="true" Selected="true" />
+                            <f:RadioItem Text="不同意" Value="false" />
+                        </f:RadioButtonList>
+                        <f:Label runat="server" CssStyle="display:none"></f:Label>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow ID="options">
+                    <Items>
+                        <f:TextArea ID="txtOptions" ShowRedStar="true" Required="true" runat="server" Label="办理意见" MaxLength="3000">
+                        </f:TextArea>
+
+                    </Items>
+                </f:FormRow>
+                <f:FormRow ID="optio">
+
+                    <Items>
+                        <f:Panel ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
+                            <Items>
+                                <f:Label runat="server" Text="附件：" ShowRedStar="true" CssStyle="padding-left:53px" Width="100px" CssClass="marginr" ShowLabel="false"></f:Label>
+                                <f:Button ID="btnapprove" Text="附件" ToolTip="上传及查看" Icon="TableCell" OnClick="btnapprove_Click" runat="server">
+                                </f:Button>
+                            </Items>
+                        </f:Panel>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow ID="plApprove2">
+                    <Items>
+
+                        <f:ContentPanel Title="审批列表" ShowBorder="true"
+                            BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
+                            runat="server">
+                            <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
+                                DataKeyNames="ConstructSolutionApproveId" EnableColumnLines="true" OnRowCommand="gvApprove_RowCommand" ForceFit="true">
+                                <Columns>
+                                    <f:RowNumberField Width="40px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center" />
+                                    <f:TemplateField ColumnID="ApproveType" Width="150px" HeaderText="办理类型" HeaderTextAlign="Center" TextAlign="Center"
+                                        EnableLock="true" Locked="False">
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label1" runat="server" Text='<%# BLL.ConstructSolutionService.ConvertState(Eval("ApproveType")) %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </f:TemplateField>
+                                    <f:TemplateField ColumnID="ApproveMan" Width="150px" HeaderText="办理人员" HeaderTextAlign="Center" TextAlign="Center"
+                                        EnableLock="true" Locked="False">
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label3" runat="server" Text='<%# man(Eval("ApproveMan")) %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </f:TemplateField>
+                                    <f:TemplateField ColumnID="IsAgree" Width="100px" HeaderText="是否同意" HeaderTextAlign="Center" TextAlign="Center"
+                                        EnableLock="true" Locked="False">
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label2" runat="server" Text='<%# BLL.ConstructSolutionService.IsAgree(Eval("ApproveType"),Eval("IsAgree")) %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </f:TemplateField>
+                                    <f:BoundField Width="100px" DataField="ApproveDate" HeaderTextAlign="Center" TextAlign="Center" DataFormatString="{0:yyyy-MM-dd}" HeaderText="办理时间" />
+                                    <f:BoundField Width="180px" DataField="ApproveIdea" HeaderTextAlign="Center" TextAlign="Center"  HeaderText="办理意见" />
+                                    <f:LinkButtonField HeaderText="附件" ColumnID="download" Width="60px" Icon="ArrowDown" CommandName="download" />
+                                </Columns>
+                            </f:Grid>
+                        </f:ContentPanel>
+
+                    </Items>
+
+                </f:FormRow>
+            </Rows>
+            <Toolbars>
+                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                    <Items>
+                        <f:ToolbarFill ID="ToolbarFill1" runat="server">
+                        </f:ToolbarFill>
+                        <f:HiddenField ID="HFConstructSolutionId" runat="server"></f:HiddenField>
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" OnClick="btnSave_Click" ValidateForms="SimpleForm1">
+                        </f:Button>
+                        <f:Button ID="btnSubmit" Icon="SystemSaveNew" runat="server" ToolTip="提交" OnClick="btnSubmit_Click" ValidateForms="SimpleForm1">
+                        </f:Button>
+                        <%--  <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" OnClick="btnClose_Click" runat="server" Icon="SystemClose">
+                        </f:Button>--%>
+                    </Items>
+                </f:Toolbar>
+            </Toolbars>
+        </f:Form>
+    </form>
+    <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Height="500px">
+    </f:Window>
+</body>
+</html>

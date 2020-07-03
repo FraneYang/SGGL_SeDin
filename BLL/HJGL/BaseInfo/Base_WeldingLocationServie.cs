@@ -28,6 +28,7 @@ namespace BLL
             Model.Base_WeldingLocation newWeldingLocation = new Model.Base_WeldingLocation();
             newWeldingLocation.WeldingLocationId = weldingLocation.WeldingLocationId;
             newWeldingLocation.WeldingLocationCode = weldingLocation.WeldingLocationCode;
+            newWeldingLocation.WeldingLocationName = weldingLocation.WeldingLocationName;
             newWeldingLocation.Remark = weldingLocation.Remark;
             db.Base_WeldingLocation.InsertOnSubmit(weldingLocation);
             db.SubmitChanges();
@@ -44,6 +45,7 @@ namespace BLL
             if (newWeldingLocation != null)
             {
                 newWeldingLocation.WeldingLocationCode = weldingLocation.WeldingLocationCode;
+                newWeldingLocation.WeldingLocationName = weldingLocation.WeldingLocationName;
                 newWeldingLocation.Remark = weldingLocation.Remark;
                 db.SubmitChanges();
             }

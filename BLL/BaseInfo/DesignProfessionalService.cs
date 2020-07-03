@@ -70,7 +70,7 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
-        public static void InitDesignProfessionalDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        public static void InitDesignProfessionalDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
             dropName.DataValueField = "Value";
             dropName.DataTextField = "Text";

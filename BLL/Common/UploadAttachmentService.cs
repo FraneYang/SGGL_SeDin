@@ -431,5 +431,104 @@ namespace BLL
             return htmlStr;
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="FileName"></param>
+        /// <param name="JpgSize"></param>
+        /// <param name="Wpx"></param>
+        /// <param name="Hpx"></param>
+        /// <returns></returns>
+        public static int getJpgSize(string FileName, out System.Drawing.Size JpgSize, out float Wpx, out float Hpx)
+        {//C#快速获取JPG图片大小及英寸分辨率
+            JpgSize = new System.Drawing.Size(0, 0);
+            Wpx = 0; Hpx = 0;
+            int rx = 0;
+            if (!File.Exists(FileName)) return rx;
+            FileStream F_Stream = File.OpenRead(FileName);
+            int ff = F_Stream.ReadByte();
+            int type = F_Stream.ReadByte();
+            if (ff != 0xff || type != 0xd8)
+            {//非JPG文件
+                F_Stream.Close();
+                return rx;
+            }
+            long ps = 0;
+            do
+            {
+                do
+                {
+                    ff = F_Stream.ReadByte();
+                    if (ff < 0) //文件结束
+                    {
+                        F_Stream.Close();
+                        return rx;
+                    }
+                } while (ff != 0xff);
+                do
+                {
+                    type = F_Stream.ReadByte();
+                } while (type == 0xff);
+                //MessageBox.Show(ff.ToString() + "," + type.ToString(), F_Stream.Position.ToString());
+                ps = F_Stream.Position;
+                switch (type)
+                {
+                    case 0x00:
+                    case 0x01:
+                    case 0xD0:
+                    case 0xD1:
+                    case 0xD2:
+                    case 0xD3:
+                    case 0xD4:
+                    case 0xD5:
+                    case 0xD6:
+                    case 0xD7:
+                        break;
+                    case 0xc0: //SOF0段
+                        ps = F_Stream.ReadByte() * 256;
+                        ps = F_Stream.Position + ps + F_Stream.ReadByte() - 2; //加段长度
+                        F_Stream.ReadByte(); //丢弃精度数据
+                        //高度
+                        JpgSize.Height = F_Stream.ReadByte() * 256;
+                        JpgSize.Height = JpgSize.Height + F_Stream.ReadByte();
+                        //宽度
+                        JpgSize.Width = F_Stream.ReadByte() * 256;
+                        JpgSize.Width = JpgSize.Width + F_Stream.ReadByte();
+                        //后面信息忽略
+                        if (rx != 1 && rx < 3) rx = rx + 1;
+                        break;
+                    case 0xe0: //APP0段
+                        ps = F_Stream.ReadByte() * 256;
+                        ps = F_Stream.Position + ps + F_Stream.ReadByte() - 2; //加段长度
+                        F_Stream.Seek(5, SeekOrigin.Current); //丢弃APP0标记(5bytes)
+                        F_Stream.Seek(2, SeekOrigin.Current); //丢弃主版本号(1bytes)及次版本号(1bytes)
+                        int units = F_Stream.ReadByte(); //X和Y的密度单位,units=0：无单位,units=1：点数/英寸,units=2：点数/厘米
+                        //水平方向(像素/英寸)分辨率
+                        Wpx = F_Stream.ReadByte() * 256;
+                        Wpx = Wpx + F_Stream.ReadByte();
+                        if (units == 2) Wpx = (float)(Wpx * 2.54); //厘米变为英寸
+                        //垂直方向(像素/英寸)分辨率
+                        Hpx = F_Stream.ReadByte() * 256;
+                        Hpx = Hpx + F_Stream.ReadByte();
+                        if (units == 2) Hpx = (float)(Hpx * 2.54); //厘米变为英寸
+                        //后面信息忽略
+                        if (rx != 2 && rx < 3) rx = rx + 2;
+                        break;
+                    default: //别的段都跳过////////////////
+                        ps = F_Stream.ReadByte() * 256;
+                        ps = F_Stream.Position + ps + F_Stream.ReadByte() - 2; //加段长度
+                        break;
+                }
+                if (ps + 1 >= F_Stream.Length) //文件结束
+                {
+                    F_Stream.Close();
+                    return rx;
+                }
+                F_Stream.Position = ps; //移动指针
+            } while (type != 0xda); // 扫描行开始
+            F_Stream.Close();
+            return rx;
+        }
     }
 }

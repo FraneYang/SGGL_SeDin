@@ -63,13 +63,12 @@ namespace BLL
         {
             var p = Funs.DB.WBS_UnitWork.Where(x => x.UnitWorkId == unitWorkId).FirstOrDefault();
             var getDataLists = (from x in Funs.DB.SitePerson_Person
-                                where x.UnitId == p.UnitId
+                                where x.UnitId == p.UnitId && x.WorkPostId == Const.WorkPost_Welder
                                 orderby x.WelderCode
                                 select new Model.BaseInfoItem
                                 {
                                     BaseInfoId = x.PersonId,
                                     BaseInfoCode = x.WelderCode
-
                                 }
                                 ).ToList();
             return getDataLists;
@@ -78,9 +77,9 @@ namespace BLL
 
 
 
-        #region 获取焊口详细信息
+        #region 根据焊口ID获取焊口信息
         /// <summary>
-        ///  根据焊口ID获取焊口详细信息
+        ///  根据焊口ID获取焊口信息
         /// </summary>
         /// <param name="weldJointId"></param>
         /// <returns></returns>
@@ -97,19 +96,230 @@ namespace BLL
                                   PipelineCode = x.PipelineCode,
                                   JointArea = x.JointArea,
                                   JointAttribute = x.JointAttribute,
-                                  WeldingMode=x.WeldingMode,
+                                  WeldingMode = x.WeldingMode,
                                   Size = x.Size,
                                   Dia = x.Dia,
                                   Thickness = x.Thickness,
                                   WeldingMethodCode = Funs.DB.Base_WeldingMethod.First(y => y.WeldingMethodId == x.WeldingMethodId).WeldingMethodCode,
+                                  DetectionRate = GetDetectionRate(x.PipelineId),
                                   IsHotProess = x.IsHotProess == true ? "是" : "否",
-                                  AttachUrl = x.JointAttribute
+                                  AttachUrl = x.AttachUrl
 
                               };
             return getDateInfo.FirstOrDefault();
         }
         #endregion
 
+        /// <summary>
+        /// 根据管线ID获取探伤比例
+        /// </summary>
+        /// <param name="pipeLineId"></param>
+        /// <returns></returns>
+        private static string GetDetectionRate(string pipeLineId)
+        {
+            string detectionRate = string.Empty;
+            var pipe = BLL.PipelineService.GetPipelineByPipelineId(pipeLineId);
+            if(pipe!=null && !string.IsNullOrEmpty(pipe.DetectionRateId))
+            {
+                var r = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(pipe.DetectionRateId);
+                detectionRate = r.DetectionRateValue + "%";
+            }
+            return detectionRate;
+        }
+
+        #region 根据焊口标识获取焊口详细信息
+        /// <summary>
+        ///  根据焊口标识获取焊口详细信息
+        /// </summary>
+        /// <param name="weldJointIdentify">焊口标识</param>
+        /// <returns></returns>
+        public static Model.WeldJointItem getWeldJointByIdentify(string weldJointIdentify)
+        {
+            var getDateInfo = from x in Funs.DB.HJGL_WeldJoint
+                              join y in Funs.DB.HJGL_WeldingDaily on x.WeldingDailyId equals y.WeldingDailyId
+                              where x.WeldJointIdentify == weldJointIdentify
+
+                              select new Model.WeldJointItem
+                              {
+                                  WeldJointId = x.WeldJointId,
+                                  WeldJointCode = x.WeldJointCode,
+                                  WeldJointIdentify = x.WeldJointIdentify,
+                                  Position = x.Position,
+                                  PipelineId = x.PipelineId,
+                                  PipelineCode = x.PipelineCode,
+                                  JointArea = x.JointArea,
+                                  JointAttribute = x.JointAttribute,
+                                  WeldingMode = x.WeldingMode,
+                                  Size = x.Size,
+                                  Dia = x.Dia,
+                                  Thickness = x.Thickness,
+                                  WeldingMethodCode = Funs.DB.Base_WeldingMethod.First(z => z.WeldingMethodId == x.WeldingMethodId).WeldingMethodCode,
+                                  WeldingDate = y.WeldingDate,
+                                  BackingWelderCode = Funs.DB.SitePerson_Person.First(z => z.PersonId == x.BackingWelderId).WelderCode,
+                                  CoverWelderCode = Funs.DB.SitePerson_Person.First(z => z.PersonId == x.CoverWelderId).WelderCode,
+                                  IsHotProess = x.IsHotProess == true ? "是" : "否",
+                                  AttachUrl = x.AttachUrl
+
+                              };
+            return getDateInfo.FirstOrDefault();
+        }
+        #endregion
+
+        #region 保存管线焊口信息
+        /// <summary>
+        /// 保存管线焊口信息
+        /// </summary>
+        /// <param name="addItem"></param>
+        public static void SavePipeWeldJoint(Model.WeldJointItem addItem)
+        {
+            Model.SGGLDB db = Funs.DB;
+            string projectId = string.Empty;
+            string unitId = string.Empty;
+            string pipelineId = string.Empty;
+
+            var p = db.HJGL_Pipeline.Where(x => x.ProjectId == addItem.ProjectId && x.UnitWorkId == addItem.UnitWorkId && x.PipelineCode == addItem.PipelineCode).FirstOrDefault();
+            var w = db.WBS_UnitWork.Where(x => x.UnitWorkId == addItem.UnitWorkId).FirstOrDefault();
+            if (w != null)
+            {
+                projectId = w.ProjectId;
+                unitId = w.UnitId;
+            }
+            if (p != null)
+            {
+                pipelineId = p.PipelineId;
+            }
+            else
+            {
+                // 保存管线信息
+                pipelineId = SQLHelper.GetNewID();
+                var pipeClass = db.Base_PipingClass.FirstOrDefault(z => z.PipingClassCode == addItem.PipingClass);
+                var medium = db.Base_Medium.FirstOrDefault(z => z.MediumCode == addItem.Medium);
+                var detectionRate = db.Base_DetectionRate.FirstOrDefault(z => z.DetectionRateCode == addItem.DetectionRate);
+                var detectionType = db.Base_DetectionType.FirstOrDefault(z => z.DetectionTypeCode == addItem.DetectionType);
+                var testMedium = db.Base_Medium.FirstOrDefault(z => z.MediumCode == addItem.TestMedium);
+                Model.HJGL_Pipeline newPipe = new Model.HJGL_Pipeline();
+
+                newPipe.PipelineId = pipelineId;
+
+                newPipe.ProjectId = projectId;
+                newPipe.UnitWorkId = addItem.UnitWorkId;
+                newPipe.UnitId = unitId;
+                newPipe.PipelineCode = addItem.PipelineCode;
+                newPipe.SingleNumber = addItem.SingleNumber;
+                if (pipeClass != null)
+                {
+                    newPipe.PipingClassId = pipeClass.PipingClassId;
+                }
+                if (medium != null)
+                {
+                    newPipe.MediumId = medium.MediumId;
+                }
+                if (detectionRate != null)
+                {
+                    newPipe.DetectionRateId = detectionRate.DetectionRateId;
+                }
+                if (detectionType != null)
+                {
+                    newPipe.DetectionType = detectionType.DetectionTypeId;
+                }
+
+                newPipe.TestPressure = addItem.TestPressure;
+                if (testMedium != null)
+                {
+                    newPipe.TestMedium = testMedium.MediumId;
+                }
+
+                db.HJGL_Pipeline.InsertOnSubmit(newPipe);
+                db.SubmitChanges();
+
+            }
+
+            var jot = db.HJGL_WeldJoint.Where(x => x.PipelineId == pipelineId && (x.WeldJointCode == addItem.WeldJointCode || x.WeldJointIdentify == addItem.WeldJointIdentify)).FirstOrDefault();
+            if (jot == null)
+            {
+                var weldType = db.Base_WeldType.FirstOrDefault(z => z.WeldTypeCode == addItem.WeldType);
+                var material1 = db.Base_Material.FirstOrDefault(z => z.MaterialCode == addItem.Material1);
+                var material2 = db.Base_Material.FirstOrDefault(z => z.MaterialCode == addItem.Material2);
+                var weldingMethod = db.Base_WeldingMethod.FirstOrDefault(z => z.WeldingMethodCode == addItem.WeldingMethodCode);
+                var grooveType = db.Base_GrooveType.FirstOrDefault(z => z.GrooveTypeCode == addItem.GrooveType);
+                var weldingLocation = db.Base_WeldingLocation.FirstOrDefault(z => z.WeldingLocationCode == addItem.WeldingLocation);
+                var weldingWire = db.Base_Consumables.FirstOrDefault(z => z.ConsumablesName == addItem.WeldingWire);
+                var weldingRod = db.Base_Consumables.FirstOrDefault(z => z.ConsumablesName == addItem.WeldingRod);
+
+                Model.HJGL_WeldJoint newJot = new Model.HJGL_WeldJoint();
+
+                newJot.WeldJointId = SQLHelper.GetNewID();
+                newJot.WeldJointCode = addItem.WeldJointCode;
+                newJot.WeldJointIdentify = addItem.WeldJointIdentify;
+                newJot.Position = addItem.Position;
+                newJot.ProjectId = projectId;
+                newJot.PipelineId = pipelineId;
+                newJot.PipelineCode = addItem.PipelineCode;
+
+                if (weldType != null)
+                {
+                    newJot.WeldTypeId = weldType.WeldTypeId;
+                }
+                if (material1 != null)
+                {
+                    newJot.Material1Id = material1.MaterialId;
+                }
+                if (material2 != null)
+                {
+                    newJot.Material2Id = material2.MaterialId;
+                }
+                if (weldingMethod != null)
+                {
+                    newJot.WeldingMethodId = weldingMethod.WeldingMethodId;
+                }
+              
+                newJot.JointArea = addItem.JointArea;
+                newJot.Dia = addItem.Dia;
+                newJot.Thickness = addItem.Thickness;
+                newJot.Specification =addItem.Specification;
+                newJot.JointAttribute = addItem.JointAttribute;
+
+                if (grooveType != null)
+                {
+                    newJot.GrooveTypeId = grooveType.GrooveTypeId;
+                }
+                if (weldingLocation != null)
+                {
+                    newJot.WeldingLocationId = weldingLocation.WeldingLocationId;
+                }
+
+                if (weldingWire != null)
+                {
+                    newJot.WeldingWire = weldingWire.ConsumablesId;
+                }
+                if (weldingRod != null)
+                {
+                    newJot.WeldingRod = weldingRod.ConsumablesId;
+                }
+               
+                db.HJGL_WeldJoint.InsertOnSubmit(newJot);
+                db.SubmitChanges();
+            }
+        }
+        #endregion
+
+        #region 批量保存管线焊口信息
+        /// <summary>
+        /// 批量保存管线焊口信息
+        /// </summary>
+        /// <param name="addItems"></param>
+        public static void SavePipeWeldJointList(List<Model.WeldJointItem> addItems)
+        {
+            if (addItems.Count() > 0)
+            {
+                foreach (Model.WeldJointItem addItem in addItems)
+                {
+                    SavePipeWeldJoint(addItem);
+                }
+            }
+        }
+
+        #endregion
         /// <summary>
         /// 保存预提交日报
         /// </summary>

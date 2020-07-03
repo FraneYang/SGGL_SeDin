@@ -1,57 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <!--<TreeNode id="70f62ff7-a8e7-4d81-84e6-3fa15de86300" Text="项目管理" NavigateUrl="" >
-    <TreeNode id="b919d7d8-ffbb-43f5-a211-df7373ac8b87" Text="项目信息" NavigateUrl="BaseInfo/ProjectSet.aspx" >
+  <TreeNode id="c3f38bf0-0fc5-4ce0-8212-353f3911d602" Text="基础设置" NavigateUrl="">
+    <TreeNode id="9c62332c-d31f-4575-a323-49537bf335e8" Text="项目环境设置" NavigateUrl="CQMS/BaseInfo/ProjectSysSet.aspx">
     </TreeNode>
-<TreeNode id="bb80d522-afd8-45fa-815b-6003409e6f3b" Text="项目单位" NavigateUrl="BaseInfo/ProjectUnit.aspx" ></TreeNode>
-<TreeNode id="937ff4d6-cfc7-4fdf-8fbb-f09f0e241d19" Text="项目用户" NavigateUrl="BaseInfo/ProjectUser.aspx" ></TreeNode>
-<TreeNode id="8b2a8765-7e4a-4ee7-95b8-c8f660632f78" Text="主项信息" NavigateUrl="BaseInfo/MainItemProject.aspx" ></TreeNode>
-</TreeNode>-->
-<!--<TreeNode id="c3f38bf0-0fc5-4ce0-8212-353f3911d602" Text="基础设置" NavigateUrl="" ><TreeNode id="9c62332c-d31f-4575-a323-49537bf335e8" Text="项目环境设置" NavigateUrl="BaseInfo/ProjectSysSet.aspx" ></TreeNode>
-</TreeNode>-->
-<TreeNode id="71193A92-2FF6-4D16-AD82-47CD2DE4CB1A" Text="WBS定制" NavigateUrl="" ><TreeNode id="DCVVBDE3-1B48-4615-FCD0-VDBCDS3ET4D9" Text="施工WBS基础数据库" NavigateUrl="WBS/ControlItemInitSet.aspx" ></TreeNode>
-<TreeNode id="F0E4A87F-0D1E-499D-A9EF-9D42ABF4422F" Text="项目WBS基础数据库" NavigateUrl="WBS/ProjectControlItemInitSet.aspx" ></TreeNode>
-<TreeNode id="7EEED823-1B48-4615-8820-262208FCB4D9" Text="单位工程设置" NavigateUrl="WBS/UnitWorkSet.aspx" ></TreeNode>
-<TreeNode id="7BA846E7-D9B2-4F08-9098-DF4DBD654789" Text="项目施工WBS定制" NavigateUrl="WBS/ControlItemAndCycle.aspx" ></TreeNode>
-<TreeNode id="94217974-201A-4D4F-A832-D9477ACD63A5" Text="项目施工WBS展示" NavigateUrl="WBS/ControlItemAndCycleShow.aspx" ></TreeNode>
-<TreeNode id="9C09C22A-4D4E-4E17-9389-E3B6066F813B" Text="项目施工WBS查询" NavigateUrl="WBS/ControlItemAndCycleSearch.aspx" ></TreeNode>
 </TreeNode>
-<TreeNode id="B8500D87-407E-458C-9915-FD54F0E81F36" Text="工序验收" NavigateUrl="" ><TreeNode id="CC43E208-335D-4AE3-A1CE-B2D8510AE854" Text="实体验收" NavigateUrl="Check/SpotCheck.aspx" ></TreeNode>
-<TreeNode id="8317C0F7-3A69-48AB-87E5-03E96C543B1C" Text="资料验收" NavigateUrl="Check/SpotDataCheck.aspx" ></TreeNode>
-<TreeNode id="1433BE70-13C0-4AC7-BC3D-34C9471CE2A8" Text="工序验收统计" NavigateUrl="Check/SpotCheckStatistics.aspx" ></TreeNode>
+<TreeNode id="71193A92-2FF6-4D16-AD82-47CD2DE4CB1A" Text="WBS定制" NavigateUrl=""><TreeNode id="F0E4A87F-0D1E-499D-A9EF-9D42ABF4422F" Text="项目WBS基础数据库" NavigateUrl="CQMS/WBS/ProjectControlItemInitSet.aspx"></TreeNode>
+<TreeNode id="7BA846E7-D9B2-4F08-9098-DF4DBD654789" Text="项目施工WBS定制" NavigateUrl="CQMS/WBS/ControlItemAndCycle.aspx"></TreeNode>
+<TreeNode id="94217974-201A-4D4F-A832-D9477ACD63A5" Text="项目施工WBS展示" NavigateUrl="CQMS/WBS/ControlItemAndCycleShow.aspx"></TreeNode>
+<TreeNode id="A8E0BC5C-3242-48B1-90AD-7A25E84DDC41" Text="项目施工WBS查询" NavigateUrl="CQMS/WBS/ControlItemAndCycleSearch.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="A54EC449-5F77-4068-83B9-AA305B721A0B" Text="质量巡检" NavigateUrl="" ><TreeNode id="B3E99BD9-FDC7-4F15-8C3C-A7821AC9E306" Text="质量巡检记录" NavigateUrl="Check/CheckList.aspx" ></TreeNode>
+<TreeNode id="B8500D87-407E-458C-9915-FD54F0E81F36" Text="工序验收" NavigateUrl=""><TreeNode id="CC43E208-335D-4AE3-A1CE-B2D8510AE854" Text="实体验收" NavigateUrl="CQMS/Check/SpotCheck.aspx"></TreeNode>
+<TreeNode id="8317C0F7-3A69-48AB-87E5-03E96C543B1C" Text="资料验收" NavigateUrl="CQMS/Check/SpotDataCheck.aspx"></TreeNode>
+<TreeNode id="1433BE70-13C0-4AC7-BC3D-34C9471CE2A8" Text="工序验收统计" NavigateUrl="CQMS/Check/SpotCheckStatistics.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="0A275FC1-E698-4936-9BEC-F76DC1BC786A" Text="质量共检" NavigateUrl="" ><TreeNode id="E6703F32-4E42-4D03-84B3-5EC0E8E48E0F" Text="质量共检记录" NavigateUrl="Check/JointCheck.aspx" ></TreeNode>
+<TreeNode id="A54EC449-5F77-4068-83B9-AA305B721A0B" Text="质量巡检" NavigateUrl=""><TreeNode id="B3E99BD9-FDC7-4F15-8C3C-A7821AC9E306" Text="质量巡检记录" NavigateUrl="CQMS/Check/CheckList.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="57188840-3F05-4A72-939B-09CD7D2AA64A" Text="质量问题统计" NavigateUrl="" ><TreeNode id="D3B1433E-00DE-432B-A30A-0EFB513480A8" Text="质量问题统计" NavigateUrl="Check/JointCheckStatistics.aspx" ></TreeNode>
+<TreeNode id="0A275FC1-E698-4936-9BEC-F76DC1BC786A" Text="质量共检" NavigateUrl=""><TreeNode id="E6703F32-4E42-4D03-84B3-5EC0E8E48E0F" Text="质量共检记录" NavigateUrl="CQMS/Check/JointCheck.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="0416D750-6AB4-4E7E-AAE1-19919F7EB538" Text="工程联络单管理" NavigateUrl="" ><TreeNode id="87867EA8-576A-4166-AE7A-7416115DF30B" Text="工程联络单" NavigateUrl="Check/TechnicalContactList.aspx" ></TreeNode>
+<TreeNode id="57188840-3F05-4A72-939B-09CD7D2AA64A" Text="质量问题统计" NavigateUrl=""><TreeNode id="D3B1433E-00DE-432B-A30A-0EFB513480A8" Text="质量问题统计" NavigateUrl="CQMS/Check/JointCheck.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="653C5247-C803-4BF4-8D67-F7DD0A749CAB" Text="工作联系单管理" NavigateUrl="" ><TreeNode id="43E96F2A-9497-4C37-998F-0EB324000609" Text="工作联系单" NavigateUrl="Unqualified/ContactList.aspx" ></TreeNode>
+<TreeNode id="0416D750-6AB4-4E7E-AAE1-19919F7EB538" Text="工程联络单管理" NavigateUrl=""><TreeNode id="87867EA8-576A-4166-AE7A-7416115DF30B" Text="工程联络单" NavigateUrl="CQMS/Check/TechnicalContactList.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="8CD32BC0-1023-49CE-AF1A-F8895B04A651" Text="设计变更管理" NavigateUrl="" ><TreeNode id="38F11FC6-E9F0-4ABD-BD78-BB1807EA3CE3" Text="设计变更" NavigateUrl="Check/Design.aspx" ></TreeNode>
+<TreeNode id="653C5247-C803-4BF4-8D67-F7DD0A749CAB" Text="工作联系单管理" NavigateUrl=""><TreeNode id="43E96F2A-9497-4C37-998F-0EB324000609" Text="工作联系单" NavigateUrl="CQMS/Unqualified/ContactList.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="BBBF69F1-9520-4E0A-B0C0-9F4D3FBF4C10" Text="施工方案管理" NavigateUrl="" ><TreeNode id="91C4BFDB-0A51-4992-99CC-EB4EC185593D" Text="施工方案" NavigateUrl="Solution/ConstructSolution.aspx" ></TreeNode>
+<TreeNode id="8CD32BC0-1023-49CE-AF1A-F8895B04A651" Text="设计变更管理" NavigateUrl=""><TreeNode id="38F11FC6-E9F0-4ABD-BD78-BB1807EA3CE3" Text="设计变更" NavigateUrl="CQMS/Check/Design.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="FD383DBE-4467-44EE-B50C-5F2DA70CD1D3" Text="施工图纸管理" NavigateUrl="" ><TreeNode id="3A9039B2-20DC-47FA-A943-E3604FBBF699" Text="施工图纸" NavigateUrl="Check/Draw.aspx" ></TreeNode>
+<TreeNode id="BBBF69F1-9520-4E0A-B0C0-9F4D3FBF4C10" Text="施工方案管理" NavigateUrl=""><TreeNode id="91C4BFDB-0A51-4992-99CC-EB4EC185593D" Text="施工方案" NavigateUrl="CQMS/Solution/ConstructSolution.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="31B86B12-632D-4DDD-B937-E21CA6A88537" Text="检试验设备及测量器具管理" NavigateUrl="" ><TreeNode id="BB8EB284-A014-442E-A1D7-956AA11272AE" Text="检试验设备及测量器具" NavigateUrl="Check/CheckEquipment.aspx" ></TreeNode>
+<TreeNode id="FD383DBE-4467-44EE-B50C-5F2DA70CD1D3" Text="施工图纸管理" NavigateUrl=""><TreeNode id="3A9039B2-20DC-47FA-A943-E3604FBBF699" Text="施工图纸" NavigateUrl="CQMS/Check/Draw.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="C91C8319-0BFC-4585-BE14-ED41D45A160D" Text="质量月报" NavigateUrl="" ><TreeNode id="786864C0-2875-49CD-B55E-0B5C8253295D" Text="质量月报" NavigateUrl="Check/CheckMonth.aspx" ></TreeNode>
+<TreeNode id="31B86B12-632D-4DDD-B937-E21CA6A88537" Text="检试验设备管理" NavigateUrl=""><TreeNode id="BB8EB284-A014-442E-A1D7-956AA11272AE" Text="检试验设备" NavigateUrl="CQMS/Check/CheckEquipment.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="390A78F0-43B2-4AF1-81B9-7C216FA7E0A4" Text="文件柜" NavigateUrl="" ><TreeNode id="CF33572A-E875-4492-92BF-6EA265909A6C" Text="质量验收记录" NavigateUrl="Check/SpotCheckFile.aspx" ></TreeNode>
-<TreeNode id="8D5A7D48-21C0-4668-9E70-813AE9C523FA" Text="施工质量问题整改单" NavigateUrl="Check/CheckListFile.aspx" ></TreeNode>
-<TreeNode id="0E6E6022-356E-42A1-9D16-C75BF69EBFB5" Text="施工质量检查记录" NavigateUrl="Check/JointCheckFile.aspx" ></TreeNode>
-<TreeNode id="3354E9AA-8D71-401B-9CFC-03D69DA86B05" Text="工程联络单" NavigateUrl="Check/TechnicalContactListFile.aspx" ></TreeNode>
-<TreeNode id="A68445D0-78BB-4E67-93FC-606DECA0B585" Text="设计变更" NavigateUrl="Check/DesignFile.aspx" ></TreeNode>
-<TreeNode id="F274F84A-B648-4ABA-99D4-993AA6D1143A" Text="工程联系单" NavigateUrl="Check/WorkContactFile.aspx" ></TreeNode>
-<TreeNode id="F32B7E91-693F-4892-93EE-7AEAC1309291" Text="施工方案" NavigateUrl="Check/ConstructSolutionFile.aspx" ></TreeNode>
-<TreeNode id="0A54D274-547C-4555-9D00-D8D5034E8849" Text="质量月报" NavigateUrl="Check/CheckMonthFile.aspx" ></TreeNode>
-<TreeNode id="03CEB246-0CE5-48CB-9D6B-1B84AC2E27B3" Text="重要文件" NavigateUrl="Check/FileCabinet.aspx" ></TreeNode>
+<TreeNode id="C91C8319-0BFC-4585-BE14-ED41D45A160D" Text="质量月报" NavigateUrl=""><TreeNode id="786864C0-2875-49CD-B55E-0B5C8253295D" Text="质量月报" NavigateUrl="CQMS/Check/CheckMonth.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="6890E0DD-9606-41BC-8700-D32FA5B65B66" Text="施工进度" NavigateUrl="" >
-  <TreeNode id="BAC3D994-03A8-466C-8975-A31039998BCC" Text="施工进度统计" NavigateUrl="Check/ProgressShow.aspx" ></TreeNode>
-<TreeNode id="1172B112-2A12-4410-AD66-E5BA6B461475" Text="施工进度赢得值曲线" NavigateUrl="Check/ProgressStatistics.aspx" ></TreeNode>
+<TreeNode id="390A78F0-43B2-4AF1-81B9-7C216FA7E0A4" Text="文件柜" NavigateUrl=""><TreeNode id="CF33572A-E875-4492-92BF-6EA265909A6C" Text="质量验收记录" NavigateUrl="CQMS/Check/SpotCheckFile.aspx"></TreeNode>
+<TreeNode id="8D5A7D48-21C0-4668-9E70-813AE9C523FA" Text="施工质量问题整改单" NavigateUrl="CQMS/Check/CheckListFile.aspx"></TreeNode>
+<TreeNode id="0E6E6022-356E-42A1-9D16-C75BF69EBFB5" Text="施工质量检查记录" NavigateUrl="CQMS/Check/JointCheckFile.aspx"></TreeNode>
+<TreeNode id="3354E9AA-8D71-401B-9CFC-03D69DA86B05" Text="工程联络单" NavigateUrl="CQMS/Check/TechnicalContactListFile.aspx"></TreeNode>
+<TreeNode id="A68445D0-78BB-4E67-93FC-606DECA0B585" Text="设计变更统计表" NavigateUrl="CQMS/Check/DesignFile.aspx"></TreeNode>
+<TreeNode id="F274F84A-B648-4ABA-99D4-993AA6D1143A" Text="工作联系单" NavigateUrl="CQMS/Check/WorkContactFile.aspx"></TreeNode>
+<TreeNode id="F32B7E91-693F-4892-93EE-7AEAC1309291" Text="施工组织设计(施工方案)内部审批流转单" NavigateUrl="CQMS/Check/ConstructSolutionFile.aspx"></TreeNode>
+<TreeNode id="0A54D274-547C-4555-9D00-D8D5034E8849" Text="质量月报" NavigateUrl="CQMS/Check/CheckMonthFile.aspx"></TreeNode>
+<TreeNode id="03CEB246-0CE5-48CB-9D6B-1B84AC2E27B3" Text="重要文件" NavigateUrl="CQMS/Check/FileCabinet.aspx"></TreeNode>
 </TreeNode>
 </Tree>

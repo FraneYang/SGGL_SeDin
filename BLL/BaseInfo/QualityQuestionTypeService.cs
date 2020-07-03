@@ -68,7 +68,12 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
-        public static void InitQualityQuestionTypeDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        /// <summary>
+        /// 质量问题类别下拉框
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitQualityQuestionTypeDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
             dropName.DataValueField = "Value";
             dropName.DataTextField = "Text";
@@ -79,13 +84,8 @@ namespace BLL
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
-        /// <summary>
-        /// 质量问题类别下拉框
-        /// </summary>
-        /// <param name="dropName"></param>
-        /// <param name="projectId"></param>
-        /// <param name="isShowPlease"></param>
-        public static void InitQualityQuestionType(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        
+        public static void InitQualityQuestionType(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
             dropName.DataValueField = "Text";
             dropName.DataTextField = "Text";
