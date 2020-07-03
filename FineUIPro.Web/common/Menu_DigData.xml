@@ -25,7 +25,7 @@
 <TreeNode id="F58EE8ED-9EB5-47C7-9D7F-D751EFEA44CA" Text="安全试题库" NavigateUrl="HSSE/EduTrain/TrainTestDB.aspx"></TreeNode>
 <TreeNode id="D86917DB-D00A-4E18-9793-C290B5BBA84C" Text="事故案例库" NavigateUrl="HSSE/EduTrain/AccidentCase.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="D70D9BF5-C72E-414D-941B-CF9B4065F6BA" Text="安全技术" NavigateUrl=""><TreeNode id="8333727B-A2CE-4CE2-A019-21AC9EE61A4C" Text="危险源清单" NavigateUrl="Technique/HazardList.aspx"></TreeNode>
+<TreeNode id="D70D9BF5-C72E-414D-941B-CF9B4065F6BA" Text="安全技术" NavigateUrl=""><TreeNode id="8333727B-A2CE-4CE2-A019-21AC9EE61A4C" Text="危险源清单" NavigateUrl="HSSE/Technique/HazardList.aspx"></TreeNode>
 <TreeNode id="C0018E8C-C88B-4E25-BCFC-F0BF3CACC63A" Text="公司危险源清单" NavigateUrl="HSSE/Technique/CompanyHazardList.aspx"></TreeNode>
 <TreeNode id="773B59F9-61F9-4F5E-9D68-A1BF9322AFFA" Text="环境因素危险源" NavigateUrl="HSSE/Technique/Environmental.aspx"></TreeNode>
 <TreeNode id="DC2AA8C2-82A8-4F7A-832D-9889C65AA228" Text="公司环境因素危险源" NavigateUrl="HSSE/Technique/CompanyEnvironmental.aspx"></TreeNode>

@@ -48,7 +48,13 @@
                     <f:RenderField Width="140px" ColumnID="RoleName" DataField="RoleName" EnableFilter="true"
                         SortField="RoleName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center"
                         TextAlign="Left">                      
-                    </f:RenderField>                
+                    </f:RenderField>
+                    <f:TemplateField ColumnID="CNCodes" Width="180px" HeaderText="角色对口专业设置" HeaderTextAlign="Center" TextAlign="Center"
+                            EnableLock="true" Locked="False">
+                            <ItemTemplate>
+                                <asp:Label ID="Label2" runat="server" Text='<%# ConvertCNCodes(Eval("CNCodes")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
                     <f:CheckBoxField Width="80px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsAuditFlow" HeaderText="参与审批" />
                     <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsSystemBuilt" HeaderText="内置" />
                     <f:RenderField  ColumnID="Def" DataField="Def" SortField="Def" FieldType="String" Width="80px"

@@ -44,6 +44,7 @@ namespace BLL
             Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage newTestPackage = new Model.PTP_TestPackage();
             newTestPackage.PTP_ID = testPackage.PTP_ID;
+            newTestPackage.UnitWorkId = testPackage.UnitWorkId;
             newTestPackage.UnitId = testPackage.UnitId;
             newTestPackage.TestPackageNo = testPackage.TestPackageNo;
             newTestPackage.TestPackageName = testPackage.TestPackageName;
@@ -92,6 +93,7 @@ namespace BLL
             Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage newTestPackage = db.PTP_TestPackage.First(e => e.PTP_ID == testPackage.PTP_ID);
             newTestPackage.UnitId = testPackage.UnitId;
+            newTestPackage.UnitWorkId = testPackage.UnitWorkId;
             newTestPackage.TestPackageNo = testPackage.TestPackageNo;
             newTestPackage.TestPackageName = testPackage.TestPackageName;
             newTestPackage.TestHeat = testPackage.TestHeat;

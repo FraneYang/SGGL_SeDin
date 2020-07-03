@@ -197,6 +197,8 @@
     <Compile Include="HJGL\WPQ\WPQListService.cs" />
     <Compile Include="HSSE\ActionPlan\ActionPlanListService.cs" />
     <Compile Include="HSSE\ActionPlan\ActionPlan_ManagerRuleService.cs" />
+    <Compile Include="HSSE\EduTrain\AccidentCaseItemService.cs" />
+    <Compile Include="HSSE\EduTrain\AccidentCaseService.cs" />
     <Compile Include="HSSE\EduTrain\CompanyTrainingItemService.cs" />
     <Compile Include="HSSE\EduTrain\CompanyTrainingService.cs" />
     <Compile Include="HSSE\EduTrain\TestTrainingItemService.cs" />
@@ -205,6 +207,10 @@
     <Compile Include="HSSE\EduTrain\TrainingService.cs" />
     <Compile Include="HSSE\EduTrain\TrainTestDBItemService.cs" />
     <Compile Include="HSSE\EduTrain\TrainTestDBService.cs" />
+    <Compile Include="HSSE\Hazard\Hazard_EnvironmentalRiskItemService.cs" />
+    <Compile Include="HSSE\Hazard\Hazard_EnvironmentalRiskListService.cs" />
+    <Compile Include="HSSE\Hazard\Hazard_HazardListService.cs" />
+    <Compile Include="HSSE\Hazard\Hazard_HazardSelectedItemService.cs" />
     <Compile Include="HSSE\HSSESystem\HSSEMainDutyService.cs" />
     <Compile Include="HSSE\InformationProject\ConstructionStandardIdentifyService.cs" />
     <Compile Include="HSSE\InformationProject\ConstructionStandardSelectedItemService.cs" />
@@ -218,6 +224,15 @@
     <Compile Include="HSSE\Resources\SignManageService.cs" />
     <Compile Include="HSSE\SecuritySystem\SafetyOrganizationService.cs" />
     <Compile Include="HSSE\Law\LawRegulationListService.cs" />
+    <Compile Include="HSSE\Technique\EmergencyService.cs" />
+    <Compile Include="HSSE\Technique\HazardListService.cs" />
+    <Compile Include="HSSE\Technique\HazardListTypeService.cs" />
+    <Compile Include="HSSE\Technique\EnvironmentalService.cs" />
+    <Compile Include="HSSE\Technique\RectifyItemService.cs" />
+    <Compile Include="HSSE\Technique\RectifyService.cs" />
+    <Compile Include="HSSE\Technique\SpecialSchemeService.cs" />
+    <Compile Include="HSSE\Technique\Technique_CheckItemDetailService.cs" />
+    <Compile Include="HSSE\Technique\Technique_CheckItemSetService.cs" />
     <Compile Include="OpenService\MonitorService.cs" />
     <Compile Include="DynamicTHeaderHepler.cs" />
     <Compile Include="OpenService\GetDataService.cs" />

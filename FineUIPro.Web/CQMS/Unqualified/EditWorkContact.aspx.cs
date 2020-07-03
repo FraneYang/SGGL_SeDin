@@ -259,10 +259,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
                 }
                 else
                 {
-                    //string perfix = EditNoService.GetEditNoById(CurrUser.LoginProjectId, CurrUser.LoginProjectId).NoContent + "-" + EditNoService.GetEditNoById("05", CurrUser.LoginProjectId).NoContent + "-";
-                    //txtCode.Text = SQLHelper.RunProcNewId("SpGetNewHazardCode", "dbo.Unqualified_WorkContact", "Code", perfix);
                     State = Const.WorkContact_Compile;
-                    //UserService.Init(drpHandleMan, CurrUser.LoginProjectId, false);
                     UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
                     drpHandleMan.SelectedIndex = 0;
                     plApprove2.Hidden = true;

@@ -29,6 +29,7 @@
                 PipingClassName = pipingClass.PipingClassName,
                 Remark = pipingClass.Remark,
                 PNO = pipingClass.PNO,
+                ProjectId=pipingClass.ProjectId
             };
             db.Base_PipingClass.InsertOnSubmit(newPipingClass);
             db.SubmitChanges();
@@ -48,6 +49,7 @@
                 newPipingClass.PipingClassName = pipingClass.PipingClassName;
                 newPipingClass.Remark = pipingClass.Remark;
                 newPipingClass.PNO = pipingClass.PNO;
+                newPipingClass.ProjectId = pipingClass.ProjectId;
                 db.SubmitChanges();
             }
         }
@@ -72,9 +74,9 @@
         /// </summary>
         /// <param name="PipingClassType"></param>
         /// <returns></returns>
-        public static List<Model.Base_PipingClass> GetPipingClassList()
+        public static List<Model.Base_PipingClass> GetPipingClassList(string ProjectId)
         {
-            var list = (from x in Funs.DB.Base_PipingClass
+            var list = (from x in Funs.DB.Base_PipingClass where x.ProjectId==ProjectId 
                         orderby x.PipingClassCode
                         select x).ToList();
 
@@ -88,11 +90,11 @@
         /// <param name="dropName">下拉框名称</param>
         /// <param name="isShowPlease">是否显示请选择</param>
         /// <param name="PipingClassType">耗材类型</param>
-        public static void InitPipingClassDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease,string itemText)
+        public static void InitPipingClassDropDownList(FineUIPro.DropDownList dropName,string ProjectId, bool isShowPlease,string itemText)
         {
             dropName.DataValueField = "PipingClassId";
             dropName.DataTextField = "PipingClassCode";
-            dropName.DataSource = GetPipingClassList();
+            dropName.DataSource = GetPipingClassList(ProjectId);
             dropName.DataBind();
             if (isShowPlease)
             {

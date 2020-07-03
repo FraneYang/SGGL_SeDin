@@ -21,8 +21,6 @@
 </TreeNode>
 <TreeNode id="0416D750-6AB4-4E7E-AAE1-19919F7EB538" Text="工程联络单管理" NavigateUrl=""><TreeNode id="87867EA8-576A-4166-AE7A-7416115DF30B" Text="工程联络单" NavigateUrl="CQMS/Check/TechnicalContactList.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="653C5247-C803-4BF4-8D67-F7DD0A749CAB" Text="工作联系单管理" NavigateUrl=""><TreeNode id="43E96F2A-9497-4C37-998F-0EB324000609" Text="工作联系单" NavigateUrl="CQMS/Unqualified/ContactList.aspx"></TreeNode>
-</TreeNode>
 <TreeNode id="8CD32BC0-1023-49CE-AF1A-F8895B04A651" Text="设计变更管理" NavigateUrl=""><TreeNode id="38F11FC6-E9F0-4ABD-BD78-BB1807EA3CE3" Text="设计变更" NavigateUrl="CQMS/Check/Design.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="BBBF69F1-9520-4E0A-B0C0-9F4D3FBF4C10" Text="施工方案管理" NavigateUrl=""><TreeNode id="91C4BFDB-0A51-4992-99CC-EB4EC185593D" Text="施工方案" NavigateUrl="CQMS/Solution/ConstructSolution.aspx"></TreeNode>

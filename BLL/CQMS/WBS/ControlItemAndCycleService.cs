@@ -160,28 +160,28 @@ namespace BLL
         {
             return (from x in Funs.DB.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId orderby x.ControlItemAndCycleCode select x).ToList();
         }
-        //public static List<Model.WBS_ControlItemAndCycle> GetListByWorkPackageIdForApi(string WorkPackageId)
-        //{
-        //    using (var db = new Model.SGGLDB(Funs.ConnString))
-        //    {
-        //        var res = (from x in db.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId  orderby x.ControlItemAndCycleCode select x).ToList();
-        //        foreach(var item in res)
-        //        {
-        //            var details = BLL.SpotCheckDetailService.GetSpotCheckDetailsByControlItemAndCycleId(item.ControlItemAndCycleId);
-        //            if (details != null)
-        //            {
-        //                item.ControlPoint = item.ControlPoint + "$" + details.Count;
-        //            }
-        //            else
-        //            {
-        //                item.ControlPoint = item.ControlPoint + "$0";
-        //            }
-        //            item.AttachUrl = ConvertDetailName(item.ControlItemAndCycleId);
+        public static List<Model.WBS_ControlItemAndCycle> GetListByWorkPackageIdForApi(string WorkPackageId)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var res = (from x in db.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId orderby x.ControlItemAndCycleCode select x).ToList();
+                foreach (var item in res)
+                {
+                    var details = BLL.SpotCheckDetailService.GetSpotCheckDetailsByControlItemAndCycleId(item.ControlItemAndCycleId);
+                    if (details != null)
+                    {
+                        item.ControlPoint = item.ControlPoint + "$" + details.Count;
+                    }
+                    else
+                    {
+                        item.ControlPoint = item.ControlPoint + "$0";
+                    }
+                    item.AttachUrl = ConvertDetailName(item.ControlItemAndCycleId);
 
-        //        }
-        //        return res;
-        //    }
-        //}
+                }
+                return res;
+            }
+        }
         public static string ConvertDetailName(object ControlItemAndCycleId)
         {
             string name = string.Empty;

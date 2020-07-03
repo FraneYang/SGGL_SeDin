@@ -13,19 +13,21 @@ namespace WebAPI.Controllers
     /// </summary>
     public class NDETrustController : ApiController
     {
+        #region 点口
         /// <summary>
-        /// 根据单位工程、点口批号、批开始时间获取还未进行委托的批列表
+        /// 选择单位工程、探伤类型、探伤比例、点口批号获取需要进行点口的批，自动点口调用
         /// </summary>
         /// <param name="unitWorkId"></param>
+        /// <param name="detectionTypeId"></param>
+        /// <param name="detectionRateId"></param>
         /// <param name="pointBatchCode"></param>
-        /// <param name="startDate"></param>
         /// <returns></returns>
-        public Model.ResponeData getPointBatchCode(string unitWorkId, string pointBatchCode, DateTime? startDate)
+        public Model.ResponeData getAutoPointBatchCode(string unitWorkId, string detectionTypeId, string detectionRateId, string pointBatchCode)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APINDETrustService.getPointBatchCode(unitWorkId, pointBatchCode, startDate);
+                responeData.data = APINDETrustService.getAutoPointBatchCode(unitWorkId, detectionTypeId, pointBatchCode, pointBatchCode);
             }
             catch (Exception ex)
             {
@@ -35,6 +37,52 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
+
+        /// <summary>
+        /// 根据单位工程、点口批号、批开始时间获取需要调整的批（已点口但还未进行委托的批列表）
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <param name="detectionTypeId"></param>
+        /// <param name="detectionRateId"></param>
+        /// <param name="pointBatchCode"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPointBatchCode(string unitWorkId, string detectionTypeId, string detectionRateId, string pointBatchCode)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.getPointBatchCode(unitWorkId, detectionTypeId, pointBatchCode, pointBatchCode);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 根据点口批ID获取批明细（自动点口调用呈现）
+        /// </summary>
+        /// <param name="pointBatchId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPointBatchDetail(string pointBatchId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.getPointBatchDetail(pointBatchId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
 
         /// <summary>
         /// 根据点口批ID获取已点口还未审批的焊口
@@ -101,6 +149,28 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
+        /// 对所选批次进行自动点口
+        /// </summary>
+        /// <param name="pointBatchId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData AutoPointSave([FromBody] string pointBatchId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APINDETrustService.AutoPointSave(pointBatchId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
         /// 点口调整 
         /// </summary>
         /// <param name="oldJointId"></param>
@@ -122,5 +192,145 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
+
+        /// <summary>
+        /// 根据单位工程获取所有已点的焊口生成委托单
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData GenerateTrust([FromBody] string unitWorkId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APINDETrustService.GenerateTrust(unitWorkId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 无损委托
+        /// <summary>
+        /// 选择单位工程、探伤类型、探伤比例、委托单号等获取委托单
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <param name="detectionTypeId"></param>
+        /// <param name="detectionRateId"></param>
+        /// <param name="isAudit"></param>
+        /// <param name="trustBatchCode"></param>
+        /// <returns></returns>
+        public Model.ResponeData getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, bool? isAudit, string trustBatchCode)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.getBatchTrustCode(unitWorkId, detectionTypeId, detectionRateId, isAudit, trustBatchCode);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+
+        /// <summary>
+        /// 选择委托单ID获取委托单明细信息
+        /// </summary>
+        /// <param name="trustBatchId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetBatchTrustDetail(string trustBatchId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GetBatchTrustDetail(trustBatchId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 对所选委托单进行审核
+        /// </summary>
+        /// <param name="trustBatchId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData BatchTrustAudit([FromBody] string trustBatchId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APINDETrustService.BatchTrustAudit(trustBatchId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 无损检测单
+        /// <summary>
+        /// 选择单位工程、探伤类型、检测单号获取检测单
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <param name="detectionTypeId"></param>
+        /// <param name="ndeCode"></param>
+        /// <returns></returns>
+        public Model.ResponeData getBatchNdeCode(string unitWorkId, string detectionTypeId, string ndeCode)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.getBatchNdeCode(unitWorkId, detectionTypeId, ndeCode);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 根据检测单ID获取检测单明细
+        /// </summary>
+        /// <param name="ndeId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetBatchNDEDetail(string ndeId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GetBatchNDEDetail(ndeId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

@@ -69,7 +69,7 @@ namespace BLL
             }
         }
 
-        public static void UpdatePointBatchDetail(string pointBatchItemId,string pointState, DateTime? pointDate)
+        public static void UpdatePointBatchDetail(string pointBatchItemId, string pointState, DateTime? pointDate)
         {
             Model.HJGL_Batch_PointBatchItem newBatchDetail = Funs.DB.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == pointBatchItemId);
             if (newBatchDetail != null)
@@ -182,5 +182,73 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+        /// <summary>
+        /// 检验批自动点口算法
+        /// </summary>
+        /// <param name="pointBatchId"></param>
+        public static void AutoPoint(string pointBatchId)
+        {
+            int pointNum = 0;
+            int pointNumG = 0;
+            int pointNumA = 0;
+
+            var batch = PointBatchService.GetPointBatchById(pointBatchId);
+            var batchItemNum = PointBatchDetailService.GetBatchDetailByBatchId(pointBatchId);
+
+            if (batch.DetectionRateId != null && batchItemNum.Count() > 0)
+            {
+                var rate = Base_DetectionRateService.GetDetectionRateByDetectionRateId(batch.DetectionRateId);
+                // 批里要检测的数量
+                pointNum = Convert.ToInt32(Math.Ceiling((batchItemNum.Count() * rate.DetectionRateValue.Value) * 0.01));
+            }
+
+            var weldG = from x in Funs.DB.HJGL_Batch_PointBatchItem
+                        join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                        where y.JointAttribute == "固定口"
+                        select x;
+            var weldA = from x in Funs.DB.HJGL_Batch_PointBatchItem
+                        join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                        where y.JointAttribute == "活动口"
+                        select x;
+            if (weldG.Count() > 0)
+            {
+                // 固定口检测数量
+                pointNumG = Convert.ToInt32(Math.Ceiling(weldG.Count() * 0.4));
+            }
+
+            // 活动口要检测的数量
+            pointNumA = pointNum - pointNumG;
+
+            if (pointNumG > 0)
+            {
+                int[] r = Funs.GetRandomNum(pointNumG, 1, weldG.Count());
+                int i = 0;
+                foreach (var p in weldG)
+                {
+                    i++;
+                    if (r.Contains(i))
+                    {
+                        PointBatchDetailService.UpdatePointBatchDetail(p.PointBatchItemId, "1", System.DateTime.Now);
+                    }
+                }
+            }
+
+            if (pointNumA > 0)
+            {
+                int[] r = Funs.GetRandomNum(pointNumA, 1, weldA.Count());
+                int j = 0;
+                foreach (var p in weldA)
+                {
+                    j++;
+                    if (r.Contains(j))
+                    {
+                        PointBatchDetailService.UpdatePointBatchDetail(p.PointBatchItemId, "1", System.DateTime.Now);
+                    }
+                }
+            }
+
+            PointBatchService.UpdateBatchIsClosed(pointBatchId, DateTime.Now);
+        }
+
     }
 }

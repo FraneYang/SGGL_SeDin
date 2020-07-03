@@ -97,7 +97,7 @@
         Width="350px" Height="180px" EnableAjax="false">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" IsModal="true" Width="670px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="670px"
         Height="460px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

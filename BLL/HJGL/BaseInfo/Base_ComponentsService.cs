@@ -28,6 +28,7 @@
                 ComponentsCode = components.ComponentsCode,
                 ComponentsName = components.ComponentsName,
                 Remark = components.Remark,
+                ProjeceId=components.ProjeceId,
             };
             db.Base_Components.InsertOnSubmit(newComponents);
             db.SubmitChanges();
@@ -46,6 +47,7 @@
                 newComponents.ComponentsCode = components.ComponentsCode;
                 newComponents.ComponentsName = components.ComponentsName;
                 newComponents.Remark = components.Remark;
+                newComponents.ProjeceId = components.ProjeceId;
                 db.SubmitChanges();
             }
         }
@@ -70,9 +72,10 @@
         /// </summary>
         /// <param name="ComponentsType"></param>
         /// <returns></returns>
-        public static List<Model.Base_Components> GetComponentsList()
+        public static List<Model.Base_Components> GetComponentsList(string ProjeceId)
         {
             var list = (from x in Funs.DB.Base_Components
+                        where x.ProjeceId==ProjeceId
                         orderby x.ComponentsCode
                         select x).ToList();
 
@@ -86,11 +89,11 @@
         /// <param name="dropName">下拉框名称</param>
         /// <param name="isShowPlease">是否显示请选择</param>
         /// <param name="ComponentsType">耗材类型</param>
-        public static void InitComponentsDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease,string itemText)
+        public static void InitComponentsDropDownList(FineUIPro.DropDownList dropName,string ProjeceId, bool isShowPlease,string itemText)
         {
             dropName.DataValueField = "ComponentsId";
             dropName.DataTextField = "ComponentsCode";
-            dropName.DataSource = GetComponentsList();
+            dropName.DataSource = GetComponentsList(ProjeceId);
             dropName.DataBind();
             if (isShowPlease)
             {

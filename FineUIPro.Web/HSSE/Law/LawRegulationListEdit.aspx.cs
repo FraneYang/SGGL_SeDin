@@ -129,7 +129,7 @@ namespace FineUIPro.Web.HSSE.Law
                 lawRegulationList.IsPass = true;
                 lawRegulationList.CompileMan = this.CurrUser.UserName;
                 lawRegulationList.CompileDate = System.DateTime.Now;
-                lawRegulationList.UnitId = this.CurrUser.UnitId;
+                lawRegulationList.UnitId = string.IsNullOrEmpty(this.CurrUser.UnitId) ? Const.UnitId_SEDIN : this.CurrUser.UnitId;
                 this.LawRegulationId = SQLHelper.GetNewID(typeof(Model.Law_LawRegulationList));
                 lawRegulationList.LawRegulationId = this.LawRegulationId;
                 BLL.LawRegulationListService.AddLawRegulationList(lawRegulationList);

@@ -58,6 +58,24 @@ namespace FineUIPro.Web.SysManage {
         protected global::FineUIPro.TextBox txtRoleName;
         
         /// <summary>
+        /// txtCNCodes 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownBox txtCNCodes;
+        
+        /// <summary>
+        /// gvCNCodes 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid gvCNCodes;
+        
+        /// <summary>
         /// chkIsAuditFlow 控件。
         /// </summary>
         /// <remarks>

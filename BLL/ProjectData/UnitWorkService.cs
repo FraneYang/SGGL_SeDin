@@ -382,5 +382,55 @@ namespace BLL
             }
             return unitWorkName;
         }
+
+        /// <summary>
+        /// 获取单位工程下拉列表
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="projectId"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitUnitWorkDropDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        {
+            var unitWorks = from x in Funs.DB.WBS_UnitWork
+                            where x.ProjectId == projectId && x.SuperUnitWork == null
+                            orderby x.UnitWorkCode
+                            select new
+                            {
+                                x.UnitWorkId,
+                                UnitWorkName = GetUnitWorkALLName(x.UnitWorkId)
+                            };
+
+            dropName.DataValueField = "UnitWorkId";
+            dropName.DataTextField = "UnitWorkName";
+            dropName.DataSource = unitWorks;
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 获取单位工程名称
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <returns></returns>
+        public static string GetUnitWorkALLName(string unitWorkId)
+        {
+            string name = string.Empty;
+            var getu = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == unitWorkId);
+            if (getu != null)
+            {
+                if (!string.IsNullOrEmpty(getu.ProjectType))
+                {
+                    name = getu.UnitWorkName + "(" + Funs.GetUnitWorkType(getu.ProjectType) + ")";
+                }
+                else
+                {
+                    name = getu.UnitWorkName;
+                }
+            }
+            return name;
+        }
     }
 }

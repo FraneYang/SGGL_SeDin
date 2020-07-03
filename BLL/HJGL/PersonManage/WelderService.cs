@@ -18,33 +18,33 @@ namespace BLL
             return Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == welderId);
         }
 
-        /// <summary>
-        /// 添加焊工
-        /// </summary>
-        /// <param name="welder"></param>
-        public static void AddWelder(Model.SitePerson_Person welder)
-        {
-            Model.SitePerson_Person newWelder = new Model.SitePerson_Person();
-            newWelder.PersonId = welder.PersonId;
-            newWelder.WelderCode = welder.WelderCode;
-            newWelder.PersonName = welder.PersonName;
-            newWelder.ProjectId = welder.ProjectId;
-            newWelder.UnitId = welder.UnitId;
-            newWelder.Sex = welder.Sex;
-            newWelder.Birthday = welder.Birthday;
-            newWelder.IdentityCard = welder.IdentityCard;
-            newWelder.CertificateCode = welder.CertificateCode;
-            newWelder.CertificateLimitTime = welder.CertificateLimitTime;
-            newWelder.WelderLevel = welder.WelderLevel;
-            newWelder.IsUsed = welder.IsUsed ;
-            newWelder.QualificationCertificateUrl = welder.QualificationCertificateUrl;
-            newWelder.Remark = welder.Remark;
-            newWelder.PhotoUrl = welder.PhotoUrl;
-            newWelder.WorkPostId = welder.WorkPostId;
-            newWelder.Isprint = welder.Isprint;
-            Funs.DB.SitePerson_Person.InsertOnSubmit(newWelder);
-            Funs.DB.SubmitChanges();
-        }
+        ///// <summary>
+        ///// 添加焊工
+        ///// </summary>
+        ///// <param name="welder"></param>
+        //public static void AddWelder(Model.SitePerson_Person welder)
+        //{
+        //    Model.SitePerson_Person newWelder = new Model.SitePerson_Person();
+        //    newWelder.PersonId = welder.PersonId;
+        //    newWelder.WelderCode = welder.WelderCode;
+        //    newWelder.PersonName = welder.PersonName;
+        //    newWelder.ProjectId = welder.ProjectId;
+        //    newWelder.UnitId = welder.UnitId;
+        //    newWelder.Sex = welder.Sex;
+        //    newWelder.Birthday = welder.Birthday;
+        //    newWelder.IdentityCard = welder.IdentityCard;
+        //    newWelder.CertificateCode = welder.CertificateCode;
+        //    newWelder.CertificateLimitTime = welder.CertificateLimitTime;
+        //    newWelder.WelderLevel = welder.WelderLevel;
+        //    newWelder.IsUsed = welder.IsUsed ;
+        //    newWelder.QualificationCertificateUrl = welder.QualificationCertificateUrl;
+        //    newWelder.Remark = welder.Remark;
+        //    newWelder.PhotoUrl = welder.PhotoUrl;
+        //    newWelder.WorkPostId = welder.WorkPostId;
+        //    newWelder.Isprint = welder.Isprint;
+        //    Funs.DB.SitePerson_Person.InsertOnSubmit(newWelder);
+        //    Funs.DB.SubmitChanges();
+        //}
 
         /// <summary>
         /// 修改焊工
@@ -142,7 +142,7 @@ namespace BLL
         /// <param name="InstallationType">耗材类型</param>
         public static void InitProjectWelderDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease, string projectId, string unitId,string itemText)
         {
-            dropName.DataValueField = "WelderId";
+            dropName.DataValueField = "PersonId";
             dropName.DataTextField = "WelderCode";
             dropName.DataSource = from x in Funs.DB.SitePerson_Person
                                   join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId

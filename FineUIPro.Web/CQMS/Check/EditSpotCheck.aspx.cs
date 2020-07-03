@@ -321,7 +321,7 @@ namespace FineUIPro.Web.CQMS.Check
                     QuestionImg = 0;
                     //SpotCheckService.Init(drpHandleType, State, string.Empty, false);
                     string code = ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId).ProjectCode + "-06-CM03-XJ-";
-                    txtDocCode.Text = BLL.SQLHelper.RunProcNewId("SpGetNewIncentiveCode", "dbo.Check_SpotCheck", "DocCode", code);
+                    txtDocCode.Text = BLL.SQLHelper.RunProcNewId("SpGetNewCode5", "dbo.Check_SpotCheck", "DocCode", code);
                 }
                 HandleMan();
                 txtProjectName.Text = ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId).ProjectName;

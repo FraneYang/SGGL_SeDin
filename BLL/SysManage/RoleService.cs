@@ -49,6 +49,7 @@
                 RoleCode = role.RoleCode,
                 RoleName = role.RoleName,
                 RoleType = role.RoleType,
+                CNCodes=role.CNCodes,
                 Def = role.Def,
                 IsAuditFlow = role.IsAuditFlow,
                 IsSystemBuilt = role.IsSystemBuilt,
@@ -72,6 +73,7 @@
                 updateRole.RoleCode = role.RoleCode;
                 updateRole.RoleName = role.RoleName;
                 updateRole.RoleType = role.RoleType;
+                updateRole.CNCodes = role.CNCodes;
                 updateRole.Def = role.Def;
                 updateRole.IsAuditFlow = role.IsAuditFlow;
                 db.SubmitChanges();

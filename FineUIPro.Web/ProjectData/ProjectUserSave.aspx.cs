@@ -40,7 +40,8 @@ namespace FineUIPro.Web.ProjectData
                 BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, true);
                 BLL.ConstValue.InitConstValueDropDownList(this.drpIsPost, ConstValue.Group_0001, false);
                 BLL.WorkPostService.InitWorkPostDropDownList(this.drpWorkPost, true);
-
+                gvUnitWork.DataSource = (from x in BLL.Funs.DB.WBS_UnitWork where x.SuperUnitWork == null && x.ProjectId == this.CurrUser.LoginProjectId select x);
+                gvUnitWork.DataBind();
                 this.ProjectUserId = Request.QueryString["ProjectUserId"];
                 if (!String.IsNullOrEmpty(this.ProjectUserId))
                 {
@@ -62,6 +63,10 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.lbUserCode.Text = User.UserCode;
                             this.lbUserName.Text = User.UserName;
+                        }
+                        if (!string.IsNullOrEmpty(projectUser.WorkAreaId))
+                        {
+                            txtUnitWork.Values = projectUser.WorkAreaId.Split(',');
                         }
                         if (projectUser.IsPost.HasValue)
                         {
@@ -122,7 +127,10 @@ namespace FineUIPro.Web.ProjectData
                         }
                     }
                 }
-
+                if (!string.IsNullOrWhiteSpace(String.Join(",", this.txtUnitWork.Values)))
+                {
+                    newProjectUser.WorkAreaId = string.Join(",", txtUnitWork.Values);
+                }
                 newProjectUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
                 BLL.ProjectUserService.UpdateProjectUser(newProjectUser);
                 this.SetWorkPost(newProjectUser);

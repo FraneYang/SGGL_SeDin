@@ -188,8 +188,6 @@ namespace FineUIPro.Web.CQMS.Solution
                     optio.Hidden = true;
                     plApprove2.Hidden = true;
                     txtCode.Text = SQLHelper.RunProcNewId2("SpGetNewCode3ByProjectId", "dbo.Solution_CQMSConstructSolution", "Code", CurrUser.LoginProjectId);
-                    //string perfix = EditNoService.GetEditNoById(CurrUser.LoginProjectId, CurrUser.LoginProjectId).NoContent + "-SGFA-";
-                    //txtCode.Text = SQLHelper.RunProcNewId("SpGetNewHazardCode", "dbo.Solution_CQMSConstructSolution", "Code", perfix);
 
                 }
 

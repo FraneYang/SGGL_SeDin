@@ -1039,5 +1039,82 @@ namespace BLL
             return userName;
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetProjectUserListByProjectIdForApi(string projectId, string name)
+        {
+            var users = (from x in Funs.DB.Sys_User
+                         where x.IsPost == true && x.UserId != BLL.Const.hfnbdId
+                         where name == "" || x.UserName.Contains(name)
+                         orderby x.UserName
+                         select x).ToList();
+            if (!string.IsNullOrEmpty(projectId))
+            {
+                users = (from x in users
+                         join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
+                         where y.ProjectId == projectId
+                         orderby x.UserName
+                         select x).ToList();
+            }
+
+            return users;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="unitType"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetProjectUserListByProjectIdForApi(string projectId, string unitId, string unitType, string name)
+        {
+            List<Model.Sys_User> list = new List<Model.Sys_User>();
+            if (!string.IsNullOrEmpty(projectId))
+            {
+                string[] unitTypes = { };
+                string[] unitIds = { };
+
+                if (!string.IsNullOrEmpty(unitType))
+                {
+                    unitTypes = unitType.Split(',');
+                }
+                if (!string.IsNullOrEmpty(unitId))
+                {
+                    unitIds = unitId.Split(',');
+                }
+                list = (from x in Funs.DB.Sys_User
+                        join y in Funs.DB.Project_ProjectUser
+                        on x.UserId equals y.UserId
+                        join z in Funs.DB.Project_ProjectUnit
+                        on x.UnitId equals z.UnitId
+                        where name == "" || x.UserName.Contains(name)
+                        where y.ProjectId == projectId
+                        where unitType == "" || unitTypes.Contains(z.UnitType)
+                        where unitId == "" || unitIds.Contains(z.UnitId)
+                        orderby x.UserName
+                        select x).ToList();
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public static Model.Sys_User FindUserByAccount(string account)
+        {
+            var q = from y in Funs.DB.Sys_User
+                    where y.Account == account && y.IsPost == true
+                    select y;
+            return q.FirstOrDefault();
+        }
     }
 }

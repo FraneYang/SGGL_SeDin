@@ -39,7 +39,9 @@ namespace FineUIPro.Web.SysManage
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.RoleId = Request.Params["roleId"];
                 ///权限
-                this.GetButtonPower();               
+                this.GetButtonPower();
+                gvCNCodes.DataSource = BLL.CNProfessionalService.GetList();
+                gvCNCodes.DataBind();
                 if (!string.IsNullOrEmpty(this.RoleId))
                 {
                     var role = BLL.RoleService.GetRoleByRoleId(this.RoleId);
@@ -55,6 +57,10 @@ namespace FineUIPro.Web.SysManage
                         else
                         {
                             chkIsAuditFlow.Checked = false;
+                        }
+                        if (!string.IsNullOrEmpty(role.CNCodes))
+                        {
+                            txtCNCodes.Values = role.CNCodes.Split(',');
                         }
                         this.txtDef.Text = role.Def;
                                          
@@ -112,6 +118,10 @@ namespace FineUIPro.Web.SysManage
                 else
                 {
                     newRole.IsAuditFlow = false;
+                }
+                if (!string.IsNullOrEmpty(String.Join(",", this.txtCNCodes.Values)))
+                {
+                    newRole.CNCodes = string.Join(",", txtCNCodes.Values);
                 }
                 if (string.IsNullOrEmpty(this.RoleId))
                 {

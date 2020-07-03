@@ -96,7 +96,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window2" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="800px" Height="400px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

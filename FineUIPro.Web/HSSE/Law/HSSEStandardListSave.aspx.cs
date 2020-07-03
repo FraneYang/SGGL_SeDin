@@ -170,7 +170,7 @@ namespace FineUIPro.Web.HSSE.Law
             {
                 hSSEStandardsList.IsPass = true;
                 hSSEStandardsList.CompileMan = this.CurrUser.UserName;
-                hSSEStandardsList.UnitId = this.CurrUser.UnitId;
+                hSSEStandardsList.UnitId = string.IsNullOrEmpty(this.CurrUser.UnitId) ? Const.UnitId_SEDIN : this.CurrUser.UnitId;
                 hSSEStandardsList.CompileDate = System.DateTime.Now;
                 this.StandardId = SQLHelper.GetNewID(typeof(Model.Law_HSSEStandardsList));
                 hSSEStandardsList.StandardId = this.StandardId;

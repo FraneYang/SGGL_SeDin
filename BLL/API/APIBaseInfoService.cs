@@ -70,26 +70,55 @@ namespace BLL
         public static List<Model.BaseInfoItem> getProjectWorkArea(string projectId)
         {
             var getDataLists = (from x in Funs.DB.WBS_UnitWork
-                                where x.ProjectId == projectId
+                                where x.ProjectId == projectId && x.SuperUnitWork == null
                                 orderby x.UnitWorkCode
                                 select new Model.BaseInfoItem
                                 {
                                     BaseInfoId = x.UnitWorkId,
                                     BaseInfoCode = x.UnitWorkCode,
-                                    BaseInfoName = getUnitWorkName(x.UnitWorkId)
+                                    BaseInfoName = BLL.UnitWorkService.GetUnitWorkALLName(x.UnitWorkId)
                                 }
                                 ).ToList();
             return getDataLists;
         }
-        private static string getUnitWorkName(string unitWorkId)
+
+        #endregion
+
+        #region 焊接探伤类型，探伤比例
+        /// <summary>
+        /// 获取探伤类型
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getDetectionType()
         {
-            string name = string.Empty;
-            var getu = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == unitWorkId);
-            if (getu != null)
-            {
-                name = getu.UnitWorkName + "(" + Funs.GetUnitWorkType(getu.ProjectType) + ")";
-            }
-            return name;
+            var getDataLists = (from x in Funs.DB.Base_DetectionType
+                                orderby x.DetectionTypeCode
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.DetectionTypeId,
+                                    BaseInfoCode = x.DetectionTypeCode,
+                                    BaseInfoName = x.DetectionTypeName
+                                }
+                                ).ToList();
+            return getDataLists;
+        }
+
+        /// <summary>
+        /// 获取探伤比例
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getDetectionRate()
+        {
+            var getDataLists = (from x in Funs.DB.Base_DetectionRate
+                                orderby x.DetectionRateCode
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.DetectionRateId,
+                                    BaseInfoCode = x.DetectionRateCode,
+                                    BaseInfoName = x.DetectionRateValue.Value.ToString() + "%"
+                                }
+                                ).ToList();
+            return getDataLists;
         }
         #endregion
 

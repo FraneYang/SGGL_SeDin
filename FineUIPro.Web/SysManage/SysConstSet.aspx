@@ -231,7 +231,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="流程步骤设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="640px" Height="450px">
         </f:Window>
     </form>

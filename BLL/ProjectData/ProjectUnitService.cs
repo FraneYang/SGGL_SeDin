@@ -171,5 +171,17 @@
                 db.SubmitChanges();
             }
         }
+
+        public static List<Model.Project_ProjectUnit> GetProjectUnitListByProjectIdForApi(string projectId, string unitType, string name)
+        {
+            string[] types = unitType.Split(',');
+            return (from x in Funs.DB.Project_ProjectUnit
+                    join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
+                    where x.ProjectId == projectId
+                    where unitType == "" || types.Contains(x.UnitType)
+                    where name == "" || y.UnitName.Contains(name)
+                    orderby x.UnitType, y.UnitCode
+                    select x).ToList();
+        }
     }
 }

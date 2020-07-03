@@ -37,7 +37,7 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Roles.RoleId,Roles.RoleName,Roles.RoleCode,Roles.RoleType,Roles.Def,Roles.IsAuditFlow,Roles.IsSystemBuilt"
+            string strSql = @"SELECT Roles.RoleId,Roles.RoleName,Roles.RoleCode,Roles.RoleType,Roles.CNCodes,Roles.Def,Roles.IsAuditFlow,Roles.IsSystemBuilt"
                           + @" FROM dbo.Sys_Role AS Roles "
                           + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
                           + @" WHERE 1=1 ";
@@ -237,5 +237,35 @@
             }
         }
         #endregion
+
+        /// <summary>
+        /// 获取角色对口专业设置
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        protected string ConvertCNCodes(object CNCodes)
+        {
+            string ProfessionalName = string.Empty;
+            if (CNCodes != null)
+            {
+                string[] Ids = CNCodes.ToString().Split(',');
+                foreach (string t in Ids)
+                {
+                    var type = BLL.CNProfessionalService.GetCNProfessional(t);
+                    if (type != null)
+                    {
+                        ProfessionalName += type.ProfessionalName + ",";
+                    }
+                }
+            }
+            if (ProfessionalName != string.Empty)
+            {
+                return ProfessionalName.Substring(0, ProfessionalName.Length - 1);
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }

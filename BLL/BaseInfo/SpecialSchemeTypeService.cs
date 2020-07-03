@@ -79,6 +79,23 @@ namespace BLL
             return list;
         }
 
+        /// <summary>
+        ///  类型表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitSpecialSchemeTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "SpecialSchemeTypeId";
+            dropName.DataTextField = "SpecialSchemeTypeName";
+            dropName.DataSource = GetSpecialSchemeTypeList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
         public static Model.Base_SpecialSchemeType GetSpecialSchemeTypeByName(string name)
         {
                 return Funs.DB.Base_SpecialSchemeType.FirstOrDefault(e => e.SpecialSchemeTypeName == name);

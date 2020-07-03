@@ -20,7 +20,27 @@
                          AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="90px">
                     </f:TextBox>
                 </Items>
-            </f:FormRow>           
+            </f:FormRow>    
+            <f:FormRow>
+                <Items>
+                    <f:DropDownBox runat="server" Label="角色对口专业设置" ShowRedStar="true"
+                                                Required="true" ID="txtCNCodes" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true" LabelWidth="160px">
+                                                <PopPanel>
+                                                    <f:Grid ID="gvCNCodes" DataIDField="CNProfessionalId" ForceFit="true"
+                                                        EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="SortIndex" DataTextField="ProfessionalName"
+                                                        ShowBorder="true" ShowHeader="false"
+                                                        runat="server" EnableCheckBoxSelect="true">
+                                                        <Columns>
+                                                            <f:BoundField Width="100px" DataField="CNProfessionalId" SortField="CNProfessionalId" DataFormatString="{0}" Hidden="true" />
+                                                            <f:BoundField Width="100px" DataField="ProfessionalName" SortField="ProfessionalName" DataFormatString="{0}"
+                                                                HeaderText="专业名称" />
+                                                        </Columns>
+                                                    </f:Grid>
+                                                </PopPanel>
+                                            </f:DropDownBox>
+                    
+                </Items>
+            </f:FormRow> 
             <f:FormRow>
                 <Items>                 
                     <f:CheckBox  ID="chkIsAuditFlow"  runat="server" Label="参与审批" LabelWidth="90px">                  

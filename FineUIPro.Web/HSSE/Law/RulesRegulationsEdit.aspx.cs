@@ -119,8 +119,8 @@ namespace FineUIPro.Web.HSSE.Law
                 rulesRegulations.IsPass = true;
                 rulesRegulations.CompileMan = this.CurrUser.UserName;
                 rulesRegulations.CompileDate = System.DateTime.Now;
-                rulesRegulations.UnitId = this.CurrUser.UnitId;
-                this.RulesRegulationsId = SQLHelper.GetNewID(typeof(Model.Law_RulesRegulations));
+                rulesRegulations.UnitId = string.IsNullOrEmpty(this.CurrUser.UnitId) ? Const.UnitId_SEDIN : this.CurrUser.UnitId;
+                this.RulesRegulationsId = SQLHelper.GetNewID();
                 rulesRegulations.RulesRegulationsId = this.RulesRegulationsId;
                 BLL.RulesRegulationsService.AddRulesRegulations(rulesRegulations);
                 BLL.LogService.AddSys_Log(this.CurrUser, rulesRegulations.RulesRegulationsCode, rulesRegulations.RulesRegulationsId, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnAdd);

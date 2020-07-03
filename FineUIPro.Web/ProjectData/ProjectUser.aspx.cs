@@ -55,7 +55,7 @@ namespace FineUIPro.Web.ProjectData
         {
             if (this.drpProject.Items.Count() > 0)
             {
-                string strSql = @"SELECT DISTINCT ProjectUser.ProjectUserId,ProjectUser.ProjectId,ProjectUser.UserId,Users.UserCode,Users.UserName,ProjectUser.UnitId,Unit.UnitCode,Unit.UnitName,ProjectUnit.UnitType,sysConst.ConstText AS UnitTypeName,ProjectUser.RoleId,ProjectUser.IsPost,(CASE WHEN ProjectUser.IsPost = 1 THEN '在岗' ELSE '离岗' END) AS IsPostName,WorkPost.WorkPostName"
+                string strSql = @"SELECT DISTINCT ProjectUser.ProjectUserId,ProjectUser.ProjectId,ProjectUser.UserId,ProjectUser.WorkAreaId,Users.UserCode,Users.UserName,ProjectUser.UnitId,Unit.UnitCode,Unit.UnitName,ProjectUnit.UnitType,sysConst.ConstText AS UnitTypeName,ProjectUser.RoleId,ProjectUser.IsPost,(CASE WHEN ProjectUser.IsPost = 1 THEN '在岗' ELSE '离岗' END) AS IsPostName,WorkPost.WorkPostName"
                                 + @" ,RoleName= STUFF(( SELECT ',' + RoleName FROM dbo.Sys_Role where PATINDEX('%,' + RTRIM(RoleId) + ',%',',' +ProjectUser.RoleId + ',')>0 FOR XML PATH('')), 1, 1,'')"
                                 + @" FROM Project_ProjectUser AS ProjectUser "
                                 + @" LEFT JOIN Base_Project AS Project ON ProjectUser.ProjectId = Project.ProjectId "
@@ -297,7 +297,39 @@ namespace FineUIPro.Web.ProjectData
             this.BindGrid();
             this.GetButtonPower();
         }
-        #endregion       
+        #endregion
+
+        #region 获取分管范围
+        /// <summary>
+        /// 获取分管范围
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        protected string ConvertWorkAreaId(object WorkAreaId)
+        {
+            string UnitWorkName = string.Empty;
+            if (WorkAreaId != null)
+            {
+                string[] Ids = WorkAreaId.ToString().Split(',');
+                foreach (string t in Ids)
+                {
+                    var type = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(t);
+                    if (type != null)
+                    {
+                        UnitWorkName += BLL.UnitWorkService.GetUnitWorkByUnitWorkId(t).UnitWorkName + ",";
+                    }
+                }
+            }
+            if (UnitWorkName != string.Empty)
+            {
+                return UnitWorkName.Substring(0, UnitWorkName.Length - 1);
+            }
+            else
+            {
+                return "";
+            }
+        }
+        #endregion
 
         #region 导出按钮
         /// 导出按钮

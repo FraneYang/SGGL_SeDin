@@ -47,6 +47,25 @@
             </f:FormRow> 
             <f:FormRow>
                 <Items>
+                    <f:DropDownBox runat="server" Label="单位工程" 
+                             ID="txtUnitWork" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true">
+                            <PopPanel>
+                                <f:Grid ID="gvUnitWork" DataIDField="UnitWorkId"
+                                    EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="UnitWorkId" DataTextField="UnitWorkName"
+                                    ShowBorder="true" ShowHeader="false" ForceFit="true"
+                                    runat="server" EnableCheckBoxSelect="true">
+                                    <Columns>
+                                        <f:BoundField Width="100px" DataField="UnitWorkId" SortField="UnitWorkId" DataFormatString="{0}" Hidden="true" />
+                                        <f:BoundField Width="100px" DataField="UnitWorkName" SortField="UnitWorkName" DataFormatString="{0}"
+                                             HeaderText="单位工程名称" />
+                                    </Columns>
+                                </f:Grid>
+                            </PopPanel>
+                        </f:DropDownBox>
+                    </Items>
+            </f:FormRow> 
+            <f:FormRow>
+                <Items>
                     <f:DropDownList ID="drpWorkPost" runat="server" Label="项目岗位" EnableEdit="true" ForceSelection="false">
                     </f:DropDownList>
                     

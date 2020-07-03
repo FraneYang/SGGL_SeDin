@@ -14,18 +14,25 @@ namespace BLL
         /// </summary>
         /// <param name="unitWrokId"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getHotProessTrustNo(string unitWrokId)
+        public static List<Model.BaseInfoItem> getHotProessTrustNo(string unitWrokId,string hotProessTrustNo)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_HotProess_Trust
-                                where x.UnitWorkId == unitWrokId
+            var dataLists = from x in Funs.DB.HJGL_HotProess_Trust
+                               where x.UnitWorkId == unitWrokId
+                               select x;
+         
+            if (!string.IsNullOrEmpty(hotProessTrustNo))
+            {
+                dataLists = dataLists.Where(x => x.HotProessTrustNo.Contains(hotProessTrustNo));
+                              
+            }
+
+            var getDataLists = (from x in dataLists
                                 orderby x.HotProessTrustNo
                                 select new Model.BaseInfoItem
                                 {
                                     BaseInfoId = x.HotProessTrustId,
                                     BaseInfoCode = x.HotProessTrustNo
-
-                                }
-                                ).ToList();
+                                }).ToList();
             return getDataLists;
         }
         #endregion
@@ -35,11 +42,21 @@ namespace BLL
         ///  根据单位工程获取硬度委托单号
         /// </summary>
         /// <param name="unitWrokId"></param>
+        /// <param name="hardTrustNo"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getHardTrustNo(string unitWrokId)
+        public static List<Model.BaseInfoItem> getHardTrustNo(string unitWrokId,string hardTrustNo)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_Hard_Trust
-                                where x.UnitWorkId == unitWrokId
+            var dataLists = from x in Funs.DB.HJGL_Hard_Trust
+                             where x.UnitWorkId == unitWrokId
+                             select x;
+
+            if (!string.IsNullOrEmpty(hardTrustNo))
+            {
+                dataLists = dataLists.Where(x => x.HardTrustNo.Contains(hardTrustNo));
+
+            }
+
+            var getDataLists = (from x in dataLists
                                 orderby x.HardTrustNo
                                 select new Model.BaseInfoItem
                                 {

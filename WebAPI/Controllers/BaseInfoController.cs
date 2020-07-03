@@ -101,6 +101,50 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 获取焊接基础信息
+
+        /// <summary>
+        /// 获取探伤类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getDetectionType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIBaseInfoService.getDetectionType();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 获取探伤比例
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getDetectionRate()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIBaseInfoService.getDetectionRate();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        #endregion
+
         //#region  获取专项检查类型及检查项【原】
         ///// <summary>
         /////   获取专项检查类型及检查项

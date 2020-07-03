@@ -17,13 +17,14 @@ namespace WebAPI.Controllers
         /// 根据单位工程获取热处理委托单号
         /// </summary>
         /// <param name="unitWrokId"></param>
+        /// <param name="hotProessTrustNo"></param>
         /// <returns></returns>
-        public Model.ResponeData getHotProessTrustNo(string unitWrokId)
+        public Model.ResponeData getHotProessTrustNo(string unitWrokId, string hotProessTrustNo)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIHotProcessHardService.getHotProessTrustNo(unitWrokId);
+                responeData.data = APIHotProcessHardService.getHotProessTrustNo(unitWrokId, hotProessTrustNo);
             }
             catch (Exception ex)
             {
@@ -38,13 +39,14 @@ namespace WebAPI.Controllers
         /// 根据单位工程获取硬度委托单号
         /// </summary>
         /// <param name="unitWrokId"></param>
+        /// <param name="hardTrustNo"></param>
         /// <returns></returns>
-        public Model.ResponeData getHardTrustNo(string unitWrokId)
+        public Model.ResponeData getHardTrustNo(string unitWrokId, string hardTrustNo)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIHotProcessHardService.getHardTrustNo(unitWrokId);
+                responeData.data = APIHotProcessHardService.getHardTrustNo(unitWrokId, hardTrustNo);
             }
             catch (Exception ex)
             {

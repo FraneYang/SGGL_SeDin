@@ -132,7 +132,7 @@ namespace FineUIPro.Web.Law
             manageRule.VersionNo = this.txtVersionNo.Text.Trim();
             manageRule.AttachUrl = this.FullAttachUrl;
             manageRule.Remark = this.txtRemark.Text.Trim();
-            manageRule.UnitId = this.CurrUser.UnitId;
+            manageRule.UnitId = string.IsNullOrEmpty(this.CurrUser.UnitId) ? Const.UnitId_SEDIN : this.CurrUser.UnitId;
             manageRule.SeeFile = HttpUtility.HtmlEncode(this.txtSeeFile.Text);
             if (string.IsNullOrEmpty(this.ManageRuleId))
             {

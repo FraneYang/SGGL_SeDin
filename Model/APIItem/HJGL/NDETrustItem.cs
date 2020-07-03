@@ -72,6 +72,16 @@ namespace Model
         }
 
         /// <summary>
+        /// 检测结果
+        /// </summary>
+        public string CheckResult
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
         /// 附件路径
         /// </summary>
         public string AttachUrl

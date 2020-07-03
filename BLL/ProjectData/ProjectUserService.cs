@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Model;
-   
+
     public static class ProjectUserService
     {
         public static SGGLDB db = Funs.DB;
@@ -71,6 +71,7 @@
                 newProjectUser.UnitId = projectUser.UnitId;
                 newProjectUser.RoleId = projectUser.RoleId;
                 newProjectUser.IsPost = projectUser.IsPost;
+                newProjectUser.WorkAreaId = projectUser.WorkAreaId;
                 //newProjectUser.RoleName = projectUser.RoleName;
                 db.SubmitChanges();
             }
@@ -98,12 +99,12 @@
         public static void DeleteProjectUserByProjectIdUserId(string projectId, string userId)
         {
             SGGLDB db = Funs.DB;
-            var delProjectUser =from x in db.Project_ProjectUser where x.ProjectId == projectId && x.UserId == userId select x;
+            var delProjectUser = from x in db.Project_ProjectUser where x.ProjectId == projectId && x.UserId == userId select x;
             if (delProjectUser.Count() > 0)
             {
                 db.Project_ProjectUser.DeleteAllOnSubmit(delProjectUser);
                 db.SubmitChanges();
             }
-        }  
+        }
     }
 }
