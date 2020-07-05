@@ -47,7 +47,7 @@
                                 Icon="Add" runat="server" OnClick="btnNew_Click">
                             </f:Button>
                             <f:Button ID="btnEdit" Text="编辑" ToolTip="编辑"
-                                Icon="TableEdit" runat="server" OnClick="btnEdit_Click">
+                                Icon="Pencil" runat="server" OnClick="btnEdit_Click">
                             </f:Button>
                             <f:Button ID="btnDelete" Text="删除" ToolTip="删除"
                                 ConfirmText="确认删除此热处理委托?" ConfirmTarget="Top" Icon="Delete"

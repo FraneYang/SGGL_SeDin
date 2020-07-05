@@ -10,8 +10,6 @@ namespace BLL
     /// </summary>
     public static class ActionPlan_ManagerRuleService
     {
-        public static Model.SGGLDB db = Funs.DB;
-
         /// <summary>
         /// 根据主键获取管理规定
         /// </summary>
@@ -59,8 +57,7 @@ namespace BLL
         /// </summary>
         /// <param name="manageRule"></param>
         public static void AddManageRule(Model.ActionPlan_ManagerRule manageRule)
-        {
-            Model.SGGLDB db = Funs.DB;
+        {            
             Model.ActionPlan_ManagerRule newManageRule = new Model.ActionPlan_ManagerRule
             {
                 ManagerRuleId = manageRule.ManagerRuleId,
@@ -78,8 +75,8 @@ namespace BLL
                 State = manageRule.State,
                 SeeFile = manageRule.SeeFile
             };
-            db.ActionPlan_ManagerRule.InsertOnSubmit(newManageRule);
-            db.SubmitChanges();
+            Funs.DB.ActionPlan_ManagerRule.InsertOnSubmit(newManageRule);
+            Funs.DB.SubmitChanges();
 
             ////增加一条编码记录
             BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ActionPlan_ManagerRuleMenuId, manageRule.ProjectId, null, manageRule.ManagerRuleId, manageRule.CompileDate);
@@ -91,8 +88,7 @@ namespace BLL
         /// <param name="manageRule"></param>
         public static void UpdateManageRule(Model.ActionPlan_ManagerRule manageRule)
         {
-            Model.SGGLDB db = Funs.DB;
-            Model.ActionPlan_ManagerRule newManageRule = db.ActionPlan_ManagerRule.FirstOrDefault(e => e.ManagerRuleId == manageRule.ManagerRuleId);
+            Model.ActionPlan_ManagerRule newManageRule = Funs.DB.ActionPlan_ManagerRule.FirstOrDefault(e => e.ManagerRuleId == manageRule.ManagerRuleId);
             if (newManageRule != null)
             {
                 newManageRule.ManageRuleName = manageRule.ManageRuleName;
@@ -107,7 +103,7 @@ namespace BLL
                 newManageRule.Flag = manageRule.Flag;
                 newManageRule.State = manageRule.State;
                 newManageRule.SeeFile = manageRule.SeeFile;
-                db.SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -117,8 +113,7 @@ namespace BLL
         /// <param name="manageRuleId"></param>
         public static void DeleteManageRuleById(string managerRuleId)
         {
-            Model.SGGLDB db = Funs.DB;
-            Model.ActionPlan_ManagerRule manageRule = db.ActionPlan_ManagerRule.FirstOrDefault(e => e.ManagerRuleId == managerRuleId);
+            Model.ActionPlan_ManagerRule manageRule = Funs.DB.ActionPlan_ManagerRule.FirstOrDefault(e => e.ManagerRuleId == managerRuleId);
             if (manageRule != null)
             {
                 if (!string.IsNullOrEmpty(manageRule.AttachUrl))
@@ -131,8 +126,8 @@ namespace BLL
                 CommonService.DeleteAttachFileById(manageRule.ManagerRuleId);                
                 ////删除审核流程表
                 CommonService.DeleteFlowOperateByID(manageRule.ManagerRuleId);
-                db.ActionPlan_ManagerRule.DeleteOnSubmit(manageRule);
-                db.SubmitChanges();
+                Funs.DB.ActionPlan_ManagerRule.DeleteOnSubmit(manageRule);
+                Funs.DB.SubmitChanges();
             }           
         }
     }

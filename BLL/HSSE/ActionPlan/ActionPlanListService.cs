@@ -10,8 +10,6 @@ namespace BLL
     /// </summary>
     public static class ActionPlanListService
     {
-        public static Model.SGGLDB db = Funs.DB;
-
         /// <summary>
         /// 根据主键获取实施计划
         /// </summary>
@@ -40,7 +38,6 @@ namespace BLL
         /// <param name="actionPlanList"></param>
         public static void AddActionPlanList(Model.ActionPlan_ActionPlanList actionPlanList)
         {
-            Model.SGGLDB db = Funs.DB;
             Model.ActionPlan_ActionPlanList newActionPlanList = new Model.ActionPlan_ActionPlanList
             {
                 ActionPlanListId = actionPlanList.ActionPlanListId,
@@ -54,8 +51,8 @@ namespace BLL
                 CompileDate = actionPlanList.CompileDate,
                 States = actionPlanList.States
             };
-            db.ActionPlan_ActionPlanList.InsertOnSubmit(newActionPlanList);
-            db.SubmitChanges();
+            Funs.DB.ActionPlan_ActionPlanList.InsertOnSubmit(newActionPlanList);
+            Funs.DB.SubmitChanges();
 
             ////增加一条编码记录
             BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectActionPlanListMenuId, newActionPlanList.ProjectId, null, newActionPlanList.ActionPlanListId, newActionPlanList.CompileDate);
@@ -68,8 +65,7 @@ namespace BLL
         /// <param name="actionPlanList"></param>
         public static void UpdateActionPlanList(Model.ActionPlan_ActionPlanList actionPlanList)
         {
-            Model.SGGLDB db = Funs.DB;
-            Model.ActionPlan_ActionPlanList newActionPlanList = db.ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanList.ActionPlanListId);
+            Model.ActionPlan_ActionPlanList newActionPlanList = Funs.DB.ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanList.ActionPlanListId);
             if (newActionPlanList != null)
             {
                 //newActionPlanList.ProjectId = actionPlanList.ProjectId;
@@ -81,7 +77,7 @@ namespace BLL
                 newActionPlanList.CompileMan = actionPlanList.CompileMan;
                 newActionPlanList.CompileDate = actionPlanList.CompileDate;
                 newActionPlanList.States = actionPlanList.States;
-                db.SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -90,9 +86,8 @@ namespace BLL
         /// </summary>
         /// <param name="actionPlanListId"></param>
         public static void DeleteActionPlanListById(string actionPlanListId)
-        {
-            Model.SGGLDB db = Funs.DB;
-            Model.ActionPlan_ActionPlanList actionPlanList = db.ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanListId);
+        {            
+            Model.ActionPlan_ActionPlanList actionPlanList = Funs.DB.ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanListId);
             if (actionPlanList != null)
             {
                 ////删除审核流程表
@@ -101,8 +96,8 @@ namespace BLL
                 BLL.CommonService.DeleteAttachFileById(actionPlanListId);
                 ////删除编码表记录
                 BLL.CodeRecordsService.DeleteCodeRecordsByDataId(actionPlanList.ActionPlanListId);
-                db.ActionPlan_ActionPlanList.DeleteOnSubmit(actionPlanList);
-                db.SubmitChanges();
+                Funs.DB.ActionPlan_ActionPlanList.DeleteOnSubmit(actionPlanList);
+                Funs.DB.SubmitChanges();
             }
         }
     }

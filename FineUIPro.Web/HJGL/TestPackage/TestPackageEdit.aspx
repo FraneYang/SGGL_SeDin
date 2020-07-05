@@ -38,7 +38,7 @@
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"> </f:ToolbarFill>
                             <f:Button ID="btnNew" Text="增加" ToolTip="增加试压包" Icon="Add" runat="server" OnClick="btnNew_Click">
                             </f:Button>
-                            <f:Button ID="btnEdit" Text="编辑" ToolTip="修改试压包信息" Icon="TableEdit" runat="server" OnClick="btnEdit_Click" Hidden="true">
+                            <f:Button ID="btnEdit" Text="编辑" ToolTip="修改试压包信息" Icon="Pencil" runat="server" OnClick="btnEdit_Click" Hidden="true">
                             </f:Button>
                              <f:Button ID="btnDelete" Text="删除" ToolTip="删除试压包" ConfirmText="确认删除此试压包?" ConfirmTarget="Top" Hidden="true"
                                          Icon="Delete" runat="server" OnClick="btnDelete_Click">

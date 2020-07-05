@@ -1,7 +1,7 @@
 ﻿
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/HSSE/Hazard/HazardList.aspx”不存在。
+错误信息:文件“/HSSE/Solution/ExpertArgumentList .aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -13,16 +13,16 @@
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:07/03/2020 16:38:21
-出错文件:http://localhost:8118/HSSE/Hazard/HazardList.aspx
+出错时间:07/05/2020 17:22:09
+出错文件:http://localhost:8118/HSSE/Solution/ExpertArgumentList%20.aspx
 IP地址:::1
 
-出错时间:07/03/2020 16:38:21
+出错时间:07/05/2020 17:22:09
 
 
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/common/mainMenu_PZHGL.aspx”不存在。
+错误信息:文件“/HSSE/SitePerson/PersonListEdit.aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -34,16 +34,16 @@ IP地址:::1
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:07/03/2020 16:39:14
-出错文件:http://localhost:8118/common/mainMenu_PZHGL.aspx
+出错时间:07/05/2020 17:55:39
+出错文件:http://localhost:8118/HSSE/SitePerson/PersonListEdit.aspx?PersonId=27b409a8-2ed3-4f92-a118-06ee97b152dc&&ProjectId=ab83a37b-b38c-47fd-a17c-04b433460232&&UnitId=19fcb282-0db0-47e7-9f3a-48bb399360c3
 IP地址:::1
 
-出错时间:07/03/2020 16:39:14
+出错时间:07/05/2020 17:55:40
 
 
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/HJGL/WeldingReport/FirstPassRate.aspx”不存在。
+错误信息:文件“/HSSE/SitePerson/PersonIn.aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -55,16 +55,16 @@ IP地址:::1
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:07/03/2020 16:45:51
-出错文件:http://localhost:8118/HJGL/WeldingReport/FirstPassRate.aspx
+出错时间:07/05/2020 20:16:34
+出错文件:http://localhost:8118/HSSE/SitePerson/PersonIn.aspx?ProjectId=ab83a37b-b38c-47fd-a17c-04b433460232
 IP地址:::1
 
-出错时间:07/03/2020 16:45:51
+出错时间:07/05/2020 20:16:34
 
 
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/HJGL/BaseInfo/PipingClass.aspx”不存在。
+错误信息:文件“/HSSE/OccupationHealth/HazardDetection.aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -76,16 +76,16 @@ IP地址:::1
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:07/03/2020 16:45:54
-出错文件:http://localhost:8118/HJGL/BaseInfo/PipingClass.aspx
+出错时间:07/05/2020 20:24:35
+出错文件:http://localhost:8118/HSSE/OccupationHealth/HazardDetection.aspx
 IP地址:::1
 
-出错时间:07/03/2020 16:45:54
+出错时间:07/05/2020 20:24:35
 
 
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/common/mainMenu_PDigData.aspx”不存在。
+错误信息:文件“/HSSE/Environmental/EnvironmentalMonitoring.aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -97,16 +97,16 @@ IP地址:::1
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:07/03/2020 16:46:35
-出错文件:http://localhost:8118/common/mainMenu_PDigData.aspx
+出错时间:07/05/2020 20:47:35
+出错文件:http://localhost:8118/HSSE/Environmental/EnvironmentalMonitoring.aspx
 IP地址:::1
 
-出错时间:07/03/2020 16:46:35
+出错时间:07/05/2020 20:47:36
 
 
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/HSSE/Hazard/HazardTemplate.aspx”不存在。
+错误信息:文件“/HSSE/SitePerson/DayReport.aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -118,16 +118,16 @@ IP地址:::1
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:07/03/2020 17:18:32
-出错文件:http://localhost:8118/HSSE/Hazard/HazardTemplate.aspx?HazardListId=&WorkStageIds=
+出错时间:07/05/2020 21:21:01
+出错文件:http://localhost:8118/HSSE/SitePerson/DayReport.aspx
 IP地址:::1
 
-出错时间:07/03/2020 17:18:32
+出错时间:07/05/2020 21:21:01
 
 
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/common/mainMenu_PZHGL.aspx”不存在。
+错误信息:文件“/HSSE/SitePerson/SendCard.aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -139,9 +139,129 @@ IP地址:::1
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:07/03/2020 18:08:35
-出错文件:http://localhost:8118/common/mainMenu_PZHGL.aspx
+出错时间:07/05/2020 22:01:43
+出错文件:http://localhost:8118/HSSE/SitePerson/SendCard.aspx
 IP地址:::1
 
-出错时间:07/03/2020 18:08:35
+出错时间:07/05/2020 22:01:43
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:文件“/HSSE/SitePerson/PersonInfo.aspx”不存在。
+错误堆栈:
+   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:07/05/2020 22:13:20
+出错文件:http://localhost:8118/HSSE/SitePerson/PersonInfo.aspx
+IP地址:::1
+
+出错时间:07/05/2020 22:13:20
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:文件“/HSSE/SitePerson/PersonStatistic.aspx”不存在。
+错误堆栈:
+   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:07/05/2020 22:39:53
+出错文件:http://localhost:8118/HSSE/SitePerson/PersonStatistic.aspx
+IP地址:::1
+
+出错时间:07/05/2020 22:39:53
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:对象名 'ProjectData_WorkArea' 无效。
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 BLL.SQLHelper.GetDataTableRunProc(String storedProcName, SqlParameter[] parameters) 位置 D:\DepCode\SEDIN\SGGL\SGGL\BLL\SQLHelper.cs:行号 277
+   在 FineUIPro.Web.HSSE.SitePerson.PersonStatistic.GetPersonStatistic() 位置 D:\DepCode\SEDIN\SGGL\SGGL\FineUIPro.Web\HSSE\SitePerson\PersonStatistic.aspx.cs:行号 100
+   在 FineUIPro.Web.HSSE.SitePerson.PersonStatistic.Page_Load(Object sender, EventArgs e) 位置 D:\DepCode\SEDIN\SGGL\SGGL\FineUIPro.Web\HSSE\SitePerson\PersonStatistic.aspx.cs:行号 49
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:07/05/2020 22:44:21
+出错文件:http://localhost:8118/HSSE/SitePerson/PersonStatistic.aspx
+IP地址:::1
+操作人员:系统管理员
+
+出错时间:07/05/2020 22:44:21
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:文件“/HSSE/QualityAudit/PersonQuality.aspx”不存在。
+错误堆栈:
+   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:07/05/2020 22:47:59
+出错文件:http://localhost:8118/HSSE/QualityAudit/PersonQuality.aspx
+IP地址:::1
+
+出错时间:07/05/2020 22:47:59
+
+
+错误信息开始=====>
+错误类型:HttpParseException
+错误信息:FineUIPro.GridColumnCollection 必须具有类型为“FineUIPro.GridColumn”的项。“Listeners”的类型为“System.Web.UI.HtmlControls.HtmlGenericControl”。
+错误堆栈:
+   在 System.Web.UI.TemplateParser.ProcessException(Exception ex)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+   在 System.Web.UI.TemplateParser.ParseString(String text, VirtualPath virtualPath, Encoding fileEncoding)
+----错误类型:HttpException
+----错误信息:
+----FineUIPro.GridColumnCollection 必须具有类型为“FineUIPro.GridColumn”的项。“Listeners”的类型为“System.Web.UI.HtmlControls.HtmlGenericControl”。
+----错误堆栈:
+       在 System.Web.UI.CollectionBuilder.GetChildControlType(String tagName, IDictionary attribs)
+       在 System.Web.UI.ControlBuilder.CreateChildBuilder(String filter, String tagName, IDictionary attribs, TemplateParser parser, ControlBuilder parentBuilder, String id, Int32 line, VirtualPath virtualPath, Type& childType, Boolean defaultProperty)
+       在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+       在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+出错时间:07/05/2020 23:01:48
+出错文件:http://localhost:8118/HSSE/QualityAudit/PersonQuality.aspx
+IP地址:::1
+
+出错时间:07/05/2020 23:01:49
 

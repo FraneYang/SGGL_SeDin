@@ -29,9 +29,8 @@
                 TitleToolTip="安全管理机构" AutoScroll="true">
                 <Items>
                     <f:Grid ID="Grid1" Width="870px" ShowBorder="true" ShowHeader="false" EnableCollapse="true"
-                        runat="server" BoxFlex="1" DataKeyNames="SafetyOrganizationId" AllowSorting="true"
-                        OnSort="Grid1_Sort" SortField="SortIndex" SortDirection="ASC" AllowCellEditing="true"
-                        ClicksToEdit="2" EnableColumnLines="true" DataIDField="SafetyOrganizationId" ForceFit="true"
+                        runat="server" BoxFlex="1" DataKeyNames="SafetyOrganizationId" AllowSorting="true" 
+                        OnSort="Grid1_Sort" SortField="SortIndex" SortDirection="ASC" EnableColumnLines="true" DataIDField="SafetyOrganizationId" ForceFit="true"
                         AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                         EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                         <Toolbars>
@@ -72,10 +71,10 @@
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Right" HeaderText="手机">
                             </f:RenderField>
                             <f:RenderField Width="110px" ColumnID="EMail" DataField="EMail" SortField="EMail"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="邮箱">
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="邮箱">
                             </f:RenderField>
                             <f:RenderField Width="150px" ColumnID="Duty" DataField="Duty" SortField="Duty" FieldType="String"
-                                HeaderTextAlign="Center" TextAlign="Center" HeaderText="职责">
+                                HeaderTextAlign="Center" TextAlign="Left" HeaderText="职责">
                             </f:RenderField>
                         </Columns>
                         <Listeners>

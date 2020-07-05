@@ -18,7 +18,8 @@
                 DataIDField="ActionPlanListId" AllowSorting="true" ForceFit="true"
                 SortField="ActionPlanListCode" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
-                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
+                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" 
+                EnableTextSelection="True">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>

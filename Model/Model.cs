@@ -224,6 +224,24 @@ namespace Model
     partial void InsertEduTrain_AccidentCaseItem(EduTrain_AccidentCaseItem instance);
     partial void UpdateEduTrain_AccidentCaseItem(EduTrain_AccidentCaseItem instance);
     partial void DeleteEduTrain_AccidentCaseItem(EduTrain_AccidentCaseItem instance);
+    partial void InsertEduTrain_TrainRecord(EduTrain_TrainRecord instance);
+    partial void UpdateEduTrain_TrainRecord(EduTrain_TrainRecord instance);
+    partial void DeleteEduTrain_TrainRecord(EduTrain_TrainRecord instance);
+    partial void InsertEduTrain_TrainRecordDetail(EduTrain_TrainRecordDetail instance);
+    partial void UpdateEduTrain_TrainRecordDetail(EduTrain_TrainRecordDetail instance);
+    partial void DeleteEduTrain_TrainRecordDetail(EduTrain_TrainRecordDetail instance);
+    partial void InsertEnvironmental_EIAReport(Environmental_EIAReport instance);
+    partial void UpdateEnvironmental_EIAReport(Environmental_EIAReport instance);
+    partial void DeleteEnvironmental_EIAReport(Environmental_EIAReport instance);
+    partial void InsertEnvironmental_EnvironmentalEmergencyPlan(Environmental_EnvironmentalEmergencyPlan instance);
+    partial void UpdateEnvironmental_EnvironmentalEmergencyPlan(Environmental_EnvironmentalEmergencyPlan instance);
+    partial void DeleteEnvironmental_EnvironmentalEmergencyPlan(Environmental_EnvironmentalEmergencyPlan instance);
+    partial void InsertEnvironmental_EnvironmentalMonitoring(Environmental_EnvironmentalMonitoring instance);
+    partial void UpdateEnvironmental_EnvironmentalMonitoring(Environmental_EnvironmentalMonitoring instance);
+    partial void DeleteEnvironmental_EnvironmentalMonitoring(Environmental_EnvironmentalMonitoring instance);
+    partial void InsertEnvironmental_UnexpectedEnvironmental(Environmental_UnexpectedEnvironmental instance);
+    partial void UpdateEnvironmental_UnexpectedEnvironmental(Environmental_UnexpectedEnvironmental instance);
+    partial void DeleteEnvironmental_UnexpectedEnvironmental(Environmental_UnexpectedEnvironmental instance);
     partial void InsertHazard_EnvironmentalRiskItem(Hazard_EnvironmentalRiskItem instance);
     partial void UpdateHazard_EnvironmentalRiskItem(Hazard_EnvironmentalRiskItem instance);
     partial void DeleteHazard_EnvironmentalRiskItem(Hazard_EnvironmentalRiskItem instance);
@@ -314,6 +332,15 @@ namespace Model
     partial void InsertLaw_RulesRegulations(Law_RulesRegulations instance);
     partial void UpdateLaw_RulesRegulations(Law_RulesRegulations instance);
     partial void DeleteLaw_RulesRegulations(Law_RulesRegulations instance);
+    partial void InsertOccupationHealth_HazardDetection(OccupationHealth_HazardDetection instance);
+    partial void UpdateOccupationHealth_HazardDetection(OccupationHealth_HazardDetection instance);
+    partial void DeleteOccupationHealth_HazardDetection(OccupationHealth_HazardDetection instance);
+    partial void InsertOccupationHealth_OccupationalDiseaseAccident(OccupationHealth_OccupationalDiseaseAccident instance);
+    partial void UpdateOccupationHealth_OccupationalDiseaseAccident(OccupationHealth_OccupationalDiseaseAccident instance);
+    partial void DeleteOccupationHealth_OccupationalDiseaseAccident(OccupationHealth_OccupationalDiseaseAccident instance);
+    partial void InsertOccupationHealth_PhysicalExamination(OccupationHealth_PhysicalExamination instance);
+    partial void UpdateOccupationHealth_PhysicalExamination(OccupationHealth_PhysicalExamination instance);
+    partial void DeleteOccupationHealth_PhysicalExamination(OccupationHealth_PhysicalExamination instance);
     partial void InsertProject_FileCabinet(Project_FileCabinet instance);
     partial void UpdateProject_FileCabinet(Project_FileCabinet instance);
     partial void DeleteProject_FileCabinet(Project_FileCabinet instance);
@@ -368,15 +395,54 @@ namespace Model
     partial void InsertSecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization instance);
     partial void UpdateSecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization instance);
     partial void DeleteSecuritySystem_SafetyOrganization(SecuritySystem_SafetyOrganization instance);
+    partial void InsertSitePerson_Checking(SitePerson_Checking instance);
+    partial void UpdateSitePerson_Checking(SitePerson_Checking instance);
+    partial void DeleteSitePerson_Checking(SitePerson_Checking instance);
+    partial void InsertSitePerson_DayReport(SitePerson_DayReport instance);
+    partial void UpdateSitePerson_DayReport(SitePerson_DayReport instance);
+    partial void DeleteSitePerson_DayReport(SitePerson_DayReport instance);
+    partial void InsertSitePerson_DayReportDetail(SitePerson_DayReportDetail instance);
+    partial void UpdateSitePerson_DayReportDetail(SitePerson_DayReportDetail instance);
+    partial void DeleteSitePerson_DayReportDetail(SitePerson_DayReportDetail instance);
+    partial void InsertSitePerson_DayReportUnitDetail(SitePerson_DayReportUnitDetail instance);
+    partial void UpdateSitePerson_DayReportUnitDetail(SitePerson_DayReportUnitDetail instance);
+    partial void DeleteSitePerson_DayReportUnitDetail(SitePerson_DayReportUnitDetail instance);
+    partial void InsertSitePerson_MonthReport(SitePerson_MonthReport instance);
+    partial void UpdateSitePerson_MonthReport(SitePerson_MonthReport instance);
+    partial void DeleteSitePerson_MonthReport(SitePerson_MonthReport instance);
+    partial void InsertSitePerson_MonthReportDetail(SitePerson_MonthReportDetail instance);
+    partial void UpdateSitePerson_MonthReportDetail(SitePerson_MonthReportDetail instance);
+    partial void DeleteSitePerson_MonthReportDetail(SitePerson_MonthReportDetail instance);
+    partial void InsertSitePerson_MonthReportUnitDetail(SitePerson_MonthReportUnitDetail instance);
+    partial void UpdateSitePerson_MonthReportUnitDetail(SitePerson_MonthReportUnitDetail instance);
+    partial void DeleteSitePerson_MonthReportUnitDetail(SitePerson_MonthReportUnitDetail instance);
     partial void InsertSitePerson_Person(SitePerson_Person instance);
     partial void UpdateSitePerson_Person(SitePerson_Person instance);
     partial void DeleteSitePerson_Person(SitePerson_Person instance);
+    partial void InsertSitePerson_PersonInOut(SitePerson_PersonInOut instance);
+    partial void UpdateSitePerson_PersonInOut(SitePerson_PersonInOut instance);
+    partial void DeleteSitePerson_PersonInOut(SitePerson_PersonInOut instance);
+    partial void InsertSitePerson_PersonInOutNumber(SitePerson_PersonInOutNumber instance);
+    partial void UpdateSitePerson_PersonInOutNumber(SitePerson_PersonInOutNumber instance);
+    partial void DeleteSitePerson_PersonInOutNumber(SitePerson_PersonInOutNumber instance);
+    partial void InsertSolution_ConstructSolution(Solution_ConstructSolution instance);
+    partial void UpdateSolution_ConstructSolution(Solution_ConstructSolution instance);
+    partial void DeleteSolution_ConstructSolution(Solution_ConstructSolution instance);
     partial void InsertSolution_CQMSConstructSolution(Solution_CQMSConstructSolution instance);
     partial void UpdateSolution_CQMSConstructSolution(Solution_CQMSConstructSolution instance);
     partial void DeleteSolution_CQMSConstructSolution(Solution_CQMSConstructSolution instance);
     partial void InsertSolution_CQMSConstructSolutionApprove(Solution_CQMSConstructSolutionApprove instance);
     partial void UpdateSolution_CQMSConstructSolutionApprove(Solution_CQMSConstructSolutionApprove instance);
     partial void DeleteSolution_CQMSConstructSolutionApprove(Solution_CQMSConstructSolutionApprove instance);
+    partial void InsertSolution_ExpertArgument(Solution_ExpertArgument instance);
+    partial void UpdateSolution_ExpertArgument(Solution_ExpertArgument instance);
+    partial void DeleteSolution_ExpertArgument(Solution_ExpertArgument instance);
+    partial void InsertSolution_LargerHazard(Solution_LargerHazard instance);
+    partial void UpdateSolution_LargerHazard(Solution_LargerHazard instance);
+    partial void DeleteSolution_LargerHazard(Solution_LargerHazard instance);
+    partial void InsertSolution_SolutionTemplate(Solution_SolutionTemplate instance);
+    partial void UpdateSolution_SolutionTemplate(Solution_SolutionTemplate instance);
+    partial void DeleteSolution_SolutionTemplate(Solution_SolutionTemplate instance);
     partial void InsertSys_ButtonPower(Sys_ButtonPower instance);
     partial void UpdateSys_ButtonPower(Sys_ButtonPower instance);
     partial void DeleteSys_ButtonPower(Sys_ButtonPower instance);
@@ -443,6 +509,9 @@ namespace Model
     partial void InsertTechnique_HazardListType(Technique_HazardListType instance);
     partial void UpdateTechnique_HazardListType(Technique_HazardListType instance);
     partial void DeleteTechnique_HazardListType(Technique_HazardListType instance);
+    partial void InsertTechnique_ProjectSolutionTemplete(Technique_ProjectSolutionTemplete instance);
+    partial void UpdateTechnique_ProjectSolutionTemplete(Technique_ProjectSolutionTemplete instance);
+    partial void DeleteTechnique_ProjectSolutionTemplete(Technique_ProjectSolutionTemplete instance);
     partial void InsertTechnique_Rectify(Technique_Rectify instance);
     partial void UpdateTechnique_Rectify(Technique_Rectify instance);
     partial void DeleteTechnique_Rectify(Technique_Rectify instance);
@@ -458,6 +527,9 @@ namespace Model
     partial void InsertTraining_CompanyTrainingItem(Training_CompanyTrainingItem instance);
     partial void UpdateTraining_CompanyTrainingItem(Training_CompanyTrainingItem instance);
     partial void DeleteTraining_CompanyTrainingItem(Training_CompanyTrainingItem instance);
+    partial void InsertTraining_Plan(Training_Plan instance);
+    partial void UpdateTraining_Plan(Training_Plan instance);
+    partial void DeleteTraining_Plan(Training_Plan instance);
     partial void InsertTraining_TestTraining(Training_TestTraining instance);
     partial void UpdateTraining_TestTraining(Training_TestTraining instance);
     partial void DeleteTraining_TestTraining(Training_TestTraining instance);
@@ -1055,6 +1127,54 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<EduTrain_TrainRecord> EduTrain_TrainRecord
+		{
+			get
+			{
+				return this.GetTable<EduTrain_TrainRecord>();
+			}
+		}
+		
+		public System.Data.Linq.Table<EduTrain_TrainRecordDetail> EduTrain_TrainRecordDetail
+		{
+			get
+			{
+				return this.GetTable<EduTrain_TrainRecordDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Environmental_EIAReport> Environmental_EIAReport
+		{
+			get
+			{
+				return this.GetTable<Environmental_EIAReport>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Environmental_EnvironmentalEmergencyPlan> Environmental_EnvironmentalEmergencyPlan
+		{
+			get
+			{
+				return this.GetTable<Environmental_EnvironmentalEmergencyPlan>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Environmental_EnvironmentalMonitoring> Environmental_EnvironmentalMonitoring
+		{
+			get
+			{
+				return this.GetTable<Environmental_EnvironmentalMonitoring>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Environmental_UnexpectedEnvironmental> Environmental_UnexpectedEnvironmental
+		{
+			get
+			{
+				return this.GetTable<Environmental_UnexpectedEnvironmental>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Hazard_EnvironmentalRiskItem> Hazard_EnvironmentalRiskItem
 		{
 			get
@@ -1295,6 +1415,30 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<OccupationHealth_HazardDetection> OccupationHealth_HazardDetection
+		{
+			get
+			{
+				return this.GetTable<OccupationHealth_HazardDetection>();
+			}
+		}
+		
+		public System.Data.Linq.Table<OccupationHealth_OccupationalDiseaseAccident> OccupationHealth_OccupationalDiseaseAccident
+		{
+			get
+			{
+				return this.GetTable<OccupationHealth_OccupationalDiseaseAccident>();
+			}
+		}
+		
+		public System.Data.Linq.Table<OccupationHealth_PhysicalExamination> OccupationHealth_PhysicalExamination
+		{
+			get
+			{
+				return this.GetTable<OccupationHealth_PhysicalExamination>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Project_FileCabinet> Project_FileCabinet
 		{
 			get
@@ -1439,11 +1583,91 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<SitePerson_Checking> SitePerson_Checking
+		{
+			get
+			{
+				return this.GetTable<SitePerson_Checking>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SitePerson_DayReport> SitePerson_DayReport
+		{
+			get
+			{
+				return this.GetTable<SitePerson_DayReport>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SitePerson_DayReportDetail> SitePerson_DayReportDetail
+		{
+			get
+			{
+				return this.GetTable<SitePerson_DayReportDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SitePerson_DayReportUnitDetail> SitePerson_DayReportUnitDetail
+		{
+			get
+			{
+				return this.GetTable<SitePerson_DayReportUnitDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SitePerson_MonthReport> SitePerson_MonthReport
+		{
+			get
+			{
+				return this.GetTable<SitePerson_MonthReport>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SitePerson_MonthReportDetail> SitePerson_MonthReportDetail
+		{
+			get
+			{
+				return this.GetTable<SitePerson_MonthReportDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SitePerson_MonthReportUnitDetail> SitePerson_MonthReportUnitDetail
+		{
+			get
+			{
+				return this.GetTable<SitePerson_MonthReportUnitDetail>();
+			}
+		}
+		
 		public System.Data.Linq.Table<SitePerson_Person> SitePerson_Person
 		{
 			get
 			{
 				return this.GetTable<SitePerson_Person>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SitePerson_PersonInOut> SitePerson_PersonInOut
+		{
+			get
+			{
+				return this.GetTable<SitePerson_PersonInOut>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SitePerson_PersonInOutNumber> SitePerson_PersonInOutNumber
+		{
+			get
+			{
+				return this.GetTable<SitePerson_PersonInOutNumber>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Solution_ConstructSolution> Solution_ConstructSolution
+		{
+			get
+			{
+				return this.GetTable<Solution_ConstructSolution>();
 			}
 		}
 		
@@ -1460,6 +1684,30 @@ namespace Model
 			get
 			{
 				return this.GetTable<Solution_CQMSConstructSolutionApprove>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Solution_ExpertArgument> Solution_ExpertArgument
+		{
+			get
+			{
+				return this.GetTable<Solution_ExpertArgument>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Solution_LargerHazard> Solution_LargerHazard
+		{
+			get
+			{
+				return this.GetTable<Solution_LargerHazard>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Solution_SolutionTemplate> Solution_SolutionTemplate
+		{
+			get
+			{
+				return this.GetTable<Solution_SolutionTemplate>();
 			}
 		}
 		
@@ -1639,6 +1887,14 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<Technique_ProjectSolutionTemplete> Technique_ProjectSolutionTemplete
+		{
+			get
+			{
+				return this.GetTable<Technique_ProjectSolutionTemplete>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Technique_Rectify> Technique_Rectify
 		{
 			get
@@ -1676,6 +1932,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<Training_CompanyTrainingItem>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Training_Plan> Training_Plan
+		{
+			get
+			{
+				return this.GetTable<Training_Plan>();
 			}
 		}
 		
@@ -1796,6 +2060,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<View_Check_SoptCheckDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<View_DayRportView> View_DayRportView
+		{
+			get
+			{
+				return this.GetTable<View_DayRportView>();
 			}
 		}
 		
@@ -1943,6 +2215,14 @@ namespace Model
 			}
 		}
 		
+		public System.Data.Linq.Table<View_MonthReportView> View_MonthReportView
+		{
+			get
+			{
+				return this.GetTable<View_MonthReportView>();
+			}
+		}
+		
 		public System.Data.Linq.Table<View_ProjectData_FlowOperate> View_ProjectData_FlowOperate
 		{
 			get
@@ -1964,6 +2244,30 @@ namespace Model
 			get
 			{
 				return this.GetTable<View_QualityAudit_SubUnitQualityAuditDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<View_SitePerson_Checking> View_SitePerson_Checking
+		{
+			get
+			{
+				return this.GetTable<View_SitePerson_Checking>();
+			}
+		}
+		
+		public System.Data.Linq.Table<View_SitePerson_DayReportUnitDetail> View_SitePerson_DayReportUnitDetail
+		{
+			get
+			{
+				return this.GetTable<View_SitePerson_DayReportUnitDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<View_SitePerson_MonthReportUnitDetail> View_SitePerson_MonthReportUnitDetail
+		{
+			get
+			{
+				return this.GetTable<View_SitePerson_MonthReportUnitDetail>();
 			}
 		}
 		
@@ -8157,6 +8461,8 @@ namespace Model
 		
 		private EntitySet<InformationProject_ConstructionStandardIdentify> _InformationProject_ConstructionStandardIdentify;
 		
+		private EntitySet<EduTrain_TrainRecord> _EduTrain_TrainRecord;
+		
 		private EntitySet<HJGL_Hard_Trust> _HJGL_Hard_Trust;
 		
 		private EntitySet<Hazard_EnvironmentalRiskList> _Hazard_EnvironmentalRiskList;
@@ -8193,9 +8499,27 @@ namespace Model
 		
 		private EntitySet<SecuritySystem_SafetyOrganization> _SecuritySystem_SafetyOrganization;
 		
+		private EntitySet<SitePerson_Checking> _SitePerson_Checking;
+		
+		private EntitySet<SitePerson_DayReport> _SitePerson_DayReport;
+		
+		private EntitySet<SitePerson_MonthReport> _SitePerson_MonthReport;
+		
 		private EntitySet<SitePerson_Person> _SitePerson_Person;
 		
+		private EntitySet<SitePerson_PersonInOut> _SitePerson_PersonInOut;
+		
+		private EntitySet<SitePerson_PersonInOutNumber> _SitePerson_PersonInOutNumber;
+		
+		private EntitySet<Solution_ConstructSolution> _Solution_ConstructSolution;
+		
 		private EntitySet<Solution_CQMSConstructSolution> _Solution_CQMSConstructSolution;
+		
+		private EntitySet<Solution_ExpertArgument> _Solution_ExpertArgument;
+		
+		private EntitySet<Solution_LargerHazard> _Solution_LargerHazard;
+		
+		private EntitySet<Solution_SolutionTemplate> _Solution_SolutionTemplate;
 		
 		private EntitySet<Sys_CodeRecords> _Sys_CodeRecords;
 		
@@ -8204,6 +8528,8 @@ namespace Model
 		private EntitySet<Sys_Log> _Sys_Log;
 		
 		private EntitySet<Sys_UserRead> _Sys_UserRead;
+		
+		private EntitySet<Training_Plan> _Training_Plan;
 		
 		private EntitySet<Unqualified_WorkContact> _Unqualified_WorkContact;
 		
@@ -8276,6 +8602,7 @@ namespace Model
 			this._Check_SpotCheck = new EntitySet<Check_SpotCheck>(new Action<Check_SpotCheck>(this.attach_Check_SpotCheck), new Action<Check_SpotCheck>(this.detach_Check_SpotCheck));
 			this._Check_TechnicalContactList = new EntitySet<Check_TechnicalContactList>(new Action<Check_TechnicalContactList>(this.attach_Check_TechnicalContactList), new Action<Check_TechnicalContactList>(this.detach_Check_TechnicalContactList));
 			this._InformationProject_ConstructionStandardIdentify = new EntitySet<InformationProject_ConstructionStandardIdentify>(new Action<InformationProject_ConstructionStandardIdentify>(this.attach_InformationProject_ConstructionStandardIdentify), new Action<InformationProject_ConstructionStandardIdentify>(this.detach_InformationProject_ConstructionStandardIdentify));
+			this._EduTrain_TrainRecord = new EntitySet<EduTrain_TrainRecord>(new Action<EduTrain_TrainRecord>(this.attach_EduTrain_TrainRecord), new Action<EduTrain_TrainRecord>(this.detach_EduTrain_TrainRecord));
 			this._HJGL_Hard_Trust = new EntitySet<HJGL_Hard_Trust>(new Action<HJGL_Hard_Trust>(this.attach_HJGL_Hard_Trust), new Action<HJGL_Hard_Trust>(this.detach_HJGL_Hard_Trust));
 			this._Hazard_EnvironmentalRiskList = new EntitySet<Hazard_EnvironmentalRiskList>(new Action<Hazard_EnvironmentalRiskList>(this.attach_Hazard_EnvironmentalRiskList), new Action<Hazard_EnvironmentalRiskList>(this.detach_Hazard_EnvironmentalRiskList));
 			this._Hazard_HazardList = new EntitySet<Hazard_HazardList>(new Action<Hazard_HazardList>(this.attach_Hazard_HazardList), new Action<Hazard_HazardList>(this.detach_Hazard_HazardList));
@@ -8294,12 +8621,22 @@ namespace Model
 			this._PTP_TestPackage = new EntitySet<PTP_TestPackage>(new Action<PTP_TestPackage>(this.attach_PTP_TestPackage), new Action<PTP_TestPackage>(this.detach_PTP_TestPackage));
 			this._QualityAudit_SubUnitQualityAuditDetail = new EntitySet<QualityAudit_SubUnitQualityAuditDetail>(new Action<QualityAudit_SubUnitQualityAuditDetail>(this.attach_QualityAudit_SubUnitQualityAuditDetail), new Action<QualityAudit_SubUnitQualityAuditDetail>(this.detach_QualityAudit_SubUnitQualityAuditDetail));
 			this._SecuritySystem_SafetyOrganization = new EntitySet<SecuritySystem_SafetyOrganization>(new Action<SecuritySystem_SafetyOrganization>(this.attach_SecuritySystem_SafetyOrganization), new Action<SecuritySystem_SafetyOrganization>(this.detach_SecuritySystem_SafetyOrganization));
+			this._SitePerson_Checking = new EntitySet<SitePerson_Checking>(new Action<SitePerson_Checking>(this.attach_SitePerson_Checking), new Action<SitePerson_Checking>(this.detach_SitePerson_Checking));
+			this._SitePerson_DayReport = new EntitySet<SitePerson_DayReport>(new Action<SitePerson_DayReport>(this.attach_SitePerson_DayReport), new Action<SitePerson_DayReport>(this.detach_SitePerson_DayReport));
+			this._SitePerson_MonthReport = new EntitySet<SitePerson_MonthReport>(new Action<SitePerson_MonthReport>(this.attach_SitePerson_MonthReport), new Action<SitePerson_MonthReport>(this.detach_SitePerson_MonthReport));
 			this._SitePerson_Person = new EntitySet<SitePerson_Person>(new Action<SitePerson_Person>(this.attach_SitePerson_Person), new Action<SitePerson_Person>(this.detach_SitePerson_Person));
+			this._SitePerson_PersonInOut = new EntitySet<SitePerson_PersonInOut>(new Action<SitePerson_PersonInOut>(this.attach_SitePerson_PersonInOut), new Action<SitePerson_PersonInOut>(this.detach_SitePerson_PersonInOut));
+			this._SitePerson_PersonInOutNumber = new EntitySet<SitePerson_PersonInOutNumber>(new Action<SitePerson_PersonInOutNumber>(this.attach_SitePerson_PersonInOutNumber), new Action<SitePerson_PersonInOutNumber>(this.detach_SitePerson_PersonInOutNumber));
+			this._Solution_ConstructSolution = new EntitySet<Solution_ConstructSolution>(new Action<Solution_ConstructSolution>(this.attach_Solution_ConstructSolution), new Action<Solution_ConstructSolution>(this.detach_Solution_ConstructSolution));
 			this._Solution_CQMSConstructSolution = new EntitySet<Solution_CQMSConstructSolution>(new Action<Solution_CQMSConstructSolution>(this.attach_Solution_CQMSConstructSolution), new Action<Solution_CQMSConstructSolution>(this.detach_Solution_CQMSConstructSolution));
+			this._Solution_ExpertArgument = new EntitySet<Solution_ExpertArgument>(new Action<Solution_ExpertArgument>(this.attach_Solution_ExpertArgument), new Action<Solution_ExpertArgument>(this.detach_Solution_ExpertArgument));
+			this._Solution_LargerHazard = new EntitySet<Solution_LargerHazard>(new Action<Solution_LargerHazard>(this.attach_Solution_LargerHazard), new Action<Solution_LargerHazard>(this.detach_Solution_LargerHazard));
+			this._Solution_SolutionTemplate = new EntitySet<Solution_SolutionTemplate>(new Action<Solution_SolutionTemplate>(this.attach_Solution_SolutionTemplate), new Action<Solution_SolutionTemplate>(this.detach_Solution_SolutionTemplate));
 			this._Sys_CodeRecords = new EntitySet<Sys_CodeRecords>(new Action<Sys_CodeRecords>(this.attach_Sys_CodeRecords), new Action<Sys_CodeRecords>(this.detach_Sys_CodeRecords));
 			this._Sys_FlowOperate = new EntitySet<Sys_FlowOperate>(new Action<Sys_FlowOperate>(this.attach_Sys_FlowOperate), new Action<Sys_FlowOperate>(this.detach_Sys_FlowOperate));
 			this._Sys_Log = new EntitySet<Sys_Log>(new Action<Sys_Log>(this.attach_Sys_Log), new Action<Sys_Log>(this.detach_Sys_Log));
 			this._Sys_UserRead = new EntitySet<Sys_UserRead>(new Action<Sys_UserRead>(this.attach_Sys_UserRead), new Action<Sys_UserRead>(this.detach_Sys_UserRead));
+			this._Training_Plan = new EntitySet<Training_Plan>(new Action<Training_Plan>(this.attach_Training_Plan), new Action<Training_Plan>(this.detach_Training_Plan));
 			this._Unqualified_WorkContact = new EntitySet<Unqualified_WorkContact>(new Action<Unqualified_WorkContact>(this.attach_Unqualified_WorkContact), new Action<Unqualified_WorkContact>(this.detach_Unqualified_WorkContact));
 			this._WBS_WorkPackageProject = new EntitySet<WBS_WorkPackageProject>(new Action<WBS_WorkPackageProject>(this.attach_WBS_WorkPackageProject), new Action<WBS_WorkPackageProject>(this.detach_WBS_WorkPackageProject));
 			OnCreated();
@@ -8971,6 +9308,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_Training_Base_Project", Storage="_EduTrain_TrainRecord", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<EduTrain_TrainRecord> EduTrain_TrainRecord
+		{
+			get
+			{
+				return this._EduTrain_TrainRecord;
+			}
+			set
+			{
+				this._EduTrain_TrainRecord.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Hard_Trust_Base_Project", Storage="_HJGL_Hard_Trust", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
 		public EntitySet<HJGL_Hard_Trust> HJGL_Hard_Trust
 		{
@@ -9205,6 +9555,45 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Checking_Base_Project", Storage="_SitePerson_Checking", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_Checking> SitePerson_Checking
+		{
+			get
+			{
+				return this._SitePerson_Checking;
+			}
+			set
+			{
+				this._SitePerson_Checking.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReport_Base_Project", Storage="_SitePerson_DayReport", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_DayReport> SitePerson_DayReport
+		{
+			get
+			{
+				return this._SitePerson_DayReport;
+			}
+			set
+			{
+				this._SitePerson_DayReport.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReport_Base_Project", Storage="_SitePerson_MonthReport", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_MonthReport> SitePerson_MonthReport
+		{
+			get
+			{
+				return this._SitePerson_MonthReport;
+			}
+			set
+			{
+				this._SitePerson_MonthReport.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Person_Base_Project", Storage="_SitePerson_Person", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
 		public EntitySet<SitePerson_Person> SitePerson_Person
 		{
@@ -9218,6 +9607,45 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_PersonInOut_Base_Project", Storage="_SitePerson_PersonInOut", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_PersonInOut> SitePerson_PersonInOut
+		{
+			get
+			{
+				return this._SitePerson_PersonInOut;
+			}
+			set
+			{
+				this._SitePerson_PersonInOut.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_PersonInOutNumber_Base_Project", Storage="_SitePerson_PersonInOutNumber", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_PersonInOutNumber> SitePerson_PersonInOutNumber
+		{
+			get
+			{
+				return this._SitePerson_PersonInOutNumber;
+			}
+			set
+			{
+				this._SitePerson_PersonInOutNumber.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ConstructSolution_Base_Project", Storage="_Solution_ConstructSolution", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_ConstructSolution> Solution_ConstructSolution
+		{
+			get
+			{
+				return this._Solution_ConstructSolution;
+			}
+			set
+			{
+				this._Solution_ConstructSolution.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_CQMSConstructSolution_Base_Project", Storage="_Solution_CQMSConstructSolution", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
 		public EntitySet<Solution_CQMSConstructSolution> Solution_CQMSConstructSolution
 		{
@@ -9228,6 +9656,45 @@ namespace Model
 			set
 			{
 				this._Solution_CQMSConstructSolution.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ExpertArgument_Base_Project", Storage="_Solution_ExpertArgument", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_ExpertArgument> Solution_ExpertArgument
+		{
+			get
+			{
+				return this._Solution_ExpertArgument;
+			}
+			set
+			{
+				this._Solution_ExpertArgument.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_LargerSolution_Base_Project", Storage="_Solution_LargerHazard", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_LargerHazard> Solution_LargerHazard
+		{
+			get
+			{
+				return this._Solution_LargerHazard;
+			}
+			set
+			{
+				this._Solution_LargerHazard.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_SolutionTemplate_Base_Project", Storage="_Solution_SolutionTemplate", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_SolutionTemplate> Solution_SolutionTemplate
+		{
+			get
+			{
+				return this._Solution_SolutionTemplate;
+			}
+			set
+			{
+				this._Solution_SolutionTemplate.Assign(value);
 			}
 		}
 		
@@ -9280,6 +9747,19 @@ namespace Model
 			set
 			{
 				this._Sys_UserRead.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_Plan_Base_Project", Storage="_Training_Plan", ThisKey="ProjectId", OtherKey="ProjectId", DeleteRule="NO ACTION")]
+		public EntitySet<Training_Plan> Training_Plan
+		{
+			get
+			{
+				return this._Training_Plan;
+			}
+			set
+			{
+				this._Training_Plan.Assign(value);
 			}
 		}
 		
@@ -9521,6 +10001,18 @@ namespace Model
 			entity.Base_Project = null;
 		}
 		
+		private void attach_EduTrain_TrainRecord(EduTrain_TrainRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_EduTrain_TrainRecord(EduTrain_TrainRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
 		private void attach_HJGL_Hard_Trust(HJGL_Hard_Trust entity)
 		{
 			this.SendPropertyChanging();
@@ -9737,6 +10229,42 @@ namespace Model
 			entity.Base_Project = null;
 		}
 		
+		private void attach_SitePerson_Checking(SitePerson_Checking entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_SitePerson_Checking(SitePerson_Checking entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_SitePerson_DayReport(SitePerson_DayReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_SitePerson_DayReport(SitePerson_DayReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_SitePerson_MonthReport(SitePerson_MonthReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_SitePerson_MonthReport(SitePerson_MonthReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
 		private void attach_SitePerson_Person(SitePerson_Person entity)
 		{
 			this.SendPropertyChanging();
@@ -9749,6 +10277,42 @@ namespace Model
 			entity.Base_Project = null;
 		}
 		
+		private void attach_SitePerson_PersonInOut(SitePerson_PersonInOut entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_SitePerson_PersonInOut(SitePerson_PersonInOut entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_SitePerson_PersonInOutNumber(SitePerson_PersonInOutNumber entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_SitePerson_PersonInOutNumber(SitePerson_PersonInOutNumber entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_Solution_ConstructSolution(Solution_ConstructSolution entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_Solution_ConstructSolution(Solution_ConstructSolution entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
 		private void attach_Solution_CQMSConstructSolution(Solution_CQMSConstructSolution entity)
 		{
 			this.SendPropertyChanging();
@@ -9756,6 +10320,42 @@ namespace Model
 		}
 		
 		private void detach_Solution_CQMSConstructSolution(Solution_CQMSConstructSolution entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_Solution_ExpertArgument(Solution_ExpertArgument entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_Solution_ExpertArgument(Solution_ExpertArgument entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_Solution_LargerHazard(Solution_LargerHazard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_Solution_LargerHazard(Solution_LargerHazard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_Solution_SolutionTemplate(Solution_SolutionTemplate entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_Solution_SolutionTemplate(Solution_SolutionTemplate entity)
 		{
 			this.SendPropertyChanging();
 			entity.Base_Project = null;
@@ -9804,6 +10404,18 @@ namespace Model
 		}
 		
 		private void detach_Sys_UserRead(Sys_UserRead entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = null;
+		}
+		
+		private void attach_Training_Plan(Training_Plan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Project = this;
+		}
+		
+		private void detach_Training_Plan(Training_Plan entity)
 		{
 			this.SendPropertyChanging();
 			entity.Base_Project = null;
@@ -10732,6 +11344,10 @@ namespace Model
 		
 		private string _Remark;
 		
+		private EntitySet<EduTrain_TrainRecord> _EduTrain_TrainRecord;
+		
+		private EntitySet<Training_Plan> _Training_Plan;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -10748,6 +11364,8 @@ namespace Model
 		
 		public Base_TrainLevel()
 		{
+			this._EduTrain_TrainRecord = new EntitySet<EduTrain_TrainRecord>(new Action<EduTrain_TrainRecord>(this.attach_EduTrain_TrainRecord), new Action<EduTrain_TrainRecord>(this.detach_EduTrain_TrainRecord));
+			this._Training_Plan = new EntitySet<Training_Plan>(new Action<Training_Plan>(this.attach_Training_Plan), new Action<Training_Plan>(this.detach_Training_Plan));
 			OnCreated();
 		}
 		
@@ -10831,6 +11449,32 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_TrainRecord_Base_TrainLevel", Storage="_EduTrain_TrainRecord", ThisKey="TrainLevelId", OtherKey="TrainLevelId", DeleteRule="NO ACTION")]
+		public EntitySet<EduTrain_TrainRecord> EduTrain_TrainRecord
+		{
+			get
+			{
+				return this._EduTrain_TrainRecord;
+			}
+			set
+			{
+				this._EduTrain_TrainRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_Plan_Base_TrainLevel", Storage="_Training_Plan", ThisKey="TrainLevelId", OtherKey="TrainLevelId", DeleteRule="NO ACTION")]
+		public EntitySet<Training_Plan> Training_Plan
+		{
+			get
+			{
+				return this._Training_Plan;
+			}
+			set
+			{
+				this._Training_Plan.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -10849,6 +11493,30 @@ namespace Model
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_EduTrain_TrainRecord(EduTrain_TrainRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainLevel = this;
+		}
+		
+		private void detach_EduTrain_TrainRecord(EduTrain_TrainRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainLevel = null;
+		}
+		
+		private void attach_Training_Plan(Training_Plan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainLevel = this;
+		}
+		
+		private void detach_Training_Plan(Training_Plan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainLevel = null;
 		}
 	}
 	
@@ -10871,6 +11539,10 @@ namespace Model
 		private System.Nullable<bool> _IsRepeat;
 		
 		private EntitySet<Base_TrainTypeItem> _Base_TrainTypeItem;
+		
+		private EntitySet<EduTrain_TrainRecord> _EduTrain_TrainRecord;
+		
+		private EntitySet<Training_Plan> _Training_Plan;
 		
 		private EntitySet<Training_TestTraining> _Training_TestTraining;
 		
@@ -10895,6 +11567,8 @@ namespace Model
 		public Base_TrainType()
 		{
 			this._Base_TrainTypeItem = new EntitySet<Base_TrainTypeItem>(new Action<Base_TrainTypeItem>(this.attach_Base_TrainTypeItem), new Action<Base_TrainTypeItem>(this.detach_Base_TrainTypeItem));
+			this._EduTrain_TrainRecord = new EntitySet<EduTrain_TrainRecord>(new Action<EduTrain_TrainRecord>(this.attach_EduTrain_TrainRecord), new Action<EduTrain_TrainRecord>(this.detach_EduTrain_TrainRecord));
+			this._Training_Plan = new EntitySet<Training_Plan>(new Action<Training_Plan>(this.attach_Training_Plan), new Action<Training_Plan>(this.detach_Training_Plan));
 			this._Training_TestTraining = new EntitySet<Training_TestTraining>(new Action<Training_TestTraining>(this.attach_Training_TestTraining), new Action<Training_TestTraining>(this.detach_Training_TestTraining));
 			OnCreated();
 		}
@@ -11032,6 +11706,32 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_TrainRecord_Base_TrainType", Storage="_EduTrain_TrainRecord", ThisKey="TrainTypeId", OtherKey="TrainTypeId", DeleteRule="NO ACTION")]
+		public EntitySet<EduTrain_TrainRecord> EduTrain_TrainRecord
+		{
+			get
+			{
+				return this._EduTrain_TrainRecord;
+			}
+			set
+			{
+				this._EduTrain_TrainRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_Plan_Base_TrainType", Storage="_Training_Plan", ThisKey="TrainTypeId", OtherKey="TrainTypeId", DeleteRule="NO ACTION")]
+		public EntitySet<Training_Plan> Training_Plan
+		{
+			get
+			{
+				return this._Training_Plan;
+			}
+			set
+			{
+				this._Training_Plan.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_TestTraining_Base_TrainType", Storage="_Training_TestTraining", ThisKey="TrainTypeId", OtherKey="TrainTypeId", DeleteRule="NO ACTION")]
 		public EntitySet<Training_TestTraining> Training_TestTraining
 		{
@@ -11072,6 +11772,30 @@ namespace Model
 		}
 		
 		private void detach_Base_TrainTypeItem(Base_TrainTypeItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainType = null;
+		}
+		
+		private void attach_EduTrain_TrainRecord(EduTrain_TrainRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainType = this;
+		}
+		
+		private void detach_EduTrain_TrainRecord(EduTrain_TrainRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainType = null;
+		}
+		
+		private void attach_Training_Plan(Training_Plan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_TrainType = this;
+		}
+		
+		private void detach_Training_Plan(Training_Plan entity)
 		{
 			this.SendPropertyChanging();
 			entity.Base_TrainType = null;
@@ -11434,7 +12158,15 @@ namespace Model
 		
 		private EntitySet<SecuritySystem_SafetyOrganization> _SecuritySystem_SafetyOrganization;
 		
+		private EntitySet<SitePerson_DayReportDetail> _SitePerson_DayReportDetail;
+		
+		private EntitySet<SitePerson_MonthReportDetail> _SitePerson_MonthReportDetail;
+		
 		private EntitySet<SitePerson_Person> _SitePerson_Person;
+		
+		private EntitySet<SitePerson_PersonInOut> _SitePerson_PersonInOut;
+		
+		private EntitySet<Solution_ConstructSolution> _Solution_ConstructSolution;
 		
 		private EntitySet<Solution_CQMSConstructSolution> _Solution_CQMSConstructSolution;
 		
@@ -11511,7 +12243,11 @@ namespace Model
 			this._QualityAudit_SubUnitQuality = new EntitySet<QualityAudit_SubUnitQuality>(new Action<QualityAudit_SubUnitQuality>(this.attach_QualityAudit_SubUnitQuality), new Action<QualityAudit_SubUnitQuality>(this.detach_QualityAudit_SubUnitQuality));
 			this._QualityAudit_SubUnitQualityAuditDetail = new EntitySet<QualityAudit_SubUnitQualityAuditDetail>(new Action<QualityAudit_SubUnitQualityAuditDetail>(this.attach_QualityAudit_SubUnitQualityAuditDetail), new Action<QualityAudit_SubUnitQualityAuditDetail>(this.detach_QualityAudit_SubUnitQualityAuditDetail));
 			this._SecuritySystem_SafetyOrganization = new EntitySet<SecuritySystem_SafetyOrganization>(new Action<SecuritySystem_SafetyOrganization>(this.attach_SecuritySystem_SafetyOrganization), new Action<SecuritySystem_SafetyOrganization>(this.detach_SecuritySystem_SafetyOrganization));
+			this._SitePerson_DayReportDetail = new EntitySet<SitePerson_DayReportDetail>(new Action<SitePerson_DayReportDetail>(this.attach_SitePerson_DayReportDetail), new Action<SitePerson_DayReportDetail>(this.detach_SitePerson_DayReportDetail));
+			this._SitePerson_MonthReportDetail = new EntitySet<SitePerson_MonthReportDetail>(new Action<SitePerson_MonthReportDetail>(this.attach_SitePerson_MonthReportDetail), new Action<SitePerson_MonthReportDetail>(this.detach_SitePerson_MonthReportDetail));
 			this._SitePerson_Person = new EntitySet<SitePerson_Person>(new Action<SitePerson_Person>(this.attach_SitePerson_Person), new Action<SitePerson_Person>(this.detach_SitePerson_Person));
+			this._SitePerson_PersonInOut = new EntitySet<SitePerson_PersonInOut>(new Action<SitePerson_PersonInOut>(this.attach_SitePerson_PersonInOut), new Action<SitePerson_PersonInOut>(this.detach_SitePerson_PersonInOut));
+			this._Solution_ConstructSolution = new EntitySet<Solution_ConstructSolution>(new Action<Solution_ConstructSolution>(this.attach_Solution_ConstructSolution), new Action<Solution_ConstructSolution>(this.detach_Solution_ConstructSolution));
 			this._Solution_CQMSConstructSolution = new EntitySet<Solution_CQMSConstructSolution>(new Action<Solution_CQMSConstructSolution>(this.attach_Solution_CQMSConstructSolution), new Action<Solution_CQMSConstructSolution>(this.detach_Solution_CQMSConstructSolution));
 			this._Sys_User = new EntitySet<Sys_User>(new Action<Sys_User>(this.attach_Sys_User), new Action<Sys_User>(this.detach_Sys_User));
 			this._Technique_SpecialScheme = new EntitySet<Technique_SpecialScheme>(new Action<Technique_SpecialScheme>(this.attach_Technique_SpecialScheme), new Action<Technique_SpecialScheme>(this.detach_Technique_SpecialScheme));
@@ -12115,6 +12851,32 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReportDetail_Base_Unit", Storage="_SitePerson_DayReportDetail", ThisKey="UnitId", OtherKey="UnitId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_DayReportDetail> SitePerson_DayReportDetail
+		{
+			get
+			{
+				return this._SitePerson_DayReportDetail;
+			}
+			set
+			{
+				this._SitePerson_DayReportDetail.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReportDetail_Base_Unit", Storage="_SitePerson_MonthReportDetail", ThisKey="UnitId", OtherKey="UnitId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_MonthReportDetail> SitePerson_MonthReportDetail
+		{
+			get
+			{
+				return this._SitePerson_MonthReportDetail;
+			}
+			set
+			{
+				this._SitePerson_MonthReportDetail.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Person_Base_Unit", Storage="_SitePerson_Person", ThisKey="UnitId", OtherKey="UnitId", DeleteRule="NO ACTION")]
 		public EntitySet<SitePerson_Person> SitePerson_Person
 		{
@@ -12125,6 +12887,32 @@ namespace Model
 			set
 			{
 				this._SitePerson_Person.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_PersonInOut_Base_Unit", Storage="_SitePerson_PersonInOut", ThisKey="UnitId", OtherKey="UnitId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_PersonInOut> SitePerson_PersonInOut
+		{
+			get
+			{
+				return this._SitePerson_PersonInOut;
+			}
+			set
+			{
+				this._SitePerson_PersonInOut.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ConstructSolution_Base_Unit", Storage="_Solution_ConstructSolution", ThisKey="UnitId", OtherKey="UnitId", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_ConstructSolution> Solution_ConstructSolution
+		{
+			get
+			{
+				return this._Solution_ConstructSolution;
+			}
+			set
+			{
+				this._Solution_ConstructSolution.Assign(value);
 			}
 		}
 		
@@ -12491,6 +13279,30 @@ namespace Model
 			entity.Base_Unit = null;
 		}
 		
+		private void attach_SitePerson_DayReportDetail(SitePerson_DayReportDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = this;
+		}
+		
+		private void detach_SitePerson_DayReportDetail(SitePerson_DayReportDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = null;
+		}
+		
+		private void attach_SitePerson_MonthReportDetail(SitePerson_MonthReportDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = this;
+		}
+		
+		private void detach_SitePerson_MonthReportDetail(SitePerson_MonthReportDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = null;
+		}
+		
 		private void attach_SitePerson_Person(SitePerson_Person entity)
 		{
 			this.SendPropertyChanging();
@@ -12498,6 +13310,30 @@ namespace Model
 		}
 		
 		private void detach_SitePerson_Person(SitePerson_Person entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = null;
+		}
+		
+		private void attach_SitePerson_PersonInOut(SitePerson_PersonInOut entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = this;
+		}
+		
+		private void detach_SitePerson_PersonInOut(SitePerson_PersonInOut entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = null;
+		}
+		
+		private void attach_Solution_ConstructSolution(Solution_ConstructSolution entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_Unit = this;
+		}
+		
+		private void detach_Solution_ConstructSolution(Solution_ConstructSolution entity)
 		{
 			this.SendPropertyChanging();
 			entity.Base_Unit = null;
@@ -13328,6 +14164,10 @@ namespace Model
 		
 		private EntitySet<HSSESystem_HSSEMainDuty> _HSSESystem_HSSEMainDuty;
 		
+		private EntitySet<SitePerson_DayReportUnitDetail> _SitePerson_DayReportUnitDetail;
+		
+		private EntitySet<SitePerson_MonthReportUnitDetail> _SitePerson_MonthReportUnitDetail;
+		
 		private EntitySet<SitePerson_Person> _SitePerson_Person;
 		
     #region 可扩展性方法定义
@@ -13351,6 +14191,8 @@ namespace Model
 		public Base_WorkPost()
 		{
 			this._HSSESystem_HSSEMainDuty = new EntitySet<HSSESystem_HSSEMainDuty>(new Action<HSSESystem_HSSEMainDuty>(this.attach_HSSESystem_HSSEMainDuty), new Action<HSSESystem_HSSEMainDuty>(this.detach_HSSESystem_HSSEMainDuty));
+			this._SitePerson_DayReportUnitDetail = new EntitySet<SitePerson_DayReportUnitDetail>(new Action<SitePerson_DayReportUnitDetail>(this.attach_SitePerson_DayReportUnitDetail), new Action<SitePerson_DayReportUnitDetail>(this.detach_SitePerson_DayReportUnitDetail));
+			this._SitePerson_MonthReportUnitDetail = new EntitySet<SitePerson_MonthReportUnitDetail>(new Action<SitePerson_MonthReportUnitDetail>(this.attach_SitePerson_MonthReportUnitDetail), new Action<SitePerson_MonthReportUnitDetail>(this.detach_SitePerson_MonthReportUnitDetail));
 			this._SitePerson_Person = new EntitySet<SitePerson_Person>(new Action<SitePerson_Person>(this.attach_SitePerson_Person), new Action<SitePerson_Person>(this.detach_SitePerson_Person));
 			OnCreated();
 		}
@@ -13488,6 +14330,32 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReportUnitDetail_Base_WorkPost", Storage="_SitePerson_DayReportUnitDetail", ThisKey="WorkPostId", OtherKey="PostId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_DayReportUnitDetail> SitePerson_DayReportUnitDetail
+		{
+			get
+			{
+				return this._SitePerson_DayReportUnitDetail;
+			}
+			set
+			{
+				this._SitePerson_DayReportUnitDetail.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReportUnitDetail_Base_WorkPost", Storage="_SitePerson_MonthReportUnitDetail", ThisKey="WorkPostId", OtherKey="PostId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_MonthReportUnitDetail> SitePerson_MonthReportUnitDetail
+		{
+			get
+			{
+				return this._SitePerson_MonthReportUnitDetail;
+			}
+			set
+			{
+				this._SitePerson_MonthReportUnitDetail.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Person_Base_WorkPost", Storage="_SitePerson_Person", ThisKey="WorkPostId", OtherKey="WorkPostId", DeleteRule="NO ACTION")]
 		public EntitySet<SitePerson_Person> SitePerson_Person
 		{
@@ -13528,6 +14396,30 @@ namespace Model
 		}
 		
 		private void detach_HSSESystem_HSSEMainDuty(HSSESystem_HSSEMainDuty entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_WorkPost = null;
+		}
+		
+		private void attach_SitePerson_DayReportUnitDetail(SitePerson_DayReportUnitDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_WorkPost = this;
+		}
+		
+		private void detach_SitePerson_DayReportUnitDetail(SitePerson_DayReportUnitDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_WorkPost = null;
+		}
+		
+		private void attach_SitePerson_MonthReportUnitDetail(SitePerson_MonthReportUnitDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Base_WorkPost = this;
+		}
+		
+		private void detach_SitePerson_MonthReportUnitDetail(SitePerson_MonthReportUnitDetail entity)
 		{
 			this.SendPropertyChanging();
 			entity.Base_WorkPost = null;
@@ -22286,6 +23178,2119 @@ namespace Model
 					else
 					{
 						this._AuditMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EduTrain_TrainRecord")]
+	public partial class EduTrain_TrainRecord : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _TrainingId;
+		
+		private string _TrainingCode;
+		
+		private string _ProjectId;
+		
+		private string _TrainTitle;
+		
+		private string _TrainContent;
+		
+		private System.Nullable<System.DateTime> _TrainStartDate;
+		
+		private System.Nullable<System.DateTime> _TrainEndDate;
+		
+		private System.Nullable<decimal> _TeachHour;
+		
+		private string _TeachMan;
+		
+		private string _TeachAddress;
+		
+		private string _Remark;
+		
+		private string _TrainTypeId;
+		
+		private string _TrainLevelId;
+		
+		private string _AttachUrl;
+		
+		private string _UnitIds;
+		
+		private string _States;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<int> _TrainPersonNum;
+		
+		private string _FromRecordId;
+		
+		private string _WorkPostIds;
+		
+		private string _PlanId;
+		
+		private EntitySet<EduTrain_TrainRecordDetail> _EduTrain_TrainRecordDetail;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Base_TrainLevel> _Base_TrainLevel;
+		
+		private EntityRef<Base_TrainType> _Base_TrainType;
+		
+		private EntityRef<Training_Plan> _Training_Plan;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTrainingIdChanging(string value);
+    partial void OnTrainingIdChanged();
+    partial void OnTrainingCodeChanging(string value);
+    partial void OnTrainingCodeChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnTrainTitleChanging(string value);
+    partial void OnTrainTitleChanged();
+    partial void OnTrainContentChanging(string value);
+    partial void OnTrainContentChanged();
+    partial void OnTrainStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnTrainStartDateChanged();
+    partial void OnTrainEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnTrainEndDateChanged();
+    partial void OnTeachHourChanging(System.Nullable<decimal> value);
+    partial void OnTeachHourChanged();
+    partial void OnTeachManChanging(string value);
+    partial void OnTeachManChanged();
+    partial void OnTeachAddressChanging(string value);
+    partial void OnTeachAddressChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnTrainTypeIdChanging(string value);
+    partial void OnTrainTypeIdChanged();
+    partial void OnTrainLevelIdChanging(string value);
+    partial void OnTrainLevelIdChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnUnitIdsChanging(string value);
+    partial void OnUnitIdsChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnTrainPersonNumChanging(System.Nullable<int> value);
+    partial void OnTrainPersonNumChanged();
+    partial void OnFromRecordIdChanging(string value);
+    partial void OnFromRecordIdChanged();
+    partial void OnWorkPostIdsChanging(string value);
+    partial void OnWorkPostIdsChanged();
+    partial void OnPlanIdChanging(string value);
+    partial void OnPlanIdChanged();
+    #endregion
+		
+		public EduTrain_TrainRecord()
+		{
+			this._EduTrain_TrainRecordDetail = new EntitySet<EduTrain_TrainRecordDetail>(new Action<EduTrain_TrainRecordDetail>(this.attach_EduTrain_TrainRecordDetail), new Action<EduTrain_TrainRecordDetail>(this.detach_EduTrain_TrainRecordDetail));
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Base_TrainLevel = default(EntityRef<Base_TrainLevel>);
+			this._Base_TrainType = default(EntityRef<Base_TrainType>);
+			this._Training_Plan = default(EntityRef<Training_Plan>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainingId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string TrainingId
+		{
+			get
+			{
+				return this._TrainingId;
+			}
+			set
+			{
+				if ((this._TrainingId != value))
+				{
+					this.OnTrainingIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainingId = value;
+					this.SendPropertyChanged("TrainingId");
+					this.OnTrainingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainingCode", DbType="NVarChar(50)")]
+		public string TrainingCode
+		{
+			get
+			{
+				return this._TrainingCode;
+			}
+			set
+			{
+				if ((this._TrainingCode != value))
+				{
+					this.OnTrainingCodeChanging(value);
+					this.SendPropertyChanging();
+					this._TrainingCode = value;
+					this.SendPropertyChanged("TrainingCode");
+					this.OnTrainingCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainTitle", DbType="NVarChar(200)")]
+		public string TrainTitle
+		{
+			get
+			{
+				return this._TrainTitle;
+			}
+			set
+			{
+				if ((this._TrainTitle != value))
+				{
+					this.OnTrainTitleChanging(value);
+					this.SendPropertyChanging();
+					this._TrainTitle = value;
+					this.SendPropertyChanged("TrainTitle");
+					this.OnTrainTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainContent", DbType="NVarChar(500)")]
+		public string TrainContent
+		{
+			get
+			{
+				return this._TrainContent;
+			}
+			set
+			{
+				if ((this._TrainContent != value))
+				{
+					this.OnTrainContentChanging(value);
+					this.SendPropertyChanging();
+					this._TrainContent = value;
+					this.SendPropertyChanged("TrainContent");
+					this.OnTrainContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainStartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TrainStartDate
+		{
+			get
+			{
+				return this._TrainStartDate;
+			}
+			set
+			{
+				if ((this._TrainStartDate != value))
+				{
+					this.OnTrainStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._TrainStartDate = value;
+					this.SendPropertyChanged("TrainStartDate");
+					this.OnTrainStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainEndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TrainEndDate
+		{
+			get
+			{
+				return this._TrainEndDate;
+			}
+			set
+			{
+				if ((this._TrainEndDate != value))
+				{
+					this.OnTrainEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._TrainEndDate = value;
+					this.SendPropertyChanged("TrainEndDate");
+					this.OnTrainEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeachHour", DbType="Decimal(9,1)")]
+		public System.Nullable<decimal> TeachHour
+		{
+			get
+			{
+				return this._TeachHour;
+			}
+			set
+			{
+				if ((this._TeachHour != value))
+				{
+					this.OnTeachHourChanging(value);
+					this.SendPropertyChanging();
+					this._TeachHour = value;
+					this.SendPropertyChanged("TeachHour");
+					this.OnTeachHourChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeachMan", DbType="NVarChar(50)")]
+		public string TeachMan
+		{
+			get
+			{
+				return this._TeachMan;
+			}
+			set
+			{
+				if ((this._TeachMan != value))
+				{
+					this.OnTeachManChanging(value);
+					this.SendPropertyChanging();
+					this._TeachMan = value;
+					this.SendPropertyChanged("TeachMan");
+					this.OnTeachManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeachAddress", DbType="NVarChar(100)")]
+		public string TeachAddress
+		{
+			get
+			{
+				return this._TeachAddress;
+			}
+			set
+			{
+				if ((this._TeachAddress != value))
+				{
+					this.OnTeachAddressChanging(value);
+					this.SendPropertyChanging();
+					this._TeachAddress = value;
+					this.SendPropertyChanged("TeachAddress");
+					this.OnTeachAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(2000)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainTypeId", DbType="NVarChar(50)")]
+		public string TrainTypeId
+		{
+			get
+			{
+				return this._TrainTypeId;
+			}
+			set
+			{
+				if ((this._TrainTypeId != value))
+				{
+					if (this._Base_TrainType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrainTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainTypeId = value;
+					this.SendPropertyChanged("TrainTypeId");
+					this.OnTrainTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainLevelId", DbType="NVarChar(50)")]
+		public string TrainLevelId
+		{
+			get
+			{
+				return this._TrainLevelId;
+			}
+			set
+			{
+				if ((this._TrainLevelId != value))
+				{
+					if (this._Base_TrainLevel.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrainLevelIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainLevelId = value;
+					this.SendPropertyChanged("TrainLevelId");
+					this.OnTrainLevelIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(1000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitIds", DbType="NVarChar(800)")]
+		public string UnitIds
+		{
+			get
+			{
+				return this._UnitIds;
+			}
+			set
+			{
+				if ((this._UnitIds != value))
+				{
+					this.OnUnitIdsChanging(value);
+					this.SendPropertyChanging();
+					this._UnitIds = value;
+					this.SendPropertyChanged("UnitIds");
+					this.OnUnitIdsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainPersonNum", DbType="Int")]
+		public System.Nullable<int> TrainPersonNum
+		{
+			get
+			{
+				return this._TrainPersonNum;
+			}
+			set
+			{
+				if ((this._TrainPersonNum != value))
+				{
+					this.OnTrainPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._TrainPersonNum = value;
+					this.SendPropertyChanged("TrainPersonNum");
+					this.OnTrainPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FromRecordId", DbType="NVarChar(50)")]
+		public string FromRecordId
+		{
+			get
+			{
+				return this._FromRecordId;
+			}
+			set
+			{
+				if ((this._FromRecordId != value))
+				{
+					this.OnFromRecordIdChanging(value);
+					this.SendPropertyChanging();
+					this._FromRecordId = value;
+					this.SendPropertyChanged("FromRecordId");
+					this.OnFromRecordIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostIds", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string WorkPostIds
+		{
+			get
+			{
+				return this._WorkPostIds;
+			}
+			set
+			{
+				if ((this._WorkPostIds != value))
+				{
+					this.OnWorkPostIdsChanging(value);
+					this.SendPropertyChanging();
+					this._WorkPostIds = value;
+					this.SendPropertyChanged("WorkPostIds");
+					this.OnWorkPostIdsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlanId", DbType="NVarChar(50)")]
+		public string PlanId
+		{
+			get
+			{
+				return this._PlanId;
+			}
+			set
+			{
+				if ((this._PlanId != value))
+				{
+					if (this._Training_Plan.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPlanIdChanging(value);
+					this.SendPropertyChanging();
+					this._PlanId = value;
+					this.SendPropertyChanged("PlanId");
+					this.OnPlanIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_TrainDetail_EduTrain_Training", Storage="_EduTrain_TrainRecordDetail", ThisKey="TrainingId", OtherKey="TrainingId", DeleteRule="NO ACTION")]
+		public EntitySet<EduTrain_TrainRecordDetail> EduTrain_TrainRecordDetail
+		{
+			get
+			{
+				return this._EduTrain_TrainRecordDetail;
+			}
+			set
+			{
+				this._EduTrain_TrainRecordDetail.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_Training_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.EduTrain_TrainRecord.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.EduTrain_TrainRecord.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_TrainRecord_Base_TrainLevel", Storage="_Base_TrainLevel", ThisKey="TrainLevelId", OtherKey="TrainLevelId", IsForeignKey=true)]
+		public Base_TrainLevel Base_TrainLevel
+		{
+			get
+			{
+				return this._Base_TrainLevel.Entity;
+			}
+			set
+			{
+				Base_TrainLevel previousValue = this._Base_TrainLevel.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_TrainLevel.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_TrainLevel.Entity = null;
+						previousValue.EduTrain_TrainRecord.Remove(this);
+					}
+					this._Base_TrainLevel.Entity = value;
+					if ((value != null))
+					{
+						value.EduTrain_TrainRecord.Add(this);
+						this._TrainLevelId = value.TrainLevelId;
+					}
+					else
+					{
+						this._TrainLevelId = default(string);
+					}
+					this.SendPropertyChanged("Base_TrainLevel");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_TrainRecord_Base_TrainType", Storage="_Base_TrainType", ThisKey="TrainTypeId", OtherKey="TrainTypeId", IsForeignKey=true)]
+		public Base_TrainType Base_TrainType
+		{
+			get
+			{
+				return this._Base_TrainType.Entity;
+			}
+			set
+			{
+				Base_TrainType previousValue = this._Base_TrainType.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_TrainType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_TrainType.Entity = null;
+						previousValue.EduTrain_TrainRecord.Remove(this);
+					}
+					this._Base_TrainType.Entity = value;
+					if ((value != null))
+					{
+						value.EduTrain_TrainRecord.Add(this);
+						this._TrainTypeId = value.TrainTypeId;
+					}
+					else
+					{
+						this._TrainTypeId = default(string);
+					}
+					this.SendPropertyChanged("Base_TrainType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_TrainRecord_Training_Plan", Storage="_Training_Plan", ThisKey="PlanId", OtherKey="PlanId", IsForeignKey=true)]
+		public Training_Plan Training_Plan
+		{
+			get
+			{
+				return this._Training_Plan.Entity;
+			}
+			set
+			{
+				Training_Plan previousValue = this._Training_Plan.Entity;
+				if (((previousValue != value) 
+							|| (this._Training_Plan.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Training_Plan.Entity = null;
+						previousValue.EduTrain_TrainRecord.Remove(this);
+					}
+					this._Training_Plan.Entity = value;
+					if ((value != null))
+					{
+						value.EduTrain_TrainRecord.Add(this);
+						this._PlanId = value.PlanId;
+					}
+					else
+					{
+						this._PlanId = default(string);
+					}
+					this.SendPropertyChanged("Training_Plan");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_EduTrain_TrainRecordDetail(EduTrain_TrainRecordDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.EduTrain_TrainRecord = this;
+		}
+		
+		private void detach_EduTrain_TrainRecordDetail(EduTrain_TrainRecordDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.EduTrain_TrainRecord = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EduTrain_TrainRecordDetail")]
+	public partial class EduTrain_TrainRecordDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _TrainDetailId;
+		
+		private string _TrainingId;
+		
+		private string _PersonId;
+		
+		private System.Nullable<decimal> _CheckScore;
+		
+		private bool _CheckResult;
+		
+		private EntityRef<EduTrain_TrainRecord> _EduTrain_TrainRecord;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTrainDetailIdChanging(string value);
+    partial void OnTrainDetailIdChanged();
+    partial void OnTrainingIdChanging(string value);
+    partial void OnTrainingIdChanged();
+    partial void OnPersonIdChanging(string value);
+    partial void OnPersonIdChanged();
+    partial void OnCheckScoreChanging(System.Nullable<decimal> value);
+    partial void OnCheckScoreChanged();
+    partial void OnCheckResultChanging(bool value);
+    partial void OnCheckResultChanged();
+    #endregion
+		
+		public EduTrain_TrainRecordDetail()
+		{
+			this._EduTrain_TrainRecord = default(EntityRef<EduTrain_TrainRecord>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string TrainDetailId
+		{
+			get
+			{
+				return this._TrainDetailId;
+			}
+			set
+			{
+				if ((this._TrainDetailId != value))
+				{
+					this.OnTrainDetailIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainDetailId = value;
+					this.SendPropertyChanged("TrainDetailId");
+					this.OnTrainDetailIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainingId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TrainingId
+		{
+			get
+			{
+				return this._TrainingId;
+			}
+			set
+			{
+				if ((this._TrainingId != value))
+				{
+					if (this._EduTrain_TrainRecord.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrainingIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainingId = value;
+					this.SendPropertyChanged("TrainingId");
+					this.OnTrainingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string PersonId
+		{
+			get
+			{
+				return this._PersonId;
+			}
+			set
+			{
+				if ((this._PersonId != value))
+				{
+					this.OnPersonIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonId = value;
+					this.SendPropertyChanged("PersonId");
+					this.OnPersonIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckScore", DbType="Decimal(9,1)")]
+		public System.Nullable<decimal> CheckScore
+		{
+			get
+			{
+				return this._CheckScore;
+			}
+			set
+			{
+				if ((this._CheckScore != value))
+				{
+					this.OnCheckScoreChanging(value);
+					this.SendPropertyChanging();
+					this._CheckScore = value;
+					this.SendPropertyChanged("CheckScore");
+					this.OnCheckScoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckResult", DbType="Bit NOT NULL")]
+		public bool CheckResult
+		{
+			get
+			{
+				return this._CheckResult;
+			}
+			set
+			{
+				if ((this._CheckResult != value))
+				{
+					this.OnCheckResultChanging(value);
+					this.SendPropertyChanging();
+					this._CheckResult = value;
+					this.SendPropertyChanged("CheckResult");
+					this.OnCheckResultChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_TrainDetail_EduTrain_Training", Storage="_EduTrain_TrainRecord", ThisKey="TrainingId", OtherKey="TrainingId", IsForeignKey=true)]
+		public EduTrain_TrainRecord EduTrain_TrainRecord
+		{
+			get
+			{
+				return this._EduTrain_TrainRecord.Entity;
+			}
+			set
+			{
+				EduTrain_TrainRecord previousValue = this._EduTrain_TrainRecord.Entity;
+				if (((previousValue != value) 
+							|| (this._EduTrain_TrainRecord.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._EduTrain_TrainRecord.Entity = null;
+						previousValue.EduTrain_TrainRecordDetail.Remove(this);
+					}
+					this._EduTrain_TrainRecord.Entity = value;
+					if ((value != null))
+					{
+						value.EduTrain_TrainRecordDetail.Add(this);
+						this._TrainingId = value.TrainingId;
+					}
+					else
+					{
+						this._TrainingId = default(string);
+					}
+					this.SendPropertyChanged("EduTrain_TrainRecord");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Environmental_EIAReport")]
+	public partial class Environmental_EIAReport : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FileId;
+		
+		private string _FileCode;
+		
+		private string _FileName;
+		
+		private string _FileContent;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AttachUrl;
+		
+		private string _ProjectId;
+		
+		private string _States;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFileIdChanging(string value);
+    partial void OnFileIdChanged();
+    partial void OnFileCodeChanging(string value);
+    partial void OnFileCodeChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnFileContentChanging(string value);
+    partial void OnFileContentChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public Environmental_EIAReport()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FileId
+		{
+			get
+			{
+				return this._FileId;
+			}
+			set
+			{
+				if ((this._FileId != value))
+				{
+					this.OnFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FileId = value;
+					this.SendPropertyChanged("FileId");
+					this.OnFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileCode", DbType="NVarChar(50)")]
+		public string FileCode
+		{
+			get
+			{
+				return this._FileCode;
+			}
+			set
+			{
+				if ((this._FileCode != value))
+				{
+					this.OnFileCodeChanging(value);
+					this.SendPropertyChanging();
+					this._FileCode = value;
+					this.SendPropertyChanged("FileCode");
+					this.OnFileCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NVarChar(200)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContent", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContent
+		{
+			get
+			{
+				return this._FileContent;
+			}
+			set
+			{
+				if ((this._FileContent != value))
+				{
+					this.OnFileContentChanging(value);
+					this.SendPropertyChanging();
+					this._FileContent = value;
+					this.SendPropertyChanged("FileContent");
+					this.OnFileContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(4000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Environmental_EIAReport_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Environmental_EIAReport.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Environmental_EIAReport.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Environmental_EnvironmentalEmergencyPlan")]
+	public partial class Environmental_EnvironmentalEmergencyPlan : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FileId;
+		
+		private string _FileCode;
+		
+		private string _FileName;
+		
+		private string _FileContent;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AttachUrl;
+		
+		private string _ProjectId;
+		
+		private string _States;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFileIdChanging(string value);
+    partial void OnFileIdChanged();
+    partial void OnFileCodeChanging(string value);
+    partial void OnFileCodeChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnFileContentChanging(string value);
+    partial void OnFileContentChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public Environmental_EnvironmentalEmergencyPlan()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FileId
+		{
+			get
+			{
+				return this._FileId;
+			}
+			set
+			{
+				if ((this._FileId != value))
+				{
+					this.OnFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FileId = value;
+					this.SendPropertyChanged("FileId");
+					this.OnFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileCode", DbType="NVarChar(50)")]
+		public string FileCode
+		{
+			get
+			{
+				return this._FileCode;
+			}
+			set
+			{
+				if ((this._FileCode != value))
+				{
+					this.OnFileCodeChanging(value);
+					this.SendPropertyChanging();
+					this._FileCode = value;
+					this.SendPropertyChanged("FileCode");
+					this.OnFileCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NVarChar(200)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContent", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContent
+		{
+			get
+			{
+				return this._FileContent;
+			}
+			set
+			{
+				if ((this._FileContent != value))
+				{
+					this.OnFileContentChanging(value);
+					this.SendPropertyChanging();
+					this._FileContent = value;
+					this.SendPropertyChanged("FileContent");
+					this.OnFileContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(4000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Environmental_EnvironmentalEmergencyPlan_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Environmental_EnvironmentalEmergencyPlan.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Environmental_EnvironmentalEmergencyPlan.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Environmental_EnvironmentalMonitoring")]
+	public partial class Environmental_EnvironmentalMonitoring : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FileId;
+		
+		private string _FileCode;
+		
+		private string _FileName;
+		
+		private string _FileContent;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AttachUrl;
+		
+		private string _ProjectId;
+		
+		private string _States;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFileIdChanging(string value);
+    partial void OnFileIdChanged();
+    partial void OnFileCodeChanging(string value);
+    partial void OnFileCodeChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnFileContentChanging(string value);
+    partial void OnFileContentChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public Environmental_EnvironmentalMonitoring()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FileId
+		{
+			get
+			{
+				return this._FileId;
+			}
+			set
+			{
+				if ((this._FileId != value))
+				{
+					this.OnFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FileId = value;
+					this.SendPropertyChanged("FileId");
+					this.OnFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileCode", DbType="NVarChar(50)")]
+		public string FileCode
+		{
+			get
+			{
+				return this._FileCode;
+			}
+			set
+			{
+				if ((this._FileCode != value))
+				{
+					this.OnFileCodeChanging(value);
+					this.SendPropertyChanging();
+					this._FileCode = value;
+					this.SendPropertyChanged("FileCode");
+					this.OnFileCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NVarChar(200)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContent", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContent
+		{
+			get
+			{
+				return this._FileContent;
+			}
+			set
+			{
+				if ((this._FileContent != value))
+				{
+					this.OnFileContentChanging(value);
+					this.SendPropertyChanging();
+					this._FileContent = value;
+					this.SendPropertyChanged("FileContent");
+					this.OnFileContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(4000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Environmental_EnvironmentalMonitoring_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Environmental_EnvironmentalMonitoring.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Environmental_EnvironmentalMonitoring.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Environmental_UnexpectedEnvironmental")]
+	public partial class Environmental_UnexpectedEnvironmental : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FileId;
+		
+		private string _FileCode;
+		
+		private string _FileName;
+		
+		private string _FileContent;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AttachUrl;
+		
+		private string _ProjectId;
+		
+		private string _States;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFileIdChanging(string value);
+    partial void OnFileIdChanged();
+    partial void OnFileCodeChanging(string value);
+    partial void OnFileCodeChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnFileContentChanging(string value);
+    partial void OnFileContentChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public Environmental_UnexpectedEnvironmental()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FileId
+		{
+			get
+			{
+				return this._FileId;
+			}
+			set
+			{
+				if ((this._FileId != value))
+				{
+					this.OnFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FileId = value;
+					this.SendPropertyChanged("FileId");
+					this.OnFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileCode", DbType="NVarChar(50)")]
+		public string FileCode
+		{
+			get
+			{
+				return this._FileCode;
+			}
+			set
+			{
+				if ((this._FileCode != value))
+				{
+					this.OnFileCodeChanging(value);
+					this.SendPropertyChanging();
+					this._FileCode = value;
+					this.SendPropertyChanged("FileCode");
+					this.OnFileCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NVarChar(200)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContent", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContent
+		{
+			get
+			{
+				return this._FileContent;
+			}
+			set
+			{
+				if ((this._FileContent != value))
+				{
+					this.OnFileContentChanging(value);
+					this.SendPropertyChanging();
+					this._FileContent = value;
+					this.SendPropertyChanged("FileContent");
+					this.OnFileContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(4000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Environmental_UnexpectedEnvironmental_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Environmental_UnexpectedEnvironmental.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Environmental_UnexpectedEnvironmental.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
 					}
 					this.SendPropertyChanged("Sys_User");
 				}
@@ -37905,6 +40910,891 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OccupationHealth_HazardDetection")]
+	public partial class OccupationHealth_HazardDetection : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FileId;
+		
+		private string _FileCode;
+		
+		private string _FileName;
+		
+		private string _FileContent;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AttachUrl;
+		
+		private string _ProjectId;
+		
+		private string _States;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFileIdChanging(string value);
+    partial void OnFileIdChanged();
+    partial void OnFileCodeChanging(string value);
+    partial void OnFileCodeChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnFileContentChanging(string value);
+    partial void OnFileContentChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public OccupationHealth_HazardDetection()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FileId
+		{
+			get
+			{
+				return this._FileId;
+			}
+			set
+			{
+				if ((this._FileId != value))
+				{
+					this.OnFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FileId = value;
+					this.SendPropertyChanged("FileId");
+					this.OnFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileCode", DbType="NVarChar(50)")]
+		public string FileCode
+		{
+			get
+			{
+				return this._FileCode;
+			}
+			set
+			{
+				if ((this._FileCode != value))
+				{
+					this.OnFileCodeChanging(value);
+					this.SendPropertyChanging();
+					this._FileCode = value;
+					this.SendPropertyChanged("FileCode");
+					this.OnFileCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NVarChar(200)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContent", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContent
+		{
+			get
+			{
+				return this._FileContent;
+			}
+			set
+			{
+				if ((this._FileContent != value))
+				{
+					this.OnFileContentChanging(value);
+					this.SendPropertyChanging();
+					this._FileContent = value;
+					this.SendPropertyChanged("FileContent");
+					this.OnFileContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(4000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OccupationHealth_HazardDetection_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.OccupationHealth_HazardDetection.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.OccupationHealth_HazardDetection.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OccupationHealth_OccupationalDiseaseAccident")]
+	public partial class OccupationHealth_OccupationalDiseaseAccident : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FileId;
+		
+		private string _FileCode;
+		
+		private string _FileName;
+		
+		private string _FileContent;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AttachUrl;
+		
+		private string _ProjectId;
+		
+		private string _States;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFileIdChanging(string value);
+    partial void OnFileIdChanged();
+    partial void OnFileCodeChanging(string value);
+    partial void OnFileCodeChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnFileContentChanging(string value);
+    partial void OnFileContentChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public OccupationHealth_OccupationalDiseaseAccident()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FileId
+		{
+			get
+			{
+				return this._FileId;
+			}
+			set
+			{
+				if ((this._FileId != value))
+				{
+					this.OnFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FileId = value;
+					this.SendPropertyChanged("FileId");
+					this.OnFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileCode", DbType="NVarChar(50)")]
+		public string FileCode
+		{
+			get
+			{
+				return this._FileCode;
+			}
+			set
+			{
+				if ((this._FileCode != value))
+				{
+					this.OnFileCodeChanging(value);
+					this.SendPropertyChanging();
+					this._FileCode = value;
+					this.SendPropertyChanged("FileCode");
+					this.OnFileCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NVarChar(200)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContent", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContent
+		{
+			get
+			{
+				return this._FileContent;
+			}
+			set
+			{
+				if ((this._FileContent != value))
+				{
+					this.OnFileContentChanging(value);
+					this.SendPropertyChanging();
+					this._FileContent = value;
+					this.SendPropertyChanged("FileContent");
+					this.OnFileContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(4000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OccupationHealth_OccupationalDiseaseAccident_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.OccupationHealth_OccupationalDiseaseAccident.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.OccupationHealth_OccupationalDiseaseAccident.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OccupationHealth_PhysicalExamination")]
+	public partial class OccupationHealth_PhysicalExamination : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _FileId;
+		
+		private string _FileCode;
+		
+		private string _FileName;
+		
+		private string _FileContent;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _AttachUrl;
+		
+		private string _ProjectId;
+		
+		private string _States;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFileIdChanging(string value);
+    partial void OnFileIdChanged();
+    partial void OnFileCodeChanging(string value);
+    partial void OnFileCodeChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnFileContentChanging(string value);
+    partial void OnFileContentChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnAttachUrlChanging(string value);
+    partial void OnAttachUrlChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public OccupationHealth_PhysicalExamination()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string FileId
+		{
+			get
+			{
+				return this._FileId;
+			}
+			set
+			{
+				if ((this._FileId != value))
+				{
+					this.OnFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._FileId = value;
+					this.SendPropertyChanged("FileId");
+					this.OnFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileCode", DbType="NVarChar(50)")]
+		public string FileCode
+		{
+			get
+			{
+				return this._FileCode;
+			}
+			set
+			{
+				if ((this._FileCode != value))
+				{
+					this.OnFileCodeChanging(value);
+					this.SendPropertyChanging();
+					this._FileCode = value;
+					this.SendPropertyChanged("FileCode");
+					this.OnFileCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NVarChar(200)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContent", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContent
+		{
+			get
+			{
+				return this._FileContent;
+			}
+			set
+			{
+				if ((this._FileContent != value))
+				{
+					this.OnFileContentChanging(value);
+					this.SendPropertyChanging();
+					this._FileContent = value;
+					this.SendPropertyChanged("FileContent");
+					this.OnFileContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachUrl", DbType="NVarChar(4000)")]
+		public string AttachUrl
+		{
+			get
+			{
+				return this._AttachUrl;
+			}
+			set
+			{
+				if ((this._AttachUrl != value))
+				{
+					this.OnAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._AttachUrl = value;
+					this.SendPropertyChanged("AttachUrl");
+					this.OnAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OccupationHealth_PhysicalExamination_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.OccupationHealth_PhysicalExamination.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.OccupationHealth_PhysicalExamination.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Project_FileCabinet")]
 	public partial class Project_FileCabinet : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -45312,6 +49202,2463 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_Checking")]
+	public partial class SitePerson_Checking : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _CheckingId;
+		
+		private string _ProjectId;
+		
+		private string _CardNo;
+		
+		private string _WorkAreaId;
+		
+		private string _IdentityCard;
+		
+		private System.Nullable<System.DateTime> _IntoOutTime;
+		
+		private string _IntoOut;
+		
+		private string _Address;
+		
+		private string _States;
+		
+		private string _PersonId;
+		
+		private string _WorkAreaName;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<SitePerson_Person> _SitePerson_Person;
+		
+		private EntityRef<WBS_UnitWork> _WBS_UnitWork;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCheckingIdChanging(string value);
+    partial void OnCheckingIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnCardNoChanging(string value);
+    partial void OnCardNoChanged();
+    partial void OnWorkAreaIdChanging(string value);
+    partial void OnWorkAreaIdChanged();
+    partial void OnIdentityCardChanging(string value);
+    partial void OnIdentityCardChanged();
+    partial void OnIntoOutTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnIntoOutTimeChanged();
+    partial void OnIntoOutChanging(string value);
+    partial void OnIntoOutChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    partial void OnPersonIdChanging(string value);
+    partial void OnPersonIdChanged();
+    partial void OnWorkAreaNameChanging(string value);
+    partial void OnWorkAreaNameChanged();
+    #endregion
+		
+		public SitePerson_Checking()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._SitePerson_Person = default(EntityRef<SitePerson_Person>);
+			this._WBS_UnitWork = default(EntityRef<WBS_UnitWork>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckingId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string CheckingId
+		{
+			get
+			{
+				return this._CheckingId;
+			}
+			set
+			{
+				if ((this._CheckingId != value))
+				{
+					this.OnCheckingIdChanging(value);
+					this.SendPropertyChanging();
+					this._CheckingId = value;
+					this.SendPropertyChanged("CheckingId");
+					this.OnCheckingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardNo", DbType="NVarChar(20)")]
+		public string CardNo
+		{
+			get
+			{
+				return this._CardNo;
+			}
+			set
+			{
+				if ((this._CardNo != value))
+				{
+					this.OnCardNoChanging(value);
+					this.SendPropertyChanging();
+					this._CardNo = value;
+					this.SendPropertyChanged("CardNo");
+					this.OnCardNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkAreaId", DbType="NVarChar(50)")]
+		public string WorkAreaId
+		{
+			get
+			{
+				return this._WorkAreaId;
+			}
+			set
+			{
+				if ((this._WorkAreaId != value))
+				{
+					if (this._WBS_UnitWork.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnWorkAreaIdChanging(value);
+					this.SendPropertyChanging();
+					this._WorkAreaId = value;
+					this.SendPropertyChanged("WorkAreaId");
+					this.OnWorkAreaIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdentityCard", DbType="NVarChar(18)")]
+		public string IdentityCard
+		{
+			get
+			{
+				return this._IdentityCard;
+			}
+			set
+			{
+				if ((this._IdentityCard != value))
+				{
+					this.OnIdentityCardChanging(value);
+					this.SendPropertyChanging();
+					this._IdentityCard = value;
+					this.SendPropertyChanged("IdentityCard");
+					this.OnIdentityCardChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IntoOutTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> IntoOutTime
+		{
+			get
+			{
+				return this._IntoOutTime;
+			}
+			set
+			{
+				if ((this._IntoOutTime != value))
+				{
+					this.OnIntoOutTimeChanging(value);
+					this.SendPropertyChanging();
+					this._IntoOutTime = value;
+					this.SendPropertyChanged("IntoOutTime");
+					this.OnIntoOutTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IntoOut", DbType="Char(1)")]
+		public string IntoOut
+		{
+			get
+			{
+				return this._IntoOut;
+			}
+			set
+			{
+				if ((this._IntoOut != value))
+				{
+					this.OnIntoOutChanging(value);
+					this.SendPropertyChanging();
+					this._IntoOut = value;
+					this.SendPropertyChanged("IntoOut");
+					this.OnIntoOutChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(50)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonId", DbType="NVarChar(50)")]
+		public string PersonId
+		{
+			get
+			{
+				return this._PersonId;
+			}
+			set
+			{
+				if ((this._PersonId != value))
+				{
+					if (this._SitePerson_Person.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPersonIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonId = value;
+					this.SendPropertyChanged("PersonId");
+					this.OnPersonIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkAreaName", DbType="NVarChar(100)")]
+		public string WorkAreaName
+		{
+			get
+			{
+				return this._WorkAreaName;
+			}
+			set
+			{
+				if ((this._WorkAreaName != value))
+				{
+					this.OnWorkAreaNameChanging(value);
+					this.SendPropertyChanging();
+					this._WorkAreaName = value;
+					this.SendPropertyChanged("WorkAreaName");
+					this.OnWorkAreaNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Checking_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.SitePerson_Checking.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_Checking.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Checking_SitePerson_Person", Storage="_SitePerson_Person", ThisKey="PersonId", OtherKey="PersonId", IsForeignKey=true)]
+		public SitePerson_Person SitePerson_Person
+		{
+			get
+			{
+				return this._SitePerson_Person.Entity;
+			}
+			set
+			{
+				SitePerson_Person previousValue = this._SitePerson_Person.Entity;
+				if (((previousValue != value) 
+							|| (this._SitePerson_Person.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SitePerson_Person.Entity = null;
+						previousValue.SitePerson_Checking.Remove(this);
+					}
+					this._SitePerson_Person.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_Checking.Add(this);
+						this._PersonId = value.PersonId;
+					}
+					else
+					{
+						this._PersonId = default(string);
+					}
+					this.SendPropertyChanged("SitePerson_Person");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Checking_WBS_UnitWork", Storage="_WBS_UnitWork", ThisKey="WorkAreaId", OtherKey="UnitWorkId", IsForeignKey=true)]
+		public WBS_UnitWork WBS_UnitWork
+		{
+			get
+			{
+				return this._WBS_UnitWork.Entity;
+			}
+			set
+			{
+				WBS_UnitWork previousValue = this._WBS_UnitWork.Entity;
+				if (((previousValue != value) 
+							|| (this._WBS_UnitWork.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._WBS_UnitWork.Entity = null;
+						previousValue.SitePerson_Checking.Remove(this);
+					}
+					this._WBS_UnitWork.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_Checking.Add(this);
+						this._WorkAreaId = value.UnitWorkId;
+					}
+					else
+					{
+						this._WorkAreaId = default(string);
+					}
+					this.SendPropertyChanged("WBS_UnitWork");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_DayReport")]
+	public partial class SitePerson_DayReport : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _DayReportId;
+		
+		private string _ProjectId;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private System.Nullable<decimal> _TotalPersonWorkTime;
+		
+		private string _States;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+		private EntitySet<SitePerson_DayReportDetail> _SitePerson_DayReportDetail;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDayReportIdChanging(string value);
+    partial void OnDayReportIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnTotalPersonWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnTotalPersonWorkTimeChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public SitePerson_DayReport()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			this._SitePerson_DayReportDetail = new EntitySet<SitePerson_DayReportDetail>(new Action<SitePerson_DayReportDetail>(this.attach_SitePerson_DayReportDetail), new Action<SitePerson_DayReportDetail>(this.detach_SitePerson_DayReportDetail));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string DayReportId
+		{
+			get
+			{
+				return this._DayReportId;
+			}
+			set
+			{
+				if ((this._DayReportId != value))
+				{
+					this.OnDayReportIdChanging(value);
+					this.SendPropertyChanging();
+					this._DayReportId = value;
+					this.SendPropertyChanged("DayReportId");
+					this.OnDayReportIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> TotalPersonWorkTime
+		{
+			get
+			{
+				return this._TotalPersonWorkTime;
+			}
+			set
+			{
+				if ((this._TotalPersonWorkTime != value))
+				{
+					this.OnTotalPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._TotalPersonWorkTime = value;
+					this.SendPropertyChanged("TotalPersonWorkTime");
+					this.OnTotalPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReport_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.SitePerson_DayReport.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_DayReport.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReport_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.SitePerson_DayReport.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_DayReport.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReportDetail_SitePerson_DayReport", Storage="_SitePerson_DayReportDetail", ThisKey="DayReportId", OtherKey="DayReportId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_DayReportDetail> SitePerson_DayReportDetail
+		{
+			get
+			{
+				return this._SitePerson_DayReportDetail;
+			}
+			set
+			{
+				this._SitePerson_DayReportDetail.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SitePerson_DayReportDetail(SitePerson_DayReportDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_DayReport = this;
+		}
+		
+		private void detach_SitePerson_DayReportDetail(SitePerson_DayReportDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_DayReport = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_DayReportDetail")]
+	public partial class SitePerson_DayReportDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _DayReportDetailId;
+		
+		private string _DayReportId;
+		
+		private string _UnitId;
+		
+		private System.Nullable<decimal> _WorkTime;
+		
+		private System.Nullable<int> _CheckPersonNum;
+		
+		private System.Nullable<decimal> _RealPersonNum;
+		
+		private System.Nullable<decimal> _PersonWorkTime;
+		
+		private System.Nullable<decimal> _TotalPersonWorkTime;
+		
+		private string _Remark;
+		
+		private string _StaffData;
+		
+		private System.Nullable<decimal> _DayNum;
+		
+		private System.Nullable<int> _YearPersonWorkTime;
+		
+		private EntityRef<Base_Unit> _Base_Unit;
+		
+		private EntityRef<SitePerson_DayReport> _SitePerson_DayReport;
+		
+		private EntitySet<SitePerson_DayReportUnitDetail> _SitePerson_DayReportUnitDetail;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDayReportDetailIdChanging(string value);
+    partial void OnDayReportDetailIdChanged();
+    partial void OnDayReportIdChanging(string value);
+    partial void OnDayReportIdChanged();
+    partial void OnUnitIdChanging(string value);
+    partial void OnUnitIdChanged();
+    partial void OnWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnWorkTimeChanged();
+    partial void OnCheckPersonNumChanging(System.Nullable<int> value);
+    partial void OnCheckPersonNumChanged();
+    partial void OnRealPersonNumChanging(System.Nullable<decimal> value);
+    partial void OnRealPersonNumChanged();
+    partial void OnPersonWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnPersonWorkTimeChanged();
+    partial void OnTotalPersonWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnTotalPersonWorkTimeChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnStaffDataChanging(string value);
+    partial void OnStaffDataChanged();
+    partial void OnDayNumChanging(System.Nullable<decimal> value);
+    partial void OnDayNumChanged();
+    partial void OnYearPersonWorkTimeChanging(System.Nullable<int> value);
+    partial void OnYearPersonWorkTimeChanged();
+    #endregion
+		
+		public SitePerson_DayReportDetail()
+		{
+			this._Base_Unit = default(EntityRef<Base_Unit>);
+			this._SitePerson_DayReport = default(EntityRef<SitePerson_DayReport>);
+			this._SitePerson_DayReportUnitDetail = new EntitySet<SitePerson_DayReportUnitDetail>(new Action<SitePerson_DayReportUnitDetail>(this.attach_SitePerson_DayReportUnitDetail), new Action<SitePerson_DayReportUnitDetail>(this.detach_SitePerson_DayReportUnitDetail));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string DayReportDetailId
+		{
+			get
+			{
+				return this._DayReportDetailId;
+			}
+			set
+			{
+				if ((this._DayReportDetailId != value))
+				{
+					this.OnDayReportDetailIdChanging(value);
+					this.SendPropertyChanging();
+					this._DayReportDetailId = value;
+					this.SendPropertyChanged("DayReportDetailId");
+					this.OnDayReportDetailIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportId", DbType="NVarChar(50)")]
+		public string DayReportId
+		{
+			get
+			{
+				return this._DayReportId;
+			}
+			set
+			{
+				if ((this._DayReportId != value))
+				{
+					if (this._SitePerson_DayReport.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDayReportIdChanging(value);
+					this.SendPropertyChanging();
+					this._DayReportId = value;
+					this.SendPropertyChanged("DayReportId");
+					this.OnDayReportIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					if (this._Base_Unit.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUnitIdChanging(value);
+					this.SendPropertyChanging();
+					this._UnitId = value;
+					this.SendPropertyChanged("UnitId");
+					this.OnUnitIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> WorkTime
+		{
+			get
+			{
+				return this._WorkTime;
+			}
+			set
+			{
+				if ((this._WorkTime != value))
+				{
+					this.OnWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._WorkTime = value;
+					this.SendPropertyChanged("WorkTime");
+					this.OnWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckPersonNum", DbType="Int")]
+		public System.Nullable<int> CheckPersonNum
+		{
+			get
+			{
+				return this._CheckPersonNum;
+			}
+			set
+			{
+				if ((this._CheckPersonNum != value))
+				{
+					this.OnCheckPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._CheckPersonNum = value;
+					this.SendPropertyChanged("CheckPersonNum");
+					this.OnCheckPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealPersonNum", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> RealPersonNum
+		{
+			get
+			{
+				return this._RealPersonNum;
+			}
+			set
+			{
+				if ((this._RealPersonNum != value))
+				{
+					this.OnRealPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._RealPersonNum = value;
+					this.SendPropertyChanged("RealPersonNum");
+					this.OnRealPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PersonWorkTime
+		{
+			get
+			{
+				return this._PersonWorkTime;
+			}
+			set
+			{
+				if ((this._PersonWorkTime != value))
+				{
+					this.OnPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._PersonWorkTime = value;
+					this.SendPropertyChanged("PersonWorkTime");
+					this.OnPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> TotalPersonWorkTime
+		{
+			get
+			{
+				return this._TotalPersonWorkTime;
+			}
+			set
+			{
+				if ((this._TotalPersonWorkTime != value))
+				{
+					this.OnTotalPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._TotalPersonWorkTime = value;
+					this.SendPropertyChanged("TotalPersonWorkTime");
+					this.OnTotalPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(100)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffData", DbType="NVarChar(2000)")]
+		public string StaffData
+		{
+			get
+			{
+				return this._StaffData;
+			}
+			set
+			{
+				if ((this._StaffData != value))
+				{
+					this.OnStaffDataChanging(value);
+					this.SendPropertyChanging();
+					this._StaffData = value;
+					this.SendPropertyChanged("StaffData");
+					this.OnStaffDataChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayNum", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> DayNum
+		{
+			get
+			{
+				return this._DayNum;
+			}
+			set
+			{
+				if ((this._DayNum != value))
+				{
+					this.OnDayNumChanging(value);
+					this.SendPropertyChanging();
+					this._DayNum = value;
+					this.SendPropertyChanged("DayNum");
+					this.OnDayNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearPersonWorkTime", DbType="Int")]
+		public System.Nullable<int> YearPersonWorkTime
+		{
+			get
+			{
+				return this._YearPersonWorkTime;
+			}
+			set
+			{
+				if ((this._YearPersonWorkTime != value))
+				{
+					this.OnYearPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._YearPersonWorkTime = value;
+					this.SendPropertyChanged("YearPersonWorkTime");
+					this.OnYearPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReportDetail_Base_Unit", Storage="_Base_Unit", ThisKey="UnitId", OtherKey="UnitId", IsForeignKey=true)]
+		public Base_Unit Base_Unit
+		{
+			get
+			{
+				return this._Base_Unit.Entity;
+			}
+			set
+			{
+				Base_Unit previousValue = this._Base_Unit.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Unit.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Unit.Entity = null;
+						previousValue.SitePerson_DayReportDetail.Remove(this);
+					}
+					this._Base_Unit.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_DayReportDetail.Add(this);
+						this._UnitId = value.UnitId;
+					}
+					else
+					{
+						this._UnitId = default(string);
+					}
+					this.SendPropertyChanged("Base_Unit");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReportDetail_SitePerson_DayReport", Storage="_SitePerson_DayReport", ThisKey="DayReportId", OtherKey="DayReportId", IsForeignKey=true)]
+		public SitePerson_DayReport SitePerson_DayReport
+		{
+			get
+			{
+				return this._SitePerson_DayReport.Entity;
+			}
+			set
+			{
+				SitePerson_DayReport previousValue = this._SitePerson_DayReport.Entity;
+				if (((previousValue != value) 
+							|| (this._SitePerson_DayReport.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SitePerson_DayReport.Entity = null;
+						previousValue.SitePerson_DayReportDetail.Remove(this);
+					}
+					this._SitePerson_DayReport.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_DayReportDetail.Add(this);
+						this._DayReportId = value.DayReportId;
+					}
+					else
+					{
+						this._DayReportId = default(string);
+					}
+					this.SendPropertyChanged("SitePerson_DayReport");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReportUnitDetail_SitePerson_DayReportDetail", Storage="_SitePerson_DayReportUnitDetail", ThisKey="DayReportDetailId", OtherKey="DayReportDetailId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_DayReportUnitDetail> SitePerson_DayReportUnitDetail
+		{
+			get
+			{
+				return this._SitePerson_DayReportUnitDetail;
+			}
+			set
+			{
+				this._SitePerson_DayReportUnitDetail.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SitePerson_DayReportUnitDetail(SitePerson_DayReportUnitDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_DayReportDetail = this;
+		}
+		
+		private void detach_SitePerson_DayReportUnitDetail(SitePerson_DayReportUnitDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_DayReportDetail = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_DayReportUnitDetail")]
+	public partial class SitePerson_DayReportUnitDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _DayReportUnitDetailId;
+		
+		private string _DayReportDetailId;
+		
+		private string _PostId;
+		
+		private System.Nullable<int> _CheckPersonNum;
+		
+		private System.Nullable<int> _RealPersonNum;
+		
+		private System.Nullable<decimal> _PersonWorkTime;
+		
+		private string _Remark;
+		
+		private EntityRef<Base_WorkPost> _Base_WorkPost;
+		
+		private EntityRef<SitePerson_DayReportDetail> _SitePerson_DayReportDetail;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDayReportUnitDetailIdChanging(string value);
+    partial void OnDayReportUnitDetailIdChanged();
+    partial void OnDayReportDetailIdChanging(string value);
+    partial void OnDayReportDetailIdChanged();
+    partial void OnPostIdChanging(string value);
+    partial void OnPostIdChanged();
+    partial void OnCheckPersonNumChanging(System.Nullable<int> value);
+    partial void OnCheckPersonNumChanged();
+    partial void OnRealPersonNumChanging(System.Nullable<int> value);
+    partial void OnRealPersonNumChanged();
+    partial void OnPersonWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnPersonWorkTimeChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public SitePerson_DayReportUnitDetail()
+		{
+			this._Base_WorkPost = default(EntityRef<Base_WorkPost>);
+			this._SitePerson_DayReportDetail = default(EntityRef<SitePerson_DayReportDetail>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportUnitDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string DayReportUnitDetailId
+		{
+			get
+			{
+				return this._DayReportUnitDetailId;
+			}
+			set
+			{
+				if ((this._DayReportUnitDetailId != value))
+				{
+					this.OnDayReportUnitDetailIdChanging(value);
+					this.SendPropertyChanging();
+					this._DayReportUnitDetailId = value;
+					this.SendPropertyChanged("DayReportUnitDetailId");
+					this.OnDayReportUnitDetailIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportDetailId", DbType="NVarChar(50)")]
+		public string DayReportDetailId
+		{
+			get
+			{
+				return this._DayReportDetailId;
+			}
+			set
+			{
+				if ((this._DayReportDetailId != value))
+				{
+					if (this._SitePerson_DayReportDetail.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDayReportDetailIdChanging(value);
+					this.SendPropertyChanging();
+					this._DayReportDetailId = value;
+					this.SendPropertyChanged("DayReportDetailId");
+					this.OnDayReportDetailIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostId", DbType="NVarChar(50)")]
+		public string PostId
+		{
+			get
+			{
+				return this._PostId;
+			}
+			set
+			{
+				if ((this._PostId != value))
+				{
+					if (this._Base_WorkPost.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIdChanging(value);
+					this.SendPropertyChanging();
+					this._PostId = value;
+					this.SendPropertyChanged("PostId");
+					this.OnPostIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckPersonNum", DbType="Int")]
+		public System.Nullable<int> CheckPersonNum
+		{
+			get
+			{
+				return this._CheckPersonNum;
+			}
+			set
+			{
+				if ((this._CheckPersonNum != value))
+				{
+					this.OnCheckPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._CheckPersonNum = value;
+					this.SendPropertyChanged("CheckPersonNum");
+					this.OnCheckPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealPersonNum", DbType="Int")]
+		public System.Nullable<int> RealPersonNum
+		{
+			get
+			{
+				return this._RealPersonNum;
+			}
+			set
+			{
+				if ((this._RealPersonNum != value))
+				{
+					this.OnRealPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._RealPersonNum = value;
+					this.SendPropertyChanged("RealPersonNum");
+					this.OnRealPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PersonWorkTime
+		{
+			get
+			{
+				return this._PersonWorkTime;
+			}
+			set
+			{
+				if ((this._PersonWorkTime != value))
+				{
+					this.OnPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._PersonWorkTime = value;
+					this.SendPropertyChanged("PersonWorkTime");
+					this.OnPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(200)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReportUnitDetail_Base_WorkPost", Storage="_Base_WorkPost", ThisKey="PostId", OtherKey="WorkPostId", IsForeignKey=true)]
+		public Base_WorkPost Base_WorkPost
+		{
+			get
+			{
+				return this._Base_WorkPost.Entity;
+			}
+			set
+			{
+				Base_WorkPost previousValue = this._Base_WorkPost.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_WorkPost.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_WorkPost.Entity = null;
+						previousValue.SitePerson_DayReportUnitDetail.Remove(this);
+					}
+					this._Base_WorkPost.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_DayReportUnitDetail.Add(this);
+						this._PostId = value.WorkPostId;
+					}
+					else
+					{
+						this._PostId = default(string);
+					}
+					this.SendPropertyChanged("Base_WorkPost");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReportUnitDetail_SitePerson_DayReportDetail", Storage="_SitePerson_DayReportDetail", ThisKey="DayReportDetailId", OtherKey="DayReportDetailId", IsForeignKey=true)]
+		public SitePerson_DayReportDetail SitePerson_DayReportDetail
+		{
+			get
+			{
+				return this._SitePerson_DayReportDetail.Entity;
+			}
+			set
+			{
+				SitePerson_DayReportDetail previousValue = this._SitePerson_DayReportDetail.Entity;
+				if (((previousValue != value) 
+							|| (this._SitePerson_DayReportDetail.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SitePerson_DayReportDetail.Entity = null;
+						previousValue.SitePerson_DayReportUnitDetail.Remove(this);
+					}
+					this._SitePerson_DayReportDetail.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_DayReportUnitDetail.Add(this);
+						this._DayReportDetailId = value.DayReportDetailId;
+					}
+					else
+					{
+						this._DayReportDetailId = default(string);
+					}
+					this.SendPropertyChanged("SitePerson_DayReportDetail");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_MonthReport")]
+	public partial class SitePerson_MonthReport : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _MonthReportId;
+		
+		private string _ProjectId;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private System.Nullable<decimal> _TotalPersonWorkTime;
+		
+		private string _States;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+		private EntitySet<SitePerson_MonthReportDetail> _SitePerson_MonthReportDetail;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMonthReportIdChanging(string value);
+    partial void OnMonthReportIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnTotalPersonWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnTotalPersonWorkTimeChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    #endregion
+		
+		public SitePerson_MonthReport()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			this._SitePerson_MonthReportDetail = new EntitySet<SitePerson_MonthReportDetail>(new Action<SitePerson_MonthReportDetail>(this.attach_SitePerson_MonthReportDetail), new Action<SitePerson_MonthReportDetail>(this.detach_SitePerson_MonthReportDetail));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string MonthReportId
+		{
+			get
+			{
+				return this._MonthReportId;
+			}
+			set
+			{
+				if ((this._MonthReportId != value))
+				{
+					this.OnMonthReportIdChanging(value);
+					this.SendPropertyChanging();
+					this._MonthReportId = value;
+					this.SendPropertyChanged("MonthReportId");
+					this.OnMonthReportIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> TotalPersonWorkTime
+		{
+			get
+			{
+				return this._TotalPersonWorkTime;
+			}
+			set
+			{
+				if ((this._TotalPersonWorkTime != value))
+				{
+					this.OnTotalPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._TotalPersonWorkTime = value;
+					this.SendPropertyChanged("TotalPersonWorkTime");
+					this.OnTotalPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReport_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.SitePerson_MonthReport.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_MonthReport.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReport_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.SitePerson_MonthReport.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_MonthReport.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReportDetail_SitePerson_MonthReport", Storage="_SitePerson_MonthReportDetail", ThisKey="MonthReportId", OtherKey="MonthReportId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_MonthReportDetail> SitePerson_MonthReportDetail
+		{
+			get
+			{
+				return this._SitePerson_MonthReportDetail;
+			}
+			set
+			{
+				this._SitePerson_MonthReportDetail.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SitePerson_MonthReportDetail(SitePerson_MonthReportDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_MonthReport = this;
+		}
+		
+		private void detach_SitePerson_MonthReportDetail(SitePerson_MonthReportDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_MonthReport = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_MonthReportDetail")]
+	public partial class SitePerson_MonthReportDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _MonthReportDetailId;
+		
+		private string _MonthReportId;
+		
+		private string _UnitId;
+		
+		private System.Nullable<decimal> _WorkTime;
+		
+		private System.Nullable<int> _CheckPersonNum;
+		
+		private System.Nullable<decimal> _RealPersonNum;
+		
+		private System.Nullable<decimal> _PersonWorkTime;
+		
+		private System.Nullable<decimal> _TotalPersonWorkTime;
+		
+		private string _Remark;
+		
+		private string _StaffData;
+		
+		private System.Nullable<decimal> _DayNum;
+		
+		private System.Nullable<int> _YearPersonWorkTime;
+		
+		private EntityRef<Base_Unit> _Base_Unit;
+		
+		private EntityRef<SitePerson_MonthReport> _SitePerson_MonthReport;
+		
+		private EntitySet<SitePerson_MonthReportUnitDetail> _SitePerson_MonthReportUnitDetail;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMonthReportDetailIdChanging(string value);
+    partial void OnMonthReportDetailIdChanged();
+    partial void OnMonthReportIdChanging(string value);
+    partial void OnMonthReportIdChanged();
+    partial void OnUnitIdChanging(string value);
+    partial void OnUnitIdChanged();
+    partial void OnWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnWorkTimeChanged();
+    partial void OnCheckPersonNumChanging(System.Nullable<int> value);
+    partial void OnCheckPersonNumChanged();
+    partial void OnRealPersonNumChanging(System.Nullable<decimal> value);
+    partial void OnRealPersonNumChanged();
+    partial void OnPersonWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnPersonWorkTimeChanged();
+    partial void OnTotalPersonWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnTotalPersonWorkTimeChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnStaffDataChanging(string value);
+    partial void OnStaffDataChanged();
+    partial void OnDayNumChanging(System.Nullable<decimal> value);
+    partial void OnDayNumChanged();
+    partial void OnYearPersonWorkTimeChanging(System.Nullable<int> value);
+    partial void OnYearPersonWorkTimeChanged();
+    #endregion
+		
+		public SitePerson_MonthReportDetail()
+		{
+			this._Base_Unit = default(EntityRef<Base_Unit>);
+			this._SitePerson_MonthReport = default(EntityRef<SitePerson_MonthReport>);
+			this._SitePerson_MonthReportUnitDetail = new EntitySet<SitePerson_MonthReportUnitDetail>(new Action<SitePerson_MonthReportUnitDetail>(this.attach_SitePerson_MonthReportUnitDetail), new Action<SitePerson_MonthReportUnitDetail>(this.detach_SitePerson_MonthReportUnitDetail));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string MonthReportDetailId
+		{
+			get
+			{
+				return this._MonthReportDetailId;
+			}
+			set
+			{
+				if ((this._MonthReportDetailId != value))
+				{
+					this.OnMonthReportDetailIdChanging(value);
+					this.SendPropertyChanging();
+					this._MonthReportDetailId = value;
+					this.SendPropertyChanged("MonthReportDetailId");
+					this.OnMonthReportDetailIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportId", DbType="NVarChar(50)")]
+		public string MonthReportId
+		{
+			get
+			{
+				return this._MonthReportId;
+			}
+			set
+			{
+				if ((this._MonthReportId != value))
+				{
+					if (this._SitePerson_MonthReport.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMonthReportIdChanging(value);
+					this.SendPropertyChanging();
+					this._MonthReportId = value;
+					this.SendPropertyChanged("MonthReportId");
+					this.OnMonthReportIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					if (this._Base_Unit.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUnitIdChanging(value);
+					this.SendPropertyChanging();
+					this._UnitId = value;
+					this.SendPropertyChanged("UnitId");
+					this.OnUnitIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> WorkTime
+		{
+			get
+			{
+				return this._WorkTime;
+			}
+			set
+			{
+				if ((this._WorkTime != value))
+				{
+					this.OnWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._WorkTime = value;
+					this.SendPropertyChanged("WorkTime");
+					this.OnWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckPersonNum", DbType="Int")]
+		public System.Nullable<int> CheckPersonNum
+		{
+			get
+			{
+				return this._CheckPersonNum;
+			}
+			set
+			{
+				if ((this._CheckPersonNum != value))
+				{
+					this.OnCheckPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._CheckPersonNum = value;
+					this.SendPropertyChanged("CheckPersonNum");
+					this.OnCheckPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealPersonNum", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> RealPersonNum
+		{
+			get
+			{
+				return this._RealPersonNum;
+			}
+			set
+			{
+				if ((this._RealPersonNum != value))
+				{
+					this.OnRealPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._RealPersonNum = value;
+					this.SendPropertyChanged("RealPersonNum");
+					this.OnRealPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PersonWorkTime
+		{
+			get
+			{
+				return this._PersonWorkTime;
+			}
+			set
+			{
+				if ((this._PersonWorkTime != value))
+				{
+					this.OnPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._PersonWorkTime = value;
+					this.SendPropertyChanged("PersonWorkTime");
+					this.OnPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> TotalPersonWorkTime
+		{
+			get
+			{
+				return this._TotalPersonWorkTime;
+			}
+			set
+			{
+				if ((this._TotalPersonWorkTime != value))
+				{
+					this.OnTotalPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._TotalPersonWorkTime = value;
+					this.SendPropertyChanged("TotalPersonWorkTime");
+					this.OnTotalPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(100)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffData", DbType="NVarChar(2000)")]
+		public string StaffData
+		{
+			get
+			{
+				return this._StaffData;
+			}
+			set
+			{
+				if ((this._StaffData != value))
+				{
+					this.OnStaffDataChanging(value);
+					this.SendPropertyChanging();
+					this._StaffData = value;
+					this.SendPropertyChanged("StaffData");
+					this.OnStaffDataChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayNum", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> DayNum
+		{
+			get
+			{
+				return this._DayNum;
+			}
+			set
+			{
+				if ((this._DayNum != value))
+				{
+					this.OnDayNumChanging(value);
+					this.SendPropertyChanging();
+					this._DayNum = value;
+					this.SendPropertyChanged("DayNum");
+					this.OnDayNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearPersonWorkTime", DbType="Int")]
+		public System.Nullable<int> YearPersonWorkTime
+		{
+			get
+			{
+				return this._YearPersonWorkTime;
+			}
+			set
+			{
+				if ((this._YearPersonWorkTime != value))
+				{
+					this.OnYearPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._YearPersonWorkTime = value;
+					this.SendPropertyChanged("YearPersonWorkTime");
+					this.OnYearPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReportDetail_Base_Unit", Storage="_Base_Unit", ThisKey="UnitId", OtherKey="UnitId", IsForeignKey=true)]
+		public Base_Unit Base_Unit
+		{
+			get
+			{
+				return this._Base_Unit.Entity;
+			}
+			set
+			{
+				Base_Unit previousValue = this._Base_Unit.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Unit.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Unit.Entity = null;
+						previousValue.SitePerson_MonthReportDetail.Remove(this);
+					}
+					this._Base_Unit.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_MonthReportDetail.Add(this);
+						this._UnitId = value.UnitId;
+					}
+					else
+					{
+						this._UnitId = default(string);
+					}
+					this.SendPropertyChanged("Base_Unit");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReportDetail_SitePerson_MonthReport", Storage="_SitePerson_MonthReport", ThisKey="MonthReportId", OtherKey="MonthReportId", IsForeignKey=true)]
+		public SitePerson_MonthReport SitePerson_MonthReport
+		{
+			get
+			{
+				return this._SitePerson_MonthReport.Entity;
+			}
+			set
+			{
+				SitePerson_MonthReport previousValue = this._SitePerson_MonthReport.Entity;
+				if (((previousValue != value) 
+							|| (this._SitePerson_MonthReport.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SitePerson_MonthReport.Entity = null;
+						previousValue.SitePerson_MonthReportDetail.Remove(this);
+					}
+					this._SitePerson_MonthReport.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_MonthReportDetail.Add(this);
+						this._MonthReportId = value.MonthReportId;
+					}
+					else
+					{
+						this._MonthReportId = default(string);
+					}
+					this.SendPropertyChanged("SitePerson_MonthReport");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReportUnitDetail_SitePerson_MonthReportDetail", Storage="_SitePerson_MonthReportUnitDetail", ThisKey="MonthReportDetailId", OtherKey="MonthReportDetailId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_MonthReportUnitDetail> SitePerson_MonthReportUnitDetail
+		{
+			get
+			{
+				return this._SitePerson_MonthReportUnitDetail;
+			}
+			set
+			{
+				this._SitePerson_MonthReportUnitDetail.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SitePerson_MonthReportUnitDetail(SitePerson_MonthReportUnitDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_MonthReportDetail = this;
+		}
+		
+		private void detach_SitePerson_MonthReportUnitDetail(SitePerson_MonthReportUnitDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_MonthReportDetail = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_MonthReportUnitDetail")]
+	public partial class SitePerson_MonthReportUnitDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _MonthReportUnitDetailId;
+		
+		private string _MonthReportDetailId;
+		
+		private string _PostId;
+		
+		private System.Nullable<int> _CheckPersonNum;
+		
+		private System.Nullable<int> _RealPersonNum;
+		
+		private System.Nullable<decimal> _PersonWorkTime;
+		
+		private string _Remark;
+		
+		private EntityRef<Base_WorkPost> _Base_WorkPost;
+		
+		private EntityRef<SitePerson_MonthReportDetail> _SitePerson_MonthReportDetail;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMonthReportUnitDetailIdChanging(string value);
+    partial void OnMonthReportUnitDetailIdChanged();
+    partial void OnMonthReportDetailIdChanging(string value);
+    partial void OnMonthReportDetailIdChanged();
+    partial void OnPostIdChanging(string value);
+    partial void OnPostIdChanged();
+    partial void OnCheckPersonNumChanging(System.Nullable<int> value);
+    partial void OnCheckPersonNumChanged();
+    partial void OnRealPersonNumChanging(System.Nullable<int> value);
+    partial void OnRealPersonNumChanged();
+    partial void OnPersonWorkTimeChanging(System.Nullable<decimal> value);
+    partial void OnPersonWorkTimeChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    #endregion
+		
+		public SitePerson_MonthReportUnitDetail()
+		{
+			this._Base_WorkPost = default(EntityRef<Base_WorkPost>);
+			this._SitePerson_MonthReportDetail = default(EntityRef<SitePerson_MonthReportDetail>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportUnitDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string MonthReportUnitDetailId
+		{
+			get
+			{
+				return this._MonthReportUnitDetailId;
+			}
+			set
+			{
+				if ((this._MonthReportUnitDetailId != value))
+				{
+					this.OnMonthReportUnitDetailIdChanging(value);
+					this.SendPropertyChanging();
+					this._MonthReportUnitDetailId = value;
+					this.SendPropertyChanged("MonthReportUnitDetailId");
+					this.OnMonthReportUnitDetailIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportDetailId", DbType="NVarChar(50)")]
+		public string MonthReportDetailId
+		{
+			get
+			{
+				return this._MonthReportDetailId;
+			}
+			set
+			{
+				if ((this._MonthReportDetailId != value))
+				{
+					if (this._SitePerson_MonthReportDetail.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMonthReportDetailIdChanging(value);
+					this.SendPropertyChanging();
+					this._MonthReportDetailId = value;
+					this.SendPropertyChanged("MonthReportDetailId");
+					this.OnMonthReportDetailIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostId", DbType="NVarChar(50)")]
+		public string PostId
+		{
+			get
+			{
+				return this._PostId;
+			}
+			set
+			{
+				if ((this._PostId != value))
+				{
+					if (this._Base_WorkPost.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIdChanging(value);
+					this.SendPropertyChanging();
+					this._PostId = value;
+					this.SendPropertyChanged("PostId");
+					this.OnPostIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckPersonNum", DbType="Int")]
+		public System.Nullable<int> CheckPersonNum
+		{
+			get
+			{
+				return this._CheckPersonNum;
+			}
+			set
+			{
+				if ((this._CheckPersonNum != value))
+				{
+					this.OnCheckPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._CheckPersonNum = value;
+					this.SendPropertyChanged("CheckPersonNum");
+					this.OnCheckPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealPersonNum", DbType="Int")]
+		public System.Nullable<int> RealPersonNum
+		{
+			get
+			{
+				return this._RealPersonNum;
+			}
+			set
+			{
+				if ((this._RealPersonNum != value))
+				{
+					this.OnRealPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._RealPersonNum = value;
+					this.SendPropertyChanged("RealPersonNum");
+					this.OnRealPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PersonWorkTime
+		{
+			get
+			{
+				return this._PersonWorkTime;
+			}
+			set
+			{
+				if ((this._PersonWorkTime != value))
+				{
+					this.OnPersonWorkTimeChanging(value);
+					this.SendPropertyChanging();
+					this._PersonWorkTime = value;
+					this.SendPropertyChanged("PersonWorkTime");
+					this.OnPersonWorkTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(200)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReportUnitDetail_Base_WorkPost", Storage="_Base_WorkPost", ThisKey="PostId", OtherKey="WorkPostId", IsForeignKey=true)]
+		public Base_WorkPost Base_WorkPost
+		{
+			get
+			{
+				return this._Base_WorkPost.Entity;
+			}
+			set
+			{
+				Base_WorkPost previousValue = this._Base_WorkPost.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_WorkPost.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_WorkPost.Entity = null;
+						previousValue.SitePerson_MonthReportUnitDetail.Remove(this);
+					}
+					this._Base_WorkPost.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_MonthReportUnitDetail.Add(this);
+						this._PostId = value.WorkPostId;
+					}
+					else
+					{
+						this._PostId = default(string);
+					}
+					this.SendPropertyChanged("Base_WorkPost");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReportUnitDetail_SitePerson_MonthReportDetail", Storage="_SitePerson_MonthReportDetail", ThisKey="MonthReportDetailId", OtherKey="MonthReportDetailId", IsForeignKey=true)]
+		public SitePerson_MonthReportDetail SitePerson_MonthReportDetail
+		{
+			get
+			{
+				return this._SitePerson_MonthReportDetail.Entity;
+			}
+			set
+			{
+				SitePerson_MonthReportDetail previousValue = this._SitePerson_MonthReportDetail.Entity;
+				if (((previousValue != value) 
+							|| (this._SitePerson_MonthReportDetail.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SitePerson_MonthReportDetail.Entity = null;
+						previousValue.SitePerson_MonthReportUnitDetail.Remove(this);
+					}
+					this._SitePerson_MonthReportDetail.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_MonthReportUnitDetail.Add(this);
+						this._MonthReportDetailId = value.MonthReportDetailId;
+					}
+					else
+					{
+						this._MonthReportDetailId = default(string);
+					}
+					this.SendPropertyChanged("SitePerson_MonthReportDetail");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_Person")]
 	public partial class SitePerson_Person : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -45416,6 +51763,8 @@ namespace Model
 		
 		private EntitySet<QualityAudit_SafePersonQuality> _QualityAudit_SafePersonQuality;
 		
+		private EntitySet<SitePerson_Checking> _SitePerson_Checking;
+		
 		private EntityRef<Base_Depart> _Base_Depart;
 		
 		private EntityRef<Base_Position> _Base_Position;
@@ -45433,6 +51782,8 @@ namespace Model
 		private EntityRef<Sys_User> _Sys_User;
 		
 		private EntityRef<WBS_UnitWork> _WBS_UnitWork;
+		
+		private EntitySet<SitePerson_PersonInOut> _SitePerson_PersonInOut;
 		
 		private EntitySet<Welder_WelderQualify> _Welder_WelderQualify;
 		
@@ -45535,6 +51886,7 @@ namespace Model
 			this._QualityAudit_EquipmentPersonQuality = new EntitySet<QualityAudit_EquipmentPersonQuality>(new Action<QualityAudit_EquipmentPersonQuality>(this.attach_QualityAudit_EquipmentPersonQuality), new Action<QualityAudit_EquipmentPersonQuality>(this.detach_QualityAudit_EquipmentPersonQuality));
 			this._QualityAudit_PersonQuality = new EntitySet<QualityAudit_PersonQuality>(new Action<QualityAudit_PersonQuality>(this.attach_QualityAudit_PersonQuality), new Action<QualityAudit_PersonQuality>(this.detach_QualityAudit_PersonQuality));
 			this._QualityAudit_SafePersonQuality = new EntitySet<QualityAudit_SafePersonQuality>(new Action<QualityAudit_SafePersonQuality>(this.attach_QualityAudit_SafePersonQuality), new Action<QualityAudit_SafePersonQuality>(this.detach_QualityAudit_SafePersonQuality));
+			this._SitePerson_Checking = new EntitySet<SitePerson_Checking>(new Action<SitePerson_Checking>(this.attach_SitePerson_Checking), new Action<SitePerson_Checking>(this.detach_SitePerson_Checking));
 			this._Base_Depart = default(EntityRef<Base_Depart>);
 			this._Base_Position = default(EntityRef<Base_Position>);
 			this._Base_PostTitle = default(EntityRef<Base_PostTitle>);
@@ -45544,6 +51896,7 @@ namespace Model
 			this._ProjectData_TeamGroup = default(EntityRef<ProjectData_TeamGroup>);
 			this._Sys_User = default(EntityRef<Sys_User>);
 			this._WBS_UnitWork = default(EntityRef<WBS_UnitWork>);
+			this._SitePerson_PersonInOut = new EntitySet<SitePerson_PersonInOut>(new Action<SitePerson_PersonInOut>(this.attach_SitePerson_PersonInOut), new Action<SitePerson_PersonInOut>(this.detach_SitePerson_PersonInOut));
 			this._Welder_WelderQualify = new EntitySet<Welder_WelderQualify>(new Action<Welder_WelderQualify>(this.attach_Welder_WelderQualify), new Action<Welder_WelderQualify>(this.detach_Welder_WelderQualify));
 			OnCreated();
 		}
@@ -46515,6 +52868,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Checking_SitePerson_Person", Storage="_SitePerson_Checking", ThisKey="PersonId", OtherKey="PersonId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_Checking> SitePerson_Checking
+		{
+			get
+			{
+				return this._SitePerson_Checking;
+			}
+			set
+			{
+				this._SitePerson_Checking.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Person_Base_Depart", Storage="_Base_Depart", ThisKey="DepartId", OtherKey="DepartId", IsForeignKey=true)]
 		public Base_Depart Base_Depart
 		{
@@ -46821,6 +53187,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_PersonInOut_SitePerson_Person", Storage="_SitePerson_PersonInOut", ThisKey="PersonId", OtherKey="PersonId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_PersonInOut> SitePerson_PersonInOut
+		{
+			get
+			{
+				return this._SitePerson_PersonInOut;
+			}
+			set
+			{
+				this._SitePerson_PersonInOut.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Welder_WelderQualify_SitePerson_Person", Storage="_Welder_WelderQualify", ThisKey="PersonId", OtherKey="WelderId", DeleteRule="NO ACTION")]
 		public EntitySet<Welder_WelderQualify> Welder_WelderQualify
 		{
@@ -46938,6 +53317,30 @@ namespace Model
 			entity.SitePerson_Person = null;
 		}
 		
+		private void attach_SitePerson_Checking(SitePerson_Checking entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_Person = this;
+		}
+		
+		private void detach_SitePerson_Checking(SitePerson_Checking entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_Person = null;
+		}
+		
+		private void attach_SitePerson_PersonInOut(SitePerson_PersonInOut entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_Person = this;
+		}
+		
+		private void detach_SitePerson_PersonInOut(SitePerson_PersonInOut entity)
+		{
+			this.SendPropertyChanging();
+			entity.SitePerson_Person = null;
+		}
+		
 		private void attach_Welder_WelderQualify(Welder_WelderQualify entity)
 		{
 			this.SendPropertyChanging();
@@ -46948,6 +53351,1127 @@ namespace Model
 		{
 			this.SendPropertyChanging();
 			entity.SitePerson_Person = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_PersonInOut")]
+	public partial class SitePerson_PersonInOut : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _PersonInOutId;
+		
+		private string _ProjectId;
+		
+		private string _UnitId;
+		
+		private string _PersonId;
+		
+		private System.Nullable<bool> _IsIn;
+		
+		private System.Nullable<System.DateTime> _ChangeTime;
+		
+		private System.Nullable<int> _InCount;
+		
+		private System.Nullable<int> _OutCount;
+		
+		private System.Nullable<int> _TotalCount;
+		
+		private string _ProjectHeadConfirmId;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Base_Unit> _Base_Unit;
+		
+		private EntityRef<SitePerson_Person> _SitePerson_Person;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPersonInOutIdChanging(string value);
+    partial void OnPersonInOutIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnUnitIdChanging(string value);
+    partial void OnUnitIdChanged();
+    partial void OnPersonIdChanging(string value);
+    partial void OnPersonIdChanged();
+    partial void OnIsInChanging(System.Nullable<bool> value);
+    partial void OnIsInChanged();
+    partial void OnChangeTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnChangeTimeChanged();
+    partial void OnInCountChanging(System.Nullable<int> value);
+    partial void OnInCountChanged();
+    partial void OnOutCountChanging(System.Nullable<int> value);
+    partial void OnOutCountChanged();
+    partial void OnTotalCountChanging(System.Nullable<int> value);
+    partial void OnTotalCountChanged();
+    partial void OnProjectHeadConfirmIdChanging(string value);
+    partial void OnProjectHeadConfirmIdChanged();
+    #endregion
+		
+		public SitePerson_PersonInOut()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Base_Unit = default(EntityRef<Base_Unit>);
+			this._SitePerson_Person = default(EntityRef<SitePerson_Person>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonInOutId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string PersonInOutId
+		{
+			get
+			{
+				return this._PersonInOutId;
+			}
+			set
+			{
+				if ((this._PersonInOutId != value))
+				{
+					this.OnPersonInOutIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonInOutId = value;
+					this.SendPropertyChanged("PersonInOutId");
+					this.OnPersonInOutIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					if (this._Base_Unit.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUnitIdChanging(value);
+					this.SendPropertyChanging();
+					this._UnitId = value;
+					this.SendPropertyChanged("UnitId");
+					this.OnUnitIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonId", DbType="NVarChar(50)")]
+		public string PersonId
+		{
+			get
+			{
+				return this._PersonId;
+			}
+			set
+			{
+				if ((this._PersonId != value))
+				{
+					if (this._SitePerson_Person.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPersonIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonId = value;
+					this.SendPropertyChanged("PersonId");
+					this.OnPersonIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsIn", DbType="Bit")]
+		public System.Nullable<bool> IsIn
+		{
+			get
+			{
+				return this._IsIn;
+			}
+			set
+			{
+				if ((this._IsIn != value))
+				{
+					this.OnIsInChanging(value);
+					this.SendPropertyChanging();
+					this._IsIn = value;
+					this.SendPropertyChanged("IsIn");
+					this.OnIsInChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChangeTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ChangeTime
+		{
+			get
+			{
+				return this._ChangeTime;
+			}
+			set
+			{
+				if ((this._ChangeTime != value))
+				{
+					this.OnChangeTimeChanging(value);
+					this.SendPropertyChanging();
+					this._ChangeTime = value;
+					this.SendPropertyChanged("ChangeTime");
+					this.OnChangeTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InCount", DbType="Int")]
+		public System.Nullable<int> InCount
+		{
+			get
+			{
+				return this._InCount;
+			}
+			set
+			{
+				if ((this._InCount != value))
+				{
+					this.OnInCountChanging(value);
+					this.SendPropertyChanging();
+					this._InCount = value;
+					this.SendPropertyChanged("InCount");
+					this.OnInCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OutCount", DbType="Int")]
+		public System.Nullable<int> OutCount
+		{
+			get
+			{
+				return this._OutCount;
+			}
+			set
+			{
+				if ((this._OutCount != value))
+				{
+					this.OnOutCountChanging(value);
+					this.SendPropertyChanging();
+					this._OutCount = value;
+					this.SendPropertyChanged("OutCount");
+					this.OnOutCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalCount", DbType="Int")]
+		public System.Nullable<int> TotalCount
+		{
+			get
+			{
+				return this._TotalCount;
+			}
+			set
+			{
+				if ((this._TotalCount != value))
+				{
+					this.OnTotalCountChanging(value);
+					this.SendPropertyChanging();
+					this._TotalCount = value;
+					this.SendPropertyChanged("TotalCount");
+					this.OnTotalCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectHeadConfirmId", DbType="NVarChar(50)")]
+		public string ProjectHeadConfirmId
+		{
+			get
+			{
+				return this._ProjectHeadConfirmId;
+			}
+			set
+			{
+				if ((this._ProjectHeadConfirmId != value))
+				{
+					this.OnProjectHeadConfirmIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectHeadConfirmId = value;
+					this.SendPropertyChanged("ProjectHeadConfirmId");
+					this.OnProjectHeadConfirmIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_PersonInOut_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.SitePerson_PersonInOut.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_PersonInOut.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_PersonInOut_Base_Unit", Storage="_Base_Unit", ThisKey="UnitId", OtherKey="UnitId", IsForeignKey=true)]
+		public Base_Unit Base_Unit
+		{
+			get
+			{
+				return this._Base_Unit.Entity;
+			}
+			set
+			{
+				Base_Unit previousValue = this._Base_Unit.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Unit.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Unit.Entity = null;
+						previousValue.SitePerson_PersonInOut.Remove(this);
+					}
+					this._Base_Unit.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_PersonInOut.Add(this);
+						this._UnitId = value.UnitId;
+					}
+					else
+					{
+						this._UnitId = default(string);
+					}
+					this.SendPropertyChanged("Base_Unit");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_PersonInOut_SitePerson_Person", Storage="_SitePerson_Person", ThisKey="PersonId", OtherKey="PersonId", IsForeignKey=true)]
+		public SitePerson_Person SitePerson_Person
+		{
+			get
+			{
+				return this._SitePerson_Person.Entity;
+			}
+			set
+			{
+				SitePerson_Person previousValue = this._SitePerson_Person.Entity;
+				if (((previousValue != value) 
+							|| (this._SitePerson_Person.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SitePerson_Person.Entity = null;
+						previousValue.SitePerson_PersonInOut.Remove(this);
+					}
+					this._SitePerson_Person.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_PersonInOut.Add(this);
+						this._PersonId = value.PersonId;
+					}
+					else
+					{
+						this._PersonId = default(string);
+					}
+					this.SendPropertyChanged("SitePerson_Person");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SitePerson_PersonInOutNumber")]
+	public partial class SitePerson_PersonInOutNumber : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _PersonInOutNumberId;
+		
+		private string _ProjectId;
+		
+		private System.DateTime _InOutDate;
+		
+		private System.Nullable<int> _PersonNum;
+		
+		private System.Nullable<int> _WorkHours;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPersonInOutNumberIdChanging(string value);
+    partial void OnPersonInOutNumberIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnInOutDateChanging(System.DateTime value);
+    partial void OnInOutDateChanged();
+    partial void OnPersonNumChanging(System.Nullable<int> value);
+    partial void OnPersonNumChanged();
+    partial void OnWorkHoursChanging(System.Nullable<int> value);
+    partial void OnWorkHoursChanged();
+    #endregion
+		
+		public SitePerson_PersonInOutNumber()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonInOutNumberId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string PersonInOutNumberId
+		{
+			get
+			{
+				return this._PersonInOutNumberId;
+			}
+			set
+			{
+				if ((this._PersonInOutNumberId != value))
+				{
+					this.OnPersonInOutNumberIdChanging(value);
+					this.SendPropertyChanging();
+					this._PersonInOutNumberId = value;
+					this.SendPropertyChanged("PersonInOutNumberId");
+					this.OnPersonInOutNumberIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InOutDate", DbType="DateTime NOT NULL")]
+		public System.DateTime InOutDate
+		{
+			get
+			{
+				return this._InOutDate;
+			}
+			set
+			{
+				if ((this._InOutDate != value))
+				{
+					this.OnInOutDateChanging(value);
+					this.SendPropertyChanging();
+					this._InOutDate = value;
+					this.SendPropertyChanged("InOutDate");
+					this.OnInOutDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonNum", DbType="Int")]
+		public System.Nullable<int> PersonNum
+		{
+			get
+			{
+				return this._PersonNum;
+			}
+			set
+			{
+				if ((this._PersonNum != value))
+				{
+					this.OnPersonNumChanging(value);
+					this.SendPropertyChanging();
+					this._PersonNum = value;
+					this.SendPropertyChanged("PersonNum");
+					this.OnPersonNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkHours", DbType="Int")]
+		public System.Nullable<int> WorkHours
+		{
+			get
+			{
+				return this._WorkHours;
+			}
+			set
+			{
+				if ((this._WorkHours != value))
+				{
+					this.OnWorkHoursChanging(value);
+					this.SendPropertyChanging();
+					this._WorkHours = value;
+					this.SendPropertyChanged("WorkHours");
+					this.OnWorkHoursChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_PersonInOutNumber_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.SitePerson_PersonInOutNumber.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.SitePerson_PersonInOutNumber.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Solution_ConstructSolution")]
+	public partial class Solution_ConstructSolution : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _ConstructSolutionId;
+		
+		private string _ProjectId;
+		
+		private string _ConstructSolutionCode;
+		
+		private string _ConstructSolutionName;
+		
+		private string _VersionNo;
+		
+		private string _UnitId;
+		
+		private string _InvestigateType;
+		
+		private string _SolutinType;
+		
+		private string _FileContents;
+		
+		private string _Remark;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _States;
+		
+		private string _CompileManName;
+		
+		private string _QRCodeAttachUrl;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Base_Unit> _Base_Unit;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnConstructSolutionIdChanging(string value);
+    partial void OnConstructSolutionIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnConstructSolutionCodeChanging(string value);
+    partial void OnConstructSolutionCodeChanged();
+    partial void OnConstructSolutionNameChanging(string value);
+    partial void OnConstructSolutionNameChanged();
+    partial void OnVersionNoChanging(string value);
+    partial void OnVersionNoChanged();
+    partial void OnUnitIdChanging(string value);
+    partial void OnUnitIdChanged();
+    partial void OnInvestigateTypeChanging(string value);
+    partial void OnInvestigateTypeChanged();
+    partial void OnSolutinTypeChanging(string value);
+    partial void OnSolutinTypeChanged();
+    partial void OnFileContentsChanging(string value);
+    partial void OnFileContentsChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    partial void OnCompileManNameChanging(string value);
+    partial void OnCompileManNameChanged();
+    partial void OnQRCodeAttachUrlChanging(string value);
+    partial void OnQRCodeAttachUrlChanged();
+    #endregion
+		
+		public Solution_ConstructSolution()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Base_Unit = default(EntityRef<Base_Unit>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConstructSolutionId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string ConstructSolutionId
+		{
+			get
+			{
+				return this._ConstructSolutionId;
+			}
+			set
+			{
+				if ((this._ConstructSolutionId != value))
+				{
+					this.OnConstructSolutionIdChanging(value);
+					this.SendPropertyChanging();
+					this._ConstructSolutionId = value;
+					this.SendPropertyChanged("ConstructSolutionId");
+					this.OnConstructSolutionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConstructSolutionCode", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ConstructSolutionCode
+		{
+			get
+			{
+				return this._ConstructSolutionCode;
+			}
+			set
+			{
+				if ((this._ConstructSolutionCode != value))
+				{
+					this.OnConstructSolutionCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ConstructSolutionCode = value;
+					this.SendPropertyChanged("ConstructSolutionCode");
+					this.OnConstructSolutionCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConstructSolutionName", DbType="NVarChar(150)")]
+		public string ConstructSolutionName
+		{
+			get
+			{
+				return this._ConstructSolutionName;
+			}
+			set
+			{
+				if ((this._ConstructSolutionName != value))
+				{
+					this.OnConstructSolutionNameChanging(value);
+					this.SendPropertyChanging();
+					this._ConstructSolutionName = value;
+					this.SendPropertyChanged("ConstructSolutionName");
+					this.OnConstructSolutionNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VersionNo", DbType="NVarChar(10)")]
+		public string VersionNo
+		{
+			get
+			{
+				return this._VersionNo;
+			}
+			set
+			{
+				if ((this._VersionNo != value))
+				{
+					this.OnVersionNoChanging(value);
+					this.SendPropertyChanging();
+					this._VersionNo = value;
+					this.SendPropertyChanged("VersionNo");
+					this.OnVersionNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					if (this._Base_Unit.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUnitIdChanging(value);
+					this.SendPropertyChanging();
+					this._UnitId = value;
+					this.SendPropertyChanged("UnitId");
+					this.OnUnitIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InvestigateType", DbType="Char(1)")]
+		public string InvestigateType
+		{
+			get
+			{
+				return this._InvestigateType;
+			}
+			set
+			{
+				if ((this._InvestigateType != value))
+				{
+					this.OnInvestigateTypeChanging(value);
+					this.SendPropertyChanging();
+					this._InvestigateType = value;
+					this.SendPropertyChanged("InvestigateType");
+					this.OnInvestigateTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutinType", DbType="Char(2)")]
+		public string SolutinType
+		{
+			get
+			{
+				return this._SolutinType;
+			}
+			set
+			{
+				if ((this._SolutinType != value))
+				{
+					this.OnSolutinTypeChanging(value);
+					this.SendPropertyChanging();
+					this._SolutinType = value;
+					this.SendPropertyChanged("SolutinType");
+					this.OnSolutinTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContents", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContents
+		{
+			get
+			{
+				return this._FileContents;
+			}
+			set
+			{
+				if ((this._FileContents != value))
+				{
+					this.OnFileContentsChanging(value);
+					this.SendPropertyChanging();
+					this._FileContents = value;
+					this.SendPropertyChanged("FileContents");
+					this.OnFileContentsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(500)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileManName", DbType="NVarChar(50)")]
+		public string CompileManName
+		{
+			get
+			{
+				return this._CompileManName;
+			}
+			set
+			{
+				if ((this._CompileManName != value))
+				{
+					this.OnCompileManNameChanging(value);
+					this.SendPropertyChanging();
+					this._CompileManName = value;
+					this.SendPropertyChanged("CompileManName");
+					this.OnCompileManNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QRCodeAttachUrl", DbType="NVarChar(200)")]
+		public string QRCodeAttachUrl
+		{
+			get
+			{
+				return this._QRCodeAttachUrl;
+			}
+			set
+			{
+				if ((this._QRCodeAttachUrl != value))
+				{
+					this.OnQRCodeAttachUrlChanging(value);
+					this.SendPropertyChanging();
+					this._QRCodeAttachUrl = value;
+					this.SendPropertyChanged("QRCodeAttachUrl");
+					this.OnQRCodeAttachUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ConstructSolution_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.Solution_ConstructSolution.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_ConstructSolution.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ConstructSolution_Base_Unit", Storage="_Base_Unit", ThisKey="UnitId", OtherKey="UnitId", IsForeignKey=true)]
+		public Base_Unit Base_Unit
+		{
+			get
+			{
+				return this._Base_Unit.Entity;
+			}
+			set
+			{
+				Base_Unit previousValue = this._Base_Unit.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Unit.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Unit.Entity = null;
+						previousValue.Solution_ConstructSolution.Remove(this);
+					}
+					this._Base_Unit.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_ConstructSolution.Add(this);
+						this._UnitId = value.UnitId;
+					}
+					else
+					{
+						this._UnitId = default(string);
+					}
+					this.SendPropertyChanged("Base_Unit");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ConstructSolution_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Solution_ConstructSolution.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_ConstructSolution.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -47744,6 +55268,1134 @@ namespace Model
 					else
 					{
 						this._ApproveMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Solution_ExpertArgument")]
+	public partial class Solution_ExpertArgument : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _ExpertArgumentId;
+		
+		private string _ExpertArgumentCode;
+		
+		private string _HazardType;
+		
+		private string _ProjectId;
+		
+		private string _Address;
+		
+		private System.Nullable<System.DateTime> _ExpectedTime;
+		
+		private System.Nullable<bool> _IsArgument;
+		
+		private System.Nullable<System.DateTime> _RecordTime;
+		
+		private string _RecardMan;
+		
+		private string _Remark;
+		
+		private string _States;
+		
+		private string _Descriptions;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnExpertArgumentIdChanging(string value);
+    partial void OnExpertArgumentIdChanged();
+    partial void OnExpertArgumentCodeChanging(string value);
+    partial void OnExpertArgumentCodeChanged();
+    partial void OnHazardTypeChanging(string value);
+    partial void OnHazardTypeChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnExpectedTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnExpectedTimeChanged();
+    partial void OnIsArgumentChanging(System.Nullable<bool> value);
+    partial void OnIsArgumentChanged();
+    partial void OnRecordTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnRecordTimeChanged();
+    partial void OnRecardManChanging(string value);
+    partial void OnRecardManChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    partial void OnDescriptionsChanging(string value);
+    partial void OnDescriptionsChanged();
+    #endregion
+		
+		public Solution_ExpertArgument()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpertArgumentId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string ExpertArgumentId
+		{
+			get
+			{
+				return this._ExpertArgumentId;
+			}
+			set
+			{
+				if ((this._ExpertArgumentId != value))
+				{
+					this.OnExpertArgumentIdChanging(value);
+					this.SendPropertyChanging();
+					this._ExpertArgumentId = value;
+					this.SendPropertyChanged("ExpertArgumentId");
+					this.OnExpertArgumentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpertArgumentCode", DbType="NVarChar(50)")]
+		public string ExpertArgumentCode
+		{
+			get
+			{
+				return this._ExpertArgumentCode;
+			}
+			set
+			{
+				if ((this._ExpertArgumentCode != value))
+				{
+					this.OnExpertArgumentCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ExpertArgumentCode = value;
+					this.SendPropertyChanged("ExpertArgumentCode");
+					this.OnExpertArgumentCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HazardType", DbType="NVarChar(50)")]
+		public string HazardType
+		{
+			get
+			{
+				return this._HazardType;
+			}
+			set
+			{
+				if ((this._HazardType != value))
+				{
+					this.OnHazardTypeChanging(value);
+					this.SendPropertyChanging();
+					this._HazardType = value;
+					this.SendPropertyChanged("HazardType");
+					this.OnHazardTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(50)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpectedTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ExpectedTime
+		{
+			get
+			{
+				return this._ExpectedTime;
+			}
+			set
+			{
+				if ((this._ExpectedTime != value))
+				{
+					this.OnExpectedTimeChanging(value);
+					this.SendPropertyChanging();
+					this._ExpectedTime = value;
+					this.SendPropertyChanged("ExpectedTime");
+					this.OnExpectedTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsArgument", DbType="Bit")]
+		public System.Nullable<bool> IsArgument
+		{
+			get
+			{
+				return this._IsArgument;
+			}
+			set
+			{
+				if ((this._IsArgument != value))
+				{
+					this.OnIsArgumentChanging(value);
+					this.SendPropertyChanging();
+					this._IsArgument = value;
+					this.SendPropertyChanged("IsArgument");
+					this.OnIsArgumentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecordTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> RecordTime
+		{
+			get
+			{
+				return this._RecordTime;
+			}
+			set
+			{
+				if ((this._RecordTime != value))
+				{
+					this.OnRecordTimeChanging(value);
+					this.SendPropertyChanging();
+					this._RecordTime = value;
+					this.SendPropertyChanged("RecordTime");
+					this.OnRecordTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecardMan", DbType="NVarChar(50)")]
+		public string RecardMan
+		{
+			get
+			{
+				return this._RecardMan;
+			}
+			set
+			{
+				if ((this._RecardMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRecardManChanging(value);
+					this.SendPropertyChanging();
+					this._RecardMan = value;
+					this.SendPropertyChanged("RecardMan");
+					this.OnRecardManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(1000)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descriptions", DbType="NVarChar(500)")]
+		public string Descriptions
+		{
+			get
+			{
+				return this._Descriptions;
+			}
+			set
+			{
+				if ((this._Descriptions != value))
+				{
+					this.OnDescriptionsChanging(value);
+					this.SendPropertyChanging();
+					this._Descriptions = value;
+					this.SendPropertyChanged("Descriptions");
+					this.OnDescriptionsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ExpertArgument_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.Solution_ExpertArgument.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_ExpertArgument.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ExpertArgument_Sys_User", Storage="_Sys_User", ThisKey="RecardMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Solution_ExpertArgument.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_ExpertArgument.Add(this);
+						this._RecardMan = value.UserId;
+					}
+					else
+					{
+						this._RecardMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Solution_LargerHazard")]
+	public partial class Solution_LargerHazard : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _HazardId;
+		
+		private string _HazardCode;
+		
+		private string _HazardType;
+		
+		private string _ProjectId;
+		
+		private string _Address;
+		
+		private System.Nullable<System.DateTime> _ExpectedTime;
+		
+		private System.Nullable<bool> _IsArgument;
+		
+		private System.Nullable<System.DateTime> _RecordTime;
+		
+		private string _RecardMan;
+		
+		private string _Remark;
+		
+		private string _States;
+		
+		private string _Descriptions;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnHazardIdChanging(string value);
+    partial void OnHazardIdChanged();
+    partial void OnHazardCodeChanging(string value);
+    partial void OnHazardCodeChanged();
+    partial void OnHazardTypeChanging(string value);
+    partial void OnHazardTypeChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnExpectedTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnExpectedTimeChanged();
+    partial void OnIsArgumentChanging(System.Nullable<bool> value);
+    partial void OnIsArgumentChanged();
+    partial void OnRecordTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnRecordTimeChanged();
+    partial void OnRecardManChanging(string value);
+    partial void OnRecardManChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    partial void OnDescriptionsChanging(string value);
+    partial void OnDescriptionsChanged();
+    #endregion
+		
+		public Solution_LargerHazard()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HazardId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string HazardId
+		{
+			get
+			{
+				return this._HazardId;
+			}
+			set
+			{
+				if ((this._HazardId != value))
+				{
+					this.OnHazardIdChanging(value);
+					this.SendPropertyChanging();
+					this._HazardId = value;
+					this.SendPropertyChanged("HazardId");
+					this.OnHazardIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HazardCode", DbType="NVarChar(50)")]
+		public string HazardCode
+		{
+			get
+			{
+				return this._HazardCode;
+			}
+			set
+			{
+				if ((this._HazardCode != value))
+				{
+					this.OnHazardCodeChanging(value);
+					this.SendPropertyChanging();
+					this._HazardCode = value;
+					this.SendPropertyChanged("HazardCode");
+					this.OnHazardCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HazardType", DbType="NVarChar(50)")]
+		public string HazardType
+		{
+			get
+			{
+				return this._HazardType;
+			}
+			set
+			{
+				if ((this._HazardType != value))
+				{
+					this.OnHazardTypeChanging(value);
+					this.SendPropertyChanging();
+					this._HazardType = value;
+					this.SendPropertyChanged("HazardType");
+					this.OnHazardTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(50)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpectedTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ExpectedTime
+		{
+			get
+			{
+				return this._ExpectedTime;
+			}
+			set
+			{
+				if ((this._ExpectedTime != value))
+				{
+					this.OnExpectedTimeChanging(value);
+					this.SendPropertyChanging();
+					this._ExpectedTime = value;
+					this.SendPropertyChanged("ExpectedTime");
+					this.OnExpectedTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsArgument", DbType="Bit")]
+		public System.Nullable<bool> IsArgument
+		{
+			get
+			{
+				return this._IsArgument;
+			}
+			set
+			{
+				if ((this._IsArgument != value))
+				{
+					this.OnIsArgumentChanging(value);
+					this.SendPropertyChanging();
+					this._IsArgument = value;
+					this.SendPropertyChanged("IsArgument");
+					this.OnIsArgumentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecordTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> RecordTime
+		{
+			get
+			{
+				return this._RecordTime;
+			}
+			set
+			{
+				if ((this._RecordTime != value))
+				{
+					this.OnRecordTimeChanging(value);
+					this.SendPropertyChanging();
+					this._RecordTime = value;
+					this.SendPropertyChanged("RecordTime");
+					this.OnRecordTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecardMan", DbType="NVarChar(50)")]
+		public string RecardMan
+		{
+			get
+			{
+				return this._RecardMan;
+			}
+			set
+			{
+				if ((this._RecardMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRecardManChanging(value);
+					this.SendPropertyChanging();
+					this._RecardMan = value;
+					this.SendPropertyChanged("RecardMan");
+					this.OnRecardManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(1000)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descriptions", DbType="NVarChar(500)")]
+		public string Descriptions
+		{
+			get
+			{
+				return this._Descriptions;
+			}
+			set
+			{
+				if ((this._Descriptions != value))
+				{
+					this.OnDescriptionsChanging(value);
+					this.SendPropertyChanging();
+					this._Descriptions = value;
+					this.SendPropertyChanged("Descriptions");
+					this.OnDescriptionsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_LargerSolution_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.Solution_LargerHazard.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_LargerHazard.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_LargerSolution_Sys_User", Storage="_Sys_User", ThisKey="RecardMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Solution_LargerHazard.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_LargerHazard.Add(this);
+						this._RecardMan = value.UserId;
+					}
+					else
+					{
+						this._RecardMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Solution_SolutionTemplate")]
+	public partial class Solution_SolutionTemplate : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _SolutionTemplateId;
+		
+		private string _ProjectId;
+		
+		private string _SolutionTemplateCode;
+		
+		private string _SolutionTemplateName;
+		
+		private string _SolutionTemplateType;
+		
+		private string _FileContents;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSolutionTemplateIdChanging(string value);
+    partial void OnSolutionTemplateIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnSolutionTemplateCodeChanging(string value);
+    partial void OnSolutionTemplateCodeChanged();
+    partial void OnSolutionTemplateNameChanging(string value);
+    partial void OnSolutionTemplateNameChanged();
+    partial void OnSolutionTemplateTypeChanging(string value);
+    partial void OnSolutionTemplateTypeChanged();
+    partial void OnFileContentsChanging(string value);
+    partial void OnFileContentsChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    #endregion
+		
+		public Solution_SolutionTemplate()
+		{
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutionTemplateId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string SolutionTemplateId
+		{
+			get
+			{
+				return this._SolutionTemplateId;
+			}
+			set
+			{
+				if ((this._SolutionTemplateId != value))
+				{
+					this.OnSolutionTemplateIdChanging(value);
+					this.SendPropertyChanging();
+					this._SolutionTemplateId = value;
+					this.SendPropertyChanged("SolutionTemplateId");
+					this.OnSolutionTemplateIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutionTemplateCode", DbType="NVarChar(50)")]
+		public string SolutionTemplateCode
+		{
+			get
+			{
+				return this._SolutionTemplateCode;
+			}
+			set
+			{
+				if ((this._SolutionTemplateCode != value))
+				{
+					this.OnSolutionTemplateCodeChanging(value);
+					this.SendPropertyChanging();
+					this._SolutionTemplateCode = value;
+					this.SendPropertyChanged("SolutionTemplateCode");
+					this.OnSolutionTemplateCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutionTemplateName", DbType="NVarChar(50)")]
+		public string SolutionTemplateName
+		{
+			get
+			{
+				return this._SolutionTemplateName;
+			}
+			set
+			{
+				if ((this._SolutionTemplateName != value))
+				{
+					this.OnSolutionTemplateNameChanging(value);
+					this.SendPropertyChanging();
+					this._SolutionTemplateName = value;
+					this.SendPropertyChanged("SolutionTemplateName");
+					this.OnSolutionTemplateNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutionTemplateType", DbType="Char(10)")]
+		public string SolutionTemplateType
+		{
+			get
+			{
+				return this._SolutionTemplateType;
+			}
+			set
+			{
+				if ((this._SolutionTemplateType != value))
+				{
+					this.OnSolutionTemplateTypeChanging(value);
+					this.SendPropertyChanging();
+					this._SolutionTemplateType = value;
+					this.SendPropertyChanged("SolutionTemplateType");
+					this.OnSolutionTemplateTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContents", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContents
+		{
+			get
+			{
+				return this._FileContents;
+			}
+			set
+			{
+				if ((this._FileContents != value))
+				{
+					this.OnFileContentsChanging(value);
+					this.SendPropertyChanging();
+					this._FileContents = value;
+					this.SendPropertyChanged("FileContents");
+					this.OnFileContentsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_SolutionTemplate_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.Solution_SolutionTemplate.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_SolutionTemplate.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_SolutionTemplate_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Solution_SolutionTemplate.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Solution_SolutionTemplate.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
 					}
 					this.SendPropertyChanged("Sys_User");
 				}
@@ -51252,6 +59904,14 @@ namespace Model
 		
 		private EntitySet<EduTrain_AccidentCaseItem> _EduTrain_AccidentCaseItem;
 		
+		private EntitySet<Environmental_EIAReport> _Environmental_EIAReport;
+		
+		private EntitySet<Environmental_EnvironmentalEmergencyPlan> _Environmental_EnvironmentalEmergencyPlan;
+		
+		private EntitySet<Environmental_EnvironmentalMonitoring> _Environmental_EnvironmentalMonitoring;
+		
+		private EntitySet<Environmental_UnexpectedEnvironmental> _Environmental_UnexpectedEnvironmental;
+		
 		private EntitySet<Hazard_EnvironmentalRiskList> _Hazard_EnvironmentalRiskList;
 		
 		private EntitySet<Hazard_EnvironmentalRiskList> _User;
@@ -51269,6 +59929,12 @@ namespace Model
 		private EntitySet<Law_ManageRule> _Law_ManageRule;
 		
 		private EntitySet<Law_RulesRegulations> _Law_RulesRegulations;
+		
+		private EntitySet<OccupationHealth_HazardDetection> _OccupationHealth_HazardDetection;
+		
+		private EntitySet<OccupationHealth_OccupationalDiseaseAccident> _OccupationHealth_OccupationalDiseaseAccident;
+		
+		private EntitySet<OccupationHealth_PhysicalExamination> _OccupationHealth_PhysicalExamination;
 		
 		private EntitySet<HJGL_WeldingDaily> _HJGL_WeldingDaily;
 		
@@ -51292,9 +59958,21 @@ namespace Model
 		
 		private EntitySet<QualityAudit_SubUnitQualityAuditDetail> _QualityAudit_SubUnitQualityAuditDetail;
 		
+		private EntitySet<SitePerson_DayReport> _SitePerson_DayReport;
+		
+		private EntitySet<SitePerson_MonthReport> _SitePerson_MonthReport;
+		
 		private EntitySet<SitePerson_Person> _SitePerson_Person;
 		
+		private EntitySet<Solution_ConstructSolution> _Solution_ConstructSolution;
+		
 		private EntitySet<Solution_CQMSConstructSolutionApprove> _Solution_CQMSConstructSolutionApprove;
+		
+		private EntitySet<Solution_ExpertArgument> _Solution_ExpertArgument;
+		
+		private EntitySet<Solution_LargerHazard> _Solution_LargerHazard;
+		
+		private EntitySet<Solution_SolutionTemplate> _Solution_SolutionTemplate;
 		
 		private EntitySet<Sys_FlowOperate> _Sys_FlowOperate;
 		
@@ -51310,9 +59988,13 @@ namespace Model
 		
 		private EntitySet<Technique_HazardList> _Technique_HazardList;
 		
+		private EntitySet<Technique_ProjectSolutionTemplete> _Technique_ProjectSolutionTemplete;
+		
 		private EntitySet<Technique_RectifyItem> _Technique_RectifyItem;
 		
 		private EntitySet<Technique_SpecialScheme> _Technique_SpecialScheme;
+		
+		private EntitySet<Training_Plan> _Training_Plan;
 		
 		private EntitySet<Training_TrainingItem> _Training_TrainingItem;
 		
@@ -51408,6 +60090,10 @@ namespace Model
 			this._Check_SpotCheckApprove = new EntitySet<Check_SpotCheckApprove>(new Action<Check_SpotCheckApprove>(this.attach_Check_SpotCheckApprove), new Action<Check_SpotCheckApprove>(this.detach_Check_SpotCheckApprove));
 			this._Check_TechnicalContactListApprove = new EntitySet<Check_TechnicalContactListApprove>(new Action<Check_TechnicalContactListApprove>(this.attach_Check_TechnicalContactListApprove), new Action<Check_TechnicalContactListApprove>(this.detach_Check_TechnicalContactListApprove));
 			this._EduTrain_AccidentCaseItem = new EntitySet<EduTrain_AccidentCaseItem>(new Action<EduTrain_AccidentCaseItem>(this.attach_EduTrain_AccidentCaseItem), new Action<EduTrain_AccidentCaseItem>(this.detach_EduTrain_AccidentCaseItem));
+			this._Environmental_EIAReport = new EntitySet<Environmental_EIAReport>(new Action<Environmental_EIAReport>(this.attach_Environmental_EIAReport), new Action<Environmental_EIAReport>(this.detach_Environmental_EIAReport));
+			this._Environmental_EnvironmentalEmergencyPlan = new EntitySet<Environmental_EnvironmentalEmergencyPlan>(new Action<Environmental_EnvironmentalEmergencyPlan>(this.attach_Environmental_EnvironmentalEmergencyPlan), new Action<Environmental_EnvironmentalEmergencyPlan>(this.detach_Environmental_EnvironmentalEmergencyPlan));
+			this._Environmental_EnvironmentalMonitoring = new EntitySet<Environmental_EnvironmentalMonitoring>(new Action<Environmental_EnvironmentalMonitoring>(this.attach_Environmental_EnvironmentalMonitoring), new Action<Environmental_EnvironmentalMonitoring>(this.detach_Environmental_EnvironmentalMonitoring));
+			this._Environmental_UnexpectedEnvironmental = new EntitySet<Environmental_UnexpectedEnvironmental>(new Action<Environmental_UnexpectedEnvironmental>(this.attach_Environmental_UnexpectedEnvironmental), new Action<Environmental_UnexpectedEnvironmental>(this.detach_Environmental_UnexpectedEnvironmental));
 			this._Hazard_EnvironmentalRiskList = new EntitySet<Hazard_EnvironmentalRiskList>(new Action<Hazard_EnvironmentalRiskList>(this.attach_Hazard_EnvironmentalRiskList), new Action<Hazard_EnvironmentalRiskList>(this.detach_Hazard_EnvironmentalRiskList));
 			this._User = new EntitySet<Hazard_EnvironmentalRiskList>(new Action<Hazard_EnvironmentalRiskList>(this.attach_User), new Action<Hazard_EnvironmentalRiskList>(this.detach_User));
 			this._Hazard_HazardList = new EntitySet<Hazard_HazardList>(new Action<Hazard_HazardList>(this.attach_Hazard_HazardList), new Action<Hazard_HazardList>(this.detach_Hazard_HazardList));
@@ -51417,6 +60103,9 @@ namespace Model
 			this._Law_LawRegulationList = new EntitySet<Law_LawRegulationList>(new Action<Law_LawRegulationList>(this.attach_Law_LawRegulationList), new Action<Law_LawRegulationList>(this.detach_Law_LawRegulationList));
 			this._Law_ManageRule = new EntitySet<Law_ManageRule>(new Action<Law_ManageRule>(this.attach_Law_ManageRule), new Action<Law_ManageRule>(this.detach_Law_ManageRule));
 			this._Law_RulesRegulations = new EntitySet<Law_RulesRegulations>(new Action<Law_RulesRegulations>(this.attach_Law_RulesRegulations), new Action<Law_RulesRegulations>(this.detach_Law_RulesRegulations));
+			this._OccupationHealth_HazardDetection = new EntitySet<OccupationHealth_HazardDetection>(new Action<OccupationHealth_HazardDetection>(this.attach_OccupationHealth_HazardDetection), new Action<OccupationHealth_HazardDetection>(this.detach_OccupationHealth_HazardDetection));
+			this._OccupationHealth_OccupationalDiseaseAccident = new EntitySet<OccupationHealth_OccupationalDiseaseAccident>(new Action<OccupationHealth_OccupationalDiseaseAccident>(this.attach_OccupationHealth_OccupationalDiseaseAccident), new Action<OccupationHealth_OccupationalDiseaseAccident>(this.detach_OccupationHealth_OccupationalDiseaseAccident));
+			this._OccupationHealth_PhysicalExamination = new EntitySet<OccupationHealth_PhysicalExamination>(new Action<OccupationHealth_PhysicalExamination>(this.attach_OccupationHealth_PhysicalExamination), new Action<OccupationHealth_PhysicalExamination>(this.detach_OccupationHealth_PhysicalExamination));
 			this._HJGL_WeldingDaily = new EntitySet<HJGL_WeldingDaily>(new Action<HJGL_WeldingDaily>(this.attach_HJGL_WeldingDaily), new Action<HJGL_WeldingDaily>(this.detach_HJGL_WeldingDaily));
 			this._Project_FileCabinet = new EntitySet<Project_FileCabinet>(new Action<Project_FileCabinet>(this.attach_Project_FileCabinet), new Action<Project_FileCabinet>(this.detach_Project_FileCabinet));
 			this._Project_ProjectUser = new EntitySet<Project_ProjectUser>(new Action<Project_ProjectUser>(this.attach_Project_ProjectUser), new Action<Project_ProjectUser>(this.detach_Project_ProjectUser));
@@ -51428,8 +60117,14 @@ namespace Model
 			this._QualityAudit_SafePersonQuality = new EntitySet<QualityAudit_SafePersonQuality>(new Action<QualityAudit_SafePersonQuality>(this.attach_QualityAudit_SafePersonQuality), new Action<QualityAudit_SafePersonQuality>(this.detach_QualityAudit_SafePersonQuality));
 			this._QualityAudit_SafePersonQuality_Sys_User_AuditorId = new EntitySet<QualityAudit_SafePersonQuality>(new Action<QualityAudit_SafePersonQuality>(this.attach_QualityAudit_SafePersonQuality_Sys_User_AuditorId), new Action<QualityAudit_SafePersonQuality>(this.detach_QualityAudit_SafePersonQuality_Sys_User_AuditorId));
 			this._QualityAudit_SubUnitQualityAuditDetail = new EntitySet<QualityAudit_SubUnitQualityAuditDetail>(new Action<QualityAudit_SubUnitQualityAuditDetail>(this.attach_QualityAudit_SubUnitQualityAuditDetail), new Action<QualityAudit_SubUnitQualityAuditDetail>(this.detach_QualityAudit_SubUnitQualityAuditDetail));
+			this._SitePerson_DayReport = new EntitySet<SitePerson_DayReport>(new Action<SitePerson_DayReport>(this.attach_SitePerson_DayReport), new Action<SitePerson_DayReport>(this.detach_SitePerson_DayReport));
+			this._SitePerson_MonthReport = new EntitySet<SitePerson_MonthReport>(new Action<SitePerson_MonthReport>(this.attach_SitePerson_MonthReport), new Action<SitePerson_MonthReport>(this.detach_SitePerson_MonthReport));
 			this._SitePerson_Person = new EntitySet<SitePerson_Person>(new Action<SitePerson_Person>(this.attach_SitePerson_Person), new Action<SitePerson_Person>(this.detach_SitePerson_Person));
+			this._Solution_ConstructSolution = new EntitySet<Solution_ConstructSolution>(new Action<Solution_ConstructSolution>(this.attach_Solution_ConstructSolution), new Action<Solution_ConstructSolution>(this.detach_Solution_ConstructSolution));
 			this._Solution_CQMSConstructSolutionApprove = new EntitySet<Solution_CQMSConstructSolutionApprove>(new Action<Solution_CQMSConstructSolutionApprove>(this.attach_Solution_CQMSConstructSolutionApprove), new Action<Solution_CQMSConstructSolutionApprove>(this.detach_Solution_CQMSConstructSolutionApprove));
+			this._Solution_ExpertArgument = new EntitySet<Solution_ExpertArgument>(new Action<Solution_ExpertArgument>(this.attach_Solution_ExpertArgument), new Action<Solution_ExpertArgument>(this.detach_Solution_ExpertArgument));
+			this._Solution_LargerHazard = new EntitySet<Solution_LargerHazard>(new Action<Solution_LargerHazard>(this.attach_Solution_LargerHazard), new Action<Solution_LargerHazard>(this.detach_Solution_LargerHazard));
+			this._Solution_SolutionTemplate = new EntitySet<Solution_SolutionTemplate>(new Action<Solution_SolutionTemplate>(this.attach_Solution_SolutionTemplate), new Action<Solution_SolutionTemplate>(this.detach_Solution_SolutionTemplate));
 			this._Sys_FlowOperate = new EntitySet<Sys_FlowOperate>(new Action<Sys_FlowOperate>(this.attach_Sys_FlowOperate), new Action<Sys_FlowOperate>(this.detach_Sys_FlowOperate));
 			this._Sys_Log = new EntitySet<Sys_Log>(new Action<Sys_Log>(this.attach_Sys_Log), new Action<Sys_Log>(this.detach_Sys_Log));
 			this._Base_Depart = default(EntityRef<Base_Depart>);
@@ -51437,8 +60132,10 @@ namespace Model
 			this._Sys_UserShowColumns = new EntitySet<Sys_UserShowColumns>(new Action<Sys_UserShowColumns>(this.attach_Sys_UserShowColumns), new Action<Sys_UserShowColumns>(this.detach_Sys_UserShowColumns));
 			this._Technique_Emergency = new EntitySet<Technique_Emergency>(new Action<Technique_Emergency>(this.attach_Technique_Emergency), new Action<Technique_Emergency>(this.detach_Technique_Emergency));
 			this._Technique_HazardList = new EntitySet<Technique_HazardList>(new Action<Technique_HazardList>(this.attach_Technique_HazardList), new Action<Technique_HazardList>(this.detach_Technique_HazardList));
+			this._Technique_ProjectSolutionTemplete = new EntitySet<Technique_ProjectSolutionTemplete>(new Action<Technique_ProjectSolutionTemplete>(this.attach_Technique_ProjectSolutionTemplete), new Action<Technique_ProjectSolutionTemplete>(this.detach_Technique_ProjectSolutionTemplete));
 			this._Technique_RectifyItem = new EntitySet<Technique_RectifyItem>(new Action<Technique_RectifyItem>(this.attach_Technique_RectifyItem), new Action<Technique_RectifyItem>(this.detach_Technique_RectifyItem));
 			this._Technique_SpecialScheme = new EntitySet<Technique_SpecialScheme>(new Action<Technique_SpecialScheme>(this.attach_Technique_SpecialScheme), new Action<Technique_SpecialScheme>(this.detach_Technique_SpecialScheme));
+			this._Training_Plan = new EntitySet<Training_Plan>(new Action<Training_Plan>(this.attach_Training_Plan), new Action<Training_Plan>(this.detach_Training_Plan));
 			this._Training_TrainingItem = new EntitySet<Training_TrainingItem>(new Action<Training_TrainingItem>(this.attach_Training_TrainingItem), new Action<Training_TrainingItem>(this.detach_Training_TrainingItem));
 			this._Training_TrainTestDBItem = new EntitySet<Training_TrainTestDBItem>(new Action<Training_TrainTestDBItem>(this.attach_Training_TrainTestDBItem), new Action<Training_TrainTestDBItem>(this.detach_Training_TrainTestDBItem));
 			this._Unqualified_WorkContactApprove = new EntitySet<Unqualified_WorkContactApprove>(new Action<Unqualified_WorkContactApprove>(this.attach_Unqualified_WorkContactApprove), new Action<Unqualified_WorkContactApprove>(this.detach_Unqualified_WorkContactApprove));
@@ -52295,6 +60992,58 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Environmental_EIAReport_Sys_User", Storage="_Environmental_EIAReport", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<Environmental_EIAReport> Environmental_EIAReport
+		{
+			get
+			{
+				return this._Environmental_EIAReport;
+			}
+			set
+			{
+				this._Environmental_EIAReport.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Environmental_EnvironmentalEmergencyPlan_Sys_User", Storage="_Environmental_EnvironmentalEmergencyPlan", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<Environmental_EnvironmentalEmergencyPlan> Environmental_EnvironmentalEmergencyPlan
+		{
+			get
+			{
+				return this._Environmental_EnvironmentalEmergencyPlan;
+			}
+			set
+			{
+				this._Environmental_EnvironmentalEmergencyPlan.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Environmental_EnvironmentalMonitoring_Sys_User", Storage="_Environmental_EnvironmentalMonitoring", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<Environmental_EnvironmentalMonitoring> Environmental_EnvironmentalMonitoring
+		{
+			get
+			{
+				return this._Environmental_EnvironmentalMonitoring;
+			}
+			set
+			{
+				this._Environmental_EnvironmentalMonitoring.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Environmental_UnexpectedEnvironmental_Sys_User", Storage="_Environmental_UnexpectedEnvironmental", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<Environmental_UnexpectedEnvironmental> Environmental_UnexpectedEnvironmental
+		{
+			get
+			{
+				return this._Environmental_UnexpectedEnvironmental;
+			}
+			set
+			{
+				this._Environmental_UnexpectedEnvironmental.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Hazard_EnvironmentalRiskList_Sys_User", Storage="_Hazard_EnvironmentalRiskList", ThisKey="UserId", OtherKey="ControllingPerson", DeleteRule="NO ACTION")]
 		public EntitySet<Hazard_EnvironmentalRiskList> Hazard_EnvironmentalRiskList
 		{
@@ -52409,6 +61158,45 @@ namespace Model
 			set
 			{
 				this._Law_RulesRegulations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OccupationHealth_HazardDetection_Sys_User", Storage="_OccupationHealth_HazardDetection", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<OccupationHealth_HazardDetection> OccupationHealth_HazardDetection
+		{
+			get
+			{
+				return this._OccupationHealth_HazardDetection;
+			}
+			set
+			{
+				this._OccupationHealth_HazardDetection.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OccupationHealth_OccupationalDiseaseAccident_Sys_User", Storage="_OccupationHealth_OccupationalDiseaseAccident", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<OccupationHealth_OccupationalDiseaseAccident> OccupationHealth_OccupationalDiseaseAccident
+		{
+			get
+			{
+				return this._OccupationHealth_OccupationalDiseaseAccident;
+			}
+			set
+			{
+				this._OccupationHealth_OccupationalDiseaseAccident.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OccupationHealth_PhysicalExamination_Sys_User", Storage="_OccupationHealth_PhysicalExamination", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<OccupationHealth_PhysicalExamination> OccupationHealth_PhysicalExamination
+		{
+			get
+			{
+				return this._OccupationHealth_PhysicalExamination;
+			}
+			set
+			{
+				this._OccupationHealth_PhysicalExamination.Assign(value);
 			}
 		}
 		
@@ -52555,6 +61343,32 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_DayReport_Sys_User", Storage="_SitePerson_DayReport", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_DayReport> SitePerson_DayReport
+		{
+			get
+			{
+				return this._SitePerson_DayReport;
+			}
+			set
+			{
+				this._SitePerson_DayReport.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_MonthReport_Sys_User", Storage="_SitePerson_MonthReport", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_MonthReport> SitePerson_MonthReport
+		{
+			get
+			{
+				return this._SitePerson_MonthReport;
+			}
+			set
+			{
+				this._SitePerson_MonthReport.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Person_Sys_User", Storage="_SitePerson_Person", ThisKey="UserId", OtherKey="AuditorId", DeleteRule="NO ACTION")]
 		public EntitySet<SitePerson_Person> SitePerson_Person
 		{
@@ -52568,6 +61382,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ConstructSolution_Sys_User", Storage="_Solution_ConstructSolution", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_ConstructSolution> Solution_ConstructSolution
+		{
+			get
+			{
+				return this._Solution_ConstructSolution;
+			}
+			set
+			{
+				this._Solution_ConstructSolution.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_CQMSConstructSolutionApprove_Sys_User", Storage="_Solution_CQMSConstructSolutionApprove", ThisKey="UserId", OtherKey="ApproveMan", DeleteRule="NO ACTION")]
 		public EntitySet<Solution_CQMSConstructSolutionApprove> Solution_CQMSConstructSolutionApprove
 		{
@@ -52578,6 +61405,45 @@ namespace Model
 			set
 			{
 				this._Solution_CQMSConstructSolutionApprove.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_ExpertArgument_Sys_User", Storage="_Solution_ExpertArgument", ThisKey="UserId", OtherKey="RecardMan", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_ExpertArgument> Solution_ExpertArgument
+		{
+			get
+			{
+				return this._Solution_ExpertArgument;
+			}
+			set
+			{
+				this._Solution_ExpertArgument.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_LargerSolution_Sys_User", Storage="_Solution_LargerHazard", ThisKey="UserId", OtherKey="RecardMan", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_LargerHazard> Solution_LargerHazard
+		{
+			get
+			{
+				return this._Solution_LargerHazard;
+			}
+			set
+			{
+				this._Solution_LargerHazard.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Solution_SolutionTemplate_Sys_User", Storage="_Solution_SolutionTemplate", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<Solution_SolutionTemplate> Solution_SolutionTemplate
+		{
+			get
+			{
+				return this._Solution_SolutionTemplate;
+			}
+			set
+			{
+				this._Solution_SolutionTemplate.Assign(value);
 			}
 		}
 		
@@ -52714,6 +61580,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Technique_ProjectSolutionTemplete_Sys_User", Storage="_Technique_ProjectSolutionTemplete", ThisKey="UserId", OtherKey="CompileMan", DeleteRule="NO ACTION")]
+		public EntitySet<Technique_ProjectSolutionTemplete> Technique_ProjectSolutionTemplete
+		{
+			get
+			{
+				return this._Technique_ProjectSolutionTemplete;
+			}
+			set
+			{
+				this._Technique_ProjectSolutionTemplete.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Technique_RectifyItem_Sys_User1", Storage="_Technique_RectifyItem", ThisKey="UserId", OtherKey="AuditMan", DeleteRule="NO ACTION")]
 		public EntitySet<Technique_RectifyItem> Technique_RectifyItem
 		{
@@ -52737,6 +61616,19 @@ namespace Model
 			set
 			{
 				this._Technique_SpecialScheme.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_Plan_Sys_User", Storage="_Training_Plan", ThisKey="UserId", OtherKey="DesignerId", DeleteRule="NO ACTION")]
+		public EntitySet<Training_Plan> Training_Plan
+		{
+			get
+			{
+				return this._Training_Plan;
+			}
+			set
+			{
+				this._Training_Plan.Assign(value);
 			}
 		}
 		
@@ -52967,6 +61859,54 @@ namespace Model
 			entity.Sys_User = null;
 		}
 		
+		private void attach_Environmental_EIAReport(Environmental_EIAReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Environmental_EIAReport(Environmental_EIAReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Environmental_EnvironmentalEmergencyPlan(Environmental_EnvironmentalEmergencyPlan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Environmental_EnvironmentalEmergencyPlan(Environmental_EnvironmentalEmergencyPlan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Environmental_EnvironmentalMonitoring(Environmental_EnvironmentalMonitoring entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Environmental_EnvironmentalMonitoring(Environmental_EnvironmentalMonitoring entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Environmental_UnexpectedEnvironmental(Environmental_UnexpectedEnvironmental entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Environmental_UnexpectedEnvironmental(Environmental_UnexpectedEnvironmental entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
 		private void attach_Hazard_EnvironmentalRiskList(Hazard_EnvironmentalRiskList entity)
 		{
 			this.SendPropertyChanging();
@@ -53070,6 +62010,42 @@ namespace Model
 		}
 		
 		private void detach_Law_RulesRegulations(Law_RulesRegulations entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_OccupationHealth_HazardDetection(OccupationHealth_HazardDetection entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_OccupationHealth_HazardDetection(OccupationHealth_HazardDetection entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_OccupationHealth_OccupationalDiseaseAccident(OccupationHealth_OccupationalDiseaseAccident entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_OccupationHealth_OccupationalDiseaseAccident(OccupationHealth_OccupationalDiseaseAccident entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_OccupationHealth_PhysicalExamination(OccupationHealth_PhysicalExamination entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_OccupationHealth_PhysicalExamination(OccupationHealth_PhysicalExamination entity)
 		{
 			this.SendPropertyChanging();
 			entity.Sys_User = null;
@@ -53207,6 +62183,30 @@ namespace Model
 			entity.Sys_User = null;
 		}
 		
+		private void attach_SitePerson_DayReport(SitePerson_DayReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_SitePerson_DayReport(SitePerson_DayReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_SitePerson_MonthReport(SitePerson_MonthReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_SitePerson_MonthReport(SitePerson_MonthReport entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
 		private void attach_SitePerson_Person(SitePerson_Person entity)
 		{
 			this.SendPropertyChanging();
@@ -53219,6 +62219,18 @@ namespace Model
 			entity.Sys_User = null;
 		}
 		
+		private void attach_Solution_ConstructSolution(Solution_ConstructSolution entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Solution_ConstructSolution(Solution_ConstructSolution entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
 		private void attach_Solution_CQMSConstructSolutionApprove(Solution_CQMSConstructSolutionApprove entity)
 		{
 			this.SendPropertyChanging();
@@ -53226,6 +62238,42 @@ namespace Model
 		}
 		
 		private void detach_Solution_CQMSConstructSolutionApprove(Solution_CQMSConstructSolutionApprove entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Solution_ExpertArgument(Solution_ExpertArgument entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Solution_ExpertArgument(Solution_ExpertArgument entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Solution_LargerHazard(Solution_LargerHazard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Solution_LargerHazard(Solution_LargerHazard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Solution_SolutionTemplate(Solution_SolutionTemplate entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Solution_SolutionTemplate(Solution_SolutionTemplate entity)
 		{
 			this.SendPropertyChanging();
 			entity.Sys_User = null;
@@ -53291,6 +62339,18 @@ namespace Model
 			entity.Sys_User = null;
 		}
 		
+		private void attach_Technique_ProjectSolutionTemplete(Technique_ProjectSolutionTemplete entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Technique_ProjectSolutionTemplete(Technique_ProjectSolutionTemplete entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
 		private void attach_Technique_RectifyItem(Technique_RectifyItem entity)
 		{
 			this.SendPropertyChanging();
@@ -53310,6 +62370,18 @@ namespace Model
 		}
 		
 		private void detach_Technique_SpecialScheme(Technique_SpecialScheme entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = null;
+		}
+		
+		private void attach_Training_Plan(Training_Plan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sys_User = this;
+		}
+		
+		private void detach_Training_Plan(Training_Plan entity)
 		{
 			this.SendPropertyChanging();
 			entity.Sys_User = null;
@@ -56067,6 +65139,253 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Technique_ProjectSolutionTemplete")]
+	public partial class Technique_ProjectSolutionTemplete : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _TempleteId;
+		
+		private string _TempleteCode;
+		
+		private string _TempleteName;
+		
+		private string _TempleteType;
+		
+		private string _FileContents;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTempleteIdChanging(string value);
+    partial void OnTempleteIdChanged();
+    partial void OnTempleteCodeChanging(string value);
+    partial void OnTempleteCodeChanged();
+    partial void OnTempleteNameChanging(string value);
+    partial void OnTempleteNameChanged();
+    partial void OnTempleteTypeChanging(string value);
+    partial void OnTempleteTypeChanged();
+    partial void OnFileContentsChanging(string value);
+    partial void OnFileContentsChanged();
+    partial void OnCompileManChanging(string value);
+    partial void OnCompileManChanged();
+    partial void OnCompileDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCompileDateChanged();
+    #endregion
+		
+		public Technique_ProjectSolutionTemplete()
+		{
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TempleteId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string TempleteId
+		{
+			get
+			{
+				return this._TempleteId;
+			}
+			set
+			{
+				if ((this._TempleteId != value))
+				{
+					this.OnTempleteIdChanging(value);
+					this.SendPropertyChanging();
+					this._TempleteId = value;
+					this.SendPropertyChanged("TempleteId");
+					this.OnTempleteIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TempleteCode", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TempleteCode
+		{
+			get
+			{
+				return this._TempleteCode;
+			}
+			set
+			{
+				if ((this._TempleteCode != value))
+				{
+					this.OnTempleteCodeChanging(value);
+					this.SendPropertyChanging();
+					this._TempleteCode = value;
+					this.SendPropertyChanged("TempleteCode");
+					this.OnTempleteCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TempleteName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TempleteName
+		{
+			get
+			{
+				return this._TempleteName;
+			}
+			set
+			{
+				if ((this._TempleteName != value))
+				{
+					this.OnTempleteNameChanging(value);
+					this.SendPropertyChanging();
+					this._TempleteName = value;
+					this.SendPropertyChanged("TempleteName");
+					this.OnTempleteNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TempleteType", DbType="NVarChar(50)")]
+		public string TempleteType
+		{
+			get
+			{
+				return this._TempleteType;
+			}
+			set
+			{
+				if ((this._TempleteType != value))
+				{
+					this.OnTempleteTypeChanging(value);
+					this.SendPropertyChanging();
+					this._TempleteType = value;
+					this.SendPropertyChanged("TempleteType");
+					this.OnTempleteTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileContents", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string FileContents
+		{
+			get
+			{
+				return this._FileContents;
+			}
+			set
+			{
+				if ((this._FileContents != value))
+				{
+					this.OnFileContentsChanging(value);
+					this.SendPropertyChanging();
+					this._FileContents = value;
+					this.SendPropertyChanged("FileContents");
+					this.OnFileContentsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompileManChanging(value);
+					this.SendPropertyChanging();
+					this._CompileMan = value;
+					this.SendPropertyChanged("CompileMan");
+					this.OnCompileManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this.OnCompileDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompileDate = value;
+					this.SendPropertyChanged("CompileDate");
+					this.OnCompileDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Technique_ProjectSolutionTemplete_Sys_User", Storage="_Sys_User", ThisKey="CompileMan", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Technique_ProjectSolutionTemplete.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Technique_ProjectSolutionTemplete.Add(this);
+						this._CompileMan = value.UserId;
+					}
+					else
+					{
+						this._CompileMan = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Technique_Rectify")]
 	public partial class Technique_Rectify : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -57684,6 +67003,692 @@ namespace Model
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Training_Plan")]
+	public partial class Training_Plan : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _PlanId;
+		
+		private string _ProjectId;
+		
+		private string _PlanCode;
+		
+		private string _DesignerId;
+		
+		private System.Nullable<System.DateTime> _DesignerDate;
+		
+		private string _WorkPostId;
+		
+		private string _States;
+		
+		private string _PlanName;
+		
+		private string _WorkPostNames;
+		
+		private string _TrainContent;
+		
+		private System.Nullable<System.DateTime> _TrainStartDate;
+		
+		private System.Nullable<System.DateTime> _TrainEndDate;
+		
+		private System.Nullable<decimal> _TeachHour;
+		
+		private string _TeachMan;
+		
+		private string _TeachAddress;
+		
+		private string _TrainTypeId;
+		
+		private string _TrainLevelId;
+		
+		private string _UnitIds;
+		
+		private string _QRCodeUrl;
+		
+		private EntitySet<EduTrain_TrainRecord> _EduTrain_TrainRecord;
+		
+		private EntityRef<Base_Project> _Base_Project;
+		
+		private EntityRef<Base_TrainLevel> _Base_TrainLevel;
+		
+		private EntityRef<Base_TrainType> _Base_TrainType;
+		
+		private EntityRef<Sys_User> _Sys_User;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPlanIdChanging(string value);
+    partial void OnPlanIdChanged();
+    partial void OnProjectIdChanging(string value);
+    partial void OnProjectIdChanged();
+    partial void OnPlanCodeChanging(string value);
+    partial void OnPlanCodeChanged();
+    partial void OnDesignerIdChanging(string value);
+    partial void OnDesignerIdChanged();
+    partial void OnDesignerDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDesignerDateChanged();
+    partial void OnWorkPostIdChanging(string value);
+    partial void OnWorkPostIdChanged();
+    partial void OnStatesChanging(string value);
+    partial void OnStatesChanged();
+    partial void OnPlanNameChanging(string value);
+    partial void OnPlanNameChanged();
+    partial void OnWorkPostNamesChanging(string value);
+    partial void OnWorkPostNamesChanged();
+    partial void OnTrainContentChanging(string value);
+    partial void OnTrainContentChanged();
+    partial void OnTrainStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnTrainStartDateChanged();
+    partial void OnTrainEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnTrainEndDateChanged();
+    partial void OnTeachHourChanging(System.Nullable<decimal> value);
+    partial void OnTeachHourChanged();
+    partial void OnTeachManChanging(string value);
+    partial void OnTeachManChanged();
+    partial void OnTeachAddressChanging(string value);
+    partial void OnTeachAddressChanged();
+    partial void OnTrainTypeIdChanging(string value);
+    partial void OnTrainTypeIdChanged();
+    partial void OnTrainLevelIdChanging(string value);
+    partial void OnTrainLevelIdChanged();
+    partial void OnUnitIdsChanging(string value);
+    partial void OnUnitIdsChanged();
+    partial void OnQRCodeUrlChanging(string value);
+    partial void OnQRCodeUrlChanged();
+    #endregion
+		
+		public Training_Plan()
+		{
+			this._EduTrain_TrainRecord = new EntitySet<EduTrain_TrainRecord>(new Action<EduTrain_TrainRecord>(this.attach_EduTrain_TrainRecord), new Action<EduTrain_TrainRecord>(this.detach_EduTrain_TrainRecord));
+			this._Base_Project = default(EntityRef<Base_Project>);
+			this._Base_TrainLevel = default(EntityRef<Base_TrainLevel>);
+			this._Base_TrainType = default(EntityRef<Base_TrainType>);
+			this._Sys_User = default(EntityRef<Sys_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlanId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string PlanId
+		{
+			get
+			{
+				return this._PlanId;
+			}
+			set
+			{
+				if ((this._PlanId != value))
+				{
+					this.OnPlanIdChanging(value);
+					this.SendPropertyChanging();
+					this._PlanId = value;
+					this.SendPropertyChanged("PlanId");
+					this.OnPlanIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Base_Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlanCode", DbType="NVarChar(50)")]
+		public string PlanCode
+		{
+			get
+			{
+				return this._PlanCode;
+			}
+			set
+			{
+				if ((this._PlanCode != value))
+				{
+					this.OnPlanCodeChanging(value);
+					this.SendPropertyChanging();
+					this._PlanCode = value;
+					this.SendPropertyChanged("PlanCode");
+					this.OnPlanCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DesignerId", DbType="NVarChar(50)")]
+		public string DesignerId
+		{
+			get
+			{
+				return this._DesignerId;
+			}
+			set
+			{
+				if ((this._DesignerId != value))
+				{
+					if (this._Sys_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDesignerIdChanging(value);
+					this.SendPropertyChanging();
+					this._DesignerId = value;
+					this.SendPropertyChanged("DesignerId");
+					this.OnDesignerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DesignerDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DesignerDate
+		{
+			get
+			{
+				return this._DesignerDate;
+			}
+			set
+			{
+				if ((this._DesignerDate != value))
+				{
+					this.OnDesignerDateChanging(value);
+					this.SendPropertyChanging();
+					this._DesignerDate = value;
+					this.SendPropertyChanged("DesignerDate");
+					this.OnDesignerDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostId", DbType="NVarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public string WorkPostId
+		{
+			get
+			{
+				return this._WorkPostId;
+			}
+			set
+			{
+				if ((this._WorkPostId != value))
+				{
+					this.OnWorkPostIdChanging(value);
+					this.SendPropertyChanging();
+					this._WorkPostId = value;
+					this.SendPropertyChanged("WorkPostId");
+					this.OnWorkPostIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="VarChar(2)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this.OnStatesChanging(value);
+					this.SendPropertyChanging();
+					this._States = value;
+					this.SendPropertyChanged("States");
+					this.OnStatesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlanName", DbType="NVarChar(300)")]
+		public string PlanName
+		{
+			get
+			{
+				return this._PlanName;
+			}
+			set
+			{
+				if ((this._PlanName != value))
+				{
+					this.OnPlanNameChanging(value);
+					this.SendPropertyChanging();
+					this._PlanName = value;
+					this.SendPropertyChanged("PlanName");
+					this.OnPlanNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostNames", DbType="NVarChar(2000)")]
+		public string WorkPostNames
+		{
+			get
+			{
+				return this._WorkPostNames;
+			}
+			set
+			{
+				if ((this._WorkPostNames != value))
+				{
+					this.OnWorkPostNamesChanging(value);
+					this.SendPropertyChanging();
+					this._WorkPostNames = value;
+					this.SendPropertyChanged("WorkPostNames");
+					this.OnWorkPostNamesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainContent", DbType="NVarChar(500)")]
+		public string TrainContent
+		{
+			get
+			{
+				return this._TrainContent;
+			}
+			set
+			{
+				if ((this._TrainContent != value))
+				{
+					this.OnTrainContentChanging(value);
+					this.SendPropertyChanging();
+					this._TrainContent = value;
+					this.SendPropertyChanged("TrainContent");
+					this.OnTrainContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainStartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TrainStartDate
+		{
+			get
+			{
+				return this._TrainStartDate;
+			}
+			set
+			{
+				if ((this._TrainStartDate != value))
+				{
+					this.OnTrainStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._TrainStartDate = value;
+					this.SendPropertyChanged("TrainStartDate");
+					this.OnTrainStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainEndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TrainEndDate
+		{
+			get
+			{
+				return this._TrainEndDate;
+			}
+			set
+			{
+				if ((this._TrainEndDate != value))
+				{
+					this.OnTrainEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._TrainEndDate = value;
+					this.SendPropertyChanged("TrainEndDate");
+					this.OnTrainEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeachHour", DbType="Decimal(9,1)")]
+		public System.Nullable<decimal> TeachHour
+		{
+			get
+			{
+				return this._TeachHour;
+			}
+			set
+			{
+				if ((this._TeachHour != value))
+				{
+					this.OnTeachHourChanging(value);
+					this.SendPropertyChanging();
+					this._TeachHour = value;
+					this.SendPropertyChanged("TeachHour");
+					this.OnTeachHourChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeachMan", DbType="NVarChar(50)")]
+		public string TeachMan
+		{
+			get
+			{
+				return this._TeachMan;
+			}
+			set
+			{
+				if ((this._TeachMan != value))
+				{
+					this.OnTeachManChanging(value);
+					this.SendPropertyChanging();
+					this._TeachMan = value;
+					this.SendPropertyChanged("TeachMan");
+					this.OnTeachManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeachAddress", DbType="NVarChar(100)")]
+		public string TeachAddress
+		{
+			get
+			{
+				return this._TeachAddress;
+			}
+			set
+			{
+				if ((this._TeachAddress != value))
+				{
+					this.OnTeachAddressChanging(value);
+					this.SendPropertyChanging();
+					this._TeachAddress = value;
+					this.SendPropertyChanged("TeachAddress");
+					this.OnTeachAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainTypeId", DbType="NVarChar(50)")]
+		public string TrainTypeId
+		{
+			get
+			{
+				return this._TrainTypeId;
+			}
+			set
+			{
+				if ((this._TrainTypeId != value))
+				{
+					if (this._Base_TrainType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrainTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainTypeId = value;
+					this.SendPropertyChanged("TrainTypeId");
+					this.OnTrainTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainLevelId", DbType="NVarChar(50)")]
+		public string TrainLevelId
+		{
+			get
+			{
+				return this._TrainLevelId;
+			}
+			set
+			{
+				if ((this._TrainLevelId != value))
+				{
+					if (this._Base_TrainLevel.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrainLevelIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrainLevelId = value;
+					this.SendPropertyChanged("TrainLevelId");
+					this.OnTrainLevelIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitIds", DbType="NVarChar(800)")]
+		public string UnitIds
+		{
+			get
+			{
+				return this._UnitIds;
+			}
+			set
+			{
+				if ((this._UnitIds != value))
+				{
+					this.OnUnitIdsChanging(value);
+					this.SendPropertyChanging();
+					this._UnitIds = value;
+					this.SendPropertyChanged("UnitIds");
+					this.OnUnitIdsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QRCodeUrl", DbType="NVarChar(2000)")]
+		public string QRCodeUrl
+		{
+			get
+			{
+				return this._QRCodeUrl;
+			}
+			set
+			{
+				if ((this._QRCodeUrl != value))
+				{
+					this.OnQRCodeUrlChanging(value);
+					this.SendPropertyChanging();
+					this._QRCodeUrl = value;
+					this.SendPropertyChanged("QRCodeUrl");
+					this.OnQRCodeUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EduTrain_TrainRecord_Training_Plan", Storage="_EduTrain_TrainRecord", ThisKey="PlanId", OtherKey="PlanId", DeleteRule="NO ACTION")]
+		public EntitySet<EduTrain_TrainRecord> EduTrain_TrainRecord
+		{
+			get
+			{
+				return this._EduTrain_TrainRecord;
+			}
+			set
+			{
+				this._EduTrain_TrainRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_Plan_Base_Project", Storage="_Base_Project", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Base_Project Base_Project
+		{
+			get
+			{
+				return this._Base_Project.Entity;
+			}
+			set
+			{
+				Base_Project previousValue = this._Base_Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_Project.Entity = null;
+						previousValue.Training_Plan.Remove(this);
+					}
+					this._Base_Project.Entity = value;
+					if ((value != null))
+					{
+						value.Training_Plan.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(string);
+					}
+					this.SendPropertyChanged("Base_Project");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_Plan_Base_TrainLevel", Storage="_Base_TrainLevel", ThisKey="TrainLevelId", OtherKey="TrainLevelId", IsForeignKey=true)]
+		public Base_TrainLevel Base_TrainLevel
+		{
+			get
+			{
+				return this._Base_TrainLevel.Entity;
+			}
+			set
+			{
+				Base_TrainLevel previousValue = this._Base_TrainLevel.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_TrainLevel.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_TrainLevel.Entity = null;
+						previousValue.Training_Plan.Remove(this);
+					}
+					this._Base_TrainLevel.Entity = value;
+					if ((value != null))
+					{
+						value.Training_Plan.Add(this);
+						this._TrainLevelId = value.TrainLevelId;
+					}
+					else
+					{
+						this._TrainLevelId = default(string);
+					}
+					this.SendPropertyChanged("Base_TrainLevel");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_Plan_Base_TrainType", Storage="_Base_TrainType", ThisKey="TrainTypeId", OtherKey="TrainTypeId", IsForeignKey=true)]
+		public Base_TrainType Base_TrainType
+		{
+			get
+			{
+				return this._Base_TrainType.Entity;
+			}
+			set
+			{
+				Base_TrainType previousValue = this._Base_TrainType.Entity;
+				if (((previousValue != value) 
+							|| (this._Base_TrainType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Base_TrainType.Entity = null;
+						previousValue.Training_Plan.Remove(this);
+					}
+					this._Base_TrainType.Entity = value;
+					if ((value != null))
+					{
+						value.Training_Plan.Add(this);
+						this._TrainTypeId = value.TrainTypeId;
+					}
+					else
+					{
+						this._TrainTypeId = default(string);
+					}
+					this.SendPropertyChanged("Base_TrainType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Training_Plan_Sys_User", Storage="_Sys_User", ThisKey="DesignerId", OtherKey="UserId", IsForeignKey=true)]
+		public Sys_User Sys_User
+		{
+			get
+			{
+				return this._Sys_User.Entity;
+			}
+			set
+			{
+				Sys_User previousValue = this._Sys_User.Entity;
+				if (((previousValue != value) 
+							|| (this._Sys_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sys_User.Entity = null;
+						previousValue.Training_Plan.Remove(this);
+					}
+					this._Sys_User.Entity = value;
+					if ((value != null))
+					{
+						value.Training_Plan.Add(this);
+						this._DesignerId = value.UserId;
+					}
+					else
+					{
+						this._DesignerId = default(string);
+					}
+					this.SendPropertyChanged("Sys_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_EduTrain_TrainRecord(EduTrain_TrainRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Training_Plan = this;
+		}
+		
+		private void detach_EduTrain_TrainRecord(EduTrain_TrainRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Training_Plan = null;
 		}
 	}
 	
@@ -63734,6 +73739,357 @@ namespace Model
 				if ((this._ProfessionalName != value))
 				{
 					this._ProfessionalName = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_DayRportView")]
+	public partial class View_DayRportView
+	{
+		
+		private string _DayReportUnitDetailId;
+		
+		private string _DayReportDetailId;
+		
+		private string _PostId;
+		
+		private System.Nullable<int> _CheckPersonNum;
+		
+		private System.Nullable<int> _RealPersonNum;
+		
+		private System.Nullable<decimal> _PersonWorkTime;
+		
+		private string _WorkPostName;
+		
+		private string _UnitId;
+		
+		private System.Nullable<decimal> _WorkTime;
+		
+		private string _StaffData;
+		
+		private System.Nullable<decimal> _DayNum;
+		
+		private System.Nullable<int> _YearPersonWorkTime;
+		
+		private string _UnitName;
+		
+		private string _DayReportId;
+		
+		private string _ProjectId;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private System.Nullable<decimal> _TotalPersonWorkTime;
+		
+		private string _States;
+		
+		public View_DayRportView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportUnitDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string DayReportUnitDetailId
+		{
+			get
+			{
+				return this._DayReportUnitDetailId;
+			}
+			set
+			{
+				if ((this._DayReportUnitDetailId != value))
+				{
+					this._DayReportUnitDetailId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportDetailId", DbType="NVarChar(50)")]
+		public string DayReportDetailId
+		{
+			get
+			{
+				return this._DayReportDetailId;
+			}
+			set
+			{
+				if ((this._DayReportDetailId != value))
+				{
+					this._DayReportDetailId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostId", DbType="NVarChar(50)")]
+		public string PostId
+		{
+			get
+			{
+				return this._PostId;
+			}
+			set
+			{
+				if ((this._PostId != value))
+				{
+					this._PostId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckPersonNum", DbType="Int")]
+		public System.Nullable<int> CheckPersonNum
+		{
+			get
+			{
+				return this._CheckPersonNum;
+			}
+			set
+			{
+				if ((this._CheckPersonNum != value))
+				{
+					this._CheckPersonNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealPersonNum", DbType="Int")]
+		public System.Nullable<int> RealPersonNum
+		{
+			get
+			{
+				return this._RealPersonNum;
+			}
+			set
+			{
+				if ((this._RealPersonNum != value))
+				{
+					this._RealPersonNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PersonWorkTime
+		{
+			get
+			{
+				return this._PersonWorkTime;
+			}
+			set
+			{
+				if ((this._PersonWorkTime != value))
+				{
+					this._PersonWorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostName", DbType="NVarChar(100)")]
+		public string WorkPostName
+		{
+			get
+			{
+				return this._WorkPostName;
+			}
+			set
+			{
+				if ((this._WorkPostName != value))
+				{
+					this._WorkPostName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					this._UnitId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> WorkTime
+		{
+			get
+			{
+				return this._WorkTime;
+			}
+			set
+			{
+				if ((this._WorkTime != value))
+				{
+					this._WorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffData", DbType="NVarChar(2000)")]
+		public string StaffData
+		{
+			get
+			{
+				return this._StaffData;
+			}
+			set
+			{
+				if ((this._StaffData != value))
+				{
+					this._StaffData = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayNum", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> DayNum
+		{
+			get
+			{
+				return this._DayNum;
+			}
+			set
+			{
+				if ((this._DayNum != value))
+				{
+					this._DayNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearPersonWorkTime", DbType="Int")]
+		public System.Nullable<int> YearPersonWorkTime
+		{
+			get
+			{
+				return this._YearPersonWorkTime;
+			}
+			set
+			{
+				if ((this._YearPersonWorkTime != value))
+				{
+					this._YearPersonWorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(200)")]
+		public string UnitName
+		{
+			get
+			{
+				return this._UnitName;
+			}
+			set
+			{
+				if ((this._UnitName != value))
+				{
+					this._UnitName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportId", DbType="NVarChar(50)")]
+		public string DayReportId
+		{
+			get
+			{
+				return this._DayReportId;
+			}
+			set
+			{
+				if ((this._DayReportId != value))
+				{
+					this._DayReportId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this._ProjectId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					this._CompileMan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this._CompileDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> TotalPersonWorkTime
+		{
+			get
+			{
+				return this._TotalPersonWorkTime;
+			}
+			set
+			{
+				if ((this._TotalPersonWorkTime != value))
+				{
+					this._TotalPersonWorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this._States = value;
 				}
 			}
 		}
@@ -70327,6 +80683,375 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_MonthReportView")]
+	public partial class View_MonthReportView
+	{
+		
+		private string _MonthReportUnitDetailId;
+		
+		private string _MonthReportDetailId;
+		
+		private string _PostId;
+		
+		private System.Nullable<int> _CheckPersonNum;
+		
+		private System.Nullable<int> _RealPersonNum;
+		
+		private System.Nullable<decimal> _PersonWorkTime;
+		
+		private string _Remark;
+		
+		private string _WorkPostName;
+		
+		private string _UnitId;
+		
+		private System.Nullable<decimal> _WorkTime;
+		
+		private System.Nullable<decimal> _TotalPersonWorkTime;
+		
+		private string _StaffData;
+		
+		private System.Nullable<decimal> _DayNum;
+		
+		private System.Nullable<int> _YearPersonWorkTime;
+		
+		private string _UnitName;
+		
+		private string _MonthReportId;
+		
+		private string _ProjectId;
+		
+		private string _CompileMan;
+		
+		private System.Nullable<System.DateTime> _CompileDate;
+		
+		private string _States;
+		
+		public View_MonthReportView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportUnitDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string MonthReportUnitDetailId
+		{
+			get
+			{
+				return this._MonthReportUnitDetailId;
+			}
+			set
+			{
+				if ((this._MonthReportUnitDetailId != value))
+				{
+					this._MonthReportUnitDetailId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportDetailId", DbType="NVarChar(50)")]
+		public string MonthReportDetailId
+		{
+			get
+			{
+				return this._MonthReportDetailId;
+			}
+			set
+			{
+				if ((this._MonthReportDetailId != value))
+				{
+					this._MonthReportDetailId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostId", DbType="NVarChar(50)")]
+		public string PostId
+		{
+			get
+			{
+				return this._PostId;
+			}
+			set
+			{
+				if ((this._PostId != value))
+				{
+					this._PostId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckPersonNum", DbType="Int")]
+		public System.Nullable<int> CheckPersonNum
+		{
+			get
+			{
+				return this._CheckPersonNum;
+			}
+			set
+			{
+				if ((this._CheckPersonNum != value))
+				{
+					this._CheckPersonNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealPersonNum", DbType="Int")]
+		public System.Nullable<int> RealPersonNum
+		{
+			get
+			{
+				return this._RealPersonNum;
+			}
+			set
+			{
+				if ((this._RealPersonNum != value))
+				{
+					this._RealPersonNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PersonWorkTime
+		{
+			get
+			{
+				return this._PersonWorkTime;
+			}
+			set
+			{
+				if ((this._PersonWorkTime != value))
+				{
+					this._PersonWorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(200)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this._Remark = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostName", DbType="NVarChar(100)")]
+		public string WorkPostName
+		{
+			get
+			{
+				return this._WorkPostName;
+			}
+			set
+			{
+				if ((this._WorkPostName != value))
+				{
+					this._WorkPostName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					this._UnitId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> WorkTime
+		{
+			get
+			{
+				return this._WorkTime;
+			}
+			set
+			{
+				if ((this._WorkTime != value))
+				{
+					this._WorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> TotalPersonWorkTime
+		{
+			get
+			{
+				return this._TotalPersonWorkTime;
+			}
+			set
+			{
+				if ((this._TotalPersonWorkTime != value))
+				{
+					this._TotalPersonWorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffData", DbType="NVarChar(2000)")]
+		public string StaffData
+		{
+			get
+			{
+				return this._StaffData;
+			}
+			set
+			{
+				if ((this._StaffData != value))
+				{
+					this._StaffData = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayNum", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> DayNum
+		{
+			get
+			{
+				return this._DayNum;
+			}
+			set
+			{
+				if ((this._DayNum != value))
+				{
+					this._DayNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearPersonWorkTime", DbType="Int")]
+		public System.Nullable<int> YearPersonWorkTime
+		{
+			get
+			{
+				return this._YearPersonWorkTime;
+			}
+			set
+			{
+				if ((this._YearPersonWorkTime != value))
+				{
+					this._YearPersonWorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(200)")]
+		public string UnitName
+		{
+			get
+			{
+				return this._UnitName;
+			}
+			set
+			{
+				if ((this._UnitName != value))
+				{
+					this._UnitName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportId", DbType="NVarChar(50)")]
+		public string MonthReportId
+		{
+			get
+			{
+				return this._MonthReportId;
+			}
+			set
+			{
+				if ((this._MonthReportId != value))
+				{
+					this._MonthReportId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this._ProjectId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileMan", DbType="NVarChar(50)")]
+		public string CompileMan
+		{
+			get
+			{
+				return this._CompileMan;
+			}
+			set
+			{
+				if ((this._CompileMan != value))
+				{
+					this._CompileMan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompileDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CompileDate
+		{
+			get
+			{
+				return this._CompileDate;
+			}
+			set
+			{
+				if ((this._CompileDate != value))
+				{
+					this._CompileDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="Char(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this._States = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_ProjectData_FlowOperate")]
 	public partial class View_ProjectData_FlowOperate
 	{
@@ -71002,6 +81727,645 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_SitePerson_Checking")]
+	public partial class View_SitePerson_Checking
+	{
+		
+		private string _CheckingId;
+		
+		private string _CardNo;
+		
+		private string _ProjectId;
+		
+		private string _IdentityCard;
+		
+		private string _WorkAreaId;
+		
+		private System.Nullable<System.DateTime> _IntoOutTime;
+		
+		private System.Nullable<bool> _IntoOut;
+		
+		private string _Address;
+		
+		private string _WorkAreaName;
+		
+		private string _PersonName;
+		
+		private string _UnitId;
+		
+		private string _UnitName;
+		
+		private string _States;
+		
+		public View_SitePerson_Checking()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckingId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string CheckingId
+		{
+			get
+			{
+				return this._CheckingId;
+			}
+			set
+			{
+				if ((this._CheckingId != value))
+				{
+					this._CheckingId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CardNo", DbType="NVarChar(50)")]
+		public string CardNo
+		{
+			get
+			{
+				return this._CardNo;
+			}
+			set
+			{
+				if ((this._CardNo != value))
+				{
+					this._CardNo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="NVarChar(50)")]
+		public string ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this._ProjectId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdentityCard", DbType="NVarChar(50)")]
+		public string IdentityCard
+		{
+			get
+			{
+				return this._IdentityCard;
+			}
+			set
+			{
+				if ((this._IdentityCard != value))
+				{
+					this._IdentityCard = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkAreaId", DbType="NVarChar(50)")]
+		public string WorkAreaId
+		{
+			get
+			{
+				return this._WorkAreaId;
+			}
+			set
+			{
+				if ((this._WorkAreaId != value))
+				{
+					this._WorkAreaId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IntoOutTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> IntoOutTime
+		{
+			get
+			{
+				return this._IntoOutTime;
+			}
+			set
+			{
+				if ((this._IntoOutTime != value))
+				{
+					this._IntoOutTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IntoOut", DbType="Bit")]
+		public System.Nullable<bool> IntoOut
+		{
+			get
+			{
+				return this._IntoOut;
+			}
+			set
+			{
+				if ((this._IntoOut != value))
+				{
+					this._IntoOut = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(50)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this._Address = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkAreaName", DbType="NVarChar(100)")]
+		public string WorkAreaName
+		{
+			get
+			{
+				return this._WorkAreaName;
+			}
+			set
+			{
+				if ((this._WorkAreaName != value))
+				{
+					this._WorkAreaName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonName", DbType="NVarChar(50)")]
+		public string PersonName
+		{
+			get
+			{
+				return this._PersonName;
+			}
+			set
+			{
+				if ((this._PersonName != value))
+				{
+					this._PersonName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitId", DbType="NVarChar(50)")]
+		public string UnitId
+		{
+			get
+			{
+				return this._UnitId;
+			}
+			set
+			{
+				if ((this._UnitId != value))
+				{
+					this._UnitId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitName", DbType="NVarChar(200)")]
+		public string UnitName
+		{
+			get
+			{
+				return this._UnitName;
+			}
+			set
+			{
+				if ((this._UnitName != value))
+				{
+					this._UnitName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_States", DbType="VarChar(1)")]
+		public string States
+		{
+			get
+			{
+				return this._States;
+			}
+			set
+			{
+				if ((this._States != value))
+				{
+					this._States = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_SitePerson_DayReportUnitDetail")]
+	public partial class View_SitePerson_DayReportUnitDetail
+	{
+		
+		private string _DayReportUnitDetailId;
+		
+		private string _DayReportDetailId;
+		
+		private string _PostId;
+		
+		private System.Nullable<int> _CheckPersonNum;
+		
+		private System.Nullable<int> _RealPersonNum;
+		
+		private System.Nullable<decimal> _PersonWorkTime;
+		
+		private string _Remark;
+		
+		private string _WorkPostName;
+		
+		private string _PostType;
+		
+		private string _WorkPostCode;
+		
+		private string _IsHsse;
+		
+		public View_SitePerson_DayReportUnitDetail()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportUnitDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string DayReportUnitDetailId
+		{
+			get
+			{
+				return this._DayReportUnitDetailId;
+			}
+			set
+			{
+				if ((this._DayReportUnitDetailId != value))
+				{
+					this._DayReportUnitDetailId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayReportDetailId", DbType="NVarChar(50)")]
+		public string DayReportDetailId
+		{
+			get
+			{
+				return this._DayReportDetailId;
+			}
+			set
+			{
+				if ((this._DayReportDetailId != value))
+				{
+					this._DayReportDetailId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostId", DbType="NVarChar(50)")]
+		public string PostId
+		{
+			get
+			{
+				return this._PostId;
+			}
+			set
+			{
+				if ((this._PostId != value))
+				{
+					this._PostId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckPersonNum", DbType="Int")]
+		public System.Nullable<int> CheckPersonNum
+		{
+			get
+			{
+				return this._CheckPersonNum;
+			}
+			set
+			{
+				if ((this._CheckPersonNum != value))
+				{
+					this._CheckPersonNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealPersonNum", DbType="Int")]
+		public System.Nullable<int> RealPersonNum
+		{
+			get
+			{
+				return this._RealPersonNum;
+			}
+			set
+			{
+				if ((this._RealPersonNum != value))
+				{
+					this._RealPersonNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PersonWorkTime
+		{
+			get
+			{
+				return this._PersonWorkTime;
+			}
+			set
+			{
+				if ((this._PersonWorkTime != value))
+				{
+					this._PersonWorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(200)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this._Remark = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostName", DbType="NVarChar(100)")]
+		public string WorkPostName
+		{
+			get
+			{
+				return this._WorkPostName;
+			}
+			set
+			{
+				if ((this._WorkPostName != value))
+				{
+					this._WorkPostName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostType", DbType="NChar(1)")]
+		public string PostType
+		{
+			get
+			{
+				return this._PostType;
+			}
+			set
+			{
+				if ((this._PostType != value))
+				{
+					this._PostType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostCode", DbType="NVarChar(50)")]
+		public string WorkPostCode
+		{
+			get
+			{
+				return this._WorkPostCode;
+			}
+			set
+			{
+				if ((this._WorkPostCode != value))
+				{
+					this._WorkPostCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsHsse", DbType="VarChar(1) NOT NULL", CanBeNull=false)]
+		public string IsHsse
+		{
+			get
+			{
+				return this._IsHsse;
+			}
+			set
+			{
+				if ((this._IsHsse != value))
+				{
+					this._IsHsse = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_SitePerson_MonthReportUnitDetail")]
+	public partial class View_SitePerson_MonthReportUnitDetail
+	{
+		
+		private string _MonthReportUnitDetailId;
+		
+		private string _MonthReportDetailId;
+		
+		private string _PostId;
+		
+		private System.Nullable<int> _CheckPersonNum;
+		
+		private System.Nullable<int> _RealPersonNum;
+		
+		private System.Nullable<decimal> _PersonWorkTime;
+		
+		private string _Remark;
+		
+		private string _WorkPostName;
+		
+		private string _PostType;
+		
+		private string _WorkPostCode;
+		
+		public View_SitePerson_MonthReportUnitDetail()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportUnitDetailId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string MonthReportUnitDetailId
+		{
+			get
+			{
+				return this._MonthReportUnitDetailId;
+			}
+			set
+			{
+				if ((this._MonthReportUnitDetailId != value))
+				{
+					this._MonthReportUnitDetailId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthReportDetailId", DbType="NVarChar(50)")]
+		public string MonthReportDetailId
+		{
+			get
+			{
+				return this._MonthReportDetailId;
+			}
+			set
+			{
+				if ((this._MonthReportDetailId != value))
+				{
+					this._MonthReportDetailId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostId", DbType="NVarChar(50)")]
+		public string PostId
+		{
+			get
+			{
+				return this._PostId;
+			}
+			set
+			{
+				if ((this._PostId != value))
+				{
+					this._PostId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckPersonNum", DbType="Int")]
+		public System.Nullable<int> CheckPersonNum
+		{
+			get
+			{
+				return this._CheckPersonNum;
+			}
+			set
+			{
+				if ((this._CheckPersonNum != value))
+				{
+					this._CheckPersonNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealPersonNum", DbType="Int")]
+		public System.Nullable<int> RealPersonNum
+		{
+			get
+			{
+				return this._RealPersonNum;
+			}
+			set
+			{
+				if ((this._RealPersonNum != value))
+				{
+					this._RealPersonNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonWorkTime", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PersonWorkTime
+		{
+			get
+			{
+				return this._PersonWorkTime;
+			}
+			set
+			{
+				if ((this._PersonWorkTime != value))
+				{
+					this._PersonWorkTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="NVarChar(200)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this._Remark = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostName", DbType="NVarChar(100)")]
+		public string WorkPostName
+		{
+			get
+			{
+				return this._WorkPostName;
+			}
+			set
+			{
+				if ((this._WorkPostName != value))
+				{
+					this._WorkPostName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostType", DbType="NChar(1)")]
+		public string PostType
+		{
+			get
+			{
+				return this._PostType;
+			}
+			set
+			{
+				if ((this._PostType != value))
+				{
+					this._PostType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPostCode", DbType="NVarChar(50)")]
+		public string WorkPostCode
+		{
+			get
+			{
+				return this._WorkPostCode;
+			}
+			set
+			{
+				if ((this._WorkPostCode != value))
+				{
+					this._WorkPostCode = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.View_SitePerson_Person")]
 	public partial class View_SitePerson_Person
 	{
@@ -71079,6 +82443,8 @@ namespace Model
 		private string _PostType;
 		
 		private System.Nullable<bool> _IsHsse;
+		
+		private System.Nullable<int> _TrainCount;
 		
 		private string _AuditorId;
 		
@@ -71560,7 +82926,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkAreaCode", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkAreaCode", DbType="NVarChar(10)")]
 		public string WorkAreaCode
 		{
 			get
@@ -71684,6 +83050,22 @@ namespace Model
 				if ((this._IsHsse != value))
 				{
 					this._IsHsse = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainCount", DbType="Int")]
+		public System.Nullable<int> TrainCount
+		{
+			get
+			{
+				return this._TrainCount;
+			}
+			set
+			{
+				if ((this._TrainCount != value))
+				{
+					this._TrainCount = value;
 				}
 			}
 		}
@@ -75714,6 +87096,8 @@ namespace Model
 		
 		private EntitySet<PTP_TestPackage> _PTP_TestPackage;
 		
+		private EntitySet<SitePerson_Checking> _SitePerson_Checking;
+		
 		private EntitySet<SitePerson_Person> _SitePerson_Person;
 		
 		private EntityRef<Base_Unit> _Base_Unit;
@@ -75763,6 +87147,7 @@ namespace Model
 			this._HJGL_RepairRecord = new EntitySet<HJGL_RepairRecord>(new Action<HJGL_RepairRecord>(this.attach_HJGL_RepairRecord), new Action<HJGL_RepairRecord>(this.detach_HJGL_RepairRecord));
 			this._HJGL_WeldingDaily = new EntitySet<HJGL_WeldingDaily>(new Action<HJGL_WeldingDaily>(this.attach_HJGL_WeldingDaily), new Action<HJGL_WeldingDaily>(this.detach_HJGL_WeldingDaily));
 			this._PTP_TestPackage = new EntitySet<PTP_TestPackage>(new Action<PTP_TestPackage>(this.attach_PTP_TestPackage), new Action<PTP_TestPackage>(this.detach_PTP_TestPackage));
+			this._SitePerson_Checking = new EntitySet<SitePerson_Checking>(new Action<SitePerson_Checking>(this.attach_SitePerson_Checking), new Action<SitePerson_Checking>(this.detach_SitePerson_Checking));
 			this._SitePerson_Person = new EntitySet<SitePerson_Person>(new Action<SitePerson_Person>(this.attach_SitePerson_Person), new Action<SitePerson_Person>(this.detach_SitePerson_Person));
 			this._Base_Unit = default(EntityRef<Base_Unit>);
 			this._SupervisorUnit = default(EntityRef<Base_Unit>);
@@ -76120,6 +87505,19 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Checking_WBS_UnitWork", Storage="_SitePerson_Checking", ThisKey="UnitWorkId", OtherKey="WorkAreaId", DeleteRule="NO ACTION")]
+		public EntitySet<SitePerson_Checking> SitePerson_Checking
+		{
+			get
+			{
+				return this._SitePerson_Checking;
+			}
+			set
+			{
+				this._SitePerson_Checking.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SitePerson_Person_WBS_UnitWork", Storage="_SitePerson_Person", ThisKey="UnitWorkId", OtherKey="WorkAreaId", DeleteRule="NO ACTION")]
 		public EntitySet<SitePerson_Person> SitePerson_Person
 		{
@@ -76371,6 +87769,18 @@ namespace Model
 		}
 		
 		private void detach_PTP_TestPackage(PTP_TestPackage entity)
+		{
+			this.SendPropertyChanging();
+			entity.WBS_UnitWork = null;
+		}
+		
+		private void attach_SitePerson_Checking(SitePerson_Checking entity)
+		{
+			this.SendPropertyChanging();
+			entity.WBS_UnitWork = this;
+		}
+		
+		private void detach_SitePerson_Checking(SitePerson_Checking entity)
 		{
 			this.SendPropertyChanging();
 			entity.WBS_UnitWork = null;

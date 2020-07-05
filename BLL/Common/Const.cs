@@ -227,9 +227,13 @@ namespace BLL
         /// </summary>
         public const string ProjectUnitType_4 = "4"; 
         /// <summary>
-        /// 其他
+        /// 检测单位
         /// </summary>
         public const string ProjectUnitType_5 = "5";
+        /// <summary>
+        /// 其他
+        /// </summary>
+        public const string ProjectUnitType_0 = "0";
         #endregion
 
         #region 岗位类型
@@ -3153,9 +3157,6 @@ namespace BLL
         #endregion
 
         #region  焊接管理
-
-       
-
         /// <summary>
         /// 焊工照片上传路径
         /// </summary>

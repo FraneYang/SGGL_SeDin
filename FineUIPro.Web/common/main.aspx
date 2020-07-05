@@ -173,7 +173,7 @@
 <script type="text/javascript" src="../res/index/js/china.js"></script>
 <script type="text/javascript" src="../res/index/js/world.js"></script>
 <script type="text/javascript">
-    function category(id) {
+    function category(id,nameData,valeData) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
@@ -207,7 +207,7 @@
                     }
                 },
                 type: 'category',
-                data: ["已整改", "待整改", "巡检数", "专项检查", "综合检查", "隐患"]
+                data: nameData
             },
             yAxis: {
                 axisTick: {
@@ -228,7 +228,7 @@
             series: [{
                 name: '销量',
                 type: 'bar',
-                data: [5, 20, 66, 10, 10, 20]
+                data: valeData
             }],
             grid: {
                 top: '25%',
@@ -251,8 +251,9 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-
-    category('main')
+    var nameData = ["已整改", "待整改", "巡检数", "专项检查", "综合检查", "隐患"];
+    var valeDate = [5, 20, 66, 10, 10, 20];
+    category('main',nameData,valeDate)
 </script>
 <script>
     function line(id, name) {

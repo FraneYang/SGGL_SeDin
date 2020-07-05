@@ -92,6 +92,7 @@ namespace FineUIPro.Web.HSSE.ActionPlan
                     ////自动生成编码
                     this.txtActionPlanListCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectActionPlanListMenuId, this.ProjectId, this.CurrUser.UnitId);
                     this.txtActionPlanListName.Text = this.SimpleForm1.Title;
+                    this.txtVersionNo.Text = "V1.0";
                 }
 
                 ///初始化审核菜单

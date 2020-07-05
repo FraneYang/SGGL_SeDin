@@ -33,7 +33,7 @@
                                     <f:Button ID="取消审核" Icon="ArrowUndo" Text="取消审核" runat="server" ToolTip="取消审核"
                                         OnClick="btnCancelAccept_Click">
                                     </f:Button>
-                                    <f:Button ID="btnGenerate" Text="生成" ToolTip="生成" Icon="TableEdit" runat="server"
+                                    <f:Button ID="btnGenerate" Text="生成" ToolTip="生成" Icon="Pencil" runat="server"
                                        OnClick="btnGenerate_Click" >
                             </f:Button>
                                 </Items>

@@ -65,7 +65,7 @@
                             <f:Button ID="btnPointAudit" Text="点口审核" ToolTip="监理点口审核并生成委托单" Icon="ArrowNsew" runat="server"
                                 OnClick="btnPointAudit_Click">
                             </f:Button> 
-                            <f:Button ID="btnGenerate" Text="生成" ToolTip="生成委托单" Icon="TableEdit" runat="server"
+                            <f:Button ID="btnGenerate" Text="生成" ToolTip="生成委托单" Icon="Pencil" runat="server"
                                 OnClick="btnGenerate_Click"  Hidden="true">
                             </f:Button>
                             <f:Button ID="btnSelectExpandPoint" Text="重新选择扩口" ToolTip="重新选择扩口" Icon="ArrowRefresh"

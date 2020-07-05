@@ -62,7 +62,7 @@
                                         OnClick="btnImport_Click" Hidden="true">
                                     </f:Button>
                             <f:Button ID="btnEdit" Text="编辑" ToolTip="编辑"
-                                Icon="TableEdit" runat="server" OnClick="btnEdit_Click">
+                                Icon="Pencil" runat="server" OnClick="btnEdit_Click">
                             </f:Button>
                             <f:Button ID="btnAudit" Text="审核" ToolTip="审核" Icon="TableKey" runat="server"
                                 OnClick="btnAudit_Click">

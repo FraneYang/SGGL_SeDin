@@ -154,7 +154,7 @@
             runat="server" Text="新增" Icon="Add" Hidden="true">
         </f:MenuButton>
         <f:MenuButton ID="btnTreeMenuEdit" OnClick="btnTreeMenuEdit_Click" EnablePostBack="true"
-            runat="server" Text="编辑" Hidden="true" Icon="TableEdit">
+            runat="server" Text="编辑" Hidden="true" Icon="Pencil">
         </f:MenuButton>
         <f:MenuButton ID="btnTreeMenuDelete" OnClick="btnTreeMenuDelete_Click" EnablePostBack="true"
             Icon="Delete" ConfirmText="删除选中节点？" ConfirmTarget="Parent" runat="server" Text="删除"

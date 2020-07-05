@@ -12,11 +12,11 @@ namespace BLL
     public class SQLHelper
     {
 
-        private static string connectionString = Funs.ConnString;        
+        private static string connectionString = Funs.ConnString;
         //private static SqlConnection Connection = new SqlConnection(connectionString);
-        
+
         //public static SqlConnection GetConn()
-        //{           
+        //{
         //    return Connection;
         //}
 
