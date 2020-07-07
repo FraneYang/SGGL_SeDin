@@ -79,7 +79,7 @@ namespace BLL
             Model.HJGL_HotProess_TrustItem newHotProessTrustItem = db.HJGL_HotProess_TrustItem.FirstOrDefault(e => e.HotProessTrustItemId == hotProessTrustItem.HotProessTrustItemId);
             if (newHotProessTrustItem != null)
             {
-                newHotProessTrustItem.IsPass = hotProessTrustItem.IsPass;
+                newHotProessTrustItem.IsCompleted = hotProessTrustItem.IsCompleted;
                 newHotProessTrustItem.IsHardness = hotProessTrustItem.IsHardness;
                 db.SubmitChanges();
             }

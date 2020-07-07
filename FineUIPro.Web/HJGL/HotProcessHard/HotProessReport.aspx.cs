@@ -19,6 +19,16 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             if (!IsPostBack)
             {
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                string hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
+                var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
+                if (hotProessFeedback.IsCompleted == true)
+                {
+                    ckbIsCompleted.Checked = true;
+                }
+                else
+                {
+                    ckbIsCompleted.Checked = false;
+                }
                 // 绑定表格
                 this.BindGrid();
             }
@@ -119,6 +129,24 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             }
         }
         #endregion
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            string hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
+            var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
+            if (ckbIsCompleted.Checked)
+            {
+                hotProessFeedback.IsCompleted = true;
+                hotProessFeedback.IsHardness = true;
+            }
+            else
+            {
+                hotProessFeedback.IsCompleted = false;
+                hotProessFeedback.IsHardness = false;
+            }
+            BLL.HotProessTrustItemService.UpdateHotProessFeedback(hotProessFeedback);
+            Alert.ShowInTop("保存成功", MessageBoxIcon.Success);
+        }
 
         #region 编辑
         /// <summary>

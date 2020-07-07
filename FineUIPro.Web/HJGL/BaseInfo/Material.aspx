@@ -21,7 +21,7 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox ID="txtMaterialCode" runat="server" Label="材质代号"
+                            <f:TextBox ID="txtMaterialCode" runat="server" Label="型号、牌号、级别"
                                 EmptyText="输入查询条件" Width="320px" LabelWidth="200px" LabelAlign="Right">
                             </f:TextBox>
                             <f:DropDownList ID="drpSteType" runat="server" Label="材质类型"
@@ -40,7 +40,7 @@
                 </Toolbars>
                 <Columns>
                     <f:RenderField Width="200px" ColumnID="MaterialCode" DataField="MaterialCode" FieldType="String"
-                        HeaderText="材质代号" HeaderTextAlign="Center"
+                        HeaderText="型号、牌号、级别" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="MaterialCode">
                     </f:RenderField>
                     <f:TemplateField Width="180px" HeaderText="材质类型"
@@ -53,7 +53,10 @@
                         HeaderText="材料标准" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="MaterialType">
                     </f:RenderField>
-                   
+                   <f:RenderField Width="150px" ColumnID="MetalType" DataField="MetalType" FieldType="String"
+                        HeaderText="金属类别代号" HeaderTextAlign="Center"
+                        TextAlign="Left" SortField="MetalType">
+                    </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="MaterialClass" DataField="MaterialClass" FieldType="String"
                         HeaderText="材质类别" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="MaterialClass">

@@ -57,7 +57,7 @@ namespace FineUIPro.Web.CQMS.Solution
                 Funs.FineUIPleaseSelect(drpState);
                 UnitWorkService.InitUnitWorkDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);
                 CNProfessionalService.InitCNProfessionalDownList(drpCNProfessional, true);
-                UnitService.InitUnitDropDownList(drpProposeUnit, CurrUser.LoginProjectId, true);
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpProposeUnit, CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
                 btnNew.OnClientClick = window_tt.GetShowReference("EditConstructSolution.aspx") + "return false;";
                 BindGrid();
             }

@@ -49,7 +49,7 @@
                                         ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="130px" AutoPostBack="true"
                                         OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
                                     </f:DropDownList>
-                                    <f:DropDownList ID="drpInstallation" runat="server" Label="装置名称"
+                                    <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程名称"
                                         LabelAlign="Right" EnableEdit="true" ShowRedStar="true" Required="true" AutoPostBack="true"
                                         OnSelectedIndexChanged="drpInstallation_SelectedIndexChanged" LabelWidth="140px">
                                     </f:DropDownList>
@@ -121,7 +121,7 @@
                                 DataField="WeldJointCode"  FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="70px">
                             </f:RenderField>
-                            <f:RenderField HeaderText="区域" ColumnID="WorkAreaCode" DataField="WorkAreaCode"
+                            <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="100px">
                             </f:RenderField>

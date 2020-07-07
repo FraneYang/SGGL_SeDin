@@ -363,5 +363,93 @@ namespace BLL
                 Funs.DB.SubmitChanges();
             }
         }
+
+        #region 保存数据
+        /// <summary>
+        /// 保存数据
+        /// </summary>
+        /// <param name="menuId">菜单id</param>
+        /// <param name="dataId">主键id</param>
+        /// <param name="isClosed">是否关闭这步流程</param>
+        /// <param name="content">单据内容</param>
+        /// <param name="url">路径</param>
+        public static void btnSaveData(string projectId, string menuId, string dataId, string userId, bool isClosed, string content, string url)
+        {
+            Model.Sys_FlowOperate newFlowOperate = new Model.Sys_FlowOperate
+            {
+                MenuId = menuId,
+                DataId = dataId,
+                OperaterId = userId,
+                State = Const.State_2,
+                IsClosed = isClosed,
+                Opinion = "系统自动关闭流程",
+                ProjectId = projectId,
+                Url = url
+            };
+            var user = BLL.UserService.GetUserByUserId(newFlowOperate.OperaterId);
+            if (user != null)
+            {
+                var roles = BLL.RoleService.GetRoleByRoleId(user.RoleId);
+                if (roles != null && !string.IsNullOrEmpty(roles.RoleName))
+                {
+                    newFlowOperate.AuditFlowName = "[" + roles.RoleName + "]";
+                }
+                else
+                {
+                    newFlowOperate.AuditFlowName = "[" + user.UserName + "]";
+                }
+
+                newFlowOperate.AuditFlowName += "系统审核完成";
+            }
+
+            var updateFlowOperate = from x in Funs.DB.Sys_FlowOperate
+                                    where x.DataId == newFlowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
+                                    select x;
+            if (updateFlowOperate.Count() > 0)
+            {
+                foreach (var item in updateFlowOperate)
+                {
+                    item.OperaterId = newFlowOperate.OperaterId;
+                    item.OperaterTime = System.DateTime.Now;
+                    item.State = newFlowOperate.State;
+                    item.Opinion = newFlowOperate.Opinion;
+                    item.AuditFlowName = "系统审核完成";
+                    item.IsClosed = newFlowOperate.IsClosed;
+                    Funs.DB.SubmitChanges();
+                }
+            }
+            else
+            {
+                int maxSortIndex = 1;
+                var flowSet = Funs.DB.Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
+                var sortIndex = flowSet.Select(x => x.SortIndex).Max();
+                if (sortIndex.HasValue)
+                {
+                    maxSortIndex = sortIndex.Value + 1;
+                }
+                newFlowOperate.FlowOperateId = SQLHelper.GetNewID(typeof(Model.Sys_FlowOperate));
+                newFlowOperate.SortIndex = maxSortIndex;
+                newFlowOperate.OperaterTime = System.DateTime.Now;
+                newFlowOperate.AuditFlowName = "系统审核完成";
+                Funs.DB.Sys_FlowOperate.InsertOnSubmit(newFlowOperate);
+                Funs.DB.SubmitChanges();
+            }
+
+            if (newFlowOperate.IsClosed == true)
+            {
+                var updateNoClosedFlowOperate = from x in Funs.DB.Sys_FlowOperate
+                                                where x.DataId == newFlowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
+                                                select x;
+                if (updateNoClosedFlowOperate.Count() > 0)
+                {
+                    foreach (var itemClosed in updateNoClosedFlowOperate)
+                    {
+                        itemClosed.IsClosed = true;
+                        Funs.DB.SubmitChanges();
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

@@ -15,7 +15,7 @@
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="管线综合分析"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="ProjectId"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="ProjectId" AllowSorting="true"
-                SortField="InstallationName,WorkAreaCode" SortDirection="DESC" OnSort="Grid1_Sort"
+                SortField="UnitWorkCode" SortDirection="DESC" OnSort="Grid1_Sort"
                 AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableTextSelection="True">
                 <Toolbars>
@@ -33,12 +33,8 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:RenderField HeaderText="装置" ColumnID="InstallationName"
-                        DataField="InstallationName" SortField="InstallationName" FieldType="String" HeaderTextAlign="Center"
-                        Width="100px">
-                    </f:RenderField>
-                    <f:RenderField HeaderText="单位工程" ColumnID="WorkAreaCode" DataField="WorkAreaCode"
-                        SortField="WorkAreaCode" FieldType="String" HeaderTextAlign="Center" Width="100px">
+                    <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkName" DataField="UnitWorkName"
+                        SortField="UnitWorkName" FieldType="String" HeaderTextAlign="Center" Width="100px">
                     </f:RenderField>
                     <f:RenderField HeaderText="横裂纹" ColumnID="Defect1" DataField="Defect1"
                          FieldType="String" HeaderTextAlign="Center" Width="75px">

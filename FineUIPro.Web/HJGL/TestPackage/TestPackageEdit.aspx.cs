@@ -51,25 +51,84 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// </summary>
         private void InitTreeMenu()
         {
-            this.tvControlItem.Nodes.Clear();     
+            this.tvControlItem.Nodes.Clear();
+
+            TreeNode rootNode1 = new TreeNode();
+            rootNode1.NodeID = "1";
+            rootNode1.Text = "建筑工程";
+            rootNode1.CommandName = "建筑工程";
+            this.tvControlItem.Nodes.Add(rootNode1);
+
+            TreeNode rootNode2 = new TreeNode();
+            rootNode2.NodeID = "2";
+            rootNode2.Text = "安装工程";
+            rootNode2.CommandName = "安装工程";
+            rootNode2.Expanded = true;
+            this.tvControlItem.Nodes.Add(rootNode2);
             DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
             DateTime endTime = startTime.AddMonths(1);
-            this.tvControlItem.Nodes.Clear();
-            var totalUnitWork = from x in Funs.DB.WBS_UnitWork select x;
-            var totalUnit = from x in Funs.DB.Project_ProjectUnit select x;
-            
-            ////区域
-            var pUnitWork = (from x in totalUnitWork where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
-            ////单位
-            var pUnits = (from x in totalUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
-            
-            pUnits = (from x in pUnits
-                      join y in pUnitWork on x.UnitId equals y.UnitId
-                      select x).Distinct().ToList();
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            // 获取当前用户所在单位
+            var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
+
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+                                where x.ProjectId == this.CurrUser.LoginProjectId
+                                      && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
+                                select x).ToList();
             List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
                                                             where x.ProjectId == this.CurrUser.LoginProjectId && x.TableDate >= startTime && x.TableDate < endTime
-                                                                select x).ToList();
-                    this.BindNodes(null,null, pUnitWork, pUnits, testPackageLists);
+                                                            select x).ToList();
+            List<Model.WBS_UnitWork> unitWork1 = null;
+            List<Model.WBS_UnitWork> unitWork2 = null;
+
+            // 当前为施工单位，只能操作本单位的数据
+            if (currUnit != null && currUnit.UnitType == Const.ProjectUnitType_2)
+            {
+                unitWork1 = (from x in unitWorkList
+                             where x.UnitId == this.CurrUser.UnitId && x.ProjectType == "1"
+                             select x).ToList();
+                unitWork2 = (from x in unitWorkList
+                             where x.UnitId == this.CurrUser.UnitId && x.ProjectType == "2"
+                             select x).ToList();
+            }
+            else
+            {
+                unitWork1 = (from x in unitWorkList where x.ProjectType == "1" select x).ToList();
+                unitWork2 = (from x in unitWorkList where x.ProjectType == "2" select x).ToList();
+            }
+
+            if (unitWork1.Count() > 0)
+            {
+                foreach (var q in unitWork1)
+                {
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
+                    TreeNode tn1 = new TreeNode();
+                    tn1.NodeID = q.UnitWorkId;
+                    tn1.Text = q.UnitWorkName;
+                    tn1.ToolTip = "施工单位：" + u.UnitName;
+                    tn1.CommandName = "单位工程";
+                    rootNode1.Nodes.Add(tn1);
+                    var testPackageUnitList = testPackageLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
+                    BindNodes(tn1, testPackageUnitList);
+                }
+            }
+            if (unitWork2.Count() > 0)
+            {
+                foreach (var q in unitWork2)
+                {
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
+                    TreeNode tn2 = new TreeNode();
+                    tn2.NodeID = q.UnitWorkId;
+                    tn2.Text = q.UnitWorkName;
+                    tn2.ToolTip = "施工单位：" + u.UnitName;
+                    tn2.CommandName = "单位工程";
+                    rootNode2.Nodes.Add(tn2);
+                    var testPackageUnitList = testPackageLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
+                    BindNodes(tn2, testPackageUnitList);
+                }
+            }
         }
         #endregion
 
@@ -78,103 +137,12 @@ namespace FineUIPro.Web.HJGL.TestPackage
         ///  绑定树节点
         /// </summary>
         /// <param name="node"></param>
-        private void BindNodes(TreeNode node1, TreeNode node2, List<Model.WBS_UnitWork> pUnitWork, List<Model.Project_ProjectUnit> pUnits,List<Model.PTP_TestPackage> testPackageUnitList)
+        private void BindNodes(TreeNode node, List<Model.PTP_TestPackage> testPackageUnitList)
         {
-            var pUnitDepth = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
-            if (node1 == null && node2 == null)
-            {
-                TreeNode rootNode1 = new TreeNode();
-                rootNode1.NodeID = "1";
-                rootNode1.Text = "建筑工程";
-                rootNode1.CommandName = "建筑工程";
-                this.tvControlItem.Nodes.Add(rootNode1);
-
-                TreeNode rootNode2 = new TreeNode();
-                rootNode2.NodeID = "2";
-                rootNode2.Text = "安装工程";
-                rootNode2.CommandName = "安装工程";
-                rootNode2.Expanded = true;
-                this.tvControlItem.Nodes.Add(rootNode2);
-
-                this.BindNodes(rootNode1, rootNode2, pUnitWork, pUnits, testPackageUnitList);
-            }
-            else {
-                if (node1.CommandName == "建筑工程")
-                {
-                    List<Model.WBS_UnitWork> workAreas = null;
-                    if (pUnitDepth == null || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_1) || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_5))
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node1.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     select x).ToList();
-                    }
-                    else
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node1.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     && x.UnitId == this.CurrUser.UnitId
-                                     select x).ToList();
-                    }
-
-                    workAreas = workAreas.OrderByDescending(x => x.UnitWorkCode).ToList();
-                    foreach (var q in workAreas)
-                    {
-                        var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
-                        TreeNode newNode = new TreeNode();
-                        newNode.Text = q.UnitWorkName;
-                        newNode.NodeID = q.UnitWorkId;
-                        newNode.ToolTip = "施工单位：" + u.UnitName;
-                        newNode.CommandName = "单位工程";
-                        newNode.EnableExpandEvent = true;
-                        node1.Nodes.Add(newNode);
-                       var testPackageLists = testPackageUnitList.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
-                        BindChildNodes(newNode, pUnitWork, testPackageLists);
-
-                    }
-                }
-                if (node2.CommandName == "安装工程")
-                {
-                    List<Model.WBS_UnitWork> workAreas = null;
-                    if (pUnitDepth == null || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_1) || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_5))
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node2.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     select x).ToList();
-                    }
-                    else
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node2.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     && x.UnitId == this.CurrUser.UnitId
-                                     select x).ToList();
-                    }
-
-                    workAreas = workAreas.OrderByDescending(x => x.UnitWorkCode).ToList();
-                    foreach (var q in workAreas)
-                    {
-                        var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
-                        TreeNode newNode = new TreeNode();
-                        newNode.Text = q.UnitWorkName;
-                        newNode.NodeID = q.UnitWorkId;
-                        newNode.ToolTip = "施工单位：" + u.UnitName;
-                        newNode.CommandName = "单位工程";
-                        newNode.EnableExpandEvent = true;
-                        node2.Nodes.Add(newNode);
-                        var testPackageLists = testPackageUnitList.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
-                        BindChildNodes(newNode, pUnitWork, testPackageLists);
-                    }
-                }
-            }
-        }
-
-        //绑定子节点
-        private void BindChildNodes(TreeNode ChildNodes, List<Model.WBS_UnitWork> pUnitWork, List<Model.PTP_TestPackage> testPackageUnitList)
-        {
-            if (ChildNodes.CommandName == "单位工程")
+            DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
+            DateTime endTime = startTime.AddMonths(1);
+            
+            if (node.CommandName == "单位工程")
             {
                 var pointListMonth = (from x in testPackageUnitList
                                       select string.Format("{0:yyyy-MM}", x.TableDate)).Distinct();
@@ -182,17 +150,15 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 {
                     TreeNode newNode = new TreeNode();
                     newNode.Text = item;
-                    newNode.NodeID = item + "|" + ChildNodes.NodeID;
+                    newNode.NodeID = item + "|" + node.NodeID;
                     newNode.CommandName = "月份";
-                    ChildNodes.Nodes.Add(newNode);
-                    this.BindChildNodes(newNode, pUnitWork, testPackageUnitList);
+                    node.Nodes.Add(newNode);
+                    this.BindNodes(newNode, testPackageUnitList);
                 }
             }
-            else if (ChildNodes.CommandName == "月份") {
-                DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
-                DateTime endTime = startTime.AddMonths(1);
+            else if (node.CommandName == "月份") {
                 var dReports = from x in testPackageUnitList
-                               where x.UnitWorkId == ChildNodes.ParentNode.NodeID
+                               where x.UnitWorkId == node.ParentNode.NodeID
                                && x.TableDate >= startTime && x.TableDate < endTime
                                orderby x.TestPackageNo descending
                                select x;
@@ -210,12 +176,12 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     if (!item.AduditDate.HasValue || string.IsNullOrEmpty(item.Auditer))
                     {
                         newNode.Text = "<font color='#FF7575'>" + newNode.Text + "</font>";
-                        ChildNodes.Text = "<font color='#FF7575'>" + ChildNodes.Text + "</font>";
-                        ChildNodes.ParentNode.Text = "<font color='#FF7575'>" + ChildNodes.ParentNode.Text + "</font>";
+                        node.Text = "<font color='#FF7575'>" + node.Text + "</font>";
+                        node.ParentNode.Text = "<font color='#FF7575'>" + node.ParentNode.Text + "</font>";
                     }
                     newNode.NodeID = item.PTP_ID;
                     newNode.EnableClickEvent = true;
-                    ChildNodes.Nodes.Add(newNode);
+                    node.Nodes.Add(newNode);
                 }
             }
         }
@@ -291,7 +257,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     var install = BLL.UnitWorkService.getUnitWorkByUnitWorkId(testPackageManage.UnitWorkId);
                     if (install != null)
                     {
-                        this.drpInstallation.Text = install.UnitWorkName;
+                        this.drpUnitWork.Text = install.UnitWorkName;
                     }
                 }
 
@@ -377,7 +343,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             this.txtTestPackageNo.Text = string.Empty;
             //this.drpUnit.Text = string.Empty;
-            this.drpInstallation.Text = string.Empty;
+            this.drpUnitWork.Text = string.Empty;
             this.txtTestPackageName.Text = string.Empty;
             //this.txtTestPackageCode.Text = string.Empty;
             this.drpTestType.Text = string.Empty;

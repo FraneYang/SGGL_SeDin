@@ -54,243 +54,96 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             this.tvControlItem.Nodes.Clear();
 
-            //var totalInstallation = from x in Funs.DB.Project_Installation select x;
-            var totalUnitWork = from x in Funs.DB.WBS_UnitWork select x;
-            var totalUnit = from x in Funs.DB.Project_ProjectUnit select x;
+            TreeNode rootNode1 = new TreeNode();
+            rootNode1.NodeID = "1";
+            rootNode1.Text = "建筑工程";
+            rootNode1.CommandName = "建筑工程";
+            this.tvControlItem.Nodes.Add(rootNode1);
 
-            ////装置
-            //var pInstallation = (from x in totalInstallation where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
-            ////区域
-            var pUnitWork = (from x in totalUnitWork where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
-            ////单位
-            var pUnits = (from x in totalUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            TreeNode rootNode2 = new TreeNode();
+            rootNode2.NodeID = "2";
+            rootNode2.Text = "安装工程";
+            rootNode2.CommandName = "安装工程";
+            rootNode2.Expanded = true;
+            this.tvControlItem.Nodes.Add(rootNode2);
 
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            // 获取当前用户所在单位
+            var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            //pInstallation = (from x in pInstallation
-            //                 join y in pWorkArea on x.InstallationId equals y.InstallationId
-            //                 select x).Distinct().ToList();
-            pUnits = (from x in pUnits
-                      join y in pUnitWork on x.UnitId equals y.UnitId
-                      select x).Distinct().ToList();
-            this.BindNodes(null,null, pUnitWork, pUnits);
-            //DateTime startTime = Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01");
-            //DateTime endTime = startTime.AddMonths(1);
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+                                where x.ProjectId == this.CurrUser.LoginProjectId
+                                      && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
+                                select x).ToList();
 
-            //List<Model.Base_Unit> units = new List<Model.Base_Unit>();
-            //Model.Project_Unit pUnit = BLL.Project_UnitService.GetProject_UnitByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
-            //if (pUnit == null || pUnit.UnitType == BLL.Const.UnitType_1 || pUnit.UnitType == BLL.Const.UnitType_2
-            //   || pUnit.UnitType == BLL.Const.UnitType_3 || pUnit.UnitType == BLL.Const.UnitType_4)
-            //{
-            //    units = (from x in Funs.DB.Base_Unit
-            //             join y in Funs.DB.Project_Unit on x.UnitId equals y.UnitId
-            //             where y.ProjectId == this.CurrUser.LoginProjectId && y.UnitType.Contains(BLL.Const.UnitType_5)
-            //             select x).ToList();
-            //}
-            //else
-            //{
-            //    units.Add(BLL.Base_UnitService.GetUnit(this.CurrUser.UnitId));
-            //}
-            //if (units != null)
-            //{
-            //    foreach (var unit in units)
-            //    {
-            //        TreeNode newNode = new TreeNode();//定义根节点
-            //        newNode.Text = unit.UnitCode;
-            //        newNode.NodeID = unit.UnitId;
-            //        newNode.ToolTip = unit.UnitName;
-            //        newNode.Expanded = true;
-            //        newNode.CommandName = "Unit";
-            //        this.tvControlItem.Nodes.Add(newNode);
-            //        this.BindNodes(newNode, startTime, endTime);
-            //    }
-            //}
-            //else
-            //{
-            //    Alert.ShowInTop(Resources.Lan.PleaseAddUnitFirst, MessageBoxIcon.Warning);
-            //}
+            List<Model.WBS_UnitWork> unitWork1 = null;
+            List<Model.WBS_UnitWork> unitWork2 = null;
 
+            // 当前为施工单位，只能操作本单位的数据
+            if (currUnit != null && currUnit.UnitType == Const.ProjectUnitType_2)
+            {
+                unitWork1 = (from x in unitWorkList
+                             where x.UnitId == this.CurrUser.UnitId && x.ProjectType == "1"
+                             select x).ToList();
+                unitWork2 = (from x in unitWorkList
+                             where x.UnitId == this.CurrUser.UnitId && x.ProjectType == "2"
+                             select x).ToList();
+            }
+            else
+            {
+                unitWork1 = (from x in unitWorkList where x.ProjectType == "1" select x).ToList();
+                unitWork2 = (from x in unitWorkList where x.ProjectType == "2" select x).ToList();
+            }
+
+            if (unitWork1.Count() > 0)
+            {
+                foreach (var q in unitWork1)
+                {
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
+                    TreeNode tn1 = new TreeNode();
+                    tn1.NodeID = q.UnitWorkId;
+                    tn1.Text = q.UnitWorkName;
+                    tn1.ToolTip = "施工单位：" + u.UnitName;
+                    tn1.CommandName = "单位工程";
+                    rootNode1.Nodes.Add(tn1);
+                    BindNodes(tn1);
+                }
+            }
+            if (unitWork2.Count() > 0)
+            {
+                foreach (var q in unitWork2)
+                {
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
+                    TreeNode tn2 = new TreeNode();
+                    tn2.NodeID = q.UnitWorkId;
+                    tn2.Text = q.UnitWorkName;
+                    tn2.ToolTip = "施工单位：" + u.UnitName;
+                    tn2.CommandName = "单位工程";
+                    rootNode2.Nodes.Add(tn2);
+                    BindNodes(tn2);
+                }
+            }
         }
 
         /// <summary>
         ///  绑定树节点
         /// </summary>
         /// <param name="node"></param>
-        private void BindNodes(TreeNode node1, TreeNode node2, List<Model.WBS_UnitWork> pUnitWork, List<Model.Project_ProjectUnit> pUnits)
+        private void BindNodes(TreeNode node)
         {
-            var pUnitDepth = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
-            if (node1 == null && node2 == null)
-            {
-                TreeNode rootNode1 = new TreeNode();
-                rootNode1.NodeID = "1";
-                rootNode1.Text = "建筑工程";
-                rootNode1.CommandName = "建筑工程";
-                this.tvControlItem.Nodes.Add(rootNode1);
-
-                TreeNode rootNode2 = new TreeNode();
-                rootNode2.NodeID = "2";
-                rootNode2.Text = "安装工程";
-                rootNode2.CommandName = "安装工程";
-                rootNode2.Expanded = true;
-                this.tvControlItem.Nodes.Add(rootNode2);
-
-                this.BindNodes(rootNode1, rootNode2, pUnitWork, pUnits);
-            }
-            else {
-                if (node1.CommandName == "建筑工程")
-                {
-                    List<Model.WBS_UnitWork> workAreas = null;
-                    if (pUnitDepth == null || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_1) || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_5))
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node1.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     select x).ToList();
-                    }
-                    else
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node1.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     && x.UnitId == this.CurrUser.UnitId
-                                     select x).ToList();
-                    }
-
-                    workAreas = workAreas.OrderByDescending(x => x.UnitWorkCode).ToList();
-                    foreach (var q in workAreas)
-                    {
-                        var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
-                        TreeNode newNode = new TreeNode();
-                        newNode.Text = q.UnitWorkName;
-                        newNode.NodeID = q.UnitWorkId;
-                        newNode.ToolTip = "施工单位：" + u.UnitName;
-                        newNode.CommandName = "单位工程";
-                        newNode.EnableExpandEvent = true;
-                        node1.Nodes.Add(newNode);
-                        BindChildNodes(newNode, pUnitWork, pUnits);
-                    }
-                }
-                if (node2.CommandName == "安装工程")
-                {
-                    List<Model.WBS_UnitWork> workAreas = null;
-                    if (pUnitDepth == null || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_1) || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_5))
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node2.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     select x).ToList();
-                    }
-                    else
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node2.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     && x.UnitId == this.CurrUser.UnitId
-                                     select x).ToList();
-                    }
-
-                    workAreas = workAreas.OrderByDescending(x => x.UnitWorkCode).ToList();
-                    foreach (var q in workAreas)
-                    {
-                        var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
-                        TreeNode newNode = new TreeNode();
-                        newNode.Text = q.UnitWorkName;
-                        newNode.NodeID = q.UnitWorkId;
-                        newNode.ToolTip = "施工单位：" + u.UnitName;
-                        newNode.CommandName = "单位工程";
-                        newNode.EnableExpandEvent = true;
-                        node2.Nodes.Add(newNode);
-                        BindChildNodes(newNode, pUnitWork, pUnits);
-                    }
-                }
-            }
-            
-            //if (node.CommandName == "Unit")
-            //{
-            //    ///装置
-            //    var install = (from x in Funs.DB.Project_Installation
-            //                   join y in Funs.DB.HJGL_Batch_NDE on x.InstallationId equals y.InstallationId
-            //                   where y.UnitId == node.NodeID && x.ProjectId==this.CurrUser.LoginProjectId
-            //                   orderby x.InstallationCode
-            //                   select x).Distinct();
-            //    foreach (var q in install)
-            //    {
-            //        TreeNode newNode = new TreeNode();
-            //        newNode.Text = q.InstallationName;
-            //        newNode.NodeID = q.InstallationId.ToString();
-            //        newNode.Expanded = true;
-            //        newNode.CommandName = "Installation";
-            //        node.Nodes.Add(newNode);
-            //        BindNodes(newNode, startTime, endTime);
-            //    }
-            //}
-            //else if (node.CommandName == "Installation")
-            //{
-            //    var types = (from x in Funs.DB.View_Batch_NDE
-            //                 join y in Funs.DB.Base_DetectionType
-            //                 on x.DetectionTypeId equals y.DetectionTypeId
-            //                 where x.UnitId == node.ParentNode.NodeID && x.InstallationId == node.NodeID
-            //                       && x.ProjectId==this.CurrUser.LoginProjectId
-            //                 orderby x.DetectionTypeCode
-            //                 select y).Distinct();
-            //    //var u = BLL.Base_UnitService.GetUnit(node.ParentNode.NodeID);
-            //    foreach (var q in types)
-            //    {
-            //        TreeNode newNode = new TreeNode();
-            //        newNode.Text = q.DetectionTypeCode; // + "(" + u.UnitCode + ")";
-            //        newNode.NodeID = q.DetectionTypeId + "|" + node.ParentNode.NodeID;
-            //        newNode.ToolTip = "DetectionType";
-            //        node.Nodes.Add(newNode);
-            //        BindNodes(newNode, startTime, endTime);
-            //    }
-            //}
-            //else if (node.ToolTip == "DetectionType")
-            //{
-            //    //单号
-            //    string ndtTypeId = node.NodeID.Split('|')[0];
-            //    var checks = from x in Funs.DB.View_Batch_NDE
-            //                 where x.NDEDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
-            //                 && x.NDEDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
-            //                 && x.ProjectId == this.CurrUser.LoginProjectId && x.NDECode.Contains(this.txtSearchCode.Text.Trim())
-            //                 && x.InstallationId.ToString() == node.ParentNode.NodeID
-            //                 && x.UnitId == node.ParentNode.ParentNode.NodeID
-            //                 && x.DetectionTypeId == ndtTypeId
-            //                 orderby x.NDECode descending
-            //                 select x;
-            //    foreach (var check in checks)
-            //    {
-            //        TreeNode newNode = new TreeNode();
-            //        if (!check.AuditDate.HasValue)
-            //        {
-            //            newNode.Text = "<font color='#EE0000'>" + check.NDECode + "</font>";
-            //        }
-            //        else
-            //        {
-            //            newNode.Text = check.NDECode;
-            //        }
-            //        newNode.NodeID = check.NDEID;
-            //        newNode.ToolTip = "check";
-            //        newNode.EnableClickEvent = true;
-            //        node.Nodes.Add(newNode);
-            //    }
-            //}
-        }
-        //绑定子节点
-        private void BindChildNodes(TreeNode ChildNodes, List<Model.WBS_UnitWork> pUnitWork, List<Model.Project_ProjectUnit> pUnits)
-        {
-            if (ChildNodes.CommandName == "单位工程")
-            {
-                var p = from x in Funs.DB.HJGL_Batch_NDE
-                        where x.UnitWorkId == ChildNodes.NodeID
+            var p = from x in Funs.DB.HJGL_Batch_NDE
+                    where x.UnitWorkId == node.NodeID
 && x.NDEDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
 && x.NDEDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
-                        select x;
-                if (p.Count() > 0)
-                {
-                    TreeNode newNode = new TreeNode();
-                    newNode.Text = "探伤类型";
-                    newNode.NodeID = "探伤类型";
-                    ChildNodes.Nodes.Add(newNode);
-                }
+                    select x;
+            if (p.Count() > 0)
+            {
+                TreeNode newNode = new TreeNode();
+                newNode.Text = "探伤类型";
+                newNode.NodeID = "探伤类型";
+                node.Nodes.Add(newNode);
             }
         }
         protected void tvControlItem_TreeNodeExpanded(object sender, TreeNodeEventArgs e)
@@ -307,12 +160,12 @@ namespace FineUIPro.Web.HJGL.NDT
                     var types = (from x in Funs.DB.View_Batch_NDE
                                  join y in Funs.DB.Base_DetectionType
                                  on x.DetectionTypeId equals y.DetectionTypeId
-                                 where  x.ProjectId == this.CurrUser.LoginProjectId
+                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                        && x.UnitWorkId == e.Node.NodeID
                                        && x.DetectionTypeId == item.DetectionTypeId
                                  orderby x.DetectionTypeCode
                                  select y).Distinct();
-                   
+
                     TreeNode newNode = new TreeNode();
                     if (types.Count() > 0)
                     {
@@ -436,7 +289,7 @@ namespace FineUIPro.Web.HJGL.NDT
             if (check != null)
             {
                 this.txtUnitName.Text = check.UnitName;
-                //this.txtInstallation.Text = check.InstallationName;
+                this.txtUnitWork.Text = check.UnitWorkName;
                 this.txtCheckUnit.Text = check.NDEUnitName;
                 this.txtDetectionTypeCode.Text = check.DetectionTypeCode;
                 if (check.NDEDate != null)
@@ -454,7 +307,7 @@ namespace FineUIPro.Web.HJGL.NDT
         private void SetTextTemp()
         {
             this.txtUnitName.Text = string.Empty;
-            this.txtInstallation.Text = string.Empty;
+            this.txtUnitWork.Text = string.Empty;
             this.txtCheckUnit.Text = string.Empty;
             this.txtDetectionTypeCode.Text = string.Empty;
             this.txtNDEDate.Text = string.Empty;
@@ -511,7 +364,7 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnAdd))
             {
-                if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "区域")
+                if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
                 {
                     this.SetTextTemp();
                     string window = String.Format("NDTBatchEdit.aspx?workAreaId={0}", tvControlItem.SelectedNodeID, "新增 - ");
@@ -635,7 +488,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     {
                         ShowNotify("请选择不合格并且已审核的检测项！", MessageBoxIcon.Warning);
                     }
-                   
+
                 }
                 else
                 {

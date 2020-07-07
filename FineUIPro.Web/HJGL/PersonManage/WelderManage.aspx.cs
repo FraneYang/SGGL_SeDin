@@ -46,6 +46,8 @@ namespace FineUIPro.Web.HJGL.PersonManage
             List<SqlParameter> parms = new List<SqlParameter>();
             strSql += " and Welder.WorkPostId = @WorkPostId";
             parms.Add(new SqlParameter("@WorkPostId", Const.WorkPost_Welder));
+            strSql += " and Welder.ProjectId = @ProjectId";
+            parms.Add(new SqlParameter("@ProjectId",this.CurrUser.LoginProjectId));
             if (drpUnit.SelectedValue != BLL.Const._Null)
             {
                 strSql += " and Welder.UnitId = @UnitId";

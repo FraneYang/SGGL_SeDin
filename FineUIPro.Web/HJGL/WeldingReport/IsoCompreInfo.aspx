@@ -16,13 +16,13 @@
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊口综合信息"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="PipelineId"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="PipelineId" AllowSorting="true"
-                SortField="WorkAreaCode,PipelineCode" SortDirection="DESC" OnSort="Grid1_Sort"
+                SortField="UnitWorkCode,PipelineCode" SortDirection="DESC" OnSort="Grid1_Sort"
                 AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableTextSelection="True">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:DropDownList ID="drpWorkAreaId" runat="server" Label="区域"
+                            <f:DropDownList ID="drpUnitWork" runat="server" Label="区域"
                                 LabelAlign="Right" Width="280px">
                             </f:DropDownList>
                             <f:TextBox ID="txtPipelineCode" runat="server" Label="管线号"
@@ -49,8 +49,8 @@
                     <f:RenderField HeaderText="单位名称" ColumnID="UnitName" DataField="UnitName"
                         SortField="UnitName" FieldType="String" HeaderTextAlign="Center" Width="180px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="区域" ColumnID="WorkAreaCode" DataField="WorkAreaCode"
-                        SortField="WorkAreaCode" FieldType="String" HeaderTextAlign="Center" Width="100px">
+                    <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
+                        SortField="UnitWorkCode" FieldType="String" HeaderTextAlign="Center" Width="100px">
                     </f:RenderField>
                     <f:RenderField HeaderText="管线号" ColumnID="PipelineCode"
                         DataField="PipelineCode" SortField="PipelineCode" FieldType="String" HeaderTextAlign="Center"

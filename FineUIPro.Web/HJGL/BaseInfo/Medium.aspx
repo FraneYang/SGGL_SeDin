@@ -24,7 +24,7 @@
                             <f:TextBox ID="txtMediumCode" runat="server" Label="输入查询条件"
                                 EmptyText="输入查询条件" Width="250px" LabelWidth="120px" LabelAlign="Right">
                             </f:TextBox>
-                            <f:TextBox ID="txtMediumName" runat="server" Label="介质描述"
+                            <f:TextBox ID="txtMediumName" runat="server" Label="介质名称"
                                 EmptyText="输入查询条件" Width="300px" LabelWidth="150px" LabelAlign="Right">
                             </f:TextBox>
                             <f:TextBox ID="txtMediumAbbreviation" runat="server" Label="介质相态"
@@ -47,16 +47,12 @@
                         SortField="MediumCode">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="MediumName" DataField="MediumName" FieldType="String"
-                        HeaderText="介质描述" HeaderTextAlign="Center"
+                        HeaderText="介质名称" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="MediumName">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="MediumAbbreviation" DataField="MediumAbbreviation"
                         FieldType="String" HeaderText="介质相态" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="MediumAbbreviation">
-                    </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="IsTestMedium" DataField="IsTestMedium" FieldType="String"
-                        HeaderText="是否试验介质" HeaderTextAlign="Center"
-                        TextAlign="Left" SortField="IsTestMedium">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left"

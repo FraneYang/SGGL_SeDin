@@ -145,6 +145,7 @@
     <Compile Include="CQMS\NDTCheckItem.cs" />
     <Compile Include="CQMS\WelderItem.cs" />
     <Compile Include="ErrorInfo.cs" />
+    <Compile Include="HandleStep.cs" />
     <Compile Include="HJGL\SpWeldingDailyItem.cs" />
     <Compile Include="HSSE\HSSE_HazardTemplate.cs" />
     <Compile Include="Model.cs" />

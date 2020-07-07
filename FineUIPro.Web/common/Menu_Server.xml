@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="发起检查" NavigateUrl="Personal/FileSearch.aspx" >
+  <TreeNode id="6090DD54-FE59-4011-92EE-9906C9BC69B6" Text="发起检查" NavigateUrl="">
   </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="检查记录" NavigateUrl="Personal/FileSearch.aspx" >
-  </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="项目绩效评价" NavigateUrl="Personal/FileSearch.aspx" >
-  </TreeNode>
+<TreeNode id="C619988F-307B-4A39-B518-7F45CA7326F5" Text="检查记录" NavigateUrl=""></TreeNode>
+<TreeNode id="BFCC1E3E-30DF-4417-B6C0-7D4D2E4148D2" Text="项目绩效评价" NavigateUrl=""></TreeNode>
 </Tree>

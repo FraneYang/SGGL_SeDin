@@ -8,35 +8,98 @@
     <link href="../res/index/css/reset.css" rel="stylesheet" />
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
-
+    <style type="text/css">
+        .flexV{
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+        .bw-item{
+            height:auto;
+            margin: 0 0 10px 0;
+        }
+        .bw-item:last-child{
+            margin-bottom:0;
+        }
+        .wrap{
+            padding: 15px 0;
+            height:100%;
+            box-sizing:border-box;
+        } 
+        .bottom-wrap{
+            height:100%;
+            box-sizing:border-box;
+        }
+        .bw-b-bottom-up{
+            height:100%;
+        }
+        .bw-b,.bw-b-bottom{
+            box-sizing:border-box;
+        }
+        .mb{
+            margin-bottom:10px;
+        }
+        .mr{
+            margin-right:10px;
+        }
+        .mbnone{
+            margin-bottom: 0;
+        }
+        .swiperHeightWrap{
+            height:220px;
+        }
+        .swiperHeight{
+            height:180px;
+        }
+        @media screen and (max-height: 625px) {
+            .swiperHeightWrap{
+                height:220px;
+            }
+            .swiperHeight{
+                height:180px;
+            }
+            .bw-item-content{
+                padding:10px;
+            }
+        }
+        @media screen and (min-height: 625px) {
+            .swiperHeightWrap{
+               height:340px;
+            }
+            .swiperHeight{
+               height:300px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="wrap">     
         <div class="bottom-wrap flex">
             <!--左侧-->
-            <div class="bw-s flex1">
-                <div class="bw-item">
+            <div class="bw-s flex1 flexV flex">
+                <div class="bw-item flex1">
                    <%-- <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="" />--%>
                     <div class="bw-item-content">
                         <div id='main' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bw-item">
+                <div class="bw-item flex1">
                     <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='line' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bw-item bw-item-h">
+                <div class="bw-item bw-item-h flex1">
                     <%--<img class="bw-img bw-img-h" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='radar' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
             </div>
-            <!--中间-->
-            <div class="bw-b flex2" style="margin-top:15px">
-                <div class="bw-b-bottom ptop6">
+            <!--中间 margin-top:10px; ptop6-->
+            <div class="bw-b flex2 flexV flex" style="">
+                <div class="bw-b-bottom flex1 mb">
                     <div class="bw-b-bottom-up">
                         <div class="tab-wrap">
                             <div class="tab">
@@ -48,11 +111,12 @@
                         <div id='map' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bw-b-bottom" style="display: flex;">
-                    <div class="bw-item" style="flex: 1; width: 50%;">
+                <div class="bw-b-bottom flex swiperHeightWrap">
+                    <div class="bw-item flex1 mr mbnone" style="flex: 1; width: 48%;">
                         <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
+                        <%--style="height:180px;"--%>
                         <div class="bw-item-content">
-                            <div id='swiper1' class="swiper-container" style="height: 180px;">
+                            <div id='swiper1' class="swiper-container swiperHeight">
                                 <ul class="content-ul swiper-wrapper">
                                     <li class="c-item swiper-slide">
                                         <div class="tit">【001】待整改</div>
@@ -94,11 +158,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="spline"></div>
-                    <div class="bw-item" style="flex: 1; width: 50%;">
+                    <div class="spline" style="width:2%;"></div>
+                    <div class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
                         <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                         <div class="bw-item-content">
-                            <div class="swiper-container" id='swiper2' style="height: 180px;">
+                            <div class="swiper-container swiperHeight" id='swiper2'>
                                 <ul class="content-ul swiper-wrapper">
                                     <li class="c-item swiper-slide">
                                         <div class="tit">关于加强全国两会期间安全防范工作</div>
@@ -143,20 +207,20 @@
                 </div>
             </div>
             <!--右侧-->
-            <div class="bw-s flex1">
-                <div class="bw-item">
+            <div class="bw-s flex1 flexV flex" style="">
+                <div class="bw-item flex1">
                     <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='echartsBar' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bw-item">
+                <div class="bw-item flex1">
                     <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='line1' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bw-item bw-item-h">
+                <div class="bw-item bw-item-h flex1">
                     <%--<img class="bw-img bw-img-h" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
                         <div id='Accumulation' style="width: 100%; height: 100%;"></div>
@@ -173,7 +237,7 @@
 <script type="text/javascript" src="../res/index/js/china.js"></script>
 <script type="text/javascript" src="../res/index/js/world.js"></script>
 <script type="text/javascript">
-    function category(id,nameData,valeData) {
+    function category(id) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
@@ -207,7 +271,7 @@
                     }
                 },
                 type: 'category',
-                data: nameData
+                data: ["已整改", "待整改", "巡检数", "专项检查", "综合检查", "隐患"]
             },
             yAxis: {
                 axisTick: {
@@ -228,7 +292,7 @@
             series: [{
                 name: '销量',
                 type: 'bar',
-                data: valeData
+                data: [5, 20, 66, 10, 10, 20]
             }],
             grid: {
                 top: '25%',
@@ -251,9 +315,8 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var nameData = ["已整改", "待整改", "巡检数", "专项检查", "综合检查", "隐患"];
-    var valeDate = [5, 20, 66, 10, 10, 20];
-    category('main',nameData,valeDate)
+
+    category('main')
 </script>
 <script>
     function line(id, name) {
@@ -835,7 +898,7 @@
         var myChartLine = echarts.init(document.getElementById(id));
         option = {
             title: {
-                top: 15,
+                top: 0,
                 // left:'center',
                 text: '劳务统计',
                 textStyle: {

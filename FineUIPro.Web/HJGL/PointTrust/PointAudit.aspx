@@ -33,20 +33,16 @@
                                     <f:Button ID="取消审核" Icon="ArrowUndo" Text="取消审核" runat="server" ToolTip="取消审核"
                                         OnClick="btnCancelAccept_Click">
                                     </f:Button>
-                                    <f:Button ID="btnGenerate" Text="生成" ToolTip="生成" Icon="Pencil" runat="server"
+                                    <f:Button ID="btnGenerate" Text="生成" ToolTip="生成" Icon="TableEdit" runat="server"
                                        OnClick="btnGenerate_Click" >
                             </f:Button>
                                 </Items>
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                            <f:RenderField HeaderText="装置" ColumnID="InstallationCode"
-                                DataField="InstallationCode" SortField="InstallationCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:RenderField HeaderText="单位工程编号" ColumnID="UnitWorkCode"
+                                DataField="UnitWorkCode" SortField="UnitWorkCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="100px">
-                            </f:RenderField>
-                            <f:RenderField HeaderText="工区号" ColumnID="WorkAreaCode"
-                                DataField="WorkAreaCode" SortField="WorkAreaCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
-                                Width="90px">
                             </f:RenderField>
                             <f:RenderField HeaderText="单位" ColumnID="UnitCode"
                                 DataField="UnitCode" SortField="UnitCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"

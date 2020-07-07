@@ -322,6 +322,9 @@
     <Content Include="HJGL\BaseInfo\Testing.aspx" />
     <Content Include="HJGL\BaseInfo\TestingEdit.aspx" />
     <Content Include="HJGL\BaseInfo\TestingView.aspx" />
+    <Content Include="HJGL\BaseInfo\TestMedium.aspx" />
+    <Content Include="HJGL\BaseInfo\TestMediumEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\TestMediumView.aspx" />
     <Content Include="HJGL\BaseInfo\Weld.aspx" />
     <Content Include="HJGL\BaseInfo\WeldEdit.aspx" />
     <Content Include="HJGL\BaseInfo\WeldingLocation.aspx" />
@@ -397,6 +400,21 @@
     <Content Include="HSSE\ActionPlan\ManagerRuleEdit.aspx" />
     <Content Include="HSSE\ActionPlan\ManagerRuleList.aspx" />
     <Content Include="HSSE\ActionPlan\ManagerRuleView.aspx" />
+    <Content Include="HSSE\Check\CheckColligation.aspx" />
+    <Content Include="HSSE\Check\CheckColligationDetailEdit.aspx" />
+    <Content Include="HSSE\Check\CheckColligationEdit.aspx" />
+    <Content Include="HSSE\Check\CheckColligationView.aspx" />
+    <Content Include="HSSE\Check\CheckSpecial.aspx" />
+    <Content Include="HSSE\Check\CheckSpecialEdit.aspx" />
+    <Content Include="HSSE\Check\CheckSpecialView.aspx" />
+    <Content Include="HSSE\Check\PauseNotice.aspx" />
+    <Content Include="HSSE\Check\PauseNoticeEdit.aspx" />
+    <Content Include="HSSE\Check\PauseNoticeView.aspx" />
+    <Content Include="HSSE\Check\RectifyNotices.aspx" />
+    <Content Include="HSSE\Check\RectifyNoticesEdit.aspx" />
+    <Content Include="HSSE\Check\RectifyNoticesView.aspx" />
+    <Content Include="HSSE\Check\ShowCheckItem.aspx" />
+    <Content Include="HSSE\Check\ShowCompletedDate.aspx" />
     <Content Include="HSSE\EduTrain\AccidentCase.aspx" />
     <Content Include="HSSE\EduTrain\AccidentCaseItemSave.aspx" />
     <Content Include="HSSE\EduTrain\AccidentCaseItemSelectCloumn.aspx" />
@@ -404,18 +422,39 @@
     <Content Include="HSSE\EduTrain\CompanyTraining.aspx" />
     <Content Include="HSSE\EduTrain\CompanyTrainingItemSave.aspx" />
     <Content Include="HSSE\EduTrain\CompanyTrainingSave.aspx" />
+    <Content Include="HSSE\EduTrain\Plan.aspx" />
+    <Content Include="HSSE\EduTrain\PlanView.aspx" />
+    <Content Include="HSSE\EduTrain\ShowPerson.aspx" />
+    <Content Include="HSSE\EduTrain\Task.aspx" />
+    <Content Include="HSSE\EduTrain\TaskRecordView.aspx" />
+    <Content Include="HSSE\EduTrain\TaskView.aspx" />
+    <Content Include="HSSE\EduTrain\TestPlan.aspx" />
+    <Content Include="HSSE\EduTrain\TestPlanView.aspx" />
+    <Content Include="HSSE\EduTrain\TestRecord.aspx" />
+    <Content Include="HSSE\EduTrain\TestRecordItem.aspx" />
+    <Content Include="HSSE\EduTrain\TestRecordPrint.aspx" />
+    <Content Include="HSSE\EduTrain\TestRecordView.aspx" />
+    <Content Include="HSSE\EduTrain\TestStatistics.aspx" />
     <Content Include="HSSE\EduTrain\TestTraining.aspx" />
     <Content Include="HSSE\EduTrain\TestTrainingItemIn.aspx" />
     <Content Include="HSSE\EduTrain\TestTrainingItemSave.aspx" />
     <Content Include="HSSE\EduTrain\TestTrainingOut.aspx" />
     <Content Include="HSSE\EduTrain\TestTrainingSave.aspx" />
+    <Content Include="HSSE\EduTrain\TestTrainRecord.aspx" />
     <Content Include="HSSE\EduTrain\TrainDB.aspx" />
+    <Content Include="HSSE\EduTrain\TrainFind.aspx" />
     <Content Include="HSSE\EduTrain\TrainingItemSave.aspx" />
     <Content Include="HSSE\EduTrain\TrainingSave.aspx" />
+    <Content Include="HSSE\EduTrain\TrainRecord.aspx" />
+    <Content Include="HSSE\EduTrain\TrainRecordEdit.aspx" />
+    <Content Include="HSSE\EduTrain\TrainRecordIn.aspx" />
+    <Content Include="HSSE\EduTrain\TrainRecordView.aspx" />
+    <Content Include="HSSE\EduTrain\TrainTest.aspx" />
     <Content Include="HSSE\EduTrain\TrainTestDB.aspx" />
     <Content Include="HSSE\EduTrain\TrainTestDBEdit.aspx" />
     <Content Include="HSSE\EduTrain\TrainTestDBSelectCloumn.aspx" />
     <Content Include="HSSE\EduTrain\TrainTestItemEdit.aspx" />
+    <Content Include="HSSE\EduTrain\TrainTestView.aspx" />
     <Content Include="HSSE\Environmental\EIAReport.aspx" />
     <Content Include="HSSE\Environmental\EIAReportEdit.aspx" />
     <Content Include="HSSE\Environmental\EIAReportView.aspx" />
@@ -442,6 +481,11 @@
     <Content Include="HSSE\Hazard\SetToolTipTime.aspx" />
     <Content Include="HSSE\Hazard\ShowEnvironmentalItem.aspx" />
     <Content Include="HSSE\Hazard\ShowHazardList.aspx" />
+    <Content Include="HSSE\HiddenInspection\HiddenRectificationAdd.aspx" />
+    <Content Include="HSSE\HiddenInspection\HiddenRectificationConfirm.aspx" />
+    <Content Include="HSSE\HiddenInspection\HiddenRectificationList.aspx" />
+    <Content Include="HSSE\HiddenInspection\HiddenRectificationRectify.aspx" />
+    <Content Include="HSSE\HiddenInspection\HiddenRectificationView.aspx" />
     <Content Include="HSSE\HSSESystem\HSSEMainDuty.aspx" />
     <Content Include="HSSE\HSSESystem\HSSEMainDutyEdit.aspx" />
     <Content Include="HSSE\InformationProject\ConstructionStandardIdentify.aspx" />
@@ -463,6 +507,43 @@
     <Content Include="HSSE\Law\RulesRegulations.aspx" />
     <Content Include="HSSE\Law\RulesRegulationsEdit.aspx" />
     <Content Include="HSSE\Law\RulesRegulationsSelectCloumn.aspx" />
+    <Content Include="HSSE\License\BreakGround.aspx" />
+    <Content Include="HSSE\License\BreakGroundView.aspx" />
+    <Content Include="HSSE\License\FireWork.aspx" />
+    <Content Include="HSSE\License\FireWorkView.aspx" />
+    <Content Include="HSSE\License\HeightWork.aspx" />
+    <Content Include="HSSE\License\HeightWorkView.aspx" />
+    <Content Include="HSSE\License\HSETechnical.aspx" />
+    <Content Include="HSSE\License\HSETechnicalEdit.aspx" />
+    <Content Include="HSSE\License\HSETechnicalView.aspx" />
+    <Content Include="HSSE\License\LicenseManager.aspx" />
+    <Content Include="HSSE\License\LicenseManagerEdit.aspx" />
+    <Content Include="HSSE\License\LicenseManagerView.aspx" />
+    <Content Include="HSSE\License\LiftingWork.aspx" />
+    <Content Include="HSSE\License\LiftingWorkView.aspx" />
+    <Content Include="HSSE\License\LimitedSpace.aspx" />
+    <Content Include="HSSE\License\LimitedSpaceView.aspx" />
+    <Content Include="HSSE\License\NightWork.aspx" />
+    <Content Include="HSSE\License\NightWorkView.aspx" />
+    <Content Include="HSSE\License\OpenCircuit.aspx" />
+    <Content Include="HSSE\License\OpenCircuitView.aspx" />
+    <Content Include="HSSE\License\RadialWork.aspx" />
+    <Content Include="HSSE\License\RadialWorkView.aspx" />
+    <Content Include="HSSE\Meeting\AttendMeeting.aspx" />
+    <Content Include="HSSE\Meeting\AttendMeetingEdit.aspx" />
+    <Content Include="HSSE\Meeting\AttendMeetingView.aspx" />
+    <Content Include="HSSE\Meeting\ClassMeeting.aspx" />
+    <Content Include="HSSE\Meeting\ClassMeetingEdit.aspx" />
+    <Content Include="HSSE\Meeting\ClassMeetingView.aspx" />
+    <Content Include="HSSE\Meeting\MonthMeeting.aspx" />
+    <Content Include="HSSE\Meeting\MonthMeetingEdit.aspx" />
+    <Content Include="HSSE\Meeting\MonthMeetingView.aspx" />
+    <Content Include="HSSE\Meeting\SpecialMeeting.aspx" />
+    <Content Include="HSSE\Meeting\SpecialMeetingEdit.aspx" />
+    <Content Include="HSSE\Meeting\SpecialMeetingView.aspx" />
+    <Content Include="HSSE\Meeting\WeekMeeting.aspx" />
+    <Content Include="HSSE\Meeting\WeekMeetingEdit.aspx" />
+    <Content Include="HSSE\Meeting\WeekMeetingView.aspx" />
     <Content Include="HSSE\OccupationHealth\HazardDetection.aspx" />
     <Content Include="HSSE\OccupationHealth\HazardDetectionEdit.aspx" />
     <Content Include="HSSE\OccupationHealth\HazardDetectionView.aspx" />
@@ -601,6 +682,7 @@
     <Content Include="ProjectData\ProjectSet.aspx" />
     <Content Include="ProjectData\ProjectSetSave.aspx" />
     <Content Include="ProjectData\ProjectSetView.aspx" />
+    <Content Include="ProjectData\ProjectSysSet.aspx" />
     <Content Include="ProjectData\ProjectUnit.aspx" />
     <Content Include="ProjectData\ProjectUnitSave.aspx" />
     <Content Include="ProjectData\ProjectUnitSelect.aspx" />
@@ -5615,6 +5697,27 @@
     <Compile Include="HJGL\BaseInfo\TestingView.aspx.designer.cs">
       <DependentUpon>TestingView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\BaseInfo\TestMedium.aspx.cs">
+      <DependentUpon>TestMedium.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\TestMedium.aspx.designer.cs">
+      <DependentUpon>TestMedium.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\TestMediumEdit.aspx.cs">
+      <DependentUpon>TestMediumEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\TestMediumEdit.aspx.designer.cs">
+      <DependentUpon>TestMediumEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\TestMediumView.aspx.cs">
+      <DependentUpon>TestMediumView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\TestMediumView.aspx.designer.cs">
+      <DependentUpon>TestMediumView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\BaseInfo\Weld.aspx.cs">
       <DependentUpon>Weld.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6143,6 +6246,111 @@
     <Compile Include="HSSE\ActionPlan\ManagerRuleView.aspx.designer.cs">
       <DependentUpon>ManagerRuleView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\Check\CheckColligation.aspx.cs">
+      <DependentUpon>CheckColligation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckColligation.aspx.designer.cs">
+      <DependentUpon>CheckColligation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckColligationDetailEdit.aspx.cs">
+      <DependentUpon>CheckColligationDetailEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckColligationDetailEdit.aspx.designer.cs">
+      <DependentUpon>CheckColligationDetailEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckColligationEdit.aspx.cs">
+      <DependentUpon>CheckColligationEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckColligationEdit.aspx.designer.cs">
+      <DependentUpon>CheckColligationEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckColligationView.aspx.cs">
+      <DependentUpon>CheckColligationView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckColligationView.aspx.designer.cs">
+      <DependentUpon>CheckColligationView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckSpecial.aspx.cs">
+      <DependentUpon>CheckSpecial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckSpecial.aspx.designer.cs">
+      <DependentUpon>CheckSpecial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckSpecialEdit.aspx.cs">
+      <DependentUpon>CheckSpecialEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckSpecialEdit.aspx.designer.cs">
+      <DependentUpon>CheckSpecialEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckSpecialView.aspx.cs">
+      <DependentUpon>CheckSpecialView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\CheckSpecialView.aspx.designer.cs">
+      <DependentUpon>CheckSpecialView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\PauseNotice.aspx.cs">
+      <DependentUpon>PauseNotice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\PauseNotice.aspx.designer.cs">
+      <DependentUpon>PauseNotice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\PauseNoticeEdit.aspx.cs">
+      <DependentUpon>PauseNoticeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\PauseNoticeEdit.aspx.designer.cs">
+      <DependentUpon>PauseNoticeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\PauseNoticeView.aspx.cs">
+      <DependentUpon>PauseNoticeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\PauseNoticeView.aspx.designer.cs">
+      <DependentUpon>PauseNoticeView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNotices.aspx.cs">
+      <DependentUpon>RectifyNotices.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNotices.aspx.designer.cs">
+      <DependentUpon>RectifyNotices.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesEdit.aspx.cs">
+      <DependentUpon>RectifyNoticesEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesEdit.aspx.designer.cs">
+      <DependentUpon>RectifyNoticesEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesView.aspx.cs">
+      <DependentUpon>RectifyNoticesView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesView.aspx.designer.cs">
+      <DependentUpon>RectifyNoticesView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\ShowCheckItem.aspx.cs">
+      <DependentUpon>ShowCheckItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\ShowCheckItem.aspx.designer.cs">
+      <DependentUpon>ShowCheckItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\ShowCompletedDate.aspx.cs">
+      <DependentUpon>ShowCompletedDate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\ShowCompletedDate.aspx.designer.cs">
+      <DependentUpon>ShowCompletedDate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\EduTrain\AccidentCase.aspx.cs">
       <DependentUpon>AccidentCase.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6192,6 +6400,97 @@
     <Compile Include="HSSE\EduTrain\CompanyTrainingSave.aspx.designer.cs">
       <DependentUpon>CompanyTrainingSave.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\EduTrain\Plan.aspx.cs">
+      <DependentUpon>Plan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\Plan.aspx.designer.cs">
+      <DependentUpon>Plan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\PlanView.aspx.cs">
+      <DependentUpon>PlanView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\PlanView.aspx.designer.cs">
+      <DependentUpon>PlanView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\ShowPerson.aspx.cs">
+      <DependentUpon>ShowPerson.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\ShowPerson.aspx.designer.cs">
+      <DependentUpon>ShowPerson.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\Task.aspx.cs">
+      <DependentUpon>Task.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\Task.aspx.designer.cs">
+      <DependentUpon>Task.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TaskRecordView.aspx.cs">
+      <DependentUpon>TaskRecordView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TaskRecordView.aspx.designer.cs">
+      <DependentUpon>TaskRecordView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TaskView.aspx.cs">
+      <DependentUpon>TaskView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TaskView.aspx.designer.cs">
+      <DependentUpon>TaskView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestPlan.aspx.cs">
+      <DependentUpon>TestPlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestPlan.aspx.designer.cs">
+      <DependentUpon>TestPlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestPlanView.aspx.cs">
+      <DependentUpon>TestPlanView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestPlanView.aspx.designer.cs">
+      <DependentUpon>TestPlanView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestRecord.aspx.cs">
+      <DependentUpon>TestRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestRecord.aspx.designer.cs">
+      <DependentUpon>TestRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestRecordItem.aspx.cs">
+      <DependentUpon>TestRecordItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestRecordItem.aspx.designer.cs">
+      <DependentUpon>TestRecordItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestRecordPrint.aspx.cs">
+      <DependentUpon>TestRecordPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestRecordPrint.aspx.designer.cs">
+      <DependentUpon>TestRecordPrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestRecordView.aspx.cs">
+      <DependentUpon>TestRecordView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestRecordView.aspx.designer.cs">
+      <DependentUpon>TestRecordView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestStatistics.aspx.cs">
+      <DependentUpon>TestStatistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestStatistics.aspx.designer.cs">
+      <DependentUpon>TestStatistics.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\EduTrain\TestTraining.aspx.cs">
       <DependentUpon>TestTraining.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6227,12 +6526,26 @@
     <Compile Include="HSSE\EduTrain\TestTrainingSave.aspx.designer.cs">
       <DependentUpon>TestTrainingSave.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainRecord.aspx.cs">
+      <DependentUpon>TestTrainRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TestTrainRecord.aspx.designer.cs">
+      <DependentUpon>TestTrainRecord.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\EduTrain\TrainDB.aspx.cs">
       <DependentUpon>TrainDB.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="HSSE\EduTrain\TrainDB.aspx.designer.cs">
       <DependentUpon>TrainDB.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainFind.aspx.cs">
+      <DependentUpon>TrainFind.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainFind.aspx.designer.cs">
+      <DependentUpon>TrainFind.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\EduTrain\TrainingItemSave.aspx.cs">
       <DependentUpon>TrainingItemSave.aspx</DependentUpon>
@@ -6247,6 +6560,41 @@
     </Compile>
     <Compile Include="HSSE\EduTrain\TrainingSave.aspx.designer.cs">
       <DependentUpon>TrainingSave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainRecord.aspx.cs">
+      <DependentUpon>TrainRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainRecord.aspx.designer.cs">
+      <DependentUpon>TrainRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainRecordEdit.aspx.cs">
+      <DependentUpon>TrainRecordEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainRecordEdit.aspx.designer.cs">
+      <DependentUpon>TrainRecordEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainRecordIn.aspx.cs">
+      <DependentUpon>TrainRecordIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainRecordIn.aspx.designer.cs">
+      <DependentUpon>TrainRecordIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainRecordView.aspx.cs">
+      <DependentUpon>TrainRecordView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainRecordView.aspx.designer.cs">
+      <DependentUpon>TrainRecordView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTest.aspx.cs">
+      <DependentUpon>TrainTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTest.aspx.designer.cs">
+      <DependentUpon>TrainTest.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\EduTrain\TrainTestDB.aspx.cs">
       <DependentUpon>TrainTestDB.aspx</DependentUpon>
@@ -6275,6 +6623,13 @@
     </Compile>
     <Compile Include="HSSE\EduTrain\TrainTestItemEdit.aspx.designer.cs">
       <DependentUpon>TrainTestItemEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestView.aspx.cs">
+      <DependentUpon>TrainTestView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\EduTrain\TrainTestView.aspx.designer.cs">
+      <DependentUpon>TrainTestView.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\Environmental\EIAReport.aspx.cs">
       <DependentUpon>EIAReport.aspx</DependentUpon>
@@ -6458,6 +6813,41 @@
     <Compile Include="HSSE\Hazard\ShowHazardList.aspx.designer.cs">
       <DependentUpon>ShowHazardList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationAdd.aspx.cs">
+      <DependentUpon>HiddenRectificationAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationAdd.aspx.designer.cs">
+      <DependentUpon>HiddenRectificationAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationConfirm.aspx.cs">
+      <DependentUpon>HiddenRectificationConfirm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationConfirm.aspx.designer.cs">
+      <DependentUpon>HiddenRectificationConfirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationList.aspx.cs">
+      <DependentUpon>HiddenRectificationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationList.aspx.designer.cs">
+      <DependentUpon>HiddenRectificationList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationRectify.aspx.cs">
+      <DependentUpon>HiddenRectificationRectify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationRectify.aspx.designer.cs">
+      <DependentUpon>HiddenRectificationRectify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationView.aspx.cs">
+      <DependentUpon>HiddenRectificationView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\HiddenRectificationView.aspx.designer.cs">
+      <DependentUpon>HiddenRectificationView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\HSSESystem\HSSEMainDuty.aspx.cs">
       <DependentUpon>HSSEMainDuty.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6604,6 +6994,265 @@
     </Compile>
     <Compile Include="HSSE\Law\RulesRegulationsSelectCloumn.aspx.designer.cs">
       <DependentUpon>RulesRegulationsSelectCloumn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\BreakGround.aspx.cs">
+      <DependentUpon>BreakGround.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\BreakGround.aspx.designer.cs">
+      <DependentUpon>BreakGround.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\BreakGroundView.aspx.cs">
+      <DependentUpon>BreakGroundView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\BreakGroundView.aspx.designer.cs">
+      <DependentUpon>BreakGroundView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\FireWork.aspx.cs">
+      <DependentUpon>FireWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\FireWork.aspx.designer.cs">
+      <DependentUpon>FireWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\FireWorkView.aspx.cs">
+      <DependentUpon>FireWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\FireWorkView.aspx.designer.cs">
+      <DependentUpon>FireWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\HeightWork.aspx.cs">
+      <DependentUpon>HeightWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\HeightWork.aspx.designer.cs">
+      <DependentUpon>HeightWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\HeightWorkView.aspx.cs">
+      <DependentUpon>HeightWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\HeightWorkView.aspx.designer.cs">
+      <DependentUpon>HeightWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\HSETechnical.aspx.cs">
+      <DependentUpon>HSETechnical.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\HSETechnical.aspx.designer.cs">
+      <DependentUpon>HSETechnical.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\HSETechnicalEdit.aspx.cs">
+      <DependentUpon>HSETechnicalEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\HSETechnicalEdit.aspx.designer.cs">
+      <DependentUpon>HSETechnicalEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\HSETechnicalView.aspx.cs">
+      <DependentUpon>HSETechnicalView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\HSETechnicalView.aspx.designer.cs">
+      <DependentUpon>HSETechnicalView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\LicenseManager.aspx.cs">
+      <DependentUpon>LicenseManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\LicenseManager.aspx.designer.cs">
+      <DependentUpon>LicenseManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\LicenseManagerEdit.aspx.cs">
+      <DependentUpon>LicenseManagerEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\LicenseManagerEdit.aspx.designer.cs">
+      <DependentUpon>LicenseManagerEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\LicenseManagerView.aspx.cs">
+      <DependentUpon>LicenseManagerView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\LicenseManagerView.aspx.designer.cs">
+      <DependentUpon>LicenseManagerView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\LiftingWork.aspx.cs">
+      <DependentUpon>LiftingWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\LiftingWork.aspx.designer.cs">
+      <DependentUpon>LiftingWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\LiftingWorkView.aspx.cs">
+      <DependentUpon>LiftingWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\LiftingWorkView.aspx.designer.cs">
+      <DependentUpon>LiftingWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\LimitedSpace.aspx.cs">
+      <DependentUpon>LimitedSpace.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\LimitedSpace.aspx.designer.cs">
+      <DependentUpon>LimitedSpace.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\LimitedSpaceView.aspx.cs">
+      <DependentUpon>LimitedSpaceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\LimitedSpaceView.aspx.designer.cs">
+      <DependentUpon>LimitedSpaceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\NightWork.aspx.cs">
+      <DependentUpon>NightWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\NightWork.aspx.designer.cs">
+      <DependentUpon>NightWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\NightWorkView.aspx.cs">
+      <DependentUpon>NightWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\NightWorkView.aspx.designer.cs">
+      <DependentUpon>NightWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\OpenCircuit.aspx.cs">
+      <DependentUpon>OpenCircuit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\OpenCircuit.aspx.designer.cs">
+      <DependentUpon>OpenCircuit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\OpenCircuitView.aspx.cs">
+      <DependentUpon>OpenCircuitView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\OpenCircuitView.aspx.designer.cs">
+      <DependentUpon>OpenCircuitView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\RadialWork.aspx.cs">
+      <DependentUpon>RadialWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\RadialWork.aspx.designer.cs">
+      <DependentUpon>RadialWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\License\RadialWorkView.aspx.cs">
+      <DependentUpon>RadialWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\License\RadialWorkView.aspx.designer.cs">
+      <DependentUpon>RadialWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\AttendMeeting.aspx.cs">
+      <DependentUpon>AttendMeeting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\AttendMeeting.aspx.designer.cs">
+      <DependentUpon>AttendMeeting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\AttendMeetingEdit.aspx.cs">
+      <DependentUpon>AttendMeetingEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\AttendMeetingEdit.aspx.designer.cs">
+      <DependentUpon>AttendMeetingEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\AttendMeetingView.aspx.cs">
+      <DependentUpon>AttendMeetingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\AttendMeetingView.aspx.designer.cs">
+      <DependentUpon>AttendMeetingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\ClassMeeting.aspx.cs">
+      <DependentUpon>ClassMeeting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\ClassMeeting.aspx.designer.cs">
+      <DependentUpon>ClassMeeting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\ClassMeetingEdit.aspx.cs">
+      <DependentUpon>ClassMeetingEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\ClassMeetingEdit.aspx.designer.cs">
+      <DependentUpon>ClassMeetingEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\ClassMeetingView.aspx.cs">
+      <DependentUpon>ClassMeetingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\ClassMeetingView.aspx.designer.cs">
+      <DependentUpon>ClassMeetingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\MonthMeeting.aspx.cs">
+      <DependentUpon>MonthMeeting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\MonthMeeting.aspx.designer.cs">
+      <DependentUpon>MonthMeeting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\MonthMeetingEdit.aspx.cs">
+      <DependentUpon>MonthMeetingEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\MonthMeetingEdit.aspx.designer.cs">
+      <DependentUpon>MonthMeetingEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\MonthMeetingView.aspx.cs">
+      <DependentUpon>MonthMeetingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\MonthMeetingView.aspx.designer.cs">
+      <DependentUpon>MonthMeetingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\SpecialMeeting.aspx.cs">
+      <DependentUpon>SpecialMeeting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\SpecialMeeting.aspx.designer.cs">
+      <DependentUpon>SpecialMeeting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\SpecialMeetingEdit.aspx.cs">
+      <DependentUpon>SpecialMeetingEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\SpecialMeetingEdit.aspx.designer.cs">
+      <DependentUpon>SpecialMeetingEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\SpecialMeetingView.aspx.cs">
+      <DependentUpon>SpecialMeetingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\SpecialMeetingView.aspx.designer.cs">
+      <DependentUpon>SpecialMeetingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\WeekMeeting.aspx.cs">
+      <DependentUpon>WeekMeeting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\WeekMeeting.aspx.designer.cs">
+      <DependentUpon>WeekMeeting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\WeekMeetingEdit.aspx.cs">
+      <DependentUpon>WeekMeetingEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\WeekMeetingEdit.aspx.designer.cs">
+      <DependentUpon>WeekMeetingEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Meeting\WeekMeetingView.aspx.cs">
+      <DependentUpon>WeekMeetingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Meeting\WeekMeetingView.aspx.designer.cs">
+      <DependentUpon>WeekMeetingView.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\OccupationHealth\HazardDetection.aspx.cs">
       <DependentUpon>HazardDetection.aspx</DependentUpon>
@@ -7276,6 +7925,13 @@
     </Compile>
     <Compile Include="ProjectData\ProjectSetView.aspx.designer.cs">
       <DependentUpon>ProjectSetView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectSysSet.aspx.cs">
+      <DependentUpon>ProjectSysSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectSysSet.aspx.designer.cs">
+      <DependentUpon>ProjectSysSet.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\ProjectUnit.aspx.cs">
       <DependentUpon>ProjectUnit.aspx</DependentUpon>

@@ -31,7 +31,7 @@ namespace FineUIPro.Web.Personal
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT sysLog.LogId,sysLog.UserId,sysLog.OperationTime,sysLog.Ip,sysLog.HostName,sysLog.OperationLog,users.UserName,ISNULL(units.UnitName,(SELECT TOP 1 UnitName FROM Base_Unit WHERE IsThisUnit = 1)) AS  UnitName,Project.ProjectId,Project.ProjectName"
+            string strSql = @"SELECT sysLog.LogId,sysLog.UserId,sysLog.OperationTime,sysLog.Ip,sysLog.HostName,sysLog.OperationLog,users.UserName,units.UnitName,Project.ProjectId,Project.ProjectName"
                          + @" FROM dbo.Sys_Log as sysLog"
                          + @" LEFT JOIN Sys_User as users ON users.UserId=sysLog.UserId "
                          + @" LEFT JOIN Base_Unit as units on users.UnitId=units.UnitId"

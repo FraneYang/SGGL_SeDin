@@ -302,7 +302,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
        
 
         /// <summary>
-        /// 单位、装置下拉框变化事件
+        /// 单位、单位工程下拉框变化事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

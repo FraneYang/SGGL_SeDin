@@ -183,7 +183,7 @@
                             <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false" DataIDField="CheckEquipmentApproveId" SortField="ApproveDate"
                                 DataKeyNames="CheckControlApproveId" EnableColumnLines="true"  ForceFit="true">
                                 <Columns>
-                                    <f:TemplateField ColumnID="tfPageIndex" Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
+                                    <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
                                         EnableLock="true" Locked="False">
                                         <ItemTemplate>
                                             <asp:Label ID="lblPageIndex" runat="server" Text='<%# gvApprove.PageIndex * gvApprove.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>

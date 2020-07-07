@@ -639,7 +639,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                                     batch.PointBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_PointBatch));
                                     batchId = batch.PointBatchId;
                                     string perfix = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + ndtr.DetectionRateValue.ToString() + "-";
-                                    batch.PointBatchCode = BLL.SQLHelper.RunProcNewIdByProjectId("SpGetNewCode", "dbo.HJGL_Batch_PointBatch", "PointBatchCode", this.CurrUser.LoginProjectId, perfix);
+                                    batch.PointBatchCode = BLL.SQLHelper.RunProcNewIdByProjectId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_PointBatch", "PointBatchCode", this.CurrUser.LoginProjectId, perfix);
 
                                     batch.ProjectId = CurrUser.LoginProjectId;
                                     batch.UnitWorkId = pipeline.UnitWorkId;
@@ -813,27 +813,30 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     var item = GetWeldingDailyItem.FirstOrDefault(x => x.WeldJointId == rowID);
-                    //if (item != null && !BLL.Batch_NDEItemService.IsCheckedByWeldJoint(rowID))
-                    //{
-                    //    GetWeldingDailyItem.Remove(item);
-                    //    // 删除焊口所在批和委托检测里信息
-                    //   BLL.Batch_NDEItemService.DeleteAllNDEInfoToWeldJoint(item.WeldJointId);
-
-                    //    // 更新焊口信息
-                    var updateWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
-                    if (updateWeldJoint != null)
+                    var p = BLL.PointBatchDetailService.GetBatchDetailByJotId(rowID);
+                    if (item != null && (p==null || (p!=null && p.PointState==null)))
                     {
-                        updateWeldJoint.WeldingDailyId = null;
-                        updateWeldJoint.WeldingDailyCode = null;
-                        updateWeldJoint.CoverWelderId = null;
-                        updateWeldJoint.BackingWelderId = null;
-                        BLL.WeldJointService.UpdateWeldJoint(updateWeldJoint);
+                        GetWeldingDailyItem.Remove(item);
+                        // 删除焊口所在批明细信息
+                        if (p != null)
+                        {
+                            BLL.PointBatchDetailService.DeleteBatchDetail(item.WeldJointId);
+                        }
+                        //    // 更新焊口信息
+                        var updateWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
+                        if (updateWeldJoint != null)
+                        {
+                            updateWeldJoint.WeldingDailyId = null;
+                            updateWeldJoint.WeldingDailyCode = null;
+                            updateWeldJoint.CoverWelderId = null;
+                            updateWeldJoint.BackingWelderId = null;
+                            BLL.WeldJointService.UpdateWeldJoint(updateWeldJoint);
+                        }
                     }
-                    //}
-                    //else
-                    //{
-                    //    Alert.ShowInTop("不能删除，已检测并审核！", MessageBoxIcon.Warning);
-                    //}
+                    else
+                    {
+                        Alert.ShowInTop("不能删除，已检测并审核！", MessageBoxIcon.Warning);
+                    }
                 }
 
                 BindGrid(GetWeldingDailyItem);
@@ -871,7 +874,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             }
             else
             {
-                Alert.ShowInTop("请选择单位和装置", MessageBoxIcon.Warning);
+                Alert.ShowInTop("请选择单位和单位工程", MessageBoxIcon.Warning);
             }
         }
         #endregion

@@ -187,7 +187,7 @@
                                     </f:Toolbar>
                                 </Toolbars>
                                 <Columns>
-                                    <f:TemplateField ColumnID="tfPageIndex" Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
+                                    <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
                                         EnableLock="true" Locked="False">
                                         <ItemTemplate>
                                             <asp:Label ID="lblPageIndex" runat="server" Text='<%# GridSpotCheckDetail.PageIndex * GridSpotCheckDetail.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
@@ -292,7 +292,7 @@
                             <f:Grid ID="GridDesign" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
                                 DataKeyNames="" EnableColumnLines="true"  ForceFit="true">
                                 <Columns>
-                                    <f:TemplateField ColumnID="tfPageIndex" Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
+                                    <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
                                         EnableLock="true" Locked="False">
                                         <ItemTemplate>
                                             <asp:Label ID="Label1" runat="server" Text='<%# GridDesign.PageIndex * GridDesign.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>

@@ -52,11 +52,52 @@ namespace BLL
         public static void UpdateSet(Model.Project_Sys_Set set)
         {
             Model.SGGLDB db = Funs.DB;
-            Model.Project_Sys_Set newSet = db.Project_Sys_Set.First(e => e.SetId == set.SetId && e.ProjectId == set.ProjectId);
+            Model.Project_Sys_Set newSet = db.Project_Sys_Set.FirstOrDefault(e => e.SetId == set.SetId && e.ProjectId == set.ProjectId);
+            if (newSet != null)
+            {
+                newSet.IsAuto = set.IsAuto;
+                newSet.SetValue = set.SetValue;
+                db.SubmitChanges();
+            }
+        }
 
-            newSet.IsAuto = set.IsAuto;
-            newSet.SetValue = set.SetValue;
-            db.SubmitChanges();
+        public static void InsertHjglInit(string projectId)
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                Model.Project_Sys_Set newSet = new Model.Project_Sys_Set();
+                newSet.SetId = i.ToString();
+                newSet.ProjectId = projectId;
+
+                if (i == 1)
+                {
+                    newSet.SetName = "焊接日报编号";
+                    newSet.IsAuto = true;
+                }
+                if (i == 2)
+                {
+                    newSet.SetName = "点口编号";
+                    newSet.IsAuto = true;
+                }
+                if (i == 3)
+                {
+                    newSet.SetName = "无损检测委托单";
+                    newSet.IsAuto = true;
+                }
+                if (i == 4)
+                {
+                    newSet.SetName = "引用PDMS导出模板";
+                    newSet.IsAuto = false;
+                }
+                if (i == 5)
+                {
+                    newSet.SetName = "组批条件设置";
+                    newSet.SetValue = "1";
+                    newSet.SetValue = "1|2|3|4|5";
+                }
+
+                AddSet(newSet);
+            }
         }
     }
 }

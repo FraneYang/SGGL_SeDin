@@ -45,10 +45,6 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         this.txtMediumCode.Text = Medium.MediumCode;
                         this.txtMediumName.Text = Medium.MediumName;
                         this.txtMediumAbbreviation.Text = Medium.MediumAbbreviation;
-                        if (Medium.IsTestMedium.HasValue)
-                        {
-                            cbIsTestMedium.Checked = Medium.IsTestMedium.Value;
-                        }
                         this.txtRemark.Text = Medium.Remark;
                     }
                 }
@@ -64,17 +60,17 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_Medium.FirstOrDefault(x => x.MediumCode == this.txtMediumCode.Text.Trim() && (x.MediumId != this.MediumId || (this.MediumId == null && x.MediumId != null)));
+            var q = Funs.DB.Base_Medium.FirstOrDefault(x => x.MediumCode == this.txtMediumCode.Text.Trim() && (x.MediumId != this.MediumId || (this.MediumId == null && x.MediumId != null)) && x.ProjectId==this.CurrUser.LoginProjectId);
             if (q != null)
             {
                 Alert.ShowInTop("此介质代号已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = Funs.DB.Base_Medium.FirstOrDefault(x => x.MediumName == this.txtMediumName.Text.Trim() && (x.MediumId != this.MediumId || (this.MediumId == null && x.MediumId != null)));
+            var q2 = Funs.DB.Base_Medium.FirstOrDefault(x => x.MediumName == this.txtMediumName.Text.Trim() && (x.MediumId != this.MediumId || (this.MediumId == null && x.MediumId != null)) && x.ProjectId == this.CurrUser.LoginProjectId);
             if (q2 != null)
             {
-                Alert.ShowInTop("此介质描述已经存在！", MessageBoxIcon.Warning);
+                Alert.ShowInTop("此介质名称已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
@@ -83,7 +79,6 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 MediumCode = this.txtMediumCode.Text.Trim(),
                 MediumName = this.txtMediumName.Text.Trim(),
                 MediumAbbreviation = this.txtMediumAbbreviation.Text.Trim(),
-                IsTestMedium = cbIsTestMedium.Checked,
                 Remark = this.txtRemark.Text.Trim(),
                 ProjectId=this.CurrUser.LoginProjectId
             };

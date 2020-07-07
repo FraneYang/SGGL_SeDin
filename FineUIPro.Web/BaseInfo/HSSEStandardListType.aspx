@@ -25,7 +25,7 @@
                 DataKeyNames="TypeId" DataIDField="TypeId" OnPageIndexChange="Grid1_PageIndexChange" ForceFit="true"
                 AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True"  EnableColumnLines="true">
                 <Columns>
-                    <f:TemplateField Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:TemplateField Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
                         <ItemTemplate>
                             <asp:Label ID="Label1" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>

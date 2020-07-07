@@ -146,7 +146,7 @@ namespace FineUIPro.Web.CQMS.Check
                 this.Grid1.Columns[3].Hidden = true;
                 this.Grid1.Columns[4].Hidden = true;
                 this.Grid1.Columns[5].Hidden = true;
-                UnitService.InitUnitDropDownList(drpUnit, this.CurrUser.LoginProjectId, false);
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
                 CNProfessionalService.InitCNProfessionalDownList(drpCNProfessional, false);
                 UserService.InitUserProjectIdUnitTypeDropDownList(drpJointCheckMans, this.CurrUser.LoginProjectId, Const.ProjectUnitType_1, false);
                 UserService.InitUserProjectIdUnitTypeDropDownList(drpJointCheckMans2, this.CurrUser.LoginProjectId, Const.ProjectUnitType_3, false);

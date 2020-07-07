@@ -171,16 +171,16 @@ namespace FineUIPro.Web.CQMS.Check
                         this.HideOptions.Visible = false;
                         this.rblIsAgree.Visible = false;
                         this.drpHandleMan.Enabled = true;
-                        this.drpHandleMan.DataTextField = "Text";
-                        this.drpHandleMan.DataValueField = "Value";
+                        this.drpHandleMan.DataTextField = "UserName";
+                        this.drpHandleMan.DataValueField = "UserId";
                         this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                         this.drpHandleMan.DataBind();
                         this.drpHandleMan.SelectedIndex = 1;
                     }
                     else
                     {
-                        this.drpHandleMan.DataTextField = "Text";
-                        this.drpHandleMan.DataValueField = "Value";
+                        this.drpHandleMan.DataTextField = "UserName";
+                        this.drpHandleMan.DataValueField = "UserId";
                         this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                         this.drpHandleMan.DataBind();
                         this.drpHandleMan.SelectedIndex = 1;
@@ -209,8 +209,8 @@ namespace FineUIPro.Web.CQMS.Check
                     this.drpHandleType.DataValueField = "Value";
                     drpHandleType.DataSource = BLL.DesignService.GetDHandleTypeByState(State);
                     drpHandleType.DataBind();
-                    this.drpHandleMan.DataTextField = "Text";
-                    this.drpHandleMan.DataValueField = "Value";
+                    this.drpHandleMan.DataTextField = "UserName";
+                    this.drpHandleMan.DataValueField = "UserId";
                     this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                     this.drpHandleMan.DataBind();
                     this.drpHandleMan.SelectedIndex = 1;
@@ -601,8 +601,8 @@ namespace FineUIPro.Web.CQMS.Check
             else
             {
                 this.drpHandleMan.Enabled = true;
-                this.drpHandleMan.DataTextField = "Text";
-                this.drpHandleMan.DataValueField = "Value";
+                this.drpHandleMan.DataTextField = "UserName";
+                this.drpHandleMan.DataValueField = "UserId";
                 this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                 this.drpHandleMan.DataBind();
                 this.drpHandleMan.SelectedIndex = 1;
@@ -734,8 +734,8 @@ namespace FineUIPro.Web.CQMS.Check
                 }
                 this.drpHandleType.SelectedIndex = 0;
                 this.drpHandleMan.Items.Clear();
-                this.drpHandleMan.DataTextField = "Text";
-                this.drpHandleMan.DataValueField = "Value";
+                this.drpHandleMan.DataTextField = "UserName";
+                this.drpHandleMan.DataValueField = "UserId";
                 this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                 this.drpHandleMan.DataBind();
                 Funs.FineUIPleaseSelect(drpHandleMan);

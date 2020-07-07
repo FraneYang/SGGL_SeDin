@@ -32,9 +32,8 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT MediumId,MediumCode,MediumName,MediumAbbreviation,Remark,
-                                    (CASE WHEN IsTestMedium=1 THEN '是' ELSE '否' END) AS IsTestMedium
-                              FROM dbo.Base_Medium WHERE 1=1 ";
+            string strSql = @"SELECT MediumId,MediumCode,MediumName,MediumAbbreviation,Remark
+                              FROM dbo.Base_Medium WHERE IsTestMedium is null";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));

@@ -33,6 +33,7 @@ namespace BLL
                     uU.LastMenuType = LastMenuType;
                     uU.LastIsOffice = LastIsOffice;
                     uU.LastMenuType = LastMenuType;
+                    uU.LastProjectId = LastProjectId;
                     db.SubmitChanges();
                 }
             }
@@ -628,11 +629,9 @@ namespace BLL
         public static ListItem[] GetMainUserList(string projectId)
         {
             var user = (from x in Funs.DB.Sys_User
-                        join y in Funs.DB.Project_ProjectUser
-                        on x.UserId equals y.UserId
-                        join z in Funs.DB.Project_ProjectUnit
-                        on y.UnitId equals z.UnitId
-                        where x.IsPost == true && y.ProjectId == projectId && z.UnitType == Const.ProjectUnitType_1
+                        join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
+                        join z in Funs.DB.Project_ProjectUnit on x.UnitId equals z.UnitId
+                        where x.IsPost == true && y.ProjectId == projectId && z.ProjectId ==projectId && z.UnitType == Const.ProjectUnitType_1
                         orderby x.UserId
                         select x).ToList();
             ListItem[] lis = new ListItem[user.Count()];

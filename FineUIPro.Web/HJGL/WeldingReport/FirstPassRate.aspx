@@ -59,8 +59,8 @@
                         DataField="WelderCode" SortField="WelderCode" FieldType="String" HeaderTextAlign="Center"
                         Width="100px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="焊工姓名" ColumnID="WelderName"
-                        DataField="WelderName" SortField="WelderName" FieldType="String" HeaderTextAlign="Center"
+                    <f:RenderField HeaderText="焊工姓名" ColumnID="PersonName"
+                        DataField="PersonName" SortField="PersonName" FieldType="String" HeaderTextAlign="Center"
                         Width="100px">
                     </f:RenderField>
                     <f:RenderField HeaderText="总焊口" ColumnID="nowtotal_jot"

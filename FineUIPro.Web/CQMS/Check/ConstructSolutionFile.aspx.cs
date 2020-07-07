@@ -20,7 +20,7 @@ namespace FineUIPro.Web.CQMS.Check
                 drpSolutionType.DataValueField = "Value";
                 drpSolutionType.DataBind();
                 Funs.FineUIPleaseSelect(drpSolutionType);
-                UnitService.InitUnitDropDownList(drpProposeUnit, CurrUser.LoginProjectId, true);
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpProposeUnit, CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
                 BindGrid();
             }
 

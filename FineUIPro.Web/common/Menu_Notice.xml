@@ -1,11 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="发布通知" NavigateUrl="Personal/FileSearch.aspx" >
+  <TreeNode id="ED8E85D5-B244-4693-AD1E-6D59D4AE7F19" Text="发布通知" NavigateUrl="">
   </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="已发布通知" NavigateUrl="Personal/FileSearch.aspx" >
-  </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="发布智能报表" NavigateUrl="Personal/FileSearch.aspx" >
-  </TreeNode>
-  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="已发布智能报表" NavigateUrl="Personal/FileSearch.aspx" >
-  </TreeNode>
+<TreeNode id="AEBBE7A9-867C-47C0-9768-CB58DDA9DCDD" Text="已发布通知" NavigateUrl=""></TreeNode>
+<TreeNode id="622340B6-B8F3-4606-B974-9F13F954A27E" Text="发布智能报表" NavigateUrl=""></TreeNode>
+<TreeNode id="AEEC9332-28A5-4800-B776-2BA3439ADEDA" Text="已发布智能报表" NavigateUrl=""></TreeNode>
 </Tree>

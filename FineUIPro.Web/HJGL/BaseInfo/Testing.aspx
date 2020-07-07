@@ -25,9 +25,9 @@
                             <f:TextBox ID="txtDetectionTypeCode" runat="server" Label="检测方法代号"
                                 EmptyText="输入查询条件" Width="300px" LabelWidth="140px" LabelAlign="Right">
                             </f:TextBox>
-                            <f:DropDownList ID="drpSysType" runat="server" Label="系统类型"
+                            <f:TextBox ID="txtSysType" runat="server" Label="检测方法名称"
                                 EnableEdit="true" Width="350px" LabelWidth="220px" LabelAlign="Right">
-                            </f:DropDownList>
+                            </f:TextBox>
                             <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch"
                                 EnablePostBack="true" OnClick="btnQuery_Click" runat="server">
                             </f:Button>

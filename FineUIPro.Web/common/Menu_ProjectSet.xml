@@ -8,4 +8,5 @@
 <TreeNode id="CDB80E91-61A8-4E4D-BA97-3ADDC3208B66" Text="项目用户" NavigateUrl="ProjectData/ProjectUser.aspx"></TreeNode>
 <TreeNode id="2C970C89-8C69-4A6C-B832-8A64B8A701CA" Text="施工班组" NavigateUrl="ProjectData/TeamGroup.aspx"></TreeNode>
 <TreeNode id="D24ACD3C-086C-4AC8-9AFA-16D48893215E" Text="项目状态" NavigateUrl="ProjectData/ProjectShutdown.aspx"></TreeNode>
+<TreeNode id="9c62332c-d31f-4575-a323-49537bf335e8" Text="项目环境设置" NavigateUrl="ProjectData/ProjectSysSet.aspx"></TreeNode>
 </Tree>

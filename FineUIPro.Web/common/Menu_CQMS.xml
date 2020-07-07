@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="c3f38bf0-0fc5-4ce0-8212-353f3911d602" Text="基础设置" NavigateUrl="">
-    <TreeNode id="9c62332c-d31f-4575-a323-49537bf335e8" Text="项目环境设置" NavigateUrl="CQMS/BaseInfo/ProjectSysSet.aspx">
+  <TreeNode id="71193A92-2FF6-4D16-AD82-47CD2DE4CB1A" Text="WBS定制" NavigateUrl="">
+    <TreeNode id="F0E4A87F-0D1E-499D-A9EF-9D42ABF4422F" Text="项目WBS基础数据库" NavigateUrl="CQMS/WBS/ProjectControlItemInitSet.aspx">
     </TreeNode>
-</TreeNode>
-<TreeNode id="71193A92-2FF6-4D16-AD82-47CD2DE4CB1A" Text="WBS定制" NavigateUrl=""><TreeNode id="F0E4A87F-0D1E-499D-A9EF-9D42ABF4422F" Text="项目WBS基础数据库" NavigateUrl="CQMS/WBS/ProjectControlItemInitSet.aspx"></TreeNode>
 <TreeNode id="7BA846E7-D9B2-4F08-9098-DF4DBD654789" Text="项目施工WBS定制" NavigateUrl="CQMS/WBS/ControlItemAndCycle.aspx"></TreeNode>
 <TreeNode id="94217974-201A-4D4F-A832-D9477ACD63A5" Text="项目施工WBS展示" NavigateUrl="CQMS/WBS/ControlItemAndCycleShow.aspx"></TreeNode>
 <TreeNode id="A8E0BC5C-3242-48B1-90AD-7A25E84DDC41" Text="项目施工WBS查询" NavigateUrl="CQMS/WBS/ControlItemAndCycleSearch.aspx"></TreeNode>

@@ -16,16 +16,16 @@
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="管线综合分析"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="PipelineCode"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="PipelineId" AllowSorting="true"
-                SortField="UnitCode,WorkAreaCode,PipelineCode" SortDirection="DESC" OnSort="Grid1_Sort"
+                SortField="UnitCode,UnitWorkCode,PipelineCode" SortDirection="DESC" OnSort="Grid1_Sort"
                 AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableTextSelection="True">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称"
-                                LabelAlign="Right" Width="280px" AutoPostBack="true" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged">
+                                LabelAlign="Right" Width="280px" AutoPostBack="true" >
                             </f:DropDownList>
-                            <f:DropDownList ID="drpWorkAreaId" runat="server" Label="区域"
+                            <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程"
                                 LabelAlign="Right" Width="280px">
                             </f:DropDownList>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
@@ -62,8 +62,8 @@
                     <f:RenderField HeaderText="单位名称" ColumnID="UnitName" DataField="UnitName"
                         SortField="UnitName" FieldType="String" HeaderTextAlign="Center" Width="150px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="区域" ColumnID="WorkAreaCode" DataField="WorkAreaCode"
-                        SortField="WorkAreaCode" FieldType="String" HeaderTextAlign="Center" Width="150px">
+                    <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
+                        SortField="UnitWorkCode" FieldType="String" HeaderTextAlign="Center" Width="150px">
                     </f:RenderField>
                     <f:RenderField HeaderText="管线号" ColumnID="PipelineCode"
                         DataField="PipelineCode" SortField="PipelineCode" FieldType="String" HeaderTextAlign="Center"

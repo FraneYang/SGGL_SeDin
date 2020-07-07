@@ -87,5 +87,73 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+
+        /// <summary>
+        /// 获取一级节点检查类型
+        /// </summary>
+        /// <param name="CheckItem"></param>
+        /// <returns></returns>
+        public static string ConvertCheckItemType(object CheckItem)
+        {
+            string type = string.Empty;
+            if (CheckItem != null)
+            {
+                var detail = Funs.DB.Technique_CheckItemDetail.FirstOrDefault(e => e.CheckItemDetailId == CheckItem.ToString());
+                if (detail != null)
+                {
+                    var item = Funs.DB.Technique_CheckItemSet.FirstOrDefault (x=>x.CheckItemSetId == detail.CheckItemSetId);
+                    if (item != null)
+                    {
+                        if (item.SupCheckItem == "0")
+                        {
+                            type = item.CheckItemName;
+                        }
+                        else
+                        {
+                            type = GetCheckItemNameBySupCheckItem(item.SupCheckItem);
+                        }
+                    }
+                }
+                else
+                {
+                    var  item = Funs.DB.Technique_CheckItemSet.FirstOrDefault(x => x.CheckItemSetId == CheckItem.ToString());
+                    if (item != null)
+                    {
+                        if (item.SupCheckItem == "0")
+                        {
+                            type = item.CheckItemName;
+                        }
+                        else
+                        {
+                            type = GetCheckItemNameBySupCheckItem(item.SupCheckItem);
+                        }
+                    }
+                }
+            }
+            return type;
+        }
+
+        /// <summary>
+        /// 根据主键获取顶级检查项名称
+        /// </summary>
+        /// <param name="checkItemSetId"></param>
+        /// <returns></returns>
+        public static string GetCheckItemNameBySupCheckItem(string supCheckItem)
+        {
+            string name = string.Empty;
+            var checkItemSet = Funs.DB.Technique_CheckItemSet.FirstOrDefault(e => e.CheckItemSetId == supCheckItem);
+            if (checkItemSet != null)
+            {
+                if (checkItemSet.SupCheckItem == "0")
+                {
+                    name = checkItemSet.CheckItemName;
+                }
+                else
+                {
+                    name = GetCheckItemNameBySupCheckItem(checkItemSet.SupCheckItem);
+                }
+            }
+            return name;
+        }
     }
 }

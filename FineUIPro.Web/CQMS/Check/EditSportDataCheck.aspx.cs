@@ -360,7 +360,7 @@ namespace FineUIPro.Web.CQMS.Check
             if (!IsPostBack)
             {
                 QuestionImg = -1;
-                UnitService.InitUnitDropDownList(drpUnit, this.CurrUser.LoginProjectId, false);
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
                 CNProfessionalService.InitCNProfessionalDownList(drpCNProfessional, false);
                 UserService.InitUserProjectIdUnitTypeDropDownList(drpJointCheckMans, this.CurrUser.LoginProjectId, Const.ProjectUnitType_1, false);
                 UserService.InitUserProjectIdUnitTypeDropDownList(drpJointCheckMans2, this.CurrUser.LoginProjectId, Const.ProjectUnitType_3, false);

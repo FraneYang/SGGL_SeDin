@@ -35,7 +35,7 @@
             </f:GroupPanel>
             <f:GroupPanel ID="GroupPanel2" Title="审核意见" runat="server" EnableCollapse="True" Collapsed="true" 
                         EnableCollapseEvent="true" OnCollapse="GroupPanel2_Collapse" AutoScroll="true"
-                        EnableExpandEvent="true" OnExpand="GroupPanel2_Expand" Height="160px">
+                        EnableExpandEvent="true" OnExpand="GroupPanel2_Expand" Height="180px">
                 <Items>                      
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false"  EnableCollapse="true" EnableColumnLines="true" 
                         EnableColumnMove="true" runat="server" BoxFlex="1" DataKeyNames="FlowOperateId" DataIDField="FlowOperateId" 

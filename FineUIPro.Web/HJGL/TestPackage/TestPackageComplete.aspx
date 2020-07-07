@@ -84,7 +84,7 @@
                                 <Items>
                                     <f:Label ID="txtTestPackageNo" Label="试压包号" runat="server" LabelWidth="130px">
                                     </f:Label> 
-                                    <f:Label ID="drpUnitWork" Label="装置名称" runat="server" LabelWidth="130px">
+                                    <f:Label ID="drpUnitWork" Label="单位工程名称" runat="server" LabelWidth="130px">
                                     </f:Label>
                                     <f:Label ID="txtTestPackageName" Label="系统名称" runat="server" LabelWidth="130px">
                                     </f:Label>

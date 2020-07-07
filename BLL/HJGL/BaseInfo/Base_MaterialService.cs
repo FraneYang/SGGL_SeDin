@@ -31,7 +31,8 @@ namespace BLL
                 Remark = material.Remark,
                 MaterialClass=material.MaterialClass,
                 MaterialGroup=material.MaterialGroup,
-            };
+                MetalType = material.MetalType,
+        };
             db.Base_Material.InsertOnSubmit(newMaterial);
             db.SubmitChanges();
         }
@@ -52,6 +53,7 @@ namespace BLL
                 newMaterial.Remark = material.Remark;
                 newMaterial.MaterialClass=material.MaterialClass;
                 newMaterial.MaterialGroup = material.MaterialGroup;
+                newMaterial.MetalType = material.MetalType;
                 db.SubmitChanges();
             }
         }

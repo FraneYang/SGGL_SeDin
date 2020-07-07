@@ -15,7 +15,7 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtMaterialCode" runat="server" Label="材质代号"
+                    <f:TextBox ID="txtMaterialCode" runat="server" Label="型号、牌号、级别"
                         Readonly="true" LabelWidth="200px">
                     </f:TextBox>
                 </Items>

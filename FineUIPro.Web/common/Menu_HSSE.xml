@@ -13,7 +13,7 @@
 </TreeNode>
 <TreeNode id="CBC47C8B-141C-446B-90D9-CE8F5AE66CE4" Text="安全实施计划" NavigateUrl="HSSE/ActionPlan/ActionPlanList.aspx"></TreeNode>
 <TreeNode id="9A3212F8-2392-4F21-A8C7-FF5EE3B191F1" Text="危险源辨识与评价" NavigateUrl=""><TreeNode id="762F0BF9-471B-4115-B35E-03A26C573877" Text="环境因素识别与评价" NavigateUrl="HSSE/Hazard/EnvironmentalRiskList.aspx"></TreeNode>
-<TreeNode id="EDC50857-7762-4498-83C6-5BDE85036BAB" Text="职业健康安全危险源辨识与评价" NavigateUrl="HSSE/Hazard/HazardList.aspx"></TreeNode>
+<TreeNode id="EDC50857-7762-4498-83C6-5BDE85036BAB" Text="安全危险源辨识与评价" NavigateUrl="HSSE/Hazard/HazardList.aspx"></TreeNode>
 <TreeNode id="F6A6D53A-150E-43DB-A3C4-6FA18E9401E9" Text="风险提示" NavigateUrl="HSSE/Hazard/HazardPrompt.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="26FDE187-F2EE-41D0-95EA-4E8E026F19E5" Text="资质审核" NavigateUrl=""><TreeNode id="DFDFEDA3-FECB-40DA-9216-C67B48002A8A" Text="施工分包资质" NavigateUrl="HSSE/QualityAudit/SubUnitQuality.aspx"></TreeNode>
@@ -21,7 +21,7 @@
 </TreeNode>
 <TreeNode id="5FF7BBD8-3E0A-4C90-8976-AFF5CE7E17A5" Text="施工方案" NavigateUrl=""><TreeNode id="D5F6DFAA-4051-4E0E-818B-2A45F985C5A4" Text="方案模板" NavigateUrl="HSSE/Solution/SolutionTemplate.aspx"></TreeNode>
 <TreeNode id="9B42977B-FA0B-48EF-8616-D53FC14E5127" Text="施工方案" NavigateUrl="HSSE/Solution/ConstructSolution.aspx"></TreeNode>
-<TreeNode id="5B3D3F7B-9B50-4927-B131-11D13D4D1C19" Text="危大工程施工方案清单" NavigateUrl="HSSE/Solution/LargerHazardList.aspx"></TreeNode>
+<TreeNode id="5B3D3F7B-9B50-4927-B131-11D13D4D1C19" Text="危大工程施工方案" NavigateUrl="HSSE/Solution/LargerHazardList.aspx"></TreeNode>
 <TreeNode id="27DE7248-C4FF-4288-BBAC-11CB8741AD67" Text="专家论证清单" NavigateUrl="HSSE/Solution/ExpertArgumentList.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="EE260447-028F-46AF-8864-9A5DC9DAA5BD" Text="人员信息" NavigateUrl=""><TreeNode id="AD6FC259-CF40-41C7-BA3F-15AC50C1DD20" Text="人员信息档案" NavigateUrl="HSSE/SitePerson/PersonList.aspx"></TreeNode>

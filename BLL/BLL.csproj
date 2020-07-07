@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\APIBaseInfoService.cs" />
+    <Compile Include="API\APICommonService.cs" />
     <Compile Include="API\APIGetHttpService.cs" />
     <Compile Include="API\APIIDCardInfoService.cs" />
     <Compile Include="API\APIPersonService.cs" />
@@ -95,6 +96,9 @@
     <Compile Include="API\HJGL\APINDETrustService.cs" />
     <Compile Include="API\HJGL\APIPipeJointService.cs" />
     <Compile Include="API\HJGL\APIPreWeldingDailyService.cs" />
+    <Compile Include="API\HSSE\APIPauseNoticeService.cs" />
+    <Compile Include="API\HSSE\APIPunishNoticeService.cs" />
+    <Compile Include="API\HSSE\APIRectifyNoticesService.cs" />
     <Compile Include="BaseInfo\AccidentTypeService.cs" />
     <Compile Include="BaseInfo\CertificateService.cs" />
     <Compile Include="BaseInfo\CNProfessionalService.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="BaseInfo\DesignProfessionalService.cs" />
     <Compile Include="BaseInfo\EmergencyTypeService.cs" />
     <Compile Include="BaseInfo\HSSEStandardListTypeService.cs" />
+    <Compile Include="BaseInfo\HSSE_Hazard_HazardRegisterTypesService.cs" />
     <Compile Include="BaseInfo\LawsRegulationsTypeService.cs" />
     <Compile Include="BaseInfo\LicenseTypeService.cs" />
     <Compile Include="BaseInfo\ManageRuleTypeService.cs" />
@@ -198,14 +203,30 @@
     <Compile Include="HJGL\WPQ\WPQListService.cs" />
     <Compile Include="HSSE\ActionPlan\ActionPlanListService.cs" />
     <Compile Include="HSSE\ActionPlan\ActionPlan_ManagerRuleService.cs" />
+    <Compile Include="HSSE\Check\Check_CheckColligationDetailService.cs" />
+    <Compile Include="HSSE\Check\Check_CheckColligationService.cs" />
+    <Compile Include="HSSE\Check\Check_CheckSpecialDetailService.cs" />
+    <Compile Include="HSSE\Check\Check_CheckSpecialService.cs" />
+    <Compile Include="HSSE\Check\Check_PauseNoticeService.cs" />
+    <Compile Include="HSSE\Check\PunishNoticeService.cs" />
+    <Compile Include="HSSE\Check\RectifyNoticesService.cs" />
     <Compile Include="HSSE\EduTrain\AccidentCaseItemService.cs" />
     <Compile Include="HSSE\EduTrain\AccidentCaseService.cs" />
     <Compile Include="HSSE\EduTrain\CompanyTrainingItemService.cs" />
     <Compile Include="HSSE\EduTrain\CompanyTrainingService.cs" />
+    <Compile Include="HSSE\EduTrain\EduTrain_TrainRecordDetailService.cs" />
+    <Compile Include="HSSE\EduTrain\EduTrain_TrainRecordService.cs" />
+    <Compile Include="HSSE\EduTrain\EduTrain_TrainTestService.cs" />
+    <Compile Include="HSSE\EduTrain\TestPlanService.cs" />
+    <Compile Include="HSSE\EduTrain\TestRecordItemService.cs" />
+    <Compile Include="HSSE\EduTrain\TestRecordService.cs" />
     <Compile Include="HSSE\EduTrain\TestTrainingItemService.cs" />
     <Compile Include="HSSE\EduTrain\TestTrainingService.cs" />
     <Compile Include="HSSE\EduTrain\TrainingItemService.cs" />
+    <Compile Include="HSSE\EduTrain\TrainingPlanItemService.cs" />
+    <Compile Include="HSSE\EduTrain\TrainingPlanService.cs" />
     <Compile Include="HSSE\EduTrain\TrainingService.cs" />
+    <Compile Include="HSSE\EduTrain\TrainingTaskService.cs" />
     <Compile Include="HSSE\EduTrain\TrainTestDBItemService.cs" />
     <Compile Include="HSSE\EduTrain\TrainTestDBService.cs" />
     <Compile Include="HSSE\Environmental\EIAReportService.cs" />
@@ -216,6 +237,7 @@
     <Compile Include="HSSE\Hazard\Hazard_EnvironmentalRiskListService.cs" />
     <Compile Include="HSSE\Hazard\Hazard_HazardListService.cs" />
     <Compile Include="HSSE\Hazard\Hazard_HazardSelectedItemService.cs" />
+    <Compile Include="HSSE\HiddenInspection\HSSE_Hazard_HazardRegisterService.cs" />
     <Compile Include="HSSE\HSSESystem\HSSEMainDutyService.cs" />
     <Compile Include="HSSE\InformationProject\ConstructionStandardIdentifyService.cs" />
     <Compile Include="HSSE\InformationProject\ConstructionStandardSelectedItemService.cs" />
@@ -224,6 +246,14 @@
     <Compile Include="HSSE\Law\HSSEStandardsListService.cs" />
     <Compile Include="HSSE\Law\ManageRuleService.cs" />
     <Compile Include="HSSE\Law\RulesRegulationsService.cs" />
+    <Compile Include="HSSE\License\HSETechnicalService.cs" />
+    <Compile Include="HSSE\License\LicenseManagerService.cs" />
+    <Compile Include="HSSE\License\LicensePublicService.cs" />
+    <Compile Include="HSSE\Meeting\AttendMeetingService.cs" />
+    <Compile Include="HSSE\Meeting\ClassMeetingService.cs" />
+    <Compile Include="HSSE\Meeting\MonthMeetingService.cs" />
+    <Compile Include="HSSE\Meeting\SpecialMeetingService.cs" />
+    <Compile Include="HSSE\Meeting\WeekMeetingService.cs" />
     <Compile Include="HSSE\OccupationHealth\HazardDetectionService.cs" />
     <Compile Include="HSSE\OccupationHealth\OccupationalDiseaseAccidentService.cs" />
     <Compile Include="HSSE\OccupationHealth\PhysicalExaminationService.cs" />
@@ -292,6 +322,9 @@
     <Compile Include="SysManage\SysMenuService.cs" />
     <Compile Include="SysManage\UnitService.cs" />
     <Compile Include="SysManage\UserService.cs" />
+    <Compile Include="Test\ServerTestPlanService.cs" />
+    <Compile Include="Test\ServerTestPlanTrainingService.cs" />
+    <Compile Include="Test\ServerTestRecordService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

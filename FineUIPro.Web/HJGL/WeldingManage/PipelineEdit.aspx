@@ -48,7 +48,7 @@
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtWorkAreaCode" Label="区域编号" Readonly="true"
+                                    <f:TextBox ID="txtWorkAreaCode" Label="单位工程编号" Readonly="true"
                                         runat="server" LabelWidth="120px">
                                     </f:TextBox>
                                     <f:TextBox ID="txtSingleNumber" Label="单线图号" runat="server"

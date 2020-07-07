@@ -24,7 +24,11 @@
                         <Items>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
+                            <f:CheckBox ID="ckbIsCompleted" runat="server" Label="是否完成" LabelWidth="80px"></f:CheckBox>
+                             <f:Button ID="btnSave" ToolTip="保存该焊口热处理是否完成" Text="保存" Icon="SystemSave" EnablePostBack="true"
+                                runat="server" OnClick="btnSave_Click" >
+                            </f:Button>
+                            <f:Button ID="btnNew" ToolTip="新增" Text="新增" Icon="Add" EnablePostBack="true"
                                 runat="server" OnClick="btnNew_Click">
                             </f:Button>
                         </Items>

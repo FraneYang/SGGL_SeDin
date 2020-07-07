@@ -31,7 +31,7 @@
                     <f:Tree ID="tvControlItem" ShowHeader="false" Height="560px" Title="装置区域"
                         OnNodeCommand="tvControlItem_NodeCommand" runat="server" ShowBorder="false" EnableCollapse="true"
                         EnableSingleClickExpand="true" AutoLeafIdentification="true" 
-                        EnableTextSelection="true" OnNodeExpand="tvControlItem_TreeNodeExpanded">
+                        EnableTextSelection="true" >
                     </f:Tree>
                 </Items>
             </f:Panel>
@@ -234,7 +234,7 @@
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
-            runat="server" Text="编辑" Icon="Pencil">
+            runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
             ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"

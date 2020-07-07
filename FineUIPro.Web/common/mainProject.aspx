@@ -83,13 +83,43 @@
             /*background: url(../images/Page-01.jpg) center center no-repeat;
             background-size: 100% 100%;*/
         }
+        .flexV{
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+        .wrap{
+            padding: 15px 0;
+            height:100%;
+            box-sizing:border-box;
+        }
+        .bottom-wrap-new{
+            height:100%;
+        }
+        .bg-item:last-child{
+            margin-bottom: 0;
+        }
+         @media screen and (max-height: 625px) {
+            .itemfix{
+                margin-bottom:0;
+            }
+        }
+        @media screen and (min-height: 625px) {
+            .itemfix{
+                margin-bottom:25px;
+            }
+        }
+        .bw-b-bottom-up{
+            height:100%;
+        }
     </style>
 </head>
 <body >
     <div class="wrap">
         <div class="bottom-wrap-new flex">
             <!--左侧-->
-            <div class="bw-s flex1 ptop6">
+            <div class="bw-s flex1 flex flexV">
                 <div class="bg-item">
                     <div class="info">
                         <div class="row">
@@ -144,7 +174,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-item height260">
+                <div class="bg-item flex2">
                     <div class="tab-wrap tab-small">
                         <div class="tab" data-value="1">
                             <div class="t-item active">工程进度</div>
@@ -156,7 +186,7 @@
                         <div id='two' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bg-item">
+                <div class="bg-item flex1">
                     <div class="info">
                         <div class="row">
                             <div class="item itemfix">
@@ -176,9 +206,9 @@
                 </div>
             </div>
             <!--中间-->
-            <div class="bw-b flex2 ptop6">
-                <div class="bw-b-bottom">
-                    <div class="bw-b-bottom-up ">
+            <div class="bw-b flex2 flex flexV">
+                <%--<div class="bw-b-bottom flex2">--%>
+                    <div class="bw-b-bottom-up flex2">
                         <img src="../res/images/Page-01.jpg" alt="Alternate Text"  class="bg-img"/>
                         <div class="tab-wrap">
                             <div class="tab" data-value="0">
@@ -189,8 +219,8 @@
                         </div>
                         <%--<div id='map' style="width: 100%; height: 100%;"></div>--%>
                     </div>
-                </div>
-                <div class="bw-b-bottom flex">
+                <%--</div>--%>
+                <div class="bw-b-bottom flex flex1">
                     <div class="flex1 widthper" style="margin-right:10px">
                         <div class="bg-item bg-item-fix">
                         <div class="swiper-container" id='swiper1' style="height: 180px;">
@@ -283,7 +313,7 @@
                 </div>
             </div>
             <!--右侧-->
-            <div class="bw-s flex1" style="padding-top:6px">
+            <div class="bw-s flex1 flex flexV">
                 <div class="bg-item height260">
                     <div class="tab-wrap tab-small">
                         <div class="tab" data-value="3">

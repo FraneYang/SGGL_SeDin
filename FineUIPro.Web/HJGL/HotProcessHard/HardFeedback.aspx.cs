@@ -50,174 +50,121 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         /// </summary>
         private void InitTreeMenu()
         {
-
             this.tvControlItem.Nodes.Clear();
-            var totalUnitWork = from x in Funs.DB.WBS_UnitWork select x;
-            var totalUnit = from x in Funs.DB.Project_ProjectUnit select x;
-            
-            ////单位工程
-            var pUnitWork = (from x in totalUnitWork where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
-            ////单位
-            var pUnits = (from x in totalUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
-            
-            pUnits = (from x in pUnits
-                      join y in pUnitWork on x.UnitId equals y.UnitId
-                      select x).Distinct().ToList();
-            this.BindNodes(null,null, pUnitWork, pUnits);
 
-            //// 装置
-            //var pInstallation = (from x in Funs.DB.Project_Installation where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
-            //// 单位
-            //var pUnits = (from x in Funs.DB.Project_Unit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            TreeNode rootNode1 = new TreeNode();
+            rootNode1.NodeID = "1";
+            rootNode1.Text = "建筑工程";
+            rootNode1.CommandName = "建筑工程";
+            this.tvControlItem.Nodes.Add(rootNode1);
 
-            //List<Model.HJGL_HotProess_Trust> trustLists = new List<Model.HJGL_HotProess_Trust>(); ///热处理委托单
-            //if (!string.IsNullOrEmpty(this.txtSearchNo.Text.Trim()))
-            //{
-            //    trustLists = (from x in Funs.DB.HJGL_HotProess_Trust where x.HotProessTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HotProessTrustNo select x).ToList();
-            //}
-            //else
-            //{
-            //    trustLists = (from x in Funs.DB.HJGL_HotProess_Trust orderby x.HotProessTrustNo select x).ToList();
-            //}
+            TreeNode rootNode2 = new TreeNode();
+            rootNode2.NodeID = "2";
+            rootNode2.Text = "安装工程";
+            rootNode2.CommandName = "安装工程";
+            rootNode2.Expanded = true;
+            this.tvControlItem.Nodes.Add(rootNode2);
 
-            //BindNodes(null, pInstallation, pUnits);
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            // 获取当前用户所在单位
+            var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
+
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+                                where x.ProjectId == this.CurrUser.LoginProjectId
+                                      && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
+                                select x).ToList();
+
+            List<Model.WBS_UnitWork> unitWork1 = null;
+            List<Model.WBS_UnitWork> unitWork2 = null;
+
+            // 当前为施工单位，只能操作本单位的数据
+            if (currUnit != null && currUnit.UnitType == Const.ProjectUnitType_2)
+            {
+                unitWork1 = (from x in unitWorkList
+                             where x.UnitId == this.CurrUser.UnitId && x.ProjectType == "1"
+                             select x).ToList();
+                unitWork2 = (from x in unitWorkList
+                             where x.UnitId == this.CurrUser.UnitId && x.ProjectType == "2"
+                             select x).ToList();
+            }
+            else
+            {
+                unitWork1 = (from x in unitWorkList where x.ProjectType == "1" select x).ToList();
+                unitWork2 = (from x in unitWorkList where x.ProjectType == "2" select x).ToList();
+            }
+
+            if (unitWork1.Count() > 0)
+            {
+                foreach (var q in unitWork1)
+                {
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
+                    TreeNode tn1 = new TreeNode();
+                    tn1.NodeID = q.UnitWorkId;
+                    tn1.Text = q.UnitWorkName;
+                    tn1.ToolTip = "施工单位：" + u.UnitName;
+                    rootNode1.Nodes.Add(tn1);
+                    BindNodes(tn1);
+                }
+            }
+            if (unitWork2.Count() > 0)
+            {
+                foreach (var q in unitWork2)
+                {
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
+                    TreeNode tn2 = new TreeNode();
+                    tn2.NodeID = q.UnitWorkId;
+                    tn2.Text = q.UnitWorkName;
+                    tn2.ToolTip = "施工单位：" + u.UnitName;
+                    rootNode2.Nodes.Add(tn2);
+                    BindNodes(tn2);
+                }
+            }
         }
 
         /// <summary>
         ///  绑定树节点
         /// </summary>
         /// <param name="node"></param>
-        private void BindNodes(TreeNode node1, TreeNode node2, List<Model.WBS_UnitWork> pUnitWork, List<Model.Project_ProjectUnit> pUnits)
+        private void BindNodes(TreeNode node)
         {
-            var pUnitDepth = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
-            if (node1 == null && node2 == null)
+            List<Model.HJGL_Hard_Trust> trustLists = new List<Model.HJGL_Hard_Trust>();
+
+            if (!string.IsNullOrEmpty(this.txtSearchNo.Text.Trim()))
             {
-                TreeNode rootNode1 = new TreeNode();
-                rootNode1.NodeID = "1";
-                rootNode1.Text = "建筑工程";
-                rootNode1.CommandName = "建筑工程";
-                this.tvControlItem.Nodes.Add(rootNode1);
-
-                TreeNode rootNode2 = new TreeNode();
-                rootNode2.NodeID = "2";
-                rootNode2.Text = "安装工程";
-                rootNode2.CommandName = "安装工程";
-                rootNode2.Expanded = true;
-                this.tvControlItem.Nodes.Add(rootNode2);
-
-                this.BindNodes(rootNode1, rootNode2, pUnitWork, pUnits);
+                trustLists = (from x in Funs.DB.HJGL_Hard_Trust where x.HardTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HardTrustNo select x).ToList();
             }
-            else {
-                if (node1.CommandName == "建筑工程")
-                {
-                    List<Model.WBS_UnitWork> workAreas = null;
-                    if (pUnitDepth == null || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_1) || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_5))
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node1.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     select x).ToList();
-                    }
-                    else
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node1.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     && x.UnitId == this.CurrUser.UnitId
-                                     select x).ToList();
-                    }
-
-                    workAreas = workAreas.OrderByDescending(x => x.UnitWorkCode).ToList();
-                    foreach (var q in workAreas)
-                    {
-                        var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
-                        TreeNode newNode = new TreeNode();
-                        newNode.Text = q.UnitWorkName;
-                        newNode.NodeID = q.UnitWorkId;
-                        newNode.ToolTip = "施工单位：" + u.UnitName;
-                        newNode.CommandName = "单位工程";
-                        newNode.EnableExpandEvent = true;
-                        node1.Nodes.Add(newNode);
-                        BindChildNodes(newNode,pUnitWork, pUnits);
-                    }
-                }
-                if (node2.CommandName == "安装工程")
-                {
-                    List<Model.WBS_UnitWork> workAreas = null;
-                    if (pUnitDepth == null || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_1) || pUnitDepth.UnitType.Contains(Const.ProjectUnitType_5))
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node2.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     select x).ToList();
-                    }
-                    else
-                    {
-                        workAreas = (from x in pUnitWork
-                                     join y in pUnits on x.UnitId equals y.UnitId
-                                     where x.ProjectType == node2.NodeID && y.UnitType.Contains(Const.ProjectUnitType_2)
-                                     && x.UnitId == this.CurrUser.UnitId
-                                     select x).ToList();
-                    }
-
-                    workAreas = workAreas.OrderByDescending(x => x.UnitWorkCode).ToList();
-                    foreach (var q in workAreas)
-                    {
-                        var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
-                        TreeNode newNode = new TreeNode();
-                        newNode.Text = q.UnitWorkName;
-                        newNode.NodeID = q.UnitWorkId;
-                        newNode.ToolTip = "施工单位：" + u.UnitName;
-                        newNode.CommandName = "单位工程";
-                        newNode.EnableExpandEvent = true;
-                        node2.Nodes.Add(newNode);
-                        BindChildNodes(newNode, pUnitWork, pUnits);
-                    }
-                }
-            }
-        }
-        //绑定子节点
-        private void BindChildNodes(TreeNode ChildNodes, List<Model.WBS_UnitWork> pUnitWork, List<Model.Project_ProjectUnit> pUnits)
-        {
-            if (ChildNodes.CommandName == "单位工程")
+            else
             {
-                List<Model.HJGL_Hard_Trust> trustLists = new List<Model.HJGL_Hard_Trust>();
-
-                if (!string.IsNullOrEmpty(this.txtSearchNo.Text.Trim()))
-                {
-                    trustLists = (from x in Funs.DB.HJGL_Hard_Trust where x.HardTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HardTrustNo select x).ToList();
-                }
-                else
-                {
-                    trustLists = (from x in Funs.DB.HJGL_Hard_Trust orderby x.HardTrustNo select x).ToList();
-                }
-
-                string[] units = ChildNodes.NodeID.Split('|');
-                var trustList = from x in trustLists
-                                where x.ProjectId == this.CurrUser.LoginProjectId
-                                      && x.UnitWorkId == ChildNodes.NodeID
-                                select x;
-                foreach (var item in trustList)
-                {
-                    TreeNode newNode = new TreeNode();
-                    newNode.Text = item.HardTrustNo;
-                    newNode.NodeID = item.HardTrustID;
-                    newNode.ToolTip = item.HardTrustNo;
-                    newNode.CommandName = "委托单号";
-                    newNode.EnableClickEvent = true;
-                    ChildNodes.Nodes.Add(newNode);
-                }
+                trustLists = (from x in Funs.DB.HJGL_Hard_Trust orderby x.HardTrustNo select x).ToList();
             }
-        }
-            #endregion
 
-            #region 点击TreeView
-            /// <summary>
-            /// 点击TreeView
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
-            protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
+            var trustList = from x in trustLists
+                            where x.ProjectId == this.CurrUser.LoginProjectId
+                                  && x.UnitWorkId == node.NodeID
+                            select x;
+            foreach (var item in trustList)
+            {
+                TreeNode newNode = new TreeNode();
+                newNode.Text = item.HardTrustNo;
+                newNode.NodeID = item.HardTrustID;
+                newNode.ToolTip = item.HardTrustNo;
+                newNode.CommandName = "委托单号";
+                newNode.EnableClickEvent = true;
+                node.Nodes.Add(newNode);
+            }
+
+        }
+        #endregion
+
+        #region 点击TreeView
+        /// <summary>
+        /// 点击TreeView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
             this.HardTrustID = tvControlItem.SelectedNodeID;
             this.BindGrid();

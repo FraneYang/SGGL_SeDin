@@ -158,7 +158,7 @@ namespace BLL
         {
             if (state == Const.TechnicalContactList_Compile || state == Const.TechnicalContactList_ReCompile)
             {
-                if (unitType == "3")  //施工分包商
+                if (unitType == Const.ProjectUnitType_2)  //施工分包商
                 {
                     if (contactListType == "1")  //图纸类
                     {
@@ -202,7 +202,7 @@ namespace BLL
             }
             else if (state == Const.TechnicalContactList_Audit1)
             {
-                if (unitType == "3")  //施工分包商
+                if (unitType == Const.ProjectUnitType_2)  //施工分包商
                 {
                     if (isReply == "1")  //需要回复
                     {
@@ -251,7 +251,7 @@ namespace BLL
             }
             else if (state == Const.TechnicalContactList_Audit2 || state == Const.TechnicalContactList_Audit2R || state == Const.TechnicalContactList_Audit2H)
             {
-                if (unitType == "3")  //施工分包商
+                if (unitType == Const.ProjectUnitType_2)  //施工分包商
                 {
                     if (contactListType == "1")  //图纸类
                     {
@@ -295,7 +295,7 @@ namespace BLL
             }
             else if (state == Const.TechnicalContactList_Audit3)
             {
-                if (unitType == "3")  //施工分包商
+                if (unitType == Const.ProjectUnitType_2)  //施工分包商
                 {
                     if (contactListType == "1")  //图纸类
                     {
@@ -336,7 +336,7 @@ namespace BLL
             }
             else if (state == Const.TechnicalContactList_Audit4 || state == Const.TechnicalContactList_Audit4R)
             {
-                if (unitType == "3")  //施工分包商
+                if (unitType == Const.ProjectUnitType_2)  //施工分包商
                 {
                     if (contactListType == "1")  //图纸类
                     {
@@ -365,7 +365,7 @@ namespace BLL
             }
             else if (state == Const.TechnicalContactList_Audit6 || state == Const.TechnicalContactList_Audit6R)
             {
-                if (unitType == "3")  //施工分包商
+                if (unitType == Const.ProjectUnitType_2)  //施工分包商
                 {
                     if (contactListType == "1")  //图纸类
                     {

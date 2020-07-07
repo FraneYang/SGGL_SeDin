@@ -21,7 +21,7 @@ namespace FineUIPro.Web.HJGL.WeldingReport
             if (!IsPostBack)
             {
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
-                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId, true);//区域
+                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);//区域
             }
         }
 
@@ -32,13 +32,13 @@ namespace FineUIPro.Web.HJGL.WeldingReport
         {
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@projectId", this.CurrUser.LoginProjectId));
-            if (this.drpWorkAreaId.SelectedValue != BLL.Const._Null)
+            if (this.drpUnitWork.SelectedValue != BLL.Const._Null)
             {
-                listStr.Add(new SqlParameter("@workAreaId", this.drpWorkAreaId.SelectedValue));
+                listStr.Add(new SqlParameter("@UnitWorkId", this.drpUnitWork.SelectedValue));
             }
             else
             {
-                listStr.Add(new SqlParameter("@workAreaId", null));
+                listStr.Add(new SqlParameter("@UnitWorkId", null));
             }
             if (!string.IsNullOrEmpty(this.txtPipelineCode.Text.Trim()))
             {

@@ -30,6 +30,9 @@ namespace FineUIPro.Web.ProjectData
             {
 
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, true);//施工
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpSupervisorUnit, this.CurrUser.LoginProjectId, Const.ProjectUnitType_3, true);//监理
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpNDEUnit, this.CurrUser.LoginProjectId, Const.ProjectUnitType_5, true);//检测
                 string UnitWorkId = Request.Params["UnitWorkId"];
                 if (!string.IsNullOrEmpty(UnitWorkId))
                 {
@@ -47,6 +50,17 @@ namespace FineUIPro.Web.ProjectData
                         if (UnitWork.Weights != null)
                         {
                             this.txtWeights.Text = UnitWork.Weights.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(UnitWork.UnitId)) {
+                            this.drpUnit.SelectedValue = UnitWork.UnitId;
+                        }
+                        if (!string.IsNullOrEmpty(UnitWork.SupervisorUnitId))
+                        {
+                            this.drpSupervisorUnit.SelectedValue = UnitWork.SupervisorUnitId;
+                        }
+                        if (!string.IsNullOrEmpty(UnitWork.NDEUnit))
+                        {
+                            this.drpNDEUnit.SelectedValue = UnitWork.NDEUnit;
                         }
                     }
                 }
@@ -71,6 +85,22 @@ namespace FineUIPro.Web.ProjectData
             UnitWork.ProjectId = this.CurrUser.LoginProjectId;
             UnitWork.UnitWorkCode = this.txtUnitWorkCode.Text.Trim();
             UnitWork.UnitWorkName = this.txtUnitWorkName.Text.Trim();
+            if (this.drpUnit.SelectedValue != BLL.Const._Null)
+            {
+                UnitWork.UnitId = this.drpUnit.SelectedValue;
+            }
+            else {
+                Alert.ShowInTop("请选择施工单位！");
+                return;
+            }
+            if (this.drpSupervisorUnit.SelectedValue != BLL.Const._Null)
+            {
+                UnitWork.SupervisorUnitId = this.drpSupervisorUnit.SelectedValue;
+            }
+            if (this.drpNDEUnit.SelectedValue != BLL.Const._Null)
+            {
+                UnitWork.NDEUnit = this.drpNDEUnit.SelectedValue;
+            }
             if (this.drpProjectType.SelectedValue != BLL.Const._Null)
             {
                 UnitWork.ProjectType = drpProjectType.SelectedValue;

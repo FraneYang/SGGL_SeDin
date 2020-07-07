@@ -29,6 +29,25 @@ namespace Mvc.Controllers
             return res;
         }
 
+        /// <summary>
+        /// 获取质量问题类别
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ResponseData<List<Base_QualityQuestionType>> GetQualityQuestionType()
+        {
+            ResponseData<List<Base_QualityQuestionType>> res = new ResponseData<List<Base_QualityQuestionType>>();
+            List<Base_QualityQuestionType> q = BLL.QualityQuestionTypeService.GetList();
+            List<Base_QualityQuestionType> a = new List<Base_QualityQuestionType>();
+            for (int i = 0; i < q.Count; i++)
+            {
+                a.Add(BeanUtil.CopyOjbect<Base_QualityQuestionType>(q[i], true));
+            }
+            res.successful = true;
+            res.resultValue = a;
+            return res;
+        }
+
 
         public ResponseData<List<ProjectData_MainItem>> GetMainItemList(string projectId, string unitWorks = "", string name = "")
         {
@@ -87,13 +106,34 @@ namespace Mvc.Controllers
             {
                 foreach(var item in list){
                     Base_CNProfessional main = new Base_CNProfessional();
-                    main.CNProfessionalCode = item.CNProfessionalCode;
+                    main.CNProfessionalCode = item.CNProfessionalId;
                     main.SortIndex = item.SortIndex;
                     main.ProfessionalName = item.ProfessionalName;
                     resList.Add(main);
                 }
             }
             res.successful = true;  
+            res.resultValue = resList;
+            return res;
+        }
+        [HttpGet]
+        public ResponseData<List<Base_DesignProfessional>> GetDesignProfessionalMainItem()
+        {
+            ResponseData<List<Base_DesignProfessional>> res = new ResponseData<List<Base_DesignProfessional>>();
+            List<Base_DesignProfessional> resList = new List<Base_DesignProfessional>();
+            var list = BLL.DesignProfessionalService.GetList();
+            if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    Base_DesignProfessional main = new Base_DesignProfessional();
+                    main.DesignProfessionalId = item.DesignProfessionalId;
+                    main.SortIndex = item.SortIndex;
+                    main.ProfessionalName = item.ProfessionalName;
+                    resList.Add(main);
+                }
+            }
+            res.successful = true;
             res.resultValue = resList;
             return res;
         }

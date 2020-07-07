@@ -15,7 +15,7 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtMaterialCode" runat="server" Label="材质代号"
+                    <f:TextBox ID="txtMaterialCode" runat="server" Label="型号、牌号、级别"
                         Required="true" MaxLength="50" ShowRedStar="true" FocusOnPageLoad="true" LabelWidth="200px">
                     </f:TextBox>
                 </Items>
@@ -37,15 +37,22 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
+                    <f:TextBox ID="txtMetalType" runat="server" Label="金属类别代号"
+                        MaxLength="50" LabelWidth="200px" ShowRedStar="true" Required="true">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextBox ID="txtMaterialClass" runat="server" Label="材质类别"
-                        MaxLength="50" LabelWidth="200px">
+                        MaxLength="50" LabelWidth="200px" ShowRedStar="true" Required="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtMaterialGroup" runat="server" Label="材质组别"
-                        MaxLength="50" LabelWidth="200px">
+                        MaxLength="50" LabelWidth="200px" ShowRedStar="true" Required="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>

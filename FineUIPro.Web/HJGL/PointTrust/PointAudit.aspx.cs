@@ -143,11 +143,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
                 if (getViewGenerateTrustLists.Count() > 0)
                 {
                     var getUnit = BLL.UnitService.GetUnitByUnitId(this.CurrUser.UnitId);
-                    if (getUnit == null || getUnit.UnitTypeId == "1" || getUnit.UnitTypeId == "2" || getUnit.UnitTypeId == "3")
-                    {
-                        GenerateTrust(getViewGenerateTrustLists);
-                    }
-                    else
+                    if (getUnit != null && getUnit.UnitTypeId == Const.ProjectUnitType_2)
                     {
                         var getUnitViewGenerateTrustLists = getViewGenerateTrustLists.Where(x => x.UnitId == this.CurrUser.UnitId);
                         if (getUnitViewGenerateTrustLists.Count() > 0)
@@ -159,6 +155,11 @@ namespace FineUIPro.Web.HJGL.PointTrust
                         {
                             Alert.ShowInTop("所属单位审核的点口已全部生成委托单！", MessageBoxIcon.Warning);
                         }
+
+                    }
+                    else
+                    {
+                        GenerateTrust(getViewGenerateTrustLists);
                     }
                     //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_PointBatchMenuId, Const.BtnGenerate, null);
                     this.BindGrid();
@@ -193,8 +194,8 @@ namespace FineUIPro.Web.HJGL.PointTrust
                 var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(trust.DetectionRateId);
 
                 string perfix = string.Empty;
-                perfix = project.ProjectCode + "-" + unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + rate.DetectionRateValue.ToString() + "%-" + area.UnitWorkCode + "-";
-                newBatchTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", project.ProjectId, perfix);
+                perfix = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + rate.DetectionRateValue.ToString() + "%-" ;
+                newBatchTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", project.ProjectId, perfix);
 
                 string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
                 newBatchTrust.TrustBatchId = trustBatchId;

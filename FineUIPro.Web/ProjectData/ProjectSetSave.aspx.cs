@@ -191,6 +191,10 @@ namespace FineUIPro.Web.ProjectData
                 project.ProjectState = BLL.Const.ProjectState_1;
                 this.ProjectId = project.ProjectId;
                 ProjectService.AddProject(project);
+
+                // 初始化焊接环境变量设置
+                BLL.Project_SysSetService.InsertHjglInit(project.ProjectId);
+
                 LogService.AddSys_Log(this.CurrUser, project.ProjectCode, project.ProjectId, BLL.Const.ProjectSetMenuId, BLL.Const.BtnAdd);
             }
             else

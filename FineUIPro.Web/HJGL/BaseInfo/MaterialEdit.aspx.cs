@@ -54,6 +54,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         this.txtMaterialClass.Text = Material.MaterialClass;
                         this.txtMaterialGroup.Text = Material.MaterialGroup;
                         this.txtRemark.Text = Material.Remark;
+                        this.txtMetalType.Text = Material.MetalType;
                     }
                 }
             }
@@ -99,7 +100,8 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 MaterialType = this.txtMaterialType.Text.Trim(),
                 MaterialClass = this.txtMaterialClass.Text.Trim(),
                 MaterialGroup = this.txtMaterialGroup.Text.Trim(),
-                Remark = this.txtRemark.Text.Trim()
+                Remark = this.txtRemark.Text.Trim(),
+                MetalType=this.txtMetalType.Text.Trim()
             };
 
             if (this.drpSteelType.SelectedValue != BLL.Const._Null)

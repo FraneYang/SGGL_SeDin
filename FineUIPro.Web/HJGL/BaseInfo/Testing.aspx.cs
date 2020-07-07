@@ -21,11 +21,11 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             {
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
 
-                this.drpSysType.DataTextField = "Text";
-                this.drpSysType.DataValueField = "Value";
-                this.drpSysType.DataSource = BLL.DropListService.HJGL_GetTestintTypeList();
-                this.drpSysType.DataBind();
-                Funs.FineUIPleaseSelect(this.drpSysType);
+                //this.drpSysType.DataTextField = "Text";
+                //this.drpSysType.DataValueField = "Value";
+                //this.drpSysType.DataSource = BLL.DropListService.HJGL_GetTestintTypeList();
+                //this.drpSysType.DataBind();
+                //Funs.FineUIPleaseSelect(this.drpSysType);
                 // 绑定表格
                 this.BindGrid();
             }
@@ -45,10 +45,10 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 strSql += " AND DetectionTypeCode LIKE @DetectionTypeCode";
                 listStr.Add(new SqlParameter("@DetectionTypeCode", "%" + this.txtDetectionTypeCode.Text.Trim() + "%"));
             }
-            if (this.drpSysType.SelectedValue != BLL.Const._Null)
+            if (!string.IsNullOrEmpty(this.txtSysType.Text.Trim()))
             {
                 strSql += " AND SysType = @SysType";
-                listStr.Add(new SqlParameter("@SysType", this.drpSysType.SelectedValue));
+                listStr.Add(new SqlParameter("@SysType", this.txtSysType.Text.Trim()));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);

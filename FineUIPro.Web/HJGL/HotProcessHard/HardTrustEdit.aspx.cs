@@ -194,10 +194,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 {
                     newHardTrust.HardTrustUnit = this.drpHardTrustUnit.SelectedValue;
                 }
-                //if (this.drpInstallation.SelectedValue != BLL.Const._Null)
-                //{
-                //    newHardTrust.InstallationId = this.drpInstallation.SelectedValue;
-                //}
 
                 newHardTrust.UnitWorkId = workAreaId;
 
@@ -361,7 +357,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             }
             else
             {
-                Alert.ShowInTop("请选择单位和装置", MessageBoxIcon.Warning);
+                Alert.ShowInTop("请选择单位和单位工程", MessageBoxIcon.Warning);
             }
         }
         #endregion

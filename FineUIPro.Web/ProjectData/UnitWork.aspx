@@ -46,7 +46,7 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Columns>
-                        <f:TemplateField ColumnID="tfPageIndex" Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
+                        <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
                             EnableLock="true" Locked="False">
                             <ItemTemplate>
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
@@ -66,6 +66,18 @@
                         </f:RenderField>
                         <f:RenderField HeaderText="权重%" ColumnID="Weights" DataField="Weights"
                             SortField="Weights" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
+                            FieldType="String">
+                        </f:RenderField>
+                        <f:RenderField HeaderText="施工单位" ColumnID="UnitId" DataField="UnitId"
+                            SortField="UnitId" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
+                            FieldType="String">
+                        </f:RenderField>
+                        <f:RenderField HeaderText="监理单位" ColumnID="SupervisorUnitId" DataField="SupervisorUnitId"
+                            SortField="SupervisorUnitId" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
+                            FieldType="String">
+                        </f:RenderField>
+                        <f:RenderField HeaderText="检测单位" ColumnID="NDEUnit" DataField="NDEUnit"
+                            SortField="NDEUnit" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
                             FieldType="String">
                         </f:RenderField>
                     </Columns>
@@ -93,7 +105,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="单位工程" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="500px" Height="300px">
+            Width="600px" Height="300px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>

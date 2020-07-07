@@ -30,7 +30,7 @@ namespace FineUIPro.Web.CQMS.Check
         {
             if (!IsPostBack)
             {
-                UnitService.InitUnitDropDownList(drpUnit, this.CurrUser.LoginProjectId, true);//施工单位
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);//施工单位
                 UnitWorkService.InitUnitWorkDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);//单位工程
                 CNProfessionalService.InitCNProfessionalDownList(drpCNProfessional, true);//专业
                 Funs.FineUIPleaseSelect(this.drpControlPoint);//控制点等级

@@ -47,7 +47,7 @@
                                 Icon="Add" runat="server" OnClick="btnNew_Click">
                             </f:Button>
                             <f:Button ID="btnEdit" Text="编辑" ToolTip="编辑"
-                                Icon="Pencil" runat="server" OnClick="btnEdit_Click">
+                                Icon="TableEdit" runat="server" OnClick="btnEdit_Click">
                             </f:Button>
                             <f:Button ID="btnDelete" Text="删除" ToolTip="删除"
                                 ConfirmText="确认删除此热处理委托?" ConfirmTarget="Top" Icon="Delete"
@@ -115,13 +115,13 @@
                                 DataField="PipelineCode" SortField="PipelineCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="220px" Locked="true">
                             </f:RenderField>
-                            <f:RenderField HeaderText="总焊口量" ColumnID="WeldJointCode"
+                            <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode"
                                 DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="90px" Locked="true">
                             </f:RenderField>
                             <f:RenderField HeaderText="规格" ColumnID="Specification"
                                 DataField="Specification" SortField="Specification" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="170px">
+                                TextAlign="Left" Width="150px">
                             </f:RenderField>
                             <f:RenderField HeaderText="材质代号" ColumnID="MaterialCode"
                                 DataField="MaterialCode" SortField="MaterialCode" FieldType="String" HeaderTextAlign="Center"
@@ -131,6 +131,9 @@
                                 DataField="ProessDate" SortField="ProessDate" FieldType="Date" Renderer="Date"
                                 HeaderTextAlign="Center" TextAlign="Left" Width="120px">
                             </f:RenderField>
+                            <f:CheckBoxField ColumnID="IsCompleted" Width="100px"  DataField="IsCompleted" 
+                                HeaderText="是否完成" HeaderTextAlign="Center" TextAlign="Center" />
+
                               <f:WindowField HeaderTextAlign="Center" TextAlign="Center" Width="120px" WindowID="Window1"
                                 DataIFrameUrlFields="HotProessTrustItemId" DataIFrameUrlFormatString="HotProessReport.aspx?HotProessTrustItemId={0}"
                                 Text="热处理报告" HeaderText="热处理报告">

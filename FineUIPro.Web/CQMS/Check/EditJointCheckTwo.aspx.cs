@@ -62,7 +62,7 @@ namespace FineUIPro.Web.CQMS.Check
             //绑定表格---表单
             if (!IsPostBack)
             {
-                UnitService.InitUnitDropDownList(drpUnit, this.CurrUser.LoginProjectId, false);
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
                 UnitService.InitUnitNotsub(drpProposeUnit, CurrUser.LoginProjectId, false);
                 JointCheckService.Init(drpCheckType, true);
                 txtProjectName.Text = ProjectService.GetProjectByProjectId(CurrUser.LoginProjectId).ProjectName;

@@ -70,7 +70,7 @@
                             <f:Button ID="btnPointAudit" Text="扩透口审核" ToolTip="监理审核后才可生成委托单" Icon="ArrowNsew" runat="server"
                                 OnClick="btnPointAudit_Click">
                             </f:Button>
-                            <f:Button ID="btnGenerate" Text="生成" ToolTip="生成委托单" Icon="Pencil" runat="server"
+                            <f:Button ID="btnGenerate" Text="生成" ToolTip="生成委托单" Icon="TableEdit" runat="server"
                                        OnClick="btnGenerate_Click" >
                             </f:Button>
                             <f:Button ID="btnSee"  Text="查看底片"  OnClick="btnSee_Click" runat="server"></f:Button>

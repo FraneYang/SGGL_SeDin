@@ -22,7 +22,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtMediumName" runat="server" Label="介质描述"
+                    <f:TextBox ID="txtMediumName" runat="server" Label="介质名称"
                         Required="true" MaxLength="50" ShowRedStar="true" LabelWidth="180px">
                     </f:TextBox>
                 </Items>
@@ -32,11 +32,6 @@
                     <f:TextBox ID="txtMediumAbbreviation" runat="server" Label="介质相态"
                         MaxLength="50" LabelWidth="180px">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-             <f:FormRow>
-                <Items>
-                   <f:CheckBox ID="cbIsTestMedium" runat="server" Label="是否试验介质"  LabelWidth="180px"></f:CheckBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>

@@ -129,7 +129,7 @@ namespace FineUIPro.Web.CQMS.Check
         {
             if (!IsPostBack)
             {
-                UnitService.InitUnitDropDownList(drpUnit, this.CurrUser.LoginProjectId, false);
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
                 UnitService.InitUnitNotsub(drpProposeUnit, this.CurrUser.LoginProjectId, false);
                 UnitWorkService.InitUnitWorkDownList(drpUnitWork, this.CurrUser.LoginProjectId, false);
                 CNProfessionalService.InitCNProfessionalDownList(drpCNProfessional, false);

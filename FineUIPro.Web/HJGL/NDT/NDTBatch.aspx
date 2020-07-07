@@ -62,7 +62,7 @@
                                         OnClick="btnImport_Click" Hidden="true">
                                     </f:Button>
                             <f:Button ID="btnEdit" Text="编辑" ToolTip="编辑"
-                                Icon="Pencil" runat="server" OnClick="btnEdit_Click">
+                                Icon="TableEdit" runat="server" OnClick="btnEdit_Click">
                             </f:Button>
                             <f:Button ID="btnAudit" Text="审核" ToolTip="审核" Icon="TableKey" runat="server"
                                 OnClick="btnAudit_Click">
@@ -89,7 +89,7 @@
                                     <f:Label ID="txtUnitName" Label="单位名称" runat="server" LabelWidth="130px"
                                         LabelAlign="Right">
                                     </f:Label>
-                                    <f:Label ID="txtInstallation" Label="装置编号" runat="server"
+                                    <f:Label ID="txtUnitWork" Label="单位工程编号" runat="server"
                                         LabelWidth="130px" LabelAlign="Right">
                                     </f:Label>
                                 </Items>
@@ -128,8 +128,8 @@
                                 DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="100px">
                             </f:RenderField>
-                            <f:RenderField HeaderText="区域" ColumnID="WorkAreaCode" DataField="WorkAreaCode"
-                                SortField="WorkAreaCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
+                                SortField="UnitWorkCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="100px">
                             </f:RenderField>
                             <f:RenderField HeaderText="焊工号" ColumnID="WelderCode"

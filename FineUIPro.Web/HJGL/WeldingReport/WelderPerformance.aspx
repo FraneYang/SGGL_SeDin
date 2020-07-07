@@ -25,11 +25,8 @@
                             <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称"
                                 LabelAlign="Right" Width="280px" AutoPostBack="true" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged">
                             </f:DropDownList>
-                            <f:DropDownList ID="drpInstallationId" runat="server" Label="装置编号"
+                            <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程"
                                 LabelAlign="Right" Width="280px" AutoPostBack="true" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged">
-                            </f:DropDownList>
-                            <f:DropDownList ID="drpWorkAreaId" runat="server" Label="区域"
-                                LabelAlign="Right" Width="280px">
                             </f:DropDownList>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -73,8 +70,8 @@
                         DataField="WelderCode" SortField="WelderCode" FieldType="String" HeaderTextAlign="Center"
                         Width="200px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="焊工姓名" ColumnID="WelderName"
-                        DataField="WelderName" SortField="WelderName" FieldType="String" HeaderTextAlign="Center"
+                    <f:RenderField HeaderText="焊工姓名" ColumnID="PersonName"
+                        DataField="PersonName" SortField="PersonName" FieldType="String" HeaderTextAlign="Center"
                         Width="90px">
                     </f:RenderField>
                     <f:RenderField HeaderText="性别" ColumnID="Sex" DataField="Sex"

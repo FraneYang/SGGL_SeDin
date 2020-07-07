@@ -40,6 +40,21 @@
                         <f:NumberBox runat="server" ID="txtWeights" Label="权重%" LabelWidth="110px" NoDecimal="false" NoNegative="true"></f:NumberBox>
                    </Items>
                 </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:DropDownList runat="server" ID="drpUnit" Label="施工单位" LabelWidth="110px" ShowRedStar="true"></f:DropDownList>
+                   </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:DropDownList runat="server" ID="drpSupervisorUnit" Label="监理单位" LabelWidth="110px"></f:DropDownList>
+                   </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:DropDownList runat="server" ID="drpNDEUnit" Label="检测单位" LabelWidth="110px"></f:DropDownList>
+                   </Items>
+                </f:FormRow>
             </Rows>
             <Toolbars>
                 <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

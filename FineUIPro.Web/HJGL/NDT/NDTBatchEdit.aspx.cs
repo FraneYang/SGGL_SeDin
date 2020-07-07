@@ -41,7 +41,7 @@ namespace FineUIPro.Web.HJGL.NDT
                 this.NDEID = Request.Params["NDEID"];
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2,true);
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpNDEUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_5,true);
-                //BLL.Project_InstallationService.InitInstallationDropDownList(this.drpInstallation, true, this.CurrUser.LoginProjectId);
+                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);
                 ///探伤类型
                 BLL.Base_DetectionTypeService.InitDetectionTypeDropDownList(this.drpDetectionType, true, string.Empty);
                 ///评定级别
@@ -178,10 +178,10 @@ namespace FineUIPro.Web.HJGL.NDT
                 {
                     this.drpUnit.SelectedValue = check.UnitId;
                 }
-                //if (!string.IsNullOrEmpty(check.InstallationId))
-                //{
-                //    this.drpInstallation.SelectedValue = check.InstallationId;
-                //}
+                if (!string.IsNullOrEmpty(check.UnitWorkId))
+                {
+                    this.drpUnitWork.SelectedValue = check.UnitWorkId;
+                }
                 if (check.NDEDate != null)
                 {
                     this.txtNDEDate.Text = string.Format("{0:yyyy-MM-dd}", check.NDEDate);
@@ -235,7 +235,7 @@ namespace FineUIPro.Web.HJGL.NDT
                 {
                     var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(workAreaId);
                     drpUnit.SelectedValue = w.UnitId;
-                    //this.drpInstallation.SelectedValue = w.InstallationId;
+                    this.drpUnitWork.SelectedValue = w.UnitWorkId;
                 }
                 this.SimpleForm1.Reset(); ///重置所有字段
                 this.txtNDEDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
@@ -252,7 +252,7 @@ namespace FineUIPro.Web.HJGL.NDT
         protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.drpBatchTrust.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpInstallation.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
+            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
             {
                 BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue, this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
                 this.drpBatchTrust.SelectedValue = BLL.Const._Null;
@@ -262,16 +262,16 @@ namespace FineUIPro.Web.HJGL.NDT
         }
         #endregion
 
-        #region 装置下拉框变化加载对应的委托单信息
+        #region 单位工程下拉框变化加载对应的委托单信息
         /// <summary>
-        /// 装置下拉框变化加载对应的委托单信息
+        /// 单位工程下拉框变化加载对应的委托单信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void drpInstallation_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.drpBatchTrust.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpInstallation.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
+            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
             {
                 BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue,this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
                 this.drpBatchTrust.SelectedValue = BLL.Const._Null;
@@ -283,14 +283,14 @@ namespace FineUIPro.Web.HJGL.NDT
 
         #region 探伤类型下拉框变化加载对应的委托单信息
         /// <summary>
-        /// 装置下拉框变化加载对应的委托单信息
+        /// 单位工程下拉框变化加载对应的委托单信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void drpDetectionType_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.drpBatchTrust.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpInstallation.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
+            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
             {
                 BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue,this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
                 this.drpBatchTrust.SelectedValue = BLL.Const._Null;
@@ -309,7 +309,7 @@ namespace FineUIPro.Web.HJGL.NDT
         protected void txtPipelineCode_TextChanged(object sender, EventArgs e)
         {
             this.drpBatchTrust.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpInstallation.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
+            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
             {
                 BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue, this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
                 this.drpBatchTrust.SelectedValue = BLL.Const._Null;
@@ -463,10 +463,10 @@ namespace FineUIPro.Web.HJGL.NDT
                 {
                     newNDE.UnitId = this.drpUnit.SelectedValue;
                 }
-                //if (this.drpInstallation.SelectedValue != BLL.Const._Null)
-                //{
-                //    newNDE.InstallationId = this.drpInstallation.SelectedValue;
-                //}
+                if (this.drpUnitWork.SelectedValue != BLL.Const._Null)
+                {
+                    newNDE.UnitWorkId = this.drpUnitWork.SelectedValue;
+                }
                 if (this.drpNDEUnit.SelectedValue != BLL.Const._Null)
                 {
                     newNDE.NDEUnit = this.drpNDEUnit.SelectedValue;

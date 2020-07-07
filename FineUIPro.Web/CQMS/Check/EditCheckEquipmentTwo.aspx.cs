@@ -78,8 +78,8 @@ namespace FineUIPro.Web.CQMS.Check
                     this.drpHandleType.DataSource = BLL.CheckEquipmentService.GetDHandleTypeByState(BLL.Const.CheckEquipment_Compile);
                     this.drpHandleType.DataBind();
                     this.drpHandleType.SelectedIndex = 0;
-                    this.drpHandleMan.DataTextField = "Text";
-                    this.drpHandleMan.DataValueField = "Value";
+                    this.drpHandleMan.DataTextField = "UserName";
+                    this.drpHandleMan.DataValueField = "UserId";
                     this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                     this.drpHandleMan.DataBind();
                     this.drpHandleMan.SelectedIndex = 0;

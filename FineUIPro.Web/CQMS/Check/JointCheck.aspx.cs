@@ -70,7 +70,7 @@ namespace FineUIPro.Web.CQMS.Check
                 //    this.ProjectId = Request.Params["projectId"];
                 //}
                 //权限按钮方法
-                UnitService.InitUnitDropDownList(drpSponsorUnit, this.CurrUser.LoginProjectId, true);
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpSponsorUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
                 JointCheckService.Init(drpCheckType, true);
                 JointCheckService.InitState(drpState, true);
                 bindata();

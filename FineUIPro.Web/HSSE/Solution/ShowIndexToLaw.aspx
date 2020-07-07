@@ -19,7 +19,7 @@
                         EnableColumnLines="true" IsDatabasePaging="true" runat="server" DataKeyNames="LawRegulationId"
                         DataIDField="LawRegulationId" ForceFit="true">
                         <Columns>
-                            <f:TemplateField Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:TemplateField Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="Label3" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize+Container.DataItemIndex + 1 %>'></asp:Label>
                                 </ItemTemplate>
@@ -58,7 +58,7 @@
                         IsDatabasePaging="true" runat="server" DataKeyNames="StandardId" DataIDField="StandardId" ForceFit="true"
                         EnableColumnLines="true">
                         <Columns>
-                            <f:TemplateField Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:TemplateField Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="Label1" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize+Container.DataItemIndex + 1 %>'></asp:Label>
                                 </ItemTemplate>

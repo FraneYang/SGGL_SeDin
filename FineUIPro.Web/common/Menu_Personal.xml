@@ -1,13 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-    <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="个人信息" NavigateUrl="Personal/PersonalInfo.aspx" >
-    </TreeNode>
-    <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="密码修改" NavigateUrl="Personal/PersonalInfo.aspx" >
-    </TreeNode>
-<TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="员工总结" NavigateUrl="Personal/RunLog.aspx">  
-</TreeNode>
-  <TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="员工责任书" NavigateUrl="Personal/RunLog.aspx">
+  <TreeNode id="C48343FA-ADC6-4551-86AD-7B68C27A6170" Text="个人信息" NavigateUrl="Personal/PersonalInfo.aspx">
   </TreeNode>
-  <TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="绩效考核结果" NavigateUrl="Personal/RunLog.aspx">
-  </TreeNode>
+<TreeNode id="081B869B-49D8-4536-8281-F2C8750F8ED5" Text="密码修改" NavigateUrl=""></TreeNode>
+<TreeNode id="C6EF06E5-9019-4583-8122-EA94FCC545C6" Text="员工总结" NavigateUrl=""></TreeNode>
+<TreeNode id="AAF841AA-2EE8-4FEC-B1FB-B978736C6E1F" Text="员工责任书" NavigateUrl=""></TreeNode>
+<TreeNode id="CB373458-30B0-4850-ABFF-B38D40A04D43" Text="员工绩效考核结果" NavigateUrl=""></TreeNode>
 </Tree>

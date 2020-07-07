@@ -45,7 +45,7 @@
                         EnableColumnLines="true" BoxFlex="1" DataKeyNames="PersonId" DataIDField="PersonId" 
                         AllowSorting="true" SortField="CardNo"  PageSize="500" Height="400px">
                         <Columns>
-                            <f:TemplateField Width="50px" HeaderText="序号">
+                            <f:TemplateField Width="55px" HeaderText="序号">
                                 <ItemTemplate>
                                     <asp:Label ID="Label2" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
                                 </ItemTemplate>

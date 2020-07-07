@@ -29,10 +29,10 @@
                     <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称"
-                                LabelAlign="Right" Width="280px" AutoPostBack="true" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged">
+                                LabelAlign="Right" Width="280px" AutoPostBack="true" >
                             </f:DropDownList>
-                            <f:DropDownList ID="drpInstallationId" runat="server" Label="装置编号"
-                                LabelAlign="Right" Width="280px" AutoPostBack="true" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged">
+                            <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程名称"
+                                LabelAlign="Right" Width="280px" AutoPostBack="true">
                             </f:DropDownList>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -49,9 +49,6 @@
                     </f:Toolbar>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:DropDownList ID="drpWorkAreaId" runat="server" Label="区域编号"
-                                LabelAlign="Right" Width="280px">
-                            </f:DropDownList>
                             <f:DropDownList ID="drpSteelType" runat="server" Label="钢材类型"
                                 LabelAlign="Right" Width="280px">
                             </f:DropDownList>
@@ -77,13 +74,9 @@
                         DataField="bsu_unitname" SortField="bsu_unitname" FieldType="String" HeaderTextAlign="Center"
                         Width="200px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="装置名称" ColumnID="InstallationName"
-                        DataField="InstallationName" SortField="InstallationName" FieldType="String"
+                    <f:RenderField HeaderText="单位工程名称" ColumnID="UnitWorkName"
+                        DataField="UnitWorkName" SortField="UnitWorkName" FieldType="String"
                         HeaderTextAlign="Center" Width="90px">
-                    </f:RenderField>
-                    <f:RenderField HeaderText="区域编号" ColumnID="baw_areano"
-                        DataField="baw_areano" SortField="baw_areano" FieldType="String" HeaderTextAlign="Center"
-                        Width="90px">
                     </f:RenderField>
                     <f:RenderField HeaderText="总焊口" ColumnID="total_jot" DataField="total_jot"
                         SortField="total_jot" FieldType="String" HeaderTextAlign="Center" Width="80px">

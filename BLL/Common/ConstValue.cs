@@ -45,6 +45,18 @@ namespace BLL
             }
         }
 
+        public static void InitConstNameDropDownList(FineUIPro.DropDownList dropName, string groupId, bool isShowPlease)
+        {
+            dropName.DataValueField = "ConstText";
+            dropName.DataTextField = "ConstText";
+            dropName.DataSource = ConstValue.drpConstItemList(groupId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
         /// <summary>
         /// 常量表下拉框
         /// </summary>
@@ -56,16 +68,6 @@ namespace BLL
             rblName.DataTextField = "ConstText";
             rblName.DataSource = ConstValue.drpConstItemList(groupId);
             rblName.DataBind();
-
-            //ListItemCollection listWeek = new ListItemCollection();
-            //var getV = ConstValue.drpConstItemList(groupId);
-            //foreach (var item in getV)
-            //{
-            //    listWeek.Add(new ListItem(item.ConstText, item.ConstValue));
-            //}
-
-            //rblName.DataSource = listWeek;
-            //rblName.DataBind();
         }
         #endregion
 

@@ -80,7 +80,7 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Columns>
-                        <f:TemplateField ColumnID="tfPageIndex" Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
+                        <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
                             EnableLock="true" Locked="False">
                             <ItemTemplate>
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# GvJoinCheck.PageIndex * GvJoinCheck.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>

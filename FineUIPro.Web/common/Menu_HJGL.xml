@@ -4,6 +4,7 @@
     <TreeNode id="8IDKGJE2-09B1-1234-VC6D-865CE48F0005" Text="管道等级" NavigateUrl="HJGL/BaseInfo/PipingClass.aspx">
     </TreeNode>
 <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0014" Text="管道介质" NavigateUrl="HJGL/BaseInfo/Medium.aspx"></TreeNode>
+<TreeNode id="2db166e1-9648-42a9-8567-f63b1846a841" Text="试验介质" NavigateUrl="HJGL/BaseInfo/TestMedium.aspx"></TreeNode>
 <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0009" Text="安装组件" NavigateUrl="HJGL/BaseInfo/Components.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="3EFCE9C3-1983-4AEC-8FA1-D7A90F08CBCB" Text="焊工管理" NavigateUrl=""><TreeNode id="1908E4C9-4A63-4A6C-6666-DA4910C2A8C7" Text="焊工信息" NavigateUrl="HJGL/PersonManage/WelderManage.aspx"></TreeNode>

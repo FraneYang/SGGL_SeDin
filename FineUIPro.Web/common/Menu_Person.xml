@@ -1,21 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工信息" NavigateUrl="Personal/PersonalInfo.aspx" >
+  <TreeNode id="20AB6116-A8D3-4D72-8800-79F80AE66D85" Text="员工信息" NavigateUrl="">
   </TreeNode>
-  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工总结" NavigateUrl="Personal/PersonalInfo.aspx" >
-  </TreeNode>
-  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工培训" NavigateUrl="Personal/PersonalInfo.aspx" >
-  </TreeNode>
-  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工责任书" NavigateUrl="Personal/PersonalInfo.aspx" >
-  </TreeNode>
-  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="员工考核" NavigateUrl="Personal/PersonalInfo.aspx" >
-  </TreeNode>
-  <TreeNode id="42368A1C-EE84-423D-9003-B0CAD0FF169D" Text="分流管理" NavigateUrl="Personal/PersonalInfo.aspx" >
-  </TreeNode>
-<TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="知识竞赛" >
-  <TreeNode id="A6994B53-6237-4C2B-BDC5-E7E79A1E7F88" Text="制定计划" NavigateUrl="Personal/PersonalFolder.aspx"></TreeNode>
-  <TreeNode id="A6994B53-6237-4C2B-BDC5-E7E79A1E7F88" Text="答题记录" NavigateUrl="Personal/PersonalFolder.aspx"></TreeNode>
-  <TreeNode id="A6994B53-6237-4C2B-BDC5-E7E79A1E7F88" Text="成绩排名" NavigateUrl="Personal/PersonalFolder.aspx"></TreeNode>
+<TreeNode id="3BF62723-9448-4A29-A239-0A17566F50E8" Text="员工总结" NavigateUrl=""></TreeNode>
+<TreeNode id="1D8B35D2-5C8F-4FF4-96E4-8EB61BDBAE51" Text="员工培训" NavigateUrl=""></TreeNode>
+<TreeNode id="A913653D-1EBB-4F55-97C9-81CC5B5913C4" Text="员工责任书" NavigateUrl=""></TreeNode>
+<TreeNode id="DD111492-E5F1-4E6F-BCAD-BA26EA184761" Text="员工考核" NavigateUrl=""></TreeNode>
+<TreeNode id="DC31E45E-0EE9-4601-825D-8F388B6D9B71" Text="分流管理" NavigateUrl=""></TreeNode>
+<TreeNode id="03689DFC-BFBD-45E6-807C-BE8B071F24C2" Text="知识竞赛" NavigateUrl=""><TreeNode id="AAD19230-FBE9-4083-BA37-17B8592050E8" Text="制定计划" NavigateUrl=""></TreeNode>
+<TreeNode id="278FE845-1036-453E-BED6-88346994CD75" Text="答题记录" NavigateUrl=""></TreeNode>
+<TreeNode id="96CB9AB3-FBD7-4399-BE88-B6FF554DE6A5" Text="成绩排名" NavigateUrl=""></TreeNode>
 </TreeNode>
-
 </Tree>

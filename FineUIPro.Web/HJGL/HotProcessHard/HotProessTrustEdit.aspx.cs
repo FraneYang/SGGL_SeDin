@@ -59,7 +59,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 //{
                 //    this.ProjectId = trust.ProjectId;
                 //}
-                BLL.UnitWorkService.InitUnitWorkDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);//装置
+                BLL.UnitWorkService.InitUnitWorkDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);//单位工程
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);//单位
 
                 this.PageInfoLoad(); ///加载页面 

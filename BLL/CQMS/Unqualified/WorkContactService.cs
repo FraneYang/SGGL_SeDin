@@ -89,7 +89,7 @@ namespace BLL
             ListItem[] lis = null;
             if (state == Const.WorkContact_Compile || state == Const.WorkContact_ReCompile)
             {
-                if (unitType == "3")   //分包商
+                if (unitType == Const.ProjectUnitType_2)   //分包商
                 {
                     lis = new ListItem[1];
                     lis[0] = new ListItem("分包负责人审核", Const.WorkContact_Audit1);
@@ -104,7 +104,7 @@ namespace BLL
             }
             else if (state == Const.WorkContact_Audit1)
             {
-                if (unitType == "3")   //分包商
+                if (unitType == Const.ProjectUnitType_2)   //分包商
                 {
                     if (isReply == "1")  //需要回复
                     {
@@ -137,7 +137,7 @@ namespace BLL
             }
             else if (state == Const.WorkContact_Audit3)
             {
-                if (unitType == "3")   //分包商
+                if (unitType == Const.ProjectUnitType_2)   //分包商
                 {
                     lis = new ListItem[3];
                     lis[0] = new ListItem("审批完成", Const.WorkContact_Complete);

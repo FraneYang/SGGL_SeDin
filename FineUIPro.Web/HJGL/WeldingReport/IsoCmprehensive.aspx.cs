@@ -22,7 +22,7 @@ namespace FineUIPro.Web.HJGL.WeldingReport
             {
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);//单位
-                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId, true);//区域
+                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);//单位工程
             }
         }
 
@@ -41,9 +41,9 @@ namespace FineUIPro.Web.HJGL.WeldingReport
             {
                 listStr.Add(new SqlParameter("@unitId", null));
             }
-            if (this.drpWorkAreaId.SelectedValue != BLL.Const._Null)
+            if (this.drpUnitWork.SelectedValue != BLL.Const._Null)
             {
-                listStr.Add(new SqlParameter("@workAreaId", this.drpWorkAreaId.SelectedValue));
+                listStr.Add(new SqlParameter("@workAreaId", this.drpUnitWork.SelectedValue));
             }
             else
             {
@@ -168,19 +168,19 @@ namespace FineUIPro.Web.HJGL.WeldingReport
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.drpWorkAreaId.Items.Clear();
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
-            {
-                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId,  true);//区域
-            }
-            else
-            {
-                Funs.FineUIPleaseSelect(this.drpWorkAreaId, "请选择");
-            }
-            this.drpWorkAreaId.SelectedValue = BLL.Const._Null;
-        }
+        //protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    this.drpWorkAreaId.Items.Clear();
+        //    if (this.drpUnitId.SelectedValue != BLL.Const._Null)
+        //    {
+        //        BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId,  true);//区域
+        //    }
+        //    else
+        //    {
+        //        Funs.FineUIPleaseSelect(this.drpWorkAreaId, "请选择");
+        //    }
+        //    this.drpWorkAreaId.SelectedValue = BLL.Const._Null;
+        //}
         #endregion
     }
 }

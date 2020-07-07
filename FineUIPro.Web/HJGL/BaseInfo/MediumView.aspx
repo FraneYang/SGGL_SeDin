@@ -22,7 +22,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtMediumName" runat="server" Label="介质描述"
+                    <f:TextBox ID="txtMediumName" runat="server" Label="介质名称"
                         Readonly="true" LabelWidth="160px">
                     </f:TextBox>
                 </Items>

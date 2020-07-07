@@ -22,8 +22,7 @@ namespace FineUIPro.Web.HJGL.WeldingReport
             {
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
-                //BLL.Project_InstallationService.InitInstallationDropDownList(this.drpInstallationId, true, this.CurrUser.LoginProjectId, Resources.Lan.PleaseSelect);
-                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId,  true);//区域        
+                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpUnitWork, this.CurrUser.LoginProjectId,  true);//单位工程       
             }
         }
 
@@ -42,21 +41,13 @@ namespace FineUIPro.Web.HJGL.WeldingReport
             {
                 listStr.Add(new SqlParameter("@UnitNo", null));
             }
-            if (this.drpInstallationId.SelectedValue != BLL.Const._Null)
+            if (this.drpUnitWork.SelectedValue != BLL.Const._Null)
             {
-                listStr.Add(new SqlParameter("@installationId", this.drpInstallationId.SelectedValue));
+                listStr.Add(new SqlParameter("@UnitWorkId", this.drpUnitWork.SelectedValue));
             }
             else
             {
-                listStr.Add(new SqlParameter("@installationId", null));
-            }
-            if (this.drpWorkAreaId.SelectedValue != BLL.Const._Null)
-            {
-                listStr.Add(new SqlParameter("@AreaNo", this.drpWorkAreaId.SelectedValue));
-            }
-            else
-            {
-                listStr.Add(new SqlParameter("@AreaNo", null));
+                listStr.Add(new SqlParameter("@UnitWorkId", null));
             }
             if (!string.IsNullOrEmpty(this.txtStarTime.Text))
             {
@@ -188,19 +179,19 @@ namespace FineUIPro.Web.HJGL.WeldingReport
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.drpWorkAreaId.Items.Clear();
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null && this.drpInstallationId.SelectedValue != BLL.Const._Null)
-            {
-                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId,  true);//区域
-            }
-            else
-            {
-                Funs.FineUIPleaseSelect(this.drpWorkAreaId, "请选择");
-            }
-            this.drpWorkAreaId.SelectedValue = BLL.Const._Null;
-        }
+        //protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    this.drpUnitWork.Items.Clear();
+        //    if (this.drpUnitId.SelectedValue != BLL.Const._Null && this.drpInstallationId.SelectedValue != BLL.Const._Null)
+        //    {
+        //        BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId,  true);//区域
+        //    }
+        //    else
+        //    {
+        //        Funs.FineUIPleaseSelect(this.drpWorkAreaId, "请选择");
+        //    }
+        //    this.drpWorkAreaId.SelectedValue = BLL.Const._Null;
+        //}
         #endregion
     }
 }

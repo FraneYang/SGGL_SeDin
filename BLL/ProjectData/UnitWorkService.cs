@@ -28,7 +28,9 @@ namespace BLL
             newUnitWork.ProjectId = UnitWork.ProjectId;
             newUnitWork.ProjectType = UnitWork.ProjectType;
             newUnitWork.Weights = UnitWork.Weights;
-
+            newUnitWork.UnitId = UnitWork.UnitId;
+            newUnitWork.SupervisorUnitId = UnitWork.SupervisorUnitId;
+            newUnitWork.NDEUnit = UnitWork.NDEUnit;
             db.WBS_UnitWork.InsertOnSubmit(newUnitWork);
             db.SubmitChanges();
         }
@@ -51,7 +53,9 @@ namespace BLL
                 newUnitWork.ProjectId = UnitWork.ProjectId;
                 newUnitWork.ProjectType = UnitWork.ProjectType;
                 newUnitWork.Weights = UnitWork.Weights;
-
+                newUnitWork.UnitId = UnitWork.UnitId;
+                newUnitWork.SupervisorUnitId = UnitWork.SupervisorUnitId;
+                newUnitWork.NDEUnit = UnitWork.NDEUnit;
                 db.SubmitChanges();
             }
         }
@@ -418,7 +422,7 @@ namespace BLL
         public static string GetUnitWorkALLName(string unitWorkId)
         {
             string name = string.Empty;
-            var getu = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == unitWorkId);
+            var getu = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == unitWorkId && x.SuperUnitWork == null);
             if (getu != null)
             {
                 if (!string.IsNullOrEmpty(getu.ProjectType))

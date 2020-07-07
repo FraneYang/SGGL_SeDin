@@ -64,7 +64,7 @@ namespace FineUIPro.Web.CQMS.Solution
                 drpModelType.DataValueField = "Value";
                 drpModelType.DataBind();
                 Funs.FineUIPleaseSelect(drpModelType);
-                UnitService.InitUnitDropDownList(drpUnit, CurrUser.LoginProjectId, false);
+                UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
                 BindZYRole();
                 BindZLRole();
                 BindAQRole();

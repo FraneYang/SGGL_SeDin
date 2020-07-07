@@ -5,7 +5,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>安全试题库</title>
-    <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="~/res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">

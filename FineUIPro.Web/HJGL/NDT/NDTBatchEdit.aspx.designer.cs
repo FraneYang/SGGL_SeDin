@@ -121,13 +121,13 @@ namespace FineUIPro.Web.HJGL.NDT {
         protected global::FineUIPro.DropDownList drpUnit;
         
         /// <summary>
-        /// drpInstallation 控件。
+        /// drpUnitWork 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpInstallation;
+        protected global::FineUIPro.DropDownList drpUnitWork;
         
         /// <summary>
         /// txtNDEDate 控件。

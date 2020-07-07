@@ -22,7 +22,7 @@
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="单位选择" 
                 EnableCollapse="true" runat="server" BoxFlex="1"  EnableColumnLines="true"
                 DataKeyNames="UnitId" AllowCellEditing="true" ClicksToEdit="2" DataIDField="UnitId"
-                AllowSorting="true" SortField="IsThisUnit,UnitTypeName" SortDirection="DESC" OnSort="Grid1_Sort"                
+                AllowSorting="true" SortField="UnitTypeName" SortDirection="DESC" OnSort="Grid1_Sort"                
                 AllowPaging="true" IsDatabasePaging="true"  PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" 
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                 <Toolbars>

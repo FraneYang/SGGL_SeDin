@@ -28,7 +28,7 @@
                         AllowSorting="true" SortField="STHazardListTypeCode,HazardListTypeCode,HazardCode"
                         PageSize="20" AllowPaging="true" IsDatabasePaging="true" Height="540px">
                         <Columns>
-                              <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                              <f:TemplateField ColumnID="tfNumber" Width="55px" HeaderText="序号" HeaderTextAlign="Center"
                                 TextAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="lbNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>

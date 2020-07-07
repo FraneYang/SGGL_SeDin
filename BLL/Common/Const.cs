@@ -877,33 +877,6 @@ namespace BLL
         public const string TestTrainingMenuId = "4D6BD686-DA06-45CC-9DB8-54B342651724";
         #endregion
 
-        #region 在线学习考核
-        /// <summary>
-        /// 试题库维护
-        /// </summary>
-        public const string TestDBMenuId = "C7454B8C-017F-4C8A-B9C7-D9D2F46F3CB1";
-
-        /// <summary>
-        /// 生成试卷
-        /// </summary>
-        public const string BuildTestMenuId = "86E75631-BB9B-432E-BE5C-0F8C7C58BDE3";
-
-        /// <summary>
-        /// 查看试卷
-        /// </summary>
-        public const string SeeTestMenuId = "F62D1C56-8FB0-480D-9702-84B168D0A89F";
-
-        /// <summary>
-        /// 考生信息
-        /// </summary>
-        public const string ExamineeMenuId = "8787A0B6-9F9B-40A6-B122-E8A8287A84B9";
-
-        /// <summary>
-        /// 考试系统
-        /// </summary>
-        public const string TestSystemMenuId = "C91CD0C5-6609-40BD-B5E6-C2DF148B198B";
-        #endregion
-
         #region 安全技术
         /// <summary>
         /// 危险源清单
@@ -2312,6 +2285,10 @@ namespace BLL
         /// 焊接位置
         /// </summary>
         public const string HJGL_WeldingLocationMenuId = "8IDKGJE2-09B1-4607-BC6D-865CE48F0015";
+        /// <summary>
+        /// 试验介质
+        /// </summary>
+        public const string HJGL_TestMediumMenuId = "2db166e1-9648-42a9-8567-f63b1846a841";
         #endregion
 
         #region 人员管理
@@ -2581,9 +2558,17 @@ namespace BLL
         /// </summary>
         public const string State_2 = "2";
         /// <summary>
-        /// 已完成/已上报
+        /// 已完成/已闭环
         /// </summary>
         public const string State_3 = "3";
+        /// <summary>
+        /// 已完成/已上报
+        /// </summary>
+        public const string State_4 = "4";
+        /// <summary>
+        /// 已完成/已上报
+        /// </summary>
+        public const string State_5 = "5";
         /// <summary>
         /// 重新申请
         /// </summary>

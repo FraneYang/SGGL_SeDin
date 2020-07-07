@@ -1,12 +1,8 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web.UI;
-using BLL;
 
 namespace FineUIPro.Web.ProjectData
 {
@@ -58,7 +54,7 @@ namespace FineUIPro.Web.ProjectData
         {
             if (!string.IsNullOrEmpty(this.ProjectId))
             {
-                string strSql = @"SELECT UnitId,UnitCode,UnitName,ProjectRange,Address,IsThisUnit,UnitType.UnitTypeName"
+                string strSql = @"SELECT UnitId,UnitCode,UnitName,ProjectRange,Address,UnitType.UnitTypeName"
                                 + @" FROM Base_Unit AS Unit LEFT JOIN Base_UnitType AS UnitType ON Unit.UnitTypeId =UnitType.UnitTypeId"
                                 + @" WHERE  UnitId NOT IN (SELECT UnitId FROM Project_ProjectUnit WHERE ProjectId =@ProjectId) ";
                 List<SqlParameter> listStr = new List<SqlParameter>();

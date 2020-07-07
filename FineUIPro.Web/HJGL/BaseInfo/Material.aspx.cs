@@ -52,7 +52,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT MaterialId,MaterialCode,MaterialType,SteelType,Remark,MaterialClass,MaterialGroup"
+            string strSql = @"SELECT MaterialId,MaterialCode,MaterialType,SteelType,Remark,MaterialClass,MaterialGroup,MetalType"
                          + @" FROM dbo.Base_Material WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
 
