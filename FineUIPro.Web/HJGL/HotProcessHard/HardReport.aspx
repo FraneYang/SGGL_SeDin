@@ -29,7 +29,15 @@
                             </f:Button>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
+                             <f:DropDownList ID="drpIsPass" runat="server" Label="检测结果">
+                                 <f:ListItem Text="待检测" Value="2"/>
+                                 <f:ListItem Text="合格" Value="1"/>
+                                 <f:ListItem Text="不合格" Value="0"/>
+                             </f:DropDownList>
+                             <f:Button ID="btnSave" ToolTip="保存该焊口硬度检测是否合格" Text="保存" Icon="SystemSave" EnablePostBack="true"
+                                runat="server" OnClick="btnSave_Click" >
+                            </f:Button>
+                            <f:Button ID="btnNew" ToolTip="新增" Text="新增" Icon="Add" EnablePostBack="true"
                                 runat="server" OnClick="btnNew_Click">
                             </f:Button>
                         </Items>
@@ -102,7 +110,7 @@
         Height="480px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"
+        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"

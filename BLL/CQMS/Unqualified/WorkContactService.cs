@@ -73,7 +73,7 @@ namespace BLL
         /// <param name="workContactId">工作联系单信息Id</param>
         public static void DeleteWorkContact(string workContactId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Unqualified_WorkContact workContact = db.Unqualified_WorkContact.First(e => e.WorkContactId == workContactId);
 
             db.Unqualified_WorkContact.DeleteOnSubmit(workContact);
@@ -189,7 +189,7 @@ namespace BLL
         /// <returns>一个工作联系单信息实体</returns>
         public static Model.Unqualified_WorkContact GetWorkContactByWorkContactId(string workContactId)
         {
-            return Funs.DB.Unqualified_WorkContact.FirstOrDefault(x => x.WorkContactId == workContactId);
+            return new Model.SGGLDB(Funs.ConnString).Unqualified_WorkContact.FirstOrDefault(x => x.WorkContactId == workContactId);
 
         }
         public static Model.Unqualified_WorkContact GetWorkContactByWorkContactIdForApi(string workContactId)
@@ -263,7 +263,7 @@ namespace BLL
         /// <param name="workContact">工作联系单信息实体</param>
         public static void AddWorkContact(Model.Unqualified_WorkContact workContact)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Unqualified_WorkContact newWorkContact = new Model.Unqualified_WorkContact();
             newWorkContact.WorkContactId = workContact.WorkContactId;
             newWorkContact.ProjectId = workContact.ProjectId;
@@ -313,7 +313,7 @@ namespace BLL
         /// <param name="workContact">工作联系单信息实体</param>
         public static void UpdateWorkContact(Model.Unqualified_WorkContact workContact)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Unqualified_WorkContact newWorkContact = db.Unqualified_WorkContact.First(e => e.WorkContactId == workContact.WorkContactId);
             newWorkContact.Code = workContact.Code;
             newWorkContact.ProposedUnitId = workContact.ProposedUnitId;
@@ -339,7 +339,7 @@ namespace BLL
                 if (!string.IsNullOrEmpty(name))
                 {
                     List<string> ids = new List<string>();
-                    var qunit = from u in Funs.DB.Base_Unit
+                    var qunit = from u in new Model.SGGLDB(Funs.ConnString).Base_Unit
                                 where u.UnitName.Contains(name)
                                 select u.UnitId;
                     ids = qunit.ToList();

@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.WPQ_WPQList GetWPQById(string wpqId)
         {
-            return Funs.DB.WPQ_WPQList.FirstOrDefault(e => e.WPQId == wpqId);
+            return new Model.SGGLDB(Funs.ConnString).WPQ_WPQList.FirstOrDefault(e => e.WPQId == wpqId);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="WPQ"></param>
         public static void AddWPQ(Model.WPQ_WPQList WPQ)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WPQ_WPQList newWPQ = new Model.WPQ_WPQList();
             newWPQ.WPQId = WPQ.WPQId;
             newWPQ.WPQCode = WPQ.WPQCode;
@@ -67,7 +67,7 @@ namespace BLL
         /// <param name="WPQ"></param>
         public static void UpdateWPQ(Model.WPQ_WPQList WPQ)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WPQ_WPQList newWPQ = db.WPQ_WPQList.FirstOrDefault(e => e.WPQId == WPQ.WPQId);
             if (newWPQ != null)
             {
@@ -109,7 +109,7 @@ namespace BLL
         /// <param name="WPQId"></param>
         public static void DeleteWPQById(string WPQId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WPQ_WPQList WPQ = db.WPQ_WPQList.FirstOrDefault(e => e.WPQId == WPQId);
             if (WPQ != null)
             {
@@ -127,7 +127,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsWPQCode(string WPQId, string code)
         {
-            var q = Funs.DB.WPQ_WPQList.FirstOrDefault(x => (x.WPQId != WPQId || (WPQId == null && x.WPQId != null)) && x.WPQCode == code);
+            var q = new Model.SGGLDB(Funs.ConnString).WPQ_WPQList.FirstOrDefault(x => (x.WPQId != WPQId || (WPQId == null && x.WPQId != null)) && x.WPQCode == code);
             if (q != null)
             {
                 return true;

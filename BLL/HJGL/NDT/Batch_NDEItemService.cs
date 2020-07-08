@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Batch_NDEItem GetNDEItemById(string ndeItemID)
         {
-            return Funs.DB.HJGL_Batch_NDEItem.FirstOrDefault(e => e.NDEItemID == ndeItemID);
+            return new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDEItem.FirstOrDefault(e => e.NDEItemID == ndeItemID);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.View_Batch_NDEItem GetNDEItemViewById (string ndeItemID)
         {
-            return Funs.DB.View_Batch_NDEItem.FirstOrDefault(e => e.NDEItemID == ndeItemID);
+            return new Model.SGGLDB(Funs.ConnString).View_Batch_NDEItem.FirstOrDefault(e => e.NDEItemID == ndeItemID);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_Batch_NDEItem> GetNDEItemByNDEID(string NDEID)
         {
-            return (from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == NDEID select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDEItem where x.NDEID == NDEID select x).ToList();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="NDEItem"></param>
         public static void AddNDEItem(Model.HJGL_Batch_NDEItem NDEItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_NDEItem newNDEItem = new Model.HJGL_Batch_NDEItem();
             newNDEItem.NDEItemID = NDEItem.NDEItemID;
             newNDEItem.NDEID = NDEItem.NDEID;
@@ -75,7 +75,7 @@ namespace BLL
         /// <param name="NDEItem"></param>
         public static void UpdateNDEItem(Model.HJGL_Batch_NDEItem NDEItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_NDEItem newNDEItem = db.HJGL_Batch_NDEItem.FirstOrDefault(e => e.NDEItemID == NDEItem.NDEItemID);
             if (newNDEItem != null)
             {
@@ -97,13 +97,24 @@ namespace BLL
             }
         }
 
+        public static void NDEItemAudit(string ndeItemId,DateTime? submitDate)
+        {
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.HJGL_Batch_NDEItem audit = db.HJGL_Batch_NDEItem.First(e => e.NDEItemID == ndeItemId);
+            if (audit != null)
+            {
+                audit.SubmitDate = submitDate;
+                db.SubmitChanges();
+            }
+        }
+
         /// <summary>
         /// 根据检测单明细主键删除明细信息
         /// </summary>
         /// <param name="ndeItemID"></param>
         public static void DeleteNDEItemByNDEItemID(string ndeItemID)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var ndeItem = (from x in db.HJGL_Batch_NDEItem where x.NDEItemID == ndeItemID select x).FirstOrDefault();
             if (ndeItem != null)
             {
@@ -118,7 +129,7 @@ namespace BLL
         /// <param name="ndeId"></param>
         public static void DeleteNDEItemById(string ndeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var ndeItem = (from x in db.HJGL_Batch_NDEItem where x.NDEID == ndeId select x).ToList();
             if (ndeItem != null)
             {
@@ -135,7 +146,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_Batch_NDEItem> GetViewNDEItem(string NDEID)
         {
-            return (from x in Funs.DB.View_Batch_NDEItem where x.NDEID == NDEID select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).View_Batch_NDEItem where x.NDEID == NDEID select x).ToList();
         }
 
         /// <summary>
@@ -145,7 +156,7 @@ namespace BLL
         /// <returns>true-已审核，false-未审核</returns>
         public static bool IsCheckedByWeldJoint(string weldJointId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             bool isChecked = false;
             var ndtItemView = from x in db.View_Batch_NDEItem where x.WeldJointId == weldJointId && x.SubmitDate != null select x;
             if(ndtItemView.Count()>0)
@@ -162,7 +173,7 @@ namespace BLL
         /// <returns>true-已审核，false-未审核</returns>
         public static bool IsCheckedByWeldingDaily(string weldingDailyId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             bool isChecked = false;
             var ndtItemView = from x in db.View_Batch_NDEItem where x.WeldingDailyId == weldingDailyId && x.SubmitDate != null select x;
             if (ndtItemView.Count() > 0)
@@ -179,7 +190,7 @@ namespace BLL
         /// <param name="weldJointId">焊口id</param>
         public static void DeleteAllNDEInfoToWeldJoint(string weldJointId)
         {
-            //Model.HJGLDB db = Funs.DB;
+            //Model.HJGLDB db = new Model.SGGLDB(Funs.ConnString);
             //var pointBatchItems = from x in db.Batch_PointBatchItem where x.WeldJointId == weldJointId select x;
 
             //if (pointBatchItems.Count() > 0)
@@ -243,7 +254,7 @@ namespace BLL
             //            var pointBatch = db.Batch_PointBatch.FirstOrDefault(x => x.PointBatchId == pointBatchId && x.ClearDate == null);
             //            if (pointBatch != null)
             //            {
-            //                var pointBatchItemUpdate = from x in Funs.DB.Batch_PointBatchItem
+            //                var pointBatchItemUpdate = from x in new Model.SGGLDB(Funs.ConnString).Batch_PointBatchItem
             //                                           where x.PointBatchId == pointBatchId
             //                                               && x.PointState != null && x.PointDate.HasValue
             //                                           select x;

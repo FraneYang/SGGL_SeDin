@@ -9,7 +9,7 @@ namespace BLL
 {
     public class CheckEquipmentApproveService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取设计变更模板列表
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="managerRuleApprove">设计变更审批实体</param>
         public static void AddCheckEquipmentApprove(Model.Check_CheckEquipmentApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_CheckEquipmentApprove));
             Model.Check_CheckEquipmentApprove newApprove = new Model.Check_CheckEquipmentApprove();
             newApprove.CheckEquipmentApproveId = newKeyID;
@@ -101,7 +101,7 @@ namespace BLL
         /// <param name="managerRuleApprove">设计变更审批实体</param>
         public static void UpdateCheckEquipmentApprove(Model.Check_CheckEquipmentApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_CheckEquipmentApprove newApprove = db.Check_CheckEquipmentApprove.First(e => e.CheckEquipmentApproveId == approve.CheckEquipmentApproveId && e.ApproveDate == null);
             newApprove.CheckEquipmentId = approve.CheckEquipmentId;
             newApprove.ApproveMan = approve.ApproveMan;
@@ -119,7 +119,7 @@ namespace BLL
         /// <param name="CheckEquipmentCode">设计变更编号</param>
         public static void DeleteCheckEquipmentApprovesByCheckEquipmentId(string CheckEquipmentId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_CheckEquipmentApprove where x.CheckEquipmentId == CheckEquipmentId select x).ToList();
             db.Check_CheckEquipmentApprove.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -132,7 +132,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetManagerRuleApproveCountByUserId(string userId)
         {
-            var q = (from x in Funs.DB.Check_CheckEquipmentApprove where x.ApproveMan == userId select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckEquipmentApprove where x.ApproveMan == userId select x).ToList();
             return q.Count();
         }
         public static List<Model.Check_CheckEquipmentApprove> getListDataByEid(string CheckEquipmentId)

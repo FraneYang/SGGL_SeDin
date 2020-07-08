@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getAutoPointBatchCode(string unitWorkId,string detectionTypeId,string detectionRateId, string pointBatchCode)
         {
-            var dataList = from x in Funs.DB.HJGL_Batch_PointBatch
+            var dataList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatch
                            where x.UnitWorkId == unitWorkId && x.EndDate == null
                            select x;
 
@@ -57,8 +57,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getPointBatchCode(string unitWorkId, string detectionTypeId, string detectionRateId, string pointBatchCode)
         {
-            var dataList = from x in Funs.DB.HJGL_Batch_PointBatch
-                           join y in Funs.DB.HJGL_Batch_PointBatchItem on x.PointBatchId equals y.PointBatchId
+            var dataList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatch
+                           join y in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem on x.PointBatchId equals y.PointBatchId
                            where x.UnitWorkId == unitWorkId && y.IsBuildTrust == null && x.EndDate.HasValue
                            select x;
 
@@ -95,8 +95,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getPointBatchDetail(string pointBatchId)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_Batch_PointBatchItem
-                                join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
+                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                 where x.PointBatchId == pointBatchId 
                                 select new Model.NDETrustItem
                                 {
@@ -120,8 +120,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getPointWeldJoint(string pointBatchId)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_Batch_PointBatchItem
-                                join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
+                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                 where x.IsBuildTrust == null && x.PointBatchId == pointBatchId && x.PointState == "1"
                                 select new Model.NDETrustItem
                                 {
@@ -147,8 +147,8 @@ namespace BLL
         {
             var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
 
-            var getDataLists = (from x in Funs.DB.HJGL_Batch_PointBatchItem
-                                join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
+                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                 where x.PointBatchId == pointBatchId && x.PointState == null
                                       && y.JointAttribute == jot.JointAttribute
                                 select new Model.NDETrustItem
@@ -200,7 +200,7 @@ namespace BLL
                 newPoint.PointDate = DateTime.Now;
             }
 
-            Funs.DB.SubmitChanges();
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
         }
         #endregion
 
@@ -212,9 +212,9 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> GetPointWeldJointList(string unitWorkId)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_Batch_PointBatchItem
-                                join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                join z in Funs.DB.HJGL_Batch_PointBatch on x.PointBatchId equals z.PointBatchId
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
+                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                join z in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatch on x.PointBatchId equals z.PointBatchId
                                 where x.IsBuildTrust == null && z.UnitWorkId == unitWorkId
                                        && x.PointState == "1"
                                 select new Model.NDETrustItem
@@ -237,7 +237,7 @@ namespace BLL
         /// <param name="unitWorkId"></param>
         public static void GenerateTrust(string unitWorkId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var getViewGenerateTrustLists = (from x in db.View_GenerateTrust where x.UnitWorkId == unitWorkId select x).ToList();
 
             foreach (var trust in getViewGenerateTrustLists)
@@ -250,8 +250,8 @@ namespace BLL
                 var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(trust.DetectionRateId);
 
                 string perfix = string.Empty;
-                perfix = project.ProjectCode + "-" + unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + rate.DetectionRateValue.ToString() + "%-" + unitWork.UnitWorkCode + "-";
-                newBatchTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", project.ProjectId, perfix);
+                perfix = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + rate.DetectionRateValue.ToString() + "%-";
+                newBatchTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", project.ProjectId, perfix);
 
                 string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
                 newBatchTrust.TrustBatchId = trustBatchId;
@@ -329,7 +329,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, bool? isAudit ,string trustBatchCode)
         {
-            var dataList = from x in Funs.DB.HJGL_Batch_BatchTrust
+            var dataList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust
                            where x.UnitWorkId == unitWorkId 
                            select x;
 
@@ -375,8 +375,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> GetBatchTrustDetail(string trustBatchId)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
-                                join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrustItem
+                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                 where x.TrustBatchId== trustBatchId
                                 orderby y.WeldJointCode
                                 select new Model.NDETrustItem
@@ -412,8 +412,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getBatchNdeCode(string unitWorkId, string detectionTypeId, string ndeCode)
         {
-            var dataList = from x in Funs.DB.HJGL_Batch_NDE
-                           join y in Funs.DB.HJGL_Batch_BatchTrust on x.TrustBatchId equals y.TrustBatchId
+            var dataList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDE
+                           join y in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust on x.TrustBatchId equals y.TrustBatchId
                            where x.UnitWorkId == unitWorkId
                            select new Model.BaseInfoItem
                            {
@@ -449,9 +449,9 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> GetBatchNDEDetail(string ndeId)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_Batch_NDEItem
-                                join y in Funs.DB.HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
-                                join z in Funs.DB.HJGL_WeldJoint on y.WeldJointId equals z.WeldJointId
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDEItem
+                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                                join z in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on y.WeldJointId equals z.WeldJointId
                                 where x.NDEID == ndeId
                                 orderby z.WeldJointCode
                                 select new Model.NDETrustItem

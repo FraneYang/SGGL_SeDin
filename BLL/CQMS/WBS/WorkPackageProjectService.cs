@@ -14,7 +14,7 @@ namespace BLL
         /// <param name="UnitWork"></param>
         public static void AddWorkPackageProject(Model.WBS_WorkPackageProject workPack)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_WorkPackageProject newPack = new Model.WBS_WorkPackageProject();
             newPack.WorkPackageCode = workPack.WorkPackageCode;
             newPack.ProjectId = workPack.ProjectId;
@@ -33,7 +33,7 @@ namespace BLL
         /// <param name="UnitWork"></param>
         public static void UpdateWorkPackageProject(Model.WBS_WorkPackageProject workPack)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_WorkPackageProject newPack = db.WBS_WorkPackageProject.First(e => e.WorkPackageCode == workPack.WorkPackageCode);
             newPack.WorkPackageCode = workPack.WorkPackageCode;
             newPack.IsChild = workPack.IsChild;
@@ -50,7 +50,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.WBS_WorkPackageProject GetWorkPackageProjectByWorkPackageCode(string workPackageCode, string projectId)
         {
-            return BLL.Funs.DB.WBS_WorkPackageProject.FirstOrDefault(x => x.WorkPackageCode == workPackageCode && x.ProjectId == projectId);
+            return new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject.FirstOrDefault(x => x.WorkPackageCode == workPackageCode && x.ProjectId == projectId);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExitWorkPackageProject(string projectId)
         {
-            return BLL.Funs.DB.WBS_WorkPackageProject.FirstOrDefault(x => x.ProjectId == projectId) != null;
+            return new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject.FirstOrDefault(x => x.ProjectId == projectId) != null;
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackageProject> GetWorkPackageProjectsBySuperWorkPack(string workPackageCode, string projectId)
         {
-            return (from x in BLL.Funs.DB.WBS_WorkPackageProject where x.SuperWorkPack == workPackageCode && x.ProjectId == projectId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject where x.SuperWorkPack == workPackageCode && x.ProjectId == projectId select x).ToList();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="UnitWorkId"></param>
         public static void DeleteWorkPackageProject(string workPackageCode, string projectId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_WorkPackageProject delWorkPack = db.WBS_WorkPackageProject.First(e => e.WorkPackageCode == workPackageCode && e.ProjectId == projectId);
             db.WBS_WorkPackageProject.DeleteOnSubmit(delWorkPack);
             db.SubmitChanges();
@@ -93,7 +93,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistWorkPackageProjectName(string supWorkPack, string packageContent, string workPackageCode, string projectId)
         {
-            var q = from x in Funs.DB.WBS_WorkPackageProject where x.SuperWorkPack == supWorkPack && x.PackageContent == packageContent && x.WorkPackageCode != workPackageCode && x.ProjectId == projectId select x;
+            var q = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject where x.SuperWorkPack == supWorkPack && x.PackageContent == packageContent && x.WorkPackageCode != workPackageCode && x.ProjectId == projectId select x;
             if (q.Count() > 0)
             {
                 return true;
@@ -111,7 +111,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackageProject> GetWorkPackageProjects1ByProjectIdAndProjectType(string projectId, string projectType)
         {
-            return (from x in BLL.Funs.DB.WBS_WorkPackageProject where x.ProjectId == projectId && x.ProjectType == projectType && x.SuperWorkPack == null select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject where x.ProjectId == projectId && x.ProjectType == projectType && x.SuperWorkPack == null select x).ToList();
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackageProject> GetWorkPackageProjects2ByWorkPackageCode(string workPackageCode, string projectId)
         {
-            return (from x in BLL.Funs.DB.WBS_WorkPackageProject where x.ProjectId == projectId && x.SuperWorkPack == workPackageCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject where x.ProjectId == projectId && x.SuperWorkPack == workPackageCode select x).ToList();
         }
     }
 }

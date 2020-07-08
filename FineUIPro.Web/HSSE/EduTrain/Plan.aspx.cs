@@ -269,11 +269,11 @@ namespace FineUIPro.Web.HSSE.EduTrain
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == id) != null)
+            if (new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == id) != null)
             {
                 content = "该计划已归档【培训记录】，不能删除！";
             }
-            if (Funs.DB.Training_TestPlan.FirstOrDefault(x => x.PlanId == id) != null)
+            if (new Model.SGGLDB(Funs.ConnString).Training_TestPlan.FirstOrDefault(x => x.PlanId == id) != null)
             {
                 content = "该计划已做【考试计划】，不能删除！";
             }

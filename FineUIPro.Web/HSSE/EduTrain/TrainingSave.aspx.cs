@@ -142,7 +142,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var standard = Funs.DB.Training_Training.FirstOrDefault(x => x.SupTrainingId == this.SupTrainingId && x.TrainingName == this.txtTrainingName.Text.Trim() && (x.TrainingId != this.TrainingId || (this.TrainingId == null && x.TrainingId != null)));
+            var standard = new Model.SGGLDB(Funs.ConnString).Training_Training.FirstOrDefault(x => x.SupTrainingId == this.SupTrainingId && x.TrainingName == this.txtTrainingName.Text.Trim() && (x.TrainingId != this.TrainingId || (this.TrainingId == null && x.TrainingId != null)));
             if (standard != null)
             {
                 ShowNotify("输入的名称已存在！", MessageBoxIcon.Warning);

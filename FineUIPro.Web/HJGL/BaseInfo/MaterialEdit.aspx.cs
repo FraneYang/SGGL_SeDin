@@ -81,7 +81,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_Material.FirstOrDefault(x => x.MaterialCode == this.txtMaterialCode.Text.Trim() && (x.MaterialId != this.MaterialId || (this.MaterialId == null && x.MaterialId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_Material.FirstOrDefault(x => x.MaterialCode == this.txtMaterialCode.Text.Trim() && (x.MaterialId != this.MaterialId || (this.MaterialId == null && x.MaterialId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此材质代号已经存在！", MessageBoxIcon.Warning);

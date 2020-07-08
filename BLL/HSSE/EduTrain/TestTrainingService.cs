@@ -7,7 +7,7 @@ namespace BLL
 {
     public static class TestTrainingService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取信息
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TestTraining GetTestTrainingById(string TrainingId)
         {
-            return Funs.DB.Training_TestTraining.FirstOrDefault(e => e.TrainingId == TrainingId);
+            return new Model.SGGLDB(Funs.ConnString).Training_TestTraining.FirstOrDefault(e => e.TrainingId == TrainingId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="Training"></param>
         public static void AddTestTraining(Model.Training_TestTraining TestTraining)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TestTraining newTestTraining = new Model.Training_TestTraining
             {
                 TrainingId = TestTraining.TrainingId,
@@ -44,7 +44,7 @@ namespace BLL
         /// <param name="Training"></param>
         public static void UpdateTestTraining(Model.Training_TestTraining TestTraining)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TestTraining newTestTraining = db.Training_TestTraining.FirstOrDefault(e => e.TrainingId == TestTraining.TrainingId);
             if (newTestTraining != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="TrainingId"></param>
         public static void DeleteTestTrainingById(string TrainingId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TestTraining TestTraining = db.Training_TestTraining.FirstOrDefault(e => e.TrainingId == TrainingId);
             if (TestTraining != null)
             {

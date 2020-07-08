@@ -80,12 +80,12 @@
                                             <f:DropDownBox runat="server" Label="专业" ShowRedStar="true" Required="true" ID="txtCNProfessional" EmptyText="--请选择--" DataControlID="txtCNProfessional" EnableMultiSelect="true" MatchFieldWidth="true">
                                                 <PopPanel>
                                                     <f:Grid ID="gvCNPro" BoxFlex="1"
-                                                        DataIDField="CNProfessionalCode" DataTextField="ProfessionalName" EnableMultiSelect="true" KeepCurrentSelection="true"
+                                                        DataIDField="CNProfessionalId" DataTextField="ProfessionalName" EnableMultiSelect="true" KeepCurrentSelection="true"
                                                         ShowBorder="true" ShowHeader="false" ForceFit="true"
-                                                        runat="server" EnableCheckBoxSelect="true" DataKeyNames="CNProfessionalCode" Hidden="true">
+                                                        runat="server" EnableCheckBoxSelect="true" DataKeyNames="CNProfessionalId" Hidden="true">
                                                         <Columns>
                                                             <%--<f:RowNumberField />--%>
-                                                            <f:BoundField Width="100px" DataField="CNProfessionalCode" SortField="CNProfessionalCode" DataFormatString="{0}" Hidden="true" />
+                                                            <f:BoundField Width="100px" DataField="CNProfessionalId" SortField="CNProfessionalId" DataFormatString="{0}" Hidden="true" />
                                                             <f:BoundField Width="100px" DataField="ProfessionalName" SortField="ProfessionalName" DataFormatString="{0}"
                                                                  HeaderText="名称" />
                                                         </Columns>

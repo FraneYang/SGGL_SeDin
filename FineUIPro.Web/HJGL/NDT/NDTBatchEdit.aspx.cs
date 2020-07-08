@@ -55,15 +55,8 @@ namespace FineUIPro.Web.HJGL.NDT
                 this.drpJudgeGrade.DataValueField = "Value";
                 this.drpJudgeGrade.DataSource = list;
                 this.drpJudgeGrade.DataBind();
-                HttpCookie lanCookie = Request.Cookies["SelectLan"];
-                if (lanCookie["lan"] == "zh-CN")   //中文
-                {
-                    BLL.Base_DefectService.InitDefectDropDownList(this.drpCheckDefects, false, string.Empty);
-                }
-                else     //英文
-                {
-                    BLL.Base_DefectService.InitEngDefectDropDownList(this.drpCheckDefects, false, string.Empty);
-                }
+
+                BLL.Base_DefectService.InitDefectDropDownList(this.drpCheckDefects, false, string.Empty);
 
                 this.PageInfoLoad(); // 加载页面 
             }
@@ -197,7 +190,7 @@ namespace FineUIPro.Web.HJGL.NDT
 
                 this.drpBatchTrust.DataValueField = "TrustBatchId";
                 this.drpBatchTrust.DataTextField = "TrustBatchCode";
-                List<Model.HJGL_Batch_BatchTrust> list = (from x in Funs.DB.HJGL_Batch_BatchTrust where x.TrustBatchId == check.TrustBatchId select x).ToList();
+                List<Model.HJGL_Batch_BatchTrust> list = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust where x.TrustBatchId == check.TrustBatchId select x).ToList();
                 this.drpBatchTrust.DataSource = list;
                 this.drpBatchTrust.DataBind();
                 this.drpBatchTrust.SelectedValue = check.TrustBatchId;
@@ -230,11 +223,22 @@ namespace FineUIPro.Web.HJGL.NDT
             }
             else
             {
-                string workAreaId = Request.Params["workAreaId"];
-                if (!string.IsNullOrEmpty(workAreaId))
+                string unitWorkId = Request.Params["unitWorkId"];
+                if (!string.IsNullOrEmpty(unitWorkId))
                 {
-                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(workAreaId);
-                    drpUnit.SelectedValue = w.UnitId;
+                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(unitWorkId);
+                    if (w != null)
+                    {
+                        if (w.NDEUnit != null)
+                        {
+                            drpNDEUnit.SelectedValue = w.NDEUnit;
+                        }
+                        if (w.UnitId != null)
+                        {
+                            drpUnit.SelectedValue = w.UnitId;
+                        }
+                    }
+                    
                     this.drpUnitWork.SelectedValue = w.UnitWorkId;
                 }
                 this.SimpleForm1.Reset(); ///重置所有字段
@@ -380,22 +384,17 @@ namespace FineUIPro.Web.HJGL.NDT
 
             Grid1.DataSource = table;
             Grid1.DataBind();
-            HttpCookie lanCookie = Request.Cookies["SelectLan"];
+
+            CheckBoxField ckbIsSelected = (CheckBoxField)Grid1.FindColumn("ckbIsSelected");
+            
             for (int i = 0; i < this.Grid1.Rows.Count; i++)
             {
                 string id = Grid1.DataKeys[i][0].ToString();
                 Model.HJGL_Batch_NDEItem item = BLL.Batch_NDEItemService.GetNDEItemById(id);
                 if (item != null)
                 {
-                    if (lanCookie["lan"] == "zh-CN")   //中文
-                    {
-                        this.Grid1.Rows[i].Values[12] = BLL.Base_DefectService.GetDefectNameStrByDefectIdStr(item.CheckDefects);
-                    }
-                    else     //英文
-                    {
-                        this.Grid1.Rows[i].Values[12] = BLL.Base_DefectService.GetDefectEngNameStrByDefectIdStr(item.CheckDefects);
-                    }
-                    this.Grid1.Rows[i].Values[0] = BLL.Const._True;
+                    ckbIsSelected.SetCheckedState(i, true);
+                    this.Grid1.Rows[i].Values[12] = BLL.Base_DefectService.GetDefectNameStrByDefectIdStr(item.CheckDefects);
                     if (item.SubmitDate != null)    //已审核
                     {
                         this.Grid1.Rows[i].CellCssClasses[6] = "f-grid-cell-uneditable";
@@ -602,15 +601,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     item.SubmitDate = Funs.GetNewDateTime(values.Value<string>("SubmitDate"));
                     string checkDefects = string.Empty;
                     string strs = values.Value<string>("CheckDefects");
-                    HttpCookie lanCookie = Request.Cookies["SelectLan"];
-                    if (lanCookie["lan"] == "zh-CN")   //中文
-                    {
-                        checkDefects = BLL.Base_DefectService.GetDefectIdStrByDefectNameStr(strs);
-                    }
-                    else
-                    {
-                        checkDefects = BLL.Base_DefectService.GetDefectIdStrByDefectEngNameStr(strs);
-                    }
+                    checkDefects = BLL.Base_DefectService.GetDefectIdStrByDefectNameStr(strs);
                     item.CheckDefects = checkDefects;
                     item.JudgeGrade = values.Value<string>("JudgeGrade");
                     item.Remark = values.Value<string>("Remark");

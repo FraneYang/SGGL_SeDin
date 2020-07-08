@@ -10,7 +10,7 @@ namespace BLL
 {
     public class DesignProfessionalService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取实体集合
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_DesignProfessional> GetList()
         {
-            var q = (from x in Funs.DB.Base_DesignProfessional orderby x.SortIndex select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_DesignProfessional orderby x.SortIndex select x).ToList();
             return q;
         }
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <param name="?"></param>
         public static void AddDesignProfessional(Model.Base_DesignProfessional designProfessional)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DesignProfessional newDesignProfessional = new Model.Base_DesignProfessional
             {
                 DesignProfessionalId = designProfessional.DesignProfessionalId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void UpdateDesignProfessional(Model.Base_DesignProfessional designProfessional)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DesignProfessional newDesignProfessional = db.Base_DesignProfessional.FirstOrDefault(e => e.DesignProfessionalId == designProfessional.DesignProfessionalId);
             if (newDesignProfessional != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="designProfessionalId"></param>
         public static void DeleteDesignProfessionalById(string designProfessionalId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DesignProfessional designProfessional = db.Base_DesignProfessional.FirstOrDefault(e => e.DesignProfessionalId == designProfessionalId);
             {
                 db.Base_DesignProfessional.DeleteOnSubmit(designProfessional);
@@ -104,7 +104,7 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetDesignProfessionalItem()
         {
-            var q = (from x in Funs.DB.Base_DesignProfessional orderby x.SortIndex select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_DesignProfessional orderby x.SortIndex select x).ToList();
             ListItem[] list = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {
@@ -119,7 +119,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_DesignProfessional GetDesignProfessional(string DesignProfessionalId)
         {
-            return Funs.DB.Base_DesignProfessional.FirstOrDefault(e => e.DesignProfessionalId == DesignProfessionalId);
+            return new Model.SGGLDB(Funs.ConnString).Base_DesignProfessional.FirstOrDefault(e => e.DesignProfessionalId == DesignProfessionalId);
         }
         public static string GetDesignProfessionalNameByCode(string cnProfessionalCode)
         {
@@ -127,7 +127,7 @@ namespace BLL
             if (!string.IsNullOrEmpty(cnProfessionalCode))
             {
                 string[] codes = cnProfessionalCode.Split(',');
-                var list = Funs.DB.Base_DesignProfessional.Where(x => codes.Contains(x.DesignProfessionalCode));
+                var list = new Model.SGGLDB(Funs.ConnString).Base_DesignProfessional.Where(x => codes.Contains(x.DesignProfessionalCode));
                 foreach (var item in list)
                 {
                     res += item.ProfessionalName + ",";

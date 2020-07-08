@@ -1,14 +1,8 @@
-﻿using BLL;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web.UI.WebControls;
+﻿using System;
 
 namespace FineUIPro.Web.common
 {
-    public partial class main2 : PageBase
+    public partial class mainProject : PageBase
     {
         protected void Page_Load(object sender, EventArgs e)
         {

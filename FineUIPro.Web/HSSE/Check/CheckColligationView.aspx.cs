@@ -109,7 +109,7 @@ namespace FineUIPro.Web.HSSE.Check
                     this.txtPartInPersons.Text = checkColligation.PartInPersons;
                     this.txtPartInPersonNames.Text = checkColligation.PartInPersonNames;
                     this.txtDaySummary.Text = HttpUtility.HtmlDecode(checkColligation.DaySummary);
-                    checkColligationDetails = (from x in Funs.DB.View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
+                    checkColligationDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
                 }
                 Grid1.DataSource = checkColligationDetails;
                 Grid1.DataBind();

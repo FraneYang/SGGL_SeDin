@@ -74,7 +74,7 @@ namespace FineUIPro.Web.Personal
             //职务          
             // BLL.PositionService.InitPositionDropDownList(this.drpPosition, true);
 
-            var user = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == this.CurrUser.UserId);
+            var user = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.UserId == this.CurrUser.UserId);
             if (user != null)
             {
                 this.txtUserName.Text = user.UserName;
@@ -192,7 +192,7 @@ namespace FineUIPro.Web.Personal
             //    ShowNotify("身份证号码已存在，请修改后再保存！", MessageBoxIcon.Warning);
             //    return;
             //}
-            var newUser = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == this.CurrUser.UserId);
+            var newUser = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.UserId == this.CurrUser.UserId);
             if (newUser != null)
             {
                 newUser.UserName = this.txtUserName.Text.Trim();
@@ -247,7 +247,7 @@ namespace FineUIPro.Web.Personal
         /// <param name="e"></param>
         protected void btnTab2Save_Click(object sender, EventArgs e)
         {
-            var user =  Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == this.CurrUser.UserId);
+            var user =  new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.UserId == this.CurrUser.UserId);
             if (user != null)
             {
                 if (string.IsNullOrEmpty(this.txtOldPassword.Text))

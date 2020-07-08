@@ -15,7 +15,7 @@
 </TreeNode>
 <TreeNode id="0A275FC1-E698-4936-9BEC-F76DC1BC786A" Text="质量共检" NavigateUrl=""><TreeNode id="E6703F32-4E42-4D03-84B3-5EC0E8E48E0F" Text="质量共检记录" NavigateUrl="CQMS/Check/JointCheck.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="57188840-3F05-4A72-939B-09CD7D2AA64A" Text="质量问题统计" NavigateUrl=""><TreeNode id="D3B1433E-00DE-432B-A30A-0EFB513480A8" Text="质量问题统计" NavigateUrl="CQMS/Check/JointCheck.aspx"></TreeNode>
+<TreeNode id="57188840-3F05-4A72-939B-09CD7D2AA64A" Text="质量问题统计" NavigateUrl=""><TreeNode id="D3B1433E-00DE-432B-A30A-0EFB513480A8" Text="质量问题统计" NavigateUrl="CQMS/Check/JointCheckStatistics.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="0416D750-6AB4-4E7E-AAE1-19919F7EB538" Text="工程联络单管理" NavigateUrl=""><TreeNode id="87867EA8-576A-4166-AE7A-7416115DF30B" Text="工程联络单" NavigateUrl="CQMS/Check/TechnicalContactList.aspx"></TreeNode>
 </TreeNode>

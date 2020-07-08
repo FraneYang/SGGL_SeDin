@@ -59,14 +59,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_GrooveType.FirstOrDefault(x => x.GrooveTypeCode == this.txtGrooveTypeCode.Text.Trim() && (x.GrooveTypeId != this.GrooveTypeId || (this.GrooveTypeId == null && x.GrooveTypeId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_GrooveType.FirstOrDefault(x => x.GrooveTypeCode == this.txtGrooveTypeCode.Text.Trim() && (x.GrooveTypeId != this.GrooveTypeId || (this.GrooveTypeId == null && x.GrooveTypeId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此坡口类型代号已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = Funs.DB.Base_GrooveType.FirstOrDefault(x => x.GrooveTypeName == this.txtGrooveTypeName.Text.Trim() && (x.GrooveTypeId != this.GrooveTypeId || (this.GrooveTypeId == null && x.GrooveTypeId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_GrooveType.FirstOrDefault(x => x.GrooveTypeName == this.txtGrooveTypeName.Text.Trim() && (x.GrooveTypeId != this.GrooveTypeId || (this.GrooveTypeId == null && x.GrooveTypeId != null)));
             if (q2 != null)
             {
                 Alert.ShowInTop("此坡口类型名称已经存在！", MessageBoxIcon.Warning);

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TrainingTaskService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取培训任务
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Training_Task> GetTaskListByPlanId(string planId)
         {
-            return (from x in Funs.DB.Training_Task where x.PlanId == planId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Training_Task where x.PlanId == planId select x).ToList();
         }
 
         /// <summary>
@@ -56,14 +56,14 @@ namespace BLL
         /// <param name="task"></param>
         public static void UpdateTask(Model.Training_Task task)
         {
-            Model.Training_Task newTask = Funs.DB.Training_Task.FirstOrDefault(e => e.TaskId == task.TaskId);
+            Model.Training_Task newTask = new Model.SGGLDB(Funs.ConnString).Training_Task.FirstOrDefault(e => e.TaskId == task.TaskId);
             if (newTask != null  && !string.IsNullOrEmpty(task.UserId))
             {
                 newTask.PlanId = task.PlanId;
                 newTask.UserId = task.UserId;
                 newTask.TaskDate = task.TaskDate;
                 //newTask.States = task.States;
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
 
@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeleteTaskByPlanId(string planId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var tasks = from x in db.Training_Task where x.PlanId == planId select x;
             if (tasks.Count() > 0)
             {

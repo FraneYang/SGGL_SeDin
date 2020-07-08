@@ -8,7 +8,7 @@ namespace BLL
 {
     public static class TestTrainingItemService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取信息
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TestTrainingItem GetTestTrainingItemById(string TrainingItemId)
         {
-            return Funs.DB.Training_TestTrainingItem.FirstOrDefault(e => e.TrainingItemId == TrainingItemId);
+            return new Model.SGGLDB(Funs.ConnString).Training_TestTrainingItem.FirstOrDefault(e => e.TrainingItemId == TrainingItemId);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="TrainingItem"></param>
         public static void AddTestTrainingItem(Model.Training_TestTrainingItem TestTrainingItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TestTrainingItem newTestTrainingItem = new Model.Training_TestTrainingItem
             {
                 TrainingItemId = TestTrainingItem.TrainingItemId,
@@ -56,7 +56,7 @@ namespace BLL
         /// <param name="TrainingItem"></param>
         public static void UpdateTestTrainingItem(Model.Training_TestTrainingItem TestTrainingItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TestTrainingItem newTestTrainingItem = db.Training_TestTrainingItem.FirstOrDefault(e => e.TrainingItemId == TestTrainingItem.TrainingItemId);
             if (newTestTrainingItem != null)
             {
@@ -84,7 +84,7 @@ namespace BLL
         /// <param name="TrainingItemId"></param>
         public static void DeleteTestTrainingItemById(string TrainingItemId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TestTrainingItem TestTrainingItem = db.Training_TestTrainingItem.FirstOrDefault(e => e.TrainingItemId == TrainingItemId);
             if (TestTrainingItem != null)
             {

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using BLL;
+using System;
+using System.Configuration;
 using System.IO;
 using System.Web;
-using BLL;
-using System.Configuration;
+using System.Web.Http;
 
 namespace WebAPI.Controllers
 {
@@ -61,6 +57,28 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 保存附件信息
+        /// <summary>
+        /// 保存附件信息
+        /// </summary>
+        /// <param name="toDoItem">附件</param>
+        [HttpPost]
+        public Model.ResponeData SaveAttachUrl([FromBody] Model.ToDoItem toDoItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
         #region 附件上传
         /// <summary>
         /// 附件上传
@@ -93,6 +111,5 @@ namespace WebAPI.Controllers
             return Ok(reUrl);
         }
         #endregion
-
     }
 }

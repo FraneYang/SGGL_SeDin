@@ -4,7 +4,7 @@ namespace BLL
 {
     public static class EnvironmentalService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取环境危险源信息
@@ -13,7 +13,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Technique_Environmental GetEnvironmental(string environmentalId)
         {
-            return Funs.DB.Technique_Environmental.FirstOrDefault(x => x.EnvironmentalId == environmentalId);
+            return new Model.SGGLDB(Funs.ConnString).Technique_Environmental.FirstOrDefault(x => x.EnvironmentalId == environmentalId);
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace BLL
         /// <param name="environmental"></param>
         public static void AddEnvironmental(Model.Technique_Environmental environmental)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_Environmental newEnvironmental = new Model.Technique_Environmental
             {
                 EnvironmentalId = environmental.EnvironmentalId,
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="remark"></param>
         public static void UpdateEnvironmental(Model.Technique_Environmental environmental)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_Environmental newEnvironmental = db.Technique_Environmental.FirstOrDefault(e => e.EnvironmentalId == environmental.EnvironmentalId);
             if (newEnvironmental != null)
             {
@@ -86,7 +86,7 @@ namespace BLL
         /// <param name="environmentalId"></param>
         public static void DeleteEnvironmental(string environmentalId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_Environmental environmental = db.Technique_Environmental.FirstOrDefault(e => e.EnvironmentalId == environmentalId);
             if (environmental != null)
             {
@@ -103,7 +103,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsEnvironmentalCode(string environmentalId, string code,bool isCompany)
         {
-            var q = Funs.DB.Technique_Environmental.FirstOrDefault(x => (x.EnvironmentalId != environmentalId || (environmentalId == null && x.EnvironmentalId != null)) && x.Code == code && x.IsCompany == isCompany);
+            var q = new Model.SGGLDB(Funs.ConnString).Technique_Environmental.FirstOrDefault(x => (x.EnvironmentalId != environmentalId || (environmentalId == null && x.EnvironmentalId != null)) && x.Code == code && x.IsCompany == isCompany);
             if (q != null)
             {
                 return true;

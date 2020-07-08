@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>无损检测工信息</title>
+    <title>无损检测工管理</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -37,7 +37,7 @@
                                     EnablePostBack="true" runat="server" OnClick="btnSearch_Click">
                                 </f:Button>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
-                                    runat="server" OnClick="btnNew_Click">
+                                    runat="server" OnClick="btnNew_Click" Hidden="true">
                                 </f:Button>
                                 <f:Button ID="btnOut"  runat="server" ToolTip="导出"
                                     Icon="TableGo" EnableAjax="false" DisableControlBeforePostBack="false" OnClick="btnOut_Click">
@@ -107,7 +107,7 @@
             IsModal="true" Width="700px" Height="330px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
-            <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"
+            <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"
                 runat="server" Text="编辑">
             </f:MenuButton>
             <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"

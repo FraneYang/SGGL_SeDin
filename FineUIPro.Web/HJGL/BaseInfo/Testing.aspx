@@ -25,8 +25,8 @@
                             <f:TextBox ID="txtDetectionTypeCode" runat="server" Label="检测方法代号"
                                 EmptyText="输入查询条件" Width="300px" LabelWidth="140px" LabelAlign="Right">
                             </f:TextBox>
-                            <f:TextBox ID="txtSysType" runat="server" Label="检测方法名称"
-                                EnableEdit="true" Width="350px" LabelWidth="220px" LabelAlign="Right">
+                            <f:TextBox ID="txtDetectionTypeName" runat="server" Label="检测方法名称"
+                                 Width="350px" LabelWidth="220px" LabelAlign="Right">
                             </f:TextBox>
                             <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch"
                                 EnablePostBack="true" OnClick="btnQuery_Click" runat="server">
@@ -48,12 +48,7 @@
                         FieldType="String" HeaderText="检测方法名称" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="DetectionTypeName">
                     </f:RenderField>
-                    <f:TemplateField Width="220px" HeaderText="系统类型" HeaderTextAlign="Center"
-                        TextAlign="Center" SortField="SysType" Hidden="true">
-                        <ItemTemplate>
-                            <asp:Label ID="Label8" runat="server" Text='<%# ConvertSysType(Eval("SysType")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
+                   
                     <f:RenderField Width="180px" ColumnID="SecuritySpace" DataField="SecuritySpace" FieldType="Double"
                         HeaderText="安全距离" HeaderTextAlign="Center" TextAlign="Right"
                         SortField="SecuritySpace">
@@ -91,7 +86,7 @@
         Width="700px" Height="330px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"
+        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"

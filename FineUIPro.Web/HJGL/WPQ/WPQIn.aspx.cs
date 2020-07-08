@@ -204,10 +204,10 @@ namespace FineUIPro.Web.HJGL.WPQ
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var steels = from x in Funs.DB.Base_Material orderby x.MaterialCode select x;//材质
-                var consumables = from x in Funs.DB.Base_Consumables orderby x.ConsumablesCode select x;
-                var GrooveType = from x in Funs.DB.Base_GrooveType orderby x.GrooveTypeCode select x;
-                var weldMethods = from x in Funs.DB.Base_WeldingMethod orderby x.WeldingMethodCode select x;//焊接方法
+                var steels = from x in new Model.SGGLDB(Funs.ConnString).Base_Material orderby x.MaterialCode select x;//材质
+                var consumables = from x in new Model.SGGLDB(Funs.ConnString).Base_Consumables orderby x.ConsumablesCode select x;
+                var GrooveType = from x in new Model.SGGLDB(Funs.ConnString).Base_GrooveType orderby x.GrooveTypeCode select x;
+                var weldMethods = from x in new Model.SGGLDB(Funs.ConnString).Base_WeldingMethod orderby x.WeldingMethodCode select x;//焊接方法
                 for (int i = 0; i < ir; i++)
                 {
                     string col0 = pds.Rows[i][0].ToString();
@@ -498,10 +498,10 @@ namespace FineUIPro.Web.HJGL.WPQ
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var steels = from x in Funs.DB.Base_Material orderby x.MaterialCode select x;//材质
-                var weldMethods = from x in Funs.DB.Base_WeldingMethod orderby x.WeldingMethodCode select x;//焊接方法  
-                var consumables = from x in Funs.DB.Base_Consumables orderby x.ConsumablesCode select x;
-                var GrooveType = from x in Funs.DB.Base_GrooveType orderby x.GrooveTypeCode select x;
+                var steels = from x in new Model.SGGLDB(Funs.ConnString).Base_Material orderby x.MaterialCode select x;//材质
+                var weldMethods = from x in new Model.SGGLDB(Funs.ConnString).Base_WeldingMethod orderby x.WeldingMethodCode select x;//焊接方法  
+                var consumables = from x in new Model.SGGLDB(Funs.ConnString).Base_Consumables orderby x.ConsumablesCode select x;
+                var GrooveType = from x in new Model.SGGLDB(Funs.ConnString).Base_GrooveType orderby x.GrooveTypeCode select x;
                 for (int i = 0; i < ir; i++)
                 {
                     Model.WPQ_WPQList wpq = new Model.WPQ_WPQList();

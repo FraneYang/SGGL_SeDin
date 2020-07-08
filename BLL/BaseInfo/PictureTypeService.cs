@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class PictureTypeService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取项目图片分类
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_PictureType GetPictureTypeById(string PictureTypeId)
         {
-            return Funs.DB.Base_PictureType.FirstOrDefault(e => e.PictureTypeId == PictureTypeId);
+            return new Model.SGGLDB(Funs.ConnString).Base_PictureType.FirstOrDefault(e => e.PictureTypeId == PictureTypeId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="PictureType"></param>
         public static void AddPictureType(Model.Base_PictureType PictureType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_PictureType newPictureType = new Model.Base_PictureType
             {
                 PictureTypeId = PictureType.PictureTypeId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="PictureType"></param>
         public static void UpdatePictureType(Model.Base_PictureType PictureType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_PictureType newPictureType = db.Base_PictureType.FirstOrDefault(e => e.PictureTypeId == PictureType.PictureTypeId);
             if (newPictureType != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="PictureTypeId"></param>
         public static void DeletePictureTypeById(string PictureTypeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_PictureType PictureType = db.Base_PictureType.FirstOrDefault(e => e.PictureTypeId == PictureTypeId);
             if (PictureType != null)
             {
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_PictureType> GetPictureTypeList()
         {
-            return (from x in Funs.DB.Base_PictureType orderby x.Code select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_PictureType orderby x.Code select x).ToList();
         }
 
         #region 项目图片分类下拉框

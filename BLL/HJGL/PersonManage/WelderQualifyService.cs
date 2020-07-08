@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Welder_WelderQualify GetWelderQualifyById(string welderQualifyId)
         {
-            return Funs.DB.Welder_WelderQualify.FirstOrDefault(e => e.WelderQualifyId == welderQualifyId);
+            return new Model.SGGLDB(Funs.ConnString).Welder_WelderQualify.FirstOrDefault(e => e.WelderQualifyId == welderQualifyId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.View_Welder_WelderQualify GetViewWelderQualifyById(string welderQualifyId)
         {
-            return Funs.DB.View_Welder_WelderQualify.FirstOrDefault(e => e.WelderQualifyId == welderQualifyId);
+            return new Model.SGGLDB(Funs.ConnString).View_Welder_WelderQualify.FirstOrDefault(e => e.WelderQualifyId == welderQualifyId);
         }
 
         /// <summary>
@@ -37,12 +37,12 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Welder_WelderQualify> GetWelderQualifysByWelderId(string welderId)
         {
-            return (from x in Funs.DB.Welder_WelderQualify where x.WelderId == welderId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Welder_WelderQualify where x.WelderId == welderId select x).ToList();
         }
 
         public static List<Model.Welder_WelderQualify> GetShowWelderQualifysByWelderId(string welderId)
         {
-            return (from x in Funs.DB.Welder_WelderQualify where x.WelderId == welderId && x.IsPrintShow == true select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Welder_WelderQualify where x.WelderId == welderId && x.IsPrintShow == true select x).ToList();
         }
 
         /// <summary>
@@ -66,8 +66,8 @@ namespace BLL
             newWelderQualify.SizesMax = welderQualify.SizesMax;
             newWelderQualify.Remark = welderQualify.Remark;
             newWelderQualify.IsPrintShow = welderQualify.IsPrintShow;
-            Funs.DB.Welder_WelderQualify.InsertOnSubmit(newWelderQualify);
-            Funs.DB.SubmitChanges();
+            new Model.SGGLDB(Funs.ConnString).Welder_WelderQualify.InsertOnSubmit(newWelderQualify);
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace BLL
         /// <param name="welderQualify"></param>
         public static void UpdateWelderQualify(Model.Welder_WelderQualify welderQualify)
         {
-            Model.Welder_WelderQualify newWelderQualify = Funs.DB.Welder_WelderQualify.FirstOrDefault(e => e.WelderQualifyId == welderQualify.WelderQualifyId);
+            Model.Welder_WelderQualify newWelderQualify = new Model.SGGLDB(Funs.ConnString).Welder_WelderQualify.FirstOrDefault(e => e.WelderQualifyId == welderQualify.WelderQualifyId);
             if (newWelderQualify != null)
             {
                 newWelderQualify.QualificationItem = welderQualify.QualificationItem;
@@ -91,7 +91,7 @@ namespace BLL
                 newWelderQualify.SizesMax = welderQualify.SizesMax;
                 newWelderQualify.Remark = welderQualify.Remark;
                 newWelderQualify.IsPrintShow = welderQualify.IsPrintShow;
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
 
@@ -101,11 +101,11 @@ namespace BLL
         /// <param name="welderQualifyId"></param>
         public static void DeleteWelderQualifyById(string welderQualifyId)
         {
-            Model.Welder_WelderQualify welderQualify = Funs.DB.Welder_WelderQualify.FirstOrDefault(e => e.WelderQualifyId == welderQualifyId);
+            Model.Welder_WelderQualify welderQualify = new Model.SGGLDB(Funs.ConnString).Welder_WelderQualify.FirstOrDefault(e => e.WelderQualifyId == welderQualifyId);
             if (welderQualify != null)
             {
-                Funs.DB.Welder_WelderQualify.DeleteOnSubmit(welderQualify);
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Welder_WelderQualify.DeleteOnSubmit(welderQualify);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
     }

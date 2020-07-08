@@ -183,17 +183,17 @@ namespace FineUIPro.Web.HSSE.SitePerson
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {                
-                var units = from x in Funs.DB.Base_Unit
+                var units = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
                             select x;
-                var teamGroups = from x in Funs.DB.ProjectData_TeamGroup
+                var teamGroups = from x in new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup
                                  where x.ProjectId == this.ProjectId
                                  select x;
-                var workAreas = from x in Funs.DB.WBS_UnitWork
+                var workAreas = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                 where x.ProjectId == this.ProjectId
                                 select x;
-                var posts = from x in Funs.DB.Base_WorkPost
+                var posts = from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost
                             select x;
-                var certificates = from x in Funs.DB.Base_Certificate
+                var certificates = from x in new Model.SGGLDB(Funs.ConnString).Base_Certificate
                                    select x;
                 for (int i = 0; i < ir; i++)
                 {                   
@@ -242,7 +242,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             var unit = units.FirstOrDefault(e => e.UnitName == col5);
                             if (unit != null)
                             {
-                                var projectUnit = Funs.DB.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.UnitId == unit.UnitId);
+                                var projectUnit = new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.UnitId == unit.UnitId);
                                 if (projectUnit == null)
                                 {
                                     result += "第" + (i + 2).ToString() + "行," + "所属单位" + "," + "[" + col5 + "]不在本项目中！" + "|";
@@ -488,17 +488,17 @@ namespace FineUIPro.Web.HSSE.SitePerson
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var units = from x in Funs.DB.Base_Unit
+                var units = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
                             select x;
-                var teamGroups = from x in Funs.DB.ProjectData_TeamGroup
+                var teamGroups = from x in new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup
                                  where x.ProjectId == this.ProjectId
                                  select x;
-                var workAreas = from x in Funs.DB.WBS_UnitWork
+                var workAreas = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                 where x.ProjectId == this.ProjectId
                                 select x;
-                var posts = from x in Funs.DB.Base_WorkPost
+                var posts = from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost
                             select x;
-                var certificates = from x in Funs.DB.Base_Certificate
+                var certificates = from x in new Model.SGGLDB(Funs.ConnString).Base_Certificate
                                    select x;
                 for (int i = 0; i < ir; i++)
                 {
@@ -654,7 +654,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             if (string.IsNullOrEmpty(errorInfos))
             {
-                var certificates = from x in Funs.DB.Base_Certificate select x;
+                var certificates = from x in new Model.SGGLDB(Funs.ConnString).Base_Certificate select x;
                 int a = persons.Count();
                 for (int i = 0; i < a; i++)
                 {

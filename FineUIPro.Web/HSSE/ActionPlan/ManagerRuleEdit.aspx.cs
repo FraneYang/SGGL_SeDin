@@ -177,7 +177,7 @@ namespace FineUIPro.Web.HSSE.ActionPlan
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var standard = Funs.DB.Law_ManageRule.FirstOrDefault(x => x.IsPass == true && x.ManageRuleName == this.txtManageRuleName.Text.Trim() && (x.ManageRuleId != this.ManageRuleId || (this.ManageRuleId == null && x.ManageRuleId != null)));
+            var standard = new Model.SGGLDB(Funs.ConnString).Law_ManageRule.FirstOrDefault(x => x.IsPass == true && x.ManageRuleName == this.txtManageRuleName.Text.Trim() && (x.ManageRuleId != this.ManageRuleId || (this.ManageRuleId == null && x.ManageRuleId != null)));
             if (standard != null)
             {
                 ShowNotify("输入的文件名称已存在！", MessageBoxIcon.Warning);

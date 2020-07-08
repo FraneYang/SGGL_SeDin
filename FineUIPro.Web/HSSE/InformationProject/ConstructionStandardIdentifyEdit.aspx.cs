@@ -149,7 +149,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
         /// </summary>
         private void BindGridById(string constructionStandardIdentifyId)
         {
-            var q = (from x in Funs.DB.View_InformationProject_ConstructionStandardSelectedItem
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).View_InformationProject_ConstructionStandardSelectedItem
                      where x.ConstructionStandardIdentifyId == constructionStandardIdentifyId
                      orderby x.StandardNo
                      select x).ToList();
@@ -305,7 +305,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
         /// </summary>
         private void BindGrid()
         {
-            var q = (from x in Funs.DB.Law_HSSEStandardsList
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList
                      orderby x.StandardNo
                      select x).ToList();
             if (!string.IsNullOrEmpty(this.txtStandardGrade.Text.Trim()))

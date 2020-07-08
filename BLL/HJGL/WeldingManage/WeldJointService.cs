@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_WeldJoint GetWeldJointByWeldJointId(string weldJointId)
         {
-            return Funs.DB.HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldJointId);
+            return new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldJointId);
         }
 
         /// <summary>
@@ -26,15 +26,15 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistWeldJointCode(string weldJointCode, string pipelineId, string weldJointId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_WeldJoint jot = null;
             if (!string.IsNullOrEmpty(weldJointId))
             {
-                jot = Funs.DB.HJGL_WeldJoint.FirstOrDefault(x => x.WeldJointCode == weldJointCode && x.PipelineId == pipelineId && x.WeldJointId != weldJointId);
+                jot = new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint.FirstOrDefault(x => x.WeldJointCode == weldJointCode && x.PipelineId == pipelineId && x.WeldJointId != weldJointId);
             }
             else
             {
-                jot = Funs.DB.HJGL_WeldJoint.FirstOrDefault(x => x.WeldJointCode == weldJointCode && x.PipelineId == pipelineId);
+                jot = new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint.FirstOrDefault(x => x.WeldJointCode == weldJointCode && x.PipelineId == pipelineId);
             }
 
             if (jot != null)
@@ -54,7 +54,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_WeldJoint> GetWeldlinesByWeldingDailyId(string weldingDailyId)
         {
-            var q = (from x in Funs.DB.HJGL_WeldJoint where x.WeldingDailyId == weldingDailyId orderby x.PipelineId, x.WeldJointCode select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint where x.WeldingDailyId == weldingDailyId orderby x.PipelineId, x.WeldJointCode select x).ToList();
             return q;
         }
 
@@ -64,7 +64,7 @@ namespace BLL
         /// <param name="weldJoint"></param>
         public static void AddWeldJoint(Model.HJGL_WeldJoint weldJoint)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_WeldJoint newWeldJoint = new Model.HJGL_WeldJoint
             {
                 WeldJointId = SQLHelper.GetNewID(typeof(Model.HJGL_WeldJoint)),
@@ -108,7 +108,7 @@ namespace BLL
         /// <param name="weldJoint"></param>
         public static void UpdateWeldJoint(Model.HJGL_WeldJoint weldJoint)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_WeldJoint newWeldJoint = db.HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldJoint.WeldJointId);
             if (newWeldJoint != null)
             {
@@ -151,7 +151,7 @@ namespace BLL
         /// <param name="weldJoint"></param>
         public static void WriteBackWeldJoint(Model.HJGL_WeldJoint weldJoint)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_WeldJoint newWeldJoint = db.HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldJoint.WeldJointId);
             if (newWeldJoint != null)
             {
@@ -170,7 +170,7 @@ namespace BLL
         /// <param name="weldJointId"></param>
         public static void DeleteWeldJointById(string weldJointId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_WeldJoint weldline = db.HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldJointId);
             if (weldline != null)
             {
@@ -187,7 +187,7 @@ namespace BLL
         /// <param name="operateState">日报操作（增加、删除）</param>
         public static void UpdateWeldJointAddG(string weldJointId, string jointAttribute, string operateState)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             if (operateState == Const.BtnDelete || jointAttribute != "固定口")
             {
                 Model.HJGL_WeldJoint deleteWeldJoint = db.HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldJointId);
@@ -216,7 +216,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.View_HJGL_WeldJoint GetViewWeldJointById(string weldJointId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return db.View_HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldJointId);
         }
 
@@ -227,7 +227,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_WeldJoint> GetWeldJointsByWeldingDailyId(string weldingDailyId)
         {
-            var q = (from x in Funs.DB.HJGL_WeldJoint where x.WeldingDailyId == weldingDailyId orderby x.PipelineId, x.WeldJointCode select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint where x.WeldingDailyId == weldingDailyId orderby x.PipelineId, x.WeldJointCode select x).ToList();
             return q;
         }
 
@@ -238,7 +238,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_HJGL_WeldJoint> GetViewWeldJointsByWeldingDailyId(string weldingDailyId)
         {
-            var q = (from x in Funs.DB.View_HJGL_WeldJoint where x.WeldingDailyId == weldingDailyId orderby x.PipelineCode, x.WeldJointCode select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint where x.WeldingDailyId == weldingDailyId orderby x.PipelineCode, x.WeldJointCode select x).ToList();
             return q;
         }
 
@@ -252,8 +252,8 @@ namespace BLL
         /// <returns></returns>
         public static bool GetWelderLimitDN(string projectId, string welderId, DateTime weldingDate)
         {
-            var jots = from x in Funs.DB.HJGL_WeldJoint
-                       join y in Funs.DB.HJGL_WeldingDaily on x.WeldingDailyId equals y.WeldingDailyId
+            var jots = from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint
+                       join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldingDaily on x.WeldingDailyId equals y.WeldingDailyId
                        where x.ProjectId == projectId && y.WeldingDate == weldingDate && (welderId == x.CoverWelderId || welderId == x.BackingWelderId)
                        select x;
             decimal? count = jots.Sum(x => x.Size);
@@ -275,7 +275,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_HJGL_WeldJoint> GetViewWeldJointsByPipelineId(string pipelineId)
         {
-            var q = (from x in Funs.DB.View_HJGL_WeldJoint where x.PipelineId == pipelineId orderby x.WeldJointCode select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint where x.PipelineId == pipelineId orderby x.WeldJointCode select x).ToList();
             return q;
         }
     }

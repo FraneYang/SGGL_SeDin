@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Model.Base_GrooveType GetGrooveTypeByGrooveTypeId(string drooveTypeId)
         {
-            return Funs.DB.Base_GrooveType.FirstOrDefault(e => e.GrooveTypeId == drooveTypeId);
+            return new Model.SGGLDB(Funs.ConnString).Base_GrooveType.FirstOrDefault(e => e.GrooveTypeId == drooveTypeId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@
         /// <param name="grooveType"></param>
         public static void AddGrooveType(Model.Base_GrooveType grooveType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_GrooveType newGrooveType = new Base_GrooveType
             {
                 GrooveTypeId = grooveType.GrooveTypeId,
@@ -40,7 +40,7 @@
         /// <param name="grooveType"></param>
         public static void UpdateGrooveType(Model.Base_GrooveType grooveType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_GrooveType newGrooveType = db.Base_GrooveType.FirstOrDefault(e => e.GrooveTypeId == grooveType.GrooveTypeId);
             if (newGrooveType != null)
             {
@@ -57,7 +57,7 @@
         /// <param name="grooveTypeId"></param>
         public static void DeleteGrooveTypeByGrooveTypeId(string grooveTypeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_GrooveType delGrooveType = db.Base_GrooveType.FirstOrDefault(e => e.GrooveTypeId == grooveTypeId);
             if (delGrooveType != null)
             {
@@ -73,7 +73,7 @@
         /// <returns></returns>
         public static List<Model.Base_GrooveType> GetGrooveTypeList()
         {
-            var list = (from x in Funs.DB.Base_GrooveType
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_GrooveType
                         orderby x.GrooveTypeCode
                         select x).ToList();
 

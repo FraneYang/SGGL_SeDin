@@ -28,7 +28,7 @@ namespace FineUIPro.Web.CQMS.WBS
                 if (!BLL.WorkPackageProjectService.IsExitWorkPackageProject(this.CurrUser.LoginProjectId))
                 {
                     //拷贝项目WBS数据
-                    var workPackageInits = from x in Funs.DB.WBS_WorkPackageInit select x;
+                    var workPackageInits = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit select x;
                     foreach (var workPackageInit in workPackageInits)
                     {
                         Model.WBS_WorkPackageProject workPackageProject = new Model.WBS_WorkPackageProject();
@@ -42,7 +42,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         workPackageProject.ProjectType = workPackageInit.ProjectType;
                         BLL.WorkPackageProjectService.AddWorkPackageProject(workPackageProject);
                     }
-                    var controlItemInits = from x in Funs.DB.WBS_ControlItemInit select x;
+                    var controlItemInits = from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemInit select x;
                     foreach (var controlItemInit in controlItemInits)
                     {
                         Model.WBS_ControlItemProject controlItemProject = new Model.WBS_ControlItemProject();
@@ -110,14 +110,14 @@ namespace FineUIPro.Web.CQMS.WBS
             List<Model.WBS_WorkPackageProject> workPackages = new List<Model.WBS_WorkPackageProject>();
             if (parentId.Length == 1) //工程类型节点
             {
-                workPackages = (from x in BLL.Funs.DB.WBS_WorkPackageProject
+                workPackages = (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject
                                 where x.SuperWorkPack == null && x.ProjectId == this.CurrUser.LoginProjectId && x.ProjectType == parentId
                                 orderby x.PackageCode ascending
                                 select x).ToList();
             }
             else
             {
-                workPackages = (from x in BLL.Funs.DB.WBS_WorkPackageProject
+                workPackages = (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject
                                 where x.SuperWorkPack == parentId && x.ProjectId == this.CurrUser.LoginProjectId
                                 orderby x.PackageCode ascending
                                 select x).ToList();
@@ -151,7 +151,7 @@ namespace FineUIPro.Web.CQMS.WBS
             e.Node.Nodes.Clear();
             if (e.Node.CommandName == "ProjectType")   //展开工程类型
             {
-                var workPackages = from x in Funs.DB.WBS_WorkPackageProject where x.ProjectType == e.NodeID && x.SuperWorkPack == null orderby x.WorkPackageCode select x;
+                var workPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject where x.ProjectType == e.NodeID && x.SuperWorkPack == null orderby x.WorkPackageCode select x;
                 foreach (var workPackage in workPackages)
                 {
                     TreeNode newNode = new TreeNode();
@@ -161,7 +161,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     newNode.EnableExpandEvent = true;
                     newNode.EnableClickEvent = true;
                     e.Node.Nodes.Add(newNode);
-                    var childWorkPackages = from x in Funs.DB.WBS_WorkPackageProject where x.SuperWorkPack == workPackage.WorkPackageCode select x;
+                    var childWorkPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject where x.SuperWorkPack == workPackage.WorkPackageCode select x;
                     if (childWorkPackages.Count() > 0)
                     {
                         TreeNode emptyNode = new TreeNode();
@@ -173,7 +173,7 @@ namespace FineUIPro.Web.CQMS.WBS
             }
             else if (e.Node.CommandName == "WorkPackage")   //展开分部节点
             {
-                var workPackages = from x in Funs.DB.WBS_WorkPackageProject where x.SuperWorkPack == e.Node.NodeID orderby x.WorkPackageCode select x;
+                var workPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject where x.SuperWorkPack == e.Node.NodeID orderby x.WorkPackageCode select x;
                 if (workPackages.Count() > 0)   //存在子分部工程
                 {
                     foreach (var workPackage in workPackages)
@@ -185,7 +185,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         newNode.EnableExpandEvent = true;
                         newNode.EnableClickEvent = true;
                         e.Node.Nodes.Add(newNode);
-                        var childWorkPackages = from x in Funs.DB.WBS_WorkPackageProject where x.SuperWorkPack == workPackage.WorkPackageCode select x;
+                        var childWorkPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject where x.SuperWorkPack == workPackage.WorkPackageCode select x;
                         if (childWorkPackages.Count() > 0)
                         {
                             TreeNode emptyNode = new TreeNode();

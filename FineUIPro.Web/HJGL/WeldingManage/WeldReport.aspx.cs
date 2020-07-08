@@ -43,11 +43,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 this.tvControlItem.Nodes.Add(rootNode2);
 
                 
-                var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+                var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
                 // 获取当前用户所在单位
                 var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-                var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+                var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                     where x.ProjectId == this.CurrUser.LoginProjectId
                                           && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                     select x).ToList();
@@ -313,8 +313,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 else
                 {
                     string weldingDailyId = Grid1.SelectedRowID;
-                    var isTrust = from x in Funs.DB.HJGL_Batch_BatchTrustItem
-                                  join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                    var isTrust = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrustItem
+                                  join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                   where y.WeldingDailyId == weldingDailyId
                                   select x; ;
                     if (isTrust.Count() == 0)
@@ -333,14 +333,14 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                                     updateWeldJoint.BackingWelderId = null;
                                     BLL.WeldJointService.UpdateWeldJoint(updateWeldJoint);
 
-                                    var pointBatchItems = from x in Funs.DB.HJGL_Batch_PointBatchItem where x.WeldJointId == item.WeldJointId select x;
+                                    var pointBatchItems = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem where x.WeldJointId == item.WeldJointId select x;
                                     string pointBatchId = pointBatchItems.FirstOrDefault().PointBatchId;
 
                                     // 删除焊口所在批明细信息
                                     BLL.PointBatchDetailService.DeleteBatchDetail(item.WeldJointId);
 
                                     // 删除批信息
-                                    var batch = from x in Funs.DB.HJGL_Batch_PointBatchItem where x.PointBatchId == pointBatchId select x;
+                                    var batch = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem where x.PointBatchId == pointBatchId select x;
                                     if (pointBatchId != null && batch.Count() == 0)
                                     {
                                         BLL.PointBatchService.DeleteBatch(pointBatchId);

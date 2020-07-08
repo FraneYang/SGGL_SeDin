@@ -85,6 +85,15 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         protected global::FineUIPro.TextBox txtIdentityCard;
         
         /// <summary>
+        /// txtCertificateCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtCertificateCode;
+        
+        /// <summary>
         /// rblSex 控件。
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.CheckBox cbIsOnDuty;
+        
+        /// <summary>
+        /// UploadAttach 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.LinkButton UploadAttach;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -137,5 +155,14 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnClose;
+        
+        /// <summary>
+        /// Window1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window Window1;
     }
 }

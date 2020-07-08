@@ -75,14 +75,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_Consumables.FirstOrDefault(x => x.ConsumablesCode == this.txtConsumablesCode.Text.Trim() && (x.ConsumablesId != this.ConsumablesId || (this.ConsumablesId == null && x.ConsumablesId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_Consumables.FirstOrDefault(x => x.ConsumablesCode == this.txtConsumablesCode.Text.Trim() && (x.ConsumablesId != this.ConsumablesId || (this.ConsumablesId == null && x.ConsumablesId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此焊材代号已存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = Funs.DB.Base_Consumables.FirstOrDefault(x => x.ConsumablesName == this.txtConsumablesName.Text.Trim() && (x.ConsumablesId != this.ConsumablesId || (this.ConsumablesId == null && x.ConsumablesId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_Consumables.FirstOrDefault(x => x.ConsumablesName == this.txtConsumablesName.Text.Trim() && (x.ConsumablesId != this.ConsumablesId || (this.ConsumablesId == null && x.ConsumablesId != null)));
             if (q2 != null)
             {
                 Alert.ShowInTop("此焊材名称已存在！", MessageBoxIcon.Warning);

@@ -22,7 +22,7 @@
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="单位工区进度分析"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="baw_areano"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="baw_areano" AllowSorting="true"
-                SortField="bsu_unitcode,InstallationName,baw_areano" SortDirection="DESC" OnSort="Grid1_Sort"
+                SortField="bsu_unitcode,baw_areano" SortDirection="DESC" OnSort="Grid1_Sort"
                 AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableTextSelection="True" EnableSummary="true" SummaryPosition="Flow">
                 <Toolbars>

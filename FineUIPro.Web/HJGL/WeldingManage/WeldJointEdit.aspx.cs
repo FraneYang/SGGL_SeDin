@@ -340,7 +340,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 else
                 {
                     string wpq = this.txtWPQId.Text;
-                    Model.WPQ_WPQList list = Funs.DB.WPQ_WPQList.FirstOrDefault(e => e.WPQCode == wpq);
+                    Model.WPQ_WPQList list = new Model.SGGLDB(Funs.ConnString).WPQ_WPQList.FirstOrDefault(e => e.WPQCode == wpq);
                     if (list != null)
                     {
                         joint.WPQId = list.WPQId;

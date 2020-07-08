@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class LicenseManagerService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取安全许可证
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_LicenseManager GetLicenseManagerById(string licenseManagerId)
         {
-            return Funs.DB.License_LicenseManager.FirstOrDefault(e => e.LicenseManagerId == licenseManagerId);
+            return new Model.SGGLDB(Funs.ConnString).License_LicenseManager.FirstOrDefault(e => e.LicenseManagerId == licenseManagerId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns>时间段内的HSE安全许可证集合</returns>
         public static int GetCountByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in Funs.DB.License_LicenseManager where x.CompileDate >= startTime && x.CompileDate <= endTime && x.ProjectId == projectId select x).Count();
+            return (from x in new Model.SGGLDB(Funs.ConnString).License_LicenseManager where x.CompileDate >= startTime && x.CompileDate <= endTime && x.ProjectId == projectId select x).Count();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="licenseManager"></param>
         public static void AddLicenseManager(Model.License_LicenseManager licenseManager)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.License_LicenseManager newLicenseManager = new Model.License_LicenseManager
             {
                 LicenseManagerId = licenseManager.LicenseManagerId,
@@ -72,7 +72,7 @@ namespace BLL
         /// <param name="licenseManager"></param>
         public static void UpdateLicenseManager(Model.License_LicenseManager licenseManager)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.License_LicenseManager newLicenseManager = db.License_LicenseManager.FirstOrDefault(e => e.LicenseManagerId == licenseManager.LicenseManagerId);
             if (newLicenseManager != null)
             {
@@ -98,7 +98,7 @@ namespace BLL
         /// <param name="licenseManagerId"></param>
         public static void DeleteLicenseManagerById(string licenseManagerId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.License_LicenseManager licenseManager = db.License_LicenseManager.FirstOrDefault(e => e.LicenseManagerId == licenseManagerId);
             if (licenseManager!=null)
             {

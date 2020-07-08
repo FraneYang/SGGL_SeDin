@@ -112,10 +112,10 @@
                     <f:RenderField HeaderText="所在班组" ColumnID="education" DataField="education"
                         SortField="education" FieldType="String" HeaderTextAlign="Center" Width="100px">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="IsOnDuty" HeaderText="在岗状态"
+                    <f:TemplateField ColumnID="IsUsed" HeaderText="在岗状态"
                         Width="100px" HeaderTextAlign="Center" TextAlign="Center">
                         <ItemTemplate>
-                            <asp:Label ID="Label2" runat="server" Text='<%#ConvertIsOnDuty(Eval("IsOnDuty")) %>'></asp:Label>
+                            <asp:Label ID="Label2" runat="server" Text='<%#ConvertIsOnDuty(Eval("IsUsed")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
                 </Columns>

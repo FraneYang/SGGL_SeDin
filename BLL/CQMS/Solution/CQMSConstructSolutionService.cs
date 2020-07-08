@@ -36,7 +36,7 @@ namespace BLL
         /// <param name="constructSolutionCode">方案审查Id</param>
         public static void DeleteConstructSolution(string constructSolutionId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_CQMSConstructSolution constructSolution = db.Solution_CQMSConstructSolution.First(e => e.ConstructSolutionId == constructSolutionId);
 
             db.Solution_CQMSConstructSolution.DeleteOnSubmit(constructSolution);
@@ -49,7 +49,7 @@ namespace BLL
         /// <param name="constructSolution">方案审查实体</param>
         public static void AddConstructSolution(Model.Solution_CQMSConstructSolution constructSolution)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_CQMSConstructSolution newConstructSolution = new Model.Solution_CQMSConstructSolution();
             newConstructSolution.ConstructSolutionId = constructSolution.ConstructSolutionId;
             newConstructSolution.Code = constructSolution.Code;
@@ -73,7 +73,7 @@ namespace BLL
         /// <param name="constructSolution">方案审查实体</param>
         public static void UpdateConstructSolution(Model.Solution_CQMSConstructSolution constructSolution)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_CQMSConstructSolution newConstructSolution = db.Solution_CQMSConstructSolution.First(e => e.ConstructSolutionId == constructSolution.ConstructSolutionId);
             newConstructSolution.Code = constructSolution.Code;
             newConstructSolution.UnitId = constructSolution.UnitId;
@@ -138,7 +138,7 @@ namespace BLL
         /// <returns>一个方案审查实体</returns>
         public static Model.Solution_CQMSConstructSolution GetConstructSolutionByConstructSolutionId(string constructSolutionId)
         {
-            return Funs.DB.Solution_CQMSConstructSolution.FirstOrDefault(x => x.ConstructSolutionId == constructSolutionId);
+            return new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolution.FirstOrDefault(x => x.ConstructSolutionId == constructSolutionId);
         }
         public static Model.Solution_CQMSConstructSolution GetConstructSolutionByConstructSolutionIdForApi(string constructSolutionId)
         {
@@ -262,7 +262,7 @@ namespace BLL
                 if (!string.IsNullOrEmpty(name))
                 {
                     List<string> ids = new List<string>();
-                    var qunit = from u in Funs.DB.Base_Unit
+                    var qunit = from u in new Model.SGGLDB(Funs.ConnString).Base_Unit
                                 where u.UnitName.Contains(name)
                                 select u.UnitId;
                     ids = qunit.ToList();
@@ -331,7 +331,7 @@ namespace BLL
                 if (!string.IsNullOrEmpty(name))
                 {
                     List<string> ids = new List<string>();
-                    var qunit = from u in Funs.DB.Base_Unit
+                    var qunit = from u in new Model.SGGLDB(Funs.ConnString).Base_Unit
                                 where u.UnitName.Contains(name)
                                 select u.UnitId;
                     ids = qunit.ToList();

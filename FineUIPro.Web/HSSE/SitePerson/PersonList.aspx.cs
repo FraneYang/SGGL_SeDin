@@ -248,8 +248,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 {
                     string personId = Grid1.Rows[i].DataKeys[0].ToString();
 
-                    var isNull = from x in Funs.DB.EduTrain_TrainRecordDetail
-                                 join y in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
+                    var isNull = from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail
+                                 join y in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
                                  where y.ProjectId == this.ProjectId && x.PersonId == personId
                                  select x;
                     if (isNull.Count() == 0) ////未参加过培训的人员
@@ -454,7 +454,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         private bool judgementDelete(string rowID, bool isShow)
         {
             string content = string.Empty;
-            var q = from x in Funs.DB.QualityAudit_PersonQuality where x.PersonId == rowID select x;
+            var q = from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality where x.PersonId == rowID select x;
             if (q.Count() > 0)
             {
                 content += "人员资质中已存在该人员，无法删除！";
@@ -676,7 +676,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// <param name="e"></param>
         protected void btnQR_Click(object sender, EventArgs e)
         {
-            var getPersons = from x in Funs.DB.SitePerson_Person
+            var getPersons = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
                              where x.ProjectId == this.CurrUser.LoginProjectId && x.IdentityCard != null && x.QRCodeAttachUrl == null
                              select x;
             int num = 0;
@@ -688,7 +688,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     if (!string.IsNullOrEmpty(url))
                     {
                         item.QRCodeAttachUrl = url;
-                        Funs.DB.SubmitChanges();
+                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                         num++;
                     }
                 }

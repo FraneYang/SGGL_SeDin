@@ -34,7 +34,7 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            var q = from x in Funs.DB.Base_Position orderby x.PositionCode select x;
+            var q = from x in new Model.SGGLDB(Funs.ConnString).Base_Position orderby x.PositionCode select x;
             Grid1.RecordCount = q.Count();
             // 2.获取当前分页数据
             var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
@@ -48,7 +48,7 @@ namespace FineUIPro.Web.BaseInfo
         /// <returns></returns>
         private List<Model.Base_Position> GetPagedDataTable(int pageIndex, int pageSize)
         {
-            List<Model.Base_Position> source = (from x in BLL.Funs.DB.Base_Position orderby x.PositionCode select x).ToList();
+            List<Model.Base_Position> source = (from x in new Model.SGGLDB(Funs.ConnString).Base_Position orderby x.PositionCode select x).ToList();
             List<Model.Base_Position> paged = new List<Model.Base_Position>();
 
             int rowbegin = pageIndex * pageSize;
@@ -229,13 +229,13 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_Position.FirstOrDefault(x => x.PositionCode == this.txtPositionCode.Text.Trim() && (x.PositionId != hfFormID.Text || (hfFormID.Text == null && x.PositionId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_Position.FirstOrDefault(x => x.PositionCode == this.txtPositionCode.Text.Trim() && (x.PositionId != hfFormID.Text || (hfFormID.Text == null && x.PositionId != null)));
             if (q != null)
             {
                 ShowNotify("输入的职务编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = Funs.DB.Base_Position.FirstOrDefault(x => x.PositionName == this.txtPositionName.Text.Trim() && (x.PositionId != hfFormID.Text || (hfFormID.Text == null && x.PositionId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_Position.FirstOrDefault(x => x.PositionName == this.txtPositionName.Text.Trim() && (x.PositionId != hfFormID.Text || (hfFormID.Text == null && x.PositionId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的职务名称已存在！", MessageBoxIcon.Warning);

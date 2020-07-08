@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace FineUIPro.Web.HJGL.HotProcessHard
 {
@@ -37,6 +38,23 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 HardTrustItemID = Request.Params["HardTrustItemID"];
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+
+                var hardFeedback = BLL.Hard_TrustItemService.GetHardTrustItemById(HardTrustItemID);
+                if (hardFeedback != null)
+                {
+                    if (hardFeedback.IsPass == true)
+                    {
+                        drpIsPass.SelectedValue = "1";
+                    }
+                    else if (hardFeedback.IsPass == false)
+                    {
+                        drpIsPass.SelectedValue = "0";
+                    }
+                    else
+                    {
+                        drpIsPass.SelectedValue = "2";
+                    }
+                }
                 // 绑定表格
                 this.BindGrid();
             }
@@ -172,6 +190,43 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         }
         #endregion
 
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            string hardTrustItemId = Request.Params["HardTrustItemID"];
+            var hardFeedback = BLL.Hard_TrustItemService.GetHardTrustItemById(hardTrustItemId);
+            if (hardFeedback != null)
+            {
+                var hotProessTrustItem = new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == hardFeedback.WeldJointId && x.HotProessTrustItemId == hardFeedback.HotProessTrustItemId);
+                if (drpIsPass.SelectedValue=="1")
+                {
+                    hardFeedback.IsPass = true;
+                    if (hotProessTrustItem != null)   //更新热处理委托硬度不合格记录id为空
+                    {
+                        hotProessTrustItem.HardTrustItemID = null;
+                    }
+                    hotProessTrustItem.IsPass = true;
+                }
+                else if (drpIsPass.SelectedValue == "0")
+                {
+                    hardFeedback.IsPass = false;
+                    if (hotProessTrustItem != null)    //更新热处理委托硬度不合格记录id值
+                    {
+                        hotProessTrustItem.HardTrustItemID = hardFeedback.HardTrustItemID;
+                    }
+                    hotProessTrustItem.IsPass = false;
+                }
+                else  // 待检测
+                {
+                    hardFeedback.IsPass = null;
+                    hotProessTrustItem.HardTrustItemID = null;
+                    hotProessTrustItem.IsPass = null;
+                }
+                BLL.HotProessTrustItemService.UpdateHotProessTrustItem(hotProessTrustItem);
+                BLL.Hard_TrustItemService.UpdateHardTrustItem(hardFeedback);
+            }
+            Alert.ShowInTop("保存成功", MessageBoxIcon.Success);
+        }
+
         #region 删除
         /// <summary>
         /// 右键删除事件
@@ -231,7 +286,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            //if (Funs.DB.Project_HJGL_HotHardReport.FirstOrDefault(x => x.HardReportId == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Project_HJGL_HotHardReport.FirstOrDefault(x => x.HardReportId == id) != null)
             //{
             //    content += "已在【硬度报告】中使用，不能删除！";
             //}

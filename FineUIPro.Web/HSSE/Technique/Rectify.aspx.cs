@@ -505,7 +505,7 @@ namespace FineUIPro.Web.HSSE.Technique
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            //if (Funs.DB.Supervise_SuperviseCheckRectifyItem.FirstOrDefault(x => x.RectifyItemId == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Supervise_SuperviseCheckRectifyItem.FirstOrDefault(x => x.RectifyItemId == id) != null)
             //{
             //    content = "该安全隐患已在【检查整改】中使用，不能删除！";
             //}

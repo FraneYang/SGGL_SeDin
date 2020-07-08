@@ -32,7 +32,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     //}
                     if (!string.IsNullOrEmpty(q.AttachUrl))
                     {
-                        this.divAttachUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("~/", q.AttachUrl);
+                        this.divAttachUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", q.AttachUrl);
                     }
                 }
             }

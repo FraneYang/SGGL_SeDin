@@ -245,19 +245,19 @@
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
+            if (new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
             {
                 content += "已在【项目用户】中使用，不能删除！";
             }
-            //if (Funs.DB.Law_LawRegulationList.FirstOrDefault(x => x.CompileMan == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Law_LawRegulationList.FirstOrDefault(x => x.CompileMan == id) != null)
             //{
             //    content += "已在【法律法规】中使用，不能删除！";
             //}
-            //if (Funs.DB.Law_HSSEStandardsList.FirstOrDefault(x => x.CompileMan == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList.FirstOrDefault(x => x.CompileMan == id) != null)
             //{
             //    content += "已在【标准规范】中使用，不能删除！";
             //}
-            //if (Funs.DB.ProjectData_FlowOperate.FirstOrDefault(x => x.OperaterId == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).ProjectData_FlowOperate.FirstOrDefault(x => x.OperaterId == id) != null)
             //{
             //    content += "已在【报表审核】中使用，不能删除！";
             //}

@@ -96,7 +96,7 @@ namespace FineUIPro.Web.SysManage
             //    {
             //        sysSet.ConstValue = "0";
             //    }
-            //    Funs.DB.SubmitChanges();
+            //    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             //}
             var sysSet2 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_IsMonthReportGetAVG).FirstOrDefault();
             if (sysSet2 != null)
@@ -109,13 +109,13 @@ namespace FineUIPro.Web.SysManage
                 {
                     sysSet2.ConstValue = "0";
                 }
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
             var sysSet3 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_MonthReportFreezeDay).FirstOrDefault();
             if (sysSet3 != null)
             {
                 sysSet3.ConstValue = this.txtMonthReportFreezeDay.Text.Trim();
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
 
             var sysSet4 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_MenuFlowOperate).FirstOrDefault();
@@ -129,7 +129,7 @@ namespace FineUIPro.Web.SysManage
                 {
                     sysSet4.ConstValue = "0";
                 }
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
 
            
@@ -276,7 +276,7 @@ namespace FineUIPro.Web.SysManage
             var sysMenu = SysMenuService.GetSysMenuByMenuId(this.drpMenu.Value);
             if (sysMenu != null && sysMenu.IsEnd == true)
             {
-                var getMenuFlowOperate = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == sysMenu.MenuId && x.IsFlowEnd == true);
+                var getMenuFlowOperate = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == sysMenu.MenuId && x.IsFlowEnd == true);
                 if (getMenuFlowOperate == null)
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MenuFlowOperateEdit.aspx?MenuId={0}&FlowOperateId={1}", sysMenu.MenuId, string.Empty, "增加 - ")));
@@ -359,7 +359,7 @@ namespace FineUIPro.Web.SysManage
         /// </summary>
         private void LoadTab3Data()
         {
-            var sysTestRule = Funs.DB.Sys_TestRule.FirstOrDefault();
+            var sysTestRule = new Model.SGGLDB(Funs.ConnString).Sys_TestRule.FirstOrDefault();
             if (sysTestRule != null)
             {
                 this.txtDuration.Text = sysTestRule.Duration.ToString();
@@ -381,10 +381,10 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void btnTab3Save_Click(object sender, EventArgs e)
         {
-            var getTestRule = from x in Funs.DB.Sys_TestRule select x;
+            var getTestRule = from x in new Model.SGGLDB(Funs.ConnString).Sys_TestRule select x;
             if (getTestRule.Count() > 0)
             {
-                Funs.DB.Sys_TestRule.DeleteAllOnSubmit(getTestRule);
+                new Model.SGGLDB(Funs.ConnString).Sys_TestRule.DeleteAllOnSubmit(getTestRule);
             }
 
             Model.Sys_TestRule newTestRule = new Model.Sys_TestRule
@@ -400,8 +400,8 @@ namespace FineUIPro.Web.SysManage
                 PassingScore = Funs.GetNewIntOrZero(this.txtPassingScore.Text),
             };
 
-            Funs.DB.Sys_TestRule.InsertOnSubmit(newTestRule);
-            Funs.DB.SubmitChanges();
+            new Model.SGGLDB(Funs.ConnString).Sys_TestRule.InsertOnSubmit(newTestRule);
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
 
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             LogService.AddSys_Log(this.CurrUser, "修改考试规则设置！", string.Empty, Const.SysConstSetMenuId, Const.BtnModify);

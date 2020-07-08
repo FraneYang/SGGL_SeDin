@@ -47,7 +47,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                 Expanded = true
             };
             this.trAccidentCase.Nodes.Add(rootNode);
-            var aCaseList = (from x in Funs.DB.EduTrain_AccidentCase
+            var aCaseList = (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_AccidentCase
                        select x).ToList();
             if (aCaseList.Count() > 0)
             {

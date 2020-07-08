@@ -16,7 +16,7 @@ namespace BLL
         /// <returns>一个法律法规辨识实体</returns>
         public static Model.Law_LawRegulationIdentify GetLawRegulationIdentifyByLawRegulationIdentifyId(string lawRegulationIdentifyId)
         {
-            return Funs.DB.Law_LawRegulationIdentify.FirstOrDefault(x => x.LawRegulationIdentifyId == lawRegulationIdentifyId);
+            return new Model.SGGLDB(Funs.ConnString).Law_LawRegulationIdentify.FirstOrDefault(x => x.LawRegulationIdentifyId == lawRegulationIdentifyId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="lawRegulationIdentify">法律法规辨识实体</param>
         public static void AddLawRegulationIdentify(Model.Law_LawRegulationIdentify lawRegulationIdentify)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Law_LawRegulationIdentify newLawRegulationIdentify = new Model.Law_LawRegulationIdentify
             {
                 LawRegulationIdentifyId = lawRegulationIdentify.LawRegulationIdentifyId,
@@ -54,7 +54,7 @@ namespace BLL
         /// <param name="lawRegulationIdentify">法律法规辨识实体</param>
         public static void UpdateLawRegulationIdentify(Model.Law_LawRegulationIdentify lawRegulationIdentify)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Law_LawRegulationIdentify newLawRegulationIdentify = db.Law_LawRegulationIdentify.FirstOrDefault(e => e.LawRegulationIdentifyId == lawRegulationIdentify.LawRegulationIdentifyId);
             if (newLawRegulationIdentify != null)
             {
@@ -78,7 +78,7 @@ namespace BLL
         /// <param name="lawRegulationIdentifyCode">法律法规辨识编号</param>
         public static void DeleteLawRegulationIdentify(string lawRegulationIdentifyId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Law_LawRegulationIdentify lawRegulationIdentify = db.Law_LawRegulationIdentify.FirstOrDefault(e => e.LawRegulationIdentifyId == lawRegulationIdentifyId);
             if (lawRegulationIdentify != null)
             {

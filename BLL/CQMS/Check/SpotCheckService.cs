@@ -11,7 +11,7 @@ namespace BLL
 {
     public class SpotCheckService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 添加实体验收记录
@@ -19,7 +19,7 @@ namespace BLL
         /// <param name="SpotCheck"></param>
         public static void AddSpotCheck(Model.Check_SpotCheck SpotCheck)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_SpotCheck newSpotCheck = new Model.Check_SpotCheck();
             newSpotCheck.SpotCheckCode = SpotCheck.SpotCheckCode;
             newSpotCheck.DocCode = SpotCheck.DocCode;
@@ -77,7 +77,7 @@ namespace BLL
         /// <param name="SpotCheck"></param>
         public static void UpdateSpotCheck(Model.Check_SpotCheck SpotCheck)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_SpotCheck newSpotCheck = db.Check_SpotCheck.First(e => e.SpotCheckCode == SpotCheck.SpotCheckCode);
             newSpotCheck.DocCode = SpotCheck.DocCode;
             newSpotCheck.UnitId = SpotCheck.UnitId;
@@ -105,7 +105,7 @@ namespace BLL
         /// <param name="SpotCheckId"></param>
         public static void DeleteSpotCheck(string SpotCheckId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_SpotCheck SpotCheck = db.Check_SpotCheck.First(e => e.SpotCheckCode == SpotCheckId);
             db.Check_SpotCheck.DeleteOnSubmit(SpotCheck);
             db.SubmitChanges();
@@ -117,7 +117,7 @@ namespace BLL
         /// <param name="SpotCheckDetailId"></param>
         public static Model.Check_SpotCheck GetSpotCheckBySpotCheckCode(string SpotCheckCode)
         {
-            return Funs.DB.Check_SpotCheck.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode);
+            return new Model.SGGLDB(Funs.ConnString).Check_SpotCheck.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode);
         }
         public static Model.Check_SpotCheck GetSpotCheckBySpotCheckCodeForApi(string SpotCheckCode)
         {
@@ -132,7 +132,7 @@ namespace BLL
         /// <param name="userId">用户Id</param>
         public static bool GetSpotCheckByUserId(string userId)
         {
-            return (from x in Funs.DB.Check_SpotCheck where x.CreateMan == userId select x).Count() > 0;
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheck where x.CreateMan == userId select x).Count() > 0;
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace BLL
         /// <param name="SpotCheckDetailId"></param>
         public static List<Model.Check_SpotCheck> GetOKSpotChecks(string projectId)
         {
-            return (from x in Funs.DB.Check_SpotCheck where x.ProjectId == projectId && x.IsOK == true select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheck where x.ProjectId == projectId && x.IsOK == true select x).ToList();
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static List<Model.Check_SpotCheck> GetSpotCheckListByTime(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in Funs.DB.Check_SpotCheck
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheck
                     where x.ProjectId == projectId && x.SpotCheckDate >= startTime && x.SpotCheckDate < endTime
                     select x).ToList();
         }
@@ -430,7 +430,7 @@ namespace BLL
         }
         public static Model.Check_SpotCheck GetSpotCheck(string SpotCheckCode)
         {
-            return Funs.DB.Check_SpotCheck.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode);
+            return new Model.SGGLDB(Funs.ConnString).Check_SpotCheck.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode);
         }
         public static Model.Check_SpotCheck GetSpotCheckForApi(string SpotCheckCode)
         {
@@ -452,7 +452,7 @@ namespace BLL
         /// <returns></returns>
         public static IList<Model.Check_SpotCheck> GetSpotChecks(List<string> spotCheckCode)
         {
-            return Funs.DB.Check_SpotCheck.Where(p => spotCheckCode.Contains(p.SpotCheckCode)).ToList();
+            return new Model.SGGLDB(Funs.ConnString).Check_SpotCheck.Where(p => spotCheckCode.Contains(p.SpotCheckCode)).ToList();
         }
         public static void UpdateSpotCheckForApi(Model.Check_SpotCheck SpotCheck)
         {

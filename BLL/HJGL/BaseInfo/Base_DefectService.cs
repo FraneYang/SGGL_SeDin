@@ -12,7 +12,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_Defect GetDefectByDefectId(string defectId)
         {
-            return Funs.DB.Base_Defect.FirstOrDefault(e => e.DefectId.ToString() == defectId);
+            return new Model.SGGLDB(Funs.ConnString).Base_Defect.FirstOrDefault(e => e.DefectId.ToString() == defectId);
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace BLL
         public static string GetDefectIdStrByDefectNameStr(string defectNameStr)
         {
             string defectIdStr = string.Empty;
-            var defects = from x in Funs.DB.Base_Defect select x;
+            var defects = from x in new Model.SGGLDB(Funs.ConnString).Base_Defect select x;
             string[] strs = defectNameStr.Split(',');
             foreach (var str in strs)
             {
@@ -46,7 +46,7 @@ namespace BLL
         public static string GetDefectIdStrByDefectEngNameStr(string defectEngNameStr)
         {
             string defectIdStr = string.Empty;
-            var defects = from x in Funs.DB.Base_Defect select x;
+            var defects = from x in new Model.SGGLDB(Funs.ConnString).Base_Defect select x;
             string[] strs = defectEngNameStr.Split(',');
             foreach (var str in strs)
             {
@@ -70,7 +70,7 @@ namespace BLL
         public static string GetDefectNameStrByDefectIdStr(string defectIdStr)
         {
             string defectNameStr = string.Empty;
-            var defects = from x in Funs.DB.Base_Defect select x;
+            var defects = from x in new Model.SGGLDB(Funs.ConnString).Base_Defect select x;
             string[] strs = defectIdStr.Split(',');
             foreach (var str in strs)
             {
@@ -94,7 +94,7 @@ namespace BLL
         public static string GetDefectEngNameStrByDefectIdStr(string defectIdStr)
         {
             string defectEngNameStr = string.Empty;
-            var defects = from x in Funs.DB.Base_Defect select x;
+            var defects = from x in new Model.SGGLDB(Funs.ConnString).Base_Defect select x;
             string[] strs = defectIdStr.Split(',');
             foreach (var str in strs)
             {
@@ -117,7 +117,7 @@ namespace BLL
         /// <param name="Defect"></param>
         public static void AddDefect(Model.Base_Defect defect)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Defect newDefect = new Base_Defect
             {
                 DefectId = defect.DefectId,
@@ -134,7 +134,7 @@ namespace BLL
         /// <param name="Defect"></param>
         public static void UpdateDefect(Model.Base_Defect defect)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Defect newDefect = db.Base_Defect.FirstOrDefault(e => e.DefectId == defect.DefectId);
             if (newDefect != null)
             {
@@ -150,7 +150,7 @@ namespace BLL
         /// <param name="DefectId"></param>
         public static void DeleteDefectByDefectId(string defectId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Defect delDefect = db.Base_Defect.FirstOrDefault(e => e.DefectId.ToString() == defectId);
             if (delDefect != null)
             {
@@ -166,7 +166,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Defect> GetDefectList()
         {
-            var list = (from x in Funs.DB.Base_Defect
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Defect
                         orderby x.DefectId
                         select x).ToList();
 

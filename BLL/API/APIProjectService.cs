@@ -19,14 +19,14 @@ namespace BLL
             List<Model.Base_Project> projects = new List<Model.Base_Project>();
             if (CommonService.IsThisUnitLeaderOfficeOrManage(userId))
             {
-                projects = (from x in Funs.DB.Base_Project
+                projects = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
                             where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
                             select x).ToList();
             }
             else
             {
-                projects = (from x in Funs.DB.Project_ProjectUser
-                            join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId
+                projects = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
+                            join y in new Model.SGGLDB(Funs.ConnString).Base_Project on x.ProjectId equals y.ProjectId
                             where x.UserId == userId && (y.ProjectState == null || y.ProjectState == BLL.Const.ProjectState_1)
                             select y).ToList();
             }
@@ -41,8 +41,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.ProjectItem> getALLProjectsByUserId(string userId)
         {
-            var projects = (from x in Funs.DB.Project_ProjectUser
-                            join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId
+            var projects = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
+                            join y in new Model.SGGLDB(Funs.ConnString).Base_Project on x.ProjectId equals y.ProjectId
                             where x.UserId == userId
                             orderby y.ProjectCode
                             select y).ToList();
@@ -57,7 +57,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.ProjectItem getProjectByProjectId(string projectId)
         {
-            var getproject = Funs.DB.Base_Project.FirstOrDefault(x => x.ProjectId == projectId);
+            var getproject = new Model.SGGLDB(Funs.ConnString).Base_Project.FirstOrDefault(x => x.ProjectId == projectId);
 
             return ObjectMapperManager.DefaultInstance.GetMapper<Model.Base_Project, Model.ProjectItem>().Map(getproject);
         }

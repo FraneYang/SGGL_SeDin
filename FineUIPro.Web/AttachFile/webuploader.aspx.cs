@@ -214,11 +214,11 @@ namespace FineUIPro.Web.AttachFile
                 Model.AttachFile sour = new Model.AttachFile();
                 if (this.MenuId == Const.ProjectPunishNoticeMenuId || this.MenuId == Const.ProjectPunishNoticeStatisticsMenuId)
                 {
-                    sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
+                    sour = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
                 }
                 else
                 {
-                    sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
+                    sour = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
                 }
 
                 if (sour != null)
@@ -389,7 +389,7 @@ namespace FineUIPro.Web.AttachFile
                                 }
                                 string oldSrouce =string.Empty;
                                 string FullPath = string.Empty;
-                                Model.AttachFile att = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.ToKeyId);
+                                Model.AttachFile att = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == this.ToKeyId);
                                 if (att != null && !string.IsNullOrEmpty(att.AttachUrl))
                                 {
                                     FullPath = att.AttachUrl + "," + attachUrl;

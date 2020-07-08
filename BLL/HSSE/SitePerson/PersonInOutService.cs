@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class PersonInOutService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取人员出入场信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_PersonInOut GetPersonInOutById(string PersonInOutId)
         {
-            return Funs.DB.SitePerson_PersonInOut.FirstOrDefault(e => e.PersonInOutId == PersonInOutId);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOut.FirstOrDefault(e => e.PersonInOutId == PersonInOutId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_PersonInOut GetPersonInOutByTimePersonId(string personId, DateTime ChangeTime, bool isIn)
         {
-            return Funs.DB.SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == personId && x.ChangeTime == ChangeTime && x.IsIn == isIn);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == personId && x.ChangeTime == ChangeTime && x.IsIn == isIn);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="PersonInOut">人员实体</param>
         public static void AddPersonInOut(Model.SitePerson_PersonInOut PersonInOut)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
             {
                 PersonInOutId = SQLHelper.GetNewID(typeof(Model.SitePerson_PersonInOut)),
@@ -60,7 +60,7 @@ namespace BLL
         /// <param name="personId"></param>
         public static void DeletePersonInOutByPersonId(string personId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var personInOut =from x in db.SitePerson_PersonInOut where x.PersonId == personId select x;
             if (personInOut.Count()> 0)
             {

@@ -5,9 +5,9 @@
 <TreeNode id="0DAFF358-EA16-44B2-8E4B-E15E40EFAAD0" Text="总承包商施工报告" NavigateUrl=""></TreeNode>
 <TreeNode id="4CB03F8B-C967-4082-ADF1-08776FE40E21" Text="项目级施工日志" NavigateUrl=""></TreeNode>
 <TreeNode id="CD88CE2A-A8E2-4F07-9A90-9161BD1C345C" Text="工作交接" NavigateUrl=""></TreeNode>
-<TreeNode id="929F770E-D4A9-42BB-ADA1-F02EDD2C7795" Text="来往文件管理" NavigateUrl=""></TreeNode>
-<TreeNode id="67D9CD79-8752-41FE-A859-A14FDF18DFB8" Text="移动端首页数据" NavigateUrl=""></TreeNode>
-<TreeNode id="8C4BFF53-A1BF-43CE-8BE7-0CAA076FC7B8" Text="项目施工平面布置图" NavigateUrl=""></TreeNode>
-<TreeNode id="5B0BB11F-8D78-4574-905E-BC9F5124E7B7" Text="项目亮点" NavigateUrl=""></TreeNode>
+<TreeNode id="4F5C00F3-DA7D-4B2D-B1EF-310DFFCA77DD" Text="来往文件管理" NavigateUrl="PZHGL/InformationProject/ReceiveFileManager.aspx"></TreeNode>
+<TreeNode id="44140854-701D-4D67-AD8E-AA8DD48B6D6A" Text="移动端首页数据" NavigateUrl="PZHGL/ProjectData/ProjectPageData.aspx"></TreeNode>
+<TreeNode id="F266456A-991F-45A3-BCD6-CF2515D71E39" Text="项目施工平面布置图" NavigateUrl="PZHGL/ProjectData/ProjectMap.aspx"></TreeNode>
+<TreeNode id="B58179BE-FE6E-4E91-84FC-D211E4692354" Text="项目亮点" NavigateUrl="PZHGL/InformationProject/Picture.aspx"></TreeNode>
 <TreeNode id="43E96F2A-9497-4C37-998F-0EB324000609" Text="工作联系单" NavigateUrl="CQMS/Unqualified/ContactList.aspx"></TreeNode>
 </Tree>

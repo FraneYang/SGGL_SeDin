@@ -12,7 +12,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_Material GetMaterialByMaterialId(string materialId)
         {
-            return Funs.DB.Base_Material.FirstOrDefault(e => e.MaterialId == materialId);
+            return new Model.SGGLDB(Funs.ConnString).Base_Material.FirstOrDefault(e => e.MaterialId == materialId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace BLL
         /// <param name="material"></param>
         public static void AddMaterial(Model.Base_Material material)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Material newMaterial = new Base_Material
             {
                 MaterialId = material.MaterialId,
@@ -43,7 +43,7 @@ namespace BLL
         /// <param name="material"></param>
         public static void UpdateMaterial(Model.Base_Material material)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Material newMaterial = db.Base_Material.FirstOrDefault(e => e.MaterialId == material.MaterialId);
             if (newMaterial != null)
             {
@@ -64,7 +64,7 @@ namespace BLL
         /// <param name="materialId"></param>
         public static void DeleteMaterialByMaterialId(string materialId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Material delMaterial = db.Base_Material.FirstOrDefault(e => e.MaterialId == materialId);
             if (delMaterial != null)
             {
@@ -80,7 +80,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Material> GetMaterialList()
         {
-            var list = (from x in Funs.DB.Base_Material
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Material
                         orderby x.MaterialCode
                         select x).ToList();
 

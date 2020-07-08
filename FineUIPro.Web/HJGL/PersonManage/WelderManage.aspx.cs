@@ -60,7 +60,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             }
             if (!string.IsNullOrEmpty(this.txtWelderName.Text))
             {
-                strSql += " and Welder.WelderName LIKE  @WelderName";
+                strSql += " and Welder.PersonName LIKE  @PersonName";
                 parms.Add(new SqlParameter("@PersonName", "%" + this.txtWelderName.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = parms.ToArray();
@@ -263,12 +263,12 @@ namespace FineUIPro.Web.HJGL.PersonManage
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectUserId == id) != null)
+            if (new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectUserId == id) != null)
             {
                 content += "已在【项目焊工】中使用，不能删除！";
             }
 
-            //if (Funs.DB.Pipeline_WeldJoint.FirstOrDefault(x => x.BackingWelderId == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Pipeline_WeldJoint.FirstOrDefault(x => x.BackingWelderId == id) != null)
             //{
             //    content += "已在【焊接信息】中使用，不能删除！";
             //}

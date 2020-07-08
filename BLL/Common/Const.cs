@@ -1409,9 +1409,9 @@ namespace BLL
         public const string ProjectEmergencyTeamAndTrainMenuId = "6FDF9DAE-2161-4F67-931F-85DEAFC3842A";
 
         /// <summary>
-        /// 应急响应记录与评价
+        /// 应急流程
         /// </summary>
-        public const string ProjectEmergencyResponseRecordMenuId = "A95A7C98-C186-4418-9C41-BD7775D85284";
+        public const string ProjectEmergencyProcessMenuId = "A5D0287B-2410-4DB1-8BD4-E0534EBAE308";
         #endregion
 
         #region 施工方案/方案审查
@@ -2600,6 +2600,54 @@ namespace BLL
         /// </summary>
         public static string APPCheckSpecial_ApproveCompleted = "3";
 
+        #endregion
+
+        #region 报表类型
+        /// <summary>
+        /// 百万工时安全统计月报
+        /// </summary>
+        public const string ReportType_1 = "1";
+        /// <summary>
+        /// 职工伤亡事故原因分析报
+        /// </summary>
+        public const string ReportType_2 = "2";
+        /// <summary>
+        /// 安全生产数据季报
+        /// </summary>
+        public const string ReportType_3 = "3";
+        /// <summary>
+        /// 应急演练开展情况季报
+        /// </summary>
+        public const string ReportType_4 = "4";
+        /// <summary>
+        /// 应急演练工作计划半年报
+        /// </summary>
+        public const string ReportType_5 = "5";
+
+        /// <summary>
+        /// 项目现场百万工时安全统计月报表
+        /// </summary>
+        public const string ProjectInformation_MillionsMonthlyReportId = "6";
+
+        /// <summary>
+        /// 项目现场职工伤亡事故原因分析报表
+        /// </summary>
+        public const string ProjectInformation_AccidentCauseReportId = "7";
+
+        /// <summary>
+        /// 项目现场安全生产数据季报
+        /// </summary>
+        public const string ProjectInformation_SafetyQuarterlyReportId = "8";
+
+        /// <summary>
+        /// 项目现场应急演练开展情况季报表
+        /// </summary>
+        public const string ProjectInformation_DrillConductedQuarterlyReportId = "9";
+
+        /// <summary>
+        /// 项目现场应急演练工作计划半年报表
+        /// </summary>
+        public const string ProjectInformation_DrillPlanHalfYearReportId = "10";
         #endregion
 
         #region 移动端菜单

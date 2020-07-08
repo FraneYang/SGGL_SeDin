@@ -9,7 +9,7 @@ namespace BLL
     /// </summary>
     public static class SpecialEquipmentService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取机具设备
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_SpecialEquipment GetSpecialEquipmentById(string specialEquipmentId)
         {
-            return Funs.DB.Base_SpecialEquipment.FirstOrDefault(e => e.SpecialEquipmentId == specialEquipmentId);
+            return new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment.FirstOrDefault(e => e.SpecialEquipmentId == specialEquipmentId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <param name="specialEquipment"></param>
         public static void AddSpecialEquipment(Model.Base_SpecialEquipment specialEquipment)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_SpecialEquipment newSpecialEquipment = new Model.Base_SpecialEquipment
             {
                 SpecialEquipmentId = specialEquipment.SpecialEquipmentId,
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="specialEquipment"></param>
         public static void UpdateSpecialEquipment(Model.Base_SpecialEquipment specialEquipment)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_SpecialEquipment newSpecialEquipment = db.Base_SpecialEquipment.FirstOrDefault(e => e.SpecialEquipmentId == specialEquipment.SpecialEquipmentId);
             if (newSpecialEquipment != null)
             {
@@ -66,7 +66,7 @@ namespace BLL
         /// <param name="specialEquipmentId"></param>
         public static void DeleteSpecialEquipmentById(string specialEquipmentId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_SpecialEquipment specialEquipment = db.Base_SpecialEquipment.FirstOrDefault(e => e.SpecialEquipmentId == specialEquipmentId);
             if (specialEquipment != null)
             {
@@ -81,7 +81,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_SpecialEquipment> GetSpecialEquipmentList(bool isSpecial)
         {
-            return (from x in Funs.DB.Base_SpecialEquipment where x.IsSpecial == isSpecial
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment where x.IsSpecial == isSpecial
                     orderby x.SpecialEquipmentCode select x).ToList();
         }
 
@@ -109,7 +109,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_SpecialEquipment> GetSpecialEquipmentListByType(string type)
         {
-            return (from x in Funs.DB.Base_SpecialEquipment
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment
                     where x.SpecialEquipmentType == type
                     orderby x.SpecialEquipmentCode
                     select x).ToList();

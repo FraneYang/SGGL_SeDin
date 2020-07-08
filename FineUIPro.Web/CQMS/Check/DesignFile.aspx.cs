@@ -113,7 +113,7 @@ namespace FineUIPro.Web.CQMS.Check
                             builder.RowFormat.Height = 20;
                             builder.Bold = false;
                             builder.Font.Size = 7;
-                            var designs = from x in Funs.DB.Check_Design
+                            var designs = from x in new Model.SGGLDB(Funs.ConnString).Check_Design
                                           where x.ProjectId == CurrUser.LoginProjectId && x.State == Const.Design_Complete
                                           && x.MainItemId == drpMainItem.SelectedValue && x.CNProfessionalCode == drpCNProfessional.SelectedValue
                                           select x;

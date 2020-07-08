@@ -67,15 +67,15 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.tvControlItem.Nodes.Add(rootNode2);
             DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
             DateTime endTime = startTime.AddMonths(1);
-            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
-            List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
+            List<Model.PTP_TestPackage> testPackageLists = (from x in new Model.SGGLDB(Funs.ConnString).PTP_TestPackage
                                                             where x.ProjectId == this.CurrUser.LoginProjectId && x.TableDate >= startTime && x.TableDate < endTime
                                                             select x).ToList();
             List<Model.WBS_UnitWork> unitWork1 = null;
@@ -101,7 +101,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -117,7 +117,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -210,12 +210,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.SetTextTemp();
             this.PageInfoLoad(); ///页面输入保存信息
             string strSql = @"SELECT ptp.ProjectId, ptp.PTP_ID,ptpPipe.PT_PipeId, UnitWork.UnitWorkCode,IsoInfo.PipelineCode,
-                                   class.PipingClassCode, IsoInfo.TestPressure,IsoInfo.TestMedium,ser.MediumName
+                                   class.PipingClassCode, IsoInfo.TestPressure,testM.MediumName AS TestMedium,ser.MediumName
                                FROM dbo.PTP_TestPackage AS ptp
                                LEFT JOIN dbo.PTP_PipelineList AS ptpPipe ON ptp.PTP_ID=ptpPipe.PTP_ID
                                LEFT JOIN dbo.HJGL_Pipeline AS IsoInfo ON  IsoInfo.PipelineId = ptpPipe.PipelineId
                                LEFT JOIN WBS_UnitWork AS UnitWork ON IsoInfo.UnitWorkId=UnitWork.UnitWorkId
                                LEFT JOIN dbo.Base_Medium AS ser ON  ser.MediumId = IsoInfo.MediumId
+							   LEFT JOIN dbo.Base_Medium AS testM ON  testM.MediumId = IsoInfo.TestMedium
 							   LEFT JOIN dbo.Base_PipingClass class ON class.PipingClassId = IsoInfo.PipingClassId
                                WHERE ptp.ProjectId= @ProjectId AND ptp.PTP_ID=@PTP_ID";
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -426,10 +427,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnAdd))
             {
-                this.SetTextTemp();
-                string window = String.Format("TestPackageItemEdit.aspx?PTP_ID={0}", string.Empty, "新增 - ");
-                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)
-                  + Window1.GetShowReference(window));
+                if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
+                {
+                    this.SetTextTemp();
+                    string window = String.Format("TestPackageItemEdit.aspx?unitWorkId={0}", this.tvControlItem.SelectedNodeID, "新增 - ");
+                    PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)
+                      + Window1.GetShowReference(window));
+                }
             }
             else
             {

@@ -10,7 +10,7 @@ namespace BLL
 {
     public class CheckControlApproveService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
         /// <summary>
         /// 获取质量巡检模板列表
         /// </summary>
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="CheckControlCode">质量巡检编号</param>
         public static void DeleteCheckControlApprovesByCheckControlCode(string CheckControlCode)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_CheckControlApprove where x.CheckControlCode == CheckControlCode select x).ToList();
             db.Check_CheckControlApprove.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -106,7 +106,7 @@ namespace BLL
         /// <param name="managerRuleApprove">质量巡检审批实体</param>
         public static void UpdateCheckControlApprove(Model.Check_CheckControlApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_CheckControlApprove newApprove = db.Check_CheckControlApprove.First(e => e.CheckControlApproveId == approve.CheckControlApproveId && e.ApproveDate == null);
             newApprove.CheckControlCode = approve.CheckControlCode;
             newApprove.ApproveMan = approve.ApproveMan;
@@ -123,7 +123,7 @@ namespace BLL
         /// <param name="managerRuleApprove">质量巡检审批实体</param>
         public static void AddCheckControlApprove(Model.Check_CheckControlApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_CheckControlApprove));
             Model.Check_CheckControlApprove newApprove = new Model.Check_CheckControlApprove();
             newApprove.CheckControlApproveId = newKeyID;

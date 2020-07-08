@@ -45,10 +45,10 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 strSql += " AND DetectionTypeCode LIKE @DetectionTypeCode";
                 listStr.Add(new SqlParameter("@DetectionTypeCode", "%" + this.txtDetectionTypeCode.Text.Trim() + "%"));
             }
-            if (!string.IsNullOrEmpty(this.txtSysType.Text.Trim()))
+            if (!string.IsNullOrEmpty(this.txtDetectionTypeName.Text.Trim()))
             {
-                strSql += " AND SysType = @SysType";
-                listStr.Add(new SqlParameter("@SysType", this.txtSysType.Text.Trim()));
+                strSql += " AND DetectionTypeName = @DetectionTypeName";
+                listStr.Add(new SqlParameter("@DetectionTypeName", this.txtDetectionTypeName.Text.Trim()));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -230,11 +230,11 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (Funs.DB.Base_WeldType.FirstOrDefault(x => x.DetectionType.Contains(id)) != null)
+            if (new Model.SGGLDB(Funs.ConnString).Base_WeldType.FirstOrDefault(x => x.DetectionType.Contains(id)) != null)
             {
                 content += "已在【管线等级】中使用，不能删除！";
             }
-            if (Funs.DB.HJGL_Pipeline.FirstOrDefault(x => x.DetectionType.Contains(id)) != null)
+            if (new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline.FirstOrDefault(x => x.DetectionType.Contains(id)) != null)
             {
                 content += "已在【管线信息】中使用，不能删除！";
             }

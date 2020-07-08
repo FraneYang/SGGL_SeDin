@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static string ReadIDCardInfo(string url)
         {
-            string access_token = string.Empty;// APICommonService.getaccess_token();
+            string access_token = APICommonService.getaccess_token();
             return APIGetHttpService.Http("https://api.weixin.qq.com/cv/ocr/idcard?type=photo&img_url=" + url + "&access_token=" + access_token, "POST");
         }
     }

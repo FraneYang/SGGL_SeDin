@@ -8,7 +8,7 @@ namespace BLL
     public static class SpecialSchemeService
     {
 
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取专项方案
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Technique_SpecialScheme GetSpecialSchemeListById(string specialSchemeId)
         {
-            return Funs.DB.Technique_SpecialScheme.FirstOrDefault(e => e.SpecialSchemeId == specialSchemeId);
+            return new Model.SGGLDB(Funs.ConnString).Technique_SpecialScheme.FirstOrDefault(e => e.SpecialSchemeId == specialSchemeId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Technique_SpecialScheme> GetSpecialSchemeByCompileMan(string compileMan)
         {
-            return (from x in Funs.DB.Technique_SpecialScheme where x.CompileMan == compileMan select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Technique_SpecialScheme where x.CompileMan == compileMan select x).ToList();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BLL
         /// <param name="specialSchemeList"></param>
         public static void AddSpecialSchemeList(Model.Technique_SpecialScheme specialSchemeList)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_SpecialScheme newSpecialSchemeList = new Model.Technique_SpecialScheme
             {
                 SpecialSchemeId = specialSchemeList.SpecialSchemeId,
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="specialSchemeList"></param>
         public static void UpdateSpecialSchemeList(Model.Technique_SpecialScheme specialSchemeList)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_SpecialScheme newSpecialSchemeList = db.Technique_SpecialScheme.FirstOrDefault(e => e.SpecialSchemeId == specialSchemeList.SpecialSchemeId);
             if (newSpecialSchemeList != null)
             {
@@ -86,7 +86,7 @@ namespace BLL
         /// <param name="specialSchemeList"></param>
         public static void UpdateSpecialSchemeListIsPass(Model.Technique_SpecialScheme specialSchemeList)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_SpecialScheme newSpecialSchemeList = db.Technique_SpecialScheme.FirstOrDefault(e => e.SpecialSchemeId == specialSchemeList.SpecialSchemeId);
             if (newSpecialSchemeList != null)
             {
@@ -103,7 +103,7 @@ namespace BLL
         /// <param name="specialSchemeId"></param>
         public static void DeleteSpecialSchemeListById(string specialSchemeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_SpecialScheme specialSchemeList = db.Technique_SpecialScheme.FirstOrDefault(e => e.SpecialSchemeId == specialSchemeId);
             if (specialSchemeList != null)
             {
@@ -126,7 +126,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsDelteBySpecialSchemeTypeId(string SpecialSchemeTypeId)
         {
-            List<Model.Technique_SpecialScheme> type = (from x in Funs.DB.Technique_SpecialScheme where x.SpecialSchemeTypeId == SpecialSchemeTypeId select x).ToList();
+            List<Model.Technique_SpecialScheme> type = (from x in new Model.SGGLDB(Funs.ConnString).Technique_SpecialScheme where x.SpecialSchemeTypeId == SpecialSchemeTypeId select x).ToList();
             if (type.Count() > 0)
             {
                 return false;

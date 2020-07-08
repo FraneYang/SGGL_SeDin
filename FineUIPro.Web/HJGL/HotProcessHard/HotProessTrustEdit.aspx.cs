@@ -103,11 +103,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             }
             else
             {
-                string workAreaId = Request.Params["workAreaId"];
+                string unitWorkId = Request.Params["unitWorkId"];
 
-                if (!string.IsNullOrEmpty(workAreaId))
+                if (!string.IsNullOrEmpty(unitWorkId))
                 {
-                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(workAreaId);
+                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(unitWorkId);
                     drpUnitId.SelectedValue = w.UnitId;
                     this.drpUnitWork.SelectedValue = w.UnitWorkId;
                 }
@@ -201,7 +201,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     ShowNotify("委托单号已存在，请重新录入!", MessageBoxIcon.Warning);
                     return;
                 }
-                string workAreaId = Request.Params["workAreaId"];
+                string unitWorkId = Request.Params["unitWorkId"];
                 Model.HJGL_HotProess_Trust newHotProessTrust = new Model.HJGL_HotProess_Trust();
                 newHotProessTrust.HotProessTrustNo = this.txtHotProessTrustNo.Text.Trim();
                 newHotProessTrust.ProessDate = Funs.GetNewDateTime(this.txtProessDate.Text.Trim());
@@ -210,7 +210,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     newHotProessTrust.UnitWorkId = this.drpUnitWork.SelectedValue;
                 }
                 newHotProessTrust.ProjectId = this.CurrUser.LoginProjectId;
-                newHotProessTrust.UnitWorkId = workAreaId;
+                newHotProessTrust.UnitWorkId = unitWorkId;
 
                 if (this.drpUnitId.SelectedValue != BLL.Const._Null)
                 {

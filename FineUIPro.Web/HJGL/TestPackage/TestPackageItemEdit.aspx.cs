@@ -53,28 +53,30 @@ namespace FineUIPro.Web.HJGL.TestPackage
             if (!IsPostBack)
             {
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
-                this.PTP_ID = Request.Params["PTP_ID"];                
-                List<Model.Base_Unit> units = new List<Model.Base_Unit>();
-                var pUnit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
+                this.PTP_ID = Request.Params["PTP_ID"];
+                //List<Model.Base_Unit> units = new List<Model.Base_Unit>();
+                //var pUnit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
 
-                if (pUnit == null || pUnit.UnitType == BLL.Const.ProjectUnitType_1 || pUnit.UnitType == BLL.Const.ProjectUnitType_2
-                  || pUnit.UnitType == BLL.Const.ProjectUnitType_5)
-                {
-                    units = (from x in Funs.DB.Base_Unit
-                             join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
-                             where y.ProjectId == this.CurrUser.LoginProjectId && y.UnitType.Contains(BLL.Const.ProjectUnitType_2)
-                             select x).ToList();
-                }
-                else
-                {
-                    units.Add(BLL.UnitService.GetUnitByUnitId(this.CurrUser.UnitId));
-                }
-                ///单位
-                this.drpUnit.DataTextField = "UnitName";
-                this.drpUnit.DataValueField = "UnitId";
-                this.drpUnit.DataSource = units;
-                this.drpUnit.DataBind();
-                Funs.FineUIPleaseSelect(this.drpUnit);
+                //if (pUnit == null || pUnit.UnitType == BLL.Const.ProjectUnitType_1 || pUnit.UnitType == BLL.Const.ProjectUnitType_2
+                //  || pUnit.UnitType == BLL.Const.ProjectUnitType_5)
+                //{
+                //    units = (from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
+                //             join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
+                //             where y.ProjectId == this.CurrUser.LoginProjectId && y.UnitType.Contains(BLL.Const.ProjectUnitType_2)
+                //             select x).ToList();
+                //}
+                //else
+                //{
+                //    units.Add(BLL.UnitService.GetUnitByUnitId(this.CurrUser.UnitId));
+                //}
+                /////单位
+                //this.drpUnit.DataTextField = "UnitName";
+                //this.drpUnit.DataValueField = "UnitId";
+                //this.drpUnit.DataSource = units;
+                //this.drpUnit.DataBind();
+                //Funs.FineUIPleaseSelect(this.drpUnit);
+
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);//单位
                 BLL.UnitWorkService.InitUnitWorkDropDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);
 
                 // 修改人
@@ -91,7 +93,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 BLL.Base_PipingClassService.InitPipingClassDropDownList(drpPipingClass, this.CurrUser.LoginProjectId, true, "请选择");
 
                 listSelects = new List<string>();
-                var list = (from x in Funs.DB.PTP_PipelineList
+                var list = (from x in new Model.SGGLDB(Funs.ConnString).PTP_PipelineList
                             where x.PTP_ID == this.PTP_ID
                             select x).ToList();
                 if (list.Count() > 0)
@@ -123,10 +125,9 @@ namespace FineUIPro.Web.HJGL.TestPackage
 
                 if (!string.IsNullOrEmpty(testPackageManage.UnitWorkId))
                 {
-                    BLL.UnitWorkService.InitUnitWorkDropDownList(drpUnitWork, this.CurrUser.LoginProjectId,true);
+                    //BLL.UnitWorkService.InitUnitWorkDropDownList(drpUnitWork, this.CurrUser.LoginProjectId,true);
                     drpUnitWork.SelectedValue = testPackageManage.UnitWorkId;
-
-                    var UnitWork = this.drpUnitWork.Items.FirstOrDefault(x => x.Value == testPackageManage.UnitWorkId);
+                    //var UnitWork = this.drpUnitWork.Items.FirstOrDefault(x => x.Value == testPackageManage.UnitWorkId);
                 }
                 this.txtTestPackageName.Text = testPackageManage.TestPackageName;
                 //this.txtTestPackageCode.Text = testPackageManage.TestPackageCode;
@@ -172,6 +173,15 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 this.txtModifyDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
                 this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
+
+                string unitWorkId = Request.Params["unitWorkId"];
+                if (!string.IsNullOrEmpty(unitWorkId))
+                {
+                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(unitWorkId);
+                    drpUnit.SelectedValue = w.UnitId;
+                    this.drpUnitWork.SelectedValue = w.UnitWorkId;
+                }
+
                 if (this.CurrUser.UserId != BLL.Const.sysglyId)
                 {
                     this.drpTabler.SelectedValue = this.CurrUser.UserId;
@@ -198,10 +208,18 @@ namespace FineUIPro.Web.HJGL.TestPackage
 								LEFT JOIN dbo.Base_PipingClass class ON class.PipingClassId = IsoInfo.PipingClassId
                                 LEFT JOIN dbo.PTP_PipelineList AS IsoList ON  IsoList.PipelineId = IsoInfo.PipelineId
                               WHERE IsoInfo.ProjectId= @ProjectId 
-				                    AND UnitWork.UnitWorkId= @UnitWorkId AND (IsoList.PTP_ID IS NULL OR IsoList.PTP_ID = @PTP_ID)";
+				                    AND UnitWork.UnitWorkId= @UnitWorkId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            listStr.Add(new SqlParameter("@PTP_ID", this.PTP_ID));
+            if (!string.IsNullOrEmpty(this.PTP_ID))
+            {
+                strSql += " AND (IsoList.PTP_ID IS NULL OR IsoList.PTP_ID = @PTP_ID)";
+                listStr.Add(new SqlParameter("@PTP_ID", this.PTP_ID));
+            }
+            else
+            {
+                strSql += " AND IsoList.PTP_ID IS NULL";
+            }
             listStr.Add(new SqlParameter("@UnitWorkId", this.drpUnitWork.SelectedValue));
             
             

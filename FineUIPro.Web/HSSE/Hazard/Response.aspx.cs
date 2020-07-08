@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -121,7 +122,7 @@ namespace FineUIPro.Web.HSSE.Hazard
 
             this.tvHazardTemplate.Nodes.Add(rootNode);
 
-            var q = (from x in BLL.Funs.DB.Hazard_HazardSelectedItem where x.HazardListId == HazardListId select x.WorkStage).Distinct();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardSelectedItem where x.HazardListId == HazardListId select x.WorkStage).Distinct();
 
             foreach (string work in q)
             {
@@ -258,7 +259,7 @@ namespace FineUIPro.Web.HSSE.Hazard
             {
                 if (tnHazardTemplate.NodeID != "0")
                 {
-                    Model.Technique_HazardListType hazardSortSet = (from x in BLL.Funs.DB.Technique_HazardListType where x.HazardListTypeId == tnHazardTemplate.NodeID orderby x.HazardListTypeCode select x).FirstOrDefault();
+                    Model.Technique_HazardListType hazardSortSet = (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where x.HazardListTypeId == tnHazardTemplate.NodeID orderby x.HazardListTypeCode select x).FirstOrDefault();
                     if (hazardSortSet != null)
                     {
                         if (Convert.ToBoolean(hazardSortSet.IsEndLevel))

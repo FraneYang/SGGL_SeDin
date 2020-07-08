@@ -120,7 +120,7 @@ namespace FineUIPro.Web.Controls
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpPerson, this.ProjectId,this.UnitId, true);
                 this.GroupPanel1.TitleToolTip += BLL.MenuFlowOperateService.GetFlowOperateName(this.getMenuId);
                 this.txtAuditFlowName.Text = "审核/审批";
-                var flowOperate = Funs.DB.Sys_FlowOperate.FirstOrDefault(x => x.DataId == this.getDataId && x.State == BLL.Const.State_2 && x.IsClosed == true);
+                var flowOperate = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.FirstOrDefault(x => x.DataId == this.getDataId && x.State == BLL.Const.State_2 && x.IsClosed == true);
                 if (flowOperate != null)
                 {
                     this.GroupPanel1.Hidden = true;
@@ -133,7 +133,7 @@ namespace FineUIPro.Web.Controls
                     {
                         ///取当前单据审核步骤
                         int nextSortIndex = 1;
-                        var maxFlowOperate = Funs.DB.Sys_FlowOperate.Where(x => x.DataId == this.getDataId && x.IsClosed == false).Max(x => x.SortIndex);
+                        var maxFlowOperate = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.Where(x => x.DataId == this.getDataId && x.IsClosed == false).Max(x => x.SortIndex);
                         if (maxFlowOperate != null)
                         {
                             nextSortIndex = maxFlowOperate.Value;
@@ -143,7 +143,7 @@ namespace FineUIPro.Web.Controls
                             this.txtAuditFlowName.Text = "编制单据";
                         }
 
-                        var nextMenuFlowOperate = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == this.MenuId && x.FlowStep == nextSortIndex);
+                        var nextMenuFlowOperate = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == this.MenuId && x.FlowStep == nextSortIndex);
                         if (nextMenuFlowOperate != null)
                         {
                             this.rblFlowOperate.Enabled = false;
@@ -214,7 +214,7 @@ namespace FineUIPro.Web.Controls
                 this.drpPerson.SelectedValue = Const._Null;
                 this.drpPerson.Hidden = true;
                // this.IsFileCabinetA.Hidden = false;
-                //var codeTemplateRule = Funs.DB.Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == this.getMenuId && x.IsFileCabinetA == true);
+                //var codeTemplateRule = new Model.SGGLDB(Funs.ConnString).Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == this.getMenuId && x.IsFileCabinetA == true);
                 //if (codeTemplateRule != null)
                 //{
                 //    this.IsFileCabinetA.Checked = true;
@@ -224,7 +224,7 @@ namespace FineUIPro.Web.Controls
             {
                 ///取当前单据审核步骤
                 int nextSortIndex = 1;
-                var maxFlowOperate = Funs.DB.Sys_FlowOperate.Where(x => x.DataId == this.getDataId).Max(x => x.SortIndex);
+                var maxFlowOperate = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.Where(x => x.DataId == this.getDataId).Max(x => x.SortIndex);
                 if (maxFlowOperate != null)
                 {
                     nextSortIndex = maxFlowOperate.Value + 1;
@@ -234,7 +234,7 @@ namespace FineUIPro.Web.Controls
                     this.txtAuditFlowName.Text = "编制单据";
                 }
 
-                var nextMenuFlowOperate = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == this.MenuId && x.FlowStep == nextSortIndex);
+                var nextMenuFlowOperate = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == this.MenuId && x.FlowStep == nextSortIndex);
                 if (nextMenuFlowOperate != null && nextMenuFlowOperate.IsFlowEnd != true)
                 {
                     this.txtAuditFlowName.Text = nextMenuFlowOperate.AuditFlowName;
@@ -351,7 +351,7 @@ namespace FineUIPro.Web.Controls
                 newFlowOperate.AuditFlowName += this.txtAuditFlowName.Text;
             }
 
-            var updateFlowOperate = from x in Funs.DB.Sys_FlowOperate
+            var updateFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
                                     where x.DataId == newFlowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                                     select x;
             if (updateFlowOperate.Count() > 0)
@@ -364,13 +364,13 @@ namespace FineUIPro.Web.Controls
                     item.Opinion = newFlowOperate.Opinion;
                     item.AuditFlowName = this.txtAuditFlowName.Text;
                     item.IsClosed = newFlowOperate.IsClosed;
-                    Funs.DB.SubmitChanges();
+                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                 }
             }
             else
             {
                 int maxSortIndex = 1;
-                var flowSet = Funs.DB.Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
+                var flowSet = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
                 var sortIndex = flowSet.Select(x => x.SortIndex).Max();
                 if (sortIndex.HasValue)
                 {
@@ -380,13 +380,13 @@ namespace FineUIPro.Web.Controls
                 newFlowOperate.SortIndex = maxSortIndex;
                 newFlowOperate.OperaterTime = System.DateTime.Now;
                 newFlowOperate.AuditFlowName = this.txtAuditFlowName.Text;                
-                Funs.DB.Sys_FlowOperate.InsertOnSubmit(newFlowOperate);
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.InsertOnSubmit(newFlowOperate);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
 
             if (newFlowOperate.IsClosed == true)
             {
-                var updateNoClosedFlowOperate = from x in Funs.DB.Sys_FlowOperate
+                var updateNoClosedFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
                                         where x.DataId == newFlowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                                         select x;
                 if (updateNoClosedFlowOperate.Count() > 0)
@@ -394,14 +394,14 @@ namespace FineUIPro.Web.Controls
                     foreach (var itemClosed in updateNoClosedFlowOperate)
                     {
                         itemClosed.IsClosed = true;
-                        Funs.DB.SubmitChanges();
+                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                     }
                 }
 
                 if (newFlowOperate.State != BLL.Const.State_2) ///未审核完成的时 增加下一步办理
                 {
                     int maxSortIndex = 1;
-                    var flowSet = Funs.DB.Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
+                    var flowSet = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
                     var sortIndex = flowSet.Select(x => x.SortIndex).Max();
                     if (sortIndex.HasValue)
                     {
@@ -443,8 +443,8 @@ namespace FineUIPro.Web.Controls
                     }
                     newNextFlowOperate.IsClosed = false;
                     newNextFlowOperate.State = BLL.Const.State_1;
-                    Funs.DB.Sys_FlowOperate.InsertOnSubmit(newNextFlowOperate);
-                    Funs.DB.SubmitChanges();
+                    new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.InsertOnSubmit(newNextFlowOperate);
+                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                 }                
             }
         }

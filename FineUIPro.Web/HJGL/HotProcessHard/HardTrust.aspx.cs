@@ -64,11 +64,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
-            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
@@ -96,7 +96,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -111,7 +110,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -130,32 +128,32 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         /// <param name="node"></param>
         private void BindNodes(TreeNode node)
         {
-                List<Model.HJGL_Hard_Trust> trustLists = new List<Model.HJGL_Hard_Trust>();
+            List<Model.HJGL_Hard_Trust> trustLists = new List<Model.HJGL_Hard_Trust>();
 
-                if (!string.IsNullOrEmpty(this.txtSearchNo.Text.Trim()))
-                {
-                    trustLists = (from x in Funs.DB.HJGL_Hard_Trust where x.HardTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HardTrustNo select x).ToList();
-                }
-                else
-                {
-                    trustLists = (from x in Funs.DB.HJGL_Hard_Trust orderby x.HardTrustNo select x).ToList();
-                }
-                
-                var trustList = from x in trustLists
-                                where x.ProjectId == this.CurrUser.LoginProjectId
-                                      && x.UnitWorkId == node.NodeID
-                                select x;
-                foreach (var item in trustList)
-                {
-                    TreeNode newNode = new TreeNode();
-                    newNode.Text = item.HardTrustNo;
-                    newNode.NodeID = item.HardTrustID;
-                    newNode.ToolTip = item.HardTrustNo;
-                    newNode.CommandName = "委托单号";
-                    newNode.EnableClickEvent = true;
+            if (!string.IsNullOrEmpty(this.txtSearchNo.Text.Trim()))
+            {
+                trustLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Trust where x.HardTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HardTrustNo select x).ToList();
+            }
+            else
+            {
+                trustLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Trust orderby x.HardTrustNo select x).ToList();
+            }
+
+            var trustList = from x in trustLists
+                            where x.ProjectId == this.CurrUser.LoginProjectId
+                                  && x.UnitWorkId == node.NodeID
+                            select x;
+            foreach (var item in trustList)
+            {
+                TreeNode newNode = new TreeNode();
+                newNode.Text = item.HardTrustNo;
+                newNode.NodeID = item.HardTrustID;
+                newNode.ToolTip = item.HardTrustNo;
+                newNode.CommandName = "委托单号";
+                newNode.EnableClickEvent = true;
                 node.Nodes.Add(newNode);
-                }
-            
+            }
+
         }
         #endregion
 
@@ -189,19 +187,19 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "委托单号")
             {
-                strSql = @"SELECT * "
-                     + @" FROM dbo.View_HJGL_Hard_TrustItem AS Trust"
-                     + @" WHERE Trust.HardTrustID=@HardTrustID";
+                strSql = @"SELECT * ,(CASE WHEN IsPass=1 THEN '合格' WHEN IsPass=0 THEN '不合格' WHEN IsPass IS NULL THEN '待检测' END) AS checkResult
+                           FROM dbo.View_HJGL_Hard_TrustItem
+                           WHERE HardTrustID=@HardTrustID";
                 listStr.Add(new SqlParameter("@HardTrustID", this.HardTrustID));
             }
             if (!string.IsNullOrEmpty(this.txtPipelineCode.Text.Trim()))
             {
-                strSql += @" and Trust.PipelineCode like @PipelineCode ";
+                strSql += @" and PipelineCode like @PipelineCode ";
                 listStr.Add(new SqlParameter("@PipelineCode", "%" + this.txtPipelineCode.Text.Trim() + "%"));
             }
             if (!string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()))
             {
-                strSql += @" and Trust.WeldJointCode like @WeldJointCode ";
+                strSql += @" and WeldJointCode like @WeldJointCode ";
                 listStr.Add(new SqlParameter("@WeldJointCode", "%" + this.txtWeldJointCode.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();
@@ -222,7 +220,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         private void PageInfoLoad()
         {
             this.SimpleForm1.Reset(); ///重置所有字段
-            var trust = Funs.DB.View_HJGL_Hard_Trust.FirstOrDefault(x => x.HardTrustID == this.HardTrustID);
+            var trust = new Model.SGGLDB(Funs.ConnString).View_HJGL_Hard_Trust.FirstOrDefault(x => x.HardTrustID == this.HardTrustID);
             if (trust != null)
             {
                 this.txtHardTrustNo.Text = trust.HardTrustNo;
@@ -316,14 +314,14 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
                 {
                     this.SetTextTemp();
-                    string window = String.Format("HardTrustEdit.aspx?workAreaId={0}", tvControlItem.SelectedNodeID, "新增 - ");
+                    string window = String.Format("HardTrustEdit.aspx?unitWorkId={0}", tvControlItem.SelectedNodeID, "新增 - ");
                     PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdHardTrustID.ClientID)
                       + Window1.GetShowReference(window));
                 }
 
                 else
                 {
-                    ShowNotify("请选择区域！", MessageBoxIcon.Warning);
+                    ShowNotify("请选择单位工程！", MessageBoxIcon.Warning);
                 }
             }
             else

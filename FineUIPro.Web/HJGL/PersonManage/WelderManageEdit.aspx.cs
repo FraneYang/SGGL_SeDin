@@ -80,6 +80,10 @@ namespace FineUIPro.Web.HJGL.PersonManage
                         }
                         this.txtIdentityCard.Text = welder.IdentityCard;
                         this.txtCertificateCode.Text = welder.CertificateCode;
+                        if (string.IsNullOrEmpty(welder.CertificateCode))
+                        {
+                            this.txtCertificateCode.Text = welder.IdentityCard;
+                        }
                         if (welder.CertificateLimitTime.HasValue)
                         {
                             this.txtCertificateLimitTime.Text = string.Format("{0:yyyy-MM-dd}", welder.CertificateLimitTime);
@@ -125,7 +129,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string PersonId = Request.Params["PersonId"];
-            var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtWelderCode.Text.Trim()
+            var q = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtWelderCode.Text.Trim()
            && (x.PersonId != PersonId || (PersonId == null && PersonId != null)));
             if (q != null)
             {

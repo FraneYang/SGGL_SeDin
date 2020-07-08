@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TrainTypeService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取培训类型
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_TrainType GetTrainTypeById(string trainTypeId)
         {
-            return Funs.DB.Base_TrainType.FirstOrDefault(e => e.TrainTypeId == trainTypeId);
+            return new Model.SGGLDB(Funs.ConnString).Base_TrainType.FirstOrDefault(e => e.TrainTypeId == trainTypeId);
         }
         
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="trainType"></param>
         public static void AddTrainType(Model.Base_TrainType trainType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_TrainType newTrainType = new Model.Base_TrainType
             {
                 TrainTypeId = trainType.TrainTypeId,
@@ -48,7 +48,7 @@ namespace BLL
         /// <param name="trainType"></param>
         public static void UpdateTrainType(Model.Base_TrainType trainType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_TrainType newTrainType = db.Base_TrainType.FirstOrDefault(e => e.TrainTypeId == trainType.TrainTypeId);
             if (newTrainType != null)
             {
@@ -67,7 +67,7 @@ namespace BLL
         /// <param name="trainTypeId"></param>
         public static void DeleteTrainTypeById(string trainTypeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_TrainType trainType = db.Base_TrainType.FirstOrDefault(e => e.TrainTypeId == trainTypeId);
             if (trainType != null)
             {
@@ -90,7 +90,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_TrainType> GetTrainTypeList()
         {
-            return (from x in Funs.DB.Base_TrainType orderby x.TrainTypeCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_TrainType orderby x.TrainTypeCode select x).ToList();
         }
         
         /// <summary>
@@ -99,7 +99,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_TrainType> GetIsAboutSendCardTrainTypeList()
         {
-            return (from x in Funs.DB.Base_TrainType where x.IsAboutSendCard == true orderby x.TrainTypeCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_TrainType where x.IsAboutSendCard == true orderby x.TrainTypeCode select x).ToList();
         }
 
         #region 培训类型下拉框
@@ -129,7 +129,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_TrainTypeItem GetTrainTypeItemById(string trainTypeItemId)
         {
-            return Funs.DB.Base_TrainTypeItem.FirstOrDefault(e => e.TrainTypeItemId == trainTypeItemId);
+            return new Model.SGGLDB(Funs.ConnString).Base_TrainTypeItem.FirstOrDefault(e => e.TrainTypeItemId == trainTypeItemId);
         }
         /// <summary>
         /// 获取培训类型题型数量列表
@@ -137,7 +137,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_TrainTypeItem> GetTrainTypeItemList()
         {
-            return (from x in Funs.DB.Base_TrainTypeItem select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_TrainTypeItem select x).ToList();
         }
         /// <summary>
         /// 添加培训类型题型数量
@@ -145,7 +145,7 @@ namespace BLL
         /// <param name="getTrainTypeItem"></param>
         public static void AddTrainTypeItem(Model.Base_TrainTypeItem getTrainTypeItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_TrainTypeItem newTrainTypeItem = new Model.Base_TrainTypeItem
             {
                 TrainTypeItemId = SQLHelper.GetNewID(),
@@ -165,7 +165,7 @@ namespace BLL
         /// <param name="trainTypeId"></param>
         public static void DeleteTrainTypeItemById(string trainTypeItemId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_TrainTypeItem delTrainTypeItem = db.Base_TrainTypeItem.FirstOrDefault(e => e.TrainTypeItemId == trainTypeItemId);
             if (delTrainTypeItem != null)
             {

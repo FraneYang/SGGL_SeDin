@@ -48,7 +48,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                         this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulationIdentify.IdentifyDate);
                     }
                     this.txtRemark.Text = lawRegulationIdentify.Remark;
-                    this.Grid1.DataSource = from x in Funs.DB.View_Law_LawRegulationSelectedItem where x.LawRegulationIdentifyId == LawRegulationIdentifyId orderby x.LawRegulationCode select x;
+                    this.Grid1.DataSource = from x in new Model.SGGLDB(Funs.ConnString).View_Law_LawRegulationSelectedItem where x.LawRegulationIdentifyId == LawRegulationIdentifyId orderby x.LawRegulationCode select x;
                     this.Grid1.DataBind();
                 }
                 ///初始化审核菜单
@@ -83,7 +83,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
             this.Grid1.PageSize = 500;
-            this.Grid1.DataSource = from x in Funs.DB.View_Law_LawRegulationSelectedItem where x.LawRegulationIdentifyId == LawRegulationIdentifyId orderby x.LawRegulationCode select x;
+            this.Grid1.DataSource = from x in new Model.SGGLDB(Funs.ConnString).View_Law_LawRegulationSelectedItem where x.LawRegulationIdentifyId == LawRegulationIdentifyId orderby x.LawRegulationCode select x;
             this.Grid1.DataBind();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();

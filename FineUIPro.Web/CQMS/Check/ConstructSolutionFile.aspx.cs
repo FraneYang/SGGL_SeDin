@@ -258,7 +258,7 @@ namespace FineUIPro.Web.CQMS.Check
                         bookmarkSolutionType.Text = "□施工组织设计   □专项施工方案   ■施工方案";
                     }
                 }
-                var reDate = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_ReCompile orderby x.ApproveDate descending select x.ApproveDate).FirstOrDefault();
+                var reDate = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_ReCompile orderby x.ApproveDate descending select x.ApproveDate).FirstOrDefault();
                 List<Model.Solution_CQMSConstructSolutionApprove> approves1 = new List<Model.Solution_CQMSConstructSolutionApprove>();
                 List<Model.Solution_CQMSConstructSolutionApprove> approves2 = new List<Model.Solution_CQMSConstructSolutionApprove>();
                 List<Model.Solution_CQMSConstructSolutionApprove> approves3 = new List<Model.Solution_CQMSConstructSolutionApprove>();
@@ -267,21 +267,21 @@ namespace FineUIPro.Web.CQMS.Check
                 List<Model.Solution_CQMSConstructSolutionApprove> approves6 = new List<Model.Solution_CQMSConstructSolutionApprove>();
                 if (reDate == null)   //没有重新编制
                 {
-                    approves1 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "ZY" orderby x.ApproveDate descending select x).ToList();
-                    approves2 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "ZL" orderby x.ApproveDate descending select x).ToList();
-                    approves3 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "AQ" orderby x.ApproveDate descending select x).ToList();
-                    approves4 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "KZ" orderby x.ApproveDate descending select x).ToList();
-                    approves5 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "SG" orderby x.ApproveDate descending select x).ToList();
-                    approves6 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "XM" orderby x.ApproveDate descending select x).ToList();
+                    approves1 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "ZY" orderby x.ApproveDate descending select x).ToList();
+                    approves2 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "ZL" orderby x.ApproveDate descending select x).ToList();
+                    approves3 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "AQ" orderby x.ApproveDate descending select x).ToList();
+                    approves4 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "KZ" orderby x.ApproveDate descending select x).ToList();
+                    approves5 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "SG" orderby x.ApproveDate descending select x).ToList();
+                    approves6 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "XM" orderby x.ApproveDate descending select x).ToList();
                 }
                 else
                 {
-                    approves1 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "ZY" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
-                    approves2 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "ZL" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
-                    approves3 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "AQ" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
-                    approves4 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "KZ" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
-                    approves5 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "SG" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
-                    approves6 = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "XM" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
+                    approves1 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "ZY" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
+                    approves2 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "ZL" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
+                    approves3 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "AQ" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
+                    approves4 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "KZ" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
+                    approves5 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "SG" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
+                    approves6 = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_Audit && x.SignType == "XM" && x.ApproveDate > reDate orderby x.ApproveDate descending select x).ToList();
                 }
                 if (approves1.Count > 0)
                 {

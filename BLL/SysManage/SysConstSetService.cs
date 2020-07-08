@@ -14,7 +14,7 @@
         public static int getPassScore()
         {
             int passScore = 80;
-            var testRule = Funs.DB.Sys_TestRule.FirstOrDefault();
+            var testRule = new Model.SGGLDB(Funs.ConnString).Sys_TestRule.FirstOrDefault();
             if (testRule != null)
             {
                 passScore = testRule.PassingScore;
@@ -30,7 +30,7 @@
         /// <returns></returns>
         public static Model.Sys_CodeTemplateRule GetCodeTemplateRuleByMenuId(string menuId)
         {
-            return Funs.DB.Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId);
+            return new Model.SGGLDB(Funs.ConnString).Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId);
         }
         
         /// <summary>
@@ -39,7 +39,7 @@
         /// <param name="codeTemplateRule"></param>
         public static void AddCodeTemplateRule(Model.Sys_CodeTemplateRule codeTemplateRule)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_CodeTemplateRule newCodeTemplateRule = new Model.Sys_CodeTemplateRule
             {
                 CodeTemplateRuleId = SQLHelper.GetNewID(typeof(Model.Sys_CodeTemplateRule)),
@@ -63,7 +63,7 @@
         /// <param name="codeTemplateRule"></param>
         public static void UpdateCodeTemplateRule(Model.Sys_CodeTemplateRule codeTemplateRule)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_CodeTemplateRule updateCodeTemplateRule = db.Sys_CodeTemplateRule.FirstOrDefault(e => e.MenuId == codeTemplateRule.MenuId);
             if (updateCodeTemplateRule != null)
             {
@@ -88,7 +88,7 @@
         /// <returns></returns>
         public static Model.Sys_MenuFlowOperate GetMenuFlowOperateByMenuId(string menuId)
         {
-            return Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == menuId);
+            return new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == menuId);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@
         /// <param name="MenuFlowOperate"></param>
         public static void AddMenuFlowOperate(Model.Sys_MenuFlowOperate MenuFlowOperate)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_MenuFlowOperate newMenuFlowOperate = new Model.Sys_MenuFlowOperate
             {
                 FlowOperateId = SQLHelper.GetNewID(typeof(Model.Sys_MenuFlowOperate)),
@@ -117,7 +117,7 @@
         /// <param name="MenuFlowOperate"></param>
         public static void UpdateMenuFlowOperate(Model.Sys_MenuFlowOperate MenuFlowOperate)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_MenuFlowOperate updateMenuFlowOperate = db.Sys_MenuFlowOperate.FirstOrDefault(e => e.MenuId == MenuFlowOperate.MenuId);
             if (updateMenuFlowOperate != null)
             {
@@ -136,11 +136,11 @@
         /// <param name="audiFlowId"></param>
         public static void DeleteMenuFlowOperateByFlowOperateId(string flowOperateId)
         {
-            var flow = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(e => e.FlowOperateId == flowOperateId);
+            var flow = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(e => e.FlowOperateId == flowOperateId);
             if (flow != null)
             {
-                Funs.DB.Sys_MenuFlowOperate.DeleteOnSubmit(flow);
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.DeleteOnSubmit(flow);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
 
@@ -152,13 +152,13 @@
         /// <returns></returns>
         public static void DeleteMenuFlowOperateLicense(string flowOperateId)
         {
-            var delteFlow = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
+            var delteFlow = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
             if (delteFlow != null)
             {
-                var isSort = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowStep == delteFlow.FlowStep);
+                var isSort = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowStep == delteFlow.FlowStep);
                 if (isSort == null)
                 {
-                    var updateSort = from x in Funs.DB.Sys_MenuFlowOperate
+                    var updateSort = from x in new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate
                                      where  x.FlowStep > delteFlow.FlowStep
                                      select x;
                     foreach (var item in updateSort)
@@ -168,10 +168,10 @@
                 }
                 else
                 {
-                    var isGroup = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowStep == delteFlow.FlowStep && x.GroupNum == delteFlow.GroupNum);
+                    var isGroup = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowStep == delteFlow.FlowStep && x.GroupNum == delteFlow.GroupNum);
                     if (isGroup == null)
                     {
-                        var updateGroup = from x in Funs.DB.Sys_MenuFlowOperate
+                        var updateGroup = from x in new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate
                                           where x.FlowStep == delteFlow.FlowStep && x.GroupNum > delteFlow.GroupNum
                                           select x;
                         foreach (var item in updateGroup)
@@ -181,7 +181,7 @@
                     }
                     else
                     {
-                        var isOrder = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x =>  x.FlowStep == delteFlow.FlowStep && x.GroupNum == delteFlow.GroupNum && x.OrderNum > delteFlow.OrderNum);
+                        var isOrder = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x =>  x.FlowStep == delteFlow.FlowStep && x.GroupNum == delteFlow.GroupNum && x.OrderNum > delteFlow.OrderNum);
                         if (isOrder != null)
                         {
                             isOrder.OrderNum -= 1;
@@ -189,8 +189,8 @@
                     }
                 }
 
-                Funs.DB.Sys_MenuFlowOperate.DeleteOnSubmit(delteFlow);
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.DeleteOnSubmit(delteFlow);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
         #endregion

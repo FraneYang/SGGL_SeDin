@@ -18,6 +18,7 @@
 <TreeNode id="56960940-81A8-43D1-9565-C306EC7AFD12" Text="安全管理规定" NavigateUrl="HSSE/Law/ManageRule.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="2B49BFE2-734F-489E-91B9-D05F02E1976D" Text="安全体系" NavigateUrl=""><TreeNode id="1DB91420-47D3-4219-AAB4-7E613FCBCC90" Text="安全主体责任" NavigateUrl="HSSE/HSSESystem/HSSEMainDuty.aspx"></TreeNode>
+<TreeNode id="499E23C1-057C-4B04-B92A-973B1DACD546" Text="安全制度" NavigateUrl="HSSE/HSSESystem/SafetyInstitution.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="E26D223B-4CA2-4A6D-82D0-224CC9C8676D" Text="安全教育" NavigateUrl=""><TreeNode id="9D99A981-7380-4085-84FA-8C3B1AFA6202" Text="培训教材库" NavigateUrl="HSSE/EduTrain/TrainDB.aspx"></TreeNode>
 <TreeNode id="9D4F76A1-CD2E-4E66-B833-49425CD879EB" Text="公司教材库" NavigateUrl="HSSE/EduTrain/CompanyTraining.aspx"></TreeNode>

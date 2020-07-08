@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class SubUnitQualityAuditDetailService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取分包商资质审查明细
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_SubUnitQualityAuditDetail GetSubUnitQualityAuditDetailById(string auditDetailId)
         {
-            return Funs.DB.QualityAudit_SubUnitQualityAuditDetail.FirstOrDefault(e => e.AuditDetailId == auditDetailId);
+            return new Model.SGGLDB(Funs.ConnString).QualityAudit_SubUnitQualityAuditDetail.FirstOrDefault(e => e.AuditDetailId == auditDetailId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_SubUnitQualityAuditDetail GetSubUnitQualityAuditDetailByUnitId(string unitId)
         {
-            return Funs.DB.QualityAudit_SubUnitQualityAuditDetail.FirstOrDefault(e => e.UnitId == unitId);
+            return new Model.SGGLDB(Funs.ConnString).QualityAudit_SubUnitQualityAuditDetail.FirstOrDefault(e => e.UnitId == unitId);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.QualityAudit_SubUnitQualityAuditDetail> GetListByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in Funs.DB.QualityAudit_SubUnitQualityAuditDetail where x.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_SubUnitQualityAuditDetail where x.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).ToList();
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            var q = (from x in Funs.DB.QualityAudit_SubUnitQualityAuditDetail where x.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_SubUnitQualityAuditDetail where x.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).ToList();
             return q.Count();
         }
 
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="auditDetail"></param>
         public static void AddSubUnitQualityAuditDetail(Model.QualityAudit_SubUnitQualityAuditDetail auditDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.QualityAudit_SubUnitQualityAuditDetail newSubUnitQualityAuditDetail = new Model.QualityAudit_SubUnitQualityAuditDetail
             {
                 AuditDetailId = auditDetail.AuditDetailId,
@@ -84,7 +84,7 @@ namespace BLL
         /// <param name="auditDetail"></param>
         public static void UpdateSubUnitQualityAuditDetail(Model.QualityAudit_SubUnitQualityAuditDetail auditDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.QualityAudit_SubUnitQualityAuditDetail newSubUnitQualityAuditDetail = db.QualityAudit_SubUnitQualityAuditDetail.FirstOrDefault(e => e.AuditDetailId == auditDetail.AuditDetailId);
             if (newSubUnitQualityAuditDetail != null)
             {
@@ -102,7 +102,7 @@ namespace BLL
         /// <param name="auditDetailId"></param>
         public static void DeleteSubUnitQualityAuditDetailById(string auditDetailId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.QualityAudit_SubUnitQualityAuditDetail auditDetail = db.QualityAudit_SubUnitQualityAuditDetail.FirstOrDefault(e => e.AuditDetailId == auditDetailId);
             if (auditDetail != null)
             {

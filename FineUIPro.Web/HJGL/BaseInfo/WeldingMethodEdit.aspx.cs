@@ -63,14 +63,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_WeldingMethod.FirstOrDefault(x => x.WeldingMethodCode == this.txtWeldingMethodCode.Text.Trim() && (x.WeldingMethodId != this.WeldingMethodId || (this.WeldingMethodId == null && x.WeldingMethodId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_WeldingMethod.FirstOrDefault(x => x.WeldingMethodCode == this.txtWeldingMethodCode.Text.Trim() && (x.WeldingMethodId != this.WeldingMethodId || (this.WeldingMethodId == null && x.WeldingMethodId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此焊接方法代码已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = Funs.DB.Base_WeldingMethod.FirstOrDefault(x => x.WeldingMethodName == this.txtWeldingMethodName.Text.Trim() && (x.WeldingMethodId != this.WeldingMethodId || (this.WeldingMethodId == null && x.WeldingMethodId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_WeldingMethod.FirstOrDefault(x => x.WeldingMethodName == this.txtWeldingMethodName.Text.Trim() && (x.WeldingMethodId != this.WeldingMethodId || (this.WeldingMethodId == null && x.WeldingMethodId != null)));
             if (q2 != null)
             {
                 Alert.ShowInTop("此焊接方法名称已经存在！", MessageBoxIcon.Warning);

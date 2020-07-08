@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_WeldingLocation GetWeldingLocationById(string weldingLocationId)
         {
-            return Funs.DB.Base_WeldingLocation.FirstOrDefault(e => e.WeldingLocationId == weldingLocationId);
+            return new Model.SGGLDB(Funs.ConnString).Base_WeldingLocation.FirstOrDefault(e => e.WeldingLocationId == weldingLocationId);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <param name="weldingLocation"></param>
         public static void AddWeldingLocation(Model.Base_WeldingLocation weldingLocation)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_WeldingLocation newWeldingLocation = new Model.Base_WeldingLocation();
             newWeldingLocation.WeldingLocationId = weldingLocation.WeldingLocationId;
             newWeldingLocation.WeldingLocationCode = weldingLocation.WeldingLocationCode;
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="weldingLocation"></param>
         public static void UpdateWeldingLocation(Model.Base_WeldingLocation weldingLocation)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_WeldingLocation newWeldingLocation = db.Base_WeldingLocation.FirstOrDefault(e => e.WeldingLocationId == weldingLocation.WeldingLocationId);
             if (newWeldingLocation != null)
             {
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="weldingLocationId"></param>
         public static void DeleteWeldingLocationById(string weldingLocationId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_WeldingLocation weldingLocation = db.Base_WeldingLocation.FirstOrDefault(e => e.WeldingLocationId == weldingLocationId);
             if (weldingLocation != null)
             {
@@ -72,7 +72,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_WeldingLocation> GetWeldingLocationList()
         {
-            return (from x in Funs.DB.Base_WeldingLocation orderby x.WeldingLocationCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_WeldingLocation orderby x.WeldingLocationCode select x).ToList();
         }
 
         /// <summary>

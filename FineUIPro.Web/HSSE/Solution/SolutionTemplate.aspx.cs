@@ -225,12 +225,12 @@ namespace FineUIPro.Web.HSSE.Solution
         /// <param name="e"></param>
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            projectSolutionTempletes = (from x in Funs.DB.Technique_ProjectSolutionTemplete orderby x.TempleteCode select x).ToList();
+            projectSolutionTempletes = (from x in new Model.SGGLDB(Funs.ConnString).Technique_ProjectSolutionTemplete orderby x.TempleteCode select x).ToList();
             if (projectSolutionTempletes.Count > 0)
             {
                 foreach (var item in projectSolutionTempletes)
                 {
-                    Model.Solution_SolutionTemplate slt = Funs.DB.Solution_SolutionTemplate.FirstOrDefault(x => x.SolutionTemplateId == item.TempleteId);
+                    Model.Solution_SolutionTemplate slt = new Model.SGGLDB(Funs.ConnString).Solution_SolutionTemplate.FirstOrDefault(x => x.SolutionTemplateId == item.TempleteId);
                     if (slt == null)
                     {
                         Model.Solution_SolutionTemplate solutionTemplate = new Model.Solution_SolutionTemplate

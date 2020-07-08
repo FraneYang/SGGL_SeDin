@@ -55,8 +55,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 ///委托人
                 this.drpHardTrustMan.DataValueField = "UserId";
                 this.drpHardTrustMan.DataTextField = "UserName";
-                this.drpHardTrustMan.DataSource = from x in Funs.DB.Sys_User
-                                                  join y in Funs.DB.Project_ProjectUser
+                this.drpHardTrustMan.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
+                                                  join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
                                                   on x.UserId equals y.UserId
                                                   where y.ProjectId == this.ProjectId
                                                   select x;
@@ -76,11 +76,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         private void PageInfoLoad()
         {
             var trust = BLL.Hard_TrustService.GetHardTrustById(this.HardTrustID);
+            BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpHardTrustUnit, this.ProjectId, BLL.Const.ProjectUnitType_2, true);
+            BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpCheckUnit, this.ProjectId, BLL.Const.ProjectUnitType_5, true);
+            BLL.UnitWorkService.InitUnitWorkDownList(this.drpUnitWork, this.ProjectId,true);
             if (trust != null)
             {
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpHardTrustUnit, this.ProjectId, BLL.Const.ProjectUnitType_2, true);
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpCheckUnit, this.ProjectId, BLL.Const.ProjectUnitType_5, true);
-                BLL.UnitWorkService.InitUnitWorkDownList(this.drpUnitWork, this.ProjectId,true);
                 this.txtHardTrustNo.Text = trust.HardTrustNo;
                 if (!string.IsNullOrEmpty(trust.HardTrustUnit))
                 {
@@ -114,16 +114,19 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             }
             else
             {
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpHardTrustUnit, this.ProjectId, BLL.Const.ProjectUnitType_2,true);
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpCheckUnit, this.ProjectId, BLL.Const.ProjectUnitType_5,true);
-                BLL.UnitWorkService.InitUnitWorkDownList(this.drpUnitWork, this.ProjectId, true);
+                string unitWorkId = Request.Params["unitWorkId"];
 
-                string workAreaId = Request.Params["workAreaId"];
-
-                if (!string.IsNullOrEmpty(workAreaId))
+                if (!string.IsNullOrEmpty(unitWorkId))
                 {
-                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(workAreaId);
-                    drpHardTrustUnit.SelectedValue = w.UnitId;
+                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(unitWorkId);
+                    if (w.UnitId != null)
+                    {
+                        drpHardTrustUnit.SelectedValue = w.UnitId;
+                    }
+                    if (w.NDEUnit != null)
+                    {
+                        drpCheckUnit.SelectedValue = w.NDEUnit;
+                    }
                     this.drpUnitWork.SelectedValue = w.UnitWorkId;
                 }
 
@@ -186,7 +189,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     return;
                 }
 
-                string workAreaId = Request.Params["workAreaId"];
+                string unitWorkId = Request.Params["unitWorkId"];
                 Model.HJGL_Hard_Trust newHardTrust = new Model.HJGL_Hard_Trust();
                 newHardTrust.HardTrustNo = this.txtHardTrustNo.Text.Trim();
                 newHardTrust.ProjectId = this.ProjectId;
@@ -195,7 +198,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     newHardTrust.HardTrustUnit = this.drpHardTrustUnit.SelectedValue;
                 }
 
-                newHardTrust.UnitWorkId = workAreaId;
+                newHardTrust.UnitWorkId = unitWorkId;
 
                 if (this.drpCheckUnit.SelectedValue != BLL.Const._Null)
                 {

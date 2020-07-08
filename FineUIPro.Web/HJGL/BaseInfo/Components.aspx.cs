@@ -228,7 +228,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            //if (Funs.DB.Pipeline_WeldJoint.FirstOrDefault(x => x.PipeAssembly1Id == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Pipeline_WeldJoint.FirstOrDefault(x => x.PipeAssembly1Id == id) != null)
             //{
             //    content += "已在【焊口信息】中使用，不能删除！";
             //}

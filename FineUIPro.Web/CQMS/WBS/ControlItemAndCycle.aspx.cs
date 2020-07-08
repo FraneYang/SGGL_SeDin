@@ -79,14 +79,14 @@ namespace FineUIPro.Web.CQMS.WBS
             List<Model.WBS_WorkPackageProject> workPackages = new List<Model.WBS_WorkPackageProject>();
             if (parentId.Length == 1) //工程类型节点
             {
-                workPackages = (from x in BLL.Funs.DB.WBS_WorkPackageProject
+                workPackages = (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject
                                 where x.SuperWorkPack == null && x.ProjectId == this.CurrUser.LoginProjectId && x.ProjectType == parentId
                                 orderby x.PackageCode ascending
                                 select x).ToList();
             }
             else
             {
-                workPackages = (from x in BLL.Funs.DB.WBS_WorkPackageProject
+                workPackages = (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject
                                 where x.SuperWorkPack == parentId && x.ProjectId == this.CurrUser.LoginProjectId
                                 orderby x.PackageCode ascending
                                 select x).ToList();
@@ -120,7 +120,7 @@ namespace FineUIPro.Web.CQMS.WBS
             e.Node.Nodes.Clear();
             if (e.Node.CommandName == "ProjectType")   //展开工程类型
             {
-                var trUnitWork = from x in BLL.Funs.DB.WBS_UnitWork
+                var trUnitWork = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                  where x.ProjectId == this.CurrUser.LoginProjectId && x.SuperUnitWork == null && x.ProjectType == e.Node.NodeID
                                  select x;
                 trUnitWork = trUnitWork.OrderBy(x => x.UnitWorkCode);
@@ -152,7 +152,7 @@ namespace FineUIPro.Web.CQMS.WBS
             }
             else if (e.Node.CommandName == "UnitWork")   //展开单位工程节点
             {
-                var workPackages = from x in Funs.DB.WBS_WorkPackage where x.UnitWorkId == e.NodeID && x.SuperWorkPack == null && x.IsApprove == true orderby x.WorkPackageCode select x;
+                var workPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.UnitWorkId == e.NodeID && x.SuperWorkPack == null && x.IsApprove == true orderby x.WorkPackageCode select x;
                 foreach (var workPackage in workPackages)
                 {
                     TreeNode newNode = new TreeNode();
@@ -167,7 +167,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     newNode.EnableExpandEvent = true;
                     newNode.EnableClickEvent = true;
                     e.Node.Nodes.Add(newNode);
-                    var childWorkPackages = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackage.WorkPackageId && x.IsApprove == true select x;
+                    var childWorkPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackage.WorkPackageId && x.IsApprove == true select x;
                     if (childWorkPackages.Count() > 0)
                     {
                         TreeNode emptyNode = new TreeNode();
@@ -179,7 +179,7 @@ namespace FineUIPro.Web.CQMS.WBS
             }
             else if (e.Node.CommandName == "WorkPackage")   //展开工作包节点
             {
-                var workPackages = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == e.Node.NodeID && x.IsApprove == true orderby x.WorkPackageCode select x;
+                var workPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == e.Node.NodeID && x.IsApprove == true orderby x.WorkPackageCode select x;
                 if (workPackages.Count() > 0)   //存在子单位工程
                 {
                     foreach (var workPackage in workPackages)
@@ -196,7 +196,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         newNode.EnableExpandEvent = true;
                         newNode.EnableClickEvent = true;
                         e.Node.Nodes.Add(newNode);
-                        var childWorkPackages = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackage.WorkPackageId && x.IsApprove == true select x;
+                        var childWorkPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackage.WorkPackageId && x.IsApprove == true select x;
                         if (childWorkPackages.Count() > 0)
                         {
                             TreeNode emptyNode = new TreeNode();
@@ -372,7 +372,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         {
                             this.trWBS.SelectedNode.Expanded = true;
                             this.trWBS.SelectedNode.Nodes.Clear();
-                            var workPackages = from x in Funs.DB.WBS_WorkPackage where x.UnitWorkId == this.trWBS.SelectedNodeID && x.SuperWorkPack == null && x.IsApprove == true orderby x.WorkPackageCode select x;
+                            var workPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.UnitWorkId == this.trWBS.SelectedNodeID && x.SuperWorkPack == null && x.IsApprove == true orderby x.WorkPackageCode select x;
                             foreach (var workPackage in workPackages)
                             {
                                 TreeNode newNode = new TreeNode();
@@ -387,7 +387,7 @@ namespace FineUIPro.Web.CQMS.WBS
                                 newNode.EnableExpandEvent = true;
                                 newNode.EnableClickEvent = true;
                                 this.trWBS.SelectedNode.Nodes.Add(newNode);
-                                var childWorkPackages = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackage.WorkPackageId && x.IsApprove == true select x;
+                                var childWorkPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackage.WorkPackageId && x.IsApprove == true select x;
                                 if (childWorkPackages.Count() > 0)
                                 {
                                     newNode.Expanded = true;
@@ -425,7 +425,7 @@ namespace FineUIPro.Web.CQMS.WBS
         /// <param name="parentId"></param>
         private void ExpandWorkPackage(TreeNodeCollection nodes, string parentId)
         {
-            var workPackages = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == parentId && x.IsApprove == true orderby x.WorkPackageCode select x;
+            var workPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == parentId && x.IsApprove == true orderby x.WorkPackageCode select x;
             if (workPackages.Count() > 0)   //存在子单位工程
             {
                 foreach (var workPackage in workPackages)
@@ -442,7 +442,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     newNode.EnableExpandEvent = true;
                     newNode.EnableClickEvent = true;
                     nodes.Add(newNode);
-                    var childWorkPackages = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackage.WorkPackageId && x.IsApprove == true select x;
+                    var childWorkPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackage.WorkPackageId && x.IsApprove == true select x;
                     if (childWorkPackages.Count() > 0)
                     {
                         newNode.Expanded = true;
@@ -1032,7 +1032,7 @@ namespace FineUIPro.Web.CQMS.WBS
                 if (rootNode.NodeID == projectType)
                 {
                     rootNode.Expanded = true;
-                    var trUnitWork = from x in BLL.Funs.DB.WBS_UnitWork
+                    var trUnitWork = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                      where x.ProjectId == this.CurrUser.LoginProjectId && x.SuperUnitWork == null && x.ProjectType == projectType
                                      select x;
                     trUnitWork = trUnitWork.OrderBy(x => x.UnitWorkCode);
@@ -1057,7 +1057,7 @@ namespace FineUIPro.Web.CQMS.WBS
                                 if (newNode.NodeID == unitWorkId)
                                 {
                                     newNode.Expanded = true;
-                                    var workPackage1s = from x in Funs.DB.WBS_WorkPackage where x.UnitWorkId == newNode.NodeID && x.SuperWorkPack == null && x.IsApprove == true orderby x.WorkPackageCode select x;
+                                    var workPackage1s = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.UnitWorkId == newNode.NodeID && x.SuperWorkPack == null && x.IsApprove == true orderby x.WorkPackageCode select x;
                                     foreach (var workPackage1 in workPackage1s)
                                     {
                                         TreeNode newNode1 = new TreeNode();
@@ -1075,7 +1075,7 @@ namespace FineUIPro.Web.CQMS.WBS
                                         if (newNode1.NodeID == workPackageId1)
                                         {
                                             newNode1.Expanded = true;
-                                            var workPackage2s = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackage1.WorkPackageId && x.IsApprove == true orderby x.WorkPackageCode select x;
+                                            var workPackage2s = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackage1.WorkPackageId && x.IsApprove == true orderby x.WorkPackageCode select x;
                                             if (workPackage2s.Count() > 0)
                                             {
                                                 foreach (var workPackage2 in workPackage2s)
@@ -1095,7 +1095,7 @@ namespace FineUIPro.Web.CQMS.WBS
                                                     if (newNode2.NodeID == workPackageId2)
                                                     {
                                                         newNode2.Expanded = true;
-                                                        var workPackage3s = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackage2.WorkPackageId && x.IsApprove == true orderby x.WorkPackageCode select x;
+                                                        var workPackage3s = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackage2.WorkPackageId && x.IsApprove == true orderby x.WorkPackageCode select x;
                                                         if (workPackage3s.Count() > 0)
                                                         {
                                                             foreach (var workPackage3 in workPackage3s)
@@ -1117,7 +1117,7 @@ namespace FineUIPro.Web.CQMS.WBS
                                                     }
                                                     else
                                                     {
-                                                        var workPackage3s = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackage2.WorkPackageId && x.IsApprove == true select x;
+                                                        var workPackage3s = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackage2.WorkPackageId && x.IsApprove == true select x;
                                                         if (workPackage3s.Count() > 0)
                                                         {
                                                             TreeNode emptyNode = new TreeNode();
@@ -1131,7 +1131,7 @@ namespace FineUIPro.Web.CQMS.WBS
                                         }
                                         else
                                         {
-                                            var workPackage2s = from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackage1.WorkPackageId && x.IsApprove == true select x;
+                                            var workPackage2s = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackage1.WorkPackageId && x.IsApprove == true select x;
                                             if (workPackage2s.Count() > 0)
                                             {
                                                 TreeNode emptyNode = new TreeNode();

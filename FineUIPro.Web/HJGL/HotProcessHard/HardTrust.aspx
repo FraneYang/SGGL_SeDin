@@ -150,25 +150,25 @@
                                 DataField="PipelineCode" SortField="PipelineCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="180px">
                             </f:RenderField>
-                            <f:RenderField HeaderText="总焊口量" ColumnID="WeldJointCode"
+                            <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode"
                                 DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="100px">
                             </f:RenderField>
                             <f:RenderField HeaderText="焊工号" ColumnID="WelderCode"
                                 DataField="WelderCode" SortField="WelderCode" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="100px">
+                                TextAlign="Left" Width="90px">
                             </f:RenderField>
                             <f:RenderField HeaderText="规格" ColumnID="Specification"
                                 DataField="Specification" SortField="Specification" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="100px">
+                                TextAlign="Left" Width="90px">
                             </f:RenderField>
                             <f:RenderField HeaderText="材质" ColumnID="MaterialCode"
                                 DataField="MaterialCode" SortField="MaterialCode" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="100px">
+                                TextAlign="Left" Width="90px">
                             </f:RenderField>
-                            <f:RenderField HeaderText="单线图号" ColumnID="SingleNumber"
-                                DataField="SingleNumber" SortField="SingleNumber" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="100px">
+                           
+                             <f:RenderField HeaderText="检测结果" ColumnID="checkResult" DataField="checkResult" 
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="80px">
                             </f:RenderField>
                             <f:WindowField HeaderTextAlign="Center" TextAlign="Center" Width="90px" WindowID="WindowHardReport"
                                 DataIFrameUrlFields="HardTrustItemID" DataIFrameUrlFormatString="HardReport.aspx?HardTrustItemID={0}"
@@ -176,7 +176,7 @@
                             </f:WindowField>
                             <f:RenderField HeaderText="备注" ColumnID="Remark" DataField="Remark"
                                 SortField="Remark" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
-                                Width="100px" ExpandUnusedSpace="true">
+                                Width="90px" ExpandUnusedSpace="true">
                             </f:RenderField>
                         </Columns>
                         <Listeners>

@@ -10,7 +10,7 @@
 namespace FineUIPro.Web.common {
     
     
-    public partial class main2 {
+    public partial class mainProject {
         
         /// <summary>
         /// Head1 控件。

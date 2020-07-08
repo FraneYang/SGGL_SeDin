@@ -30,6 +30,9 @@
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
+                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch"
+                                EnablePostBack="true" OnClick="btnQuery_Click" runat="server">
+                            </f:Button>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
                                 runat="server" OnClick="btnNew_Click">
                             </f:Button>
@@ -37,20 +40,16 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:RenderField Width="100px" ColumnID="WelderCode" DataField="WelderCode" FieldType="String"
-                        HeaderText="焊工号" HeaderTextAlign="Center" TextAlign="Left"
-                        SortField="UnitName">
-                    </f:RenderField>
                     <f:RenderField Width="280px" ColumnID="QualificationItem" DataField="QualificationItem"
                         FieldType="String" HeaderText="合格项目" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="QualificationItem">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="CheckDate" DataField="CheckDate" FieldType="Date"
-                        HeaderText="考核日期" HeaderTextAlign="Center" TextAlign="Left"
+                        HeaderText="批准日期" HeaderTextAlign="Center" TextAlign="Left"
                         Renderer="Date">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="LimitDate" DataField="LimitDate" FieldType="Date"
-                        HeaderText="截止日期" HeaderTextAlign="Center" TextAlign="Left"
+                        HeaderText="有效日期" HeaderTextAlign="Center" TextAlign="Left"
                         Renderer="Date">
                     </f:RenderField>
                     <f:RenderField Width="130px" ColumnID="WeldingMethod" DataField="WeldingMethod"
@@ -58,7 +57,7 @@
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="170px" ColumnID="MaterialType" DataField="MaterialType" FieldType="String"
-                        HeaderText="钢材类型" HeaderTextAlign="Center"
+                        HeaderText="型号、牌号、级别" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="130px" ColumnID="WeldingLocation" DataField="WeldingLocation"
@@ -66,9 +65,9 @@
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="ThicknessMax" DataField="ThicknessMax" FieldType="String"
-                        HeaderText="壁厚（最大）" HeaderTextAlign="Center" TextAlign="Left">
+                        HeaderText="管径覆盖范围（最大值）" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="SizesMin" DataField="SizesMin" FieldType="String" HeaderText="尺寸（最小）"
+                    <f:RenderField Width="90px" ColumnID="SizesMin" DataField="SizesMin" FieldType="String" HeaderText="壁厚覆盖范围（最小值）"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="110px" ColumnID="Remark" DataField="Remark" FieldType="String"
@@ -99,7 +98,7 @@
         IsModal="true" Width="900px" Height="460px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"
+        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"

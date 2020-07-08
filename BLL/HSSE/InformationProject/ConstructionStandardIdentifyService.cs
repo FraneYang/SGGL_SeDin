@@ -7,7 +7,7 @@ namespace BLL
 {
     public static class ConstructionStandardIdentifyService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据标准规范辨识主键获取一个标准规范辨识信息
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns>一个标准规范辨识实体</returns>
         public static Model.InformationProject_ConstructionStandardIdentify GetConstructionStandardIdentifyById(string constructionStandardIdentifyId)
         {
-            return Funs.DB.InformationProject_ConstructionStandardIdentify.FirstOrDefault(x => x.ConstructionStandardIdentifyId == constructionStandardIdentifyId);
+            return new Model.SGGLDB(Funs.ConnString).InformationProject_ConstructionStandardIdentify.FirstOrDefault(x => x.ConstructionStandardIdentifyId == constructionStandardIdentifyId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <returns>还未生成版本号的标准规范的数量</returns>
         public static int GetConstructionStandardIdentifyByVersionIsNull(string projectId)
         {
-            return (from x in Funs.DB.InformationProject_ConstructionStandardIdentify where x.ProjectId == projectId && x.VersionNumber == null select x).Count();
+            return (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_ConstructionStandardIdentify where x.ProjectId == projectId && x.VersionNumber == null select x).Count();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BLL
         /// <param name="lawRegulationIdentify">标准规范辨识实体</param>
         public static void AddConstructionStandardIdentify(Model.InformationProject_ConstructionStandardIdentify constructionStandardIdentify)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.InformationProject_ConstructionStandardIdentify newConstructionStandardIdentify = new Model.InformationProject_ConstructionStandardIdentify
             {
                 ConstructionStandardIdentifyId = constructionStandardIdentify.ConstructionStandardIdentifyId,
@@ -58,7 +58,7 @@ namespace BLL
         /// <param name="lawRegulationIdentify">标准规范辨识实体</param>
         public static void UpdateConstructionStandardIdentify(Model.InformationProject_ConstructionStandardIdentify constructionStandardIdentify)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.InformationProject_ConstructionStandardIdentify newConstructionStandardIdentify = db.InformationProject_ConstructionStandardIdentify.FirstOrDefault(e => e.ConstructionStandardIdentifyId == constructionStandardIdentify.ConstructionStandardIdentifyId);
             if (newConstructionStandardIdentify != null)
             {
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="constructionStandardIdentifyId">标准规范辨识主键</param>
         public static void DeleteConstructionStandardIdentifyById(string constructionStandardIdentifyId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.InformationProject_ConstructionStandardIdentify constructionStandardIdentify = db.InformationProject_ConstructionStandardIdentify.FirstOrDefault(e => e.ConstructionStandardIdentifyId == constructionStandardIdentifyId);
             if (constructionStandardIdentify != null)
             {

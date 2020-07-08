@@ -122,7 +122,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
         /// <param name="e"></param>
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string[] selectRowId = Grid1.SelectedRowIDArray;
             foreach (GridRow row in Grid1.Rows)
             {
@@ -150,7 +150,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
 
         protected void btnCancelAccept_Click(object sender, EventArgs e)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string[] selectRowId = Grid1.SelectedRowIDArray;
             if (selectRowId.Count() > 0)
             {

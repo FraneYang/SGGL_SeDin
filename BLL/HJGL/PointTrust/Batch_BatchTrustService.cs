@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Batch_BatchTrust GetBatchTrustById(string trustBatchId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return db.HJGL_Batch_BatchTrust.FirstOrDefault(e => e.TrustBatchId == trustBatchId);
         }
 
@@ -28,7 +28,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.View_Batch_BatchTrust GetBatchTrustViewById(string trustBatchId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return db.View_Batch_BatchTrust.FirstOrDefault(e => e.TrustBatchId == trustBatchId);
         }
 
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="isTrust"></param>
         public static void UpdatTrustBatchtState(string trustBatchId, bool? isCheck)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_BatchTrust update = db.HJGL_Batch_BatchTrust.FirstOrDefault(e => e.TrustBatchId == trustBatchId);
             if (update != null)
             {
@@ -56,7 +56,7 @@ namespace BLL
         /// <param name="batchTrust"></param>
         public static void AddBatchTrust(Model.HJGL_Batch_BatchTrust batchTrust)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust
             {
                 TrustBatchId = batchTrust.TrustBatchId,
@@ -83,7 +83,7 @@ namespace BLL
         /// <param name="batchTrust"></param>
         public static void UpdateBatchTrust(Model.HJGL_Batch_BatchTrust batchTrust)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_BatchTrust newBatchTrust = db.HJGL_Batch_BatchTrust.FirstOrDefault(e => e.TrustBatchId == batchTrust.TrustBatchId);
             if (newBatchTrust != null)
             {
@@ -104,7 +104,7 @@ namespace BLL
 
         public static void UpdateBatchTrustAudit(string batchTrustId, bool isAudit)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_BatchTrust newBatchTrust = db.HJGL_Batch_BatchTrust.FirstOrDefault(e => e.TrustBatchId == batchTrustId);
             if (newBatchTrust != null)
             {
@@ -119,7 +119,7 @@ namespace BLL
         /// <param name="batchTrustID"></param>
         public static void DeleteBatchTrustById(string trustBatchId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_BatchTrust batchTrust = db.HJGL_Batch_BatchTrust.FirstOrDefault(e => e.TrustBatchId == trustBatchId);
             if (batchTrust != null)
             {
@@ -136,7 +136,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistTrustCode(string trustBatchCode, string trustBatchId, string projectId)
         {
-            var q = Funs.DB.HJGL_Batch_BatchTrust.FirstOrDefault(x => x.TrustBatchCode == trustBatchCode && x.ProjectId == projectId && x.TrustBatchId != trustBatchId);
+            var q = new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust.FirstOrDefault(x => x.TrustBatchCode == trustBatchCode && x.ProjectId == projectId && x.TrustBatchId != trustBatchId);
             if (q != null)
             {
                 return true;
@@ -159,7 +159,7 @@ namespace BLL
             dropName.DataValueField = "TrustBatchId";
             dropName.DataTextField = "TrustBatchCode";
 
-            var q = from x in Funs.DB.View_Batch_BatchTrust
+            var q = from x in new Model.SGGLDB(Funs.ConnString).View_Batch_BatchTrust
                     where x.UnitId == unitId  && x.DetectionTypeId == detectionTypeId
                           && x.CheckTrustBatchId == null
                     select x;       // 管线TODO

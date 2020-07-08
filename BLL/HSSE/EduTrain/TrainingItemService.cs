@@ -8,7 +8,7 @@ namespace BLL
 {
     public class TrainingItemService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TrainingItem GetTrainingItemByTrainingItemId(string trainingItemId)
         {
-            return Funs.DB.Training_TrainingItem.FirstOrDefault(x => x.TrainingItemId == trainingItemId);
+            return new Model.SGGLDB(Funs.ConnString).Training_TrainingItem.FirstOrDefault(x => x.TrainingItemId == trainingItemId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Training_TrainingItem> GetTrainingItemByCompileMan(string compileMan)
         {
-            return (from x in Funs.DB.Training_TrainingItem where x.CompileMan == compileMan select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Training_TrainingItem where x.CompileMan == compileMan select x).ToList();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BLL
         /// <param name="trainingItem">教育培训内容实体</param>
         public static void AddTrainingItem(Model.Training_TrainingItem trainingItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainingItem newTrainingItem = new Model.Training_TrainingItem
             {
                 TrainingItemId = trainingItem.TrainingItemId,
@@ -65,7 +65,7 @@ namespace BLL
         /// <param name="trainingItem">教育培训内容实体</param>
         public static void UpdateTrainingItem(Model.Training_TrainingItem trainingItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainingItem newTrainingItem = db.Training_TrainingItem.FirstOrDefault(e => e.TrainingItemId == trainingItem.TrainingItemId);
             if (newTrainingItem != null)
             {
@@ -91,7 +91,7 @@ namespace BLL
         /// <param name="trainingItem"></param>
         public static void UpdateTrainingItemIsPass(Model.Training_TrainingItem trainingItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainingItem newTrainingItem = db.Training_TrainingItem.FirstOrDefault(e => e.TrainingItemId == trainingItem.TrainingItemId);
             if (newTrainingItem != null)
             {
@@ -109,7 +109,7 @@ namespace BLL
         /// <param name="trainingId">教育培训项ID</param>
         public static void DeleteTrainingItemsByTrainingId(string trainingId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var trainingItems = (from x in db.Training_TrainingItem where x.TrainingId == trainingId select x).ToList();
             if (trainingItems.Count() > 0)
             {
@@ -126,7 +126,7 @@ namespace BLL
         /// <param name="trainingItemId">教育培训内容ID</param>
         public static void DeleteTrainingItemsByTrainingItemId(string trainingItemId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var trainingItem = db.Training_TrainingItem.FirstOrDefault(x => x.TrainingItemId == trainingItemId);
             if (trainingItem != null)
             {

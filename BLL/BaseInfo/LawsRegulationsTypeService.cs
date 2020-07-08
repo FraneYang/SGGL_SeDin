@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class LawsRegulationsTypeService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据id获取法律法规类型信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_LawsRegulationsType GetLawsRegulationsTypeById(string id)
         {
-            return Funs.DB.Base_LawsRegulationsType.FirstOrDefault(e => e.Id == id);
+            return new Model.SGGLDB(Funs.ConnString).Base_LawsRegulationsType.FirstOrDefault(e => e.Id == id);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="lawsRegulationsType"></param>
         public static void AddLawsRegulationsType(Model.Base_LawsRegulationsType lawsRegulationsType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_LawsRegulationsType newLawsRegulationsType = new Model.Base_LawsRegulationsType
             {
                 Id = lawsRegulationsType.Id,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="lawsRegulationsType"></param>
         public static void UpdateLawsRegulationsType(Model.Base_LawsRegulationsType lawsRegulationsType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_LawsRegulationsType newLawsRegulationsType = db.Base_LawsRegulationsType.FirstOrDefault(e => e.Id == lawsRegulationsType.Id);
             if (newLawsRegulationsType != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="id"></param>
         public static void DeleteLawsRegulationsTypeById(string id)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_LawsRegulationsType lawsRegulationsType = db.Base_LawsRegulationsType.FirstOrDefault(e => e.Id == id);
             if (lawsRegulationsType != null)
             {
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_LawsRegulationsType> GetLawsRegulationsTypeList()
         {
-            var list = (from x in Funs.DB.Base_LawsRegulationsType orderby x.Code select x).ToList();           
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_LawsRegulationsType orderby x.Code select x).ToList();           
             return list;
         }
     }

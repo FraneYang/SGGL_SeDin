@@ -7,7 +7,7 @@
 
     public static class RoleService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取角色信息
@@ -16,7 +16,7 @@
         /// <returns></returns>
         public static Model.Sys_Role GetRoleByRoleId(string roleId)
         {
-            return Funs.DB.Sys_Role.FirstOrDefault(x => x.RoleId == roleId);
+            return new Model.SGGLDB(Funs.ConnString).Sys_Role.FirstOrDefault(x => x.RoleId == roleId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@
         public static bool IsExistRoleName(string roleId,string roleName)
         {
             bool isExist = false;
-            var role = Funs.DB.Sys_Role.FirstOrDefault(x => x.RoleName == roleName && x.RoleId != roleId);
+            var role = new Model.SGGLDB(Funs.ConnString).Sys_Role.FirstOrDefault(x => x.RoleName == roleName && x.RoleId != roleId);
             if (role != null)
             {
                 isExist = true;
@@ -42,7 +42,7 @@
         /// <param name="role"></param>
         public static void AddRole(Model.Sys_Role role)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_Role newRole = new Model.Sys_Role
             {
                 RoleId = role.RoleId,
@@ -66,7 +66,7 @@
         /// <param name="def"></param>
         public static void UpdateRole(Model.Sys_Role role)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_Role updateRole = db.Sys_Role.FirstOrDefault(e => e.RoleId == role.RoleId);
             if (updateRole != null)
             {
@@ -86,7 +86,7 @@
         /// <param name="roleId"></param>
         public static void DeleteRole(string roleId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_Role deleteRole = db.Sys_Role.FirstOrDefault(e => e.RoleId == roleId);
             if (deleteRole != null)
             {               
@@ -110,7 +110,7 @@
         /// <returns></returns>
         public static List<Model.Sys_Role> GetRoleDropDownList(string roleId)
         {
-            var list = (from x in Funs.DB.Sys_Role orderby x.RoleCode select x).ToList();
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Role orderby x.RoleCode select x).ToList();
             if (!string.IsNullOrEmpty(roleId))
             {
                 list = list.Where(x => x.RoleId != roleId).ToList();
@@ -124,7 +124,7 @@
         /// <returns></returns>
         public static List<Model.Sys_Role> GetRoleListByRoelTypeId(string roleTypeId)
         {
-            var list = (from x in Funs.DB.Sys_Role where x.RoleType == roleTypeId orderby x.RoleCode select x).ToList();
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Role where x.RoleType == roleTypeId orderby x.RoleCode select x).ToList();
             return list;
         }
 

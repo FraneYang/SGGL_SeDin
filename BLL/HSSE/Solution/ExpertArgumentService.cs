@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ExpertArgumentService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取专家论证清单
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Solution_ExpertArgument GetExpertArgumentById(string expertArgumentId)
         {
-            return Funs.DB.Solution_ExpertArgument.FirstOrDefault(e => e.ExpertArgumentId == expertArgumentId);
+            return new Model.SGGLDB(Funs.ConnString).Solution_ExpertArgument.FirstOrDefault(e => e.ExpertArgumentId == expertArgumentId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="expertArgument"></param>
         public static void AddExpertArgument(Model.Solution_ExpertArgument expertArgument)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_ExpertArgument newExpertArgument = new Model.Solution_ExpertArgument
             {
                 ExpertArgumentId = expertArgument.ExpertArgumentId,
@@ -56,7 +56,7 @@ namespace BLL
         /// <param name="expertArgument"></param>
         public static void UpdateExpertArgument(Model.Solution_ExpertArgument expertArgument)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_ExpertArgument newExpertArgument = db.Solution_ExpertArgument.FirstOrDefault(e => e.ExpertArgumentId == expertArgument.ExpertArgumentId);
             if (newExpertArgument != null)
             {
@@ -81,7 +81,7 @@ namespace BLL
         /// <param name="expertArgumentId"></param>
         public static void DeleteExpertArgumentById(string expertArgumentId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_ExpertArgument expertArgument = db.Solution_ExpertArgument.FirstOrDefault(e => e.ExpertArgumentId == expertArgumentId);
             if (expertArgument != null)
             {

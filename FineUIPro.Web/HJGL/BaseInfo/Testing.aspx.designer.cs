@@ -67,13 +67,13 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         protected global::FineUIPro.TextBox txtDetectionTypeCode;
         
         /// <summary>
-        /// txtSysType 控件。
+        /// txtDetectionTypeName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtSysType;
+        protected global::FineUIPro.TextBox txtDetectionTypeName;
         
         /// <summary>
         /// btnQuery 控件。
@@ -101,15 +101,6 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnNew;
-        
-        /// <summary>
-        /// Label8 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
         
         /// <summary>
         /// ToolbarSeparator1 控件。

@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getHotProessTrustNo(string unitWrokId,string hotProessTrustNo)
         {
-            var dataLists = from x in Funs.DB.HJGL_HotProess_Trust
+            var dataLists = from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_Trust
                                where x.UnitWorkId == unitWrokId
                                select x;
          
@@ -46,7 +46,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getHardTrustNo(string unitWrokId,string hardTrustNo)
         {
-            var dataLists = from x in Funs.DB.HJGL_Hard_Trust
+            var dataLists = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Trust
                              where x.UnitWorkId == unitWrokId
                              select x;
 
@@ -76,7 +76,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HotProcessHardItem> getHotProcessItem(string hotProessTrustId)
         {
-            var getDataLists = (from x in Funs.DB.View_HJGL_HotProess_TrustItem
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_HotProess_TrustItem
                                 where x.HotProessTrustId == hotProessTrustId
                                 orderby x.PipelineCode, x.WeldJointCode
                                 select new Model.HotProcessHardItem
@@ -102,7 +102,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HotProcessHardItem> getHardTrustItem(string hardTrustId)
         {
-            var getDataLists = (from x in Funs.DB.View_HJGL_Hard_TrustItem
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_Hard_TrustItem
                                 where x.HardTrustID == hardTrustId
                                 orderby x.PipelineCode, x.WeldJointCode
                                 select new Model.HotProcessHardItem

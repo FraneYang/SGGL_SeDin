@@ -20,16 +20,16 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_PreWeldingDailyItem getPreWeldingDailyInfo(string preWeldingDailyId)
         {
-            var getInfo = from x in Funs.DB.HJGL_PreWeldingDaily
+            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).HJGL_PreWeldingDaily
                           where x.PreWeldingDailyId == preWeldingDailyId
                           select new Model.HJGL_PreWeldingDailyItem
                           {
                               PreWeldingDailyId = x.PreWeldingDailyId,
                               ProjectId = x.ProjectId,
                               UnitWorkId = x.UnitWorkId,
-                              UnitWorkName = Funs.DB.WBS_UnitWork.First(y => y.UnitWorkId == x.UnitWorkId).UnitWorkName,
+                              UnitWorkName = new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.First(y => y.UnitWorkId == x.UnitWorkId).UnitWorkName,
                               UnitId = x.UnitId,
-                              UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                           };
             return getInfo.FirstOrDefault();
         }
@@ -43,7 +43,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_PreWeldingDailyItem> getPreWeldingDailyList(string projectId)
         {
-            var getList = from x in Funs.DB.HJGL_PreWeldingDaily
+            var getList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_PreWeldingDaily
                                        where x.ProjectId == projectId 
                                        orderby x.WeldingDate descending
                                        select new Model.HJGL_PreWeldingDailyItem
@@ -51,9 +51,9 @@ namespace BLL
                                            PreWeldingDailyId = x.PreWeldingDailyId,
                                            ProjectId = x.ProjectId,
                                            UnitWorkId = x.UnitWorkId,
-                                           UnitWorkName =Funs.DB.WBS_UnitWork.First(y=>y.UnitWorkId== x.UnitWorkId).UnitWorkName,                                          
+                                           UnitWorkName =new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.First(y=>y.UnitWorkId== x.UnitWorkId).UnitWorkName,                                          
                                            UnitId = x.UnitId,
-                                           UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,                                                                                    
+                                           UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,                                                                                    
                                        };
             return getList.ToList();
         }
@@ -67,7 +67,7 @@ namespace BLL
         /// <returns></returns>
         public static void SavePreWeldingDaily(Model.HJGL_PreWeldingDailyItem newItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_PreWeldingDaily newP= new Model.HJGL_PreWeldingDaily
             {
                 PreWeldingDailyId = newItem.PreWeldingDailyId,
@@ -76,7 +76,7 @@ namespace BLL
                 UnitId = newItem.UnitId,
             };
 
-            var updateItem = Funs.DB.HJGL_PreWeldingDaily.FirstOrDefault(x => x.PreWeldingDailyId == newItem.PreWeldingDailyId);
+            var updateItem = new Model.SGGLDB(Funs.ConnString).HJGL_PreWeldingDaily.FirstOrDefault(x => x.PreWeldingDailyId == newItem.PreWeldingDailyId);
             if (updateItem == null)
             {
 

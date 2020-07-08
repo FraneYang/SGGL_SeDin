@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class PersonService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取人员信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_Person GetPersonById(string personId)
         {
-            return Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         public static string GetPersonNameById(string personId)
         {
             string name = string.Empty;
-            var getp= Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
+            var getp= new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
             if (getp != null)
             {
                 name = getp.PersonName;
@@ -52,7 +52,7 @@ namespace BLL
                 var getUser = UserService.GetUserByUserId(userId);
                 if (getUser != null)
                 {
-                    getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard);
+                    getPerson = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard);
                     if (getPerson != null)
                     {
                         personId = getPerson.PersonId;
@@ -76,7 +76,7 @@ namespace BLL
                 var getUser = UserService.GetUserByUserId(userId);
                 if (getUser != null)
                 {
-                    getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard && e.ProjectId == projectId);                   
+                    getPerson = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard && e.ProjectId == projectId);                   
                 }
             }
 
@@ -90,10 +90,21 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SitePerson_Person> GetPersonLitsByprojectIdUnitId(string projectId, string unitId)
         {
-            return (from x in Funs.DB.SitePerson_Person
-                    where x.ProjectId == projectId && x.UnitId == unitId
-                    orderby x.PersonName
-                    select x).ToList();
+            if (!string.IsNullOrEmpty(unitId))
+            {
+                return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
+                        where x.ProjectId == projectId && x.UnitId == unitId
+                        orderby x.PersonName
+                        select x).ToList();
+            }
+            else
+            {
+                return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
+                        where x.ProjectId == projectId 
+                        orderby x.PersonName
+                        select x).ToList();
+            }
+            
         }
 
         /// <summary>
@@ -102,7 +113,7 @@ namespace BLL
         /// <returns>最大的人员位置</returns>
         public static int? GetMaxPersonIndex(string projectId)
         {
-            return (from x in Funs.DB.SitePerson_Person where x.ProjectId == projectId select x.PersonIndex).Max();
+            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.ProjectId == projectId select x.PersonIndex).Max();
         }
 
         /// <summary>
@@ -112,7 +123,7 @@ namespace BLL
         /// <returns>人员的数量</returns>
         public static int GetPersonCountByUnitId(string unitId, string projectId)
         {
-            var q = (from x in Funs.DB.SitePerson_Person where x.UnitId == unitId && x.ProjectId == projectId && x.IsUsed == true select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.UnitId == unitId && x.ProjectId == projectId && x.IsUsed == true select x).ToList();
             return q.Count();
         }
 
@@ -123,7 +134,7 @@ namespace BLL
         /// <returns>HSE人员的数量</returns>
         public static int GetHSEPersonCountByUnitId(string unitId, string projectId)
         {
-            var q = (from x in Funs.DB.SitePerson_Person where x.UnitId == unitId && x.ProjectId == projectId && (x.WorkPostId == BLL.Const.WorkPost_HSSEEngineer || x.WorkPostId == BLL.Const.WorkPost_SafetyManager) && x.IsUsed == true select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.UnitId == unitId && x.ProjectId == projectId && (x.WorkPostId == BLL.Const.WorkPost_HSSEEngineer || x.WorkPostId == BLL.Const.WorkPost_SafetyManager) && x.IsUsed == true select x).ToList();
             return q.Count();
         }
 
@@ -133,7 +144,7 @@ namespace BLL
         /// <returns>所有人员位置集合</returns>
         public static List<int?> GetPersonIndexs(string projectId)
         {
-            return (from x in Funs.DB.SitePerson_Person where x.ProjectId == projectId select x.PersonIndex).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.ProjectId == projectId select x.PersonIndex).ToList();
         }
 
         /// <summary>
@@ -143,7 +154,7 @@ namespace BLL
         /// <returns>人员实体</returns>
         public static Model.SitePerson_Person GetPersonByCardNo(string projectId, string cardNo)
         {
-            return Funs.DB.SitePerson_Person.FirstOrDefault(e => e.ProjectId == projectId && e.CardNo == cardNo);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.ProjectId == projectId && e.CardNo == cardNo);
         }
 
         /// <summary>
@@ -153,7 +164,7 @@ namespace BLL
         /// <returns>人员的数量</returns>
         public static int GetPersonCountByCardNo(string projectId, string cardNo)
         {
-            var q = (from x in Funs.DB.SitePerson_Person where x.ProjectId == projectId && x.CardNo == cardNo select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.ProjectId == projectId && x.CardNo == cardNo select x).ToList();
             return q.Count();
         }
 
@@ -165,7 +176,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistPersonByUnit(string unitId, string personName, string projectId)
         {
-            var q = from x in BLL.Funs.DB.SitePerson_Person where x.UnitId == unitId && x.PersonName == personName && x.ProjectId == projectId select x;
+            var q = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.UnitId == unitId && x.PersonName == personName && x.ProjectId == projectId select x;
             if (q.Count() > 0)
             {
                 return true;
@@ -183,7 +194,7 @@ namespace BLL
         /// <returns>人员的数量</returns>
         public static Model.SitePerson_Person GetPersonCountByIdentityCard(string identityCard, string projectId)
         {
-            var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == identityCard && x.ProjectId == projectId);
+            var q = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.IdentityCard == identityCard && x.ProjectId == projectId);
             return q;
         }
 
@@ -194,7 +205,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SitePerson_Person> GetPersonList(string projectId)
         {
-            return (from x in Funs.DB.SitePerson_Person where x.ProjectId == projectId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.ProjectId == projectId select x).ToList();
         }
 
         /// <summary>
@@ -203,7 +214,7 @@ namespace BLL
         /// <param name="person">人员实体</param>
         public static void AddPerson(Model.SitePerson_Person person)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_Person newPerson = new Model.SitePerson_Person
             {
                 PersonId = person.PersonId,
@@ -257,7 +268,7 @@ namespace BLL
         /// <param name="person">人员实体</param>
         public static void UpdatePerson(Model.SitePerson_Person person)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_Person newPerson = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == person.PersonId);
             if (newPerson != null)
             {
@@ -306,7 +317,7 @@ namespace BLL
         /// <param name="personId">人员Id</param>
         public static void DeletePerson(string personId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_Person person = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
             if (person != null)
             {
@@ -326,7 +337,7 @@ namespace BLL
         {
             if (!string.IsNullOrEmpty(identityCard))
             {
-                return Funs.DB.SitePerson_Person.FirstOrDefault(e => e.ProjectId == projectId && e.IdentityCard == identityCard);
+                return new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.ProjectId == projectId && e.IdentityCard == identityCard);
             }
             else
             {
@@ -341,7 +352,7 @@ namespace BLL
         /// <param name="cardNo"></param>
         public static void SaveSendCard(string personId, string cardNo, int personIndex)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_Person card = db.SitePerson_Person.FirstOrDefault(e => e.CardNo == cardNo);
             if (card != null)
             {

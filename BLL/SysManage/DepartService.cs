@@ -7,7 +7,7 @@ namespace BLL
 {
    public static class DepartService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取信息
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_Depart GetDepartById(string departId)
         {
-            return Funs.DB.Base_Depart.FirstOrDefault(e => e.DepartId == departId);
+            return new Model.SGGLDB(Funs.ConnString).Base_Depart.FirstOrDefault(e => e.DepartId == departId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="?"></param>
         public static void AddDepart(Model.Base_Depart depart)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Depart newDepart = new Model.Base_Depart
             {
                 DepartId = depart.DepartId,
@@ -44,7 +44,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void UpdateDepart(Model.Base_Depart depart)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Depart newDepart = db.Base_Depart.FirstOrDefault(e => e.DepartId == depart.DepartId);
             if (newDepart != null)
             {
@@ -61,7 +61,7 @@ namespace BLL
         /// <param name="departId"></param>
         public static void DeleteDepartById(string departId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Depart depart = db.Base_Depart.FirstOrDefault(e => e.DepartId == departId);
             {
                 db.Base_Depart.DeleteOnSubmit(depart);
@@ -75,7 +75,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Depart> GetDepartList()
         {
-            var list = (from x in Funs.DB.Base_Depart orderby x.DepartCode select x).ToList();
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Depart orderby x.DepartCode select x).ToList();
             return list;
         }
 
@@ -87,7 +87,7 @@ namespace BLL
         public static string getDepartNameById(string departId)
         {
             string name = string.Empty;
-            var dep= Funs.DB.Base_Depart.FirstOrDefault(e => e.DepartId == departId);
+            var dep= new Model.SGGLDB(Funs.ConnString).Base_Depart.FirstOrDefault(e => e.DepartId == departId);
             if (dep != null)
             {
                 name = dep.DepartName;

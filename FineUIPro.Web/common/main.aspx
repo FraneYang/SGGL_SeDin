@@ -9,77 +9,93 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
-        .flexV{
+        .flexV {
             -webkit-box-orient: vertical;
             -webkit-flex-direction: column;
             -ms-flex-direction: column;
             flex-direction: column;
         }
-        .bw-item{
-            height:auto;
+
+        .bw-item {
+            height: auto;
             margin: 0 0 10px 0;
         }
-        .bw-item:last-child{
-            margin-bottom:0;
-        }
-        .wrap{
+
+            .bw-item:last-child {
+                margin-bottom: 0;
+            }
+
+        .wrap {
             padding: 15px 0;
-            height:100%;
-            box-sizing:border-box;
-        } 
-        .bottom-wrap{
-            height:100%;
-            box-sizing:border-box;
+            height: 100%;
+            box-sizing: border-box;
         }
-        .bw-b-bottom-up{
-            height:100%;
+
+        .bottom-wrap {
+            height: 100%;
+            box-sizing: border-box;
         }
-        .bw-b,.bw-b-bottom{
-            box-sizing:border-box;
+
+        .bw-b-bottom-up {
+            height: 100%;
         }
-        .mb{
-            margin-bottom:10px;
+
+        .bw-b, .bw-b-bottom {
+            box-sizing: border-box;
         }
-        .mr{
-            margin-right:10px;
+
+        .mb {
+            margin-bottom: 10px;
         }
-        .mbnone{
+
+        .mr {
+            margin-right: 10px;
+        }
+
+        .mbnone {
             margin-bottom: 0;
         }
-        .swiperHeightWrap{
-            height:220px;
+
+        .swiperHeightWrap {
+            height: 220px;
         }
-        .swiperHeight{
-            height:180px;
+
+        .swiperHeight {
+            height: 180px;
         }
+
         @media screen and (max-height: 625px) {
-            .swiperHeightWrap{
-                height:220px;
+            .swiperHeightWrap {
+                height: 220px;
             }
-            .swiperHeight{
-                height:180px;
+
+            .swiperHeight {
+                height: 180px;
             }
-            .bw-item-content{
-                padding:10px;
+
+            .bw-item-content {
+                padding: 10px;
             }
         }
+
         @media screen and (min-height: 625px) {
-            .swiperHeightWrap{
-               height:340px;
+            .swiperHeightWrap {
+                height: 340px;
             }
-            .swiperHeight{
-               height:300px;
+
+            .swiperHeight {
+                height: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="wrap">     
+    <div class="wrap">
         <div class="bottom-wrap flex">
             <!--左侧-->
             <div class="bw-s flex1 flexV flex">
                 <div class="bw-item flex1">
-                   <%-- <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="" />--%>
+                    <%-- <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="" />--%>
                     <div class="bw-item-content">
                         <div id='main' style="width: 100%; height: 100%;"></div>
                     </div>
@@ -87,7 +103,7 @@
                 <div class="bw-item flex1">
                     <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                     <div class="bw-item-content">
-                        <div id='line' style="width: 100%; height: 100%;"></div>
+                        <div id='cqms' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
                 <div class="bw-item bw-item-h flex1">
@@ -158,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="spline" style="width:2%;"></div>
+                    <div class="spline" style="width: 2%;"></div>
                     <div class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
                         <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
                         <div class="bw-item-content">
@@ -429,7 +445,112 @@
         //为echarts对象加载数据
         myChartLine.setOption(optionLine);
     }
-    line('line', '质量统计')
+
+    var cqmsData =<%=CQMSData %>
+
+        function cqms(id, name, data) {
+            var myChartLine = echarts.init(document.getElementById(id));
+            option = {
+                title: {
+                    top: 0,
+                    // left:'center',
+                    text: '质量统计',
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    show: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
+                        formatter: "{c}%"       //标签内容格式器 {a}-系列名,{b}-数据名,{c}-数据值
+                    }
+                },
+                legend: {
+                    show: false
+                    //data: ['单位三', '单位二', '单位一']
+                },
+                grid: {
+                    top: '20%',
+                    left: '6%',
+                    right: '6%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                tooltip: {
+                    show: true,
+                    formatter: function (params) {
+                        var id = params.dataIndex;
+                        return params.name + '<br>质量验收一次合格率：' + params.data + '%';
+                    }
+                },
+                xAxis: {
+                    show: false,
+                    splitLine: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false,
+                        lineStyle: {
+                            color: 'rgba(255, 255, 255, 0.3)'
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: 'rgba(255, 255, 255, 0.8)'
+                        }
+                    },
+                    type: 'value'
+                },
+                yAxis: {
+                    // offset: 10,
+
+                    nameGap: 50,
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false,
+                        lineStyle: {
+                            color: 'rgba(255, 255, 255, 0.3)'
+                        }
+                    },
+                    axisLabel: {
+                        margin: 15,
+                        show: true,
+                        textStyle: {
+                            color: 'rgba(255, 255, 255, 0.8)'
+                        }
+                    },
+                    type: 'category',
+                    data: cqmsData.categories
+                },
+                series: [
+                    {
+                        barWidth: 10, // 柱子宽度
+                        //barGap:'80%',/*多个并排柱子设置柱子之间的间距*/
+                        //barCategoryGap:'20%',/*多个并排柱子设置柱子之间的间距*/
+                        name: data.series[0].name,
+                        type: 'bar',
+                        stack: '合格率',
+                        label: {
+                            show: true,
+                            position: 'insideRight',
+                            formatter: "{c}%"
+                        },
+                        data: data.series[0].data
+                    }
+                ]
+            };
+            //为echarts对象加载数据
+            myChartLine.setOption(option);
+        }
+    cqms('cqms', '质量统计', cqmsData)
     $(document).ready(function () {
         line('line1', '合同统计')
     })
@@ -555,7 +676,7 @@
                 // inRange: {
                 //     color: ['#e0ffff', '#006edd']
                 // },
-               color: ['rgba(0, 64, 128, 0.1)', 'rgba(0, 64, 128,1)'],
+                color: ['rgba(0, 64, 128, 0.1)', 'rgba(0, 64, 128,1)'],
                 calculable: false,
                 textStyle: {
                     color: '#fff'
@@ -616,7 +737,7 @@
                         //normal 是图形在默认状态下的样式；
                         normal: {
                             show: true,
-                            areaColor:  "#66b2ff",
+                            areaColor: "#66b2ff",
                             borderColor: "#FCFCFC",
                             borderWidth: "1"
                         },
@@ -789,109 +910,110 @@
     })
 </script>
 <script>
-    echartsBarInit('echartsBar')
-    function echartsBarInit(id) {
-        var myChart = echarts.init(document.getElementById(id))   // 初始化echarts实例
-        myChart.setOption(// 通过setOption来生成柱状图
-            {
-                title: {
-                    // left:'center',
-                    text: '进度统计',
-                    textStyle: {
-                        color: '#fff'
-                    },
-                    show: true
-                },
-                grid: {   // 直角坐标系内绘图网格
-                    left: '0',  //grid 组件离容器左侧的距离,
-                    //left的值可以是80这样具体像素值，
-                    //也可以是'80%'这样相对于容器高度的百分比
-                    top: '25',
-                    right: '0',
-                    bottom: '0',
-                    containLabel: true   //gid区域是否包含坐标轴的刻度标签。为true的时候，
-                    // left/right/top/bottom/width/height决定的是包括了坐标轴标签在内的
-                    //所有内容所形成的矩形的位置.常用于【防止标签溢出】的场景
-                },
-                xAxis: {  //直角坐标系grid中的x轴,
-                    //一般情况下单个grid组件最多只能放上下两个x轴,
-                    //多于两个x轴需要通过配置offset属性防止同个位置多个x轴的重叠。
-                    type: 'value',//坐标轴类型,分别有：
-                    //'value'-数值轴；'category'-类目轴;
-                    //'time'-时间轴;'log'-对数轴
-                    splitLine: { show: false },//坐标轴在 grid 区域中的分隔线
-                    axisLabel: { show: false },//坐标轴刻度标签
-                    axisTick: { show: false },//坐标轴刻度
-                    axisLine: { show: false },//坐标轴轴线
-                },
-                yAxis: {
-                    type: 'category',
-                    axisTick: { show: false },
-                    axisLine: { show: false },
-                    axisLabel: {
-                        color: '#fff',
-                        // fontSize: 12
-                    },
-                    data: ['施工', '工程', '项目']//类目数据，在类目轴（type: 'category'）中有效。
-                    //如果没有设置 type，但是设置了axis.data,则认为type 是 'category'。
-                },
-                series: [//系列列表。每个系列通过 type 决定自己的图表类型
-                    {
-                        name: '%',//系列名称
-                        type: 'bar',//柱状、条形图
-                        barWidth: 19,//柱条的宽度,默认自适应
-                        data: [20, 40, 60],//系列中数据内容数组
-                        label: { //图形上的文本标签
-                            show: true,
-                            position: 'right',//标签的位置
-                            offset: [0, -20],  //标签文字的偏移，此处表示向上偏移40
-                            formatter: '{c}{a}',//标签内容格式器 {a}-系列名,{b}-数据名,{c}-数据值
-                            color: '#fff',//标签字体颜色
-                            fontSize: 12  //标签字号
+    echartsBarInit('echartsBar', jdglData)
+    var jdglData =<%=JDGLData %>
+        function echartsBarInit(id, data) {
+            var myChart = echarts.init(document.getElementById(id))   // 初始化echarts实例
+            myChart.setOption(// 通过setOption来生成柱状图
+                {
+                    title: {
+                        // left:'center',
+                        text: '进度统计',
+                        textStyle: {
+                            color: '#fff'
                         },
-                        itemStyle: {//图形样式
-                            normal: {  //normal 图形在默认状态下的样式;
-                                //emphasis图形在高亮状态下的样式
-                                barBorderRadius: 10,//柱条圆角半径,单位px.
-                                //此处统一设置4个角的圆角大小;
-                                //也可以分开设置[10,10,10,10]顺时针左上、右上、右下、左下
-                                color: new echarts.graphic.LinearGradient(
-                                    0, 0, 1, 0,
-                                    [{
-                                        offset: 0,
-                                        color: '#22B6ED'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#3FE279'
-                                    }
-                                    ]
-                                )
-                            }
-                        },
-                        zlevel: 1//柱状图所有图形的 zlevel 值,
-                        //zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面
+                        show: true
                     },
-                    {
-                        name: '进度条背景',
-                        type: 'bar',
-                        barGap: '-100%',//不同系列的柱间距离，为百分比。
-                        // 在同一坐标系上，此属性会被多个 'bar' 系列共享。
-                        // 此属性应设置于此坐标系中最后一个 'bar' 系列上才会生效，
-                        //并且是对此坐标系中所有 'bar' 系列生效。
-                        barWidth: 19,
-                        data: [100, 100, 100],
-                        color: '#151B87',//柱条颜色
-                        itemStyle: {
-                            normal: {
-                                barBorderRadius: 10
+                    grid: {   // 直角坐标系内绘图网格
+                        left: '0',  //grid 组件离容器左侧的距离,
+                        //left的值可以是80这样具体像素值，
+                        //也可以是'80%'这样相对于容器高度的百分比
+                        top: '25',
+                        right: '0',
+                        bottom: '0',
+                        containLabel: true   //gid区域是否包含坐标轴的刻度标签。为true的时候，
+                        // left/right/top/bottom/width/height决定的是包括了坐标轴标签在内的
+                        //所有内容所形成的矩形的位置.常用于【防止标签溢出】的场景
+                    },
+                    xAxis: {  //直角坐标系grid中的x轴,
+                        //一般情况下单个grid组件最多只能放上下两个x轴,
+                        //多于两个x轴需要通过配置offset属性防止同个位置多个x轴的重叠。
+                        type: 'value',//坐标轴类型,分别有：
+                        //'value'-数值轴；'category'-类目轴;
+                        //'time'-时间轴;'log'-对数轴
+                        splitLine: { show: false },//坐标轴在 grid 区域中的分隔线
+                        axisLabel: { show: false },//坐标轴刻度标签
+                        axisTick: { show: false },//坐标轴刻度
+                        axisLine: { show: false },//坐标轴轴线
+                    },
+                    yAxis: {
+                        type: 'category',
+                        axisTick: { show: false },
+                        axisLine: { show: false },
+                        axisLabel: {
+                            color: '#fff',
+                            // fontSize: 12
+                        },
+                        data: ['施工', '工程', '项目']//类目数据，在类目轴（type: 'category'）中有效。
+                        //如果没有设置 type，但是设置了axis.data,则认为type 是 'category'。
+                    },
+                    series: [//系列列表。每个系列通过 type 决定自己的图表类型
+                        {
+                            name: '%',//系列名称
+                            type: 'bar',//柱状、条形图
+                            barWidth: 19,//柱条的宽度,默认自适应
+                            data: [20, 40, 60],//系列中数据内容数组
+                            label: { //图形上的文本标签
+                                show: true,
+                                position: 'right',//标签的位置
+                                offset: [0, -20],  //标签文字的偏移，此处表示向上偏移40
+                                formatter: '{c}{a}',//标签内容格式器 {a}-系列名,{b}-数据名,{c}-数据值
+                                color: '#fff',//标签字体颜色
+                                fontSize: 12  //标签字号
+                            },
+                            itemStyle: {//图形样式
+                                normal: {  //normal 图形在默认状态下的样式;
+                                    //emphasis图形在高亮状态下的样式
+                                    barBorderRadius: 10,//柱条圆角半径,单位px.
+                                    //此处统一设置4个角的圆角大小;
+                                    //也可以分开设置[10,10,10,10]顺时针左上、右上、右下、左下
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 1, 0,
+                                        [{
+                                            offset: 0,
+                                            color: '#22B6ED'
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: '#3FE279'
+                                        }
+                                        ]
+                                    )
+                                }
+                            },
+                            zlevel: 1//柱状图所有图形的 zlevel 值,
+                            //zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面
+                        },
+                        {
+                            name: '进度条背景',
+                            type: 'bar',
+                            barGap: '-100%',//不同系列的柱间距离，为百分比。
+                            // 在同一坐标系上，此属性会被多个 'bar' 系列共享。
+                            // 此属性应设置于此坐标系中最后一个 'bar' 系列上才会生效，
+                            //并且是对此坐标系中所有 'bar' 系列生效。
+                            barWidth: 19,
+                            data: [100, 100, 100],
+                            color: '#151B87',//柱条颜色
+                            itemStyle: {
+                                normal: {
+                                    barBorderRadius: 10
+                                }
                             }
                         }
-                    }
-                ]
-            }
-        )
-    }
+                    ]
+                }
+            )
+        }
 </script>
 <script>
     function Accumulation(id) {
@@ -909,7 +1031,7 @@
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    type: 'shadow'        // 默认为直线，可选为：'cqms' | 'shadow'
                 }
             },
             legend: {

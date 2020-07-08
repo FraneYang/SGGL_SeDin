@@ -10,7 +10,7 @@ namespace BLL
 {
     public class CNProfessionalService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取实体集合
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_CNProfessional> GetList()
         {
-            var q = (from x in Funs.DB.Base_CNProfessional orderby x.SortIndex select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_CNProfessional orderby x.SortIndex select x).ToList();
             return q;
         }
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <param name="?"></param>
         public static void AddCNProfessional(Model.Base_CNProfessional cNProfessional)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_CNProfessional newCNProfessional = new Model.Base_CNProfessional
             {
                 CNProfessionalId = cNProfessional.CNProfessionalId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void UpdateCNProfessional(Model.Base_CNProfessional cNProfessional)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_CNProfessional newCNProfessional = db.Base_CNProfessional.FirstOrDefault(e => e.CNProfessionalId == cNProfessional.CNProfessionalId);
             if (newCNProfessional != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="cNProfessionalId"></param>
         public static void DeleteCNProfessionalById(string cNProfessionalId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_CNProfessional cNProfessional = db.Base_CNProfessional.FirstOrDefault(e => e.CNProfessionalId == cNProfessionalId);
             {
                 db.Base_CNProfessional.DeleteOnSubmit(cNProfessional);
@@ -104,7 +104,7 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetCNProfessionalItem()
         {
-            var q = (from x in Funs.DB.Base_CNProfessional orderby x.SortIndex select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_CNProfessional orderby x.SortIndex select x).ToList();
             ListItem[] list = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {
@@ -120,7 +120,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_CNProfessional GetCNProfessional(string CNProfessionalId)
         {
-            return Funs.DB.Base_CNProfessional.FirstOrDefault(e => e.CNProfessionalId == CNProfessionalId);
+            return new Model.SGGLDB(Funs.ConnString).Base_CNProfessional.FirstOrDefault(e => e.CNProfessionalId == CNProfessionalId);
         }
 
 
@@ -130,7 +130,7 @@ namespace BLL
             if (!string.IsNullOrEmpty(cnProfessionalCode))
             {
                 string[] codes = cnProfessionalCode.Split(',');
-                var list = Funs.DB.Base_CNProfessional.Where(x => codes.Contains(x.CNProfessionalId));
+                var list = new Model.SGGLDB(Funs.ConnString).Base_CNProfessional.Where(x => codes.Contains(x.CNProfessionalId));
                 foreach (var item in list)
                 {
                     res += item.ProfessionalName + ",";

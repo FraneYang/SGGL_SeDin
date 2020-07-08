@@ -9,7 +9,7 @@ namespace BLL
 {
     public class TechnicalContactListApproveService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
         public static Model.Check_TechnicalContactListApprove GetSee(string TechnicalContactListId, string userId)
         {
             return db.Check_TechnicalContactListApprove.FirstOrDefault(x => x.TechnicalContactListId == TechnicalContactListId && x.ApproveType == "S" && x.ApproveMan == userId && x.ApproveDate == null);
@@ -35,14 +35,14 @@ namespace BLL
         /// <returns></returns>
         public static IEnumerable getListData(string TechnicalContactListId)
         {
-            return from x in Funs.DB.Check_TechnicalContactListApprove
+            return from x in new Model.SGGLDB(Funs.ConnString).Check_TechnicalContactListApprove
                    where x.TechnicalContactListId == TechnicalContactListId && x.ApproveDate != null && x.ApproveType != "S"
                    orderby x.ApproveDate
                    select new
                    {
                        x.TechnicalContactListApproveId,
                        x.TechnicalContactListId,
-                       ApproveMan = (from y in Funs.DB.Sys_User where y.UserId == x.ApproveMan select y.UserName).First(),
+                       ApproveMan = (from y in new Model.SGGLDB(Funs.ConnString).Sys_User where y.UserId == x.ApproveMan select y.UserName).First(),
                        x.ApproveDate,
                        x.IsAgree,
                        x.ApproveIdea,

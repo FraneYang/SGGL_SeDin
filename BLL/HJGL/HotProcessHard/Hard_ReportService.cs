@@ -12,7 +12,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Hard_Report GetHardReportByHardReportId(string strHardReportId)
         {
-            return Funs.DB.HJGL_Hard_Report.FirstOrDefault(e => e.HardReportId == strHardReportId);
+            return new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Report.FirstOrDefault(e => e.HardReportId == strHardReportId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.View_HJGL_Hard_Report GetViewHardReportByHardReportId(string strHardReportId)
         {
-            return Funs.DB.View_HJGL_Hard_Report.FirstOrDefault(e => e.HardReportId == strHardReportId);
+            return new Model.SGGLDB(Funs.ConnString).View_HJGL_Hard_Report.FirstOrDefault(e => e.HardReportId == strHardReportId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <param name="setHardReport"></param>
         public static void AddHard_Report(Model.HJGL_Hard_Report setHardReport)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Hard_Report newHardReport = new HJGL_Hard_Report
             {
                 HardReportId = setHardReport.HardReportId,
@@ -54,7 +54,7 @@ namespace BLL
         /// <param name="updateHardReport"></param>
         public static void UpdateHard_Report(Model.HJGL_Hard_Report updateHardReport)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Hard_Report newHardReport = db.HJGL_Hard_Report.FirstOrDefault(e => e.HardReportId == updateHardReport.HardReportId);
             if (newHardReport != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="strHardReportId">装置ID</param>
         public static void DeleteHard_ReportByHardReportId(string strHardReportId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Hard_Report delHardReport = db.HJGL_Hard_Report.FirstOrDefault(e => e.HardReportId == strHardReportId);
             if (delHardReport != null)
             {
@@ -89,7 +89,7 @@ namespace BLL
         /// <param name="strHardReportId">装置ID</param>
         public static void DeleteHard_ReportsByHardTrustItemID(string strHardTrustItemID)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var delHardReports = from x in db.HJGL_Hard_Report where x.HardTrustItemID == strHardTrustItemID select x;
             if (delHardReports.Count() >0)
             {

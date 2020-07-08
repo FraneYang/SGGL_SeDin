@@ -57,7 +57,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 ///焊接位置
                 this.drpWeldingLocationId.DataTextField = "WeldingLocationCode";
                 this.drpWeldingLocationId.DataValueField = "WeldingLocationCode";
-                this.drpWeldingLocationId.DataSource = from x in Funs.DB.Base_WeldingLocation orderby x.WeldingLocationCode select x;
+                this.drpWeldingLocationId.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Base_WeldingLocation orderby x.WeldingLocationCode select x;
                 this.drpWeldingLocationId.DataBind();
                 this.drpWeldingLocationId.SelectedIndex = 0;
 
@@ -284,7 +284,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 newWeldingDaily.Remark = this.txtRemark.Text.Trim();
                 List<Model.SpWeldingDailyItem> GetWeldingDailyItem = this.CollectGridJointInfo();
                 string errlog = string.Empty;
-                var weldJointView = (from x in BLL.Funs.DB.View_HJGL_WeldJoint where x.WeldingDailyId == this.WeldingDailyId orderby x.PipelineCode, x.WeldJointCode select x).ToList();
+                var weldJointView = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint where x.WeldingDailyId == this.WeldingDailyId orderby x.PipelineCode, x.WeldJointCode select x).ToList();
                 canSave = true;
 
                 if (canSave)  //可以保存（至少有一个焊口的对应焊工资质符合要求）
@@ -459,7 +459,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                     //foreach (var welderQualify in welderQualifys)
                     //{
                     //int okNum = 0;
-                    //var loc = from x in Funs.DB.Base_WeldingLocation
+                    //var loc = from x in new Model.SGGLDB(Funs.ConnString).Base_WeldingLocation
                     //          where x.WeldingLocationId == welderQualify.WeldingLocation
                     //          select x;
                     //if (!string.IsNullOrEmpty(welderQualify.WeldingMethod))   //焊接方法
@@ -679,14 +679,14 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                                         batchDetail.WeldJointId = item.WeldJointId;
                                         batchDetail.WeldingDate = weldingDate;
                                         batchDetail.CreatDate = DateTime.Now;
-                                        BLL.Funs.DB.HJGL_Batch_PointBatchItem.InsertOnSubmit(batchDetail);
-                                        BLL.Funs.DB.SubmitChanges();
+                                        new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem.InsertOnSubmit(batchDetail);
+                                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
 
                                         // 焊工首道口RT必点 
-                                        var joints = from x in Funs.DB.HJGL_Batch_PointBatchItem
-                                                     join y in Funs.DB.HJGL_Batch_PointBatch on x.PointBatchId equals y.PointBatchId
-                                                     join z in Funs.DB.Base_DetectionType on y.DetectionTypeId equals z.DetectionTypeId
-                                                     join j in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals j.WeldJointId
+                                        var joints = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
+                                                     join y in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatch on x.PointBatchId equals y.PointBatchId
+                                                     join z in new Model.SGGLDB(Funs.ConnString).Base_DetectionType on y.DetectionTypeId equals z.DetectionTypeId
+                                                     join j in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals j.WeldJointId
                                                      where  z.DetectionTypeCode == "RT" 
                                                      && j.CoverWelderId == newWeldJoint.CoverWelderId
                                                      select x;
@@ -752,7 +752,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 var item = GetWeldingDailyItem.FirstOrDefault(x => x.WeldJointId == rowID);
                 if (item != null)
                 {
-                    var coverWelderCode = (from x in Funs.DB.SitePerson_Person                                          
+                    var coverWelderCode = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person                                          
                                            where x.ProjectId == CurrUser.LoginProjectId && x.WelderCode == values.Value<string>("CoverWelderId")
                                            select x).FirstOrDefault();
                     if (coverWelderCode != null)
@@ -760,7 +760,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                         item.CoverWelderCode = coverWelderCode.WelderCode;
                         item.CoverWelderId = coverWelderCode.PersonId;
                     }
-                    var backingWelderCode = (from x in Funs.DB.SitePerson_Person
+                    var backingWelderCode = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
                                              where x.ProjectId == CurrUser.LoginProjectId && x.WelderCode == values.Value<string>("BackingWelderId")
                                              select x).FirstOrDefault();
                     if (backingWelderCode != null)

@@ -49,12 +49,7 @@
                    
                 </Toolbars>
                 <Columns>
-                    <f:TemplateField ColumnID="tfNumber" HeaderText="序号"
-                        Width="60px" HeaderTextAlign="Center" TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
+                    
                     <f:RenderField HeaderText="焊工号" ColumnID="WelderCode"
                         DataField="WelderCode" SortField="WelderCode" FieldType="String" HeaderTextAlign="Center"
                         Width="100px">

@@ -3,5 +3,5 @@
   <TreeNode id="6090DD54-FE59-4011-92EE-9906C9BC69B6" Text="发起检查" NavigateUrl="">
   </TreeNode>
 <TreeNode id="C619988F-307B-4A39-B518-7F45CA7326F5" Text="检查记录" NavigateUrl=""></TreeNode>
-<TreeNode id="BFCC1E3E-30DF-4417-B6C0-7D4D2E4148D2" Text="项目绩效评价" NavigateUrl=""></TreeNode>
+<TreeNode id="DEE90726-E00D-462B-A4BF-7E36180DD5B8" Text="项目绩效评价" NavigateUrl="OfficeCheck/ProjectEvaluation/ProjectEvaluation.aspx"></TreeNode>
 </Tree>

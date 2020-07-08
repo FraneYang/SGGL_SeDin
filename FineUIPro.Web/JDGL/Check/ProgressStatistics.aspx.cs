@@ -67,7 +67,7 @@ namespace FineUIPro.Web.JDGL.Check
                 workPackages = BLL.WorkPackageService.GetAllWorkPackagesByProjectId(this.CurrUser.LoginProjectId);
                 controlItemAndCycles = BLL.ControlItemAndCycleService.GetControlItemAndCyclesByProjectIdAndDate(this.CurrUser.LoginProjectId, endDate);
                 soptCheckDetails = BLL.SpotCheckDetailService.GetViewSpotCheckDetailsByProjectIdAndDate(this.CurrUser.LoginProjectId, endDate, isDataOK);
-                var unitWork = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.Weights == null);
+                var unitWork = new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.Weights == null);
                 if (unitWork != null)   //存在没有权重值的单位工程
                 {
                     noProjectWeights = true;

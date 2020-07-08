@@ -87,11 +87,11 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
-            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
@@ -119,7 +119,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -134,7 +134,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -154,7 +154,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         private void BindNodes(TreeNode ChildNodes)
         {
             //单号
-            var repairs = from x in Funs.DB.HJGL_RepairRecord
+            var repairs = from x in new Model.SGGLDB(Funs.ConnString).HJGL_RepairRecord
                           where x.NoticeDate < Convert.ToDateTime(this.txtRepairMonth.Text.Trim() + "-01").AddMonths(1)
                           && x.NoticeDate >= Convert.ToDateTime(this.txtRepairMonth.Text.Trim() + "-01")
                           && x.ProjectId == this.CurrUser.LoginProjectId
@@ -288,7 +288,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string repairRecordId = tvControlItem.SelectedNodeID;
             Model.HJGL_RepairRecord repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
 
@@ -358,7 +358,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
 
         protected void btnPointAudit_Click(object sender, EventArgs e)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string repairRecordId = tvControlItem.SelectedNodeID;
 
             // 更新返修记录
@@ -391,7 +391,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
 
         protected void btnGenerate_Click(object sender, EventArgs e)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string repairRecordId = tvControlItem.SelectedNodeID;
             Model.HJGL_RepairRecord repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
             if (!string.IsNullOrEmpty(repairRecordId) && repairRecord.AuditDate.HasValue)
@@ -421,23 +421,23 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 var exp = BLL.RepairRecordService.GetExportItem(repairRecordId);
                 if (exp != null)
                 {
-                    string exportTrustCode = repairRecord.RepairRecordCode.Substring(0, repairRecord.RepairRecordCode.Length - 2) + "K1";
-                    Model.HJGL_Batch_BatchTrust newExportTrust = new Model.HJGL_Batch_BatchTrust();
-                    string exporttrustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
-                    newExportTrust.TrustBatchId = exporttrustBatchId;
-                    newExportTrust.TrustBatchCode = exportTrustCode;
-                    newExportTrust.TrustDate = DateTime.Now;
-                    newExportTrust.ProjectId = repairRecord.ProjectId;
-                    newExportTrust.UnitId = repairRecord.UnitId;
-                    newExportTrust.UnitWorkId = repairRecord.UnitWorkId;
-                    newExportTrust.DetectionTypeId = repairRecord.DetectionTypeId;
+                    //string exportTrustCode = repairRecord.RepairRecordCode.Substring(0, repairRecord.RepairRecordCode.Length - 2) + "K1";
+                    //Model.HJGL_Batch_BatchTrust newExportTrust = new Model.HJGL_Batch_BatchTrust();
+                    //string exporttrustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
+                    //newExportTrust.TrustBatchId = exporttrustBatchId;
+                    //newExportTrust.TrustBatchCode = exportTrustCode;
+                    //newExportTrust.TrustDate = DateTime.Now;
+                    //newExportTrust.ProjectId = repairRecord.ProjectId;
+                    //newExportTrust.UnitId = repairRecord.UnitId;
+                    //newExportTrust.UnitWorkId = repairRecord.UnitWorkId;
+                    //newExportTrust.DetectionTypeId = repairRecord.DetectionTypeId;
 
-                    BLL.Batch_BatchTrustService.AddBatchTrust(newExportTrust);  // 新增扩透委托单
+                    //BLL.Batch_BatchTrustService.AddBatchTrust(newExportTrust);  // 新增扩透委托单
                     foreach (var q in exp)
                     {
                         Model.HJGL_Batch_BatchTrustItem newExportTrustItem = new Model.HJGL_Batch_BatchTrustItem();
                         newExportTrustItem.TrustBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrustItem));
-                        newExportTrustItem.TrustBatchId = exporttrustBatchId;
+                        newExportTrustItem.TrustBatchId = trustBatchId;
                         newExportTrustItem.PointBatchItemId = q.PointBatchItemId;
                         newExportTrustItem.WeldJointId = q.WeldJointId;
                         newExportTrustItem.CreateDate = DateTime.Now;

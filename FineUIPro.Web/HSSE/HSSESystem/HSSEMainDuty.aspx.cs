@@ -27,7 +27,7 @@ namespace FineUIPro.Web.HSSE.HSSESystem
         /// </summary>
         private void BindGrid2()
         {
-            Grid2.DataSource = from x in Funs.DB.Base_WorkPost select x;
+            Grid2.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost select x;
             Grid2.DataBind();
             Grid2.SelectedRowIndex = 0;
         }

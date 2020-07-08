@@ -21,7 +21,7 @@ namespace FineUIPro.Web.HJGL.NDT
             var repair = BLL.RepairRecordService.GetRepairRecordByNdeItemId(ndeItemId);
             if (repair == null)
             {
-                var mark = from x in BLL.Funs.DB.HJGL_RepairRecord
+                var mark = from x in new Model.SGGLDB(Funs.ConnString).HJGL_RepairRecord
                            where x.WeldJointId == q.WeldJointId && x.DetectionTypeId == q.DetectionTypeId
                            orderby x.RepairMark descending
                            select x;

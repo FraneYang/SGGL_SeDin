@@ -7,7 +7,7 @@
 
     public static class ProjectService
     {
-        public static SGGLDB db = Funs.DB;
+        public static SGGLDB db = new Model.SGGLDB(Funs.ConnString);
         
         /// <summary>
         ///获取项目信息
@@ -15,7 +15,7 @@
         /// <returns></returns>
         public static Model.Base_Project GetProjectByProjectId(string projectId)
         {
-            return Funs.DB.Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
+            return new Model.SGGLDB(Funs.ConnString).Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@
         public static string GetProjectNameByProjectId(string projectId)
         {
             string name = string.Empty;
-            var project = Funs.DB.Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
+            var project = new Model.SGGLDB(Funs.ConnString).Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
             if (project != null)
             {
                 name = project.ProjectName;
@@ -39,7 +39,7 @@
         /// <returns></returns>
         public static void AddProject(Model.Base_Project project)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Project newProject = new Base_Project
             {
                 ProjectId = project.ProjectId,
@@ -74,7 +74,7 @@
         /// <param name="project"></param>
         public static void UpdateProject(Model.Base_Project project)
         {
-            SGGLDB db = Funs.DB;
+            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Base_Project newProject = db.Base_Project.FirstOrDefault(e => e.ProjectId == project.ProjectId);
             if (newProject != null)
             {
@@ -109,7 +109,7 @@
         /// <param name="projectId"></param>
         public static void DeleteProject(string projectId)
         {
-            SGGLDB db = Funs.DB;
+            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Base_Project project = db.Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
             if (project != null)
             {
@@ -124,7 +124,7 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetProjectWorkList()
         {
-            var list = (from x in Funs.DB.Base_Project
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
                         where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
                         orderby x.ProjectCode descending
                         select x).ToList();
@@ -139,7 +139,7 @@
         {
             if (state == BLL.Const.ProjectState_1)  //施工
             {
-                var list = (from x in Funs.DB.Base_Project
+                var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
                             where x.ProjectState == state || x.ProjectState == null
                             orderby x.ProjectCode descending
                             select x).ToList();
@@ -147,7 +147,7 @@
             }
             else
             {
-                var list = (from x in Funs.DB.Base_Project
+                var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
                             where x.ProjectState == state
                             orderby x.ProjectCode descending
                             select x).ToList();
@@ -161,7 +161,7 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetAllProjectDropDownList()
         {
-            var list = (from x in Funs.DB.Base_Project
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
                         orderby x.ProjectCode descending
                         select x).ToList();
             return list;
@@ -173,7 +173,7 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetNoEProjectDropDownList()
         {
-            var list = (from x in Funs.DB.Base_Project
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
                         where x.ProjectType != "5"
                         orderby x.ProjectCode descending
                         select x).ToList();
@@ -186,7 +186,7 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetProjectByProjectTypeDropDownList(string projectType)
         {
-            var list = (from x in Funs.DB.Base_Project
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
                         where x.ProjectType == projectType
                         orderby x.ProjectCode descending
                         select x).ToList();
@@ -307,9 +307,9 @@
             string name = string.Empty;
             if (projectId != null)
             {
-                name = (from x in Funs.DB.Base_Project
-                        join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
-                        join z in Funs.DB.Sys_User on y.UserId equals z.UserId
+                name = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
+                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.ProjectId equals y.ProjectId
+                        join z in new Model.SGGLDB(Funs.ConnString).Sys_User on y.UserId equals z.UserId
                         where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.ProjectManager)
                         select z.UserName).FirstOrDefault();
             }
@@ -326,9 +326,9 @@
             string name = string.Empty;
             if (projectId != null)
             {
-                name = (from x in Funs.DB.Base_Project
-                        join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
-                        join z in Funs.DB.Sys_User on y.UserId equals z.UserId
+                name = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
+                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.ProjectId equals y.ProjectId
+                        join z in new Model.SGGLDB(Funs.ConnString).Sys_User on y.UserId equals z.UserId
                         where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.ConstructionManager)
                         select z.UserName).FirstOrDefault();
             }
@@ -345,9 +345,9 @@
             string name = string.Empty;
             if (projectId != null)
             {
-                name = (from x in Funs.DB.Base_Project
-                        join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
-                        join z in Funs.DB.Sys_User on y.UserId equals z.UserId
+                name = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
+                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.ProjectId equals y.ProjectId
+                        join z in new Model.SGGLDB(Funs.ConnString).Sys_User on y.UserId equals z.UserId
                         where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.HSSEManager)
                         select z.UserName).FirstOrDefault();
             }

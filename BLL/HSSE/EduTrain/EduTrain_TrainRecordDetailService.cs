@@ -8,7 +8,7 @@ namespace BLL
     /// </summary>
     public static class EduTrain_TrainRecordDetailService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据教育培训主键获取所有的教育培训明细信息
@@ -17,12 +17,12 @@ namespace BLL
         /// <returns>教育培训明细信息</returns>
         public static List<Model.EduTrain_TrainRecordDetail> GetTrainRecordDetailByTrainingId(string trainingId)
         {
-            return (from x in Funs.DB.EduTrain_TrainRecordDetail where x.TrainingId == trainingId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail where x.TrainingId == trainingId select x).ToList();
         }
 
         public static Model.EduTrain_TrainRecordDetail GetTrainDetailByTrainDetailId(string trainDetailId)
         {
-            return Funs.DB.EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainDetailId == trainDetailId);
+            return new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainDetailId == trainDetailId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <param name="trainDetail">教育培训明细信息实体</param>
         public static void AddTrainDetail(Model.EduTrain_TrainRecordDetail trainDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string newKeyID = SQLHelper.GetNewID(typeof(Model.EduTrain_TrainRecordDetail));
             Model.EduTrain_TrainRecordDetail newTrainDetail = new Model.EduTrain_TrainRecordDetail
             {
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="trainDetail">教育培训明细信息</param>
         public static void UpdateTrainDetail(Model.EduTrain_TrainRecordDetail trainDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.EduTrain_TrainRecordDetail newTrainRecordDetail = db.EduTrain_TrainRecordDetail.FirstOrDefault(e => e.TrainDetailId == trainDetail.TrainDetailId);
             if (newTrainRecordDetail != null)
             {
@@ -84,7 +84,7 @@ namespace BLL
         /// <param name="trainingId">教育培训主键</param>
         public static void DeleteTrainDetailByTrainingId(string trainingId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.EduTrain_TrainRecordDetail where x.TrainingId == trainingId select x).ToList();
             if (q.Count() > 0)
             {
@@ -99,8 +99,8 @@ namespace BLL
         /// <param name="trainingId"></param>
         public static void DeleteTrainDetailByTrainDetail(string trainDetailId)
         {
-            Model.SGGLDB db = Funs.DB;
-            Model.EduTrain_TrainRecordDetail trainDetails = Funs.DB.EduTrain_TrainRecordDetail.FirstOrDefault(e => e.TrainDetailId == trainDetailId);
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.EduTrain_TrainRecordDetail trainDetails = new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail.FirstOrDefault(e => e.TrainDetailId == trainDetailId);
             if (trainDetails != null)
             {
                 db.EduTrain_TrainRecordDetail.DeleteOnSubmit(trainDetails);
@@ -117,7 +117,7 @@ namespace BLL
 
         public static Model.EduTrain_TrainRecordDetail GetTrainDetailByPersonIdTrainingId(string trainingId, string personId)
         {
-            return Funs.DB.EduTrain_TrainRecordDetail.FirstOrDefault(e => e.TrainingId == trainingId && e.PersonId == personId);
+            return new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail.FirstOrDefault(e => e.TrainingId == trainingId && e.PersonId == personId);
         }
     }
 }

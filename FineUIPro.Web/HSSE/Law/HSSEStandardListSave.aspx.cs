@@ -198,7 +198,7 @@ namespace FineUIPro.Web.HSSE.Law
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var standard = Funs.DB.Law_HSSEStandardsList.FirstOrDefault(x => x.IsPass == true && x.StandardName == this.txtStandardName.Text.Trim() && (x.StandardId != this.StandardId || (this.StandardId == null && x.StandardId != null)));
+            var standard = new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList.FirstOrDefault(x => x.IsPass == true && x.StandardName == this.txtStandardName.Text.Trim() && (x.StandardId != this.StandardId || (this.StandardId == null && x.StandardId != null)));
             if (standard != null)
             {
                 ShowNotify("输入的标准名称已存在！", MessageBoxIcon.Warning);

@@ -17,16 +17,16 @@ namespace BLL
         /// <returns></returns>
         public static Model.RectifyNoticesItem getRectifyNoticesById(string rectifyNoticesId)
         {
-            var getRectifyNotices = from x in Funs.DB.Check_RectifyNotices
+            var getRectifyNotices = from x in new Model.SGGLDB(Funs.ConnString).Check_RectifyNotices
                                     where x.RectifyNoticesId == rectifyNoticesId
                                     select new Model.RectifyNoticesItem
                                     {
                                         RectifyNoticesId = x.RectifyNoticesId,
                                         ProjectId = x.ProjectId,
-                                        ProjectName = Funs.DB.Base_Project.First(z => z.ProjectId == x.ProjectId).ProjectName,
+                                        ProjectName = new Model.SGGLDB(Funs.ConnString).Base_Project.First(z => z.ProjectId == x.ProjectId).ProjectName,
                                         RectifyNoticesCode = x.RectifyNoticesCode,
                                         UnitId = x.UnitId,
-                                        UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                        UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                         WorkAreaId = x.WorkAreaId,
                                         WorkAreaName = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
                                         CheckManNames = x.CheckManNames,
@@ -38,31 +38,31 @@ namespace BLL
                                         HiddenHazardType = x.HiddenHazardType,
                                         HiddenHazardTypeName = x.HiddenHazardType == "2" ? "较大" : (x.HiddenHazardType == "3" ? "重大" : "一般"),
                                         CompleteManId = x.CompleteManId,
-                                        CompleteManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompleteManId).UserName,
+                                        CompleteManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompleteManId).UserName,
                                         SignPersonId = x.SignPerson,
-                                        SignPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.SignPerson).UserName,
+                                        SignPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SignPerson).UserName,
                                         SignDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SignDate),
                                         ProfessionalEngineerId = x.ProfessionalEngineerId,
-                                        ProfessionalEngineerName = Funs.DB.Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
+                                        ProfessionalEngineerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
                                         ProfessionalEngineerTime1 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime1),
                                         ProfessionalEngineerTime2 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime2),
                                         ConstructionManagerId = x.ConstructionManagerId,
-                                        ConstructionManagerName = Funs.DB.Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
+                                        ConstructionManagerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
                                         ConstructionManagerTime1 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ConstructionManagerTime1),
                                         ConstructionManagerTime2 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ConstructionManagerTime2),
                                         ProjectManagerId = x.ProjectManagerId,
-                                        ProjectManagerName = Funs.DB.Sys_User.First(u => u.UserId == x.ProjectManagerId).UserName,
+                                        ProjectManagerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ProjectManagerId).UserName,
                                         ProjectManagerTime1 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProjectManagerTime1),
                                         ProjectManagerTime2 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProjectManagerTime2),
                                         DutyPersonId = x.DutyPersonId,
-                                        DutyPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
+                                        DutyPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
                                         DutyPersonTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonTime),
                                         CompleteDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompleteDate),
                                         UnitHeadManId = x.UnitHeadManId,
-                                        UnitHeadManName = Funs.DB.Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
+                                        UnitHeadManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
                                         UnitHeadManDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.UnitHeadManDate),
                                         CheckPersonId = x.CheckPerson,
-                                        CheckPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
+                                        CheckPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
                                         ReCheckDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReCheckDate),
                                         ReCheckOpinion=x.ReCheckOpinion,
                                         //WrongContent =x.WrongContent,                                       
@@ -88,7 +88,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.RectifyNoticesItemItem> getRectifyNoticesItemItem(string rectifyNoticesId)
         {
-            var getInfo = from x in Funs.DB.Check_RectifyNoticesItem
+            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesItem
                           where x.RectifyNoticesId == rectifyNoticesId
                           orderby x.LimitTime descending
                           select new Model.RectifyNoticesItemItem
@@ -114,7 +114,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.RectifyNoticesFlowOperateItem> getRectifyNoticesFlowOperateItem(string rectifyNoticesId)
         {
-            var getInfo = from x in Funs.DB.Check_RectifyNoticesFlowOperate
+            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesFlowOperate
                           where x.RectifyNoticesId == rectifyNoticesId
                           orderby x.OperateTime descending
                           select new Model.RectifyNoticesFlowOperateItem
@@ -123,7 +123,7 @@ namespace BLL
                               RectifyNoticesId = x.RectifyNoticesId,
                               OperateName = x.OperateName,
                               OperateManId = x.OperateManId,
-                              OperateManName = Funs.DB.Sys_User.First(z => z.UserId == x.OperateManId).UserName,
+                              OperateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.OperateManId).UserName,
                               OperateTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.OperateTime),
                               IsAgree = x.IsAgree,
                               Opinion = x.Opinion,
@@ -159,17 +159,17 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.RectifyNoticesItem> getRectifyNoticesByProjectIdStates(string projectId, string states)
         {
-            var getDataLists = (from x in Funs.DB.Check_RectifyNotices
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Check_RectifyNotices
                                 where x.ProjectId == projectId && x.States == states
                                 orderby x.RectifyNoticesCode descending
                                 select new Model.RectifyNoticesItem
                                 {
                                     RectifyNoticesId = x.RectifyNoticesId,
                                     ProjectId = x.ProjectId,
-                                    ProjectName = Funs.DB.Base_Project.First(z => z.ProjectId == x.ProjectId).ProjectName,
+                                    ProjectName = new Model.SGGLDB(Funs.ConnString).Base_Project.First(z => z.ProjectId == x.ProjectId).ProjectName,
                                     RectifyNoticesCode = x.RectifyNoticesCode,
                                     UnitId = x.UnitId,
-                                    UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                    UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                     WorkAreaId = x.WorkAreaId,
                                     WorkAreaName = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
                                     CheckManNames = x.CheckManNames,
@@ -179,27 +179,27 @@ namespace BLL
                                     HiddenHazardType = x.HiddenHazardType,
                                     HiddenHazardTypeName = x.HiddenHazardType == "2" ? "较大" : (x.HiddenHazardType == "3" ? "重大" : "一般"),
                                     CompleteManId = x.CompleteManId,
-                                    CompleteManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompleteManId).UserName,
+                                    CompleteManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompleteManId).UserName,
                                     SignPersonId = x.SignPerson,
-                                    SignPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.SignPerson).UserName,
+                                    SignPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SignPerson).UserName,
                                     SignDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.SignDate),
 
                                     DutyPersonId = x.DutyPersonId,
-                                    DutyPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
+                                    DutyPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
                                     DutyPersonTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.DutyPersonTime),
 
                                     CompleteDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.CompleteDate),
                                     UnitHeadManId = x.UnitHeadManId,
-                                    UnitHeadManName = Funs.DB.Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
+                                    UnitHeadManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
                                     UnitHeadManDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.UnitHeadManDate),
 
                                     CheckPersonId = x.CheckPerson,
-                                    CheckPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
+                                    CheckPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
                                     ReCheckDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReCheckDate),
                                     ReCheckOpinion = x.ReCheckOpinion,
                                     IsRectify = x.IsRectify ,
                                     States = x.States,
-                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId)).AttachUrl.Replace('\\', '/'),
+                                    AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId)).AttachUrl.Replace('\\', '/'),
                                 }).ToList();
             return getDataLists;
         }

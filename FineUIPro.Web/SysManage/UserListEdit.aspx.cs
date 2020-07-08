@@ -236,13 +236,13 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == this.txtAccount.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.Account == this.txtAccount.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
             if (q != null)
             {
                 ShowNotify("输入的账号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = Funs.DB.Sys_User.FirstOrDefault(x => x.UserCode == this.txtUserCode.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.UserCode == this.txtUserCode.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的编号已存在！", MessageBoxIcon.Warning);

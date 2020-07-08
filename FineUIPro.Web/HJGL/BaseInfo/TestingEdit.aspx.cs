@@ -67,14 +67,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_DetectionType.FirstOrDefault(x => x.DetectionTypeCode == this.txtDetectionTypeCode.Text.Trim() && (x.DetectionTypeId != this.DetectionTypeId || (this.DetectionTypeId == null && x.DetectionTypeId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_DetectionType.FirstOrDefault(x => x.DetectionTypeCode == this.txtDetectionTypeCode.Text.Trim() && (x.DetectionTypeId != this.DetectionTypeId || (this.DetectionTypeId == null && x.DetectionTypeId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此检测方法代号已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = Funs.DB.Base_DetectionType.FirstOrDefault(x => x.DetectionTypeName == this.txtDetectionTypeName.Text.Trim() && (x.DetectionTypeId != this.DetectionTypeId || (this.DetectionTypeId == null && x.DetectionTypeId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_DetectionType.FirstOrDefault(x => x.DetectionTypeName == this.txtDetectionTypeName.Text.Trim() && (x.DetectionTypeId != this.DetectionTypeId || (this.DetectionTypeId == null && x.DetectionTypeId != null)));
             if (q2 != null)
             {
                 Alert.ShowInTop("此检测方法名称已经存在！", MessageBoxIcon.Warning);

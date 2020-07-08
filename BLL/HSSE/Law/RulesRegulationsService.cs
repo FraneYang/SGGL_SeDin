@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class RulesRegulationsService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取生产规章制度
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Law_RulesRegulations GetRulesRegulationsById(string rulesRegulationsId)
         {
-            return Funs.DB.Law_RulesRegulations.FirstOrDefault(e => e.RulesRegulationsId == rulesRegulationsId);
+            return new Model.SGGLDB(Funs.ConnString).Law_RulesRegulations.FirstOrDefault(e => e.RulesRegulationsId == rulesRegulationsId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Law_RulesRegulations> GetRulesRegulationByCompileMan(string compileMan)
         {
-            return (from x in Funs.DB.Law_RulesRegulations where x.CompileMan == compileMan select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Law_RulesRegulations where x.CompileMan == compileMan select x).ToList();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="rulesRegulations"></param>
         public static void AddRulesRegulations(Model.Law_RulesRegulations rulesRegulations)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Law_RulesRegulations newRuleRegulations = new Model.Law_RulesRegulations
             {
                 RulesRegulationsId = rulesRegulations.RulesRegulationsId,
@@ -65,7 +65,7 @@ namespace BLL
         /// <param name="rulesRegulations"></param>
         public static void UpdateRulesRegulations(Model.Law_RulesRegulations rulesRegulations)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Law_RulesRegulations newRuleRegulations = db.Law_RulesRegulations.FirstOrDefault(e => e.RulesRegulationsId == rulesRegulations.RulesRegulationsId);
             if (newRuleRegulations != null)
             {
@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="rulesRegulations"></param>
         public static void UpdateRulesRegulationsIsPass(Model.Law_RulesRegulations rulesRegulations)
         { 
-         Model.SGGLDB db = Funs.DB;
+         Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Law_RulesRegulations newRuleRegulations = db.Law_RulesRegulations.FirstOrDefault(e => e.RulesRegulationsId == rulesRegulations.RulesRegulationsId);
             if (newRuleRegulations != null)
             {
@@ -104,7 +104,7 @@ namespace BLL
         /// <param name="ruleRegulationsId"></param>
         public static void DeleteRuleRegulationsById(string ruleRegulationsId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Law_RulesRegulations rulesRegulations = db.Law_RulesRegulations.FirstOrDefault(e => e.RulesRegulationsId == ruleRegulationsId);
             if (rulesRegulations != null)
             {

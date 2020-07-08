@@ -8,7 +8,7 @@ namespace BLL
 {
     public static class AttachFileService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 添加附件存储信息
@@ -66,7 +66,7 @@ namespace BLL
         /// <returns>文件信息</returns>
         public static Model.AttachFile GetAttachFile(string toKey, string menuId)
         {
-            return Funs.DB.AttachFile.FirstOrDefault(e => e.ToKeyId == toKey && e.MenuId == menuId);
+            return new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(e => e.ToKeyId == toKey && e.MenuId == menuId);
         }
 
         public static string getFileUrl(string toKeyId)
@@ -98,7 +98,7 @@ namespace BLL
         public static Boolean Getfile(string toKeyId, string menuId)
         {
             bool res = false;
-            var q = Funs.DB.AttachFile.FirstOrDefault((x => x.ToKeyId == toKeyId && x.MenuId == menuId));
+            var q = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault((x => x.ToKeyId == toKeyId && x.MenuId == menuId));
             if (q != null)
             {
                 var file = q.AttachUrl;
@@ -116,7 +116,7 @@ namespace BLL
             listToKeyId.Add(toKeyId);
             listToKeyId.Add(toKeyId + "r");
             listToKeyId.Add(toKeyId + "re");
-            var list = Funs.DB.AttachFile.Where(p => listToKeyId.Contains(p.ToKeyId) && p.MenuId == menuId).ToList();
+            var list = new Model.SGGLDB(Funs.ConnString).AttachFile.Where(p => listToKeyId.Contains(p.ToKeyId) && p.MenuId == menuId).ToList();
             return list;
 
         }
@@ -285,7 +285,7 @@ namespace BLL
             try
             {
                 string file = string.Empty;
-                var result = Funs.DB.AttachFile.FirstOrDefault((x => x.ToKeyId == toKeyId && x.MenuId == Const.UserMenuId));
+                var result = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault((x => x.ToKeyId == toKeyId && x.MenuId == Const.UserMenuId));
                 if (result != null && !string.IsNullOrEmpty(result.AttachUrl))
                 {
                     file = result.AttachUrl.ToLower();
@@ -302,7 +302,7 @@ namespace BLL
 
         public static Model.AttachFile Getfiles(string toKeyId, string menuId)
         {
-            var list = Funs.DB.AttachFile.FirstOrDefault((x => x.ToKeyId == toKeyId && x.MenuId == menuId));
+            var list = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault((x => x.ToKeyId == toKeyId && x.MenuId == menuId));
             return list;
         }
     }

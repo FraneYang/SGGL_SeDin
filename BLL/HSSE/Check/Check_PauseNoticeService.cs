@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_PauseNotice GetPauseNoticeByPauseNoticeId(string pauseNoticeId)
         {
-            return Funs.DB.Check_PauseNotice.FirstOrDefault(e => e.PauseNoticeId == pauseNoticeId);
+            return new Model.SGGLDB(Funs.ConnString).Check_PauseNotice.FirstOrDefault(e => e.PauseNoticeId == pauseNoticeId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <param name="pauseNotice"></param>
         public static void AddPauseNotice(Model.Check_PauseNotice pauseNotice)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_PauseNotice newPauseNotice = new Model.Check_PauseNotice
             {
                 PauseNoticeId = pauseNotice.PauseNoticeId,
@@ -78,7 +78,7 @@ namespace BLL
         /// <param name="pauseNotice"></param>
         public static void UpdatePauseNotice(Model.Check_PauseNotice pauseNotice)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_PauseNotice newPauseNotice = db.Check_PauseNotice.FirstOrDefault(e => e.PauseNoticeId == pauseNotice.PauseNoticeId);
             if (newPauseNotice != null)
             {
@@ -122,7 +122,7 @@ namespace BLL
         /// <param name="superviseCheckReportId"></param>
         public static void DeletePauseNotice(string pauseNoticeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_PauseNotice where x.PauseNoticeId == pauseNoticeId select x).FirstOrDefault();
             if (q != null)
             {

@@ -62,7 +62,7 @@
                             <f:Button ID="btnbtnOpenResetPoint" Text="打开重新点口" ToolTip="打开重新点口" Icon="ArrowUndo"
                                 runat="server" OnClick="btnbtnOpenResetPoint_Click">
                             </f:Button> 
-                            <f:Button ID="btnPointAudit" Text="点口审核" ToolTip="监理点口审核并生成委托单" Icon="ArrowNsew" runat="server"
+                            <f:Button ID="btnPointAudit" Text="生成委托单" ToolTip="监理点口审核并生成委托单" Icon="ArrowNsew" runat="server"
                                 OnClick="btnPointAudit_Click">
                             </f:Button> 
                             <f:Button ID="btnGenerate" Text="生成" ToolTip="生成委托单" Icon="TableEdit" runat="server"
@@ -145,12 +145,12 @@
                                 SortField="IsWelderFirst" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="80px">
                             </f:RenderField>
-                            <f:RenderField HeaderText="备注" ColumnID="Remark" DataField="Remark" SortField="Remark"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="60px">
-                            </f:RenderField>
-                             <f:RenderField HeaderText="点口审核" ColumnID="PointIsAudit" DataField="PointIsAudit"
-                                SortField="PointIsAudit" FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
+                             <f:RenderField HeaderText="是否委托" ColumnID="IsBuildTrust" DataField="IsBuildTrust"
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
                                 Width="90px">
+                            </f:RenderField>
+                             <f:RenderField HeaderText="备注" ColumnID="Remark" DataField="Remark" SortField="Remark"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="60px">
                             </f:RenderField>
                         </Columns>
                         

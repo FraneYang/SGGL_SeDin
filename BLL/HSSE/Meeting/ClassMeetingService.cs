@@ -7,7 +7,7 @@ namespace BLL
     /// </summary>
     public static class ClassMeetingService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取班前会
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Meeting_ClassMeeting GetClassMeetingById(string classMeetingId)
         {
-            return Funs.DB.Meeting_ClassMeeting.FirstOrDefault(e => e.ClassMeetingId == classMeetingId);
+            return new Model.SGGLDB(Funs.ConnString).Meeting_ClassMeeting.FirstOrDefault(e => e.ClassMeetingId == classMeetingId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="classMeeting"></param>
         public static void AddClassMeeting(Model.Meeting_ClassMeeting classMeeting)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_ClassMeeting newClassMeeting = new Model.Meeting_ClassMeeting
             {
                 ClassMeetingId = classMeeting.ClassMeetingId,
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="classMeeting"></param>
         public static void UpdateClassMeeting(Model.Meeting_ClassMeeting classMeeting)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_ClassMeeting newClassMeeting = db.Meeting_ClassMeeting.FirstOrDefault(e => e.ClassMeetingId == classMeeting.ClassMeetingId);
             if (newClassMeeting != null)
             {
@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="classMeetingId"></param>
         public static void DeleteClassMeetingById(string classMeetingId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_ClassMeeting classMeeting = db.Meeting_ClassMeeting.FirstOrDefault(e => e.ClassMeetingId == classMeetingId);
             if (classMeeting != null)
             {

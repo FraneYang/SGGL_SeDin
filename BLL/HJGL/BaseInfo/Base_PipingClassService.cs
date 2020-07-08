@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Model.Base_PipingClass GetPipingClassByPipingClassId(string pipingClassId)
         {
-            return Funs.DB.Base_PipingClass.FirstOrDefault(e => e.PipingClassId == pipingClassId);
+            return new Model.SGGLDB(Funs.ConnString).Base_PipingClass.FirstOrDefault(e => e.PipingClassId == pipingClassId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@
         /// <param name="PipingClass"></param>
         public static void AddPipingClass(Model.Base_PipingClass pipingClass)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_PipingClass newPipingClass = new Base_PipingClass
             {
                 PipingClassId = pipingClass.PipingClassId,
@@ -41,7 +41,7 @@
         /// <param name="pipingClass"></param>
         public static void UpdatePipingClass(Model.Base_PipingClass pipingClass)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_PipingClass newPipingClass = db.Base_PipingClass.FirstOrDefault(e => e.PipingClassId == pipingClass.PipingClassId);
             if (newPipingClass != null)
             {
@@ -60,7 +60,7 @@
         /// <param name="pipingClassId"></param>
         public static void DeletePipingClassByPipingClassId(string pipingClassId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_PipingClass delPipingClass = db.Base_PipingClass.FirstOrDefault(e => e.PipingClassId == pipingClassId);
             if (delPipingClass != null)
             {
@@ -76,7 +76,7 @@
         /// <returns></returns>
         public static List<Model.Base_PipingClass> GetPipingClassList(string ProjectId)
         {
-            var list = (from x in Funs.DB.Base_PipingClass where x.ProjectId==ProjectId 
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_PipingClass where x.ProjectId==ProjectId 
                         orderby x.PipingClassCode
                         select x).ToList();
 

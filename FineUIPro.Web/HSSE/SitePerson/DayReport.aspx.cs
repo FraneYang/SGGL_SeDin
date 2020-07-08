@@ -183,7 +183,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 };
                 BLL.SitePerson_DayReportService.AddDayReport(newDayReport);
 
-                var units = from x in Funs.DB.Project_ProjectUnit
+                var units = from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
                             where x.ProjectId == this.CurrUser.LoginProjectId && (x.UnitType == BLL.Const.ProjectUnitType_1 || x.UnitType == BLL.Const.ProjectUnitType_2)
                             select x;     //1为总包，2为施工分包
                 if (units.Count() > 0)
@@ -200,8 +200,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             newDayReportDetail.WorkTime = 8;
                             //newDayReportDetail.StaffData = this.GetStaffData(item.UnitId, item.UnitType, compileDate.Value);
                             BLL.SitePerson_DayReportDetailService.AddDayReportDetail(newDayReportDetail);
-                            var posts = (from x in Funs.DB.Base_WorkPost
-                                         join y in Funs.DB.SitePerson_Person
+                            var posts = (from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost
+                                         join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
                                          on x.WorkPostId equals y.WorkPostId
                                          where y.UnitId == item.UnitId && y.ProjectId == this.CurrUser.LoginProjectId
                                          orderby x.WorkPostCode
@@ -241,26 +241,26 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             string allStaffData = string.Empty;
 
-            var allSum = from x in Funs.DB.SitePerson_Person
+            var allSum = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
                          where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == unitId && x.IsUsed == true
                          && (x.InTime < compileDate.AddMonths(1) || !x.InTime.HasValue)
                          select x;
 
             ///管理人员集合
             var glAllPerson = from x in allSum
-                              join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                              join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
                               where (y.PostType == Const.PostType_1 || y.PostType == Const.PostType_4)    //一般管理岗位和特种管理人员
                               select x;
 
             ///安全专职人员集合
             var hsseAllPerson = from x in allSum
-                                join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                                join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
                                 where y.IsHsse == true       //HSSE管理人员
                                 select x;
 
             ///单位作业人员集合
             var zyAllPerson = from x in allSum
-                              join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                              join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
                               where (y.PostType == Const.PostType_2 || y.PostType == Const.PostType_3)      //特种作业人员和一般作业岗位
                               select x;
 
@@ -289,9 +289,9 @@ namespace FineUIPro.Web.HSSE.SitePerson
             DateTime? nowMont = BLL.Funs.GetNewDateTime(this.txtCompileDate.Text);
             if (nowMont.HasValue)
             {
-                var checks = from x in Funs.DB.SitePerson_Checking
-                             join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                             join z in Funs.DB.Base_WorkPost on y.WorkPostId equals z.WorkPostId
+                var checks = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Checking
+                             join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
+                             join z in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on y.WorkPostId equals z.WorkPostId
                              where x.IntoOutTime > nowMont.Value.AddDays(-1) && x.IntoOutTime < nowMont.Value.AddDays(1) && y.ProjectId == this.CurrUser.LoginProjectId
                              && z.WorkPostId == workPostId
                              select x;
@@ -420,7 +420,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             if (dayReportId != null)
             {
-                var q = from y in Funs.DB.SitePerson_DayReportDetail where y.DayReportId == dayReportId.ToString() select y;
+                var q = from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail where y.DayReportId == dayReportId.ToString() select y;
                 if (q.Count() > 0)
                 {
                      return q.Sum(x => x.PersonWorkTime ?? 0).ToString();
@@ -439,9 +439,9 @@ namespace FineUIPro.Web.HSSE.SitePerson
             if (compileDate != null)
             {                
                 DateTime date = Convert.ToDateTime(compileDate);
-                var q = from y in Funs.DB.SitePerson_DayReportDetail
+                var q = from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
                         where
-                            (from z in Funs.DB.SitePerson_DayReport
+                            (from z in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport
                              where z.CompileDate <= date && z.CompileDate.Value.Year == date.Year
                              && z.ProjectId == this.CurrUser.LoginProjectId
                              select z.DayReportId).Contains(y.DayReportId)
@@ -464,7 +464,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             if (compileDate != null)
             {                
                 DateTime date = Convert.ToDateTime(compileDate);
-                var q = from y in Funs.DB.SitePerson_DayReportDetail where (from z in Funs.DB.SitePerson_DayReport where z.CompileDate <= date && z.ProjectId == this.CurrUser.LoginProjectId select z.DayReportId).Contains(y.DayReportId) select y;
+                var q = from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail where (from z in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport where z.CompileDate <= date && z.ProjectId == this.CurrUser.LoginProjectId select z.DayReportId).Contains(y.DayReportId) select y;
                 if (q.Count() > 0)
                 {
                     return q.Sum(x => x.PersonWorkTime ?? 0).ToString();

@@ -67,11 +67,11 @@ namespace FineUIPro.Web.HJGL.NDT
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
-            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
@@ -99,13 +99,14 @@ namespace FineUIPro.Web.HJGL.NDT
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
                     tn1.Text = q.UnitWorkName;
                     tn1.ToolTip = "施工单位：" + u.UnitName;
                     tn1.CommandName = "单位工程";
+                    tn1.EnableExpandEvent = true;
                     rootNode1.Nodes.Add(tn1);
                     BindNodes(tn1);
                 }
@@ -114,13 +115,14 @@ namespace FineUIPro.Web.HJGL.NDT
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
                     tn2.Text = q.UnitWorkName;
                     tn2.ToolTip = "施工单位：" + u.UnitName;
                     tn2.CommandName = "单位工程";
+                    tn2.EnableExpandEvent = true;
                     rootNode2.Nodes.Add(tn2);
                     BindNodes(tn2);
                 }
@@ -133,10 +135,10 @@ namespace FineUIPro.Web.HJGL.NDT
         /// <param name="node"></param>
         private void BindNodes(TreeNode node)
         {
-            var p = from x in Funs.DB.HJGL_Batch_NDE
+            var p = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDE
                     where x.UnitWorkId == node.NodeID
-&& x.NDEDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
-&& x.NDEDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
+                    && x.NDEDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
+                    && x.NDEDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
                     select x;
             if (p.Count() > 0)
             {
@@ -152,13 +154,13 @@ namespace FineUIPro.Web.HJGL.NDT
             e.Node.Expanded = true;
             if (e.Node.CommandName == "单位工程")
             {
-                var detectionTypes = from x in Funs.DB.Base_DetectionType
+                var detectionTypes = from x in new Model.SGGLDB(Funs.ConnString).Base_DetectionType
                                      orderby x.DetectionTypeCode
                                      select new { x.DetectionTypeId, x.DetectionTypeCode, x.DetectionTypeName };
                 foreach (var item in detectionTypes)
                 {
-                    var types = (from x in Funs.DB.View_Batch_NDE
-                                 join y in Funs.DB.Base_DetectionType
+                    var types = (from x in new Model.SGGLDB(Funs.ConnString).View_Batch_NDE
+                                 join y in new Model.SGGLDB(Funs.ConnString).Base_DetectionType
                                  on x.DetectionTypeId equals y.DetectionTypeId
                                  where x.ProjectId == this.CurrUser.LoginProjectId
                                        && x.UnitWorkId == e.Node.NodeID
@@ -190,7 +192,7 @@ namespace FineUIPro.Web.HJGL.NDT
             {
                 ///单号
                 string ndtTypeId = e.Node.NodeID.Split('|')[0];
-                var checks = from x in Funs.DB.View_Batch_NDE
+                var checks = from x in new Model.SGGLDB(Funs.ConnString).View_Batch_NDE
                              where x.NDEDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
                              && x.NDEDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
                              && x.ProjectId == this.CurrUser.LoginProjectId && x.NDECode.Contains(this.txtSearchCode.Text.Trim())
@@ -285,7 +287,7 @@ namespace FineUIPro.Web.HJGL.NDT
         private void PageInfoLoad()
         {
             this.SimpleForm1.Reset(); ///重置所有字段
-            var check = Funs.DB.View_Batch_NDE.FirstOrDefault(x => x.NDEID == this.NDEID);
+            var check = new Model.SGGLDB(Funs.ConnString).View_Batch_NDE.FirstOrDefault(x => x.NDEID == this.NDEID);
             if (check != null)
             {
                 this.txtUnitName.Text = check.UnitName;
@@ -367,7 +369,7 @@ namespace FineUIPro.Web.HJGL.NDT
                 if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
                 {
                     this.SetTextTemp();
-                    string window = String.Format("NDTBatchEdit.aspx?workAreaId={0}", tvControlItem.SelectedNodeID, "新增 - ");
+                    string window = String.Format("NDTBatchEdit.aspx?unitWorkId={0}", tvControlItem.SelectedNodeID, "新增 - ");
                     PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdNDEID.ClientID)
                       + Window1.GetShowReference(window));
                 }
@@ -510,7 +512,7 @@ namespace FineUIPro.Web.HJGL.NDT
         private bool judgementDelete(string id)
         {
             string content = string.Empty;
-            var ndeItems = from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == id && x.SubmitDate.HasValue select x;
+            var ndeItems = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDEItem where x.NDEID == id && x.SubmitDate.HasValue select x;
 
             if (ndeItems.Count() > 0)
             {
@@ -567,15 +569,7 @@ namespace FineUIPro.Web.HJGL.NDT
             string str = string.Empty;
             if (CheckDefects != null)
             {
-                HttpCookie lanCookie = Request.Cookies["SelectLan"];
-                if (lanCookie["lan"] == "zh-CN")   //中文
-                {
-                    str = BLL.Base_DefectService.GetDefectNameStrByDefectIdStr(CheckDefects.ToString());
-                }
-                else
-                {
-                    str = BLL.Base_DefectService.GetDefectEngNameStrByDefectIdStr(CheckDefects.ToString());
-                }
+                str = BLL.Base_DefectService.GetDefectNameStrByDefectIdStr(CheckDefects.ToString());
             }
             return str;
         }
@@ -592,7 +586,7 @@ namespace FineUIPro.Web.HJGL.NDT
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnAuditing))
             {
                 List<Model.HJGL_Batch_NDEItem> GetNDEItem = BLL.Batch_NDEItemService.GetNDEItemByNDEID(this.NDEID);
-                Model.SGGLDB db = Funs.DB;
+                Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
                 //全部记录都已录入探伤报告编号
                 var isNull = GetNDEItem.FirstOrDefault(x => x.NDEReportNo == null);
                 if (isNull == null)
@@ -616,9 +610,7 @@ namespace FineUIPro.Web.HJGL.NDT
                                     return;
                                 }
                             }
-
-                            item.SubmitDate = DateTime.Now;
-                            BLL.Batch_NDEItemService.UpdateNDEItem(item);
+                            BLL.Batch_NDEItemService.NDEItemAudit(item.NDEItemID,DateTime.Now);
                         }
                     }
                 }
@@ -633,7 +625,7 @@ namespace FineUIPro.Web.HJGL.NDT
                 {
                     int trustItemCount = BLL.Batch_BatchTrustItemService.GetBatchTrustItemByTrustBatchId(nde.TrustBatchId).Count;
                     int checkItemCount = BLL.Batch_NDEItemService.GetNDEItemByNDEID(this.NDEID).Count;
-                    int noResultCheckItemCount = (from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == this.NDEID && x.CheckResult == null select x).Count();
+                    int noResultCheckItemCount = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDEItem where x.NDEID == this.NDEID && x.CheckResult == null select x).Count();
                     if (trustItemCount == checkItemCount && noResultCheckItemCount == 0)  //全部检测结果录入完毕，更新字段
                     {
                         BLL.Batch_BatchTrustService.UpdatTrustBatchtState(nde.TrustBatchId, true);
@@ -655,7 +647,7 @@ namespace FineUIPro.Web.HJGL.NDT
         /// <param name="pointBatchItemId">批明细Id</param>
         private void AutoExpandUpdate(string pointBatchItemId, string toPointBatchItemId)
         {
-            //Model.HJGLDB db = Funs.DB;
+            //Model.HJGLDB db = new Model.SGGLDB(Funs.ConnString);
             //var pointBatchItem = db.Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == pointBatchItemId);
             //pointBatchItem.PointDate = Convert.ToDateTime(DateTime.Now.Date);
             //pointBatchItem.PointState = "2";
@@ -703,7 +695,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     }
                     else
                     {
-                        var trustBatchItem = Funs.DB.HJGL_Batch_BatchTrustItem.FirstOrDefault(x => x.TrustBatchItemId == item.TrustBatchItemId);
+                        var trustBatchItem = new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrustItem.FirstOrDefault(x => x.TrustBatchItemId == item.TrustBatchItemId);
                         if (trustBatchItem != null)
                         {
                             item.SubmitDate = null;

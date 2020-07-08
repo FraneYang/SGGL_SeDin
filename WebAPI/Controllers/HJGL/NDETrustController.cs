@@ -153,8 +153,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="pointBatchId"></param>
         /// <returns></returns>
-        [HttpPost]
-        public Model.ResponeData AutoPointSave([FromBody] string pointBatchId)
+        public Model.ResponeData getAutoPointSave(string pointBatchId)
         {
             var responeData = new Model.ResponeData();
             try
@@ -176,8 +175,7 @@ namespace WebAPI.Controllers
         /// <param name="oldJointId"></param>
         /// <param name="newJointId"></param>
         /// <returns></returns>
-        [HttpPost]
-        public Model.ResponeData RePointSave([FromBody] string oldJointId, [FromBody] string newJointId)
+        public Model.ResponeData getRePointSave(string oldJointId, string newJointId)
         {
             var responeData = new Model.ResponeData();
             try
@@ -198,8 +196,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="unitWorkId"></param>
         /// <returns></returns>
-        [HttpPost]
-        public Model.ResponeData GenerateTrust([FromBody] string unitWorkId)
+        public Model.ResponeData getGenerateTrust(string unitWorkId)
         {
             var responeData = new Model.ResponeData();
             try
@@ -248,7 +245,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="trustBatchId"></param>
         /// <returns></returns>
-        public Model.ResponeData GetBatchTrustDetail(string trustBatchId)
+        public Model.ResponeData getBatchTrustDetail(string trustBatchId)
         {
             var responeData = new Model.ResponeData();
             try
@@ -269,8 +266,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="trustBatchId"></param>
         /// <returns></returns>
-        [HttpPost]
-        public Model.ResponeData BatchTrustAudit([FromBody] string trustBatchId)
+        public Model.ResponeData getBatchTrustAudit(string trustBatchId)
         {
             var responeData = new Model.ResponeData();
             try
@@ -316,7 +312,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="ndeId"></param>
         /// <returns></returns>
-        public Model.ResponeData GetBatchNDEDetail(string ndeId)
+        public Model.ResponeData getBatchNDEDetail(string ndeId)
         {
             var responeData = new Model.ResponeData();
             try

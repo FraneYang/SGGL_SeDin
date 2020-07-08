@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_Person GetCheckerById(string CheckerId)
         {
-            return Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == CheckerId);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.PersonId == CheckerId);
         }
         /// <summary>
         /// 添加焊工
@@ -37,8 +37,8 @@ namespace BLL
             newChecker.ProjectId = Checker.ProjectId;
             newChecker.WorkPostId = Checker.WorkPostId;
             newChecker.Isprint = Checker.Isprint;
-            Funs.DB.SitePerson_Person.InsertOnSubmit(newChecker);
-            Funs.DB.SubmitChanges();
+            new Model.SGGLDB(Funs.ConnString).SitePerson_Person.InsertOnSubmit(newChecker);
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="welder"></param>
         public static void UpdateChecker(Model.SitePerson_Person checker)
         {
-            Model.SitePerson_Person newChecker = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == checker.PersonId);
+            Model.SitePerson_Person newChecker = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.PersonId == checker.PersonId);
             if (newChecker != null)
             {
                 newChecker.PersonId = checker.PersonId;
@@ -57,11 +57,12 @@ namespace BLL
                 newChecker.Birthday = checker.Birthday;
                 newChecker.UnitId = checker.UnitId;
                 newChecker.IdentityCard = checker.IdentityCard;
+                newChecker.CertificateCode = checker.CertificateCode;
                 newChecker.IsUsed = checker.IsUsed;
                 newChecker.ProjectId = checker.ProjectId;
                 newChecker.WorkPostId = checker.WorkPostId;
                 newChecker.Isprint = checker.Isprint;
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
 
@@ -71,7 +72,7 @@ namespace BLL
         /// <param name="checkerId"></param>
         public static void DeleteCheckerById(string checkerId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_Person checker = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == checkerId);
             if (checker != null)
             {
@@ -88,7 +89,7 @@ namespace BLL
         public static bool IsExisCheckerCode(string checkerId, string checkerCode)
         {
             bool isExitCode = false;
-            var q = from x in Funs.DB.SitePerson_Person where x.WelderCode == checkerCode && x.PersonId != checkerId select x;
+            var q = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.WelderCode == checkerCode && x.PersonId != checkerId select x;
             if (q.Count() > 0)
             {
                 isExitCode = true;

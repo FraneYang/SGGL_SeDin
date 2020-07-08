@@ -25,10 +25,10 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                     <f:DatePicker ID="txtCheckDate" runat="server" Label="考核日期"
+                     <f:DatePicker ID="txtCheckDate" runat="server" Label="批准日期"
                         LabelWidth="140px" Required="true" ShowRedStar="true">
                     </f:DatePicker>
-                    <f:DatePicker ID="txtLimitDate" runat="server" Label="截止日期"
+                    <f:DatePicker ID="txtLimitDate" runat="server" Label="有效日期"
                         LabelWidth="140px" Required="true" ShowRedStar="true">
                     </f:DatePicker>
                   
@@ -37,20 +37,20 @@
             <f:FormRow>
                 <Items>  
                     <f:TextBox ID="txtWeldingMethod" runat="server"  Label="焊接方法"  LabelWidth="140px"></f:TextBox>
-                    <f:TextBox ID="txtMaterialType" runat="server" Label="钢材类型" LabelWidth="140px"></f:TextBox>
+                    <f:TextBox ID="txtMaterialType" runat="server" Label="型号、牌号、级别" LabelWidth="140px"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items> 
                     <f:TextBox ID="txtWeldingLocation" runat="server" Label="焊接位置" LabelWidth="140px"></f:TextBox>
-                    <f:NumberBox ID="txtThicknessMax" runat="server" Label="壁厚（最大）"
+                    <f:NumberBox ID="txtThicknessMax" runat="server" Label="管径覆盖范围（最大值）"
                         NoNegative="true" LabelAlign="Right" LabelWidth="140px">
                     </f:NumberBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:NumberBox ID="txtSizesMin" runat="server" Label="尺寸（最小）" NoNegative="true" LabelAlign="Right" LabelWidth="140px">
+                    <f:NumberBox ID="txtSizesMin" runat="server" Label="壁厚覆盖范围（最小值）" NoNegative="true" LabelAlign="Right" LabelWidth="140px">
                     </f:NumberBox> 
                     <f:TextBox ID="txtRemark" runat="server" Label="备注" 
                         LabelWidth="140px">

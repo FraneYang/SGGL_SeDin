@@ -225,7 +225,7 @@ namespace FineUIPro.Web.common.ProjectSet
         /// </summary>
         private void Show(string projectId)
         {
-            var q = from x in BLL.Funs.DB.Project_Sys_Set where x.ProjectId == projectId select x;
+            var q = from x in new Model.SGGLDB(Funs.ConnString).Project_Sys_Set where x.ProjectId == projectId select x;
             if (q.Count() > 0)
             {
                 foreach (var s in q)

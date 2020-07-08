@@ -214,7 +214,7 @@ namespace FineUIPro.Web.HSSE.Technique
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Technique_HazardList.FirstOrDefault(x => x.IsPass == true && x.HazardListTypeId == this.HazardListTypeId && x.HazardCode == this.txtHazardCode.Text.Trim() && (x.HazardId != this.HazardId || (this.HazardId == null && x.HazardId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Technique_HazardList.FirstOrDefault(x => x.IsPass == true && x.HazardListTypeId == this.HazardListTypeId && x.HazardCode == this.txtHazardCode.Text.Trim() && (x.HazardId != this.HazardId || (this.HazardId == null && x.HazardId != null)));
             if (q != null)
             {
                 ShowNotify("输入的危险源代码已存在！", MessageBoxIcon.Warning);

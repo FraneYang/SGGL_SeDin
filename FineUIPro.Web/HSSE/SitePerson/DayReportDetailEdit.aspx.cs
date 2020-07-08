@@ -51,7 +51,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     this.txtStaffData.Text = dayReportDetail.StaffData;
                     this.txtWorkTime.Text = dayReportDetail.WorkTime.ToString();
 
-                    var viewDayReportUnitDetail = from x in Funs.DB.View_SitePerson_DayReportUnitDetail where x.DayReportDetailId == dayReportDetail.DayReportDetailId orderby x.WorkPostCode select x;
+                    var viewDayReportUnitDetail = from x in new Model.SGGLDB(Funs.ConnString).View_SitePerson_DayReportUnitDetail where x.DayReportDetailId == dayReportDetail.DayReportDetailId orderby x.WorkPostCode select x;
                     if (viewDayReportUnitDetail.Count() > 0)
                     {
                         this.Grid1.DataSource = viewDayReportUnitDetail;
@@ -76,7 +76,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 dayReportDetail.WorkTime = Funs.GetNewDecimalOrZero(this.txtWorkTime.Text.Trim());
                 int totalRealPersonNum = 0;
                 decimal totalPersonWorkTime = 0;
-                List<Model.SitePerson_DayReportUnitDetail> dayReportUnitDetails = (from x in Funs.DB.SitePerson_DayReportUnitDetail where x.DayReportDetailId == this.DayReportDetailId select x).ToList();
+                List<Model.SitePerson_DayReportUnitDetail> dayReportUnitDetails = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportUnitDetail where x.DayReportDetailId == this.DayReportDetailId select x).ToList();
 
                 JArray mergedData = Grid1.GetMergedData();
                 foreach (JObject mergedRow in mergedData)
@@ -115,7 +115,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 dayReportDetail.RealPersonNum = totalRealPersonNum;
                 dayReportDetail.PersonWorkTime = totalPersonWorkTime;
                 string staffData = string.Empty;
-                var unit = (from x in Funs.DB.Project_ProjectUnit
+                var unit = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
                             where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == dayReportDetail.UnitId
                             select x).FirstOrDefault();
                 if (unit != null)
@@ -144,7 +144,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             decimal time = Funs.GetNewDecimalOrZero(this.txtWorkTime.Text.Trim());
             List<Model.View_SitePerson_DayReportUnitDetail> viwList = new List<Model.View_SitePerson_DayReportUnitDetail>();
-            var viewDayReportUnitDetail = from x in Funs.DB.View_SitePerson_DayReportUnitDetail where x.DayReportDetailId == this.DayReportDetailId orderby x.WorkPostCode select x;
+            var viewDayReportUnitDetail = from x in new Model.SGGLDB(Funs.ConnString).View_SitePerson_DayReportUnitDetail where x.DayReportDetailId == this.DayReportDetailId orderby x.WorkPostCode select x;
             JArray mergedData = Grid1.GetMergedData();
             foreach (JObject mergedRow in mergedData)
             {

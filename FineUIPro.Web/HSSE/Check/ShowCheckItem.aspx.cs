@@ -45,7 +45,7 @@ namespace FineUIPro.Web.Check
 
             if (!string.IsNullOrEmpty(Request.Params["CheckColligationId"]))
             {
-                List<Model.View_Check_CheckColligationDetail> details = (from x in Funs.DB.View_Check_CheckColligationDetail where x.CheckColligationId == Request.Params["CheckColligationId"] select x).ToList();
+                List<Model.View_Check_CheckColligationDetail> details = (from x in new Model.SGGLDB(Funs.ConnString).View_Check_CheckColligationDetail where x.CheckColligationId == Request.Params["CheckColligationId"] select x).ToList();
                 if (details.Count() > 0)
                 {
                     for (int i = 0; i < details.Count(); i++)
@@ -92,7 +92,7 @@ namespace FineUIPro.Web.Check
         {
             this.tvCheckItemSet.Nodes.Clear();
             this.tvCheckItemSet.SelectedNodeID = string.Empty;
-            var checks = (from x in Funs.DB.Technique_CheckItemSet
+            var checks = (from x in new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet
                          where x.CheckType == Request.Params["checkType"]                  
                          select x).ToList();
             if (checks.Count() > 0)

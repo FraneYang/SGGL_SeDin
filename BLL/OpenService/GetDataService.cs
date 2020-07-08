@@ -67,7 +67,7 @@ namespace BLL
         /// </summary>
         public static void UpdateTestPlanStates()
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var getTestPlans = from x in db.Training_TestPlan
                                where x.States == Const.State_2 && x.TestEndTime.AddMinutes(x.Duration) < DateTime.Now
                                select x;
@@ -100,7 +100,7 @@ namespace BLL
         /// </summary>
         public static void UpdateServerTestPlanStates()
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
             var getTrainingTestRecords = from x in db.Test_TestRecord
                                          where x.TestStartTime.Value.AddMinutes(x.Duration.Value) < DateTime.Now
@@ -299,7 +299,7 @@ namespace BLL
                 if (!string.IsNullOrEmpty(miniprogram_state) && miniprogram_state == "formal")
                 {
                     ////// 获取所有待办事项
-                    //var getToItems = from x in Funs.DB.View_APP_GetToDoItems select x;
+                    //var getToItems = from x in new Model.SGGLDB(Funs.ConnString).View_APP_GetToDoItems select x;
                     //if (getToItems.Count() > 0)
                     //{
                     //    //// 获取施工中的项目

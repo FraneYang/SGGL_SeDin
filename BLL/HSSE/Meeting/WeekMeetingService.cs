@@ -9,7 +9,7 @@ namespace BLL
     /// </summary>
     public static class WeekMeetingService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取周例会
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Meeting_WeekMeeting GetWeekMeetingById(string weekMeetingId)
         {
-            return Funs.DB.Meeting_WeekMeeting.FirstOrDefault(e => e.WeekMeetingId == weekMeetingId);
+            return new Model.SGGLDB(Funs.ConnString).Meeting_WeekMeeting.FirstOrDefault(e => e.WeekMeetingId == weekMeetingId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in Funs.DB.Meeting_WeekMeeting where x.WeekMeetingDate >= startTime && x.WeekMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Meeting_WeekMeeting where x.WeekMeetingDate >= startTime && x.WeekMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace BLL
         /// <returns></returns>
         public static int? GetSumAttentPersonNumByMeetingDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            int? sumAttentPersonNum = (from x in Funs.DB.Meeting_WeekMeeting where x.WeekMeetingDate >= startTime && x.WeekMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.AttentPersonNum).Sum();
+            int? sumAttentPersonNum = (from x in new Model.SGGLDB(Funs.ConnString).Meeting_WeekMeeting where x.WeekMeetingDate >= startTime && x.WeekMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.AttentPersonNum).Sum();
             if (sumAttentPersonNum == null)
             {
                 return 0;
@@ -59,7 +59,7 @@ namespace BLL
         /// <returns>会议记录集合</returns>
         public static List<Model.Meeting_WeekMeeting> GetMeetingListsByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in Funs.DB.Meeting_WeekMeeting where x.WeekMeetingDate >= startTime && x.WeekMeetingDate <= endTime && x.ProjectId == projectId orderby x.WeekMeetingDate select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Meeting_WeekMeeting where x.WeekMeetingDate >= startTime && x.WeekMeetingDate <= endTime && x.ProjectId == projectId orderby x.WeekMeetingDate select x).ToList();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="weekMeeting"></param>
         public static void AddWeekMeeting(Model.Meeting_WeekMeeting weekMeeting)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_WeekMeeting newWeekMeeting = new Model.Meeting_WeekMeeting
             {
                 WeekMeetingId = weekMeeting.WeekMeetingId,
@@ -101,7 +101,7 @@ namespace BLL
         /// <param name="weekMeeting"></param>
         public static void UpdateWeekMeeting(Model.Meeting_WeekMeeting weekMeeting)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_WeekMeeting newWeekMeeting = db.Meeting_WeekMeeting.FirstOrDefault(e => e.WeekMeetingId == weekMeeting.WeekMeetingId);
             if (newWeekMeeting != null)
             {
@@ -131,7 +131,7 @@ namespace BLL
         /// <param name="weekMeetingId"></param>
         public static void DeleteWeekMeetingById(string weekMeetingId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_WeekMeeting weekMeeting = db.Meeting_WeekMeeting.FirstOrDefault(e => e.WeekMeetingId == weekMeetingId);
             if (weekMeeting != null)
             {

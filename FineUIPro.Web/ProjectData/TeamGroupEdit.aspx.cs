@@ -121,13 +121,13 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x =>x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupCode == this.txtTeamGroupCode.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup.FirstOrDefault(x =>x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupCode == this.txtTeamGroupCode.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
             if (q != null)
             {
                 ShowNotify("输入的班组编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupName == this.txtTeamGroupName.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupName == this.txtTeamGroupName.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的班组名称已存在！", MessageBoxIcon.Warning);

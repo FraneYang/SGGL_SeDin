@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class RectifyItemService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取安全隐患明细
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Technique_RectifyItem GetRectifyItemById(string rectifyItemId)
         {
-            return Funs.DB.Technique_RectifyItem.FirstOrDefault(e => e.RectifyItemId == rectifyItemId);
+            return new Model.SGGLDB(Funs.ConnString).Technique_RectifyItem.FirstOrDefault(e => e.RectifyItemId == rectifyItemId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Technique_RectifyItem> GetRectifyItemByCompileMan(string compileMan)
         {
-            return (from x in Funs.DB.Technique_RectifyItem where x.CompileMan == compileMan select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Technique_RectifyItem where x.CompileMan == compileMan select x).ToList();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="rectifyItem"></param>
         public static void AddRectifyItem(Model.Technique_RectifyItem rectifyItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_RectifyItem newRectifyItem = new Model.Technique_RectifyItem
             {
                 RectifyItemId = rectifyItem.RectifyItemId,
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="rectifyItem"></param>
         public static void UpdateRectifyItem(Model.Technique_RectifyItem rectifyItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_RectifyItem newRectifyItem = db.Technique_RectifyItem.FirstOrDefault(e => e.RectifyItemId == rectifyItem.RectifyItemId);
             if (newRectifyItem != null)
             {
@@ -82,7 +82,7 @@ namespace BLL
         /// <param name="rectifyItem"></param>
         public static void UpdateRectifyItemIsPass(Model.Technique_RectifyItem rectifyItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_RectifyItem newRectifyItem = db.Technique_RectifyItem.FirstOrDefault(e => e.RectifyItemId == rectifyItem.RectifyItemId);
             if (newRectifyItem != null)
             {
@@ -100,7 +100,7 @@ namespace BLL
         /// <param name="rectifyItemId"></param>
         public static void DeleteRectifyItem(string rectifyItemId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_RectifyItem rectifyItem = db.Technique_RectifyItem.FirstOrDefault(e => e.RectifyItemId == rectifyItemId);
             if (rectifyItem != null)
             {
@@ -115,7 +115,7 @@ namespace BLL
         /// <param name="rectifyId"></param>
         public static void DeleteRectifyItemByRectifyId(string rectifyId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Technique_RectifyItem where x.RectifyId == rectifyId select x).ToList();
             if (q != null)
             {

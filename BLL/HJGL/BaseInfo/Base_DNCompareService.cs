@@ -12,7 +12,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_DNCompare GetDNCompareByDNCompareId(string dNCompareId)
         {
-            return Funs.DB.Base_DNCompare.FirstOrDefault(e => e.DNCompareId == dNCompareId);
+            return new Model.SGGLDB(Funs.ConnString).Base_DNCompare.FirstOrDefault(e => e.DNCompareId == dNCompareId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace BLL
         /// <param name="dNCompare"></param>
         public static void AddDNCompare(Model.Base_DNCompare dNCompare)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DNCompare newDNCompare = new Base_DNCompare
             {
                 DNCompareId = dNCompare.DNCompareId,
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="dNCompare"></param>
         public static void UpdateDNCompare(Model.Base_DNCompare dNCompare)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DNCompare newDNCompare = db.Base_DNCompare.FirstOrDefault(e => e.DNCompareId == dNCompare.DNCompareId);
             if (newDNCompare != null)
             {
@@ -83,7 +83,7 @@ namespace BLL
         /// <param name="dNCompareId"></param>
         public static void DeleteDNCompareByDNCompareId(string dNCompareId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DNCompare delDNCompare = db.Base_DNCompare.FirstOrDefault(e => e.DNCompareId == dNCompareId);
             if (delDNCompare != null)
             {
@@ -99,7 +99,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_DNCompare> GetdNCompareList()
         {
-            var list = (from x in Funs.DB.Base_DNCompare
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_DNCompare
                         orderby x.PipeSize,x.OutSizeDia
                         select x).ToList();
 
@@ -108,7 +108,7 @@ namespace BLL
 
         public static decimal? GetSizeByDia(decimal dia)
         {
-            var q = Funs.DB.Base_DNCompare.FirstOrDefault(x => x.OutSizeDia == dia);
+            var q = new Model.SGGLDB(Funs.ConnString).Base_DNCompare.FirstOrDefault(x => x.OutSizeDia == dia);
             if (q != null)
             {
                 return q.PipeSize;

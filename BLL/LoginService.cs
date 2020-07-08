@@ -10,7 +10,7 @@ namespace BLL
 
     public static class LoginService
     {
-        public static SGGLDB db = Funs.DB;       
+        public static SGGLDB db = new Model.SGGLDB(Funs.ConnString);       
 
         /// <summary>
         /// 用户登录成功方法
@@ -22,7 +22,7 @@ namespace BLL
         /// <returns>是否登录成功</returns>
         public static bool UserLogOn(string account, string password, bool rememberMe, System.Web.UI.Page page)
         {
-            List<Sys_User> x = (from y in Funs.DB.Sys_User
+            List<Sys_User> x = (from y in new Model.SGGLDB(Funs.ConnString).Sys_User
                     where y.Account == account && y.IsPost == true && y.Password == Funs.EncryptionPassword(password)
                     select y).ToList();
             if (x.Any())
@@ -63,7 +63,7 @@ namespace BLL
         /// <returns>是否登录成功</returns>
         public static bool UserLogOn(string account, bool rememberMe, System.Web.UI.Page page)
         {
-            List<Sys_User> x = (from y in Funs.DB.Sys_User
+            List<Sys_User> x = (from y in new Model.SGGLDB(Funs.ConnString).Sys_User
                                       where y.Account == account  && y.IsPost == true
                                       select y).ToList();
             if (x.Any())

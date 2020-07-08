@@ -8,7 +8,7 @@ namespace BLL
     /// </summary>
     public static class TestRecordService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取考试记录
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TestRecord GetTestRecordById(string testRecordId)
         {
-            return Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
+            return new Model.SGGLDB(Funs.ConnString).Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
         }
         
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="Training"></param>
         public static void AddTestRecord(Model.Training_TestRecord testRecord)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
             {
                 TestRecordId = testRecord.TestRecordId,
@@ -60,7 +60,7 @@ namespace BLL
         /// <param name="Training"></param>
         public static void UpdateTestRecord(Model.Training_TestRecord testRecord)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TestRecord newTestRecord = db.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecord.TestRecordId);
             if (newTestRecord != null)
             {
@@ -77,7 +77,7 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeleteTestRecordByTestPlanId(string testPlanId)
         {
-            var deleteRecords = from x in Funs.DB.Training_TestRecord where x.TestPlanId == testPlanId select x;
+            var deleteRecords = from x in new Model.SGGLDB(Funs.ConnString).Training_TestRecord where x.TestPlanId == testPlanId select x;
             if (deleteRecords.Count() > 0)
             {
                 foreach (var item in deleteRecords)

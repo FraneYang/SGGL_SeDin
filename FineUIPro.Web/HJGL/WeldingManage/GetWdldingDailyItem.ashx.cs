@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Web;
-using Newtonsoft.Json.Linq;
 
 namespace FineUIPro.Web.WeldingProcess.WeldingManage
 {
@@ -16,7 +15,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         {
             string rowId = context.Request.QueryString["WeldingDailyId"];
             JArray ja = new JArray();
-            var viewWeldlines = (from x in BLL.Funs.DB.View_HJGL_WeldJoint where x.WeldingDailyId == rowId orderby x.PipelineCode, x.WeldJointCode select x).ToList();
+            var viewWeldlines = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint where x.WeldingDailyId == rowId orderby x.PipelineCode, x.WeldJointCode select x).ToList();
             for (int i = 0; i < viewWeldlines.Count; i++)
             {
                 JArray jaItem = new JArray

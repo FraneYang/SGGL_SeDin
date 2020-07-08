@@ -32,7 +32,7 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            var q = from x in Funs.DB.Base_LawsRegulationsType orderby x.Code select x;
+            var q = from x in new Model.SGGLDB(Funs.ConnString).Base_LawsRegulationsType orderby x.Code select x;
             Grid1.RecordCount = q.Count();
             // 2.获取当前分页数据
             var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
@@ -46,7 +46,7 @@ namespace FineUIPro.Web.BaseInfo
         /// <returns></returns>
         private List<Model.Base_LawsRegulationsType> GetPagedDataTable(int pageIndex, int pageSize)
         {
-            List<Model.Base_LawsRegulationsType> source = (from x in BLL.Funs.DB.Base_LawsRegulationsType orderby x.Code select x).ToList();
+            List<Model.Base_LawsRegulationsType> source = (from x in new Model.SGGLDB(Funs.ConnString).Base_LawsRegulationsType orderby x.Code select x).ToList();
             List<Model.Base_LawsRegulationsType> paged = new List<Model.Base_LawsRegulationsType>();
 
             int rowbegin = pageIndex * pageSize;
@@ -156,7 +156,7 @@ namespace FineUIPro.Web.BaseInfo
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            //if (Funs.DB.Law_LawRegulationList.FirstOrDefault(x => x.LawsRegulationsTypeId == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Law_LawRegulationList.FirstOrDefault(x => x.LawsRegulationsTypeId == id) != null)
             //{
             //    content = "该法律法规类型已在【安全法律法规】中使用，不能删除！";
             //}
@@ -247,13 +247,13 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_LawsRegulationsType.FirstOrDefault(x => x.Code == this.txtCode.Text.Trim() && (x.Id != hfFormID.Text || (hfFormID.Text == null && x.Id != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_LawsRegulationsType.FirstOrDefault(x => x.Code == this.txtCode.Text.Trim() && (x.Id != hfFormID.Text || (hfFormID.Text == null && x.Id != null)));
             if (q != null)
             {
                 ShowNotify("输入的类型编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = Funs.DB.Base_LawsRegulationsType.FirstOrDefault(x => x.Name == this.txtName.Text.Trim() && (x.Id != hfFormID.Text || (hfFormID.Text == null && x.Id != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_LawsRegulationsType.FirstOrDefault(x => x.Name == this.txtName.Text.Trim() && (x.Id != hfFormID.Text || (hfFormID.Text == null && x.Id != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的类型名称已存在！", MessageBoxIcon.Warning);

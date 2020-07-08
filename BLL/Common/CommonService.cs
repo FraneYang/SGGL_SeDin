@@ -17,7 +17,7 @@ namespace BLL
         /// <returns>是否具有权限</returns>
         public static List<string> GetAllMenuList(string projectId, string userId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             List<Model.Sys_Menu> menus = new List<Model.Sys_Menu>();
             /// 启用且末级菜单
             var getMenus = from x in db.Sys_Menu
@@ -72,7 +72,7 @@ namespace BLL
         public static bool ReturnMenuByUserIdMenuId(string userId, string menuId, string projectId)
         {
             bool returnValue = false;
-            var menu = Funs.DB.Sys_Menu.FirstOrDefault(x => x.MenuId == menuId);
+            var menu = new Model.SGGLDB(Funs.ConnString).Sys_Menu.FirstOrDefault(x => x.MenuId == menuId);
             if (menu != null)
             {
                 ///1、当前用户是管理员 
@@ -83,16 +83,16 @@ namespace BLL
                 }
                 else if (string.IsNullOrEmpty(projectId)) ///本部、系统设置
                 {
-                    var user =Funs.DB.Sys_User.FirstOrDefault(x=>x.UserId ==userId); ////用户
+                    var user =new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x=>x.UserId ==userId); ////用户
                     if (user != null && !string.IsNullOrEmpty(user.RoleId))
                     {
-                        var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == user.RoleId);
+                        var power = new Model.SGGLDB(Funs.ConnString).Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == user.RoleId);
                         if (power != null)
                         {
                             returnValue = true;
                         }
 
-                        // var getRoles=Funs.DB.Sys_Role.FirstOrDefault(x=> user.RoleId)
+                        // var getRoles=new Model.SGGLDB(Funs.ConnString).Sys_Role.FirstOrDefault(x=> user.RoleId)
                     }
                 }
                 else
@@ -102,7 +102,7 @@ namespace BLL
                     if (puser != null && !string.IsNullOrEmpty(puser.RoleId))
                     {
                         List<string> roleIdList = Funs.GetStrListByStr(puser.RoleId, ',');
-                        var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && roleIdList.Contains(x.RoleId));
+                        var power = new Model.SGGLDB(Funs.ConnString).Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && roleIdList.Contains(x.RoleId));
                         if (power != null)
                         {
                             returnValue = true;
@@ -123,7 +123,7 @@ namespace BLL
         /// <returns>是否具有权限</returns>
         public static List<string> GetAllButtonList(string projectId, string userId, string menuId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             List<string> buttonList = new List<string>();
             List<Model.Sys_ButtonToMenu> buttons = new List<Model.Sys_ButtonToMenu>();
             if (userId == Const.sedinId)
@@ -190,7 +190,7 @@ namespace BLL
         /// <returns>是否具有权限</returns>
         public static bool GetAllButtonPowerList(string projectId, string userId, string menuId, string buttonName)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             bool isPower = false;    ////定义是否具备按钮权限    
             if (userId == Const.sedinId)
             {
@@ -336,7 +336,7 @@ namespace BLL
         /// <param name="lawRegulationId"></param>
         public static void DeleteAttachFileById(string menuId, string id)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.AttachFile attachFile = db.AttachFile.FirstOrDefault(e => e.MenuId == menuId && e.ToKeyId == id);
             if (attachFile != null)
             {
@@ -356,11 +356,11 @@ namespace BLL
         /// <param name="lawRegulationId"></param>
         public static void DeleteFlowOperateByID(string id)
         {
-            var flowOperateList = from x in Funs.DB.Sys_FlowOperate where x.DataId == id select x;
+            var flowOperateList = from x in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate where x.DataId == id select x;
             if (flowOperateList.Count() > 0)
             {
-                Funs.DB.Sys_FlowOperate.DeleteAllOnSubmit(flowOperateList);
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.DeleteAllOnSubmit(flowOperateList);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
 
@@ -402,7 +402,7 @@ namespace BLL
                 newFlowOperate.AuditFlowName += "系统审核完成";
             }
 
-            var updateFlowOperate = from x in Funs.DB.Sys_FlowOperate
+            var updateFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
                                     where x.DataId == newFlowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                                     select x;
             if (updateFlowOperate.Count() > 0)
@@ -415,13 +415,13 @@ namespace BLL
                     item.Opinion = newFlowOperate.Opinion;
                     item.AuditFlowName = "系统审核完成";
                     item.IsClosed = newFlowOperate.IsClosed;
-                    Funs.DB.SubmitChanges();
+                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                 }
             }
             else
             {
                 int maxSortIndex = 1;
-                var flowSet = Funs.DB.Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
+                var flowSet = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
                 var sortIndex = flowSet.Select(x => x.SortIndex).Max();
                 if (sortIndex.HasValue)
                 {
@@ -431,13 +431,13 @@ namespace BLL
                 newFlowOperate.SortIndex = maxSortIndex;
                 newFlowOperate.OperaterTime = System.DateTime.Now;
                 newFlowOperate.AuditFlowName = "系统审核完成";
-                Funs.DB.Sys_FlowOperate.InsertOnSubmit(newFlowOperate);
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.InsertOnSubmit(newFlowOperate);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
 
             if (newFlowOperate.IsClosed == true)
             {
-                var updateNoClosedFlowOperate = from x in Funs.DB.Sys_FlowOperate
+                var updateNoClosedFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
                                                 where x.DataId == newFlowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                                                 select x;
                 if (updateNoClosedFlowOperate.Count() > 0)
@@ -445,7 +445,7 @@ namespace BLL
                     foreach (var itemClosed in updateNoClosedFlowOperate)
                     {
                         itemClosed.IsClosed = true;
-                        Funs.DB.SubmitChanges();
+                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                     }
                 }
             }

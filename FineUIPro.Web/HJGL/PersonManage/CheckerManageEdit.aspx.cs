@@ -22,7 +22,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                     Model.SitePerson_Person Checker = BLL.CheckerService.GetCheckerById(CheckerId);
                     if (Checker != null)
                     {
-                        //this.txtCheckerCode.Text = Checker.CheckerCode;
+                        this.txtCheckerCode.Text = Checker.WelderCode;
                         this.txtCheckerName.Text = Checker.PersonName;
 
                         if (!string.IsNullOrEmpty(Checker.UnitId))
@@ -36,6 +36,10 @@ namespace FineUIPro.Web.HJGL.PersonManage
                             this.txtBirthday.Text = string.Format("{0:yyyy-MM-dd}", Checker.Birthday);
                         }
                         this.txtIdentityCard.Text = Checker.IdentityCard;
+                        this.txtCertificateCode.Text = Checker.CertificateCode;
+                        if (string.IsNullOrEmpty(Checker.CertificateCode)) {
+                            this.txtCertificateCode.Text = Checker.IdentityCard;
+                        }
                         if (Checker.IsUsed == true)
                         {
                             cbIsOnDuty.Checked = true;
@@ -52,28 +56,27 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 }
             }
         }
-
-        protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
              string checkerId = Request.Params["CheckerId"];
-            var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtCheckerCode.Text.Trim()
+            if (!string.IsNullOrEmpty(this.txtCheckerCode.Text.Trim())) {
+                var q = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtCheckerCode.Text.Trim()
            && (x.PersonId != checkerId || (checkerId == null && checkerId != null)));
-            if (q != null)
-            {
-                Alert.ShowInTop("焊工号已经存在！", MessageBoxIcon.Warning);
-                return;
+                if (q != null)
+                {
+                    Alert.ShowInTop("检测工号已经存在！", MessageBoxIcon.Warning);
+                    return;
+                }
+               
             }
             if (this.drpUnitId.SelectedValue == BLL.Const._Null)
             {
                 Alert.ShowInTop("选择单位", MessageBoxIcon.Warning);
                 return;
             }
-            
+
             checkerId = SaveData(checkerId);
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
@@ -92,6 +95,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             newChecker.Sex = this.rblSex.SelectedValue;
             newChecker.Birthday = Funs.GetNewDateTime(this.txtBirthday.Text.Trim());
             newChecker.IdentityCard = this.txtIdentityCard.Text.Trim();
+            newChecker.CertificateCode = this.txtCertificateCode.Text.Trim();
             if (this.cbIsOnDuty.Checked)
             {
                 newChecker.IsUsed = true;
@@ -103,30 +107,10 @@ namespace FineUIPro.Web.HJGL.PersonManage
             newChecker.Isprint = "0";
             if (!string.IsNullOrEmpty(checkerId))
             {
-                if (!BLL.CheckerService.IsExisCheckerCode(checkerId, this.txtCheckerCode.Text))
-                {
                     newChecker.PersonId = checkerId;
                     BLL.CheckerService.UpdateChecker(newChecker);
                     //BLL.Sys_LogService.AddLog(Const.System_1, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnModify, checkerId);
-                }
-                else
-                {
-                    Alert.ShowInParent("焊工号已经存在！", MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                checkerId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
-                if (!BLL.CheckerService.IsExisCheckerCode(checkerId, this.txtCheckerCode.Text))
-                {
-                    newChecker.PersonId = checkerId;
-                    BLL.CheckerService.AddChecker(newChecker);
-                    //BLL.Sys_LogService.AddLog(Const.System_1, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnAdd, checkerId);
-                }
-                else
-                {
-                    Alert.ShowInParent("焊工号已经存在！", MessageBoxIcon.Warning);
-                }
+               
             }
             return checkerId;
         }
@@ -141,5 +125,27 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 txtCheckerCode.Text = BLL.SQLHelper.RunProcNewId("SpGetThreeNumber", "SitePerson_Person", "WelderCode", prefix);
             }
         }
+
+        #region 附件上传
+        /// <summary>
+        /// 上传附件资源
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        {
+            string edit = "0";
+            string PersonId = Request.Params["CheckerId"];
+            if (string.IsNullOrEmpty(PersonId))
+            {
+                SaveData(PersonId);
+            }
+            else
+            {
+                edit = "1";
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/WelderManage&menuId={1}&edit={2}", PersonId, BLL.Const.WelderManageMenuId, edit)));
+        }
+        #endregion
     }
 }

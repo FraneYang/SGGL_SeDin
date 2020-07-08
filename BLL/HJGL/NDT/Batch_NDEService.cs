@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Batch_NDE GetNDEById(string NDEID)
         {
-            return Funs.DB.HJGL_Batch_NDE.FirstOrDefault(e => e.NDEID == NDEID);
+            return new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDE.FirstOrDefault(e => e.NDEID == NDEID);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.View_Batch_NDE GetNDEViewById(string NDEID)
         {
-            return Funs.DB.View_Batch_NDE.FirstOrDefault(e => e.NDEID == NDEID);
+            return new Model.SGGLDB(Funs.ConnString).View_Batch_NDE.FirstOrDefault(e => e.NDEID == NDEID);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BLL
         /// <param name="NDE"></param>
         public static void AddNDE(Model.HJGL_Batch_NDE NDE)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_NDE newNDE = new Model.HJGL_Batch_NDE();
             newNDE.NDEID = NDE.NDEID;
             newNDE.TrustBatchId = NDE.TrustBatchId;
@@ -61,7 +61,7 @@ namespace BLL
         /// <param name="NDE"></param>
         public static void UpdateNDE(Model.HJGL_Batch_NDE NDE)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_NDE newNDE = db.HJGL_Batch_NDE.FirstOrDefault(e => e.NDEID == NDE.NDEID);
             if (newNDE != null)
             {
@@ -85,7 +85,7 @@ namespace BLL
         /// <param name="NDEID"></param>
         public static void DeleteNDEById(string NDEID)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_NDE NDE = db.HJGL_Batch_NDE.FirstOrDefault(e => e.NDEID == NDEID);
             if (NDE != null)
             {
@@ -102,7 +102,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistNDECode(string NDECode, string NDEID, string projectId)
         {
-            var q = Funs.DB.HJGL_Batch_NDE.FirstOrDefault(x => x.NDECode == NDECode && x.ProjectId == projectId && x.NDEID != NDEID);
+            var q = new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDE.FirstOrDefault(x => x.NDECode == NDECode && x.ProjectId == projectId && x.NDEID != NDEID);
             if (q != null)
             {
                 return true;

@@ -7,8 +7,8 @@
 <TreeNode id="A913653D-1EBB-4F55-97C9-81CC5B5913C4" Text="员工责任书" NavigateUrl=""></TreeNode>
 <TreeNode id="DD111492-E5F1-4E6F-BCAD-BA26EA184761" Text="员工考核" NavigateUrl=""></TreeNode>
 <TreeNode id="DC31E45E-0EE9-4601-825D-8F388B6D9B71" Text="分流管理" NavigateUrl=""></TreeNode>
-<TreeNode id="03689DFC-BFBD-45E6-807C-BE8B071F24C2" Text="知识竞赛" NavigateUrl=""><TreeNode id="AAD19230-FBE9-4083-BA37-17B8592050E8" Text="制定计划" NavigateUrl=""></TreeNode>
-<TreeNode id="278FE845-1036-453E-BED6-88346994CD75" Text="答题记录" NavigateUrl=""></TreeNode>
-<TreeNode id="96CB9AB3-FBD7-4399-BE88-B6FF554DE6A5" Text="成绩排名" NavigateUrl=""></TreeNode>
+<TreeNode id="F9E911AB-2B5A-489D-B9AF-3EA97C2826A2" Text="知识竞赛" NavigateUrl=""><TreeNode id="A048350B-25E6-4DE1-A701-73638656D15F" Text="制定计划" NavigateUrl="PersonManage/Test/TestPlan.aspx"></TreeNode>
+<TreeNode id="64CFD530-A4F9-4857-BE3C-D243B4333ECA" Text="答题记录" NavigateUrl="PersonManage/Test/TestRecord.aspx"></TreeNode>
+<TreeNode id="19FB0C6D-E2CA-4352-B635-060347D45C4A" Text="成绩排名" NavigateUrl="PersonManage/Test/TestRanking.aspx"></TreeNode>
 </TreeNode>
 </Tree>

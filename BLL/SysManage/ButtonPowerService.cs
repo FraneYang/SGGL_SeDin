@@ -15,7 +15,7 @@ namespace BLL
         /// <returns>按钮集合</returns>
         public static string[] GetButtonPowerList(string roleId, string menuId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = from x in db.Sys_ButtonPower where x.RoleId == roleId && x.MenuId == menuId select x;
             string[] button = new string[q.Count()];
             if (q.Count() > 0)
@@ -42,7 +42,7 @@ namespace BLL
         /// <returns></returns>
         public static bool isExistButtonToMenu(string buttonToMenuId)
         {
-            Model.Sys_ButtonToMenu b = Funs.DB.Sys_ButtonToMenu.FirstOrDefault(e => e.ButtonToMenuId == buttonToMenuId);
+            Model.Sys_ButtonToMenu b = new Model.SGGLDB(Funs.ConnString).Sys_ButtonToMenu.FirstOrDefault(e => e.ButtonToMenuId == buttonToMenuId);
             if (b != null)
             {
                 return true;
@@ -59,7 +59,7 @@ namespace BLL
         /// <param name="roleId"></param>
         public static void DeleteButtonPower(string roleId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var bt = from x in db.Sys_ButtonPower where x.RoleId == roleId select x;
             if (bt.Count() > 0)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="roleId"></param>
         public static void DeleteButtonPowerByRoleIdMenuType(string roleId, string menuType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var bt = from x in db.Sys_ButtonPower
                      join y in db.Sys_Menu on x.MenuId equals y.MenuId
                      where x.RoleId == roleId && y.MenuType == menuType
@@ -92,7 +92,7 @@ namespace BLL
         /// <param name="roleId"></param>
         public static void DeleteButtonPowerByMenuId(string menuId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var bt = from x in db.Sys_ButtonPower where x.MenuId == menuId select x;
             if (bt.Count() > 0)
             {
@@ -107,7 +107,7 @@ namespace BLL
         /// <param name="power"></param>
         public static void SaveButtonPower(Model.Sys_ButtonPower btn)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Sys_ButtonPower));
             Model.Sys_ButtonPower button = new Model.Sys_ButtonPower
             {

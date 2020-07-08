@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class PositionService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取主键
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_Position GetPositionById(string positionId)
         {
-            return Funs.DB.Base_Position.FirstOrDefault(e => e.PositionId == positionId);
+            return new Model.SGGLDB(Funs.ConnString).Base_Position.FirstOrDefault(e => e.PositionId == positionId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="position"></param>
         public static void AddPosition(Model.Base_Position position)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Position newPosition = new Model.Base_Position
             {
                 PositionId = position.PositionId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="position"></param>
         public static void UpdatePosition(Model.Base_Position position)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Position newPosition = db.Base_Position.FirstOrDefault(e => e.PositionId == position.PositionId);
             if (newPosition != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="positionId"></param>
         public static void DeletePositionById(string positionId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Position position = db.Base_Position.FirstOrDefault(e => e.PositionId == positionId);
             if (position!=null)
             {
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Position> GetPositionList()
         {
-            return (from x in Funs.DB.Base_Position orderby x.PositionCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_Position orderby x.PositionCode select x).ToList();
         }
 
         #region 职务表下拉框

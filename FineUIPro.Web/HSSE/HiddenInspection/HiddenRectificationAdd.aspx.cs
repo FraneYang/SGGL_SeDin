@@ -80,7 +80,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                 this.txtCheckTime.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                 if (!string.IsNullOrEmpty(this.HazardRegisterId))
                 {
-                    Model.View_Hazard_HazardRegister registration = (from x in BLL.Funs.DB.View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
+                    Model.View_Hazard_HazardRegister registration = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
                     if (registration != null)
                     {
                         if (!string.IsNullOrEmpty(registration.ResponsibleUnit))
@@ -88,8 +88,8 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                             this.drpUnit.SelectedValue = registration.ResponsibleUnit;
                             this.drpWorkArea.DataSource = UnitWorkService.GetUnitWorkList(this.CurrUser.LoginProjectId);
                             this.drpWorkArea.DataBind();
-                            this.drpResponsibleMan.DataSource = from x in Funs.DB.Sys_User
-                                                                join y in Funs.DB.Project_ProjectUser
+                            this.drpResponsibleMan.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
+                                                                join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
                                                                 on x.UserId equals y.UserId
                                                                 where y.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.drpUnit.SelectedValue
                                                                 select x;
@@ -149,8 +149,8 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
             {
                 this.drpWorkArea.DataSource = UnitWorkService.GetUnitWorkList(this.CurrUser.LoginProjectId);
                 this.drpWorkArea.DataBind();
-                this.drpResponsibleMan.DataSource = from x in Funs.DB.Sys_User
-                                                    join y in Funs.DB.Project_ProjectUser
+                this.drpResponsibleMan.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
+                                                    join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
                                                     on x.UserId equals y.UserId
                                                     where y.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.drpUnit.SelectedValue
                                                     select x;

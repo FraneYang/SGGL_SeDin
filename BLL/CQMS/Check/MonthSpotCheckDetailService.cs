@@ -8,7 +8,7 @@ namespace BLL
 {
     public class MonthSpotCheckDetailService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取月报质量验收情况模板列表
@@ -39,7 +39,7 @@ namespace BLL
         /// <param name="managerRuleApprove">月报质量验收情况实体</param>
         public static void AddMonthSpotCheckDetail(Model.Check_MonthSpotCheckDetail monthSpotCheckDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_MonthSpotCheckDetail newApprove = new Model.Check_MonthSpotCheckDetail();
             newApprove.MonthSpotCheckDetailId = monthSpotCheckDetail.MonthSpotCheckDetailId;
             newApprove.CheckMonthId = monthSpotCheckDetail.CheckMonthId;
@@ -60,7 +60,7 @@ namespace BLL
         /// <param name="CheckMonthId">月报质量验收情况编号</param>
         public static void DeleteMonthSpotCheckDetailsByCheckMonthId(string CheckMonthId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_MonthSpotCheckDetail where x.CheckMonthId == CheckMonthId select x).ToList();
             if (q.Count() > 0)
             {
@@ -75,7 +75,7 @@ namespace BLL
         /// <param name="CheckMonthId">月报质量验收情况编号</param>
         public static List<Model.Check_MonthSpotCheckDetail> GetMonthSpotCheckDetailsByCheckMonthId(string CheckMonthId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return (from x in db.Check_MonthSpotCheckDetail where x.CheckMonthId == CheckMonthId select x).ToList();
         }
     }

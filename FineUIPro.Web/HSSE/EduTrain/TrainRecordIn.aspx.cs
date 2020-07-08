@@ -178,8 +178,8 @@
                 var trainRecord = BLL.EduTrain_TrainRecordService.GetTrainingByTrainingId(this.TrainingId);
                 if (trainRecord != null)
                 {
-                    var units = from x in Funs.DB.Base_Unit select x;
-                    var persons = from x in Funs.DB.SitePerson_Person where x.ProjectId == trainRecord.ProjectId select x;
+                    var units = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit select x;
+                    var persons = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.ProjectId == trainRecord.ProjectId select x;
                     for (int i = 0; i < ir; i++)
                     {
                         string result = string.Empty;
@@ -231,7 +231,7 @@
 
 
                                 ///判断是否已存在
-                                var addItem = Funs.DB.EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainingId == newViewTrainRecordDetail.TrainingId && x.PersonId == newViewTrainRecordDetail.PersonId);
+                                var addItem = new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainingId == newViewTrainRecordDetail.TrainingId && x.PersonId == newViewTrainRecordDetail.PersonId);
                                 if (addItem == null)
                                 {
                                     if (string.IsNullOrEmpty(result))

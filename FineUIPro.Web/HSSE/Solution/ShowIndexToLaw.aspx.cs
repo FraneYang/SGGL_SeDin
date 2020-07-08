@@ -16,7 +16,7 @@ namespace FineUIPro.Web.HSSE.Solution
             string toLawIndex = Request.Params["ToLawIndex"];
             if (!string.IsNullOrEmpty(toLawIndex))
             {
-                IQueryable<Model.Law_HSSEStandardsList> q = from x in Funs.DB.Law_HSSEStandardsList orderby x.StandardNo select x;
+                IQueryable<Model.Law_HSSEStandardsList> q = from x in new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList orderby x.StandardNo select x;
                 if (toLawIndex == "1")
                 {
                     q = q.Where(y => y.IsSelected1 == true);
@@ -140,7 +140,7 @@ namespace FineUIPro.Web.HSSE.Solution
                 this.Grid1.DataBind();
             }
 
-            IQueryable<Model.Law_LawRegulationList> laws = from x in Funs.DB.Law_LawRegulationList orderby x.LawRegulationCode select x;
+            IQueryable<Model.Law_LawRegulationList> laws = from x in new Model.SGGLDB(Funs.ConnString).Law_LawRegulationList orderby x.LawRegulationCode select x;
             this.Grid2.DataSource = laws;
             this.Grid2.DataBind();
         }

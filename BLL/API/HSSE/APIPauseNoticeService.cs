@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.PauseNoticeItem getPauseNoticeById(string PauseNoticeId)
         {
-            var getInfo = from x in Funs.DB.Check_PauseNotice
+            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Check_PauseNotice
                           where x.PauseNoticeId == PauseNoticeId
                           select new Model.PauseNoticeItem
                           {
@@ -25,7 +25,7 @@ namespace BLL
                               ProjectId = x.ProjectId,
                               PauseNoticeCode = x.PauseNoticeCode,
                               UnitId = x.UnitId,
-                              UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                               ProjectPlace = x.ProjectPlace,
                               WrongContent = x.WrongContent,
                               PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
@@ -36,31 +36,31 @@ namespace BLL
                               IsConfirm = x.IsConfirm,
                               IsConfirmName = (x.IsConfirm == true ? "已确认" : "待确认"),
                               CompileManId = x.CompileManId,
-                              CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileManId).UserName,
+                              CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileManId).UserName,
                               CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                               SignManId = x.SignManId,
-                              SignManName = Funs.DB.Sys_User.First(u => u.UserId == x.SignManId).UserName,
+                              SignManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SignManId).UserName,
                               SignDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SignDate),
                               ApproveManId = x.ApproveManId,
-                              ApproveManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApproveManId).UserName,
+                              ApproveManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApproveManId).UserName,
                               ApproveDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApproveDate),
                               DutyPersonId = x.DutyPersonId,
-                              DutyPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
+                              DutyPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
                               DutyPersonDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonDate),
                               ProfessionalEngineerId = x.ProfessionalEngineerId,
-                              ProfessionalEngineerName = Funs.DB.Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
+                              ProfessionalEngineerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
                               ProfessionalEngineerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime),
                               ConstructionManagerId = x.ConstructionManagerId,
-                              ConstructionManagerName = Funs.DB.Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
+                              ConstructionManagerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
                               ConstructionManagerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ConstructionManagerTime),
                               UnitHeadManId = x.UnitHeadManId,
-                              UnitHeadManName = Funs.DB.Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
+                              UnitHeadManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
                               UnitHeadManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.UnitHeadManTime),
                               SupervisorManId = x.SupervisorManId,
-                              SupervisorManName = Funs.DB.Sys_User.First(u => u.UserId == x.SupervisorManId).UserName,
+                              SupervisorManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SupervisorManId).UserName,
                               SupervisorManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.SupervisorManTime),
                               OwnerId = x.OwnerId,
-                              OwnerName = Funs.DB.Sys_User.First(u => u.UserId == x.OwnerId).UserName,
+                              OwnerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.OwnerId).UserName,
                               OwnerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OwnerTime),
                               States = x.States,
                               PauseStates = x.PauseStates,
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FlowOperateItem> getFlowOperateItem(string pauseNoticeId)
         {
-            var getInfo = from x in Funs.DB.Check_PauseNoticeFlowOperate
+            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Check_PauseNoticeFlowOperate
                           where x.PauseNoticeId == pauseNoticeId
                           orderby x.OperateTime descending
                           select new Model.FlowOperateItem
@@ -87,7 +87,7 @@ namespace BLL
                               DataId = x.PauseNoticeId,
                               AuditFlowName = x.OperateName,
                               OperaterId = x.OperateManId,
-                              OperaterName = Funs.DB.Sys_User.First(z => z.UserId == x.OperateManId).UserName,
+                              OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.OperateManId).UserName,
                               OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.OperateTime),
                               IsAgree = x.IsAgree,
                               Opinion = x.Opinion,
@@ -107,7 +107,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PauseNoticeItem> getPauseNoticeList(string projectId, string unitId, string strParam, string states)
         {
-            var getPauseNotice = from x in Funs.DB.Check_PauseNotice
+            var getPauseNotice = from x in new Model.SGGLDB(Funs.ConnString).Check_PauseNotice
                                   where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.PauseStates == states
                                   select new Model.PauseNoticeItem
                                   {
@@ -115,7 +115,7 @@ namespace BLL
                                       ProjectId = x.ProjectId,
                                       PauseNoticeCode = x.PauseNoticeCode,
                                       UnitId = x.UnitId,
-                                      UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                      UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                       ProjectPlace = x.ProjectPlace,
                                       WrongContent = x.WrongContent,
                                       PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
@@ -123,7 +123,7 @@ namespace BLL
                                       IsConfirm = x.IsConfirm,
                                       IsConfirmName = (x.IsConfirm == true ? "已确认" : "待确认"),
                                       CompileManId = x.CompileManId,
-                                      CompileManName = Funs.DB.Sys_User.First(z=>z.UserId ==x.CompileManId).UserName,
+                                      CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z=>z.UserId ==x.CompileManId).UserName,
                                       CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                       States = x.States,
                                       PauseStates = x.PauseStates,
@@ -187,7 +187,7 @@ namespace BLL
                         List<string> listIds = Funs.GetStrListByStr(newItem.HazardRegisterId, ',');
                         foreach (var item in listIds)
                         {
-                            var getHazardRegister = Funs.DB.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == item);
+                            var getHazardRegister = new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == item);
                             if (getHazardRegister != null)
                             {
                                 getHazardRegister.States = "3";
@@ -365,7 +365,7 @@ namespace BLL
         /// <param name="attachUrl">路径</param>
         public static void SavePauseNoticeUrl(string pauseNoticeId, string attachUrl)
         {
-            var getPauseNotice = Funs.DB.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == pauseNoticeId);
+            var getPauseNotice = new Model.SGGLDB(Funs.ConnString).Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == pauseNoticeId);
             if (getPauseNotice != null)
             {
                 string menuId = Const.ProjectPauseNoticeMenuId;               

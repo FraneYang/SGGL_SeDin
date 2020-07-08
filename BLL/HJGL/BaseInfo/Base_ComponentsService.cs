@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Model.Base_Components GetComponentsByComponentsId(string componentsId)
         {
-            return Funs.DB.Base_Components.FirstOrDefault(e => e.ComponentsId == componentsId);
+            return new Model.SGGLDB(Funs.ConnString).Base_Components.FirstOrDefault(e => e.ComponentsId == componentsId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@
         /// <param name="Components"></param>
         public static void AddComponents(Model.Base_Components components)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Components newComponents = new Base_Components
             {
                 ComponentsId = components.ComponentsId,
@@ -40,7 +40,7 @@
         /// <param name="Components"></param>
         public static void UpdateComponents(Model.Base_Components components)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Components newComponents = db.Base_Components.FirstOrDefault(e => e.ComponentsId == components.ComponentsId);
             if (newComponents != null)
             {
@@ -58,7 +58,7 @@
         /// <param name="ComponentsId"></param>
         public static void DeleteComponentsByComponentsId(string componentsId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Components delComponents = db.Base_Components.FirstOrDefault(e => e.ComponentsId == componentsId);
             if (delComponents != null)
             {
@@ -74,7 +74,7 @@
         /// <returns></returns>
         public static List<Model.Base_Components> GetComponentsList(string ProjeceId)
         {
-            var list = (from x in Funs.DB.Base_Components
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Components
                         where x.ProjeceId==ProjeceId
                         orderby x.ComponentsCode
                         select x).ToList();

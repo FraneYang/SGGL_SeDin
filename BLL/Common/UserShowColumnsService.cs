@@ -11,7 +11,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Sys_UserShowColumns GetColumnsByUserId(string userId, string type)
         {
-            return Funs.DB.Sys_UserShowColumns.FirstOrDefault(x => x.UserId == userId && x.ShowType == type);
+            return new Model.SGGLDB(Funs.ConnString).Sys_UserShowColumns.FirstOrDefault(x => x.UserId == userId && x.ShowType == type);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace BLL
         /// <param name="opUserShowColumns"></param>
         public static void AddUserShowColumns(Model.Sys_UserShowColumns showColumns)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_UserShowColumns newShowColumns = new Model.Sys_UserShowColumns();
 
             newShowColumns.ShowColumnId = SQLHelper.GetNewID(typeof(Model.Sys_UserShowColumns));
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="def"></param>
         public static void UpdateUserShowColumns(Model.Sys_UserShowColumns showColumns)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_UserShowColumns newShowColumns = db.Sys_UserShowColumns.First(e => e.ShowColumnId == showColumns.ShowColumnId);
             newShowColumns.Columns = showColumns.Columns;
             newShowColumns.ShowType = showColumns.ShowType;
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="roleId"></param>
         public static void DeleteUserShowColumns(string showColumnId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Sys_UserShowColumns newShowColumns = db.Sys_UserShowColumns.First(e => e.ShowColumnId == showColumnId);
             db.Sys_UserShowColumns.DeleteOnSubmit(newShowColumns);
             db.SubmitChanges();

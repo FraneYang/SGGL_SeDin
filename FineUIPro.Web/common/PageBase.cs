@@ -35,7 +35,7 @@ namespace FineUIPro.Web
                     {
                         password = Request.Cookies["p"].Value;
                     }
-                    Session["CurrUser"] = BLL.Funs.DB.Sys_User.FirstOrDefault(x => x.Account == account && x.Password == Funs.EncryptionPassword(password));
+                    Session["CurrUser"] = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.Account == account && x.Password == Funs.EncryptionPassword(password));
                 }
 
                 return (Model.Sys_User)Session["CurrUser"];
@@ -875,7 +875,26 @@ namespace FineUIPro.Web
                     {
                         html = (row.FindControl("lblCompileMan") as AspNet.Label).Text;
                     }
-
+                    if (column.ColumnID == "tfSpecialEquipmentId" && (row.FindControl("lblSpecialEquipmentId") as AspNet.Label) != null)  
+                    {
+                        html = (row.FindControl("lblSpecialEquipmentId") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfPictureType" && (row.FindControl("lblPictureType") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lblPictureType") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfShortContentDef" && (row.FindControl("lblShortContentDef") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lblShortContentDef") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfProjectMapType" && (row.FindControl("lblProjectMapType") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lblProjectMapType") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfShortContentDef" && (row.FindControl("lblShortContentDef") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lblShortContentDef") as AspNet.Label).Text;
+                    }
                     // 处理CheckBox
                     if (html.Contains("f-grid-static-checkbox"))
                     {

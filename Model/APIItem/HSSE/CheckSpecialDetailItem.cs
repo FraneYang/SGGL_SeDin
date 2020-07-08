@@ -44,6 +44,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 序号
+        /// </summary>
+        public int? SortIndex
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 检查内容项
         /// </summary>
         public string CheckContent

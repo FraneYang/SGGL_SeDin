@@ -241,7 +241,7 @@ namespace FineUIPro.Web.HSSE.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    Model.Check_PunishNoticeFlowOperate Operate = (from x in Funs.DB.Check_PunishNoticeFlowOperate
+                    Model.Check_PunishNoticeFlowOperate Operate = (from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNoticeFlowOperate
                                                                    where x.PunishNoticeId == rowID
                                                             select x).FirstOrDefault();
                     var getV = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(rowID);

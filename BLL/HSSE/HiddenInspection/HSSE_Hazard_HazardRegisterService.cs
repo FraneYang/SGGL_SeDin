@@ -9,7 +9,7 @@ namespace BLL
 {
     public static class HSSE_Hazard_HazardRegisterService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据危险观察登记主键获取危险观察登记信息
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns>危险观察登记信息</returns>
         public static Model.HSSE_Hazard_HazardRegister GetHazardRegisterByHazardRegisterId(string hazardRegisterId)
         {
-            return Funs.DB.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == hazardRegisterId);
+            return new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == hazardRegisterId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HSSE_Hazard_HazardRegister> GetHazardRegisterListByProjectId(string projectId)
         {
-            return (from x in Funs.DB.HSSE_Hazard_HazardRegister where x.ProjectId == projectId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister where x.ProjectId == projectId select x).ToList();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace BLL
         /// <param name="hazardRegister">危险观察登记实体</param>
         public static void AddHazardRegister(Model.HSSE_Hazard_HazardRegister hazardRegister)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HSSE_Hazard_HazardRegister newHazardRegister = new Model.HSSE_Hazard_HazardRegister();
             newHazardRegister.HazardRegisterId = hazardRegister.HazardRegisterId;
             newHazardRegister.HazardCode = hazardRegister.HazardCode;
@@ -77,7 +77,7 @@ namespace BLL
         /// <param name="hazardRegister">危险观察登记实体</param>
         public static void UpdateHazardRegister(Model.HSSE_Hazard_HazardRegister hazardRegister)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HSSE_Hazard_HazardRegister newHazardRegister = db.HSSE_Hazard_HazardRegister.FirstOrDefault(e => e.HazardRegisterId == hazardRegister.HazardRegisterId);
             if (newHazardRegister != null)
             {
@@ -127,7 +127,7 @@ namespace BLL
         /// <param name="hazardRegisterId">危险观察登记主键</param>
         public static void DeleteHazardRegisterByHazardRegisterId(string hazardRegisterId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HSSE_Hazard_HazardRegister hazardRegister = db.HSSE_Hazard_HazardRegister.FirstOrDefault(e => e.HazardRegisterId == hazardRegisterId);
             if (hazardRegister != null)
             {
@@ -150,7 +150,7 @@ namespace BLL
         /// <returns>危险观察登记信息</returns>
         public static ListItem[] GetResponsibleUnitList(string projectId)
         {
-            var q = (from x in Funs.DB.HSSE_Hazard_HazardRegister where x.ProjectId == projectId group x by x.ResponsibleUnit into x select new { ResponsibleUnit = x.Key }).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister where x.ProjectId == projectId group x by x.ResponsibleUnit into x select new { ResponsibleUnit = x.Key }).ToList();
             ListItem[] list = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {

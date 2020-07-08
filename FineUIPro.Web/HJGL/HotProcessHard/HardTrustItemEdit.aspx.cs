@@ -122,16 +122,16 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             rootNode.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode);
             ///根据已经热处理且需要硬度检测且未进行硬度检测的焊口获取管线id集合
-            var pipelineIds = (from x in Funs.DB.HJGL_HotProess_TrustItem
-                               join y in Funs.DB.HJGL_WeldJoint
+            var pipelineIds = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem
+                               join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint
                                on x.WeldJointId equals y.WeldJointId
-                               join z in Funs.DB.HJGL_Pipeline
+                               join z in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline
                                on y.PipelineId equals z.PipelineId
                                where z.UnitWorkId == this.UnitWorkId &&
                                z.UnitId == this.UnitId && x.IsHardness == true && x.IsTrust == null
                                select y.PipelineId).Distinct().ToList();
 
-            var pipelines = (from x in Funs.DB.HJGL_Pipeline
+            var pipelines = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline
                              where x.UnitWorkId == this.UnitWorkId && x.UnitId == this.UnitId
                              orderby x.PipelineCode
                              select x).ToList();

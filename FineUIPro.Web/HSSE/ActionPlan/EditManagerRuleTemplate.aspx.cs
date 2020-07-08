@@ -211,7 +211,7 @@ namespace FineUIPro.Web.HSSE.ActionPlan
                         ////保存流程审核数据         
                         this.ctlAuditFlow.btnSaveData(this.CurrUser.LoginProjectId, BLL.Const.ActionPlan_ManagerRuleMenuId, newManagerRule.ManagerRuleId, true, newManagerRule.ManageRuleName, "../ActionPlan/ManagerRuleView.aspx?ManagerRuleId={0}");
                         
-                        Model.AttachFile attachFile = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item);
+                        Model.AttachFile attachFile = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == item);
                         if (attachFile != null)
                         {
                             Model.AttachFile newAttachFile = new Model.AttachFile
@@ -239,8 +239,8 @@ namespace FineUIPro.Web.HSSE.ActionPlan
                             newAttachFile.AttachSource = attachFile.AttachSource.Replace("ManageRule", "ActionPlanManagerRule");
                             newAttachFile.AttachUrl = attachFile.AttachUrl.Replace("ManageRule", "ActionPlanManagerRule");
                             newAttachFile.MenuId = BLL.Const.ActionPlan_ManagerRuleMenuId;
-                            Funs.DB.AttachFile.InsertOnSubmit(newAttachFile);
-                            Funs.DB.SubmitChanges();
+                            new Model.SGGLDB(Funs.ConnString).AttachFile.InsertOnSubmit(newAttachFile);
+                            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                         }
                     }
                 }

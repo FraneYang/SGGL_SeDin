@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Model.Base_DetectionType GetDetectionTypeByDetectionTypeId(string detectionTypeId)
         {
-            return Funs.DB.Base_DetectionType.FirstOrDefault(e => e.DetectionTypeId == detectionTypeId);
+            return new Model.SGGLDB(Funs.ConnString).Base_DetectionType.FirstOrDefault(e => e.DetectionTypeId == detectionTypeId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@
         /// <returns></returns>
         public static Model.Base_DetectionType GetDetectionTypeIdByDetectionTypeCode(string detectionTypeCode)
         {
-            return Funs.DB.Base_DetectionType.FirstOrDefault(e => e.DetectionTypeCode == detectionTypeCode);
+            return new Model.SGGLDB(Funs.ConnString).Base_DetectionType.FirstOrDefault(e => e.DetectionTypeCode == detectionTypeCode);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@
         /// <param name="detectionType"></param>
         public static void AddDetectionType(Model.Base_DetectionType detectionType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DetectionType newDetectionType = new Base_DetectionType
             {
                 DetectionTypeId = detectionType.DetectionTypeId,
@@ -52,7 +52,7 @@
         /// <param name="detectionType"></param>
         public static void UpdateDetectionType(Model.Base_DetectionType detectionType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DetectionType newDetectionType = db.Base_DetectionType.FirstOrDefault(e => e.DetectionTypeId == detectionType.DetectionTypeId);
             if (newDetectionType != null)
             {
@@ -72,7 +72,7 @@
         /// <param name="detectionTypeId"></param>
         public static void DeleteDetectionTypeByDetectionTypeId(string detectionTypeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DetectionType delDetectionType = db.Base_DetectionType.FirstOrDefault(e => e.DetectionTypeId == detectionTypeId);
             if (delDetectionType != null)
             {
@@ -88,7 +88,7 @@
         /// <returns></returns>
         public static List<Model.Base_DetectionType> GetDetectionTypeListByDetectionTypeType(string sysType)
         {
-            var list = (from x in Funs.DB.Base_DetectionType
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_DetectionType
                         orderby x.DetectionTypeCode
                         select x).ToList();
 

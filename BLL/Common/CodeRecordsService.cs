@@ -20,7 +20,7 @@ namespace BLL
         public static string ReturnCodeByDataId(string dataId)
         {
             string code = string.Empty;
-            var codeRecords = Funs.DB.Sys_CodeRecords.FirstOrDefault(x => x.DataId == dataId);
+            var codeRecords = new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords.FirstOrDefault(x => x.DataId == dataId);
             if (codeRecords != null)
             {
                 code = codeRecords.Code;
@@ -36,12 +36,12 @@ namespace BLL
         /// <returns></returns>
         public static void DeleteCodeRecordsByDataId(string dataId)
         {
-            var codeRecords = Funs.DB.Sys_CodeRecords.FirstOrDefault(x => x.DataId == dataId);
+            var codeRecords = new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords.FirstOrDefault(x => x.DataId == dataId);
             if (codeRecords != null)
             {
                 ///删除文件柜A中数据
                // BLL.FileCabinetAItemService.DeleteFileCabinetAItemByID(dataId);
-                Funs.DB.Sys_CodeRecords.DeleteOnSubmit(codeRecords);
+                new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords.DeleteOnSubmit(codeRecords);
             }
         }
         
@@ -58,7 +58,7 @@ namespace BLL
             string ruleCodes = string.Empty;
             int digit = 4;
             string symbol = "-"; ///间隔符 
-            var codeRecords = (from x in Funs.DB.Sys_CodeRecords where x.MenuId == menuId && x.ProjectId == projectId orderby x.CompileDate descending select x).FirstOrDefault();
+            var codeRecords = (from x in new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords where x.MenuId == menuId && x.ProjectId == projectId orderby x.CompileDate descending select x).FirstOrDefault();
             if (codeRecords != null && !string.IsNullOrEmpty(codeRecords.RuleCodes))
             {
                 ruleCodes = codeRecords.RuleCodes;
@@ -71,7 +71,7 @@ namespace BLL
             {
                 ////项目
                 string ruleCode = string.Empty;
-                var codeTempRule = Funs.DB.Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId);
+                var codeTempRule = new Model.SGGLDB(Funs.ConnString).Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId);
                 if (codeTempRule != null && !string.IsNullOrEmpty(codeTempRule.Prefix))
                 {
                     if (!string.IsNullOrEmpty(codeTempRule.Symbol))
@@ -88,7 +88,7 @@ namespace BLL
 
             ////获取编码记录表最大排列序号              
             int maxNewSortIndex = 0;
-            var maxSortIndex = Funs.DB.Sys_CodeRecords.Where(x => (x.ProjectId == projectId || projectId == null) && x.MenuId == menuId).Select(x => x.SortIndex).Max();
+            var maxSortIndex = new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords.Where(x => (x.ProjectId == projectId || projectId == null) && x.MenuId == menuId).Select(x => x.SortIndex).Max();
             
             if (maxSortIndex.HasValue)
             {
@@ -114,7 +114,7 @@ namespace BLL
         /// <param name="unitId"></param>
         public static void InsertCodeRecordsByMenuIdProjectIdUnitId(string menuId, string projectId, string unitId, string dataId, DateTime? compileDate)
         {
-            var IsHaveCodeRecords = Funs.DB.Sys_CodeRecords.FirstOrDefault(x => x.DataId == dataId);
+            var IsHaveCodeRecords = new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords.FirstOrDefault(x => x.DataId == dataId);
             if (IsHaveCodeRecords == null)  ///是否已存在编码
             {
                 string ruleCode = string.Empty;
@@ -179,7 +179,7 @@ namespace BLL
                 int maxNewSortIndex = 0;
                 if (!String.IsNullOrEmpty(projectId))
                 {
-                    var maxSortIndex = Funs.DB.Sys_CodeRecords.Where(x => x.ProjectId == projectId && x.MenuId == menuId).Select(x => x.SortIndex).Max();
+                    var maxSortIndex = new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords.Where(x => x.ProjectId == projectId && x.MenuId == menuId).Select(x => x.SortIndex).Max();
                     if (maxSortIndex.HasValue)
                     {
                         maxNewSortIndex = maxSortIndex.Value;
@@ -187,7 +187,7 @@ namespace BLL
                 }
                 else
                 {
-                    var maxSortIndexNull = Funs.DB.Sys_CodeRecords.Where(x => x.MenuId == menuId).Select(x => x.SortIndex).Max();
+                    var maxSortIndexNull = new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords.Where(x => x.MenuId == menuId).Select(x => x.SortIndex).Max();
                     if (maxSortIndexNull.HasValue)
                     {
                         maxNewSortIndex = maxSortIndexNull.Value;
@@ -228,8 +228,8 @@ namespace BLL
                 {
                     newCodeRecords.OwnerCode = (maxNewSortIndex.ToString().PadLeft(digitower, '0'));
                 }
-                Funs.DB.Sys_CodeRecords.InsertOnSubmit(newCodeRecords);
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords.InsertOnSubmit(newCodeRecords);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
         #endregion
@@ -243,7 +243,7 @@ namespace BLL
         /// <param name="unitId"></param>
         public static void UpdateCodeRecordsByMenuIdProjectId(string menuId, string projectId)
         {
-            var codeRecords = from x in Funs.DB.Sys_CodeRecords where x.MenuId == menuId && x.ProjectId == projectId select x;
+            var codeRecords = from x in new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords where x.MenuId == menuId && x.ProjectId == projectId select x;
             if (codeRecords.Count() > 0)
             {
                 foreach (var itemRecords in codeRecords)
@@ -340,7 +340,7 @@ namespace BLL
                         {
                             itemRecords.OwnerCode = ((itemRecords.SortIndex).ToString().PadLeft(digitower, '0')); ;
                         }
-                        Funs.DB.SubmitChanges();
+                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                     }
                 }
             }
@@ -356,7 +356,7 @@ namespace BLL
         /// <param name="unitId"></param>
         public static void DatabaseRefreshCodeRecordsByMenuIdProjectId(string menuId, string projectId)
         {
-            var codeRecords = from x in Funs.DB.Sys_CodeRecords orderby x.CompileDate where x.MenuId == menuId && x.ProjectId == projectId select x;
+            var codeRecords = from x in new Model.SGGLDB(Funs.ConnString).Sys_CodeRecords orderby x.CompileDate where x.MenuId == menuId && x.ProjectId == projectId select x;
             if (codeRecords.Count() > 0)
             {
                 int sortIndex = 0;
@@ -380,7 +380,7 @@ namespace BLL
                     {
                         itemCodeRecord.OwnerCode = ((sortIndex).ToString().PadLeft(itemCodeRecord.OwerDigit ?? 4, '0'));
                     }
-                    Funs.DB.SubmitChanges();
+                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                 }
             }
         }

@@ -66,7 +66,7 @@
 <TreeNode id="0E9B7084-D021-4CA3-B9D2-9CBAA27A571B" Text="作业票(定稿)" NavigateUrl="HSSE/License/LicenseManager.aspx"></TreeNode>
 <TreeNode id="49485F7E-8E71-4EED-87B4-BF6CC180C69C" Text="安全技术交底" NavigateUrl="HSSE/License/HSETechnical.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="20ECB69E-28C4-4FAC-941A-15F446AEB634" Text="安全投入费用" NavigateUrl=""><TreeNode id="EEE7CBBE-2EFB-4D64-96A6-A932E20FF9DB" Text="安全费用计划" NavigateUrl="HSSE/CostGoods/Expense.aspx"></TreeNode>
+<TreeNode id="20ECB69E-28C4-4FAC-941A-15F446AEB634" Text="安全费用" NavigateUrl=""><TreeNode id="EEE7CBBE-2EFB-4D64-96A6-A932E20FF9DB" Text="安全费用计划" NavigateUrl="HSSE/CostGoods/Expense.aspx"></TreeNode>
 <TreeNode id="0C311396-C859-40B0-9D72-6A8B20733002" Text="安全费用支出" NavigateUrl="HSSE/CostGoods/CostSmallDetail.aspx"></TreeNode>
 <TreeNode id="FF68C697-B058-4687-A98F-71C591650E02" Text="分包商HSE费用申请" NavigateUrl="HSSE/CostGoods/CostManage.aspx"></TreeNode>
 </TreeNode>
@@ -98,7 +98,7 @@
 <TreeNode id="0973EE1C-CD2A-4116-BD67-1ABAD71D6C7C" Text="应急演练工作计划半年报" NavigateUrl="HSSE/InformationProject/DrillPlanHalfYearReport.aspx"></TreeNode>
 </TreeNode>
 </TreeNode>
-<TreeNode id="0ED3E0CC-75E0-4FF3-8832-067217A6CD4D" Text="事故处理/预防" NavigateUrl=""><TreeNode id="FB5C66FF-3BFB-490F-A14F-0DD5B5A4D110" Text="HSSE事故(对人员)记录" NavigateUrl="HSSE/Accident/AccidentPersonRecord.aspx"></TreeNode>
+<TreeNode id="0ED3E0CC-75E0-4FF3-8832-067217A6CD4D" Text="事故管理" NavigateUrl=""><TreeNode id="FB5C66FF-3BFB-490F-A14F-0DD5B5A4D110" Text="HSSE事故(对人员)记录" NavigateUrl="HSSE/Accident/AccidentPersonRecord.aspx"></TreeNode>
 <TreeNode id="9A9D6805-6C98-46E4-943E-130C4A3EB9A2" Text="HSSE事故(含未遂)处理" NavigateUrl="HSSE/Accident/AccidentHandle.aspx"></TreeNode>
 <TreeNode id="27C681E5-135A-414F-9FC2-D86D27805E6A" Text="事故报告登记" NavigateUrl="HSSE/Accident/AccidentReport.aspx"></TreeNode>
 <TreeNode id="B0A341A2-954A-4E24-BFC3-53D7F50628EE" Text="事故调查处理报告" NavigateUrl="HSSE/Accident/AccidentReportOther.aspx"></TreeNode>

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EnvironmentalEmergencyPlanService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取环境事件应急预案
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Environmental_EnvironmentalEmergencyPlan GetEnvironmentalEmergencyPlanById(string fileId)
         {
-            return Funs.DB.Environmental_EnvironmentalEmergencyPlan.FirstOrDefault(e => e.FileId == fileId);
+            return new Model.SGGLDB(Funs.ConnString).Environmental_EnvironmentalEmergencyPlan.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="EnvironmentalEmergencyPlan"></param>
         public static void AddEnvironmentalEmergencyPlan(Model.Environmental_EnvironmentalEmergencyPlan EnvironmentalEmergencyPlan)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_EnvironmentalEmergencyPlan newEnvironmentalEmergencyPlan = new Model.Environmental_EnvironmentalEmergencyPlan
             {
                 FileId = EnvironmentalEmergencyPlan.FileId,
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="EnvironmentalEmergencyPlan"></param>
         public static void UpdateEnvironmentalEmergencyPlan(Model.Environmental_EnvironmentalEmergencyPlan EnvironmentalEmergencyPlan)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_EnvironmentalEmergencyPlan newEnvironmentalEmergencyPlan = db.Environmental_EnvironmentalEmergencyPlan.FirstOrDefault(e => e.FileId == EnvironmentalEmergencyPlan.FileId);
             if (newEnvironmentalEmergencyPlan != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteEnvironmentalEmergencyPlanById(string FileId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_EnvironmentalEmergencyPlan EnvironmentalEmergencyPlan = db.Environmental_EnvironmentalEmergencyPlan.FirstOrDefault(e => e.FileId == FileId);
             if (EnvironmentalEmergencyPlan != null)
             {

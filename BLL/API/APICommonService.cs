@@ -70,7 +70,7 @@ namespace BLL
         public static string SendSubscribeMessage(string userId, string thing2, string name1, string date3)
         {
             string access_token = APICommonService.getaccess_token();
-            var getUser = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == userId);
+            var getUser = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.UserId == userId);
             if (getUser != null && !string.IsNullOrEmpty(getUser.OpenId))
             {
                 string miniprogram_state = ConfigurationManager.AppSettings["miniprogram_state"];

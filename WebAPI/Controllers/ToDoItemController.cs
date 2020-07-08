@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace WebAPI.Controllers
@@ -23,8 +21,8 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                //var getDataList = BLL.Funs.DB.Sp_APP_GetToDoItems(projectId, userId).ToList();
-                //responeData.data = new { getDataList.Count, getDataList };
+                var getDataList = new Model.SGGLDB(Funs.ConnString).Sp_APP_GetToDoItems(projectId, userId).ToList();
+                responeData.data = new { getDataList.Count, getDataList };
             }
             catch (Exception ex)
             {

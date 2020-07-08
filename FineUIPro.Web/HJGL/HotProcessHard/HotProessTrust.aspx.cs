@@ -65,11 +65,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
-            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
@@ -97,7 +97,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -112,7 +111,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -135,11 +133,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
 
                 if (!string.IsNullOrEmpty(this.txtSearchNo.Text.Trim()))
                 {
-                    trustLists = (from x in Funs.DB.HJGL_HotProess_Trust where x.HotProessTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HotProessTrustNo select x).ToList();
+                    trustLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_Trust where x.HotProessTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HotProessTrustNo select x).ToList();
                 }
                 else
                 {
-                    trustLists = (from x in Funs.DB.HJGL_HotProess_Trust orderby x.HotProessTrustNo select x).ToList();
+                    trustLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_Trust orderby x.HotProessTrustNo select x).ToList();
                 }
                 var trustList = from x in trustLists
                                 where x.ProjectId == this.CurrUser.LoginProjectId
@@ -343,7 +341,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 if (this.tvControlItem.SelectedNode!=null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
                 {
                     this.SetTextTemp();
-                    string window = String.Format("HotProessTrustEdit.aspx?workAreaId={0}", tvControlItem.SelectedNodeID, "新增 - ");
+                    string window = String.Format("HotProessTrustEdit.aspx?unitWorkId={0}", tvControlItem.SelectedNodeID, "新增 - ");
                     PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdHotProessTrustId.ClientID)
                       + Window1.GetShowReference(window));
                 }
@@ -401,12 +399,12 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 var trustManage = BLL.HotProess_TrustService.GetHotProessTrustById(this.HotProessTrustId);
                 if (trustManage != null)
                 {
-                    var hotProessItems = from x in Funs.DB.HJGL_HotProess_TrustItem where x.HotProessTrustId == this.HotProessTrustId select x;
+                    var hotProessItems = from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem where x.HotProessTrustId == this.HotProessTrustId select x;
                     foreach (var item in hotProessItems)
                     {
                         if (!string.IsNullOrEmpty(item.HotProessTrustItemId))
                         {
-                            var hotReort = (from x in Funs.DB.HJGL_HotProess_Report where x.HotProessTrustItemId == item.HotProessTrustItemId select x).ToList();
+                            var hotReort = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_Report where x.HotProessTrustItemId == item.HotProessTrustItemId select x).ToList();
                             if (hotReort.Count() > 0)
                             {
                                 ShowNotify("已生成热处理报告，不能删除！", MessageBoxIcon.Warning);

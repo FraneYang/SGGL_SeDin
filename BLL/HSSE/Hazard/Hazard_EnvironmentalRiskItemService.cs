@@ -5,7 +5,7 @@ namespace BLL
 {
     public static class Hazard_EnvironmentalRiskItemService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据危险源明细表id得到明细信息
@@ -14,7 +14,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Hazard_EnvironmentalRiskItem GetEnvironmentalRiskItemListByEnvironmentalRiskItemId(string environmentalRiskItemId)
         {
-            return (from x in Funs.DB.Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskItemId == environmentalRiskItemId select x).FirstOrDefault();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskItemId == environmentalRiskItemId select x).FirstOrDefault();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Hazard_EnvironmentalRiskItem> GetEnvironmentalRiskItemListByRiskListId(string environmentalRiskListId)
         {
-            return (from x in Funs.DB.Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == environmentalRiskListId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == environmentalRiskListId select x).ToList();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Hazard_EnvironmentalRiskItem GetEnvironmentalRiskItemListByRiskListIdEnvironmentalId(string environmentalRiskListId, string environmentalId)
         {
-            return Funs.DB.Hazard_EnvironmentalRiskItem.FirstOrDefault(x => x.EnvironmentalRiskListId == environmentalRiskListId && x.EnvironmentalId == environmentalId);
+            return new Model.SGGLDB(Funs.ConnString).Hazard_EnvironmentalRiskItem.FirstOrDefault(x => x.EnvironmentalRiskListId == environmentalRiskListId && x.EnvironmentalId == environmentalId);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BLL
         /// <param name="environmentalRiskItem">危险源辨识与评价清单实体</param>
         public static void AddEnvironmentalRiskItem(Model.Hazard_EnvironmentalRiskItem environmentalRiskItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Hazard_EnvironmentalRiskItem newEnvironmentalRiskItem = new Model.Hazard_EnvironmentalRiskItem
             {
                 EnvironmentalRiskItemId = environmentalRiskItem.EnvironmentalRiskItemId,
@@ -66,8 +66,8 @@ namespace BLL
                 Remark = environmentalRiskItem.Remark,
                 EnvironmentEffect = environmentalRiskItem.EnvironmentEffect
             };
-            Funs.DB.Hazard_EnvironmentalRiskItem.InsertOnSubmit(newEnvironmentalRiskItem);
-            Funs.DB.SubmitChanges();
+            new Model.SGGLDB(Funs.ConnString).Hazard_EnvironmentalRiskItem.InsertOnSubmit(newEnvironmentalRiskItem);
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace BLL
         /// <param name="environmentalRiskItem">危险源辨识与评价清单实体</param>
         public static void UpdateEnvironmentalRiskItem(Model.Hazard_EnvironmentalRiskItem environmentalRiskItem)
         {
-            Model.Hazard_EnvironmentalRiskItem newEnvironmentalRiskItem = Funs.DB.Hazard_EnvironmentalRiskItem.FirstOrDefault(e => e.EnvironmentalRiskItemId == environmentalRiskItem.EnvironmentalRiskItemId);
+            Model.Hazard_EnvironmentalRiskItem newEnvironmentalRiskItem = new Model.SGGLDB(Funs.ConnString).Hazard_EnvironmentalRiskItem.FirstOrDefault(e => e.EnvironmentalRiskItemId == environmentalRiskItem.EnvironmentalRiskItemId);
             if (newEnvironmentalRiskItem != null)
             {
                 newEnvironmentalRiskItem.EType = environmentalRiskItem.EType;
@@ -95,7 +95,7 @@ namespace BLL
                 newEnvironmentalRiskItem.ControlMeasures = environmentalRiskItem.ControlMeasures;
                 newEnvironmentalRiskItem.Remark = environmentalRiskItem.Remark;
                 newEnvironmentalRiskItem.EnvironmentEffect = environmentalRiskItem.EnvironmentEffect;
-                Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
         }
 
@@ -105,7 +105,7 @@ namespace BLL
         /// <param name="environmentalRiskItemId">危险源辨识与评价清单Id</param>
         public static void DeleteEnvironmentalRiskItemById(string environmentalRiskItemId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Hazard_EnvironmentalRiskItem newEnvironmentalRiskItem = db.Hazard_EnvironmentalRiskItem.FirstOrDefault(e => e.EnvironmentalRiskItemId == environmentalRiskItemId);
             if (newEnvironmentalRiskItem != null)
             {
@@ -120,7 +120,7 @@ namespace BLL
         /// <param name="environmentalRiskItemId">危险源辨识与评价清单Id</param>
         public static void DeleteEnvironmentalRiskItemByRiskListId(string environmentalRiskListId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var newEnvironmentalRiskItem = from x in db.Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == environmentalRiskListId select x;
             if (newEnvironmentalRiskItem.Count() > 0)
             {

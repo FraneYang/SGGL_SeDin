@@ -148,7 +148,7 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q2 = Funs.DB.Sys_Role.FirstOrDefault(x => x.RoleName == this.txtRoleName.Text.Trim() && (x.RoleId != this.RoleId || (this.RoleId == null && x.RoleId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Sys_Role.FirstOrDefault(x => x.RoleName == this.txtRoleName.Text.Trim() && (x.RoleId != this.RoleId || (this.RoleId == null && x.RoleId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的角色名称已存在！", MessageBoxIcon.Warning);

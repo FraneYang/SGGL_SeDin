@@ -220,12 +220,12 @@ namespace FineUIPro.Web.HSSE.Technique
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Technique_SpecialScheme.FirstOrDefault(x => x.IsPass == true && x.SpecialSchemeCode == this.txtSpecialSchemeCode.Text.Trim() && (x.SpecialSchemeId != this.SpecialSchemeId || (this.SpecialSchemeId == null && x.SpecialSchemeId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Technique_SpecialScheme.FirstOrDefault(x => x.IsPass == true && x.SpecialSchemeCode == this.txtSpecialSchemeCode.Text.Trim() && (x.SpecialSchemeId != this.SpecialSchemeId || (this.SpecialSchemeId == null && x.SpecialSchemeId != null)));
             if (q != null)
             {
                 ShowNotify("输入的方案编号已存在！", MessageBoxIcon.Warning);
             }
-            var q2 = Funs.DB.Technique_SpecialScheme.FirstOrDefault(x => x.IsPass == true && x.SpecialSchemeName == this.txtSpecialSchemeName.Text.Trim() && (x.SpecialSchemeId != this.SpecialSchemeId || (this.SpecialSchemeId == null && x.SpecialSchemeId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Technique_SpecialScheme.FirstOrDefault(x => x.IsPass == true && x.SpecialSchemeName == this.txtSpecialSchemeName.Text.Trim() && (x.SpecialSchemeId != this.SpecialSchemeId || (this.SpecialSchemeId == null && x.SpecialSchemeId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的方案名称已存在！", MessageBoxIcon.Warning);

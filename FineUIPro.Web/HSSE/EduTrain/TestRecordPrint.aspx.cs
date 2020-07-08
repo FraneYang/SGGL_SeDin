@@ -78,7 +78,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                         }
 
                         this.lbTestPerson.Text = personInfo;
-                        var attachFile = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.TestRecordId);
+                        var attachFile = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == this.TestRecordId);
                         if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
                         {
                             List<string> listUrl = Funs.GetStrListByStr(attachFile.AttachUrl, ',');
@@ -95,11 +95,11 @@ namespace FineUIPro.Web.HSSE.EduTrain
                                 this.timg3.Src = "../" + listUrl[count - 1];
                             }
                         }
-                        var getTestPlan = Funs.DB.Test_TestPlan.FirstOrDefault(x => x.TestPlanId == testRecord.TestPlanId);
+                        var getTestPlan = new Model.SGGLDB(Funs.ConnString).Test_TestPlan.FirstOrDefault(x => x.TestPlanId == testRecord.TestPlanId);
                         if (getTestPlan != null)
                         {
                             int getA = 0, getB = 0, getC = 0;
-                            var getTraining = from x in Funs.DB.Test_TestPlanTraining
+                            var getTraining = from x in new Model.SGGLDB(Funs.ConnString).Test_TestPlanTraining
                                               where x.TestPlanId == testRecord.TestPlanId && x.UserType == testRecord.ManType
                                               select x;
                             if (getTraining.Count() > 0)
@@ -126,10 +126,10 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     var testRecord = TestRecordService.GetTestRecordById(this.TestRecordId);
                     if (testRecord != null)
                     {
-                        var getTrainTypeName = (from x in Funs.DB.Training_TestRecord
-                                                join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId
-                                                join z in Funs.DB.Training_Plan on y.PlanId equals z.PlanId
-                                                join t in Funs.DB.Base_TrainType on z.TrainTypeId equals t.TrainTypeId
+                        var getTrainTypeName = (from x in new Model.SGGLDB(Funs.ConnString).Training_TestRecord
+                                                join y in new Model.SGGLDB(Funs.ConnString).Training_TestPlan on x.TestPlanId equals y.TestPlanId
+                                                join z in new Model.SGGLDB(Funs.ConnString).Training_Plan on y.PlanId equals z.PlanId
+                                                join t in new Model.SGGLDB(Funs.ConnString).Base_TrainType on z.TrainTypeId equals t.TrainTypeId
                                                 where x.TestRecordId == this.TestRecordId
                                                 select t.TrainTypeName).FirstOrDefault();
                         if (getTrainTypeName != null)
@@ -152,7 +152,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                         }
 
                         this.lbTestPerson.Text = personInfo;
-                        var attachFile = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.TestRecordId);
+                        var attachFile = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == this.TestRecordId);
                         if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
                         {
                             List<string> listUrl = Funs.GetStrListByStr(attachFile.AttachUrl, ',');
@@ -170,11 +170,11 @@ namespace FineUIPro.Web.HSSE.EduTrain
                             }
                         }
 
-                        var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.TestPlanId == testRecord.TestPlanId);
+                        var getTestPlan = new Model.SGGLDB(Funs.ConnString).Training_TestPlan.FirstOrDefault(x => x.TestPlanId == testRecord.TestPlanId);
                         if (getTestPlan != null)
                         {
                             int getA = 0, getB = 0, getC = 0;
-                            var getTraining = from x in Funs.DB.Training_TestPlanTraining
+                            var getTraining = from x in new Model.SGGLDB(Funs.ConnString).Training_TestPlanTraining
                                               where x.TestPlanId == getTestPlan.TestPlanId
                                               select x;
                             if (getTraining.Count() > 0)

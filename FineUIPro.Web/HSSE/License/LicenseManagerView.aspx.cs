@@ -58,7 +58,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                         if (!string.IsNullOrEmpty(licenseManager.WorkAreaId))
                         {
-                            this.txtWorkAreaName.Text = BLL.UnitWorkService.GetUnitWorkName(licenseManager.WorkAreaId);
+                            this.txtWorkAreaName.Text = BLL.UnitWorkService.GetNameById(licenseManager.WorkAreaId);
                         }
                         this.txtApplicantMan.Text = licenseManager.ApplicantMan;
                         this.txtStartDate.Text = string.Format("{0:yyyy-MM-dd}", licenseManager.StartDate);

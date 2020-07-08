@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Batch_BatchTrustItem GetBatchTrustItemById(string trustBatchItemId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return db.HJGL_Batch_BatchTrustItem.FirstOrDefault(e => e.TrustBatchItemId == trustBatchItemId);
         }
 
@@ -28,7 +28,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_Batch_BatchTrustItem> GetBatchTrustItemByTrustBatchId(string trustBatchId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return (from x in db.HJGL_Batch_BatchTrustItem where x.TrustBatchId == trustBatchId select x).ToList();
         }
 
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="batchTrustItem"></param>
         public static void AddBatchTrustItem(Model.HJGL_Batch_BatchTrustItem batchTrustItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_BatchTrustItem newTrustBatchItem = new Model.HJGL_Batch_BatchTrustItem
             {
                 TrustBatchItemId = batchTrustItem.TrustBatchItemId,
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="batchTrustItem"></param>
         public static void UpdateBatchTrustItem(Model.HJGL_Batch_BatchTrustItem batchTrustItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_BatchTrustItem newBatchTrustItem = db.HJGL_Batch_BatchTrustItem.FirstOrDefault(e => e.TrustBatchItemId == batchTrustItem.TrustBatchItemId);
             if (newBatchTrustItem != null)
             {
@@ -83,7 +83,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_Batch_BatchTrustItem> GetViewBatchTrustItem(string trustBatchId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return (from x in db.View_Batch_BatchTrustItem where x.TrustBatchId == trustBatchId select x).ToList();
         }
 
@@ -94,7 +94,7 @@ namespace BLL
         /// <param name="checkItemId"></param>
         public static void DeleteTrustItemByTrustBatchItemId(string trustBatchItemId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Batch_BatchTrustItem trustItem = db.HJGL_Batch_BatchTrustItem.FirstOrDefault(e => e.TrustBatchItemId == trustBatchItemId);
             if (trustItem != null)
             {
@@ -112,7 +112,7 @@ namespace BLL
         /// <param name="num"></param>
         public static void UpdateTrustNum(string trustBatchItemId, int num)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var trustBatchItem = db.HJGL_Batch_BatchTrustItem.FirstOrDefault(x => x.TrustBatchItemId == trustBatchItemId);
             if (trustBatchItem != null)
             {
@@ -133,10 +133,10 @@ namespace BLL
         public static bool GetIsGenerateTrust(string pointBatchItemId)
         {
             bool isShow = true;
-            var trustBatchItem = Funs.DB.HJGL_Batch_BatchTrustItem.FirstOrDefault(x => x.PointBatchItemId == pointBatchItemId);
+            var trustBatchItem = new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrustItem.FirstOrDefault(x => x.PointBatchItemId == pointBatchItemId);
             if (trustBatchItem != null)
             {
-                var checkItem = Funs.DB.HJGL_Batch_NDEItem.FirstOrDefault(x => x.TrustBatchItemId == trustBatchItem.TrustBatchItemId && x.CheckResult == "1");
+                var checkItem = new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDEItem.FirstOrDefault(x => x.TrustBatchItemId == trustBatchItem.TrustBatchItemId && x.CheckResult == "1");
                 if (checkItem != null)
                 {
                     isShow = false;

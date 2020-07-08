@@ -92,8 +92,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             rootNode.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode);
            
-            var hotProessItems = from x in Funs.DB.HJGL_HotProess_TrustItem select x;    //热处理委托明细集合
-            var iso = from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.UnitId select x;
+            var hotProessItems = from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem select x;    //热处理委托明细集合
+            var iso = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.UnitId select x;
             if (!string.IsNullOrEmpty(this.txtIsono.Text))
             {
                 iso = iso.Where(e => e.PipelineCode.Contains(this.txtIsono.Text.Trim()));
@@ -104,11 +104,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in iso)
                 {
-                    var jots = from x in Funs.DB.HJGL_WeldJoint
+                    var jots = from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint
                                where x.PipelineId == q.PipelineId && x.IsHotProess == true
                                select x;
-                    var hotItem = from x in Funs.DB.HJGL_HotProess_TrustItem
-                                  join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                    var hotItem = from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem
+                                  join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                   where y.PipelineId == q.PipelineId
                                   select x;
                     if (jots.Count() > hotItem.Count())
@@ -157,7 +157,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         {
             //List<Model.View_HotProessTrustItemSearch> toDoMatterList = BLL.HotProess_TrustService.GetHotProessTrustFind(this.ProjectId, this.HotProessTrustId, this.tvControlItem.SelectedNodeID);
 
-            List<Model.View_HJGL_HotProessTrustItemSearch> toDoMatterList = (from x in Funs.DB.View_HJGL_HotProessTrustItemSearch
+            List<Model.View_HJGL_HotProessTrustItemSearch> toDoMatterList = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_HotProessTrustItemSearch
                                                                              where x.ProjectId == this.CurrUser.LoginProjectId && x.HotProessTrustItemId == null
                                                                                 && x.IsHotProess==true
                                                                         orderby x.WeldJointCode

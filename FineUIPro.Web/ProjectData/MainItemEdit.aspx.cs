@@ -53,7 +53,7 @@ namespace FineUIPro.Web.ProjectData
                 }
                 txtProjectName.Text = ProjectService.GetProjectByProjectId(this.ProjectId).ProjectName;
                 MainItemId = Request.Params["MainItemId"];
-                gvCarryUnit.DataSource = (from x in BLL.Funs.DB.WBS_UnitWork where x.SuperUnitWork == null && x.ProjectId == this.CurrUser.LoginProjectId orderby x.UnitWorkCode select x);
+                gvCarryUnit.DataSource = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.SuperUnitWork == null && x.ProjectId == this.CurrUser.LoginProjectId orderby x.UnitWorkCode select x);
                 gvCarryUnit.DataBind();
                 if (!string.IsNullOrEmpty(MainItemId))
                 {

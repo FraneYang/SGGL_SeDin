@@ -10,7 +10,7 @@ namespace BLL
 {
     public class UnitWorkService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 添加单位工程信息
@@ -18,7 +18,7 @@ namespace BLL
         /// <param name="WPQ"></param>
         public static void AddUnitWork(Model.WBS_UnitWork UnitWork)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_UnitWork newUnitWork = new Model.WBS_UnitWork();
             newUnitWork.UnitWorkId = UnitWork.UnitWorkId;
             newUnitWork.UnitWorkCode = UnitWork.UnitWorkCode;
@@ -41,7 +41,7 @@ namespace BLL
         /// <param name="WPQ"></param>
         public static void UpdateUnitWork(Model.WBS_UnitWork UnitWork)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_UnitWork newUnitWork = db.WBS_UnitWork.FirstOrDefault(e => e.UnitWorkId == UnitWork.UnitWorkId);
             if (newUnitWork != null)
             {
@@ -66,7 +66,7 @@ namespace BLL
         /// <param name="checkerId"></param>
         public static void DeleteUnitWorkById(string UnitWorkId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_UnitWork Unitwork = db.WBS_UnitWork.FirstOrDefault(e => e.UnitWorkId == UnitWorkId);
             if (Unitwork != null)
             {
@@ -82,7 +82,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.WBS_UnitWork GetUnitWorkByUnitWorkId(string UnitWorkId)
         {
-            return Funs.DB.WBS_UnitWork.FirstOrDefault(e => e.UnitWorkId == UnitWorkId);
+            return new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.FirstOrDefault(e => e.UnitWorkId == UnitWorkId);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_UnitWork> GetUnitWorkByUnitWorkCode(string UnitWorkCode)
         {
-            return (from x in Funs.DB.WBS_UnitWork where x.UnitWorkCode == UnitWorkCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.UnitWorkCode == UnitWorkCode select x).ToList();
         }
 
         /// <summary>
@@ -149,8 +149,8 @@ namespace BLL
         public static ListItem[] GetUnitWorkList(string projectId)
         {
             List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
+            var unitWorks = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
+            var a = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
             foreach (var unitWorkCode in a)
             {
                 var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);
@@ -174,8 +174,8 @@ namespace BLL
         public static List<Model.WBS_UnitWork> GetUnitWorkLists(string projectId)
         {
             List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
+            var unitWorks = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
+            var a = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
             foreach (var unitWorkCode in a)
             {
                 var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);
@@ -189,8 +189,8 @@ namespace BLL
         public static ListItem[] GetUnitWork(string projectId)
         {
             List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
+            var unitWorks = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
+            var a = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
             foreach (var unitWorkCode in a)
             {
                 var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);
@@ -214,7 +214,7 @@ namespace BLL
         public static string GetNameById(string id)
         {
             string name = string.Empty;
-            var UnitWork = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == id);
+            var UnitWork = new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == id);
             if (UnitWork != null)
             {
                 name = UnitWork.UnitWorkName;
@@ -279,8 +279,8 @@ namespace BLL
         public static List<Model.WBS_UnitWork> GetUnitWorkListByPid(string projectId)
         {
             List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
+            var unitWorks = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
+            var a = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
             foreach (var unitWorkCode in a)
             {
                 var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);
@@ -294,14 +294,14 @@ namespace BLL
         }
         public static Model.WBS_UnitWork getUnitWorkByUnitWorkId(string UnitWorkId)
         {
-            return Funs.DB.WBS_UnitWork.FirstOrDefault(e => e.UnitWorkId.ToString() == UnitWorkId);
+            return new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.FirstOrDefault(e => e.UnitWorkId.ToString() == UnitWorkId);
         }
         public static List<Model.WBS_UnitWork> GetUnitWorkListByPidForApi(string projectId, string projectType)
         {
             string[] type = null;
             if (!string.IsNullOrEmpty(projectType))
                 type = projectType.Split(',');
-            var unitWorks = from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && (type == null || type.Contains(x.ProjectType)) orderby x.UnitWorkCode select x;
+            var unitWorks = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && (type == null || type.Contains(x.ProjectType)) orderby x.UnitWorkCode select x;
             return unitWorks.ToList();
         }
         /// <summary>
@@ -311,7 +311,7 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetUnitWorkListByProjectType(string projectId, string projectType)
         {
-            List<Model.WBS_UnitWork> q = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null && x.ProjectType == projectType orderby x.UnitWorkCode select x).ToList();
+            List<Model.WBS_UnitWork> q = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null && x.ProjectType == projectType orderby x.UnitWorkCode select x).ToList();
             ListItem[] item = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {
@@ -331,7 +331,7 @@ namespace BLL
             Model.WBS_UnitWork unitWork = GetUnitWorkByUnitWorkId(unitWorkId);
             if (unitWork != null)
             {
-                var q = from x in Funs.DB.WBS_UnitWork where x.UnitWorkCode == unitWork.UnitWorkCode select x;
+                var q = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.UnitWorkCode == unitWork.UnitWorkCode select x;
                 foreach (var item in q)
                 {
                     unitWorkIds += item.UnitWorkId + ",";
@@ -353,12 +353,12 @@ namespace BLL
         {
             if (ProjectType == "1")
             {
-                List<Model.WBS_UnitWork> lis = (from x in Funs.DB.WBS_UnitWork where x.ProjectType == "1" && x.ProjectId == ProjectId orderby x.UnitWorkCode select x).ToList();
+                List<Model.WBS_UnitWork> lis = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectType == "1" && x.ProjectId == ProjectId orderby x.UnitWorkCode select x).ToList();
                 return lis;
             }
             else if (ProjectType == "2")
             {
-                List<Model.WBS_UnitWork> lis = (from x in Funs.DB.WBS_UnitWork where x.ProjectType == "2" && x.ProjectId == ProjectId orderby x.UnitWorkCode select x).ToList();
+                List<Model.WBS_UnitWork> lis = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectType == "2" && x.ProjectId == ProjectId orderby x.UnitWorkCode select x).ToList();
                 return lis;
             }
             else
@@ -395,7 +395,7 @@ namespace BLL
         /// <param name="isShowPlease"></param>
         public static void InitUnitWorkDropDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
         {
-            var unitWorks = from x in Funs.DB.WBS_UnitWork
+            var unitWorks = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
                             where x.ProjectId == projectId && x.SuperUnitWork == null
                             orderby x.UnitWorkCode
                             select new
@@ -422,7 +422,7 @@ namespace BLL
         public static string GetUnitWorkALLName(string unitWorkId)
         {
             string name = string.Empty;
-            var getu = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == unitWorkId && x.SuperUnitWork == null);
+            var getu = new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == unitWorkId && x.SuperUnitWork == null);
             if (getu != null)
             {
                 if (!string.IsNullOrEmpty(getu.ProjectType))

@@ -7,7 +7,7 @@ namespace BLL
 {
     public static class EmergencyService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取应急预案
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Technique_Emergency GetEmergencyListById(string emergencyId)
         {
-            return Funs.DB.Technique_Emergency.FirstOrDefault(e => e.EmergencyId == emergencyId);
+            return new Model.SGGLDB(Funs.ConnString).Technique_Emergency.FirstOrDefault(e => e.EmergencyId == emergencyId);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Technique_Emergency> GetEmergencyByCompileMan(string compileMan)
         {
-            return (from x in Funs.DB.Technique_Emergency where x.CompileMan == compileMan select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Technique_Emergency where x.CompileMan == compileMan select x).ToList();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace BLL
         /// <param name="emergencyList"></param>
         public static void AddEmergencyList(Model.Technique_Emergency emergencyList)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_Emergency newEmergencyList = new Model.Technique_Emergency
             {
                 EmergencyId = emergencyList.EmergencyId,
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="emergencyList"></param>
         public static void UpdateEmergencyList(Model.Technique_Emergency emergencyList)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_Emergency newEmergencyList = db.Technique_Emergency.FirstOrDefault(e => e.EmergencyId == emergencyList.EmergencyId);
             if (newEmergencyList != null)
             {
@@ -83,7 +83,7 @@ namespace BLL
         /// <param name="emergencyList"></param>
         public static void UpdateEmergencyListIsPass(Model.Technique_Emergency emergencyList)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_Emergency newEmergencyList = db.Technique_Emergency.FirstOrDefault(e => e.EmergencyId == emergencyList.EmergencyId);
             if (newEmergencyList != null)
             {
@@ -100,7 +100,7 @@ namespace BLL
         /// <param name="emergencyId"></param>
         public static void DeleteEmergencyListById(string emergencyId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Technique_Emergency emergencyList = db.Technique_Emergency.FirstOrDefault(e => e.EmergencyId == emergencyId);
             if (emergencyList != null)
             {

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="mainProject.aspx.cs" Inherits="FineUIPro.Web.common.main2" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="mainProject.aspx.cs" Inherits="FineUIPro.Web.common.mainProject" %>
 
 <!DOCTYPE html>
 <html>
@@ -62,8 +62,11 @@
         .bg-item-fix{
             padding:0 10px 10px;box-sizing:border-box;
         }
+        .mbnone{
+            margin-bottom: 0;
+        }
         .widthper{
-            width:50%;
+            width:48%;
             box-sizing:border-box;
             
         }
@@ -100,12 +103,30 @@
         .bg-item:last-child{
             margin-bottom: 0;
         }
+        .swiperHeightWrap{
+            height:220px;
+        }
+        .swiperHeight{
+            height:140px;
+        }
          @media screen and (max-height: 625px) {
+            .swiperHeightWrap{
+                height:220px;
+            }
+            .swiperHeight{
+                height:140px;
+            }
             .itemfix{
                 margin-bottom:0;
             }
         }
         @media screen and (min-height: 625px) {
+            .swiperHeightWrap{
+               height:340px;
+            }
+            .swiperHeight{
+               height:190px;
+            }
             .itemfix{
                 margin-bottom:25px;
             }
@@ -220,10 +241,10 @@
                         <%--<div id='map' style="width: 100%; height: 100%;"></div>--%>
                     </div>
                 <%--</div>--%>
-                <div class="bw-b-bottom flex flex1">
-                    <div class="flex1 widthper" style="margin-right:10px">
+                <div class="bw-b-bottom flex flex1 swiperHeightWrap">
+                    <div class="flex1 widthper mbnone" >
                         <div class="bg-item bg-item-fix">
-                        <div class="swiper-container" id='swiper1' style="height: 180px;">
+                        <div class="swiper-container swiperHeight" id='swiper1'>
                             <ul class="content-ul swiper-wrapper">
                                 <li class="c-item swiper-slide">
                                     <div class="tit">关于加强全国两会期间安全防范工作</div>
@@ -265,9 +286,10 @@
                         </div>
                     </div>
                     </div>
-                    <div class="flex1 widthper">
+                    <div class="spline" style="width:2%;"></div>
+                    <div class="flex1 widthper mbnone">
                         <div class="bg-item bg-item-fix">
-                        <div class="swiper-container" id='swiper2' style="height: 180px;">
+                        <div class="swiper-container swiperHeight" id='swiper2'>
                             <ul class="content-ul swiper-wrapper">
                                 <li class="c-item swiper-slide">
                                     <div class="tit">关于加强全国两会期间安全防范工作</div>
@@ -314,7 +336,7 @@
             </div>
             <!--右侧-->
             <div class="bw-s flex1 flex flexV">
-                <div class="bg-item height260">
+                <div class="bg-item flex2">
                     <div class="tab-wrap tab-small">
                         <div class="tab" data-value="3">
                             <div class="t-item active">质量验收</div>
@@ -326,7 +348,7 @@
                         <div id='three' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bg-item height260">
+                <div class="bg-item flex2">
                     <div class="tab-wrap tab-small">
                         <div class="tab" data-value="4">
                             <div class="t-item active">安全人工时</div>
@@ -338,7 +360,7 @@
                         <div id='four' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bg-item height130">
+                <div class="bg-item flex1">
                     <div class="tab-wrap tab-small">
                         <div class="tab" data-value="5">
                             <div class="t-item active">待定</div>

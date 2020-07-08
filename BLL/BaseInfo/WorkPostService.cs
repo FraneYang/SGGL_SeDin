@@ -7,7 +7,7 @@ namespace BLL
 {
    public static class WorkPostService
    {
-       public static Model.SGGLDB db = Funs.DB;
+       public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
        /// <summary>
        /// 根据主键获取信息
@@ -16,7 +16,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.Base_WorkPost GetWorkPostById(string workPostId)
        {
-           return Funs.DB.Base_WorkPost.FirstOrDefault(e => e.WorkPostId == workPostId);
+           return new Model.SGGLDB(Funs.ConnString).Base_WorkPost.FirstOrDefault(e => e.WorkPostId == workPostId);
        }
 
        /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
        /// <param name="?"></param>
        public static void AddWorkPost(Model.Base_WorkPost workPost)
        {
-           Model.SGGLDB db = Funs.DB;
+           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_WorkPost newWorkPost = new Model.Base_WorkPost
             {
                 WorkPostId = workPost.WorkPostId,
@@ -46,7 +46,7 @@ namespace BLL
        /// <param name="teamGroup"></param>
        public static void UpdateWorkPost(Model.Base_WorkPost workPost)
        {
-           Model.SGGLDB db = Funs.DB;
+           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
            Model.Base_WorkPost newWorkPost = db.Base_WorkPost.FirstOrDefault(e => e.WorkPostId == workPost.WorkPostId);
            if (newWorkPost != null)
            {
@@ -65,7 +65,7 @@ namespace BLL
        /// <param name="workPostId"></param>
        public static void DeleteWorkPostById(string workPostId)
        {
-           Model.SGGLDB db = Funs.DB;
+           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
            Model.Base_WorkPost workPost = db.Base_WorkPost.FirstOrDefault(e => e.WorkPostId == workPostId);
            {
                db.Base_WorkPost.DeleteOnSubmit(workPost);
@@ -79,7 +79,7 @@ namespace BLL
        /// <returns></returns>
        public static List<Model.Base_WorkPost> GetWorkPostList()
        {
-           var list = (from x in Funs.DB.Base_WorkPost orderby x.WorkPostCode select x).ToList();
+           var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost orderby x.WorkPostCode select x).ToList();
            return list;
        }
 

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TrainTestDBService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取安全试题库信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TrainTestDB GetTrainTestDBById(string trainTestDBId)
         {
-            return Funs.DB.Training_TrainTestDB.FirstOrDefault(e => e.TrainTestId == trainTestDBId);
+            return new Model.SGGLDB(Funs.ConnString).Training_TrainTestDB.FirstOrDefault(e => e.TrainTestId == trainTestDBId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Training_TrainTestDB> GetTrainTestDBBySupTrainTestId(string parentId)
         {
-            return (from x in Funs.DB.Training_TrainTestDB where x.SupTrainTestId == parentId orderby x.TrainTestCode select x).ToList(); ;
+            return (from x in new Model.SGGLDB(Funs.ConnString).Training_TrainTestDB where x.SupTrainTestId == parentId orderby x.TrainTestCode select x).ToList(); ;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="trainTestDB"></param>
         public static void AddTrainTestDB(Model.Training_TrainTestDB trainTestDB)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainTestDB newTrainTestDB = new Model.Training_TrainTestDB
             {
                 TrainTestId = trainTestDB.TrainTestId,
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="trainTestDB"></param>
         public static void UpdateTrainTestDB(Model.Training_TrainTestDB trainTestDB)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainTestDB newTrainTestDB = db.Training_TrainTestDB.FirstOrDefault(e => e.TrainTestId == trainTestDB.TrainTestId);
             if (newTrainTestDB != null)
             {
@@ -75,7 +75,7 @@ namespace BLL
         /// <param name="trainTestDBId"></param>
         public static void DeleteTrainTestDB(string trainTestId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainTestDB trainTestDB = db.Training_TrainTestDB.FirstOrDefault(e => e.TrainTestId == trainTestId);
             if (trainTestDB != null)
             {
@@ -101,7 +101,7 @@ namespace BLL
                 }
                 if (trainTestDB.IsEndLever == true)
                 {
-                    var detailCout = Funs.DB.Training_TrainTestDBItem.FirstOrDefault(x => x.TrainTestId == trainTestId);
+                    var detailCout = new Model.SGGLDB(Funs.ConnString).Training_TrainTestDBItem.FirstOrDefault(x => x.TrainTestId == trainTestId);
                     if (detailCout != null)
                     {
                         isDelete = false;

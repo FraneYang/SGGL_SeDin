@@ -114,7 +114,7 @@ namespace BLL
             {
                 if (toDoItem.IsInsert == "1")
                 {
-                    var att = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == toDoItem.DataId);
+                    var att = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == toDoItem.DataId);
                     if (att != null)
                     {
                         toDoItem.UrlStr = att.AttachUrl + "," + toDoItem.UrlStr;
@@ -135,7 +135,7 @@ namespace BLL
             {
                 if (isInsert == "1")
                 {
-                    var att = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == dataId);
+                    var att = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == dataId);
                     if (att != null)
                     {
                         url = att.AttachUrl + "," + url;

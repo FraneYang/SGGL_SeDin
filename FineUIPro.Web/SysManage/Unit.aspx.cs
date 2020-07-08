@@ -224,12 +224,12 @@ namespace FineUIPro.Web.SysManage
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            var unit =Funs.DB.Base_Unit.FirstOrDefault(x => x.UnitId == id) ;
+            var unit =new Model.SGGLDB(Funs.ConnString).Base_Unit.FirstOrDefault(x => x.UnitId == id) ;
             if (unit != null && unit.UnitId == Const.UnitId_SEDIN)
             {
                 content += "【本单位】，不能删除！";
             }
-            if (Funs.DB.Sys_User.FirstOrDefault(x => x.UnitId == id) != null)
+            if (new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.UnitId == id) != null)
             {
                 content += "该单位已在【用户信息】中使用，不能删除！";
             }

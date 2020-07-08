@@ -7,7 +7,7 @@
 
     public static class SignManageService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取标牌信息
@@ -16,7 +16,7 @@
         /// <returns></returns>
         public static Model.Resources_SignManage GetSignManageBySignManageId(string SignManageId)
         {
-            return Funs.DB.Resources_SignManage.FirstOrDefault(x => x.SignManageId == SignManageId);
+            return new Model.SGGLDB(Funs.ConnString).Resources_SignManage.FirstOrDefault(x => x.SignManageId == SignManageId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@
         /// <param name="SignManage"></param>
         public static void AddSignManage(Model.Resources_SignManage SignManage)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Resources_SignManage newSignManage = new Model.Resources_SignManage
             {
                 SignManageId = SignManage.SignManageId,
@@ -53,7 +53,7 @@
         /// <param name="def"></param>
         public static void UpdateSignManage(Model.Resources_SignManage SignManage)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Resources_SignManage updateSignManage = db.Resources_SignManage.FirstOrDefault(e => e.SignManageId == SignManage.SignManageId);
             if (updateSignManage != null)
             {
@@ -78,7 +78,7 @@
         /// <param name="SignManageId"></param>
         public static void DeleteSignManage(string signManageId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Resources_SignManage deleteSignManage = db.Resources_SignManage.FirstOrDefault(e => e.SignManageId == signManageId);
             if (deleteSignManage != null)
             {

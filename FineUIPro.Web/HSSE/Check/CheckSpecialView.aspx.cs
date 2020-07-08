@@ -59,7 +59,7 @@ namespace FineUIPro.Web.HSSE.Check
                     this.txtPartInPersonNames.Text = checkSpecial.PartInPersonNames;
                     this.txtSupCheckItemSet.Text = Technique_CheckItemSetService.GetCheckItemSetNameById(checkSpecial.CheckItemSetId);
                     this.txtPartInPersons.Text = checkSpecial.PartInPersons;
-                    checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
+                    checkSpecialDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_CheckSpecialDetail
                                            where x.CheckSpecialId == this.CheckSpecialId
                                            orderby x.SortIndex select x).ToList();
                 }

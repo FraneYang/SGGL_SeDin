@@ -231,8 +231,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 int i = 0;   //培训合格次数
                 foreach (var item in trainTypeList)
                 {                    
-                    var q = (from x in Funs.DB.EduTrain_TrainRecord
-                             join y in Funs.DB.EduTrain_TrainRecordDetail
+                    var q = (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord
+                             join y in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail
                              on x.TrainingId equals y.TrainingId
                              where x.TrainTypeId == item.TrainTypeId && y.PersonId == PersonId.ToString() && y.CheckResult == true
                              select y);

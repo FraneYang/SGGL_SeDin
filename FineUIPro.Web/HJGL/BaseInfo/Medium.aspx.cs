@@ -33,7 +33,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private void BindGrid()
         {
             string strSql = @"SELECT MediumId,MediumCode,MediumName,MediumAbbreviation,Remark
-                              FROM dbo.Base_Medium WHERE IsTestMedium is null";
+                              FROM dbo.Base_Medium WHERE (IsTestMedium is NULL OR IsTestMedium =0) ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
@@ -232,7 +232,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            //if (Funs.DB.Pipeline_Pipeline.FirstOrDefault(x => x.MediumId == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Pipeline_Pipeline.FirstOrDefault(x => x.MediumId == id) != null)
             //{
             //    content += "已在【管线信息】中使用，不能删除！";
             //}

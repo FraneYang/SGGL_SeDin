@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.UserItem PersonLogOn(Model.UserItem userInfo)
         {
-            var getUser = from x in Funs.DB.SitePerson_Person              
+            var getUser = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person              
                           where (x.Telephone == userInfo.Account || x.PersonName == userInfo.Account) 
                           && (x.Password == Funs.EncryptionPassword(userInfo.Password) 
                              || (x.IdentityCard != null && x.IdentityCard.Substring(x.IdentityCard.Length - 4) == userInfo.Password))
@@ -30,18 +30,18 @@ namespace BLL
                               LoginProjectId = x.ProjectId,
                               IdentityCard = x.IdentityCard,
                               Account = x.Telephone,
-                              UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                              LoginProjectName = Funs.DB.Base_Project.First(u => u.ProjectId == x.ProjectId).ProjectName,
+                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                              LoginProjectName = new Model.SGGLDB(Funs.ConnString).Base_Project.First(u => u.ProjectId == x.ProjectId).ProjectName,
                               Telephone = x.Telephone,
                               WorkPostId = x.WorkPostId,
-                              WorkPostName = Funs.DB.Base_WorkPost.First(w=>w.WorkPostId==x.WorkPostId).WorkPostName,
+                              WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(w=>w.WorkPostId==x.WorkPostId).WorkPostName,
                               UserType="3",
                           };
 
             return getUser.FirstOrDefault();
         }
         #endregion
-        /*
+
         #region 根据personId获取人员信息
         /// <summary>
         /// 根据personId获取人员信息
@@ -50,7 +50,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.PersonItem getPersonByPersonId(string personId)
         {
-            var getPerson = from x in Funs.DB.View_SitePerson_Person
+            var getPerson = from x in new Model.SGGLDB(Funs.ConnString).View_SitePerson_Person
                             where x.PersonId == personId || x.IdentityCard == personId
                             select new Model.PersonItem
                             {
@@ -80,7 +80,7 @@ namespace BLL
                                 IsUsed = x.IsUsed,
                                 IsUsedName = x.IsUsed == false ? "不启用" : "启用",
                                 AuditorId = x.AuditorId,
-                                AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                 IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
                                 IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
                                 AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
@@ -99,7 +99,7 @@ namespace BLL
         public static string getAttachUrl4(string personId)
         {
             string returnUrl = APIUpLoadFileService.getFileUrl(personId + "#4", null);             
-            var getPersonQuality = Funs.DB.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId);
+            var getPersonQuality = new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId);
             if (getPersonQuality != null)
             {
                 string url1 = APIUpLoadFileService.getFileUrl(getPersonQuality.PersonQualityId, null);
@@ -150,7 +150,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonItem> getPersonByProjectIdUnitId(string projectId, string unitId)
         {
-            var persons = from x in Funs.DB.View_SitePerson_Person
+            var persons = from x in new Model.SGGLDB(Funs.ConnString).View_SitePerson_Person
                           where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.IsUsed == true
                           && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
                           orderby x.CardNo descending
@@ -183,7 +183,7 @@ namespace BLL
                               PostType=x.PostType,
                               IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
                               IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
-                              PostTypeName =Funs.DB.Sys_Const.First(z=>z.GroupId== ConstValue.Group_PostType && z.ConstValue==x.PostType).ConstText,
+                              PostTypeName =new Model.SGGLDB(Funs.ConnString).Sys_Const.First(z=>z.GroupId== ConstValue.Group_PostType && z.ConstValue==x.PostType).ConstText,
                           };
             return persons.ToList();
         }
@@ -202,11 +202,11 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonItem> getPersonListByProjectIdStates(string projectId, string unitId, string states, string strUnitId, string strWorkPostId, string strParam)
         {
-            var getViews = from x in Funs.DB.SitePerson_Person
+            var getViews = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
                            where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
                            && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
                            select x;
-            if (unitId !=Const.UnitId_SEDIN)
+            if (unitId !=Const.UnitId_SEDIN || string.IsNullOrEmpty(unitId))
             {
                 getViews = getViews.Where(x => x.UnitId == unitId);
             }
@@ -233,7 +233,7 @@ namespace BLL
 
            
             var persons = from x in getViews
-                          join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
+                          join y in new Model.SGGLDB(Funs.ConnString).Base_Unit on x.UnitId equals y.UnitId
                           orderby x.CardNo descending
                           select new Model.PersonItem
                           {
@@ -248,9 +248,9 @@ namespace BLL
                               UnitCode = y.UnitCode,
                               UnitName = y.UnitName,
                               TeamGroupId = x.TeamGroupId,
-                              TeamGroupName = Funs.DB.ProjectData_TeamGroup.First(z => z.TeamGroupId == x.TeamGroupId).TeamGroupName,
+                              TeamGroupName = new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup.First(z => z.TeamGroupId == x.TeamGroupId).TeamGroupName,
                               WorkPostId = x.WorkPostId,
-                              WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
+                              WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
                               InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
                               OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
                               OutResult = x.OutResult,
@@ -259,9 +259,9 @@ namespace BLL
                               IsUsed = x.IsUsed,
                               IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
                               WorkAreaId = x.WorkAreaId,
-                              WorkAreaName = Funs.DB.WBS_UnitWork.First(z => z.UnitWorkId == x.WorkAreaId).UnitWorkName,
+                              WorkAreaName = new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.First(z => z.UnitWorkId == x.WorkAreaId).UnitWorkName,
                               PostType = ReturnQuality(x.PersonId, x.WorkPostId),
-                             // PostTypeName = Funs.DB.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == z.PostType).ConstText,
+                              //PostTypeName = new Model.SGGLDB(Funs.ConnString).Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == p.PostType).ConstText,
                               IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
                               IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
                           };
@@ -276,12 +276,12 @@ namespace BLL
         private static string ReturnQuality(string personId, string workPostId)
         {
             string postType = "";
-            var workPost = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostId == workPostId);
+            var workPost = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.FirstOrDefault(x => x.WorkPostId == workPostId);
             if (workPost != null)
             {
                 if (workPost.PostType == Const.PostType_2)
                 {
-                    var getPerQ = Funs.DB.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
+                    var getPerQ = new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
                     if (getPerQ == null)
                     {
                         postType = "1";
@@ -289,7 +289,7 @@ namespace BLL
                 }
                 else if (workPost.PostType == Const.PostType_5)
                 {
-                    var getPerQ = Funs.DB.QualityAudit_EquipmentPersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
+                    var getPerQ = new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentPersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
                     if (getPerQ == null)
                     {
                         postType = "3";
@@ -297,7 +297,7 @@ namespace BLL
                 }
                 if (workPost.IsHsse == true)
                 {
-                    var getPerQ = Funs.DB.QualityAudit_SafePersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
+                    var getPerQ = new Model.SGGLDB(Funs.ConnString).QualityAudit_SafePersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
                     if (getPerQ == null)
                     {
                         postType = "2";
@@ -321,7 +321,7 @@ namespace BLL
         public static List<Model.PersonItem> getTrainingPersonListByTrainTypeId(string projectId, string unitIds, string workPostIds, string trainTypeId)
         {
             List<string> unitIdList = Funs.GetStrListByStr(unitIds, ',');
-            var getPersons = from x in Funs.DB.View_SitePerson_Person
+            var getPersons = from x in new Model.SGGLDB(Funs.ConnString).View_SitePerson_Person
                              where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.IsUsed == true
                              && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
                              select new Model.PersonItem
@@ -361,14 +361,14 @@ namespace BLL
             {
                 foreach (var item in getPersons)
                 {
-                    var getTrainPersonIdList1 = (from x in Funs.DB.EduTrain_TrainRecordDetail
-                                                 join y in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
+                    var getTrainPersonIdList1 = (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail
+                                                 join y in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
                                                  where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && x.CheckResult == true && x.PersonId == item.PersonId
                                                  select x).FirstOrDefault();
                     if (getTrainPersonIdList1 == null)
                     {
-                        var getTrainPersonIdList2 = (from x in Funs.DB.Training_Task
-                                                     join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
+                        var getTrainPersonIdList2 = (from x in new Model.SGGLDB(Funs.ConnString).Training_Task
+                                                     join y in new Model.SGGLDB(Funs.ConnString).Training_Plan on x.PlanId equals y.PlanId
                                                      where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && y.States != "3" && x.UserId == item.PersonId
                                                      select x).FirstOrDefault();
                         if (getTrainPersonIdList2 == null)
@@ -413,7 +413,7 @@ namespace BLL
                     AuditorId = person.AuditorId,
                     IsForeign = person.IsForeign,
                     IsOutside = person.IsOutside,
-                    // AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
+                     //AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
                     Sex = person.Sex,
                 };
                 if (!string.IsNullOrEmpty(person.TeamGroupId))
@@ -470,7 +470,7 @@ namespace BLL
                     getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);
                     getPerson.Sex = person.Sex;
 
-                    //getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
+                   // getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
                     if (!string.IsNullOrEmpty(person.TeamGroupId))
                     {
                         getPerson.TeamGroupId = person.TeamGroupId;
@@ -508,7 +508,7 @@ namespace BLL
                 {
                     SaveMeetUrl(newPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
                 }
-                //// 更新同身份证号码用户的电话
+                // 更新同身份证号码用户的电话
                 if(!string.IsNullOrEmpty(newPerson.Telephone))
                 {
                     var getUser = db.Sys_User.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard);
@@ -572,7 +572,7 @@ namespace BLL
         /// <param name="person"></param>
         public static void SaveSitePersonAttachment(Model.PersonItem person)
         {
-            var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard || x.PersonId == person.PersonId);
+            var getPerson = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard || x.PersonId == person.PersonId);
             if (getPerson != null)
             {
                 if (!string.IsNullOrEmpty(person.PhotoUrl))
@@ -601,7 +601,7 @@ namespace BLL
                 List<string> getLists = Funs.GetStrListByStr(personId, ',');
                 foreach (var item in getLists)
                 {
-                    var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.PersonId == item);
+                    var getPerson = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.PersonId == item);
                     if (getPerson != null)
                     {
                         getPerson.OutTime = DateTime.Now;
@@ -645,7 +645,7 @@ namespace BLL
                             db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
                             db.SubmitChanges();
 
-                            //GetDataService.CorrectingPersonInOutNumber(projectId);
+                           // GetDataService.CorrectingPersonInOutNumber(projectId);
                         }
                     }
                 }
@@ -690,8 +690,8 @@ namespace BLL
         {
             DateTime? startTimeD = Funs.GetNewDateTime(startTime);
             DateTime? endTimeD = Funs.GetNewDateTime(endTime);
-            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
-                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+            var personInOuts = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOut
+                               join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
                                where x.ProjectId == projectId
                                select new Model.PersonInOutItem
                                {
@@ -699,15 +699,15 @@ namespace BLL
                                    PersonName = y.PersonName,
                                    ProjectId = x.ProjectId,
                                    UnitId = y.UnitId,
-                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
                                    WorkPostId = y.WorkPostId,
-                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                   WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
                                    IsIn = x.IsIn,
                                    IsInName = x.IsIn == true ? "进场" : "出场",
                                    ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
                                    ChangeTimeD = x.ChangeTime,
                                };
-            if (!string.IsNullOrEmpty(unitId) && !CommonService.GetIsThisUnit(unitId))
+            if (!string.IsNullOrEmpty(unitId) && unitId != Const.UnitId_SEDIN)
             {
                 personInOuts = personInOuts.Where(x => x.UnitId == unitId);
             }
@@ -739,8 +739,8 @@ namespace BLL
         {
             DateTime? startTimeD = Funs.GetNewDateTime(startTime);
             DateTime? endTimeD = Funs.GetNewDateTime(endTime);
-            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
-                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+            var personInOuts = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOut
+                               join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
                                where x.ProjectId == projectId
                                select new Model.PersonInOutItem
                                {
@@ -748,15 +748,15 @@ namespace BLL
                                    PersonName = y.PersonName,
                                    ProjectId = x.ProjectId,
                                    UnitId = y.UnitId,
-                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
                                    WorkPostId = y.WorkPostId,
-                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                   WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
                                    IsIn = x.IsIn,
                                    IsInName = x.IsIn == true ? "进场" : "出场",
                                    ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
                                    ChangeTimeD = x.ChangeTime,
                                };
-            if (!string.IsNullOrEmpty(userUnitId) && !CommonService.GetIsThisUnit(userUnitId))
+            if (!string.IsNullOrEmpty(userUnitId) && unitId != Const.UnitId_SEDIN)
             {
                 personInOuts = personInOuts.Where(x => x.UnitId == userUnitId);
             }
@@ -796,8 +796,8 @@ namespace BLL
         {
             DateTime? startTimeD = Funs.GetNewDateTime(startTime);
             DateTime? endTimeD = Funs.GetNewDateTime(endTime);
-            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
-                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+            var personInOuts = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOut
+                               join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
                                where x.PersonId == personId
                                select new Model.PersonInOutItem
                                {
@@ -805,9 +805,9 @@ namespace BLL
                                    PersonName = y.PersonName,
                                    ProjectId = x.ProjectId,
                                    UnitId = y.UnitId,
-                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
                                    WorkPostId = y.WorkPostId,
-                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                   WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
                                    IsIn = x.IsIn,
                                    IsInName = x.IsIn == true ? "进场" : "出场",
                                    ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
@@ -833,8 +833,8 @@ namespace BLL
         /// <returns></returns>
         public static Model.PersonQualityItem getPersonQualityByIdentityCard(string identityCard,string projectId)
         {
-            var getLists = from y in Funs.DB.SitePerson_Person
-                           join x in Funs.DB.QualityAudit_PersonQuality on y.PersonId equals x.PersonId
+            var getLists = from y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
+                           join x in new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality on y.PersonId equals x.PersonId
                            where (y.IdentityCard == identityCard || x.PersonId == identityCard) && (projectId == null || y.ProjectId == projectId)
                            orderby y.CardNo
                            select new Model.PersonQualityItem
@@ -846,25 +846,25 @@ namespace BLL
                                IdentityCard = y.IdentityCard,
                                ProjectId = y.ProjectId,
                                UnitId = y.UnitId,
-                               UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                               UnitCode = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
+                               UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                               UnitCode = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
                                WorkPostId = y.WorkPostId,
-                               WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                               WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
                                CertificateId = x.CertificateId,
-                               CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
+                               CertificateName = new Model.SGGLDB(Funs.ConnString).Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
                                CertificateNo = x.CertificateNo,
                                Grade = x.Grade,
                                SendUnit = x.SendUnit,
                                SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
                                LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                               ApprovalPerson = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                               ApprovalPerson = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                Remark = x.Remark,
                                CompileMan = x.CompileMan,
-                               CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
+                               CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.CompileMan).UserName,
                                CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
-                               AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,                               
+                               AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.AuditorId).UserName,                               
                                AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
                            };
 
@@ -880,16 +880,16 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TestRecordItem> getPersonTestRecoedByIdentityCard(string identityCard, string projectId)
         {
-            var getLists = from x in Funs.DB.EduTrain_TrainRecordDetail
-                           join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                           join z in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals z.TrainingId
+            var getLists = from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail
+                           join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
+                           join z in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord on x.TrainingId equals z.TrainingId
                            where y.IdentityCard == identityCard && (projectId == null || z.ProjectId == projectId)
                            orderby z.TrainStartDate descending
                            select new Model.TestRecordItem
                            {
                                TestRecordId = x.TrainDetailId,
                                ProjectId = z.ProjectId,
-                               ProjectName = Funs.DB.Base_Project.First(u => u.ProjectId == z.ProjectId).ProjectName,
+                               ProjectName = new Model.SGGLDB(Funs.ConnString).Base_Project.First(u => u.ProjectId == z.ProjectId).ProjectName,
                                TestPlanName = z.TrainTitle,
                                TestManId = x.PersonId,
                                TestManName = y.PersonName,
@@ -897,7 +897,7 @@ namespace BLL
                                TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", z.TrainEndDate),
                                TestScores = x.CheckScore ?? 0,
                                CheckResult = x.CheckResult,
-                               TestType = Funs.DB.Base_TrainType.First(u => u.TrainTypeId == z.TrainTypeId).TrainTypeName,
+                               TestType = new Model.SGGLDB(Funs.ConnString).Base_TrainType.First(u => u.TrainTypeId == z.TrainTypeId).TrainTypeName,
                            };
 
             return getLists.ToList();
@@ -915,9 +915,9 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonQualityItem> getPersonQualityByProjectIdUnitId(string projectId, string unitId, string type)
         {
-            var getLists = (from x in Funs.DB.SitePerson_Person 
-                            join y in Funs.DB.QualityAudit_PersonQuality on x.PersonId equals y.PersonId
-                            join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
+            var getLists = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person 
+                            join y in new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality on x.PersonId equals y.PersonId
+                            join z in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals z.WorkPostId
                             where x.ProjectId == projectId && z.PostType == "2"
                             orderby y.LimitDate
                             select new Model.PersonQualityItem
@@ -929,11 +929,11 @@ namespace BLL
                                 IdentityCard = x.IdentityCard,
                                 ProjectId = x.ProjectId,
                                 UnitId = x.UnitId,
-                                UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
+                                UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
                                 CertificateId = y.CertificateId,
-                                CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
+                                CertificateName = new Model.SGGLDB(Funs.ConnString).Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
                                 WorkPostId = x.WorkPostId,
-                                WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
+                                WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
                                 CertificateNo = y.CertificateNo,
                                 Grade = y.Grade,
                                 SendUnit = y.SendUnit,
@@ -941,13 +941,13 @@ namespace BLL
                                 LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
                                 LimitDateD = y.LimitDate,
                                 LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
-                                ApprovalPerson = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                ApprovalPerson = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                 Remark = y.Remark,
                                 CompileMan = y.CompileMan,
-                                CompileManName = Funs.DB.Sys_User.First(z => z.UserId == y.CompileMan).UserName,
+                                CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == y.CompileMan).UserName,
                                 CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
                                 AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
-                                AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                 AttachUrl = APIUpLoadFileService.getFileUrl(y.PersonQualityId, null),
                             }).ToList();
             if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
@@ -1041,6 +1041,5 @@ namespace BLL
             }
         }
         #endregion
-    */
     }
 }

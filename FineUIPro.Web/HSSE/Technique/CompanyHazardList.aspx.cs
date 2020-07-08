@@ -90,11 +90,11 @@ namespace FineUIPro.Web.HSSE.Technique
             }
             if (parentId == "0")
             {
-                return (from x in Funs.DB.Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == "0" && x.HazardListTypeName.Contains(hazardListTypeName) orderby x.HazardListTypeCode select x).ToList();
+                return (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == "0" && x.HazardListTypeName.Contains(hazardListTypeName) orderby x.HazardListTypeCode select x).ToList();
             }
             else
             {
-                return (from x in Funs.DB.Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == parentId orderby x.HazardListTypeCode select x).ToList();
+                return (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == parentId orderby x.HazardListTypeCode select x).ToList();
             }
         }
         #endregion

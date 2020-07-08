@@ -973,7 +973,7 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.Bold = false;
                 builder.RowFormat.Height = 20;
                 builder.Bold = false;
-                var designs = from x in Funs.DB.Check_Design
+                var designs = from x in new Model.SGGLDB(Funs.ConnString).Check_Design
                               where x.ProjectId == CurrUser.LoginProjectId && x.DesignDate >= startTime && x.DesignDate < endTime
                               select x;
                 int num = 1;

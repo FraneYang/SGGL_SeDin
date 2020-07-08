@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class UnexpectedEnvironmentalService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取突发环境事件
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Environmental_UnexpectedEnvironmental GetUnexpectedEnvironmentalById(string fileId)
         {
-            return Funs.DB.Environmental_UnexpectedEnvironmental.FirstOrDefault(e => e.FileId == fileId);
+            return new Model.SGGLDB(Funs.ConnString).Environmental_UnexpectedEnvironmental.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="UnexpectedEnvironmental"></param>
         public static void AddUnexpectedEnvironmental(Model.Environmental_UnexpectedEnvironmental UnexpectedEnvironmental)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_UnexpectedEnvironmental newUnexpectedEnvironmental = new Model.Environmental_UnexpectedEnvironmental
             {
                 FileId = UnexpectedEnvironmental.FileId,
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="UnexpectedEnvironmental"></param>
         public static void UpdateUnexpectedEnvironmental(Model.Environmental_UnexpectedEnvironmental UnexpectedEnvironmental)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_UnexpectedEnvironmental newUnexpectedEnvironmental = db.Environmental_UnexpectedEnvironmental.FirstOrDefault(e => e.FileId == UnexpectedEnvironmental.FileId);
             if (newUnexpectedEnvironmental != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteUnexpectedEnvironmentalById(string FileId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_UnexpectedEnvironmental UnexpectedEnvironmental = db.Environmental_UnexpectedEnvironmental.FirstOrDefault(e => e.FileId == FileId);
             if (UnexpectedEnvironmental != null)
             {

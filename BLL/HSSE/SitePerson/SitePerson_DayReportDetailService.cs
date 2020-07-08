@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_DayReportDetail GetDayReportDetailByDayReportDetailId(string dayReportDetailId)
         {
-            return Funs.DB.SitePerson_DayReportDetail.FirstOrDefault(x => x.DayReportDetailId == dayReportDetailId);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail.FirstOrDefault(x => x.DayReportDetailId == dayReportDetailId);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <param name="dayReportDetail">工作日报明细实体</param>
         public static void AddDayReportDetail(Model.SitePerson_DayReportDetail dayReportDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_DayReportDetail newDayReportDetail = new Model.SitePerson_DayReportDetail
             {
                 DayReportDetailId = dayReportDetail.DayReportDetailId,
@@ -50,7 +50,7 @@ namespace BLL
         /// <param name="dayReportDetail">工作日报明细实体</param>
         public static void UpdateReportDetail(Model.SitePerson_DayReportDetail dayReportDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_DayReportDetail newDayReportDetail = db.SitePerson_DayReportDetail.FirstOrDefault(e => e.DayReportDetailId == dayReportDetail.DayReportDetailId);
             if (newDayReportDetail != null)
             {
@@ -73,13 +73,13 @@ namespace BLL
         /// <param name="dayReportId">工作日报主键</param>
         public static void DeleteDayReportDetailsByDayReportId(string dayReportId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var dayReportDetail = (from x in db.SitePerson_DayReportDetail where x.DayReportId == dayReportId select x).ToList();
             if (dayReportDetail.Count() > 0)
             {
                 foreach (var item in dayReportDetail)
                 {
-                    var dayReportUnitDetail = from x in Funs.DB.SitePerson_DayReportUnitDetail where x.DayReportDetailId == item.DayReportDetailId select x;
+                    var dayReportUnitDetail = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportUnitDetail where x.DayReportDetailId == item.DayReportDetailId select x;
                     if (dayReportUnitDetail.Count() > 0)
                     {
                         db.SitePerson_DayReportUnitDetail.DeleteAllOnSubmit(dayReportUnitDetail);
@@ -101,7 +101,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_DayReportDetail GetDayReportDetailByUnit(string unitId, string dayReportId)
         {
-            return Funs.DB.SitePerson_DayReportDetail.FirstOrDefault(e => e.UnitId == unitId && e.DayReportId == dayReportId);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail.FirstOrDefault(e => e.UnitId == unitId && e.DayReportId == dayReportId);
         }
     }
 }

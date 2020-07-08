@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class AttendMeetingService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取其他会议记录
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Meeting_AttendMeeting GetAttendMeetingById(string attendMeetingId)
         {
-            return Funs.DB.Meeting_AttendMeeting.FirstOrDefault(e => e.AttendMeetingId == attendMeetingId);
+            return new Model.SGGLDB(Funs.ConnString).Meeting_AttendMeeting.FirstOrDefault(e => e.AttendMeetingId == attendMeetingId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in Funs.DB.Meeting_AttendMeeting where x.AttendMeetingDate >= startTime && x.AttendMeetingDate < endTime && x.ProjectId == projectId select x).Count();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Meeting_AttendMeeting where x.AttendMeetingDate >= startTime && x.AttendMeetingDate < endTime && x.ProjectId == projectId select x).Count();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BLL
         /// <returns>会议记录集合</returns>
         public static List<Model.Meeting_AttendMeeting> GetMeetingListsByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in Funs.DB.Meeting_AttendMeeting where x.AttendMeetingDate >= startTime && x.AttendMeetingDate <= endTime && x.ProjectId == projectId orderby x.AttendMeetingDate select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Meeting_AttendMeeting where x.AttendMeetingDate >= startTime && x.AttendMeetingDate <= endTime && x.ProjectId == projectId orderby x.AttendMeetingDate select x).ToList();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace BLL
         /// <param name="attendMeeting"></param>
         public static void AddAttendMeeting(Model.Meeting_AttendMeeting attendMeeting)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_AttendMeeting newAttendMeeting = new Model.Meeting_AttendMeeting
             {
                 AttendMeetingId = attendMeeting.AttendMeetingId,
@@ -85,7 +85,7 @@ namespace BLL
         /// <param name="attendMeeting"></param>
         public static void UpdateAttendMeeting(Model.Meeting_AttendMeeting attendMeeting)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_AttendMeeting newAttendMeeting = db.Meeting_AttendMeeting.FirstOrDefault(e => e.AttendMeetingId == attendMeeting.AttendMeetingId);
             if (newAttendMeeting != null)
             {
@@ -115,7 +115,7 @@ namespace BLL
         /// <param name="attendMeetingId"></param>
         public static void DeleteAttendMeetingById(string attendMeetingId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Meeting_AttendMeeting attendMeeting = db.Meeting_AttendMeeting.FirstOrDefault(e => e.AttendMeetingId == attendMeetingId);
             if (attendMeeting != null)
             {

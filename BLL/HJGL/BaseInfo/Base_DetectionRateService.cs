@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Model.Base_DetectionRate GetDetectionRateByDetectionRateId(string detectionRateId)
         {
-            return Funs.DB.Base_DetectionRate.FirstOrDefault(e => e.DetectionRateId == detectionRateId);
+            return new Model.SGGLDB(Funs.ConnString).Base_DetectionRate.FirstOrDefault(e => e.DetectionRateId == detectionRateId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@
         /// <param name="detectionRate"></param>
         public static void AddDetectionRate(Model.Base_DetectionRate detectionRate)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DetectionRate newDetectionRate = new Base_DetectionRate
             {
                 DetectionRateId = detectionRate.DetectionRateId,
@@ -40,7 +40,7 @@
         /// <param name="DetectionRate"></param>
         public static void UpdateDetectionRate(Model.Base_DetectionRate detectionRate)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DetectionRate newDetectionRate = db.Base_DetectionRate.FirstOrDefault(e => e.DetectionRateId == detectionRate.DetectionRateId);
             if (newDetectionRate != null)
             {
@@ -57,7 +57,7 @@
         /// <param name="detectionRateId"></param>
         public static void DeleteDetectionRateByDetectionRateId(string detectionRateId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_DetectionRate delDetectionRate = db.Base_DetectionRate.FirstOrDefault(e => e.DetectionRateId == detectionRateId);
             if (delDetectionRate != null)
             {
@@ -73,7 +73,7 @@
         /// <returns></returns>
         public static List<Model.Base_DetectionRate> GetDetectionRateList()
         {
-            var list = (from x in Funs.DB.Base_DetectionRate
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_DetectionRate
                         orderby x.DetectionRateCode
                         select x).ToList();
 

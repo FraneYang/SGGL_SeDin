@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getPipelineList(string unitWrokId)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_Pipeline
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline
                                 where x.UnitWorkId == unitWrokId
                                 orderby x.PipelineCode
                                 select new Model.BaseInfoItem
@@ -38,8 +38,10 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getWeldJointList(string pipeLineId)
         {
-            var getDataLists = (from x in Funs.DB.HJGL_WeldJoint
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint
+                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_PreWeldingDaily on x.WeldJointId equals y.WeldJointId
                                 where x.PipelineId == pipeLineId && x.WeldingDailyId == null
+                                && y.PreWeldingDailyId == null
                                 orderby x.WeldJointCode
                                 select new Model.BaseInfoItem
                                 {
@@ -61,9 +63,10 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getWelderList(string unitWorkId)
         {
-            var p = Funs.DB.WBS_UnitWork.Where(x => x.UnitWorkId == unitWorkId).FirstOrDefault();
-            var getDataLists = (from x in Funs.DB.SitePerson_Person
+            var p = new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.Where(x => x.UnitWorkId == unitWorkId).FirstOrDefault();
+            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
                                 where x.UnitId == p.UnitId && x.WorkPostId == Const.WorkPost_Welder
+                                && x.WelderCode != null
                                 orderby x.WelderCode
                                 select new Model.BaseInfoItem
                                 {
@@ -85,7 +88,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.WeldJointItem getWeldJointInfo(string weldJointId)
         {
-            var getDateInfo = from x in Funs.DB.HJGL_WeldJoint
+            var getDateInfo = from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint
                               where x.WeldJointId == weldJointId
 
                               select new Model.WeldJointItem
@@ -100,7 +103,7 @@ namespace BLL
                                   Size = x.Size,
                                   Dia = x.Dia,
                                   Thickness = x.Thickness,
-                                  WeldingMethodCode = Funs.DB.Base_WeldingMethod.First(y => y.WeldingMethodId == x.WeldingMethodId).WeldingMethodCode,
+                                  WeldingMethodCode = new Model.SGGLDB(Funs.ConnString).Base_WeldingMethod.First(y => y.WeldingMethodId == x.WeldingMethodId).WeldingMethodCode,
                                   DetectionRate = GetDetectionRate(x.PipelineId),
                                   IsHotProess = x.IsHotProess == true ? "是" : "否",
                                   AttachUrl = x.AttachUrl
@@ -135,8 +138,8 @@ namespace BLL
         /// <returns></returns>
         public static Model.WeldJointItem getWeldJointByIdentify(string weldJointIdentify)
         {
-            var getDateInfo = from x in Funs.DB.HJGL_WeldJoint
-                              join y in Funs.DB.HJGL_WeldingDaily on x.WeldingDailyId equals y.WeldingDailyId
+            var getDateInfo = from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint
+                              join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldingDaily on x.WeldingDailyId equals y.WeldingDailyId
                               where x.WeldJointIdentify == weldJointIdentify
 
                               select new Model.WeldJointItem
@@ -153,10 +156,10 @@ namespace BLL
                                   Size = x.Size,
                                   Dia = x.Dia,
                                   Thickness = x.Thickness,
-                                  WeldingMethodCode = Funs.DB.Base_WeldingMethod.First(z => z.WeldingMethodId == x.WeldingMethodId).WeldingMethodCode,
+                                  WeldingMethodCode = new Model.SGGLDB(Funs.ConnString).Base_WeldingMethod.First(z => z.WeldingMethodId == x.WeldingMethodId).WeldingMethodCode,
                                   WeldingDate = y.WeldingDate,
-                                  BackingWelderCode = Funs.DB.SitePerson_Person.First(z => z.PersonId == x.BackingWelderId).WelderCode,
-                                  CoverWelderCode = Funs.DB.SitePerson_Person.First(z => z.PersonId == x.CoverWelderId).WelderCode,
+                                  BackingWelderCode = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.First(z => z.PersonId == x.BackingWelderId).WelderCode,
+                                  CoverWelderCode = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.First(z => z.PersonId == x.CoverWelderId).WelderCode,
                                   IsHotProess = x.IsHotProess == true ? "是" : "否",
                                   AttachUrl = x.AttachUrl
 
@@ -172,7 +175,7 @@ namespace BLL
         /// <param name="addItem"></param>
         public static void SavePipeWeldJoint(Model.WeldJointItem addItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string projectId = string.Empty;
             string unitId = string.Empty;
             string pipelineId = string.Empty;
@@ -326,10 +329,10 @@ namespace BLL
         /// <param name="addItem"></param>
         public static void SavePreWeldingDaily(Model.WeldJointItem addItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string projectId = string.Empty;
             string unitId = string.Empty;
-            var p = Funs.DB.WBS_UnitWork.Where(x => x.UnitWorkId == addItem.UnitWorkId).FirstOrDefault();
+            var p = new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.Where(x => x.UnitWorkId == addItem.UnitWorkId).FirstOrDefault();
 
             if (p != null)
             {

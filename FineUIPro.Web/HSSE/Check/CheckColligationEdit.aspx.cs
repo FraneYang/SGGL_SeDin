@@ -96,7 +96,7 @@ namespace FineUIPro.Web.HSSE.Check
                     }
                     this.txtPartInPersonNames.Text = checkColligation.PartInPersonNames;
                     this.txtDaySummary.Text = HttpUtility.HtmlDecode(checkColligation.DaySummary);
-                    checkColligationDetails = (from x in Funs.DB.View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
+                    checkColligationDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
                 }
                 else
                 {
@@ -376,7 +376,7 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void Window1_Close(object sender, EventArgs e)
         {
-            checkColligationDetails = (from x in Funs.DB.View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
+            checkColligationDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
             Grid1.DataSource = checkColligationDetails;
             Grid1.DataBind();
             SetColor();
@@ -453,7 +453,7 @@ namespace FineUIPro.Web.HSSE.Check
                         BLL.Check_CheckColligationDetailService.DeleteCheckColligationDetailById(rowID);
                     }
                 }
-                checkColligationDetails = (from x in Funs.DB.View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
+                checkColligationDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
                 Grid1.DataSource = checkColligationDetails;
                 Grid1.DataBind();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
@@ -539,7 +539,7 @@ namespace FineUIPro.Web.HSSE.Check
                     CompleteStatus = true
                 };
                 BLL.Check_CheckColligationDetailService.AddCheckColligationDetail(newDetail);
-                checkColligationDetails = (from x in Funs.DB.View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
+                checkColligationDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
                 Grid1.DataSource = checkColligationDetails;
                 Grid1.DataBind();
                 SetColor();

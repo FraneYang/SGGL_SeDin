@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Model.Base_WeldType GetWeldTypeByWeldTypeId(string weldTypeId)
         {
-            return Funs.DB.Base_WeldType.FirstOrDefault(e => e.WeldTypeId == weldTypeId);
+            return new Model.SGGLDB(Funs.ConnString).Base_WeldType.FirstOrDefault(e => e.WeldTypeId == weldTypeId);
         }
         /// <summary>
         /// 增加焊缝类型信息
@@ -20,7 +20,7 @@
         /// <param name="weldType"></param>
         public static void AddWeldType(Model.Base_WeldType weldType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_WeldType newWeldType = new Base_WeldType
             {
                 WeldTypeId = weldType.WeldTypeId,
@@ -40,7 +40,7 @@
         /// <param name="weldType"></param>
         public static void UpdateWeldType(Model.Base_WeldType weldType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_WeldType newWeldType = db.Base_WeldType.FirstOrDefault(e => e.WeldTypeId == weldType.WeldTypeId);
             if (newWeldType != null)
             {
@@ -59,7 +59,7 @@
         /// <param name="weldTypeId"></param>
         public static void DeleteWeldTypeByWeldTypeId(string weldTypeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_WeldType delWeldType = db.Base_WeldType.FirstOrDefault(e => e.WeldTypeId == weldTypeId);
             if (delWeldType != null)
             {
@@ -75,7 +75,7 @@
         /// <returns></returns>
         public static List<Model.Base_WeldType> GetWeldTypeList()
         {
-            var list = (from x in Funs.DB.Base_WeldType
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_WeldType
                         orderby x.WeldTypeCode
                         select x).ToList();
 

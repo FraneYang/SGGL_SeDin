@@ -111,7 +111,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
             {
                 if (this.Type == "1")
                 {
-                    var item = Funs.DB.Test_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == Grid1.Rows[i].DataKeys[0].ToString());
+                    var item = new Model.SGGLDB(Funs.ConnString).Test_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == Grid1.Rows[i].DataKeys[0].ToString());
                     if (item != null && item.Score != item.SubjectScore)
                     {
                         Grid1.Rows[i].RowCssClass = "Red";

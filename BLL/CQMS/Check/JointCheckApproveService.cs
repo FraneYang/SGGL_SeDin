@@ -9,14 +9,14 @@ namespace BLL
 {
     public class JointCheckApproveService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
         /// <summary>
         /// 根据质量共检编号删除对应的所有质量共检审批信息
         /// </summary>
         /// <param name="JointCheckCode">质量共检编号</param>
         public static void DeleteJointCheckApprovesByJointCheckId(string JointCheckId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_JointCheckApprove where x.JointCheckId == JointCheckId select x).ToList();
             db.Check_JointCheckApprove.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -29,8 +29,8 @@ namespace BLL
         /// <returns></returns>
         public static IEnumerable getListData(string JointCheckId)
         {
-            var approves = (from x in Funs.DB.Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveDate != null && x.ApproveType != "S" orderby x.ApproveDate select x).ToList();
-            var approves2 = (from x in Funs.DB.Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveDate != null && x.ApproveType != "S" orderby x.ApproveDate select x).ToList();
+            var approves = (from x in new Model.SGGLDB(Funs.ConnString).Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveDate != null && x.ApproveType != "S" orderby x.ApproveDate select x).ToList();
+            var approves2 = (from x in new Model.SGGLDB(Funs.ConnString).Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveDate != null && x.ApproveType != "S" orderby x.ApproveDate select x).ToList();
             string approveType = string.Empty;
             DateTime? date = null;
             foreach (var approve in approves2)
@@ -73,8 +73,8 @@ namespace BLL
         /// <returns></returns>
         public static IEnumerable listData(string JointCheckId)
         {
-            var approves = (from x in Funs.DB.Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveDate != null && x.ApproveType != "S" orderby x.ApproveDate select x).ToList();
-            var approves2 = (from x in Funs.DB.Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveDate != null && x.ApproveType != "S" orderby x.ApproveDate select x).ToList();
+            var approves = (from x in new Model.SGGLDB(Funs.ConnString).Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveDate != null && x.ApproveType != "S" orderby x.ApproveDate select x).ToList();
+            var approves2 = (from x in new Model.SGGLDB(Funs.ConnString).Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveDate != null && x.ApproveType != "S" orderby x.ApproveDate select x).ToList();
             string approveType = string.Empty;
             DateTime? date = null;
             foreach (var approve in approves2)
@@ -117,7 +117,7 @@ namespace BLL
         /// <returns>质量共检审批集合</returns>
         public static List<Model.Check_JointCheckApprove> GetJointCheckApprovesByJointCheckId(string JointCheckId, string ApproveMan)
         {
-            return (from x in Funs.DB.Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveType != "S" && x.ApproveDate == null && x.ApproveMan == ApproveMan select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveType != "S" && x.ApproveDate == null && x.ApproveMan == ApproveMan select x).ToList();
         }
         /// <summary>
         /// 增加质量共检审批信息
@@ -144,7 +144,7 @@ namespace BLL
         }
         public static void AddJointCheckApprove(Model.Check_JointCheckApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_JointCheckApprove));
             Model.Check_JointCheckApprove newApprove = new Model.Check_JointCheckApprove();
             newApprove.JointCheckApproveId = newKeyID;
@@ -165,7 +165,7 @@ namespace BLL
         /// <param name="managerRuleApprove">质量共检审批实体</param>
         public static void UpdateJointCheckApprove(Model.Check_JointCheckApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_JointCheckApprove newApprove = db.Check_JointCheckApprove.First(e => e.JointCheckApproveId == approve.JointCheckApproveId && e.ApproveDate == null);
             newApprove.JointCheckId = approve.JointCheckId;
             newApprove.ApproveMan = approve.ApproveMan;
@@ -199,7 +199,7 @@ namespace BLL
         /// <returns>所有未办理质量共检审批实体</returns>
         public static List<Model.Check_JointCheckApprove> GetJointCheckApprovesByJointCheckId(string JointCheckId)
         {
-            return (from x in Funs.DB.Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveType != "S" && x.ApproveDate == null select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_JointCheckApprove where x.JointCheckId == JointCheckId && x.ApproveType != "S" && x.ApproveDate == null select x).ToList();
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace BLL
         /// <returns>一个质量共检审批实体</returns>
         public static Model.Check_JointCheckApprove GetJointCheckApproveByJointCheckId(string JointCheckId, string ApproveMan)
         {
-            return Funs.DB.Check_JointCheckApprove.FirstOrDefault(x => x.JointCheckId == JointCheckId && x.ApproveDate == null && x.ApproveMan == ApproveMan);
+            return new Model.SGGLDB(Funs.ConnString).Check_JointCheckApprove.FirstOrDefault(x => x.JointCheckId == JointCheckId && x.ApproveDate == null && x.ApproveMan == ApproveMan);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace BLL
         /// <returns>一个质量共检审批实体</returns>
         public static Model.Check_JointCheckApprove GetJointCheckApproveByJointCheckDetailId(string JointCheckDetailId, string ApproveMan)
         {
-            return Funs.DB.Check_JointCheckApprove.FirstOrDefault(x => x.JointCheckDetailId == JointCheckDetailId && x.ApproveDate == null && x.ApproveType != "S" && x.ApproveMan == ApproveMan);
+            return new Model.SGGLDB(Funs.ConnString).Check_JointCheckApprove.FirstOrDefault(x => x.JointCheckDetailId == JointCheckDetailId && x.ApproveDate == null && x.ApproveType != "S" && x.ApproveMan == ApproveMan);
         }
 
         /// <summary>

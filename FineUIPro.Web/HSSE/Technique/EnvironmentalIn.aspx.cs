@@ -160,8 +160,8 @@ namespace FineUIPro.Web.HSSE.Technique
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var environmentalSmallTypes = from x in Funs.DB.Sys_Const where x.GroupId == ConstValue.Group_EnvironmentalSmallType select x;//危险源类型   
-                var environmentalTypes = from x in Funs.DB.Sys_Const where x.GroupId == ConstValue.Group_EnvironmentalType select x;//环境类型             
+                var environmentalSmallTypes = from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.GroupId == ConstValue.Group_EnvironmentalSmallType select x;//危险源类型   
+                var environmentalTypes = from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.GroupId == ConstValue.Group_EnvironmentalType select x;//环境类型             
                 for (int i = 0; i < ir; i++)
                 {
                     string col0 = pds.Rows[i][0].ToString();
@@ -376,8 +376,8 @@ namespace FineUIPro.Web.HSSE.Technique
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var environmentalSmallTypes = from x in Funs.DB.Sys_Const where x.GroupId == ConstValue.Group_EnvironmentalSmallType select x;//危险源类型   
-                var environmentalTypes = from x in Funs.DB.Sys_Const where x.GroupId == ConstValue.Group_EnvironmentalType select x;//环境类型           
+                var environmentalSmallTypes = from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.GroupId == ConstValue.Group_EnvironmentalSmallType select x;//危险源类型   
+                var environmentalTypes = from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.GroupId == ConstValue.Group_EnvironmentalType select x;//环境类型           
                 for (int i = 0; i < ir; i++)
                 {
                     Model.Technique_Environmental environmental = new Model.Technique_Environmental();

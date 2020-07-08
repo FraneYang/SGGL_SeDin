@@ -14,7 +14,7 @@ namespace BLL
         /// <param name="WorkPackage"></param>
         public static void AddWorkPackage(Model.WBS_WorkPackage WorkPackage)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_WorkPackage newWorkPackage = new Model.WBS_WorkPackage();
 
             newWorkPackage.WorkPackageId = WorkPackage.WorkPackageId;
@@ -42,7 +42,7 @@ namespace BLL
         /// <param name="WorkPackage"></param>
         public static void UpdateWorkPackage(Model.WBS_WorkPackage WorkPackage)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_WorkPackage newWorkPackage = db.WBS_WorkPackage.First(e => e.WorkPackageId == WorkPackage.WorkPackageId);
             newWorkPackage.WorkPackageCode = WorkPackage.WorkPackageCode;
             newWorkPackage.UnitWorkId = WorkPackage.UnitWorkId;
@@ -64,7 +64,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.WBS_WorkPackage GetWorkPackages1ByUnitWorkId(string unitWorkId)
         {
-            return BLL.Funs.DB.WBS_WorkPackage.FirstOrDefault(x => x.SuperWorkPackageId == null && x.IsApprove == true && x.UnitWorkId == unitWorkId);
+            return new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage.FirstOrDefault(x => x.SuperWorkPackageId == null && x.IsApprove == true && x.UnitWorkId == unitWorkId);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackage> GetWorkPackages1sByUnitWorkId(string unitWorkId)
         {
-            return (from x in BLL.Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == null && x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == null && x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode select x).ToList();
         }
         /// <summary>
         /// 根据单位工程Id获取所有分部信息
@@ -83,7 +83,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackage> GetAllWorkPackagesByUnitWorkId(string unitWorkId)
         {
-            return (from x in BLL.Funs.DB.WBS_WorkPackage where  x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where  x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode select x).ToList();
         }
         /// <summary>
         /// 根据项目Id获取所有分部信息
@@ -92,7 +92,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackage> GetAllWorkPackagesByProjectId(string projectId)
         {
-            return (from x in BLL.Funs.DB.WBS_WorkPackage where x.ProjectId == projectId orderby x.WorkPackageCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.ProjectId == projectId orderby x.WorkPackageCode select x).ToList();
         }
         /// <summary>
         /// 根据分部分项Id获取分部分项信息
@@ -101,7 +101,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.WBS_WorkPackage GetWorkPackageByWorkPackageId(string workPackageId)
         {
-            return BLL.Funs.DB.WBS_WorkPackage.FirstOrDefault(x => x.WorkPackageId == workPackageId);
+            return new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage.FirstOrDefault(x => x.WorkPackageId == workPackageId);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackage> GetAllWorkPackagesBySuperWorkPackageId(string workPackageId)
         {
-            return (from x in BLL.Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackageId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.SuperWorkPackageId == workPackageId select x).ToList();
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace BLL
         /// <param name="WorkPackageId"></param>
         public static void DeleteWorkPackage(string WorkPackageId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.WBS_WorkPackage WorkPackage = db.WBS_WorkPackage.First(e => e.WorkPackageId == WorkPackageId);
             db.WBS_WorkPackage.DeleteOnSubmit(WorkPackage);
             db.SubmitChanges();
@@ -132,7 +132,7 @@ namespace BLL
         /// <param name="ControlItemAndCycleId"></param>
         public static void DeleteAllWorkPackageByUnitWorkId(string unitWorkId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             List<Model.WBS_WorkPackage> q = (from x in db.WBS_WorkPackage where x.UnitWorkId == unitWorkId orderby x.WorkPackageCode select x).ToList();
             db.WBS_WorkPackage.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -146,7 +146,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackage> GetWorkPackagesByInitWorkPackageCodeAndUnitWorkId(string initWorkPackageCode, string unitWorkId)
         {
-            return (from x in Funs.DB.WBS_WorkPackage where x.InitWorkPackageCode == initWorkPackageCode && x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode descending select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where x.InitWorkPackageCode == initWorkPackageCode && x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode descending select x).ToList();
         }
         /// <summary>
         /// 根据单位工程Id获取所有分部信息
@@ -155,7 +155,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackage> GetAllWorkPackagesByUnitWorkIds(string[] unitWorkIds)
         {
-            return (from x in BLL.Funs.DB.WBS_WorkPackage where unitWorkIds.Contains(x.UnitWorkId) orderby x.WorkPackageCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage where unitWorkIds.Contains(x.UnitWorkId) orderby x.WorkPackageCode select x).ToList();
         }
     }
 }

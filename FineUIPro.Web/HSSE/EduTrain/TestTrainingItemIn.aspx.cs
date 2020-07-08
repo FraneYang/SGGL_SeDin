@@ -158,9 +158,9 @@ namespace FineUIPro.Web.HSSE.EduTrain
             if (pds != null && ir > 0)
             {
                 ///试题类型
-                var trainings = from x in Funs.DB.Training_TestTraining select x;
+                var trainings = from x in new Model.SGGLDB(Funs.ConnString).Training_TestTraining select x;
                 ///岗位
-                var workPosts = from x in Funs.DB.Base_WorkPost select x;
+                var workPosts = from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost select x;
                 for (int i = 0; i < ir; i++)
                 {
                     Model.View_Training_TestTrainingItem newViewTrainingItem = new Model.View_Training_TestTrainingItem
@@ -302,7 +302,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     }
                     else
                     {
-                        var addTrainingItem = Funs.DB.Training_TestTrainingItem.FirstOrDefault(x => x.Abstracts == newViewTrainingItem.Abstracts
+                        var addTrainingItem = new Model.SGGLDB(Funs.ConnString).Training_TestTrainingItem.FirstOrDefault(x => x.Abstracts == newViewTrainingItem.Abstracts
                                                             && x.TrainingId == newViewTrainingItem.TrainingId);
                         if (addTrainingItem == null)
                         {

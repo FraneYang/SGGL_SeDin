@@ -9,7 +9,7 @@ namespace BLL
 {
     public class SpecialEquipmentDetailService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取月报特种设备信息模板列表
@@ -42,7 +42,7 @@ namespace BLL
         /// <param name="managerRuleApprove">月报特种设备信息实体</param>
         public static void AddSpecialEquipmentDetail(Model.Check_SpecialEquipmentDetail specialEquipmentDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_SpecialEquipmentDetail newApprove = new Model.Check_SpecialEquipmentDetail();
             newApprove.SpecialEquipmentDetailId = specialEquipmentDetail.SpecialEquipmentDetailId;
             newApprove.CheckMonthId = specialEquipmentDetail.CheckMonthId;
@@ -65,7 +65,7 @@ namespace BLL
         /// <param name="CheckMonthId">月报特种设备信息编号</param>
         public static void DeleteSpecialEquipmentDetailsByCheckMonthId(string CheckMonthId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_SpecialEquipmentDetail where x.CheckMonthId == CheckMonthId select x).ToList();
             if (q.Count() > 0)
             {
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="CheckMonthId">月报特种设备信息编号</param>
         public static List<Model.Check_SpecialEquipmentDetail> GetList(string CheckMonthId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return (from x in db.Check_SpecialEquipmentDetail where x.CheckMonthId == CheckMonthId select x).ToList();
         }
     }

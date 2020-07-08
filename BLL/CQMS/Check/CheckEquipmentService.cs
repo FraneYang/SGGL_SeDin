@@ -10,7 +10,7 @@ namespace BLL
 {
     public class CheckEquipmentService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 记录数
@@ -99,7 +99,7 @@ namespace BLL
         /// <returns>一个检试验设备及测量器具信息实体</returns>
         public static Model.Check_CheckEquipment GetCheckEquipmentByCheckEquipmentId(string CheckEquipmentId)
         {
-            Model.Check_CheckEquipment res = Funs.DB.Check_CheckEquipment.FirstOrDefault(x => x.CheckEquipmentId == CheckEquipmentId);
+            Model.Check_CheckEquipment res = new Model.SGGLDB(Funs.ConnString).Check_CheckEquipment.FirstOrDefault(x => x.CheckEquipmentId == CheckEquipmentId);
             //res.AttachUrl = AttachFileService.getFileUrl(res.CheckEquipmentId);
             return res;
 
@@ -122,7 +122,7 @@ namespace BLL
         /// <param name="CheckEquipment">检试验设备及测量器具信息实体</param>
         public static void AddCheckEquipment(Model.Check_CheckEquipment CheckEquipment)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_CheckEquipment newCheckEquipment = new Model.Check_CheckEquipment();
             newCheckEquipment.CheckEquipmentId = CheckEquipment.CheckEquipmentId;
             newCheckEquipment.ProjectId = CheckEquipment.ProjectId;
@@ -150,7 +150,7 @@ namespace BLL
         /// <param name="CheckEquipment">检试验设备及测量器具信息实体</param>
         public static void UpdateCheckEquipment(Model.Check_CheckEquipment CheckEquipment)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_CheckEquipment newCheckEquipment = db.Check_CheckEquipment.First(e => e.CheckEquipmentId == CheckEquipment.CheckEquipmentId);
             newCheckEquipment.UserUnitId = CheckEquipment.UserUnitId;
             newCheckEquipment.EquipmentName = CheckEquipment.EquipmentName;
@@ -173,7 +173,7 @@ namespace BLL
         /// <param name="CheckEquipmentCode">检试验设备及测量器具信息Id</param>
         public static void DeleteCheckEquipment(string CheckEquipmentId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_CheckEquipment CheckEquipment = db.Check_CheckEquipment.First(e => e.CheckEquipmentId == CheckEquipmentId);
 
             db.Check_CheckEquipment.DeleteOnSubmit(CheckEquipment);
@@ -187,7 +187,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCheckEquipmentCountByProjectId(string projectId)
         {
-            var q = (from x in Funs.DB.Check_CheckEquipment where x.ProjectId == projectId select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckEquipment where x.ProjectId == projectId select x).ToList();
             return q.Count();
         }
 
@@ -223,7 +223,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCheckEquipmentCountByUnitId(string unitId)
         {
-            var q = (from x in Funs.DB.Check_CheckEquipment where x.UserUnitId == unitId select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckEquipment where x.UserUnitId == unitId select x).ToList();
             return q.Count();
         }
         public static List<Model.Check_CheckEquipment> getListByProject(string name, string projectId, int startRowIndex, int maximumRows)

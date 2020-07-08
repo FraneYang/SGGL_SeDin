@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class HazardDetectionService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取危害检测
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.OccupationHealth_HazardDetection GetHazardDetectionById(string fileId)
         {
-            return Funs.DB.OccupationHealth_HazardDetection.FirstOrDefault(e => e.FileId == fileId);
+            return new Model.SGGLDB(Funs.ConnString).OccupationHealth_HazardDetection.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="HazardDetection"></param>
         public static void AddHazardDetection(Model.OccupationHealth_HazardDetection HazardDetection)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.OccupationHealth_HazardDetection newHazardDetection = new Model.OccupationHealth_HazardDetection
             {
                 FileId = HazardDetection.FileId,
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="HazardDetection"></param>
         public static void UpdateHazardDetection(Model.OccupationHealth_HazardDetection HazardDetection)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.OccupationHealth_HazardDetection newHazardDetection = db.OccupationHealth_HazardDetection.FirstOrDefault(e => e.FileId == HazardDetection.FileId);
             if (newHazardDetection != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteHazardDetectionById(string FileId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.OccupationHealth_HazardDetection HazardDetection = db.OccupationHealth_HazardDetection.FirstOrDefault(e => e.FileId == FileId);
             if (HazardDetection != null)
             {

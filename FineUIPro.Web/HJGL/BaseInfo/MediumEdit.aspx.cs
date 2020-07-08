@@ -60,14 +60,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_Medium.FirstOrDefault(x => x.MediumCode == this.txtMediumCode.Text.Trim() && (x.MediumId != this.MediumId || (this.MediumId == null && x.MediumId != null)) && x.ProjectId==this.CurrUser.LoginProjectId);
+            var q = new Model.SGGLDB(Funs.ConnString).Base_Medium.FirstOrDefault(x => x.MediumCode == this.txtMediumCode.Text.Trim() && (x.MediumId != this.MediumId || (this.MediumId == null && x.MediumId != null)) && x.ProjectId==this.CurrUser.LoginProjectId);
             if (q != null)
             {
                 Alert.ShowInTop("此介质代号已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = Funs.DB.Base_Medium.FirstOrDefault(x => x.MediumName == this.txtMediumName.Text.Trim() && (x.MediumId != this.MediumId || (this.MediumId == null && x.MediumId != null)) && x.ProjectId == this.CurrUser.LoginProjectId);
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_Medium.FirstOrDefault(x => x.MediumName == this.txtMediumName.Text.Trim() && (x.MediumId != this.MediumId || (this.MediumId == null && x.MediumId != null)) && x.ProjectId == this.CurrUser.LoginProjectId);
             if (q2 != null)
             {
                 Alert.ShowInTop("此介质名称已经存在！", MessageBoxIcon.Warning);

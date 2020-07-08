@@ -58,7 +58,7 @@ namespace FineUIPro.Web.BaseInfo
         /// <returns></returns>
         private List<Model.Base_WorkPost> GetPagedDataTable(int pageIndex, int pageSize)
         {
-            List<Model.Base_WorkPost> source = (from x in BLL.Funs.DB.Base_WorkPost orderby x.PostType, x.WorkPostCode select x).ToList();
+            List<Model.Base_WorkPost> source = (from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost orderby x.PostType, x.WorkPostCode select x).ToList();
             List<Model.Base_WorkPost> paged = new List<Model.Base_WorkPost>();
 
             int rowbegin = pageIndex * pageSize;
@@ -250,13 +250,13 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostCode == this.txtWorkPostCode.Text.Trim() && (x.WorkPostId != hfFormID.Text || (hfFormID.Text == null && x.WorkPostId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.FirstOrDefault(x => x.WorkPostCode == this.txtWorkPostCode.Text.Trim() && (x.WorkPostId != hfFormID.Text || (hfFormID.Text == null && x.WorkPostId != null)));
             if (q != null)
             {
                 ShowNotify("输入的岗位编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostName == this.txtWorkPostName.Text.Trim() && (x.WorkPostId != hfFormID.Text || (hfFormID.Text == null && x.WorkPostId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.FirstOrDefault(x => x.WorkPostName == this.txtWorkPostName.Text.Trim() && (x.WorkPostId != hfFormID.Text || (hfFormID.Text == null && x.WorkPostId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的岗位名称已存在！", MessageBoxIcon.Warning);

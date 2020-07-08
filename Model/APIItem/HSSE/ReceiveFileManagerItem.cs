@@ -156,6 +156,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 是否下发
+        /// </summary>
+        public bool Issue
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 状态0待提交；1-已提交；2：已回复
         /// </summary>
         public string States

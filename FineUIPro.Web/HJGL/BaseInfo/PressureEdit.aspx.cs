@@ -59,14 +59,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_Pressure.FirstOrDefault(x => x.PressureCode == this.txtPressureCode.Text.Trim() && (x.PressureId != this.PressureId || (this.PressureId == null && x.PressureId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_Pressure.FirstOrDefault(x => x.PressureCode == this.txtPressureCode.Text.Trim() && (x.PressureId != this.PressureId || (this.PressureId == null && x.PressureId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此试压代号已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = Funs.DB.Base_Pressure.FirstOrDefault(x => x.PressureName == this.txtPressureName.Text.Trim() && (x.PressureId != this.PressureId || (this.PressureId == null && x.PressureId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_Pressure.FirstOrDefault(x => x.PressureName == this.txtPressureName.Text.Trim() && (x.PressureId != this.PressureId || (this.PressureId == null && x.PressureId != null)));
             if (q2 != null)
             {
                 Alert.ShowInTop("此试压名称已经存在！", MessageBoxIcon.Warning);

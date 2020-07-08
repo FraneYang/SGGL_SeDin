@@ -8,7 +8,7 @@ namespace BLL
     /// </summary>
     public static class EduTrain_TrainTestService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据教育培训主键获取所有的教育培训明细信息
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns>教育培训明细信息</returns>
         public static List<Model.EduTrain_TrainTest> GetTrainTestByTrainingId(string trainingId)
         {
-            return (from x in Funs.DB.EduTrain_TrainTest where x.TrainingId == trainingId select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainTest where x.TrainingId == trainingId select x).ToList();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="trainTest">教育培训明细信息实体</param>
         public static void AddTrainTest(Model.EduTrain_TrainTest trainTest)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.EduTrain_TrainTest newTrainTest = new Model.EduTrain_TrainTest
             {
                 TrainTestId = trainTest.TrainTestId,
@@ -58,7 +58,7 @@ namespace BLL
         /// <param name="trainingId">教育培训主键</param>
         public static void DeleteTrainTestByTrainingId(string trainingId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.EduTrain_TrainTest where x.TrainingId == trainingId select x).ToList();
             if (q.Count() > 0)
             {

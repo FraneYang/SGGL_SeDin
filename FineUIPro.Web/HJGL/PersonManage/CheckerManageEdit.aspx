@@ -19,7 +19,7 @@
                             AutoPostBack="true" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged1" LabelWidth="120px" Required="true" ShowRedStar="true">
                         </f:DropDownList>
                         <f:TextBox ID="txtCheckerCode" runat="server" Label="检测工编号"
-                            Required="true" MaxLength="50" ShowRedStar="true" FocusOnPageLoad="true" LabelWidth="120px">
+                            MaxLength="50" FocusOnPageLoad="true" LabelWidth="120px">
                         </f:TextBox>
 
                     </Items>
@@ -41,18 +41,27 @@
                         <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证号"
                             MaxLength="18" LabelWidth="120px" Required="true" ShowRedStar="true">
                         </f:TextBox>
-                        <f:RadioButtonList ID="rblSex" runat="server" Label="性别" LabelWidth="120px">
-                            <f:RadioItem Selected="true" Value="1" Text="男" />
-                            <f:RadioItem Value="2" Text="女" />
-                        </f:RadioButtonList>
-
+                        <f:TextBox ID="txtCertificateCode" runat="server" Label="证书编号"
+                            MaxLength="50" LabelWidth="120px" Required="true" ShowRedStar="true">
+                        </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
+                        <f:RadioButtonList ID="rblSex" runat="server" Label="性别" LabelWidth="120px">
+                            <f:RadioItem Selected="true" Value="1" Text="男" />
+                            <f:RadioItem Value="2" Text="女" />
+                        </f:RadioButtonList>
                         <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗"
                             LabelWidth="120px">
                         </f:CheckBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:LinkButton ID="UploadAttach" runat="server" Label="证书附件"
+                            Text="上传和查看" OnClick="btnAttachUrl_Click" LabelWidth="180px">
+                        </f:LinkButton>
                     </Items>
                 </f:FormRow>
             </Rows>
@@ -70,7 +79,10 @@
                 </f:Toolbar>
             </Toolbars>
         </f:Form>
-
+        <f:Window ID="Window1" Title="文件上传" Hidden="true" EnableIFrame="true"
+        EnableMaximize="true" Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Width="680px" Height="480px">
+    </f:Window>
     </form>
 </body>
 </html>

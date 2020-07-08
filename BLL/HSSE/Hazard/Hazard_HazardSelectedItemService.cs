@@ -8,7 +8,7 @@ namespace BLL
 {
     public static class Hazard_HazardSelectedItemService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据危险源类别编号查询危险源类别
@@ -121,7 +121,7 @@ namespace BLL
         /// <returns>危险因素明细集合</returns>
         public static List<Model.Hazard_HazardSelectedItem> GetHazardSelectedItemsByHazardListId(string hazardListId)
         {
-            return (from x in Funs.DB.Hazard_HazardSelectedItem where x.HazardListId == hazardListId orderby x.WorkStage select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardSelectedItem where x.HazardListId == hazardListId orderby x.WorkStage select x).ToList();
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace BLL
         /// <returns>危险因素明细集合</returns>
         public static List<Model.Hazard_HazardSelectedItem> GetHazardSelectedItemsByHazardListIdAndWorkStage(string hazardListId, string workStage)
         {
-            return (from x in Funs.DB.Hazard_HazardSelectedItem where x.HazardListId == hazardListId && x.WorkStage == workStage orderby x.WorkStage select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardSelectedItem where x.HazardListId == hazardListId && x.WorkStage == workStage orderby x.WorkStage select x).ToList();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace BLL
         /// <param name="noticeSign">危险源实体</param>
         public static void AddHazardSelectedItem(Model.Hazard_HazardSelectedItem hazardSelectedItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Hazard_HazardSelectedItem newHazardSelectedItem = new Model.Hazard_HazardSelectedItem
             {
                 HazardId = hazardSelectedItem.HazardId,
@@ -176,8 +176,8 @@ namespace BLL
                 WorkStage = hazardSelectedItem.WorkStage
             };
 
-            Funs.DB.Hazard_HazardSelectedItem.InsertOnSubmit(newHazardSelectedItem);
-            Funs.DB.SubmitChanges();
+            new Model.SGGLDB(Funs.ConnString).Hazard_HazardSelectedItem.InsertOnSubmit(newHazardSelectedItem);
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace BLL
         /// <param name="hazardSelectedItem">危险源实体</param>
         public static void UpdateHazardSelectedItem(Model.Hazard_HazardSelectedItem hazardSelectedItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Hazard_HazardSelectedItem newHazardSelectedItem = db.Hazard_HazardSelectedItem.FirstOrDefault(e => e.HazardId == hazardSelectedItem.HazardId && e.HazardListId == hazardSelectedItem.HazardListId && e.WorkStage == hazardSelectedItem.WorkStage);
             if (newHazardSelectedItem != null)
             {
@@ -218,7 +218,7 @@ namespace BLL
         /// <param name="hazardListCode">危险源类别主键</param>
         public static void DeleteHazardSelectedItemByHazardListId(string hazardListId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Hazard_HazardSelectedItem where x.HazardListId == hazardListId select x).ToList();
             if (q.Count() > 0)
             {

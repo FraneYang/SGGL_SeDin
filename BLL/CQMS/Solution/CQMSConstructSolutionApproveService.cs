@@ -10,7 +10,7 @@ namespace BLL
     {
         public static Model.Solution_CQMSConstructSolutionApprove GetSee(string ConstructSolutionId, string userId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             return db.Solution_CQMSConstructSolutionApprove.FirstOrDefault(x => x.ConstructSolutionId == ConstructSolutionId && x.ApproveType == "S" && x.ApproveMan == userId && x.ApproveDate == null);
         }
 
@@ -34,13 +34,13 @@ namespace BLL
         public static List<string> GetUserIdsApprovesBySignType(string ConstructSolutionId, string signType)
         {
             var edtion = GetUserIdsApprovesBySignTypeEditon(ConstructSolutionId);
-            return (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == ConstructSolutionId && x.ApproveType != "S" && x.SignType == signType && x.Edition == edtion select x.ApproveMan).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == ConstructSolutionId && x.ApproveType != "S" && x.SignType == signType && x.Edition == edtion select x.ApproveMan).ToList();
         }
 
         public static int? GetUserIdsApprovesBySignTypeEditon(string ConstructSolutionId)
         {
             int edition = 0;
-            var solution = Funs.DB.Solution_CQMSConstructSolution.FirstOrDefault(p => p.ConstructSolutionId == ConstructSolutionId);
+            var solution = new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolution.FirstOrDefault(p => p.ConstructSolutionId == ConstructSolutionId);
             if (solution != null)
             {
                 edition = Convert.ToInt32(solution.Edition);
@@ -54,7 +54,7 @@ namespace BLL
         /// <param name="managerRuleApprove">施工方案审批实体</param>
         public static void UpdateConstructSolutionApprove(Model.Solution_CQMSConstructSolutionApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_CQMSConstructSolutionApprove newApprove = db.Solution_CQMSConstructSolutionApprove.First(e => e.ConstructSolutionApproveId == approve.ConstructSolutionApproveId && e.ApproveDate == null);
             newApprove.ConstructSolutionId = approve.ConstructSolutionId;
             newApprove.ApproveMan = approve.ApproveMan;
@@ -72,14 +72,14 @@ namespace BLL
         /// <returns>施工方案审批集合</returns>
         public static List<Model.Solution_CQMSConstructSolutionApprove> GetHandleConstructSolutionApprovesByConstructSolutionId(string ConstructSolutionId, int edition)
         {
-            var list = Funs.DB.Solution_CQMSConstructSolutionApprove.Where(p => p.ConstructSolutionId == ConstructSolutionId && p.ApproveType == Const.CQMSConstructSolution_Audit && p.Edition == edition).ToList();
+            var list = new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.Where(p => p.ConstructSolutionId == ConstructSolutionId && p.ApproveType == Const.CQMSConstructSolution_Audit && p.Edition == edition).ToList();
             return list;
 
         }
 
         public static List<Model.Solution_CQMSConstructSolutionApprove> GetHandleConstruct(string ConstructSolutionId, int edition)
         {
-            var list = Funs.DB.Solution_CQMSConstructSolutionApprove.Where(p => p.ConstructSolutionId == ConstructSolutionId && p.ApproveType != "S" && p.ApproveDate != null && p.Edition == edition).ToList();
+            var list = new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.Where(p => p.ConstructSolutionId == ConstructSolutionId && p.ApproveType != "S" && p.ApproveDate != null && p.Edition == edition).ToList();
             return list;
 
         }
@@ -90,7 +90,7 @@ namespace BLL
         /// <returns>施工方案审批集合</returns>
         public static List<Model.Solution_CQMSConstructSolutionApprove> GetConstructSolutionApprovesByConstructSolutionId(string ConstructSolutionId, string state)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var reDate = (from x in db.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == ConstructSolutionId && x.ApproveType == BLL.Const.CQMSConstructSolution_ReCompile orderby x.ApproveDate descending select x.ApproveDate).FirstOrDefault();
             if (reDate == null)
             {
@@ -110,7 +110,7 @@ namespace BLL
         /// <returns></returns>
         public static IList<Model.Solution_CQMSConstructSolutionApprove> getListData(string ConstructSolutionId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var res = from x in db.Solution_CQMSConstructSolutionApprove
                       where x.ConstructSolutionId == ConstructSolutionId && x.ApproveDate != null && x.ApproveType != "S"
                       orderby x.ApproveDate
@@ -140,7 +140,7 @@ namespace BLL
         public static int getListSolutionApproveCount(string constructSolutionId, string man)
         {
 
-            var res = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove
+            var res = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove
                        where x.ConstructSolutionId == constructSolutionId && x.ApproveDate == null && x.ApproveType != "S" && x.ApproveMan.Equals(man)
                        orderby x.ApproveDate
                        select x).Count();
@@ -149,7 +149,7 @@ namespace BLL
         public static IList<Model.Solution_CQMSConstructSolutionApprove> getListSolutionApprove(string constructSolutionId, string man)
         {
 
-            var res = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove
+            var res = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove
                        where x.ConstructSolutionId == constructSolutionId && x.ApproveDate == null && x.ApproveType != "S" && x.ApproveMan.Equals(man)
                        orderby x.ApproveDate
                        select x).ToList();
@@ -161,9 +161,9 @@ namespace BLL
         /// <param name="ConstructSolutionId"></param>
         public static void delSolutionApprove(string constructSolutionId, string man)
         {
-            var q = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == constructSolutionId && x.ApproveType != "S" && x.ApproveMan.Equals(man) && x.ApproveDate == null select x).ToList();
-            Funs.DB.Solution_CQMSConstructSolutionApprove.DeleteAllOnSubmit(q);
-            Funs.DB.SubmitChanges();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == constructSolutionId && x.ApproveType != "S" && x.ApproveMan.Equals(man) && x.ApproveDate == null select x).ToList();
+            new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.DeleteAllOnSubmit(q);
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
 
         }
 
@@ -174,9 +174,9 @@ namespace BLL
         /// <param name="ConstructSolutionCode">施工方案编号</param>
         public static void DeleteConstructSolutionApprovesByConstructSolutionId(string ConstructSolutionId)
         {
-            var q = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == ConstructSolutionId select x).ToList();
-            Funs.DB.Solution_CQMSConstructSolutionApprove.DeleteAllOnSubmit(q);
-            Funs.DB.SubmitChanges();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == ConstructSolutionId select x).ToList();
+            new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.DeleteAllOnSubmit(q);
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
         }
         /// <summary>
         /// 根据施工方案编号获取一个施工方案审批信息
@@ -186,17 +186,17 @@ namespace BLL
         public static Model.Solution_CQMSConstructSolutionApprove GetConstructSolutionApproveByApproveMan(string ConstructSolutionId, string approveMan)
         {
 
-            return Funs.DB.Solution_CQMSConstructSolutionApprove.FirstOrDefault(x => x.ConstructSolutionId == ConstructSolutionId && x.ApproveMan == approveMan && x.ApproveType != "S" && x.ApproveDate == null);
+            return new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.FirstOrDefault(x => x.ConstructSolutionId == ConstructSolutionId && x.ApproveMan == approveMan && x.ApproveType != "S" && x.ApproveDate == null);
         }
         public static Model.Solution_CQMSConstructSolutionApprove GetConstructSoluAppByApproveMan(string ConstructSolutionId, string approveMan, int edtion)
         {
 
-            return Funs.DB.Solution_CQMSConstructSolutionApprove.FirstOrDefault(x => x.ConstructSolutionId == ConstructSolutionId && x.Edition == edtion && x.ApproveMan == approveMan && x.ApproveType != "S" && x.ApproveDate == null);
+            return new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.FirstOrDefault(x => x.ConstructSolutionId == ConstructSolutionId && x.Edition == edtion && x.ApproveMan == approveMan && x.ApproveType != "S" && x.ApproveDate == null);
         }
 
         public static Model.Solution_CQMSConstructSolutionApprove GetConstructSolApproveByApproveMan(string ConstructSolutionId, string approveMan)
         {
-            return Funs.DB.Solution_CQMSConstructSolutionApprove.FirstOrDefault(x => x.ConstructSolutionId == ConstructSolutionId && x.ApproveMan == approveMan && x.ApproveType != "S" && x.ApproveDate == null);
+            return new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.FirstOrDefault(x => x.ConstructSolutionId == ConstructSolutionId && x.ApproveMan == approveMan && x.ApproveType != "S" && x.ApproveDate == null);
         }
 
 
@@ -223,8 +223,8 @@ namespace BLL
             newApprove.ApproveType = approve.ApproveType;
             newApprove.SignType = approve.SignType;
             newApprove.Edition = approve.Edition;
-            Funs.DB.Solution_CQMSConstructSolutionApprove.InsertOnSubmit(newApprove);
-            Funs.DB.SubmitChanges();
+            new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.InsertOnSubmit(newApprove);
+            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
         }
         public static void AddConstructSolutionApproveForApi(Model.Solution_CQMSConstructSolutionApprove approve)
         {

@@ -179,7 +179,7 @@
                             </f:RenderField>
                             <f:RenderField HeaderText="缺陷" ColumnID="CheckDefects"
                                 DataField="CheckDefects" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="100px">
+                                TextAlign="Left" Width="120px">
                                 <Editor>
                                     <f:DropDownList ID="drpCheckDefects" runat="server" EnableMultiSelect="true">
                                     </f:DropDownList>
@@ -195,7 +195,7 @@
                             </f:RenderField>
                             <f:RenderField HeaderText="探伤报告编号" ColumnID="NDEReportNo"
                                 DataField="NDEReportNo"  FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="120px">
+                                TextAlign="Left" Width="200px">
                                 <Editor>
                                     <f:TextBox runat="server" ID="txtNDEReportNo">
                                     </f:TextBox>

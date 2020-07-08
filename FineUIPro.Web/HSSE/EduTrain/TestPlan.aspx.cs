@@ -234,7 +234,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == id) != null)
+            if (new Model.SGGLDB(Funs.ConnString).Training_TestRecord.FirstOrDefault(x => x.TestPlanId == id) != null)
             {
                 content = "该计划已存在【考试记录】，不能删除！";
             }

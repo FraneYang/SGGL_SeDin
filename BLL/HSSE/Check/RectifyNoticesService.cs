@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class RectifyNoticesService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取隐患整改通知单
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_RectifyNotices GetRectifyNoticesById(string rectifyNoticesId)
         {
-            return Funs.DB.Check_RectifyNotices.FirstOrDefault(e => e.RectifyNoticesId == rectifyNoticesId);
+            return new Model.SGGLDB(Funs.ConnString).Check_RectifyNotices.FirstOrDefault(e => e.RectifyNoticesId == rectifyNoticesId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="rectifyNotice"></param>
         public static void AddRectifyNotices(Model.Check_RectifyNotices rectifyNotice)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_RectifyNotices newRectifyNotices = new Model.Check_RectifyNotices
             {
                 RectifyNoticesId = rectifyNotice.RectifyNoticesId,
@@ -124,7 +124,7 @@ namespace BLL
         /// <param name="rectifyNoticesId"></param>
         public static void DeleteRectifyNoticesById(string rectifyNoticesId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_RectifyNotices rectifyNotices = db.Check_RectifyNotices.FirstOrDefault(e => e.RectifyNoticesId == rectifyNoticesId);
             if (rectifyNotices != null)
             {

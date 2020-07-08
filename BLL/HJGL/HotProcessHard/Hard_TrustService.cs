@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Hard_Trust GetHardTrustById(string hardTrustID)
         {
-            return Funs.DB.HJGL_Hard_Trust.FirstOrDefault(e => e.HardTrustID == hardTrustID);
+            return new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Trust.FirstOrDefault(e => e.HardTrustID == hardTrustID);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="hardTrust"></param>
         public static void AddHardTrust(Model.HJGL_Hard_Trust hardTrust)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Hard_Trust newHardTrust = new Model.HJGL_Hard_Trust();
             newHardTrust.HardTrustID = hardTrust.HardTrustID;
             newHardTrust.HardTrustNo = hardTrust.HardTrustNo;
@@ -56,7 +56,7 @@ namespace BLL
         /// <param name="hardTrust"></param>
         public static void UpdateHardTrust(Model.HJGL_Hard_Trust hardTrust)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Hard_Trust newHardTrust = db.HJGL_Hard_Trust.FirstOrDefault(e => e.HardTrustID == hardTrust.HardTrustID);
             if (newHardTrust != null)
             {
@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="hardTrustID"></param>
         public static void DeleteHardTrustById(string hardTrustID)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.HJGL_Hard_Trust hardTrust = db.HJGL_Hard_Trust.FirstOrDefault(e => e.HardTrustID == hardTrustID);
             if (hardTrust != null)
             {
@@ -104,7 +104,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistTrustCode(string hardTrustNo, string hardTrustID, string projectId)
         {
-            var q = Funs.DB.HJGL_Hard_Trust.FirstOrDefault(x => x.HardTrustNo == hardTrustNo && x.ProjectId == projectId && x.HardTrustID != hardTrustID);
+            var q = new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Trust.FirstOrDefault(x => x.HardTrustNo == hardTrustNo && x.ProjectId == projectId && x.HardTrustID != hardTrustID);
             if (q != null)
             {
                 return true;
@@ -122,7 +122,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_HJGL_Hard_TrustItem> GetHardTrustAddItem(string hdItemsString)
         {
-            var jointInfos = from x in Funs.DB.View_HJGL_WeldJoint select x;
+            var jointInfos = from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint select x;
             List<Model.View_HJGL_Hard_TrustItem> returnViewMatch = new List<Model.View_HJGL_Hard_TrustItem>();
             if (!string.IsNullOrEmpty(hdItemsString))
             {
@@ -155,7 +155,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_HJGL_Hard_TrustItem> GetHardTrustItem(string hardTrustID)
         {
-            List<Model.View_HJGL_Hard_TrustItem> returnViewMatch = (from x in Funs.DB.View_HJGL_Hard_TrustItem
+            List<Model.View_HJGL_Hard_TrustItem> returnViewMatch = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_Hard_TrustItem
                                                                     where x.HardTrustID == hardTrustID
                                                                select x).ToList();
             return returnViewMatch;
@@ -171,8 +171,8 @@ namespace BLL
         public static List<Model.View_HJGL_Hard_TrustItem> GetHardTrustFind(string projectId, string hardTrustID, string pipelineId)
         {
             ///根据已经热处理且需要硬度检测且未进行硬度检测的焊口获取焊口视图集合
-            var weldJoints = (from x in Funs.DB.HJGL_HotProess_TrustItem
-                              join y in Funs.DB.View_HJGL_WeldJoint
+            var weldJoints = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem
+                              join y in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint
                               on x.WeldJointId equals y.WeldJointId
                               where y.PipelineId == pipelineId && x.IsHardness == true && x.IsTrust == null
                               select new {

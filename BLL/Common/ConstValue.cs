@@ -78,7 +78,7 @@ namespace BLL
         /// <returns>常量集合</returns>
         public static List<Sys_Const> drpConstItemList(string groupId)
         {
-            var list = (from x in Funs.DB.Sys_Const
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const
                         where x.GroupId == groupId
                         orderby x.SortIndex
                         select x).ToList();
@@ -93,8 +93,38 @@ namespace BLL
         /// <returns></returns>
         public static Sys_Const GetConstByConstValueAndGroupId(string constValue, string groupId)
         {
-            return Funs.DB.Sys_Const.FirstOrDefault(e => e.ConstValue == constValue && e.GroupId == groupId);
+            return new Model.SGGLDB(Funs.ConnString).Sys_Const.FirstOrDefault(e => e.ConstValue == constValue && e.GroupId == groupId);
         }
+
+        #region 根据多ID得到名称字符串
+        /// <summary>
+        /// 根据多ID得到名称字符串
+        /// </summary>
+        /// <param name="bigType"></param>
+        /// <returns></returns>
+        public static string getConstTextsConstValues(object constValues, string groupId)
+        {
+            string name = string.Empty;
+            if (constValues != null)
+            {
+                string[] ids = constValues.ToString().Split(',');
+                foreach (string id in ids)
+                {
+                    var q = GetConstByConstValueAndGroupId(id, groupId);
+                    if (q != null)
+                    {
+                        name += q.ConstText + ",";
+                    }
+                }
+                if (name != string.Empty)
+                {
+                    name = name.Substring(0, name.Length - 1); ;
+                }
+            }
+
+            return name;
+        }
+        #endregion
 
         #region 常量组
         /// <summary>

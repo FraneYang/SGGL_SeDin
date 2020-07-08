@@ -29,7 +29,7 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            var q = from x in Funs.DB.Base_PostTitle orderby x.PostTitleCode select x;
+            var q = from x in new Model.SGGLDB(Funs.ConnString).Base_PostTitle orderby x.PostTitleCode select x;
             Grid1.RecordCount = q.Count();
             // 2.获取当前分页数据
             var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
@@ -43,7 +43,7 @@ namespace FineUIPro.Web.BaseInfo
         /// <returns></returns>
         private List<Model.Base_PostTitle> GetPagedDataTable(int pageIndex, int pageSize)
         {
-            List<Model.Base_PostTitle> source = (from x in BLL.Funs.DB.Base_PostTitle orderby x.PostTitleCode select x).ToList();
+            List<Model.Base_PostTitle> source = (from x in new Model.SGGLDB(Funs.ConnString).Base_PostTitle orderby x.PostTitleCode select x).ToList();
             List<Model.Base_PostTitle> paged = new List<Model.Base_PostTitle>();
 
             int rowbegin = pageIndex * pageSize;
@@ -150,7 +150,7 @@ namespace FineUIPro.Web.BaseInfo
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            if (Funs.DB.SitePerson_Person.FirstOrDefault(x => x.PostTitleId == id) != null)
+            if (new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.PostTitleId == id) != null)
             {
                 content = "该职称已在【人员信息】中使用，不能删除！";
             }
@@ -237,13 +237,13 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_PostTitle.FirstOrDefault(x => x.PostTitleCode == this.txtPostTitleCode.Text.Trim() && (x.PostTitleId != hfFormID.Text || (hfFormID.Text == null && x.PostTitleId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_PostTitle.FirstOrDefault(x => x.PostTitleCode == this.txtPostTitleCode.Text.Trim() && (x.PostTitleId != hfFormID.Text || (hfFormID.Text == null && x.PostTitleId != null)));
             if (q != null)
             {
                 ShowNotify("输入的职称编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = Funs.DB.Base_PostTitle.FirstOrDefault(x => x.PostTitleName == this.txtPostTitleName.Text.Trim() && (x.PostTitleId != hfFormID.Text || (hfFormID.Text == null && x.PostTitleId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_PostTitle.FirstOrDefault(x => x.PostTitleName == this.txtPostTitleName.Text.Trim() && (x.PostTitleId != hfFormID.Text || (hfFormID.Text == null && x.PostTitleId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的职称名称已存在！", MessageBoxIcon.Warning);

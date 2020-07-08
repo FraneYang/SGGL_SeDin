@@ -38,13 +38,13 @@ namespace FineUIPro.Web.HJGL.PersonManage
             }
             if (!string.IsNullOrEmpty(this.txtCheckerCode.Text))
             {
-                sql += " and P.CheckerCode LIKE  @CheckerCode";
-                parms.Add(new SqlParameter("@CheckerCode", "%" + this.txtCheckerCode.Text.Trim() + "%"));
+                sql += " and P.WelderCode LIKE  @WelderCode";
+                parms.Add(new SqlParameter("@WelderCode", "%" + this.txtCheckerCode.Text.Trim() + "%"));
             }
             if (!string.IsNullOrEmpty(this.txtCHeckerName.Text))
             {
-                sql += " and P.CheckerName LIKE  @CheckerName";
-                parms.Add(new SqlParameter("@CheckerName", "%" + this.txtCHeckerName.Text.Trim() + "%"));
+                sql += " and P.PersonName LIKE  @PersonName";
+                parms.Add(new SqlParameter("@PersonName", "%" + this.txtCHeckerName.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = parms.ToArray();
             DataTable dt = SQLHelper.GetDataTableRunText(sql, parameter);
@@ -272,7 +272,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         {
             if (e.CommandName == "CheckerQualification")
             {
-                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("CheckerItem.aspx?CheckerId={0}", Grid1.SelectedRowID, "资质 - ")));
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("CheckerItem.aspx?PersonId={0}", Grid1.SelectedRowID, "资质 - ")));
             }
         }
     }

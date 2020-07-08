@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class LicenseTypeService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取许可证类型
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_LicenseType GetLicenseTypeById(string licenseTypeId)
         {
-            return Funs.DB.Base_LicenseType.FirstOrDefault(e => e.LicenseTypeId == licenseTypeId);
+            return new Model.SGGLDB(Funs.ConnString).Base_LicenseType.FirstOrDefault(e => e.LicenseTypeId == licenseTypeId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="licenseType"></param>
         public static void AddLicenseType(Model.Base_LicenseType licenseType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_LicenseType newLicenseType = new Model.Base_LicenseType
             {
                 LicenseTypeId = licenseType.LicenseTypeId,
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="licenseType"></param>
         public static void UpdateLicenseType(Model.Base_LicenseType licenseType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_LicenseType newLicenseType = db.Base_LicenseType.FirstOrDefault(e => e.LicenseTypeId == licenseType.LicenseTypeId);
             if (newLicenseType != null)
             {
@@ -65,7 +65,7 @@ namespace BLL
         /// <param name="licenseTypeId"></param>
         public static void DeleteLicenseTypeById(string licenseTypeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_LicenseType licenseType = db.Base_LicenseType.FirstOrDefault(e => e.LicenseTypeId == licenseTypeId);
             if (licenseType != null)
             {
@@ -80,7 +80,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_LicenseType> GetLicenseTypeList()
         {
-            return (from x in Funs.DB.Base_LicenseType orderby x.LicenseTypeCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_LicenseType orderby x.LicenseTypeCode select x).ToList();
         }
 
         #region 许可证类型下拉框

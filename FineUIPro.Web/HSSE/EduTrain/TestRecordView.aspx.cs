@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.HSSE.EduTrain
 {
@@ -41,7 +38,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                 {
                     if (Request.Params["type"] == "1")
                     {
-                        var testRecordItem =BLL.Funs.DB.Test_TestRecordItem.FirstOrDefault (x=>x.TestRecordItemId == this.TestRecordItemId);
+                        var testRecordItem =new Model.SGGLDB(Funs.ConnString).Test_TestRecordItem.FirstOrDefault (x=>x.TestRecordItemId == this.TestRecordItemId);
                         if (testRecordItem != null)
                         {
                             this.txtAbstracts.Text = testRecordItem.Abstracts;
@@ -88,7 +85,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                             }
                             if (!string.IsNullOrEmpty(testRecordItem.AttachUrl))
                             {
-                                this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", testRecordItem.AttachUrl);
+                                this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", testRecordItem.AttachUrl);
                             }
 
                             var testRecord = BLL.ServerTestRecordService.GetTestRecordById(testRecordItem.TestRecordId);
@@ -155,7 +152,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                             }
                             if (!string.IsNullOrEmpty(testRecordItem.AttachUrl))
                             {
-                                this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", testRecordItem.AttachUrl);
+                                this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", testRecordItem.AttachUrl);
                             }
 
                             var testRecord = BLL.TestRecordService.GetTestRecordById(testRecordItem.TestRecordId);

@@ -272,7 +272,7 @@ namespace FineUIPro.Web.HSSE.Check
             }
             else
             {
-                var isUpdate = Funs.DB.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == PauseNoticeId);
+                var isUpdate = new Model.SGGLDB(Funs.ConnString).Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == PauseNoticeId);
                 if (isUpdate != null)
                 {
                     if (string.IsNullOrEmpty(isUpdate.PauseStates))
@@ -311,7 +311,7 @@ namespace FineUIPro.Web.HSSE.Check
                             isUpdate.PauseStates = "1";
 
                         }
-                        BLL.Funs.DB.SubmitChanges();
+                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                     }
                     else if (pauseNotice.PauseStates == BLL.Const.State_2)
                     {
@@ -356,7 +356,7 @@ namespace FineUIPro.Web.HSSE.Check
                             isUpdate.SignDate = DateTime.Now;
                             isUpdate.PauseStates = "2";
                         }
-                        BLL.Funs.DB.SubmitChanges();
+                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                         SaveData("总包施工经理签发", 1);
 
                     }
@@ -375,7 +375,7 @@ namespace FineUIPro.Web.HSSE.Check
                             SaveData("总包项目经理批准", 1);
                             isUpdate.PauseStates ="3";
                         }
-                        BLL.Funs.DB.SubmitChanges();
+                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                     }
                     else if (pauseNotice.PauseStates == BLL.Const.State_4)
                     {
@@ -383,7 +383,7 @@ namespace FineUIPro.Web.HSSE.Check
                             isUpdate.DutyPersonDate = DateTime.Now;
                             SaveData("施工分包单位接受", 1);
                             isUpdate.PauseStates = "4";
-                        BLL.Funs.DB.SubmitChanges();
+                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
                     }
 
                 }
@@ -468,8 +468,8 @@ namespace FineUIPro.Web.HSSE.Check
                     OperateTime = DateTime.Now,
                     IsAgree = true
                 };
-                BLL.Funs.DB.Check_PauseNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
-                BLL.Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Check_PauseNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
             else
             {
@@ -483,8 +483,8 @@ namespace FineUIPro.Web.HSSE.Check
                     Opinion = this.reason.Text,
                     IsAgree = false
                 };
-                BLL.Funs.DB.Check_PauseNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
-                BLL.Funs.DB.SubmitChanges();
+                new Model.SGGLDB(Funs.ConnString).Check_PauseNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
+                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
 
         }

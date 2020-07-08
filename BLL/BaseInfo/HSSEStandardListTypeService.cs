@@ -14,7 +14,7 @@ namespace BLL
 {
     public class HSSEStandardListTypeService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 获取标准规范类别信息
@@ -23,7 +23,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_HSSEStandardListType GetHSSEStandardListType(string typeId)
         {
-            return Funs.DB.Base_HSSEStandardListType.FirstOrDefault(x => x.TypeId == typeId);
+            return new Model.SGGLDB(Funs.ConnString).Base_HSSEStandardListType.FirstOrDefault(x => x.TypeId == typeId);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace BLL
         /// <param name="def"></param>
         public static void AddHSSEStandardListType(Model.Base_HSSEStandardListType hSSEStandardListType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_HSSEStandardListType newHSSEStandardListType = new Model.Base_HSSEStandardListType
             {
                 TypeId = hSSEStandardListType.TypeId,
@@ -54,7 +54,7 @@ namespace BLL
         /// <param name="def"></param>
         public static void UpdateHSSEStandardListType(string typeId, string typeCode, string typeName, string remark)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_HSSEStandardListType hSSEStandardListType = db.Base_HSSEStandardListType.FirstOrDefault(e => e.TypeId == typeId);
             if (hSSEStandardListType != null)
             {
@@ -71,7 +71,7 @@ namespace BLL
         /// <param name="typeId"></param>
         public static void DeleteHSSEStandardListType(string typeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_HSSEStandardListType hSSEStandardListType = db.Base_HSSEStandardListType.FirstOrDefault(e => e.TypeId == typeId);
             if (hSSEStandardListType != null)
             {
@@ -87,7 +87,7 @@ namespace BLL
         /// <returns>true:存在；false:不存在</returns>
         public static bool IsExistHSSEStandardListType(string typeId)
         {
-            Model.Base_HSSEStandardListType m = Funs.DB.Base_HSSEStandardListType.FirstOrDefault(e => e.TypeId == typeId);
+            Model.Base_HSSEStandardListType m = new Model.SGGLDB(Funs.ConnString).Base_HSSEStandardListType.FirstOrDefault(e => e.TypeId == typeId);
             if (m != null)
             {
                 return true;
@@ -104,7 +104,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_HSSEStandardListType> GetHSSEStandardListTypeList()
         {
-            var list = (from x in Funs.DB.Base_HSSEStandardListType orderby x.TypeCode select x).ToList();               
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_HSSEStandardListType orderby x.TypeCode select x).ToList();               
             return list;
         }
     }

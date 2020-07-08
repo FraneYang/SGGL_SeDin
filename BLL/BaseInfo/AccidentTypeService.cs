@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BLL
 {
@@ -10,7 +8,7 @@ namespace BLL
     /// </summary>
     public static class AccidentTypeService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取事故类型
@@ -19,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_AccidentType GetAccidentTypeById(string accidentTypeId)
         {
-            return Funs.DB.Base_AccidentType.FirstOrDefault(e => e.AccidentTypeId == accidentTypeId);
+            return new Model.SGGLDB(Funs.ConnString).Base_AccidentType.FirstOrDefault(e => e.AccidentTypeId == accidentTypeId);
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace BLL
         /// <param name="accidentType"></param>
         public static void AddAccidentType(Model.Base_AccidentType accidentType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_AccidentType newAccidentType = new Model.Base_AccidentType
             {
                 AccidentTypeId = accidentType.AccidentTypeId,
@@ -46,7 +44,7 @@ namespace BLL
         /// <param name="accidentType"></param>
         public static void UpdateAccidentType(Model.Base_AccidentType accidentType)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_AccidentType newAccidentType = db.Base_AccidentType.FirstOrDefault(e => e.AccidentTypeId == accidentType.AccidentTypeId);
             if (newAccidentType != null)
             {
@@ -63,7 +61,7 @@ namespace BLL
         /// <param name="accidentTypeId"></param>
         public static void DeleteAccidentTypeById(string accidentTypeId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_AccidentType accidentType = db.Base_AccidentType.FirstOrDefault(e => e.AccidentTypeId == accidentTypeId);
             if (accidentType != null)
             {
@@ -78,7 +76,25 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_AccidentType> GetAccidentTypeList()
         {
-            return (from x in Funs.DB.Base_AccidentType orderby x.AccidentTypeCode select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Base_AccidentType orderby x.AccidentTypeCode select x).ToList();
+        }
+
+        /// <summary>
+        /// 应急响应类型下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="projectId">项目id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitAccidentTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "AccidentTypeId";
+            dropName.DataTextField = "AccidentTypeName";
+            dropName.DataSource = GetAccidentTypeList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
         }
     }
 }

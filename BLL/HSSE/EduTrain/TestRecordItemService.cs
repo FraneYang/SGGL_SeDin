@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TestRecordItemService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据考试记录Id获取明细信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TestRecordItem GetTestRecordItemTestRecordItemId(string testRecordItemId)
         {
-            return Funs.DB.Training_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == testRecordItemId);
+            return new Model.SGGLDB(Funs.ConnString).Training_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == testRecordItemId);
         }
 
         /// <summary>

@@ -246,7 +246,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
             if (this.btnBL_ScanUrl.HasFile)
             {
                 this.BL_ScanUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.btnBL_ScanUrl, this.BL_ScanUrl, UploadFileService.BL_ScanUrlFilePath);
-                this.divBL_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.BL_ScanUrl);
+                this.divBL_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.BL_ScanUrl);
             }
         }
 
@@ -260,7 +260,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
             if (this.btnO_ScanUrl.HasFile)
             {
                 this.O_ScanUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.btnO_ScanUrl, this.O_ScanUrl, UploadFileService.O_ScanUrlFilePath);
-                this.divO_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.O_ScanUrl);
+                this.divO_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.O_ScanUrl);
             }
         }
 
@@ -274,7 +274,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
             if (this.btnC_ScanUrl.HasFile)
             {
                 this.C_ScanUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.btnC_ScanUrl, this.C_ScanUrl, UploadFileService.C_ScanUrlFilePath);
-                this.divC_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.C_ScanUrl);
+                this.divC_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.C_ScanUrl);
             }
         }
 
@@ -288,7 +288,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
             if (this.btnQL_ScanUrl.HasFile)
             {
                 this.QL_ScanUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.btnQL_ScanUrl, this.QL_ScanUrl, UploadFileService.QL_ScanUrlFilePath);
-                this.divQL_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.QL_ScanUrl);
+                this.divQL_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.QL_ScanUrl);
             }
         }
 
@@ -302,7 +302,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
             if (this.btnH_ScanUrl.HasFile)
             {
                 this.H_ScanUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.btnH_ScanUrl, this.H_ScanUrl, UploadFileService.H_ScanUrlFilePath);
-                this.divH_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.H_ScanUrl);
+                this.divH_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.H_ScanUrl);
             }
         }
         /// <summary>
@@ -315,7 +315,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
             if (this.btnH_ScanUrl2.HasFile)
             {
                 this.H_ScanUrl2 = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.btnH_ScanUrl2, this.H_ScanUrl2, UploadFileService.H_ScanUrl2FilePath);
-                this.divH_ScanUrl2.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.H_ScanUrl2);
+                this.divH_ScanUrl2.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.H_ScanUrl2);
             }
         }
         /// <summary>
@@ -328,7 +328,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
             if (this.btnSL_ScanUrl.HasFile)
             {
                 this.SL_ScanUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.btnSL_ScanUrl, this.SL_ScanUrl, UploadFileService.SL_ScanUrlFilePath);
-                this.divSL_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.SL_ScanUrl);
+                this.divSL_ScanUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.SL_ScanUrl);
             }
         }
         #endregion

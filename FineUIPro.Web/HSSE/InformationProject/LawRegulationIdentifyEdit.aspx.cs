@@ -72,7 +72,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     this.txtCompileMan.Text = BLL.UserService.GetUserNameByUserId(lawRegulationIdentify.IdentifyPerson);
                     this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulationIdentify.IdentifyDate);
                     this.txtRemark.Text = lawRegulationIdentify.Remark;
-                    var viewLaw = from x in Funs.DB.View_Law_LawRegulationSelectedItem where x.LawRegulationIdentifyId == LawRegulationIdentifyId orderby x.LawRegulationCode select x;
+                    var viewLaw = from x in new Model.SGGLDB(Funs.ConnString).View_Law_LawRegulationSelectedItem where x.LawRegulationIdentifyId == LawRegulationIdentifyId orderby x.LawRegulationCode select x;
                     if (viewLaw.Count() > 0)
                     {
                         this.Grid1.DataSource = viewLaw;
@@ -233,7 +233,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     LawRegulationIdentifyId = this.LawRegulationIdentifyId,
                     LawRegulationId = values.Value<string>("LawRegulationId").ToString()
                 };
-                Model.Base_LawsRegulationsType lawsRegulationsType = Funs.DB.Base_LawsRegulationsType.FirstOrDefault(x => x.Name == values.Value<string>("LawsRegulationsTypeId").ToString());
+                Model.Base_LawsRegulationsType lawsRegulationsType = new Model.SGGLDB(Funs.ConnString).Base_LawsRegulationsType.FirstOrDefault(x => x.Name == values.Value<string>("LawsRegulationsTypeId").ToString());
                 if (lawsRegulationsType != null)
                 {
                     newItem.LawsRegulationsTypeId = lawsRegulationsType.Id;
@@ -321,7 +321,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
             this.Grid1.PageSize = 500;
-            this.Grid1.DataSource = from x in Funs.DB.View_Law_LawRegulationSelectedItem where x.LawRegulationIdentifyId == LawRegulationIdentifyId orderby x.LawRegulationCode select x;
+            this.Grid1.DataSource = from x in new Model.SGGLDB(Funs.ConnString).View_Law_LawRegulationSelectedItem where x.LawRegulationIdentifyId == LawRegulationIdentifyId orderby x.LawRegulationCode select x;
             this.Grid1.DataBind();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();

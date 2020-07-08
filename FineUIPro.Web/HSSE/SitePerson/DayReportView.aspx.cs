@@ -82,10 +82,10 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// </summary>
         private void BindGrid()
         {            
-            var q = from x in Funs.DB.SitePerson_DayReportDetail
-                    join a in Funs.DB.SitePerson_DayReport
+            var q = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
+                    join a in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport
                     on x.DayReportId equals a.DayReportId
-                    join b in Funs.DB.Base_Unit
+                    join b in new Model.SGGLDB(Funs.ConnString).Base_Unit
                     on x.UnitId equals b.UnitId
                     where x.DayReportId == this.DayReportId
                     orderby b.UnitCode
@@ -100,14 +100,14 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         x.CheckPersonNum,
                         x.RealPersonNum,
                         x.PersonWorkTime,
-                        YearPersonWorkTime = (from y in Funs.DB.SitePerson_DayReportDetail
-                                              where (from z in Funs.DB.SitePerson_DayReport
+                        YearPersonWorkTime = (from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
+                                              where (from z in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport
                                                      where z.CompileDate <= a.CompileDate && z.CompileDate.Value.Year == a.CompileDate.Value.Year
                                                      && x.UnitId == y.UnitId && z.ProjectId == this.ProjectId
                                                      select z.DayReportId).Contains(y.DayReportId)
                                               select y.PersonWorkTime ?? 0).Sum(),
-                        TotalPersonWorkTime = (from y in Funs.DB.SitePerson_DayReportDetail
-                                               where (from z in Funs.DB.SitePerson_DayReport
+                        TotalPersonWorkTime = (from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
+                                               where (from z in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport
                                                       where z.CompileDate <= a.CompileDate && x.UnitId == y.UnitId && z.ProjectId == this.ProjectId
                                                       select z.DayReportId).Contains(y.DayReportId)
                                                select y.PersonWorkTime ?? 0).Sum(),

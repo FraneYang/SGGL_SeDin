@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class SolutionTempleteTypeService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取施工方案模板类型
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_SolutionTempleteType GetSolutionTempleteTypeById(string solutionTempleteTypeCode)
         {
-            return Funs.DB.Base_SolutionTempleteType.FirstOrDefault(e => e.SolutionTempleteTypeCode == solutionTempleteTypeCode);
+            return new Model.SGGLDB(Funs.ConnString).Base_SolutionTempleteType.FirstOrDefault(e => e.SolutionTempleteTypeCode == solutionTempleteTypeCode);
         }
 
         /// <summary>

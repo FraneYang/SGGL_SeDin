@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EIAReportService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键获取环评报告
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Environmental_EIAReport GetEIAReportById(string fileId)
         {
-            return Funs.DB.Environmental_EIAReport.FirstOrDefault(e => e.FileId == fileId);
+            return new Model.SGGLDB(Funs.ConnString).Environmental_EIAReport.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="EIAReport"></param>
         public static void AddEIAReport(Model.Environmental_EIAReport EIAReport)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_EIAReport newEIAReport = new Model.Environmental_EIAReport
             {
                 FileId = EIAReport.FileId,
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="EIAReport"></param>
         public static void UpdateEIAReport(Model.Environmental_EIAReport EIAReport)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_EIAReport newEIAReport = db.Environmental_EIAReport.FirstOrDefault(e => e.FileId == EIAReport.FileId);
             if (newEIAReport != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteEIAReportById(string FileId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Environmental_EIAReport EIAReport = db.Environmental_EIAReport.FirstOrDefault(e => e.FileId == FileId);
             if (EIAReport != null)
             {

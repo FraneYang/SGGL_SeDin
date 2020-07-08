@@ -78,7 +78,7 @@ namespace FineUIPro.Web.HSSE.Hazard
                     }
                     this.txtIdentificationDate.Text = string.Format("{0:yyyy-MM-dd}", environmentalRiskList.IdentificationDate);
                     this.txtContents.Text = HttpUtility.HtmlDecode(environmentalRiskList.Contents);
-                    environmentalRiskItems = (from x in Funs.DB.View_Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == this.EnvironmentalRiskListId orderby x.EType, x.Code select x).ToList();
+                    environmentalRiskItems = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == this.EnvironmentalRiskListId orderby x.EType, x.Code select x).ToList();
                 }
                 else
                 {
@@ -215,7 +215,7 @@ namespace FineUIPro.Web.HSSE.Hazard
         /// <param name="e"></param>
         protected void Window1_Close(object sender, EventArgs e)
         {
-            environmentalRiskItems = (from x in Funs.DB.View_Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == this.EnvironmentalRiskListId orderby x.SmallType, x.Code select x).ToList();
+            environmentalRiskItems = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == this.EnvironmentalRiskListId orderby x.SmallType, x.Code select x).ToList();
             Grid1.DataSource = environmentalRiskItems;
             Grid1.DataBind();
         }
@@ -267,7 +267,7 @@ namespace FineUIPro.Web.HSSE.Hazard
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     BLL.Hazard_EnvironmentalRiskItemService.DeleteEnvironmentalRiskItemById(rowID);
                 }
-                environmentalRiskItems = (from x in Funs.DB.View_Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == this.EnvironmentalRiskListId orderby x.EType, x.Code select x).ToList();
+                environmentalRiskItems = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == this.EnvironmentalRiskListId orderby x.EType, x.Code select x).ToList();
                 Grid1.DataSource = environmentalRiskItems;
                 Grid1.DataBind();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");

@@ -218,7 +218,7 @@
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            if (Funs.DB.Sys_User.FirstOrDefault(x => x.RoleId == id) != null)
+            if (new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.RoleId == id) != null)
             {
                 content = "该角色已在【用户信息】中使用，不能删除！";
             }

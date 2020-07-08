@@ -12,7 +12,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_Pressure GetPressureByPressureId(string pressureId)
         {
-            return Funs.DB.Base_Pressure.FirstOrDefault(e => e.PressureId == pressureId);
+            return new Model.SGGLDB(Funs.ConnString).Base_Pressure.FirstOrDefault(e => e.PressureId == pressureId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace BLL
         /// <param name="pressure"></param>
         public static void AddPressure(Model.Base_Pressure pressure)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Pressure newPressure = new Base_Pressure
             {
                 PressureId = pressure.PressureId,
@@ -39,7 +39,7 @@ namespace BLL
         /// <param name="pressure"></param>
         public static void UpdatePressure(Model.Base_Pressure pressure)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Pressure newPressure = db.Base_Pressure.FirstOrDefault(e => e.PressureId == pressure.PressureId);
             if (newPressure != null)
             {
@@ -56,7 +56,7 @@ namespace BLL
         /// <param name="pressureId"></param>
         public static void DeletePressureByPressureId(string pressureId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_Pressure delPressure = db.Base_Pressure.FirstOrDefault(e => e.PressureId == pressureId);
             if (delPressure != null)
             {
@@ -72,7 +72,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Pressure> GetPressureList()
         {
-            var list = (from x in Funs.DB.Base_Pressure
+            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Pressure
                         orderby x.PressureCode
                         select x).ToList();
 

@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_DayReport GetDayReportByDayReportId(string dayReportId)
         {
-            return Funs.DB.SitePerson_DayReport.FirstOrDefault(x => x.DayReportId == dayReportId);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport.FirstOrDefault(x => x.DayReportId == dayReportId);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <param name="dayReport">工作日报实体</param>
         public static void AddDayReport(Model.SitePerson_DayReport dayReport)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_DayReport newDayReport = new Model.SitePerson_DayReport
             {
                 DayReportId = dayReport.DayReportId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="dayReport">工作日报实体</param>
         public static void UpdateDayReport(Model.SitePerson_DayReport dayReport)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_DayReport newDayReport = db.SitePerson_DayReport.First(e => e.DayReportId == dayReport.DayReportId);
             newDayReport.ProjectId = dayReport.ProjectId;
             newDayReport.CompileMan = dayReport.CompileMan;
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="dayReportId">工作日报主键</param>
         public static void DeleteDayReportByDayReportId(string dayReportId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_DayReport dayReport = db.SitePerson_DayReport.FirstOrDefault(e => e.DayReportId == dayReportId);
             if (dayReport != null)
             {
@@ -82,7 +82,7 @@ namespace BLL
         /// <returns>true 存在；false：不存在</returns>
         public static bool IsExistDayReport(DateTime compileDate, string projectId)
         {
-            var q = from x in Funs.DB.SitePerson_DayReport
+            var q = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport
                     where x.CompileDate == compileDate && x.ProjectId == projectId
                     select x;
             if (q.Count() > 0)
@@ -103,7 +103,7 @@ namespace BLL
         /// <returns>工作日报信息</returns>
         public static List<Model.SitePerson_DayReport> GetDayReportsByCompileDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in Funs.DB.SitePerson_DayReport where x.CompileDate >= startTime && x.CompileDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport where x.CompileDate >= startTime && x.CompileDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace BLL
         /// <returns>工作日报信息</returns>
         public static List<Model.SitePerson_DayReport> GetDayReportsByCompileDate2(DateTime startTime, string projectId)
         {
-            return (from x in Funs.DB.SitePerson_DayReport where x.CompileDate >= startTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport where x.CompileDate >= startTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace BLL
         /// <returns>工作日报信息</returns>
         public static List<Model.SitePerson_DayReport> GetDayReports(string projectId)
         {
-            return (from x in Funs.DB.SitePerson_DayReport where x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport where x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
         }
 
         /// <summary>
@@ -136,8 +136,8 @@ namespace BLL
         /// <returns>工作日报信息</returns>
         public static List<Model.SitePerson_DayReport> GetDayReportsByCompileDateAndUnitId(DateTime startTime, DateTime endTime, string projectId, string unitId)
         {
-            return (from x in Funs.DB.SitePerson_DayReport
-                    join y in Funs.DB.SitePerson_DayReportDetail
+            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport
+                    join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
                     on x.DayReportId equals y.DayReportId
                     where x.CompileDate >= startTime && x.CompileDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2
                     && y.UnitId == unitId

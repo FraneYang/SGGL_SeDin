@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TrainTestDBItemService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         /// <summary>
         /// 根据主键删除安全试题库明细信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TrainTestDBItem GetTrainTestDBItemById(string trainTestItemId)
         {
-            return Funs.DB.Training_TrainTestDBItem.FirstOrDefault(e => e.TrainTestItemId == trainTestItemId);
+            return new Model.SGGLDB(Funs.ConnString).Training_TrainTestDBItem.FirstOrDefault(e => e.TrainTestItemId == trainTestItemId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Training_TrainTestDBItem> GetTrainTestDBItemByCompile(string compile)
         {
-            return (from x in Funs.DB.Training_TrainTestDBItem where x.CompileMan == compile select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Training_TrainTestDBItem where x.CompileMan == compile select x).ToList();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="trainTestDBItem"></param>
         public static void AddTrainTestDBItem(Model.Training_TrainTestDBItem trainTestDBItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainTestDBItem newTrainTestDBItem = new Model.Training_TrainTestDBItem
             {
                 TrainTestItemId = trainTestDBItem.TrainTestItemId,
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="trainTestDBItem"></param>
         public static void UpdateTrainTestDBItem(Model.Training_TrainTestDBItem trainTestDBItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainTestDBItem newTrainTestDBItem = db.Training_TrainTestDBItem.FirstOrDefault(e => e.TrainTestItemId == trainTestDBItem.TrainTestItemId);
             if (newTrainTestDBItem != null)
             {
@@ -81,7 +81,7 @@ namespace BLL
         /// <param name="trainTestDBItem"></param>
         public static void UpdateTrainTestDBItemIsPass(Model.Training_TrainTestDBItem trainTestDBItem)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainTestDBItem newTrainTestDBItem = db.Training_TrainTestDBItem.FirstOrDefault(e => e.TrainTestItemId == trainTestDBItem.TrainTestItemId);
             if (newTrainTestDBItem != null)
             {
@@ -99,7 +99,7 @@ namespace BLL
         /// <param name="trainTestItemId"></param>
         public static void DeleteTrainTestDBItemById(string trainTestItemId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Training_TrainTestDBItem trainTestDBItem = db.Training_TrainTestDBItem.FirstOrDefault(e => e.TrainTestItemId == trainTestItemId);
             if (trainTestDBItem != null)
             {
@@ -116,7 +116,7 @@ namespace BLL
         /// <param name="trainTestId"></param>
         public static void DeleteTrainTestDBItemList(string trainTestId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Training_TrainTestDBItem where x.TrainTestId == trainTestId select x).ToList();
             if (q != null)
             {

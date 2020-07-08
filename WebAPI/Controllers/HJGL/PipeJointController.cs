@@ -98,7 +98,7 @@ namespace WebAPI.Controllers
         }
 
 
-         #region 根据焊口标识获取焊口详细信息
+        #region 根据焊口标识获取焊口详细信息
         /// <summary>
         /// 根据焊口标识获取焊口详细信息
         /// </summary>
@@ -176,7 +176,7 @@ namespace WebAPI.Controllers
         /// <param name="addItem"></param>
         /// <returns></returns>
         [HttpPost]
-        public Model.ResponeData SavePreWeldingDaily([FromBody] Model.WeldJointItem addItem)
+        public Model.ResponeData PostSavePreWeldingDaily([FromBody] Model.WeldJointItem addItem)
         {
             var responeData = new Model.ResponeData();
             try

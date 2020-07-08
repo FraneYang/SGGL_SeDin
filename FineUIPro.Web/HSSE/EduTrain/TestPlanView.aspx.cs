@@ -52,8 +52,8 @@ namespace FineUIPro.Web.EduTrain
                     this.txtWorkPostNames.Text = plan.WorkPostNames;
 
 
-                    var testPlanTraining = from x in Funs.DB.Training_TestPlanTraining
-                                           join y in Funs.DB.Training_Training on x.TrainingId equals y.TrainingId
+                    var testPlanTraining = from x in new Model.SGGLDB(Funs.ConnString).Training_TestPlanTraining
+                                           join y in new Model.SGGLDB(Funs.ConnString).Training_Training on x.TrainingId equals y.TrainingId
                                            where x.TestPlanId == testPlanId
                                            orderby y.TrainingCode
                                            select new { y.TrainingName, x.TestType1Count, x.TestType2Count, x.TestType3Count };

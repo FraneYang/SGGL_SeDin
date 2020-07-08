@@ -8,21 +8,21 @@ namespace BLL
 {
     public class SpotCheckApproveService
     {
-        public static Model.SGGLDB db = Funs.DB;
+        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
         public static Model.Check_SpotCheckApprove GetSpotApproveBySpotCheckDetailId(string spotCheckDetailId)
         {
-            return (from x in Funs.DB.Check_SpotCheckApprove where x.SpotCheckDetailId == spotCheckDetailId && x.ApproveType != "S" && x.Sign == "2" && x.ApproveDate == null select x).FirstOrDefault();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckApprove where x.SpotCheckDetailId == spotCheckDetailId && x.ApproveType != "S" && x.Sign == "2" && x.ApproveDate == null select x).FirstOrDefault();
         }
 
         public static List<Model.Check_SpotCheckApprove> GetSpotApprovesBySpotCheckCode(string spotCheckCode)
         {
-            return (from x in Funs.DB.Check_SpotCheckApprove where x.SpotCheckCode == spotCheckCode && x.ApproveType != "S" && x.Sign == "2" && x.ApproveDate == null select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckApprove where x.SpotCheckCode == spotCheckCode && x.ApproveType != "S" && x.Sign == "2" && x.ApproveDate == null select x).ToList();
         }
 
         public static List<Model.Check_SpotCheckApprove> GetSpotCheck2ApproveBySpotCheckCode(string SpotCheckCode)
         {
-            return (from x in Funs.DB.Check_SpotCheckApprove
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckApprove
                     where x.SpotCheckCode == SpotCheckCode && x.ApproveDate == null && x.Sign == "2" && x.ApproveType != "S"
                     select x).ToList();
         }
@@ -147,7 +147,7 @@ namespace BLL
         /// <param name="managerRuleApprove">实体验收审批实体</param>
         public static void AddSpotCheckApprove(Model.Check_SpotCheckApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_SpotCheckApprove));
             Model.Check_SpotCheckApprove newApprove = new Model.Check_SpotCheckApprove();
             newApprove.SpotCheckApproveId = newKeyID;
@@ -190,7 +190,7 @@ namespace BLL
         /// <param name="managerRuleApprove">实体验收审批实体</param>
         public static void UpdateSpotCheckApprove(Model.Check_SpotCheckApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_SpotCheckApprove newApprove = db.Check_SpotCheckApprove.First(e => e.SpotCheckApproveId == approve.SpotCheckApproveId && e.ApproveDate == null);
             newApprove.SpotCheckCode = approve.SpotCheckCode;
             newApprove.ApproveMan = approve.ApproveMan;
@@ -208,7 +208,7 @@ namespace BLL
         /// <param name="SpotCheckCode">实体验收编号</param>
         public static void DeleteSpotCheckApprovesBySpotCheckCode(string SpotCheckCode)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_SpotCheckApprove where x.SpotCheckCode == SpotCheckCode select x).ToList();
             db.Check_SpotCheckApprove.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -221,7 +221,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetManagerRuleApproveCountByUserId(string userId)
         {
-            var q = (from x in Funs.DB.Check_SpotCheckApprove where x.ApproveMan == userId select x).ToList();
+            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckApprove where x.ApproveMan == userId select x).ToList();
             return q.Count();
         }
         public static List<Model.Check_SpotCheckApprove> getListDataBySpotCheckCodeForApi(string SpotCheckCode)
@@ -257,7 +257,7 @@ namespace BLL
         }
         public static Model.Check_SpotCheckApprove getCurrApproveForApi(string SpotCheckCode)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_SpotCheckApprove newApprove = db.Check_SpotCheckApprove.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode && e.ApproveType != "S" && e.ApproveDate == null);
             if (newApprove != null)
             {
@@ -297,7 +297,7 @@ namespace BLL
         /// <param name="SpotCheckCode">实体验收编号</param>
         public static void DeleteSpotCheckApprovesBySpotCheckDetailId(string spotCheckDetailId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_SpotCheckApprove where x.SpotCheckDetailId == spotCheckDetailId select x).ToList();
             db.Check_SpotCheckApprove.DeleteAllOnSubmit(q);
             db.SubmitChanges();

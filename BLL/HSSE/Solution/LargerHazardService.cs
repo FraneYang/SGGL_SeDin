@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Solution_LargerHazard GetLargerHazardByHazardId(string hazardId)
         {
-            return Funs.DB.Solution_LargerHazard.FirstOrDefault(e => e.HazardId == hazardId);
+            return new Model.SGGLDB(Funs.ConnString).Solution_LargerHazard.FirstOrDefault(e => e.HazardId == hazardId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <param name="largerHazard"></param>
         public static void AddLargerHazard(Model.Solution_LargerHazard largerHazard)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_LargerHazard newLargerHazard = new Model.Solution_LargerHazard
             {
                 HazardId = largerHazard.HazardId,
@@ -56,7 +56,7 @@ namespace BLL
         /// <param name="largerHazard"></param>
         public static void UpdateLargerHazard(Model.Solution_LargerHazard largerHazard)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_LargerHazard newLargerHazard = db.Solution_LargerHazard.FirstOrDefault(e => e.HazardId == largerHazard.HazardId);
             if (newLargerHazard != null)
             {
@@ -79,7 +79,7 @@ namespace BLL
         /// <param name="superviseCheckReportId"></param>
         public static void DeleteLargerHazard(string hazardId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var largerHazard = (from x in db.Solution_LargerHazard where x.HazardId == hazardId select x).FirstOrDefault();
             if (largerHazard != null)
             {

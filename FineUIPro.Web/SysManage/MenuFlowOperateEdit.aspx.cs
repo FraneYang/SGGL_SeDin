@@ -205,7 +205,7 @@ namespace FineUIPro.Web.SysManage
             else
             {
                 this.drpRoles.Hidden = false;
-                var getIsEnd = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowOperateId != this.FlowOperateId && x.IsFlowEnd == true);
+                var getIsEnd = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowOperateId != this.FlowOperateId && x.IsFlowEnd == true);
                 if (getIsEnd != null)
                 {
                     this.IsFlowEnd.Enabled = false;
@@ -237,7 +237,7 @@ namespace FineUIPro.Web.SysManage
             int FlowStep = Funs.GetNewInt(this.txtFlowStep.Text) ?? 1;
             int GroupNum = Funs.GetNewInt(this.txtGroupNum.Text) ?? 1;
             int OrderNum = Funs.GetNewInt(this.txtOrderNum.Text) ?? 1;            
-            var getFlows = from x in Funs.DB.Sys_MenuFlowOperate where x.MenuId ==this.MenuId select x;            
+            var getFlows = from x in new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate where x.MenuId ==this.MenuId select x;            
             if (getFlows.Count() > 0)
             {
                 if (FlowStep != 1)

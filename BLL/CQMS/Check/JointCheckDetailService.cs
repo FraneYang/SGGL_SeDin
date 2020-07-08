@@ -15,7 +15,7 @@ namespace BLL
         /// <param name="pauseNotice">质量共检明细实体</param>
         public static void UpdateJointCheckDetail(Model.Check_JointCheckDetail a)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_JointCheckDetail newJointCheckDetail = db.Check_JointCheckDetail.First(e => e.JointCheckDetailId == a.JointCheckDetailId);
             newJointCheckDetail.UnitWorkId = a.UnitWorkId;
             newJointCheckDetail.CNProfessionalCode = a.CNProfessionalCode;
@@ -41,7 +41,7 @@ namespace BLL
         /// <param name="costCode"></param>
         public static Model.Check_JointCheckDetail GetJointCheckDetailByJointCheckDetailId(string JointCheckDetailId)
         {
-            return Funs.DB.Check_JointCheckDetail.FirstOrDefault(e => e.JointCheckDetailId == JointCheckDetailId);
+            return new Model.SGGLDB(Funs.ConnString).Check_JointCheckDetail.FirstOrDefault(e => e.JointCheckDetailId == JointCheckDetailId);
         }
         public static Model.Check_JointCheckDetail GetJointCheckDetailByJointCheckDetailIdForApi(string JointCheckDetailId)
         {
@@ -102,7 +102,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Check_JointCheckDetail> GetLists(string jointCheckId)
         {
-            return (from x in Funs.DB.Check_JointCheckDetail where x.JointCheckId == jointCheckId orderby x.CreateDate select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).Check_JointCheckDetail where x.JointCheckId == jointCheckId orderby x.CreateDate select x).ToList();
         }
 
         public static List<Model.Check_JointCheckDetail> GetListsForApi(string jointCheckId)
@@ -120,7 +120,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_Check_JointCheckDetail> GetViewLists(string jointCheckId)
         {
-            return (from x in Funs.DB.View_Check_JointCheckDetail where x.JointCheckId == jointCheckId orderby x.CreateDate select x).ToList();
+            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_JointCheckDetail where x.JointCheckId == jointCheckId orderby x.CreateDate select x).ToList();
         }
         public static Dictionary<string, string> checkType()
         {
@@ -149,7 +149,7 @@ namespace BLL
         /// <param name="pauseNoticeCode">质量共检明细主键</param>
         public static void DeleteJointCheckDetailByJointCheckId(string JointCheckId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in db.Check_JointCheckDetail where x.JointCheckId == JointCheckId select x).ToList();
             db.Check_JointCheckDetail.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -160,7 +160,7 @@ namespace BLL
         /// <param name="pauseNotice">质量共检明细实体</param>
         public static void AddJointCheckDetail(Model.Check_JointCheckDetail a)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_JointCheckDetail newJointCheckDetail = new Model.Check_JointCheckDetail();
             newJointCheckDetail.JointCheckDetailId = a.JointCheckDetailId;
             newJointCheckDetail.JointCheckId = a.JointCheckId;
@@ -220,7 +220,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static List<Model.View_Check_JointCheckDetail> GetJointCheckDetailListByTime(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in Funs.DB.View_Check_JointCheckDetail
+            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_JointCheckDetail
                     where x.ProjectId == projectId && x.CheckDate >= startTime && x.CheckDate < endTime && ((x.OKDate >= startTime && x.OKDate < endTime) || x.OKDate == null)
                     select x).ToList();
         }
@@ -230,7 +230,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static List<Model.View_Check_JointCheckDetail> GetTotalJointCheckDetailListByTime(string projectId, DateTime endTime)
         {
-            return (from x in Funs.DB.View_Check_JointCheckDetail
+            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_JointCheckDetail
                     where x.ProjectId == projectId && x.CheckDate < endTime && (x.OKDate < endTime || x.OKDate == null)
                     select x).ToList();
         }

@@ -81,7 +81,7 @@ namespace FineUIPro.Web.HSSE.Check
                     {
                         this.drpPartInPersons.SelectedValueArray = checkSpecial.PartInPersonIds.Split(',');
                     }
-                    checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
+                    checkSpecialDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_CheckSpecialDetail
                                            where x.CheckSpecialId == this.CheckSpecialId
                                            orderby x.SortIndex
                                            select x).ToList();
@@ -240,7 +240,7 @@ namespace FineUIPro.Web.HSSE.Check
             }
             else
             {
-                checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
+                checkSpecialDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_CheckSpecialDetail
                                        where x.CheckSpecialId == this.CheckSpecialId
                                        orderby x.SortIndex
                                        select x).ToList();
@@ -363,7 +363,7 @@ namespace FineUIPro.Web.HSSE.Check
                     Unqualified = values.Value<string>("Unqualified"),
                     WorkArea = values.Value<string>("WorkArea"),
                 };
-                var getUnit = Funs.DB.Base_Unit.FirstOrDefault(x => x.UnitName == values.Value<string>("UnitName"));
+                var getUnit = new Model.SGGLDB(Funs.ConnString).Base_Unit.FirstOrDefault(x => x.UnitName == values.Value<string>("UnitName"));
                 if (getUnit != null)
                 {
                     newDetail.UnitId = getUnit.UnitId;
@@ -372,7 +372,7 @@ namespace FineUIPro.Web.HSSE.Check
                 string handleStep = string.Empty;
                 foreach (var item in strs)
                 {
-                    var getHandleStep = Funs.DB.Sys_Const.FirstOrDefault(x => x.GroupId == ConstValue.Group_HandleStep && x.ConstText == item);
+                    var getHandleStep = new Model.SGGLDB(Funs.ConnString).Sys_Const.FirstOrDefault(x => x.GroupId == ConstValue.Group_HandleStep && x.ConstText == item);
                     if (getHandleStep != null)
                     {
                         handleStep += getHandleStep.ConstValue + ",";
@@ -392,7 +392,7 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     newDetail.CompleteStatus = false;
                 }
-                var getCheckItem = Funs.DB.Technique_CheckItemSet.FirstOrDefault(x => x.SupCheckItem == this.drpSupCheckItemSet.SelectedValue && x.CheckItemName == newDetail.CheckContent);
+                var getCheckItem = new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet.FirstOrDefault(x => x.SupCheckItem == this.drpSupCheckItemSet.SelectedValue && x.CheckItemName == newDetail.CheckContent);
                 if (getCheckItem != null)
                 {
                     newDetail.CheckItem = getCheckItem.CheckItemSetId;

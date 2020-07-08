@@ -34,7 +34,7 @@ namespace BLL
         /// <param name="JointCheckId"></param>
         public static void DeleteJointCheck(string JointCheckId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_JointCheck JointCheck = db.Check_JointCheck.First(e => e.JointCheckId == JointCheckId);
             db.Check_JointCheck.DeleteOnSubmit(JointCheck);
             db.SubmitChanges();
@@ -89,7 +89,7 @@ namespace BLL
         /// <param name="JointCheck"></param>
         public static void AddJointCheck(Model.Check_JointCheck JointCheck)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_JointCheck newJointCheck = new Model.Check_JointCheck();
             newJointCheck.JointCheckId = JointCheck.JointCheckId;
             newJointCheck.JointCheckCode = JointCheck.JointCheckCode;
@@ -131,7 +131,7 @@ namespace BLL
         /// <param name="JointCheck"></param>
         public static void UpdateJointCheck(Model.Check_JointCheck JointCheck)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Check_JointCheck newJointCheck = db.Check_JointCheck.First(e => e.JointCheckId == JointCheck.JointCheckId);
             newJointCheck.JointCheckCode = JointCheck.JointCheckCode;
             newJointCheck.ProjectId = JointCheck.ProjectId;
@@ -212,7 +212,7 @@ namespace BLL
         /// <param name="JointCheckDetailId"></param>
         public static Model.Check_JointCheck GetJointCheck(string JointCheckId)
         {
-            return Funs.DB.Check_JointCheck.FirstOrDefault(e => e.JointCheckId == JointCheckId);
+            return new Model.SGGLDB(Funs.ConnString).Check_JointCheck.FirstOrDefault(e => e.JointCheckId == JointCheckId);
         }
         public static Model.Check_JointCheck GetJointCheckForApi(string JointCheckId)
         {
@@ -264,7 +264,7 @@ namespace BLL
                 if (!string.IsNullOrEmpty(name))
                 {
                     List<string> ids = new List<string>();
-                    var qunit = from u in Funs.DB.Base_Unit
+                    var qunit = from u in new Model.SGGLDB(Funs.ConnString).Base_Unit
                                 where u.UnitName.Contains(name)
                                 select u.UnitId;
                     ids = qunit.ToList();

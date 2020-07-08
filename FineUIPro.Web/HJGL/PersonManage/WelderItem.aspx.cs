@@ -226,7 +226,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            //if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
+            //if (new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
             //{
             //    content += "已在【项目用户】中使用，不能删除！";
             //}            
@@ -259,6 +259,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         {
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderItemView.aspx?WelderQualifyId={0}", Grid1.SelectedRowID, "查看 - ")));
         }
-        #endregion      
+        #endregion
+        
     }
 }

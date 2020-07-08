@@ -59,14 +59,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_DetectionRate.FirstOrDefault(x => x.DetectionRateCode == this.txtDetectionRateCode.Text.Trim() && (x.DetectionRateId != this.DetectionRateId || (this.DetectionRateId == null && x.DetectionRateId != null)));
+            var q = new Model.SGGLDB(Funs.ConnString).Base_DetectionRate.FirstOrDefault(x => x.DetectionRateCode == this.txtDetectionRateCode.Text.Trim() && (x.DetectionRateId != this.DetectionRateId || (this.DetectionRateId == null && x.DetectionRateId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此探伤比例代号已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = Funs.DB.Base_DetectionRate.FirstOrDefault(x => x.DetectionRateValue == Funs.GetNewInt(this.txtDetectionRateValue.Text.Trim()) && (x.DetectionRateId != this.DetectionRateId || (this.DetectionRateId == null && x.DetectionRateId != null)));
+            var q2 = new Model.SGGLDB(Funs.ConnString).Base_DetectionRate.FirstOrDefault(x => x.DetectionRateValue == Funs.GetNewInt(this.txtDetectionRateValue.Text.Trim()) && (x.DetectionRateId != this.DetectionRateId || (this.DetectionRateId == null && x.DetectionRateId != null)));
             if (q2 != null)
             {
                 Alert.ShowInTop("此探伤比例值已经存在！", MessageBoxIcon.Warning);

@@ -85,6 +85,24 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
         
         /// <summary>
+        /// drpIsPass 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpIsPass;
+        
+        /// <summary>
+        /// btnSave 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnSave;
+        
+        /// <summary>
         /// btnNew 控件。
         /// </summary>
         /// <remarks>

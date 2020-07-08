@@ -213,14 +213,14 @@ namespace FineUIPro.Web.CQMS.WBS
             List<Model.WBS_WorkPackageProject> workPackages = new List<Model.WBS_WorkPackageProject>();
             if (parentId.Length == 1) //工程类型节点
             {
-                workPackages = (from x in BLL.Funs.DB.WBS_WorkPackageProject
+                workPackages = (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject
                                 where x.SuperWorkPack == null && x.ProjectId == this.CurrUser.LoginProjectId && x.ProjectType == parentId
                                 orderby x.PackageCode ascending
                                 select x).ToList();
             }
             else
             {
-                workPackages = (from x in BLL.Funs.DB.WBS_WorkPackageProject
+                workPackages = (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageProject
                                 where x.SuperWorkPack == parentId && x.ProjectId == this.CurrUser.LoginProjectId
                                 orderby x.PackageCode ascending
                                 select x).ToList();

@@ -7,7 +7,7 @@ namespace BLL
 {
    public static class EmergencyTypeService
    {
-       public static Model.SGGLDB db = Funs.DB;
+       public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
 
        /// <summary>
        /// 根据主键获取信息
@@ -16,7 +16,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.Base_EmergencyType GetEmergencyTypeById(string emergencyTypeId)
        {
-           return Funs.DB.Base_EmergencyType.FirstOrDefault(e => e.EmergencyTypeId == emergencyTypeId);
+           return new Model.SGGLDB(Funs.ConnString).Base_EmergencyType.FirstOrDefault(e => e.EmergencyTypeId == emergencyTypeId);
        }
 
        /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
        /// <param name="?"></param>
        public static void AddEmergencyType(Model.Base_EmergencyType emergencyType)
        {
-           Model.SGGLDB db = Funs.DB;
+           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.Base_EmergencyType newEmergencyType = new Model.Base_EmergencyType
             {
                 EmergencyTypeId = emergencyType.EmergencyTypeId,
@@ -44,7 +44,7 @@ namespace BLL
        /// <param name="teamGroup"></param>
        public static void UpdateEmergencyType(Model.Base_EmergencyType emergencyType)
        {
-           Model.SGGLDB db = Funs.DB;
+           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
            Model.Base_EmergencyType newEmergencyType = db.Base_EmergencyType.FirstOrDefault(e => e.EmergencyTypeId == emergencyType.EmergencyTypeId);
            if (newEmergencyType != null)
            {
@@ -61,7 +61,7 @@ namespace BLL
        /// <param name="emergencyTypeId"></param>
        public static void DeleteEmergencyTypeById(string emergencyTypeId)
        {
-           Model.SGGLDB db = Funs.DB;
+           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
            Model.Base_EmergencyType emergencyType = db.Base_EmergencyType.FirstOrDefault(e => e.EmergencyTypeId == emergencyTypeId);
            {
                db.Base_EmergencyType.DeleteOnSubmit(emergencyType);
@@ -75,7 +75,7 @@ namespace BLL
        /// <returns></returns>
        public static List<Model.Base_EmergencyType> GetEmergencyTypeList()
        {
-           var list = (from x in Funs.DB.Base_EmergencyType
+           var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_EmergencyType
                        where x.EmergencyTypeName != null
                        orderby x.EmergencyTypeCode select x).ToList();
            return list;
@@ -87,7 +87,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.Base_EmergencyType GetEmergencyTypeByName(string Name)
        {
-           return Funs.DB.Base_EmergencyType.FirstOrDefault(e => e.EmergencyTypeName == Name);
+           return new Model.SGGLDB(Funs.ConnString).Base_EmergencyType.FirstOrDefault(e => e.EmergencyTypeName == Name);
        }
 
        #region 应急响应类型

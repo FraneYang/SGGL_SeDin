@@ -27,8 +27,8 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     this.txtDesignerDate.Text = string.Format("{0:yyyy-MM-dd}", plan.DesignerDate);
                     this.txtInstallationNames.Text = WorkPostService.getWorkPostNamesWorkPostIds(plan.WorkPostId);
                     this.txtUnitName.Text = UnitService.getUnitNamesUnitIds(plan.UnitIds);
-                    var testPlanTraining = from x in Funs.DB.Training_PlanItem
-                                           join y in Funs.DB.Training_Training on x.TrainingEduId equals y.TrainingId
+                    var testPlanTraining = from x in new Model.SGGLDB(Funs.ConnString).Training_PlanItem
+                                           join y in new Model.SGGLDB(Funs.ConnString).Training_Training on x.TrainingEduId equals y.TrainingId
                                            where x.PlanId == planId
                                            orderby y.TrainingCode
                                            select y.TrainingName;

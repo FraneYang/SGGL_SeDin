@@ -47,7 +47,7 @@ namespace FineUIPro.Web.Personal
         /// </summary>
         private void Tab1LoadData()
         {
-            var user = Funs.DB.Sys_User.FirstOrDefault(x=>x.UserId == this.CurrUser.UserId);
+            var user = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x=>x.UserId == this.CurrUser.UserId);
             if (user != null)
             {
                 this.txtUserName.Text = user.UserName;
@@ -70,7 +70,7 @@ namespace FineUIPro.Web.Personal
                 {
                     this.drpNation.Text = NationVules.ConstText;
                 }
-                var units = Funs.DB.Base_Unit.FirstOrDefault(x=>x.UnitId == user.UnitId);
+                var units = new Model.SGGLDB(Funs.ConnString).Base_Unit.FirstOrDefault(x=>x.UnitId == user.UnitId);
                 if (units != null)
                 {
                     this.drpUnit.Text = units.UnitName;

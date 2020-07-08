@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_MonthReportDetail GetMonthReportDetailByMonthReportDetailId(string monthReportDetailId)
         {
-            return Funs.DB.SitePerson_MonthReportDetail.FirstOrDefault(x => x.MonthReportDetailId == monthReportDetailId);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail.FirstOrDefault(x => x.MonthReportDetailId == monthReportDetailId);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <param name="monthReportDetail">工作日报明细实体</param>
         public static void AddMonthReportDetail(Model.SitePerson_MonthReportDetail monthReportDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_MonthReportDetail newMonthReportDetail = new Model.SitePerson_MonthReportDetail
             {
                 MonthReportDetailId = monthReportDetail.MonthReportDetailId,
@@ -50,7 +50,7 @@ namespace BLL
         /// <param name="monthReportDetail">工作日报明细实体</param>
         public static void UpdateReportDetail(Model.SitePerson_MonthReportDetail monthReportDetail)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             Model.SitePerson_MonthReportDetail newMonthReportDetail = db.SitePerson_MonthReportDetail.FirstOrDefault(e => e.MonthReportDetailId == monthReportDetail.MonthReportDetailId);
             if (newMonthReportDetail != null)
             {
@@ -73,13 +73,13 @@ namespace BLL
         /// <param name="monthReportId">工作日报主键</param>
         public static void DeleteMonthReportDetailsByMonthReportId(string monthReportId)
         {
-            Model.SGGLDB db = Funs.DB;
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var monthReportDetail = (from x in db.SitePerson_MonthReportDetail where x.MonthReportId == monthReportId select x).ToList();
             if (monthReportDetail.Count() > 0)
             {
                 foreach (var item in monthReportDetail)
                 {
-                    var monthReportUnitDetail = from x in Funs.DB.SitePerson_MonthReportUnitDetail where x.MonthReportDetailId == item.MonthReportDetailId select x;
+                    var monthReportUnitDetail = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportUnitDetail where x.MonthReportDetailId == item.MonthReportDetailId select x;
                     if (monthReportUnitDetail.Count() > 0)
                     {
                         db.SitePerson_MonthReportUnitDetail.DeleteAllOnSubmit(monthReportUnitDetail);
@@ -100,7 +100,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_MonthReportDetail GetDayReportDetailByUnit(string unitId, string montReportId)
         {
-            return Funs.DB.SitePerson_MonthReportDetail.FirstOrDefault(e => e.UnitId == unitId && e.MonthReportId == montReportId);
+            return new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail.FirstOrDefault(e => e.UnitId == unitId && e.MonthReportId == montReportId);
         }
     }
 }

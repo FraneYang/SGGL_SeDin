@@ -21,17 +21,17 @@
                         DataKeyNames="PointBatchItemId" AllowColumnLocking="true" EnableColumnLines="true"
                         DataIDField="PointBatchItemId" EnableTextSelection="True" AllowSorting="true" SortField="PointBatchCode,WeldJointCode"
                         SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="false" IsDatabasePaging="true"
-                        PageSize="1000" EnableCheckBoxSelect="true">
+                        PageSize="1000" >
                         <Toolbars>
                             <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>                                    
                                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                     </f:ToolbarFill>
                                     <f:Button ID="btnAccept" Icon="Accept" Text="审核" runat="server" ToolTip="审核"
-                                        OnClick="btnAccept_Click">
+                                        OnClick="btnAccept_Click" Hidden="true">
                                     </f:Button>
                                     <f:Button ID="取消审核" Icon="ArrowUndo" Text="取消审核" runat="server" ToolTip="取消审核"
-                                        OnClick="btnCancelAccept_Click">
+                                        OnClick="btnCancelAccept_Click" Hidden="true">
                                     </f:Button>
                                     <f:Button ID="btnGenerate" Text="生成" ToolTip="生成" Icon="TableEdit" runat="server"
                                        OnClick="btnGenerate_Click" >
@@ -68,10 +68,10 @@
                                 DataField="PipingClassName" SortField="PipingClassName" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="100px">
                             </f:RenderField>
-                            <f:RenderField HeaderText="点口审核" ColumnID="PointIsAudit" DataField="PointIsAudit"
+                           <%-- <f:RenderField HeaderText="点口审核" ColumnID="PointIsAudit" DataField="PointIsAudit"
                                 SortField="PointIsAudit" FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
                                 Width="90px">
-                            </f:RenderField>
+                            </f:RenderField>--%>
                         </Columns>
                     </f:Grid>
                 </Items>

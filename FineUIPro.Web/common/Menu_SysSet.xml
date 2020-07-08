@@ -34,6 +34,7 @@
 <TreeNode id="179F286B-6DF8-414E-947F-82267076D4C8" Text="施工方案类型" NavigateUrl="BaseInfo/SolutionTempleteType.aspx"></TreeNode>
 <TreeNode id="4BB6AC40-D4D5-439B-85CC-100E431CF3F1" Text="安全措施" NavigateUrl="BaseInfo/SafetyMeasures.aspx"></TreeNode>
 <TreeNode id="D95CA72C-182C-4718-92A4-3F665E0FB660" Text="项目亮点" NavigateUrl="BaseInfo/PictureType.aspx"></TreeNode>
+<TreeNode id="3EC2676A-70EB-400E-BE17-EEBBA0B7E9D7" Text="安全巡检类型" NavigateUrl="BaseInfo/HazardRegisterTypes.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="85DFE1D3-9E68-46B5-87E5-A525698F2F5F" Text="焊接设置" NavigateUrl=""><TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0013" Text="管道材质" NavigateUrl="HJGL/BaseInfo/Material.aspx"></TreeNode>
 <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0011" Text="管道规格" NavigateUrl="HJGL/BaseInfo/Control.aspx"></TreeNode>

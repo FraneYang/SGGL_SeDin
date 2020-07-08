@@ -68,7 +68,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                 //新增初始化
                 if (!string.IsNullOrEmpty(this.HazardRegisterId))
                 {
-                    Model.View_Hazard_HazardRegister registration = (from x in BLL.Funs.DB.View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
+                    Model.View_Hazard_HazardRegister registration = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
                     if (registration != null)
                     {
                         this.txtUnitName.Text = registration.ResponsibilityUnitName;
