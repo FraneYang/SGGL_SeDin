@@ -232,73 +232,76 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SpSysUserItem> GetProjectRoleUserListByProjectId(string projectId, string unitId)
         {
-            IQueryable<Model.SpSysUserItem> users = null;
-            if (!string.IsNullOrEmpty(projectId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                List<Model.SpSysUserItem> returUsers = new List<Model.SpSysUserItem>();
-                List<Model.Project_ProjectUser> getPUser = new List<Model.Project_ProjectUser>();
-                if (!string.IsNullOrEmpty(unitId))
+                IQueryable<Model.SpSysUserItem> users = null;
+                if (!string.IsNullOrEmpty(projectId))
                 {
-                    getPUser = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                                join u in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on new { x.ProjectId, x.UnitId } equals new { u.ProjectId, u.UnitId }
-                                where x.ProjectId == projectId && (u.UnitId == unitId || u.UnitType == BLL.Const.ProjectUnitType_1 || u.UnitType == BLL.Const.ProjectUnitType_3 || u.UnitType == BLL.Const.ProjectUnitType_4)
-                                select x).ToList();
-                }
-                else
-                {
-                    getPUser = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                                where x.ProjectId == projectId
-                                select x).ToList();
-                }
-
-                if (getPUser.Count() > 0)
-                {
-                    foreach (var item in getPUser)
+                    List<Model.SpSysUserItem> returUsers = new List<Model.SpSysUserItem>();
+                    List<Model.Project_ProjectUser> getPUser = new List<Model.Project_ProjectUser>();
+                    if (!string.IsNullOrEmpty(unitId))
                     {
-                        List<string> roleIdList = Funs.GetStrListByStr(item.RoleId,',');
-                        var getRoles = new Model.SGGLDB(Funs.ConnString).Sys_Role.FirstOrDefault(x => x.IsAuditFlow == true && roleIdList.Contains(x.RoleId));
-                        if (getRoles != null)
+                        getPUser = (from x in db.Project_ProjectUser
+                                    join u in db.Project_ProjectUnit on new { x.ProjectId, x.UnitId } equals new { u.ProjectId, u.UnitId }
+                                    where x.ProjectId == projectId && (u.UnitId == unitId || u.UnitType == BLL.Const.ProjectUnitType_1 || u.UnitType == BLL.Const.ProjectUnitType_3 || u.UnitType == BLL.Const.ProjectUnitType_4)
+                                    select x).ToList();
+                    }
+                    else
+                    {
+                        getPUser = (from x in db.Project_ProjectUser
+                                    where x.ProjectId == projectId
+                                    select x).ToList();
+                    }
+
+                    if (getPUser.Count() > 0)
+                    {
+                        foreach (var item in getPUser)
                         {
-                            string userName = RoleService.getRoleNamesRoleIds(item.RoleId) + "-" + UserService.GetUserNameByUserId(item.UserId);
-                            Model.SpSysUserItem newsysUser = new Model.SpSysUserItem
+                            List<string> roleIdList = Funs.GetStrListByStr(item.RoleId, ',');
+                            var getRoles = db.Sys_Role.FirstOrDefault(x => x.IsAuditFlow == true && roleIdList.Contains(x.RoleId));
+                            if (getRoles != null)
                             {
-                                UserId = item.UserId,
-                                UserName = userName,
-                            };
-                            returUsers.Add(newsysUser);
+                                string userName = RoleService.getRoleNamesRoleIds(item.RoleId) + "-" + UserService.GetUserNameByUserId(item.UserId);
+                                Model.SpSysUserItem newsysUser = new Model.SpSysUserItem
+                                {
+                                    UserId = item.UserId,
+                                    UserName = userName,
+                                };
+                                returUsers.Add(newsysUser);
+                            }
                         }
                     }
-                }
-                return returUsers;
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(unitId))
-                {
-                    users = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                             join z in new Model.SGGLDB(Funs.ConnString).Sys_Role on x.RoleId equals z.RoleId
-                             where x.IsPost == true && z.IsAuditFlow == true && x.UnitId == unitId
-                             orderby x.UserCode
-                             select new Model.SpSysUserItem
-                             {
-                                 UserName = z.RoleName + "- " + x.UserName,
-                                 UserId = x.UserId,
-                             });
+                    return returUsers;
                 }
                 else
                 {
-                    users = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                             join z in new Model.SGGLDB(Funs.ConnString).Sys_Role on x.RoleId equals z.RoleId
-                             where x.IsPost == true && z.IsAuditFlow == true
-                             orderby x.UserCode
-                             select new Model.SpSysUserItem
-                             {
-                                 UserName = z.RoleName + "- " + x.UserName,
-                                 UserId = x.UserId,
-                             });
+                    if (!string.IsNullOrEmpty(unitId))
+                    {
+                        users = (from x in db.Sys_User
+                                 join z in db.Sys_Role on x.RoleId equals z.RoleId
+                                 where x.IsPost == true && z.IsAuditFlow == true && x.UnitId == unitId
+                                 orderby x.UserCode
+                                 select new Model.SpSysUserItem
+                                 {
+                                     UserName = z.RoleName + "- " + x.UserName,
+                                     UserId = x.UserId,
+                                 });
+                    }
+                    else
+                    {
+                        users = (from x in db.Sys_User
+                                 join z in db.Sys_Role on x.RoleId equals z.RoleId
+                                 where x.IsPost == true && z.IsAuditFlow == true
+                                 orderby x.UserCode
+                                 select new Model.SpSysUserItem
+                                 {
+                                     UserName = z.RoleName + "- " + x.UserName,
+                                     UserId = x.UserId,
+                                 });
+                    }
                 }
+                return users.ToList();
             }
-            return users.ToList();
         }
 
         /// <summary>
@@ -307,37 +310,40 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetUserListByProjectIdAndUnitId(string projectId, string unitId)
         {
-            List<Model.Sys_User> list = new List<Model.Sys_User>();
-            if (!string.IsNullOrEmpty(projectId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(unitId))
+                List<Model.Sys_User> list = new List<Model.Sys_User>();
+                if (!string.IsNullOrEmpty(projectId))
                 {
-                    list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                            join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                            on x.UserId equals y.UserId
-                            where y.ProjectId == projectId && x.UnitId == unitId
-                            orderby x.UserName
-                            select x).ToList();
+                    if (!string.IsNullOrEmpty(unitId))
+                    {
+                        list = (from x in db.Sys_User
+                                join y in db.Project_ProjectUser
+                                on x.UserId equals y.UserId
+                                where y.ProjectId == projectId && x.UnitId == unitId
+                                orderby x.UserName
+                                select x).ToList();
+                    }
+                    else
+                    {
+                        list = (from x in db.Sys_User
+                                join y in db.Project_ProjectUser
+                                on x.UserId equals y.UserId
+                                where y.ProjectId == projectId
+                                orderby x.UserName
+                                select x).ToList();
+                    }
+
                 }
                 else
                 {
-                    list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                            join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                            on x.UserId equals y.UserId
-                            where y.ProjectId == projectId 
+                    list = (from x in db.Sys_User
+                            where x.UnitId == unitId
                             orderby x.UserName
                             select x).ToList();
                 }
-               
+                return list;
             }
-            else
-            {
-                list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        where x.UnitId == unitId
-                        orderby x.UserName
-                        select x).ToList();
-            }
-            return list;
         }
 
         /// <summary>
@@ -346,20 +352,23 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetProjectUserListByProjectId(string projectId)
         {
-            var users = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                         where x.IsPost == true && x.UserId != Const.hfnbdId && x.UserId != Const.sedinId
-                         orderby x.UserName
-                         select x).ToList();
-            if (!string.IsNullOrEmpty(projectId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                users = (from x in users
-                         join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.UserId equals y.UserId
-                         where y.ProjectId == projectId
-                         orderby x.UserName
-                         select x).ToList();
-            }
+                var users = (from x in db.Sys_User
+                             where x.IsPost == true && x.UserId != Const.hfnbdId && x.UserId != Const.sedinId
+                             orderby x.UserName
+                             select x).ToList();
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    users = (from x in users
+                             join y in db.Project_ProjectUser on x.UserId equals y.UserId
+                             where y.ProjectId == projectId
+                             orderby x.UserName
+                             select x).ToList();
+                }
 
-            return users;
+                return users;
+            }
         }
         
         /// <summary>
@@ -368,43 +377,46 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetUserListByProjectIdAndRoleId(string projectId, string roleIds)
         {
-            List<string> listRoles = Funs.GetStrListByStr(roleIds, ',');
-            List<Model.Sys_User> list = new List<Model.Sys_User>();
-            if (!string.IsNullOrEmpty(projectId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (listRoles.Count() > 0)
+                List<string> listRoles = Funs.GetStrListByStr(roleIds, ',');
+                List<Model.Sys_User> list = new List<Model.Sys_User>();
+                if (!string.IsNullOrEmpty(projectId))
                 {
-                    list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                            join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                            on x.UserId equals y.UserId
-                            where y.ProjectId == projectId && listRoles.Contains(y.RoleId)
-                            orderby x.UserName
-                            select x).ToList();
+                    if (listRoles.Count() > 0)
+                    {
+                        list = (from x in db.Sys_User
+                                join y in db.Project_ProjectUser
+                                on x.UserId equals y.UserId
+                                where y.ProjectId == projectId && listRoles.Contains(y.RoleId)
+                                orderby x.UserName
+                                select x).ToList();
+                    }
+                    else
+                    {
+                        list = (from x in db.Sys_User
+                                join y in db.Project_ProjectUser
+                                on x.UserId equals y.UserId
+                                where y.ProjectId == projectId
+                                orderby x.UserName
+                                select x).ToList();
+                    }
                 }
                 else
                 {
-                    list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                            join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                            on x.UserId equals y.UserId
-                            where y.ProjectId == projectId
+                    list = (from x in db.Sys_User
+                            where x.UserId != BLL.Const.hfnbdId && x.UserId != Const.sedinId
                             orderby x.UserName
                             select x).ToList();
-                }
-            }
-            else
-            {
-                list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        where x.UserId != BLL.Const.hfnbdId && x.UserId != Const.sedinId
-                        orderby x.UserName
-                        select x).ToList();
 
-                if (listRoles.Count() > 0)
-                {
-                    list = list.Where(x => listRoles.Contains(x.RoleId)).ToList();
+                    if (listRoles.Count() > 0)
+                    {
+                        list = list.Where(x => listRoles.Contains(x.RoleId)).ToList();
+                    }
                 }
-            }
 
-            return list;
+                return list;
+            }
         }
 
         #region 用户下拉框
@@ -503,61 +515,64 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetSeeUserList(string projectId, string subUnitId, string cNProfessionalCode, string unitWorkId, string subUserId, string mainUserId)
         {
-            List<Model.Sys_User> users = new List<Model.Sys_User>();
-            //分包用户
-            var q1 = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                      join y in new Model.SGGLDB(Funs.ConnString).Sys_Role
-                      on x.RoleId equals y.RoleId
-                      where x.IsPost == true && x.UnitId == subUnitId
-                      && y.CNCodes.Contains(cNProfessionalCode)
-                          && x.UserId != subUserId
-                          && x.ProjectId == projectId
-                      orderby x.UserId
-                      select x).ToList();
-            foreach (var item in q1)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(item.WorkAreaId))
+                List<Model.Sys_User> users = new List<Model.Sys_User>();
+                //分包用户
+                var q1 = (from x in db.Project_ProjectUser
+                          join y in db.Sys_Role
+                          on x.RoleId equals y.RoleId
+                          where x.IsPost == true && x.UnitId == subUnitId
+                          && y.CNCodes.Contains(cNProfessionalCode)
+                              && x.UserId != subUserId
+                              && x.ProjectId == projectId
+                          orderby x.UserId
+                          select x).ToList();
+                foreach (var item in q1)
                 {
-                    string[] workAreas = item.WorkAreaId.Split(',');
-                    foreach (var workArea in workAreas)
+                    if (!string.IsNullOrEmpty(item.WorkAreaId))
                     {
-                        if (workArea == unitWorkId)
+                        string[] workAreas = item.WorkAreaId.Split(',');
+                        foreach (var workArea in workAreas)
                         {
-                            users.Add(GetUserByUserId(item.UserId));
+                            if (workArea == unitWorkId)
+                            {
+                                users.Add(GetUserByUserId(item.UserId));
+                            }
                         }
                     }
                 }
-            }
-            //总包用户
-            Model.Base_Unit mainUnit = BLL.UnitService.GetUnitByProjectIdUnitTypeList(projectId, Const.ProjectUnitType_1)[0];
-            string mainUnitId = string.Empty;
-            if (mainUnit != null)
-            {
-                mainUnitId = mainUnit.UnitId;
-            }
-            var q2 = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                      join y in new Model.SGGLDB(Funs.ConnString).Sys_Role
-                      on x.RoleId equals y.RoleId
-                      where x.IsPost == true && x.UnitId == mainUnitId && y.CNCodes.Contains(cNProfessionalCode)
-                          && x.UserId != mainUserId
-                          && x.ProjectId == projectId
-                      orderby x.UserId
-                      select x).ToList();
-            foreach (var item in q2)
-            {
-                if (!string.IsNullOrEmpty(item.WorkAreaId))
+                //总包用户
+                Model.Base_Unit mainUnit = BLL.UnitService.GetUnitByProjectIdUnitTypeList(projectId, Const.ProjectUnitType_1)[0];
+                string mainUnitId = string.Empty;
+                if (mainUnit != null)
                 {
-                    string[] workAreas = item.WorkAreaId.Split(',');
-                    foreach (var workArea in workAreas)
+                    mainUnitId = mainUnit.UnitId;
+                }
+                var q2 = (from x in db.Project_ProjectUser
+                          join y in db.Sys_Role
+                          on x.RoleId equals y.RoleId
+                          where x.IsPost == true && x.UnitId == mainUnitId && y.CNCodes.Contains(cNProfessionalCode)
+                              && x.UserId != mainUserId
+                              && x.ProjectId == projectId
+                          orderby x.UserId
+                          select x).ToList();
+                foreach (var item in q2)
+                {
+                    if (!string.IsNullOrEmpty(item.WorkAreaId))
                     {
-                        if (workArea == unitWorkId)
+                        string[] workAreas = item.WorkAreaId.Split(',');
+                        foreach (var workArea in workAreas)
                         {
-                            users.Add(GetUserByUserId(item.UserId));
+                            if (workArea == unitWorkId)
+                            {
+                                users.Add(GetUserByUserId(item.UserId));
+                            }
                         }
                     }
                 }
+                return users;
             }
-            return users;
         }
 
         /// <summary>
@@ -594,31 +609,34 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetUserByUnitId(string projectId, string unitId)
         {
-            var user = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        where x.IsPost == true
-                        orderby x.UserId
-                        select x).ToList();
-            if (!string.IsNullOrEmpty(projectId) && !string.IsNullOrEmpty(unitId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                user = (from x in user
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.UserId equals y.UserId
-                        where (y.ProjectId == projectId && y.UnitId == unitId)
-                        select x).ToList();
-            }
-            else
-            {
-                user = (from x in user
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.UserId equals y.UserId
-                        where (y.ProjectId == projectId)
-                        select x).ToList();
-            }
+                var user = (from x in db.Sys_User
+                            where x.IsPost == true
+                            orderby x.UserId
+                            select x).ToList();
+                if (!string.IsNullOrEmpty(projectId) && !string.IsNullOrEmpty(unitId))
+                {
+                    user = (from x in user
+                            join y in db.Project_ProjectUser on x.UserId equals y.UserId
+                            where (y.ProjectId == projectId && y.UnitId == unitId)
+                            select x).ToList();
+                }
+                else
+                {
+                    user = (from x in user
+                            join y in db.Project_ProjectUser on x.UserId equals y.UserId
+                            where (y.ProjectId == projectId)
+                            select x).ToList();
+                }
 
-            ListItem[] lis = new ListItem[user.Count()];
-            for (int i = 0; i < user.Count(); i++)
-            {
-                lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                ListItem[] lis = new ListItem[user.Count()];
+                for (int i = 0; i < user.Count(); i++)
+                {
+                    lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                }
+                return lis;
             }
-            return lis;
         }
 
         /// <summary>
@@ -628,18 +646,21 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetMainUserList(string projectId)
         {
-            var user = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.UserId equals y.UserId
-                        join z in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals z.UnitId
-                        where x.IsPost == true && y.ProjectId == projectId && z.ProjectId ==projectId && z.UnitType == Const.ProjectUnitType_1
-                        orderby x.UserId
-                        select x).ToList();
-            ListItem[] lis = new ListItem[user.Count()];
-            for (int i = 0; i < user.Count(); i++)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                var user = (from x in db.Sys_User
+                            join y in db.Project_ProjectUser on x.UserId equals y.UserId
+                            join z in db.Project_ProjectUnit on x.UnitId equals z.UnitId
+                            where x.IsPost == true && y.ProjectId == projectId && z.ProjectId == projectId && z.UnitType == Const.ProjectUnitType_1
+                            orderby x.UserId
+                            select x).ToList();
+                ListItem[] lis = new ListItem[user.Count()];
+                for (int i = 0; i < user.Count(); i++)
+                {
+                    lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                }
+                return lis;
             }
-            return lis;
         }
 
         public static void Init(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
@@ -660,102 +681,18 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetSeeUserList2(string projectId, string subUnitId, string cNProfessionalCode, string unitWorkId, string mainUserId)
         {
-            List<Model.Sys_User> users = new List<Model.Sys_User>();
-            //分包用户
-            var q1 = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                      join y in new Model.SGGLDB(Funs.ConnString).Sys_Role
-                      on x.RoleId equals y.RoleId
-                      where x.IsPost == true && x.UnitId == subUnitId && y.CNCodes.Contains(cNProfessionalCode)
-                          && x.ProjectId == projectId
-                      orderby x.UserId
-                      select x).ToList();
-            foreach (var item in q1)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(item.WorkAreaId))
-                {
-                    string[] workAreas = item.WorkAreaId.Split(',');
-                    foreach (var workArea in workAreas)
-                    {
-                        if (workArea == unitWorkId)
-                        {
-                            users.Add(GetUserByUserId(item.UserId));
-                        }
-                    }
-                }
-            }
-            //总包用户
-            Model.Base_Unit mainUnit = BLL.UnitService.GetUnitByProjectIdUnitTypeList(projectId, Const.ProjectUnitType_1)[0];
-            string mainUnitId = string.Empty;
-            if (mainUnit != null)
-            {
-                mainUnitId = mainUnit.UnitId;
-            }
-            var q2 = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                      join y in new Model.SGGLDB(Funs.ConnString).Sys_Role
-                      on x.RoleId equals y.RoleId
-                      where x.IsPost == true && x.UnitId == mainUnitId && y.CNCodes.Contains(cNProfessionalCode)
-                          && x.UserId != mainUserId
-                          && x.ProjectId == projectId
-                      orderby x.UserId
-                      select x).ToList();
-            foreach (var item in q2)
-            {
-                if (!string.IsNullOrEmpty(item.WorkAreaId))
-                {
-                    string[] workAreas = item.WorkAreaId.Split(',');
-                    foreach (var workArea in workAreas)
-                    {
-                        if (workArea == unitWorkId)
-                        {
-                            users.Add(GetUserByUserId(item.UserId));
-                        }
-                    }
-                }
-            }
-            return users;
-        }
-
-        /// <summary>
-        /// 根据施工单位、单位工程、专业获取查看信息用户 
-        /// </summary>
-        /// <returns></returns>
-        public static List<Model.Sys_User> GetSeeUserList3(string projectId, string unitId1, string unitId2, string unitId3, string cNProfessionalCode, string unitWorkId)
-        {
-            List<Model.Sys_User> users = new List<Model.Sys_User>();
-            var q1 = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                      join y in new Model.SGGLDB(Funs.ConnString).Sys_Role
-                      on x.RoleId equals y.RoleId
-                      where x.IsPost == true && (x.UnitId == unitId1 || x.UnitId == unitId2) && y.CNCodes.Contains(cNProfessionalCode)
-                          && x.ProjectId == projectId
-                      orderby x.UserId
-                      select x).ToList();
-            foreach (var item in q1)
-            {
-                if (!string.IsNullOrEmpty(item.WorkAreaId))
-                {
-                    string[] workAreas = item.WorkAreaId.Split(',');
-                    foreach (var workArea in workAreas)
-                    {
-                        if (workArea == unitWorkId)
-                        {
-                            users.Add(GetUserByUserId(item.UserId));
-                        }
-                    }
-                }
-            }
-            if (!string.IsNullOrEmpty(unitId3))
-            {
-                var q2 = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                          join y in new Model.SGGLDB(Funs.ConnString).Sys_Role
+                List<Model.Sys_User> users = new List<Model.Sys_User>();
+                //分包用户
+                var q1 = (from x in db.Project_ProjectUser
+                          join y in db.Sys_Role
                           on x.RoleId equals y.RoleId
-                          where x.IsPost == true && y.CNCodes.Contains(cNProfessionalCode)
+                          where x.IsPost == true && x.UnitId == subUnitId && y.CNCodes.Contains(cNProfessionalCode)
                               && x.ProjectId == projectId
                           orderby x.UserId
                           select x).ToList();
-                var q3 = (from x in q2
-                          where unitId3.Split(',').Contains(x.UnitId)
-                          select x).ToList();
-                foreach (var item in q3)
+                foreach (var item in q1)
                 {
                     if (!string.IsNullOrEmpty(item.WorkAreaId))
                     {
@@ -769,8 +706,98 @@ namespace BLL
                         }
                     }
                 }
+                //总包用户
+                Model.Base_Unit mainUnit = BLL.UnitService.GetUnitByProjectIdUnitTypeList(projectId, Const.ProjectUnitType_1)[0];
+                string mainUnitId = string.Empty;
+                if (mainUnit != null)
+                {
+                    mainUnitId = mainUnit.UnitId;
+                }
+                var q2 = (from x in db.Project_ProjectUser
+                          join y in db.Sys_Role
+                          on x.RoleId equals y.RoleId
+                          where x.IsPost == true && x.UnitId == mainUnitId && y.CNCodes.Contains(cNProfessionalCode)
+                              && x.UserId != mainUserId
+                              && x.ProjectId == projectId
+                          orderby x.UserId
+                          select x).ToList();
+                foreach (var item in q2)
+                {
+                    if (!string.IsNullOrEmpty(item.WorkAreaId))
+                    {
+                        string[] workAreas = item.WorkAreaId.Split(',');
+                        foreach (var workArea in workAreas)
+                        {
+                            if (workArea == unitWorkId)
+                            {
+                                users.Add(GetUserByUserId(item.UserId));
+                            }
+                        }
+                    }
+                }
+                return users;
             }
-            return users;
+        }
+
+        /// <summary>
+        /// 根据施工单位、单位工程、专业获取查看信息用户 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetSeeUserList3(string projectId, string unitId1, string unitId2, string unitId3, string cNProfessionalCode, string unitWorkId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.Sys_User> users = new List<Model.Sys_User>();
+                var q1 = (from x in db.Project_ProjectUser
+                          join y in db.Sys_Role
+                          on x.RoleId equals y.RoleId
+                          where x.IsPost == true && (x.UnitId == unitId1 || x.UnitId == unitId2) && y.CNCodes.Contains(cNProfessionalCode)
+                              && x.ProjectId == projectId
+                          orderby x.UserId
+                          select x).ToList();
+                foreach (var item in q1)
+                {
+                    if (!string.IsNullOrEmpty(item.WorkAreaId))
+                    {
+                        string[] workAreas = item.WorkAreaId.Split(',');
+                        foreach (var workArea in workAreas)
+                        {
+                            if (workArea == unitWorkId)
+                            {
+                                users.Add(GetUserByUserId(item.UserId));
+                            }
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(unitId3))
+                {
+                    var q2 = (from x in db.Project_ProjectUser
+                              join y in db.Sys_Role
+                              on x.RoleId equals y.RoleId
+                              where x.IsPost == true && y.CNCodes.Contains(cNProfessionalCode)
+                                  && x.ProjectId == projectId
+                              orderby x.UserId
+                              select x).ToList();
+                    var q3 = (from x in q2
+                              where unitId3.Split(',').Contains(x.UnitId)
+                              select x).ToList();
+                    foreach (var item in q3)
+                    {
+                        if (!string.IsNullOrEmpty(item.WorkAreaId))
+                        {
+                            string[] workAreas = item.WorkAreaId.Split(',');
+                            foreach (var workArea in workAreas)
+                            {
+                                if (workArea == unitWorkId)
+                                {
+                                    users.Add(GetUserByUserId(item.UserId));
+                                }
+                            }
+                        }
+                    }
+                }
+                return users;
+            }
         }
 
         /// <summary>
@@ -808,31 +835,34 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetUserByUnitIds(string projectId, string unitIds)
         {
-            var user = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        where x.IsPost == true
-                        orderby x.UserId
-                        select x).ToList();
-            if (!string.IsNullOrEmpty(projectId) && !string.IsNullOrEmpty(unitIds))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                user = (from x in user
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.UserId equals y.UserId
-                        where (y.ProjectId == projectId && unitIds.Split(',').Contains(y.UnitId))
-                        select x).ToList();
-            }
-            else
-            {
-                user = (from x in user
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.UserId equals y.UserId
-                        where (y.ProjectId == projectId)
-                        select x).ToList();
-            }
+                var user = (from x in db.Sys_User
+                            where x.IsPost == true
+                            orderby x.UserId
+                            select x).ToList();
+                if (!string.IsNullOrEmpty(projectId) && !string.IsNullOrEmpty(unitIds))
+                {
+                    user = (from x in user
+                            join y in db.Project_ProjectUser on x.UserId equals y.UserId
+                            where (y.ProjectId == projectId && unitIds.Split(',').Contains(y.UnitId))
+                            select x).ToList();
+                }
+                else
+                {
+                    user = (from x in user
+                            join y in db.Project_ProjectUser on x.UserId equals y.UserId
+                            where (y.ProjectId == projectId)
+                            select x).ToList();
+                }
 
-            ListItem[] lis = new ListItem[user.Count()];
-            for (int i = 0; i < user.Count(); i++)
-            {
-                lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                ListItem[] lis = new ListItem[user.Count()];
+                for (int i = 0; i < user.Count(); i++)
+                {
+                    lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                }
+                return lis;
             }
-            return lis;
         }
 
         /// <summary>
@@ -841,15 +871,18 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetSeeUserListByRole(string projectId, string unitId, string role1, string role2, string role3, string role4)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                    join z in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                    on x.UserId equals z.UserId
-                    join y in new Model.SGGLDB(Funs.ConnString).Sys_Role
-                    on z.RoleId equals y.RoleId
-                    where x.IsPost == true && x.UnitId == unitId && (y.RoleId == role1 || y.RoleId == role2 || y.RoleId == role3 || y.RoleId == role4)
-                        && z.ProjectId == projectId
-                    orderby x.UserId
-                    select x).Distinct().ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.Sys_User
+                        join z in db.Project_ProjectUser
+                        on x.UserId equals z.UserId
+                        join y in db.Sys_Role
+                        on z.RoleId equals y.RoleId
+                        where x.IsPost == true && x.UnitId == unitId && (y.RoleId == role1 || y.RoleId == role2 || y.RoleId == role3 || y.RoleId == role4)
+                            && z.ProjectId == projectId
+                        orderby x.UserId
+                        select x).Distinct().ToList();
+            }
         }
 
         /// <summary>
@@ -858,35 +891,38 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetSeeUserList4(string projectId, string unitId1, string unitId2, string unitId3)
         {
-            List<Model.Sys_User> users = new List<Model.Sys_User>();
-            var q1 = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                      join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                      on x.UserId equals y.UserId
-                      where x.IsPost == true && x.UnitId == unitId1 && y.ProjectId == projectId
-                      orderby x.UserId
-                      select x).ToList();
-            users.AddRange(q1);
-            if (!string.IsNullOrEmpty(unitId2))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var q2 = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                         join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                         on x.UserId equals y.UserId
-                         where y.ProjectId == projectId && x.IsPost == true
-                         select x;
-                var q3 = (from x in q2 where unitId2.Split(',').Contains(x.UnitId) select x).ToList();
-                users.AddRange(q3);
+                List<Model.Sys_User> users = new List<Model.Sys_User>();
+                var q1 = (from x in db.Sys_User
+                          join y in db.Project_ProjectUser
+                          on x.UserId equals y.UserId
+                          where x.IsPost == true && x.UnitId == unitId1 && y.ProjectId == projectId
+                          orderby x.UserId
+                          select x).ToList();
+                users.AddRange(q1);
+                if (!string.IsNullOrEmpty(unitId2))
+                {
+                    var q2 = from x in db.Sys_User
+                             join y in db.Project_ProjectUser
+                             on x.UserId equals y.UserId
+                             where y.ProjectId == projectId && x.IsPost == true
+                             select x;
+                    var q3 = (from x in q2 where unitId2.Split(',').Contains(x.UnitId) select x).ToList();
+                    users.AddRange(q3);
+                }
+                if (!string.IsNullOrEmpty(unitId3))
+                {
+                    var q4 = from x in db.Sys_User
+                             join y in db.Project_ProjectUser
+                             on x.UserId equals y.UserId
+                             where y.ProjectId == projectId && x.IsPost == true
+                             select x;
+                    var q5 = (from x in q4 where unitId3.Split(',').Contains(x.UnitId) select x).ToList();
+                    users.AddRange(q5);
+                }
+                return users;
             }
-            if (!string.IsNullOrEmpty(unitId3))
-            {
-                var q4 = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                         join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                         on x.UserId equals y.UserId
-                         where y.ProjectId == projectId && x.IsPost == true
-                         select x;
-                var q5 = (from x in q4 where unitId3.Split(',').Contains(x.UnitId) select x).ToList();
-                users.AddRange(q5);
-            }
-            return users;
         }
 
         /// <summary>
@@ -914,20 +950,23 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetJLUserList(string projectId)
         {
-            var user = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                        on x.UserId equals y.UserId
-                        join z in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                        on y.UnitId equals z.UnitId
-                        where x.IsPost == true && y.ProjectId == projectId && z.UnitType == BLL.Const.ProjectUnitType_3
-                        orderby x.UserId
-                        select x).ToList();
-            ListItem[] lis = new ListItem[user.Count()];
-            for (int i = 0; i < user.Count(); i++)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                var user = (from x in db.Sys_User
+                            join y in db.Project_ProjectUser
+                            on x.UserId equals y.UserId
+                            join z in db.Project_ProjectUnit
+                            on y.UnitId equals z.UnitId
+                            where x.IsPost == true && y.ProjectId == projectId && z.UnitType == BLL.Const.ProjectUnitType_3
+                            orderby x.UserId
+                            select x).ToList();
+                ListItem[] lis = new ListItem[user.Count()];
+                for (int i = 0; i < user.Count(); i++)
+                {
+                    lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                }
+                return lis;
             }
-            return lis;
         }
 
         /// <summary>
@@ -955,20 +994,23 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetYZUserList(string projectId)
         {
-            var user = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                        on x.UserId equals y.UserId
-                        join z in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                        on y.UnitId equals z.UnitId
-                        where x.IsPost == true && y.ProjectId == projectId && z.UnitType == BLL.Const.ProjectUnitType_4
-                        orderby x.UserId
-                        select x).ToList();
-            ListItem[] lis = new ListItem[user.Count()];
-            for (int i = 0; i < user.Count(); i++)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                var user = (from x in db.Sys_User
+                            join y in db.Project_ProjectUser
+                            on x.UserId equals y.UserId
+                            join z in db.Project_ProjectUnit
+                            on y.UnitId equals z.UnitId
+                            where x.IsPost == true && y.ProjectId == projectId && z.UnitType == BLL.Const.ProjectUnitType_4
+                            orderby x.UserId
+                            select x).ToList();
+                ListItem[] lis = new ListItem[user.Count()];
+                for (int i = 0; i < user.Count(); i++)
+                {
+                    lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                }
+                return lis;
             }
-            return lis;
         }
 
         /// <summary>
@@ -994,19 +1036,22 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetUserListByProjectIdAndUnitType(string projectId, string unitType)
         {
-            List<Model.Sys_User> list = new List<Model.Sys_User>();
-            if (!string.IsNullOrEmpty(projectId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                        on x.UserId equals y.UserId
-                        join z in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                        on x.UnitId equals z.UnitId
-                        where y.ProjectId == projectId && z.UnitType == unitType
-                        orderby x.UserName
-                        select x).ToList();
+                List<Model.Sys_User> list = new List<Model.Sys_User>();
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    list = (from x in db.Sys_User
+                            join y in db.Project_ProjectUser
+                            on x.UserId equals y.UserId
+                            join z in db.Project_ProjectUnit
+                            on x.UnitId equals z.UnitId
+                            where y.ProjectId == projectId && z.UnitType == unitType
+                            orderby x.UserName
+                            select x).ToList();
+                }
+                return list;
             }
-            return list;
         }
 
         #region 根据多用户ID得到用户名称字符串
@@ -1047,21 +1092,24 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetProjectUserListByProjectIdForApi(string projectId, string name)
         {
-            var users = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                         where x.IsPost == true && x.UserId != BLL.Const.hfnbdId
-                         where name == "" || x.UserName.Contains(name)
-                         orderby x.UserName
-                         select x).ToList();
-            if (!string.IsNullOrEmpty(projectId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                users = (from x in users
-                         join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.UserId equals y.UserId
-                         where y.ProjectId == projectId
-                         orderby x.UserName
-                         select x).ToList();
-            }
+                var users = (from x in db.Sys_User
+                             where x.IsPost == true && x.UserId != BLL.Const.hfnbdId
+                             where name == "" || x.UserName.Contains(name)
+                             orderby x.UserName
+                             select x).ToList();
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    users = (from x in users
+                             join y in db.Project_ProjectUser on x.UserId equals y.UserId
+                             where y.ProjectId == projectId
+                             orderby x.UserName
+                             select x).ToList();
+                }
 
-            return users;
+                return users;
+            }
         }
 
         /// <summary>
@@ -1074,33 +1122,36 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetProjectUserListByProjectIdForApi(string projectId, string unitId, string unitType, string name)
         {
-            List<Model.Sys_User> list = new List<Model.Sys_User>();
-            if (!string.IsNullOrEmpty(projectId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                string[] unitTypes = { };
-                string[] unitIds = { };
+                List<Model.Sys_User> list = new List<Model.Sys_User>();
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    string[] unitTypes = { };
+                    string[] unitIds = { };
 
-                if (!string.IsNullOrEmpty(unitType))
-                {
-                    unitTypes = unitType.Split(',');
+                    if (!string.IsNullOrEmpty(unitType))
+                    {
+                        unitTypes = unitType.Split(',');
+                    }
+                    if (!string.IsNullOrEmpty(unitId))
+                    {
+                        unitIds = unitId.Split(',');
+                    }
+                    list = (from x in db.Sys_User
+                            join y in db.Project_ProjectUser
+                            on x.UserId equals y.UserId
+                            join z in db.Project_ProjectUnit
+                            on x.UnitId equals z.UnitId
+                            where name == "" || x.UserName.Contains(name)
+                            where y.ProjectId == projectId
+                            where unitType == "" || unitTypes.Contains(z.UnitType)
+                            where unitId == "" || unitIds.Contains(z.UnitId)
+                            orderby x.UserName
+                            select x).ToList();
                 }
-                if (!string.IsNullOrEmpty(unitId))
-                {
-                    unitIds = unitId.Split(',');
-                }
-                list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                        on x.UserId equals y.UserId
-                        join z in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                        on x.UnitId equals z.UnitId
-                        where name == "" || x.UserName.Contains(name)
-                        where y.ProjectId == projectId
-                        where unitType == "" || unitTypes.Contains(z.UnitType)
-                        where unitId == "" || unitIds.Contains(z.UnitId)
-                        orderby x.UserName
-                        select x).ToList();
+                return list;
             }
-            return list;
         }
 
         /// <summary>

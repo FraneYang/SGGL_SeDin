@@ -164,69 +164,72 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// <param name="e"></param>
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.txtCompileDate.Text.Trim()))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                Alert.ShowInTop("请选择日期！", MessageBoxIcon.Warning);
-                return;
-            }
-            DateTime? compileDate = BLL.Funs.GetNewDateTime(this.txtCompileDate.Text);
-            if (compileDate.HasValue && !BLL.SitePerson_DayReportService.IsExistDayReport(compileDate.Value, this.CurrUser.LoginProjectId))
-            {
-                this.DayReportId = SQLHelper.GetNewID(typeof(Model.SitePerson_DayReport));
-                Model.SitePerson_DayReport newDayReport = new Model.SitePerson_DayReport
+                if (string.IsNullOrEmpty(this.txtCompileDate.Text.Trim()))
                 {
-                    DayReportId = this.DayReportId,
-                    ProjectId = this.CurrUser.LoginProjectId,
-                    CompileMan = this.CurrUser.UserId,
-                    CompileDate = compileDate,
-                    States = BLL.Const.State_0  //待提交                 
-                };
-                BLL.SitePerson_DayReportService.AddDayReport(newDayReport);
-
-                var units = from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                            where x.ProjectId == this.CurrUser.LoginProjectId && (x.UnitType == BLL.Const.ProjectUnitType_1 || x.UnitType == BLL.Const.ProjectUnitType_2)
-                            select x;     //1为总包，2为施工分包
-                if (units.Count() > 0)
+                    Alert.ShowInTop("请选择日期！", MessageBoxIcon.Warning);
+                    return;
+                }
+                DateTime? compileDate = BLL.Funs.GetNewDateTime(this.txtCompileDate.Text);
+                if (compileDate.HasValue && !BLL.SitePerson_DayReportService.IsExistDayReport(compileDate.Value, this.CurrUser.LoginProjectId))
                 {
-                    foreach (var item in units)
+                    this.DayReportId = SQLHelper.GetNewID(typeof(Model.SitePerson_DayReport));
+                    Model.SitePerson_DayReport newDayReport = new Model.SitePerson_DayReport
                     {
-                        if (item.OutTime == null || item.OutTime >= DateTime.Now.Date)
+                        DayReportId = this.DayReportId,
+                        ProjectId = this.CurrUser.LoginProjectId,
+                        CompileMan = this.CurrUser.UserId,
+                        CompileDate = compileDate,
+                        States = BLL.Const.State_0  //待提交                 
+                    };
+                    BLL.SitePerson_DayReportService.AddDayReport(newDayReport);
+
+                    var units = from x in db.Project_ProjectUnit
+                                where x.ProjectId == this.CurrUser.LoginProjectId && (x.UnitType == BLL.Const.ProjectUnitType_1 || x.UnitType == BLL.Const.ProjectUnitType_2)
+                                select x;     //1为总包，2为施工分包
+                    if (units.Count() > 0)
+                    {
+                        foreach (var item in units)
                         {
-                            Model.SitePerson_DayReportDetail newDayReportDetail = new Model.SitePerson_DayReportDetail();
-                            string newKeyID = SQLHelper.GetNewID(typeof(Model.SitePerson_DayReportDetail));
-                            newDayReportDetail.DayReportDetailId = newKeyID;
-                            newDayReportDetail.DayReportId = this.DayReportId;
-                            newDayReportDetail.UnitId = item.UnitId;
-                            newDayReportDetail.WorkTime = 8;
-                            //newDayReportDetail.StaffData = this.GetStaffData(item.UnitId, item.UnitType, compileDate.Value);
-                            BLL.SitePerson_DayReportDetailService.AddDayReportDetail(newDayReportDetail);
-                            var posts = (from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost
-                                         join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                                         on x.WorkPostId equals y.WorkPostId
-                                         where y.UnitId == item.UnitId && y.ProjectId == this.CurrUser.LoginProjectId
-                                         orderby x.WorkPostCode
-                                         select x).Distinct().ToList();
-                            foreach (var postItem in posts)
+                            if (item.OutTime == null || item.OutTime >= DateTime.Now.Date)
                             {
-                                Model.SitePerson_DayReportUnitDetail newDayReportUnitDetail = new Model.SitePerson_DayReportUnitDetail
+                                Model.SitePerson_DayReportDetail newDayReportDetail = new Model.SitePerson_DayReportDetail();
+                                string newKeyID = SQLHelper.GetNewID(typeof(Model.SitePerson_DayReportDetail));
+                                newDayReportDetail.DayReportDetailId = newKeyID;
+                                newDayReportDetail.DayReportId = this.DayReportId;
+                                newDayReportDetail.UnitId = item.UnitId;
+                                newDayReportDetail.WorkTime = 8;
+                                //newDayReportDetail.StaffData = this.GetStaffData(item.UnitId, item.UnitType, compileDate.Value);
+                                BLL.SitePerson_DayReportDetailService.AddDayReportDetail(newDayReportDetail);
+                                var posts = (from x in db.Base_WorkPost
+                                             join y in db.SitePerson_Person
+                                             on x.WorkPostId equals y.WorkPostId
+                                             where y.UnitId == item.UnitId && y.ProjectId == this.CurrUser.LoginProjectId
+                                             orderby x.WorkPostCode
+                                             select x).Distinct().ToList();
+                                foreach (var postItem in posts)
                                 {
-                                    DayReportDetailId = newKeyID,
-                                    PostId = postItem.WorkPostId,
-                                    CheckPersonNum = this.GetCheckingCout(postItem.WorkPostId)
-                                };
-                                newDayReportUnitDetail.RealPersonNum = newDayReportUnitDetail.CheckPersonNum;
-                                newDayReportUnitDetail.PersonWorkTime = newDayReportUnitDetail.RealPersonNum * newDayReportDetail.WorkTime;
-                                BLL.SitePerson_DayReportUnitDetailService.AddDayReportUnitDetail(newDayReportUnitDetail);
+                                    Model.SitePerson_DayReportUnitDetail newDayReportUnitDetail = new Model.SitePerson_DayReportUnitDetail
+                                    {
+                                        DayReportDetailId = newKeyID,
+                                        PostId = postItem.WorkPostId,
+                                        CheckPersonNum = this.GetCheckingCout(postItem.WorkPostId)
+                                    };
+                                    newDayReportUnitDetail.RealPersonNum = newDayReportUnitDetail.CheckPersonNum;
+                                    newDayReportUnitDetail.PersonWorkTime = newDayReportUnitDetail.RealPersonNum * newDayReportDetail.WorkTime;
+                                    BLL.SitePerson_DayReportUnitDetailService.AddDayReportUnitDetail(newDayReportUnitDetail);
+                                }
                             }
                         }
                     }
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("DayReportEdit.aspx?DayReportId={0}", this.DayReportId, "编辑 - ")));
                 }
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("DayReportEdit.aspx?DayReportId={0}", this.DayReportId, "编辑 - ")));
-            }
-            else
-            {
-                Alert.ShowInTop("当日日报已存在，请到列表点击日报日期查看！", MessageBoxIcon.Warning);
-                return;
+                else
+                {
+                    Alert.ShowInTop("当日日报已存在，请到列表点击日报日期查看！", MessageBoxIcon.Warning);
+                    return;
+                }
             }
         }
         #endregion
@@ -239,41 +242,44 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// <returns></returns>
         private string GetStaffData(string unitId, string unitType, DateTime compileDate)
         {
-            string allStaffData = string.Empty;
-
-            var allSum = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                         where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == unitId && x.IsUsed == true
-                         && (x.InTime < compileDate.AddMonths(1) || !x.InTime.HasValue)
-                         select x;
-
-            ///管理人员集合
-            var glAllPerson = from x in allSum
-                              join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                              where (y.PostType == Const.PostType_1 || y.PostType == Const.PostType_4)    //一般管理岗位和特种管理人员
-                              select x;
-
-            ///安全专职人员集合
-            var hsseAllPerson = from x in allSum
-                                join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                                where y.IsHsse == true       //HSSE管理人员
-                                select x;
-
-            ///单位作业人员集合
-            var zyAllPerson = from x in allSum
-                              join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                              where (y.PostType == Const.PostType_2 || y.PostType == Const.PostType_3)      //特种作业人员和一般作业岗位
-                              select x;
-
-
-            if (unitType == "1")
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                allStaffData += "总人数：" + allSum.Count().ToString() + "，管理人员总数" + glAllPerson.Count().ToString() + "人，专职安全人员共" + hsseAllPerson.Count().ToString() + " 人。";
+                string allStaffData = string.Empty;
+
+                var allSum = from x in db.SitePerson_Person
+                             where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == unitId && x.IsUsed == true
+                             && (x.InTime < compileDate.AddMonths(1) || !x.InTime.HasValue)
+                             select x;
+
+                ///管理人员集合
+                var glAllPerson = from x in allSum
+                                  join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                                  where (y.PostType == Const.PostType_1 || y.PostType == Const.PostType_4)    //一般管理岗位和特种管理人员
+                                  select x;
+
+                ///安全专职人员集合
+                var hsseAllPerson = from x in allSum
+                                    join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                                    where y.IsHsse == true       //HSSE管理人员
+                                    select x;
+
+                ///单位作业人员集合
+                var zyAllPerson = from x in allSum
+                                  join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                                  where (y.PostType == Const.PostType_2 || y.PostType == Const.PostType_3)      //特种作业人员和一般作业岗位
+                                  select x;
+
+
+                if (unitType == "1")
+                {
+                    allStaffData += "总人数：" + allSum.Count().ToString() + "，管理人员总数" + glAllPerson.Count().ToString() + "人，专职安全人员共" + hsseAllPerson.Count().ToString() + " 人。";
+                }
+                else
+                {
+                    allStaffData += "总人数：" + allSum.Count().ToString() + "，管理人员总数" + glAllPerson.Count().ToString() + "人，专职安全人员共" + hsseAllPerson.Count().ToString() + " 人，施工单位作业人员总数" + zyAllPerson.Count().ToString() + "人。";
+                }
+                return allStaffData;
             }
-            else
-            {
-                allStaffData += "总人数：" + allSum.Count().ToString() + "，管理人员总数" + glAllPerson.Count().ToString() + "人，专职安全人员共" + hsseAllPerson.Count().ToString() + " 人，施工单位作业人员总数" + zyAllPerson.Count().ToString() + "人。";
-            }
-            return allStaffData;
         }
         #endregion
 
@@ -285,20 +291,23 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// <returns></returns>
         private int GetCheckingCout(string workPostId)
         {
-            int count = 0;
-            DateTime? nowMont = BLL.Funs.GetNewDateTime(this.txtCompileDate.Text);
-            if (nowMont.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var checks = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Checking
-                             join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
-                             join z in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on y.WorkPostId equals z.WorkPostId
-                             where x.IntoOutTime > nowMont.Value.AddDays(-1) && x.IntoOutTime < nowMont.Value.AddDays(1) && y.ProjectId == this.CurrUser.LoginProjectId
-                             && z.WorkPostId == workPostId
-                             select x;
-                count = checks.Count();               
-            }
+                int count = 0;
+                DateTime? nowMont = BLL.Funs.GetNewDateTime(this.txtCompileDate.Text);
+                if (nowMont.HasValue)
+                {
+                    var checks = from x in db.SitePerson_Checking
+                                 join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                 join z in db.Base_WorkPost on y.WorkPostId equals z.WorkPostId
+                                 where x.IntoOutTime > nowMont.Value.AddDays(-1) && x.IntoOutTime < nowMont.Value.AddDays(1) && y.ProjectId == this.CurrUser.LoginProjectId
+                                 && z.WorkPostId == workPostId
+                                 select x;
+                    count = checks.Count();
+                }
 
-            return count;
+                return count;
+            }
         }
         #endregion
 

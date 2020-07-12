@@ -223,32 +223,35 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// <returns></returns>
         protected string ConvertTrainResult(object PersonId)
         {
-            string result = string.Empty;
-            if (PersonId != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                string personId = PersonId.ToString().Trim();
-                List<Model.Base_TrainType> trainTypeList = BLL.TrainTypeService.GetIsAboutSendCardTrainTypeList();
-                int i = 0;   //培训合格次数
-                foreach (var item in trainTypeList)
-                {                    
-                    var q = (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord
-                             join y in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail
-                             on x.TrainingId equals y.TrainingId
-                             where x.TrainTypeId == item.TrainTypeId && y.PersonId == PersonId.ToString() && y.CheckResult == true
-                             select y);
-                    i += q.Count();
-                }
+                string result = string.Empty;
+                if (PersonId != null)
+                {
+                    string personId = PersonId.ToString().Trim();
+                    List<Model.Base_TrainType> trainTypeList = BLL.TrainTypeService.GetIsAboutSendCardTrainTypeList();
+                    int i = 0;   //培训合格次数
+                    foreach (var item in trainTypeList)
+                    {
+                        var q = (from x in db.EduTrain_TrainRecord
+                                 join y in db.EduTrain_TrainRecordDetail
+                                 on x.TrainingId equals y.TrainingId
+                                 where x.TrainTypeId == item.TrainTypeId && y.PersonId == PersonId.ToString() && y.CheckResult == true
+                                 select y);
+                        i += q.Count();
+                    }
 
-                if (i >= trainTypeList.Count)
-                {
-                    result = "通过";
+                    if (i >= trainTypeList.Count)
+                    {
+                        result = "通过";
+                    }
+                    else
+                    {
+                        result = "未通过";
+                    }
                 }
-                else
-                {
-                    result = "未通过";
-                }
+                return result;
             }
-            return result;
         }
         #endregion
 

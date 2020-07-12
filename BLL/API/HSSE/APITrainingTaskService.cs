@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
 
 namespace BLL
 {
@@ -20,27 +16,30 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TrainingTaskItem> getTrainingTaskListByProjectIdPersonId(string projectId, string personId)
         {
-            personId = PersonService.GetPersonIdByUserId(personId);
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_Task
-                                join y in new Model.SGGLDB(Funs.ConnString).Training_Plan on x.PlanId equals y.PlanId
-                                where x.ProjectId == projectId && x.UserId == personId && y.States != "0"
-                                orderby x.TaskDate descending
-                                select new Model.TrainingTaskItem
-                                {
-                                    TaskId = x.TaskId,
-                                    //PlanId = x.PlanId,
-                                    PlanCode = y.PlanCode,
-                                    PlanName = y.PlanName,
-                                    TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", y.TrainStartDate),
-                                    TeachAddress = y.TeachAddress,
-                                    //PersonId = x.UserId,
-                                    PersonName = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(p => p.PersonId == x.UserId).PersonName,
-                                    TaskDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TaskDate),
-                                    TrainTypeName = new Model.SGGLDB(Funs.ConnString).Base_TrainType.FirstOrDefault(b => b.TrainTypeId == y.TrainTypeId).TrainTypeName,
-                                    TrainLevelName = new Model.SGGLDB(Funs.ConnString).Base_TrainLevel.FirstOrDefault(b => b.TrainLevelId == y.TrainLevelId).TrainLevelName,
-                                    PlanStatesName = y.States == "3" ? "已完成" : "培训中",
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                personId = PersonService.GetPersonIdByUserId(personId);
+                var getDataLists = (from x in db.Training_Task
+                                    join y in db.Training_Plan on x.PlanId equals y.PlanId
+                                    where x.ProjectId == projectId && x.UserId == personId && y.States != "0"
+                                    orderby x.TaskDate descending
+                                    select new Model.TrainingTaskItem
+                                    {
+                                        TaskId = x.TaskId,
+                                        //PlanId = x.PlanId,
+                                        PlanCode = y.PlanCode,
+                                        PlanName = y.PlanName,
+                                        TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", y.TrainStartDate),
+                                        TeachAddress = y.TeachAddress,
+                                        //PersonId = x.UserId,
+                                        PersonName = db.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.UserId).PersonName,
+                                        TaskDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TaskDate),
+                                        TrainTypeName = db.Base_TrainType.FirstOrDefault(b => b.TrainTypeId == y.TrainTypeId).TrainTypeName,
+                                        TrainLevelName = db.Base_TrainLevel.FirstOrDefault(b => b.TrainLevelId == y.TrainLevelId).TrainLevelName,
+                                        PlanStatesName = y.States == "3" ? "已完成" : "培训中",
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -52,23 +51,26 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TrainingTaskItemItem> getTrainingTaskItemListByTaskId(string taskId)
         {
-            ////生成培训任务下培训明细
-            GetDataService.CreateTrainingTaskItemByTaskId(taskId);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                ////生成培训任务下培训明细
+                GetDataService.CreateTrainingTaskItemByTaskId(taskId);
 
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_TaskItem
-                                where x.TaskId == taskId
-                                orderby x.TrainingItemCode 
-                                select new Model.TrainingTaskItemItem
-                                {
-                                    TaskItemId = x.TaskItemId,
-                                    TaskId = x.TaskId,
-                                    PlanId = x.PlanId,
-                                    PersonId = x.PersonId,
-                                    TrainingItemCode = x.TrainingItemCode,
-                                    TrainingItemName = x.TrainingItemName,
-                                    AttachUrl = x.AttachUrl.Replace('\\', '/'),
-                                }).ToList();
-            return getDataLists;
+                var getDataLists = (from x in db.Training_TaskItem
+                                    where x.TaskId == taskId
+                                    orderby x.TrainingItemCode
+                                    select new Model.TrainingTaskItemItem
+                                    {
+                                        TaskItemId = x.TaskItemId,
+                                        TaskId = x.TaskId,
+                                        PlanId = x.PlanId,
+                                        PersonId = x.PersonId,
+                                        TrainingItemCode = x.TrainingItemCode,
+                                        TrainingItemName = x.TrainingItemName,
+                                        AttachUrl = x.AttachUrl.Replace('\\', '/'),
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -193,19 +195,22 @@ namespace BLL
         /// <returns>培训计划人员</returns>
         public static List<Model.TrainingTaskItem> getTrainingTaskListByTrainingPlanId(string trainingPlanId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_Task
-                                where x.PlanId == trainingPlanId
-                                orderby x.TaskDate descending
-                                select new Model.TrainingTaskItem
-                                {
-                                    TaskId = x.TaskId,
-                                    PlanId = x.PlanId,
-                                    PersonId = x.UserId,
-                                    PersonName = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(p => p.PersonId == x.UserId).PersonName,
-                                    TaskDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TaskDate),
-                                    States = x.States,
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Training_Task
+                                    where x.PlanId == trainingPlanId
+                                    orderby x.TaskDate descending
+                                    select new Model.TrainingTaskItem
+                                    {
+                                        TaskId = x.TaskId,
+                                        PlanId = x.PlanId,
+                                        PersonId = x.UserId,
+                                        PersonName = db.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.UserId).PersonName,
+                                        TaskDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TaskDate),
+                                        States = x.States,
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
     }

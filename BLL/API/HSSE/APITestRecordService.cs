@@ -18,23 +18,26 @@ namespace BLL
         /// <returns>考试人员</returns>
         public static List<Model.TestRecordItem> getTestRecordListByTestPlanId(string testPlanId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_TestRecord
-                                where x.TestPlanId == testPlanId
-                                orderby x.TestStartTime descending
-                                select new Model.TestRecordItem
-                                {
-                                    TestRecordId = x.TestRecordId,
-                                    ProjectId = x.ProjectId,
-                                    TestPlanId = x.TestPlanId,
-                                    TestManId = x.TestManId,
-                                    TestManName = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
-                                    TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
-                                    TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
-                                    TestScores = x.TestScores ?? 0,
-                                    TestType = x.TestType,
-                                    TemporaryUser = x.TemporaryUser,
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Training_TestRecord
+                                    where x.TestPlanId == testPlanId
+                                    orderby x.TestStartTime descending
+                                    select new Model.TestRecordItem
+                                    {
+                                        TestRecordId = x.TestRecordId,
+                                        ProjectId = x.ProjectId,
+                                        TestPlanId = x.TestPlanId,
+                                        TestManId = x.TestManId,
+                                        TestManName = db.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
+                                        TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
+                                        TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
+                                        TestScores = x.TestScores ?? 0,
+                                        TestType = x.TestType,
+                                        TemporaryUser = x.TemporaryUser,
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -46,26 +49,29 @@ namespace BLL
         /// <returns></returns>
         public static Model.TestRecordItem getTestRecordByTestRecordId(string testRecordId)
         {
-            var getDataLists = from x in new Model.SGGLDB(Funs.ConnString).Training_TestRecord
-                               join y in new Model.SGGLDB(Funs.ConnString).Training_TestPlan on x.TestPlanId equals y.TestPlanId
-                               where x.TestRecordId == testRecordId
-                               select new Model.TestRecordItem
-                               {
-                                   TestRecordId = x.TestRecordId,
-                                   ProjectId = x.ProjectId,
-                                   TestPlanId = x.TestPlanId,
-                                   TestPlanName = y.PlanName,
-                                   TestManId = x.TestManId,
-                                   TestManName = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.First(u => u.PersonId == x.TestManId).PersonName,
-                                   TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
-                                   TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
-                                   TestPlanEndTime = x.TestStartTime.HasValue ? string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)) : "",
-                                   Duration = y.Duration,
-                                   TestScores = x.TestScores ?? 0,
-                                   TestType = x.TestType,
-                                   TemporaryUser = x.TemporaryUser,
-                               };
-            return getDataLists.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = from x in db.Training_TestRecord
+                                   join y in db.Training_TestPlan on x.TestPlanId equals y.TestPlanId
+                                   where x.TestRecordId == testRecordId
+                                   select new Model.TestRecordItem
+                                   {
+                                       TestRecordId = x.TestRecordId,
+                                       ProjectId = x.ProjectId,
+                                       TestPlanId = x.TestPlanId,
+                                       TestPlanName = y.PlanName,
+                                       TestManId = x.TestManId,
+                                       TestManName = db.SitePerson_Person.First(u => u.PersonId == x.TestManId).PersonName,
+                                       TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
+                                       TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
+                                       TestPlanEndTime = x.TestStartTime.HasValue ? string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)) : "",
+                                       Duration = y.Duration,
+                                       TestScores = x.TestScores ?? 0,
+                                       TestType = x.TestType,
+                                       TemporaryUser = x.TemporaryUser,
+                                   };
+                return getDataLists.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -211,28 +217,31 @@ namespace BLL
         /// <returns>考试记录列表</returns>
         public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectIdPersonId(string projectId, string personId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_TestRecord
-                                join y in new Model.SGGLDB(Funs.ConnString).Training_TestPlan on x.TestPlanId equals y.TestPlanId
-                                where x.ProjectId == projectId && x.TestManId == personId && x.TestStartTime.HasValue
-                                orderby x.TestStartTime descending
-                                select new Model.TestRecordItem
-                                {
-                                    TestRecordId = x.TestRecordId,
-                                    ProjectId = x.ProjectId,
-                                    TestPlanId = x.TestPlanId,
-                                    TestPlanName = y.PlanName,
-                                    TestManId = x.TestManId,
-                                    TestManName = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
-                                    TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
-                                    TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
-                                    Duration = x.Duration,
-                                    TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)),
-                                    TotalScore = y.TotalScore ?? 0,
-                                    TestScores = x.TestScores ?? 0,
-                                    TestType = x.TestType,
-                                    TemporaryUser = x.TemporaryUser,
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Training_TestRecord
+                                    join y in db.Training_TestPlan on x.TestPlanId equals y.TestPlanId
+                                    where x.ProjectId == projectId && x.TestManId == personId && x.TestStartTime.HasValue
+                                    orderby x.TestStartTime descending
+                                    select new Model.TestRecordItem
+                                    {
+                                        TestRecordId = x.TestRecordId,
+                                        ProjectId = x.ProjectId,
+                                        TestPlanId = x.TestPlanId,
+                                        TestPlanName = y.PlanName,
+                                        TestManId = x.TestManId,
+                                        TestManName = db.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
+                                        TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
+                                        TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
+                                        Duration = x.Duration,
+                                        TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)),
+                                        TotalScore = y.TotalScore ?? 0,
+                                        TestScores = x.TestScores ?? 0,
+                                        TestType = x.TestType,
+                                        TemporaryUser = x.TemporaryUser,
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -242,59 +251,62 @@ namespace BLL
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <returns>考试记录列表</returns>
-        public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectId(string projectId,  string unitId, string workPostId, string strPass, string strParam)
+        public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectId(string projectId, string unitId, string workPostId, string strPass, string strParam)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_TestRecord
-                                join y in new Model.SGGLDB(Funs.ConnString).Training_TestPlan on x.TestPlanId equals y.TestPlanId 
-                                join z in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.TestManId equals z.PersonId
-                                where x.ProjectId == projectId && x.TestStartTime.HasValue && x.TestEndTime.HasValue
-                                orderby x.TestStartTime descending
-                                select new Model.TestRecordItem
-                                {
-                                    TestRecordId = x.TestRecordId,
-                                    ProjectId = x.ProjectId,
-                                    TestPlanId = x.TestPlanId,
-                                    TestPlanName = y.PlanName,
-                                    UnitId=z.UnitId,
-                                    UnitName= getUnitName(z.UnitId),
-                                    WorkPostId=z.WorkPostId,
-                                    WorkPostName=new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(p=>p.WorkPostId==z.WorkPostId).WorkPostName,
-                                    TestManId = x.TestManId,
-                                    TestManName = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
-                                    TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
-                                    TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
-                                    Duration = x.Duration,
-                                    TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)),
-                                    TotalScore = y.TotalScore ?? 0,
-                                    TestScores = x.TestScores ?? 0,
-                                    TestType = x.TestType,
-                                    TemporaryUser = x.TemporaryUser,
-                                });
-            if (!string.IsNullOrEmpty(unitId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getDataLists = getDataLists.Where(x => x.UnitId == unitId);
-            }
-            if (!string.IsNullOrEmpty(workPostId))
-            {
-                getDataLists = getDataLists.Where(x => x.WorkPostId == workPostId);
-            }
-            if (!string.IsNullOrEmpty(strParam))
-            {
-                getDataLists = getDataLists.Where(x => x.TestManName.Contains(strParam));
-            }
-            if (!string.IsNullOrEmpty(strPass))
-            {
-                int PassingScore =SysConstSetService.getPassScore();
-                if (strPass == "0")
+                var getDataLists = (from x in db.Training_TestRecord
+                                    join y in db.Training_TestPlan on x.TestPlanId equals y.TestPlanId
+                                    join z in db.SitePerson_Person on x.TestManId equals z.PersonId
+                                    where x.ProjectId == projectId && x.TestStartTime.HasValue && x.TestEndTime.HasValue
+                                    orderby x.TestStartTime descending
+                                    select new Model.TestRecordItem
+                                    {
+                                        TestRecordId = x.TestRecordId,
+                                        ProjectId = x.ProjectId,
+                                        TestPlanId = x.TestPlanId,
+                                        TestPlanName = y.PlanName,
+                                        UnitId = z.UnitId,
+                                        UnitName = getUnitName(z.UnitId),
+                                        WorkPostId = z.WorkPostId,
+                                        WorkPostName = db.Base_WorkPost.First(p => p.WorkPostId == z.WorkPostId).WorkPostName,
+                                        TestManId = x.TestManId,
+                                        TestManName = db.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
+                                        TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
+                                        TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
+                                        Duration = x.Duration,
+                                        TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)),
+                                        TotalScore = y.TotalScore ?? 0,
+                                        TestScores = x.TestScores ?? 0,
+                                        TestType = x.TestType,
+                                        TemporaryUser = x.TemporaryUser,
+                                    });
+                if (!string.IsNullOrEmpty(unitId))
                 {
-                    getDataLists = getDataLists.Where(x => x.TestScores < PassingScore);
+                    getDataLists = getDataLists.Where(x => x.UnitId == unitId);
                 }
-                else
+                if (!string.IsNullOrEmpty(workPostId))
                 {
-                    getDataLists = getDataLists.Where(x => x.TestScores >= PassingScore);
+                    getDataLists = getDataLists.Where(x => x.WorkPostId == workPostId);
                 }
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    getDataLists = getDataLists.Where(x => x.TestManName.Contains(strParam));
+                }
+                if (!string.IsNullOrEmpty(strPass))
+                {
+                    int PassingScore = SysConstSetService.getPassScore();
+                    if (strPass == "0")
+                    {
+                        getDataLists = getDataLists.Where(x => x.TestScores < PassingScore);
+                    }
+                    else
+                    {
+                        getDataLists = getDataLists.Where(x => x.TestScores >= PassingScore);
+                    }
+                }
+                return getDataLists.ToList();
             }
-            return getDataLists.ToList();
         }
 
         /// <summary>
@@ -304,13 +316,16 @@ namespace BLL
         /// <returns></returns>
         public static string getUnitName(string testManId)
         {
-            string name = string.Empty;
-            var getPerson = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.PersonId == testManId);
-            if (getPerson != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                name = UnitService.GetUnitNameByUnitId(getPerson.UnitId);
+                string name = string.Empty;
+                var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == testManId);
+                if (getPerson != null)
+                {
+                    name = UnitService.GetUnitNameByUnitId(getPerson.UnitId);
+                }
+                return name;
             }
-            return name;
         }
         #endregion
 
@@ -322,30 +337,33 @@ namespace BLL
         /// <returns>考试人员</returns>
         public static List<Model.TestRecordItemItem> geTestRecordItemListByTestRecordId(string testRecordId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_TestRecordItem
-                                where x.TestRecordId == testRecordId
-                                orderby x.TestType, x.TrainingItemCode
-                                select new Model.TestRecordItemItem
-                                {
-                                    TestRecordItemId = x.TestRecordItemId,
-                                    TestRecordId = x.TestRecordId,
-                                    TrainingItemCode = x.TrainingItemCode,
-                                    TrainingItemName = x.TrainingItemName,
-                                    Abstracts = x.Abstracts,
-                                    AttachUrl = x.AttachUrl.Replace("\\", "/") ?? "",
-                                    TestType = x.TestType,
-                                    TestTypeName = x.TestType == "1" ? "单选题" : (x.TestType == "2" ? "多选题" : "判断题"),
-                                    AItem = x.AItem ?? "",
-                                    BItem = x.BItem ?? "",
-                                    CItem = x.CItem ?? "",
-                                    DItem = x.DItem ?? "",
-                                    EItem = x.EItem ?? "",
-                                    AnswerItems = x.AnswerItems ?? "",
-                                    Score = x.Score ?? 0,
-                                    SubjectScore = x.SubjectScore ?? 0,
-                                    SelectedItem = x.SelectedItem ?? "",
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Training_TestRecordItem
+                                    where x.TestRecordId == testRecordId
+                                    orderby x.TestType, x.TrainingItemCode
+                                    select new Model.TestRecordItemItem
+                                    {
+                                        TestRecordItemId = x.TestRecordItemId,
+                                        TestRecordId = x.TestRecordId,
+                                        TrainingItemCode = x.TrainingItemCode,
+                                        TrainingItemName = x.TrainingItemName,
+                                        Abstracts = x.Abstracts,
+                                        AttachUrl = x.AttachUrl.Replace("\\", "/") ?? "",
+                                        TestType = x.TestType,
+                                        TestTypeName = x.TestType == "1" ? "单选题" : (x.TestType == "2" ? "多选题" : "判断题"),
+                                        AItem = x.AItem ?? "",
+                                        BItem = x.BItem ?? "",
+                                        CItem = x.CItem ?? "",
+                                        DItem = x.DItem ?? "",
+                                        EItem = x.EItem ?? "",
+                                        AnswerItems = x.AnswerItems ?? "",
+                                        Score = x.Score ?? 0,
+                                        SubjectScore = x.SubjectScore ?? 0,
+                                        SelectedItem = x.SelectedItem ?? "",
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -357,30 +375,33 @@ namespace BLL
         /// <returns>考试人员</returns>
         public static Model.TestRecordItemItem geTestRecordItemByTestRecordItemId(string testRecordItemId)
         {
-            var getDataLists = from x in new Model.SGGLDB(Funs.ConnString).Training_TestRecordItem
-                               where x.TestRecordItemId == testRecordItemId
-                               select new Model.TestRecordItemItem
-                               {
-                                   TestRecordItemId = x.TestRecordItemId,
-                                   TestRecordId = x.TestRecordId,
-                                   TrainingItemCode = x.TrainingItemCode,
-                                   TrainingItemName = x.TrainingItemName,
-                                   Abstracts = x.Abstracts,
-                                   AttachUrl = x.AttachUrl.Replace("\\", "/") ?? "",
-                                   TestType = x.TestType,
-                                   TestTypeName = x.TestType == "1" ? "单选题" : (x.TestType == "2" ? "多选题" : "判断题"),
-                                   AItem = x.AItem ?? "",
-                                   BItem = x.BItem ?? "",
-                                   CItem = x.CItem ?? "",
-                                   DItem = x.DItem ?? "",
-                                   EItem = x.EItem ?? "",
-                                   AnswerItems = x.AnswerItems ?? "",
-                                   Score = x.Score ?? 0,
-                                   SubjectScore = x.SubjectScore ?? 0,
-                                   SelectedItem = x.SelectedItem ?? "",
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = from x in db.Training_TestRecordItem
+                                   where x.TestRecordItemId == testRecordItemId
+                                   select new Model.TestRecordItemItem
+                                   {
+                                       TestRecordItemId = x.TestRecordItemId,
+                                       TestRecordId = x.TestRecordId,
+                                       TrainingItemCode = x.TrainingItemCode,
+                                       TrainingItemName = x.TrainingItemName,
+                                       Abstracts = x.Abstracts,
+                                       AttachUrl = x.AttachUrl.Replace("\\", "/") ?? "",
+                                       TestType = x.TestType,
+                                       TestTypeName = x.TestType == "1" ? "单选题" : (x.TestType == "2" ? "多选题" : "判断题"),
+                                       AItem = x.AItem ?? "",
+                                       BItem = x.BItem ?? "",
+                                       CItem = x.CItem ?? "",
+                                       DItem = x.DItem ?? "",
+                                       EItem = x.EItem ?? "",
+                                       AnswerItems = x.AnswerItems ?? "",
+                                       Score = x.Score ?? 0,
+                                       SubjectScore = x.SubjectScore ?? 0,
+                                       SelectedItem = x.SelectedItem ?? "",
 
-                               };
-            return getDataLists.FirstOrDefault();
+                                   };
+                return getDataLists.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -521,28 +542,31 @@ namespace BLL
         /// <param name="testRecord"></param>
         public static string getResitTestRecord(Model.Training_TestRecord getTestRecord)
         {
-            Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                TestRecordId = SQLHelper.GetNewID(),
-                ProjectId = getTestRecord.ProjectId,
-                TestPlanId = getTestRecord.TestPlanId,
-                TestManId = getTestRecord.TestManId,
-                TestType = getTestRecord.TestType,
-                TemporaryUser = getTestRecord.TemporaryUser,
-                Duration = getTestRecord.Duration,
-               // TestStartTime = DateTime.Now,
-            };
+                Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
+                {
+                    TestRecordId = SQLHelper.GetNewID(),
+                    ProjectId = getTestRecord.ProjectId,
+                    TestPlanId = getTestRecord.TestPlanId,
+                    TestManId = getTestRecord.TestManId,
+                    TestType = getTestRecord.TestType,
+                    TemporaryUser = getTestRecord.TemporaryUser,
+                    Duration = getTestRecord.Duration,
+                    // TestStartTime = DateTime.Now,
+                };
 
-            new Model.SGGLDB(Funs.ConnString).Training_TestRecord.InsertOnSubmit(newTestRecord);
-            Funs.SubmitChanges();
+                db.Training_TestRecord.InsertOnSubmit(newTestRecord);
+                db.SubmitChanges();
 
-            var getTestPlan = new Model.SGGLDB(Funs.ConnString).Training_TestPlan.FirstOrDefault(x => x.TestPlanId == newTestRecord.TestPlanId);
-            var person = PersonService.GetPersonByUserId(newTestRecord.TestManId, getTestPlan.ProjectId);
-            if (getTestPlan != null && person != null)
-            {
-                CreateTestRecordItem(getTestPlan, newTestRecord.TestRecordId, person);
+                var getTestPlan = db.Training_TestPlan.FirstOrDefault(x => x.TestPlanId == newTestRecord.TestPlanId);
+                var person = PersonService.GetPersonByUserId(newTestRecord.TestManId, getTestPlan.ProjectId);
+                if (getTestPlan != null && person != null)
+                {
+                    CreateTestRecordItem(getTestPlan, newTestRecord.TestRecordId, person);
+                }
+                return newTestRecord.TestRecordId;
             }
-            return newTestRecord.TestRecordId;
         }
         #endregion
     }

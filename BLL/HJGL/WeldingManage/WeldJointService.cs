@@ -252,18 +252,21 @@ namespace BLL
         /// <returns></returns>
         public static bool GetWelderLimitDN(string projectId, string welderId, DateTime weldingDate)
         {
-            var jots = from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint
-                       join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldingDaily on x.WeldingDailyId equals y.WeldingDailyId
-                       where x.ProjectId == projectId && y.WeldingDate == weldingDate && (welderId == x.CoverWelderId || welderId == x.BackingWelderId)
-                       select x;
-            decimal? count = jots.Sum(x => x.Size);
-            if (count >= 60)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                var jots = from x in db.HJGL_WeldJoint
+                           join y in db.HJGL_WeldingDaily on x.WeldingDailyId equals y.WeldingDailyId
+                           where x.ProjectId == projectId && y.WeldingDate == weldingDate && (welderId == x.CoverWelderId || welderId == x.BackingWelderId)
+                           select x;
+                decimal? count = jots.Sum(x => x.Size);
+                if (count >= 60)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
         }

@@ -61,74 +61,77 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-         
-                UnitService.InitUnitByProjectIdUnitTypeDropDownList (this.drpUnit, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, true);
-                UnitWorkService.InitUnitWorkDownList(this.drpWorkArea, this.CurrUser.LoginProjectId, true);
-                UserService.InitUserProjectIdUnitTypeDropDownList(this.drpResponsibleMan, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, true);
-
-                this.drpRegisterTypes.DataTextField = "RegisterTypesName";
-                this.drpRegisterTypes.DataValueField = "RegisterTypesId";
-                this.drpRegisterTypes.DataSource = BLL.HSSE_Hazard_HazardRegisterTypesService.GetHazardRegisterTypesList("1");  //安全巡检类型
-                this.drpRegisterTypes.DataBind();
-                this.HazardRegisterId = Request.Params["HazardRegisterId"];
-                //新增初始化
-                this.txtCheckManName.Text = this.CurrUser.UserName;
-                this.hdCheckManId.Text = this.CurrUser.UserId;
-                this.txtCheckTime.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                if (!string.IsNullOrEmpty(this.HazardRegisterId))
+                if (!IsPostBack)
                 {
-                    Model.View_Hazard_HazardRegister registration = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
-                    if (registration != null)
+                    this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
+
+                    UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, true);
+                    UnitWorkService.InitUnitWorkDownList(this.drpWorkArea, this.CurrUser.LoginProjectId, true);
+                    UserService.InitUserProjectIdUnitTypeDropDownList(this.drpResponsibleMan, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, true);
+
+                    this.drpRegisterTypes.DataTextField = "RegisterTypesName";
+                    this.drpRegisterTypes.DataValueField = "RegisterTypesId";
+                    this.drpRegisterTypes.DataSource = BLL.HSSE_Hazard_HazardRegisterTypesService.GetHazardRegisterTypesList("1");  //安全巡检类型
+                    this.drpRegisterTypes.DataBind();
+                    this.HazardRegisterId = Request.Params["HazardRegisterId"];
+                    //新增初始化
+                    this.txtCheckManName.Text = this.CurrUser.UserName;
+                    this.hdCheckManId.Text = this.CurrUser.UserId;
+                    this.txtCheckTime.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                    if (!string.IsNullOrEmpty(this.HazardRegisterId))
                     {
-                        if (!string.IsNullOrEmpty(registration.ResponsibleUnit))
+                        Model.View_Hazard_HazardRegister registration = (from x in db.View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
+                        if (registration != null)
                         {
-                            this.drpUnit.SelectedValue = registration.ResponsibleUnit;
-                            this.drpWorkArea.DataSource = UnitWorkService.GetUnitWorkList(this.CurrUser.LoginProjectId);
-                            this.drpWorkArea.DataBind();
-                            this.drpResponsibleMan.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                                                                join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                                                                on x.UserId equals y.UserId
-                                                                where y.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.drpUnit.SelectedValue
-                                                                select x;
-                            this.drpResponsibleMan.DataBind();
-                            this.drpWorkArea.SelectedValue = BLL.Const._Null;
-                            this.drpResponsibleMan.SelectedValue = BLL.Const._Null;
-                        }
-                        if (!string.IsNullOrEmpty(registration.Place))
-                        {
-                            this.drpWorkArea.SelectedValue = registration.Place;
-                        }
-                        if (!string.IsNullOrEmpty(registration.RegisterTypesId))
-                        {
-                            this.drpRegisterTypes.SelectedValue = registration.RegisterTypesId;
-                        }
-                        if (!string.IsNullOrEmpty(registration.CheckCycle))
-                        {
-                            this.ckType.SelectedValue = registration.CheckCycle;
-                        }
-                        if (!string.IsNullOrEmpty(registration.ResponsibleMan))
-                        {
-                            this.drpResponsibleMan.SelectedValue = registration.ResponsibleMan;
-                        }
-                        if (registration.RectificationPeriod != null)
-                        {
-                            this.txtRectificationPeriod.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.RectificationPeriod);
-                        }
-                        this.txtRegisterDef.Text = registration.RegisterDef;
-                        this.txtCutPayment.Text = registration.CutPayment.ToString();
-                        this.txtCheckManName.Text = registration.CheckManName;
-                        this.hdCheckManId.Text = registration.CheckManId;
-                        if (registration.CheckTime != null)
-                        {
-                            this.txtCheckTime.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.CheckTime);
-                        }
-                        if (!string.IsNullOrEmpty(registration.HandleIdea))
-                        {
-                            this.txtHandleIdea.Hidden = false;
-                            this.txtHandleIdea.Text = registration.HandleIdea;
+                            if (!string.IsNullOrEmpty(registration.ResponsibleUnit))
+                            {
+                                this.drpUnit.SelectedValue = registration.ResponsibleUnit;
+                                this.drpWorkArea.DataSource = UnitWorkService.GetUnitWorkList(this.CurrUser.LoginProjectId);
+                                this.drpWorkArea.DataBind();
+                                this.drpResponsibleMan.DataSource = from x in db.Sys_User
+                                                                    join y in db.Project_ProjectUser
+                                                                    on x.UserId equals y.UserId
+                                                                    where y.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.drpUnit.SelectedValue
+                                                                    select x;
+                                this.drpResponsibleMan.DataBind();
+                                this.drpWorkArea.SelectedValue = BLL.Const._Null;
+                                this.drpResponsibleMan.SelectedValue = BLL.Const._Null;
+                            }
+                            if (!string.IsNullOrEmpty(registration.Place))
+                            {
+                                this.drpWorkArea.SelectedValue = registration.Place;
+                            }
+                            if (!string.IsNullOrEmpty(registration.RegisterTypesId))
+                            {
+                                this.drpRegisterTypes.SelectedValue = registration.RegisterTypesId;
+                            }
+                            if (!string.IsNullOrEmpty(registration.CheckCycle))
+                            {
+                                this.ckType.SelectedValue = registration.CheckCycle;
+                            }
+                            if (!string.IsNullOrEmpty(registration.ResponsibleMan))
+                            {
+                                this.drpResponsibleMan.SelectedValue = registration.ResponsibleMan;
+                            }
+                            if (registration.RectificationPeriod != null)
+                            {
+                                this.txtRectificationPeriod.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.RectificationPeriod);
+                            }
+                            this.txtRegisterDef.Text = registration.RegisterDef;
+                            this.txtCutPayment.Text = registration.CutPayment.ToString();
+                            this.txtCheckManName.Text = registration.CheckManName;
+                            this.hdCheckManId.Text = registration.CheckManId;
+                            if (registration.CheckTime != null)
+                            {
+                                this.txtCheckTime.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.CheckTime);
+                            }
+                            if (!string.IsNullOrEmpty(registration.HandleIdea))
+                            {
+                                this.txtHandleIdea.Hidden = false;
+                                this.txtHandleIdea.Text = registration.HandleIdea;
+                            }
                         }
                     }
                 }
@@ -143,23 +146,26 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
         /// <param name="e"></param>
         protected void drpUnit_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.drpWorkArea.Items.Clear();
-            this.drpResponsibleMan.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                this.drpWorkArea.DataSource = UnitWorkService.GetUnitWorkList(this.CurrUser.LoginProjectId);
-                this.drpWorkArea.DataBind();
-                this.drpResponsibleMan.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                                                    join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                                                    on x.UserId equals y.UserId
-                                                    where y.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.drpUnit.SelectedValue
-                                                    select x;
-                this.drpResponsibleMan.DataBind();
+                this.drpWorkArea.Items.Clear();
+                this.drpResponsibleMan.Items.Clear();
+                if (this.drpUnit.SelectedValue != BLL.Const._Null)
+                {
+                    this.drpWorkArea.DataSource = UnitWorkService.GetUnitWorkList(this.CurrUser.LoginProjectId);
+                    this.drpWorkArea.DataBind();
+                    this.drpResponsibleMan.DataSource = from x in db.Sys_User
+                                                        join y in db.Project_ProjectUser
+                                                        on x.UserId equals y.UserId
+                                                        where y.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.drpUnit.SelectedValue
+                                                        select x;
+                    this.drpResponsibleMan.DataBind();
+                }
+                Funs.FineUIPleaseSelect(this.drpWorkArea);
+                Funs.FineUIPleaseSelect(this.drpResponsibleMan);
+                this.drpWorkArea.SelectedValue = BLL.Const._Null;
+                this.drpResponsibleMan.SelectedValue = BLL.Const._Null;
             }
-            Funs.FineUIPleaseSelect(this.drpWorkArea);
-            Funs.FineUIPleaseSelect(this.drpResponsibleMan);
-            this.drpWorkArea.SelectedValue = BLL.Const._Null;
-            this.drpResponsibleMan.SelectedValue = BLL.Const._Null;
         }
 
         #region 保存

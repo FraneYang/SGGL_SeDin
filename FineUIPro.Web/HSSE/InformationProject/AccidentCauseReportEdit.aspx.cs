@@ -710,139 +710,142 @@ namespace FineUIPro.Web.HSSE.InformationProject
         /// <param name="endTime"></param>
         private void GetData(DateTime startTime, DateTime endTime)
         {
-            //死亡事故
-            var accidentReports1 = BLL.AccidentReportService.GetAccidentReportsByAccidentTypeAndTime(startTime, endTime, this.ProjectId, "1");
-            this.txtDeathAccident.Text = accidentReports1.Count().ToString();
-            this.txtDeathToll.Text = accidentReports1.Sum(x => x.PeopleNum ?? 0).ToString();
-            //重伤事故
-            var accidentReports2 = BLL.AccidentReportService.GetAccidentReportsByAccidentTypeAndTime(startTime, endTime, this.ProjectId, "2");
-            this.txtInjuredAccident.Text = accidentReports2.Count().ToString();
-            this.txtInjuredToll.Text = accidentReports2.Sum(x => x.PeopleNum ?? 0).ToString();
-            //轻伤事故
-            var accidentReports3 = BLL.AccidentReportService.GetAccidentReportsByAccidentTypeAndTime(startTime, endTime, this.ProjectId, "3");
-            this.txtMinorWoundAccident.Text = accidentReports3.Count().ToString();
-            this.txtMinorWoundToll.Text = accidentReports3.Sum(x => x.PeopleNum ?? 0).ToString();
-            int sumPersonTotal = 0;
-            int sumPersonWorkTimeTotal = 0;
-           // List<Model.Manager_ManhoursSortB> manhoursSortBs = new List<Model.Manager_ManhoursSortB>();
-            //获取当期人工时日报
-            List<Model.SitePerson_DayReport> dayReports = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(startTime, endTime, this.ProjectId);
-            //获取单位集合
-            var unitIds = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                           where x.ProjectId == this.ProjectId
-                           select x.UnitId).ToList();
-            foreach (var unitId in unitIds)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                //员工总数
-                decimal personNum = (from x in dayReports
-                                     join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
-                                  on x.DayReportId equals y.DayReportId
-                                     where y.UnitId == unitId
-                                     select y.RealPersonNum ?? 0).Sum();
-                int count = BLL.SitePerson_DayReportService.GetDayReportsByCompileDateAndUnitId(startTime, endTime, this.CurrUser.LoginProjectId, unitId).Count();
-                if (count > 0)
+                //死亡事故
+                var accidentReports1 = BLL.AccidentReportService.GetAccidentReportsByAccidentTypeAndTime(startTime, endTime, this.ProjectId, "1");
+                this.txtDeathAccident.Text = accidentReports1.Count().ToString();
+                this.txtDeathToll.Text = accidentReports1.Sum(x => x.PeopleNum ?? 0).ToString();
+                //重伤事故
+                var accidentReports2 = BLL.AccidentReportService.GetAccidentReportsByAccidentTypeAndTime(startTime, endTime, this.ProjectId, "2");
+                this.txtInjuredAccident.Text = accidentReports2.Count().ToString();
+                this.txtInjuredToll.Text = accidentReports2.Sum(x => x.PeopleNum ?? 0).ToString();
+                //轻伤事故
+                var accidentReports3 = BLL.AccidentReportService.GetAccidentReportsByAccidentTypeAndTime(startTime, endTime, this.ProjectId, "3");
+                this.txtMinorWoundAccident.Text = accidentReports3.Count().ToString();
+                this.txtMinorWoundToll.Text = accidentReports3.Sum(x => x.PeopleNum ?? 0).ToString();
+                int sumPersonTotal = 0;
+                int sumPersonWorkTimeTotal = 0;
+                // List<Model.Manager_ManhoursSortB> manhoursSortBs = new List<Model.Manager_ManhoursSortB>();
+                //获取当期人工时日报
+                List<Model.SitePerson_DayReport> dayReports = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(startTime, endTime, this.ProjectId);
+                //获取单位集合
+                var unitIds = (from x in db.Project_ProjectUnit
+                               where x.ProjectId == this.ProjectId
+                               select x.UnitId).ToList();
+                foreach (var unitId in unitIds)
                 {
-                    decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
-                    if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
+                    //员工总数
+                    decimal personNum = (from x in dayReports
+                                         join y in db.SitePerson_DayReportDetail
+                                      on x.DayReportId equals y.DayReportId
+                                         where y.UnitId == unitId
+                                         select y.RealPersonNum ?? 0).Sum();
+                    int count = BLL.SitePerson_DayReportService.GetDayReportsByCompileDateAndUnitId(startTime, endTime, this.CurrUser.LoginProjectId, unitId).Count();
+                    if (count > 0)
                     {
-                        string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
-                        sumPersonTotal += Convert.ToInt32(personint) + 1;
-                    }
-                    else
-                    {
-                        sumPersonTotal += Convert.ToInt32(persontotal);
-                    }
-                }
-                //完成人工时（当月）
-                decimal personWorkTimeTotal = (from x in dayReports
-                                               join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
-                                            on x.DayReportId equals y.DayReportId
-                                               where y.UnitId == unitId
-                                               select y.PersonWorkTime ?? 0).Sum();
-                sumPersonWorkTimeTotal += Convert.ToInt32(personWorkTimeTotal);
-            }
-            //平均工时总数
-            this.txtAverageTotalHours.Text = sumPersonWorkTimeTotal.ToString();
-            //人数
-            this.txtAverageManHours.Text = sumPersonTotal.ToString();
-            //损失工时总数
-            var accidentReports4 = BLL.AccidentReportService.GetAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
-            this.txtTotalLossMan.Text = accidentReports4.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
-            var accidentReports5 = BLL.AccidentReportService.GetAccidentReportsByAccidentTime(startTime.AddMonths(-1), endTime.AddMonths(-1), this.ProjectId);
-            this.txtLastMonthLossHoursTotal.Text = accidentReports5.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
-            //歇工总日数
-            var accidentReports6 = BLL.AccidentReportService.GetRecordAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
-            decimal totalLoseHours = accidentReports6.Sum(x => x.WorkingHoursLoss ?? 0);
-            this.txtKnockOffTotal.Text = decimal.Round(totalLoseHours / 8, 2).ToString().Split('.')[0];
-            //经济损失
-            List<Model.Accident_AccidentReport> accidentReports = BLL.AccidentReportService.GetAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
-            List<Model.Accident_AccidentReportOther> accidentReportOthers = BLL.AccidentReportOtherService.GetAccidentReportOthersByAccidentTime(startTime, endTime, this.ProjectId);
-            this.txtDirectLoss.Text = (accidentReports.Sum(x => x.EconomicLoss ?? 0) + accidentReportOthers.Sum(x => x.EconomicLoss ?? 0)).ToString();
-            this.txtIndirectLosses.Text = (accidentReports.Sum(x => x.EconomicOtherLoss ?? 0) + accidentReportOthers.Sum(x => x.EconomicOtherLoss ?? 0)).ToString();
-            this.txtTotalLoss.Text = (Funs.GetNewDecimalOrZero(this.txtDirectLoss.Text.Trim()) + Funs.GetNewDecimalOrZero(this.txtIndirectLosses.Text.Trim())).ToString();
-            //无损失工时总数
-            int totalSafeHours = 0;
-            // 冻结时间
-            var sysSet = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_MonthReportFreezeDay).FirstOrDefault();
-            int freezeDay = !string.IsNullOrEmpty(sysSet.ConstValue) ? Convert.ToInt32(sysSet.ConstValue) : 5;
-            //Model.Manager_MonthReportB lastMonthReport = BLL.MonthReportBService.GetLastMonthReportByDate(DateTime.Now, freezeDay, this.ProjectId);
-            Model.Accident_AccidentReport maxAccident = BLL.AccidentReportService.GetMaxAccidentTimeReport(endTime, this.ProjectId);
-            DateTime? maxAccidentTime = null;
-            if (maxAccident != null)
-            {
-                maxAccidentTime = maxAccident.AccidentDate;
-            }
-            if (maxAccidentTime != null)
-            {
-                DateTime newTime = Convert.ToDateTime(maxAccidentTime);
-                if (newTime.AddDays(1).Year > newTime.Year || newTime.AddDays(1).Month > newTime.Month)
-                {
-                    this.txtTotalLossTime.Text = "0";
-                }
-                else
-                {
-                    if (startTime >= newTime)
-                    {
-                        //if (lastMonthReport != null)
-                        //{
-                        //    totalSafeHours = (lastMonthReport.TotalHseManhours ?? 0) + sumPersonWorkTimeTotal;
-                        //}
-                        //else
-                        //{
-                            totalSafeHours = sumPersonWorkTimeTotal;
-                       // }
-                    }
-                    else
-                    {
-                        int? sumHseManhours2 = 0;
-                        List<Model.SitePerson_DayReport> newDayReports2 = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(newTime.AddDays(1), endTime, this.ProjectId);
-                        if (newDayReports2.Count > 0)
+                        decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
+                        if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
                         {
-                            foreach (var dayReport in newDayReports2)
-                            {
-                                sumHseManhours2 += Convert.ToInt32((from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail where y.DayReportId == dayReport.DayReportId.ToString() select y.PersonWorkTime ?? 0).Sum());
-                            }
+                            string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
+                            sumPersonTotal += Convert.ToInt32(personint) + 1;
                         }
                         else
                         {
-                            sumHseManhours2 = 0;
+                            sumPersonTotal += Convert.ToInt32(persontotal);
                         }
-                        totalSafeHours = sumHseManhours2 ?? 0;
+                    }
+                    //完成人工时（当月）
+                    decimal personWorkTimeTotal = (from x in dayReports
+                                                   join y in db.SitePerson_DayReportDetail
+                                                on x.DayReportId equals y.DayReportId
+                                                   where y.UnitId == unitId
+                                                   select y.PersonWorkTime ?? 0).Sum();
+                    sumPersonWorkTimeTotal += Convert.ToInt32(personWorkTimeTotal);
+                }
+                //平均工时总数
+                this.txtAverageTotalHours.Text = sumPersonWorkTimeTotal.ToString();
+                //人数
+                this.txtAverageManHours.Text = sumPersonTotal.ToString();
+                //损失工时总数
+                var accidentReports4 = BLL.AccidentReportService.GetAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
+                this.txtTotalLossMan.Text = accidentReports4.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
+                var accidentReports5 = BLL.AccidentReportService.GetAccidentReportsByAccidentTime(startTime.AddMonths(-1), endTime.AddMonths(-1), this.ProjectId);
+                this.txtLastMonthLossHoursTotal.Text = accidentReports5.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
+                //歇工总日数
+                var accidentReports6 = BLL.AccidentReportService.GetRecordAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
+                decimal totalLoseHours = accidentReports6.Sum(x => x.WorkingHoursLoss ?? 0);
+                this.txtKnockOffTotal.Text = decimal.Round(totalLoseHours / 8, 2).ToString().Split('.')[0];
+                //经济损失
+                List<Model.Accident_AccidentReport> accidentReports = BLL.AccidentReportService.GetAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
+                List<Model.Accident_AccidentReportOther> accidentReportOthers = BLL.AccidentReportOtherService.GetAccidentReportOthersByAccidentTime(startTime, endTime, this.ProjectId);
+                this.txtDirectLoss.Text = (accidentReports.Sum(x => x.EconomicLoss ?? 0) + accidentReportOthers.Sum(x => x.EconomicLoss ?? 0)).ToString();
+                this.txtIndirectLosses.Text = (accidentReports.Sum(x => x.EconomicOtherLoss ?? 0) + accidentReportOthers.Sum(x => x.EconomicOtherLoss ?? 0)).ToString();
+                this.txtTotalLoss.Text = (Funs.GetNewDecimalOrZero(this.txtDirectLoss.Text.Trim()) + Funs.GetNewDecimalOrZero(this.txtIndirectLosses.Text.Trim())).ToString();
+                //无损失工时总数
+                int totalSafeHours = 0;
+                // 冻结时间
+                var sysSet = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_MonthReportFreezeDay).FirstOrDefault();
+                int freezeDay = !string.IsNullOrEmpty(sysSet.ConstValue) ? Convert.ToInt32(sysSet.ConstValue) : 5;
+                //Model.Manager_MonthReportB lastMonthReport = BLL.MonthReportBService.GetLastMonthReportByDate(DateTime.Now, freezeDay, this.ProjectId);
+                Model.Accident_AccidentReport maxAccident = BLL.AccidentReportService.GetMaxAccidentTimeReport(endTime, this.ProjectId);
+                DateTime? maxAccidentTime = null;
+                if (maxAccident != null)
+                {
+                    maxAccidentTime = maxAccident.AccidentDate;
+                }
+                if (maxAccidentTime != null)
+                {
+                    DateTime newTime = Convert.ToDateTime(maxAccidentTime);
+                    if (newTime.AddDays(1).Year > newTime.Year || newTime.AddDays(1).Month > newTime.Month)
+                    {
+                        this.txtTotalLossTime.Text = "0";
+                    }
+                    else
+                    {
+                        if (startTime >= newTime)
+                        {
+                            //if (lastMonthReport != null)
+                            //{
+                            //    totalSafeHours = (lastMonthReport.TotalHseManhours ?? 0) + sumPersonWorkTimeTotal;
+                            //}
+                            //else
+                            //{
+                            totalSafeHours = sumPersonWorkTimeTotal;
+                            // }
+                        }
+                        else
+                        {
+                            int? sumHseManhours2 = 0;
+                            List<Model.SitePerson_DayReport> newDayReports2 = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(newTime.AddDays(1), endTime, this.ProjectId);
+                            if (newDayReports2.Count > 0)
+                            {
+                                foreach (var dayReport in newDayReports2)
+                                {
+                                    sumHseManhours2 += Convert.ToInt32((from y in db.SitePerson_DayReportDetail where y.DayReportId == dayReport.DayReportId.ToString() select y.PersonWorkTime ?? 0).Sum());
+                                }
+                            }
+                            else
+                            {
+                                sumHseManhours2 = 0;
+                            }
+                            totalSafeHours = sumHseManhours2 ?? 0;
+                        }
                     }
                 }
-            }
-            else
-            {
-                //if (lastMonthReport != null)
-                //{
-                //    totalSafeHours = (lastMonthReport.TotalHseManhours ?? 0) + sumPersonWorkTimeTotal;
-                //}
-                //else
-                //{
+                else
+                {
+                    //if (lastMonthReport != null)
+                    //{
+                    //    totalSafeHours = (lastMonthReport.TotalHseManhours ?? 0) + sumPersonWorkTimeTotal;
+                    //}
+                    //else
+                    //{
                     totalSafeHours = sumPersonWorkTimeTotal;
-                //}
+                    //}
+                }
+                this.txtTotalLossTime.Text = totalSafeHours.ToString();
             }
-            this.txtTotalLossTime.Text = totalSafeHours.ToString();
         }
         #endregion
     }

@@ -187,6 +187,7 @@
     <Compile Include="CQMS\WBS\WorkPackageProjectService.cs" />
     <Compile Include="CQMS\WBS\WorkPackageService.cs" />
     <Compile Include="DropListService.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HJGL\BaseInfo\Base_ComponentsService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_ConsumablesService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_DefectService.cs" />
@@ -351,6 +352,12 @@
     <Compile Include="HSSE\Technique\SpecialSchemeService.cs" />
     <Compile Include="HSSE\Technique\Technique_CheckItemDetailService.cs" />
     <Compile Include="HSSE\Technique\Technique_CheckItemSetService.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="OfficeCheck\ProjectEvaluation\ProjectEvaluationService.cs" />
     <Compile Include="OpenService\MonitorService.cs" />
     <Compile Include="DynamicTHeaderHepler.cs" />
@@ -407,11 +414,34 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="obj\Debug\BLL.csproj.CopyComplete" />
+    <None Include="obj\Debug\BLL.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\BLL.csprojAssemblyReference.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\ResolveAssemblyReference.cache" />
+    <None Include="obj\Release\BLL.csproj.CopyComplete" />
+    <None Include="obj\Release\BLL.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Release\BLL.csprojAssemblyReference.cache" />
+    <None Include="obj\Release\BLL.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\ResolveAssemblyReference.cache" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Scripts\jquery-3.5.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="obj\Debug\BLL.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\BLL.dll" />
+    <Content Include="obj\Debug\BLL.pdb" />
+    <Content Include="obj\Debug\TempPE\Service References.BLLHSSEService.Reference.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Service References.HSSEService.Reference.cs.dll" />
+    <Content Include="obj\Release\BLL.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\BLL.dll" />
+    <Content Include="obj\Release\BLL.pdb" />
+    <Content Include="obj\Release\TempPE\Service References.HSSEService.Reference.cs.dll" />
+    <Content Include="obj\Release\TempPE\Service References.HSSEServiceClient.Reference.cs.dll" />
     <Content Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />

@@ -51,12 +51,13 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
+                Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
                 int tatalCount = 0, count1 = 0, count2 = 0, count3 = 0, count4 = 0;
                 bool isSub = !(unitId == Const.UnitId_SEDIN);
                 if (qualityType == "1")
                 {
-                    var getPersons = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                                     join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                    var getPersons = from x in db.SitePerson_Person
+                                     join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                                      where x.ProjectId == projectId  && y.PostType == Const.PostType_2 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
                                      select x;
                     if (isSub)
@@ -69,7 +70,7 @@ namespace WebAPI.Controllers
                     }
                     /////总数
                     tatalCount = getPersons.Count();
-                    var getPersonQuality = from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality
+                    var getPersonQuality = from x in db.QualityAudit_PersonQuality
                                            join y in getPersons on x.PersonId equals y.PersonId 
                                            select x;
                     ////无证
@@ -85,8 +86,8 @@ namespace WebAPI.Controllers
                 }
                 else if (qualityType == "2")
                 {
-                    var getPersons = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                                     join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                    var getPersons = from x in db.SitePerson_Person
+                                     join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                                      where x.ProjectId == projectId && y.IsHsse ==true && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
                                      select x;
                     if (isSub)
@@ -99,7 +100,7 @@ namespace WebAPI.Controllers
                     }
                     /////总数
                     tatalCount = getPersons.Count();
-                    var getPersonQuality = from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_SafePersonQuality
+                    var getPersonQuality = from x in db.QualityAudit_SafePersonQuality
                                            join y in getPersons on x.PersonId equals y.PersonId
                                            select x;
                     ////无证
@@ -115,8 +116,8 @@ namespace WebAPI.Controllers
                 }
                 else if (qualityType == "3")
                 {
-                    var getPersons = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                                     join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                    var getPersons = from x in db.SitePerson_Person
+                                     join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                                      where x.ProjectId == projectId  && y.PostType == Const.PostType_5 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime >DateTime.Now)
                                      select x;
                     if (isSub)
@@ -129,7 +130,7 @@ namespace WebAPI.Controllers
                     }
                     /////总数
                     tatalCount = getPersons.Count();
-                    var getPersonQuality = from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentPersonQuality
+                    var getPersonQuality = from x in db.QualityAudit_EquipmentPersonQuality
                                            join y in getPersons on x.PersonId equals y.PersonId
                                            select x;
                     ////无证

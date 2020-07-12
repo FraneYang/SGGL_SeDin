@@ -20,348 +20,351 @@ namespace BLL
         /// <returns></returns>
         public static Model.LicenseDataItem getLicenseDataById(string strMenuId, string id)
         {
-            Model.LicenseDataItem getInfo = new Model.LicenseDataItem();
-            #region 动火作业票
-            if (strMenuId == Const.ProjectFireWorkMenuId)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_FireWork
-                           where x.FireWorkId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.FireWorkId,
-                               MenuId = strMenuId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseCode,
-                               ApplyUnitId = x.ApplyUnitId,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                               ApplyManId = x.ApplyManId,
-                               ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                               WorkPalce = x.WorkPalce,
-                               FireWatchManId = x.FireWatchManId,
-                               FireWatchManName = x.FireWatchManName,
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                               WorkMeasures = x.WorkMeasures,
-                               CancelManId = x.CancelManId,
-                               CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                               CancelReasons = x.CancelReasons,
-                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                               CloseManId = x.CloseManId,
-                               CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                               CloseReasons = x.CloseReasons,
-                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                               NextManId = x.NextManId,
-                               NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                               AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == x.FireWorkId).AttachUrl.Replace('\\', '/'),
-                               States = x.States,
-                               OldLicenseId=x.OldLicenseId,
-                           }).FirstOrDefault();
-            }
-            #endregion
-            #region 高处作业票
-            else if (strMenuId == Const.ProjectHeightWorkMenuId)
-            {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_HeightWork
-                           where x.HeightWorkId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.HeightWorkId,
-                               MenuId = strMenuId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseCode,
-                               ApplyUnitId = x.ApplyUnitId,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                               ApplyManId = x.ApplyManId,
-                               ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                               WorkPalce = x.WorkPalce,
-                               WorkType = x.WorkType,
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                               WorkMeasures = x.WorkMeasures,
-                               EquipmentTools = x.EquipmentTools,
-                               CancelManId = x.CancelManId,
-                               CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                               CancelReasons = x.CancelReasons,
-                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                               CloseManId = x.CloseManId,
-                               CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                               CloseReasons = x.CloseReasons,
-                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                               NextManId = x.NextManId,
-                               NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                               AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == x.HeightWorkId).AttachUrl.Replace('\\', '/'),
-                               States = x.States,
-                               OldLicenseId = x.OldLicenseId,
-                           }).FirstOrDefault();
-            }
-            #endregion
-            #region 受限空间作业票
-            if (strMenuId == Const.ProjectLimitedSpaceMenuId)
-            {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_LimitedSpace
-                           where x.LimitedSpaceId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.LimitedSpaceId,
-                               MenuId = strMenuId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseCode,
-                               ApplyUnitId = x.ApplyUnitId,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                               ApplyManId = x.ApplyManId,
-                               ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                               WorkPalce = x.WorkPalce,
-                               FireWatchManId = x.FireWatchManId,
-                               FireWatchManName = x.FireWatchManName,
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                               WorkMeasures = x.WorkMeasures,
-                               CancelManId = x.CancelManId,
-                               CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                               CancelReasons = x.CancelReasons,
-                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                               CloseManId = x.CloseManId,
-                               CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                               CloseReasons = x.CloseReasons,
-                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                               NextManId = x.NextManId,
-                               NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                               AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == x.LimitedSpaceId).AttachUrl.Replace('\\', '/'),
-                               States = x.States,
-                               OldLicenseId = x.OldLicenseId,
-                           }).FirstOrDefault();
-            }
-            #endregion
-            #region 射线作业票
-            if (strMenuId == Const.ProjectRadialWorkMenuId)
-            {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_RadialWork
-                           where x.RadialWorkId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.RadialWorkId,
-                               MenuId = strMenuId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseCode,
-                               ApplyUnitId = x.ApplyUnitId,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                               ApplyManId = x.ApplyManId,
-                               ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                               RadialType = x.RadialType,
-                               WorkLeaderId = x.WorkLeaderId,
-                               WorkLeaderName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
-                               WorkLeaderTel = x.WorkLeaderTel,
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                               WorkPalce = x.WorkPalce,
-                               WorkMeasures = x.WorkMeasures,
-                               FireWatchManId = x.FireWatchManId,
-                               FireWatchManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
-                               WatchManContact = x.WatchManContact,
-                               CancelManId = x.CancelManId,
-                               CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                               CancelReasons = x.CancelReasons,
-                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                               CloseManId = x.CloseManId,
-                               CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                               CloseReasons = x.CloseReasons,
-                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                               NextManId = x.NextManId,
-                               NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                               AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == x.RadialWorkId).AttachUrl.Replace('\\', '/'),
-                               States = x.States,
-                               OldLicenseId = x.OldLicenseId,
-                           }).FirstOrDefault();
-            }
-            #endregion
-            #region 断路(占道)作业票
-            if (strMenuId == Const.ProjectOpenCircuitMenuId)
-            {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_OpenCircuit
-                           where x.OpenCircuitId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.OpenCircuitId,
-                               MenuId = strMenuId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseCode,
-                               ApplyUnitId = x.ApplyUnitId,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                               ApplyManId = x.ApplyManId,
-                               ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                               WorkPalce = x.WorkPalce,
-                               WorkMeasures = x.WorkMeasures,
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                               RoadName = x.RoadName,
-                               SafeMeasures = x.SafeMeasures,
-                               CancelManId = x.CancelManId,
-                               CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                               CancelReasons = x.CancelReasons,
-                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                               CloseManId = x.CloseManId,
-                               CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                               CloseReasons = x.CloseReasons,
-                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                               NextManId = x.NextManId,
-                               NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                               AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == x.OpenCircuitId).AttachUrl.Replace('\\', '/'),
-                               States = x.States,
-                               OldLicenseId = x.OldLicenseId,
-                           }).FirstOrDefault();
-            }
-            #endregion
-            #region 动土作业票
-            if (strMenuId == Const.ProjectBreakGroundMenuId)
-            {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_BreakGround
-                           where x.BreakGroundId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.BreakGroundId,
-                               MenuId = strMenuId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseCode,
-                               ApplyUnitId = x.ApplyUnitId,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                               ApplyManId = x.ApplyManId,
-                               ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                               WorkPalce = x.WorkPalce,
-                               WorkDepth = x.WorkDepth,
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                               WorkMeasures = x.WorkMeasures,
-                               CancelManId = x.CancelManId,
-                               CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                               CancelReasons = x.CancelReasons,
-                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                               CloseManId = x.CloseManId,
-                               CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                               CloseReasons = x.CloseReasons,
-                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                               NextManId = x.NextManId,
-                               NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                               AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == x.BreakGroundId).AttachUrl.Replace('\\', '/'),
-                               States = x.States,
-                               OldLicenseId = x.OldLicenseId,
-                           }).FirstOrDefault();
-            }
-            #endregion
-            #region 夜间施工作业票
-            if (strMenuId == Const.ProjectNightWorkMenuId)
-            {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_NightWork
-                           where x.NightWorkId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.NightWorkId,
-                               MenuId = strMenuId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseCode,
-                               ApplyUnitId = x.ApplyUnitId,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                               ApplyManId = x.ApplyManId,
-                               ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                               WorkPalce = x.WorkPalce,
-                               WorkMeasures = x.WorkMeasures,
-                               WorkLeaderId = x.WorkLeaderId,
-                               WorkLeaderName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
-                               WorkLeaderTel = x.WorkLeaderTel,
-                               SafeLeaderId = x.SafeLeaderId,
-                               SafeLeaderName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SafeLeaderId).UserName,
-                               SafeLeaderTel = x.SafeLeaderTel,
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                               CancelManId = x.CancelManId,
-                               CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                               CancelReasons = x.CancelReasons,
-                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                               CloseManId = x.CloseManId,
-                               CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                               CloseReasons = x.CloseReasons,
-                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                               NextManId = x.NextManId,
-                               NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                               AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == x.NightWorkId).AttachUrl.Replace('\\', '/'),
-                               States = x.States,
-                               OldLicenseId = x.OldLicenseId,
-                           }).FirstOrDefault();
-            }
-            #endregion
-            #region 吊装作业票
-            if (strMenuId == Const.ProjectLiftingWorkMenuId)
-            {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_LiftingWork
-                           where x.LiftingWorkId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.LiftingWorkId,
-                               MenuId = strMenuId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseCode,
-                               ApplyUnitId = x.ApplyUnitId,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                               ApplyManId = x.ApplyManId,
-                               ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                               WorkPalce = x.WorkPalce,
-                               WorkLevel = x.WorkLevel,
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                               WorkMeasures = x.WorkMeasures,
-                               CraneCapacity = x.CraneCapacity,
-                               CancelManId = x.CancelManId,
-                               CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                               CancelReasons = x.CancelReasons,
-                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                               CloseManId = x.CloseManId,
-                               CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                               CloseReasons = x.CloseReasons,
-                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                               NextManId = x.NextManId,
-                               NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                               AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(z => z.ToKeyId == x.LiftingWorkId).AttachUrl.Replace('\\', '/'),
-                               States = x.States,
-                               OldLicenseId = x.OldLicenseId,
-                           }).FirstOrDefault();
-            }
-            #endregion
+                Model.LicenseDataItem getInfo = new Model.LicenseDataItem();
+                #region 动火作业票
+                if (strMenuId == Const.ProjectFireWorkMenuId)
+                {
+                    getInfo = (from x in db.License_FireWork
+                               where x.FireWorkId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.FireWorkId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   FireWatchManId = x.FireWatchManId,
+                                   FireWatchManName = x.FireWatchManName,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkMeasures = x.WorkMeasures,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.FireWorkId).AttachUrl.Replace('\\', '/'),
+                                   States = x.States,
+                                   OldLicenseId = x.OldLicenseId,
+                               }).FirstOrDefault();
+                }
+                #endregion
+                #region 高处作业票
+                else if (strMenuId == Const.ProjectHeightWorkMenuId)
+                {
+                    getInfo = (from x in db.License_HeightWork
+                               where x.HeightWorkId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.HeightWorkId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkType = x.WorkType,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkMeasures = x.WorkMeasures,
+                                   EquipmentTools = x.EquipmentTools,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.HeightWorkId).AttachUrl.Replace('\\', '/'),
+                                   States = x.States,
+                                   OldLicenseId = x.OldLicenseId,
+                               }).FirstOrDefault();
+                }
+                #endregion
+                #region 受限空间作业票
+                if (strMenuId == Const.ProjectLimitedSpaceMenuId)
+                {
+                    getInfo = (from x in db.License_LimitedSpace
+                               where x.LimitedSpaceId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.LimitedSpaceId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   FireWatchManId = x.FireWatchManId,
+                                   FireWatchManName = x.FireWatchManName,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkMeasures = x.WorkMeasures,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.LimitedSpaceId).AttachUrl.Replace('\\', '/'),
+                                   States = x.States,
+                                   OldLicenseId = x.OldLicenseId,
+                               }).FirstOrDefault();
+                }
+                #endregion
+                #region 射线作业票
+                if (strMenuId == Const.ProjectRadialWorkMenuId)
+                {
+                    getInfo = (from x in db.License_RadialWork
+                               where x.RadialWorkId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.RadialWorkId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   RadialType = x.RadialType,
+                                   WorkLeaderId = x.WorkLeaderId,
+                                   WorkLeaderName = db.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
+                                   WorkLeaderTel = x.WorkLeaderTel,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkMeasures = x.WorkMeasures,
+                                   FireWatchManId = x.FireWatchManId,
+                                   FireWatchManName = db.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                                   WatchManContact = x.WatchManContact,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.RadialWorkId).AttachUrl.Replace('\\', '/'),
+                                   States = x.States,
+                                   OldLicenseId = x.OldLicenseId,
+                               }).FirstOrDefault();
+                }
+                #endregion
+                #region 断路(占道)作业票
+                if (strMenuId == Const.ProjectOpenCircuitMenuId)
+                {
+                    getInfo = (from x in db.License_OpenCircuit
+                               where x.OpenCircuitId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.OpenCircuitId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkMeasures = x.WorkMeasures,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   RoadName = x.RoadName,
+                                   SafeMeasures = x.SafeMeasures,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.OpenCircuitId).AttachUrl.Replace('\\', '/'),
+                                   States = x.States,
+                                   OldLicenseId = x.OldLicenseId,
+                               }).FirstOrDefault();
+                }
+                #endregion
+                #region 动土作业票
+                if (strMenuId == Const.ProjectBreakGroundMenuId)
+                {
+                    getInfo = (from x in db.License_BreakGround
+                               where x.BreakGroundId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.BreakGroundId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkDepth = x.WorkDepth,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkMeasures = x.WorkMeasures,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.BreakGroundId).AttachUrl.Replace('\\', '/'),
+                                   States = x.States,
+                                   OldLicenseId = x.OldLicenseId,
+                               }).FirstOrDefault();
+                }
+                #endregion
+                #region 夜间施工作业票
+                if (strMenuId == Const.ProjectNightWorkMenuId)
+                {
+                    getInfo = (from x in db.License_NightWork
+                               where x.NightWorkId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.NightWorkId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkMeasures = x.WorkMeasures,
+                                   WorkLeaderId = x.WorkLeaderId,
+                                   WorkLeaderName = db.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
+                                   WorkLeaderTel = x.WorkLeaderTel,
+                                   SafeLeaderId = x.SafeLeaderId,
+                                   SafeLeaderName = db.Sys_User.First(u => u.UserId == x.SafeLeaderId).UserName,
+                                   SafeLeaderTel = x.SafeLeaderTel,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.NightWorkId).AttachUrl.Replace('\\', '/'),
+                                   States = x.States,
+                                   OldLicenseId = x.OldLicenseId,
+                               }).FirstOrDefault();
+                }
+                #endregion
+                #region 吊装作业票
+                if (strMenuId == Const.ProjectLiftingWorkMenuId)
+                {
+                    getInfo = (from x in db.License_LiftingWork
+                               where x.LiftingWorkId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.LiftingWorkId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkLevel = x.WorkLevel,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkMeasures = x.WorkMeasures,
+                                   CraneCapacity = x.CraneCapacity,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.LiftingWorkId).AttachUrl.Replace('\\', '/'),
+                                   States = x.States,
+                                   OldLicenseId = x.OldLicenseId,
+                               }).FirstOrDefault();
+                }
+                #endregion
 
-            #region 作业票【定稿】
-            if (strMenuId == Const.ProjectLicenseManagerMenuId)
-            {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).License_LicenseManager
-                           where x.LicenseManagerId == id
-                           select new Model.LicenseDataItem
-                           {
-                               LicenseId = x.LicenseManagerId,
-                               MenuId = Const.ProjectLicenseManagerMenuId,
-                               MenuName = new Model.SGGLDB(Funs.ConnString).Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
-                               LicenseTypeId = x.LicenseTypeId,
-                               ProjectId = x.ProjectId,
-                               LicenseCode = x.LicenseManagerCode,
-                               ApplyUnitId = x.UnitId,
-                               ApplyManId=x.CompileMan,
-                               ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                               ApplyManName = x.ApplicantMan,
-                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                               WorkAreaIds=x.WorkAreaId,
-                               WorkPalce = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
-                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
-                               States = x.WorkStates,
-                               AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),                             
-                           }).FirstOrDefault();
+                #region 作业票【定稿】
+                if (strMenuId == Const.ProjectLicenseManagerMenuId)
+                {
+                    getInfo = (from x in db.License_LicenseManager
+                               where x.LicenseManagerId == id
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.LicenseManagerId,
+                                   MenuId = Const.ProjectLicenseManagerMenuId,
+                                   MenuName = db.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                                   LicenseTypeId = x.LicenseTypeId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseManagerCode,
+                                   ApplyUnitId = x.UnitId,
+                                   ApplyManId = x.CompileMan,
+                                   ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                   ApplyManName = x.ApplicantMan,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                   WorkAreaIds = x.WorkAreaId,
+                                   WorkPalce = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
+                                   States = x.WorkStates,
+                                   AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
+                               }).FirstOrDefault();
+                }
+                #endregion
+                return getInfo;
             }
-            #endregion
-            return getInfo;
         }
         #endregion        
 
@@ -376,343 +379,346 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.LicenseDataItem> getLicenseDataList(string strMenuId, string projectId, string unitId, string states)
         {
-            if (!ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                unitId = null;
-            }
-            List<Model.LicenseDataItem> getInfoList = new List<Model.LicenseDataItem>();
-            #region 动火作业票
-            if (strMenuId == Const.ProjectFireWorkMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_FireWork
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               orderby x.LicenseCode descending
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.FireWorkId,
-                                   MenuId = strMenuId,
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   WorkPalce = x.WorkPalce,
-                                   FireWatchManId = x.FireWatchManId,
-                                   FireWatchManName = x.FireWatchManName,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   WorkMeasures = x.WorkMeasures,
-                                   CancelManId = x.CancelManId,
-                                   CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                                   CancelReasons = x.CancelReasons,
-                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                                   CloseManId = x.CloseManId,
-                                   CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                                   CloseReasons = x.CloseReasons,
-                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                                   States = x.States,
-                               }).ToList();
-            }
-            #endregion
-            #region 高处作业票
-            else if (strMenuId == Const.ProjectHeightWorkMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_HeightWork
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               orderby x.LicenseCode descending
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.HeightWorkId,
-                                   MenuId = strMenuId,
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   WorkPalce = x.WorkPalce,
-                                   WorkType = x.WorkType,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   WorkMeasures = x.WorkMeasures,
-                                   EquipmentTools = x.EquipmentTools,
-                                   CancelManId = x.CancelManId,
-                                   CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                                   CancelReasons = x.CancelReasons,
-                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                                   CloseManId = x.CloseManId,
-                                   CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                                   CloseReasons = x.CloseReasons,
-                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                                   States = x.States,
-                               }).ToList();
-            }
-            #endregion
-            #region 受限空间作业票
-            if (strMenuId == Const.ProjectLimitedSpaceMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_LimitedSpace
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               orderby x.LicenseCode descending
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.LimitedSpaceId,
-                                   MenuId = strMenuId,
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   WorkPalce = x.WorkPalce,
-                                   FireWatchManId = x.FireWatchManId,
-                                   FireWatchManName = x.FireWatchManName,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   WorkMeasures = x.WorkMeasures,
-                                   CancelManId = x.CancelManId,
-                                   CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                                   CancelReasons = x.CancelReasons,
-                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                                   CloseManId = x.CloseManId,
-                                   CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                                   CloseReasons = x.CloseReasons,
-                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                                   States = x.States,
-                               }).ToList();
-            }
-            #endregion
-            #region 射线作业票
-            if (strMenuId == Const.ProjectRadialWorkMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_RadialWork
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               orderby x.LicenseCode descending
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.RadialWorkId,
-                                   MenuId = strMenuId,
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   RadialType = x.RadialType,
-                                   WorkLeaderId = x.WorkLeaderId,
-                                   WorkLeaderName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
-                                   WorkLeaderTel = x.WorkLeaderTel,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   WorkPalce = x.WorkPalce,
-                                   WorkMeasures = x.WorkMeasures,
-                                   FireWatchManId = x.FireWatchManId,
-                                   FireWatchManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
-                                   WatchManContact = x.WatchManContact,
-                                   CancelManId = x.CancelManId,
-                                   CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                                   CancelReasons = x.CancelReasons,
-                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                                   CloseManId = x.CloseManId,
-                                   CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                                   CloseReasons = x.CloseReasons,
-                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                                   NextManId = x.NextManId,
-                                   NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                                   States = x.States,
-                               }).ToList();
-            }
-            #endregion
-            #region 断路(占道)作业票
-            if (strMenuId == Const.ProjectOpenCircuitMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_OpenCircuit
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               orderby x.LicenseCode descending
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.OpenCircuitId,
-                                   MenuId = strMenuId,
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   WorkPalce = x.WorkPalce,
-                                   WorkMeasures = x.WorkMeasures,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   RoadName = x.RoadName,
-                                   SafeMeasures = x.SafeMeasures,
-                                   CancelManId = x.CancelManId,
-                                   CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                                   CancelReasons = x.CancelReasons,
-                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                                   CloseManId = x.CloseManId,
-                                   CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                                   CloseReasons = x.CloseReasons,
-                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                                   States = x.States,
-                               }).ToList();
-            }
-            #endregion
-            #region 动土作业票
-            if (strMenuId == Const.ProjectBreakGroundMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_BreakGround
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               orderby x.LicenseCode descending
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.BreakGroundId,
-                                   MenuId = strMenuId,
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   WorkPalce = x.WorkPalce,
-                                   WorkDepth = x.WorkDepth,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   WorkMeasures = x.WorkMeasures,
-                                   CancelManId = x.CancelManId,
-                                   CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                                   CancelReasons = x.CancelReasons,
-                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                                   CloseManId = x.CloseManId,
-                                   CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                                   CloseReasons = x.CloseReasons,
-                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                                   States = x.States,
-                               }).ToList();
-            }
-            #endregion
-            #region 夜间作业票
-            if (strMenuId == Const.ProjectNightWorkMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_NightWork
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               orderby x.LicenseCode descending
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.NightWorkId,
-                                   MenuId = strMenuId,
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   WorkPalce = x.WorkPalce,
-                                   WorkMeasures = x.WorkMeasures,
-                                   WorkLeaderId = x.WorkLeaderId,
-                                   WorkLeaderName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
-                                   WorkLeaderTel = x.WorkLeaderTel,
-                                   SafeLeaderId = x.SafeLeaderId,
-                                   SafeLeaderName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SafeLeaderId).UserName,
-                                   SafeLeaderTel = x.SafeLeaderTel,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   CancelManId = x.CancelManId,
-                                   CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                                   CancelReasons = x.CancelReasons,
-                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                                   CloseManId = x.CloseManId,
-                                   CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                                   CloseReasons = x.CloseReasons,
-                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                                   NextManId = x.NextManId,
-                                   NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                                   States = x.States,
-                               }).ToList();
-            }
-            #endregion
-            #region 吊装作业票
-            if (strMenuId == Const.ProjectLiftingWorkMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_LiftingWork
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               orderby x.LicenseCode descending
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.LiftingWorkId,
-                                   MenuId = strMenuId,
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   WorkPalce = x.WorkPalce,
-                                   WorkLevel = x.WorkLevel,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   WorkMeasures = x.WorkMeasures,
-                                   CraneCapacity = x.CraneCapacity,
-                                   CancelManId = x.CancelManId,
-                                   CancelManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CancelManId).UserName,
-                                   CancelReasons = x.CancelReasons,
-                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
-                                   CloseManId = x.CloseManId,
-                                   CloseManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CloseManId).UserName,
-                                   CloseReasons = x.CloseReasons,
-                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
-                                   NextManId = x.NextManId,
-                                   NextManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                                   States = x.States,
-                               }).ToList();
-            }
-            #endregion
+                if (!ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+                {
+                    unitId = null;
+                }
+                List<Model.LicenseDataItem> getInfoList = new List<Model.LicenseDataItem>();
+                #region 动火作业票
+                if (strMenuId == Const.ProjectFireWorkMenuId)
+                {
+                    getInfoList = (from x in db.License_FireWork
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   orderby x.LicenseCode descending
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.FireWorkId,
+                                       MenuId = strMenuId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       WorkPalce = x.WorkPalce,
+                                       FireWatchManId = x.FireWatchManId,
+                                       FireWatchManName = x.FireWatchManName,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       WorkMeasures = x.WorkMeasures,
+                                       CancelManId = x.CancelManId,
+                                       CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                       CancelReasons = x.CancelReasons,
+                                       CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                       CloseManId = x.CloseManId,
+                                       CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                       CloseReasons = x.CloseReasons,
+                                       CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                       States = x.States,
+                                   }).ToList();
+                }
+                #endregion
+                #region 高处作业票
+                else if (strMenuId == Const.ProjectHeightWorkMenuId)
+                {
+                    getInfoList = (from x in db.License_HeightWork
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   orderby x.LicenseCode descending
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.HeightWorkId,
+                                       MenuId = strMenuId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       WorkPalce = x.WorkPalce,
+                                       WorkType = x.WorkType,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       WorkMeasures = x.WorkMeasures,
+                                       EquipmentTools = x.EquipmentTools,
+                                       CancelManId = x.CancelManId,
+                                       CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                       CancelReasons = x.CancelReasons,
+                                       CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                       CloseManId = x.CloseManId,
+                                       CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                       CloseReasons = x.CloseReasons,
+                                       CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                       States = x.States,
+                                   }).ToList();
+                }
+                #endregion
+                #region 受限空间作业票
+                if (strMenuId == Const.ProjectLimitedSpaceMenuId)
+                {
+                    getInfoList = (from x in db.License_LimitedSpace
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   orderby x.LicenseCode descending
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.LimitedSpaceId,
+                                       MenuId = strMenuId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       WorkPalce = x.WorkPalce,
+                                       FireWatchManId = x.FireWatchManId,
+                                       FireWatchManName = x.FireWatchManName,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       WorkMeasures = x.WorkMeasures,
+                                       CancelManId = x.CancelManId,
+                                       CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                       CancelReasons = x.CancelReasons,
+                                       CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                       CloseManId = x.CloseManId,
+                                       CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                       CloseReasons = x.CloseReasons,
+                                       CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                       States = x.States,
+                                   }).ToList();
+                }
+                #endregion
+                #region 射线作业票
+                if (strMenuId == Const.ProjectRadialWorkMenuId)
+                {
+                    getInfoList = (from x in db.License_RadialWork
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   orderby x.LicenseCode descending
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.RadialWorkId,
+                                       MenuId = strMenuId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       RadialType = x.RadialType,
+                                       WorkLeaderId = x.WorkLeaderId,
+                                       WorkLeaderName = db.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
+                                       WorkLeaderTel = x.WorkLeaderTel,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       WorkPalce = x.WorkPalce,
+                                       WorkMeasures = x.WorkMeasures,
+                                       FireWatchManId = x.FireWatchManId,
+                                       FireWatchManName = db.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                                       WatchManContact = x.WatchManContact,
+                                       CancelManId = x.CancelManId,
+                                       CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                       CancelReasons = x.CancelReasons,
+                                       CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                       CloseManId = x.CloseManId,
+                                       CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                       CloseReasons = x.CloseReasons,
+                                       CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                       NextManId = x.NextManId,
+                                       NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                       States = x.States,
+                                   }).ToList();
+                }
+                #endregion
+                #region 断路(占道)作业票
+                if (strMenuId == Const.ProjectOpenCircuitMenuId)
+                {
+                    getInfoList = (from x in db.License_OpenCircuit
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   orderby x.LicenseCode descending
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.OpenCircuitId,
+                                       MenuId = strMenuId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       WorkPalce = x.WorkPalce,
+                                       WorkMeasures = x.WorkMeasures,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       RoadName = x.RoadName,
+                                       SafeMeasures = x.SafeMeasures,
+                                       CancelManId = x.CancelManId,
+                                       CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                       CancelReasons = x.CancelReasons,
+                                       CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                       CloseManId = x.CloseManId,
+                                       CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                       CloseReasons = x.CloseReasons,
+                                       CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                       States = x.States,
+                                   }).ToList();
+                }
+                #endregion
+                #region 动土作业票
+                if (strMenuId == Const.ProjectBreakGroundMenuId)
+                {
+                    getInfoList = (from x in db.License_BreakGround
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   orderby x.LicenseCode descending
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.BreakGroundId,
+                                       MenuId = strMenuId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       WorkPalce = x.WorkPalce,
+                                       WorkDepth = x.WorkDepth,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       WorkMeasures = x.WorkMeasures,
+                                       CancelManId = x.CancelManId,
+                                       CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                       CancelReasons = x.CancelReasons,
+                                       CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                       CloseManId = x.CloseManId,
+                                       CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                       CloseReasons = x.CloseReasons,
+                                       CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                       States = x.States,
+                                   }).ToList();
+                }
+                #endregion
+                #region 夜间作业票
+                if (strMenuId == Const.ProjectNightWorkMenuId)
+                {
+                    getInfoList = (from x in db.License_NightWork
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   orderby x.LicenseCode descending
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.NightWorkId,
+                                       MenuId = strMenuId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       WorkPalce = x.WorkPalce,
+                                       WorkMeasures = x.WorkMeasures,
+                                       WorkLeaderId = x.WorkLeaderId,
+                                       WorkLeaderName = db.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
+                                       WorkLeaderTel = x.WorkLeaderTel,
+                                       SafeLeaderId = x.SafeLeaderId,
+                                       SafeLeaderName = db.Sys_User.First(u => u.UserId == x.SafeLeaderId).UserName,
+                                       SafeLeaderTel = x.SafeLeaderTel,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       CancelManId = x.CancelManId,
+                                       CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                       CancelReasons = x.CancelReasons,
+                                       CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                       CloseManId = x.CloseManId,
+                                       CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                       CloseReasons = x.CloseReasons,
+                                       CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                       NextManId = x.NextManId,
+                                       NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                       States = x.States,
+                                   }).ToList();
+                }
+                #endregion
+                #region 吊装作业票
+                if (strMenuId == Const.ProjectLiftingWorkMenuId)
+                {
+                    getInfoList = (from x in db.License_LiftingWork
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   orderby x.LicenseCode descending
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.LiftingWorkId,
+                                       MenuId = strMenuId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       WorkPalce = x.WorkPalce,
+                                       WorkLevel = x.WorkLevel,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       WorkMeasures = x.WorkMeasures,
+                                       CraneCapacity = x.CraneCapacity,
+                                       CancelManId = x.CancelManId,
+                                       CancelManName = db.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                       CancelReasons = x.CancelReasons,
+                                       CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                       CloseManId = x.CloseManId,
+                                       CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                       CloseReasons = x.CloseReasons,
+                                       CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                       NextManId = x.NextManId,
+                                       NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                       States = x.States,
+                                   }).ToList();
+                }
+                #endregion
 
-            #region 作业票 【定稿】"待开工"="1";"作业中"="2";"已关闭"="3";"已取消"="-1"
-            if (strMenuId == Const.ProjectLicenseManagerMenuId)
-            {
-                getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_LicenseManager
-                               where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                    && (states == null || x.WorkStates == states || (states=="1" && (x.WorkStates=="1" || x.WorkStates == "0")))
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.LicenseManagerId,
-                                   MenuId = Const.ProjectLicenseManagerMenuId,
-                                   MenuName = new Model.SGGLDB(Funs.ConnString).Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
-                                   LicenseTypeId=x.LicenseTypeId,                                   
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseManagerCode,
-                                   ApplyUnitId = x.UnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                                   ApplyManId = x.CompileMan,
-                                   ApplyManName = x.ApplicantMan,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                                   WorkPalce = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),                                   
-                                   States = x.WorkStates,
-                                   AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
-                               }).ToList(); ;
-            }
-            #endregion
+                #region 作业票 【定稿】"待开工"="1";"作业中"="2";"已关闭"="3";"已取消"="-1"
+                if (strMenuId == Const.ProjectLicenseManagerMenuId)
+                {
+                    getInfoList = (from x in db.License_LicenseManager
+                                   where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                        && (states == null || x.WorkStates == states || (states == "1" && (x.WorkStates == "1" || x.WorkStates == "0")))
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.LicenseManagerId,
+                                       MenuId = Const.ProjectLicenseManagerMenuId,
+                                       MenuName = db.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                                       LicenseTypeId = x.LicenseTypeId,
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseManagerCode,
+                                       ApplyUnitId = x.UnitId,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                       ApplyManId = x.CompileMan,
+                                       ApplyManName = x.ApplicantMan,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                       WorkPalce = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
+                                       States = x.WorkStates,
+                                       AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
+                                   }).ToList(); ;
+                }
+                #endregion
 
-            return getInfoList;
+                return getInfoList;
+            }
         }
         #endregion 
 
@@ -726,262 +732,265 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.LicenseDataItem> getLicenseDataListByStates(string projectId, string unitId, string states)
         {
-            if (!ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                unitId = null;
-            }
-            List<Model.LicenseDataItem> getInfoList = new List<Model.LicenseDataItem>();
+                if (!ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+                {
+                    unitId = null;
+                }
+                List<Model.LicenseDataItem> getInfoList = new List<Model.LicenseDataItem>();
 
-            #region 动火作业票
-            var getFireWork = (from x in new Model.SGGLDB(Funs.ConnString).License_FireWork
-                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
-                               select new Model.LicenseDataItem
-                               {
-                                   LicenseId = x.FireWorkId,
-                                   MenuId = Const.ProjectFireWorkMenuId,
-                                   MenuName = "动火作业",
-                                   ProjectId = x.ProjectId,
-                                   LicenseCode = x.LicenseCode,
-                                   ApplyUnitId = x.ApplyUnitId,
-                                   ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                   ApplyManId = x.ApplyManId,
-                                   ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                   WorkPalce = x.WorkPalce,
-                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                   States = x.States,
-                               }).ToList();
-            if (getFireWork.Count() > 0)
-            {
-                getInfoList.AddRange(getFireWork);
-            }
-            #endregion
-
-            #region 高处作业票            
-            var getHeightWork = (from x in new Model.SGGLDB(Funs.ConnString).License_HeightWork
-                                 where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                      && (states == null || x.States == states)
-                                 select new Model.LicenseDataItem
-                                 {
-                                     LicenseId = x.HeightWorkId,
-                                     MenuId = Const.ProjectHeightWorkMenuId,
-                                     MenuName = "高处作业",
-                                     ProjectId = x.ProjectId,
-                                     LicenseCode = x.LicenseCode,
-                                     ApplyUnitId = x.ApplyUnitId,
-                                     ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                     ApplyManId = x.ApplyManId,
-                                     ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                     ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                     WorkPalce = x.WorkPalce,
-                                     WorkType = x.WorkType,
-                                     ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                     ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                     States = x.States,
-                                 }).ToList();
-            if (getHeightWork.Count() > 0)
-            {
-                getInfoList.AddRange(getHeightWork);
-            }
-            #endregion
-
-            #region 受限空间作业票
-            var getLimitedSpace = (from x in new Model.SGGLDB(Funs.ConnString).License_LimitedSpace
+                #region 动火作业票
+                var getFireWork = (from x in db.License_FireWork
                                    where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
                                         && (states == null || x.States == states)
                                    select new Model.LicenseDataItem
                                    {
-                                       LicenseId = x.LimitedSpaceId,
-                                       MenuId = Const.ProjectLimitedSpaceMenuId,
-                                       MenuName = "受限空间",
+                                       LicenseId = x.FireWorkId,
+                                       MenuId = Const.ProjectFireWorkMenuId,
+                                       MenuName = "动火作业",
                                        ProjectId = x.ProjectId,
                                        LicenseCode = x.LicenseCode,
                                        ApplyUnitId = x.ApplyUnitId,
-                                       ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
                                        ApplyManId = x.ApplyManId,
-                                       ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
                                        ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
                                        WorkPalce = x.WorkPalce,
                                        ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                        ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                        States = x.States,
                                    }).ToList();
-            if (getLimitedSpace.Count() > 0)
-            {
-                getInfoList.AddRange(getLimitedSpace);
-            }
-            #endregion
+                if (getFireWork.Count() > 0)
+                {
+                    getInfoList.AddRange(getFireWork);
+                }
+                #endregion
 
-            #region 射线作业票
-            var getRadialWork = (from x in new Model.SGGLDB(Funs.ConnString).License_RadialWork
-                                 where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                      && (states == null || x.States == states)
-                                 select new Model.LicenseDataItem
-                                 {
-                                     LicenseId = x.RadialWorkId,
-                                     MenuId = Const.ProjectRadialWorkMenuId,
-                                     MenuName = "射线作业",
-                                     ProjectId = x.ProjectId,
-                                     LicenseCode = x.LicenseCode,
-                                     ApplyUnitId = x.ApplyUnitId,
-                                     ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                     ApplyManId = x.ApplyManId,
-                                     ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                     ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                     RadialType = x.RadialType,
-                                     ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                     ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                     WorkPalce = x.WorkPalce,
-                                     States = x.States,
-                                 }).ToList();
-            if (getRadialWork.Count() > 0)
-            {
-                getInfoList.AddRange(getRadialWork);
-            }
-            #endregion
-
-            #region 断路(占道)作业票
-            var getOpenCircuit = (from x in new Model.SGGLDB(Funs.ConnString).License_OpenCircuit
-                                  where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                      && (states == null || x.States == states)
-                                  select new Model.LicenseDataItem
-                                  {
-                                      LicenseId = x.OpenCircuitId,
-                                      MenuId = Const.ProjectOpenCircuitMenuId,
-                                      MenuName = "断路(占道)",
-                                      ProjectId = x.ProjectId,
-                                      LicenseCode = x.LicenseCode,
-                                      ApplyUnitId = x.ApplyUnitId,
-                                      ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                      ApplyManId = x.ApplyManId,
-                                      ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                      ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                      WorkPalce = x.WorkPalce,
-                                      ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                      ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                      RoadName = x.RoadName,
-                                      States = x.States,
-                                  }).ToList();
-            if (getOpenCircuit.Count() > 0)
-            {
-                getInfoList.AddRange(getOpenCircuit);
-            }
-            #endregion
-
-            #region 动土作业票            
-            var getBreakGround = (from x in new Model.SGGLDB(Funs.ConnString).License_BreakGround
-                                  where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                       && (states == null || x.States == states)
-                                  select new Model.LicenseDataItem
-                                  {
-                                      LicenseId = x.BreakGroundId,
-                                      MenuId = Const.ProjectBreakGroundMenuId,
-                                      MenuName = "动土作业",
-                                      ProjectId = x.ProjectId,
-                                      LicenseCode = x.LicenseCode,
-                                      ApplyUnitId = x.ApplyUnitId,
-                                      ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                      ApplyManId = x.ApplyManId,
-                                      ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                      ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                      WorkPalce = x.WorkPalce,
-                                      WorkDepth = x.WorkDepth,
-                                      ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                      ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                      States = x.States,
-                                  }).ToList();
-            if (getBreakGround.Count() > 0)
-            {
-                getInfoList.AddRange(getBreakGround);
-            }
-            #endregion
-
-            #region 夜间作业票
-            var getNightWork = (from x in new Model.SGGLDB(Funs.ConnString).License_NightWork
-                                where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                     && (states == null || x.States == states)
-                                select new Model.LicenseDataItem
-                                {
-                                    LicenseId = x.NightWorkId,
-                                    MenuId = Const.ProjectNightWorkMenuId,
-                                    MenuName = "夜间作业",
-                                    ProjectId = x.ProjectId,
-                                    LicenseCode = x.LicenseCode,
-                                    ApplyUnitId = x.ApplyUnitId,
-                                    ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                    ApplyManId = x.ApplyManId,
-                                    ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                    ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                    WorkPalce = x.WorkPalce,
-                                    ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                    ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                    States = x.States,
-                                }).ToList();
-            if (getNightWork.Count() > 0)
-            {
-                getInfoList.AddRange(getNightWork);
-            }
-            #endregion
-
-            #region 吊装作业票
-            var getLiftingWork = (from x in new Model.SGGLDB(Funs.ConnString).License_LiftingWork
-                                  where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
-                                       && (states == null || x.States == states)
-                                  select new Model.LicenseDataItem
-                                  {
-                                      LicenseId = x.LiftingWorkId,
-                                      MenuId = Const.ProjectLiftingWorkMenuId,
-                                      MenuName = "吊装作业",
-                                      ProjectId = x.ProjectId,
-                                      LicenseCode = x.LicenseCode,
-                                      ApplyUnitId = x.ApplyUnitId,
-                                      ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
-                                      ApplyManId = x.ApplyManId,
-                                      ApplyManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
-                                      ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
-                                      WorkPalce = x.WorkPalce,
-                                      WorkLevel = x.WorkLevel,
-                                      ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                                      ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
-                                      States = x.States,
-                                  }).ToList();
-            if (getLiftingWork.Count() > 0)
-            {
-                getInfoList.AddRange(getLiftingWork);
-            }
-            #endregion
-
-            #region 作业票【定稿 】"待开工"="1";"作业中"="2";"已关闭"="3";"已取消"="-1"
-            var getLicenseManager = (from x in new Model.SGGLDB(Funs.ConnString).License_LicenseManager
-                                     where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                         && (states == null || x.WorkStates == states || (states == "1" && (x.WorkStates == "1" || x.WorkStates == "0")))
+                #region 高处作业票            
+                var getHeightWork = (from x in db.License_HeightWork
+                                     where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                          && (states == null || x.States == states)
                                      select new Model.LicenseDataItem
                                      {
-                                         LicenseId = x.LicenseManagerId,
-                                         MenuId = Const.ProjectLicenseManagerMenuId,
-                                         MenuName ="[定稿]"+ new Model.SGGLDB(Funs.ConnString).Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
-                                         LicenseTypeId=x.LicenseTypeId,
+                                         LicenseId = x.HeightWorkId,
+                                         MenuId = Const.ProjectHeightWorkMenuId,
+                                         MenuName = "高处作业",
                                          ProjectId = x.ProjectId,
-                                         LicenseCode = x.LicenseManagerCode,
-                                         ApplyUnitId = x.UnitId,
-                                         ApplyUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                                         ApplyManName = x.ApplicantMan,
-                                         ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                                         WorkPalce = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
-                                         ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
-                                         ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
-                                         States = x.WorkStates,
-                                         AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
+                                         LicenseCode = x.LicenseCode,
+                                         ApplyUnitId = x.ApplyUnitId,
+                                         ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                         ApplyManId = x.ApplyManId,
+                                         ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                         ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                         WorkPalce = x.WorkPalce,
+                                         WorkType = x.WorkType,
+                                         ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                         ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                         States = x.States,
                                      }).ToList();
-            if (getLicenseManager.Count() > 0)
-            {
-                getInfoList.AddRange(getLicenseManager);
-            }
-            #endregion
+                if (getHeightWork.Count() > 0)
+                {
+                    getInfoList.AddRange(getHeightWork);
+                }
+                #endregion
 
-            return getInfoList.OrderByDescending(x => x.ValidityStartTime).ToList();
+                #region 受限空间作业票
+                var getLimitedSpace = (from x in db.License_LimitedSpace
+                                       where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                            && (states == null || x.States == states)
+                                       select new Model.LicenseDataItem
+                                       {
+                                           LicenseId = x.LimitedSpaceId,
+                                           MenuId = Const.ProjectLimitedSpaceMenuId,
+                                           MenuName = "受限空间",
+                                           ProjectId = x.ProjectId,
+                                           LicenseCode = x.LicenseCode,
+                                           ApplyUnitId = x.ApplyUnitId,
+                                           ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                           ApplyManId = x.ApplyManId,
+                                           ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                           ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                           WorkPalce = x.WorkPalce,
+                                           ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                           ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                           States = x.States,
+                                       }).ToList();
+                if (getLimitedSpace.Count() > 0)
+                {
+                    getInfoList.AddRange(getLimitedSpace);
+                }
+                #endregion
+
+                #region 射线作业票
+                var getRadialWork = (from x in db.License_RadialWork
+                                     where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                          && (states == null || x.States == states)
+                                     select new Model.LicenseDataItem
+                                     {
+                                         LicenseId = x.RadialWorkId,
+                                         MenuId = Const.ProjectRadialWorkMenuId,
+                                         MenuName = "射线作业",
+                                         ProjectId = x.ProjectId,
+                                         LicenseCode = x.LicenseCode,
+                                         ApplyUnitId = x.ApplyUnitId,
+                                         ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                         ApplyManId = x.ApplyManId,
+                                         ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                         ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                         RadialType = x.RadialType,
+                                         ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                         ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                         WorkPalce = x.WorkPalce,
+                                         States = x.States,
+                                     }).ToList();
+                if (getRadialWork.Count() > 0)
+                {
+                    getInfoList.AddRange(getRadialWork);
+                }
+                #endregion
+
+                #region 断路(占道)作业票
+                var getOpenCircuit = (from x in db.License_OpenCircuit
+                                      where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                          && (states == null || x.States == states)
+                                      select new Model.LicenseDataItem
+                                      {
+                                          LicenseId = x.OpenCircuitId,
+                                          MenuId = Const.ProjectOpenCircuitMenuId,
+                                          MenuName = "断路(占道)",
+                                          ProjectId = x.ProjectId,
+                                          LicenseCode = x.LicenseCode,
+                                          ApplyUnitId = x.ApplyUnitId,
+                                          ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                          ApplyManId = x.ApplyManId,
+                                          ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                          ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                          WorkPalce = x.WorkPalce,
+                                          ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                          ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                          RoadName = x.RoadName,
+                                          States = x.States,
+                                      }).ToList();
+                if (getOpenCircuit.Count() > 0)
+                {
+                    getInfoList.AddRange(getOpenCircuit);
+                }
+                #endregion
+
+                #region 动土作业票            
+                var getBreakGround = (from x in db.License_BreakGround
+                                      where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                           && (states == null || x.States == states)
+                                      select new Model.LicenseDataItem
+                                      {
+                                          LicenseId = x.BreakGroundId,
+                                          MenuId = Const.ProjectBreakGroundMenuId,
+                                          MenuName = "动土作业",
+                                          ProjectId = x.ProjectId,
+                                          LicenseCode = x.LicenseCode,
+                                          ApplyUnitId = x.ApplyUnitId,
+                                          ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                          ApplyManId = x.ApplyManId,
+                                          ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                          ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                          WorkPalce = x.WorkPalce,
+                                          WorkDepth = x.WorkDepth,
+                                          ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                          ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                          States = x.States,
+                                      }).ToList();
+                if (getBreakGround.Count() > 0)
+                {
+                    getInfoList.AddRange(getBreakGround);
+                }
+                #endregion
+
+                #region 夜间作业票
+                var getNightWork = (from x in db.License_NightWork
+                                    where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                         && (states == null || x.States == states)
+                                    select new Model.LicenseDataItem
+                                    {
+                                        LicenseId = x.NightWorkId,
+                                        MenuId = Const.ProjectNightWorkMenuId,
+                                        MenuName = "夜间作业",
+                                        ProjectId = x.ProjectId,
+                                        LicenseCode = x.LicenseCode,
+                                        ApplyUnitId = x.ApplyUnitId,
+                                        ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                        ApplyManId = x.ApplyManId,
+                                        ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                        ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                        WorkPalce = x.WorkPalce,
+                                        ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                        ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                        States = x.States,
+                                    }).ToList();
+                if (getNightWork.Count() > 0)
+                {
+                    getInfoList.AddRange(getNightWork);
+                }
+                #endregion
+
+                #region 吊装作业票
+                var getLiftingWork = (from x in db.License_LiftingWork
+                                      where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                           && (states == null || x.States == states)
+                                      select new Model.LicenseDataItem
+                                      {
+                                          LicenseId = x.LiftingWorkId,
+                                          MenuId = Const.ProjectLiftingWorkMenuId,
+                                          MenuName = "吊装作业",
+                                          ProjectId = x.ProjectId,
+                                          LicenseCode = x.LicenseCode,
+                                          ApplyUnitId = x.ApplyUnitId,
+                                          ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                          ApplyManId = x.ApplyManId,
+                                          ApplyManName = db.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                          ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                          WorkPalce = x.WorkPalce,
+                                          WorkLevel = x.WorkLevel,
+                                          ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                          ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                          States = x.States,
+                                      }).ToList();
+                if (getLiftingWork.Count() > 0)
+                {
+                    getInfoList.AddRange(getLiftingWork);
+                }
+                #endregion
+
+                #region 作业票【定稿 】"待开工"="1";"作业中"="2";"已关闭"="3";"已取消"="-1"
+                var getLicenseManager = (from x in db.License_LicenseManager
+                                         where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                             && (states == null || x.WorkStates == states || (states == "1" && (x.WorkStates == "1" || x.WorkStates == "0")))
+                                         select new Model.LicenseDataItem
+                                         {
+                                             LicenseId = x.LicenseManagerId,
+                                             MenuId = Const.ProjectLicenseManagerMenuId,
+                                             MenuName = "[定稿]" + db.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                                             LicenseTypeId = x.LicenseTypeId,
+                                             ProjectId = x.ProjectId,
+                                             LicenseCode = x.LicenseManagerCode,
+                                             ApplyUnitId = x.UnitId,
+                                             ApplyUnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                             ApplyManName = x.ApplicantMan,
+                                             ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                             WorkPalce = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
+                                             ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
+                                             ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
+                                             States = x.WorkStates,
+                                             AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
+                                         }).ToList();
+                if (getLicenseManager.Count() > 0)
+                {
+                    getInfoList.AddRange(getLicenseManager);
+                }
+                #endregion
+
+                return getInfoList.OrderByDescending(x => x.ValidityStartTime).ToList();
+            }
         }
         #endregion 
 
@@ -993,21 +1002,24 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.LicenseItem> getLicenseLicenseItemList(string dataId)
         {
-            var getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_LicenseItem
-                               where x.DataId == dataId
-                               orderby x.SortIndex
-                               select new Model.LicenseItem
-                               {
-                                   LicenseItemId = x.LicenseItemId,
-                                   DataId = x.DataId,
-                                   SortIndex = x.SortIndex ?? 0,
-                                   SafetyMeasures = x.SafetyMeasures,
-                                   IsUsed = x.IsUsed ?? false,
-                                   ConfirmManId = x.ConfirmManId,
-                                   ConfirmManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ConfirmManId).UserName,
-                               }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfoList = (from x in db.License_LicenseItem
+                                   where x.DataId == dataId
+                                   orderby x.SortIndex
+                                   select new Model.LicenseItem
+                                   {
+                                       LicenseItemId = x.LicenseItemId,
+                                       DataId = x.DataId,
+                                       SortIndex = x.SortIndex ?? 0,
+                                       SafetyMeasures = x.SafetyMeasures,
+                                       IsUsed = x.IsUsed ?? false,
+                                       ConfirmManId = x.ConfirmManId,
+                                       ConfirmManName = db.Sys_User.First(u => u.UserId == x.ConfirmManId).UserName,
+                                   }).ToList();
 
-            return getInfoList;
+                return getInfoList;
+            }
         }
         #endregion        
 
@@ -1019,25 +1031,28 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FlowOperateItem> getLicenseFlowOperateList(string dataId)
         {
-            var getInfoList = (from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
-                               where x.DataId == dataId && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false)
-                               orderby x.SortIndex, x.GroupNum, x.OrderNum
-                               select new Model.FlowOperateItem
-                               {
-                                   FlowOperateId = x.FlowOperateId,
-                                   AuditFlowName = x.AuditFlowName,
-                                   SortIndex = x.SortIndex ?? 0,
-                                   GroupNum = x.GroupNum ?? 1,
-                                   OrderNum = x.OrderNum ?? 1,
-                                   OperaterId = x.OperaterId,
-                                   OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.OperaterId).UserName,
-                                   OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
-                                   IsAgree = x.IsAgree,
-                                   Opinion = x.Opinion,
-                                   IsFlowEnd = x.IsFlowEnd ?? false,
-                               }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfoList = (from x in db.License_FlowOperate
+                                   where x.DataId == dataId && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false)
+                                   orderby x.SortIndex, x.GroupNum, x.OrderNum
+                                   select new Model.FlowOperateItem
+                                   {
+                                       FlowOperateId = x.FlowOperateId,
+                                       AuditFlowName = x.AuditFlowName,
+                                       SortIndex = x.SortIndex ?? 0,
+                                       GroupNum = x.GroupNum ?? 1,
+                                       OrderNum = x.OrderNum ?? 1,
+                                       OperaterId = x.OperaterId,
+                                       OperaterName = db.Sys_User.First(u => u.UserId == x.OperaterId).UserName,
+                                       OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
+                                       IsAgree = x.IsAgree,
+                                       Opinion = x.Opinion,
+                                       IsFlowEnd = x.IsFlowEnd ?? false,
+                                   }).ToList();
 
-            return getInfoList;
+                return getInfoList;
+            }
         }
         #endregion        
 
@@ -2165,29 +2180,32 @@ namespace BLL
         /// <returns></returns>
         public static Model.FlowOperateItem getLicenseFlowOperate(string dataId, string userId)
         {
-            ////审核记录
-            var getFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
-                                 where x.DataId == dataId && x.OperaterId == userId
-                                    && (!x.IsClosed.HasValue || x.IsClosed == false)
-                                 orderby x.SortIndex, x.GroupNum, x.OrderNum
-                                 select new Model.FlowOperateItem
-                                 {
-                                     FlowOperateId = x.FlowOperateId,
-                                     MenuId = x.MenuId,
-                                     DataId = x.DataId,
-                                     AuditFlowName = x.AuditFlowName,
-                                     SortIndex = x.SortIndex ?? 0,
-                                     GroupNum = x.GroupNum ?? 0,
-                                     OrderNum = x.OrderNum ?? 0,
-                                     RoleIds = x.RoleIds,
-                                     OperaterId = x.OperaterId,
-                                     OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.OperaterId).UserName,
-                                     IsAgree = x.IsAgree,
-                                     Opinion = x.Opinion,
-                                     IsFlowEnd = x.IsFlowEnd ?? false,
-                                     SignatureUrl = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.OperaterId).SignatureUrl.Replace('\\', '/'),
-                                 };
-            return getFlowOperate.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                ////审核记录
+                var getFlowOperate = from x in db.License_FlowOperate
+                                     where x.DataId == dataId && x.OperaterId == userId
+                                        && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                     orderby x.SortIndex, x.GroupNum, x.OrderNum
+                                     select new Model.FlowOperateItem
+                                     {
+                                         FlowOperateId = x.FlowOperateId,
+                                         MenuId = x.MenuId,
+                                         DataId = x.DataId,
+                                         AuditFlowName = x.AuditFlowName,
+                                         SortIndex = x.SortIndex ?? 0,
+                                         GroupNum = x.GroupNum ?? 0,
+                                         OrderNum = x.OrderNum ?? 0,
+                                         RoleIds = x.RoleIds,
+                                         OperaterId = x.OperaterId,
+                                         OperaterName = db.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
+                                         IsAgree = x.IsAgree,
+                                         Opinion = x.Opinion,
+                                         IsFlowEnd = x.IsFlowEnd ?? false,
+                                         SignatureUrl = db.Sys_User.First(y => y.UserId == x.OperaterId).SignatureUrl.Replace('\\', '/'),
+                                     };
+                return getFlowOperate.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -2199,125 +2217,128 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FlowOperateItem> getNextLicenseFlowOperate(string strMenuId, Model.LicenseDataItem licenseInfo, Model.FlowOperateItem getNowFlowOperate)
         {
-            List<Model.FlowOperateItem> getFlowOperate = new List<Model.FlowOperateItem>();
-            var getAllFlows = from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
-                              where x.DataId == licenseInfo.LicenseId && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false)
-                              select x;
-            if (licenseInfo == null || string.IsNullOrEmpty(licenseInfo.LicenseId) || getAllFlows.Count() == 0)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getFlowOperate = (from x in new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate
-                                  where x.MenuId == strMenuId && x.FlowStep == 1 && x.OrderNum ==1
-                                  orderby x.FlowStep, x.GroupNum, x.OrderNum
-                                  select new Model.FlowOperateItem
-                                  {
-                                      MenuId = x.MenuId,
-                                      AuditFlowName = x.AuditFlowName,
-                                      SortIndex = x.FlowStep ?? 0,
-                                      GroupNum = x.GroupNum ?? 1,
-                                      OrderNum = x.OrderNum ?? 1,
-                                      RoleIds = x.RoleId,
-                                      IsFlowEnd = x.IsFlowEnd ?? false,
-                                  }).ToList();
-            }
-            else
-            {
-                if (licenseInfo.States == Const.State_0)
+                List<Model.FlowOperateItem> getFlowOperate = new List<Model.FlowOperateItem>();
+                var getAllFlows = from x in db.License_FlowOperate
+                                  where x.DataId == licenseInfo.LicenseId && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false)
+                                  select x;
+                if (licenseInfo == null || string.IsNullOrEmpty(licenseInfo.LicenseId) || getAllFlows.Count() == 0)
                 {
-                    var getNoCloseFlow = getAllFlows.Where(x => x.OperaterId != null && (!x.IsClosed.HasValue || x.IsClosed == false));
-                    if (getNoCloseFlow.Count() > 0)
-                    {
-                        var getMinSortIndex = getNoCloseFlow.Min(x => x.SortIndex);
-                        if (getMinSortIndex.HasValue)
-                        {
-                            var getGroupList = getNoCloseFlow.Where(x => x.SortIndex == getMinSortIndex).Select(x => x.GroupNum).Distinct();
-                            foreach (var item in getGroupList)
-                            {
-                                var getMinOrder = (from x in getNoCloseFlow
-                                                   where x.SortIndex == getMinSortIndex && x.GroupNum == item
-                                                   orderby x.OrderNum
-                                                   select new Model.FlowOperateItem
-                                                   {
-                                                       FlowOperateId = x.FlowOperateId,
-                                                       MenuId = x.MenuId,
-                                                       DataId = x.DataId,
-                                                       ProjectId = x.ProjectId,
-                                                       AuditFlowName = x.AuditFlowName,
-                                                       SortIndex = x.SortIndex ?? 0,
-                                                       GroupNum = x.GroupNum ?? 1,
-                                                       OrderNum = x.OrderNum ?? 1,
-                                                       RoleIds = x.RoleIds,
-                                                       OperaterId = x.OperaterId,
-                                                       OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.OperaterId).UserName,
-                                                       IsAgree = x.IsAgree,
-                                                       Opinion = x.Opinion,
-                                                       IsFlowEnd = x.IsFlowEnd ?? false,
-                                                   }).FirstOrDefault();
-                              
-                                if (getMinOrder != null)
-                                {
-                                    getFlowOperate.Add(getMinOrder);
-                                }
-                            }
-
-                            getFlowOperate = getFlowOperate.OrderBy(x => x.GroupNum).ToList();
-                        }
-                    }
-                }
-                else if (licenseInfo.States == Const.State_1 && getNowFlowOperate != null)
-                {
-                    getFlowOperate = (from x in getAllFlows
-                                      where (!x.IsClosed.HasValue || x.IsClosed == false)
-                                      && x.SortIndex == getNowFlowOperate.SortIndex && x.GroupNum == getNowFlowOperate.GroupNum && x.OrderNum == (getNowFlowOperate.OrderNum + 1)
-                                      orderby x.SortIndex, x.GroupNum, x.OrderNum
+                    getFlowOperate = (from x in db.Sys_MenuFlowOperate
+                                      where x.MenuId == strMenuId && x.FlowStep == 1 && x.OrderNum == 1
+                                      orderby x.FlowStep, x.GroupNum, x.OrderNum
                                       select new Model.FlowOperateItem
                                       {
-                                          FlowOperateId = x.FlowOperateId,
                                           MenuId = x.MenuId,
-                                          DataId = x.DataId,
-                                          ProjectId = x.ProjectId,
                                           AuditFlowName = x.AuditFlowName,
-                                          SortIndex = x.SortIndex ?? 0,
+                                          SortIndex = x.FlowStep ?? 0,
                                           GroupNum = x.GroupNum ?? 1,
                                           OrderNum = x.OrderNum ?? 1,
-                                          RoleIds = x.RoleIds,
-                                          OperaterId = x.OperaterId,
-                                          OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.OperaterId).UserName,
-                                          IsAgree = x.IsAgree,
-                                          Opinion = x.Opinion,
+                                          RoleIds = x.RoleId,
                                           IsFlowEnd = x.IsFlowEnd ?? false,
                                       }).ToList();
-                    if (getFlowOperate.Count() == 0)
+                }
+                else
+                {
+                    if (licenseInfo.States == Const.State_0)
                     {
-                        var getGroupFlowOperate = getAllFlows.FirstOrDefault(x => (!x.IsClosed.HasValue || x.IsClosed == false)
-                                                    && x.SortIndex == getNowFlowOperate.SortIndex && x.FlowOperateId != getNowFlowOperate.FlowOperateId);
-                        if (getGroupFlowOperate == null)
+                        var getNoCloseFlow = getAllFlows.Where(x => x.OperaterId != null && (!x.IsClosed.HasValue || x.IsClosed == false));
+                        if (getNoCloseFlow.Count() > 0)
                         {
-                            getFlowOperate = (from x in getAllFlows
-                                              where (!x.IsClosed.HasValue || x.IsClosed == false)
-                                              && x.SortIndex == (getNowFlowOperate.SortIndex + 1) && x.OrderNum == 1
-                                              orderby x.SortIndex, x.GroupNum, x.OrderNum
-                                              select new Model.FlowOperateItem
-                                              {
-                                                  FlowOperateId = x.FlowOperateId,
-                                                  MenuId = x.MenuId,
-                                                  DataId = x.DataId,
-                                                  ProjectId = x.ProjectId,
-                                                  AuditFlowName = x.AuditFlowName,
-                                                  SortIndex = x.SortIndex ?? 0,
-                                                  GroupNum = x.GroupNum ?? 1,
-                                                  OrderNum = x.OrderNum ?? 1,
-                                                  RoleIds = x.RoleIds,
-                                                  OperaterId = x.OperaterId,
-                                                  OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.OperaterId).UserName,
-                                                  IsAgree = x.IsAgree,
-                                                  Opinion = x.Opinion,
-                                                  IsFlowEnd = x.IsFlowEnd ?? false,
-                                              }).ToList();
+                            var getMinSortIndex = getNoCloseFlow.Min(x => x.SortIndex);
+                            if (getMinSortIndex.HasValue)
+                            {
+                                var getGroupList = getNoCloseFlow.Where(x => x.SortIndex == getMinSortIndex).Select(x => x.GroupNum).Distinct();
+                                foreach (var item in getGroupList)
+                                {
+                                    var getMinOrder = (from x in getNoCloseFlow
+                                                       where x.SortIndex == getMinSortIndex && x.GroupNum == item
+                                                       orderby x.OrderNum
+                                                       select new Model.FlowOperateItem
+                                                       {
+                                                           FlowOperateId = x.FlowOperateId,
+                                                           MenuId = x.MenuId,
+                                                           DataId = x.DataId,
+                                                           ProjectId = x.ProjectId,
+                                                           AuditFlowName = x.AuditFlowName,
+                                                           SortIndex = x.SortIndex ?? 0,
+                                                           GroupNum = x.GroupNum ?? 1,
+                                                           OrderNum = x.OrderNum ?? 1,
+                                                           RoleIds = x.RoleIds,
+                                                           OperaterId = x.OperaterId,
+                                                           OperaterName = db.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
+                                                           IsAgree = x.IsAgree,
+                                                           Opinion = x.Opinion,
+                                                           IsFlowEnd = x.IsFlowEnd ?? false,
+                                                       }).FirstOrDefault();
+
+                                    if (getMinOrder != null)
+                                    {
+                                        getFlowOperate.Add(getMinOrder);
+                                    }
+                                }
+
+                                getFlowOperate = getFlowOperate.OrderBy(x => x.GroupNum).ToList();
+                            }
+                        }
+                    }
+                    else if (licenseInfo.States == Const.State_1 && getNowFlowOperate != null)
+                    {
+                        getFlowOperate = (from x in getAllFlows
+                                          where (!x.IsClosed.HasValue || x.IsClosed == false)
+                                          && x.SortIndex == getNowFlowOperate.SortIndex && x.GroupNum == getNowFlowOperate.GroupNum && x.OrderNum == (getNowFlowOperate.OrderNum + 1)
+                                          orderby x.SortIndex, x.GroupNum, x.OrderNum
+                                          select new Model.FlowOperateItem
+                                          {
+                                              FlowOperateId = x.FlowOperateId,
+                                              MenuId = x.MenuId,
+                                              DataId = x.DataId,
+                                              ProjectId = x.ProjectId,
+                                              AuditFlowName = x.AuditFlowName,
+                                              SortIndex = x.SortIndex ?? 0,
+                                              GroupNum = x.GroupNum ?? 1,
+                                              OrderNum = x.OrderNum ?? 1,
+                                              RoleIds = x.RoleIds,
+                                              OperaterId = x.OperaterId,
+                                              OperaterName = db.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
+                                              IsAgree = x.IsAgree,
+                                              Opinion = x.Opinion,
+                                              IsFlowEnd = x.IsFlowEnd ?? false,
+                                          }).ToList();
+                        if (getFlowOperate.Count() == 0)
+                        {
+                            var getGroupFlowOperate = getAllFlows.FirstOrDefault(x => (!x.IsClosed.HasValue || x.IsClosed == false)
+                                                        && x.SortIndex == getNowFlowOperate.SortIndex && x.FlowOperateId != getNowFlowOperate.FlowOperateId);
+                            if (getGroupFlowOperate == null)
+                            {
+                                getFlowOperate = (from x in getAllFlows
+                                                  where (!x.IsClosed.HasValue || x.IsClosed == false)
+                                                  && x.SortIndex == (getNowFlowOperate.SortIndex + 1) && x.OrderNum == 1
+                                                  orderby x.SortIndex, x.GroupNum, x.OrderNum
+                                                  select new Model.FlowOperateItem
+                                                  {
+                                                      FlowOperateId = x.FlowOperateId,
+                                                      MenuId = x.MenuId,
+                                                      DataId = x.DataId,
+                                                      ProjectId = x.ProjectId,
+                                                      AuditFlowName = x.AuditFlowName,
+                                                      SortIndex = x.SortIndex ?? 0,
+                                                      GroupNum = x.GroupNum ?? 1,
+                                                      OrderNum = x.OrderNum ?? 1,
+                                                      RoleIds = x.RoleIds,
+                                                      OperaterId = x.OperaterId,
+                                                      OperaterName = db.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
+                                                      IsAgree = x.IsAgree,
+                                                      Opinion = x.Opinion,
+                                                      IsFlowEnd = x.IsFlowEnd ?? false,
+                                                  }).ToList();
+                            }
                         }
                     }
                 }
+                return getFlowOperate;
             }
-            return getFlowOperate;
         }
         #endregion
 
@@ -2329,45 +2350,48 @@ namespace BLL
         /// <returns></returns>
         public static void getDeleteLicenseFlowOperate(string flowOperateId)
         {
-            var delteFlow = new Model.SGGLDB(Funs.ConnString).License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
-            if (delteFlow != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var isSort = new Model.SGGLDB(Funs.ConnString).License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex);
-                if (isSort == null)
+                var delteFlow = db.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
+                if (delteFlow != null)
                 {
-                    var updateSort = from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
-                                     where x.DataId == delteFlow.DataId && x.SortIndex > delteFlow.SortIndex
-                                     select x;
-                    foreach (var item in updateSort)
+                    var isSort = db.License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex);
+                    if (isSort == null)
                     {
-                        item.SortIndex -= 1;
-                    }
-                }
-                else
-                {
-                    var isGroup = new Model.SGGLDB(Funs.ConnString).License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum == delteFlow.GroupNum);
-                    if (isGroup == null)
-                    {
-                        var updateGroup = from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
-                                          where x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum > delteFlow.GroupNum
-                                          select x;
-                        foreach (var item in updateGroup)
+                        var updateSort = from x in db.License_FlowOperate
+                                         where x.DataId == delteFlow.DataId && x.SortIndex > delteFlow.SortIndex
+                                         select x;
+                        foreach (var item in updateSort)
                         {
-                            item.GroupNum -= 1;
+                            item.SortIndex -= 1;
                         }
                     }
                     else
                     {
-                        var isOrder = new Model.SGGLDB(Funs.ConnString).License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum == delteFlow.GroupNum && x.OrderNum > delteFlow.OrderNum);
-                        if (isOrder != null)
+                        var isGroup = db.License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum == delteFlow.GroupNum);
+                        if (isGroup == null)
                         {
-                            isOrder.OrderNum -= 1;
+                            var updateGroup = from x in db.License_FlowOperate
+                                              where x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum > delteFlow.GroupNum
+                                              select x;
+                            foreach (var item in updateGroup)
+                            {
+                                item.GroupNum -= 1;
+                            }
+                        }
+                        else
+                        {
+                            var isOrder = db.License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum == delteFlow.GroupNum && x.OrderNum > delteFlow.OrderNum);
+                            if (isOrder != null)
+                            {
+                                isOrder.OrderNum -= 1;
+                            }
                         }
                     }
-                }
 
-                new Model.SGGLDB(Funs.ConnString).License_FlowOperate.DeleteOnSubmit(delteFlow);
-                Funs.SubmitChanges();
+                    db.License_FlowOperate.DeleteOnSubmit(delteFlow);
+                    db.SubmitChanges();
+                }
             }
         }
         #endregion
@@ -2380,34 +2404,37 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FlowOperateItem> getNextLicenseFlowOperateGroupList(string flowOperateId)
         {
-            List<Model.FlowOperateItem> getNextFlowsList = new List<Model.FlowOperateItem>();
-            var getFlow = new Model.SGGLDB(Funs.ConnString).License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
-            if (getFlow != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getNextFlowsList = (from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
-                                    where x.DataId == getFlow.DataId && x.SortIndex == (getFlow.SortIndex + 1)
-                                    orderby x.SortIndex, x.GroupNum, x.OrderNum
-                                    select new Model.FlowOperateItem
-                                    {
-                                        FlowOperateId = x.FlowOperateId,
-                                        MenuId = x.MenuId,
-                                        ProjectId = x.ProjectId,
-                                        DataId = x.DataId,
-                                        AuditFlowName = x.AuditFlowName,
-                                        SortIndex = x.SortIndex ?? 0,
-                                        GroupNum = x.GroupNum ?? 1,
-                                        OrderNum = x.OrderNum ?? 1,
-                                        RoleIds = x.RoleIds,
-                                        OperaterId = x.OperaterId,
-                                        OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.OperaterId).UserName,
-                                        OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
-                                        IsAgree = x.IsAgree,
-                                        Opinion = x.Opinion,
-                                        IsFlowEnd = x.IsFlowEnd ?? false,
-                                    }).ToList();
-            }
+                List<Model.FlowOperateItem> getNextFlowsList = new List<Model.FlowOperateItem>();
+                var getFlow = db.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
+                if (getFlow != null)
+                {
+                    getNextFlowsList = (from x in db.License_FlowOperate
+                                        where x.DataId == getFlow.DataId && x.SortIndex == (getFlow.SortIndex + 1)
+                                        orderby x.SortIndex, x.GroupNum, x.OrderNum
+                                        select new Model.FlowOperateItem
+                                        {
+                                            FlowOperateId = x.FlowOperateId,
+                                            MenuId = x.MenuId,
+                                            ProjectId = x.ProjectId,
+                                            DataId = x.DataId,
+                                            AuditFlowName = x.AuditFlowName,
+                                            SortIndex = x.SortIndex ?? 0,
+                                            GroupNum = x.GroupNum ?? 1,
+                                            OrderNum = x.OrderNum ?? 1,
+                                            RoleIds = x.RoleIds,
+                                            OperaterId = x.OperaterId,
+                                            OperaterName = db.Sys_User.First(u => u.UserId == x.OperaterId).UserName,
+                                            OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
+                                            IsAgree = x.IsAgree,
+                                            Opinion = x.Opinion,
+                                            IsFlowEnd = x.IsFlowEnd ?? false,
+                                        }).ToList();
+                }
 
-            return getNextFlowsList;
+                return getNextFlowsList;
+            }
         }
         #endregion  
 
@@ -2424,12 +2451,12 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {              
                 //// 删除未审核的流程记录
-                var getDelFlows = from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
+                var getDelFlows = from x in db.License_FlowOperate
                                   where x.DataId == strLicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
                                   select x;
                 if (getDelFlows.Count() > 0)
                 {
-                    new Model.SGGLDB(Funs.ConnString).License_FlowOperate.DeleteAllOnSubmit(getDelFlows);
+                    db.License_FlowOperate.DeleteAllOnSubmit(getDelFlows);
                 }
                 //// 删除编码表记录
                 CodeRecordsService.DeleteCodeRecordsByDataId(strLicenseId);

@@ -19,31 +19,34 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getAutoPointBatchCode(string unitWorkId,string detectionTypeId,string detectionRateId, string pointBatchCode)
         {
-            var dataList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatch
-                           where x.UnitWorkId == unitWorkId && x.EndDate == null
-                           select x;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var dataList = from x in db.HJGL_Batch_PointBatch
+                               where x.UnitWorkId == unitWorkId && x.EndDate == null
+                               select x;
 
-            if (!string.IsNullOrEmpty(detectionTypeId))
-            {
-                dataList = dataList.Where(e => e.DetectionTypeId==detectionTypeId);
+                if (!string.IsNullOrEmpty(detectionTypeId))
+                {
+                    dataList = dataList.Where(e => e.DetectionTypeId == detectionTypeId);
+                }
+                if (!string.IsNullOrEmpty(detectionRateId))
+                {
+                    dataList = dataList.Where(e => e.DetectionRateId == detectionRateId);
+                }
+                if (!string.IsNullOrEmpty(pointBatchCode))
+                {
+                    dataList = dataList.Where(e => e.PointBatchCode.Contains(pointBatchCode));
+                }
+
+                var getDataLists = (from x in dataList
+                                    orderby x.PointBatchCode
+                                    select new Model.NDETrustItem
+                                    {
+                                        PointBatchId = x.PointBatchId,
+                                        PointBatchCode = x.PointBatchCode,
+                                    }).ToList();
+                return getDataLists;
             }
-            if (!string.IsNullOrEmpty(detectionRateId))
-            {
-                dataList = dataList.Where(e => e.DetectionRateId == detectionRateId);
-            }
-            if (!string.IsNullOrEmpty(pointBatchCode))
-            {
-                dataList = dataList.Where(e => e.PointBatchCode.Contains(pointBatchCode));
-            }
-          
-            var getDataLists = (from x in dataList
-                                orderby x.PointBatchCode
-                                select new Model.NDETrustItem
-                                {
-                                    PointBatchId = x.PointBatchId,
-                                    PointBatchCode = x.PointBatchCode,
-                                }).ToList();
-            return getDataLists;
         }
         #endregion
 
@@ -57,32 +60,35 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getPointBatchCode(string unitWorkId, string detectionTypeId, string detectionRateId, string pointBatchCode)
         {
-            var dataList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatch
-                           join y in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem on x.PointBatchId equals y.PointBatchId
-                           where x.UnitWorkId == unitWorkId && y.IsBuildTrust == null && x.EndDate.HasValue
-                           select x;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var dataList = from x in db.HJGL_Batch_PointBatch
+                               join y in db.HJGL_Batch_PointBatchItem on x.PointBatchId equals y.PointBatchId
+                               where x.UnitWorkId == unitWorkId && y.IsBuildTrust == null && x.EndDate.HasValue
+                               select x;
 
-            if (!string.IsNullOrEmpty(detectionTypeId))
-            {
-                dataList = dataList.Where(e => e.DetectionTypeId == detectionTypeId);
+                if (!string.IsNullOrEmpty(detectionTypeId))
+                {
+                    dataList = dataList.Where(e => e.DetectionTypeId == detectionTypeId);
+                }
+                if (!string.IsNullOrEmpty(detectionRateId))
+                {
+                    dataList = dataList.Where(e => e.DetectionRateId == detectionRateId);
+                }
+                if (!string.IsNullOrEmpty(pointBatchCode))
+                {
+                    dataList = dataList.Where(e => e.PointBatchCode.Contains(pointBatchCode));
+                }
+
+                var getDataLists = (from x in dataList
+                                    orderby x.PointBatchCode
+                                    select new Model.NDETrustItem
+                                    {
+                                        PointBatchId = x.PointBatchId,
+                                        PointBatchCode = x.PointBatchCode,
+                                    }).Distinct().ToList();
+                return getDataLists;
             }
-            if (!string.IsNullOrEmpty(detectionRateId))
-            {
-                dataList = dataList.Where(e => e.DetectionRateId == detectionRateId);
-            }
-            if (!string.IsNullOrEmpty(pointBatchCode))
-            {
-                dataList = dataList.Where(e => e.PointBatchCode.Contains(pointBatchCode));
-            }
-           
-            var getDataLists = (from x in dataList
-                                orderby x.PointBatchCode
-                                select new Model.NDETrustItem
-                                {
-                                    PointBatchId = x.PointBatchId,
-                                    PointBatchCode = x.PointBatchCode,
-                                }).Distinct().ToList();
-            return getDataLists;
         }
         #endregion
 
@@ -95,19 +101,22 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getPointBatchDetail(string pointBatchId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
-                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                where x.PointBatchId == pointBatchId 
-                                select new Model.NDETrustItem
-                                {
-                                    WeldJointId = x.WeldJointId,
-                                    WeldJointCode = y.WeldJointCode,
-                                    PipelineCode = y.PipelineCode,
-                                    JointArea = y.JointArea,
-                                    AttachUrl = y.AttachUrl
-                                }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HJGL_Batch_PointBatchItem
+                                    join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                    where x.PointBatchId == pointBatchId
+                                    select new Model.NDETrustItem
+                                    {
+                                        WeldJointId = x.WeldJointId,
+                                        WeldJointCode = y.WeldJointCode,
+                                        PipelineCode = y.PipelineCode,
+                                        JointArea = y.JointArea,
+                                        AttachUrl = y.AttachUrl
+                                    }).ToList();
 
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -120,19 +129,22 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getPointWeldJoint(string pointBatchId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
-                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                where x.IsBuildTrust == null && x.PointBatchId == pointBatchId && x.PointState == "1"
-                                select new Model.NDETrustItem
-                                {
-                                    WeldJointId = x.WeldJointId,
-                                    WeldJointCode = y.WeldJointCode,
-                                    PipelineCode = y.PipelineCode,
-                                    JointArea = y.JointArea,
-                                    AttachUrl = y.AttachUrl
-                                }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HJGL_Batch_PointBatchItem
+                                    join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                    where x.IsBuildTrust == null && x.PointBatchId == pointBatchId && x.PointState == "1"
+                                    select new Model.NDETrustItem
+                                    {
+                                        WeldJointId = x.WeldJointId,
+                                        WeldJointCode = y.WeldJointCode,
+                                        PipelineCode = y.PipelineCode,
+                                        JointArea = y.JointArea,
+                                        AttachUrl = y.AttachUrl
+                                    }).ToList();
 
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -145,22 +157,24 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> getPointWeldJoint(string pointBatchId, string weldJointId)
         {
-            var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
+                var getDataLists = (from x in db.HJGL_Batch_PointBatchItem
+                                    join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                    where x.PointBatchId == pointBatchId && x.PointState == null
+                                          && y.JointAttribute == jot.JointAttribute
+                                    select new Model.NDETrustItem
+                                    {
+                                        WeldJointId = x.WeldJointId,
+                                        WeldJointCode = y.WeldJointCode,
+                                        PipelineCode = y.PipelineCode,
+                                        JointArea = y.JointArea,
+                                        AttachUrl = y.AttachUrl
+                                    }).ToList();
 
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
-                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                where x.PointBatchId == pointBatchId && x.PointState == null
-                                      && y.JointAttribute == jot.JointAttribute
-                                select new Model.NDETrustItem
-                                {
-                                    WeldJointId = x.WeldJointId,
-                                    WeldJointCode = y.WeldJointCode,
-                                    PipelineCode = y.PipelineCode,
-                                    JointArea = y.JointArea,
-                                    AttachUrl = y.AttachUrl
-                                }).ToList();
-
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -183,24 +197,27 @@ namespace BLL
         /// <param name="newJointId">调为新的焊口</param>
         public static void RePointSave(string oldJointId,string newJointId)
         {
-            var oldPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(oldJointId);
-            if (oldPoint != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                oldPoint.PointDate = null;
-                oldPoint.PointState = null;
-                oldPoint.IsAudit = null;
-                oldPoint.IsPipelineFirst = null;
-                oldPoint.IsWelderFirst = null;
-            }
+                var oldPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(oldJointId);
+                if (oldPoint != null)
+                {
+                    oldPoint.PointDate = null;
+                    oldPoint.PointState = null;
+                    oldPoint.IsAudit = null;
+                    oldPoint.IsPipelineFirst = null;
+                    oldPoint.IsWelderFirst = null;
+                }
 
-            var newPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(newJointId);
-            if (newPoint != null)
-            {
-                newPoint.PointState = "1";
-                newPoint.PointDate = DateTime.Now;
-            }
+                var newPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(newJointId);
+                if (newPoint != null)
+                {
+                    newPoint.PointState = "1";
+                    newPoint.PointDate = DateTime.Now;
+                }
 
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                db.SubmitChanges();
+            }
         }
         #endregion
 
@@ -212,21 +229,24 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> GetPointWeldJointList(string unitWorkId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem
-                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                join z in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatch on x.PointBatchId equals z.PointBatchId
-                                where x.IsBuildTrust == null && z.UnitWorkId == unitWorkId
-                                       && x.PointState == "1"
-                                select new Model.NDETrustItem
-                                {
-                                    WeldJointId = x.WeldJointId,
-                                    PointBatchCode = z.PointBatchCode,
-                                    WeldJointCode = y.WeldJointCode,
-                                    PipelineCode = y.PipelineCode,
-                                    AttachUrl = y.AttachUrl
-                                }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HJGL_Batch_PointBatchItem
+                                    join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                    join z in db.HJGL_Batch_PointBatch on x.PointBatchId equals z.PointBatchId
+                                    where x.IsBuildTrust == null && z.UnitWorkId == unitWorkId
+                                           && x.PointState == "1"
+                                    select new Model.NDETrustItem
+                                    {
+                                        WeldJointId = x.WeldJointId,
+                                        PointBatchCode = z.PointBatchCode,
+                                        WeldJointCode = y.WeldJointCode,
+                                        PipelineCode = y.PipelineCode,
+                                        AttachUrl = y.AttachUrl
+                                    }).ToList();
 
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -327,43 +347,46 @@ namespace BLL
         /// <param name="isAudit"></param>
         /// <param name="pointBatchCode"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, bool? isAudit ,string trustBatchCode)
+        public static List<Model.BaseInfoItem> getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, bool? isAudit, string trustBatchCode)
         {
-            var dataList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust
-                           where x.UnitWorkId == unitWorkId 
-                           select x;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var dataList = from x in db.HJGL_Batch_BatchTrust
+                               where x.UnitWorkId == unitWorkId
+                               select x;
 
-            if (!string.IsNullOrEmpty(detectionTypeId))
-            {
-                dataList = dataList.Where(e => e.DetectionTypeId == detectionTypeId);
-            }
-            if (!string.IsNullOrEmpty(detectionRateId))
-            {
-                dataList = dataList.Where(e => e.DetectionRateId == detectionRateId);
-            }
+                if (!string.IsNullOrEmpty(detectionTypeId))
+                {
+                    dataList = dataList.Where(e => e.DetectionTypeId == detectionTypeId);
+                }
+                if (!string.IsNullOrEmpty(detectionRateId))
+                {
+                    dataList = dataList.Where(e => e.DetectionRateId == detectionRateId);
+                }
 
-            if (isAudit == true)
-            {
-                dataList = dataList.Where(e => e.IsAudit == true);
-            }
-            else
-            {
-                dataList = dataList.Where(e => e.IsAudit == null || e.IsAudit == false);
-            }
+                if (isAudit == true)
+                {
+                    dataList = dataList.Where(e => e.IsAudit == true);
+                }
+                else
+                {
+                    dataList = dataList.Where(e => e.IsAudit == null || e.IsAudit == false);
+                }
 
-            if (!string.IsNullOrEmpty(trustBatchCode))
-            {
-                dataList = dataList.Where(e => e.TrustBatchCode.Contains(trustBatchCode));
-            }
+                if (!string.IsNullOrEmpty(trustBatchCode))
+                {
+                    dataList = dataList.Where(e => e.TrustBatchCode.Contains(trustBatchCode));
+                }
 
-            var getDataLists = (from x in dataList
-                                orderby x.TrustBatchCode
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.TrustBatchId,
-                                    BaseInfoCode = x.TrustBatchCode,
-                                }).ToList();
-            return getDataLists;
+                var getDataLists = (from x in dataList
+                                    orderby x.TrustBatchCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.TrustBatchId,
+                                        BaseInfoCode = x.TrustBatchCode,
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -375,18 +398,21 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> GetBatchTrustDetail(string trustBatchId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrustItem
-                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                where x.TrustBatchId== trustBatchId
-                                orderby y.WeldJointCode
-                                select new Model.NDETrustItem
-                                {
-                                    WeldJointCode = y.WeldJointCode,
-                                    PipelineCode = y.PipelineCode,
-                                    JointArea=y.JointArea,
-                                }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HJGL_Batch_BatchTrustItem
+                                    join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                    where x.TrustBatchId == trustBatchId
+                                    orderby y.WeldJointCode
+                                    select new Model.NDETrustItem
+                                    {
+                                        WeldJointCode = y.WeldJointCode,
+                                        PipelineCode = y.PipelineCode,
+                                        JointArea = y.JointArea,
+                                    }).ToList();
 
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -412,34 +438,37 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getBatchNdeCode(string unitWorkId, string detectionTypeId, string ndeCode)
         {
-            var dataList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDE
-                           join y in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust on x.TrustBatchId equals y.TrustBatchId
-                           where x.UnitWorkId == unitWorkId
-                           select new Model.BaseInfoItem
-                           {
-                               BaseInfoId = x.NDEID,
-                               BaseInfoCode = x.NDECode,
-                               BaseInfoName = y.DetectionTypeId
-                           };
-
-            if (!string.IsNullOrEmpty(detectionTypeId))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                dataList = dataList.Where(e => e.BaseInfoName == detectionTypeId);
-            }
+                var dataList = from x in db.HJGL_Batch_NDE
+                               join y in db.HJGL_Batch_BatchTrust on x.TrustBatchId equals y.TrustBatchId
+                               where x.UnitWorkId == unitWorkId
+                               select new Model.BaseInfoItem
+                               {
+                                   BaseInfoId = x.NDEID,
+                                   BaseInfoCode = x.NDECode,
+                                   BaseInfoName = y.DetectionTypeId
+                               };
 
-            if (!string.IsNullOrEmpty(ndeCode))
-            {
-                dataList = dataList.Where(e => e.BaseInfoCode.Contains(ndeCode));
-            }
+                if (!string.IsNullOrEmpty(detectionTypeId))
+                {
+                    dataList = dataList.Where(e => e.BaseInfoName == detectionTypeId);
+                }
 
-            var getDataLists = (from x in dataList
-                                orderby x.BaseInfoCode
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.BaseInfoId,
-                                    BaseInfoCode = x.BaseInfoCode,
-                                }).ToList();
-            return getDataLists;
+                if (!string.IsNullOrEmpty(ndeCode))
+                {
+                    dataList = dataList.Where(e => e.BaseInfoCode.Contains(ndeCode));
+                }
+
+                var getDataLists = (from x in dataList
+                                    orderby x.BaseInfoCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.BaseInfoId,
+                                        BaseInfoCode = x.BaseInfoCode,
+                                    }).ToList();
+                return getDataLists;
+            }
         }
 
         /// <summary>
@@ -449,20 +478,23 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NDETrustItem> GetBatchNDEDetail(string ndeId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_NDEItem
-                                join y in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
-                                join z in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint on y.WeldJointId equals z.WeldJointId
-                                where x.NDEID == ndeId
-                                orderby z.WeldJointCode
-                                select new Model.NDETrustItem
-                                {
-                                    WeldJointCode = z.WeldJointCode,
-                                    PipelineCode = z.PipelineCode,
-                                    JointArea = z.JointArea,
-                                    CheckResult = x.CheckResult == "1" ? "合格" : "不合格"
-                                }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HJGL_Batch_NDEItem
+                                    join y in db.HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                                    join z in db.HJGL_WeldJoint on y.WeldJointId equals z.WeldJointId
+                                    where x.NDEID == ndeId
+                                    orderby z.WeldJointCode
+                                    select new Model.NDETrustItem
+                                    {
+                                        WeldJointCode = z.WeldJointCode,
+                                        PipelineCode = z.PipelineCode,
+                                        JointArea = z.JointArea,
+                                        CheckResult = x.CheckResult == "1" ? "合格" : "不合格"
+                                    }).ToList();
 
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
     }

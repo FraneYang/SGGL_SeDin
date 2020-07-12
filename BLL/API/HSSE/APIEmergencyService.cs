@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EmitMapper;
 
 namespace BLL
 {
@@ -20,31 +17,34 @@ namespace BLL
         /// <returns></returns>
         public static Model.FileInfoItem getEmergencyListByEmergencyListId(string emergencyListId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyList
-                          where x.EmergencyListId == emergencyListId
-                          select new Model.FileInfoItem
-                          {
-                              FileId = x.EmergencyListId,
-                              ProjectId = x.ProjectId,
-                              FileCode = x.EmergencyCode,
-                              FileName = x.EmergencyName,
-                              FileType = new Model.SGGLDB(Funs.ConnString).Base_EmergencyType.First(y => y.EmergencyTypeId == x.EmergencyTypeId).EmergencyTypeName,
-                              FileTypeId = x.EmergencyTypeId,
-                              UnitId = x.UnitId,
-                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
-                              FileContent = System.Web.HttpUtility.HtmlDecode(x.EmergencyContents),
-                              CompileManId = x.CompileMan,
-                              CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                              CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                              AuditManId = x.AuditMan,
-                              AuditManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.AuditMan).UserName,
-                              ApproveManId = x.ApproveMan,
-                              ApproveManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
-                              States = x.States,
-                              MenuType = "1",
-                              AttachUrl = APIUpLoadFileService.getFileUrl(x.EmergencyListId, x.AttachUrl),
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Emergency_EmergencyList
+                              where x.EmergencyListId == emergencyListId
+                              select new Model.FileInfoItem
+                              {
+                                  FileId = x.EmergencyListId,
+                                  ProjectId = x.ProjectId,
+                                  FileCode = x.EmergencyCode,
+                                  FileName = x.EmergencyName,
+                                  FileType = db.Base_EmergencyType.First(y => y.EmergencyTypeId == x.EmergencyTypeId).EmergencyTypeName,
+                                  FileTypeId = x.EmergencyTypeId,
+                                  UnitId = x.UnitId,
+                                  UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                  FileContent = System.Web.HttpUtility.HtmlDecode(x.EmergencyContents),
+                                  CompileManId = x.CompileMan,
+                                  CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                  AuditManId = x.AuditMan,
+                                  AuditManName = db.Sys_User.First(u => u.UserId == x.AuditMan).UserName,
+                                  ApproveManId = x.ApproveMan,
+                                  ApproveManName = db.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
+                                  States = x.States,
+                                  MenuType = "1",
+                                  AttachUrl = APIUpLoadFileService.getFileUrl(x.EmergencyListId, x.AttachUrl),
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
         #endregion        
 
@@ -58,34 +58,37 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FileInfoItem> getEmergencyList(string projectId, string unitId, string states, string strParam)
         {
-            var getDataList = from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyList
-                                       where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                      && (strParam == null || x.EmergencyName.Contains(strParam) || x.EmergencyCode.Contains(strParam))
-                                      &&((states ==x.States) || (x.States =="2" && states=="1"))
-                                      orderby x.EmergencyCode descending 
-                                      select new Model.FileInfoItem
-                                      {
-                                          FileId = x.EmergencyListId,
-                                          ProjectId = x.ProjectId,
-                                          FileCode = x.EmergencyCode,
-                                          FileName = x.EmergencyName,
-                                          FileType = new Model.SGGLDB(Funs.ConnString).Base_EmergencyType.First(y => y.EmergencyTypeId == x.EmergencyTypeId).EmergencyTypeName,
-                                          FileTypeId = x.EmergencyTypeId,
-                                          UnitId = x.UnitId,
-                                          UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
-                                          FileContent = x.EmergencyContents,
-                                          CompileManId = x.CompileMan,
-                                          CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                          AuditManId = x.AuditMan,
-                                          AuditManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.AuditMan).UserName,
-                                          ApproveManId = x.ApproveMan,
-                                          ApproveManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
-                                          States = x.States,
-                                          MenuType = "1",
-                                          AttachUrl = APIUpLoadFileService.getFileUrl(x.EmergencyListId, x.AttachUrl),
-                                      };
-            return getDataList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataList = from x in db.Emergency_EmergencyList
+                                  where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                 && (strParam == null || x.EmergencyName.Contains(strParam) || x.EmergencyCode.Contains(strParam))
+                                 && ((states == x.States) || (x.States == "2" && states == "1"))
+                                  orderby x.EmergencyCode descending
+                                  select new Model.FileInfoItem
+                                  {
+                                      FileId = x.EmergencyListId,
+                                      ProjectId = x.ProjectId,
+                                      FileCode = x.EmergencyCode,
+                                      FileName = x.EmergencyName,
+                                      FileType = db.Base_EmergencyType.First(y => y.EmergencyTypeId == x.EmergencyTypeId).EmergencyTypeName,
+                                      FileTypeId = x.EmergencyTypeId,
+                                      UnitId = x.UnitId,
+                                      UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                      FileContent = x.EmergencyContents,
+                                      CompileManId = x.CompileMan,
+                                      CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                      AuditManId = x.AuditMan,
+                                      AuditManName = db.Sys_User.First(u => u.UserId == x.AuditMan).UserName,
+                                      ApproveManId = x.ApproveMan,
+                                      ApproveManName = db.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
+                                      States = x.States,
+                                      MenuType = "1",
+                                      AttachUrl = APIUpLoadFileService.getFileUrl(x.EmergencyListId, x.AttachUrl),
+                                  };
+                return getDataList.ToList();
+            }
         }
         #endregion        
 
@@ -97,25 +100,28 @@ namespace BLL
         /// <returns></returns>
         public static Model.FileInfoItem getEmergencySupplyByEmergencySupplyId(string emergencySupplyId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencySupply
-                          where x.FileId == emergencySupplyId
-                          select new Model.FileInfoItem
-                          {
-                              FileId = x.FileId,
-                              ProjectId = x.ProjectId,
-                              FileCode = x.FileCode,
-                              FileName = x.FileName,                              
-                              UnitId = x.UnitId,
-                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
-                              FileContent = System.Web.HttpUtility.HtmlDecode(x.FileContent),
-                              CompileManId = x.CompileMan,
-                              CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                              CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                              States = x.States,
-                              MenuType = "2",
-                              AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Emergency_EmergencySupply
+                              where x.FileId == emergencySupplyId
+                              select new Model.FileInfoItem
+                              {
+                                  FileId = x.FileId,
+                                  ProjectId = x.ProjectId,
+                                  FileCode = x.FileCode,
+                                  FileName = x.FileName,
+                                  UnitId = x.UnitId,
+                                  UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                  FileContent = System.Web.HttpUtility.HtmlDecode(x.FileContent),
+                                  CompileManId = x.CompileMan,
+                                  CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                  States = x.States,
+                                  MenuType = "2",
+                                  AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
         #endregion        
 
@@ -130,28 +136,31 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FileInfoItem> getEmergencySupplyList(string projectId, string unitId, string states, string strParam)
         {
-            var getDataList = from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencySupply
-                              where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                             && (strParam == null || x.FileName.Contains(strParam) || x.FileCode.Contains(strParam))
-                              && ((states == x.States) || (x.States == "2" && states == "1"))
-                              orderby x.FileCode descending
-                              select new Model.FileInfoItem
-                              {
-                                  FileId = x.FileId,
-                                  ProjectId = x.ProjectId,
-                                  FileCode = x.FileCode,
-                                  FileName = x.FileName,
-                                  UnitId = x.UnitId,
-                                  UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
-                                  FileContent = x.FileContent,
-                                  CompileManId = x.CompileMan,
-                                  CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                  States = x.States,
-                                  MenuType = "2",
-                                  AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
-                              };
-            return getDataList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataList = from x in db.Emergency_EmergencySupply
+                                  where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                 && (strParam == null || x.FileName.Contains(strParam) || x.FileCode.Contains(strParam))
+                                  && ((states == x.States) || (x.States == "2" && states == "1"))
+                                  orderby x.FileCode descending
+                                  select new Model.FileInfoItem
+                                  {
+                                      FileId = x.FileId,
+                                      ProjectId = x.ProjectId,
+                                      FileCode = x.FileCode,
+                                      FileName = x.FileName,
+                                      UnitId = x.UnitId,
+                                      UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                      FileContent = x.FileContent,
+                                      CompileManId = x.CompileMan,
+                                      CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                      States = x.States,
+                                      MenuType = "2",
+                                      AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
+                                  };
+                return getDataList.ToList();
+            }
         }
         #endregion        
 
@@ -163,26 +172,29 @@ namespace BLL
         /// <returns></returns>
         public static Model.FileInfoItem getEmergencyTeamAndTrainByEmergencyTeamAndTrainId(string emergencyTeamAndTrainId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyTeamAndTrain
-                          where x.FileId == emergencyTeamAndTrainId
-                          select new Model.FileInfoItem
-                          {
-                              FileId = x.FileId,
-                              ProjectId = x.ProjectId,
-                              FileCode = x.FileCode,
-                              FileName = x.FileName,
-                              UnitId = x.UnitId,
-                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
-                              FileContent = System.Web.HttpUtility.HtmlDecode(x.FileContent),
-                              CompileManId = x.CompileMan,
-                              CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                              CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                              States = x.States,
-                              MenuType = "3",
-                              AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
-                              EmergencyTeamItem= getEmergencyTeamItems(x.FileId),
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Emergency_EmergencyTeamAndTrain
+                              where x.FileId == emergencyTeamAndTrainId
+                              select new Model.FileInfoItem
+                              {
+                                  FileId = x.FileId,
+                                  ProjectId = x.ProjectId,
+                                  FileCode = x.FileCode,
+                                  FileName = x.FileName,
+                                  UnitId = x.UnitId,
+                                  UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                  FileContent = System.Web.HttpUtility.HtmlDecode(x.FileContent),
+                                  CompileManId = x.CompileMan,
+                                  CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                  States = x.States,
+                                  MenuType = "3",
+                                  AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
+                                  EmergencyTeamItem = getEmergencyTeamItems(x.FileId),
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
 
         /// <summary>
@@ -192,17 +204,20 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.EmergencyTeamItem> getEmergencyTeamItems(string fileId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyTeamItem                   
-                   where x.FileId == fileId
-                   select new Model.EmergencyTeamItem
-                   {
-                       EmergencyTeamItemId=x.EmergencyTeamItemId,
-                       FileId =x.FileId,
-                       PersonId =x.PersonId,
-                       PersonName=new Model.SGGLDB(Funs.ConnString).SitePerson_Person.First(z=>z.PersonId == x.PersonId).PersonName,
-                       Job =x.Job,
-                       Tel=x.Tel,
-                   }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.Emergency_EmergencyTeamItem
+                        where x.FileId == fileId
+                        select new Model.EmergencyTeamItem
+                        {
+                            EmergencyTeamItemId = x.EmergencyTeamItemId,
+                            FileId = x.FileId,
+                            PersonId = x.PersonId,
+                            PersonName = db.SitePerson_Person.First(z => z.PersonId == x.PersonId).PersonName,
+                            Job = x.Job,
+                            Tel = x.Tel,
+                        }).ToList();
+            }
         }
         #endregion        
 
@@ -217,28 +232,31 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FileInfoItem> getEmergencyTeamAndTrainList(string projectId, string unitId,string states, string strParam)
         {
-            var getDataList = from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyTeamAndTrain
-                              where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                             && (strParam == null || x.FileName.Contains(strParam) || x.FileCode.Contains(strParam))
-                             && ((states == x.States) || (x.States == "2" && states == "1"))
-                              orderby x.FileCode descending
-                              select new Model.FileInfoItem
-                              {
-                                  FileId = x.FileId,
-                                  ProjectId = x.ProjectId,
-                                  FileCode = x.FileCode,
-                                  FileName = x.FileName,
-                                  UnitId = x.UnitId,
-                                  UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
-                                  FileContent = x.FileContent,
-                                  CompileManId = x.CompileMan,
-                                  CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                  States = x.States,
-                                  MenuType = "3",
-                                  AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
-                              };
-            return getDataList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataList = from x in db.Emergency_EmergencyTeamAndTrain
+                                  where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                 && (strParam == null || x.FileName.Contains(strParam) || x.FileCode.Contains(strParam))
+                                 && ((states == x.States) || (x.States == "2" && states == "1"))
+                                  orderby x.FileCode descending
+                                  select new Model.FileInfoItem
+                                  {
+                                      FileId = x.FileId,
+                                      ProjectId = x.ProjectId,
+                                      FileCode = x.FileCode,
+                                      FileName = x.FileName,
+                                      UnitId = x.UnitId,
+                                      UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                      FileContent = x.FileContent,
+                                      CompileManId = x.CompileMan,
+                                      CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                      States = x.States,
+                                      MenuType = "3",
+                                      AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
+                                  };
+                return getDataList.ToList();
+            }
         }
         #endregion        
 
@@ -442,32 +460,35 @@ namespace BLL
         /// <returns></returns>
         public static Model.EmergencyProcessItem getEmergencyProcessItem(string projectId, string processSteps)
         {
-            var getDataList = (from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyProcess
-                               where x.ProjectId == projectId && x.ProcessSteps == processSteps
-                               select new Model.EmergencyProcessItem
-                               {
-                                   EmergencyProcessId = x.EmergencyProcessId,
-                                   ProjectId = x.ProjectId,
-                                   ProcessSteps = x.ProcessSteps,
-                                   ProcessName = x.ProcessName,
-                                   StepOperator = x.StepOperator,
-                                   Remark = x.Remark,
-                               }).FirstOrDefault();
-            if (getDataList == null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getDataList = (from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyProcess
-                               where x.ProjectId == null && x.ProcessSteps == processSteps
-                               select new Model.EmergencyProcessItem
-                               {
-                                   EmergencyProcessId = x.EmergencyProcessId,
-                                   ProjectId = x.ProjectId,
-                                   ProcessSteps = x.ProcessSteps,
-                                   ProcessName = x.ProcessName,
-                                   StepOperator = x.StepOperator,
-                                   Remark = x.Remark,
-                               }).FirstOrDefault();
+                var getDataList = (from x in db.Emergency_EmergencyProcess
+                                   where x.ProjectId == projectId && x.ProcessSteps == processSteps
+                                   select new Model.EmergencyProcessItem
+                                   {
+                                       EmergencyProcessId = x.EmergencyProcessId,
+                                       ProjectId = x.ProjectId,
+                                       ProcessSteps = x.ProcessSteps,
+                                       ProcessName = x.ProcessName,
+                                       StepOperator = x.StepOperator,
+                                       Remark = x.Remark,
+                                   }).FirstOrDefault();
+                if (getDataList == null)
+                {
+                    getDataList = (from x in db.Emergency_EmergencyProcess
+                                   where x.ProjectId == null && x.ProcessSteps == processSteps
+                                   select new Model.EmergencyProcessItem
+                                   {
+                                       EmergencyProcessId = x.EmergencyProcessId,
+                                       ProjectId = x.ProjectId,
+                                       ProcessSteps = x.ProcessSteps,
+                                       ProcessName = x.ProcessName,
+                                       StepOperator = x.StepOperator,
+                                       Remark = x.Remark,
+                                   }).FirstOrDefault();
+                }
+                return getDataList;
             }
-            return getDataList;
         }
         #endregion        
 
@@ -480,20 +501,23 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.EmergencyProcessItem> getEmergencyProcessList(string projectId, string strParam)
         {
-            var getDataList = from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyProcess
-                              where x.ProjectId == projectId 
-                              && (strParam == null || x.ProcessName.Contains(strParam) || x.StepOperator.Contains(strParam))
-                              orderby x.ProcessSteps
-                              select new Model.EmergencyProcessItem
-                              {
-                                  EmergencyProcessId = x.EmergencyProcessId,
-                                  ProjectId = x.ProjectId,
-                                  ProcessSteps = x.ProcessSteps,
-                                  ProcessName = x.ProcessName,
-                                  StepOperator = x.StepOperator,
-                                  Remark = x.Remark,
-                              };
-            return getDataList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataList = from x in db.Emergency_EmergencyProcess
+                                  where x.ProjectId == projectId
+                                  && (strParam == null || x.ProcessName.Contains(strParam) || x.StepOperator.Contains(strParam))
+                                  orderby x.ProcessSteps
+                                  select new Model.EmergencyProcessItem
+                                  {
+                                      EmergencyProcessId = x.EmergencyProcessId,
+                                      ProjectId = x.ProjectId,
+                                      ProcessSteps = x.ProcessSteps,
+                                      ProcessName = x.ProcessName,
+                                      StepOperator = x.StepOperator,
+                                      Remark = x.Remark,
+                                  };
+                return getDataList.ToList();
+            }
         }
         #endregion        
     }

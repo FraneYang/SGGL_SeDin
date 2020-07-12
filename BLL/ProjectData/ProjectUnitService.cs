@@ -32,12 +32,14 @@
         /// <returns></returns>
         public static List<Model.Project_ProjectUnit> GetProjectUnitListByProjectId(string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                    join y in new Model.SGGLDB(Funs.ConnString).Base_Unit on x.UnitId equals y.UnitId
-                    where x.ProjectId == projectId
-                    orderby x.UnitType, y.UnitCode
-                    descending
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                return (from x in db.Project_ProjectUnit
+                        join y in db.Base_Unit on x.UnitId equals y.UnitId
+                        where x.ProjectId == projectId
+                        orderby x.UnitType, y.UnitCode
+                        descending
+                        select x).ToList();
+            }
         }
 
         /// <summary>
@@ -46,11 +48,13 @@
         /// <returns></returns>
         public static List<Model.Project_ProjectUnit> GetProjectUnitListByProjectIdUnitType(string projectId, string unitType)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                    join y in new Model.SGGLDB(Funs.ConnString).Base_Unit on x.UnitId equals y.UnitId
-                    where x.ProjectId == projectId && x.UnitType == unitType
-                    orderby x.UnitType, y.UnitCode  descending
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                return (from x in db.Project_ProjectUnit
+                        join y in db.Base_Unit on x.UnitId equals y.UnitId
+                        where x.ProjectId == projectId && x.UnitType == unitType
+                        orderby x.UnitType, y.UnitCode descending
+                        select x).ToList();
+            }
         }
 
         /// <summary>
@@ -141,19 +145,21 @@
         /// <param name="isShowPlease">是否显示请选择</param>
         public static void InitUnitDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitType, bool isShowPlease)
         {
-            var pUnit = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                         join y in new Model.SGGLDB(Funs.ConnString).Base_Unit on x.UnitId equals y.UnitId
-                         where x.ProjectId == projectId && x.UnitType == unitType
-                         orderby y.UnitCode
-                         select y).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var pUnit = (from x in db.Project_ProjectUnit
+                             join y in db.Base_Unit on x.UnitId equals y.UnitId
+                             where x.ProjectId == projectId && x.UnitType == unitType
+                             orderby y.UnitCode
+                             select y).ToList();
 
-            dropName.DataValueField = "UnitId";
-            dropName.DataTextField = "UnitName";
-            dropName.DataSource = pUnit;
-            dropName.DataBind();
-            if (isShowPlease)
-            {
-                Funs.FineUIPleaseSelect(dropName);
+                dropName.DataValueField = "UnitId";
+                dropName.DataTextField = "UnitName";
+                dropName.DataSource = pUnit;
+                dropName.DataBind();
+                if (isShowPlease)
+                {
+                    Funs.FineUIPleaseSelect(dropName);
+                }
             }
         }
         #endregion
@@ -174,14 +180,16 @@
 
         public static List<Model.Project_ProjectUnit> GetProjectUnitListByProjectIdForApi(string projectId, string unitType, string name)
         {
-            string[] types = unitType.Split(',');
-            return (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                    join y in new Model.SGGLDB(Funs.ConnString).Base_Unit on x.UnitId equals y.UnitId
-                    where x.ProjectId == projectId
-                    where unitType == "" || types.Contains(x.UnitType)
-                    where name == "" || y.UnitName.Contains(name)
-                    orderby x.UnitType, y.UnitCode
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                string[] types = unitType.Split(',');
+                return (from x in db.Project_ProjectUnit
+                        join y in db.Base_Unit on x.UnitId equals y.UnitId
+                        where x.ProjectId == projectId
+                        where unitType == "" || types.Contains(x.UnitType)
+                        where name == "" || y.UnitName.Contains(name)
+                        orderby x.UnitType, y.UnitCode
+                        select x).ToList();
+            }
         }
     }
 }

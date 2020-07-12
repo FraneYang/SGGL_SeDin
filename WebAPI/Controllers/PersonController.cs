@@ -497,8 +497,9 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                                   join y in new Model.SGGLDB(Funs.ConnString).Base_Unit on x.UnitId equals y.UnitId
+                Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+                responeData.data = from x in db.SitePerson_Person
+                                   join y in db.Base_Unit on x.UnitId equals y.UnitId
                                    where x.ProjectId == projectId
                                    && !x.ExchangeTime.HasValue
                                    && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime.HasValue && x.InTime < DateTime.Now

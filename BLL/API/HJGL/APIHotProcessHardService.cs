@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -16,24 +13,27 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getHotProessTrustNo(string unitWrokId,string hotProessTrustNo)
         {
-            var dataLists = from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_Trust
-                               where x.UnitWorkId == unitWrokId
-                               select x;
-         
-            if (!string.IsNullOrEmpty(hotProessTrustNo))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                dataLists = dataLists.Where(x => x.HotProessTrustNo.Contains(hotProessTrustNo));
-                              
-            }
+                var dataLists = from x in db.HJGL_HotProess_Trust
+                                where x.UnitWorkId == unitWrokId
+                                select x;
 
-            var getDataLists = (from x in dataLists
-                                orderby x.HotProessTrustNo
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.HotProessTrustId,
-                                    BaseInfoCode = x.HotProessTrustNo
-                                }).ToList();
-            return getDataLists;
+                if (!string.IsNullOrEmpty(hotProessTrustNo))
+                {
+                    dataLists = dataLists.Where(x => x.HotProessTrustNo.Contains(hotProessTrustNo));
+
+                }
+
+                var getDataLists = (from x in dataLists
+                                    orderby x.HotProessTrustNo
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.HotProessTrustId,
+                                        BaseInfoCode = x.HotProessTrustNo
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -46,25 +46,28 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getHardTrustNo(string unitWrokId,string hardTrustNo)
         {
-            var dataLists = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Trust
-                             where x.UnitWorkId == unitWrokId
-                             select x;
-
-            if (!string.IsNullOrEmpty(hardTrustNo))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                dataLists = dataLists.Where(x => x.HardTrustNo.Contains(hardTrustNo));
+                var dataLists = from x in db.HJGL_Hard_Trust
+                                where x.UnitWorkId == unitWrokId
+                                select x;
 
+                if (!string.IsNullOrEmpty(hardTrustNo))
+                {
+                    dataLists = dataLists.Where(x => x.HardTrustNo.Contains(hardTrustNo));
+
+                }
+
+                var getDataLists = (from x in dataLists
+                                    orderby x.HardTrustNo
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.HardTrustID,
+                                        BaseInfoCode = x.HardTrustNo
+                                    }
+                                    ).ToList();
+                return getDataLists;
             }
-
-            var getDataLists = (from x in dataLists
-                                orderby x.HardTrustNo
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.HardTrustID,
-                                    BaseInfoCode = x.HardTrustNo
-                                }
-                                ).ToList();
-            return getDataLists;
         }
         #endregion
 
@@ -76,21 +79,24 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HotProcessHardItem> getHotProcessItem(string hotProessTrustId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_HotProess_TrustItem
-                                where x.HotProessTrustId == hotProessTrustId
-                                orderby x.PipelineCode, x.WeldJointCode
-                                select new Model.HotProcessHardItem
-                                {
-                                    PipelineCode = x.PipelineCode,
-                                    WeldJointCode = x.WeldJointCode,
-                                    Specification = x.Specification,
-                                    Material = x.MaterialCode,
-                                    TrustDate = x.ProessDate,
-                                    IsCompleted = x.IsCompleted == true ? "是" : "否",
-                                    IsPass=x.IsPass==true? "是" : "否"
-                                }
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.View_HJGL_HotProess_TrustItem
+                                    where x.HotProessTrustId == hotProessTrustId
+                                    orderby x.PipelineCode, x.WeldJointCode
+                                    select new Model.HotProcessHardItem
+                                    {
+                                        PipelineCode = x.PipelineCode,
+                                        WeldJointCode = x.WeldJointCode,
+                                        Specification = x.Specification,
+                                        Material = x.MaterialCode,
+                                        TrustDate = x.ProessDate,
+                                        IsCompleted = x.IsCompleted == true ? "是" : "否",
+                                        IsPass = x.IsPass == true ? "是" : "否"
+                                    }
                                 ).ToList();
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -102,19 +108,22 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HotProcessHardItem> getHardTrustItem(string hardTrustId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_Hard_TrustItem
-                                where x.HardTrustID == hardTrustId
-                                orderby x.PipelineCode, x.WeldJointCode
-                                select new Model.HotProcessHardItem
-                                {
-                                    PipelineCode = x.PipelineCode,
-                                    WeldJointCode = x.WeldJointCode,
-                                    Specification = x.Specification,
-                                    Material = x.MaterialCode,
-                                    IsPass = x.IsPass == true ? "是" : "否"
-                                }
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.View_HJGL_Hard_TrustItem
+                                    where x.HardTrustID == hardTrustId
+                                    orderby x.PipelineCode, x.WeldJointCode
+                                    select new Model.HotProcessHardItem
+                                    {
+                                        PipelineCode = x.PipelineCode,
+                                        WeldJointCode = x.WeldJointCode,
+                                        Specification = x.Specification,
+                                        Material = x.MaterialCode,
+                                        IsPass = x.IsPass == true ? "是" : "否"
+                                    }
                                 ).ToList();
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion 
     }

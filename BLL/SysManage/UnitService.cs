@@ -191,20 +191,22 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetUnitListByProjectId(string projectId)
         {
-            var units = (from x in new Model.SGGLDB(Funs.ConnString).Base_Unit                      
-                         orderby x.UnitCode
-                         select x).ToList();
-            if (!string.IsNullOrEmpty(projectId))
-            {
-                units = (from x in units
-                         join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
-                         where y.ProjectId == projectId
-                         select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var units = (from x in db.Base_Unit
+                             orderby x.UnitCode
+                             select x).ToList();
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    units = (from x in units
+                             join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
+                             where y.ProjectId == projectId
+                             select x).ToList();
+                }
+
+                units = units.OrderBy(x => x.UnitCode).ToList();
+
+                return units;
             }
-
-            units = units.OrderBy(x => x.UnitCode).ToList();
-
-            return units;
         }
 
         /// <summary>
@@ -214,13 +216,15 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetUnitByProjectIdList(string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                     join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                     on x.UnitId equals y.UnitId
-                     where y.ProjectId == projectId 
-                     orderby x.UnitCode
-                     select x).ToList();
-            return q;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var q = (from x in db.Base_Unit
+                         join y in db.Project_ProjectUnit
+                         on x.UnitId equals y.UnitId
+                         where y.ProjectId == projectId
+                         orderby x.UnitCode
+                         select x).ToList();
+                return q;
+            }
         }
 
         /// <summary>
@@ -230,13 +234,15 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetUnitByProjectIdUnitTypeList(string projectId, string unitType)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                     join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                     on x.UnitId equals y.UnitId
-                     where y.ProjectId == projectId  && y.UnitType == unitType
-                     orderby x.UnitCode
-                     select x).ToList();
-            return q;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var q = (from x in db.Base_Unit
+                         join y in db.Project_ProjectUnit
+                         on x.UnitId equals y.UnitId
+                         where y.ProjectId == projectId && y.UnitType == unitType
+                         orderby x.UnitCode
+                         select x).ToList();
+                return q;
+            }
         }
 
         /// <summary>
@@ -246,13 +252,15 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetUnitByProjectIdListNotContainOneUnit(string projectId, string unitId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                     join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                     on x.UnitId equals y.UnitId
-                     where y.ProjectId == projectId && (x.UnitId != unitId || unitId == null) 
-                     orderby x.UnitCode
-                     select x).ToList();
-            return q;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var q = (from x in db.Base_Unit
+                         join y in db.Project_ProjectUnit
+                         on x.UnitId equals y.UnitId
+                         where y.ProjectId == projectId && (x.UnitId != unitId || unitId == null)
+                         orderby x.UnitCode
+                         select x).ToList();
+                return q;
+            }
         }
 
         /// <summary>
@@ -381,13 +389,15 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetMainAndSubUnitByProjectIdList(string projectId)
         {
-            var q = (from x in db.Base_Unit
-                     join y in db.Project_ProjectUnit
-                     on x.UnitId equals y.UnitId
-                     where y.ProjectId == projectId 
-                     && (y.UnitType == BLL.Const.ProjectUnitType_1 || y.UnitType == BLL.Const.ProjectUnitType_2) && (y.OutTime == null || y.OutTime >= Convert.ToDateTime(DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-01"))                     
-                     select x).OrderBy(x=>x.UnitCode).ToList();
-            return q;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var q = (from x in db.Base_Unit
+                         join y in db.Project_ProjectUnit
+                         on x.UnitId equals y.UnitId
+                         where y.ProjectId == projectId
+                         && (y.UnitType == BLL.Const.ProjectUnitType_1 || y.UnitType == BLL.Const.ProjectUnitType_2) && (y.OutTime == null || y.OutTime >= Convert.ToDateTime(DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-01"))
+                         select x).OrderBy(x => x.UnitCode).ToList();
+                return q;
+            }
         }
         /// <summary>
         /// 单位下拉选择项（添加其他单位）
@@ -441,18 +451,20 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetAllNoSubUnitList(string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                     orderby x.UnitCode
-                     select x).ToList();
-            if (!string.IsNullOrEmpty(projectId))
-            {
-                q = (from x in q
-                     join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
-                     where (y.ProjectId == projectId && y.UnitType != Const.ProjectUnitType_2)
-                     select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var q = (from x in db.Base_Unit
+                         orderby x.UnitCode
+                         select x).ToList();
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    q = (from x in q
+                         join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
+                         where (y.ProjectId == projectId && y.UnitType != Const.ProjectUnitType_2)
+                         select x).ToList();
+                }
+                q = q.OrderByDescending(x => x.UnitCode).ToList();
+                return q;
             }
-            q = q.OrderByDescending(x => x.UnitCode).ToList();
-            return q;
         }
 
         /// <summary>

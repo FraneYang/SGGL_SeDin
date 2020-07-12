@@ -12,11 +12,14 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getSysConst(string groupId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const
-                                where x.GroupId == groupId
-                                orderby x.SortIndex
-                                select new Model.BaseInfoItem { BaseInfoId = x.ConstValue, BaseInfoCode = x.SortIndex.ToString(), BaseInfoName = x.ConstText }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Sys_Const
+                                    where x.GroupId == groupId
+                                    orderby x.SortIndex
+                                    select new Model.BaseInfoItem { BaseInfoId = x.ConstValue, BaseInfoCode = x.SortIndex.ToString(), BaseInfoName = x.ConstText }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -27,16 +30,19 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getProjectList()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
-                                orderby x.ProjectCode
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.ProjectId,
-                                    BaseInfoCode = x.ProjectCode,
-                                    BaseInfoName = x.ProjectName
-                                }
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_Project
+                                    orderby x.ProjectCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.ProjectId,
+                                        BaseInfoCode = x.ProjectCode,
+                                        BaseInfoName = x.ProjectName
+                                    }
                                 ).ToList();
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -48,16 +54,19 @@ namespace BLL
         /// <returns></returns>
         public static Model.BaseInfoItem getProjectByCode(string projectCode)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
-                                where x.ProjectCode == projectCode
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.ProjectId,
-                                    BaseInfoCode = x.ProjectCode,
-                                    BaseInfoName = x.ProjectName
-                                }
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_Project
+                                    where x.ProjectCode == projectCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.ProjectId,
+                                        BaseInfoCode = x.ProjectCode,
+                                        BaseInfoName = x.ProjectName
+                                    }
                                 ).FirstOrDefault();
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -69,17 +78,20 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getProjectWorkArea(string projectId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
-                                where x.ProjectId == projectId && x.SuperUnitWork == null
-                                orderby x.UnitWorkCode
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.UnitWorkId,
-                                    BaseInfoCode = x.UnitWorkCode,
-                                    BaseInfoName = BLL.UnitWorkService.GetUnitWorkALLName(x.UnitWorkId)
-                                }
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.WBS_UnitWork
+                                    where x.ProjectId == projectId && x.SuperUnitWork == null
+                                    orderby x.UnitWorkCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.UnitWorkId,
+                                        BaseInfoCode = x.UnitWorkCode,
+                                        BaseInfoName = BLL.UnitWorkService.GetUnitWorkALLName(x.UnitWorkId)
+                                    }
                                 ).ToList();
-            return getDataLists;
+                return getDataLists;
+            }
         }
 
         #endregion
@@ -91,16 +103,19 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getDetectionType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_DetectionType
-                                orderby x.DetectionTypeCode
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.DetectionTypeId,
-                                    BaseInfoCode = x.DetectionTypeCode,
-                                    BaseInfoName = x.DetectionTypeName
-                                }
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_DetectionType
+                                    orderby x.DetectionTypeCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.DetectionTypeId,
+                                        BaseInfoCode = x.DetectionTypeCode,
+                                        BaseInfoName = x.DetectionTypeName
+                                    }
                                 ).ToList();
-            return getDataLists;
+                return getDataLists;
+            }
         }
 
         /// <summary>
@@ -109,16 +124,19 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getDetectionRate()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_DetectionRate
-                                orderby x.DetectionRateCode
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.DetectionRateId,
-                                    BaseInfoCode = x.DetectionRateCode,
-                                    BaseInfoName = x.DetectionRateValue.Value.ToString() + "%"
-                                }
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_DetectionRate
+                                    orderby x.DetectionRateCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.DetectionRateId,
+                                        BaseInfoCode = x.DetectionRateCode,
+                                        BaseInfoName = x.DetectionRateValue.Value.ToString() + "%"
+                                    }
                                 ).ToList();
-            return getDataLists;
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -130,11 +148,14 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getHazardRegisterTypes(string type)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegisterTypes
-                                where x.HazardRegisterType == type
-                                orderby x.TypeCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.RegisterTypesId, BaseInfoCode = x.TypeCode, BaseInfoName = x.RegisterTypesName }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HSSE_Hazard_HazardRegisterTypes
+                                    where x.HazardRegisterType == type
+                                    orderby x.TypeCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.RegisterTypesId, BaseInfoCode = x.TypeCode, BaseInfoName = x.RegisterTypesName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion                     
 
@@ -146,22 +167,25 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getProjectPictureByProjectId(string projectId, string pictureType, string strParam)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_Picture
-                                join y in new Model.SGGLDB(Funs.ConnString).AttachFile on x.PictureId equals y.ToKeyId
-                                where x.States == Const.State_2 && y.AttachUrl != null && x.ProjectId == projectId && x.PictureType == pictureType
-                                orderby x.UploadDate descending
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.PictureId,
-                                    BaseInfoName = x.Title,
-                                    BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.UploadDate),
-                                    ImageUrl = y.AttachUrl.Replace('\\', '/'),
-                                });
-            if (!string.IsNullOrEmpty(strParam))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getDataLists = getDataLists.Where(x => x.BaseInfoName.Contains(strParam));
+                var getDataLists = (from x in db.InformationProject_Picture
+                                    join y in db.AttachFile on x.PictureId equals y.ToKeyId
+                                    where x.States == Const.State_2 && y.AttachUrl != null && x.ProjectId == projectId && x.PictureType == pictureType
+                                    orderby x.UploadDate descending
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.PictureId,
+                                        BaseInfoName = x.Title,
+                                        BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.UploadDate),
+                                        ImageUrl = y.AttachUrl.Replace('\\', '/'),
+                                    });
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    getDataLists = getDataLists.Where(x => x.BaseInfoName.Contains(strParam));
+                }
+                return getDataLists.ToList();
             }
-            return getDataLists.ToList();
         }
 
         /// <summary>
@@ -206,18 +230,21 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getProjectMapByProjectId(string projectId, string mapType)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_ProjectMap
-                                join y in new Model.SGGLDB(Funs.ConnString).AttachFile on x.ProjectMapId equals y.ToKeyId
-                                where y.AttachUrl != null && x.ProjectId == projectId && x.MapType == mapType
-                                orderby x.UploadDate descending
-                                select new Model.BaseInfoItem
-                                {
-                                    BaseInfoId = x.ProjectMapId,
-                                    BaseInfoName = x.Title,
-                                    BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.UploadDate),
-                                    ImageUrl = y.AttachUrl.Replace('\\', '/'),
-                                }).Take(5).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.InformationProject_ProjectMap
+                                    join y in db.AttachFile on x.ProjectMapId equals y.ToKeyId
+                                    where y.AttachUrl != null && x.ProjectId == projectId && x.MapType == mapType
+                                    orderby x.UploadDate descending
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.ProjectMapId,
+                                        BaseInfoName = x.Title,
+                                        BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.UploadDate),
+                                        ImageUrl = y.AttachUrl.Replace('\\', '/'),
+                                    }).Take(5).ToList();
+                return getDataLists;
+            }
         }
 
         /// <summary>
@@ -259,18 +286,21 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NoticeItem> getNoticesList(string projectId, string strParam)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_Notice
-                                where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
-                                && (strParam == null || x.NoticeTitle.Contains(strParam))
-                                orderby x.ReleaseDate descending
-                                select new Model.NoticeItem
-                                {
-                                    NoticeId = x.NoticeId,
-                                    NoticeCode = x.NoticeCode,
-                                    NoticeTitle = x.NoticeTitle,
-                                    ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate)
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.InformationProject_Notice
+                                    where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
+                                    && (strParam == null || x.NoticeTitle.Contains(strParam))
+                                    orderby x.ReleaseDate descending
+                                    select new Model.NoticeItem
+                                    {
+                                        NoticeId = x.NoticeId,
+                                        NoticeCode = x.NoticeCode,
+                                        NoticeTitle = x.NoticeTitle,
+                                        ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate)
+                                    }).ToList();
+                return getDataLists;
+            }
         }
 
         /// <summary>
@@ -280,18 +310,21 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NoticeItem> getNoticesList(string projectId, string userId, string strParam)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_Notice
-                                where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
-                                && (strParam == null || x.NoticeTitle.Contains(strParam))
-                                select new Model.NoticeItem
-                                {
-                                    NoticeId = x.NoticeId,
-                                    NoticeCode = x.NoticeCode,
-                                    NoticeTitle = x.NoticeTitle,
-                                    ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
-                                    IsRead = new Model.SGGLDB(Funs.ConnString).Sys_UserRead.FirstOrDefault(y => y.DataId == x.NoticeId && y.ProjectId == projectId && y.UserId == userId) == null ? false : true,
-                                }).ToList();
-            return getDataLists.OrderBy(x => x.IsRead).ThenByDescending(x => x.ReleaseDate).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.InformationProject_Notice
+                                    where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
+                                    && (strParam == null || x.NoticeTitle.Contains(strParam))
+                                    select new Model.NoticeItem
+                                    {
+                                        NoticeId = x.NoticeId,
+                                        NoticeCode = x.NoticeCode,
+                                        NoticeTitle = x.NoticeTitle,
+                                        ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
+                                        IsRead = new Model.SGGLDB(Funs.ConnString).Sys_UserRead.FirstOrDefault(y => y.DataId == x.NoticeId && y.ProjectId == projectId && y.UserId == userId) == null ? false : true,
+                                    }).ToList();
+                return getDataLists.OrderBy(x => x.IsRead).ThenByDescending(x => x.ReleaseDate).ToList();
+            }
         }
 
         /// <summary>
@@ -301,18 +334,21 @@ namespace BLL
         /// <returns></returns>
         public static Model.NoticeItem getNoticesByNoticeId(string noticeId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_Notice
-                                where x.NoticeId == noticeId
-                                select new Model.NoticeItem
-                                {
-                                    NoticeId = x.NoticeId,
-                                    NoticeCode = x.NoticeCode,
-                                    NoticeTitle = x.NoticeTitle,
-                                    ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
-                                    MainContent = x.MainContent,
-                                    AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/"),
-                                }).FirstOrDefault();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.InformationProject_Notice
+                                    where x.NoticeId == noticeId
+                                    select new Model.NoticeItem
+                                    {
+                                        NoticeId = x.NoticeId,
+                                        NoticeCode = x.NoticeCode,
+                                        NoticeTitle = x.NoticeTitle,
+                                        ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
+                                        MainContent = x.MainContent,
+                                        AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/"),
+                                    }).FirstOrDefault();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -323,11 +359,14 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getWorkPost(string strParam)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost
-                                where strParam == null || x.WorkPostName.Contains(strParam)
-                                orderby x.WorkPostName
-                                select new Model.BaseInfoItem { BaseInfoId = x.WorkPostId, BaseInfoCode = x.WorkPostCode, BaseInfoName = x.WorkPostName }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_WorkPost
+                                    where strParam == null || x.WorkPostName.Contains(strParam)
+                                    orderby x.WorkPostName
+                                    select new Model.BaseInfoItem { BaseInfoId = x.WorkPostId, BaseInfoCode = x.WorkPostCode, BaseInfoName = x.WorkPostName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -468,11 +507,14 @@ namespace BLL
         /// <returns></returns>
         public static Model.BaseInfoItem getTeamGroupLeader(string teamGroupId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup
-                                join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.GroupLeaderId equals y.PersonId
-                                where x.TeamGroupId == teamGroupId && y.PersonId != null
-                                select new Model.BaseInfoItem { BaseInfoId = y.PersonId, BaseInfoCode = y.CardNo, BaseInfoName = y.PersonName }).FirstOrDefault();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.ProjectData_TeamGroup
+                                    join y in  db.SitePerson_Person on x.GroupLeaderId equals y.PersonId
+                                    where x.TeamGroupId == teamGroupId && y.PersonId != null
+                                    select new Model.BaseInfoItem { BaseInfoId = y.PersonId, BaseInfoCode = y.CardNo, BaseInfoName = y.PersonName }).FirstOrDefault();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -483,11 +525,14 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getWorkArea(string projectId, string unitId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
-                                where x.ProjectId == projectId && (unitId == null || x.UnitId == unitId)
-                                orderby x.UnitWorkCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.UnitWorkId, BaseInfoCode = x.UnitWorkCode, BaseInfoName = x.UnitWorkName }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.WBS_UnitWork
+                                    where x.ProjectId == projectId && (unitId == null || x.UnitId == unitId)
+                                    orderby x.UnitWorkCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.UnitWorkId, BaseInfoCode = x.UnitWorkCode, BaseInfoName = x.UnitWorkName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -498,11 +543,14 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getSafetyMeasures(string licenseType)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_SafetyMeasures
-                                where x.LicenseType == licenseType
-                                orderby x.SortIndex
-                                select new Model.BaseInfoItem { BaseInfoId = x.SafetyMeasuresId, BaseInfoCode = x.SortIndex.ToString(), BaseInfoName = x.SafetyMeasures }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_SafetyMeasures
+                                    where x.LicenseType == licenseType
+                                    orderby x.SortIndex
+                                    select new Model.BaseInfoItem { BaseInfoId = x.SafetyMeasuresId, BaseInfoCode = x.SortIndex.ToString(), BaseInfoName = x.SafetyMeasures }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -513,10 +561,13 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getPictureType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_PictureType
-                                orderby x.Code
-                                select new Model.BaseInfoItem { BaseInfoId = x.PictureTypeId, BaseInfoCode = x.Code, BaseInfoName = x.Name }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_PictureType
+                                    orderby x.Code
+                                    select new Model.BaseInfoItem { BaseInfoId = x.PictureTypeId, BaseInfoCode = x.Code, BaseInfoName = x.Name }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -527,10 +578,13 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getBase_LicenseType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_LicenseType
-                                orderby x.LicenseTypeCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.LicenseTypeId, BaseInfoCode = x.LicenseTypeCode, BaseInfoName = x.LicenseTypeName }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_LicenseType
+                                    orderby x.LicenseTypeCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.LicenseTypeId, BaseInfoCode = x.LicenseTypeCode, BaseInfoName = x.LicenseTypeName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -541,10 +595,13 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getCertificate()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_Certificate
-                                orderby x.CertificateCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.CertificateId, BaseInfoCode = x.CertificateCode, BaseInfoName = x.CertificateName }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_Certificate
+                                    orderby x.CertificateCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.CertificateId, BaseInfoCode = x.CertificateCode, BaseInfoName = x.CertificateName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -555,10 +612,13 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getDepart()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_Depart
-                                orderby x.DepartCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.DepartId, BaseInfoCode = x.DepartCode, BaseInfoName = x.DepartName }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_Depart
+                                    orderby x.DepartCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.DepartId, BaseInfoCode = x.DepartCode, BaseInfoName = x.DepartName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -569,10 +629,13 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getEmergencyType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_EmergencyType
-                                orderby x.EmergencyTypeCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.EmergencyTypeId, BaseInfoCode = x.EmergencyTypeCode, BaseInfoName = x.EmergencyTypeName }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_EmergencyType
+                                    orderby x.EmergencyTypeCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.EmergencyTypeId, BaseInfoCode = x.EmergencyTypeCode, BaseInfoName = x.EmergencyTypeName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
     }

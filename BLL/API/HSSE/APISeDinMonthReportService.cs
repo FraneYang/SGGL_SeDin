@@ -15,14 +15,14 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 //Model.SeDin_MonthReport
-                var count =  new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport.Where(p=>p.MonthReportId== monthReportId).Count();
+                var count =  db.SeDin_MonthReport.Where(p=>p.MonthReportId== monthReportId).Count();
                 return count;
              }
         }
         public static Model.SeDin_MonthReport report(string monthReportId) 
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString)) { 
-               return new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport.FirstOrDefault(p => p.MonthReportId == monthReportId);
+               return db.SeDin_MonthReport.FirstOrDefault(p => p.MonthReportId == monthReportId);
             }
         }
 
@@ -34,41 +34,44 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReportItem> getSeDinMonthReportList(string projectId, string month, string states)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            var getSeDinMonthReport = from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport
-                                      where x.ProjectId == projectId 
-                                      select x;
-            if (!string.IsNullOrEmpty(states))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getSeDinMonthReport = getSeDinMonthReport.Where(x => x.States == states || (states=="0" && (x.States == null || x.States == "0")));
+                var monthD = Funs.GetNewDateTime(month);
+                var getSeDinMonthReport = from x in db.SeDin_MonthReport
+                                          where x.ProjectId == projectId
+                                          select x;
+                if (!string.IsNullOrEmpty(states))
+                {
+                    getSeDinMonthReport = getSeDinMonthReport.Where(x => x.States == states || (states == "0" && (x.States == null || x.States == "0")));
+                }
+
+                if (monthD.HasValue)
+                {
+                    getSeDinMonthReport = getSeDinMonthReport.Where(x => x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month);
+                }
+
+                var getReport = from x in getSeDinMonthReport
+                                orderby x.ReporMonth descending
+                                select new Model.SeDinMonthReportItem
+                                {
+                                    MonthReportId = x.MonthReportId,
+                                    ProjectId = x.ProjectId,
+                                    DueDate = string.Format("{0:yyyy-MM-dd}", x.DueDate),
+                                    StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
+                                    EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
+                                    ReporMonth = string.Format("{0:yyyy-MM}", x.ReporMonth),
+                                    CompileManId = x.CompileManId,
+                                    CompileManName = db.Sys_User.First(u => u.UserId == x.CompileManId).UserName,
+                                    AuditManId = x.AuditManId,
+                                    AuditManName = db.Sys_User.First(u => u.UserId == x.AuditManId).UserName,
+                                    ApprovalManId = x.ApprovalManId,
+                                    ApprovalManName = db.Sys_User.First(u => u.UserId == x.ApprovalManId).UserName,
+                                    ThisSummary = x.ThisSummary,
+                                    NextPlan = x.NextPlan,
+                                };
+
+                return getReport.ToList();
             }
-
-            if (monthD.HasValue)
-            {
-                getSeDinMonthReport = getSeDinMonthReport.Where(x => x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month);
-            }
-
-            var getReport = from x in getSeDinMonthReport
-                            orderby x.ReporMonth descending
-                            select new Model.SeDinMonthReportItem
-                            {
-                                MonthReportId = x.MonthReportId,
-                                ProjectId = x.ProjectId,
-                                DueDate = string.Format("{0:yyyy-MM-dd}", x.DueDate),
-                                StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
-                                EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
-                                ReporMonth = string.Format("{0:yyyy-MM}", x.ReporMonth),
-                                CompileManId = x.CompileManId,
-                                CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileManId).UserName,
-                                AuditManId = x.AuditManId,
-                                AuditManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.AuditManId).UserName,
-                                ApprovalManId = x.ApprovalManId,
-                                ApprovalManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApprovalManId).UserName,
-                                ThisSummary = x.ThisSummary,
-                                NextPlan = x.NextPlan,
-                            };
-
-            return getReport.ToList();
         }
         #endregion
 
@@ -105,36 +108,39 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport1Item getSeDinMonthReportNullPage1(string projectId)
         {
-            ///项目经理
-            string projectManagerId = string.Empty;
-            var m = new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(Const.ProjectManager));
-            if (m != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                projectManagerId = m.UserId;
+                ///项目经理
+                string projectManagerId = string.Empty;
+                var m = db.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(Const.ProjectManager));
+                if (m != null)
+                {
+                    projectManagerId = m.UserId;
+                }
+                ////安全经理
+                string hsseManagerId = string.Empty;
+                var h = db.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(Const.HSSEManager));
+                if (h != null)
+                {
+                    hsseManagerId = h.UserId;
+                }
+                var newItem = from x in db.Base_Project
+                              where x.ProjectId == projectId
+                              select new Model.SeDinMonthReport1Item
+                              {
+                                  ProjectCode = x.ProjectCode,
+                                  ProjectName = x.ProjectName,
+                                  ProjectType = db.Sys_Const.First(y => y.GroupId == ConstValue.Group_ProjectType && y.ConstValue == x.ProjectType).ConstText,
+                                  StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
+                                  EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
+                                  ProjectManager = UserService.GetUserNameAndTelByUserId(projectManagerId),
+                                  HsseManager = UserService.GetUserNameAndTelByUserId(hsseManagerId),
+                                  ProjectAddress = x.ProjectAddress,
+                                  ContractNo = x.ContractNo,
+                              };
+
+                return newItem.FirstOrDefault();
             }
-            ////安全经理
-            string hsseManagerId = string.Empty;
-            var h = new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(Const.HSSEManager));
-            if (h != null)
-            {
-                hsseManagerId = h.UserId;
-            }
-            var newItem = from x in new Model.SGGLDB(Funs.ConnString).Base_Project
-                          where x.ProjectId == projectId
-                          select new Model.SeDinMonthReport1Item
-                          {
-                              ProjectCode = x.ProjectCode,
-                              ProjectName = x.ProjectName,
-                              ProjectType=new Model.SGGLDB(Funs.ConnString).Sys_Const.First(y=>y.GroupId == ConstValue.Group_ProjectType && y.ConstValue==x.ProjectType).ConstText,
-                              StartDate=string.Format("{0:yyyy-MM-dd}",x.StartDate),
-                              EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
-                              ProjectManager=UserService.GetUserNameAndTelByUserId(projectManagerId),
-                              HsseManager = UserService.GetUserNameAndTelByUserId(hsseManagerId),
-                              ProjectAddress = x.ProjectAddress,
-                              ContractNo=x.ContractNo,
-                          };
-            
-            return newItem.FirstOrDefault();
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --2、项目安全工时统计
@@ -143,73 +149,77 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public static Model.SeDinMonthReport2Item getSeDinMonthReportNullPage2(string projectId, string month,string startDate, string endDate)
+        public static Model.SeDinMonthReport2Item getSeDinMonthReportNullPage2(string projectId, string month, string startDate, string endDate)
         {
-            var newItem = new Model.SeDinMonthReport2Item();
-            var monthD = Funs.GetNewDateTime(month);
-       
-            var getProject = new Model.SGGLDB(Funs.ConnString).Base_Project.FirstOrDefault(x => x.ProjectId == projectId);
-            if (getProject != null )
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                #region 从人工时月报 取值
-                ////// 人工时月报
-                //var getProjectMonthReport = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReport where x.ProjectId == projectId select x;
-                //if (getProjectMonthReport.Count() > 0 && monthD.HasValue)
-                //{
-                //    ////人工时月报明细
-                //    var getMonthReportDetail = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail
-                //                               join y in getProjectMonthReport on x.MonthReportId equals y.MonthReportId
-                //                               select x;
-                //    ///// 项目累计安全人工时
-                //    newItem.ProjectWorkTime = getMonthReportDetail.Sum(x => x.PersonWorkTime) ?? 0;
-                //    var yearMonthReport = from x in getProjectMonthReport
-                //                          where x.CompileDate.Value.Year == monthD.Value.Year && x.CompileDate.Value.Month <= monthD.Value.Month
-                //                          select x;
-                //    if (yearMonthReport.Count() > 0)
-                //    {
-                //        foreach (var item in yearMonthReport)
-                //        {
-                //            ////年度累计安全人工时
-                //            newItem.YearWorkTime += getMonthReportDetail.Where(x => x.MonthReportId == item.MonthReportId).Sum(x => x.PersonWorkTime) ?? 0;
-                //        }
-                //        //// 安全生产人工时
-                //        newItem.SafeWorkTime = newItem.YearWorkTime ?? 0;
-                //        var monthMonthReport = yearMonthReport.FirstOrDefault(x => x.CompileDate.Value.Month == monthD.Value.Month);
-                //        if (monthMonthReport != null)
-                //        {
-                //            ////当月安全人工时
-                //            newItem.MonthWorkTime += getMonthReportDetail.Where(x => x.MonthReportId == monthMonthReport.MonthReportId).Sum(x => x.PersonWorkTime) ?? 0;
-                //        }
-                //    }
-                //}
-                #endregion
+                var newItem = new Model.SeDinMonthReport2Item();
+                var monthD = Funs.GetNewDateTime(month);
 
-                newItem.StartDate = string.Format("{0:yyyy-MM-dd}", getProject.StartDate);
-                newItem.EndDate = endDate;
-                var startDateD = Funs.GetNewDateTime(startDate);
-                var endDateD = Funs.GetNewDateTime(endDate);
-                var getAllNum = new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOutNumber.Where(x => x.ProjectId == projectId);
-                var getMaxWorkHours = getAllNum.Where(x => x.InOutDate >= startDateD && x.InOutDate < endDateD).Max(x => x.WorkHours);
-                ///// 项目累计安全人工时
-                newItem.ProjectWorkTime = getMaxWorkHours ?? 0;
-                //// 安全生产人工时
-                newItem.SafeWorkTime = getMaxWorkHours ?? 0;
-                var getLastMonWorkHours = getAllNum.Where(x => x.InOutDate < startDateD).Max(x => x.WorkHours);
-                ////当月安全人工时
-                newItem.MonthWorkTime = newItem.ProjectWorkTime - (getLastMonWorkHours ?? 0);
-                if (newItem.MonthWorkTime < 0)
+                var getProject = db.Base_Project.FirstOrDefault(x => x.ProjectId == projectId);
+                if (getProject != null)
                 {
-                    newItem.MonthWorkTime = 0;
+                    #region 从人工时月报 取值
+                    ////// 人工时月报
+                    //var getProjectMonthReport = from x in db.SitePerson_MonthReport where x.ProjectId == projectId select x;
+                    //if (getProjectMonthReport.Count() > 0 && monthD.HasValue)
+                    //{
+                    //    ////人工时月报明细
+                    //    var getMonthReportDetail = from x in db.SitePerson_MonthReportDetail
+                    //                               join y in getProjectMonthReport on x.MonthReportId equals y.MonthReportId
+                    //                               select x;
+                    //    ///// 项目累计安全人工时
+                    //    newItem.ProjectWorkTime = getMonthReportDetail.Sum(x => x.PersonWorkTime) ?? 0;
+                    //    var yearMonthReport = from x in getProjectMonthReport
+                    //                          where x.CompileDate.Value.Year == monthD.Value.Year && x.CompileDate.Value.Month <= monthD.Value.Month
+                    //                          select x;
+                    //    if (yearMonthReport.Count() > 0)
+                    //    {
+                    //        foreach (var item in yearMonthReport)
+                    //        {
+                    //            ////年度累计安全人工时
+                    //            newItem.YearWorkTime += getMonthReportDetail.Where(x => x.MonthReportId == item.MonthReportId).Sum(x => x.PersonWorkTime) ?? 0;
+                    //        }
+                    //        //// 安全生产人工时
+                    //        newItem.SafeWorkTime = newItem.YearWorkTime ?? 0;
+                    //        var monthMonthReport = yearMonthReport.FirstOrDefault(x => x.CompileDate.Value.Month == monthD.Value.Month);
+                    //        if (monthMonthReport != null)
+                    //        {
+                    //            ////当月安全人工时
+                    //            newItem.MonthWorkTime += getMonthReportDetail.Where(x => x.MonthReportId == monthMonthReport.MonthReportId).Sum(x => x.PersonWorkTime) ?? 0;
+                    //        }
+                    //    }
+                    //}
+
+                    #endregion
+
+                    newItem.StartDate = string.Format("{0:yyyy-MM-dd}", getProject.StartDate);
+                    newItem.EndDate = endDate;
+                    var startDateD = Funs.GetNewDateTime(startDate);
+                    var endDateD = Funs.GetNewDateTime(endDate);
+                    var getAllNum = db.SitePerson_PersonInOutNumber.Where(x => x.ProjectId == projectId);
+                    var getMaxWorkHours = getAllNum.Where(x => x.InOutDate >= startDateD && x.InOutDate < endDateD).Max(x => x.WorkHours);
+                    ///// 项目累计安全人工时
+                    newItem.ProjectWorkTime = getMaxWorkHours ?? 0;
+                    //// 安全生产人工时
+                    newItem.SafeWorkTime = getMaxWorkHours ?? 0;
+                    var getLastMonWorkHours = getAllNum.Where(x => x.InOutDate < startDateD).Max(x => x.WorkHours);
+                    ////当月安全人工时
+                    newItem.MonthWorkTime = newItem.ProjectWorkTime - (getLastMonWorkHours ?? 0);
+                    if (newItem.MonthWorkTime < 0)
+                    {
+                        newItem.MonthWorkTime = 0;
+                    }
+                    var getLastYearWorkHours = getAllNum.Where(x => x.InOutDate.Year == (startDateD.Value.Year - 1)).Max(x => x.WorkHours);
+                    ////年度累计安全人工时
+                    newItem.YearWorkTime = newItem.ProjectWorkTime - (getLastYearWorkHours ?? 0);
+                    if (newItem.YearWorkTime < 0)
+                    {
+                        newItem.YearWorkTime = 0;
+                    }
                 }
-                var getLastYearWorkHours = getAllNum.Where(x => x.InOutDate.Year == (startDateD.Value.Year - 1)).Max(x => x.WorkHours);
-                ////年度累计安全人工时
-                newItem.YearWorkTime= newItem.ProjectWorkTime - (getLastYearWorkHours ?? 0);
-                if (newItem.YearWorkTime < 0)
-                {
-                    newItem.YearWorkTime = 0;
-                }
+                return newItem;
             }
-            return newItem;
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --3、项目HSE事故、事件统计
@@ -224,7 +234,7 @@ namespace BLL
             Model.SeDinMonthReportItem newItem = new Model.SeDinMonthReportItem
             {
                 ProjectId = projectId,
-              SeDinMonthReport3Item= getSeDinMonthReport3ItemNull(projectId, month, startDate, endDate)
+                SeDinMonthReport3Item = getSeDinMonthReport3ItemNull(projectId, month, startDate, endDate)
             };
             return newItem;
         }
@@ -235,40 +245,43 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport3Item> getSeDinMonthReport3ItemNull(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            List<Model.SeDinMonthReport3Item> getLists = new List<Model.SeDinMonthReport3Item>();
-            var getAccidentReportTypes= from x in new Model.SGGLDB(Funs.ConnString).Sys_Const
-                                        where x.GroupId == ConstValue.Group_AccidentReportRegistration
-                                        select x;
-            var getAccident = from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReport
-                              where x.ProjectId == projectId 
-                              select x;
-            var getMonthAccident = from x in getAccident
-                                   where x.AccidentDate >= startDateD && x.AccidentDate < endDateD
-                                   select x;
-            foreach (var item in getAccidentReportTypes)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                Model.SeDinMonthReport3Item newItem = new Model.SeDinMonthReport3Item();
-                if (item.SortIndex <= 4)
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                List<Model.SeDinMonthReport3Item> getLists = new List<Model.SeDinMonthReport3Item>();
+                var getAccidentReportTypes = from x in db.Sys_Const
+                                             where x.GroupId == ConstValue.Group_AccidentReportRegistration
+                                             select x;
+                var getAccident = from x in db.Accident_AccidentReport
+                                  where x.ProjectId == projectId
+                                  select x;
+                var getMonthAccident = from x in getAccident
+                                       where x.AccidentDate >= startDateD && x.AccidentDate < endDateD
+                                       select x;
+                foreach (var item in getAccidentReportTypes)
                 {
-                    newItem.BigType = "人身伤害事故";
+                    Model.SeDinMonthReport3Item newItem = new Model.SeDinMonthReport3Item();
+                    if (item.SortIndex <= 4)
+                    {
+                        newItem.BigType = "人身伤害事故";
+                    }
+                    newItem.AccidentType = item.ConstText;
+                    newItem.SortIndex = item.SortIndex;
+
+                    newItem.MonthTimes = getMonthAccident.Count();
+                    newItem.TotalTimes = getAccident.Count();
+                    newItem.MonthLossTime = getMonthAccident.Sum(x => x.WorkingHoursLoss) ?? 0;
+                    newItem.TotalLossTime = getAccident.Sum(x => x.WorkingHoursLoss) ?? 0;
+                    newItem.MonthMoney = getMonthAccident.Sum(x => x.EconomicLoss) ?? 0;
+                    newItem.TotalMoney = getAccident.Sum(x => x.EconomicLoss) ?? 0;
+                    newItem.MonthPersons = getMonthAccident.Sum(x => x.PeopleNum) ?? 0;
+                    newItem.TotalPersons = getAccident.Sum(x => x.PeopleNum) ?? 0;
+                    getLists.Add(newItem);
                 }
-                newItem.AccidentType = item.ConstText;
-                newItem.SortIndex = item.SortIndex;
 
-                newItem.MonthTimes = getMonthAccident.Count();
-                newItem.TotalTimes = getAccident.Count();
-                newItem.MonthLossTime = getMonthAccident.Sum(x => x.WorkingHoursLoss) ?? 0;
-                newItem.TotalLossTime = getAccident.Sum(x => x.WorkingHoursLoss) ?? 0;
-                newItem.MonthMoney = getMonthAccident.Sum(x => x.EconomicLoss) ?? 0;
-                newItem.TotalMoney = getAccident.Sum(x => x.EconomicLoss) ?? 0;
-                newItem.MonthPersons = getMonthAccident.Sum(x => x.PeopleNum) ?? 0;
-                newItem.TotalPersons = getAccident.Sum(x => x.PeopleNum) ?? 0;
-                getLists.Add(newItem);
+                return getLists.OrderBy(x => x.SortIndex).ToList();
             }
-
-            return getLists.OrderBy(x=>x.SortIndex).ToList();
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --4、本月人员投入情况
@@ -279,31 +292,34 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport4Item> getSeDinMonthReportNullPage4(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            List<Model.SeDinMonthReport4Item> getLists = new List<Model.SeDinMonthReport4Item>();
-            var getUnits = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                                         join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
-                                         where y.ProjectId == projectId
-                                         select x;
-            var getPersons = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                              where x.ProjectId == projectId && x.InTime <=startDateD && (!x.OutTime.HasValue)
-                              select x).ToList();
-            foreach (var item in getUnits)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                Model.SeDinMonthReport4Item newItem = new Model.SeDinMonthReport4Item
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                List<Model.SeDinMonthReport4Item> getLists = new List<Model.SeDinMonthReport4Item>();
+                var getUnits = from x in db.Base_Unit
+                               join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
+                               where y.ProjectId == projectId
+                               select x;
+                var getPersons = (from x in db.SitePerson_Person
+                                  where x.ProjectId == projectId && x.InTime <= startDateD && (!x.OutTime.HasValue)
+                                  select x).ToList();
+                foreach (var item in getUnits)
                 {
-                    UnitName = item.UnitName,
-                    SafeManangerNum = getPersonsNum( getPersons, item.UnitId, "1"),
-                    OtherManangerNum = getPersonsNum(getPersons, item.UnitId, "2"),
-                    SpecialWorkerNum = getPersonsNum(getPersons, item.UnitId, "3"),
-                    GeneralWorkerNum = getPersonsNum(getPersons, item.UnitId, "4"),
-                    TotalNum = getPersonsNum(getPersons, item.UnitId, "5"),
-                };
-                getLists.Add(newItem);
-            }
+                    Model.SeDinMonthReport4Item newItem = new Model.SeDinMonthReport4Item
+                    {
+                        UnitName = item.UnitName,
+                        SafeManangerNum = getPersonsNum(getPersons, item.UnitId, "1"),
+                        OtherManangerNum = getPersonsNum(getPersons, item.UnitId, "2"),
+                        SpecialWorkerNum = getPersonsNum(getPersons, item.UnitId, "3"),
+                        GeneralWorkerNum = getPersonsNum(getPersons, item.UnitId, "4"),
+                        TotalNum = getPersonsNum(getPersons, item.UnitId, "5"),
+                    };
+                    getLists.Add(newItem);
+                }
 
-            return getLists.ToList();
+                return getLists.ToList();
+            }
         }
 
         /// <summary>
@@ -314,44 +330,47 @@ namespace BLL
         /// <returns></returns>
         public static int getPersonsNum(List<Model.SitePerson_Person> getPersons, string unitId, string type)
         {
-            int num = 0;
-            var getUnitPersons = getPersons.Where(x => x.UnitId == unitId);
-            if (getUnitPersons.Count() > 0)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (type == "1")
+                int num = 0;
+                var getUnitPersons = getPersons.Where(x => x.UnitId == unitId);
+                if (getUnitPersons.Count() > 0)
                 {
-                    num = (from x in getUnitPersons
-                           join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                    if (type == "1")
+                    {
+                        num = (from x in getUnitPersons
+                               join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                                where y.IsHsse == true
                                select x).Count();
+                    }
+                    else if (type == "2")
+                    {
+                        num = (from x in getUnitPersons
+                               join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                               where (y.IsHsse == false || !y.IsHsse.HasValue) && (y.PostType == "1" || y.PostType == "4")
+                               select x).Count();
+                    }
+                    else if (type == "3")
+                    {
+                        num = (from x in getUnitPersons
+                               join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                               where y.PostType == "2"
+                               select x).Count();
+                    }
+                    else if (type == "4")
+                    {
+                        num = (from x in getUnitPersons
+                               join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                               where y.PostType == "3"
+                               select x).Count();
+                    }
+                    else if (type == "5")
+                    {
+                        num = getUnitPersons.Count();
+                    }
                 }
-                else if (type == "2")
-                {
-                    num = (from x in getUnitPersons
-                           join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                           where (y.IsHsse == false || !y.IsHsse.HasValue)  && (y.PostType=="1" || y.PostType == "4")
-                           select x).Count();
-                }
-              else  if (type == "3")
-                {
-                    num = (from x in getUnitPersons
-                           join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                           where y.PostType == "2"
-                           select x).Count();
-                }
-                else if (type == "4")
-                {
-                    num = (from x in getUnitPersons
-                           join y in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                           where y.PostType == "3"
-                           select x).Count();
-                }
-                else if (type == "5")
-                {
-                    num = getUnitPersons.Count();
-                }
+                return num;
             }
-            return num;
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --5、本月大型、特种设备投入情况
@@ -362,41 +381,44 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport5Item> getSeDinMonthReportNullPage5(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            List<Model.SeDinMonthReport5Item> getLists = new List<Model.SeDinMonthReport5Item>();
-            var getUnits = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
-                           where y.ProjectId == projectId
-                           select x;
-            var getAll = from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQuality                       
-                         where x.ProjectId == projectId && x.InDate <= endDateD && (!x.OutDate.HasValue  ||  x.OutDate >startDateD )
-                             select x;            
-            foreach (var item in getUnits)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getUAll = from x in getAll
-                              join y in new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment on x.SpecialEquipmentId equals y.SpecialEquipmentId
-                              where x.UnitId == item.UnitId
-                              select new Model.BaseInfoItem { BaseInfoId = x.EquipmentQualityId, BaseInfoCode = y.SpecialEquipmentCode, BaseInfoName = y.SpecialEquipmentName };
-                Model.SeDinMonthReport5Item newItem = new Model.SeDinMonthReport5Item
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                List<Model.SeDinMonthReport5Item> getLists = new List<Model.SeDinMonthReport5Item>();
+                var getUnits = from x in db.Base_Unit
+                               join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
+                               where y.ProjectId == projectId
+                               select x;
+                var getAll = from x in db.QualityAudit_EquipmentQuality
+                             where x.ProjectId == projectId && x.InDate <= endDateD && (!x.OutDate.HasValue || x.OutDate > startDateD)
+                             select x;
+                foreach (var item in getUnits)
                 {
-                    UnitName = item.UnitName,
-                    T01 = getUAll.Where(x=>x.BaseInfoName== "汽车吊").Count(),
-                    T02 = getUAll.Where(x => x.BaseInfoName == "履带吊").Count(),
-                    T03 = getUAll.Where(x => x.BaseInfoName == "塔吊").Count(),
-                    T04 = getUAll.Where(x => x.BaseInfoName == "门式起重机").Count(),
-                    T05 = getUAll.Where(x => x.BaseInfoName == "升降机").Count(),
-                    T06 = getUAll.Where(x=>x.BaseInfoName== "叉车").Count(),
-                    D01 = getUAll.Where(x=>x.BaseInfoName== "挖掘机").Count(),
-                    D02 = getUAll.Where(x=>x.BaseInfoName== "装载机").Count(),
-                    D03 = getUAll.Where(x=>x.BaseInfoName== "拖板车").Count(),
-                    D04 =getUAll.Where(x=>x.BaseInfoName== "桩机").Count(),
-                    S01 = getUAll.Where(x=>x.BaseInfoName== "吊篮").Count(),
-                };
-                getLists.Add(newItem);
-            }
+                    var getUAll = from x in getAll
+                                  join y in db.Base_SpecialEquipment on x.SpecialEquipmentId equals y.SpecialEquipmentId
+                                  where x.UnitId == item.UnitId
+                                  select new Model.BaseInfoItem { BaseInfoId = x.EquipmentQualityId, BaseInfoCode = y.SpecialEquipmentCode, BaseInfoName = y.SpecialEquipmentName };
+                    Model.SeDinMonthReport5Item newItem = new Model.SeDinMonthReport5Item
+                    {
+                        UnitName = item.UnitName,
+                        T01 = getUAll.Where(x => x.BaseInfoName == "汽车吊").Count(),
+                        T02 = getUAll.Where(x => x.BaseInfoName == "履带吊").Count(),
+                        T03 = getUAll.Where(x => x.BaseInfoName == "塔吊").Count(),
+                        T04 = getUAll.Where(x => x.BaseInfoName == "门式起重机").Count(),
+                        T05 = getUAll.Where(x => x.BaseInfoName == "升降机").Count(),
+                        T06 = getUAll.Where(x => x.BaseInfoName == "叉车").Count(),
+                        D01 = getUAll.Where(x => x.BaseInfoName == "挖掘机").Count(),
+                        D02 = getUAll.Where(x => x.BaseInfoName == "装载机").Count(),
+                        D03 = getUAll.Where(x => x.BaseInfoName == "拖板车").Count(),
+                        D04 = getUAll.Where(x => x.BaseInfoName == "桩机").Count(),
+                        S01 = getUAll.Where(x => x.BaseInfoName == "吊篮").Count(),
+                    };
+                    getLists.Add(newItem);
+                }
 
-            return getLists.ToList();
+                return getLists.ToList();
+            }
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --6、安全生产费用投入情况
@@ -442,44 +464,47 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport7Item getSeDinMonthReportNullPage7(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            var getTrainRecordAll = from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord
-                                    where x.ProjectId == projectId
-                                    select x;
-            var getAll = getTrainRecordAll.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
-
-            var getTrainRecordYear = from x in getTrainRecordAll
-                                     where x.TrainStartDate.Value.Year == startDateD.Value.Year
-                                     select x;
-            var getYear = getTrainRecordYear.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
-
-            var getTrainRecordMon = from x in getTrainRecordYear
-                                    where startDateD <= x.TrainStartDate && endDateD > x.TrainStartDate
-                                 select x;
-            var getMon = getTrainRecordMon.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
-
-            Model.SeDinMonthReport7Item newItem = new Model.SeDinMonthReport7Item
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                EmployeeMontNum = getMon.Count(),
-                EmployeeYearNum = getYear.Count(),
-                EmployeeTotalNum = getAll.Count(),
-                EmployeeMontPerson = getMon.Sum(x => x.TrainPersonNum) ?? 0,
-                EmployeeYearPerson = getYear.Sum(x => x.TrainPersonNum) ?? 0,
-                EmployeeTotalPerson = getAll.Sum(x => x.TrainPersonNum) ?? 0
-            };
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                var getTrainRecordAll = from x in db.EduTrain_TrainRecord
+                                        where x.ProjectId == projectId
+                                        select x;
+                var getAll = getTrainRecordAll.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
 
-            newItem.SpecialMontNum = getTrainRecordMon.Count() - newItem.EmployeeMontNum;
-            newItem.SpecialYearNum = getTrainRecordYear.Count() - newItem.EmployeeYearNum;
-            newItem.SpecialTotalNum = getTrainRecordAll.Count() - newItem.EmployeeTotalNum;
-            var getmp = getTrainRecordMon.Sum(x => x.TrainPersonNum) ?? 0;
-            newItem.SpecialMontPerson = getmp - newItem.EmployeeMontPerson;
-            var getyp = getTrainRecordYear.Sum(x => x.TrainPersonNum) ?? 0;
-            newItem.SpecialYearPerson = getyp - newItem.EmployeeYearPerson;
-            var getp = getTrainRecordAll.Sum(x => x.TrainPersonNum) ?? 0;
-            newItem.SpecialTotalPerson = getp - newItem.EmployeeTotalPerson;
-                   
-            return newItem;
+                var getTrainRecordYear = from x in getTrainRecordAll
+                                         where x.TrainStartDate.Value.Year == startDateD.Value.Year
+                                         select x;
+                var getYear = getTrainRecordYear.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
+
+                var getTrainRecordMon = from x in getTrainRecordYear
+                                        where startDateD <= x.TrainStartDate && endDateD > x.TrainStartDate
+                                        select x;
+                var getMon = getTrainRecordMon.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
+
+                Model.SeDinMonthReport7Item newItem = new Model.SeDinMonthReport7Item
+                {
+                    EmployeeMontNum = getMon.Count(),
+                    EmployeeYearNum = getYear.Count(),
+                    EmployeeTotalNum = getAll.Count(),
+                    EmployeeMontPerson = getMon.Sum(x => x.TrainPersonNum) ?? 0,
+                    EmployeeYearPerson = getYear.Sum(x => x.TrainPersonNum) ?? 0,
+                    EmployeeTotalPerson = getAll.Sum(x => x.TrainPersonNum) ?? 0
+                };
+
+                newItem.SpecialMontNum = getTrainRecordMon.Count() - newItem.EmployeeMontNum;
+                newItem.SpecialYearNum = getTrainRecordYear.Count() - newItem.EmployeeYearNum;
+                newItem.SpecialTotalNum = getTrainRecordAll.Count() - newItem.EmployeeTotalNum;
+                var getmp = getTrainRecordMon.Sum(x => x.TrainPersonNum) ?? 0;
+                newItem.SpecialMontPerson = getmp - newItem.EmployeeMontPerson;
+                var getyp = getTrainRecordYear.Sum(x => x.TrainPersonNum) ?? 0;
+                newItem.SpecialYearPerson = getyp - newItem.EmployeeYearPerson;
+                var getp = getTrainRecordAll.Sum(x => x.TrainPersonNum) ?? 0;
+                newItem.SpecialTotalPerson = getp - newItem.EmployeeTotalPerson;
+
+                return newItem;
+            }
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --8、项目HSE会议统计
@@ -490,30 +515,33 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport8Item getSeDinMonthReportNullPage8(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            Model.SeDinMonthReport8Item newItem = new Model.SeDinMonthReport8Item();
-            //// 周例会
-            var getAllWeeks = from x in new Model.SGGLDB(Funs.ConnString).Meeting_WeekMeeting where x.ProjectId == projectId select x;
-            var getMontWeeks = getAllWeeks.Where(x => x.WeekMeetingDate >= startDateD && x.WeekMeetingDate < endDateD);            
-            newItem.WeekMontNum = getMontWeeks.Count();
-            newItem.WeekTotalNum = getAllWeeks.Count();
-            newItem.WeekMontPerson = getMontWeeks.Sum(x => x.AttentPersonNum) ?? 0;
-            /// 月例会
-            var getAllMonths = from x in new Model.SGGLDB(Funs.ConnString).Meeting_MonthMeeting where x.ProjectId == projectId select x;
-            var getMontMonths = getAllMonths.Where(x => x.MonthMeetingDate >= startDateD && x.MonthMeetingDate < endDateD);
-            newItem.MonthMontNum = getMontMonths.Count();
-            newItem.MonthTotalNum = getAllMonths.Count();
-            newItem.MonthMontPerson = getMontMonths.Sum(x => x.AttentPersonNum) ?? 0;
-            /// 专题会议
-            var getAllSpecials = from x in new Model.SGGLDB(Funs.ConnString).Meeting_SpecialMeeting where x.ProjectId == projectId select x;
-            var getMontSpecials = getAllSpecials.Where(x => x.SpecialMeetingDate >= startDateD && x.SpecialMeetingDate < endDateD);
-            newItem.SpecialMontNum = getMontSpecials.Count();
-            newItem.SpecialTotalNum = getAllSpecials.Count();
-            newItem.SpecialMontPerson = getMontSpecials.Sum(x => x.AttentPersonNum) ?? 0;
-            ////班前会
-            newItem.SeDinMonthReport8ItemItem = getSeDinMonthReport8ItemNull(projectId, month, startDateD, endDateD);
-            return newItem;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                Model.SeDinMonthReport8Item newItem = new Model.SeDinMonthReport8Item();
+                //// 周例会
+                var getAllWeeks = from x in db.Meeting_WeekMeeting where x.ProjectId == projectId select x;
+                var getMontWeeks = getAllWeeks.Where(x => x.WeekMeetingDate >= startDateD && x.WeekMeetingDate < endDateD);
+                newItem.WeekMontNum = getMontWeeks.Count();
+                newItem.WeekTotalNum = getAllWeeks.Count();
+                newItem.WeekMontPerson = getMontWeeks.Sum(x => x.AttentPersonNum) ?? 0;
+                /// 月例会
+                var getAllMonths = from x in db.Meeting_MonthMeeting where x.ProjectId == projectId select x;
+                var getMontMonths = getAllMonths.Where(x => x.MonthMeetingDate >= startDateD && x.MonthMeetingDate < endDateD);
+                newItem.MonthMontNum = getMontMonths.Count();
+                newItem.MonthTotalNum = getAllMonths.Count();
+                newItem.MonthMontPerson = getMontMonths.Sum(x => x.AttentPersonNum) ?? 0;
+                /// 专题会议
+                var getAllSpecials = from x in db.Meeting_SpecialMeeting where x.ProjectId == projectId select x;
+                var getMontSpecials = getAllSpecials.Where(x => x.SpecialMeetingDate >= startDateD && x.SpecialMeetingDate < endDateD);
+                newItem.SpecialMontNum = getMontSpecials.Count();
+                newItem.SpecialTotalNum = getAllSpecials.Count();
+                newItem.SpecialMontPerson = getMontSpecials.Sum(x => x.AttentPersonNum) ?? 0;
+                ////班前会
+                newItem.SeDinMonthReport8ItemItem = getSeDinMonthReport8ItemNull(projectId, month, startDateD, endDateD);
+                return newItem;
+            }
         }
 
         /// <summary>
@@ -522,48 +550,51 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport8ItemItem> getSeDinMonthReport8ItemNull(string projectId, string month, DateTime? startDateD, DateTime? endDateD)
         {
-            List<Model.SeDinMonthReport8ItemItem> getLists = new List<Model.SeDinMonthReport8ItemItem>();
-            var getUnits = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                                         join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
-                                         where y.ProjectId == projectId
-                                         select x;
-            var getClassMeets = from x in new Model.SGGLDB(Funs.ConnString).Meeting_ClassMeeting
-                                where x.ProjectId == projectId && x.ClassMeetingDate >=startDateD && x.ClassMeetingDate <endDateD
-                                select x;
-            foreach (var item in getUnits)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getTeamGroups = from x in new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup
-                                   where x.ProjectId == projectId && x.UnitId == item.UnitId
+                List<Model.SeDinMonthReport8ItemItem> getLists = new List<Model.SeDinMonthReport8ItemItem>();
+                var getUnits = from x in db.Base_Unit
+                               join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
+                               where y.ProjectId == projectId
+                               select x;
+                var getClassMeets = from x in db.Meeting_ClassMeeting
+                                    where x.ProjectId == projectId && x.ClassMeetingDate >= startDateD && x.ClassMeetingDate < endDateD
                                     select x;
-                var getUnitClassMeets = getClassMeets.Where(x=>x.UnitId == item.UnitId);
-                foreach (var itemT in getTeamGroups)
+                foreach (var item in getUnits)
                 {
-                    var getTClassMeets = getUnitClassMeets.Where(x => x.TeamGroupId == itemT.TeamGroupId);
-                    Model.SeDinMonthReport8ItemItem newItemT = new Model.SeDinMonthReport8ItemItem
+                    var getTeamGroups = from x in db.ProjectData_TeamGroup
+                                        where x.ProjectId == projectId && x.UnitId == item.UnitId
+                                        select x;
+                    var getUnitClassMeets = getClassMeets.Where(x => x.UnitId == item.UnitId);
+                    foreach (var itemT in getTeamGroups)
                     {
-                        UnitName = item.UnitName,
-                        TeamName = itemT.TeamGroupName,
-                        ClassNum = getTClassMeets.Count(),
-                        ClassPersonNum = getTClassMeets.Sum(x => x.AttentPersonNum) ?? 0
-                    };
-                    getLists.Add(newItemT);
+                        var getTClassMeets = getUnitClassMeets.Where(x => x.TeamGroupId == itemT.TeamGroupId);
+                        Model.SeDinMonthReport8ItemItem newItemT = new Model.SeDinMonthReport8ItemItem
+                        {
+                            UnitName = item.UnitName,
+                            TeamName = itemT.TeamGroupName,
+                            ClassNum = getTClassMeets.Count(),
+                            ClassPersonNum = getTClassMeets.Sum(x => x.AttentPersonNum) ?? 0
+                        };
+                        getLists.Add(newItemT);
+                    }
+
+                    var getTClassMeetNulls = getUnitClassMeets.Where(x => x.TeamGroupId == null);
+                    if (getTClassMeetNulls.Count() > 0)
+                    {
+                        Model.SeDinMonthReport8ItemItem newItemNT = new Model.SeDinMonthReport8ItemItem
+                        {
+                            UnitName = item.UnitName,
+                            TeamName = "/",
+                            ClassNum = getTClassMeetNulls.Count(),
+                            ClassPersonNum = getTClassMeetNulls.Sum(x => x.AttentPersonNum) ?? 0
+                        };
+                        getLists.Add(newItemNT);
+                    }
                 }
 
-                var getTClassMeetNulls = getUnitClassMeets.Where(x => x.TeamGroupId ==null);
-                if (getTClassMeetNulls.Count() > 0)
-                {
-                    Model.SeDinMonthReport8ItemItem newItemNT = new Model.SeDinMonthReport8ItemItem
-                    {
-                        UnitName = item.UnitName,
-                        TeamName = "/",
-                        ClassNum = getTClassMeetNulls.Count(),
-                        ClassPersonNum = getTClassMeetNulls.Sum(x => x.AttentPersonNum) ?? 0
-                    };
-                    getLists.Add(newItemNT);
-                }
+                return getLists.OrderBy(x => x.UnitName).ToList();
             }
-
-            return getLists.OrderBy(x=>x.UnitName).ToList();
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --9、项目HSE检查统计
@@ -574,57 +605,60 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport9Item getSeDinMonthReportNullPage9(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            var getHazardRegistersAll = from x in new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister
-                                        where x.ProjectId == projectId
-                                        select x;
-            var getHazardRegistersYear = from x in getHazardRegistersAll
-                                         where x.CheckTime.Value.Year == endDateD.Value.Year
-                                         select x;
-            var getHazardRegistersMon = from x in getHazardRegistersYear
-                                        where startDateD <= x.CheckTime && endDateD > x.CheckTime
-                                        select x;
-
-            var getCheckSpecialAll = from x in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecial
-                                        where x.ProjectId == projectId
-                                        select x;
-            var getCheckSpecialYear = from x in getCheckSpecialAll
-                                      where x.CheckTime.Value.Year == endDateD.Value.Year
-                                         select x;
-            var getCheckSpecialMon = from x in getCheckSpecialYear
-                                     where startDateD <= x.CheckTime && endDateD > x.CheckTime
-                                        select x;
-
-            var getCheckColligationAll = from x in new Model.SGGLDB(Funs.ConnString).Check_CheckColligation
-                                     where x.ProjectId == projectId
-                                     select x;
-            var getCheckColligationYear = from x in getCheckColligationAll
-                                      where x.CheckTime.Value.Year == endDateD.Value.Year
-                                      select x;
-            var getCheckColligationMon = from x in getCheckColligationYear
-                                     where startDateD <= x.CheckTime && endDateD > x.CheckTime
-                                     select x;
-
-            Model.SeDinMonthReport9Item newItem = new Model.SeDinMonthReport9Item
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                DailyMonth = getHazardRegistersMon.Count(),
-                DailyYear = getHazardRegistersYear.Count(),
-                DailyTotal = getHazardRegistersAll.Count(),
-                WeekMonth = 0,
-                WeekYear = 0,
-                WeekTotal = 0,
-                SpecialMonth = getCheckSpecialMon.Count(),
-                SpecialYear = getCheckSpecialYear.Count(),
-                SpecialTotal = getCheckSpecialAll.Count(),
-                MonthlyMonth = getCheckColligationMon.Count(),
-                MonthlyYear = getCheckColligationYear.Count(),
-                MonthlyTotal = getCheckColligationAll.Count(),
-                SeDinMonthReport9ItemRectification = getSeDinMonthReport9ItemRectificationNull(projectId, month, startDate, endDate),
-                SeDinMonthReport9ItemSpecial= getSeDinMonthReport9ItemSpecialNull(projectId, month, startDate, endDate),
-                SeDinMonthReport9ItemStoppage = getSeDinMonthReport9ItemStoppageNull(projectId, month, startDate, endDate),
-            };
-            return newItem;
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                var getHazardRegistersAll = from x in db.HSSE_Hazard_HazardRegister
+                                            where x.ProjectId == projectId
+                                            select x;
+                var getHazardRegistersYear = from x in getHazardRegistersAll
+                                             where x.CheckTime.Value.Year == endDateD.Value.Year
+                                             select x;
+                var getHazardRegistersMon = from x in getHazardRegistersYear
+                                            where startDateD <= x.CheckTime && endDateD > x.CheckTime
+                                            select x;
+
+                var getCheckSpecialAll = from x in db.Check_CheckSpecial
+                                         where x.ProjectId == projectId
+                                         select x;
+                var getCheckSpecialYear = from x in getCheckSpecialAll
+                                          where x.CheckTime.Value.Year == endDateD.Value.Year
+                                          select x;
+                var getCheckSpecialMon = from x in getCheckSpecialYear
+                                         where startDateD <= x.CheckTime && endDateD > x.CheckTime
+                                         select x;
+
+                var getCheckColligationAll = from x in db.Check_CheckColligation
+                                             where x.ProjectId == projectId
+                                             select x;
+                var getCheckColligationYear = from x in getCheckColligationAll
+                                              where x.CheckTime.Value.Year == endDateD.Value.Year
+                                              select x;
+                var getCheckColligationMon = from x in getCheckColligationYear
+                                             where startDateD <= x.CheckTime && endDateD > x.CheckTime
+                                             select x;
+
+                Model.SeDinMonthReport9Item newItem = new Model.SeDinMonthReport9Item
+                {
+                    DailyMonth = getHazardRegistersMon.Count(),
+                    DailyYear = getHazardRegistersYear.Count(),
+                    DailyTotal = getHazardRegistersAll.Count(),
+                    WeekMonth = 0,
+                    WeekYear = 0,
+                    WeekTotal = 0,
+                    SpecialMonth = getCheckSpecialMon.Count(),
+                    SpecialYear = getCheckSpecialYear.Count(),
+                    SpecialTotal = getCheckSpecialAll.Count(),
+                    MonthlyMonth = getCheckColligationMon.Count(),
+                    MonthlyYear = getCheckColligationYear.Count(),
+                    MonthlyTotal = getCheckColligationAll.Count(),
+                    SeDinMonthReport9ItemRectification = getSeDinMonthReport9ItemRectificationNull(projectId, month, startDate, endDate),
+                    SeDinMonthReport9ItemSpecial = getSeDinMonthReport9ItemSpecialNull(projectId, month, startDate, endDate),
+                    SeDinMonthReport9ItemStoppage = getSeDinMonthReport9ItemStoppageNull(projectId, month, startDate, endDate),
+                };
+                return newItem;
+            }
         }
 
         /// <summary>
@@ -633,70 +667,77 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport9ItemRectification> getSeDinMonthReport9ItemRectificationNull(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            List<Model.SeDinMonthReport9ItemRectification> getLists = new List<Model.SeDinMonthReport9ItemRectification>();
-            var getUnits = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
-                           where y.ProjectId == projectId && y.UnitType == Const.ProjectUnitType_2
-                           select x;
-            var getAll = from x in new Model.SGGLDB(Funs.ConnString).Check_RectifyNotices where x.ProjectId == projectId select x;
-            var getMon = from x in getAll where x.CheckedDate >= startDateD && x.CheckedDate < endDateD select x;
-            foreach (var item in getUnits)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getUAll = getAll.Where(x => x.UnitId == item.UnitId);
-                var getUMon= getMon.Where(x => x.UnitId == item.UnitId);
-                Model.SeDinMonthReport9ItemRectification newItem = new Model.SeDinMonthReport9ItemRectification
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                List<Model.SeDinMonthReport9ItemRectification> getLists = new List<Model.SeDinMonthReport9ItemRectification>();
+                var getUnits = from x in db.Base_Unit
+                               join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
+                               where y.ProjectId == projectId && y.UnitType == Const.ProjectUnitType_2
+                               select x;
+                var getAll = from x in db.Check_RectifyNotices where x.ProjectId == projectId select x;
+                var getMon = from x in getAll where x.CheckedDate >= startDateD && x.CheckedDate < endDateD select x;
+                foreach (var item in getUnits)
                 {
-                    UnitName = item.UnitName,
-                    IssuedMonth = getUMon.Count(),
-                    RectificationMoth = getUMon.Where(x=>x.States== Const.State_5).Count(),
-                    IssuedTotal = getUAll.Count(),
-                    RectificationTotal = getUAll.Where(x=>x.States == Const.State_5).Count(),
-                };
-                getLists.Add(newItem);
-            }
+                    var getUAll = getAll.Where(x => x.UnitId == item.UnitId);
+                    var getUMon = getMon.Where(x => x.UnitId == item.UnitId);
+                    Model.SeDinMonthReport9ItemRectification newItem = new Model.SeDinMonthReport9ItemRectification
+                    {
+                        UnitName = item.UnitName,
+                        IssuedMonth = getUMon.Count(),
+                        RectificationMoth = getUMon.Where(x => x.States == Const.State_5).Count(),
+                        IssuedTotal = getUAll.Count(),
+                        RectificationTotal = getUAll.Where(x => x.States == Const.State_5).Count(),
+                    };
+                    getLists.Add(newItem);
+                }
 
-            return getLists.OrderBy(x => x.UnitName).ToList();
+                return getLists.OrderBy(x => x.UnitName).ToList();
+            }
         }
+
         /// <summary>
         ///  获取专项检查
         /// </summary>
         /// <returns></returns>
         public static List<Model.SeDinMonthReport9ItemSpecial> getSeDinMonthReport9ItemSpecialNull(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            List<Model.SeDinMonthReport9ItemSpecial> getLists = new List<Model.SeDinMonthReport9ItemSpecial>();
-            var getUnits = APIResourcesService.getCheckItemSetListBySupCheckItemId("2", "0");
-            var getCheckSpecialAll = from x in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecialDetail
-                                     join y in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecial  on x.CheckSpecialId equals y.CheckSpecialId
-                                     where y.ProjectId == projectId
-                                     select x;
-            var getCheckSpecialYear = from x in getCheckSpecialAll
-                                      join y in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
-                                      where y.CheckTime.Value.Year == endDateD.Value.Year
-                                      select x;
-            var getCheckSpecialMon = from x in getCheckSpecialYear
-                                     join y in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
-                                     where startDateD <= y.CheckTime && endDateD > y.CheckTime
-                                     select x;
-            foreach (var item in getUnits)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getUAll = getCheckSpecialAll.Where(x => x.CheckItemType == item.ResourcesId);
-                var getUYear = getCheckSpecialYear.Where(x => x.CheckItemType == item.ResourcesId);
-                var getUMon = getCheckSpecialMon.Where(x => x.CheckItemType == item.ResourcesId);
-                Model.SeDinMonthReport9ItemSpecial newItem = new Model.SeDinMonthReport9ItemSpecial
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                List<Model.SeDinMonthReport9ItemSpecial> getLists = new List<Model.SeDinMonthReport9ItemSpecial>();
+                var getUnits = APIResourcesService.getCheckItemSetListBySupCheckItemId("2", "0");
+                var getCheckSpecialAll = from x in db.Check_CheckSpecialDetail
+                                         join y in db.Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
+                                         where y.ProjectId == projectId
+                                         select x;
+                var getCheckSpecialYear = from x in getCheckSpecialAll
+                                          join y in db.Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
+                                          where y.CheckTime.Value.Year == endDateD.Value.Year
+                                          select x;
+                var getCheckSpecialMon = from x in getCheckSpecialYear
+                                         join y in db.Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
+                                         where startDateD <= y.CheckTime && endDateD > y.CheckTime
+                                         select x;
+                foreach (var item in getUnits)
                 {
-                    TypeName = item.ResourcesName,
-                    CheckMonth = getUMon.Count(),
-                    CheckYear = getUYear.Count(),
-                    CheckTotal = getUAll.Count(),
-                };
-                getLists.Add(newItem);
-            }
+                    var getUAll = getCheckSpecialAll.Where(x => x.CheckItemType == item.ResourcesId);
+                    var getUYear = getCheckSpecialYear.Where(x => x.CheckItemType == item.ResourcesId);
+                    var getUMon = getCheckSpecialMon.Where(x => x.CheckItemType == item.ResourcesId);
+                    Model.SeDinMonthReport9ItemSpecial newItem = new Model.SeDinMonthReport9ItemSpecial
+                    {
+                        TypeName = item.ResourcesName,
+                        CheckMonth = getUMon.Count(),
+                        CheckYear = getUYear.Count(),
+                        CheckTotal = getUAll.Count(),
+                    };
+                    getLists.Add(newItem);
+                }
 
-            return getLists.ToList();
+                return getLists.ToList();
+            }
         }
 
         /// <summary>
@@ -705,31 +746,34 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport9ItemStoppage> getSeDinMonthReport9ItemStoppageNull(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            List<Model.SeDinMonthReport9ItemStoppage> getLists = new List<Model.SeDinMonthReport9ItemStoppage>();
-            var getUnits = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
-                           where y.ProjectId == projectId && y.UnitType == Const.ProjectUnitType_2
-                           select x;
-            var getAll = from x in new Model.SGGLDB(Funs.ConnString).Check_PauseNotice where x.ProjectId == projectId select x;
-            var getMon = getAll.Where(x => x.PauseTime >= startDateD && x.PauseTime < endDateD);
-            foreach (var item in getUnits)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getUAll = getAll.Where(x => x.UnitId == item.UnitId);
-
-                Model.SeDinMonthReport9ItemStoppage newItem = new Model.SeDinMonthReport9ItemStoppage
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                List<Model.SeDinMonthReport9ItemStoppage> getLists = new List<Model.SeDinMonthReport9ItemStoppage>();
+                var getUnits = from x in db.Base_Unit
+                               join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
+                               where y.ProjectId == projectId && y.UnitType == Const.ProjectUnitType_2
+                               select x;
+                var getAll = from x in db.Check_PauseNotice where x.ProjectId == projectId select x;
+                var getMon = getAll.Where(x => x.PauseTime >= startDateD && x.PauseTime < endDateD);
+                foreach (var item in getUnits)
                 {
-                    UnitName = item.UnitName,
-                    IssuedMonth = getMon.Count(),
-                    StoppageMonth = 0,
-                    IssuedTotal = getAll.Count(),
-                    StoppageTotal = 0,
-                };
-                getLists.Add(newItem);
-            }
+                    var getUAll = getAll.Where(x => x.UnitId == item.UnitId);
 
-            return getLists.OrderBy(x => x.UnitName).ToList();
+                    Model.SeDinMonthReport9ItemStoppage newItem = new Model.SeDinMonthReport9ItemStoppage
+                    {
+                        UnitName = item.UnitName,
+                        IssuedMonth = getMon.Count(),
+                        StoppageMonth = 0,
+                        IssuedTotal = getAll.Count(),
+                        StoppageTotal = 0,
+                    };
+                    getLists.Add(newItem);
+                }
+
+                return getLists.OrderBy(x => x.UnitName).ToList();
+            }
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --10、项目奖惩情况统计
@@ -740,56 +784,59 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport10Item getSeDinMonthReportNullPage10(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-
-            var getIncentiveNoticeAll = from x in new Model.SGGLDB(Funs.ConnString).Check_IncentiveNotice where x.ProjectId == projectId select x;
-            var getIncentiveNoticeAll1 = getIncentiveNoticeAll.Where(x => x.RewardType == "1");
-            var getIncentiveNoticeAll2 = getIncentiveNoticeAll.Where(x => x.RewardType == "2");
-            var getIncentiveNoticeAll3 = getIncentiveNoticeAll.Where(x => x.RewardType == "3");
-            var getIncentiveNoticeMon = getIncentiveNoticeAll.Where(x => x.IncentiveDate >= startDateD && x.IncentiveDate < endDateD);
-            var getIncentiveNoticeMon1 = getIncentiveNoticeMon.Where(x => x.RewardType == "1");
-            var getIncentiveNoticeMon2 = getIncentiveNoticeMon.Where(x => x.RewardType == "2");
-            var getIncentiveNoticeMon3 = getIncentiveNoticeMon.Where(x => x.RewardType == "3");
-
-            var getPunishNoticeAll = from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNotice where x.ProjectId == projectId select x;
-            var getPunishNoticeAll1 = getPunishNoticeAll.Where(x => x.PunishName == "事故责任处罚");
-            var getPunishNoticeAll2 = getPunishNoticeAll.Where(x => x.PunishName == "违章处罚");
-            var getPunishNoticeAll3 = getPunishNoticeAll.Where(x => x.PunishName == "安全管理处罚");
-            var getPunishNoticeMon = getPunishNoticeAll.Where(x => x.PunishNoticeDate >= startDateD && x.PunishNoticeDate < endDateD);
-            var getPunishNoticeMon1 = getPunishNoticeMon.Where(x => x.PunishName == "事故责任处罚");
-            var getPunishNoticeMon2 = getPunishNoticeMon.Where(x => x.PunishName == "违章处罚");
-            var getPunishNoticeMon3 = getPunishNoticeMon.Where(x => x.PunishName == "安全管理处罚");
-
-            var getLists = new Model.SeDinMonthReport10Item
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                SafeMonthNum = getIncentiveNoticeMon1.Count(),
-                SafeTotalNum = getIncentiveNoticeAll1.Count(),
-                SafeMonthMoney = getIncentiveNoticeMon1.Sum(x=>x.IncentiveMoney) ?? 0, 
-                SafeTotalMoney = getIncentiveNoticeAll1.Sum(x=>x.IncentiveMoney) ?? 0,
-                HseMonthNum = getIncentiveNoticeMon2.Count(),
-                HseTotalNum = getIncentiveNoticeAll2.Count(),
-                HseMonthMoney = getIncentiveNoticeMon2.Sum(x => x.IncentiveMoney) ?? 0,
-                HseTotalMoney = getIncentiveNoticeAll2.Sum(x => x.IncentiveMoney) ?? 0,
-                ProduceMonthNum = getIncentiveNoticeMon3.Count(),
-                ProduceTotalNum = getIncentiveNoticeAll3.Count(),
-                ProduceMonthMoney = getIncentiveNoticeMon3.Sum(x => x.IncentiveMoney) ?? 0,
-                ProduceTotalMoney = getIncentiveNoticeAll3.Sum(x => x.IncentiveMoney) ?? 0,
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
 
-                AccidentMonthNum = getPunishNoticeMon1.Count(),
-                AccidentTotalNum = getPunishNoticeAll1.Count(),
-                AccidentMonthMoney = getPunishNoticeMon1.Sum(x => x.PunishMoney) ?? 0,
-                AccidentTotalMoney = getPunishNoticeAll1.Sum(x => x.PunishMoney) ?? 0,
-                ViolationMonthNum = getPunishNoticeMon2.Count(),
-                ViolationTotalNum = getPunishNoticeAll2.Count(),
-                ViolationMonthMoney = getPunishNoticeMon2.Sum(x => x.PunishMoney) ?? 0,
-                ViolationTotalMoney = getPunishNoticeAll2.Sum(x => x.PunishMoney) ?? 0,
-                ManageMonthNum = getPunishNoticeMon3.Count(),
-                ManageTotalNum = getPunishNoticeAll3.Count(),
-                ManageMonthMoney = getPunishNoticeMon3.Sum(x => x.PunishMoney) ?? 0,
-                ManageTotalMoney = getPunishNoticeAll3.Sum(x => x.PunishMoney) ?? 0,
-            };
-            return getLists;
+                var getIncentiveNoticeAll = from x in db.Check_IncentiveNotice where x.ProjectId == projectId select x;
+                var getIncentiveNoticeAll1 = getIncentiveNoticeAll.Where(x => x.RewardType == "1");
+                var getIncentiveNoticeAll2 = getIncentiveNoticeAll.Where(x => x.RewardType == "2");
+                var getIncentiveNoticeAll3 = getIncentiveNoticeAll.Where(x => x.RewardType == "3");
+                var getIncentiveNoticeMon = getIncentiveNoticeAll.Where(x => x.IncentiveDate >= startDateD && x.IncentiveDate < endDateD);
+                var getIncentiveNoticeMon1 = getIncentiveNoticeMon.Where(x => x.RewardType == "1");
+                var getIncentiveNoticeMon2 = getIncentiveNoticeMon.Where(x => x.RewardType == "2");
+                var getIncentiveNoticeMon3 = getIncentiveNoticeMon.Where(x => x.RewardType == "3");
+
+                var getPunishNoticeAll = from x in db.Check_PunishNotice where x.ProjectId == projectId select x;
+                var getPunishNoticeAll1 = getPunishNoticeAll.Where(x => x.PunishName == "事故责任处罚");
+                var getPunishNoticeAll2 = getPunishNoticeAll.Where(x => x.PunishName == "违章处罚");
+                var getPunishNoticeAll3 = getPunishNoticeAll.Where(x => x.PunishName == "安全管理处罚");
+                var getPunishNoticeMon = getPunishNoticeAll.Where(x => x.PunishNoticeDate >= startDateD && x.PunishNoticeDate < endDateD);
+                var getPunishNoticeMon1 = getPunishNoticeMon.Where(x => x.PunishName == "事故责任处罚");
+                var getPunishNoticeMon2 = getPunishNoticeMon.Where(x => x.PunishName == "违章处罚");
+                var getPunishNoticeMon3 = getPunishNoticeMon.Where(x => x.PunishName == "安全管理处罚");
+
+                var getLists = new Model.SeDinMonthReport10Item
+                {
+                    SafeMonthNum = getIncentiveNoticeMon1.Count(),
+                    SafeTotalNum = getIncentiveNoticeAll1.Count(),
+                    SafeMonthMoney = getIncentiveNoticeMon1.Sum(x => x.IncentiveMoney) ?? 0,
+                    SafeTotalMoney = getIncentiveNoticeAll1.Sum(x => x.IncentiveMoney) ?? 0,
+                    HseMonthNum = getIncentiveNoticeMon2.Count(),
+                    HseTotalNum = getIncentiveNoticeAll2.Count(),
+                    HseMonthMoney = getIncentiveNoticeMon2.Sum(x => x.IncentiveMoney) ?? 0,
+                    HseTotalMoney = getIncentiveNoticeAll2.Sum(x => x.IncentiveMoney) ?? 0,
+                    ProduceMonthNum = getIncentiveNoticeMon3.Count(),
+                    ProduceTotalNum = getIncentiveNoticeAll3.Count(),
+                    ProduceMonthMoney = getIncentiveNoticeMon3.Sum(x => x.IncentiveMoney) ?? 0,
+                    ProduceTotalMoney = getIncentiveNoticeAll3.Sum(x => x.IncentiveMoney) ?? 0,
+
+                    AccidentMonthNum = getPunishNoticeMon1.Count(),
+                    AccidentTotalNum = getPunishNoticeAll1.Count(),
+                    AccidentMonthMoney = getPunishNoticeMon1.Sum(x => x.PunishMoney) ?? 0,
+                    AccidentTotalMoney = getPunishNoticeAll1.Sum(x => x.PunishMoney) ?? 0,
+                    ViolationMonthNum = getPunishNoticeMon2.Count(),
+                    ViolationTotalNum = getPunishNoticeAll2.Count(),
+                    ViolationMonthMoney = getPunishNoticeMon2.Sum(x => x.PunishMoney) ?? 0,
+                    ViolationTotalMoney = getPunishNoticeAll2.Sum(x => x.PunishMoney) ?? 0,
+                    ManageMonthNum = getPunishNoticeMon3.Count(),
+                    ManageTotalNum = getPunishNoticeAll3.Count(),
+                    ManageMonthMoney = getPunishNoticeMon3.Sum(x => x.PunishMoney) ?? 0,
+                    ManageTotalMoney = getPunishNoticeAll3.Sum(x => x.PunishMoney) ?? 0,
+                };
+                return getLists;
+            }
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --11、项目危大工程施工情况
@@ -800,26 +847,29 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport11Item getSeDinMonthReportNullPage11(string projectId, string month, string startDate, string endDate)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
-            var getLargerHazardAll = from x in new Model.SGGLDB(Funs.ConnString).Solution_LargerHazard where x.ProjectId == projectId select x;
-            var getMont = getLargerHazardAll.Where(x => x.ExpectedTime >= startDateD && x.ExpectedTime < endDateD);
-
-            var getAll1 = getLargerHazardAll.Where(x => x.IsArgument == false);
-            var getMont1 = getMont.Where(x => x.IsArgument == false);
-
-            var getAll2 = getLargerHazardAll.Where(x => x.IsArgument == true);
-            var getMont2 = getMont.Where(x => x.IsArgument == true);
-            var getLists = new Model.SeDinMonthReport11Item
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                RiskWorkNum = getMont1.Count(),
-                RiskFinishedNum = getAll1.Count() - getMont1.Count(),
-                RiskWorkNext = "",
-                LargeWorkNum = getMont2.Count(),
-                LargeFinishedNum = getAll2.Count() - getMont2.Count(),
-                LargeWorkNext = "",
-            };
-            return getLists;
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                var getLargerHazardAll = from x in db.Solution_LargerHazard where x.ProjectId == projectId select x;
+                var getMont = getLargerHazardAll.Where(x => x.ExpectedTime >= startDateD && x.ExpectedTime < endDateD);
+
+                var getAll1 = getLargerHazardAll.Where(x => x.IsArgument == false);
+                var getMont1 = getMont.Where(x => x.IsArgument == false);
+
+                var getAll2 = getLargerHazardAll.Where(x => x.IsArgument == true);
+                var getMont2 = getMont.Where(x => x.IsArgument == true);
+                var getLists = new Model.SeDinMonthReport11Item
+                {
+                    RiskWorkNum = getMont1.Count(),
+                    RiskFinishedNum = getAll1.Count() - getMont1.Count(),
+                    RiskWorkNext = "",
+                    LargeWorkNum = getMont2.Count(),
+                    LargeFinishedNum = getAll2.Count() - getMont2.Count(),
+                    LargeWorkNext = "",
+                };
+                return getLists;
+            }
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --12、项目应急演练情况
@@ -870,33 +920,36 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReportItem getSeDinMonthReport0ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReportItem getInfo = new Model.SeDinMonthReportItem();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport
-                           where x.ProjectId == projectId && x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReportItem
-                           {
-                               MonthReportId = x.MonthReportId,
-                               ProjectId = x.ProjectId,
-                               DueDate = string.Format("{0:yyyy-MM-dd}", x.DueDate),
-                               StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
-                               EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
-                               ReporMonth = string.Format("{0:yyyy-MM}", x.ReporMonth),
-                               CompileManId = x.CompileManId,
-                               CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileManId).UserName,
-                               AuditManId = x.AuditManId,
-                               AuditManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.AuditManId).UserName,
-                               ApprovalManId = x.ApprovalManId,
-                               ApprovalManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApprovalManId).UserName,                             
-                               //ThisSummary = x.ThisSummary,
-                               //NextPlan = x.NextPlan,
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReportItem getInfo = new Model.SeDinMonthReportItem();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport
+                               where x.ProjectId == projectId && x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReportItem
+                               {
+                                   MonthReportId = x.MonthReportId,
+                                   ProjectId = x.ProjectId,
+                                   DueDate = string.Format("{0:yyyy-MM-dd}", x.DueDate),
+                                   StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
+                                   EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
+                                   ReporMonth = string.Format("{0:yyyy-MM}", x.ReporMonth),
+                                   CompileManId = x.CompileManId,
+                                   CompileManName = db.Sys_User.First(u => u.UserId == x.CompileManId).UserName,
+                                   AuditManId = x.AuditManId,
+                                   AuditManName = db.Sys_User.First(u => u.UserId == x.AuditManId).UserName,
+                                   ApprovalManId = x.ApprovalManId,
+                                   ApprovalManName = db.Sys_User.First(u => u.UserId == x.ApprovalManId).UserName,
+                                   //ThisSummary = x.ThisSummary,
+                                   //NextPlan = x.NextPlan,
 
-                           }).FirstOrDefault();
+                               }).FirstOrDefault();
+                }
+
+                return getInfo;
             }
-
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --1、项目信息
@@ -908,30 +961,33 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport1Item getSeDinMonthReport1ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport1Item getInfo = new Model.SeDinMonthReport1Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport1
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport1Item
-                           {
-                               MonthReport1Id = x.MonthReport1Id,
-                               MonthReportId = x.MonthReportId,
-                               ProjectCode = x.ProjectCode,
-                               ProjectName = x.ProjectName,
-                               ProjectType = x.ProjectType,
-                               StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
-                               EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
-                               ProjectManager = x.ProjectManager,
-                               HsseManager = x.HsseManager,
-                               ContractAmount = x.ContractAmount,
-                               ConstructionStage = x.ConstructionStage,
-                               ProjectAddress = x.ProjectAddress,
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport1Item getInfo = new Model.SeDinMonthReport1Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport1
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport1Item
+                               {
+                                   MonthReport1Id = x.MonthReport1Id,
+                                   MonthReportId = x.MonthReportId,
+                                   ProjectCode = x.ProjectCode,
+                                   ProjectName = x.ProjectName,
+                                   ProjectType = x.ProjectType,
+                                   StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
+                                   EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
+                                   ProjectManager = x.ProjectManager,
+                                   HsseManager = x.HsseManager,
+                                   ContractAmount = x.ContractAmount,
+                                   ConstructionStage = x.ConstructionStage,
+                                   ProjectAddress = x.ProjectAddress,
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --2、项目安全工时统计
@@ -943,29 +999,32 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport2Item getSeDinMonthReport2ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport2Item getInfo = new Model.SeDinMonthReport2Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport2
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport2Item
-                           {
-                               MonthReport2Id = x.MonthReport2Id,
-                               MonthReportId = x.MonthReportId,
-                               MonthWorkTime = x.MonthWorkTime,
-                               YearWorkTime = x.YearWorkTime,
-                               ProjectWorkTime = x.ProjectWorkTime,
-                               TotalLostTime = x.TotalLostTime,
-                               MillionLossRate = x.MillionLossRate,
-                               TimeAccuracyRate = x.TimeAccuracyRate,
-                               StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
-                               EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
-                               SafeWorkTime = x.SafeWorkTime,
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport2Item getInfo = new Model.SeDinMonthReport2Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport2
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport2Item
+                               {
+                                   MonthReport2Id = x.MonthReport2Id,
+                                   MonthReportId = x.MonthReportId,
+                                   MonthWorkTime = x.MonthWorkTime,
+                                   YearWorkTime = x.YearWorkTime,
+                                   ProjectWorkTime = x.ProjectWorkTime,
+                                   TotalLostTime = x.TotalLostTime,
+                                   MillionLossRate = x.MillionLossRate,
+                                   TimeAccuracyRate = x.TimeAccuracyRate,
+                                   StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
+                                   EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
+                                   SafeWorkTime = x.SafeWorkTime,
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --3、项目HSE事故、事件统计
@@ -977,21 +1036,24 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReportItem getSeDinMonthReport3ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReportItem getInfo = new Model.SeDinMonthReportItem();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport
-                           where x.ProjectId == projectId && x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReportItem
-                           {
-                               MonthReportId = x.MonthReportId,
-                               ProjectId = x.ProjectId,
-                               AccidentsSummary = x.AccidentsSummary,
-                               SeDinMonthReport3Item = getSeDinMonthReport3Item(x.MonthReportId),
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReportItem getInfo = new Model.SeDinMonthReportItem();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport
+                               where x.ProjectId == projectId && x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReportItem
+                               {
+                                   MonthReportId = x.MonthReportId,
+                                   ProjectId = x.ProjectId,
+                                   AccidentsSummary = x.AccidentsSummary,
+                                   SeDinMonthReport3Item = getSeDinMonthReport3Item(x.MonthReportId),
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
 
         /// <summary>
@@ -1000,24 +1062,27 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport3Item> getSeDinMonthReport3Item(string monthReportId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport3
-                          where x.MonthReportId == monthReportId
-                          orderby x.SortIndex
-                          select new Model.SeDinMonthReport3Item
-                          {
-                              BigType = x.BigType,
-                              AccidentType = x.AccidentType,
-                              SortIndex = x.SortIndex,
-                              MonthTimes = x.MonthTimes,
-                              TotalTimes=x.TotalTimes,
-                              MonthLossTime=x.MonthLossTime,
-                              TotalLossTime = x.TotalLossTime,
-                              MonthMoney = x.MonthMoney,
-                              TotalMoney = x.TotalMoney,
-                              MonthPersons = x.MonthPersons,
-                              TotalPersons = x.TotalPersons,
-                          };
-            return getInfo.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.SeDin_MonthReport3
+                              where x.MonthReportId == monthReportId
+                              orderby x.SortIndex
+                              select new Model.SeDinMonthReport3Item
+                              {
+                                  BigType = x.BigType,
+                                  AccidentType = x.AccidentType,
+                                  SortIndex = x.SortIndex,
+                                  MonthTimes = x.MonthTimes,
+                                  TotalTimes = x.TotalTimes,
+                                  MonthLossTime = x.MonthLossTime,
+                                  TotalLossTime = x.TotalLossTime,
+                                  MonthMoney = x.MonthMoney,
+                                  TotalMoney = x.TotalMoney,
+                                  MonthPersons = x.MonthPersons,
+                                  TotalPersons = x.TotalPersons,
+                              };
+                return getInfo.ToList();
+            }
         }
         #endregion
         #region  获取赛鼎月报详细 --4、本月人员投入情况
@@ -1029,26 +1094,29 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport4Item> getSeDinMonthReport4ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            List<Model.SeDinMonthReport4Item> getInfo = new List<Model.SeDinMonthReport4Item>();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport4
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport4Item
-                           {
-                               MonthReport4Id = x.MonthReport4Id,
-                               MonthReportId = x.MonthReportId,
-                               UnitName = x.UnitName,
-                               SafeManangerNum = x.SafeManangerNum ?? 0,
-                               OtherManangerNum = x.OtherManangerNum ?? 0,
-                               SpecialWorkerNum = x.SpecialWorkerNum ?? 0,
-                               GeneralWorkerNum = x.GeneralWorkerNum ?? 0,
-                               TotalNum = x.TotalNum ?? 0,
-                           }).ToList();
+                var monthD = Funs.GetNewDateTime(month);
+                List<Model.SeDinMonthReport4Item> getInfo = new List<Model.SeDinMonthReport4Item>();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport4
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport4Item
+                               {
+                                   MonthReport4Id = x.MonthReport4Id,
+                                   MonthReportId = x.MonthReportId,
+                                   UnitName = x.UnitName,
+                                   SafeManangerNum = x.SafeManangerNum ?? 0,
+                                   OtherManangerNum = x.OtherManangerNum ?? 0,
+                                   SpecialWorkerNum = x.SpecialWorkerNum ?? 0,
+                                   GeneralWorkerNum = x.GeneralWorkerNum ?? 0,
+                                   TotalNum = x.TotalNum ?? 0,
+                               }).ToList();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --5、本月大型、特种设备投入情况
@@ -1060,32 +1128,35 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport5Item> getSeDinMonthReport5ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            List<Model.SeDinMonthReport5Item> getInfo = new List<Model.SeDinMonthReport5Item>();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport5
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport5Item
-                           {
-                               MonthReport5Id = x.MonthReport5Id,
-                               MonthReportId = x.MonthReportId,
-                               UnitName = x.UnitName,
-                               T01 = x.T01 ?? 0,
-                               T02 = x.T02 ?? 0,
-                               T03 = x.T03 ?? 0,
-                               T04 = x.T04 ?? 0,
-                               T05 = x.T05 ?? 0,
-                               T06 = x.T06 ?? 0,
-                               D01 = x.D01 ?? 0,
-                               D02 = x.D02 ?? 0,
-                               D03 = x.D03 ?? 0,
-                               D04 = x.D04 ?? 0,
-                               S01 = x.S01 ?? 0,
-                           }).ToList();
+                var monthD = Funs.GetNewDateTime(month);
+                List<Model.SeDinMonthReport5Item> getInfo = new List<Model.SeDinMonthReport5Item>();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport5
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport5Item
+                               {
+                                   MonthReport5Id = x.MonthReport5Id,
+                                   MonthReportId = x.MonthReportId,
+                                   UnitName = x.UnitName,
+                                   T01 = x.T01 ?? 0,
+                                   T02 = x.T02 ?? 0,
+                                   T03 = x.T03 ?? 0,
+                                   T04 = x.T04 ?? 0,
+                                   T05 = x.T05 ?? 0,
+                                   T06 = x.T06 ?? 0,
+                                   D01 = x.D01 ?? 0,
+                                   D02 = x.D02 ?? 0,
+                                   D03 = x.D03 ?? 0,
+                                   D04 = x.D04 ?? 0,
+                                   S01 = x.S01 ?? 0,
+                               }).ToList();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --6、安全生产费用投入情况
@@ -1097,39 +1168,42 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport6Item getSeDinMonthReport6ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport6Item getInfo = new Model.SeDinMonthReport6Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport6
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport6Item
-                           {
-                               MonthReport6Id = x.MonthReport6Id,
-                               MonthReportId = x.MonthReportId,
-                               SafetyMonth = x.SafetyMonth ?? 0,
-                               SafetyYear = x.SafetyYear ?? 0,
-                               SafetyTotal = x.SafetyTotal ?? 0,
-                               LaborMonth = x.LaborMonth ?? 0,
-                               LaborYear = x.LaborYear ?? 0,
-                               LaborTotal = x.LaborTotal ?? 0,
-                               ProgressMonth = x.ProgressMonth ?? 0,
-                               ProgressYear = x.ProgressYear ?? 0,
-                               ProgressTotal = x.ProgressTotal ?? 0,
-                               EducationMonth = x.EducationMonth ?? 0,
-                               EducationYear = x.EducationYear ?? 0,
-                               EducationTotal = x.EducationTotal ?? 0,
-                               SumMonth = x.SumMonth ?? 0,
-                               SumYear = x.SumYear ?? 0,
-                               SumTotal = x.SumTotal ?? 0,
-                               ContractMonth = x.ContractMonth ?? 0,
-                               ContractYear = x.ContractYear ?? 0,
-                               ContractTotal = x.ContractTotal ?? 0,
-                               ConstructionCost = x.ConstructionCost ?? 0,
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport6Item getInfo = new Model.SeDinMonthReport6Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport6
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport6Item
+                               {
+                                   MonthReport6Id = x.MonthReport6Id,
+                                   MonthReportId = x.MonthReportId,
+                                   SafetyMonth = x.SafetyMonth ?? 0,
+                                   SafetyYear = x.SafetyYear ?? 0,
+                                   SafetyTotal = x.SafetyTotal ?? 0,
+                                   LaborMonth = x.LaborMonth ?? 0,
+                                   LaborYear = x.LaborYear ?? 0,
+                                   LaborTotal = x.LaborTotal ?? 0,
+                                   ProgressMonth = x.ProgressMonth ?? 0,
+                                   ProgressYear = x.ProgressYear ?? 0,
+                                   ProgressTotal = x.ProgressTotal ?? 0,
+                                   EducationMonth = x.EducationMonth ?? 0,
+                                   EducationYear = x.EducationYear ?? 0,
+                                   EducationTotal = x.EducationTotal ?? 0,
+                                   SumMonth = x.SumMonth ?? 0,
+                                   SumYear = x.SumYear ?? 0,
+                                   SumTotal = x.SumTotal ?? 0,
+                                   ContractMonth = x.ContractMonth ?? 0,
+                                   ContractYear = x.ContractYear ?? 0,
+                                   ContractTotal = x.ContractTotal ?? 0,
+                                   ConstructionCost = x.ConstructionCost ?? 0,
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --7、项目HSE培训统计
@@ -1141,32 +1215,35 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport7Item getSeDinMonthReport7ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport7Item getInfo = new Model.SeDinMonthReport7Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport7
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport7Item
-                           {
-                               MonthReport7Id = x.MonthReport7Id,
-                               MonthReportId = x.MonthReportId,
-                               SpecialMontNum = x.SpecialMontNum ?? 0,
-                               SpecialYearNum = x.SpecialYearNum ?? 0,
-                               SpecialTotalNum = x.SpecialTotalNum ?? 0,
-                               SpecialMontPerson = x.SpecialMontPerson ?? 0,
-                               SpecialYearPerson = x.SpecialYearPerson ?? 0,
-                               SpecialTotalPerson = x.SpecialTotalPerson ?? 0,
-                               EmployeeMontNum = x.EmployeeMontNum ?? 0,
-                               EmployeeYearNum = x.EmployeeYearNum ?? 0,
-                               EmployeeTotalNum = x.EmployeeTotalNum ?? 0,
-                               EmployeeMontPerson = x.EmployeeMontPerson ?? 0,
-                               EmployeeYearPerson = x.EmployeeYearPerson ?? 0,
-                               EmployeeTotalPerson = x.EmployeeTotalPerson ?? 0,
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport7Item getInfo = new Model.SeDinMonthReport7Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport7
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport7Item
+                               {
+                                   MonthReport7Id = x.MonthReport7Id,
+                                   MonthReportId = x.MonthReportId,
+                                   SpecialMontNum = x.SpecialMontNum ?? 0,
+                                   SpecialYearNum = x.SpecialYearNum ?? 0,
+                                   SpecialTotalNum = x.SpecialTotalNum ?? 0,
+                                   SpecialMontPerson = x.SpecialMontPerson ?? 0,
+                                   SpecialYearPerson = x.SpecialYearPerson ?? 0,
+                                   SpecialTotalPerson = x.SpecialTotalPerson ?? 0,
+                                   EmployeeMontNum = x.EmployeeMontNum ?? 0,
+                                   EmployeeYearNum = x.EmployeeYearNum ?? 0,
+                                   EmployeeTotalNum = x.EmployeeTotalNum ?? 0,
+                                   EmployeeMontPerson = x.EmployeeMontPerson ?? 0,
+                                   EmployeeYearPerson = x.EmployeeYearPerson ?? 0,
+                                   EmployeeTotalPerson = x.EmployeeTotalPerson ?? 0,
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --8、项目HSE会议统计
@@ -1177,30 +1254,33 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport8Item getSeDinMonthReport8ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport8Item getInfo = new Model.SeDinMonthReport8Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport8
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport8Item
-                           {
-                               MonthReport8Id=x.MonthReport8Id,
-                               MonthReportId = x.MonthReportId,
-                               WeekMontNum = x.WeekMontNum,
-                               WeekTotalNum = x.WeekTotalNum,
-                               WeekMontPerson = x.WeekMontPerson,
-                               MonthMontNum = x.MonthMontNum,
-                               MonthTotalNum = x.MonthTotalNum,
-                               MonthMontPerson = x.MonthMontPerson,
-                               SpecialMontNum = x.SpecialMontNum,
-                               SpecialTotalNum = x.SpecialTotalNum,
-                               SpecialMontPerson = x.SpecialMontPerson,
-                               SeDinMonthReport8ItemItem = getSeDinMonthReport8Item(x.MonthReportId),
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport8Item getInfo = new Model.SeDinMonthReport8Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport8
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport8Item
+                               {
+                                   MonthReport8Id = x.MonthReport8Id,
+                                   MonthReportId = x.MonthReportId,
+                                   WeekMontNum = x.WeekMontNum,
+                                   WeekTotalNum = x.WeekTotalNum,
+                                   WeekMontPerson = x.WeekMontPerson,
+                                   MonthMontNum = x.MonthMontNum,
+                                   MonthTotalNum = x.MonthTotalNum,
+                                   MonthMontPerson = x.MonthMontPerson,
+                                   SpecialMontNum = x.SpecialMontNum,
+                                   SpecialTotalNum = x.SpecialTotalNum,
+                                   SpecialMontPerson = x.SpecialMontPerson,
+                                   SeDinMonthReport8ItemItem = getSeDinMonthReport8Item(x.MonthReportId),
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
 
         /// <summary>
@@ -1209,19 +1289,22 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport8ItemItem> getSeDinMonthReport8Item(string monthReportId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport8Item
-                          where x.MonthReportId == monthReportId
-                          orderby x.UnitName
-                          select new Model.SeDinMonthReport8ItemItem
-                          {
-                              MonthReport8ItemId = x.MonthReport8ItemId,
-                              MonthReportId = x.MonthReportId,
-                              UnitName = x.UnitName,
-                              TeamName = x.TeamName,
-                              ClassNum = x.ClassNum,
-                              ClassPersonNum = x.ClassPersonNum,
-                          };
-            return getInfo.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.SeDin_MonthReport8Item
+                              where x.MonthReportId == monthReportId
+                              orderby x.UnitName
+                              select new Model.SeDinMonthReport8ItemItem
+                              {
+                                  MonthReport8ItemId = x.MonthReport8ItemId,
+                                  MonthReportId = x.MonthReportId,
+                                  UnitName = x.UnitName,
+                                  TeamName = x.TeamName,
+                                  ClassNum = x.ClassNum,
+                                  ClassPersonNum = x.ClassPersonNum,
+                              };
+                return getInfo.ToList();
+            }
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --9、项目HSE检查统计
@@ -1232,35 +1315,38 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport9Item getSeDinMonthReport9ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport9Item getInfo = new Model.SeDinMonthReport9Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport9
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport9Item
-                           {
-                               MonthReport9Id = x.MonthReport9Id,
-                               MonthReportId = x.MonthReportId,
-                               DailyMonth = x.DailyMonth ?? 0,
-                               DailyYear = x.DailyYear ?? 0,
-                               DailyTotal = x.DailyTotal ?? 0,
-                               WeekMonth = x.WeekMonth ?? 0,
-                               WeekYear = x.WeekYear ?? 0,
-                               WeekTotal = x.WeekTotal ?? 0,
-                               SpecialMonth = x.SpecialMonth ?? 0,
-                               SpecialYear = x.SpecialYear ?? 0,
-                               SpecialTotal = x.SpecialTotal ?? 0,
-                               MonthlyMonth = x.MonthlyMonth ?? 0,
-                               MonthlyYear = x.MonthlyYear ?? 0,
-                               MonthlyTotal = x.MonthlyTotal ?? 0,
-                               SeDinMonthReport9ItemRectification = getSeDinMonthReport9ItemRectification(x.MonthReportId),
-                               SeDinMonthReport9ItemSpecial = getSeDinMonthReport9ItemSpecial(x.MonthReportId),
-                               SeDinMonthReport9ItemStoppage = getSeDinMonthReport9ItemStoppage(x.MonthReportId),
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport9Item getInfo = new Model.SeDinMonthReport9Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport9
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport9Item
+                               {
+                                   MonthReport9Id = x.MonthReport9Id,
+                                   MonthReportId = x.MonthReportId,
+                                   DailyMonth = x.DailyMonth ?? 0,
+                                   DailyYear = x.DailyYear ?? 0,
+                                   DailyTotal = x.DailyTotal ?? 0,
+                                   WeekMonth = x.WeekMonth ?? 0,
+                                   WeekYear = x.WeekYear ?? 0,
+                                   WeekTotal = x.WeekTotal ?? 0,
+                                   SpecialMonth = x.SpecialMonth ?? 0,
+                                   SpecialYear = x.SpecialYear ?? 0,
+                                   SpecialTotal = x.SpecialTotal ?? 0,
+                                   MonthlyMonth = x.MonthlyMonth ?? 0,
+                                   MonthlyYear = x.MonthlyYear ?? 0,
+                                   MonthlyTotal = x.MonthlyTotal ?? 0,
+                                   SeDinMonthReport9ItemRectification = getSeDinMonthReport9ItemRectification(x.MonthReportId),
+                                   SeDinMonthReport9ItemSpecial = getSeDinMonthReport9ItemSpecial(x.MonthReportId),
+                                   SeDinMonthReport9ItemStoppage = getSeDinMonthReport9ItemStoppage(x.MonthReportId),
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
 
         /// <summary>
@@ -1269,20 +1355,23 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport9ItemRectification> getSeDinMonthReport9ItemRectification(string monthReportId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport9Item_Rectification
-                          where x.MonthReportId == monthReportId
-                          orderby x.UnitName
-                          select new Model.SeDinMonthReport9ItemRectification
-                          {
-                              MonthReport9ItemId = x.MonthReport9ItemId,
-                              MonthReportId = x.MonthReportId,
-                              UnitName = x.UnitName,
-                              IssuedMonth = x.IssuedMonth ?? 0,
-                              RectificationMoth = x.RectificationMoth ?? 0,
-                              IssuedTotal = x.IssuedTotal ?? 0,
-                              RectificationTotal = x.RectificationTotal ?? 0,
-                          };
-            return getInfo.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.SeDin_MonthReport9Item_Rectification
+                              where x.MonthReportId == monthReportId
+                              orderby x.UnitName
+                              select new Model.SeDinMonthReport9ItemRectification
+                              {
+                                  MonthReport9ItemId = x.MonthReport9ItemId,
+                                  MonthReportId = x.MonthReportId,
+                                  UnitName = x.UnitName,
+                                  IssuedMonth = x.IssuedMonth ?? 0,
+                                  RectificationMoth = x.RectificationMoth ?? 0,
+                                  IssuedTotal = x.IssuedTotal ?? 0,
+                                  RectificationTotal = x.RectificationTotal ?? 0,
+                              };
+                return getInfo.ToList();
+            }
         }
         /// <summary>
         ///  获取专项检查
@@ -1290,19 +1379,22 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport9ItemSpecial> getSeDinMonthReport9ItemSpecial(string monthReportId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport9Item_Special
-                          where x.MonthReportId == monthReportId
-                          orderby x.TypeName
-                          select new Model.SeDinMonthReport9ItemSpecial
-                          {
-                              MonthReport9ItemId = x.MonthReport9ItemId,
-                              MonthReportId = x.MonthReportId,
-                              TypeName = x.TypeName,
-                              CheckMonth = x.CheckMonth ?? 0,
-                              CheckYear = x.CheckYear ?? 0,
-                              CheckTotal = x.CheckTotal ?? 0,
-                          };
-            return getInfo.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.SeDin_MonthReport9Item_Special
+                              where x.MonthReportId == monthReportId
+                              orderby x.TypeName
+                              select new Model.SeDinMonthReport9ItemSpecial
+                              {
+                                  MonthReport9ItemId = x.MonthReport9ItemId,
+                                  MonthReportId = x.MonthReportId,
+                                  TypeName = x.TypeName,
+                                  CheckMonth = x.CheckMonth ?? 0,
+                                  CheckYear = x.CheckYear ?? 0,
+                                  CheckTotal = x.CheckTotal ?? 0,
+                              };
+                return getInfo.ToList();
+            }
         }
         /// <summary>
         ///  获取停工令
@@ -1310,20 +1402,23 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SeDinMonthReport9ItemStoppage> getSeDinMonthReport9ItemStoppage(string monthReportId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport9Item_Stoppage
-                          where x.MonthReportId == monthReportId
-                          orderby x.UnitName
-                          select new Model.SeDinMonthReport9ItemStoppage
-                          {
-                              MonthReport9ItemId = x.MonthReport9ItemId,
-                              MonthReportId = x.MonthReportId,
-                              UnitName = x.UnitName,
-                              IssuedMonth = x.IssuedMonth ?? 0,
-                              StoppageMonth = x.StoppageMonth ?? 0,
-                              IssuedTotal = x.IssuedTotal ?? 0,
-                              StoppageTotal = x.StoppageTotal ?? 0,
-                          };
-            return getInfo.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.SeDin_MonthReport9Item_Stoppage
+                              where x.MonthReportId == monthReportId
+                              orderby x.UnitName
+                              select new Model.SeDinMonthReport9ItemStoppage
+                              {
+                                  MonthReport9ItemId = x.MonthReport9ItemId,
+                                  MonthReportId = x.MonthReportId,
+                                  UnitName = x.UnitName,
+                                  IssuedMonth = x.IssuedMonth ?? 0,
+                                  StoppageMonth = x.StoppageMonth ?? 0,
+                                  IssuedTotal = x.IssuedTotal ?? 0,
+                                  StoppageTotal = x.StoppageTotal ?? 0,
+                              };
+                return getInfo.ToList();
+            }
         }
         #endregion
         #region  获取赛鼎月报详细 --10、项目HSE培训统计
@@ -1335,44 +1430,47 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport10Item getSeDinMonthReport10ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport10Item getInfo = new Model.SeDinMonthReport10Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport10
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport10Item
-                           {
-                               MonthReport10Id = x.MonthReport10Id,
-                               MonthReportId = x.MonthReportId,
-                               SafeMonthNum = x.SafeMonthNum ?? 0,
-                               SafeTotalNum = x.SafeTotalNum ?? 0,
-                               SafeMonthMoney = x.SafeMonthMoney ?? 0,
-                               SafeTotalMoney = x.SafeTotalMoney ?? 0,
-                               HseMonthNum = x.HseMonthNum ?? 0,
-                               HseTotalNum = x.HseTotalNum ?? 0,
-                               HseMonthMoney = x.HseMonthMoney ?? 0,
-                               HseTotalMoney = x.HseTotalMoney ?? 0,
-                               ProduceMonthNum = x.ProduceMonthNum ?? 0,
-                               ProduceTotalNum = x.ProduceTotalNum ?? 0,
-                               ProduceMonthMoney = x.ProduceMonthMoney ?? 0,
-                               ProduceTotalMoney = x.ProduceTotalMoney ?? 0,
-                               AccidentMonthNum = x.AccidentMonthNum ?? 0,
-                               AccidentTotalNum = x.AccidentTotalNum ?? 0,
-                               AccidentMonthMoney = x.AccidentMonthMoney ?? 0,
-                               AccidentTotalMoney = x.AccidentTotalMoney ?? 0,
-                               ViolationMonthNum = x.ViolationMonthNum ?? 0,
-                               ViolationTotalNum = x.ViolationTotalNum ?? 0,
-                               ViolationMonthMoney = x.ViolationMonthMoney ?? 0,
-                               ViolationTotalMoney = x.ViolationTotalMoney ?? 0,
-                               ManageMonthNum = x.ManageMonthNum ?? 0,
-                               ManageTotalNum = x.ManageTotalNum ?? 0,
-                               ManageMonthMoney = x.ManageMonthMoney ?? 0,
-                               ManageTotalMoney = x.ManageTotalMoney ?? 0,
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport10Item getInfo = new Model.SeDinMonthReport10Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport10
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport10Item
+                               {
+                                   MonthReport10Id = x.MonthReport10Id,
+                                   MonthReportId = x.MonthReportId,
+                                   SafeMonthNum = x.SafeMonthNum ?? 0,
+                                   SafeTotalNum = x.SafeTotalNum ?? 0,
+                                   SafeMonthMoney = x.SafeMonthMoney ?? 0,
+                                   SafeTotalMoney = x.SafeTotalMoney ?? 0,
+                                   HseMonthNum = x.HseMonthNum ?? 0,
+                                   HseTotalNum = x.HseTotalNum ?? 0,
+                                   HseMonthMoney = x.HseMonthMoney ?? 0,
+                                   HseTotalMoney = x.HseTotalMoney ?? 0,
+                                   ProduceMonthNum = x.ProduceMonthNum ?? 0,
+                                   ProduceTotalNum = x.ProduceTotalNum ?? 0,
+                                   ProduceMonthMoney = x.ProduceMonthMoney ?? 0,
+                                   ProduceTotalMoney = x.ProduceTotalMoney ?? 0,
+                                   AccidentMonthNum = x.AccidentMonthNum ?? 0,
+                                   AccidentTotalNum = x.AccidentTotalNum ?? 0,
+                                   AccidentMonthMoney = x.AccidentMonthMoney ?? 0,
+                                   AccidentTotalMoney = x.AccidentTotalMoney ?? 0,
+                                   ViolationMonthNum = x.ViolationMonthNum ?? 0,
+                                   ViolationTotalNum = x.ViolationTotalNum ?? 0,
+                                   ViolationMonthMoney = x.ViolationMonthMoney ?? 0,
+                                   ViolationTotalMoney = x.ViolationTotalMoney ?? 0,
+                                   ManageMonthNum = x.ManageMonthNum ?? 0,
+                                   ManageTotalNum = x.ManageTotalNum ?? 0,
+                                   ManageMonthMoney = x.ManageMonthMoney ?? 0,
+                                   ManageTotalMoney = x.ManageTotalMoney ?? 0,
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --11、项目危大工程施工情况
@@ -1384,26 +1482,29 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport11Item getSeDinMonthReport11ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport11Item getInfo = new Model.SeDinMonthReport11Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport11
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport11Item
-                           {
-                               MonthReport11Id = x.MonthReport11Id,
-                               MonthReportId = x.MonthReportId,
-                               RiskWorkNum = x.RiskWorkNum ?? 0,
-                               RiskFinishedNum = x.RiskFinishedNum ?? 0,
-                               RiskWorkNext = x.RiskWorkNext,
-                               LargeWorkNum = x.LargeWorkNum ?? 0,
-                               LargeFinishedNum = x.LargeFinishedNum ?? 0,
-                               LargeWorkNext = x.LargeWorkNext,
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport11Item getInfo = new Model.SeDinMonthReport11Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport11
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport11Item
+                               {
+                                   MonthReport11Id = x.MonthReport11Id,
+                                   MonthReportId = x.MonthReportId,
+                                   RiskWorkNum = x.RiskWorkNum ?? 0,
+                                   RiskFinishedNum = x.RiskFinishedNum ?? 0,
+                                   RiskWorkNext = x.RiskWorkNext,
+                                   LargeWorkNum = x.LargeWorkNum ?? 0,
+                                   LargeFinishedNum = x.LargeFinishedNum ?? 0,
+                                   LargeWorkNext = x.LargeWorkNext,
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --12、项目应急演练情况
@@ -1415,40 +1516,43 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport12Item getSeDinMonthReport12ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReport12Item getInfo = new Model.SeDinMonthReport12Item();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport12
-                           join y in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
-                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReport12Item
-                           {
-                               MonthReport12Id = x.MonthReport12Id,
-                               MonthReportId = x.MonthReportId,
-                               MultipleSiteInput = x.MultipleSiteInput ?? 0,
-                               MultipleSitePerson = x.MultipleSitePerson ?? 0,
-                               MultipleSiteNum = x.MultipleSiteNum ?? 0,
-                               MultipleSiteTotalNum = x.MultipleSiteTotalNum ?? 0,
-                               MultipleSiteNext = x.MultipleSiteNext,
-                               MultipleDesktopInput = x.MultipleDesktopInput ?? 0,
-                               MultipleDesktopPerson = x.MultipleDesktopPerson ?? 0,
-                               MultipleDesktopNum = x.MultipleDesktopNum ?? 0,
-                               MultipleDesktopTotalNum = x.MultipleDesktopTotalNum ?? 0,
-                               MultipleDesktopNext = x.MultipleDesktopNext,
-                               SingleSiteInput = x.SingleSiteInput ?? 0,
-                               SingleSitePerson = x.SingleSitePerson ?? 0,
-                               SingleSiteNum = x.SingleSiteNum ?? 0,
-                               SingleSiteTotalNum = x.SingleSiteTotalNum ?? 0,
-                               SingleSiteNext = x.SingleSiteNext,
-                               SingleDesktopInput = x.SingleDesktopInput ?? 0,
-                               SingleDesktopPerson = x.SingleDesktopPerson ?? 0,
-                               SingleDesktopNum = x.SingleDesktopNum ?? 0,
-                               SingleDesktopTotalNum = x.SingleDesktopTotalNum ?? 0,
-                               SingleDesktopNext = x.SingleDesktopNext,
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReport12Item getInfo = new Model.SeDinMonthReport12Item();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport12
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport12Item
+                               {
+                                   MonthReport12Id = x.MonthReport12Id,
+                                   MonthReportId = x.MonthReportId,
+                                   MultipleSiteInput = x.MultipleSiteInput ?? 0,
+                                   MultipleSitePerson = x.MultipleSitePerson ?? 0,
+                                   MultipleSiteNum = x.MultipleSiteNum ?? 0,
+                                   MultipleSiteTotalNum = x.MultipleSiteTotalNum ?? 0,
+                                   MultipleSiteNext = x.MultipleSiteNext,
+                                   MultipleDesktopInput = x.MultipleDesktopInput ?? 0,
+                                   MultipleDesktopPerson = x.MultipleDesktopPerson ?? 0,
+                                   MultipleDesktopNum = x.MultipleDesktopNum ?? 0,
+                                   MultipleDesktopTotalNum = x.MultipleDesktopTotalNum ?? 0,
+                                   MultipleDesktopNext = x.MultipleDesktopNext,
+                                   SingleSiteInput = x.SingleSiteInput ?? 0,
+                                   SingleSitePerson = x.SingleSitePerson ?? 0,
+                                   SingleSiteNum = x.SingleSiteNum ?? 0,
+                                   SingleSiteTotalNum = x.SingleSiteTotalNum ?? 0,
+                                   SingleSiteNext = x.SingleSiteNext,
+                                   SingleDesktopInput = x.SingleDesktopInput ?? 0,
+                                   SingleDesktopPerson = x.SingleDesktopPerson ?? 0,
+                                   SingleDesktopNum = x.SingleDesktopNum ?? 0,
+                                   SingleDesktopTotalNum = x.SingleDesktopTotalNum ?? 0,
+                                   SingleDesktopNext = x.SingleDesktopNext,
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #region  获取赛鼎月报详细 --13、14、本月HSE活动综述、下月HSE工作计划
@@ -1460,22 +1564,25 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReportItem getSeDinMonthReport13ById(string projectId, string month)
         {
-            var monthD = Funs.GetNewDateTime(month);
-            Model.SeDinMonthReportItem getInfo = new Model.SeDinMonthReportItem();
-            if (monthD.HasValue)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getInfo = (from x in new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport
-                           where x.ProjectId == projectId && x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month
-                           select new Model.SeDinMonthReportItem
-                           {
-                               MonthReportId = x.MonthReportId,
-                               ProjectId = x.ProjectId,
-                               ThisSummary = x.ThisSummary,
-                               NextPlan = x.NextPlan,
-                               AccidentsSummary=x.AccidentsSummary,
-                           }).FirstOrDefault();
+                var monthD = Funs.GetNewDateTime(month);
+                Model.SeDinMonthReportItem getInfo = new Model.SeDinMonthReportItem();
+                if (monthD.HasValue)
+                {
+                    getInfo = (from x in db.SeDin_MonthReport
+                               where x.ProjectId == projectId && x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReportItem
+                               {
+                                   MonthReportId = x.MonthReportId,
+                                   ProjectId = x.ProjectId,
+                                   ThisSummary = x.ThisSummary,
+                                   NextPlan = x.NextPlan,
+                                   AccidentsSummary = x.AccidentsSummary,
+                               }).FirstOrDefault();
+                }
+                return getInfo;
             }
-            return getInfo;
         }
         #endregion
         #endregion

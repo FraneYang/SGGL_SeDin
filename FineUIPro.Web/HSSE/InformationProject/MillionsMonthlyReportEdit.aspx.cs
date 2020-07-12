@@ -392,134 +392,45 @@ namespace FineUIPro.Web.InformationProject
         /// <param name="endTime"></param>
         private void GetData(DateTime startTime, DateTime endTime)
         {
-            int? sumTotalPanhours = 0;
-
-            //获取当期人工时日报
-            List<Model.SitePerson_DayReport> dayReports = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(startTime, endTime, this.ProjectId);
-            if (dayReports.Count > 0)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                foreach (var dayReport in dayReports)
-                {
-                    sumTotalPanhours += Convert.ToInt32((from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail where y.DayReportId == dayReport.DayReportId select y.PersonWorkTime ?? 0).Sum());
-                }
+                int? sumTotalPanhours = 0;
 
-                //总工时数（万）
-                this.txtTotalWorkNum.Text = decimal.Round(decimal.Round(Convert.ToDecimal(sumTotalPanhours), 4) / 10000, 4).ToString();
-                //在岗员工
-                //获取单位集合
-                var unitIds = (from x in dayReports
-                               join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
-                               on x.DayReportId equals y.DayReportId
-                               select y.UnitId).Distinct();
-                int subUnitsPersonNum = 0;
-                foreach (var unitId in unitIds)
-                {
-                    Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(unitId);
-                    if (unit != null)
-                    {
-                        int count = BLL.SitePerson_DayReportService.GetDayReportsByCompileDateAndUnitId(startTime, endTime, this.CurrUser.LoginProjectId, unitId).Count();
-                        if (unit.UnitId == Const.UnitId_SEDIN)    //本单位
-                        {
-                            //本单位在岗员工
-                            decimal personNum = (from x in dayReports
-                                                 join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
-                                              on x.DayReportId equals y.DayReportId
-                                                 where y.UnitId == unitId
-                                                 select y.RealPersonNum ?? 0).Sum();
-                            if (count > 0)
-                            {
-                                decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
-                                if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
-                                {
-                                    string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
-                                    this.txtPostPersonNum.Text = (Convert.ToInt32(personint) + 1).ToString();
-                                }
-                                else
-                                {
-                                    this.txtPostPersonNum.Text = Convert.ToInt32(persontotal).ToString();
-                                }
-                            }
-                        }
-                        else if (unit.UnitName.Contains("临时员工"))  //临时员工
-                        {
-                            //本单位临时员工
-                            decimal personNum = (from x in dayReports
-                                                 join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
-                                              on x.DayReportId equals y.DayReportId
-                                                 where y.UnitId == unitId
-                                                 select y.RealPersonNum ?? 0).Sum();
-                            if (count > 0)
-                            {
-                                decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
-                                if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
-                                {
-                                    string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
-                                    this.txtSnapPersonNum.Text = (Convert.ToInt32(personint) + 1).ToString();
-                                }
-                                else
-                                {
-                                    this.txtSnapPersonNum.Text = Convert.ToInt32(persontotal).ToString();
-                                }
-                            }
-                        }
-                        else    //承包商
-                        {
-                            decimal personNum = (from x in dayReports
-                                                 join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
-                                              on x.DayReportId equals y.DayReportId
-                                                 where y.UnitId == unitId
-                                                 select y.RealPersonNum ?? 0).Sum();
-                            if (count > 0)
-                            {
-                                decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
-                                if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
-                                {
-                                    string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
-                                    subUnitsPersonNum += Convert.ToInt32(personint) + 1;
-                                }
-                                else
-                                {
-                                    subUnitsPersonNum += Convert.ToInt32(persontotal);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                //承包商员工
-                this.txtContractorNum.Text = subUnitsPersonNum.ToString();
-            }
-            else
-            {
                 //获取当期人工时日报
-                var monthReport = BLL.SitePerson_MonthReportService.GetMonthReportsByCompileDate(startTime, this.ProjectId);
-                if (monthReport != null)
+                List<Model.SitePerson_DayReport> dayReports = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(startTime, endTime, this.ProjectId);
+                if (dayReports.Count > 0)
                 {
-                    decimal? sumCount = new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReport.MonthReportId).Sum(x => x.PersonWorkTime);
-                    if (sumCount.HasValue)
+                    foreach (var dayReport in dayReports)
                     {
-                        sumTotalPanhours += Convert.ToInt32(sumCount.Value);
+                        sumTotalPanhours += Convert.ToInt32((from y in db.SitePerson_DayReportDetail where y.DayReportId == dayReport.DayReportId select y.PersonWorkTime ?? 0).Sum());
                     }
+
                     //总工时数（万）
                     this.txtTotalWorkNum.Text = decimal.Round(decimal.Round(Convert.ToDecimal(sumTotalPanhours), 4) / 10000, 4).ToString();
                     //在岗员工
                     //获取单位集合
-                    var unitIds = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail
-                                   where x.MonthReportId == monthReport.MonthReportId
-                                   select x.UnitId).Distinct();
+                    var unitIds = (from x in dayReports
+                                   join y in db.SitePerson_DayReportDetail
+                                   on x.DayReportId equals y.DayReportId
+                                   select y.UnitId).Distinct();
                     int subUnitsPersonNum = 0;
                     foreach (var unitId in unitIds)
                     {
                         Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(unitId);
                         if (unit != null)
                         {
+                            int count = BLL.SitePerson_DayReportService.GetDayReportsByCompileDateAndUnitId(startTime, endTime, this.CurrUser.LoginProjectId, unitId).Count();
                             if (unit.UnitId == Const.UnitId_SEDIN)    //本单位
                             {
                                 //本单位在岗员工
-                                decimal? personNum = new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReport.MonthReportId && x.UnitId == unitId).Sum(x => x.RealPersonNum);
-                                if (personNum.HasValue)
+                                decimal personNum = (from x in dayReports
+                                                     join y in db.SitePerson_DayReportDetail
+                                                  on x.DayReportId equals y.DayReportId
+                                                     where y.UnitId == unitId
+                                                     select y.RealPersonNum ?? 0).Sum();
+                                if (count > 0)
                                 {
-                                    decimal persontotal = Convert.ToDecimal(Math.Round(personNum.Value, 2));
+                                    decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
                                     if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
                                     {
                                         string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
@@ -533,11 +444,15 @@ namespace FineUIPro.Web.InformationProject
                             }
                             else if (unit.UnitName.Contains("临时员工"))  //临时员工
                             {
-                                //本单位在岗员工
-                                decimal? personNum = new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReport.MonthReportId && x.UnitId == unitId).Sum(x => x.RealPersonNum);
-                                if (personNum.HasValue)
+                                //本单位临时员工
+                                decimal personNum = (from x in dayReports
+                                                     join y in db.SitePerson_DayReportDetail
+                                                  on x.DayReportId equals y.DayReportId
+                                                     where y.UnitId == unitId
+                                                     select y.RealPersonNum ?? 0).Sum();
+                                if (count > 0)
                                 {
-                                    decimal persontotal = Convert.ToDecimal(Math.Round(personNum.Value, 2));
+                                    decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
                                     if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
                                     {
                                         string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
@@ -551,10 +466,14 @@ namespace FineUIPro.Web.InformationProject
                             }
                             else    //承包商
                             {
-                                decimal? personNum = new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReport.MonthReportId && x.UnitId == unitId).Sum(x => x.RealPersonNum);
-                                if (personNum.HasValue)
+                                decimal personNum = (from x in dayReports
+                                                     join y in db.SitePerson_DayReportDetail
+                                                  on x.DayReportId equals y.DayReportId
+                                                     where y.UnitId == unitId
+                                                     select y.RealPersonNum ?? 0).Sum();
+                                if (count > 0)
                                 {
-                                    decimal persontotal = Convert.ToDecimal(Math.Round(personNum.Value, 2));
+                                    decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
                                     if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
                                     {
                                         string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
@@ -568,48 +487,132 @@ namespace FineUIPro.Web.InformationProject
                             }
                         }
                     }
+
                     //承包商员工
                     this.txtContractorNum.Text = subUnitsPersonNum.ToString();
                 }
-            }
+                else
+                {
+                    //获取当期人工时日报
+                    var monthReport = BLL.SitePerson_MonthReportService.GetMonthReportsByCompileDate(startTime, this.ProjectId);
+                    if (monthReport != null)
+                    {
+                        decimal? sumCount = db.SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReport.MonthReportId).Sum(x => x.PersonWorkTime);
+                        if (sumCount.HasValue)
+                        {
+                            sumTotalPanhours += Convert.ToInt32(sumCount.Value);
+                        }
+                        //总工时数（万）
+                        this.txtTotalWorkNum.Text = decimal.Round(decimal.Round(Convert.ToDecimal(sumTotalPanhours), 4) / 10000, 4).ToString();
+                        //在岗员工
+                        //获取单位集合
+                        var unitIds = (from x in db.SitePerson_MonthReportDetail
+                                       where x.MonthReportId == monthReport.MonthReportId
+                                       select x.UnitId).Distinct();
+                        int subUnitsPersonNum = 0;
+                        foreach (var unitId in unitIds)
+                        {
+                            Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(unitId);
+                            if (unit != null)
+                            {
+                                if (unit.UnitId == Const.UnitId_SEDIN)    //本单位
+                                {
+                                    //本单位在岗员工
+                                    decimal? personNum = db.SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReport.MonthReportId && x.UnitId == unitId).Sum(x => x.RealPersonNum);
+                                    if (personNum.HasValue)
+                                    {
+                                        decimal persontotal = Convert.ToDecimal(Math.Round(personNum.Value, 2));
+                                        if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
+                                        {
+                                            string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
+                                            this.txtPostPersonNum.Text = (Convert.ToInt32(personint) + 1).ToString();
+                                        }
+                                        else
+                                        {
+                                            this.txtPostPersonNum.Text = Convert.ToInt32(persontotal).ToString();
+                                        }
+                                    }
+                                }
+                                else if (unit.UnitName.Contains("临时员工"))  //临时员工
+                                {
+                                    //本单位在岗员工
+                                    decimal? personNum = db.SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReport.MonthReportId && x.UnitId == unitId).Sum(x => x.RealPersonNum);
+                                    if (personNum.HasValue)
+                                    {
+                                        decimal persontotal = Convert.ToDecimal(Math.Round(personNum.Value, 2));
+                                        if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
+                                        {
+                                            string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
+                                            this.txtSnapPersonNum.Text = (Convert.ToInt32(personint) + 1).ToString();
+                                        }
+                                        else
+                                        {
+                                            this.txtSnapPersonNum.Text = Convert.ToInt32(persontotal).ToString();
+                                        }
+                                    }
+                                }
+                                else    //承包商
+                                {
+                                    decimal? personNum = db.SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReport.MonthReportId && x.UnitId == unitId).Sum(x => x.RealPersonNum);
+                                    if (personNum.HasValue)
+                                    {
+                                        decimal persontotal = Convert.ToDecimal(Math.Round(personNum.Value, 2));
+                                        if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
+                                        {
+                                            string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
+                                            subUnitsPersonNum += Convert.ToInt32(personint) + 1;
+                                        }
+                                        else
+                                        {
+                                            subUnitsPersonNum += Convert.ToInt32(persontotal);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //承包商员工
+                        this.txtContractorNum.Text = subUnitsPersonNum.ToString();
+                    }
+                }
 
-            List<Model.Accident_AccidentReport> accidentReports1 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "2");
-            this.txtSeriousInjuriesNum.Text = accidentReports1.Count().ToString();
-            this.txtSeriousInjuriesPersonNum.Text = accidentReports1.Sum(x => x.PeopleNum ?? 0).ToString();
-            this.txtSeriousInjuriesLossHour.Text = accidentReports1.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
-            List<Model.Accident_AccidentReport> accidentReports2 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "3");
-            this.txtMinorAccidentNum.Text = accidentReports2.Count().ToString();
-            this.txtMinorAccidentPersonNum.Text = accidentReports2.Sum(x => x.PeopleNum ?? 0).ToString();
-            this.txtMinorAccidentLossHour.Text = accidentReports2.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
-            List<Model.Accident_AccidentReport> accidentReports3 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "1");
-            this.txtOtherAccidentNum.Text = accidentReports3.Count().ToString();
-            this.txtOtherAccidentPersonNum.Text = accidentReports3.Sum(x => x.PeopleNum ?? 0).ToString();
-            this.txtOtherAccidentLossHour.Text = accidentReports3.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
-            List<Model.Accident_AccidentReportOther> accidentReports4 = BLL.AccidentReportOtherService.GetAccidentReportOthersByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "1");
-            this.txtRestrictedWorkPersonNum.Text = accidentReports4.Sum(x => x.PeopleNum ?? 0).ToString();
-            this.txtRestrictedWorkLossHour.Text = accidentReports4.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
-            List<Model.Accident_AccidentReportOther> accidentReports5 = BLL.AccidentReportOtherService.GetAccidentReportOthersByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "2");
-            this.txtMedicalTreatmentPersonNum.Text = accidentReports5.Sum(x => x.PeopleNum ?? 0).ToString();
-            this.txtMedicalTreatmentLossHour.Text = accidentReports5.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
-            List<Model.Accident_AccidentReport> accidentReports6 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "4");
-            this.txtFireNum.Text = accidentReports6.Count().ToString();
-            List<Model.Accident_AccidentReport> accidentReports7 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "5");
-            this.txtExplosionNum.Text = accidentReports7.Count().ToString();
-            List<Model.Accident_AccidentReport> accidentReports8 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "6");
-            this.txtTrafficNum.Text = accidentReports8.Count().ToString();
-            List<Model.Accident_AccidentReport> accidentReports9 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "7");
-            this.txtEquipmentNum.Text = accidentReports9.Count().ToString();
-            List<Model.Accident_AccidentReport> accidentReports10 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "10");
-            this.txtQualityNum.Text = accidentReports10.Count().ToString();
-            List<Model.Accident_AccidentReport> accidentReports11 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "11");
-            this.txtOtherNum.Text = accidentReports11.Count().ToString();
-            List<Model.Accident_AccidentReportOther> accidentReports12 = BLL.AccidentReportOtherService.GetAccidentReportOthersByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "3");
-            this.txtFirstAidDressingsNum.Text = accidentReports12.Count().ToString();
-            List<Model.Accident_AccidentReportOther> accidentReports13 = BLL.AccidentReportOtherService.GetAccidentReportOthersByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "4");
-            this.txtAttemptedEventNum.Text = accidentReports13.Count().ToString();
-            decimal totalWorkingHoursLoss = 0;
-            totalWorkingHoursLoss = accidentReports1.Sum(x => x.WorkingHoursLoss ?? 0) + accidentReports2.Sum(x => x.WorkingHoursLoss ?? 0) + accidentReports3.Sum(x => x.WorkingHoursLoss ?? 0);
-            this.txtLossDayNum.Text = decimal.Round(totalWorkingHoursLoss / 8, 2).ToString().Split('.')[0];
+                List<Model.Accident_AccidentReport> accidentReports1 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "2");
+                this.txtSeriousInjuriesNum.Text = accidentReports1.Count().ToString();
+                this.txtSeriousInjuriesPersonNum.Text = accidentReports1.Sum(x => x.PeopleNum ?? 0).ToString();
+                this.txtSeriousInjuriesLossHour.Text = accidentReports1.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
+                List<Model.Accident_AccidentReport> accidentReports2 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "3");
+                this.txtMinorAccidentNum.Text = accidentReports2.Count().ToString();
+                this.txtMinorAccidentPersonNum.Text = accidentReports2.Sum(x => x.PeopleNum ?? 0).ToString();
+                this.txtMinorAccidentLossHour.Text = accidentReports2.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
+                List<Model.Accident_AccidentReport> accidentReports3 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "1");
+                this.txtOtherAccidentNum.Text = accidentReports3.Count().ToString();
+                this.txtOtherAccidentPersonNum.Text = accidentReports3.Sum(x => x.PeopleNum ?? 0).ToString();
+                this.txtOtherAccidentLossHour.Text = accidentReports3.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
+                List<Model.Accident_AccidentReportOther> accidentReports4 = BLL.AccidentReportOtherService.GetAccidentReportOthersByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "1");
+                this.txtRestrictedWorkPersonNum.Text = accidentReports4.Sum(x => x.PeopleNum ?? 0).ToString();
+                this.txtRestrictedWorkLossHour.Text = accidentReports4.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
+                List<Model.Accident_AccidentReportOther> accidentReports5 = BLL.AccidentReportOtherService.GetAccidentReportOthersByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "2");
+                this.txtMedicalTreatmentPersonNum.Text = accidentReports5.Sum(x => x.PeopleNum ?? 0).ToString();
+                this.txtMedicalTreatmentLossHour.Text = accidentReports5.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
+                List<Model.Accident_AccidentReport> accidentReports6 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "4");
+                this.txtFireNum.Text = accidentReports6.Count().ToString();
+                List<Model.Accident_AccidentReport> accidentReports7 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "5");
+                this.txtExplosionNum.Text = accidentReports7.Count().ToString();
+                List<Model.Accident_AccidentReport> accidentReports8 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "6");
+                this.txtTrafficNum.Text = accidentReports8.Count().ToString();
+                List<Model.Accident_AccidentReport> accidentReports9 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "7");
+                this.txtEquipmentNum.Text = accidentReports9.Count().ToString();
+                List<Model.Accident_AccidentReport> accidentReports10 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "10");
+                this.txtQualityNum.Text = accidentReports10.Count().ToString();
+                List<Model.Accident_AccidentReport> accidentReports11 = BLL.AccidentReportService.GetAccidentReportsByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "11");
+                this.txtOtherNum.Text = accidentReports11.Count().ToString();
+                List<Model.Accident_AccidentReportOther> accidentReports12 = BLL.AccidentReportOtherService.GetAccidentReportOthersByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "3");
+                this.txtFirstAidDressingsNum.Text = accidentReports12.Count().ToString();
+                List<Model.Accident_AccidentReportOther> accidentReports13 = BLL.AccidentReportOtherService.GetAccidentReportOthersByTimeAndAccidentTypeId(startTime, endTime, this.ProjectId, "4");
+                this.txtAttemptedEventNum.Text = accidentReports13.Count().ToString();
+                decimal totalWorkingHoursLoss = 0;
+                totalWorkingHoursLoss = accidentReports1.Sum(x => x.WorkingHoursLoss ?? 0) + accidentReports2.Sum(x => x.WorkingHoursLoss ?? 0) + accidentReports3.Sum(x => x.WorkingHoursLoss ?? 0);
+                this.txtLossDayNum.Text = decimal.Round(totalWorkingHoursLoss / 8, 2).ToString().Split('.')[0];
+            }
         }
         #endregion
     }

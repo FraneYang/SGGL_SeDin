@@ -246,7 +246,7 @@
                                     <f:TemplateField ColumnID="ApproveType" Width="150px" HeaderText="办理类型" HeaderTextAlign="Center" TextAlign="Center"
                                         EnableLock="true" Locked="False">
                                         <ItemTemplate>
-                                            <asp:Label ID="Label1" runat="server" Text='<%# BLL.ConstructSolutionService.ConvertState(Eval("ApproveType")) %>'></asp:Label>
+                                            <asp:Label ID="Label1" runat="server" Text='<%# BLL.CQMSConstructSolutionService.ConvertState(Eval("ApproveType")) %>'></asp:Label>
                                         </ItemTemplate>
                                     </f:TemplateField>
                                     <f:TemplateField ColumnID="ApproveMan" Width="150px" HeaderText="办理人员" HeaderTextAlign="Center" TextAlign="Center"
@@ -258,7 +258,7 @@
                                     <f:TemplateField ColumnID="IsAgree" Width="100px" HeaderText="是否同意" HeaderTextAlign="Center" TextAlign="Center"
                                         EnableLock="true" Locked="False">
                                         <ItemTemplate>
-                                            <asp:Label ID="Label2" runat="server" Text='<%# BLL.ConstructSolutionService.IsAgree(Eval("ApproveType"),Eval("IsAgree")) %>'></asp:Label>
+                                            <asp:Label ID="Label2" runat="server" Text='<%# BLL.CQMSConstructSolutionService.IsAgree(Eval("ApproveType"),Eval("IsAgree")) %>'></asp:Label>
                                         </ItemTemplate>
                                     </f:TemplateField>
                                     <f:BoundField Width="100px" DataField="ApproveDate" HeaderTextAlign="Center" TextAlign="Center" DataFormatString="{0:yyyy-MM-dd}" HeaderText="办理时间" />

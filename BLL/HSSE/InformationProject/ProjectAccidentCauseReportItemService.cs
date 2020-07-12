@@ -147,11 +147,14 @@ namespace BLL
         /// <returns>明细记录集合</returns>
         public static List<Model.InformationProject_AccidentCauseReportItem> GetItemsNoSum(string AccidentCauseReportId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_AccidentCauseReportItem
-                    join y in new Model.SGGLDB(Funs.ConnString).Sys_Const on x.AccidentType equals y.ConstText
-                    where x.AccidentCauseReportId == AccidentCauseReportId && x.AccidentType != "总计" && y.GroupId == ConstValue.Group_0012
-                    orderby y.SortIndex
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.InformationProject_AccidentCauseReportItem
+                        join y in db.Sys_Const on x.AccidentType equals y.ConstText
+                        where x.AccidentCauseReportId == AccidentCauseReportId && x.AccidentType != "总计" && y.GroupId == ConstValue.Group_0012
+                        orderby y.SortIndex
+                        select x).ToList();
+            }
         }
     }
 }

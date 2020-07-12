@@ -53,21 +53,23 @@ namespace BLL
         /// <returns></returns>
         public static IQueryable getList(string userId)
         {
-            var res = from x in db.Check_CheckControlApprove
-                      join ca in db.Check_CheckControl on x.CheckControlCode equals ca.CheckControlCode
-                      where x.ApproveDate == null && x.ApproveType == "S" && x.ApproveMan == userId
-                      orderby x.ApproveDate
-                      select new
-                      {
-                          //x.CheckControlApproveId,
-                          x.CheckControlCode,
-                          //x.ApproveDate,
-                          //x.IsAgree,
-                          //x.ApproveIdea,
-                          //x.ApproveType,
-                          ca.DocCode
-                      };
-            return res.AsQueryable().Distinct();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var res = from x in db.Check_CheckControlApprove
+                          join ca in db.Check_CheckControl on x.CheckControlCode equals ca.CheckControlCode
+                          where x.ApproveDate == null && x.ApproveType == "S" && x.ApproveMan == userId
+                          orderby x.ApproveDate
+                          select new
+                          {
+                              //x.CheckControlApproveId,
+                              x.CheckControlCode,
+                              //x.ApproveDate,
+                              //x.IsAgree,
+                              //x.ApproveIdea,
+                              //x.ApproveType,
+                              ca.DocCode
+                          };
+                return res.AsQueryable().Distinct();
+            }
         }
         /// <summary>
         /// 更新通知信息提醒

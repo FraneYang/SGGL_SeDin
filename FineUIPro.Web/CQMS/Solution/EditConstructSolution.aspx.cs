@@ -777,26 +777,26 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trOne.Nodes.Add(rootNode);
             trOne.EnableCheckBox = true;
-
-            var userList = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                           on x.UnitId equals y.UnitId
-                           join p in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                           on x.UserId equals p.UserId
-                           where (x.RoleId.Contains(Const.CVEngineer) || x.RoleId.Contains(Const.FEEngineer) || x.RoleId.Contains(Const.PDEngineer)
-                           || x.RoleId.Contains(Const.EHEngineer) || x.RoleId.Contains(Const.EAEngineer) || x.RoleId.Contains(Const.HJEngineer))
-                           && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId
-                           select x;
-            //var ss = LINQToDataTable(userList);
-            foreach (var u in userList)
-            {
-                TreeNode Node = new TreeNode();
-                Node.Text = u.UserName;
-                Node.NodeID = u.UserId;
-                Node.EnableCheckEvent = true;
-                rootNode.Nodes.Add(Node);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var userList = from x in db.Sys_User
+                               join y in db.Project_ProjectUnit
+                               on x.UnitId equals y.UnitId
+                               join p in db.Project_ProjectUser
+                               on x.UserId equals p.UserId
+                               where (x.RoleId.Contains(Const.CVEngineer) || x.RoleId.Contains(Const.FEEngineer) || x.RoleId.Contains(Const.PDEngineer)
+                               || x.RoleId.Contains(Const.EHEngineer) || x.RoleId.Contains(Const.EAEngineer) || x.RoleId.Contains(Const.HJEngineer))
+                               && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId== CurrUser.LoginProjectId
+                               select x;
+                //var ss = LINQToDataTable(userList);
+                foreach (var u in userList)
+                {
+                    TreeNode Node = new TreeNode();
+                    Node.Text = u.UserName;
+                    Node.NodeID = u.UserId;
+                    Node.EnableCheckEvent = true;
+                    rootNode.Nodes.Add(Node);
+                }
             }
-
 
         }
         private void BindZLRole()
@@ -808,21 +808,23 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trTwo.Nodes.Add(rootNode);
             trTwo.EnableCheckBox = true;
-            var userList = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                           on x.UnitId equals y.UnitId
-                           join p in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                           on x.UserId equals p.UserId
-                           where (x.RoleId.Contains(Const.QAManager) || x.RoleId.Contains(Const.CQEngineer))
-                           && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId
-                           orderby x.UserCode
-                           select x;
-            foreach (var u in userList)
-            {
-                TreeNode roleNode = new TreeNode();
-                roleNode.Text = u.UserName;
-                roleNode.NodeID = u.UserId;
-                rootNode.Nodes.Add(roleNode);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var userList = from x in db.Sys_User
+                               join y in db.Project_ProjectUnit
+                               on x.UnitId equals y.UnitId
+                               join p in db.Project_ProjectUser
+                               on x.UserId equals p.UserId
+                               where (x.RoleId.Contains(Const.QAManager) || x.RoleId.Contains(Const.CQEngineer))
+                               && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
+                               orderby x.UserCode
+                               select x;
+                foreach (var u in userList)
+                {
+                    TreeNode roleNode = new TreeNode();
+                    roleNode.Text = u.UserName;
+                    roleNode.NodeID = u.UserId;
+                    rootNode.Nodes.Add(roleNode);
+                }
             }
         }
         /// <summary>
@@ -856,21 +858,23 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trThree.Nodes.Add(rootNode);
             trThree.EnableCheckBox = true;
-            var userList = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                           on x.UnitId equals y.UnitId
-                           join p in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                           on x.UserId equals p.UserId
-                           where (x.RoleId.Contains(Const.HSSEManager) || x.RoleId.Contains(Const.HSSEEngineer))
-                           && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId
-                           orderby x.UserCode
-                           select x;
-            foreach (var u in userList)
-            {
-                TreeNode roleNode = new TreeNode();
-                roleNode.Text = u.UserName;
-                roleNode.NodeID = u.UserId;
-                rootNode.Nodes.Add(roleNode);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var userList = from x in db.Sys_User
+                               join y in db.Project_ProjectUnit
+                               on x.UnitId equals y.UnitId
+                               join p in db.Project_ProjectUser
+                               on x.UserId equals p.UserId
+                               where (x.RoleId.Contains(Const.HSSEManager) || x.RoleId.Contains(Const.HSSEEngineer))
+                               && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
+                               orderby x.UserCode
+                               select x;
+                foreach (var u in userList)
+                {
+                    TreeNode roleNode = new TreeNode();
+                    roleNode.Text = u.UserName;
+                    roleNode.NodeID = u.UserId;
+                    rootNode.Nodes.Add(roleNode);
+                }
             }
         }
 
@@ -883,21 +887,23 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trFour.Nodes.Add(rootNode);
             trFour.EnableCheckBox = true;
-            var userList = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                           on x.UnitId equals y.UnitId
-                           join p in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                           on x.UserId equals p.UserId
-                           where (x.RoleId.Contains(Const.ControlManager) || x.RoleId.Contains(Const.KZEngineer))
-                           && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId
-                           orderby x.UserCode
-                           select x;
-            foreach (var u in userList)
-            {
-                TreeNode roleNode = new TreeNode();
-                roleNode.Text = u.UserName;
-                roleNode.NodeID = u.UserId;
-                rootNode.Nodes.Add(roleNode);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var userList = from x in db.Sys_User
+                               join y in db.Project_ProjectUnit
+                               on x.UnitId equals y.UnitId
+                               join p in db.Project_ProjectUser
+                               on x.UserId equals p.UserId
+                               where (x.RoleId.Contains(Const.ControlManager) || x.RoleId.Contains(Const.KZEngineer))
+                               && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
+                               orderby x.UserCode
+                               select x;
+                foreach (var u in userList)
+                {
+                    TreeNode roleNode = new TreeNode();
+                    roleNode.Text = u.UserName;
+                    roleNode.NodeID = u.UserId;
+                    rootNode.Nodes.Add(roleNode);
+                }
             }
         }
 
@@ -911,21 +917,23 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trFive.Nodes.Add(rootNode);
             trFive.EnableCheckBox = true;
-            var userList = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                           on x.UnitId equals y.UnitId
-                           join p in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                          on x.UserId equals p.UserId
-                           where (x.RoleId.Contains(Const.ConstructionManager) || x.RoleId.Contains(Const.ConstructionAssistantManager))
-                           && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId
-                           orderby x.UserCode
-                           select x;
-            foreach (var u in userList)
-            {
-                TreeNode roleNode = new TreeNode();
-                roleNode.Text = u.UserName;
-                roleNode.NodeID = u.UserId;
-                rootNode.Nodes.Add(roleNode);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var userList = from x in db.Sys_User
+                               join y in db.Project_ProjectUnit
+                               on x.UnitId equals y.UnitId
+                               join p in db.Project_ProjectUser
+                              on x.UserId equals p.UserId
+                               where (x.RoleId.Contains(Const.ConstructionManager) || x.RoleId.Contains(Const.ConstructionAssistantManager))
+                               && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
+                               orderby x.UserCode
+                               select x;
+                foreach (var u in userList)
+                {
+                    TreeNode roleNode = new TreeNode();
+                    roleNode.Text = u.UserName;
+                    roleNode.NodeID = u.UserId;
+                    rootNode.Nodes.Add(roleNode);
+                }
             }
         }
 
@@ -939,23 +947,24 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trSixe.Nodes.Add(rootNode);
             trSixe.EnableCheckBox = true;
-            var userList = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                           join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit
-                           on x.UnitId equals y.UnitId
-                           join p in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
-                          on x.UserId equals p.UserId
-                           where x.RoleId.Contains(Const.ProjectManager)
-                           && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId
-                           orderby x.UserCode
-                           select x;
-            foreach (var u in userList)
-            {
-                TreeNode roleNode = new TreeNode();
-                roleNode.Text = u.UserName;
-                roleNode.NodeID = u.UserId;
-                rootNode.Nodes.Add(roleNode);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                var userList = from x in db.Sys_User
+                               join y in db.Project_ProjectUnit
+                               on x.UnitId equals y.UnitId
+                               join p in db.Project_ProjectUser
+                              on x.UserId equals p.UserId
+                               where x.RoleId.Contains(Const.ProjectManager)
+                               && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
+                               orderby x.UserCode
+                               select x;
+                foreach (var u in userList)
+                {
+                    TreeNode roleNode = new TreeNode();
+                    roleNode.Text = u.UserName;
+                    roleNode.NodeID = u.UserId;
+                    rootNode.Nodes.Add(roleNode);
+                }
             }
-
         }
         #endregion
 

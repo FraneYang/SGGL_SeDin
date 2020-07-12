@@ -14,132 +14,135 @@ namespace BLL
         /// <returns></returns>
         public static Model.PersonQualityItem getPersonQualityInfo(string type, string dataId)
         {
-            Model.PersonQualityItem getQualityItem = new Model.PersonQualityItem();
-            if (type == "1")
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                ////特种作业人员
-                getQualityItem = (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality
-                                  join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
-                                  where x.PersonQualityId == dataId || x.PersonId ==dataId
-                                  orderby y.CardNo
-                                  select new Model.PersonQualityItem
-                                  {
-                                      PersonQualityId = x.PersonQualityId,
-                                      QualityType = type,
-                                      PersonId = x.PersonId,
-                                      PersonName = y.PersonName,
-                                      CardNo = y.CardNo,
-                                      IdentityCard = y.IdentityCard,
-                                      ProjectId = y.ProjectId,
-                                      UnitId = y.UnitId,
-                                      UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                                      UnitCode = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
-                                      WorkPostId = y.WorkPostId,
-                                      WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
-                                      CertificateId = x.CertificateId,
-                                      CertificateName = new Model.SGGLDB(Funs.ConnString).Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
-                                      CertificateNo = x.CertificateNo,
-                                      Grade = x.Grade,
-                                      SendUnit = x.SendUnit,
-                                      SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
-                                      LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                      LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                                      Remark = x.Remark,
-                                      CompileMan = x.CompileMan,
-                                      CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.CompileMan).UserName,
-                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                      AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
-                                      AuditorId=x.AuditorId,
-                                      AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.AuditorId).UserName,
-                                      AuditOpinion = x.AuditOpinion,
-                                      States = x.States,
-                                      AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
-                                  }).FirstOrDefault();
-            }
-            //// 安管人员
-            else if (type == "2")
-            {
-                getQualityItem = (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_SafePersonQuality
-                                  join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
-                                  where x.SafePersonQualityId == dataId || x.PersonId == dataId
-                                  orderby y.CardNo
-                                  select new Model.PersonQualityItem
-                                  {
-                                      PersonQualityId = x.SafePersonQualityId,
-                                      QualityType = type,
-                                      PersonId = x.PersonId,
-                                      PersonName = y.PersonName,
-                                      CardNo = y.CardNo,
-                                      IdentityCard = y.IdentityCard,
-                                      ProjectId = y.ProjectId,
-                                      UnitId = y.UnitId,
-                                      UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                                      UnitCode = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
-                                      WorkPostId = y.WorkPostId,
-                                      WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
-                                      //CertificateId = x.CertificateId,
-                                      CertificateName = x.CertificateName,
-                                      CertificateNo = x.CertificateNo,
-                                      Grade = x.Grade,
-                                      SendUnit = x.SendUnit,
-                                      SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
-                                      LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                      LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                                      Remark = x.Remark,
-                                      CompileMan = x.CompileMan,
-                                      CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.CompileMan).UserName,
-                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                      AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
-                                      AuditorId = x.AuditorId,
-                                      AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.AuditorId).UserName,
-                                      AuditOpinion = x.AuditOpinion,
-                                      States = x.States,
-                                      AttachUrl = APIUpLoadFileService.getFileUrl(x.SafePersonQualityId, null),
-                                  }).FirstOrDefault();
-            }
-            else if (type == "3")
-            {
-                ////特种设备作业人员
-                getQualityItem = (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentPersonQuality
-                                  join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person on x.PersonId equals y.PersonId
-                                  where x.EquipmentPersonQualityId == dataId || x.PersonId == dataId
-                                  orderby y.CardNo
-                                  select new Model.PersonQualityItem
-                                  {
-                                      PersonQualityId = x.EquipmentPersonQualityId,
-                                      QualityType = type,
-                                      PersonId = x.PersonId,
-                                      PersonName = y.PersonName,
-                                      CardNo = y.CardNo,
-                                      IdentityCard = y.IdentityCard,
-                                      ProjectId = y.ProjectId,
-                                      UnitId = y.UnitId,
-                                      UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                                      UnitCode = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
-                                      WorkPostId = y.WorkPostId,
-                                      WorkPostName = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
-                                      CertificateId = x.CertificateId,
-                                      CertificateName = new Model.SGGLDB(Funs.ConnString).Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
-                                      CertificateNo = x.CertificateNo,
-                                      Grade = x.Grade,
-                                      SendUnit = x.SendUnit,
-                                      SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
-                                      LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                      LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                                      Remark = x.Remark,
-                                      CompileMan = x.CompileMan,
-                                      CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.CompileMan).UserName,
-                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                      AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
-                                      AuditorId = x.AuditorId,
-                                      AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.AuditorId).UserName,
-                                      AuditOpinion = x.AuditOpinion,
-                                      States = x.States,
-                                      AttachUrl = APIUpLoadFileService.getFileUrl(x.EquipmentPersonQualityId, null),
-                                  }).FirstOrDefault();
-            }
+                Model.PersonQualityItem getQualityItem = new Model.PersonQualityItem();
+                if (type == "1")
+                {
+                    ////特种作业人员
+                    getQualityItem = (from x in db.QualityAudit_PersonQuality
+                                      join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                      where x.PersonQualityId == dataId || x.PersonId == dataId
+                                      orderby y.CardNo
+                                      select new Model.PersonQualityItem
+                                      {
+                                          PersonQualityId = x.PersonQualityId,
+                                          QualityType = type,
+                                          PersonId = x.PersonId,
+                                          PersonName = y.PersonName,
+                                          CardNo = y.CardNo,
+                                          IdentityCard = y.IdentityCard,
+                                          ProjectId = y.ProjectId,
+                                          UnitId = y.UnitId,
+                                          UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                          UnitCode = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
+                                          WorkPostId = y.WorkPostId,
+                                          WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                          CertificateId = x.CertificateId,
+                                          CertificateName = db.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
+                                          CertificateNo = x.CertificateNo,
+                                          Grade = x.Grade,
+                                          SendUnit = x.SendUnit,
+                                          SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
+                                          LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                          LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
+                                          Remark = x.Remark,
+                                          CompileMan = x.CompileMan,
+                                          CompileManName = db.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
+                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                          AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                          AuditorId = x.AuditorId,
+                                          AuditorName = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                          AuditOpinion = x.AuditOpinion,
+                                          States = x.States,
+                                          AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
+                                      }).FirstOrDefault();
+                }
+                //// 安管人员
+                else if (type == "2")
+                {
+                    getQualityItem = (from x in db.QualityAudit_SafePersonQuality
+                                      join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                      where x.SafePersonQualityId == dataId || x.PersonId == dataId
+                                      orderby y.CardNo
+                                      select new Model.PersonQualityItem
+                                      {
+                                          PersonQualityId = x.SafePersonQualityId,
+                                          QualityType = type,
+                                          PersonId = x.PersonId,
+                                          PersonName = y.PersonName,
+                                          CardNo = y.CardNo,
+                                          IdentityCard = y.IdentityCard,
+                                          ProjectId = y.ProjectId,
+                                          UnitId = y.UnitId,
+                                          UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                          UnitCode = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
+                                          WorkPostId = y.WorkPostId,
+                                          WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                          //CertificateId = x.CertificateId,
+                                          CertificateName = x.CertificateName,
+                                          CertificateNo = x.CertificateNo,
+                                          Grade = x.Grade,
+                                          SendUnit = x.SendUnit,
+                                          SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
+                                          LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                          LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
+                                          Remark = x.Remark,
+                                          CompileMan = x.CompileMan,
+                                          CompileManName = db.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
+                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                          AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                          AuditorId = x.AuditorId,
+                                          AuditorName = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                          AuditOpinion = x.AuditOpinion,
+                                          States = x.States,
+                                          AttachUrl = APIUpLoadFileService.getFileUrl(x.SafePersonQualityId, null),
+                                      }).FirstOrDefault();
+                }
+                else if (type == "3")
+                {
+                    ////特种设备作业人员
+                    getQualityItem = (from x in db.QualityAudit_EquipmentPersonQuality
+                                      join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                      where x.EquipmentPersonQualityId == dataId || x.PersonId == dataId
+                                      orderby y.CardNo
+                                      select new Model.PersonQualityItem
+                                      {
+                                          PersonQualityId = x.EquipmentPersonQualityId,
+                                          QualityType = type,
+                                          PersonId = x.PersonId,
+                                          PersonName = y.PersonName,
+                                          CardNo = y.CardNo,
+                                          IdentityCard = y.IdentityCard,
+                                          ProjectId = y.ProjectId,
+                                          UnitId = y.UnitId,
+                                          UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                          UnitCode = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
+                                          WorkPostId = y.WorkPostId,
+                                          WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                          CertificateId = x.CertificateId,
+                                          CertificateName = db.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
+                                          CertificateNo = x.CertificateNo,
+                                          Grade = x.Grade,
+                                          SendUnit = x.SendUnit,
+                                          SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
+                                          LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                          LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
+                                          Remark = x.Remark,
+                                          CompileMan = x.CompileMan,
+                                          CompileManName = db.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
+                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                          AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                          AuditorId = x.AuditorId,
+                                          AuditorName = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                          AuditOpinion = x.AuditOpinion,
+                                          States = x.States,
+                                          AttachUrl = APIUpLoadFileService.getFileUrl(x.EquipmentPersonQualityId, null),
+                                      }).FirstOrDefault();
+                }
 
-            return getQualityItem;
+                return getQualityItem;
+            }
         }
         #endregion
 
@@ -155,159 +158,162 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonQualityItem> getPersonQualityList(string projectId, string unitId, string qualityType, string states, string unitIdQ)
         {
-            List<Model.PersonQualityItem> getLists = new List<Model.PersonQualityItem>();
-            if (qualityType == "1")
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getLists = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person                            
-                            join z in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals z.WorkPostId
-                            join y in new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality on x.PersonId equals  y.PersonId into jonPerson
-                             from y in jonPerson.DefaultIfEmpty()
-                            where x.ProjectId == projectId && z.PostType == Const.PostType_2 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
-                            orderby x.CardNo
-                            select new Model.PersonQualityItem
-                            {
-                                PersonQualityId = y.PersonQualityId,
-                                QualityType = qualityType,
-                                PersonId = x.PersonId,
-                                PersonName = x.PersonName,
-                                CardNo = x.CardNo,
-                                IdentityCard = x.IdentityCard,
-                                ProjectId = x.ProjectId,
-                                UnitId = x.UnitId,
-                                UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
-                                CertificateId = y.CertificateId,
-                                CertificateName = new Model.SGGLDB(Funs.ConnString).Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
-                                WorkPostId = x.WorkPostId,
-                                WorkPostName = z.WorkPostName,
-                                CertificateNo = y.CertificateNo,
-                                Grade = y.Grade,
-                                SendUnit = y.SendUnit,
-                                SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
-                                LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
-                                LimitDateD = y.LimitDate,
-                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
-                                ApprovalPerson = y.ApprovalPerson,
-                                Remark = y.Remark,
-                                CompileMan = y.CompileMan,
-                                CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == y.CompileMan).UserName,
-                                CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
-                                AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
-                                AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == y.AuditorId).UserName,
-                                AuditOpinion = y.AuditOpinion,
-                                States = y.States,
-                                AttachUrl = APIUpLoadFileService.getFileUrl(y.PersonQualityId, null),
-                            }).ToList();
-            }
-            else if (qualityType == "2")
-            {
-                getLists = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                            join z in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals z.WorkPostId
-                            join y in new Model.SGGLDB(Funs.ConnString).QualityAudit_SafePersonQuality on x.PersonId equals y.PersonId into jonPerson
-                            from y in jonPerson.DefaultIfEmpty()
-                            where x.ProjectId == projectId && z.IsHsse == true && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
-                            orderby y.LimitDate
-                            select new Model.PersonQualityItem
-                            {
-                                PersonQualityId = y.SafePersonQualityId,
-                                QualityType = qualityType,
-                                PersonId = x.PersonId,
-                                PersonName = x.PersonName,
-                                CardNo = x.CardNo,
-                                IdentityCard = x.IdentityCard,
-                                ProjectId = x.ProjectId,
-                                UnitId = x.UnitId,
-                                UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
-                                //CertificateId = y.CertificateId,
-                                CertificateName = y.CertificateName,
-                                WorkPostId = x.WorkPostId,
-                                WorkPostName = z.WorkPostName,
-                                CertificateNo = y.CertificateNo,
-                                Grade = y.Grade,
-                                SendUnit = y.SendUnit,
-                                SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
-                                LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
-                                LimitDateD = y.LimitDate,
-                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
-                                ApprovalPerson = y.ApprovalPerson,
-                                Remark = y.Remark,
-                                CompileMan = y.CompileMan,
-                                CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == y.CompileMan).UserName,
-                                CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
-                                AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
-                                AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == y.AuditorId).UserName,
-                                AuditOpinion = y.AuditOpinion,
-                                States = y.States,
-                                AttachUrl = APIUpLoadFileService.getFileUrl(y.SafePersonQualityId, null),
-                            }).ToList();
-            }
-            else if (qualityType == "3")
-            {
-                getLists = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                            join z in new Model.SGGLDB(Funs.ConnString).Base_WorkPost on x.WorkPostId equals z.WorkPostId
-                            join y in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentPersonQuality on x.PersonId equals y.PersonId into jonPerson
-                            from y in jonPerson.DefaultIfEmpty()
-                            where x.ProjectId == projectId && z.PostType == Const.PostType_5 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
-                            orderby y.LimitDate
-                            select new Model.PersonQualityItem
-                            {
-                                PersonQualityId = y.EquipmentPersonQualityId,
-                                QualityType = qualityType,
-                                PersonId = x.PersonId,
-                                PersonName = x.PersonName,
-                                CardNo = x.CardNo,
-                                IdentityCard = x.IdentityCard,
-                                ProjectId = x.ProjectId,
-                                UnitId = x.UnitId,
-                                UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
-                                CertificateId = y.CertificateId,
-                                CertificateName = new Model.SGGLDB(Funs.ConnString).Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
-                                WorkPostId = x.WorkPostId,
-                                WorkPostName = z.WorkPostName,
-                                CertificateNo = y.CertificateNo,
-                                Grade = y.Grade,
-                                SendUnit = y.SendUnit,
-                                SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
-                                LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
-                                LimitDateD = y.LimitDate,
-                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
-                                ApprovalPerson = y.ApprovalPerson,
-                                Remark = y.Remark,
-                                CompileMan = y.CompileMan,
-                                CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == y.CompileMan).UserName,
-                                CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
-                                AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
-                                AuditorName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == y.AuditorId).UserName,
-                                AuditOpinion = y.AuditOpinion,
-                                States = y.States,
-                                AttachUrl = APIUpLoadFileService.getFileUrl(y.EquipmentPersonQualityId, null),
-                            }).ToList();
-            }
+                List<Model.PersonQualityItem> getLists = new List<Model.PersonQualityItem>();
+                if (qualityType == "1")
+                {
+                    getLists = (from x in db.SitePerson_Person
+                                join z in db.Base_WorkPost on x.WorkPostId equals z.WorkPostId
+                                join y in db.QualityAudit_PersonQuality on x.PersonId equals y.PersonId into jonPerson
+                                from y in jonPerson.DefaultIfEmpty()
+                                where x.ProjectId == projectId && z.PostType == Const.PostType_2 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
+                                orderby x.CardNo
+                                select new Model.PersonQualityItem
+                                {
+                                    PersonQualityId = y.PersonQualityId,
+                                    QualityType = qualityType,
+                                    PersonId = x.PersonId,
+                                    PersonName = x.PersonName,
+                                    CardNo = x.CardNo,
+                                    IdentityCard = x.IdentityCard,
+                                    ProjectId = x.ProjectId,
+                                    UnitId = x.UnitId,
+                                    UnitName = db.Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
+                                    CertificateId = y.CertificateId,
+                                    CertificateName = db.Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
+                                    WorkPostId = x.WorkPostId,
+                                    WorkPostName = z.WorkPostName,
+                                    CertificateNo = y.CertificateNo,
+                                    Grade = y.Grade,
+                                    SendUnit = y.SendUnit,
+                                    SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
+                                    LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
+                                    LimitDateD = y.LimitDate,
+                                    LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
+                                    ApprovalPerson = y.ApprovalPerson,
+                                    Remark = y.Remark,
+                                    CompileMan = y.CompileMan,
+                                    CompileManName = db.Sys_User.First(z => z.UserId == y.CompileMan).UserName,
+                                    CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
+                                    AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
+                                    AuditorName = db.Sys_User.First(z => z.UserId == y.AuditorId).UserName,
+                                    AuditOpinion = y.AuditOpinion,
+                                    States = y.States,
+                                    AttachUrl = APIUpLoadFileService.getFileUrl(y.PersonQualityId, null),
+                                }).ToList();
+                }
+                else if (qualityType == "2")
+                {
+                    getLists = (from x in db.SitePerson_Person
+                                join z in db.Base_WorkPost on x.WorkPostId equals z.WorkPostId
+                                join y in db.QualityAudit_SafePersonQuality on x.PersonId equals y.PersonId into jonPerson
+                                from y in jonPerson.DefaultIfEmpty()
+                                where x.ProjectId == projectId && z.IsHsse == true && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
+                                orderby y.LimitDate
+                                select new Model.PersonQualityItem
+                                {
+                                    PersonQualityId = y.SafePersonQualityId,
+                                    QualityType = qualityType,
+                                    PersonId = x.PersonId,
+                                    PersonName = x.PersonName,
+                                    CardNo = x.CardNo,
+                                    IdentityCard = x.IdentityCard,
+                                    ProjectId = x.ProjectId,
+                                    UnitId = x.UnitId,
+                                    UnitName = db.Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
+                                    //CertificateId = y.CertificateId,
+                                    CertificateName = y.CertificateName,
+                                    WorkPostId = x.WorkPostId,
+                                    WorkPostName = z.WorkPostName,
+                                    CertificateNo = y.CertificateNo,
+                                    Grade = y.Grade,
+                                    SendUnit = y.SendUnit,
+                                    SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
+                                    LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
+                                    LimitDateD = y.LimitDate,
+                                    LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
+                                    ApprovalPerson = y.ApprovalPerson,
+                                    Remark = y.Remark,
+                                    CompileMan = y.CompileMan,
+                                    CompileManName = db.Sys_User.First(z => z.UserId == y.CompileMan).UserName,
+                                    CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
+                                    AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
+                                    AuditorName = db.Sys_User.First(z => z.UserId == y.AuditorId).UserName,
+                                    AuditOpinion = y.AuditOpinion,
+                                    States = y.States,
+                                    AttachUrl = APIUpLoadFileService.getFileUrl(y.SafePersonQualityId, null),
+                                }).ToList();
+                }
+                else if (qualityType == "3")
+                {
+                    getLists = (from x in db.SitePerson_Person
+                                join z in db.Base_WorkPost on x.WorkPostId equals z.WorkPostId
+                                join y in db.QualityAudit_EquipmentPersonQuality on x.PersonId equals y.PersonId into jonPerson
+                                from y in jonPerson.DefaultIfEmpty()
+                                where x.ProjectId == projectId && z.PostType == Const.PostType_5 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
+                                orderby y.LimitDate
+                                select new Model.PersonQualityItem
+                                {
+                                    PersonQualityId = y.EquipmentPersonQualityId,
+                                    QualityType = qualityType,
+                                    PersonId = x.PersonId,
+                                    PersonName = x.PersonName,
+                                    CardNo = x.CardNo,
+                                    IdentityCard = x.IdentityCard,
+                                    ProjectId = x.ProjectId,
+                                    UnitId = x.UnitId,
+                                    UnitName = db.Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
+                                    CertificateId = y.CertificateId,
+                                    CertificateName = db.Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
+                                    WorkPostId = x.WorkPostId,
+                                    WorkPostName = z.WorkPostName,
+                                    CertificateNo = y.CertificateNo,
+                                    Grade = y.Grade,
+                                    SendUnit = y.SendUnit,
+                                    SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
+                                    LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
+                                    LimitDateD = y.LimitDate,
+                                    LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
+                                    ApprovalPerson = y.ApprovalPerson,
+                                    Remark = y.Remark,
+                                    CompileMan = y.CompileMan,
+                                    CompileManName = db.Sys_User.First(z => z.UserId == y.CompileMan).UserName,
+                                    CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
+                                    AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
+                                    AuditorName = db.Sys_User.First(z => z.UserId == y.AuditorId).UserName,
+                                    AuditOpinion = y.AuditOpinion,
+                                    States = y.States,
+                                    AttachUrl = APIUpLoadFileService.getFileUrl(y.EquipmentPersonQualityId, null),
+                                }).ToList();
+                }
 
-            if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
-            {
-                getLists = getLists.Where(x => x.UnitId == unitId).ToList();
+                if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+                {
+                    getLists = getLists.Where(x => x.UnitId == unitId).ToList();
+                }
+                if (!string.IsNullOrEmpty(unitIdQ))
+                {
+                    getLists = getLists.Where(x => x.UnitId == unitIdQ).ToList();
+                }
+                if (states == Const.State_0)
+                {
+                    getLists = getLists.Where(x => x.States == null || x.States == states || x.PersonQualityId == null || x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
+                }
+                else if (states == Const.State_1)
+                {
+                    getLists = getLists.Where(x => x.States == states).ToList();
+                }
+                else if (states == Const.State_2)
+                {
+                    getLists = getLists.Where(x => x.States == states && x.LimitDateD >= DateTime.Now.AddMonths(1)).ToList();
+                }
+                else if (states == Const.State_R)
+                {
+                    getLists = getLists.Where(x => x.States == states).ToList();
+                }
+                return getLists;
             }
-            if (!string.IsNullOrEmpty(unitIdQ))
-            {
-                getLists = getLists.Where(x => x.UnitId == unitIdQ).ToList();
-            }
-            if (states == Const.State_0)
-            {
-                getLists = getLists.Where(x => x.States == null || x.States == states || x.PersonQualityId == null || x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
-            }
-            else if (states == Const.State_1)
-            {
-                getLists = getLists.Where(x => x.States == states).ToList();
-            }
-            else if (states == Const.State_2)
-            {
-                getLists = getLists.Where(x => x.States == states && x.LimitDateD >= DateTime.Now.AddMonths(1)).ToList();
-            }
-            else if (states == Const.State_R)
-            {
-                getLists = getLists.Where(x => x.States == states).ToList();
-            }
-            return getLists;
         }
         #endregion
 

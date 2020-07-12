@@ -21,30 +21,33 @@ namespace BLL
         /// <returns>来文详细</returns>
         public static Model.ReceiveFileManagerItem getReceiveFileManagerById(string receiveFileManagerId, string fileType)
         {
-            var getReceiveFileManagerItem = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager
-                                             where x.ReceiveFileManagerId == receiveFileManagerId && x.FileType == fileType
-                                             select new Model.ReceiveFileManagerItem
-                                             {
-                                                 ReceiveFileManagerId = x.ReceiveFileManagerId,
-                                                 ProjectId = x.ProjectId,
-                                                 ReceiveFileCode = x.ReceiveFileCode,
-                                                 ReceiveFileName = x.ReceiveFileName,
-                                                 Version = x.Version,
-                                                 FileUnitId = x.FileUnitId,
-                                                 FileUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.FileUnitId).UnitName,
-                                                 FileCode = x.FileCode,
-                                                 FilePageNum = x.FilePageNum,
-                                                 GetFileDate = string.Format("{0:yyyy-MM-dd}", x.GetFileDate),
-                                                 SendPersonId = x.SendPersonId,
-                                                 SendPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SendPersonId).UserName,
-                                                 MainContent = x.MainContent,
-                                                 UnitIds = x.UnitIds,
-                                                 UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
-                                                 FileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId, null),
-                                                 ReplyFileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId + "#1", null),
-                                                 Issue = (new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager.FirstOrDefault(y => y.FromId == x.ReceiveFileManagerId) == null) ? false : true,
-                                             }).FirstOrDefault();
-            return getReceiveFileManagerItem;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getReceiveFileManagerItem = (from x in db.InformationProject_ReceiveFileManager
+                                                 where x.ReceiveFileManagerId == receiveFileManagerId && x.FileType == fileType
+                                                 select new Model.ReceiveFileManagerItem
+                                                 {
+                                                     ReceiveFileManagerId = x.ReceiveFileManagerId,
+                                                     ProjectId = x.ProjectId,
+                                                     ReceiveFileCode = x.ReceiveFileCode,
+                                                     ReceiveFileName = x.ReceiveFileName,
+                                                     Version = x.Version,
+                                                     FileUnitId = x.FileUnitId,
+                                                     FileUnitName = db.Base_Unit.First(u => u.UnitId == x.FileUnitId).UnitName,
+                                                     FileCode = x.FileCode,
+                                                     FilePageNum = x.FilePageNum,
+                                                     GetFileDate = string.Format("{0:yyyy-MM-dd}", x.GetFileDate),
+                                                     SendPersonId = x.SendPersonId,
+                                                     SendPersonName = db.Sys_User.First(u => u.UserId == x.SendPersonId).UserName,
+                                                     MainContent = x.MainContent,
+                                                     UnitIds = x.UnitIds,
+                                                     UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
+                                                     FileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId, null),
+                                                     ReplyFileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId + "#1", null),
+                                                     Issue = (db.InformationProject_ReceiveFileManager.FirstOrDefault(y => y.FromId == x.ReceiveFileManagerId) == null) ? false : true,
+                                                 }).FirstOrDefault();
+                return getReceiveFileManagerItem;
+            }
         }
         #endregion
 
@@ -59,52 +62,55 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.ReceiveFileManagerItem> getReceiveFileManagerList(string projectId, string fileType, string unitId, string states)
         {
-            var getReceiveFileManagerItem = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager
-                                             where x.ProjectId == projectId && x.FileType == fileType
-                                             select new Model.ReceiveFileManagerItem
-                                             {
-                                                 ReceiveFileManagerId = x.ReceiveFileManagerId,
-                                                 ProjectId = x.ProjectId,
-                                                 FileType=x.FileType,
-                                                 ReceiveFileCode = x.ReceiveFileCode,
-                                                 ReceiveFileName = x.ReceiveFileName,
-                                                 Version = x.Version,
-                                                 FileUnitId = x.FileUnitId,
-                                                 FileUnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.FileUnitId).UnitName,
-                                                 FileCode = x.FileCode,
-                                                 FilePageNum = x.FilePageNum,
-                                                 GetFileDate = string.Format("{0:yyyy-MM-dd}", x.GetFileDate),
-                                                 SendPersonId = x.SendPersonId,
-                                                 SendPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SendPersonId).UserName,
-                                                 MainContent = x.MainContent,
-                                                 UnitIds = x.UnitIds,
-                                                 UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
-                                                 FileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId, null),
-                                                 ReplyFileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId + "#1", null),
-                                                 States = x.States,
-                                                 Issue= (new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager.FirstOrDefault(y => y.FromId == x.ReceiveFileManagerId) == null) ? false: true,
-                                             }).AsEnumerable();
-            if (getReceiveFileManagerItem.Count() > 0)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(unitId) &&  unitId != Const.UnitId_SEDIN)
+                var getReceiveFileManagerItem = (from x in db.InformationProject_ReceiveFileManager
+                                                 where x.ProjectId == projectId && x.FileType == fileType
+                                                 select new Model.ReceiveFileManagerItem
+                                                 {
+                                                     ReceiveFileManagerId = x.ReceiveFileManagerId,
+                                                     ProjectId = x.ProjectId,
+                                                     FileType = x.FileType,
+                                                     ReceiveFileCode = x.ReceiveFileCode,
+                                                     ReceiveFileName = x.ReceiveFileName,
+                                                     Version = x.Version,
+                                                     FileUnitId = x.FileUnitId,
+                                                     FileUnitName = db.Base_Unit.First(u => u.UnitId == x.FileUnitId).UnitName,
+                                                     FileCode = x.FileCode,
+                                                     FilePageNum = x.FilePageNum,
+                                                     GetFileDate = string.Format("{0:yyyy-MM-dd}", x.GetFileDate),
+                                                     SendPersonId = x.SendPersonId,
+                                                     SendPersonName = db.Sys_User.First(u => u.UserId == x.SendPersonId).UserName,
+                                                     MainContent = x.MainContent,
+                                                     UnitIds = x.UnitIds,
+                                                     UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
+                                                     FileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId, null),
+                                                     ReplyFileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId + "#1", null),
+                                                     States = x.States,
+                                                     Issue = (db.InformationProject_ReceiveFileManager.FirstOrDefault(y => y.FromId == x.ReceiveFileManagerId) == null) ? false : true,
+                                                 }).AsEnumerable();
+                if (getReceiveFileManagerItem.Count() > 0)
                 {
-                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.FileUnitId == unitId || (x.UnitIds != null && x.UnitIds.Contains(unitId)));
+                    if (!string.IsNullOrEmpty(unitId) && unitId != Const.UnitId_SEDIN)
+                    {
+                        getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.FileUnitId == unitId || (x.UnitIds != null && x.UnitIds.Contains(unitId)));
+                    }
+                    if (states == Const.State_0)
+                    {
+                        getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_0 || x.States == null);
+                    }
+                    else if (states == Const.State_1)
+                    {
+                        getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_2 && (x.ReplyFileAttachUrl == null || x.ReplyFileAttachUrl == ""));
+                    }
+                    else if (states == Const.State_2)
+                    {
+                        getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_2 && x.ReplyFileAttachUrl != null && x.ReplyFileAttachUrl != "");
+                    }
                 }
-                if (states == Const.State_0)
-                {
-                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_0 || x.States == null);
-                }
-                else if (states == Const.State_1)
-                {
-                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_2 && (x.ReplyFileAttachUrl == null || x.ReplyFileAttachUrl == ""));
-                }
-                else if (states == Const.State_2)
-                {
-                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_2 && x.ReplyFileAttachUrl != null && x.ReplyFileAttachUrl != "");
-                }
-            }
 
-            return getReceiveFileManagerItem.OrderByDescending(x => x.ReceiveFileCode).ToList();
+                return getReceiveFileManagerItem.OrderByDescending(x => x.ReceiveFileCode).ToList();
+            }
         }
         #endregion
 
@@ -146,7 +152,7 @@ namespace BLL
                 newReceiveFile.States = Const.State_0;
             }
 
-            var updateFile = new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager.FirstOrDefault(x => x.ReceiveFileManagerId == newItem.ReceiveFileManagerId);
+            var updateFile = db.InformationProject_ReceiveFileManager.FirstOrDefault(x => x.ReceiveFileManagerId == newItem.ReceiveFileManagerId);
             if (updateFile == null)
             {
                 newItem.ReceiveFileManagerId = newReceiveFile.ReceiveFileManagerId = SQLHelper.GetNewID();
@@ -182,17 +188,20 @@ namespace BLL
         /// <param name="attachUrl">回执单路径</param>
         public static void SaveReplyFileAttachUrl(string receiveFileManagerId, string replyFileAttachUrl)
         {
-            var getFile = new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager.FirstOrDefault(x => x.ReceiveFileManagerId == receiveFileManagerId);
-            if (getFile != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                ////保存附件
-                if (!string.IsNullOrEmpty(replyFileAttachUrl))
+                var getFile = db.InformationProject_ReceiveFileManager.FirstOrDefault(x => x.ReceiveFileManagerId == receiveFileManagerId);
+                if (getFile != null)
                 {
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(replyFileAttachUrl, 10, null), replyFileAttachUrl, Const.ReceiveFileManagerMenuId, getFile.ReceiveFileManagerId + "#1");
-                }
-                else
-                {
-                    CommonService.DeleteAttachFileById(Const.ReceiveFileManagerMenuId, getFile.ReceiveFileManagerId + "#1");
+                    ////保存附件
+                    if (!string.IsNullOrEmpty(replyFileAttachUrl))
+                    {
+                        UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(replyFileAttachUrl, 10, null), replyFileAttachUrl, Const.ReceiveFileManagerMenuId, getFile.ReceiveFileManagerId + "#1");
+                    }
+                    else
+                    {
+                        CommonService.DeleteAttachFileById(Const.ReceiveFileManagerMenuId, getFile.ReceiveFileManagerId + "#1");
+                    }
                 }
             }
         }

@@ -136,12 +136,15 @@ namespace BLL
         /// <returns>工作日报信息</returns>
         public static List<Model.SitePerson_DayReport> GetDayReportsByCompileDateAndUnitId(DateTime startTime, DateTime endTime, string projectId, string unitId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport
-                    join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
-                    on x.DayReportId equals y.DayReportId
-                    where x.CompileDate >= startTime && x.CompileDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2
-                    && y.UnitId == unitId
-                    select x).Distinct().ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.SitePerson_DayReport
+                        join y in db.SitePerson_DayReportDetail
+                        on x.DayReportId equals y.DayReportId
+                        where x.CompileDate >= startTime && x.CompileDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2
+                        && y.UnitId == unitId
+                        select x).Distinct().ToList();
+            }
         }
     }
 }

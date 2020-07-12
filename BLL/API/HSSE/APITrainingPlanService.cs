@@ -18,30 +18,33 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TrainingPlanItem> getTrainingPlanListByProjectIdTrainTypeIdTrainStates(string projectId, string trainTypeId, string states)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_Plan
-                                where x.ProjectId == projectId && (x.States == states || states == null) && x.TrainTypeId == trainTypeId
-                                orderby x.TrainStartDate descending
-                                select new Model.TrainingPlanItem
-                                {
-                                    PlanId = x.PlanId,
-                                    PlanCode = x.PlanCode,
-                                    PlanName = x.PlanName,
-                                    ProjectId = x.ProjectId,
-                                    TrainTypeId = x.TrainTypeId,
-                                    TrainTypeName = new Model.SGGLDB(Funs.ConnString).Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
-                                    TrainLevelId = x.TrainLevelId,
-                                    TrainLevelName = new Model.SGGLDB(Funs.ConnString).Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
-                                    DesignerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.DesignerId).UserName,
-                                    DesignerId = x.DesignerId,
-                                    DesignerDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DesignerDate),
-                                    TeachHour = x.TeachHour ?? 0,
-                                    TeachAddress = x.TeachAddress,
-                                    TeachMan = x.TeachMan,
-                                    TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
-                                    States = x.States,
-                                    QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Training_Plan
+                                    where x.ProjectId == projectId && (x.States == states || states == null) && x.TrainTypeId == trainTypeId
+                                    orderby x.TrainStartDate descending
+                                    select new Model.TrainingPlanItem
+                                    {
+                                        PlanId = x.PlanId,
+                                        PlanCode = x.PlanCode,
+                                        PlanName = x.PlanName,
+                                        ProjectId = x.ProjectId,
+                                        TrainTypeId = x.TrainTypeId,
+                                        TrainTypeName = db.Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
+                                        TrainLevelId = x.TrainLevelId,
+                                        TrainLevelName = db.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
+                                        DesignerName = db.Sys_User.First(y => y.UserId == x.DesignerId).UserName,
+                                        DesignerId = x.DesignerId,
+                                        DesignerDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DesignerDate),
+                                        TeachHour = x.TeachHour ?? 0,
+                                        TeachAddress = x.TeachAddress,
+                                        TeachMan = x.TeachMan,
+                                        TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
+                                        States = x.States,
+                                        QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -53,34 +56,37 @@ namespace BLL
         /// <returns></returns>
         public static Model.TrainingPlanItem getTrainingPlanByTrainingId(string planId)
         {
-            var getDataLists = from x in new Model.SGGLDB(Funs.ConnString).Training_Plan
-                               where x.PlanId == planId
-                               select new Model.TrainingPlanItem
-                               {
-                                   PlanId = x.PlanId,
-                                   PlanCode = x.PlanCode,
-                                   PlanName = x.PlanName,
-                                   ProjectId = x.ProjectId,
-                                   TrainTypeId = x.TrainTypeId,
-                                   TrainTypeName = new Model.SGGLDB(Funs.ConnString).Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
-                                   TrainLevelId = x.TrainLevelId,
-                                   TrainLevelName = new Model.SGGLDB(Funs.ConnString).Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
-                                   TeachHour = x.TeachHour ?? 0,
-                                   TeachAddress = x.TeachAddress,
-                                   TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
-                                   TeachMan=x.TeachMan,
-                                   UnitIds = x.UnitIds,
-                                   WorkPostId = x.WorkPostId,
-                                   TrainContent = x.TrainContent,
-                                   UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
-                                   WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostId),
-                                   DesignerId = x.DesignerId,
-                                   DesignerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.DesignerId).UserName,
-                                   DesignerDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
-                                   States = x.States,
-                                   QRCodeUrl =x.QRCodeUrl.Replace('\\', '/'),
-                               };
-            return getDataLists.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = from x in db.Training_Plan
+                                   where x.PlanId == planId
+                                   select new Model.TrainingPlanItem
+                                   {
+                                       PlanId = x.PlanId,
+                                       PlanCode = x.PlanCode,
+                                       PlanName = x.PlanName,
+                                       ProjectId = x.ProjectId,
+                                       TrainTypeId = x.TrainTypeId,
+                                       TrainTypeName = db.Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
+                                       TrainLevelId = x.TrainLevelId,
+                                       TrainLevelName = db.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
+                                       TeachHour = x.TeachHour ?? 0,
+                                       TeachAddress = x.TeachAddress,
+                                       TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
+                                       TeachMan = x.TeachMan,
+                                       UnitIds = x.UnitIds,
+                                       WorkPostId = x.WorkPostId,
+                                       TrainContent = x.TrainContent,
+                                       UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
+                                       WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostId),
+                                       DesignerId = x.DesignerId,
+                                       DesignerName = db.Sys_User.First(y => y.UserId == x.DesignerId).UserName,
+                                       DesignerDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
+                                       States = x.States,
+                                       QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
+                                   };
+                return getDataLists.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -92,23 +98,26 @@ namespace BLL
         /// <returns>培训计划人员</returns>
         public static List<Model.TrainingPlanItemItem> getTrainingPlanItemListByTrainingPlanId(string trainingPlanId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_PlanItem
-                                join y in new Model.SGGLDB(Funs.ConnString).Training_CompanyTraining on x.CompanyTrainingId equals y.CompanyTrainingId
-                                join z in new Model.SGGLDB(Funs.ConnString).Training_CompanyTrainingItem on x.CompanyTrainingItemId equals z.CompanyTrainingItemId
-                                where x.PlanId == trainingPlanId
-                                orderby y.CompanyTrainingCode
-                                select new Model.TrainingPlanItemItem
-                                {
-                                    PlanItemId = x.PlanItemId,
-                                    PlanId = x.PlanId,
-                                    CompanyTrainingId = x.CompanyTrainingId,
-                                    CompanyTrainingName = y.CompanyTrainingName,
-                                    CompanyTrainingCode = y.CompanyTrainingCode,
-                                    CompanyTrainingItemId=x.CompanyTrainingItemId,
-                                    CompanyTrainingItemCode=z.CompanyTrainingItemCode,
-                                    CompanyTrainingItemName=z.CompanyTrainingItemName,
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Training_PlanItem
+                                    join y in db.Training_CompanyTraining on x.CompanyTrainingId equals y.CompanyTrainingId
+                                    join z in db.Training_CompanyTrainingItem on x.CompanyTrainingItemId equals z.CompanyTrainingItemId
+                                    where x.PlanId == trainingPlanId
+                                    orderby y.CompanyTrainingCode
+                                    select new Model.TrainingPlanItemItem
+                                    {
+                                        PlanItemId = x.PlanItemId,
+                                        PlanId = x.PlanId,
+                                        CompanyTrainingId = x.CompanyTrainingId,
+                                        CompanyTrainingName = y.CompanyTrainingName,
+                                        CompanyTrainingCode = y.CompanyTrainingCode,
+                                        CompanyTrainingItemId = x.CompanyTrainingItemId,
+                                        CompanyTrainingItemCode = z.CompanyTrainingItemCode,
+                                        CompanyTrainingItemName = z.CompanyTrainingItemName,
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -271,22 +280,25 @@ namespace BLL
         /// </summary>
         public static void AddTraining_Task(List<Model.TrainingTaskItem> trainingTasks, string planId, string projectId)
         {
-            foreach (var item in trainingTasks)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(item.PersonId))
+                foreach (var item in trainingTasks)
                 {
-                    Model.Training_Task newTrainDetail = new Model.Training_Task
+                    if (!string.IsNullOrEmpty(item.PersonId))
                     {
-                        TaskId = SQLHelper.GetNewID(),
-                        ProjectId = projectId,
-                        PlanId = planId,
-                        UserId = item.PersonId,
-                        TaskDate = DateTime.Now,
-                        States = Const.State_0, ////未生成培训教材明细
-                    };
+                        Model.Training_Task newTrainDetail = new Model.Training_Task
+                        {
+                            TaskId = SQLHelper.GetNewID(),
+                            ProjectId = projectId,
+                            PlanId = planId,
+                            UserId = item.PersonId,
+                            TaskDate = DateTime.Now,
+                            States = Const.State_0, ////未生成培训教材明细
+                        };
 
-                    new Model.SGGLDB(Funs.ConnString).Training_Task.InsertOnSubmit(newTrainDetail);
-                    Funs.SubmitChanges();
+                        db.Training_Task.InsertOnSubmit(newTrainDetail);
+                        db.SubmitChanges();
+                    }
                 }
             }
         }
@@ -296,26 +308,29 @@ namespace BLL
         /// </summary>
         public static void AddTraining_PlanItem(List<Model.TrainingPlanItemItem> trainingPlanItems, string planId)
         {
-            foreach (var item in trainingPlanItems)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(item.CompanyTrainingId) || !string.IsNullOrEmpty(item.CompanyTrainingItemId))
-                {
-                    Model.Training_PlanItem newPlanItem = new Model.Training_PlanItem
+                foreach (var item in trainingPlanItems)
+            {
+                    if (!string.IsNullOrEmpty(item.CompanyTrainingId) || !string.IsNullOrEmpty(item.CompanyTrainingItemId))
                     {
-                        PlanItemId = SQLHelper.GetNewID(),
-                        PlanId = planId,
+                        Model.Training_PlanItem newPlanItem = new Model.Training_PlanItem
+                        {
+                            PlanItemId = SQLHelper.GetNewID(),
+                            PlanId = planId,
 
-                    };
-                    if (!string.IsNullOrEmpty(item.CompanyTrainingId))
-                    {
-                        newPlanItem.CompanyTrainingId = item.CompanyTrainingId;
+                        };
+                        if (!string.IsNullOrEmpty(item.CompanyTrainingId))
+                        {
+                            newPlanItem.CompanyTrainingId = item.CompanyTrainingId;
+                        }
+                        if (!string.IsNullOrEmpty(item.CompanyTrainingItemId))
+                        {
+                            newPlanItem.CompanyTrainingItemId = item.CompanyTrainingItemId;
+                        }
+                        db.Training_PlanItem.InsertOnSubmit(newPlanItem);
+                        db.SubmitChanges();
                     }
-                    if (!string.IsNullOrEmpty(item.CompanyTrainingItemId))
-                    {
-                        newPlanItem.CompanyTrainingItemId = item.CompanyTrainingItemId;
-                    }
-                    new Model.SGGLDB(Funs.ConnString).Training_PlanItem.InsertOnSubmit(newPlanItem);
-                    Funs.SubmitChanges();
                 }
             }
         }

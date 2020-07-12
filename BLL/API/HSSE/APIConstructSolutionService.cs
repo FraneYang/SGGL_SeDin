@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EmitMapper;
 
 namespace BLL
 {
@@ -20,29 +17,32 @@ namespace BLL
         /// <returns></returns>
         public static Model.ConstructSolutionItem getConstructSolutionByConstructSolutionId(string constructSolutionId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Solution_ConstructSolution
-                          where x.ConstructSolutionId == constructSolutionId
-                          select new Model.ConstructSolutionItem
-                          {
-                              ConstructSolutionId = x.ConstructSolutionId,
-                              ProjectId = x.ProjectId,
-                              ConstructSolutionCode = x.ConstructSolutionCode,
-                              ConstructSolutionName = x.ConstructSolutionName,
-                              VersionNo = x.VersionNo,
-                              UnitId = x.UnitId,
-                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                              InvestigateType = x.InvestigateType,
-                              InvestigateTypeName = new Model.SGGLDB(Funs.ConnString).Sys_Const.FirstOrDefault(c => c.GroupId == ConstValue.Group_InvestigateType && c.ConstValue == x.InvestigateType).ConstText,
-                              SolutinTypeId = x.SolutinType,
-                              SolutinTypeName = new Model.SGGLDB(Funs.ConnString).Sys_Const.FirstOrDefault(c => c.GroupId == ConstValue.Group_CNProfessional && c.ConstValue == x.SolutinType).ConstText,
-                              FileContents = System.Web.HttpUtility.HtmlDecode(x.FileContents),
-                              CompileManId = x.CompileMan,
-                              CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                              CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                              States = x.States,
-                              AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(z => z.ToKeyId == x.ConstructSolutionId).AttachUrl.Replace('\\', '/'),
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Solution_ConstructSolution
+                              where x.ConstructSolutionId == constructSolutionId
+                              select new Model.ConstructSolutionItem
+                              {
+                                  ConstructSolutionId = x.ConstructSolutionId,
+                                  ProjectId = x.ProjectId,
+                                  ConstructSolutionCode = x.ConstructSolutionCode,
+                                  ConstructSolutionName = x.ConstructSolutionName,
+                                  VersionNo = x.VersionNo,
+                                  UnitId = x.UnitId,
+                                  UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                  InvestigateType = x.InvestigateType,
+                                  InvestigateTypeName = db.Sys_Const.FirstOrDefault(c => c.GroupId == ConstValue.Group_InvestigateType && c.ConstValue == x.InvestigateType).ConstText,
+                                  SolutinTypeId = x.SolutinType,
+                                  SolutinTypeName = db.Sys_Const.FirstOrDefault(c => c.GroupId == ConstValue.Group_CNProfessional && c.ConstValue == x.SolutinType).ConstText,
+                                  FileContents = System.Web.HttpUtility.HtmlDecode(x.FileContents),
+                                  CompileManId = x.CompileMan,
+                                  CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                  States = x.States,
+                                  AttachUrl = db.AttachFile.FirstOrDefault(z => z.ToKeyId == x.ConstructSolutionId).AttachUrl.Replace('\\', '/'),
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
         #endregion        
 
@@ -56,32 +56,35 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.ConstructSolutionItem> getConstructSolutionList(string projectId, string unitId, string strParam, string states)
         {
-            var getConstructSolution = from x in new Model.SGGLDB(Funs.ConnString).Solution_ConstructSolution
-                                       where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                      && (strParam == null || x.ConstructSolutionName.Contains(strParam)) 
-                                      && (states== null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
-                                       orderby x.ConstructSolutionCode descending
-                                       select new Model.ConstructSolutionItem
-                                       {
-                                           ConstructSolutionId = x.ConstructSolutionId,
-                                           ProjectId = x.ProjectId,
-                                           ConstructSolutionCode = x.ConstructSolutionCode,
-                                           ConstructSolutionName = x.ConstructSolutionName,
-                                           VersionNo = x.VersionNo,
-                                           UnitId = x.UnitId,
-                                           UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                                           InvestigateType = x.InvestigateType,
-                                           InvestigateTypeName = new Model.SGGLDB(Funs.ConnString).Sys_Const.FirstOrDefault(c => c.GroupId == ConstValue.Group_InvestigateType && c.ConstValue == x.InvestigateType).ConstText,
-                                           SolutinTypeId = x.SolutinType,
-                                           SolutinTypeName = new Model.SGGLDB(Funs.ConnString).Sys_Const.FirstOrDefault(c => c.GroupId == ConstValue.Group_CNProfessional && c.ConstValue == x.SolutinType).ConstText,
-                                           FileContents = x.FileContents,
-                                           CompileManId = x.CompileMan,
-                                           CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                                           CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                           States = x.States,
-                                           AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(z => z.ToKeyId == x.ConstructSolutionId).AttachUrl.Replace('\\', '/'),
-                                       };
-            return getConstructSolution.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getConstructSolution = from x in db.Solution_ConstructSolution
+                                           where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                          && (strParam == null || x.ConstructSolutionName.Contains(strParam))
+                                          && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
+                                           orderby x.ConstructSolutionCode descending
+                                           select new Model.ConstructSolutionItem
+                                           {
+                                               ConstructSolutionId = x.ConstructSolutionId,
+                                               ProjectId = x.ProjectId,
+                                               ConstructSolutionCode = x.ConstructSolutionCode,
+                                               ConstructSolutionName = x.ConstructSolutionName,
+                                               VersionNo = x.VersionNo,
+                                               UnitId = x.UnitId,
+                                               UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                               InvestigateType = x.InvestigateType,
+                                               InvestigateTypeName = db.Sys_Const.FirstOrDefault(c => c.GroupId == ConstValue.Group_InvestigateType && c.ConstValue == x.InvestigateType).ConstText,
+                                               SolutinTypeId = x.SolutinType,
+                                               SolutinTypeName = db.Sys_Const.FirstOrDefault(c => c.GroupId == ConstValue.Group_CNProfessional && c.ConstValue == x.SolutinType).ConstText,
+                                               FileContents = x.FileContents,
+                                               CompileManId = x.CompileMan,
+                                               CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                               CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                               States = x.States,
+                                               AttachUrl = db.AttachFile.FirstOrDefault(z => z.ToKeyId == x.ConstructSolutionId).AttachUrl.Replace('\\', '/'),
+                                           };
+                return getConstructSolution.ToList();
+            }
         }
         #endregion        
 
@@ -114,7 +117,7 @@ namespace BLL
                 newConstructSolution.States = Const.State_0;
             }
 
-            var updateConstructSolution = new Model.SGGLDB(Funs.ConnString).Solution_ConstructSolution.FirstOrDefault(x => x.ConstructSolutionId == newItem.ConstructSolutionId);
+            var updateConstructSolution = db.Solution_ConstructSolution.FirstOrDefault(x => x.ConstructSolutionId == newItem.ConstructSolutionId);
             if (updateConstructSolution == null)
             {
                 newConstructSolution.CompileDate = DateTime.Now;

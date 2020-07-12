@@ -16,26 +16,29 @@ namespace BLL
         /// <returns></returns>
         public static Model.FlowOperateItem getLicenseFlowOperateById(string flowOperateId)
         {
-            var getDataList = from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
-                              where x.FlowOperateId == flowOperateId
-                              orderby x.SortIndex
-                              select new Model.FlowOperateItem
-                              {
-                                  FlowOperateId = x.FlowOperateId,
-                                  DataId = x.DataId,
-                                  AuditFlowName = x.AuditFlowName,
-                                  SortIndex = x.SortIndex ?? 1,
-                                  RoleIds = x.RoleIds,
-                                  RoleNames = RoleService.getRoleNamesRoleIds(x.RoleIds),
-                                  OperaterId = x.OperaterId,
-                                  OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.OperaterId).UserName,
-                                  OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
-                                  IsAgree = x.IsAgree,
-                                  Opinion = x.Opinion,
-                                  IsFlowEnd = x.IsFlowEnd ?? false,
-                                  IsClosed = x.IsClosed ?? false,
-                              };
-            return getDataList.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataList = from x in db.License_FlowOperate
+                                  where x.FlowOperateId == flowOperateId
+                                  orderby x.SortIndex
+                                  select new Model.FlowOperateItem
+                                  {
+                                      FlowOperateId = x.FlowOperateId,
+                                      DataId = x.DataId,
+                                      AuditFlowName = x.AuditFlowName,
+                                      SortIndex = x.SortIndex ?? 1,
+                                      RoleIds = x.RoleIds,
+                                      RoleNames = RoleService.getRoleNamesRoleIds(x.RoleIds),
+                                      OperaterId = x.OperaterId,
+                                      OperaterName = db.Sys_User.First(u => u.UserId == x.OperaterId).UserName,
+                                      OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
+                                      IsAgree = x.IsAgree,
+                                      Opinion = x.Opinion,
+                                      IsFlowEnd = x.IsFlowEnd ?? false,
+                                      IsClosed = x.IsClosed ?? false,
+                                  };
+                return getDataList.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -47,26 +50,29 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FlowOperateItem> getLicenseFlowOperateList(string dataId)
         {
-            var getDataList = from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
-                              where x.DataId == dataId
-                              orderby x.SortIndex
-                              select new Model.FlowOperateItem
-                              {
-                                  FlowOperateId = x.FlowOperateId,
-                                  DataId = x.DataId,
-                                  AuditFlowName=x.AuditFlowName,
-                                  SortIndex = x.SortIndex ?? 1,
-                                  RoleIds = x.RoleIds,
-                                  RoleNames = RoleService.getRoleNamesRoleIds(x.RoleIds),
-                                  OperaterId = x.OperaterId,
-                                  OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.OperaterId).UserName,
-                                  OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
-                                  IsAgree = x.IsAgree,
-                                  Opinion = x.Opinion,
-                                  IsFlowEnd = x.IsFlowEnd ?? false,
-                                  IsClosed = x.IsClosed ?? false,
-                              };
-            return getDataList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataList = from x in db.License_FlowOperate
+                                  where x.DataId == dataId
+                                  orderby x.SortIndex
+                                  select new Model.FlowOperateItem
+                                  {
+                                      FlowOperateId = x.FlowOperateId,
+                                      DataId = x.DataId,
+                                      AuditFlowName = x.AuditFlowName,
+                                      SortIndex = x.SortIndex ?? 1,
+                                      RoleIds = x.RoleIds,
+                                      RoleNames = RoleService.getRoleNamesRoleIds(x.RoleIds),
+                                      OperaterId = x.OperaterId,
+                                      OperaterName = db.Sys_User.First(u => u.UserId == x.OperaterId).UserName,
+                                      OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
+                                      IsAgree = x.IsAgree,
+                                      Opinion = x.Opinion,
+                                      IsFlowEnd = x.IsFlowEnd ?? false,
+                                      IsClosed = x.IsClosed ?? false,
+                                  };
+                return getDataList.ToList();
+            }
         }
         #endregion
 
@@ -78,22 +84,25 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FlowOperateItem> getLicenseFlowOperateItemList(string flowOperateId)
         {
-            var getDataList = from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperateItem
-                              join y in new Model.SGGLDB(Funs.ConnString).License_FlowOperate on x.FlowOperateId equals y.FlowOperateId
-                              where x.FlowOperateId == flowOperateId
-                              orderby y.SortIndex, x.OperaterTime
-                              select new Model.FlowOperateItem
-                              {
-                                  FlowOperateId = x.FlowOperateId,                                 
-                                  AuditFlowName = y.AuditFlowName,
-                                  SortIndex = y.SortIndex ?? 1,
-                                  OperaterId = x.OperaterId,
-                                  OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.OperaterId).UserName,
-                                  OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
-                                  IsAgree = x.IsAgree,
-                                  Opinion = x.Opinion,
-                              };
-            return getDataList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataList = from x in db.License_FlowOperateItem
+                                  join y in db.License_FlowOperate on x.FlowOperateId equals y.FlowOperateId
+                                  where x.FlowOperateId == flowOperateId
+                                  orderby y.SortIndex, x.OperaterTime
+                                  select new Model.FlowOperateItem
+                                  {
+                                      FlowOperateId = x.FlowOperateId,
+                                      AuditFlowName = y.AuditFlowName,
+                                      SortIndex = y.SortIndex ?? 1,
+                                      OperaterId = x.OperaterId,
+                                      OperaterName = db.Sys_User.First(u => u.UserId == x.OperaterId).UserName,
+                                      OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
+                                      IsAgree = x.IsAgree,
+                                      Opinion = x.Opinion,
+                                  };
+                return getDataList.ToList();
+            }
         }
         #endregion
 

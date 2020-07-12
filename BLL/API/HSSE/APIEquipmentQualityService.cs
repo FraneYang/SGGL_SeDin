@@ -17,33 +17,36 @@ namespace BLL
         /// <returns></returns>
         public static Model.EquipmentQualityItem getEquipmentQualityByEquipmentQualityIdFactoryCode(string equipmentQualityId)
         {
-            var getEquipmentQuality = (from x in new Model.SGGLDB(Funs.ConnString).View_QualityAudit_EquipmentQuality
-                                      where x.EquipmentQualityId == equipmentQualityId || x.FactoryCode == equipmentQualityId
-                                      select new Model.EquipmentQualityItem
-                                      {
-                                          EquipmentQualityId =x.EquipmentQualityId,
-                                          ProjectId=  x.ProjectId,
-                                          EquipmentQualityCode=x.EquipmentQualityCode,
-                                          UnitId= x.UnitId,
-                                          UnitName= x.UnitName,
-                                          SpecialEquipmentName=x.SpecialEquipmentName,
-                                          EquipmentQualityName=x.EquipmentQualityName,
-                                          FactoryCode=x.FactoryCode,
-                                          CertificateCode=x.CertificateCode,
-                                          CheckDate = string.Format("{0:yyyy-MM-dd}", x.CheckDate),
-                                          LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                          InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
-                                          OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
-                                          ApprovalPerson = x.ApprovalPerson,
-                                          CarNum = x.CarNum,
-                                          SizeModel =x.SizeModel,
-                                          Remark = x.Remark,
-                                          CompileManId = x.CompileMan,
-                                          CompileManName = x.CompileManName,
-                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                          AttachUrl = x.AttachUrl.Replace('\\', '/')
-                                      });
-            return getEquipmentQuality.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getEquipmentQuality = (from x in db.View_QualityAudit_EquipmentQuality
+                                           where x.EquipmentQualityId == equipmentQualityId || x.FactoryCode == equipmentQualityId
+                                           select new Model.EquipmentQualityItem
+                                           {
+                                               EquipmentQualityId = x.EquipmentQualityId,
+                                               ProjectId = x.ProjectId,
+                                               EquipmentQualityCode = x.EquipmentQualityCode,
+                                               UnitId = x.UnitId,
+                                               UnitName = x.UnitName,
+                                               SpecialEquipmentName = x.SpecialEquipmentName,
+                                               EquipmentQualityName = x.EquipmentQualityName,
+                                               FactoryCode = x.FactoryCode,
+                                               CertificateCode = x.CertificateCode,
+                                               CheckDate = string.Format("{0:yyyy-MM-dd}", x.CheckDate),
+                                               LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                               InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
+                                               OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
+                                               ApprovalPerson = x.ApprovalPerson,
+                                               CarNum = x.CarNum,
+                                               SizeModel = x.SizeModel,
+                                               Remark = x.Remark,
+                                               CompileManId = x.CompileMan,
+                                               CompileManName = x.CompileManName,
+                                               CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                               AttachUrl = x.AttachUrl.Replace('\\', '/')
+                                           });
+                return getEquipmentQuality.FirstOrDefault();
+            }
         }
         #endregion        
 
@@ -57,35 +60,38 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.EquipmentQualityItem> getEquipmentQualityList(string projectId, string unitId, string strParam)
         {
-            var getEquipmentQuality = from x in new Model.SGGLDB(Funs.ConnString).View_QualityAudit_EquipmentQuality
-                                      where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                      && (strParam == null || x.FactoryCode.Contains(strParam) || x.SpecialEquipmentName.Contains(strParam) || x.EquipmentQualityName.Contains(strParam))
-                                      orderby x.EquipmentQualityCode descending
-                                      select new Model.EquipmentQualityItem
-                                      {
-                                          EquipmentQualityId = x.EquipmentQualityId,
-                                          ProjectId = x.ProjectId,
-                                          EquipmentQualityCode = x.EquipmentQualityCode,
-                                          UnitId = x.UnitId,
-                                          UnitName = x.UnitName,
-                                          SpecialEquipmentName = x.SpecialEquipmentName,
-                                          EquipmentQualityName = x.EquipmentQualityName,
-                                          FactoryCode = x.FactoryCode,
-                                          CertificateCode = x.CertificateCode,
-                                          CheckDate = string.Format("{0:yyyy-MM-dd}", x.CheckDate),
-                                          LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                          InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
-                                          OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
-                                          ApprovalPerson = x.ApprovalPerson,
-                                          CarNum = x.CarNum,
-                                          Remark = x.Remark,
-                                          SizeModel = x.SizeModel,
-                                          CompileManId = x.CompileMan,
-                                          CompileManName = x.CompileManName,
-                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                          AttachUrl = x.AttachUrl.Replace('\\', '/')
-                                      };
-            return getEquipmentQuality.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getEquipmentQuality = from x in db.View_QualityAudit_EquipmentQuality
+                                          where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                          && (strParam == null || x.FactoryCode.Contains(strParam) || x.SpecialEquipmentName.Contains(strParam) || x.EquipmentQualityName.Contains(strParam))
+                                          orderby x.EquipmentQualityCode descending
+                                          select new Model.EquipmentQualityItem
+                                          {
+                                              EquipmentQualityId = x.EquipmentQualityId,
+                                              ProjectId = x.ProjectId,
+                                              EquipmentQualityCode = x.EquipmentQualityCode,
+                                              UnitId = x.UnitId,
+                                              UnitName = x.UnitName,
+                                              SpecialEquipmentName = x.SpecialEquipmentName,
+                                              EquipmentQualityName = x.EquipmentQualityName,
+                                              FactoryCode = x.FactoryCode,
+                                              CertificateCode = x.CertificateCode,
+                                              CheckDate = string.Format("{0:yyyy-MM-dd}", x.CheckDate),
+                                              LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                              InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
+                                              OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
+                                              ApprovalPerson = x.ApprovalPerson,
+                                              CarNum = x.CarNum,
+                                              Remark = x.Remark,
+                                              SizeModel = x.SizeModel,
+                                              CompileManId = x.CompileMan,
+                                              CompileManName = x.CompileManName,
+                                              CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                              AttachUrl = x.AttachUrl.Replace('\\', '/')
+                                          };
+                return getEquipmentQuality.ToList();
+            }
         }
         #endregion        
 
@@ -119,7 +125,7 @@ namespace BLL
                 CompileMan = newItem.CompileManId,
             };
             
-            var updateEquipmentQuality = new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQuality.FirstOrDefault(x => x.EquipmentQualityId == newItem.EquipmentQualityId);
+            var updateEquipmentQuality = db.QualityAudit_EquipmentQuality.FirstOrDefault(x => x.EquipmentQualityId == newItem.EquipmentQualityId);
             if (updateEquipmentQuality == null)
             {
                 newEquipmentQuality.CompileDate = DateTime.Now;

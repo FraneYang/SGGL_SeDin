@@ -48,11 +48,16 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_PersonQuality 
-                     join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                     on x.PersonId equals y.PersonId
-                     where y.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).Distinct().ToList();
-            return q.Count();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var q = (from x in db.QualityAudit_PersonQuality
+                         join y in db.SitePerson_Person
+                         on x.PersonId equals y.PersonId
+                         where y.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime
+                         orderby x.AuditDate
+                         select x).Distinct().ToList();
+                return q.Count();
+            }
         }
 
         /// <summary>

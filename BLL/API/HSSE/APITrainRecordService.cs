@@ -18,24 +18,27 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TrainRecordItem> getTrainRecordListByProjectIdTrainTypeIdTrainStates(string projectId, string trainTypeId, string trainStates)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord
-                                where x.ProjectId == projectId  && x.TrainTypeId == trainTypeId
-                                orderby x.TrainStartDate descending
-                                select new Model.TrainRecordItem
-                                {
-                                    TrainRecordId = x.TrainingId,
-                                    TrainingCode = x.TrainingCode,
-                                    TrainTitle = x.TrainTitle,
-                                    ProjectId = x.ProjectId,
-                                    TrainTypeId = x.TrainTypeId,
-                                    TrainTypeName = new Model.SGGLDB(Funs.ConnString).Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
-                                    TrainLevelId = x.TrainLevelId,
-                                    TrainLevelName = new Model.SGGLDB(Funs.ConnString).Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
-                                    TeachHour = x.TeachHour ?? 0,
-                                    TeachAddress = x.TeachAddress,
-                                    TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.EduTrain_TrainRecord
+                                    where x.ProjectId == projectId && x.TrainTypeId == trainTypeId
+                                    orderby x.TrainStartDate descending
+                                    select new Model.TrainRecordItem
+                                    {
+                                        TrainRecordId = x.TrainingId,
+                                        TrainingCode = x.TrainingCode,
+                                        TrainTitle = x.TrainTitle,
+                                        ProjectId = x.ProjectId,
+                                        TrainTypeId = x.TrainTypeId,
+                                        TrainTypeName = db.Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
+                                        TrainLevelId = x.TrainLevelId,
+                                        TrainLevelName = db.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
+                                        TeachHour = x.TeachHour ?? 0,
+                                        TeachAddress = x.TeachAddress,
+                                        TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -47,29 +50,32 @@ namespace BLL
         /// <returns></returns>
         public static Model.TrainRecordItem getTrainRecordByTrainingId(string trainRecordId)
         {
-            var getDataLists = from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord
-                               where x.TrainingId == trainRecordId
-                               select new Model.TrainRecordItem
-                               {
-                                   TrainRecordId = x.TrainingId,
-                                   TrainingCode = x.TrainingCode,
-                                   TrainTitle = x.TrainTitle,
-                                   ProjectId = x.ProjectId,
-                                   TrainTypeId = x.TrainTypeId,
-                                   TrainTypeName = new Model.SGGLDB(Funs.ConnString).Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
-                                   TrainLevelId = x.TrainLevelId,
-                                   TrainLevelName = new Model.SGGLDB(Funs.ConnString).Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
-                                   TeachHour = x.TeachHour ?? 0,
-                                   TeachAddress = x.TeachAddress,
-                                   TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
-                                   UnitIds = x.UnitIds,
-                                   WorkPostIds = x.WorkPostIds,
-                                   TrainContent = x.TrainContent,
-                                   AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.First(y => y.ToKeyId == x.TrainingId).AttachUrl.Replace('\\', '/'),
-                                   UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
-                                   WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostIds),
-                               };
-            return getDataLists.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = from x in db.EduTrain_TrainRecord
+                                   where x.TrainingId == trainRecordId
+                                   select new Model.TrainRecordItem
+                                   {
+                                       TrainRecordId = x.TrainingId,
+                                       TrainingCode = x.TrainingCode,
+                                       TrainTitle = x.TrainTitle,
+                                       ProjectId = x.ProjectId,
+                                       TrainTypeId = x.TrainTypeId,
+                                       TrainTypeName = db.Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
+                                       TrainLevelId = x.TrainLevelId,
+                                       TrainLevelName = db.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
+                                       TeachHour = x.TeachHour ?? 0,
+                                       TeachAddress = x.TeachAddress,
+                                       TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
+                                       UnitIds = x.UnitIds,
+                                       WorkPostIds = x.WorkPostIds,
+                                       TrainContent = x.TrainContent,
+                                       AttachUrl = db.AttachFile.First(y => y.ToKeyId == x.TrainingId).AttachUrl.Replace('\\', '/'),
+                                       UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
+                                       WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostIds),
+                                   };
+                return getDataLists.FirstOrDefault();
+            }
         }
         #endregion
 

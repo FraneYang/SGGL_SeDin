@@ -24,12 +24,15 @@ namespace BLL
 
         public static List<Model.CostGoods_CostSmallDetailItem> GetCostDetailsByUnitId(string projectId,string unitId, DateTime? startTime, DateTime? endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-                    join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
-                    join z in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
-                    on y.CostSmallDetailId equals z.DataId
-                    where y.ProjectId == projectId && y.UnitId == unitId && y.States == BLL.Const.State_2 && z.OperaterTime >= startTime && z.OperaterTime < endTime
-                    select x).Distinct().ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.CostGoods_CostSmallDetailItem
+                        join y in db.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                        join z in db.Sys_FlowOperate
+                        on y.CostSmallDetailId equals z.DataId
+                        where y.ProjectId == projectId && y.UnitId == unitId && y.States == BLL.Const.State_2 && z.OperaterTime >= startTime && z.OperaterTime < endTime
+                        select x).Distinct().ToList();
+            }
         }
 
         /// <summary>
@@ -42,25 +45,28 @@ namespace BLL
         /// <returns></returns>
         public static decimal GetCostDetailsByUnitIdAndCostType(string projectId, string unitId, DateTime startTime, DateTime endTime, string costType)
         {
-            decimal cost = 0;
-            var q = from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-                    join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
-                    join z in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
-                    on y.CostSmallDetailId equals z.DataId
-                    where y.ProjectId == projectId && y.UnitId == unitId && y.States == BLL.Const.State_2 && z.State == BLL.Const.State_2 && z.OperaterTime >= startTime && z.OperaterTime < endTime && x.CostType.Contains(costType)
-                    select x.CostMoney;
-            foreach (var item in q)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (item != null)
+                decimal cost = 0;
+                var q = from x in db.CostGoods_CostSmallDetailItem
+                        join y in db.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                        join z in db.Sys_FlowOperate
+                        on y.CostSmallDetailId equals z.DataId
+                        where y.ProjectId == projectId && y.UnitId == unitId && y.States == BLL.Const.State_2 && z.State == BLL.Const.State_2 && z.OperaterTime >= startTime && z.OperaterTime < endTime && x.CostType.Contains(costType)
+                        select x.CostMoney;
+                foreach (var item in q)
                 {
-                    cost += Funs.GetNewDecimalOrZero(item.ToString());
+                    if (item != null)
+                    {
+                        cost += Funs.GetNewDecimalOrZero(item.ToString());
+                    }
                 }
+                return cost;
+                //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
+                //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
+                //        select x.CostMoney ?? 0).Sum();
             }
-            return cost;
-            //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-            //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
-            //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
-            //        select x.CostMoney ?? 0).Sum();
         }
 
         /// <summary>
@@ -73,25 +79,28 @@ namespace BLL
         /// <returns></returns>
         public static decimal GetCostDetailsByCostType(string projectId, DateTime startTime, DateTime endTime, string costType)
         {
-            decimal cost = 0;
-            var q = from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-                    join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
-                    join z in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
-                    on y.CostSmallDetailId equals z.DataId
-                    where y.ProjectId == projectId && y.States == BLL.Const.State_2 && z.State == BLL.Const.State_2 && z.OperaterTime >= startTime && z.OperaterTime < endTime && x.CostType.Contains(costType)
-                    select x.CostMoney;
-            foreach (var item in q)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (item != null)
+                decimal cost = 0;
+                var q = from x in db.CostGoods_CostSmallDetailItem
+                        join y in db.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                        join z in db.Sys_FlowOperate
+                        on y.CostSmallDetailId equals z.DataId
+                        where y.ProjectId == projectId && y.States == BLL.Const.State_2 && z.State == BLL.Const.State_2 && z.OperaterTime >= startTime && z.OperaterTime < endTime && x.CostType.Contains(costType)
+                        select x.CostMoney;
+                foreach (var item in q)
                 {
-                    cost += Funs.GetNewDecimalOrZero(item.ToString());
+                    if (item != null)
+                    {
+                        cost += Funs.GetNewDecimalOrZero(item.ToString());
+                    }
                 }
+                return cost;
+                //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
+                //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
+                //        select x.CostMoney ?? 0).Sum();
             }
-            return cost;
-            //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-            //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
-            //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
-            //        select x.CostMoney ?? 0).Sum();
         }
 
         /// <summary>
@@ -104,25 +113,28 @@ namespace BLL
         /// <returns></returns>
         public static decimal GetTotalCostDetailsByCostType(string projectId, string costType)
         {
-            decimal cost = 0;
-            var q = from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-                    join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
-                    join z in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
-                    on y.CostSmallDetailId equals z.DataId
-                    where y.ProjectId == projectId && y.States == BLL.Const.State_2 && z.State == BLL.Const.State_2 && x.CostType.Contains(costType)
-                    select x.CostMoney;
-            foreach (var item in q)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (item != null)
+                decimal cost = 0;
+                var q = from x in db.CostGoods_CostSmallDetailItem
+                        join y in db.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                        join z in db.Sys_FlowOperate
+                        on y.CostSmallDetailId equals z.DataId
+                        where y.ProjectId == projectId && y.States == BLL.Const.State_2 && z.State == BLL.Const.State_2 && x.CostType.Contains(costType)
+                        select x.CostMoney;
+                foreach (var item in q)
                 {
-                    cost += Funs.GetNewDecimalOrZero(item.ToString());
+                    if (item != null)
+                    {
+                        cost += Funs.GetNewDecimalOrZero(item.ToString());
+                    }
                 }
+                return cost;
+                //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
+                //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
+                //        select x.CostMoney ?? 0).Sum();
             }
-            return cost;
-            //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-            //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
-            //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
-            //        select x.CostMoney ?? 0).Sum();
         }
 
         /// <summary>

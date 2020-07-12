@@ -304,16 +304,18 @@
         /// <returns></returns>
         public static string GetProjectManagerName(string projectId)
         {
-            string name = string.Empty;
-            if (projectId != null)
-            {
-                name = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.ProjectId equals y.ProjectId
-                        join z in new Model.SGGLDB(Funs.ConnString).Sys_User on y.UserId equals z.UserId
-                        where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.ProjectManager)
-                        select z.UserName).FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                string name = string.Empty;
+                if (projectId != null)
+                {
+                    name = (from x in db.Base_Project
+                            join y in db.Project_ProjectUser on x.ProjectId equals y.ProjectId
+                            join z in db.Sys_User on y.UserId equals z.UserId
+                            where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.ProjectManager)
+                            select z.UserName).FirstOrDefault();
+                }
+                return name;
             }
-            return name;
         }
 
         /// <summary>
@@ -323,16 +325,18 @@
         /// <returns></returns>
         public static string GetConstructionManagerName(string projectId)
         {
-            string name = string.Empty;
-            if (projectId != null)
-            {
-                name = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.ProjectId equals y.ProjectId
-                        join z in new Model.SGGLDB(Funs.ConnString).Sys_User on y.UserId equals z.UserId
-                        where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.ConstructionManager)
-                        select z.UserName).FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                string name = string.Empty;
+                if (projectId != null)
+                {
+                    name = (from x in db.Base_Project
+                            join y in db.Project_ProjectUser on x.ProjectId equals y.ProjectId
+                            join z in db.Sys_User on y.UserId equals z.UserId
+                            where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.ConstructionManager)
+                            select z.UserName).FirstOrDefault();
+                }
+                return name;
             }
-            return name;
         }
 
         /// <summary>
@@ -342,16 +346,18 @@
         /// <returns></returns>
         public static string GetHSSEManagerName(string projectId)
         {
-            string name = string.Empty;
-            if (projectId != null)
-            {
-                name = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
-                        join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser on x.ProjectId equals y.ProjectId
-                        join z in new Model.SGGLDB(Funs.ConnString).Sys_User on y.UserId equals z.UserId
-                        where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.HSSEManager)
-                        select z.UserName).FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                string name = string.Empty;
+                if (projectId != null)
+                {
+                    name = (from x in db.Base_Project
+                            join y in db.Project_ProjectUser on x.ProjectId equals y.ProjectId
+                            join z in db.Sys_User on y.UserId equals z.UserId
+                            where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.HSSEManager)
+                            select z.UserName).FirstOrDefault();
+                }
+                return name;
             }
-            return name;
         }
         #endregion
     }

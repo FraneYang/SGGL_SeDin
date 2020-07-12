@@ -545,28 +545,31 @@ namespace FineUIPro.Web.HSSE.InformationProject
         /// <param name="endTime"></param>
         private void GetData(DateTime startTime, DateTime endTime)
         {
-            decimal sumPersonWorkTimeTotal = 0;
-            //获取当期人工时日报
-            List<Model.SitePerson_DayReport> dayReports = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(startTime, endTime, this.ProjectId);
-            //完成人工时（当期）
-            sumPersonWorkTimeTotal = (from x in dayReports
-                                      join y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
-                                   on x.DayReportId equals y.DayReportId
-                                      select y.PersonWorkTime ?? 0).Sum();
-            //总投入工时数
-            this.txtTotalInWorkHours.Text = sumPersonWorkTimeTotal.ToString();
-            //总损失工时数
-            var accidentReports = BLL.AccidentReportService.GetAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
-            this.txtTotalOutWorkHours.Text = accidentReports.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
-            //百万工时损失率
-            if (sumPersonWorkTimeTotal != 0)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                decimal totalOutWorkHours = Funs.GetNewDecimalOrZero(this.txtTotalOutWorkHours.Text.Trim());
-                this.txtWorkHoursLossRate.Text = decimal.Round((totalOutWorkHours * 1000000 / sumPersonWorkTimeTotal), 2).ToString();
-            }
-            else
-            {
-                this.txtWorkHoursLossRate.Text = "0";
+                decimal sumPersonWorkTimeTotal = 0;
+                //获取当期人工时日报
+                List<Model.SitePerson_DayReport> dayReports = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(startTime, endTime, this.ProjectId);
+                //完成人工时（当期）
+                sumPersonWorkTimeTotal = (from x in dayReports
+                                          join y in db.SitePerson_DayReportDetail
+                                       on x.DayReportId equals y.DayReportId
+                                          select y.PersonWorkTime ?? 0).Sum();
+                //总投入工时数
+                this.txtTotalInWorkHours.Text = sumPersonWorkTimeTotal.ToString();
+                //总损失工时数
+                var accidentReports = BLL.AccidentReportService.GetAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
+                this.txtTotalOutWorkHours.Text = accidentReports.Sum(x => x.WorkingHoursLoss ?? 0).ToString();
+                //百万工时损失率
+                if (sumPersonWorkTimeTotal != 0)
+                {
+                    decimal totalOutWorkHours = Funs.GetNewDecimalOrZero(this.txtTotalOutWorkHours.Text.Trim());
+                    this.txtWorkHoursLossRate.Text = decimal.Round((totalOutWorkHours * 1000000 / sumPersonWorkTimeTotal), 2).ToString();
+                }
+                else
+                {
+                    this.txtWorkHoursLossRate.Text = "0";
+                }
             }
         }
         #endregion

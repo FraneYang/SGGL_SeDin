@@ -16,19 +16,22 @@ namespace BLL
         /// <returns></returns>
         public static Model.LicenseItem getLicenseItemById(string licenseItemId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).License_LicenseItem
-                          where x.LicenseItemId == licenseItemId
-                          select new Model.LicenseItem
-                          {
-                              LicenseItemId = x.LicenseItemId,
-                              DataId = x.DataId,
-                              SortIndex = x.SortIndex ?? 1,
-                              SafetyMeasures = x.SafetyMeasures,
-                              IsUsed = x.IsUsed ?? true,
-                              ConfirmManId = x.ConfirmManId,
-                              ConfirmManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ConfirmManId).UserName,
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.License_LicenseItem
+                              where x.LicenseItemId == licenseItemId
+                              select new Model.LicenseItem
+                              {
+                                  LicenseItemId = x.LicenseItemId,
+                                  DataId = x.DataId,
+                                  SortIndex = x.SortIndex ?? 1,
+                                  SafetyMeasures = x.SafetyMeasures,
+                                  IsUsed = x.IsUsed ?? true,
+                                  ConfirmManId = x.ConfirmManId,
+                                  ConfirmManName = db.Sys_User.First(u => u.UserId == x.ConfirmManId).UserName,
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
         #endregion        
 
@@ -40,20 +43,23 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.LicenseItem> getLicenseItemList(string dataId)
         {
-            var getDataList = from x in new Model.SGGLDB(Funs.ConnString).License_LicenseItem
-                              where x.DataId == dataId
-                              orderby x.SortIndex
-                              select new Model.LicenseItem
-                              {
-                                  LicenseItemId = x.LicenseItemId,
-                                  DataId = x.DataId,
-                                  SortIndex = x.SortIndex ?? 1,
-                                  SafetyMeasures = x.SafetyMeasures,
-                                  IsUsed = x.IsUsed ?? true,
-                                  ConfirmManId = x.ConfirmManId,
-                                  ConfirmManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ConfirmManId).UserName,
-                              };
-            return getDataList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataList = from x in db.License_LicenseItem
+                                  where x.DataId == dataId
+                                  orderby x.SortIndex
+                                  select new Model.LicenseItem
+                                  {
+                                      LicenseItemId = x.LicenseItemId,
+                                      DataId = x.DataId,
+                                      SortIndex = x.SortIndex ?? 1,
+                                      SafetyMeasures = x.SafetyMeasures,
+                                      IsUsed = x.IsUsed ?? true,
+                                      ConfirmManId = x.ConfirmManId,
+                                      ConfirmManName = db.Sys_User.First(u => u.UserId == x.ConfirmManId).UserName,
+                                  };
+                return getDataList.ToList();
+            }
         }
         #endregion
 

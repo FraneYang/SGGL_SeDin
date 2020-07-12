@@ -61,8 +61,9 @@ namespace WebAPI.Controllers
                         //当前周的范围
                         DateTime retStartDay = DateTime.Now.AddDays(-(weekDay - 1)).AddDays(-1);
                         DateTime retEndDay = DateTime.Now.AddDays(6 - weekDay).AddDays(1);
-                        var getHazardItems = from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardSelectedItem
-                                             join y in new Model.SGGLDB(Funs.ConnString).Hazard_HazardList on x.HazardListId equals y.HazardListId
+                        Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+                        var getHazardItems = from x in db.Hazard_HazardSelectedItem
+                                             join y in db.Hazard_HazardList on x.HazardListId equals y.HazardListId
                                              where y.ProjectId == projectId && y.CompileDate > retStartDay && y.CompileDate < retEndDay
                                              select x;
                         if (getHazardItems.Count() > 0)
@@ -85,8 +86,8 @@ namespace WebAPI.Controllers
                         }
 
                         //// 大型及特种设备
-                        var getEquipments = from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQuality
-                                            join y in new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment on x.SpecialEquipmentId equals y.SpecialEquipmentId
+                        var getEquipments = from x in db.QualityAudit_EquipmentQuality
+                                            join y in db.Base_SpecialEquipment on x.SpecialEquipmentId equals y.SpecialEquipmentId
                                             where x.ProjectId == projectId && (y.SpecialEquipmentType == "1" || y.SpecialEquipmentType == "2" || y.SpecialEquipmentType == "3")
                                             && (!x.OutDate.HasValue || x.OutDate > DateTime.Now)
                                             select x;

@@ -255,8 +255,9 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getLists = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_Picture
-                                join y in new Model.SGGLDB(Funs.ConnString).AttachFile on x.PictureId equals y.ToKeyId
+                Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+                var getLists = (from x in db.InformationProject_Picture
+                                join y in db.AttachFile on x.PictureId equals y.ToKeyId
                                 where x.States == Const.State_2 && y.AttachUrl != null
                                 orderby x.UploadDate descending
                                 select new Model.BaseInfoItem { BaseInfoId = x.PictureId, BaseInfoName = x.Title, ImageUrl = y.AttachUrl.Replace('\\', '/') }).Take(5).ToList();

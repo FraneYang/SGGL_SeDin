@@ -158,12 +158,14 @@ namespace BLL
         /// <param name="SpotCheckCode"></param>
         public static List<Model.Check_SpotCheckDetail> GetSpotCheckDetails(string SpotCheckCode)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail
-                    join y in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle
-                    on x.ControlItemAndCycleId equals y.ControlItemAndCycleId
-                    where x.SpotCheckCode == SpotCheckCode
-                    orderby y.WorkPackageId
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                return (from x in db.Check_SpotCheckDetail
+                        join y in db.WBS_ControlItemAndCycle
+                        on x.ControlItemAndCycleId equals y.ControlItemAndCycleId
+                        where x.SpotCheckCode == SpotCheckCode
+                        orderby y.WorkPackageId
+                        select x).ToList();
+            }
         }
         public static List<Model.Check_SpotCheckDetail> GetSpotCheckDetailsForApi(string SpotCheckCode)
         {
@@ -184,12 +186,14 @@ namespace BLL
         /// <param name="SpotCheckCode"></param>
         public static List<Model.Check_SpotCheckDetail> GetOKSpotCheckDetails(string SpotCheckCode)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail
-                    join y in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle
-                    on x.ControlItemAndCycleId equals y.ControlItemAndCycleId
-                    where x.SpotCheckCode == SpotCheckCode && x.IsOK == true
-                    orderby y.WorkPackageId
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                return (from x in db.Check_SpotCheckDetail
+                        join y in db.WBS_ControlItemAndCycle
+                        on x.ControlItemAndCycleId equals y.ControlItemAndCycleId
+                        where x.SpotCheckCode == SpotCheckCode && x.IsOK == true
+                        orderby y.WorkPackageId
+                        select x).ToList();
+            }
         }
         public static List<Model.Check_SpotCheckDetail> GetOKSpotCheckDetailsForApi(string SpotCheckCode)
         {
@@ -210,12 +214,15 @@ namespace BLL
         /// <param name="SpotCheckCode"></param>
         public static List<Model.Check_SpotCheckDetail> GetShowSpotCheckDetails(string SpotCheckCode)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail
-                    join y in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle
-                    on x.ControlItemAndCycleId equals y.ControlItemAndCycleId
-                    where x.SpotCheckCode == SpotCheckCode && x.IsOK == true && x.IsShow == true
-                    orderby y.WorkPackageId
-                    select x).ToList();
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.Check_SpotCheckDetail
+                        join y in db.WBS_ControlItemAndCycle
+                        on x.ControlItemAndCycleId equals y.ControlItemAndCycleId
+                        where x.SpotCheckCode == SpotCheckCode && x.IsOK == true && x.IsShow == true
+                        orderby y.WorkPackageId
+                        select x).ToList();
+            }
         }
 
         /// <summary>
@@ -288,11 +295,13 @@ namespace BLL
         /// <param name="projectType">工程类型</param>
         public static List<Model.Check_SpotCheckDetail> GetOKSpotCheckDetailListByTime(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail
-                    join y in new Model.SGGLDB(Funs.ConnString).Check_SpotCheck
-                    on x.SpotCheckCode equals y.SpotCheckCode
-                    where y.ProjectId == projectId && x.ConfirmDate >= startTime && x.ConfirmDate < endTime && x.IsOK == true
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                return (from x in db.Check_SpotCheckDetail
+                        join y in db.Check_SpotCheck
+                        on x.SpotCheckCode equals y.SpotCheckCode
+                        where y.ProjectId == projectId && x.ConfirmDate >= startTime && x.ConfirmDate < endTime && x.IsOK == true
+                        select x).ToList();
+            }
         }
 
         /// <summary>
@@ -303,11 +312,13 @@ namespace BLL
         /// <param name="projectType">工程类型</param>
         public static List<Model.Check_SpotCheckDetail> GetTotalOKSpotCheckDetailListByTime(string projectId, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail
-                    join y in new Model.SGGLDB(Funs.ConnString).Check_SpotCheck
-                    on x.SpotCheckCode equals y.SpotCheckCode
-                    where y.ProjectId == projectId && x.ConfirmDate < endTime && x.IsOK == true
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+                return (from x in db.Check_SpotCheckDetail
+                        join y in db.Check_SpotCheck
+                        on x.SpotCheckCode equals y.SpotCheckCode
+                        where y.ProjectId == projectId && x.ConfirmDate < endTime && x.IsOK == true
+                        select x).ToList();
+            }
         }
         public static void UpdateSpotCheckDetailForApi(Model.Check_SpotCheckDetail SpotCheckDetail)
         {

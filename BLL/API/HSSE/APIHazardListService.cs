@@ -17,27 +17,30 @@ namespace BLL
         /// <returns></returns>
         public static Model.HazardListItem getHazardListInfoByHazardListId(string hazardListId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardList
-                          where x.HazardListId == hazardListId
-                          select new Model.HazardListItem
-                          {
-                              HazardListId = x.HazardListId,
-                              ProjectId = x.ProjectId,
-                              HazardListCode = x.HazardListCode,
-                              VersionNo = x.VersionNo,
-                              CompileManId = x.CompileMan,
-                              CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                              CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                              WorkStageIds = x.WorkStage,
-                              WorkStageNames = WorkStageService.getWorkStageNamesWorkStageIds(x.WorkStage),
-                              Contents = x.Contents,
-                              WorkAreaName = x.WorkAreaName,
-                              IdentificationDate = string.Format("{0:yyyy-MM-dd}", x.IdentificationDate),
-                              ControllingPersonId = x.ControllingPerson,
-                              ControllingPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ControllingPerson).UserName,
-                              States = x.States,
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Hazard_HazardList
+                              where x.HazardListId == hazardListId
+                              select new Model.HazardListItem
+                              {
+                                  HazardListId = x.HazardListId,
+                                  ProjectId = x.ProjectId,
+                                  HazardListCode = x.HazardListCode,
+                                  VersionNo = x.VersionNo,
+                                  CompileManId = x.CompileMan,
+                                  CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                  WorkStageIds = x.WorkStage,
+                                  WorkStageNames = WorkStageService.getWorkStageNamesWorkStageIds(x.WorkStage),
+                                  Contents = x.Contents,
+                                  WorkAreaName = x.WorkAreaName,
+                                  IdentificationDate = string.Format("{0:yyyy-MM-dd}", x.IdentificationDate),
+                                  ControllingPersonId = x.ControllingPerson,
+                                  ControllingPersonName = db.Sys_User.First(u => u.UserId == x.ControllingPerson).UserName,
+                                  States = x.States,
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
         #endregion        
 
@@ -50,28 +53,31 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HazardListItem> getHazardListList(string projectId)
         {
-            var getHazardList = from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardList
-                                where x.ProjectId == projectId  && x.States == Const.State_2
-                                      orderby x.IdentificationDate descending 
-                                      select new Model.HazardListItem
-                                      {
-                                          HazardListId = x.HazardListId,
-                                          ProjectId = x.ProjectId,
-                                          HazardListCode = x.HazardListCode,
-                                          VersionNo = x.VersionNo,
-                                          CompileManId = x.CompileMan,
-                                          CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u=>u.UserId == x.CompileMan).UserName,
-                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                          WorkStageIds=x.WorkStage,
-                                          WorkStageNames=WorkStageService.getWorkStageNamesWorkStageIds(x.WorkStage),
-                                          Contents=x.Contents,
-                                          WorkAreaName=x.WorkAreaName,
-                                          IdentificationDate= string.Format("{0:yyyy-MM-dd}", x.IdentificationDate),
-                                          ControllingPersonId=x.ControllingPerson,
-                                          ControllingPersonName= new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ControllingPerson).UserName,
-                                          States = x.States,
-                                      };
-            return getHazardList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getHazardList = from x in db.Hazard_HazardList
+                                    where x.ProjectId == projectId && x.States == Const.State_2
+                                    orderby x.IdentificationDate descending
+                                    select new Model.HazardListItem
+                                    {
+                                        HazardListId = x.HazardListId,
+                                        ProjectId = x.ProjectId,
+                                        HazardListCode = x.HazardListCode,
+                                        VersionNo = x.VersionNo,
+                                        CompileManId = x.CompileMan,
+                                        CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                        CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                        WorkStageIds = x.WorkStage,
+                                        WorkStageNames = WorkStageService.getWorkStageNamesWorkStageIds(x.WorkStage),
+                                        Contents = x.Contents,
+                                        WorkAreaName = x.WorkAreaName,
+                                        IdentificationDate = string.Format("{0:yyyy-MM-dd}", x.IdentificationDate),
+                                        ControllingPersonId = x.ControllingPerson,
+                                        ControllingPersonName = db.Sys_User.First(u => u.UserId == x.ControllingPerson).UserName,
+                                        States = x.States,
+                                    };
+                return getHazardList.ToList();
+            }
         }
         #endregion        
 
@@ -83,29 +89,32 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HazardListSelectedItem> getHazardListSelectedInfo(string hazardListId)
         {
-            var getHazardList = from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardSelectedItem
-                                join y in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType on x.HazardListTypeId equals y.HazardListTypeId
-                                where x.HazardListId == hazardListId 
-                                orderby x.HazardListTypeId descending
-                                select new Model.HazardListSelectedItem
-                                {
-                                    HazardId = x.HazardId,
-                                    WorkStageName = WorkStageService.getWorkStageNamesWorkStageIds(x.WorkStage),
-                                    SupHazardListTypeName = new Model.SGGLDB(Funs.ConnString).Technique_HazardListType.First(z=>z.HazardListTypeId==y.SupHazardListTypeId).HazardListTypeName,
-                                    HazardListTypeName =y.HazardListTypeName,
-                                    HazardCode = y.HazardListTypeCode,
-                                    HazardItems =x.HazardItems,
-                                    DefectsType = x.DefectsType,
-                                    MayLeadAccidents =x.MayLeadAccidents,
-                                    HelperMethod = x.HelperMethod,
-                                    HazardJudge_L = x.HazardJudge_L,
-                                    HazardJudge_E = x.HazardJudge_E,
-                                    HazardJudge_C = x.HazardJudge_C,
-                                    HazardJudge_D = x.HazardJudge_D,
-                                    HazardLevel = x.HazardLevel,
-                                    ControlMeasures = x.ControlMeasures,
-                                };
-            return getHazardList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getHazardList = from x in db.Hazard_HazardSelectedItem
+                                    join y in db.Technique_HazardListType on x.HazardListTypeId equals y.HazardListTypeId
+                                    where x.HazardListId == hazardListId
+                                    orderby x.HazardListTypeId descending
+                                    select new Model.HazardListSelectedItem
+                                    {
+                                        HazardId = x.HazardId,
+                                        WorkStageName = WorkStageService.getWorkStageNamesWorkStageIds(x.WorkStage),
+                                        SupHazardListTypeName = db.Technique_HazardListType.First(z => z.HazardListTypeId == y.SupHazardListTypeId).HazardListTypeName,
+                                        HazardListTypeName = y.HazardListTypeName,
+                                        HazardCode = y.HazardListTypeCode,
+                                        HazardItems = x.HazardItems,
+                                        DefectsType = x.DefectsType,
+                                        MayLeadAccidents = x.MayLeadAccidents,
+                                        HelperMethod = x.HelperMethod,
+                                        HazardJudge_L = x.HazardJudge_L,
+                                        HazardJudge_E = x.HazardJudge_E,
+                                        HazardJudge_C = x.HazardJudge_C,
+                                        HazardJudge_D = x.HazardJudge_D,
+                                        HazardLevel = x.HazardLevel,
+                                        ControlMeasures = x.ControlMeasures,
+                                    };
+                return getHazardList.ToList();
+            }
         }
         #endregion        
     }

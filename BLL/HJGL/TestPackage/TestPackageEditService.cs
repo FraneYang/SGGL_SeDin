@@ -273,7 +273,7 @@ namespace BLL
         {
             Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             string isoRate = string.Empty;
-            var pipelineList = from x in new Model.SGGLDB(Funs.ConnString).PTP_PipelineList where x.PTP_ID == PTP_ID select x;
+            var pipelineList = from x in db.PTP_PipelineList where x.PTP_ID == PTP_ID select x;
             if (pipelineList.Count() > 0)
             {
                 foreach (var isoInfo in pipelineList)
@@ -281,7 +281,7 @@ namespace BLL
                     var isoinfo = BLL.PipelineService.GetPipelineByPipelineId(isoInfo.PipelineId);
                     if (isoinfo != null)
                     {
-                        int jotCouts = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint where x.PipelineId == isoinfo.PipelineId select x).Count(); //焊口总数                     
+                        int jotCouts = (from x in db.HJGL_WeldJoint where x.PipelineId == isoinfo.PipelineId select x).Count(); //焊口总数                     
                         if (jotCouts > 0)
                         {
                             int? raleValue = null;

@@ -20,68 +20,74 @@ namespace BLL
         /// <returns></returns>
         public static Model.PunishNoticeItem getPunishNoticeById(string PunishNoticeId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNotice
-                          where x.PunishNoticeId == PunishNoticeId
-                          select new Model.PunishNoticeItem
-                          {
-                              PunishNoticeId = x.PunishNoticeId,
-                              ProjectId = x.ProjectId,
-                              PunishNoticeCode = x.PunishNoticeCode,
-                              UnitId = x.UnitId,
-                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                              PunishPersonId=x.PunishPersonId,
-                              PunishPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.PunishPersonId).UserName,
-                              ContractNum = x.ContractNum,
-                              PunishNoticeDate = string.Format("{0:yyyy-MM-dd}", x.PunishNoticeDate),
-                              BasicItem = x.BasicItem,
-                              IncentiveReason = x.IncentiveReason,
-                              PunishMoney = x.PunishMoney ?? 0,
-                              Currency = x.Currency,
-                              FileContents = System.Web.HttpUtility.HtmlDecode(x.FileContents),
-                              CompileManId = x.CompileMan,
-                              CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                              CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                              SignManId = x.SignMan,
-                              SignManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SignMan).UserName,
-                              SignDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SignDate),
-                              ApproveManId = x.ApproveMan,
-                              ApproveManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
-                              ApproveDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApproveDate),
-                              DutyPersonId = x.DutyPersonId,
-                              DutyPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
-                              DutyPersonDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonDate),
-                              ProfessionalEngineerId = x.ProfessionalEngineerId,
-                              ProfessionalEngineerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
-                              ProfessionalEngineerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime),
-                              ConstructionManagerId = x.ConstructionManagerId,
-                              ConstructionManagerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
-                              ConstructionManagerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ConstructionManagerTime),
-                              UnitHeadManId = x.UnitHeadManId,
-                              UnitHeadManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
-                              UnitHeadManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.UnitHeadManTime),
-                              States = x.States,
-                              PunishStates = x.PunishStates,
-                              PunishUrl = APIUpLoadFileService.getFileUrl(Const.ProjectPunishNoticeStatisticsMenuId, x.PunishNoticeId, null),
-                              ReceiptUrl = APIUpLoadFileService.getFileUrl(Const.ProjectPunishNoticeMenuId, x.PunishNoticeId, null),
-                              FlowOperateItem = getFlowOperateItem(x.PunishNoticeId),
-                              PunishNoticeItemItem = GetPunishNoticeItemList(x.PunishNoticeId),
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Check_PunishNotice
+                              where x.PunishNoticeId == PunishNoticeId
+                              select new Model.PunishNoticeItem
+                              {
+                                  PunishNoticeId = x.PunishNoticeId,
+                                  ProjectId = x.ProjectId,
+                                  PunishNoticeCode = x.PunishNoticeCode,
+                                  UnitId = x.UnitId,
+                                  UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                  PunishPersonId = x.PunishPersonId,
+                                  PunishPersonName = db.Sys_User.First(u => u.UserId == x.PunishPersonId).UserName,
+                                  ContractNum = x.ContractNum,
+                                  PunishNoticeDate = string.Format("{0:yyyy-MM-dd}", x.PunishNoticeDate),
+                                  BasicItem = x.BasicItem,
+                                  IncentiveReason = x.IncentiveReason,
+                                  PunishMoney = x.PunishMoney ?? 0,
+                                  Currency = x.Currency,
+                                  FileContents = System.Web.HttpUtility.HtmlDecode(x.FileContents),
+                                  CompileManId = x.CompileMan,
+                                  CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                  SignManId = x.SignMan,
+                                  SignManName = db.Sys_User.First(u => u.UserId == x.SignMan).UserName,
+                                  SignDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SignDate),
+                                  ApproveManId = x.ApproveMan,
+                                  ApproveManName = db.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
+                                  ApproveDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApproveDate),
+                                  DutyPersonId = x.DutyPersonId,
+                                  DutyPersonName = db.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
+                                  DutyPersonDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonDate),
+                                  ProfessionalEngineerId = x.ProfessionalEngineerId,
+                                  ProfessionalEngineerName = db.Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
+                                  ProfessionalEngineerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime),
+                                  ConstructionManagerId = x.ConstructionManagerId,
+                                  ConstructionManagerName = db.Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
+                                  ConstructionManagerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ConstructionManagerTime),
+                                  UnitHeadManId = x.UnitHeadManId,
+                                  UnitHeadManName = db.Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
+                                  UnitHeadManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.UnitHeadManTime),
+                                  States = x.States,
+                                  PunishStates = x.PunishStates,
+                                  PunishUrl = APIUpLoadFileService.getFileUrl(Const.ProjectPunishNoticeStatisticsMenuId, x.PunishNoticeId, null),
+                                  ReceiptUrl = APIUpLoadFileService.getFileUrl(Const.ProjectPunishNoticeMenuId, x.PunishNoticeId, null),
+                                  FlowOperateItem = getFlowOperateItem(x.PunishNoticeId),
+                                  PunishNoticeItemItem = GetPunishNoticeItemList(x.PunishNoticeId),
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
 
         public static List<Model.PunishNoticeItemItem> GetPunishNoticeItemList(string punishNoticeId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNoticeItem
-                    where x.PunishNoticeId == punishNoticeId
-                    orderby x.SortIndex
-                    select new Model.PunishNoticeItemItem
-                    {
-                        PunishNoticeItemId=x.PunishNoticeItemId,
-                        PunishNoticeId=x.PunishNoticeId,
-                        PunishContent=x.PunishContent,
-                        PunishMoney=x.PunishMoney ?? 0,
-                        SortIndex =x.SortIndex,
-                    }).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.Check_PunishNoticeItem
+                        where x.PunishNoticeId == punishNoticeId
+                        orderby x.SortIndex
+                        select new Model.PunishNoticeItemItem
+                        {
+                            PunishNoticeItemId = x.PunishNoticeItemId,
+                            PunishNoticeId = x.PunishNoticeId,
+                            PunishContent = x.PunishContent,
+                            PunishMoney = x.PunishMoney ?? 0,
+                            SortIndex = x.SortIndex,
+                        }).ToList();
+            }
         }
         #endregion     
 
@@ -92,22 +98,25 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FlowOperateItem> getFlowOperateItem(string punishNoticeId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNoticeFlowOperate
-                          where x.PunishNoticeId == punishNoticeId
-                          orderby x.OperateTime descending
-                          select new Model.FlowOperateItem
-                          {
-                              FlowOperateId = x.FlowOperateId,
-                              DataId = x.PunishNoticeId,
-                              AuditFlowName = x.OperateName,
-                              OperaterId = x.OperateManId,
-                              OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.OperateManId).UserName,
-                              OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.OperateTime),
-                              IsAgree = x.IsAgree,
-                              Opinion = x.Opinion,
-                              SignatureUrl = APIUpLoadFileService.getFileUrl(string.Empty, x.SignatureUrl),
-                          };
-            return getInfo.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Check_PunishNoticeFlowOperate
+                              where x.PunishNoticeId == punishNoticeId
+                              orderby x.OperateTime descending
+                              select new Model.FlowOperateItem
+                              {
+                                  FlowOperateId = x.FlowOperateId,
+                                  DataId = x.PunishNoticeId,
+                                  AuditFlowName = x.OperateName,
+                                  OperaterId = x.OperateManId,
+                                  OperaterName = db.Sys_User.First(z => z.UserId == x.OperateManId).UserName,
+                                  OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.OperateTime),
+                                  IsAgree = x.IsAgree,
+                                  Opinion = x.Opinion,
+                                  SignatureUrl = APIUpLoadFileService.getFileUrl(string.Empty, x.SignatureUrl),
+                              };
+                return getInfo.ToList();
+            }
         }
         #endregion
 
@@ -121,40 +130,43 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PunishNoticeItem> getPunishNoticeList(string projectId, string unitId, string strParam, string states)
         {
-            var getPunishNotice = from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNotice
-                                  where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.PunishStates==states
-                                  orderby x.PunishNoticeCode descending
-                                  select new Model.PunishNoticeItem
-                                  {
-                                      PunishNoticeId = x.PunishNoticeId,
-                                      ProjectId = x.ProjectId,
-                                      PunishNoticeCode = x.PunishNoticeCode,
-                                      UnitId = x.UnitId,
-                                      UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                                      ContractNum = x.ContractNum,
-                                      PunishNoticeDate = string.Format("{0:yyyy-MM-dd}", x.PunishNoticeDate),
-                                      BasicItem = x.BasicItem,
-                                      IncentiveReason = x.IncentiveReason,
-                                      PunishMoney = x.PunishMoney ?? 0,
-                                      Currency = x.Currency,
-                                      //FileContents = System.Web.HttpUtility.HtmlDecode(x.FileContents),
-                                      CompileManId = x.CompileMan,
-                                      CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                      //SignManId = x.SignMan,
-                                      //SignManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SignMan).UserName,
-                                      //ApproveManId = x.ApproveMan,
-                                      //ApproveManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
-                                      States = x.States,
-                                      PunishStates=x.PunishStates,
-                                      //PunishUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(z => z.MenuId == Const.ProjectPunishNoticeStatisticsMenuId && z.ToKeyId == x.PunishNoticeId).AttachUrl.Replace('\\', '/'),
-                                      //ReceiptUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(z => z.MenuId == Const.ProjectPunishNoticeMenuId && z.ToKeyId == x.PunishNoticeId).AttachUrl.Replace('\\', '/'),
-                                  };
-            if (!string.IsNullOrEmpty(strParam))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getPunishNotice = getPunishNotice.Where(x => x.PunishNoticeCode.Contains(strParam) || x.IncentiveReason.Contains(strParam));
+                var getPunishNotice = from x in db.Check_PunishNotice
+                                      where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.PunishStates == states
+                                      orderby x.PunishNoticeCode descending
+                                      select new Model.PunishNoticeItem
+                                      {
+                                          PunishNoticeId = x.PunishNoticeId,
+                                          ProjectId = x.ProjectId,
+                                          PunishNoticeCode = x.PunishNoticeCode,
+                                          UnitId = x.UnitId,
+                                          UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                          ContractNum = x.ContractNum,
+                                          PunishNoticeDate = string.Format("{0:yyyy-MM-dd}", x.PunishNoticeDate),
+                                          BasicItem = x.BasicItem,
+                                          IncentiveReason = x.IncentiveReason,
+                                          PunishMoney = x.PunishMoney ?? 0,
+                                          Currency = x.Currency,
+                                          //FileContents = System.Web.HttpUtility.HtmlDecode(x.FileContents),
+                                          CompileManId = x.CompileMan,
+                                          CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                          //SignManId = x.SignMan,
+                                          //SignManName = db.Sys_User.First(u => u.UserId == x.SignMan).UserName,
+                                          //ApproveManId = x.ApproveMan,
+                                          //ApproveManName = db.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
+                                          States = x.States,
+                                          PunishStates = x.PunishStates,
+                                          //PunishUrl = db.AttachFile.FirstOrDefault(z => z.MenuId == Const.ProjectPunishNoticeStatisticsMenuId && z.ToKeyId == x.PunishNoticeId).AttachUrl.Replace('\\', '/'),
+                                          //ReceiptUrl = db.AttachFile.FirstOrDefault(z => z.MenuId == Const.ProjectPunishNoticeMenuId && z.ToKeyId == x.PunishNoticeId).AttachUrl.Replace('\\', '/'),
+                                      };
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    getPunishNotice = getPunishNotice.Where(x => x.PunishNoticeCode.Contains(strParam) || x.IncentiveReason.Contains(strParam));
+                }
+                return getPunishNotice.ToList();
             }
-            return getPunishNotice.ToList();
         }
         #endregion        
 
@@ -428,22 +440,25 @@ namespace BLL
         /// <param name="attachUrl">回执单路径</param>
         public static void SavePunishNoticeReceiptUrl(string punishNoticeId, string attachUrl, string type)
         {
-            var getPunishNotice = new Model.SGGLDB(Funs.ConnString).Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == punishNoticeId);
-            if (getPunishNotice != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                string menuId = Const.ProjectPunishNoticeMenuId;
-                if (type == "0")
+                var getPunishNotice = db.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == punishNoticeId);
+                if (getPunishNotice != null)
                 {
-                    menuId = Const.ProjectPunishNoticeStatisticsMenuId;
-                }
-                ////保存附件
-                if (!string.IsNullOrEmpty(attachUrl))
-                {
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(attachUrl, 10, null), attachUrl, menuId, getPunishNotice.PunishNoticeId);
-                }
-                else
-                {
-                    CommonService.DeleteAttachFileById(menuId, getPunishNotice.PunishNoticeId);
+                    string menuId = Const.ProjectPunishNoticeMenuId;
+                    if (type == "0")
+                    {
+                        menuId = Const.ProjectPunishNoticeStatisticsMenuId;
+                    }
+                    ////保存附件
+                    if (!string.IsNullOrEmpty(attachUrl))
+                    {
+                        UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(attachUrl, 10, null), attachUrl, menuId, getPunishNotice.PunishNoticeId);
+                    }
+                    else
+                    {
+                        CommonService.DeleteAttachFileById(menuId, getPunishNotice.PunishNoticeId);
+                    }
                 }
             }
         }

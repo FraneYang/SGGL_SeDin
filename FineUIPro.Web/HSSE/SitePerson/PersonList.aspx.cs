@@ -165,96 +165,99 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// </summary>
         private void BindGrid()
         {
-            if (this.tvProjectAndUnit != null && !string.IsNullOrEmpty(this.tvProjectAndUnit.SelectedNodeID))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                string id = this.tvProjectAndUnit.SelectedNodeID;
-                string unitId = string.Empty;
-                string projectId = string.Empty;
-                var str = id.Split('|');
-                if (str.Count() > 1)
+                if (this.tvProjectAndUnit != null && !string.IsNullOrEmpty(this.tvProjectAndUnit.SelectedNodeID))
                 {
-                    unitId = str[0];
-                    projectId = str[1];
-                }
+                    string id = this.tvProjectAndUnit.SelectedNodeID;
+                    string unitId = string.Empty;
+                    string projectId = string.Empty;
+                    var str = id.Split('|');
+                    if (str.Count() > 1)
+                    {
+                        unitId = str[0];
+                        projectId = str[1];
+                    }
 
-                string strSql = "select * from View_SitePerson_Person Where ProjectId=@ProjectId ";
-                List<SqlParameter> listStr = new List<SqlParameter>
+                    string strSql = "select * from View_SitePerson_Person Where ProjectId=@ProjectId ";
+                    List<SqlParameter> listStr = new List<SqlParameter>
                 {
                     new SqlParameter("@ProjectId", this.ProjectId)
                 };
-                if (!string.IsNullOrEmpty(unitId) && unitId != "0")
-                {
-                    strSql += " AND UnitId =@UnitId ";
-                    listStr.Add(new SqlParameter("@UnitId", unitId));
-                }
-                else
-                {
-                    strSql += " AND UnitId IS NULL";
-                }
-                
-                if (!string.IsNullOrEmpty(this.txtPersonName.Text.Trim()))
-                {
-                    strSql += " AND PersonName LIKE @PersonName";
-                    listStr.Add(new SqlParameter("@PersonName", "%" + this.txtPersonName.Text.Trim() + "%"));
-                }
-
-                if (!string.IsNullOrEmpty(this.txtCardNo.Text.Trim()))
-                {
-                    strSql += " AND CardNo LIKE @CardNo";
-                    listStr.Add(new SqlParameter("@CardNo", "%" + this.txtCardNo.Text.Trim() + "%"));
-                }
-                if (!string.IsNullOrEmpty(this.txtIdentityCard.Text.Trim()))
-                {
-                    strSql += " AND IdentityCard LIKE @IdentityCard";
-                    listStr.Add(new SqlParameter("@IdentityCard", "%" + this.txtIdentityCard.Text.Trim() + "%"));
-                }
-                if (!string.IsNullOrEmpty(this.drpTreamGroup.SelectedValue) && this.drpTreamGroup.SelectedValue != BLL.Const._Null)
-                {
-                    strSql += " AND TeamGroupId = @TeamGroupId";
-                    listStr.Add(new SqlParameter("@TeamGroupId", this.drpTreamGroup.SelectedValue));
-                }
-
-                if (this.drpPost.SelectedItemArray.Count() > 1 || (this.drpPost.SelectedValue != BLL.Const._Null && this.drpPost.SelectedItemArray.Count() == 1))
-                {
-                    strSql += " AND (1=2 ";
-                    int i = 0;
-                    foreach (var item in this.drpPost.SelectedValueArray)
-                    {                            
-                        if (!string.IsNullOrEmpty(item) && item != BLL.Const._Null)
-                        {
-                            strSql += " OR WorkPostId = @WorkPostId" + i.ToString();
-                            listStr.Add(new SqlParameter("@WorkPostId" + i.ToString(), item));
-                        }
-
-                        i++;
+                    if (!string.IsNullOrEmpty(unitId) && unitId != "0")
+                    {
+                        strSql += " AND UnitId =@UnitId ";
+                        listStr.Add(new SqlParameter("@UnitId", unitId));
+                    }
+                    else
+                    {
+                        strSql += " AND UnitId IS NULL";
                     }
 
-                    strSql += ")";
-                }
-                if (this.ckTrain.Checked)
-                {
-                    strSql += " AND TrainCount =0";
-                }
-
-                SqlParameter[] parameter = listStr.ToArray();
-                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-
-                Grid1.RecordCount = tb.Rows.Count;
-                var table = this.GetPagedDataTable(Grid1, tb);
-                Grid1.DataSource = table;
-                Grid1.DataBind();
-
-                for (int i = 0; i < Grid1.Rows.Count; i++)
-                {
-                    string personId = Grid1.Rows[i].DataKeys[0].ToString();
-
-                    var isNull = from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail
-                                 join y in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
-                                 where y.ProjectId == this.ProjectId && x.PersonId == personId
-                                 select x;
-                    if (isNull.Count() == 0) ////未参加过培训的人员
+                    if (!string.IsNullOrEmpty(this.txtPersonName.Text.Trim()))
                     {
-                        Grid1.Rows[i].RowCssClass = "Red";
+                        strSql += " AND PersonName LIKE @PersonName";
+                        listStr.Add(new SqlParameter("@PersonName", "%" + this.txtPersonName.Text.Trim() + "%"));
+                    }
+
+                    if (!string.IsNullOrEmpty(this.txtCardNo.Text.Trim()))
+                    {
+                        strSql += " AND CardNo LIKE @CardNo";
+                        listStr.Add(new SqlParameter("@CardNo", "%" + this.txtCardNo.Text.Trim() + "%"));
+                    }
+                    if (!string.IsNullOrEmpty(this.txtIdentityCard.Text.Trim()))
+                    {
+                        strSql += " AND IdentityCard LIKE @IdentityCard";
+                        listStr.Add(new SqlParameter("@IdentityCard", "%" + this.txtIdentityCard.Text.Trim() + "%"));
+                    }
+                    if (!string.IsNullOrEmpty(this.drpTreamGroup.SelectedValue) && this.drpTreamGroup.SelectedValue != BLL.Const._Null)
+                    {
+                        strSql += " AND TeamGroupId = @TeamGroupId";
+                        listStr.Add(new SqlParameter("@TeamGroupId", this.drpTreamGroup.SelectedValue));
+                    }
+
+                    if (this.drpPost.SelectedItemArray.Count() > 1 || (this.drpPost.SelectedValue != BLL.Const._Null && this.drpPost.SelectedItemArray.Count() == 1))
+                    {
+                        strSql += " AND (1=2 ";
+                        int i = 0;
+                        foreach (var item in this.drpPost.SelectedValueArray)
+                        {
+                            if (!string.IsNullOrEmpty(item) && item != BLL.Const._Null)
+                            {
+                                strSql += " OR WorkPostId = @WorkPostId" + i.ToString();
+                                listStr.Add(new SqlParameter("@WorkPostId" + i.ToString(), item));
+                            }
+
+                            i++;
+                        }
+
+                        strSql += ")";
+                    }
+                    if (this.ckTrain.Checked)
+                    {
+                        strSql += " AND TrainCount =0";
+                    }
+
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                    Grid1.RecordCount = tb.Rows.Count;
+                    var table = this.GetPagedDataTable(Grid1, tb);
+                    Grid1.DataSource = table;
+                    Grid1.DataBind();
+
+                    for (int i = 0; i < Grid1.Rows.Count; i++)
+                    {
+                        string personId = Grid1.Rows[i].DataKeys[0].ToString();
+
+                        var isNull = from x in db.EduTrain_TrainRecordDetail
+                                     join y in db.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
+                                     where y.ProjectId == this.ProjectId && x.PersonId == personId
+                                     select x;
+                        if (isNull.Count() == 0) ////未参加过培训的人员
+                        {
+                            Grid1.Rows[i].RowCssClass = "Red";
+                        }
                     }
                 }
             }

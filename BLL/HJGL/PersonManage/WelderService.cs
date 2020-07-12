@@ -142,18 +142,21 @@ namespace BLL
         /// <param name="InstallationType">耗材类型</param>
         public static void InitProjectWelderDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease, string projectId, string unitId,string itemText)
         {
-            dropName.DataValueField = "PersonId";
-            dropName.DataTextField = "WelderCode";
-            dropName.DataSource = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                                  join y in new Model.SGGLDB(Funs.ConnString).Base_Project on x.ProjectId equals y.ProjectId
-                                  where y.ProjectId == projectId && x.UnitId == unitId
-                                  && x.WorkPostId == Const.WorkPost_Welder && (x.WelderCode != null || x.WelderCode != "")
-                                  orderby x.WelderCode
-                                  select x;
-            dropName.DataBind();
-            if (isShowPlease)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                Funs.FineUIPleaseSelect(dropName,itemText);
+                dropName.DataValueField = "PersonId";
+                dropName.DataTextField = "WelderCode";
+                dropName.DataSource = from x in db.SitePerson_Person
+                                      join y in db.Base_Project on x.ProjectId equals y.ProjectId
+                                      where y.ProjectId == projectId && x.UnitId == unitId
+                                      && x.WorkPostId == Const.WorkPost_Welder && (x.WelderCode != null || x.WelderCode != "")
+                                      orderby x.WelderCode
+                                      select x;
+                dropName.DataBind();
+                if (isShowPlease)
+                {
+                    Funs.FineUIPleaseSelect(dropName, itemText);
+                }
             }
         }
         #endregion

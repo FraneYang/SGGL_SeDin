@@ -16,8 +16,11 @@ namespace BLL
         /// <returns></returns>
         public static Model.HazardRegisterItem getHazardRegisterByHazardRegisterId(string hazardRegisterId)
         {
-            var getHazardRegister = new Model.SGGLDB(Funs.ConnString).View_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == hazardRegisterId);
-            return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_Hazard_HazardRegister, Model.HazardRegisterItem>().Map(getHazardRegister);
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getHazardRegister = db.View_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == hazardRegisterId);
+                return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_Hazard_HazardRegister, Model.HazardRegisterItem>().Map(getHazardRegister);
+            }
         }
 
         /// <summary>
@@ -28,11 +31,14 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HazardRegisterItem> getHazardRegisterByProjectIdStates(string projectId, string states)
         {
-            var hazardRegisters = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_HazardRegister
-                                   where x.ProjectId == projectId && (x.States == states || states == null)
-                                   orderby x.RegisterDate descending
-                                   select x).ToList();
-            return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_Hazard_HazardRegister>, List<Model.HazardRegisterItem>>().Map(hazardRegisters.ToList());
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var hazardRegisters = (from x in db.View_Hazard_HazardRegister
+                                       where x.ProjectId == projectId && (x.States == states || states == null)
+                                       orderby x.RegisterDate descending
+                                       select x).ToList();
+                return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_Hazard_HazardRegister>, List<Model.HazardRegisterItem>>().Map(hazardRegisters.ToList());
+            }
         }
 
         /// <summary>
@@ -41,76 +47,78 @@ namespace BLL
         /// <param name="userInfo"></param>
         /// <returns></returns>
         public static void SaveHazardRegister(Model.HazardRegisterItem hazardRegister)
-        {            
-            Model.HSSE_Hazard_HazardRegister newHazardRegister = new Model.HSSE_Hazard_HazardRegister
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                HazardRegisterId = hazardRegister.HazardRegisterId,
-                HazardCode = hazardRegister.HazardCode,
-                RegisterDef = hazardRegister.RegisterDef,
-                Rectification = hazardRegister.Rectification,
-                Place = hazardRegister.Place,
-                ResponsibleUnit = hazardRegister.ResponsibleUnit,
-                ProjectId = hazardRegister.ProjectId,
-                States = hazardRegister.States,
-                IsEffective = "1",
-                ResponsibleMan = hazardRegister.ResponsibleMan,
-                CheckManId = hazardRegister.CheckManId,
-                CheckTime = hazardRegister.CheckTime,
-                RectificationPeriod = hazardRegister.RectificationPeriod,
-                ImageUrl = hazardRegister.ImageUrl,
-                RectificationImageUrl = hazardRegister.RectificationImageUrl,
-                RectificationTime = hazardRegister.RectificationTime,
-                ConfirmMan = hazardRegister.ConfirmMan,
-                ConfirmDate = hazardRegister.ConfirmDate,
-                HandleIdea = hazardRegister.HandleIdea,
-                CutPayment = hazardRegister.CutPayment,
-                ProblemTypes = hazardRegister.ProblemTypes,
-                RegisterTypesId = hazardRegister.RegisterTypesId,
-                CheckCycle = hazardRegister.CheckCycle,
-                SafeSupervisionIsOK = hazardRegister.SafeSupervisionIsOK,
-                IsWx = "Y",
-                CCManIds= hazardRegister.CCManIds,
-                Requirements = hazardRegister.Requirements,
-            };
-            var isUpdate = new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == newHazardRegister.HazardRegisterId);
-            if (isUpdate == null)
-            {
-                newHazardRegister.RegisterDate = DateTime.Now;
-                newHazardRegister.CheckTime = DateTime.Now;
-                if (string.IsNullOrEmpty(newHazardRegister.HazardRegisterId))
+                Model.HSSE_Hazard_HazardRegister newHazardRegister = new Model.HSSE_Hazard_HazardRegister
                 {
-                    newHazardRegister.HazardRegisterId = SQLHelper.GetNewID();
-                }
-                new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister.InsertOnSubmit(newHazardRegister);
-            }
-            else
-            {
-                if (newHazardRegister.States == "2")
+                    HazardRegisterId = hazardRegister.HazardRegisterId,
+                    HazardCode = hazardRegister.HazardCode,
+                    RegisterDef = hazardRegister.RegisterDef,
+                    Rectification = hazardRegister.Rectification,
+                    Place = hazardRegister.Place,
+                    ResponsibleUnit = hazardRegister.ResponsibleUnit,
+                    ProjectId = hazardRegister.ProjectId,
+                    States = hazardRegister.States,
+                    IsEffective = "1",
+                    ResponsibleMan = hazardRegister.ResponsibleMan,
+                    CheckManId = hazardRegister.CheckManId,
+                    CheckTime = hazardRegister.CheckTime,
+                    RectificationPeriod = hazardRegister.RectificationPeriod,
+                    ImageUrl = hazardRegister.ImageUrl,
+                    RectificationImageUrl = hazardRegister.RectificationImageUrl,
+                    RectificationTime = hazardRegister.RectificationTime,
+                    ConfirmMan = hazardRegister.ConfirmMan,
+                    ConfirmDate = hazardRegister.ConfirmDate,
+                    HandleIdea = hazardRegister.HandleIdea,
+                    CutPayment = hazardRegister.CutPayment,
+                    ProblemTypes = hazardRegister.ProblemTypes,
+                    RegisterTypesId = hazardRegister.RegisterTypesId,
+                    CheckCycle = hazardRegister.CheckCycle,
+                    SafeSupervisionIsOK = hazardRegister.SafeSupervisionIsOK,
+                    IsWx = "Y",
+                    CCManIds = hazardRegister.CCManIds,
+                    Requirements = hazardRegister.Requirements,
+                };
+                var isUpdate = db.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == newHazardRegister.HazardRegisterId);
+                if (isUpdate == null)
                 {
-                    isUpdate.RectificationTime = DateTime.Now;
-                    isUpdate.Rectification = newHazardRegister.Rectification;
-                    isUpdate.RectificationImageUrl = newHazardRegister.RectificationImageUrl;
+                    newHazardRegister.RegisterDate = DateTime.Now;
+                    newHazardRegister.CheckTime = DateTime.Now;
+                    if (string.IsNullOrEmpty(newHazardRegister.HazardRegisterId))
+                    {
+                        newHazardRegister.HazardRegisterId = SQLHelper.GetNewID();
+                    }
+                     db.HSSE_Hazard_HazardRegister.InsertOnSubmit(newHazardRegister);
                 }
-                else 
+                else
                 {
-                    isUpdate.ConfirmDate = DateTime.Now;
-                    isUpdate.ConfirmMan = newHazardRegister.ConfirmMan;
-                    isUpdate.HandleIdea = newHazardRegister.HandleIdea;
-                    isUpdate.SafeSupervisionIsOK = newHazardRegister.SafeSupervisionIsOK;
+                    if (newHazardRegister.States == "2")
+                    {
+                        isUpdate.RectificationTime = DateTime.Now;
+                        isUpdate.Rectification = newHazardRegister.Rectification;
+                        isUpdate.RectificationImageUrl = newHazardRegister.RectificationImageUrl;
+                    }
+                    else
+                    {
+                        isUpdate.ConfirmDate = DateTime.Now;
+                        isUpdate.ConfirmMan = newHazardRegister.ConfirmMan;
+                        isUpdate.HandleIdea = newHazardRegister.HandleIdea;
+                        isUpdate.SafeSupervisionIsOK = newHazardRegister.SafeSupervisionIsOK;
+                    }
+
+                    isUpdate.States = newHazardRegister.States;
                 }
+                db.SubmitChanges();
+                if (hazardRegister.States == Const.State_1)
+                {
+                    APICommonService.SendSubscribeMessage(hazardRegister.ResponsibleMan, "安全巡检问题待整改", hazardRegister.CheckManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", hazardRegister.CheckTime));
 
-                isUpdate.States = newHazardRegister.States;
-            }
-            Funs.SubmitChanges();
-
-            if (hazardRegister.States == Const.State_1)
-            {
-                APICommonService.SendSubscribeMessage(hazardRegister.ResponsibleMan, "安全巡检问题待整改", hazardRegister.CheckManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", hazardRegister.CheckTime));
-
-            }
-            else if (hazardRegister.States == Const.State_2)
-            {
-                APICommonService.SendSubscribeMessage(hazardRegister.CheckManId, "安全巡检待复查验收", hazardRegister.ResponsibilityManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", hazardRegister.RectificationTime));
+                }
+                else if (hazardRegister.States == Const.State_2)
+                {
+                    APICommonService.SendSubscribeMessage(hazardRegister.CheckManId, "安全巡检待复查验收", hazardRegister.ResponsibilityManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", hazardRegister.RectificationTime));
+                }
             }
         }
     }

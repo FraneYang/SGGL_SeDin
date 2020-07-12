@@ -17,57 +17,60 @@ namespace BLL
         /// <returns></returns>
         public static Model.PauseNoticeItem getPauseNoticeById(string PauseNoticeId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Check_PauseNotice
-                          where x.PauseNoticeId == PauseNoticeId
-                          select new Model.PauseNoticeItem
-                          {
-                              PauseNoticeId = x.PauseNoticeId,
-                              ProjectId = x.ProjectId,
-                              PauseNoticeCode = x.PauseNoticeCode,
-                              UnitId = x.UnitId,
-                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                              ProjectPlace = x.ProjectPlace,
-                              WrongContent = x.WrongContent,
-                              PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
-                              PauseContent = x.PauseContent,
-                              OneContent = x.OneContent,
-                              SecondContent = x.SecondContent,
-                              ThirdContent = x.ThirdContent,                       
-                              IsConfirm = x.IsConfirm,
-                              IsConfirmName = (x.IsConfirm == true ? "已确认" : "待确认"),
-                              CompileManId = x.CompileManId,
-                              CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.CompileManId).UserName,
-                              CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                              SignManId = x.SignManId,
-                              SignManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SignManId).UserName,
-                              SignDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SignDate),
-                              ApproveManId = x.ApproveManId,
-                              ApproveManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ApproveManId).UserName,
-                              ApproveDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApproveDate),
-                              DutyPersonId = x.DutyPersonId,
-                              DutyPersonName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
-                              DutyPersonDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonDate),
-                              ProfessionalEngineerId = x.ProfessionalEngineerId,
-                              ProfessionalEngineerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
-                              ProfessionalEngineerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime),
-                              ConstructionManagerId = x.ConstructionManagerId,
-                              ConstructionManagerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
-                              ConstructionManagerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ConstructionManagerTime),
-                              UnitHeadManId = x.UnitHeadManId,
-                              UnitHeadManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
-                              UnitHeadManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.UnitHeadManTime),
-                              SupervisorManId = x.SupervisorManId,
-                              SupervisorManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.SupervisorManId).UserName,
-                              SupervisorManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.SupervisorManTime),
-                              OwnerId = x.OwnerId,
-                              OwnerName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(u => u.UserId == x.OwnerId).UserName,
-                              OwnerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OwnerTime),
-                              States = x.States,
-                              PauseStates = x.PauseStates,
-                              PauseNoticeAttachUrl = APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
-                              FlowOperateItem = getFlowOperateItem(x.PauseNoticeId),
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Check_PauseNotice
+                              where x.PauseNoticeId == PauseNoticeId
+                              select new Model.PauseNoticeItem
+                              {
+                                  PauseNoticeId = x.PauseNoticeId,
+                                  ProjectId = x.ProjectId,
+                                  PauseNoticeCode = x.PauseNoticeCode,
+                                  UnitId = x.UnitId,
+                                  UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                  ProjectPlace = x.ProjectPlace,
+                                  WrongContent = x.WrongContent,
+                                  PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
+                                  PauseContent = x.PauseContent,
+                                  OneContent = x.OneContent,
+                                  SecondContent = x.SecondContent,
+                                  ThirdContent = x.ThirdContent,
+                                  IsConfirm = x.IsConfirm,
+                                  IsConfirmName = (x.IsConfirm == true ? "已确认" : "待确认"),
+                                  CompileManId = x.CompileManId,
+                                  CompileManName = db.Sys_User.First(u => u.UserId == x.CompileManId).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                  SignManId = x.SignManId,
+                                  SignManName = db.Sys_User.First(u => u.UserId == x.SignManId).UserName,
+                                  SignDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SignDate),
+                                  ApproveManId = x.ApproveManId,
+                                  ApproveManName = db.Sys_User.First(u => u.UserId == x.ApproveManId).UserName,
+                                  ApproveDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApproveDate),
+                                  DutyPersonId = x.DutyPersonId,
+                                  DutyPersonName = db.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
+                                  DutyPersonDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonDate),
+                                  ProfessionalEngineerId = x.ProfessionalEngineerId,
+                                  ProfessionalEngineerName = db.Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
+                                  ProfessionalEngineerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime),
+                                  ConstructionManagerId = x.ConstructionManagerId,
+                                  ConstructionManagerName = db.Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
+                                  ConstructionManagerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ConstructionManagerTime),
+                                  UnitHeadManId = x.UnitHeadManId,
+                                  UnitHeadManName = db.Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
+                                  UnitHeadManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.UnitHeadManTime),
+                                  SupervisorManId = x.SupervisorManId,
+                                  SupervisorManName = db.Sys_User.First(u => u.UserId == x.SupervisorManId).UserName,
+                                  SupervisorManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.SupervisorManTime),
+                                  OwnerId = x.OwnerId,
+                                  OwnerName = db.Sys_User.First(u => u.UserId == x.OwnerId).UserName,
+                                  OwnerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OwnerTime),
+                                  States = x.States,
+                                  PauseStates = x.PauseStates,
+                                  PauseNoticeAttachUrl = APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
+                                  FlowOperateItem = getFlowOperateItem(x.PauseNoticeId),
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
         #endregion        
 
@@ -78,22 +81,25 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.FlowOperateItem> getFlowOperateItem(string pauseNoticeId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).Check_PauseNoticeFlowOperate
-                          where x.PauseNoticeId == pauseNoticeId
-                          orderby x.OperateTime descending
-                          select new Model.FlowOperateItem
-                          {
-                              FlowOperateId = x.FlowOperateId,
-                              DataId = x.PauseNoticeId,
-                              AuditFlowName = x.OperateName,
-                              OperaterId = x.OperateManId,
-                              OperaterName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z => z.UserId == x.OperateManId).UserName,
-                              OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.OperateTime),
-                              IsAgree = x.IsAgree,
-                              Opinion = x.Opinion,
-                              SignatureUrl = APIUpLoadFileService.getFileUrl(string.Empty, x.SignatureUrl),
-                          };
-            return getInfo.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.Check_PauseNoticeFlowOperate
+                              where x.PauseNoticeId == pauseNoticeId
+                              orderby x.OperateTime descending
+                              select new Model.FlowOperateItem
+                              {
+                                  FlowOperateId = x.FlowOperateId,
+                                  DataId = x.PauseNoticeId,
+                                  AuditFlowName = x.OperateName,
+                                  OperaterId = x.OperateManId,
+                                  OperaterName = db.Sys_User.First(z => z.UserId == x.OperateManId).UserName,
+                                  OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", x.OperateTime),
+                                  IsAgree = x.IsAgree,
+                                  Opinion = x.Opinion,
+                                  SignatureUrl = APIUpLoadFileService.getFileUrl(string.Empty, x.SignatureUrl),
+                              };
+                return getInfo.ToList();
+            }
         }
         #endregion
 
@@ -107,33 +113,36 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PauseNoticeItem> getPauseNoticeList(string projectId, string unitId, string strParam, string states)
         {
-            var getPauseNotice = from x in new Model.SGGLDB(Funs.ConnString).Check_PauseNotice
-                                  where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.PauseStates == states
-                                  select new Model.PauseNoticeItem
-                                  {
-                                      PauseNoticeId = x.PauseNoticeId,
-                                      ProjectId = x.ProjectId,
-                                      PauseNoticeCode = x.PauseNoticeCode,
-                                      UnitId = x.UnitId,
-                                      UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                                      ProjectPlace = x.ProjectPlace,
-                                      WrongContent = x.WrongContent,
-                                      PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
-                                      PauseContent = x.PauseContent,                                    
-                                      IsConfirm = x.IsConfirm,
-                                      IsConfirmName = (x.IsConfirm == true ? "已确认" : "待确认"),
-                                      CompileManId = x.CompileManId,
-                                      CompileManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(z=>z.UserId ==x.CompileManId).UserName,
-                                      CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                                      States = x.States,
-                                      PauseStates = x.PauseStates,
-                                      PauseNoticeAttachUrl = APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
-                                  };
-            if (!string.IsNullOrEmpty(strParam))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                getPauseNotice = getPauseNotice.Where(x => x.PauseNoticeCode.Contains(strParam) || x.WrongContent.Contains(strParam) || x.PauseContent.Contains(strParam));
+                var getPauseNotice = from x in db.Check_PauseNotice
+                                     where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.PauseStates == states
+                                     select new Model.PauseNoticeItem
+                                     {
+                                         PauseNoticeId = x.PauseNoticeId,
+                                         ProjectId = x.ProjectId,
+                                         PauseNoticeCode = x.PauseNoticeCode,
+                                         UnitId = x.UnitId,
+                                         UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                         ProjectPlace = x.ProjectPlace,
+                                         WrongContent = x.WrongContent,
+                                         PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
+                                         PauseContent = x.PauseContent,
+                                         IsConfirm = x.IsConfirm,
+                                         IsConfirmName = (x.IsConfirm == true ? "已确认" : "待确认"),
+                                         CompileManId = x.CompileManId,
+                                         CompileManName = db.Sys_User.First(z => z.UserId == x.CompileManId).UserName,
+                                         CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                         States = x.States,
+                                         PauseStates = x.PauseStates,
+                                         PauseNoticeAttachUrl = APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
+                                     };
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    getPauseNotice = getPauseNotice.Where(x => x.PauseNoticeCode.Contains(strParam) || x.WrongContent.Contains(strParam) || x.PauseContent.Contains(strParam));
+                }
+                return getPauseNotice.OrderByDescending(x => x.PauseNoticeCode).ToList();
             }
-            return getPauseNotice.OrderByDescending(x=> x.PauseNoticeCode).ToList();
         }
         #endregion        
 
@@ -187,14 +196,14 @@ namespace BLL
                         List<string> listIds = Funs.GetStrListByStr(newItem.HazardRegisterId, ',');
                         foreach (var item in listIds)
                         {
-                            var getHazardRegister = new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == item);
+                            var getHazardRegister = db.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == item);
                             if (getHazardRegister != null)
                             {
                                 getHazardRegister.States = "3";
                                 getHazardRegister.HandleIdea += "已下发工程暂停令：" + newPauseNotice.PauseNoticeCode;
                                 getHazardRegister.ResultId = newPauseNotice.PauseNoticeId;
                                 getHazardRegister.ResultType = "3";
-                                Funs.SubmitChanges();
+                                db.SubmitChanges();
                             }
                         }
                     }
@@ -365,18 +374,21 @@ namespace BLL
         /// <param name="attachUrl">路径</param>
         public static void SavePauseNoticeUrl(string pauseNoticeId, string attachUrl)
         {
-            var getPauseNotice = new Model.SGGLDB(Funs.ConnString).Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == pauseNoticeId);
-            if (getPauseNotice != null)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                string menuId = Const.ProjectPauseNoticeMenuId;               
-                ////保存附件
-                if (!string.IsNullOrEmpty(attachUrl))
+                var getPauseNotice = db.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == pauseNoticeId);
+                if (getPauseNotice != null)
                 {
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(attachUrl, 10, null), attachUrl, menuId, getPauseNotice.PauseNoticeId);
-                }
-                else
-                {
-                    CommonService.DeleteAttachFileById(menuId, getPauseNotice.PauseNoticeId);
+                    string menuId = Const.ProjectPauseNoticeMenuId;
+                    ////保存附件
+                    if (!string.IsNullOrEmpty(attachUrl))
+                    {
+                        UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(attachUrl, 10, null), attachUrl, menuId, getPauseNotice.PauseNoticeId);
+                    }
+                    else
+                    {
+                        CommonService.DeleteAttachFileById(menuId, getPauseNotice.PauseNoticeId);
+                    }
                 }
             }
         }

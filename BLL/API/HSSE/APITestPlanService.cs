@@ -22,24 +22,27 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TestPlanItem> getTestPlanListByProjectIdStates(string projectId, string states)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_TestPlan
-                                where x.ProjectId == projectId && (x.States == states || states == null)
-                                orderby x.TestStartTime descending
-                                select new Model.TestPlanItem
-                                {
-                                    TestPlanId = x.TestPlanId,
-                                    TestPlanCode = x.PlanCode,
-                                    TestPlanName = x.PlanName,
-                                    ProjectId = x.ProjectId,
-                                    TestPlanManId = x.PlanManId,
-                                    TestPlanManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.PlanManId).UserName,
-                                    TestPalce = x.TestPalce,
-                                    TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
-                                    TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),                                    
-                                    States = x.States,
-                                    QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Training_TestPlan
+                                    where x.ProjectId == projectId && (x.States == states || states == null)
+                                    orderby x.TestStartTime descending
+                                    select new Model.TestPlanItem
+                                    {
+                                        TestPlanId = x.TestPlanId,
+                                        TestPlanCode = x.PlanCode,
+                                        TestPlanName = x.PlanName,
+                                        ProjectId = x.ProjectId,
+                                        TestPlanManId = x.PlanManId,
+                                        TestPlanManName = db.Sys_User.First(y => y.UserId == x.PlanManId).UserName,
+                                        TestPalce = x.TestPalce,
+                                        TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
+                                        TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
+                                        States = x.States,
+                                        QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -51,35 +54,38 @@ namespace BLL
         /// <returns></returns>
         public static Model.TestPlanItem getTestPlanByTestPlanId(string testPlanId)
         {
-            var getDataLists = from x in new Model.SGGLDB(Funs.ConnString).Training_TestPlan
-                               where x.TestPlanId == testPlanId
-                               select new Model.TestPlanItem
-                               {
-                                   TestPlanId = x.TestPlanId,
-                                   ProjectId = x.ProjectId,
-                                   TestPlanCode = x.PlanCode,
-                                   TestPlanName = x.PlanName,
-                                   TestPlanManId = x.PlanManId,
-                                   TestPlanManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.TestPlanId).UserName,
-                                   TestPlanDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.PlanDate),
-                                   TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
-                                   TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
-                                   Duration = x.Duration,
-                                   SValue = x.SValue,
-                                   MValue=x.MValue,
-                                   JValue=x.JValue,
-                                   TotalScore = x.TotalScore ?? 0,
-                                   QuestionCount = x.QuestionCount ?? 0,
-                                   TestPalce = x.TestPalce,
-                                   UnitIds = x.UnitIds,
-                                   UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
-                                   WorkPostIds = x.WorkPostIds,
-                                   WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostIds),
-                                   States = x.States,
-                                   QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
-                                   TrainingPlanId = x.PlanId,
-                               };
-            return getDataLists.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = from x in db.Training_TestPlan
+                                   where x.TestPlanId == testPlanId
+                                   select new Model.TestPlanItem
+                                   {
+                                       TestPlanId = x.TestPlanId,
+                                       ProjectId = x.ProjectId,
+                                       TestPlanCode = x.PlanCode,
+                                       TestPlanName = x.PlanName,
+                                       TestPlanManId = x.PlanManId,
+                                       TestPlanManName = db.Sys_User.First(y => y.UserId == x.TestPlanId).UserName,
+                                       TestPlanDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.PlanDate),
+                                       TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
+                                       TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
+                                       Duration = x.Duration,
+                                       SValue = x.SValue,
+                                       MValue = x.MValue,
+                                       JValue = x.JValue,
+                                       TotalScore = x.TotalScore ?? 0,
+                                       QuestionCount = x.QuestionCount ?? 0,
+                                       TestPalce = x.TestPalce,
+                                       UnitIds = x.UnitIds,
+                                       UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
+                                       WorkPostIds = x.WorkPostIds,
+                                       WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostIds),
+                                       States = x.States,
+                                       QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
+                                       TrainingPlanId = x.PlanId,
+                                   };
+                return getDataLists.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -474,21 +480,24 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TestPlanTrainingItem> getTestPlanTrainingListByTestPlanId(string testPlanId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Training_TestPlanTraining
-                                join y in new Model.SGGLDB(Funs.ConnString).Training_TestTraining on x.TrainingId equals y.TrainingId
-                                where x.TestPlanId == testPlanId
-                                orderby y.TrainingCode
-                                select new Model.TestPlanTrainingItem
-                                {
-                                    TestPlanTrainingId = x.TestPlanTrainingId,
-                                    TestPlanId = x.TestPlanId,
-                                    TrainingTypeId = x.TrainingId,
-                                    TrainingTypeName = y.TrainingName,
-                                    TestType1Count = x.TestType1Count ?? 0,
-                                    TestType2Count = x.TestType2Count ?? 0,
-                                    TestType3Count = x.TestType3Count ?? 0,
-                                }).ToList();
-            return getDataLists;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Training_TestPlanTraining
+                                    join y in db.Training_TestTraining on x.TrainingId equals y.TrainingId
+                                    where x.TestPlanId == testPlanId
+                                    orderby y.TrainingCode
+                                    select new Model.TestPlanTrainingItem
+                                    {
+                                        TestPlanTrainingId = x.TestPlanTrainingId,
+                                        TestPlanId = x.TestPlanId,
+                                        TrainingTypeId = x.TrainingId,
+                                        TrainingTypeName = y.TrainingName,
+                                        TestType1Count = x.TestType1Count ?? 0,
+                                        TestType2Count = x.TestType2Count ?? 0,
+                                        TestType3Count = x.TestType3Count ?? 0,
+                                    }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 

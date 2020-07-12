@@ -109,43 +109,49 @@ namespace BLL
         /// </summary>
         public static void SaveAttachUrl(Model.ToDoItem toDoItem)
         {
-            ////保存附件
-            if (!string.IsNullOrEmpty(toDoItem.UrlStr))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (toDoItem.IsInsert == "1")
+                ////保存附件
+                if (!string.IsNullOrEmpty(toDoItem.UrlStr))
                 {
-                    var att = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == toDoItem.DataId);
-                    if (att != null)
+                    if (toDoItem.IsInsert == "1")
                     {
-                        toDoItem.UrlStr = att.AttachUrl + "," + toDoItem.UrlStr;
+                        var att = db.AttachFile.FirstOrDefault(x => x.ToKeyId == toDoItem.DataId);
+                        if (att != null)
+                        {
+                            toDoItem.UrlStr = att.AttachUrl + "," + toDoItem.UrlStr;
+                        }
                     }
+                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(toDoItem.UrlStr, 10, null), toDoItem.UrlStr, toDoItem.MenuId, toDoItem.DataId);
                 }
-                UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(toDoItem.UrlStr, 10, null), toDoItem.UrlStr, toDoItem.MenuId, toDoItem.DataId);
-            }
-            else
-            {
-                CommonService.DeleteAttachFileById(toDoItem.DataId);
+                else
+                {
+                    CommonService.DeleteAttachFileById(toDoItem.DataId);
+                }
             }
         }
 
         public static void SaveAttachUrl(string menuId, string dataId, string url, string isInsert)
         {
-            ////保存附件
-            if (!string.IsNullOrEmpty(url))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (isInsert == "1")
+                ////保存附件
+                if (!string.IsNullOrEmpty(url))
                 {
-                    var att = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == dataId);
-                    if (att != null)
+                    if (isInsert == "1")
                     {
-                        url = att.AttachUrl + "," + url;
+                        var att = db.AttachFile.FirstOrDefault(x => x.ToKeyId == dataId);
+                        if (att != null)
+                        {
+                            url = att.AttachUrl + "," + url;
+                        }
                     }
+                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(url, 10, null), url, menuId, dataId);
                 }
-                UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(url, 10, null), url, menuId, dataId);
-            }
-            else
-            {
-                CommonService.DeleteAttachFileById(dataId);
+                else
+                {
+                    CommonService.DeleteAttachFileById(dataId);
+                }
             }
         }
 

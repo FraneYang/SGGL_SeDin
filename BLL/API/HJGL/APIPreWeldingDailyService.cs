@@ -20,18 +20,21 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_PreWeldingDailyItem getPreWeldingDailyInfo(string preWeldingDailyId)
         {
-            var getInfo = from x in new Model.SGGLDB(Funs.ConnString).HJGL_PreWeldingDaily
-                          where x.PreWeldingDailyId == preWeldingDailyId
-                          select new Model.HJGL_PreWeldingDailyItem
-                          {
-                              PreWeldingDailyId = x.PreWeldingDailyId,
-                              ProjectId = x.ProjectId,
-                              UnitWorkId = x.UnitWorkId,
-                              UnitWorkName = new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.First(y => y.UnitWorkId == x.UnitWorkId).UnitWorkName,
-                              UnitId = x.UnitId,
-                              UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                          };
-            return getInfo.FirstOrDefault();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getInfo = from x in db.HJGL_PreWeldingDaily
+                              where x.PreWeldingDailyId == preWeldingDailyId
+                              select new Model.HJGL_PreWeldingDailyItem
+                              {
+                                  PreWeldingDailyId = x.PreWeldingDailyId,
+                                  ProjectId = x.ProjectId,
+                                  UnitWorkId = x.UnitWorkId,
+                                  UnitWorkName = db.WBS_UnitWork.First(y => y.UnitWorkId == x.UnitWorkId).UnitWorkName,
+                                  UnitId = x.UnitId,
+                                  UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                              };
+                return getInfo.FirstOrDefault();
+            }
         }
         #endregion        
 
@@ -43,19 +46,22 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_PreWeldingDailyItem> getPreWeldingDailyList(string projectId)
         {
-            var getList = from x in new Model.SGGLDB(Funs.ConnString).HJGL_PreWeldingDaily
-                                       where x.ProjectId == projectId 
-                                       orderby x.WeldingDate descending
-                                       select new Model.HJGL_PreWeldingDailyItem
-                                       {
-                                           PreWeldingDailyId = x.PreWeldingDailyId,
-                                           ProjectId = x.ProjectId,
-                                           UnitWorkId = x.UnitWorkId,
-                                           UnitWorkName =new Model.SGGLDB(Funs.ConnString).WBS_UnitWork.First(y=>y.UnitWorkId== x.UnitWorkId).UnitWorkName,                                          
-                                           UnitId = x.UnitId,
-                                           UnitName = new Model.SGGLDB(Funs.ConnString).Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,                                                                                    
-                                       };
-            return getList.ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getList = from x in db.HJGL_PreWeldingDaily
+                              where x.ProjectId == projectId
+                              orderby x.WeldingDate descending
+                              select new Model.HJGL_PreWeldingDailyItem
+                              {
+                                  PreWeldingDailyId = x.PreWeldingDailyId,
+                                  ProjectId = x.ProjectId,
+                                  UnitWorkId = x.UnitWorkId,
+                                  UnitWorkName = db.WBS_UnitWork.First(y => y.UnitWorkId == x.UnitWorkId).UnitWorkName,
+                                  UnitId = x.UnitId,
+                                  UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                              };
+                return getList.ToList();
+            }
         }
         #endregion        
 
@@ -76,7 +82,7 @@ namespace BLL
                 UnitId = newItem.UnitId,
             };
 
-            var updateItem = new Model.SGGLDB(Funs.ConnString).HJGL_PreWeldingDaily.FirstOrDefault(x => x.PreWeldingDailyId == newItem.PreWeldingDailyId);
+            var updateItem = db.HJGL_PreWeldingDaily.FirstOrDefault(x => x.PreWeldingDailyId == newItem.PreWeldingDailyId);
             if (updateItem == null)
             {
 

@@ -42,11 +42,14 @@ namespace BLL
         /// <returns>应急预案实体集合</returns>
         public static List<Model.Emergency_EmergencyList> GetEmergencyListsByEmergencyType(string emergencyType, string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyList
-                    join y in new Model.SGGLDB(Funs.ConnString).Base_EmergencyType
-                    on x.EmergencyTypeId equals y.EmergencyTypeId
-                    where y.EmergencyTypeName.Contains(emergencyType) && x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate < endTime
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.Emergency_EmergencyList
+                        join y in db.Base_EmergencyType
+                        on x.EmergencyTypeId equals y.EmergencyTypeId
+                        where y.EmergencyTypeName.Contains(emergencyType) && x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate < endTime
+                        select x).ToList();
+            }
         }
 
         /// <summary>
@@ -57,11 +60,14 @@ namespace BLL
         /// <returns>其他应急预案实体集合</returns>
         public static List<Model.Emergency_EmergencyList> GetOtherEmergencyListsByEmergencyType(string emergencyType, string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyList
-                    join y in new Model.SGGLDB(Funs.ConnString).Base_EmergencyType
-                    on x.EmergencyTypeId equals y.EmergencyTypeId
-                    where !y.EmergencyTypeName.Contains(emergencyType) && x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate < endTime
-                    select x).ToList();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.Emergency_EmergencyList
+                        join y in db.Base_EmergencyType
+                        on x.EmergencyTypeId equals y.EmergencyTypeId
+                        where !y.EmergencyTypeName.Contains(emergencyType) && x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate < endTime
+                        select x).ToList();
+            }
         }
 
         /// <summary>

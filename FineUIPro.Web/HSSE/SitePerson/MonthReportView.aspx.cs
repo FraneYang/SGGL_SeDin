@@ -86,41 +86,44 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// 绑定明细数据
         /// </summary>
         private void BindGrid()
-        {            
-            var q = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail
-                    join a in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReport
-                    on x.MonthReportId equals a.MonthReportId
-                    join b in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                    on x.UnitId equals b.UnitId
-                    where x.MonthReportId == this.MonthReportId
-                    orderby b.UnitCode
-                    select new
-                    {
-                        x.MonthReportDetailId,
-                        x.MonthReportId,
-                        x.UnitId,
-                        x.StaffData,
-                        x.DayNum,
-                        x.WorkTime,
-                        x.CheckPersonNum,
-                        x.RealPersonNum,
-                        x.PersonWorkTime,
-                        YearPersonWorkTime = (from y in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail
-                                              where (from z in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReport
-                                                     where z.CompileDate <= a.CompileDate && z.CompileDate.Value.Year == a.CompileDate.Value.Year
-                                                     && x.UnitId == y.UnitId && z.ProjectId == this.ProjectId
-                                                     select z.MonthReportId).Contains(y.MonthReportId)
-                                              select y.PersonWorkTime ?? 0).Sum(),
-                        TotalPersonWorkTime = (from y in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail
-                                               where (from z in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReport
-                                                      where z.CompileDate <= a.CompileDate && x.UnitId == y.UnitId && z.ProjectId == this.ProjectId
-                                                      select z.MonthReportId).Contains(y.MonthReportId)
-                                               select y.PersonWorkTime ?? 0).Sum(),
-                        x.Remark,
-                        b.UnitName,
-                    };
-            Grid1.DataSource = q;
-            Grid1.DataBind();
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var q = from x in db.SitePerson_MonthReportDetail
+                        join a in db.SitePerson_MonthReport
+                        on x.MonthReportId equals a.MonthReportId
+                        join b in db.Base_Unit
+                        on x.UnitId equals b.UnitId
+                        where x.MonthReportId == this.MonthReportId
+                        orderby b.UnitCode
+                        select new
+                        {
+                            x.MonthReportDetailId,
+                            x.MonthReportId,
+                            x.UnitId,
+                            x.StaffData,
+                            x.DayNum,
+                            x.WorkTime,
+                            x.CheckPersonNum,
+                            x.RealPersonNum,
+                            x.PersonWorkTime,
+                            YearPersonWorkTime = (from y in db.SitePerson_MonthReportDetail
+                                                  where (from z in db.SitePerson_MonthReport
+                                                         where z.CompileDate <= a.CompileDate && z.CompileDate.Value.Year == a.CompileDate.Value.Year
+                                                         && x.UnitId == y.UnitId && z.ProjectId == this.ProjectId
+                                                         select z.MonthReportId).Contains(y.MonthReportId)
+                                                  select y.PersonWorkTime ?? 0).Sum(),
+                            TotalPersonWorkTime = (from y in db.SitePerson_MonthReportDetail
+                                                   where (from z in db.SitePerson_MonthReport
+                                                          where z.CompileDate <= a.CompileDate && x.UnitId == y.UnitId && z.ProjectId == this.ProjectId
+                                                          select z.MonthReportId).Contains(y.MonthReportId)
+                                                   select y.PersonWorkTime ?? 0).Sum(),
+                            x.Remark,
+                            b.UnitName,
+                        };
+                Grid1.DataSource = q;
+                Grid1.DataBind();
+            }
         }
         #endregion
         
