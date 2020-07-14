@@ -67,13 +67,13 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.TextBox txtProjectType;
         
         /// <summary>
-        /// txtWeights 控件。
+        /// txtCosts 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtWeights;
+        protected global::FineUIPro.TextBox txtCosts;
         
         /// <summary>
         /// Toolbar1 控件。

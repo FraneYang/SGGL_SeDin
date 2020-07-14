@@ -30,9 +30,9 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.txtProjectType.Text = "安装工程";
                         }
-                        if (UnitWork.Weights != null)
+                        if (UnitWork.Costs != null)
                         {
-                            this.txtWeights.Text = UnitWork.Weights.ToString();
+                            this.txtCosts.Text = UnitWork.Costs.ToString();
                         }
                     }
                 }

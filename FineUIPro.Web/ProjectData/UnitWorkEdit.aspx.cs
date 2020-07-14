@@ -47,9 +47,9 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.drpProjectType.SelectedValue = UnitWork.ProjectType;
                         }
-                        if (UnitWork.Weights != null)
+                        if (UnitWork.Costs != null)
                         {
-                            this.txtWeights.Text = UnitWork.Weights.ToString();
+                            this.txtCosts.Text = UnitWork.Costs.ToString();
                         }
                         if (!string.IsNullOrEmpty(UnitWork.UnitId)) {
                             this.drpUnit.SelectedValue = UnitWork.UnitId;
@@ -105,9 +105,9 @@ namespace FineUIPro.Web.ProjectData
             {
                 UnitWork.ProjectType = drpProjectType.SelectedValue;
             }
-            if (!string.IsNullOrEmpty(this.txtWeights.Text.Trim()))
+            if (!string.IsNullOrEmpty(this.txtCosts.Text.Trim()))
             {
-                UnitWork.Weights = Convert.ToDecimal(this.txtWeights.Text.Trim());
+                UnitWork.Costs = Convert.ToDecimal(this.txtCosts.Text.Trim());
             }
             if (!string.IsNullOrEmpty(UnitWorkId))
             {

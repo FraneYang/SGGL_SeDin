@@ -355,8 +355,9 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
+                Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
                 string returnValue = string.Empty;
-                var notice = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_Notice
+                var notice = (from x in db.InformationProject_Notice
                               where x.IsRelease == true
                               orderby x.ReleaseDate descending
                               select x).FirstOrDefault();

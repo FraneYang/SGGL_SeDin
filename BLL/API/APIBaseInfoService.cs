@@ -321,7 +321,7 @@ namespace BLL
                                         NoticeCode = x.NoticeCode,
                                         NoticeTitle = x.NoticeTitle,
                                         ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
-                                        IsRead = new Model.SGGLDB(Funs.ConnString).Sys_UserRead.FirstOrDefault(y => y.DataId == x.NoticeId && y.ProjectId == projectId && y.UserId == userId) == null ? false : true,
+                                        IsRead = db.Sys_UserRead.FirstOrDefault(y => y.DataId == x.NoticeId && y.ProjectId == projectId && y.UserId == userId) == null ? false : true,
                                     }).ToList();
                 return getDataLists.OrderBy(x => x.IsRead).ThenByDescending(x => x.ReleaseDate).ToList();
             }
@@ -345,7 +345,7 @@ namespace BLL
                                         NoticeTitle = x.NoticeTitle,
                                         ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
                                         MainContent = x.MainContent,
-                                        AttachUrl = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/"),
+                                        AttachUrl = db.AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/"),
                                     }).FirstOrDefault();
                 return getDataLists;
             }

@@ -27,12 +27,13 @@ namespace BLL
             newUnitWork.IsChild = UnitWork.IsChild;
             newUnitWork.ProjectId = UnitWork.ProjectId;
             newUnitWork.ProjectType = UnitWork.ProjectType;
-            newUnitWork.Weights = UnitWork.Weights;
             newUnitWork.UnitId = UnitWork.UnitId;
             newUnitWork.SupervisorUnitId = UnitWork.SupervisorUnitId;
             newUnitWork.NDEUnit = UnitWork.NDEUnit;
+            newUnitWork.Costs = UnitWork.Costs;
             db.WBS_UnitWork.InsertOnSubmit(newUnitWork);
             db.SubmitChanges();
+            GetWeights(UnitWork.ProjectId);
         }
 
         /// <summary>
@@ -52,10 +53,27 @@ namespace BLL
                 newUnitWork.IsChild = UnitWork.IsChild;
                 newUnitWork.ProjectId = UnitWork.ProjectId;
                 newUnitWork.ProjectType = UnitWork.ProjectType;
-                newUnitWork.Weights = UnitWork.Weights;
                 newUnitWork.UnitId = UnitWork.UnitId;
                 newUnitWork.SupervisorUnitId = UnitWork.SupervisorUnitId;
                 newUnitWork.NDEUnit = UnitWork.NDEUnit;
+                newUnitWork.Costs = UnitWork.Costs;
+                db.SubmitChanges();
+            }
+            GetWeights(UnitWork.ProjectId);
+        }
+
+        private static void GetWeights(string projectId)
+        {
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            decimal totalCosts = 0;
+            var unitWorks = from x in db.WBS_UnitWork where x.ProjectId == projectId && x.Costs != null select x;
+            foreach (var unitWork in unitWorks)
+            {
+                totalCosts += Convert.ToDecimal(unitWork.Costs);
+            }
+            foreach (var unitWork in unitWorks)
+            {
+                unitWork.Weights = unitWork.Costs / totalCosts * 100;
                 db.SubmitChanges();
             }
         }
@@ -72,6 +90,7 @@ namespace BLL
             {
                 db.WBS_UnitWork.DeleteOnSubmit(Unitwork);
                 db.SubmitChanges();
+                GetWeights(Unitwork.ProjectId);
             }
         }
 
@@ -278,9 +297,10 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_UnitWork> GetUnitWorkListByPid(string projectId)
         {
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
+            var unitWorks = from x in db.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
+            var a = (from x in db.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
             foreach (var unitWorkCode in a)
             {
                 var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);

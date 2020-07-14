@@ -52,7 +52,7 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField Width="180px" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
+                        <f:RenderField Width="150px" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
                             SortField="UnitWorkCode" FieldType="String" HeaderText="单位工程编号" TextAlign="center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
@@ -61,23 +61,27 @@
                             SortField="UnitWorkName" FieldType="String" HeaderText="单位工程名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="180px" ColumnID="ProjectType" DataField="ProjectType" SortField="ProjectType"
+                        <f:RenderField Width="100px" ColumnID="ProjectType" DataField="ProjectType" SortField="ProjectType"
                             FieldType="String" HeaderText="所属工程" TextAlign="Center" HeaderTextAlign="Center">
                         </f:RenderField>
+                        <f:RenderField HeaderText="建安工程费（万元）" ColumnID="Costs" DataField="Costs"
+                            SortField="Costs" HeaderTextAlign="Center" TextAlign="Center" Width="150px"
+                            FieldType="String">
+                        </f:RenderField>
                         <f:RenderField HeaderText="权重%" ColumnID="Weights" DataField="Weights"
-                            SortField="Weights" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
+                            SortField="Weights" HeaderTextAlign="Center" TextAlign="Center" Width="80px"
                             FieldType="String">
                         </f:RenderField>
                         <f:RenderField HeaderText="施工单位" ColumnID="UnitId" DataField="UnitId"
-                            SortField="UnitId" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
+                            SortField="UnitId" HeaderTextAlign="Center" TextAlign="Center" Width="120px"
                             FieldType="String">
                         </f:RenderField>
                         <f:RenderField HeaderText="监理单位" ColumnID="SupervisorUnitId" DataField="SupervisorUnitId"
-                            SortField="SupervisorUnitId" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
+                            SortField="SupervisorUnitId" HeaderTextAlign="Center" TextAlign="Center" Width="120px"
                             FieldType="String">
                         </f:RenderField>
                         <f:RenderField HeaderText="检测单位" ColumnID="NDEUnit" DataField="NDEUnit"
-                            SortField="NDEUnit" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
+                            SortField="NDEUnit" HeaderTextAlign="Center" TextAlign="Center" Width="120px"
                             FieldType="String">
                         </f:RenderField>
                     </Columns>
@@ -105,7 +109,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="单位工程" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="600px" Height="300px">
+            Width="650px" Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>

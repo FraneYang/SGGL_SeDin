@@ -7,6 +7,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
+    <style>
+        .f-grid-row .f-grid-cell-inner {
+            white-space: normal;
+            word-break: break-all;
+        }
+
+         .f-grid-colheader-text {
+            white-space: normal;
+            word-break: break-all;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -35,6 +46,7 @@
                                         <f:Button runat="server" ID="btnDel" OnClick="btnDel_Click" Hidden="true"></f:Button>
                                         <f:Button runat="server" ID="btnReCheck" OnClick="btnReCheck_Click" Hidden="true"></f:Button>
                                         <f:HiddenField runat="server" ID="hdId"></f:HiddenField>
+                                        <f:HiddenField runat="server" ID="hdTotalValue"></f:HiddenField>
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>
@@ -49,18 +61,25 @@
                                     HeaderText="工作包" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="定制" ColumnID="AttachUrl" DataField="AttachUrl" SortField="AttachUrl"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="250px" FieldType="String" >
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="200px" FieldType="String" >
                                     <Editor>
                                         <f:TextBox runat="server" ID="txtName">
                                         </f:TextBox>
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="权重%" ColumnID="Weights" DataField="Weights"
-                                    SortField="Weights" HeaderTextAlign="Center" TextAlign="Center" Width="65px"
+                                    SortField="Weights" HeaderTextAlign="Center" TextAlign="Center" Width="90px"
                                     FieldType="String">
                                     <Editor>
                                         <f:NumberBox ID="txtWeights" runat="server" NoNegative="true" TrimEndZero="false" NoDecimal="false">
                                         </f:NumberBox>
+                                    </Editor>
+                                </f:RenderField>
+                                <f:RenderField HeaderText="建安工程费（万元）" ColumnID="Costs" DataField="Costs"
+                                    SortField="Costs" HeaderTextAlign="Center" TextAlign="Center" Width="160px"
+                                    FieldType="String">
+                                    <Editor>
+                                        <f:Label ID="txtCosts" runat="server"></f:Label>
                                     </Editor>
                                 </f:RenderField>
                                 <%--<f:TemplateField ColumnID="PlanCompleteDate" Width="120px" HeaderText="计划完成时间" HeaderTextAlign="Center" TextAlign="Center">
@@ -124,6 +143,7 @@
         var btnDelID = '<%= btnDel.ClientID %>';
         var btnReCheckID = '<%= btnReCheck.ClientID %>';
         var hdId = '<%= hdId.ClientID %>';
+        var hdTotalValue='<%= hdTotalValue.ClientID %>';
         // 保存当前菜单对应的树节点ID
         var currentNodeId;
 
@@ -140,7 +160,11 @@
             if (columnId === 'Weights') {
                 var Weights = me.getCellValue(rowId, 'Weights');
                 if (Weights.toString() != "") {
+                    var totalValue = F(hdTotalValue).value;
                     me.updateCellValue(rowId, 'Weights', parseFloat(Weights).toFixed(2));
+                    if (totalValue != "undefined") {
+                         me.updateCellValue(rowId, 'Costs', (totalValue/100*parseFloat(Weights)).toFixed(4));
+                    }
                 }
             }
             // 回发到后台更新

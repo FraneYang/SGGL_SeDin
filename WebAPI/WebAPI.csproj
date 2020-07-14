@@ -167,8 +167,8 @@
     <Compile Include="Controllers\CQMS\CheckEquipmentController.cs" />
     <Compile Include="Controllers\CQMS\CheckListController.cs" />
     <Compile Include="Controllers\CQMS\CommenInfoController.cs" />
-    <Compile Include="Controllers\CQMS\ConstructSolutionController.cs" />
     <Compile Include="Controllers\CQMS\ContactController.cs" />
+    <Compile Include="Controllers\CQMS\CQMSConstructSolutionController.cs" />
     <Compile Include="Controllers\CQMS\DesignController.cs" />
     <Compile Include="Controllers\CQMS\DrawController.cs" />
     <Compile Include="Controllers\CQMS\IndexController.cs" />

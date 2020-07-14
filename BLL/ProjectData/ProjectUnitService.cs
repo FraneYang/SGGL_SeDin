@@ -180,16 +180,15 @@
 
         public static List<Model.Project_ProjectUnit> GetProjectUnitListByProjectIdForApi(string projectId, string unitType, string name)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
-                string[] types = unitType.Split(',');
-                return (from x in db.Project_ProjectUnit
-                        join y in db.Base_Unit on x.UnitId equals y.UnitId
-                        where x.ProjectId == projectId
-                        where unitType == "" || types.Contains(x.UnitType)
-                        where name == "" || y.UnitName.Contains(name)
-                        orderby x.UnitType, y.UnitCode
-                        select x).ToList();
-            }
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            string[] types = unitType.Split(',');
+            return (from x in db.Project_ProjectUnit
+                    join y in db.Base_Unit on x.UnitId equals y.UnitId
+                    where x.ProjectId == projectId
+                    where unitType == "" || types.Contains(x.UnitType)
+                    where name == "" || y.UnitName.Contains(name)
+                    orderby x.UnitType, y.UnitCode
+                    select x).ToList();
         }
     }
 }

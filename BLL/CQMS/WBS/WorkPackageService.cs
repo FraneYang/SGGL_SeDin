@@ -31,6 +31,7 @@ namespace BLL
             newWorkPackage.Weights = WorkPackage.Weights;
             newWorkPackage.ProjectType = WorkPackage.ProjectType;
             newWorkPackage.IsApprove = WorkPackage.IsApprove;
+            newWorkPackage.Costs = WorkPackage.Costs;
 
             db.WBS_WorkPackage.InsertOnSubmit(newWorkPackage);
             db.SubmitChanges();
@@ -53,6 +54,7 @@ namespace BLL
             newWorkPackage.SortIndex = WorkPackage.SortIndex;
             newWorkPackage.Weights = WorkPackage.Weights;
             newWorkPackage.IsApprove = WorkPackage.IsApprove;
+            newWorkPackage.Costs = WorkPackage.Costs;
 
             db.SubmitChanges();
         }

@@ -161,9 +161,10 @@ namespace BLL
         /// <param name="ConstructSolutionId"></param>
         public static void delSolutionApprove(string constructSolutionId, string man)
         {
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == constructSolutionId && x.ApproveType != "S" && x.ApproveMan.Equals(man) && x.ApproveDate == null select x).ToList();
-            new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.DeleteAllOnSubmit(q);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            db.Solution_CQMSConstructSolutionApprove.DeleteAllOnSubmit(q);
+            db.SubmitChanges();
 
         }
 
@@ -174,9 +175,10 @@ namespace BLL
         /// <param name="ConstructSolutionCode">施工方案编号</param>
         public static void DeleteConstructSolutionApprovesByConstructSolutionId(string ConstructSolutionId)
         {
+            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
             var q = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == ConstructSolutionId select x).ToList();
-            new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.DeleteAllOnSubmit(q);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            db.Solution_CQMSConstructSolutionApprove.DeleteAllOnSubmit(q);
+            db.SubmitChanges();
         }
         /// <summary>
         /// 根据施工方案编号获取一个施工方案审批信息
@@ -206,6 +208,7 @@ namespace BLL
         /// <param name="managerRuleApprove">施工方案审批实体</param>
         public static void AddConstructSolutionApprove(Model.Solution_CQMSConstructSolutionApprove approve)
         {
+            var db = new Model.SGGLDB(Funs.ConnString);
             Model.Solution_CQMSConstructSolutionApprove newApprove = new Model.Solution_CQMSConstructSolutionApprove();
             if (string.IsNullOrWhiteSpace(approve.ConstructSolutionApproveId))
             {
@@ -223,8 +226,8 @@ namespace BLL
             newApprove.ApproveType = approve.ApproveType;
             newApprove.SignType = approve.SignType;
             newApprove.Edition = approve.Edition;
-            new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolutionApprove.InsertOnSubmit(newApprove);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            db.Solution_CQMSConstructSolutionApprove.InsertOnSubmit(newApprove);
+            db.SubmitChanges();
         }
         public static void AddConstructSolutionApproveForApi(Model.Solution_CQMSConstructSolutionApprove approve)
         {

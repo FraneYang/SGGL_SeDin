@@ -37,7 +37,7 @@
                 </f:FormRow>
                 <f:FormRow runat="server">
                     <Items>
-                       <f:TextBox ID="txtWeights" runat="server" Label="权重%" Readonly="true"
+                       <f:TextBox ID="txtCosts" runat="server" Label="建安工程费（万元）" Readonly="true"
                             MaxLength="50" LabelWidth="150px">
                         </f:TextBox>
                     </Items>

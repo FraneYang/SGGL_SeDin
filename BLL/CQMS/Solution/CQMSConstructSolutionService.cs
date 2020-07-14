@@ -320,72 +320,70 @@ namespace BLL
         }
         public static List<Model.Solution_CQMSConstructSolution> getListDataForApi(string name, string projectId, int startRowIndex, int maximumRows)
         {
-            using (var db = new Model.SGGLDB(Funs.ConnString))
+            var db = new Model.SGGLDB(Funs.ConnString);
+            IQueryable<Model.Solution_CQMSConstructSolution> q = db.Solution_CQMSConstructSolution;
+
+            if (!string.IsNullOrEmpty(projectId))
             {
-                IQueryable<Model.Solution_CQMSConstructSolution> q = db.Solution_CQMSConstructSolution;
-
-                if (!string.IsNullOrEmpty(projectId))
-                {
-                    q = q.Where(e => e.ProjectId == projectId);
-                }
-                if (!string.IsNullOrEmpty(name))
-                {
-                    List<string> ids = new List<string>();
-                    var qunit = from u in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                                where u.UnitName.Contains(name)
-                                select u.UnitId;
-                    ids = qunit.ToList();
-                    q = q.Where(e => e.SolutionName.Contains(name) || ids.Contains(e.UnitId));
-                }
-
-
-                var qlist = from x in q
-                            orderby x.Code descending
-
-                            select new
-                            {
-                                x.ConstructSolutionId,
-                                x.Code,
-                                x.ProjectId,
-                                x.UnitId,
-                                UnitName = (from y in db.Base_Unit where y.UnitId == x.UnitId select y.UnitName).First(),
-                                x.SolutionName,
-                                x.SolutionType,
-                                x.UnitWorkIds,
-                                UnitWorkName = GetUnitWorkName(x.UnitWorkIds),
-                                x.CNProfessionalCodes,
-                                ProfessionalName = GetProfessionalName(x.CNProfessionalCodes),
-                                x.AttachUrl,
-                                x.CompileMan,
-                                x.CompileDate,
-                                x.State,
-                                x.Edition,
-                                CompileManName = (from y in db.Sys_User where y.UserId == x.CompileMan select y.UserName).First(),
-                            };
-
-                List<Model.Solution_CQMSConstructSolution> res = new List<Model.Solution_CQMSConstructSolution>();
-                var qres = qlist.Skip(startRowIndex * maximumRows).Take(maximumRows).ToList();
-                foreach (var item in qres)
-                {
-                    Model.Solution_CQMSConstructSolution cs = new Model.Solution_CQMSConstructSolution();
-                    cs.ConstructSolutionId = item.ConstructSolutionId;
-                    cs.Code = item.Code;
-                    cs.ProjectId = item.ProjectId;
-                    cs.UnitId = item.UnitId + "$" + item.UnitName;
-                    cs.SolutionName = item.SolutionName;
-                    cs.SolutionType = item.SolutionType;
-                    cs.UnitWorkIds = item.UnitWorkIds + "$" + item.UnitWorkName;
-                    cs.CNProfessionalCodes = item.CNProfessionalCodes + "$" + item.ProfessionalName;
-                    cs.AttachUrl = item.AttachUrl;
-                    cs.CompileMan = item.CompileMan + "$" + item.CompileManName;
-                    cs.CompileDate = item.CompileDate;
-                    cs.State = item.State;
-                    cs.Edition = item.Edition;
-
-                    res.Add(cs);
-                }
-                return res;
+                q = q.Where(e => e.ProjectId == projectId);
             }
+            if (!string.IsNullOrEmpty(name))
+            {
+                List<string> ids = new List<string>();
+                var qunit = from u in new Model.SGGLDB(Funs.ConnString).Base_Unit
+                            where u.UnitName.Contains(name)
+                            select u.UnitId;
+                ids = qunit.ToList();
+                q = q.Where(e => e.SolutionName.Contains(name) || ids.Contains(e.UnitId));
+            }
+
+
+            var qlist = from x in q
+                        orderby x.Code descending
+
+                        select new
+                        {
+                            x.ConstructSolutionId,
+                            x.Code,
+                            x.ProjectId,
+                            x.UnitId,
+                            UnitName = (from y in db.Base_Unit where y.UnitId == x.UnitId select y.UnitName).First(),
+                            x.SolutionName,
+                            x.SolutionType,
+                            x.UnitWorkIds,
+                            UnitWorkName = GetUnitWorkName(x.UnitWorkIds),
+                            x.CNProfessionalCodes,
+                            ProfessionalName = GetProfessionalName(x.CNProfessionalCodes),
+                            x.AttachUrl,
+                            x.CompileMan,
+                            x.CompileDate,
+                            x.State,
+                            x.Edition,
+                            CompileManName = (from y in db.Sys_User where y.UserId == x.CompileMan select y.UserName).First(),
+                        };
+
+            List<Model.Solution_CQMSConstructSolution> res = new List<Model.Solution_CQMSConstructSolution>();
+            var qres = qlist.Skip(startRowIndex * maximumRows).Take(maximumRows).ToList();
+            foreach (var item in qres)
+            {
+                Model.Solution_CQMSConstructSolution cs = new Model.Solution_CQMSConstructSolution();
+                cs.ConstructSolutionId = item.ConstructSolutionId;
+                cs.Code = item.Code;
+                cs.ProjectId = item.ProjectId;
+                cs.UnitId = item.UnitId + "$" + item.UnitName;
+                cs.SolutionName = item.SolutionName;
+                cs.SolutionType = item.SolutionType;
+                cs.UnitWorkIds = item.UnitWorkIds + "$" + item.UnitWorkName;
+                cs.CNProfessionalCodes = item.CNProfessionalCodes + "$" + item.ProfessionalName;
+                cs.AttachUrl = item.AttachUrl;
+                cs.CompileMan = item.CompileMan + "$" + item.CompileManName;
+                cs.CompileDate = item.CompileDate;
+                cs.State = item.State;
+                cs.Edition = item.Edition;
+
+                res.Add(cs);
+            }
+            return res;
         }
         public static void UpdateConstructSolutionForApi(Model.Solution_CQMSConstructSolution constructSolution)
         {

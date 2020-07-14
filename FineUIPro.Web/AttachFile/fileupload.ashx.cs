@@ -54,10 +54,8 @@ namespace FineUIPro.Web.AttachFile
             string fileType = GetFileType(fileName);
             int fileSize = postedFile.ContentLength;
 
-
             JObject fileObj = new JObject();
             string fileId = Guid.NewGuid().ToString();
-
             fileObj.Add("name", shortFileName);
             fileObj.Add("type", fileType);
             fileObj.Add("savedName", savedFileName);
@@ -72,9 +70,7 @@ namespace FineUIPro.Web.AttachFile
             }
             string folder = attachUrl.Substring(0, strInt + 1).Replace('\\', '/');
             fileObj.Add("folder", folder);
-
             SaveToDatabase(context, sessionName, fileObj);
-
             context.Response.Write("Success");
         }
 

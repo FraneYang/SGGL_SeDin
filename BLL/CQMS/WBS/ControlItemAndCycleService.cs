@@ -65,6 +65,7 @@ namespace BLL
             newControlItemAndCycle.CheckNum = ControlItemAndCycle.CheckNum;
             newControlItemAndCycle.InitControlItemCode = ControlItemAndCycle.InitControlItemCode;
             newControlItemAndCycle.PlanCompleteDate = ControlItemAndCycle.PlanCompleteDate;
+            newControlItemAndCycle.Costs = ControlItemAndCycle.Costs;
 
             db.WBS_ControlItemAndCycle.InsertOnSubmit(newControlItemAndCycle);
             db.SubmitChanges();
@@ -96,6 +97,7 @@ namespace BLL
             newControlItemAndCycle.ClauseNo = ControlItemAndCycle.ClauseNo;
             newControlItemAndCycle.CheckNum = ControlItemAndCycle.CheckNum;
             newControlItemAndCycle.PlanCompleteDate = ControlItemAndCycle.PlanCompleteDate;
+            newControlItemAndCycle.Costs = ControlItemAndCycle.Costs;
 
             db.SubmitChanges();
         }

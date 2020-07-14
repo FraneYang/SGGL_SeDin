@@ -16,20 +16,20 @@
                 <f:FormRow runat="server">
                     <Items>
                         <f:TextBox ID="txtUnitWorkCode" runat="server" Label="单位工程编号"
-                            Required="true" MaxLength="70" ShowRedStar="true" LabelWidth="110px">
+                            Required="true" MaxLength="70" ShowRedStar="true" LabelWidth="150px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow runat="server">
                     <Items>
                         <f:TextBox ID="txtUnitWorkName" runat="server" Label="单位工程名称"
-                            Required="true" MaxLength="70" ShowRedStar="true" LabelWidth="110px">
+                            Required="true" MaxLength="70" ShowRedStar="true" LabelWidth="150px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow runat="server">
                     <Items>
-                        <f:DropDownList ID="drpProjectType" runat="server" EmptyText="--请选择--"  Required="true"  AutoSelectFirstItem="false" Label="所属工程" LabelWidth="110px" ShowRedStar="true" LabelAlign="Right" EnableEdit="true">
+                        <f:DropDownList ID="drpProjectType" runat="server" EmptyText="--请选择--"  Required="true"  AutoSelectFirstItem="false" Label="所属工程" LabelWidth="150px" ShowRedStar="true" LabelAlign="Right" EnableEdit="true">
                             <f:ListItem Text="建筑工程" Value="1" />
                             <f:ListItem Text="安装工程" Value="2" />
                         </f:DropDownList>
@@ -37,22 +37,22 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:NumberBox runat="server" ID="txtWeights" Label="权重%" LabelWidth="110px" NoDecimal="false" NoNegative="true"></f:NumberBox>
+                        <f:NumberBox runat="server" ID="txtCosts" Label="建安工程费（万元）" LabelWidth="150px" NoDecimal="false" NoNegative="true"></f:NumberBox>
                    </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList runat="server" ID="drpUnit" Label="施工单位" LabelWidth="110px" ShowRedStar="true"></f:DropDownList>
+                        <f:DropDownList runat="server" ID="drpUnit" Label="施工单位" LabelWidth="150px" ShowRedStar="true"></f:DropDownList>
                    </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList runat="server" ID="drpSupervisorUnit" Label="监理单位" LabelWidth="110px"></f:DropDownList>
+                        <f:DropDownList runat="server" ID="drpSupervisorUnit" Label="监理单位" LabelWidth="150px"></f:DropDownList>
                    </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList runat="server" ID="drpNDEUnit" Label="检测单位" LabelWidth="110px"></f:DropDownList>
+                        <f:DropDownList runat="server" ID="drpNDEUnit" Label="检测单位" LabelWidth="150px"></f:DropDownList>
                    </Items>
                 </f:FormRow>
             </Rows>

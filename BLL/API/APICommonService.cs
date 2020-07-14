@@ -2,7 +2,11 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace BLL
 {
@@ -310,6 +314,36 @@ namespace BLL
                 db.Sys_HttpLog.InsertOnSubmit(newLog);
                 db.SubmitChanges();
             }
+        }
+
+        /// 获中的照片拍摄日期
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <returns>拍摄日期</returns>
+        public static string GetTakePicDate(string fileName)
+        {
+            Encoding ascii = Encoding.ASCII;
+            string picDate;
+            FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            Image image = Image.FromStream(stream, true, false);
+            foreach (PropertyItem p in image.PropertyItems)
+            {
+                //获取拍摄日期时间
+                if (p.Id == 0x9003) // 0x0132 最后更新时间
+                {
+                    stream.Close();
+                    picDate = ascii.GetString(p.Value);
+                    if ((!"".Equals(picDate)) && picDate.Length >= 10)
+                    {
+                        // 拍摄日期
+                        picDate = picDate.Substring(0, 10);
+                        picDate = picDate.Replace(":", "-");
+                        return picDate;
+                    }
+                }
+            }
+            stream.Close();
+            return "";
         }
     }
 }

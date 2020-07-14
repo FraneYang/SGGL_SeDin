@@ -121,6 +121,15 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.HiddenField hdId;
         
         /// <summary>
+        /// hdTotalValue 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.HiddenField hdTotalValue;
+        
+        /// <summary>
         /// cbSelect 控件。
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace FineUIPro.Web.CQMS.WBS {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.NumberBox txtWeights;
+        
+        /// <summary>
+        /// txtCosts 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtCosts;
         
         /// <summary>
         /// DatePicker2 控件。

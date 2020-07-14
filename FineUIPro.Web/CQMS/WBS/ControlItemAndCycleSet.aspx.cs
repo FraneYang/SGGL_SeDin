@@ -54,6 +54,10 @@ namespace FineUIPro.Web.CQMS.WBS
                 controlItemAndCycles.Clear();
                 WorkPackageId = Request.Params["WorkPackageId"];
                 Model.WBS_WorkPackage workPackage = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(WorkPackageId);
+                if (workPackage.Costs != null)
+                {
+                    this.hdTotalValue.Text = workPackage.Costs.ToString();
+                }
                 ProjectType = workPackage.ProjectType;
                 InitTreeMenu();
                 var controlItemProjects = BLL.ControlItemProjectService.GetItemsByWorkPackageCode(workPackage.InitWorkPackageCode, this.CurrUser.LoginProjectId);
@@ -65,6 +69,10 @@ namespace FineUIPro.Web.CQMS.WBS
                     newControlItemAndCycle.ControlItemAndCycleId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage));
                     newControlItemAndCycle.ControlItemContent = controlItemProject.ControlItemContent;
                     newControlItemAndCycle.Weights = controlItemProject.Weights;
+                    if (controlItemProject.Weights != null && workPackage.Costs != null)
+                    {
+                        newControlItemAndCycle.Costs = decimal.Round(decimal.Parse((controlItemProject.Weights * workPackage.Costs / 100).ToString()), 4);
+                    }
                     controlItemAndCycles.Add(newControlItemAndCycle);
                 }
                 foreach (var addControlItemAndCycle in addControlItemAndCycles)
@@ -83,6 +91,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     }
                     newAddControlItemAndCycle.PlanCompleteDate = addControlItemAndCycle.PlanCompleteDate;
                     newAddControlItemAndCycle.Weights = addControlItemAndCycle.Weights;
+                    newAddControlItemAndCycle.Costs = addControlItemAndCycle.Costs;
                     controlItemAndCycles.Add(newAddControlItemAndCycle);
                 }
                 controlItemAndCycles = controlItemAndCycles.OrderBy(x => x.ControlItemAndCycleCode).ToList();
@@ -550,6 +559,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     string controlItemAndCycleCode = this.Grid1.Rows[i].DataKeys[1].ToString();
                     string txtName = values.Value<string>("AttachUrl");
                     string txtWeights = values.Value<string>("Weights");
+                    string txtCosts = values.Value<string>("Costs");
                     name = string.Empty;
                     if (!string.IsNullOrEmpty(txtName.Trim()))
                     {
@@ -625,6 +635,14 @@ namespace FineUIPro.Web.CQMS.WBS
                         {
                             newControlItemAndCycle.Weights = null;
                         }
+                        try
+                        {
+                            newControlItemAndCycle.Costs = Convert.ToDecimal(txtCosts.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            newControlItemAndCycle.Costs = null;
+                        }
                         BLL.ControlItemAndCycleService.AddControlItemAndCycle(newControlItemAndCycle);
                         num++;
                     }
@@ -638,6 +656,14 @@ namespace FineUIPro.Web.CQMS.WBS
                         catch (Exception)
                         {
                             oldControlItemAndCycle.Weights = null;
+                        }
+                        try
+                        {
+                            oldControlItemAndCycle.Costs = Convert.ToDecimal(txtCosts.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            oldControlItemAndCycle.Costs = null;
                         }
                         if (!string.IsNullOrEmpty(planCompleteDate))
                         {

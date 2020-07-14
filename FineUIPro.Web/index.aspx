@@ -41,6 +41,10 @@
             vertical-align: baseline;
             background-color: transparent;
         }
+        .activeClick{
+            font-weight: 800;
+            color: white !important;
+        }
 
             .bgbtn .x-frame-ml, .bgbtn .x-frame-mc, .bgbtn .x-frame-mr,
             .bgbtn .x-frame-tl, .bgbtn .x-frame-tc, .bgbtn .x-frame-tr,
@@ -62,6 +66,9 @@
 
         .bgbtntop.f-btn.f-state-default .f-icon, .bgbtntop.f-btn.f-state-hover .f-icon, .bgbtntop.f-btn.f-state-focus .f-icon, .bgbtntop.f-btn.f-state-active .f-icon {
             color: #37a6ff;
+        }
+         .activeClick .f-icon{
+            color: red !important;
         }
 
         .f-panel, .f-widget-header, .f-tree-headerstyle .f-panel-body {
@@ -626,6 +633,19 @@
             $(".item-big").click(function () {
                 var $item = $('.f-tabstrip-header')
                 $item.attr('style', ";display:none !important;")
+                   });
+
+             $(".bgbtn,.bgbtntop").click(function () {
+                 // 切换下tab样式
+                 var $this = $(this)
+                 if (!$this.hasClass('activeClick')) {
+                     if ($this.hasClass('bgbtn')) {
+                         $(".bgbtn").removeClass('activeClick')
+                     } else {
+                         $(".bgbtntop").removeClass('activeClick')
+                     }
+                     $this.addClass('activeClick')
+                }
             });
 
             var mainTabStrip = F(mainTabStripClientID);

@@ -57,6 +57,10 @@ namespace FineUIPro.Web.CQMS.WBS
                 if (unitWork != null)
                 {
                     ProjectType = unitWork.ProjectType;
+                    if (unitWork.Costs != null)
+                    {
+                        this.hdTotalValue.Text = unitWork.Costs.ToString();
+                    }
                 }
                 InitTreeMenu();
                 var workPackageProjects = BLL.WorkPackageProjectService.GetWorkPackageProjects1ByProjectIdAndProjectType(this.CurrUser.LoginProjectId, ProjectType);
@@ -85,6 +89,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         }
                     }
                     newAddWorkPackage.Weights = addWorkPackage.Weights;
+                    newAddWorkPackage.Costs = addWorkPackage.Costs;
                     workPackages.Add(newAddWorkPackage);
                 }
                 workPackages = workPackages.OrderBy(x => x.WorkPackageCode).ToList();
@@ -548,6 +553,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     string workPackageCode2 = this.Grid1.Rows[i].DataKeys[1].ToString();
                     string txtName = values.Value<string>("SuperWorkPack");
                     string txtWeights = values.Value<string>("Weights");
+                    string txtCosts = values.Value<string>("Costs");
                     name = string.Empty;
                     if (!string.IsNullOrEmpty(txtName.Trim()))
                     {
@@ -611,6 +617,14 @@ namespace FineUIPro.Web.CQMS.WBS
                         {
                             newWorkPackage.Weights = null;
                         }
+                        try
+                        {
+                            newWorkPackage.Costs = Convert.ToDecimal(txtCosts.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            newWorkPackage.Costs = null;
+                        }
                         BLL.WorkPackageService.AddWorkPackage(newWorkPackage);
                         num++;
                     }
@@ -624,6 +638,14 @@ namespace FineUIPro.Web.CQMS.WBS
                         catch (Exception)
                         {
                             oldWorkPackage.Weights = null;
+                        }
+                        try
+                        {
+                            oldWorkPackage.Costs = Convert.ToDecimal(txtCosts.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            oldWorkPackage.Costs = null;
                         }
                         oldWorkPackage.IsApprove = true;
                         BLL.WorkPackageService.UpdateWorkPackage(oldWorkPackage);

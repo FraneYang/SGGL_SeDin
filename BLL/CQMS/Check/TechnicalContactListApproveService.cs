@@ -35,14 +35,15 @@ namespace BLL
         /// <returns></returns>
         public static IEnumerable getListData(string TechnicalContactListId)
         {
-            return from x in new Model.SGGLDB(Funs.ConnString).Check_TechnicalContactListApprove
+            var db = new Model.SGGLDB(Funs.ConnString);
+            return from x in db.Check_TechnicalContactListApprove
                    where x.TechnicalContactListId == TechnicalContactListId && x.ApproveDate != null && x.ApproveType != "S"
                    orderby x.ApproveDate
                    select new
                    {
                        x.TechnicalContactListApproveId,
                        x.TechnicalContactListId,
-                       ApproveMan = (from y in new Model.SGGLDB(Funs.ConnString).Sys_User where y.UserId == x.ApproveMan select y.UserName).First(),
+                       ApproveMan = (from y in db.Sys_User where y.UserId == x.ApproveMan select y.UserName).First(),
                        x.ApproveDate,
                        x.IsAgree,
                        x.ApproveIdea,

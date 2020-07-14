@@ -147,5 +147,28 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region  GetTakePicDate
+        /// <summary>
+        /// GetTakePicDate
+        /// </summary>
+        /// <param name="fileUrl"></param>
+        /// <returns></returns>
+        public Model.ResponeData getTakePicDate(string fileUrl)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APICommonService.GetTakePicDate(fileUrl);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 1;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }
