@@ -140,7 +140,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             rootNode.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode);
 
-            var iso = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where  x.UnitId == this.UnitId orderby x.PipelineCode select x).ToList();
+            var iso = (from x in Funs.DB.HJGL_Pipeline where  x.UnitId == this.UnitId orderby x.PipelineCode select x).ToList();
             if (!string.IsNullOrEmpty(this.txtPipelineCode.Text))
             {
                 iso = (from x in iso where x.PipelineCode.Contains(this.txtPipelineCode.Text.Trim()) orderby x.PipelineCode select x).ToList();

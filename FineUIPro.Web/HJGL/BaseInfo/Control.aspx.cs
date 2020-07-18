@@ -219,7 +219,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            //if (new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
+            //if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
             //{
             //    content += "已在【项目用户】中使用，不能删除！";
             //}            

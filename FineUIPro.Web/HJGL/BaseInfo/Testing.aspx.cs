@@ -230,11 +230,11 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (new Model.SGGLDB(Funs.ConnString).Base_WeldType.FirstOrDefault(x => x.DetectionType.Contains(id)) != null)
+            if (Funs.DB.Base_WeldType.FirstOrDefault(x => x.DetectionType.Contains(id)) != null)
             {
                 content += "已在【管线等级】中使用，不能删除！";
             }
-            if (new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline.FirstOrDefault(x => x.DetectionType.Contains(id)) != null)
+            if (Funs.DB.HJGL_Pipeline.FirstOrDefault(x => x.DetectionType.Contains(id)) != null)
             {
                 content += "已在【管线信息】中使用，不能删除！";
             }

@@ -94,6 +94,53 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        /// 根据项目、单位ID获取单位工程
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetProjecUnitWorkByUnitId(string projectId, string unitId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.WBS_UnitWork
+                                    where x.ProjectId == projectId && x.UnitId == unitId && x.SuperUnitWork == null
+                                    orderby x.UnitWorkCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.UnitWorkId,
+                                        BaseInfoCode = x.UnitWorkCode,
+                                        BaseInfoName = BLL.UnitWorkService.GetUnitWorkALLName(x.UnitWorkId)
+                                    }
+                                ).ToList();
+                return getDataLists;
+            }
+        }
+
+        #endregion
+
+        #region 获取材质列表
+        /// <summary>
+        /// 获取材质列表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetMaterial()
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_Material
+                                    orderby x.MaterialCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.MaterialId,
+                                        BaseInfoCode = x.MaterialCode,
+                                        BaseInfoName = x.MetalType
+                                    }
+                                ).ToList();
+                return getDataLists;
+            }
+        }
         #endregion
 
         #region 焊接探伤类型，探伤比例

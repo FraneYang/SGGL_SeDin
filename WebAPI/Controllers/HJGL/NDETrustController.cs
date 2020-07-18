@@ -328,5 +328,70 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region NDE预警
+        /// <summary>
+        /// 无损检测不合格焊口信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetNdeCheckNoPassWarn(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GetNdeCheckNoPassWarn(projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 未委托焊口预警
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetNoTrustJointWarn(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GetNoTrustJointWarn(projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 未检测焊口预警
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetNoCheckJointWarn(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GetNoTrustJointWarn(projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

@@ -62,7 +62,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         {
              string checkerId = Request.Params["CheckerId"];
             if (!string.IsNullOrEmpty(this.txtCheckerCode.Text.Trim())) {
-                var q = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtCheckerCode.Text.Trim()
+                var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtCheckerCode.Text.Trim()
            && (x.PersonId != checkerId || (checkerId == null && checkerId != null)));
                 if (q != null)
                 {

@@ -59,8 +59,10 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" AllowCellEditing="true" ForceFit="true" EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true" runat="server" BoxFlex="1" DataKeyNames="PunishNoticeItemId" DataIDField="PunishNoticeItemId" AllowSorting="true" SortField="PunishNoticeItemId" SortDirection="ASC" EnableTextSelection="True" Height="240px"
-                            EnableRowDoubleClickEvent="true" OnRowCommand="Grid1_RowCommand" OnRowDataBound="Grid1_RowDataBound">
+                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" AllowCellEditing="true" ForceFit="true" EnableCollapse="true" 
+                            EnableColumnLines="true" EnableColumnMove="true" runat="server" BoxFlex="1" DataKeyNames="PunishNoticeItemId" 
+                            DataIDField="PunishNoticeItemId" AllowSorting="true" SortField="PunishNoticeItemId" SortDirection="ASC"
+                            EnableTextSelection="True" Height="240px" EnableRowDoubleClickEvent="true" OnRowCommand="Grid1_RowCommand" OnRowDataBound="Grid1_RowDataBound">
                             <Toolbars>
                                 <f:Toolbar ID="toolAdd" Position="Top" ToolbarAlign="Right" runat="server">
                                     <Items>

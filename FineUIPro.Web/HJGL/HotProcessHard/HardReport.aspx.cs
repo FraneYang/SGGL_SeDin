@@ -196,7 +196,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             var hardFeedback = BLL.Hard_TrustItemService.GetHardTrustItemById(hardTrustItemId);
             if (hardFeedback != null)
             {
-                var hotProessTrustItem = new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == hardFeedback.WeldJointId && x.HotProessTrustItemId == hardFeedback.HotProessTrustItemId);
+                var hotProessTrustItem = Funs.DB.HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == hardFeedback.WeldJointId && x.HotProessTrustItemId == hardFeedback.HotProessTrustItemId);
                 if (drpIsPass.SelectedValue=="1")
                 {
                     hardFeedback.IsPass = true;
@@ -286,7 +286,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            //if (new Model.SGGLDB(Funs.ConnString).Project_HJGL_HotHardReport.FirstOrDefault(x => x.HardReportId == id) != null)
+            //if (Funs.DB.Project_HJGL_HotHardReport.FirstOrDefault(x => x.HardReportId == id) != null)
             //{
             //    content += "已在【硬度报告】中使用，不能删除！";
             //}

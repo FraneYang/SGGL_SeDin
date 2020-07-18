@@ -135,11 +135,11 @@ namespace FineUIPro.Web.HJGL.PointTrust
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_PointBatchMenuId, Const.BtnGenerate))
             {
                 /////取当前项目所有未委托批
-                //var getViewPointBatchLists = (from x in new Model.SGGLDB(Funs.ConnString).View_Batch_PointBatch
+                //var getViewPointBatchLists = (from x in Funs.DB.View_Batch_PointBatch
                 //                              where x.EndDate.HasValue && (!x.IsTrust.HasValue || !x.IsTrust.Value) && x.ProjectId == this.CurrUser.LoginProjectId
                 //                              select x).ToList();
 
-                var getViewGenerateTrustLists = (from x in new Model.SGGLDB(Funs.ConnString).View_GenerateTrust where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+                var getViewGenerateTrustLists = (from x in Funs.DB.View_GenerateTrust where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
                 if (getViewGenerateTrustLists.Count() > 0)
                 {
                     var getUnit = BLL.UnitService.GetUnitByUnitId(this.CurrUser.UnitId);
@@ -183,7 +183,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
         /// <param name="unitId"></param>
         private void GenerateTrust(List<Model.View_GenerateTrust> GenerateTrustLists)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             foreach (var trust in GenerateTrustLists)
             {
                 Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust();

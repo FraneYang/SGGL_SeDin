@@ -3,7 +3,9 @@ using Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web.UI.HtmlControls;
 
 namespace FineUIPro.Web.HSSE.Manager
@@ -259,6 +261,29 @@ namespace FineUIPro.Web.HSSE.Manager
                 }
                 GvSeDinMonthReport4Item.DataSource = getLists;
                 GvSeDinMonthReport4Item.DataBind();
+
+                int sumSafeManangerNum = getLists.Sum(x => x.SafeManangerNum) ?? 0;
+                int sumOtherManangerNum = getLists.Sum(x => x.OtherManangerNum) ?? 0;
+                int sumSpecialWorkerNum = getLists.Sum(x => x.SpecialWorkerNum) ?? 0;
+                int sumGeneralWorkerNum = getLists.Sum(x => x.GeneralWorkerNum) ?? 0;
+                int sumALL = sumSafeManangerNum+ sumOtherManangerNum+ sumSpecialWorkerNum+ sumGeneralWorkerNum;
+                if (this.GvSeDinMonthReport4Item.Rows.Count > 0)
+                {
+                    JObject summary = new JObject
+                    {
+                        { "UnitName", "合计" },
+                        { "SafeManangerNum", sumSafeManangerNum },
+                        { "OtherManangerNum", sumOtherManangerNum },
+                        { "SpecialWorkerNum", sumSpecialWorkerNum },
+                        { "GeneralWorkerNum", sumGeneralWorkerNum },
+                        { "TotalNum", sumALL }
+                    };
+                    GvSeDinMonthReport4Item.SummaryData = summary;
+                }
+                else
+                {
+                    GvSeDinMonthReport4Item.SummaryData = null;
+                }
             }
             else if (pageNum == "5") ////5、本月大型、特种设备投入情况
             {
@@ -269,6 +294,42 @@ namespace FineUIPro.Web.HSSE.Manager
                 }
                 GvSeDinMonthReport5Item.DataSource = getLists;
                 GvSeDinMonthReport5Item.DataBind();
+
+                int sumT01 = getLists.Sum(x => x.T01) ?? 0;
+                int sumT02 = getLists.Sum(x => x.T02) ?? 0;
+                int sumT03 = getLists.Sum(x => x.T03) ?? 0;
+                int sumT04 = getLists.Sum(x => x.T04) ?? 0;
+                int sumT05 = getLists.Sum(x => x.T05) ?? 0;
+                int sumT06 = getLists.Sum(x => x.T06) ?? 0;
+                int sumD01 = getLists.Sum(x => x.D01) ?? 0;
+                int sumD02 = getLists.Sum(x => x.D02) ?? 0;
+                int sumD03 = getLists.Sum(x => x.D03) ?? 0;
+                int sumD04 = getLists.Sum(x => x.D04) ?? 0;
+                int sumS01 = getLists.Sum(x => x.S01) ?? 0;                
+                if (this.GvSeDinMonthReport4Item.Rows.Count > 0)
+                {
+                    JObject summary = new JObject
+                    {
+                        { "UnitName", "合计" },
+                        { "T01", sumT01 },
+                        { "T02", sumT02 },
+                        { "T03", sumT03 },
+                        { "T04", sumT04 },
+                        { "T05", sumT05 },
+                        { "T06", sumT06 },
+                        { "D01", sumD01 },
+                        { "D02", sumD02 },
+                        { "D03", sumD03 },
+                        { "D04", sumD04 },
+                        { "S01", sumS01 },
+                        { "TotalNum", sumS01+sumT02+sumT03+sumT04+sumT05+sumT06+sumD01+sumD02+sumD03+sumD04+sumS01 }
+                    };
+                    GvSeDinMonthReport5Item.SummaryData = summary;
+                }
+                else
+                {
+                    GvSeDinMonthReport5Item.SummaryData = null;
+                }
 
             }
             else if (pageNum == "6") ////6、安全生产费用投入情况
@@ -472,6 +533,7 @@ namespace FineUIPro.Web.HSSE.Manager
 
             }
         }
+        
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -611,9 +673,8 @@ namespace FineUIPro.Web.HSSE.Manager
             {
                 List<SeDinMonthReport3Item> listMonthReport3 = new List<SeDinMonthReport3Item>();
                
-                for (int i = 0; i < 11; i++)
-                {
-                    i++;
+                for (int i = 1; i < 12; i++)
+                {                    
                     HtmlGenericControl myLabel = (HtmlGenericControl)ContentPanel2.FindControl("AccidentType" + (i));
                     HtmlInputText monthTimes = (HtmlInputText)ContentPanel2.FindControl("MonthTimes" + (i));
                     HtmlInputText totalTimes = (HtmlInputText)ContentPanel2.FindControl("TotalTimes" + (i));
@@ -663,12 +724,13 @@ namespace FineUIPro.Web.HSSE.Manager
                         mo.TotalPersons = Funs.GetNewInt(totalPersons.Value);
                     }
                     listMonthReport3.Add(mo);
-
                 }
-                var newItem = new SeDinMonthReportItem();
-                newItem.SeDinMonthReport3Item = listMonthReport3;
-                newItem.MonthReportId = MonthReportId;
-                newItem.AccidentsSummary = AccidentsSummary.Value;
+                var newItem = new SeDinMonthReportItem
+                {
+                    SeDinMonthReport3Item = listMonthReport3,
+                    MonthReportId = MonthReportId,
+                    AccidentsSummary = AccidentsSummary.Value
+                };
                 APISeDinMonthReportService.SaveSeDinMonthReport3(newItem);
             }
             else
@@ -702,16 +764,19 @@ namespace FineUIPro.Web.HSSE.Manager
                     var OoherManangerNum = values.Value<string>("OtherManangerNum");
                     var specialWorkerNum = values.Value<string>("SpecialWorkerNum");
                     var generalWorkerNum = values.Value<string>("GeneralWorkerNum");
-                    var totalNum = values.Value<string>("TotalNum");
+                    //var totalNum = values.Value<string>("TotalNum");
                     //System.Web.UI.WebControls.DropDownList ddlUnit = (System.Web.UI.WebControls.DropDownList)(row.FindControl("ddlUnitName"));
-                    Model.SeDinMonthReport4Item newReport4Item = new Model.SeDinMonthReport4Item();
-                    newReport4Item.MonthReportId = MonthReportId;
-                    newReport4Item.UnitName = unitName;
-                    newReport4Item.SafeManangerNum = Funs.GetNewInt(safeManangerNum);
-                    newReport4Item.OtherManangerNum = Funs.GetNewInt(OoherManangerNum);
-                    newReport4Item.SpecialWorkerNum = Funs.GetNewInt(specialWorkerNum);
-                    newReport4Item.GeneralWorkerNum = Funs.GetNewInt(generalWorkerNum);
-                    newReport4Item.TotalNum = Funs.GetNewInt(totalNum);
+                    Model.SeDinMonthReport4Item newReport4Item = new Model.SeDinMonthReport4Item
+                    {
+                        MonthReportId = MonthReportId,
+                        UnitName = unitName,
+                        SafeManangerNum = Funs.GetNewIntOrZero(safeManangerNum),
+                        OtherManangerNum = Funs.GetNewIntOrZero(OoherManangerNum),
+                        SpecialWorkerNum = Funs.GetNewIntOrZero(specialWorkerNum),
+                        GeneralWorkerNum = Funs.GetNewIntOrZero(generalWorkerNum)
+                    };
+                    newReport4Item.TotalNum = newReport4Item.SafeManangerNum + newReport4Item.OtherManangerNum 
+                        + newReport4Item.SpecialWorkerNum + newReport4Item.GeneralWorkerNum;
                     listSeDinMonthReport4Item.Add(newReport4Item);
                 }
                 newItem.SeDinMonthReport4Item = listSeDinMonthReport4Item;
@@ -1204,7 +1269,7 @@ namespace FineUIPro.Web.HSSE.Manager
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
-
+        
         //protected void GvSeDinMonthReport4Item_RowDataBound(object sender, GridRowEventArgs e)
         //{
         //    System.Web.UI.WebControls.DropDownList dropname = (System.Web.UI.WebControls.DropDownList)e.Row.FindControl("ddlUnitName");

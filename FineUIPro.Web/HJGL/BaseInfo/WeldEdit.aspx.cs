@@ -65,14 +65,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_WeldType.FirstOrDefault(x => x.WeldTypeCode == this.txtWeldTypeCode.Text.Trim() && (x.WeldTypeId != this.WeldTypeId || (this.WeldTypeId == null && x.WeldTypeId != null)));
+            var q = Funs.DB.Base_WeldType.FirstOrDefault(x => x.WeldTypeCode == this.txtWeldTypeCode.Text.Trim() && (x.WeldTypeId != this.WeldTypeId || (this.WeldTypeId == null && x.WeldTypeId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此焊缝类型代号已经存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_WeldType.FirstOrDefault(x => x.WeldTypeName == this.txtWeldTypeName.Text.Trim() && (x.WeldTypeId != this.WeldTypeId || (this.WeldTypeId == null && x.WeldTypeId != null)));
+            var q2 = Funs.DB.Base_WeldType.FirstOrDefault(x => x.WeldTypeName == this.txtWeldTypeName.Text.Trim() && (x.WeldTypeId != this.WeldTypeId || (this.WeldTypeId == null && x.WeldTypeId != null)));
             if (q2 != null)
             {
                 Alert.ShowInTop("此焊缝类型名称已经存在！", MessageBoxIcon.Warning);

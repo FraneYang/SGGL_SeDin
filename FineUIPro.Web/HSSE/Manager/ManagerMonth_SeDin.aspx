@@ -123,7 +123,6 @@
     </form>
     <script type="text/javascript">
         var menuID = '<%= Menu1.ClientID %>';
-
         // 返回false，来阻止浏览器右键菜单
         function onRowContextMenu(event, rowId) {
             F(menuID).show();  //showAt(event.pageX, event.pageY);

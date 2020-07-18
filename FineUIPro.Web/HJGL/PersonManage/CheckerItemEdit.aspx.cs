@@ -38,7 +38,6 @@ namespace FineUIPro.Web.HJGL.PersonManage
                         {
                             this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", welderQualify.LimitDate);
                         }
-                        this.txtlevel.Text = welderQualify.Level;
 
                     }
                 }
@@ -65,7 +64,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             welderQualify.QualificationItem = txtQualificationItem.Text;
             welderQualify.CheckDate = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim());
             welderQualify.LimitDate = Funs.GetNewDateTime(this.txtLimitDate.Text.Trim());
-            welderQualify.Level = txtlevel.Text;
+            
             if (!string.IsNullOrEmpty(welderQualifyId))
             {
                 welderQualify.WelderQualifyId = welderQualifyId;

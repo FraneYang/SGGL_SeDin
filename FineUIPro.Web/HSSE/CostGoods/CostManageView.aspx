@@ -50,9 +50,9 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="投入费用明细" EnableCollapse="true"
                         runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="CostManageItemId"
-                        AllowCellEditing="true" ClicksToEdit="2" DataIDField="CostManageItemId" PageSize="100" OnPageIndexChange="Grid1_PageIndexChange" EnableSummary="true" SummaryPosition="Flow"
-                        EnableTextSelection="True"
-                        Height="220px">
+                        AllowCellEditing="true" ClicksToEdit="2" DataIDField="CostManageItemId" PageSize="100" 
+                        OnPageIndexChange="Grid1_PageIndexChange" EnableSummary="true" SummaryPosition="Flow"
+                        EnableTextSelection="True" Height="220px">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                                 <Items>

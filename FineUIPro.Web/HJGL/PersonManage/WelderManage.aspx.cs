@@ -263,12 +263,12 @@ namespace FineUIPro.Web.HJGL.PersonManage
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectUserId == id) != null)
+            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectUserId == id) != null)
             {
                 content += "已在【项目焊工】中使用，不能删除！";
             }
 
-            //if (new Model.SGGLDB(Funs.ConnString).Pipeline_WeldJoint.FirstOrDefault(x => x.BackingWelderId == id) != null)
+            //if (Funs.DB.Pipeline_WeldJoint.FirstOrDefault(x => x.BackingWelderId == id) != null)
             //{
             //    content += "已在【焊接信息】中使用，不能删除！";
             //}

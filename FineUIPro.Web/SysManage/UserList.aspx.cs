@@ -26,6 +26,11 @@
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
                 }
+                if (this.CurrUser.UnitId != Const.UnitId_SEDIN && this.CurrUser.UserId != Const.sysglyId && this.CurrUser.UserId != Const.hfnbdId)
+                {
+                    this.rbUnit.SelectedValue = "1";
+                    this.rbUnit.Readonly = true;
+                }
 
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
@@ -47,6 +52,17 @@
                           + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "'";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
+            if (this.rbUnit.SelectedValue == "0")
+            {
+                strSql += " AND Users.UnitId = @ThisUnitId";
+                listStr.Add(new SqlParameter("@ThisUnitId", Const.UnitId_SEDIN));
+            }
+            else
+            {
+                strSql += " AND Users.UnitId != @ThisUnitId";
+                listStr.Add(new SqlParameter("@ThisUnitId", Const.UnitId_SEDIN));
+            }
+
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
                 strSql += " AND Users.UserName LIKE @UserName";

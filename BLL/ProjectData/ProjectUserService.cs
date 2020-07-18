@@ -106,5 +106,23 @@
                 db.SubmitChanges();
             }
         }
+
+        /// <summary>
+        ///根据项目id集合获取对应项目的所有项目用户
+        /// </summary>
+        /// <returns></returns>
+        public static List<Project_ProjectUser> GetProjectUsersByProjectIds(List<string> ProjectIds)
+        {
+            return (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser where ProjectIds.Contains(x.ProjectId) select x).ToList();
+        }
+
+        /// <summary>
+        ///获取项目用户信息 根据ProjectId
+        /// </summary>
+        /// <returns></returns>
+        public static Project_ProjectUser GetProjectUserByProjectId(string ProjectId, string RoleId)
+        {
+            return new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(e => e.ProjectId == ProjectId && e.RoleId == RoleId);
+        }
     }
 }

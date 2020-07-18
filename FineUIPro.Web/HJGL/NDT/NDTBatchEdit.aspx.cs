@@ -190,7 +190,7 @@ namespace FineUIPro.Web.HJGL.NDT
 
                 this.drpBatchTrust.DataValueField = "TrustBatchId";
                 this.drpBatchTrust.DataTextField = "TrustBatchCode";
-                List<Model.HJGL_Batch_BatchTrust> list = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust where x.TrustBatchId == check.TrustBatchId select x).ToList();
+                List<Model.HJGL_Batch_BatchTrust> list = (from x in Funs.DB.HJGL_Batch_BatchTrust where x.TrustBatchId == check.TrustBatchId select x).ToList();
                 this.drpBatchTrust.DataSource = list;
                 this.drpBatchTrust.DataBind();
                 this.drpBatchTrust.SelectedValue = check.TrustBatchId;

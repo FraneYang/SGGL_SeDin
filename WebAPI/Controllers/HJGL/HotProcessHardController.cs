@@ -99,5 +99,26 @@ namespace WebAPI.Controllers
             return responeData;
         }
 
+        /// <summary>
+        /// 硬度检测不合格预警
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetHardNoPassWarning(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIHotProcessHardService.GetHardNoPassWarning(projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
     }
 }

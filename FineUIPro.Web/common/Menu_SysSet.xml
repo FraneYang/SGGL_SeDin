@@ -3,51 +3,57 @@
   <TreeNode id="C2297533-B7C0-441E-B29F-ADE87C6F8978" Text="系统设置" NavigateUrl="">
     <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0002" Text="单位设置" NavigateUrl="SysManage/Unit.aspx">
     </TreeNode>
-<TreeNode id="D9F1F0BD-D48F-4C5B-AF26-7F4C561D1352" Text="部门设置" NavigateUrl="SysManage/Depart.aspx"></TreeNode>
 <TreeNode id="EBAD373C-8EB4-49A1-91F6-6794FFCAF9B6" Text="角色管理" NavigateUrl="SysManage/RoleList.aspx"></TreeNode>
 <TreeNode id="2231022B-3519-42FC-A2E6-1DB9A98039DD" Text="角色授权" NavigateUrl="SysManage/RolePower.aspx"></TreeNode>
 <TreeNode id="E6F0167E-B0FD-4A32-9C47-25FB9E0FDC4E" Text="用户信息" NavigateUrl="SysManage/UserList.aspx"></TreeNode>
 <TreeNode id="E4BFDCFD-2B1F-49C5-B02B-1C91BFFAAC6E" Text="环境设置" NavigateUrl="SysManage/SysConstSet.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="基础设置" NavigateUrl=""><TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="单位类别" NavigateUrl="BaseInfo/UnitType.aspx"></TreeNode>
-<TreeNode id="D4FC3583-31A7-49B3-8F32-007E9756D678" Text="岗位信息" NavigateUrl="BaseInfo/WorkPost.aspx"></TreeNode>
-<TreeNode id="A93BA810-3511-4BB2-9C10-9663351DF79F" Text="质量设置" NavigateUrl=""><TreeNode id="D00A978A-DDEE-4BFF-8872-FFF65A7BC0BC" Text="施工专业定义" NavigateUrl="BaseInfo/CNProfessional.aspx"></TreeNode>
-<TreeNode id="BADDFC6A-F0E2-4443-A98D-12439C4A2F16" Text="设计专业定义" NavigateUrl="BaseInfo/DesignProfessional.aspx"></TreeNode>
-<TreeNode id="24F9A1ED-0F4C-407C-8EB3-2A8711BB6ECC" Text="质量问题类别定义" NavigateUrl="BaseInfo/QualityQuestionType.aspx"></TreeNode>
-</TreeNode>
-<TreeNode id="8A2CEE72-2793-49C6-9E2E-E83B2676E2DD" Text="安全设置" NavigateUrl=""><TreeNode id="1E81DF97-809E-479F-1111-508F2043BA69" Text="职务信息" NavigateUrl="BaseInfo/Position.aspx"></TreeNode>
-<TreeNode id="2E424093-81B8-421A-963F-D85D17B1E82A" Text="职称信息" NavigateUrl="BaseInfo/PostTitle.aspx"></TreeNode>
-<TreeNode id="3A40AF0B-C9B8-4AF9-A683-FEADD8CC3A1C" Text="特岗证书" NavigateUrl="BaseInfo/Certificate.aspx"></TreeNode>
-<TreeNode id="B7926494-8CCD-40BD-1111-6BD10176DA0D" Text="机具设备" NavigateUrl="BaseInfo/SpecialEquipment.aspx"></TreeNode>
-<TreeNode id="000F8328-AB84-4235-95F8-E826DB292D83" Text="费用类型" NavigateUrl="BaseInfo/CostType.aspx"></TreeNode>
-<TreeNode id="F6C0E3DE-84CB-45CE-A46A-84DD51B8FBCB" Text="事故类型" NavigateUrl="BaseInfo/AccidentType.aspx"></TreeNode>
-<TreeNode id="4C86AEA0-5D8A-4677-8F53-D1C757141CD3" Text="许可证类型" NavigateUrl="BaseInfo/LicenseType.aspx"></TreeNode>
-<TreeNode id="871A4DA2-2CE0-4049-8255-3759A269110E" Text="法律法规类型" NavigateUrl="BaseInfo/LawsRegulationsType.aspx"></TreeNode>
-<TreeNode id="ACA1906A-4A68-4632-A13A-342DECE32D3E" Text="标准规范类型" NavigateUrl="BaseInfo/HSSEStandardListType.aspx"></TreeNode>
-<TreeNode id="5DAADE2B-C2D2-4765-A47A-A1C3139775DC" Text="管理规定分类" NavigateUrl="BaseInfo/ManageRuleType.aspx"></TreeNode>
-<TreeNode id="F7B600D2-999C-4C60-96D4-B7CB7129C0B5" Text="规章制度类别	" NavigateUrl="BaseInfo/RulesRegulationsType.aspx"></TreeNode>
-<TreeNode id="CD5D9B58-4313-4463-BAE6-481A0D3775D9" Text="应急预案类型" NavigateUrl="BaseInfo/EmergencyType.aspx"></TreeNode>
-<TreeNode id="2181FB42-22F2-4342-B604-96F5770FE892" Text="专项方案类别" NavigateUrl="BaseInfo/SpecialSchemeType.aspx"></TreeNode>
-<TreeNode id="091322A8-4FFB-472C-91EB-ABB3E491262A" Text="培训类别" NavigateUrl="BaseInfo/TrainType.aspx"></TreeNode>
-<TreeNode id="B27A0196-06A0-412D-B734-FB348AA6E312" Text="培训级别" NavigateUrl="BaseInfo/TrainLevel.aspx"></TreeNode>
-<TreeNode id="38143A01-D17C-4234-A1A1-D90A3F887438" Text="工作阶段" NavigateUrl="BaseInfo/WorkStage.aspx"></TreeNode>
+<TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="基础设置" NavigateUrl=""><TreeNode id="5196A6FD-4BF1-46B3-8D24-9A3CE5BB4760" Text="公共设置" NavigateUrl=""><TreeNode id="AEB427BD-AE1A-47CC-9337-368BB06B37F7" Text="项目类型定义" NavigateUrl=""></TreeNode>
+<TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="单位类型定义" NavigateUrl="BaseInfo/UnitType.aspx"></TreeNode>
+<TreeNode id="D9F1F0BD-D48F-4C5B-AF26-7F4C561D1352" Text="公司部门定义" NavigateUrl="SysManage/Depart.aspx"></TreeNode>
+<TreeNode id="C14DE553-6304-441D-9D70-4B0CEADF0080" Text="施工班组定义" NavigateUrl=""></TreeNode>
+<TreeNode id="4AEA28ED-327C-4A8F-977D-BB56F423CEA4" Text="作业人员角色定义" NavigateUrl=""></TreeNode>
+<TreeNode id="145523FE-B49A-4420-9DFB-565A79F4AF36" Text="管理人员角色定义" NavigateUrl=""></TreeNode>
+<TreeNode id="2E424093-81B8-421A-963F-D85D17B1E82A" Text="职称定义" NavigateUrl="BaseInfo/PostTitle.aspx"></TreeNode>
+<TreeNode id="1390195D8-874B-4E7B-8DBF-D81A5984E973" Text="执业资格证书定义" NavigateUrl=""></TreeNode>
+<TreeNode id="871A4DA2-2CE0-4049-8255-3759A269110E" Text="法律法规类型定义" NavigateUrl="BaseInfo/LawsRegulationsType.aspx"></TreeNode>
+<TreeNode id="ACA1906A-4A68-4632-A13A-342DECE32D3E" Text="标准规范类型定义" NavigateUrl="BaseInfo/HSSEStandardListType.aspx"></TreeNode>
+<TreeNode id="5DAADE2B-C2D2-4765-A47A-A1C3139775DC" Text="管理规定类型定义" NavigateUrl="BaseInfo/ManageRuleType.aspx"></TreeNode>
+<TreeNode id="F7B600D2-999C-4C60-96D4-B7CB7129C0B5" Text="规章制度类型定义" NavigateUrl="BaseInfo/RulesRegulationsType.aspx"></TreeNode>
+<TreeNode id="2181FB42-22F2-4342-B604-96F5770FE892" Text="专项方案类型定义" NavigateUrl="BaseInfo/SpecialSchemeType.aspx"></TreeNode>
 <TreeNode id="179F286B-6DF8-414E-947F-82267076D4C8" Text="施工方案类型" NavigateUrl="BaseInfo/SolutionTempleteType.aspx"></TreeNode>
-<TreeNode id="4BB6AC40-D4D5-439B-85CC-100E431CF3F1" Text="安全措施" NavigateUrl="BaseInfo/SafetyMeasures.aspx"></TreeNode>
-<TreeNode id="D95CA72C-182C-4718-92A4-3F665E0FB660" Text="项目亮点" NavigateUrl="BaseInfo/PictureType.aspx"></TreeNode>
-<TreeNode id="3EC2676A-70EB-400E-BE17-EEBBA0B7E9D7" Text="安全巡检类型" NavigateUrl="BaseInfo/HazardRegisterTypes.aspx"></TreeNode>
+<TreeNode id="D95CA72C-182C-4718-92A4-3F665E0FB660" Text="项目亮点类型定义" NavigateUrl="BaseInfo/PictureType.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="85DFE1D3-9E68-46B5-87E5-A525698F2F5F" Text="焊接设置" NavigateUrl=""><TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0013" Text="管道材质" NavigateUrl="HJGL/BaseInfo/Material.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0011" Text="管道规格" NavigateUrl="HJGL/BaseInfo/Control.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0010" Text="焊接方法" NavigateUrl="HJGL/BaseInfo/WeldingMethod.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0004" Text="焊接耗材" NavigateUrl="HJGL/BaseInfo/Consumables.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0008" Text="焊缝类型" NavigateUrl="HJGL/BaseInfo/Weld.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0012" Text="坡口类型" NavigateUrl="HJGL/BaseInfo/Groove.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0003" Text="焊接位置" NavigateUrl="HJGL/BaseInfo/WeldingLocation.aspx"></TreeNode>
-<TreeNode id="D68AE881-7472-4C48-953D-E13C46D6E2A4" Text="焊接缺陷" NavigateUrl="HJGL/BaseInfo/Defect.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0006" Text="探伤类型" NavigateUrl="HJGL/BaseInfo/Testing.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0007" Text="探伤比例" NavigateUrl="HJGL/BaseInfo/Detection.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0015" Text="试压类型" NavigateUrl="HJGL/BaseInfo/Pressure.aspx"></TreeNode>
+<TreeNode id="A93BA810-3511-4BB2-9C10-9663351DF79F" Text="质量设置" NavigateUrl=""><TreeNode id="24F9A1ED-0F4C-407C-8EB3-2A8711BB6ECC" Text="质量问题类别定义" NavigateUrl="BaseInfo/QualityQuestionType.aspx"></TreeNode>
+<TreeNode id="D00A978A-DDEE-4BFF-8872-FFF65A7BC0BC" Text="施工专业定义" NavigateUrl="BaseInfo/CNProfessional.aspx"></TreeNode>
+<TreeNode id="BADDFC6A-F0E2-4443-A98D-12439C4A2F16" Text="设计专业定义" NavigateUrl="BaseInfo/DesignProfessional.aspx"></TreeNode>
 </TreeNode>
+<TreeNode id="8A2CEE72-2793-49C6-9E2E-E83B2676E2DD" Text="安全设置" NavigateUrl=""><TreeNode id="D4FC3583-31A7-49B3-8F32-007E9756D678" Text="岗位信息" NavigateUrl="BaseInfo/WorkPost.aspx"></TreeNode>
+<TreeNode id="3A40AF0B-C9B8-4AF9-A683-FEADD8CC3A1C" Text="特岗证书定义" NavigateUrl="BaseInfo/Certificate.aspx"></TreeNode>
+<TreeNode id="B7926494-8CCD-40BD-1111-6BD10176DA0D" Text="机具设备定义" NavigateUrl="BaseInfo/SpecialEquipment.aspx"></TreeNode>
+<TreeNode id="000F8328-AB84-4235-95F8-E826DB292D83" Text="费用类型定义" NavigateUrl="BaseInfo/CostType.aspx"></TreeNode>
+<TreeNode id="F6C0E3DE-84CB-45CE-A46A-84DD51B8FBCB" Text="事故类型定义" NavigateUrl="BaseInfo/AccidentType.aspx"></TreeNode>
+<TreeNode id="4C86AEA0-5D8A-4677-8F53-D1C757141CD3" Text="许可证类型定义" NavigateUrl="BaseInfo/LicenseType.aspx"></TreeNode>
+<TreeNode id="CD5D9B58-4313-4463-BAE6-481A0D3775D9" Text="应急预案类型定义" NavigateUrl="BaseInfo/EmergencyType.aspx"></TreeNode>
+<TreeNode id="091322A8-4FFB-472C-91EB-ABB3E491262A" Text="培训类型定义" NavigateUrl="BaseInfo/TrainType.aspx"></TreeNode>
+<TreeNode id="B27A0196-06A0-412D-B734-FB348AA6E312" Text="培训级别定义" NavigateUrl="BaseInfo/TrainLevel.aspx"></TreeNode>
+<TreeNode id="38143A01-D17C-4234-A1A1-D90A3F887438" Text="工作阶段定义" NavigateUrl="BaseInfo/WorkStage.aspx"></TreeNode>
+<TreeNode id="4BB6AC40-D4D5-439B-85CC-100E431CF3F1" Text="安全措施类型定义" NavigateUrl="BaseInfo/SafetyMeasures.aspx"></TreeNode>
+<TreeNode id="3EC2676A-70EB-400E-BE17-EEBBA0B7E9D7" Text="安全巡检类型定义" NavigateUrl="BaseInfo/HazardRegisterTypes.aspx"></TreeNode>
+</TreeNode>
+<TreeNode id="85DFE1D3-9E68-46B5-87E5-A525698F2F5F" Text="焊接设置" NavigateUrl=""><TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0013" Text="管道材质定义" NavigateUrl="HJGL/BaseInfo/Material.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0011" Text="管道规格定义" NavigateUrl="HJGL/BaseInfo/Control.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0010" Text="焊接方法定义" NavigateUrl="HJGL/BaseInfo/WeldingMethod.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0004" Text="焊接耗材定义" NavigateUrl="HJGL/BaseInfo/Consumables.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0008" Text="焊缝类型定义" NavigateUrl="HJGL/BaseInfo/Weld.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0012" Text="坡口类型定义" NavigateUrl="HJGL/BaseInfo/Groove.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0003" Text="焊接位置定义" NavigateUrl="HJGL/BaseInfo/WeldingLocation.aspx"></TreeNode>
+<TreeNode id="D68AE881-7472-4C48-953D-E13C46D6E2A4" Text="焊接缺陷定义" NavigateUrl="HJGL/BaseInfo/Defect.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0006" Text="探伤类型定义" NavigateUrl="HJGL/BaseInfo/Testing.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0007" Text="探伤比例定义" NavigateUrl="HJGL/BaseInfo/Detection.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0015" Text="试压类型定义" NavigateUrl="HJGL/BaseInfo/Pressure.aspx"></TreeNode>
+</TreeNode>
+<TreeNode id="24A40837-0756-49B0-8B3C-EFB8A9879336" Text="合同设置" NavigateUrl=""></TreeNode>
 </TreeNode>
 <TreeNode id="75AA6177-8AAD-4AA4-BC4E-3883FB095A65" Text="项目设置" NavigateUrl=""></TreeNode>
 </Tree>

@@ -273,8 +273,14 @@ namespace FineUIPro.Web.SysManage
                                 Model.Sys_RolePower newPower = new Model.Sys_RolePower
                                 {
                                     RoleId = roleId,
-                                    MenuId = tn.NodeID
+                                    MenuId = tn.NodeID,
+                                    MenuType = menuTyp,
+                                    IsOffice =false,
                                 };
+                                if (this.rbMenuType.SelectedValue == "MenuType_S")
+                                {
+                                    newPower.IsOffice = true;
+                                }
                                 BLL.RolePowerService.SaveRolePower(newPower);
                             }
 
@@ -283,7 +289,7 @@ namespace FineUIPro.Web.SysManage
                                 Model.Sys_ButtonPower btn = new Model.Sys_ButtonPower
                                 {
                                     RoleId = roleId,
-                                    MenuId = tn.ParentNode.NodeID,
+                                    MenuId = tn.ParentNode.NodeID,                                    
                                     ButtonToMenuId = tn.NodeID
                                 };
                                 BLL.ButtonPowerService.SaveButtonPower(btn);

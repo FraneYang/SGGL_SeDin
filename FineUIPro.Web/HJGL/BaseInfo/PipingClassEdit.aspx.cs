@@ -43,14 +43,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string pipingClassId = Request.Params["PipingClassId"];
-            var q = new Model.SGGLDB(Funs.ConnString).Base_PipingClass.FirstOrDefault(x => x.PipingClassCode == this.txtPipingClassCode.Text.Trim() && (x.PipingClassId != pipingClassId || (pipingClassId == null && x.PipingClassId != null)) && x.ProjectId==this.CurrUser.LoginProjectId );
+            var q = Funs.DB.Base_PipingClass.FirstOrDefault(x => x.PipingClassCode == this.txtPipingClassCode.Text.Trim() && (x.PipingClassId != pipingClassId || (pipingClassId == null && x.PipingClassId != null)) && x.ProjectId==this.CurrUser.LoginProjectId );
             if (q != null)
             {
                 Alert.ShowInTop("此等级代号已存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_PipingClass.FirstOrDefault(x => x.PipingClassName == this.txtPipingClassName.Text.Trim() && (x.PipingClassId != pipingClassId || (pipingClassId == null && x.PipingClassId != null)) && x.ProjectId == this.CurrUser.LoginProjectId);
+            var q2 = Funs.DB.Base_PipingClass.FirstOrDefault(x => x.PipingClassName == this.txtPipingClassName.Text.Trim() && (x.PipingClassId != pipingClassId || (pipingClassId == null && x.PipingClassId != null)) && x.ProjectId == this.CurrUser.LoginProjectId);
             if (q2 != null)
             {
                 Alert.ShowInTop("此等级名称已存在！", MessageBoxIcon.Warning);

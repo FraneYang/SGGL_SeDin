@@ -59,6 +59,30 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 根据projectId、identityCard获取人员信息
+        /// <summary>
+        /// 根据projectId、identityCard获取人员信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="identityCard"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonByProjectIdIdentityCard(string projectId,string identityCard)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIPersonService.getPersonByProjectIdIdentityCard(projectId,identityCard);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 根据projectId、unitid获取人员信息
         /// <summary>
         /// 根据projectId、unitid获取人员信息

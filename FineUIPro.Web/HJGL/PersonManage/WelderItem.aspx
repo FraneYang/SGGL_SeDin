@@ -30,9 +30,6 @@
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch"
-                                EnablePostBack="true" OnClick="btnQuery_Click" runat="server">
-                            </f:Button>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
                                 runat="server" OnClick="btnNew_Click">
                             </f:Button>
@@ -40,6 +37,10 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
+                    <f:RenderField Width="100px" ColumnID="WelderCode" DataField="WelderCode" FieldType="String"
+                        HeaderText="焊工号" HeaderTextAlign="Center" TextAlign="Left"
+                        SortField="UnitName">
+                    </f:RenderField>
                     <f:RenderField Width="280px" ColumnID="QualificationItem" DataField="QualificationItem"
                         FieldType="String" HeaderText="合格项目" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="QualificationItem">
@@ -98,7 +99,7 @@
         IsModal="true" Width="900px" Height="460px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"
+        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"

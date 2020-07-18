@@ -39,7 +39,7 @@
                                                 SortField="RoleCode" FieldType="String" HeaderText="编码" HeaderTextAlign="Center"
                                                 TextAlign="Left">                      
                                             </f:RenderField>
-                                            <f:RenderField Width="150px" ColumnID="RoleName" DataField="RoleName" EnableFilter="true"
+                                            <f:RenderField Width="250px" ColumnID="RoleName" DataField="RoleName" EnableFilter="true"
                                                 SortField="RoleName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center"
                                                 TextAlign="Left">                      
                                             </f:RenderField>

@@ -261,6 +261,7 @@ namespace BLL
                                        select x;
                 foreach (var item in getAccidentReportTypes)
                 {
+                    var getTAccident = getAccident.Where(x => x.AccidentTypeId == item.ConstValue);
                     Model.SeDinMonthReport3Item newItem = new Model.SeDinMonthReport3Item();
                     if (item.SortIndex <= 4)
                     {
@@ -269,14 +270,14 @@ namespace BLL
                     newItem.AccidentType = item.ConstText;
                     newItem.SortIndex = item.SortIndex;
 
-                    newItem.MonthTimes = getMonthAccident.Count();
-                    newItem.TotalTimes = getAccident.Count();
-                    newItem.MonthLossTime = getMonthAccident.Sum(x => x.WorkingHoursLoss) ?? 0;
-                    newItem.TotalLossTime = getAccident.Sum(x => x.WorkingHoursLoss) ?? 0;
-                    newItem.MonthMoney = getMonthAccident.Sum(x => x.EconomicLoss) ?? 0;
-                    newItem.TotalMoney = getAccident.Sum(x => x.EconomicLoss) ?? 0;
-                    newItem.MonthPersons = getMonthAccident.Sum(x => x.PeopleNum) ?? 0;
-                    newItem.TotalPersons = getAccident.Sum(x => x.PeopleNum) ?? 0;
+                    newItem.MonthTimes = getTAccident.Count();
+                    newItem.TotalTimes = getTAccident.Count();
+                    newItem.MonthLossTime = getTAccident.Sum(x => x.WorkingHoursLoss) ?? 0;
+                    newItem.TotalLossTime = getTAccident.Sum(x => x.WorkingHoursLoss) ?? 0;
+                    newItem.MonthMoney = getTAccident.Sum(x => x.EconomicLoss) ?? 0;
+                    newItem.TotalMoney = getTAccident.Sum(x => x.EconomicLoss) ?? 0;
+                    newItem.MonthPersons = getTAccident.Sum(x => x.PeopleNum) ?? 0;
+                    newItem.TotalPersons = getTAccident.Sum(x => x.PeopleNum) ?? 0;
                     getLists.Add(newItem);
                 }
 
@@ -399,20 +400,32 @@ namespace BLL
                                   join y in db.Base_SpecialEquipment on x.SpecialEquipmentId equals y.SpecialEquipmentId
                                   where x.UnitId == item.UnitId
                                   select new Model.BaseInfoItem { BaseInfoId = x.EquipmentQualityId, BaseInfoCode = y.SpecialEquipmentCode, BaseInfoName = y.SpecialEquipmentName };
+                    int T01 = getUAll.Where(x => x.BaseInfoName == "汽车吊").Count();
+                    int T02 = getUAll.Where(x => x.BaseInfoName == "履带吊").Count();
+                    int T03 = getUAll.Where(x => x.BaseInfoName == "塔吊").Count();
+                    int T04 = getUAll.Where(x => x.BaseInfoName == "门式起重机").Count();
+                    int T05 = getUAll.Where(x => x.BaseInfoName == "升降机").Count();
+                    int T06 = getUAll.Where(x => x.BaseInfoName == "叉车").Count();
+                    int D01 = getUAll.Where(x => x.BaseInfoName == "挖掘机").Count();
+                    int D02 = getUAll.Where(x => x.BaseInfoName == "装载机").Count();
+                    int D03 = getUAll.Where(x => x.BaseInfoName == "拖板车").Count();
+                    int D04 = getUAll.Where(x => x.BaseInfoName == "桩机").Count();
+                    int S01 = getUAll.Where(x => x.BaseInfoName == "吊篮").Count();
                     Model.SeDinMonthReport5Item newItem = new Model.SeDinMonthReport5Item
                     {
                         UnitName = item.UnitName,
-                        T01 = getUAll.Where(x => x.BaseInfoName == "汽车吊").Count(),
-                        T02 = getUAll.Where(x => x.BaseInfoName == "履带吊").Count(),
-                        T03 = getUAll.Where(x => x.BaseInfoName == "塔吊").Count(),
-                        T04 = getUAll.Where(x => x.BaseInfoName == "门式起重机").Count(),
-                        T05 = getUAll.Where(x => x.BaseInfoName == "升降机").Count(),
-                        T06 = getUAll.Where(x => x.BaseInfoName == "叉车").Count(),
-                        D01 = getUAll.Where(x => x.BaseInfoName == "挖掘机").Count(),
-                        D02 = getUAll.Where(x => x.BaseInfoName == "装载机").Count(),
-                        D03 = getUAll.Where(x => x.BaseInfoName == "拖板车").Count(),
-                        D04 = getUAll.Where(x => x.BaseInfoName == "桩机").Count(),
-                        S01 = getUAll.Where(x => x.BaseInfoName == "吊篮").Count(),
+                        T01 = T01,
+                        T02 = T02,
+                        T03 = T03,
+                        T04 = T04,
+                        T05 = T05,
+                        T06 = T06,
+                        D01 = D01,
+                        D02 = D02,
+                        D03 = D03,
+                        D04 = D04,
+                        S01 = S01,
+                        TotalNum = (T01 + T02 +T03 +T04 +T05 +T06+D01 +D02 +D03 +D04 +S01)
                     };
                     getLists.Add(newItem);
                 }
@@ -1153,6 +1166,8 @@ namespace BLL
                                    D03 = x.D03 ?? 0,
                                    D04 = x.D04 ?? 0,
                                    S01 = x.S01 ?? 0,
+                                   TotalNum=(x.T01 + x.T02  + x.T03  + x.T04  + x.T05  + x.T06  
+                                                            + x.D01  + x.D02  + x.D03  + x.D04 + x.S01 )
                                }).ToList();
                 }
                 return getInfo;

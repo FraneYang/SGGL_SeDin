@@ -76,6 +76,44 @@ namespace FineUIPro.Web.SysManage
                     this.ckMenuFlowOperate.Checked = false;
                 }
             }
+            var sysSet5= (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const  where x.ConstText == "员工绩效考核第一季度生成时间" select x).ToList().FirstOrDefault();
+            if (sysSet5 != null) {
+                string[] str = sysSet5.ConstValue.Split('|');
+                if (str.Length > 0) {
+                    this.txtMarch.Text = (str[0] == null ? "" : str[0]).ToString();
+                    this.txtMarchday.Text= (str[1] == null ? "" : str[1]).ToString();
+                }
+            }
+            var sysSet6 = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.ConstText == "员工绩效考核第二季度生成时间" select x).ToList().FirstOrDefault();
+            if (sysSet6 != null)
+            {
+                string[] str = sysSet6.ConstValue.Split('|');
+                if (str.Length > 0)
+                {
+                    this.txtJune.Text = (str[0] == null ? "" : str[0]).ToString();
+                    this.txtJuneday.Text = (str[1] == null ? "" : str[1]).ToString();
+                }
+            }
+            var sysSet7 = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.ConstText == "员工绩效考核第三季度生成时间" select x).ToList().FirstOrDefault();
+            if (sysSet7 != null)
+            {
+                string[] str = sysSet7.ConstValue.Split('|');
+                if (str.Length > 0)
+                {
+                    this.txtSeptember.Text = (str[0] == null ? "" : str[0]).ToString();
+                    this.txtSeptemberday.Text = (str[1] == null ? "" : str[1]).ToString();
+                }
+            }
+            var sysSet8 = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.ConstText == "员工绩效考核第四季度生成时间" select x).ToList().FirstOrDefault();
+            if (sysSet8 != null)
+            {
+                string[] str = sysSet8.ConstValue.Split('|');
+                if (str.Length > 0)
+                {
+                    this.txtDecember.Text = (str[0] == null ? "" : str[0]).ToString();
+                    this.txtDecemberday.Text = (str[1] == null ? "" : str[1]).ToString();
+                }
+            }
         }
 
         /// <summary>
@@ -85,6 +123,7 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            var db = new Model.SGGLDB(Funs.ConnString);
             //var sysSet = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_Synchronization).FirstOrDefault();
             //if (sysSet != null)
             //{
@@ -109,7 +148,7 @@ namespace FineUIPro.Web.SysManage
                 {
                     sysSet2.ConstValue = "0";
                 }
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                db.SubmitChanges();
             }
             var sysSet3 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_MonthReportFreezeDay).FirstOrDefault();
             if (sysSet3 != null)
@@ -129,10 +168,58 @@ namespace FineUIPro.Web.SysManage
                 {
                     sysSet4.ConstValue = "0";
                 }
+                db.SubmitChanges();
+            }
+            Model.Sys_Const sysSet5 = db.Sys_Const.FirstOrDefault(x =>x.ConstText == "员工绩效考核第一季度生成时间");
+            if (sysSet5 != null)
+            {
+                if (!string.IsNullOrEmpty(this.txtMarch.Text.Trim())) {
+                    sysSet5.ConstValue = this.txtMarch.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(this.txtMarchday.Text.Trim())) {
+                    sysSet5.ConstValue += "|" + this.txtMarchday.Text.Trim();
+                }
                 new Model.SGGLDB(Funs.ConnString).SubmitChanges();
             }
-
-           
+            var sysSet6 = db.Sys_Const.FirstOrDefault(x => x.ConstText == "员工绩效考核第二季度生成时间");
+            if (sysSet6 != null)
+            {
+                if (!string.IsNullOrEmpty(this.txtJune.Text.Trim()))
+                {
+                    sysSet6.ConstValue = this.txtJune.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(this.txtJuneday.Text.Trim()))
+                {
+                    sysSet6.ConstValue += "|" + this.txtJuneday.Text.Trim();
+                }
+                db.SubmitChanges();
+            }
+            var sysSet7 = db.Sys_Const.FirstOrDefault(x => x.ConstText == "员工绩效考核第三季度生成时间");
+            if (sysSet7 != null)
+            {
+                if (!string.IsNullOrEmpty(this.txtSeptember.Text.Trim()))
+                {
+                    sysSet7.ConstValue = this.txtSeptember.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(this.txtSeptemberday.Text.Trim()))
+                {
+                    sysSet7.ConstValue += "|" + this.txtSeptemberday.Text.Trim();
+                }
+                db.SubmitChanges();
+            }
+            var sysSet8 = db.Sys_Const.FirstOrDefault(x => x.ConstText == "员工绩效考核第四季度生成时间");
+            if (sysSet8 != null)
+            {
+                if (!string.IsNullOrEmpty(this.txtDecember.Text.Trim()))
+                {
+                    sysSet8.ConstValue = this.txtDecember.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(this.txtDecemberday.Text.Trim()))
+                {
+                    sysSet8.ConstValue += "|" + this.txtDecemberday.Text.Trim();
+                }
+                db.SubmitChanges();
+            }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             BLL.LogService.AddSys_Log(this.CurrUser, "修改系统环境设置！", string.Empty, BLL.Const.SysConstSetMenuId, BLL.Const.BtnModify);
         }

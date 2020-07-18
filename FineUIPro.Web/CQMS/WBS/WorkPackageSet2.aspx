@@ -136,7 +136,7 @@
                 if (Weights.toString() != "") {
                     var totalValue = F(hdTotalValue).value;
                     me.updateCellValue(rowId, 'Weights', parseFloat(Weights).toFixed(2));
-                       if (totalValue != "undefined") {
+                       if (totalValue != "0") {
                          me.updateCellValue(rowId, 'Costs', (totalValue/100*parseFloat(Weights)).toFixed(4));
                     }
                 }

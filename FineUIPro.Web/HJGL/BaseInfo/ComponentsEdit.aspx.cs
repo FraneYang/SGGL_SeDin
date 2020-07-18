@@ -59,14 +59,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_Components.FirstOrDefault(x => x.ComponentsCode == this.txtComponentsCode.Text.Trim() && (x.ComponentsId != this.ComponentsId || (this.ComponentsId == null && x.ComponentsId != null)) && x.ProjeceId == this.CurrUser.LoginProjectId);
+            var q = Funs.DB.Base_Components.FirstOrDefault(x => x.ComponentsCode == this.txtComponentsCode.Text.Trim() && (x.ComponentsId != this.ComponentsId || (this.ComponentsId == null && x.ComponentsId != null)) && x.ProjeceId == this.CurrUser.LoginProjectId);
             if (q != null)
             {
                 Alert.ShowInTop("此组件代号已存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_Components.FirstOrDefault(x => x.ComponentsName == this.txtComponentsName.Text.Trim() && (x.ComponentsId != this.ComponentsId || (this.ComponentsId == null && x.ComponentsId != null)) && x.ProjeceId == this.CurrUser.LoginProjectId);
+            var q2 = Funs.DB.Base_Components.FirstOrDefault(x => x.ComponentsName == this.txtComponentsName.Text.Trim() && (x.ComponentsId != this.ComponentsId || (this.ComponentsId == null && x.ComponentsId != null)) && x.ProjeceId == this.CurrUser.LoginProjectId);
             if (q2 != null)
             {
                 Alert.ShowInTop("此组件名称已存在！", MessageBoxIcon.Warning);

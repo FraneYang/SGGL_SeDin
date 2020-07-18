@@ -47,14 +47,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string WeldingLocationId = Request.Params["WeldingLocationId"];
-            var q = new Model.SGGLDB(Funs.ConnString).Base_WeldingLocation.FirstOrDefault(x => x.WeldingLocationCode == this.txtWeldingLocationCode.Text.Trim() && (x.WeldingLocationId != WeldingLocationId || (WeldingLocationId == null && x.WeldingLocationId != null)));
+            var q = Funs.DB.Base_WeldingLocation.FirstOrDefault(x => x.WeldingLocationCode == this.txtWeldingLocationCode.Text.Trim() && (x.WeldingLocationId != WeldingLocationId || (WeldingLocationId == null && x.WeldingLocationId != null)));
             if (q != null)
             {
                 Alert.ShowInTop("此位置代号已存在！", MessageBoxIcon.Warning);
                 return;
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_WeldingLocation.FirstOrDefault(x => x.WeldingLocationName == this.txtWeldingLocationName.Text.Trim() && (x.WeldingLocationId != WeldingLocationId || (WeldingLocationId == null && x.WeldingLocationId != null)));
+            var q2 = Funs.DB.Base_WeldingLocation.FirstOrDefault(x => x.WeldingLocationName == this.txtWeldingLocationName.Text.Trim() && (x.WeldingLocationId != WeldingLocationId || (WeldingLocationId == null && x.WeldingLocationId != null)));
             if (q2 != null)
             {
                 Alert.ShowInTop("此位置名称已存在！", MessageBoxIcon.Warning);

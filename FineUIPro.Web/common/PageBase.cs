@@ -35,7 +35,7 @@ namespace FineUIPro.Web
                     {
                         password = Request.Cookies["p"].Value;
                     }
-                    Session["CurrUser"] = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.Account == account && x.Password == Funs.EncryptionPassword(password));
+                    Session["CurrUser"] = BLL.Funs.DB.Sys_User.FirstOrDefault(x => x.Account == account && x.Password == Funs.EncryptionPassword(password));
                 }
 
                 return (Model.Sys_User)Session["CurrUser"];
@@ -165,7 +165,22 @@ namespace FineUIPro.Web
                 //Form.Attributes["autocomplete"] = "off";
             }
 
+            this.Unload += new EventHandler(this.PageBase_UNLoad);
             base.OnInit(e);
+        }
+
+        /// <summary>
+        /// UNLOAD事件，发生在页面装载顺序的最后。
+        /// 在这里处理的是DBLIST，数据库连接字典。
+        /// </summary>
+        /// <param name="sender">S</param>
+        /// <param name="e">E</param>
+        protected void PageBase_UNLoad(object sender, EventArgs e)
+        {
+            if (BLL.Funs.DBList.ContainsKey(System.Threading.Thread.CurrentThread.ManagedThreadId))
+            {
+                BLL.Funs.DBList.Remove(System.Threading.Thread.CurrentThread.ManagedThreadId);
+            }
         }
 
         private bool IsSystemTheme(string themeName)
@@ -875,25 +890,9 @@ namespace FineUIPro.Web
                     {
                         html = (row.FindControl("lblCompileMan") as AspNet.Label).Text;
                     }
-                    if (column.ColumnID == "tfSpecialEquipmentId" && (row.FindControl("lblSpecialEquipmentId") as AspNet.Label) != null)  
+                    if (column.ColumnID == "tfSpecialEquipmentId")
                     {
                         html = (row.FindControl("lblSpecialEquipmentId") as AspNet.Label).Text;
-                    }
-                    if (column.ColumnID == "tfPictureType" && (row.FindControl("lblPictureType") as AspNet.Label) != null)
-                    {
-                        html = (row.FindControl("lblPictureType") as AspNet.Label).Text;
-                    }
-                    if (column.ColumnID == "tfShortContentDef" && (row.FindControl("lblShortContentDef") as AspNet.Label) != null)
-                    {
-                        html = (row.FindControl("lblShortContentDef") as AspNet.Label).Text;
-                    }
-                    if (column.ColumnID == "tfProjectMapType" && (row.FindControl("lblProjectMapType") as AspNet.Label) != null)
-                    {
-                        html = (row.FindControl("lblProjectMapType") as AspNet.Label).Text;
-                    }
-                    if (column.ColumnID == "tfShortContentDef" && (row.FindControl("lblShortContentDef") as AspNet.Label) != null)
-                    {
-                        html = (row.FindControl("lblShortContentDef") as AspNet.Label).Text;
                     }
                     // 处理CheckBox
                     if (html.Contains("f-grid-static-checkbox"))

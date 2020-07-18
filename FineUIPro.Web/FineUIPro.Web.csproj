@@ -778,6 +778,14 @@
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluation.aspx" />
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluationEdit.aspx" />
     <Content Include="Personal\FileSearch.aspx" />
+    <Content Include="Person\PersonCheck.aspx" />
+    <Content Include="Person\PersonChecking.aspx" />
+    <Content Include="Person\PersonCheckingView.aspx" />
+    <Content Include="Person\PersonSet.aspx" />
+    <Content Include="Person\PersonSetEdit.aspx" />
+    <Content Include="Person\PersonTotal.aspx" />
+    <Content Include="Person\PersonTotalEdit.aspx" />
+    <Content Include="Person\PersonTotalView.aspx" />
     <Content Include="ProjectData\MainItem.aspx" />
     <Content Include="ProjectData\MainItemEdit.aspx" />
     <Content Include="ProjectData\MainItemView.aspx" />
@@ -849,6 +857,19 @@
     <Content Include="HSSE\Doc\用户权限怎么设置.doc" />
     <Content Include="HSSE\Doc\隐患整改单操作说明.doc" />
     <Content Include="HJGL\WeldingManage\GetWdldingDailyItem.ashx" />
+    <Content Include="File\Word\Person\~%24经理工作任务书.doc" />
+    <Content Include="File\Word\Person\~WRL0001.tmp" />
+    <Content Include="File\Word\Person\安全专业工程师工作任务书.doc" />
+    <Content Include="File\Word\Person\安全经理工作任务书.doc" />
+    <Content Include="File\Word\Person\施工专业工程师工作任务书.doc" />
+    <Content Include="File\Word\Person\施工经理工作任务书.doc" />
+    <Content Include="File\Word\Person\本部合同管理工程师工作任务书.doc" />
+    <Content Include="File\Word\Person\本部安全质量工程师工作任务书.doc" />
+    <Content Include="File\Word\Person\本部综合管理工程师工作任务书.doc" />
+    <Content Include="File\Word\Person\试车专业工程师工作任务书.doc" />
+    <Content Include="File\Word\Person\试车经理工作任务书.doc" />
+    <Content Include="File\Word\Person\质量专业工程师工作任务书.doc" />
+    <Content Include="File\Word\Person\质量经理工作任务书.doc" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -4832,6 +4853,8 @@
     <Content Include="SysManage\CustomQuery.aspx" />
     <Content Include="SysManage\Depart.aspx" />
     <Content Include="SysManage\MenuFlowOperateEdit.aspx" />
+    <Content Include="SysManage\ParticipateProject.aspx" />
+    <Content Include="SysManage\RoleItem.aspx" />
     <Content Include="SysManage\RoleList.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -8716,6 +8739,62 @@
     <Compile Include="Personal\FileSearch.aspx.designer.cs">
       <DependentUpon>FileSearch.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Person\PersonCheck.aspx.cs">
+      <DependentUpon>PersonCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonCheck.aspx.designer.cs">
+      <DependentUpon>PersonCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonChecking.aspx.cs">
+      <DependentUpon>PersonChecking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonChecking.aspx.designer.cs">
+      <DependentUpon>PersonChecking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonCheckingView.aspx.cs">
+      <DependentUpon>PersonCheckingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonCheckingView.aspx.designer.cs">
+      <DependentUpon>PersonCheckingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonSet.aspx.cs">
+      <DependentUpon>PersonSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonSet.aspx.designer.cs">
+      <DependentUpon>PersonSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonSetEdit.aspx.cs">
+      <DependentUpon>PersonSetEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonSetEdit.aspx.designer.cs">
+      <DependentUpon>PersonSetEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonTotal.aspx.cs">
+      <DependentUpon>PersonTotal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonTotal.aspx.designer.cs">
+      <DependentUpon>PersonTotal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonTotalEdit.aspx.cs">
+      <DependentUpon>PersonTotalEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonTotalEdit.aspx.designer.cs">
+      <DependentUpon>PersonTotalEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonTotalView.aspx.cs">
+      <DependentUpon>PersonTotalView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonTotalView.aspx.designer.cs">
+      <DependentUpon>PersonTotalView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectData\MainItem.aspx.cs">
       <DependentUpon>MainItem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -9158,6 +9237,20 @@
     </Compile>
     <Compile Include="SysManage\MenuFlowOperateEdit.aspx.designer.cs">
       <DependentUpon>MenuFlowOperateEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysManage\ParticipateProject.aspx.cs">
+      <DependentUpon>ParticipateProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysManage\ParticipateProject.aspx.designer.cs">
+      <DependentUpon>ParticipateProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysManage\RoleItem.aspx.cs">
+      <DependentUpon>RoleItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysManage\RoleItem.aspx.designer.cs">
+      <DependentUpon>RoleItem.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysManage\RoleList.aspx.cs">
       <DependentUpon>RoleList.aspx</DependentUpon>

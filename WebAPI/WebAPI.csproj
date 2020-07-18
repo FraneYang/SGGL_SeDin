@@ -179,6 +179,8 @@
     <Compile Include="Controllers\HJGL\NDETrustController.cs" />
     <Compile Include="Controllers\HJGL\PipeJointController.cs" />
     <Compile Include="Controllers\HJGL\PreWeldingDailyController.cs" />
+    <Compile Include="Controllers\HJGL\ReportQueryController.cs" />
+    <Compile Include="Controllers\HJGL\TestPackageController.cs" />
     <Compile Include="Controllers\HSSE\ChartAnalysisController.cs" />
     <Compile Include="Controllers\HSSE\CheckSpecialController.cs" />
     <Compile Include="Controllers\HSSE\ConstructSolutionController.cs" />

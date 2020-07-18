@@ -120,12 +120,54 @@ namespace FineUIPro.Web.SysManage
                             this.drpIsOffice.SelectedValue = "False";
                         }
                         this.txtIdentityCard.Text = user.IdentityCard;
+                        this.txtPoliticalstatus.Text = user.Politicalstatus;
+                        this.txtHometown.Text = user.Hometown;
+                        this.txtEducation.Text = user.Education;
+                        this.txtGraduate.Text = user.Graduate;
+                        this.txtMajor.Text = user.Major;
+                        this.txtCertificate.Text = user.Certificate;
+                        this.txtPosition.Text = user.PositionId;
+                        this.rblSex.SelectedValue = user.Sex;
+                        if (user.BirthDay.HasValue)
+                        {
+                            this.txtBirthday.Text = string.Format("{0:yyyy-MM-dd}", user.BirthDay);
+                        }
+                        if (user.IntoDate.HasValue)
+                        {
+                            this.txtIntoDate.Text = string.Format("{0:yyyy-MM-dd}", user.IntoDate);
+                        }
+                        if (user.ValidityDate.HasValue)
+                        {
+                            this.txtValidityDate.Text = string.Format("{0:yyyy-MM-dd}", user.ValidityDate);
+                        }
                         if (!string.IsNullOrEmpty(user.SignatureUrl))
                         {
                             this.SignatureUrl = user.SignatureUrl;
                             this.Image2.ImageUrl = "~/" + this.SignatureUrl;
                         }
+                        if (!string.IsNullOrEmpty(user.ProjectId)) {
+                            this.txtProjectId.Text = BLL.ProjectService.GetProjectByProjectId(user.ProjectId).ProjectName;
+                        }
+                        if (!string.IsNullOrEmpty(user.ProjectRoleId)) {
+                                string[] Ids = user.ProjectRoleId.ToString().Split(',');
+                                foreach (string t in Ids)
+                                {
+                                    var type = BLL.RoleService.GetRoleByRoleId(t);
+                                    if (type != null)
+                                    {
+                                        this.txtProjectRoleId.Text += type.RoleName + ",";
+                                    }
+                                }
+                            if (!string.IsNullOrEmpty(this.txtProjectRoleId.Text.Trim()))
+                            {
+                                this.txtProjectRoleId.Text= this.txtProjectRoleId.Text.Substring(0, this.txtProjectRoleId.Text.Length - 1);
+                            }
+                        }
                         this.drpDepart.SelectedValue = user.DepartId;
+                        var roleItem = BLL.RoleItemService.GeRoleItemByUserId(this.UserId);
+                        if (roleItem != null) {
+                            this.txtIntoProjectDate.Text = roleItem.IntoDate.ToString();
+                        }
                     }
                 }
             }
@@ -165,7 +207,15 @@ namespace FineUIPro.Web.SysManage
                 Account = this.txtAccount.Text.Trim(),
                 IdentityCard = this.txtIdentityCard.Text.Trim(),
                 Telephone = this.txtTelephone.Text.Trim(),
-            };
+                Politicalstatus = this.txtPoliticalstatus.Text.Trim(),
+                Hometown = this.txtHometown.Text.Trim(),
+                Education = this.txtEducation.Text.Trim(),
+                Graduate = this.txtGraduate.Text.Trim(),
+                Major = this.txtMajor.Text.Trim(),
+                Certificate = this.txtCertificate.Text.Trim(),
+                Sex = this.rblSex.SelectedValue,
+                PositionId = this.txtPosition.Text.Trim()
+        };
             if (this.drpUnit.SelectedValue != Const._Null)
             {
                 newUser.UnitId = this.drpUnit.SelectedValue;
@@ -185,6 +235,17 @@ namespace FineUIPro.Web.SysManage
             newUser.SignatureUrl = this.SignatureUrl;
             newUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
             newUser.IsOffice = Convert.ToBoolean(this.drpIsOffice.SelectedValue);
+            if (!string.IsNullOrEmpty(txtBirthday.Text.Trim())) {
+                newUser.BirthDay = Funs.GetNewDateTime(this.txtBirthday.Text.Trim());
+            }
+            if (!string.IsNullOrEmpty(this.txtIntoDate.Text.Trim()))
+            {
+                newUser.IntoDate = Convert.ToDateTime(this.txtIntoDate.Text.Trim());
+            }
+            if (!string.IsNullOrEmpty(this.txtValidityDate.Text.Trim()))
+            {
+                newUser.ValidityDate = Convert.ToDateTime(this.txtValidityDate.Text.Trim());
+            }
             if (string.IsNullOrEmpty(this.UserId))
             {
                 newUser.Password = Funs.EncryptionPassword(Const.Password);
@@ -275,6 +336,11 @@ namespace FineUIPro.Web.SysManage
                 this.Image2.ImageUrl = "~/" + this.SignatureUrl;
             }
         }
-        #endregion   
+        #endregion
+
+        protected void BtnRole_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RoleItem.aspx?userId={0}", this.UserId, "查看 - ")));
+        }
     }
 }

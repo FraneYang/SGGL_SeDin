@@ -447,11 +447,11 @@
                                 </tr>
                                 <tr>
                                     <td colspan="10" style="color: red">事故综述（含未遂事故、事件）</td>
-
                                 </tr>
                                 <tr>
                                     <td colspan="10">
-                                        <textarea id="AccidentsSummary" class="input" runat="server" style="text-align: left"></textarea></td>
+                                        <textarea id="AccidentsSummary" class="input" runat="server" style="text-align: left"></textarea>
+                                    </td>
                                 </tr>
                             </table>
                         </f:ContentPanel>
@@ -459,14 +459,17 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:ContentPanel ID="ContentPanel3" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="本月人员投入情况" runat="server">
-
-                            <f:Grid ID="GvSeDinMonthReport4Item" CssClass="blockpanel" AllowCellEditing="true" EnableColumnLines="true" ShowBorder="true" ShowHeader="false" ForceFit="true" EnableCollapse="false" runat="server">
+                        <f:ContentPanel ID="ContentPanel3" BodyPadding="10" ShowBorder="true" EnableCollapse="true" 
+                            CssClass="blockpanel myblockform" ShowHeader="true" Title="本月人员投入情况" runat="server">
+                            <f:Grid ID="GvSeDinMonthReport4Item" CssClass="blockpanel" AllowCellEditing="true" EnableColumnLines="true" 
+                                    ShowBorder="true" ShowHeader="false" EnableCollapse="false" runat="server"
+                                    EnableSummary="true" SummaryPosition="Bottom">
                                 <Columns>
-                                    <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="80px" HeaderText="单位名称" />
-                                    <f:GroupField ColumnID="henan" HeaderText="管理人员" TextAlign="Center">
+                                    <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="80px" HeaderTextAlign="Center"
+                                        HeaderText="单位名称" ExpandUnusedSpace="true"/>
+                                    <f:GroupField ColumnID="henan" HeaderText="管理人员" TextAlign="Center" HeaderTextAlign="Center">
                                         <Columns>
-                                            <f:RenderField Width="100px" ColumnID="SafeManangerNum" DataField="SafeManangerNum" FieldType="Int"
+                                            <f:RenderField Width="180px" ColumnID="SafeManangerNum" DataField="SafeManangerNum" FieldType="Int"
                                                 HeaderText="安全管理">
                                                 <Editor>
                                                     <f:NumberBox ID="SafeMananger" NoDecimal="true" NoNegative="true"
@@ -474,41 +477,38 @@
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="100px" ColumnID="OtherManangerNum" DataField="OtherManangerNum" FieldType="Int"
-                                                HeaderText="其他管理">
+                                            <f:RenderField Width="180px" ColumnID="OtherManangerNum" DataField="OtherManangerNum" FieldType="Int"
+                                                HeaderText="其他管理" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="OtherMananger" NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-
                                         </Columns>
-
                                     </f:GroupField>
                                     <f:GroupField ColumnID="Special" HeaderText="作业人员" TextAlign="Center">
                                         <Columns>
-                                            <f:RenderField Width="100px" ColumnID="SpecialWorkerNum" DataField="SpecialWorkerNum" FieldType="Int"
-                                                HeaderText="特种作业">
+                                            <f:RenderField Width="180px" ColumnID="SpecialWorkerNum" DataField="SpecialWorkerNum" FieldType="Int"
+                                                HeaderText="特种作业" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="nbSpecialWorkerNum" NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="100px" ColumnID="GeneralWorkerNum" DataField="GeneralWorkerNum" FieldType="Int"
-                                                HeaderText="一般作业">
+                                            <f:RenderField Width="180px" ColumnID="GeneralWorkerNum" DataField="GeneralWorkerNum" FieldType="Int"
+                                                HeaderText="一般作业" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="nbGeneralWorkerNum" NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-
                                         </Columns>
-
                                     </f:GroupField>
-                                    <f:BoundField ColumnID="TotalNum" DataField="TotalNum" Width="80px" HeaderText="合计" />
+                                    <f:BoundField ColumnID="TotalNum" DataField="TotalNum" Width="200px" HeaderTextAlign="Center"
+                                        HeaderText="合计" />
                                 </Columns>
                                 <Listeners>
                                     <f:Listener Event="afteredit" Handler="onGridAfterEdit" />
@@ -519,31 +519,34 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:ContentPanel ID="ContentPanel4" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="本月大型、特种设备投入情况" runat="server">
-                            <f:Grid ID="GvSeDinMonthReport5Item"  CssClass="table" ShowBorder="true" AllowCellEditing="true" EnableColumnLines="true" ShowHeader="false" ForceFit="true" EnableCollapse="false" runat="server">
+                        <f:ContentPanel ID="ContentPanel4" BodyPadding="10" ShowBorder="true" EnableCollapse="true" 
+                            CssClass="blockpanel myblockform" ShowHeader="true" Title="本月大型、特种设备投入情况" runat="server">
+                            <f:Grid ID="GvSeDinMonthReport5Item"  CssClass="table" ShowBorder="true" AllowCellEditing="true" 
+                                EnableColumnLines="true" ShowHeader="false"  EnableCollapse="false" runat="server"
+                                EnableSummary="true" SummaryPosition="Bottom">
                                 <Columns>
-                                    <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="80px" HeaderText="单位名称" />
-
+                                    <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="100px" ExpandUnusedSpace="true"
+                                        HeaderText="单位名称" HeaderTextAlign="Center" />
                                     <f:GroupField ColumnID="henan" HeaderText="特种设备T" TextAlign="Center">
                                         <Columns>
-                                            <f:RenderField Width="100px" ColumnID="T01" DataField="T01" FieldType="Int"
-                                                HeaderText="汽车吊T-001">
+                                            <f:RenderField Width="90px" ColumnID="T01" DataField="T01" FieldType="Int" HeaderTextAlign="Center"
+                                                    HeaderText="汽车吊">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="100px" ColumnID="T02" DataField="T02" FieldType="Int"
-                                                HeaderText="履带吊">
+                                            <f:RenderField Width="90px" ColumnID="T02" DataField="T02" FieldType="Int"
+                                                HeaderText="履带吊" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="100px" ColumnID="T03" DataField="T03" FieldType="Int"
-                                                HeaderText="塔吊">
+                                            <f:RenderField Width="60px" ColumnID="T03" DataField="T03" FieldType="Int"
+                                                HeaderText="塔吊" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
@@ -551,86 +554,81 @@
                                                 </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="100px" ColumnID="T04" DataField="T04" FieldType="Int"
-                                                HeaderText="门式起重机">
+                                                HeaderText="门式起重机" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="100px" ColumnID="T05" DataField="T05" FieldType="Int"
-                                                HeaderText="升降机">
+                                            <f:RenderField Width="90px" ColumnID="T05" DataField="T05" FieldType="Int"
+                                                HeaderText="升降机" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="100px" ColumnID="T06" DataField="T06" FieldType="Int"
-                                                HeaderText="叉车">
+                                            <f:RenderField Width="60px" ColumnID="T06" DataField="T06" FieldType="Int"
+                                                HeaderText="叉车" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
-                                            </f:RenderField>
-                                        
+                                            </f:RenderField>                                                 
                                         </Columns>
-
                                     </f:GroupField>
                                     <f:GroupField ColumnID="Special" HeaderText="大型机具设备" TextAlign="Center">
                                         <Columns>
-                                              <f:RenderField Width="100px" ColumnID="D01" DataField="D01" FieldType="Int"
-                                                HeaderText="挖掘机">
+                                              <f:RenderField Width="90px" ColumnID="D01" DataField="D01" FieldType="Int"
+                                                HeaderText="挖掘机" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                              <f:RenderField Width="100px" ColumnID="D02" DataField="D02" FieldType="Int"
-                                                HeaderText="装载机">
+                                              <f:RenderField Width="90px" ColumnID="D02" DataField="D02" FieldType="Int"
+                                                HeaderText="装载机" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                              <f:RenderField Width="100px" ColumnID="D03" DataField="D03" FieldType="Int"
-                                                HeaderText="拖板车">
+                                              <f:RenderField Width="90px" ColumnID="D03" DataField="D03" FieldType="Int"
+                                                HeaderText="拖板车" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                              <f:RenderField Width="100px" ColumnID="D04" DataField="D04" FieldType="Int"
-                                                HeaderText="桩机">
+                                              <f:RenderField Width="60px" ColumnID="D04" DataField="D04" FieldType="Int"
+                                                HeaderText="桩机" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
-                                            </f:RenderField>
-                                        
+                                            </f:RenderField>                                        
                                         </Columns>
-
                                     </f:GroupField>
-                                    <f:GroupField ColumnID="Sp" HeaderText="大型机具设备" TextAlign="Center">
+                                    <f:GroupField ColumnID="Sp" HeaderText="大型机具设备" TextAlign="Center" Width="110px" HeaderTextAlign="Center">
                                         <Columns>
-                                              <f:RenderField Width="100px" ColumnID="S01" DataField="S01" FieldType="Int"
-                                                HeaderText="吊篮">
+                                              <f:RenderField Width="110px" ColumnID="S01" DataField="S01" FieldType="Int"
+                                                HeaderText="吊篮" HeaderTextAlign="Center">
                                                 <Editor>
-                                                    <f:NumberBox NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
+                                                    <f:NumberBox NoDecimal="true" NoNegative="true"  runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
-                                            </f:RenderField>
-                                         
+                                            </f:RenderField>                                         
                                         </Columns>
                                     </f:GroupField>
+                                       <f:BoundField ColumnID="TotalNum" DataField="TotalNum" Width="60px" HeaderTextAlign="Center"
+                                           HeaderText="合计"  />
                                 </Columns>
-
                             </f:Grid>
                         </f:ContentPanel>
                     </Items>
@@ -1205,8 +1203,6 @@
                         </f:Button>
                         <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
                         </f:Button>
-
-
                     </Items>
                 </f:Toolbar>
             </Toolbars>
@@ -1256,7 +1252,6 @@
         </f:Window>
     </form>
 </body>
-
 </html>
 <script type="text/javascript">
 

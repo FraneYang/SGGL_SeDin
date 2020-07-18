@@ -74,6 +74,10 @@ namespace FineUIPro.Web.CQMS.WBS
                 {
                     this.hdTotalValue.Text = workPackage.Costs.ToString();
                 }
+                else
+                {
+                    this.hdTotalValue.Text = "0";
+                }
                 ProjectType = workPackage.ProjectType;
                 if (workPackage.SuperWorkPackageId == null)
                 {

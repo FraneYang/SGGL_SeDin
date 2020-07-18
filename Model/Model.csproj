@@ -60,6 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIItem\BaseInfoItem.cs" />
+    <Compile Include="APIItem\HJGL\JointCompreInfoItem.cs" />
+    <Compile Include="APIItem\HJGL\ReportQueryItem.cs" />
+    <Compile Include="APIItem\HJGL\TestPackageItem.cs" />
+    <Compile Include="APIItem\HJGL\WelderPerformanceItem.cs" />
     <Compile Include="APIItem\HSSE\ChartAnalysisItem.cs" />
     <Compile Include="APIItem\HSSE\CheckSpecialDetailItem.cs" />
     <Compile Include="APIItem\HSSE\CheckSpecialItem.cs" />

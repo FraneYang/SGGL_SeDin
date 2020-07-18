@@ -58,7 +58,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_Defect.FirstOrDefault(x => x.DefectName == this.txtDefectName.Text.Trim() && (x.DefectId.ToString() != this.DefectId || this.DefectId == null));
+            var q = Funs.DB.Base_Defect.FirstOrDefault(x => x.DefectName == this.txtDefectName.Text.Trim() && (x.DefectId.ToString() != this.DefectId || this.DefectId == null));
             if (q != null)
             {
                 Alert.ShowInTop("此缺陷名称已存在", MessageBoxIcon.Warning);
@@ -79,7 +79,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             }
             else
             {
-                var defects = from x in new Model.SGGLDB(Funs.ConnString).Base_Defect orderby x.DefectId descending select x;
+                var defects = from x in Funs.DB.Base_Defect orderby x.DefectId descending select x;
                 if (defects.Count() > 0)
                 {
                     this.DefectId = (defects.First().DefectId + 1).ToString();

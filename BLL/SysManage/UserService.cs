@@ -162,6 +162,17 @@ namespace BLL
                 DataSources = user.DataSources,
                 SignatureUrl = user.SignatureUrl,
                 DepartId = user.DepartId,
+                Politicalstatus =user.Politicalstatus,
+                Hometown = user.Hometown,
+                Education = user.Education,
+                Graduate = user.Graduate,
+                Major = user.Major,
+                Certificate = user.Certificate,
+                IntoDate=user.IntoDate,
+                ValidityDate=user.ValidityDate,
+                Sex=user.Sex,
+                BirthDay=user.BirthDay,
+                PositionId=user.PositionId
             };
             db.Sys_User.InsertOnSubmit(newUser);
             db.SubmitChanges();
@@ -192,6 +203,17 @@ namespace BLL
                 newUser.Telephone = user.Telephone;
                 newUser.SignatureUrl = user.SignatureUrl;
                 newUser.DepartId = user.DepartId;
+                newUser.Politicalstatus = user.Politicalstatus;
+                newUser.Hometown = user.Hometown;
+                newUser.Education = user.Education;
+                newUser.Graduate = user.Graduate;
+                newUser.Major = user.Major;
+                newUser.Certificate = user.Certificate;
+                newUser.IntoDate = user.IntoDate;
+                newUser.ValidityDate = user.ValidityDate;
+                newUser.Sex = user.Sex;
+                newUser.BirthDay = user.BirthDay;
+                newUser.PositionId = user.PositionId;
                 db.SubmitChanges();
             }
         }
@@ -1165,6 +1187,54 @@ namespace BLL
                     where y.Account == account && y.IsPost == true
                     select y;
             return q.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 根据单位Id获取用户下拉选项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetUserListByUnitId(string unitId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.Sys_User> list = new List<Model.Sys_User>();
+                    list = (from x in db.Sys_User
+                            where x.UnitId == unitId
+                            orderby x.UserName
+                            select x).ToList();
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 用户下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUserUnitIdDropDownList(FineUIPro.DropDownList dropName, string unitId, bool isShowPlease)
+        {
+            dropName.DataValueField = "UserId";
+            dropName.DataTextField = "UserName";
+            dropName.DataSource = BLL.UserService.GetUserListByUnitId(unitId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 根据角色获取查看用户 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetUserListByRole(string role)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db.Sys_User where  x.RoleId == role
+                        orderby x.UserId
+                        select x).Distinct().ToList();
+            }
         }
     }
 }

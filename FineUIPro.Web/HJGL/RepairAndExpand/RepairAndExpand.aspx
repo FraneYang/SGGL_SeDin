@@ -64,7 +64,7 @@
                             </f:HiddenField>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:Button ID="btnSave" Text="保存" ToolTip="保存"
+                            <f:Button ID="btnSave" Text="保存" ToolTip="扩透口保存"
                                 Icon="SystemSave" runat="server" OnClick="btnSave_Click">
                             </f:Button>
                             <f:Button ID="btnPointAudit" Text="扩透口审核" ToolTip="监理审核后才可生成委托单" Icon="ArrowNsew" runat="server"

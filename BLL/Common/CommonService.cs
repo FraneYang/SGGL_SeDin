@@ -1,13 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
     public static class CommonService
     {
+        #region 获取当前人系统集合
+        /// <summary>
+        ///  获取当前人系统集合
+        /// </summary> 
+        /// <param name="userId">用户id</param>
+        /// <returns>是否具有权限</returns>
+        public static List<string> GetSystemPowerList(string userId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getUser = db.Sys_User.FirstOrDefault(x => x.UserId == userId);
+                if (getUser != null)
+                {
+                    if (userId == Const.sysglyId || userId == Const.hfnbdId || getUser.DepartId == Const.Depart_constructionId)
+                    {
+                        return new List<string>() { Const.Menu_Server,  Const.Menu_HSSE, Const.Menu_CQMS, Const.Menu_HJGL }; ;
+                    }
+                    else
+                    {
+                        List<string> returnList = new List<string>();
+                        if (getUser != null && !string.IsNullOrEmpty(getUser.RoleId))
+                        {
+                            var getOffice = db.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == true);
+                            if (getOffice != null)
+                            {
+                                returnList.Add(Const.Menu_Server);
+                            }
+                        }
+                        ////获取项目角色的集合
+                        var getPRoles = (from x in db.Project_ProjectUser
+                                         join y in db.Base_Project on x.ProjectId equals y.ProjectId
+                                         where (y.ProjectState == Const.ProjectState_1 || y.ProjectState == null) && x.UserId == userId
+                                         select x.RoleId).ToList();
+                        string rolesStr = string.Empty;
+                        foreach (var item in getPRoles)
+                        {
+                            if (string.IsNullOrEmpty(rolesStr))
+                            {
+                                rolesStr = item;
+                            }else
+                            {
+                                rolesStr += "," + item;
+                            }
+                        }
+                        ////项目角色集合list
+                        List<string> roleIdList = Funs.GetStrListByStr(rolesStr, ',').Distinct().ToList();
+                       var getRolePowers = (from x in db.Sys_RolePower
+                                 where roleIdList.Contains(x.RoleId)
+                                 select x).ToList();
+                        if (getRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_HSSE) != null)
+                        {
+                            returnList.Add(Const.Menu_HSSE);
+                        }
+                        if (getRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_CQMS) != null)
+                        {
+                            returnList.Add(Const.Menu_CQMS);
+                        }                     
+                        if (getRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_HJGL) != null)
+                        {
+                            returnList.Add(Const.Menu_HJGL);
+                        }
+                        return returnList;
+                    }                  
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        #endregion
+
         #region 获取当前人菜单集合
         /// <summary>
         ///  获取当前人菜单集合
@@ -72,7 +142,7 @@ namespace BLL
         public static bool ReturnMenuByUserIdMenuId(string userId, string menuId, string projectId)
         {
             bool returnValue = false;
-            var menu = new Model.SGGLDB(Funs.ConnString).Sys_Menu.FirstOrDefault(x => x.MenuId == menuId);
+            var menu = Funs.DB.Sys_Menu.FirstOrDefault(x => x.MenuId == menuId);
             if (menu != null)
             {
                 ///1、当前用户是管理员 
@@ -83,16 +153,16 @@ namespace BLL
                 }
                 else if (string.IsNullOrEmpty(projectId)) ///本部、系统设置
                 {
-                    var user =new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x=>x.UserId ==userId); ////用户
+                    var user =Funs.DB.Sys_User.FirstOrDefault(x=>x.UserId ==userId); ////用户
                     if (user != null && !string.IsNullOrEmpty(user.RoleId))
                     {
-                        var power = new Model.SGGLDB(Funs.ConnString).Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == user.RoleId);
+                        var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == user.RoleId);
                         if (power != null)
                         {
                             returnValue = true;
                         }
 
-                        // var getRoles=new Model.SGGLDB(Funs.ConnString).Sys_Role.FirstOrDefault(x=> user.RoleId)
+                        // var getRoles=Funs.DB.Sys_Role.FirstOrDefault(x=> user.RoleId)
                     }
                 }
                 else
@@ -102,7 +172,7 @@ namespace BLL
                     if (puser != null && !string.IsNullOrEmpty(puser.RoleId))
                     {
                         List<string> roleIdList = Funs.GetStrListByStr(puser.RoleId, ',');
-                        var power = new Model.SGGLDB(Funs.ConnString).Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && roleIdList.Contains(x.RoleId));
+                        var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && roleIdList.Contains(x.RoleId));
                         if (power != null)
                         {
                             returnValue = true;
@@ -336,7 +406,7 @@ namespace BLL
         /// <param name="lawRegulationId"></param>
         public static void DeleteAttachFileById(string menuId, string id)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.AttachFile attachFile = db.AttachFile.FirstOrDefault(e => e.MenuId == menuId && e.ToKeyId == id);
             if (attachFile != null)
             {
@@ -356,11 +426,14 @@ namespace BLL
         /// <param name="lawRegulationId"></param>
         public static void DeleteFlowOperateByID(string id)
         {
-            var flowOperateList = from x in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate where x.DataId == id select x;
-            if (flowOperateList.Count() > 0)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.DeleteAllOnSubmit(flowOperateList);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                var flowOperateList = from x in db.Sys_FlowOperate where x.DataId == id select x;
+                if (flowOperateList.Count() > 0)
+                {
+                    db.Sys_FlowOperate.DeleteAllOnSubmit(flowOperateList);
+                    db.SubmitChanges();
+                }
             }
         }
 
@@ -386,10 +459,10 @@ namespace BLL
                 ProjectId = projectId,
                 Url = url
             };
-            var user = BLL.UserService.GetUserByUserId(newFlowOperate.OperaterId);
+            var user = UserService.GetUserByUserId(newFlowOperate.OperaterId);
             if (user != null)
             {
-                var roles = BLL.RoleService.GetRoleByRoleId(user.RoleId);
+                var roles = RoleService.GetRoleByRoleId(user.RoleId);
                 if (roles != null && !string.IsNullOrEmpty(roles.RoleName))
                 {
                     newFlowOperate.AuditFlowName = "[" + roles.RoleName + "]";
@@ -402,7 +475,7 @@ namespace BLL
                 newFlowOperate.AuditFlowName += "系统审核完成";
             }
 
-            var updateFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
+            var updateFlowOperate = from x in Funs.DB.Sys_FlowOperate
                                     where x.DataId == newFlowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                                     select x;
             if (updateFlowOperate.Count() > 0)
@@ -415,13 +488,13 @@ namespace BLL
                     item.Opinion = newFlowOperate.Opinion;
                     item.AuditFlowName = "系统审核完成";
                     item.IsClosed = newFlowOperate.IsClosed;
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.SubmitChanges();
                 }
             }
             else
             {
                 int maxSortIndex = 1;
-                var flowSet = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
+                var flowSet = Funs.DB.Sys_FlowOperate.Where(x => x.DataId == newFlowOperate.DataId);
                 var sortIndex = flowSet.Select(x => x.SortIndex).Max();
                 if (sortIndex.HasValue)
                 {
@@ -431,13 +504,13 @@ namespace BLL
                 newFlowOperate.SortIndex = maxSortIndex;
                 newFlowOperate.OperaterTime = System.DateTime.Now;
                 newFlowOperate.AuditFlowName = "系统审核完成";
-                new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.InsertOnSubmit(newFlowOperate);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Sys_FlowOperate.InsertOnSubmit(newFlowOperate);
+                Funs.DB.SubmitChanges();
             }
 
             if (newFlowOperate.IsClosed == true)
             {
-                var updateNoClosedFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
+                var updateNoClosedFlowOperate = from x in Funs.DB.Sys_FlowOperate
                                                 where x.DataId == newFlowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                                                 select x;
                 if (updateNoClosedFlowOperate.Count() > 0)
@@ -445,7 +518,7 @@ namespace BLL
                     foreach (var itemClosed in updateNoClosedFlowOperate)
                     {
                         itemClosed.IsClosed = true;
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }

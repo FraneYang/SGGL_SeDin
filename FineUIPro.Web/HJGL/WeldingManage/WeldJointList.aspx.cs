@@ -51,11 +51,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
-            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
@@ -83,7 +83,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -99,7 +99,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -117,7 +117,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         private void BindNodes(TreeNode node)
         {
             List<Model.HJGL_Pipeline> pipeline = new List<Model.HJGL_Pipeline>();
-            var pipelines = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline select x;
+            var pipelines = from x in Funs.DB.HJGL_Pipeline select x;
             pipeline = (from x in pipelines
                         where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == node.NodeID
                        && x.PipelineCode.Contains(this.txtPipelineCode.Text.Trim())
@@ -125,7 +125,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         select x).ToList();
             foreach (var item in pipeline)
             {
-                var jotCount = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint where x.PipelineId == item.PipelineId select x).Count();
+                var jotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == item.PipelineId select x).Count();
                 TreeNode newNode = new TreeNode();
                 newNode.Text = item.PipelineCode;
                 newNode.Text += "【" + jotCount.ToString() + " " + "焊口" + "】";
@@ -419,7 +419,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 content = "该焊口已焊接，不能删除！";
             }
-            if (new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == id) != null)
+            if (BLL.Funs.DB.HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == id) != null)
             {
                 content = "热处理已经使用了该焊口，不能删除！";
             }

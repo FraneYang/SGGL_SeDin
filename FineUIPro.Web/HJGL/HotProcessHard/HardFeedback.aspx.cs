@@ -65,11 +65,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
-            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
@@ -97,7 +97,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -111,7 +111,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -133,11 +133,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
 
             if (!string.IsNullOrEmpty(this.txtSearchNo.Text.Trim()))
             {
-                trustLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Trust where x.HardTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HardTrustNo select x).ToList();
+                trustLists = (from x in Funs.DB.HJGL_Hard_Trust where x.HardTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HardTrustNo select x).ToList();
             }
             else
             {
-                trustLists = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Hard_Trust orderby x.HardTrustNo select x).ToList();
+                trustLists = (from x in Funs.DB.HJGL_Hard_Trust orderby x.HardTrustNo select x).ToList();
             }
 
             var trustList = from x in trustLists
@@ -239,7 +239,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         private void PageInfoLoad()
         {
             this.SimpleForm1.Reset(); ///重置所有字段
-            //var trust = new Model.SGGLDB(Funs.ConnString).View_HJGL_Hard_Trust.FirstOrDefault(x => x.HardTrustID == this.HardTrustID);
+            //var trust = Funs.DB.View_HJGL_Hard_Trust.FirstOrDefault(x => x.HardTrustID == this.HardTrustID);
             //if (trust != null)
             //{
             //    this.txtHardTrustNo.Text = trust.HardTrustNo;
@@ -343,7 +343,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     {
                         bool newIsPass = cbIsPass.GetCheckedState(index);
                         bool newIsNotPass = cbIsNotPass.GetCheckedState(index);
-                        var hotProessTrustItem = new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == hardFeedback.WeldJointId && x.HotProessTrustItemId == hardFeedback.HotProessTrustItemId);
+                        var hotProessTrustItem = Funs.DB.HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == hardFeedback.WeldJointId && x.HotProessTrustItemId == hardFeedback.HotProessTrustItemId);
                         if (newIsPass)
                         {
                             hardFeedback.IsPass = true;

@@ -65,11 +65,11 @@ namespace FineUIPro.Web.HJGL.PointTrust
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
-            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
@@ -97,7 +97,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -113,7 +113,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -133,7 +133,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
         private void BindNodes(TreeNode node)
         {
 
-            var p = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatch
+            var p = from x in Funs.DB.HJGL_Batch_PointBatch
                     where x.UnitWorkId == node.NodeID
                     && x.StartDate < Convert.ToDateTime(this.txtStartTime.Text.Trim() + "-01").AddMonths(1)
                     && x.StartDate >= Convert.ToDateTime(this.txtStartTime.Text.Trim() + "-01")
@@ -157,12 +157,12 @@ namespace FineUIPro.Web.HJGL.PointTrust
             e.Node.Nodes.Clear();
             if (e.Node.CommandName == "单位工程")
             {
-                var detectionTypes = from x in new Model.SGGLDB(Funs.ConnString).Base_DetectionType
+                var detectionTypes = from x in Funs.DB.Base_DetectionType
                                      orderby x.DetectionTypeCode
                                      select new { x.DetectionTypeId, x.DetectionTypeCode, x.DetectionTypeName };
                 foreach (var item in detectionTypes)
                 {
-                    var pointManages = from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_Batch_PointBatch
+                    var pointManages = from x in Funs.DB.View_HJGL_Batch_PointBatch
                                        where x.ProjectId == this.CurrUser.LoginProjectId
                                        && x.UnitWorkId == e.Node.NodeID
                                        && x.DetectionTypeId == item.DetectionTypeId
@@ -190,12 +190,12 @@ namespace FineUIPro.Web.HJGL.PointTrust
 
             if (e.Node.CommandName == "探伤类型")
             {
-                var detectionRates = from x in new Model.SGGLDB(Funs.ConnString).Base_DetectionRate
+                var detectionRates = from x in Funs.DB.Base_DetectionRate
                                      orderby x.DetectionRateCode
                                      select new { x.DetectionRateId, x.DetectionRateCode, x.DetectionRateValue };
                 foreach (var item in detectionRates)
                 {
-                    var pointManages = from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_Batch_PointBatch
+                    var pointManages = from x in Funs.DB.View_HJGL_Batch_PointBatch
                                        where x.ProjectId == this.CurrUser.LoginProjectId
                                        && x.UnitWorkId == e.Node.ParentNode.NodeID
                                        && x.DetectionTypeId == e.Node.NodeID.Split('|')[0]
@@ -225,7 +225,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
 
             if (e.Node.CommandName == "检测比例")
             {
-                var pointManages = from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_Batch_PointBatch
+                var pointManages = from x in Funs.DB.View_HJGL_Batch_PointBatch
                                    where x.ProjectId == this.CurrUser.LoginProjectId
                                    && x.DetectionRateId == e.NodeID.Split('|')[0]
                                    && x.DetectionTypeId == e.Node.ParentNode.NodeID.Split('|')[0]
@@ -522,7 +522,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             //if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_PointBatchMenuId, Const.BtnGenerate))
             //{
 
-            //    var getViewGenerateTrustLists = (from x in new Model.SGGLDB(Funs.ConnString).View_GenerateTrust where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            //    var getViewGenerateTrustLists = (from x in Funs.DB.View_GenerateTrust where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             //    if (getViewGenerateTrustLists.Count() > 0)
             //    {
             //        var getUnit = BLL.Base_UnitService.GetUnit(this.CurrUser.UnitId);
@@ -597,7 +597,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             if (!string.IsNullOrEmpty(this.PointBatchId))
             {
                 string parm = string.Empty;
-                var pointBatch = new Model.SGGLDB(Funs.ConnString).View_HJGL_Batch_PointBatch.FirstOrDefault(x => x.PointBatchId == this.PointBatchId);
+                var pointBatch = Funs.DB.View_HJGL_Batch_PointBatch.FirstOrDefault(x => x.PointBatchId == this.PointBatchId);
                 if (pointBatch != null)
                 {
                     if (!string.IsNullOrEmpty(pointBatch.UnitCode))

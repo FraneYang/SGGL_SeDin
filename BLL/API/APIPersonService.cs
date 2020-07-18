@@ -128,6 +128,60 @@ namespace BLL
         }
         #endregion
 
+        #region 根据personId获取人员信息
+        /// <summary>
+        /// 根据personId获取人员信息
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <returns></returns>
+        public static Model.PersonItem getPersonByProjectIdIdentityCard(string projectId, string identityCard)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getPerson = from x in db.View_SitePerson_Person
+                                where x.ProjectId == projectId && ( x.PersonId == identityCard || x.IdentityCard == identityCard)
+                                select new Model.PersonItem
+                                {
+                                    PersonId = x.PersonId,
+                                    CardNo = x.CardNo,
+                                    PersonName = x.PersonName,
+                                    Sex = x.Sex,
+                                    SexName = x.SexName,
+                                    IdentityCard = x.IdentityCard,
+                                    Address = x.Address,
+                                    ProjectId = x.ProjectId,
+                                    ProjectCode = x.ProjectCode,
+                                    ProjectName = x.ProjectName,
+                                    UnitId = x.UnitId,
+                                    UnitCode = x.UnitCode,
+                                    UnitName = x.UnitName,
+                                    TeamGroupId = x.TeamGroupId,
+                                    TeamGroupName = x.TeamGroupName,
+                                    WorkPostId = x.WorkPostId,
+                                    WorkPostName = x.WorkPostName,
+                                    InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                    OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                    OutResult = x.OutResult,
+                                    Telephone = x.Telephone,
+                                    PhotoUrl = x.PhotoUrl,
+                                    DepartName = x.DepartName,
+                                    IsUsed = x.IsUsed,
+                                    IsUsedName = x.IsUsed == false ? "不启用" : "启用",
+                                    AuditorId = x.AuditorId,
+                                    AuditorName = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                    IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                                    IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
+                                    AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
+                                    AttachUrl1 = x.IDCardUrl == null ? APIUpLoadFileService.getFileUrl(x.PersonId + "#1", null) : x.IDCardUrl.Replace('\\', '/'),
+                                    AttachUrl2 = APIUpLoadFileService.getFileUrl(x.PersonId + "#2", null),
+                                    AttachUrl3 = APIUpLoadFileService.getFileUrl(x.PersonId + "#3", null),
+                                    AttachUrl4 = getAttachUrl4(x.PersonId),
+                                };
+                return getPerson.FirstOrDefault();
+            }
+        }
+        #endregion
+
         #region 根据personid人员打回
         /// <summary>
         /// 根据personid人员打回

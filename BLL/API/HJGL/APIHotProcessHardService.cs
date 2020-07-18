@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -125,6 +128,33 @@ namespace BLL
                 return getDataLists;
             }
         }
-        #endregion 
+        #endregion
+
+        #region 硬度检测不合格预警
+        /// <summary>
+        /// 硬度检测不合格预警
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetHardNoPassWarning(string projectId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HJGL_Hard_TrustItem
+                                    join y in db.HJGL_Hard_Trust on x.HardTrustID equals y.HardTrustID
+                                    join z in db.HJGL_WeldJoint on x.WeldJointId equals z.WeldJointId
+                                    where y.ProjectId == projectId && x.IsPass == false
+                                    orderby y.HardTrustNo, z.WeldJointCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.WeldJointId,
+                                        BaseInfoCode = y.HardTrustNo,
+                                        BaseInfoName = z.WeldJointCode
+                                    }
+                               ).ToList();
+                return getDataLists;
+            }
+        }
+        #endregion
     }
 }

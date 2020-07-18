@@ -84,15 +84,15 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.tvControlItem.Nodes.Add(rootNode2);
             DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
             DateTime endTime = startTime.AddMonths(1);
-            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
-            List<Model.PTP_TestPackage> testPackageLists = (from x in new Model.SGGLDB(Funs.ConnString).PTP_TestPackage
+            List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
                                                             where x.ProjectId == this.CurrUser.LoginProjectId && x.TableDate >= startTime && x.TableDate < endTime
                                                             select x).ToList();
             List<Model.WBS_UnitWork> unitWork1 = null;
@@ -118,7 +118,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -134,7 +134,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -199,10 +199,10 @@ namespace FineUIPro.Web.HJGL.TestPackage
             }
             else if (node.CommandName == "试压包")
             {
-                var isoIdList = from x in new Model.SGGLDB(Funs.ConnString).PTP_PipelineList
+                var isoIdList = from x in Funs.DB.PTP_PipelineList
                                 where x.PTP_ID == node.NodeID
                                 select x.PipelineId;
-                var isoInfos = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where isoIdList.Contains(x.PipelineId) select x;
+                var isoInfos = from x in Funs.DB.HJGL_Pipeline where isoIdList.Contains(x.PipelineId) select x;
                 foreach (var item in isoInfos)
                 {
                     TreeNode newNode = new TreeNode();

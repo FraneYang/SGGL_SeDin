@@ -40,33 +40,77 @@
                                         </f:FormRow>--%>
                                         <f:FormRow ColumnWidths="35% 65%">
                                             <Items>
-                                                <f:NumberBox ID="txtNumberBox" runat="server" Label="有效期警示" LabelWidth="220px"></f:NumberBox>
+                                                <f:NumberBox ID="txtNumberBox" runat="server" Label="有效期警示" LabelWidth="230px"></f:NumberBox>
                                                 <f:Label ID="Label9" runat="server" Text="说明：用于资质有效期警示时间。" MarginLeft="50px"></f:Label>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow ColumnWidths="35% 65%">
                                             <Items>
-                                                <f:CheckBox ID="ckIsMonthReportGetAVG" runat="server" Label="人工时月报是否按平均数取值" LabelWidth="220px">
+                                                <f:CheckBox ID="ckIsMonthReportGetAVG" runat="server" Label="人工时月报是否按平均数取值" LabelWidth="230px">
                                                 </f:CheckBox>
                                                 <f:Label ID="Label10" runat="server" Text="说明：人工时月报统计时，是否按照平均人数、平均工时数及平均天数取值。" MarginLeft="50px"></f:Label>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow ColumnWidths="35% 65%">
                                             <Items>
-                                                <f:NumberBox ID="txtMonthReportFreezeDay" runat="server" Label="管理月报冻结日期" NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="220px">
+                                                <f:NumberBox ID="txtMonthReportFreezeDay" runat="server" Label="管理月报冻结日期" NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="230px">
                                                 </f:NumberBox>
                                                 <f:Label ID="Label11" runat="server" Text="说明：项目现场管理月报的冻结日期，如设置为4，则当月月报在次月4日24时以后冻结，不可再进行修改。" MarginLeft="50px"></f:Label>
+                                              
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow ColumnWidths="35% 65%" runat="server" ID="frFlowOperate" Hidden="true">
                                             <Items>
-                                                <f:CheckBox ID="ckMenuFlowOperate" runat="server" Label="固定流程" LabelWidth="220px">
+                                                <f:CheckBox ID="ckMenuFlowOperate" runat="server" Label="固定流程" LabelWidth="230px">
                                                 </f:CheckBox>
-                                                <f:Label ID="Label12" runat="server" Text="说明：设置固定流程单据审核流程按照已定义流程审核，不设置在在单据中自主选择流程。" MarginLeft="50px"></f:Label>
+                                                <f:Label ID="Label12" runat="server" Text="说明：设置固定流程单据审核流程按照已定义流程审核，不设置在在单据中自主选择流程111111。" MarginLeft="50px"></f:Label>
+                                                
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 1% 20% 30%">
+                                            <Items>
+                                                <f:NumberBox ID="txtMarch" runat="server" Label="员工绩效考核第一季度生成时间"   NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="230px" ShowRedStar="true" Required="true">
+                                                </f:NumberBox>
+                                                <f:Label ID="Label1" runat="server" Text="月" MarginLeft="5px"></f:Label>
+                                              <f:NumberBox ID="txtMarchday" runat="server"    NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="220px" ShowRedStar="true" Required="true">
+                                                </f:NumberBox>
+                                                <f:Label ID="Label2" runat="server" Text="日" MarginLeft="5px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 1% 20% 30%">
+                                            <Items>
+                                                <f:NumberBox ID="txtJune" runat="server" Label="员工绩效考核第二季度生成时间"   NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="230px" ShowRedStar="true" Required="true">
+                                                </f:NumberBox>
+                                                <f:Label ID="Label3" runat="server" Text="月" MarginLeft="5px"></f:Label>
+                                              <f:NumberBox ID="txtJuneday" runat="server"   NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="220px"  ShowRedStar="true" Required="true">
+                                                </f:NumberBox>
+                                                <f:Label ID="Label4" runat="server" Text="日" MarginLeft="5px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 1% 20% 30%">
+                                            <Items>
+
+                                                <f:NumberBox ID="txtSeptember" runat="server" Label="员工绩效考核第三季度生成时间"   NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="230px"  ShowRedStar="true" Required="true">
+                                                </f:NumberBox>
+                                                <f:Label ID="Label5" runat="server" Text="月" MarginLeft="5px"></f:Label>
+                                              <f:NumberBox ID="txtSeptemberday" runat="server"   NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="220px"  ShowRedStar="true" Required="true">
+                                                </f:NumberBox>
+                                                <f:Label ID="Label6" runat="server" Text="日" MarginLeft="5px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 1% 20% 30%">
+                                            <Items>
+                                                <f:NumberBox ID="txtDecember" runat="server" Label="员工绩效考核第四季度生成时间"   NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="230px"  ShowRedStar="true" Required="true">
+                                                </f:NumberBox>
+                                                <f:Label ID="Label7" runat="server" Text="月" MarginLeft="5px"></f:Label>
+                                              <f:NumberBox ID="txtDecemberday" runat="server"   NoDecimal="true" NoNegative="true" MinValue="1" LabelWidth="220px"  ShowRedStar="true" Required="true">
+                                                </f:NumberBox>
+                                                <f:Label ID="Label13" runat="server" Text="日" MarginLeft="5px"></f:Label>
                                             </Items>
                                         </f:FormRow>
                                     </Rows>
                                 </f:Form>
+                                
                             </Items>
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">

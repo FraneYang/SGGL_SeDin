@@ -129,7 +129,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string PersonId = Request.Params["PersonId"];
-            var q = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtWelderCode.Text.Trim()
+            var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtWelderCode.Text.Trim()
            && (x.PersonId != PersonId || (PersonId == null && PersonId != null)));
             if (q != null)
             {

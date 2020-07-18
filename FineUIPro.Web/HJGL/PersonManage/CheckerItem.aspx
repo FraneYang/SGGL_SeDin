@@ -31,9 +31,6 @@
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch"
-                                EnablePostBack="true" OnClick="btnQuery_Click" runat="server">
-                            </f:Button>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
                                 runat="server" OnClick="btnNew_Click">
                             </f:Button>
@@ -41,6 +38,10 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
+                    <f:RenderField Width="100px" ColumnID="WelderCode" DataField="WelderCode" FieldType="String"
+                        HeaderText="无损检测工号" HeaderTextAlign="Center" TextAlign="Left"
+                        SortField="UnitName">
+                    </f:RenderField>
                     <f:RenderField Width="280px" ColumnID="QualificationItem" DataField="QualificationItem"
                         FieldType="String" HeaderText="合格项目" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="QualificationItem">
@@ -52,10 +53,6 @@
                     <f:RenderField Width="100px" ColumnID="LimitDate" DataField="LimitDate" FieldType="Date"
                         HeaderText="有效日期" HeaderTextAlign="Center" TextAlign="Left"
                         Renderer="Date">
-                    </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="Level" DataField="Level"
-                        FieldType="String" HeaderText="级别" HeaderTextAlign="Center"
-                        TextAlign="Left" SortField="Level">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -82,7 +79,7 @@
         IsModal="true" Width="700px" Height="300px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"
+        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"

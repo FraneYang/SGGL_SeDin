@@ -22,7 +22,12 @@ namespace BLL
         /// 公共临时账户ID
         /// </summary>
         public const string sedinId = "A8547452-751F-41B7-8E4B-5862EA4E9411";
-        
+
+        /// <summary>
+        /// 部室
+        /// </summary>
+        public const string SGGLB = "685988ad-3711-4b32-a1a7-7eb36228aea5";
+
         /// <summary>
         /// null 字符串
         /// </summary>
@@ -193,6 +198,11 @@ namespace BLL
         /// 赛鼎
         /// </summary>
         public const string AppSecret_SEDIN = "8a83ad8658a3bb717191b77827a925e5";
+
+        /// <summary>
+        ///施工部门id
+        /// </summary>
+        public const string Depart_constructionId = "ab1eb44a-1821-48ee-86f2-64b7e6425efa";
 
         #region 项目状态
         /// <summary>
@@ -433,6 +443,26 @@ namespace BLL
         /// 焊接工程师
         /// </summary>
         public static string HJEngineer = "17F2C0B6-5505-46FA-AB34-54CEECD5CF66";
+        /// <summary>
+        /// 试车经理
+        /// </summary>
+        public static string TestManager = "467fb7df-6bee-4a51-86ef-e4d095053201";
+        /// <summary>
+        /// 试车专业工程师
+        /// </summary>
+        public static string TestEngineer = "eef2d1e2-c808-4025-99fd-88a0c5de536e";
+        /// <summary>
+        /// 本部综合管理工程师
+        /// </summary>
+        public static string SGAllManageEngineer = "679b3b57-8ee4-4bf1-8607-739afbfd5070";
+        /// <summary>
+        /// 本部合同管理工程师
+        /// </summary>
+        public static string SGContractManageEngineer = "58994640-5469-4cb0-b725-b6bec4e710ae";
+        /// <summary>
+        /// 本部安全质量工程师
+        /// </summary>
+        public static string SGSecurityQAEngineer = "0aefd378-cba6-4838-bdec-2d53897ab27f";
         #endregion
 
         #region 报表流程定义
@@ -1264,8 +1294,25 @@ namespace BLL
         #endregion
         #endregion
 
+        #region 人员管理
+        /// <summary>
+        /// 人员管理
+        /// </summary>
+        public const string PersonSetMenuId = "20AB6116-A8D3-4D72-8800-79F80AE66D85";
+
+        /// <summary>
+        /// 人员总结
+        /// </summary>
+        public const string PersonTotalMenuId = "3BF62723-9448-4A29-A239-0A17566F50E8";
+
+        /// <summary>
+        /// 绩效考核
+        /// </summary>
+        public const string PersonCheckMenuId = "d1859554-edc2-4879-baa4-ec05b396d35c";
+        #endregion
+
         #region 项目菜单
-        
+
 
         #region 安全体系
         /// <summary>
@@ -2491,6 +2538,53 @@ namespace BLL
         /// </summary>
         public const string ExcelUrl = "File\\Excel\\Temp\\";
 
+        #endregion
+
+        #region 绩效考核模板文件路径
+        /// <summary>
+        /// 施工经理
+        /// </summary>
+        public const string ConsturctTemplateUrl = "File\\Word\\Person\\施工经理工作任务书.doc";
+        /// <summary>
+        /// 安全经理
+        /// </summary>
+        public const string HSSETemplateUrl = "File\\Word\\Person\\安全经理工作任务书.doc";
+        /// <summary>
+        /// 质量经理
+        /// </summary>
+        public const string QATemplateUrl = "File\\Word\\Person\\质量经理工作任务书.doc";
+        /// <summary>
+        /// 试车经理
+        /// </summary>
+        public const string TestTemplateUrl = "File\\Word\\Person\\试车经理工作任务书.doc";
+        /// <summary>
+        /// 施工专业工程师
+        /// </summary>
+        public const string ConsturctEgTemplateUrl = "File\\Word\\Person\\施工专业工程师工作任务书.doc";
+        /// <summary>
+        /// 安全专业工程师
+        /// </summary>
+        public const string HSSEEgTemplateUrl = "File\\Word\\Person\\安全专业工程师工作任务书.doc";
+        /// <summary>
+        /// 质量专业工程师
+        /// </summary>
+        public const string QAEgTemplateUrl = "File\\Word\\Person\\质量专业工程师工作任务书.doc";
+        /// <summary>
+        /// 试车专业工程师
+        /// </summary>
+        public const string TestEgTemplateUrl = "File\\Word\\Person\\试车专业工程师工作任务书.doc";
+        /// <summary>
+        /// 本部综合管理工程师
+        /// </summary>
+        public const string SGALLEgTemplateUrl = "File\\Word\\Person\\本部综合管理工程师工作任务书.doc";
+        /// <summary>
+        /// 本部合同管理工程师
+        /// </summary>
+        public const string SGContractEgTemplateUrl = "File\\Word\\Person\\本部合同管理工程师工作任务书.doc";
+        /// <summary>
+        /// 本部安全质量管理工程师
+        /// </summary>
+        public const string SGHSSEQAEgTemplateUrl = "File\\Word\\Person\\本部安全质量工程师工作任务书.doc";
         #endregion
 
         #region 报表对应ID

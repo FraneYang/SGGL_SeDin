@@ -160,8 +160,9 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
-                var getDataLists = (from x in db.HJGL_Batch_PointBatchItem
-                                    join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+
+                var getDataLists = (from x in Funs.DB.HJGL_Batch_PointBatchItem
+                                    join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                     where x.PointBatchId == pointBatchId && x.PointState == null
                                           && y.JointAttribute == jot.JointAttribute
                                     select new Model.NDETrustItem
@@ -197,27 +198,24 @@ namespace BLL
         /// <param name="newJointId">调为新的焊口</param>
         public static void RePointSave(string oldJointId,string newJointId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            var oldPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(oldJointId);
+            if (oldPoint != null)
             {
-                var oldPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(oldJointId);
-                if (oldPoint != null)
-                {
-                    oldPoint.PointDate = null;
-                    oldPoint.PointState = null;
-                    oldPoint.IsAudit = null;
-                    oldPoint.IsPipelineFirst = null;
-                    oldPoint.IsWelderFirst = null;
-                }
-
-                var newPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(newJointId);
-                if (newPoint != null)
-                {
-                    newPoint.PointState = "1";
-                    newPoint.PointDate = DateTime.Now;
-                }
-
-                db.SubmitChanges();
+                oldPoint.PointDate = null;
+                oldPoint.PointState = null;
+                oldPoint.IsAudit = null;
+                oldPoint.IsPipelineFirst = null;
+                oldPoint.IsWelderFirst = null;
             }
+
+            var newPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(newJointId);
+            if (newPoint != null)
+            {
+                newPoint.PointState = "1";
+                newPoint.PointDate = DateTime.Now;
+            }
+
+            Funs.DB.SubmitChanges();
         }
         #endregion
 
@@ -257,80 +255,82 @@ namespace BLL
         /// <param name="unitWorkId"></param>
         public static void GenerateTrust(string unitWorkId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
-            var getViewGenerateTrustLists = (from x in db.View_GenerateTrust where x.UnitWorkId == unitWorkId select x).ToList();
-
-            foreach (var trust in getViewGenerateTrustLists)
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust();
-                var project = BLL.ProjectService.GetProjectByProjectId(trust.ProjectId);
-                var unit = BLL.UnitService.GetUnitByUnitId(trust.UnitId);
-                var unitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(trust.UnitWorkId);
-                var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(trust.DetectionTypeId);
-                var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(trust.DetectionRateId);
+                var getViewGenerateTrustLists = (from x in db.View_GenerateTrust where x.UnitWorkId == unitWorkId select x).ToList();
 
-                string perfix = string.Empty;
-                perfix = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + rate.DetectionRateValue.ToString() + "%-";
-                newBatchTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", project.ProjectId, perfix);
-
-                string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
-                newBatchTrust.TrustBatchId = trustBatchId;
-
-                newBatchTrust.TrustDate = DateTime.Now;
-                newBatchTrust.ProjectId = trust.ProjectId;
-                newBatchTrust.UnitId = trust.UnitId;
-                newBatchTrust.UnitWorkId = trust.UnitWorkId;
-                newBatchTrust.DetectionTypeId = trust.DetectionTypeId;
-                newBatchTrust.NDEUuit = unitWork.NDEUnit;
-
-                BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
-
-                // 生成委托条件对比
-                var generateTrustItem = from x in db.View_GenerateTrustItem
-                                        where x.ProjectId == trust.ProjectId
-                                        && x.UnitWorkId == trust.UnitWorkId && x.UnitId == trust.UnitId
-                                        && x.DetectionTypeId == trust.DetectionTypeId
-                                        && x.DetectionRateId == trust.DetectionRateId
-                                        select x;
-
-                List<string> toPointBatchList = generateTrustItem.Select(x => x.PointBatchId).Distinct().ToList();
-
-                // 生成委托明细，并回写点口明细信息
-                foreach (var item in generateTrustItem)
+                foreach (var trust in getViewGenerateTrustLists)
                 {
-                    if (BLL.Batch_BatchTrustItemService.GetIsGenerateTrust(item.PointBatchItemId)) ////生成委托单的条件判断
+                    Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust();
+                    var project = BLL.ProjectService.GetProjectByProjectId(trust.ProjectId);
+                    var unit = BLL.UnitService.GetUnitByUnitId(trust.UnitId);
+                    var unitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(trust.UnitWorkId);
+                    var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(trust.DetectionTypeId);
+                    var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(trust.DetectionRateId);
+
+                    string perfix = string.Empty;
+                    perfix = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + rate.DetectionRateValue.ToString() + "%-";
+                    newBatchTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", project.ProjectId, perfix);
+
+                    string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
+                    newBatchTrust.TrustBatchId = trustBatchId;
+
+                    newBatchTrust.TrustDate = DateTime.Now;
+                    newBatchTrust.ProjectId = trust.ProjectId;
+                    newBatchTrust.UnitId = trust.UnitId;
+                    newBatchTrust.UnitWorkId = trust.UnitWorkId;
+                    newBatchTrust.DetectionTypeId = trust.DetectionTypeId;
+                    newBatchTrust.NDEUuit = unitWork.NDEUnit;
+
+                    BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
+
+                    // 生成委托条件对比
+                    var generateTrustItem = from x in db.View_GenerateTrustItem
+                                            where x.ProjectId == trust.ProjectId
+                                            && x.UnitWorkId == trust.UnitWorkId && x.UnitId == trust.UnitId
+                                            && x.DetectionTypeId == trust.DetectionTypeId
+                                            && x.DetectionRateId == trust.DetectionRateId
+                                            select x;
+
+                    List<string> toPointBatchList = generateTrustItem.Select(x => x.PointBatchId).Distinct().ToList();
+
+                    // 生成委托明细，并回写点口明细信息
+                    foreach (var item in generateTrustItem)
                     {
-                        Model.HJGL_Batch_BatchTrustItem trustItem = new Model.HJGL_Batch_BatchTrustItem
+                        if (BLL.Batch_BatchTrustItemService.GetIsGenerateTrust(item.PointBatchItemId)) ////生成委托单的条件判断
                         {
-                            TrustBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrustItem)),
-                            TrustBatchId = trustBatchId,
-                            PointBatchItemId = item.PointBatchItemId,
-                            WeldJointId = item.WeldJointId,
-                            CreateDate = DateTime.Now
-                        };
-                        Batch_BatchTrustItemService.AddBatchTrustItem(trustItem);
+                            Model.HJGL_Batch_BatchTrustItem trustItem = new Model.HJGL_Batch_BatchTrustItem
+                            {
+                                TrustBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrustItem)),
+                                TrustBatchId = trustBatchId,
+                                PointBatchItemId = item.PointBatchItemId,
+                                WeldJointId = item.WeldJointId,
+                                CreateDate = DateTime.Now
+                            };
+                            Batch_BatchTrustItemService.AddBatchTrustItem(trustItem);
+                        }
+
+                        Model.HJGL_Batch_PointBatchItem pointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == item.PointBatchItemId);
+
+                        pointBatchItem.IsBuildTrust = true;
+                        db.SubmitChanges();
                     }
 
-                    Model.HJGL_Batch_PointBatchItem pointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == item.PointBatchItemId);
 
-                    pointBatchItem.IsBuildTrust = true;
-                    db.SubmitChanges();
-                }
-
-
-                // 回写委托批对应点口信息
-                if (toPointBatchList.Count() > 0)
-                {
-                    string toPointBatch = String.Join(",", toPointBatchList);
-
-                    var updateTrut = BLL.Batch_BatchTrustService.GetBatchTrustById(trustBatchId);
-                    if (updateTrut != null)
+                    // 回写委托批对应点口信息
+                    if (toPointBatchList.Count() > 0)
                     {
-                        updateTrut.TopointBatch = toPointBatch;
-                        BLL.Batch_BatchTrustService.UpdateBatchTrust(updateTrut);
-                    }
-                }
+                        string toPointBatch = String.Join(",", toPointBatchList);
 
+                        var updateTrut = BLL.Batch_BatchTrustService.GetBatchTrustById(trustBatchId);
+                        if (updateTrut != null)
+                        {
+                            updateTrut.TopointBatch = toPointBatch;
+                            BLL.Batch_BatchTrustService.UpdateBatchTrust(updateTrut);
+                        }
+                    }
+
+                }
             }
         }
         #endregion
@@ -347,7 +347,7 @@ namespace BLL
         /// <param name="isAudit"></param>
         /// <param name="pointBatchCode"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, bool? isAudit, string trustBatchCode)
+        public static List<Model.BaseInfoItem> getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, bool? isAudit ,string trustBatchCode)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -497,5 +497,164 @@ namespace BLL
             }
         }
         #endregion
+
+        //////////////////////////////////////返修/扩透/////////////////////////////////////
+
+        #region 返修/扩透
+        /// <summary>
+        /// 获取返修单列表
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <param name="isAudit"></param>
+        /// <param name="repairRecordId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetRepairRecord(string unitWorkId, bool isAudit, string repairRecordCode)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var repair = (from x in db.HJGL_RepairRecord
+                              where x.UnitWorkId == unitWorkId
+                              orderby x.RepairRecordCode descending
+                              select x).ToList();
+                if (isAudit)
+                {
+                    repair = (from x in repair where x.AuditDate.HasValue select x).ToList();
+                }
+                else
+                {
+                    repair = (from x in repair where !x.AuditDate.HasValue select x).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(repairRecordCode))
+                {
+                    repair = (from x in repair where x.RepairRecordCode.Contains(repairRecordCode) select x).ToList();
+                }
+
+                var getDataLists = (from x in repair
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.RepairRecordId,
+                                        BaseInfoCode = x.RepairRecordCode
+                                    }).ToList();
+                return getDataLists;
+            }
+        }
+
+        #endregion
+
+        //////////////////////////////////////////// NDE预警//////////////////////////////////////
+        #region NDE预警
+        /// <summary>
+        /// 无损检测不合格焊口信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetNdeCheckNoPassWarn(string projectId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var onecheckNoPass = (from x in db.HJGL_Batch_NDEItem
+                                      join y in db.HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                                      join w in db.HJGL_WeldJoint on y.WeldJointId equals w.WeldJointId
+                                      join z in db.HJGL_Batch_NDE on x.NDEID equals z.NDEID
+                                      where y.RepairRecordId == null && x.CheckResult == "2"
+                                      select new Model.BaseInfoItem
+                                      {
+                                          BaseInfoId = y.WeldJointId,
+                                          BaseInfoCode = w.WeldJointCode,
+                                          BaseInfoName = z.NDECode
+                                      }).ToList();
+
+                var repairPass = (from x in db.HJGL_Batch_NDEItem
+                                  join y in db.HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                                  join w in db.HJGL_WeldJoint on y.WeldJointId equals w.WeldJointId
+                                  join z in db.HJGL_Batch_NDE on x.NDEID equals z.NDEID
+                                  where y.RepairRecordId != null && x.CheckResult == "1"
+                                  select new Model.BaseInfoItem
+                                  {
+                                      BaseInfoId = y.WeldJointId,
+                                      BaseInfoCode = w.WeldJointCode,
+                                      BaseInfoName = z.NDECode
+                                  }).ToList();
+
+                List<Model.BaseInfoItem> getDataLists = new List<Model.BaseInfoItem>();
+                foreach (var q in onecheckNoPass)
+                {
+                    if (!repairPass.Contains(q))
+                    {
+                        getDataLists.Add(q);
+                    }
+                }
+
+                return getDataLists;
+            }
+        }
+
+        /// <summary>
+        /// 未委托焊口预警
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetNoTrustJointWarn(string projectId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var point = (from x in db.HJGL_Batch_PointBatchItem
+                             join y in db.HJGL_Batch_PointBatch on x.PointBatchId equals y.PointBatchId
+                             join z in db.HJGL_WeldJoint on x.WeldJointId equals z.WeldJointId
+                             join t in db.HJGL_Batch_BatchTrustItem on x.PointBatchItemId equals t.PointBatchItemId
+                             where y.ProjectId == projectId && t.TrustBatchItemId == null
+                             orderby y.PointBatchCode, z.WeldJointCode
+                             select new Model.BaseInfoItem
+                             {
+                                 BaseInfoId = x.WeldJointId,
+                                 BaseInfoCode = z.WeldJointCode,
+                                 BaseInfoName = "批号：" + y.PointBatchCode
+                             }).ToList();
+
+                var repair = (from x in db.HJGL_RepairRecord
+                              join z in db.HJGL_WeldJoint on x.WeldJointId equals z.WeldJointId
+                              join t in db.HJGL_Batch_BatchTrustItem on x.RepairRecordId equals t.RepairRecordId
+                              where x.ProjectId == projectId && t.TrustBatchItemId == null
+                              orderby x.RepairRecordCode, z.WeldJointCode
+                              select new Model.BaseInfoItem
+                              {
+                                  BaseInfoId = x.WeldJointId,
+                                  BaseInfoCode = z.WeldJointCode,
+                                  BaseInfoName = "返修单号：" + x.RepairRecordCode
+                              }).ToList();
+
+                return point.Concat(repair).ToList<Model.BaseInfoItem>();
+            }
+        }
+
+        /// <summary>
+        /// 未检测焊口预警
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetNoCheckJointWarn(string projectId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HJGL_Batch_BatchTrustItem
+                                    join y in db.HJGL_Batch_BatchTrust on x.TrustBatchId equals y.TrustBatchId
+                                    join z in db.HJGL_WeldJoint on x.WeldJointId equals z.WeldJointId
+                                    join n in db.HJGL_Batch_NDEItem on x.TrustBatchItemId equals n.TrustBatchItemId
+                                    where y.ProjectId == projectId && n.NDEItemID == null
+                                    orderby y.TrustBatchCode, z.WeldJointCode
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.WeldJointId,
+                                        BaseInfoCode = z.WeldJointCode,
+                                        BaseInfoName = "委托单号：" + y.TrustBatchCode
+                                    }).ToList();
+
+                return getDataLists;
+            }
+        }
+
+        #endregion
+
     }
 }

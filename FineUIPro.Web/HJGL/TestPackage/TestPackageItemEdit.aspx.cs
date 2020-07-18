@@ -60,8 +60,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 //if (pUnit == null || pUnit.UnitType == BLL.Const.ProjectUnitType_1 || pUnit.UnitType == BLL.Const.ProjectUnitType_2
                 //  || pUnit.UnitType == BLL.Const.ProjectUnitType_5)
                 //{
-                //    units = (from x in new Model.SGGLDB(Funs.ConnString).Base_Unit
-                //             join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit on x.UnitId equals y.UnitId
+                //    units = (from x in Funs.DB.Base_Unit
+                //             join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
                 //             where y.ProjectId == this.CurrUser.LoginProjectId && y.UnitType.Contains(BLL.Const.ProjectUnitType_2)
                 //             select x).ToList();
                 //}
@@ -93,7 +93,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 BLL.Base_PipingClassService.InitPipingClassDropDownList(drpPipingClass, this.CurrUser.LoginProjectId, true, "请选择");
 
                 listSelects = new List<string>();
-                var list = (from x in new Model.SGGLDB(Funs.ConnString).PTP_PipelineList
+                var list = (from x in Funs.DB.PTP_PipelineList
                             where x.PTP_ID == this.PTP_ID
                             select x).ToList();
                 if (list.Count() > 0)

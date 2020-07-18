@@ -42,11 +42,11 @@ namespace FineUIPro.Web.HJGL.PointTrust
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
-            var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-            var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
@@ -74,7 +74,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             {
                 foreach (var q in unitWork1)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
@@ -90,7 +90,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             {
                 foreach (var q in unitWork2)
                 {
-                    int a = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
+                    int a = (from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitWorkId == q.UnitWorkId select x).Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
@@ -112,7 +112,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
         /// <param name="node"></param>
         private void BindNodes(TreeNode node)
         {
-                var p = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust
+                var p = from x in Funs.DB.HJGL_Batch_BatchTrust
                         where x.UnitWorkId == node.NodeID
                              && x.TrustDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
                              && x.TrustDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
@@ -132,12 +132,12 @@ namespace FineUIPro.Web.HJGL.PointTrust
             e.Node.Expanded = true;
             if (e.Node.CommandName == "单位工程")
             {
-                var detectionTypes = from x in new Model.SGGLDB(Funs.ConnString).Base_DetectionType
+                var detectionTypes = from x in Funs.DB.Base_DetectionType
                                      orderby x.DetectionTypeCode
                                      select new { x.DetectionTypeId, x.DetectionTypeCode, x.DetectionTypeName };
                 foreach (var item in detectionTypes)
                 {
-                    var pointManages = from x in new Model.SGGLDB(Funs.ConnString).View_Batch_BatchTrust
+                    var pointManages = from x in Funs.DB.View_Batch_BatchTrust
                                        where x.ProjectId == this.CurrUser.LoginProjectId
                                        && x.UnitWorkId == e.Node.NodeID
                                        && x.DetectionTypeId == item.DetectionTypeId
@@ -166,7 +166,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             if (e.Node.CommandName == "探伤类型")
             {
                 ///单号
-                var trusts = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_BatchTrust
+                var trusts = from x in Funs.DB.HJGL_Batch_BatchTrust
                              where x.TrustDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
                              && x.TrustDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
                              && x.ProjectId == this.CurrUser.LoginProjectId && x.TrustBatchCode.Contains(this.txtSearchCode.Text.Trim())
@@ -378,7 +378,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_TrustBatchMenuId, Const.BtnDelete))
             {
-                Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+                Model.SGGLDB db = Funs.DB;
                 if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
                 {
                     string trustBatchId = this.tvControlItem.SelectedNodeID;
@@ -473,11 +473,11 @@ namespace FineUIPro.Web.HJGL.PointTrust
             //{
             //    content = "热处理已经使用了该焊口，不能删除！";
             //}
-            //if (new Model.SGGLDB(Funs.ConnString).HJGL_CH_TrustItem.FirstOrDefault(x => x.TrustBatchItemId == id) != null)
+            //if (BLL.Funs.DB.HJGL_CH_TrustItem.FirstOrDefault(x => x.TrustBatchItemId == id) != null)
             //{
             //    content = "无损委托已经使用了该焊口，不能删除！";
             //}
-            //if (new Model.SGGLDB(Funs.ConnString).HJGL_CH_CheckItem.FirstOrDefault(x => x.TrustBatchItemId == id) != null)
+            //if (BLL.Funs.DB.HJGL_CH_CheckItem.FirstOrDefault(x => x.TrustBatchItemId == id) != null)
             //{
             //    content = "检测单已经使用了该焊口，不能删除！";
             //}

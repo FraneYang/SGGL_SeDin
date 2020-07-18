@@ -221,7 +221,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline.FirstOrDefault(x => x.DetectionRateId == id) != null)
+            if (Funs.DB.HJGL_Pipeline.FirstOrDefault(x => x.DetectionRateId == id) != null)
             {
                 content += "已在【管线】中使用，不能删除！";
             }

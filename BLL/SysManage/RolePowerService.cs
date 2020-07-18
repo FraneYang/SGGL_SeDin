@@ -13,13 +13,15 @@ namespace BLL
         /// <param name="power"></param>
         public static void SaveRolePower(Model.Sys_RolePower power)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string newRolePower = SQLHelper.GetNewID();
             Model.Sys_RolePower newPower = new Model.Sys_RolePower
             {
                 RolePowerId = newRolePower,
                 RoleId = power.RoleId,
-                MenuId = power.MenuId
+                MenuId = power.MenuId,
+                MenuType=power.MenuType,
+                IsOffice=power.IsOffice,
             };
 
             db.Sys_RolePower.InsertOnSubmit(newPower);
@@ -33,7 +35,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistMenu(string menuId)
         {
-            Model.Sys_Menu m = new Model.SGGLDB(Funs.ConnString).Sys_Menu.FirstOrDefault(e => e.MenuId == menuId);
+            Model.Sys_Menu m = Funs.DB.Sys_Menu.FirstOrDefault(e => e.MenuId == menuId);
             if (m != null)
             {
                 return true;
@@ -50,7 +52,7 @@ namespace BLL
         /// <param name="postId"></param>
         public static void DeleteRolePowerByRoleIdMenuType(string roleId, string menuType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = from x in db.Sys_RolePower
                     join y in db.Sys_Menu on x.MenuId equals y.MenuId
                     where x.RoleId == roleId && y.MenuType == menuType
@@ -68,7 +70,7 @@ namespace BLL
         /// <param name="roleId"></param>
         public static List<Model.Sys_RolePower> GetRolePower(string roleId)
         {
-            List<Model.Sys_RolePower> powerList = new Model.SGGLDB(Funs.ConnString).Sys_RolePower.Where(e => e.RoleId == roleId).ToList();
+            List<Model.Sys_RolePower> powerList = Funs.DB.Sys_RolePower.Where(e => e.RoleId == roleId).ToList();
             return powerList;
         }
 
@@ -80,7 +82,7 @@ namespace BLL
         public static bool IsHavePowerByRoleIdMenuId(string roleId,string menuId)
         {
             bool isHave = false;
-            var q = new Model.SGGLDB(Funs.ConnString).Sys_RolePower.FirstOrDefault(x => x.RoleId == roleId && x.MenuId == menuId);
+            var q = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.RoleId == roleId && x.MenuId == menuId);
             if (q != null)
             {
                 isHave = true;
@@ -95,7 +97,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetPostPowerCountByRoleId(string roleId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Sys_RolePower where x.RoleId == roleId select x).ToList();
+            var q = (from x in Funs.DB.Sys_RolePower where x.RoleId == roleId select x).ToList();
             return q.Count();
         }
 
@@ -106,7 +108,7 @@ namespace BLL
         /// <returns>菜单ID数组</returns>
         public static string[] GetMenuIdByRoleId(string roleId)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Sys_RolePower.Where(e => e.RoleId == roleId);
+            var q = Funs.DB.Sys_RolePower.Where(e => e.RoleId == roleId);
             string[] menuId = new string[q.Count()];
             if (q.Count() > 0)
             {

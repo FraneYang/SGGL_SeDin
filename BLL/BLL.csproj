@@ -96,6 +96,8 @@
     <Compile Include="API\HJGL\APINDETrustService.cs" />
     <Compile Include="API\HJGL\APIPipeJointService.cs" />
     <Compile Include="API\HJGL\APIPreWeldingDailyService.cs" />
+    <Compile Include="API\HJGL\APIReportQueryService.cs" />
+    <Compile Include="API\HJGL\APITestPackageService.cs" />
     <Compile Include="API\HSSE\APIChartAnalysisService.cs" />
     <Compile Include="API\HSSE\APICheckSpecialService.cs" />
     <Compile Include="API\HSSE\APIConstructSolutionService.cs" />
@@ -362,6 +364,10 @@
     <Compile Include="OpenService\MonitorService.cs" />
     <Compile Include="DynamicTHeaderHepler.cs" />
     <Compile Include="OpenService\GetDataService.cs" />
+    <Compile Include="Person\PersonTotalService.cs" />
+    <Compile Include="Person\Person_QuarterCheckApproveService.cs" />
+    <Compile Include="Person\Person_QuarterCheckItemService.cs" />
+    <Compile Include="Person\Person_QuarterCheckService.cs" />
     <Compile Include="ProjectData\MainItemService.cs" />
     <Compile Include="ProjectData\ProjectService.cs" />
     <Compile Include="ProjectData\ProjectUnitService.cs" />
@@ -393,6 +399,7 @@
     <Compile Include="SysManage\DepartService.cs" />
     <Compile Include="SysManage\LogService.cs" />
     <Compile Include="SysManage\MenuFlowOperateService.cs" />
+    <Compile Include="SysManage\RoleItemService.cs" />
     <Compile Include="SysManage\RolePowerService.cs" />
     <Compile Include="SysManage\RoleService.cs" />
     <Compile Include="SysManage\SysConstSetService.cs" />

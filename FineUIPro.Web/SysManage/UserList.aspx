@@ -20,21 +20,26 @@
             <Items>
                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="用户信息" EnableCollapse="true"
                     runat="server" BoxFlex="1" DataKeyNames="UserId" AllowCellEditing="true" EnableColumnLines="true"
-                    ClicksToEdit="2" DataIDField="UserId" AllowSorting="true" SortField="UserCode" ForceFit="true"
+                    ClicksToEdit="2" DataIDField="UserId" AllowSorting="true" SortField="UnitName,UserName" ForceFit="true"
                     SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
                     PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true"
                     OnRowDoubleClick="Grid1_RowDoubleClick" Width="980px" EnableTextSelection="True">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                             <Items>
+                                   <f:RadioButtonList ID="rbUnit" runat="server"   Width="200px"
+                                      AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                                      <f:RadioItem  Selected="true"  Text="本单位" Value="0"/>
+                                      <f:RadioItem  Text="其他单位" Value="1"/>
+                                  </f:RadioButtonList>
                                 <f:TextBox runat="server" Label="用户" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="单位" ID="txtUnitName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="角色" ID="txtRoleName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px">
                                 </f:TextBox>
                                 <f:ToolbarFill runat="server">
                                 </f:ToolbarFill>
@@ -97,7 +102,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="用户信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
-            Height="360px">
+            Height="650px">
         </f:Window>
         <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"

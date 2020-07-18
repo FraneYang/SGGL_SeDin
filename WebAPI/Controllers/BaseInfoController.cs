@@ -99,9 +99,51 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
+
+
+        /// <summary>
+        /// 根据项目，单位Id获取单位工程
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetProjecUnitWorkByUnitId(string projectId, string unitId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIBaseInfoService.GetProjecUnitWorkByUnitId(projectId, unitId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
         #endregion
 
         #region 获取焊接基础信息
+        /// <summary>
+        /// 获取材质列表
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData GetMaterial()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIBaseInfoService.GetMaterial();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
 
         /// <summary>
         /// 获取探伤类型

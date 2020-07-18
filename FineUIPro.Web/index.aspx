@@ -68,7 +68,7 @@
             color: #37a6ff;
         }
          .activeClick .f-icon{
-            color: red !important;
+            color: white !important;
         }
 
         .f-panel, .f-widget-header, .f-tree-headerstyle .f-panel-body {

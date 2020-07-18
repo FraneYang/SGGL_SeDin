@@ -9,7 +9,7 @@ namespace Model
     /// 赛鼎月报信息项 --5、本月大型、特种设备投入情况
     /// </summary>
     public class SeDinMonthReport5Item
-    { 
+    {
         /// <summary>
         /// ID
         /// </summary>
@@ -118,6 +118,15 @@ namespace Model
         /// 特殊机具设备-吊篮
         /// </summary>
         public int? S01
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        ///  合计
+        /// </summary>
+        public int? TotalNum
         {
             get;
             set;

@@ -43,11 +43,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 this.tvControlItem.Nodes.Add(rootNode2);
 
                 
-                var pUnits = (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+                var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
                 // 获取当前用户所在单位
                 var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
 
-                var unitWorkList = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork
+                var unitWorkList = (from x in Funs.DB.WBS_UnitWork
                                     where x.ProjectId == this.CurrUser.LoginProjectId
                                           && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                     select x).ToList();
@@ -303,70 +303,67 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnDelete))
             {
-                if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnDelete))
+                if (Grid1.SelectedRowIndexArray.Length == 0)
                 {
-                    if (Grid1.SelectedRowIndexArray.Length == 0)
-                    {
-                        Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
-                        return;
-                    }
-                    else
-                    {
-                        string weldingDailyId = Grid1.SelectedRowID;
-                        var isTrust = from x in db.HJGL_Batch_BatchTrustItem
-                                      join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                      where y.WeldingDailyId == weldingDailyId
-                                      select x; ;
-                        if (isTrust.Count() == 0)
-                        {
-                            var weldJoints = BLL.WeldJointService.GetWeldlinesByWeldingDailyId(weldingDailyId);
-                            if (weldJoints.Count() > 0)
-                            {
-                                foreach (var item in weldJoints)
-                                {
-                                    var updateWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
-                                    if (updateWeldJoint != null)
-                                    {
-                                        updateWeldJoint.WeldingDailyId = null;
-                                        updateWeldJoint.WeldingDailyCode = null;
-                                        updateWeldJoint.CoverWelderId = null;
-                                        updateWeldJoint.BackingWelderId = null;
-                                        BLL.WeldJointService.UpdateWeldJoint(updateWeldJoint);
-
-                                        var pointBatchItems = from x in db.HJGL_Batch_PointBatchItem where x.WeldJointId == item.WeldJointId select x;
-                                        string pointBatchId = pointBatchItems.FirstOrDefault().PointBatchId;
-
-                                        // 删除焊口所在批明细信息
-                                        BLL.PointBatchDetailService.DeleteBatchDetail(item.WeldJointId);
-
-                                        // 删除批信息
-                                        var batch = from x in db.HJGL_Batch_PointBatchItem where x.PointBatchId == pointBatchId select x;
-                                        if (pointBatchId != null && batch.Count() == 0)
-                                        {
-                                            BLL.PointBatchService.DeleteBatch(pointBatchId);
-                                        }
-                                        //BLL.Batch_NDEItemService.DeleteAllNDEInfoToWeldJoint(item.WeldJointId);
-                                    }
-                                }
-                            }
-                            BLL.WeldingDailyService.DeleteWeldingDaily(weldingDailyId);
-                            //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnDelete, weldingDailyId);
-                            ShowNotify("删除成功！", MessageBoxIcon.Success);
-                            this.BindGrid();
-
-                        }
-                        else
-                        {
-                            Alert.ShowInTop("该日报下已有焊口进委托单了，不能删除！", MessageBoxIcon.Warning);
-                        }
-                    }
+                    Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                    return;
                 }
                 else
                 {
-                    Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                    string weldingDailyId = Grid1.SelectedRowID;
+                    var isTrust = from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                                  join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                  where y.WeldingDailyId == weldingDailyId
+                                  select x; ;
+                    if (isTrust.Count() == 0)
+                    {
+                        var weldJoints = BLL.WeldJointService.GetWeldlinesByWeldingDailyId(weldingDailyId);
+                        if (weldJoints.Count() > 0)
+                        {
+                            foreach (var item in weldJoints)
+                            {
+                                var updateWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
+                                if (updateWeldJoint != null)
+                                {
+                                    updateWeldJoint.WeldingDailyId = null;
+                                    updateWeldJoint.WeldingDailyCode = null;
+                                    updateWeldJoint.CoverWelderId = null;
+                                    updateWeldJoint.BackingWelderId = null;
+                                    BLL.WeldJointService.UpdateWeldJoint(updateWeldJoint);
+
+                                    var pointBatchItems = from x in Funs.DB.HJGL_Batch_PointBatchItem where x.WeldJointId == item.WeldJointId select x;
+                                    string pointBatchId = pointBatchItems.FirstOrDefault().PointBatchId;
+
+                                    // 删除焊口所在批明细信息
+                                    BLL.PointBatchDetailService.DeleteBatchDetail(item.WeldJointId);
+
+                                    // 删除批信息
+                                    var batch = from x in Funs.DB.HJGL_Batch_PointBatchItem where x.PointBatchId == pointBatchId select x;
+                                    if (pointBatchId != null && batch.Count() == 0)
+                                    {
+                                        BLL.PointBatchService.DeleteBatch(pointBatchId);
+                                    }
+                                    //BLL.Batch_NDEItemService.DeleteAllNDEInfoToWeldJoint(item.WeldJointId);
+                                }
+                            }
+                        }
+                        BLL.WeldingDailyService.DeleteWeldingDaily(weldingDailyId);
+                        //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnDelete, weldingDailyId);
+                        ShowNotify("删除成功！", MessageBoxIcon.Success);
+                        this.BindGrid();
+
+                    }
+                    else
+                    {
+                        Alert.ShowInTop("该日报下已有焊口进委托单了，不能删除！", MessageBoxIcon.Warning);
+                    }
                 }
+            }
+            else
+            {
+                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
             }
         }
         #endregion

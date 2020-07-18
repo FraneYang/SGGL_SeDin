@@ -61,6 +61,10 @@ namespace FineUIPro.Web.CQMS.WBS
                     {
                         this.hdTotalValue.Text = unitWork.Costs.ToString();
                     }
+                    else
+                    {
+                        this.hdTotalValue.Text = "0";
+                    }
                 }
                 InitTreeMenu();
                 var workPackageProjects = BLL.WorkPackageProjectService.GetWorkPackageProjects1ByProjectIdAndProjectType(this.CurrUser.LoginProjectId, ProjectType);

@@ -221,7 +221,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            //if (new Model.SGGLDB(Funs.ConnString).Batch_NDEItem.FirstOrDefault(x => x.DetectionTypeId == id) != null)
+            //if (Funs.DB.Batch_NDEItem.FirstOrDefault(x => x.DetectionTypeId == id) != null)
             //{
             //    content += "已在【检测信息】中使用，不能删除！";
             //}

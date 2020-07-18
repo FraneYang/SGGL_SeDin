@@ -308,6 +308,29 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 获取当前用户系统权限集合
+        /// <summary>
+        /// 获取当前用户是否有菜单权限
+        /// </summary>
+        /// <param name="userId">当前人ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getSystemPowerList(string userId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = CommonService.GetSystemPowerList(userId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 获取当前用户菜单权限集合
         /// <summary>
         /// 获取当前用户是否有菜单权限

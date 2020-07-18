@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 根据管线信息获取焊口列表
+        /// 根据管线ID获取未焊接的焊口信息
         /// </summary>
         /// <param name="pipeLineId"></param>
         /// <returns></returns>
@@ -45,6 +45,27 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APIPipeJointService.getWeldJointList(pipeLineId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 根据管线ID获取所有的焊口列表
+        /// </summary>
+        /// <param name="pipeLineId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetAllWeldJointList(string pipeLineId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIPipeJointService.GetAllWeldJointList(pipeLineId);
             }
             catch (Exception ex)
             {

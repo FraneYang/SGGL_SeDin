@@ -55,8 +55,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 ///委托人
                 this.drpHardTrustMan.DataValueField = "UserId";
                 this.drpHardTrustMan.DataTextField = "UserName";
-                this.drpHardTrustMan.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Sys_User
-                                                  join y in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser
+                this.drpHardTrustMan.DataSource = from x in Funs.DB.Sys_User
+                                                  join y in Funs.DB.Project_ProjectUser
                                                   on x.UserId equals y.UserId
                                                   where y.ProjectId == this.ProjectId
                                                   select x;
