@@ -7,7 +7,7 @@ namespace BLL
     /// </summary>
     public class CompanyTrainingItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取公司培训明细信息

@@ -52,7 +52,7 @@ namespace FineUIPro.Web.PersonManage.Test
                     this.txtMValue.Text = getTestPlan.MValue.ToString();
                     this.txtJValue.Text = getTestPlan.JValue.ToString();
                     this.txtTestPalce.Text = getTestPlan.TestPalce;
-                    Grid1.DataSource = (from x in new Model.SGGLDB(Funs.ConnString).View_Test_TestPlanTraining
+                    Grid1.DataSource = (from x in Funs.DB.View_Test_TestPlanTraining
                                         where x.TestPlanId == this.TestPlanId
                                         select x).ToList();
                     Grid1.DataBind();
@@ -106,7 +106,7 @@ namespace FineUIPro.Web.PersonManage.Test
             if (getTestPlan != null && getTestPlan.States == Const.State_1 && getTestPlan.TestStartTime <= DateTime.Now)
             {
                 getTestPlan.States = Const.State_2;
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
                 ShowNotify("开始考试成功!", MessageBoxIcon.Success);
             }
             else

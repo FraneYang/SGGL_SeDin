@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
    public static class EquipmentQualityInService
    {
-       public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+       public static Model.SGGLDB db = Funs.DB;
 
        /// <summary>
        /// 根据主键获取特种设备审批
@@ -19,7 +19,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.InApproveManager_EquipmentQualityIn GetEquipmentQualityInById(string EquipmentQualityInId)
        {
-           return new Model.SGGLDB(Funs.ConnString).InApproveManager_EquipmentQualityIn.FirstOrDefault(e => e.EquipmentQualityInId == EquipmentQualityInId);
+           return Funs.DB.InApproveManager_EquipmentQualityIn.FirstOrDefault(e => e.EquipmentQualityInId == EquipmentQualityInId);
        }
 
        /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
        /// <param name="EquipmentQualityIn"></param>
        public static void AddEquipmentQualityIn(Model.InApproveManager_EquipmentQualityIn EquipmentQualityIn)
        {
-           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+           Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentQualityIn newEquipmentQualityIn = new Model.InApproveManager_EquipmentQualityIn
             {
                 EquipmentQualityInId = EquipmentQualityIn.EquipmentQualityInId,
@@ -52,7 +52,7 @@ namespace BLL
        /// <param name="EquipmentQualityIn"></param>
        public static void UpdateEquipmentQualityIn(Model.InApproveManager_EquipmentQualityIn EquipmentQualityIn)
        {
-           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+           Model.SGGLDB db = Funs.DB;
            Model.InApproveManager_EquipmentQualityIn newEquipmentQualityIn = db.InApproveManager_EquipmentQualityIn.FirstOrDefault(e => e.EquipmentQualityInId == EquipmentQualityIn.EquipmentQualityInId);
            if (newEquipmentQualityIn != null)
            {
@@ -75,7 +75,7 @@ namespace BLL
        /// <param name="EquipmentQualityInId"></param>
        public static void DeleteEquipmentQualityInById(string EquipmentQualityInId)
        {
-           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+           Model.SGGLDB db = Funs.DB;
            Model.InApproveManager_EquipmentQualityIn EquipmentQualityIn = db.InApproveManager_EquipmentQualityIn.FirstOrDefault(e => e.EquipmentQualityInId == EquipmentQualityInId);
            if (EquipmentQualityIn != null)
            {

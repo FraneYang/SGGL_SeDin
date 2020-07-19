@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EmergencyListService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取应急预案管理
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Emergency_EmergencyList GetEmergencyListById(string EmergencyListId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyList.FirstOrDefault(e => e.EmergencyListId == EmergencyListId);
+            return Funs.DB.Emergency_EmergencyList.FirstOrDefault(e => e.EmergencyListId == EmergencyListId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Emergency_EmergencyList> GetEmergencyListByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyList where x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate <= endTime select x).ToList();
+            return (from x in Funs.DB.Emergency_EmergencyList where x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate <= endTime select x).ToList();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace BLL
         /// <param name="EmergencyList"></param>
         public static void AddEmergencyList(Model.Emergency_EmergencyList EmergencyList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencyList newEmergencyList = new Model.Emergency_EmergencyList
             {
                 EmergencyListId = EmergencyList.EmergencyListId,
@@ -106,7 +106,7 @@ namespace BLL
         /// <param name="EmergencyList"></param>
         public static void UpdateEmergencyList(Model.Emergency_EmergencyList EmergencyList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencyList newEmergencyList = db.Emergency_EmergencyList.FirstOrDefault(e => e.EmergencyListId == EmergencyList.EmergencyListId);
             if (newEmergencyList != null)
             {
@@ -132,7 +132,7 @@ namespace BLL
         /// <param name="EmergencyListId"></param>
         public static void DeleteEmergencyListById(string EmergencyListId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencyList EmergencyList = db.Emergency_EmergencyList.FirstOrDefault(e => e.EmergencyListId == EmergencyListId);
             if (EmergencyList != null)
             {

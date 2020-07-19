@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_Draw GetDrawByDrawId(string DrawId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_Draw.FirstOrDefault(e => e.DrawId == DrawId);
+            return Funs.DB.Check_Draw.FirstOrDefault(e => e.DrawId == DrawId);
         }
         /// <summary>
         /// 添加施工图纸信息
@@ -24,7 +24,7 @@ namespace BLL
         /// <param name="WPQ"></param>
         public static void AddCheckDraw(Model.Check_Draw Draw)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_Draw newDraw = new Model.Check_Draw();
             newDraw.DrawId = Draw.DrawId;
             newDraw.ProjectId = Draw.ProjectId;
@@ -48,7 +48,7 @@ namespace BLL
         /// <param name="WPQ"></param>
         public static void UpdateCheckDraw(Model.Check_Draw Draw)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_Draw newDraw = db.Check_Draw.FirstOrDefault(e => e.DrawId == Draw.DrawId);
             if (newDraw != null)
             {
@@ -73,7 +73,7 @@ namespace BLL
         /// <param name="checkerId"></param>
         public static void DeleteDrawById(string DrawId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_Draw Draw = db.Check_Draw.FirstOrDefault(e => e.DrawId == DrawId);
             if (Draw != null)
             {
@@ -88,7 +88,7 @@ namespace BLL
         /// <returns></returns>
         public static void InitMainItemDropDownList(FineUIPro.DropDownList dropName, string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_MainItem where x.ProjectId == projectId orderby x.MainItemCode select x).ToList();
+            var q = (from x in Funs.DB.ProjectData_MainItem where x.ProjectId == projectId orderby x.MainItemCode select x).ToList();
             dropName.DataValueField = "MainItemId";
             dropName.DataTextField = "MainItemName";
             dropName.DataSource = q;
@@ -102,7 +102,7 @@ namespace BLL
         /// <param name="dropName"></param>
         public static void InitDesignCNNameDropDownList(FineUIPro.DropDownList dropName)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_DesignProfessional orderby x.DesignProfessionalCode select x).ToList();
+            var q = (from x in Funs.DB.Base_DesignProfessional orderby x.DesignProfessionalCode select x).ToList();
             ListItem[] list = new ListItem[q.Count()];
             dropName.DataValueField = "DesignProfessionalId";
             dropName.DataTextField = "ProfessionalName";

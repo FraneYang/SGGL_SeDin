@@ -9,7 +9,7 @@ namespace BLL
 {
     public class CheckMonthService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 记录数
@@ -81,7 +81,7 @@ namespace BLL
         /// <param name="CheckMonth"></param>
         public static void AddCheckMonth(Model.Check_CheckMonth CheckMonth)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckMonth newCheckMonth = new Model.Check_CheckMonth();
             newCheckMonth.CheckMonthId = CheckMonth.CheckMonthId;
             newCheckMonth.ProjectId = CheckMonth.ProjectId;
@@ -112,7 +112,7 @@ namespace BLL
         /// <param name="CheckMonth"></param>
         public static void UpdateCheckMonth(Model.Check_CheckMonth CheckMonth)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckMonth newCheckMonth = db.Check_CheckMonth.First(e => e.CheckMonthId == CheckMonth.CheckMonthId);
             newCheckMonth.ThisRectifyNum = CheckMonth.ThisRectifyNum;
             newCheckMonth.ThisOKRectifyNum = CheckMonth.ThisOKRectifyNum;
@@ -137,7 +137,7 @@ namespace BLL
         /// <param name="CheckMonthId"></param>
         public static void DeleteCheckMonth(string CheckMonthId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckMonth CheckMonth = db.Check_CheckMonth.First(e => e.CheckMonthId == CheckMonthId);
             db.Check_CheckMonth.DeleteOnSubmit(CheckMonth);
             db.SubmitChanges();
@@ -149,7 +149,7 @@ namespace BLL
         /// <param name="CheckMonthDetailId"></param>
         public static Model.Check_CheckMonth GetCheckMonth(string CheckMonthId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_CheckMonth.FirstOrDefault(e => e.CheckMonthId == CheckMonthId);
+            return Funs.DB.Check_CheckMonth.FirstOrDefault(e => e.CheckMonthId == CheckMonthId);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace BLL
         /// <param name="months">月份</param>
         public static Model.Check_CheckMonth GetCheckMonthByMonths(DateTime months, string projectId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_CheckMonth.FirstOrDefault(e => e.Months == months && e.ProjectId == projectId);
+            return Funs.DB.Check_CheckMonth.FirstOrDefault(e => e.Months == months && e.ProjectId == projectId);
         }
     }
 }

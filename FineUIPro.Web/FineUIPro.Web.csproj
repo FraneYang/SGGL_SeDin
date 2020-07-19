@@ -775,6 +775,10 @@
     <Content Include="JDGL\Check\ProgressShow.aspx" />
     <Content Include="JDGL\Check\ProgressStatistics.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Notice\IssuedNotice.aspx" />
+    <Content Include="Notice\NoIssuedNotice.aspx" />
+    <Content Include="Notice\NoticeEdit.aspx" />
+    <Content Include="Notice\NoticeView.aspx" />
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluation.aspx" />
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluationEdit.aspx" />
     <Content Include="Personal\FileSearch.aspx" />
@@ -8717,6 +8721,34 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notice\IssuedNotice.aspx.cs">
+      <DependentUpon>IssuedNotice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notice\IssuedNotice.aspx.designer.cs">
+      <DependentUpon>IssuedNotice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notice\NoIssuedNotice.aspx.cs">
+      <DependentUpon>NoIssuedNotice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notice\NoIssuedNotice.aspx.designer.cs">
+      <DependentUpon>NoIssuedNotice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notice\NoticeEdit.aspx.cs">
+      <DependentUpon>NoticeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notice\NoticeEdit.aspx.designer.cs">
+      <DependentUpon>NoticeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Notice\NoticeView.aspx.cs">
+      <DependentUpon>NoticeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notice\NoticeView.aspx.designer.cs">
+      <DependentUpon>NoticeView.aspx</DependentUpon>
     </Compile>
     <Compile Include="OfficeCheck\ProjectEvaluation\ProjectEvaluation.aspx.cs">
       <DependentUpon>ProjectEvaluation.aspx</DependentUpon>

@@ -16,7 +16,7 @@ namespace BLL
        /// <returns></returns>
         public static List<Model.Sys_ButtonToMenu> GetButtonToMenuListByMenuId(string menuId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Sys_ButtonToMenu where x.MenuId == menuId orderby x.SortIndex select x).ToList();
+            return (from x in Funs.DB.Sys_ButtonToMenu where x.MenuId == menuId orderby x.SortIndex select x).ToList();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Sys_ButtonToMenu GetButtonToMenuByButtonName(string menuId, string buttonName)
         {
-            return new Model.SGGLDB(Funs.ConnString).Sys_ButtonToMenu.FirstOrDefault(e => e.ButtonName == buttonName && e.MenuId == menuId);
+            return Funs.DB.Sys_ButtonToMenu.FirstOrDefault(e => e.ButtonName == buttonName && e.MenuId == menuId);
         }
     }
 }

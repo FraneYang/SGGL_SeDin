@@ -48,7 +48,7 @@ namespace FineUIPro.Web.HSSE.Emergency
                         this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", EmergencyTeamAndTrain.CompileDate);
                         this.drpCompileMan.Text = BLL.UserService.GetUserNameByUserId(EmergencyTeamAndTrain.CompileMan);
                         //this.txtFileContent.Text = HttpUtility.HtmlDecode(EmergencyTeamAndTrain.FileContent);                        
-                        Grid1.DataSource = (from x in new Model.SGGLDB(Funs.ConnString).View_Emergency_EmergencyTeamItem
+                        Grid1.DataSource = (from x in Funs.DB.View_Emergency_EmergencyTeamItem
                                             where x.FileId == this.FileId
                                             select x).ToList();
                         Grid1.DataBind();

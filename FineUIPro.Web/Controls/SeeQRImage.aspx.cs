@@ -50,7 +50,7 @@ namespace FineUIPro.Web.Controls
         {
             if (!string.IsNullOrEmpty(Request.Params["PersonId"]))
             {
-                var person = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.PersonId == Request.Params["PersonId"]); 
+                var person = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == Request.Params["PersonId"]); 
                 if (person != null)
                 {
                     if (!string.IsNullOrEmpty(person.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(person.QRCodeAttachUrl))
@@ -61,13 +61,13 @@ namespace FineUIPro.Web.Controls
                     {
                         this.CreateCode_Simple(Request.Params["strCode"]);
                         person.QRCodeAttachUrl = this.QRCodeAttachUrl;
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }
             else if (!string.IsNullOrEmpty(Request.Params["EquipmentQualityId"]))
             {
-                var equipmentQuality = new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQuality.FirstOrDefault(e => e.EquipmentQualityId == Request.Params["EquipmentQualityId"]);
+                var equipmentQuality = Funs.DB.QualityAudit_EquipmentQuality.FirstOrDefault(e => e.EquipmentQualityId == Request.Params["EquipmentQualityId"]);
                 if (equipmentQuality != null)
                 {
                     if (!string.IsNullOrEmpty(equipmentQuality.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(equipmentQuality.QRCodeAttachUrl))
@@ -78,13 +78,13 @@ namespace FineUIPro.Web.Controls
                     {
                         this.CreateCode_Simple(Request.Params["strCode"]);
                         equipmentQuality.QRCodeAttachUrl = this.QRCodeAttachUrl;
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }
             else if (!string.IsNullOrEmpty(Request.Params["GeneralEquipmentQualityId"]))
             {
-                var generalEquipmentQuality = new Model.SGGLDB(Funs.ConnString).QualityAudit_GeneralEquipmentQuality.FirstOrDefault(e => e.GeneralEquipmentQualityId == Request.Params["GeneralEquipmentQualityId"]);
+                var generalEquipmentQuality = Funs.DB.QualityAudit_GeneralEquipmentQuality.FirstOrDefault(e => e.GeneralEquipmentQualityId == Request.Params["GeneralEquipmentQualityId"]);
                 if (generalEquipmentQuality != null)
                 {
                     if (!string.IsNullOrEmpty(generalEquipmentQuality.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(generalEquipmentQuality.QRCodeAttachUrl))
@@ -95,13 +95,13 @@ namespace FineUIPro.Web.Controls
                     {
                         this.CreateCode_Simple(Request.Params["strCode"]);
                         generalEquipmentQuality.QRCodeAttachUrl = this.QRCodeAttachUrl;
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }
             else if (!string.IsNullOrEmpty(Request.Params["ConstructSolutionId"]))
             {
-                var constructSolution = new Model.SGGLDB(Funs.ConnString).Solution_ConstructSolution.FirstOrDefault(e => e.ConstructSolutionId == Request.Params["ConstructSolutionId"]);
+                var constructSolution = Funs.DB.Solution_ConstructSolution.FirstOrDefault(e => e.ConstructSolutionId == Request.Params["ConstructSolutionId"]);
                 if (constructSolution != null)
                 {
                     if (!string.IsNullOrEmpty(constructSolution.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(constructSolution.QRCodeAttachUrl))
@@ -112,13 +112,13 @@ namespace FineUIPro.Web.Controls
                     {
                         this.CreateCode_Simple(Request.Params["strCode"]);
                         constructSolution.QRCodeAttachUrl = this.QRCodeAttachUrl;
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }
             else if (!string.IsNullOrEmpty(Request.Params["TrainingPlanId"]))
             {
-                var trainingPlan = new Model.SGGLDB(Funs.ConnString).Training_Plan.FirstOrDefault(e => e.PlanId ==Request.Params["TrainingPlanId"]);
+                var trainingPlan = Funs.DB.Training_Plan.FirstOrDefault(e => e.PlanId ==Request.Params["TrainingPlanId"]);
                 if (trainingPlan != null)
                 {
                     if (!string.IsNullOrEmpty(trainingPlan.QRCodeUrl) && CreateQRCodeService.isHaveImage(trainingPlan.QRCodeUrl))
@@ -129,13 +129,13 @@ namespace FineUIPro.Web.Controls
                     {
                         this.CreateCode_Simple(Request.Params["strCode"]);
                         trainingPlan.QRCodeUrl = this.QRCodeAttachUrl;
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }
             else if (!string.IsNullOrEmpty(Request.Params["TestPlanId"]))
             {
-                var testPlan = new Model.SGGLDB(Funs.ConnString).Training_TestPlan.FirstOrDefault(e => e.TestPlanId == Request.Params["TestPlanId"]);
+                var testPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == Request.Params["TestPlanId"]);
                 if (testPlan != null)
                 {
                     if (!string.IsNullOrEmpty(testPlan.QRCodeUrl) && CreateQRCodeService.isHaveImage(testPlan.QRCodeUrl))
@@ -146,13 +146,13 @@ namespace FineUIPro.Web.Controls
                     {
                         this.CreateCode_Simple(Request.Params["strCode"]);
                         testPlan.QRCodeUrl = this.QRCodeAttachUrl;
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }
             else if (!string.IsNullOrEmpty(Request.Params["ServerTestPlanId"]))
             {
-                var serverTestPlan = new Model.SGGLDB(Funs.ConnString).Test_TestPlan.FirstOrDefault(e => e.TestPlanId == Request.Params["ServerTestPlanId"]);
+                var serverTestPlan = Funs.DB.Test_TestPlan.FirstOrDefault(e => e.TestPlanId == Request.Params["ServerTestPlanId"]);
                 if (serverTestPlan != null)
                 {
                     if (!string.IsNullOrEmpty(serverTestPlan.QRCodeUrl) && CreateQRCodeService.isHaveImage(serverTestPlan.QRCodeUrl))
@@ -163,7 +163,7 @@ namespace FineUIPro.Web.Controls
                     {
                         this.CreateCode_Simple(Request.Params["strCode"]);
                         serverTestPlan.QRCodeUrl = this.QRCodeAttachUrl;
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }

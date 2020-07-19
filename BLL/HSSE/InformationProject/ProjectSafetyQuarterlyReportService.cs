@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ProjectSafetyQuarterlyReportService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全生产数据季报
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_SafetyQuarterlyReport GetSafetyQuarterlyReportById(string safetyQuarterlyReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_SafetyQuarterlyReport.FirstOrDefault(e => e.SafetyQuarterlyReportId == safetyQuarterlyReportId);
+            return Funs.DB.InformationProject_SafetyQuarterlyReport.FirstOrDefault(e => e.SafetyQuarterlyReportId == safetyQuarterlyReportId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="safetyQuarterlyReport"></param>
         public static void AddSafetyQuarterlyReport(Model.InformationProject_SafetyQuarterlyReport safetyQuarterlyReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_SafetyQuarterlyReport newSafetyQuarterlyReport = new Model.InformationProject_SafetyQuarterlyReport
             {
                 SafetyQuarterlyReportId = safetyQuarterlyReport.SafetyQuarterlyReportId,
@@ -124,7 +124,7 @@ namespace BLL
         /// <param name="safetyQuarterlyReport"></param>
         public static void UpdateSafetyQuarterlyReport(Model.InformationProject_SafetyQuarterlyReport safetyQuarterlyReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_SafetyQuarterlyReport newSafetyQuarterlyReport = db.InformationProject_SafetyQuarterlyReport.FirstOrDefault(e => e.SafetyQuarterlyReportId == safetyQuarterlyReport.SafetyQuarterlyReportId);
             if (newSafetyQuarterlyReport != null)
             {
@@ -218,7 +218,7 @@ namespace BLL
         /// <param name="safetyQuarterlyReportId"></param>
         public static void DeleteSafetyQuarterlyReportById(string safetyQuarterlyReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_SafetyQuarterlyReport safetyQuarterlyReport = db.InformationProject_SafetyQuarterlyReport.FirstOrDefault(e => e.SafetyQuarterlyReportId == safetyQuarterlyReportId);
             if (safetyQuarterlyReport != null)
             {

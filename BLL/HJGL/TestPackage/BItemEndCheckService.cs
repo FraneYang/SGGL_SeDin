@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.PTP_BItemEndCheck GetAItemEndCheckByID(string id)
         {
-            return new Model.SGGLDB(Funs.ConnString).PTP_BItemEndCheck.FirstOrDefault(x => x.BItemCheckId == id);
+            return Funs.DB.PTP_BItemEndCheck.FirstOrDefault(x => x.BItemCheckId == id);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PTP_BItemEndCheck> GetBItemEndCheckBypipelineId(string pipelineId)
         {
-            var view = from x in new Model.SGGLDB(Funs.ConnString).PTP_BItemEndCheck
+            var view = from x in Funs.DB.PTP_BItemEndCheck
                        where x.PipelineId == pipelineId
                        orderby x.CheckDate
                        select x;
@@ -39,7 +39,7 @@ namespace BLL
         /// <param name="bItemEndCheck">试压实体</param>
         public static void AddBItemEndCheck(Model.PTP_BItemEndCheck bItemEndCheck)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_BItemEndCheck newBItemEndCheck = new Model.PTP_BItemEndCheck();
             newBItemEndCheck.BItemCheckId = SQLHelper.GetNewID(typeof(Model.PTP_BItemEndCheck));
             newBItemEndCheck.PipelineId = bItemEndCheck.PipelineId;
@@ -58,7 +58,7 @@ namespace BLL
         /// <param name="weldReport">试压实体</param>
         public static void UpdateBItemEndCheck(Model.PTP_BItemEndCheck bItemEndCheck)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_BItemEndCheck newBItemEndCheck = db.PTP_BItemEndCheck.First(e => e.BItemCheckId == bItemEndCheck.BItemCheckId);
             newBItemEndCheck.PipelineId = bItemEndCheck.PipelineId;
             newBItemEndCheck.CheckMan = bItemEndCheck.CheckMan;
@@ -75,7 +75,7 @@ namespace BLL
         /// <param name="id">业务_A项尾工检查表主键</param>
         public static void DeleteBItemEndCheckByID(string bItemCheckId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_BItemEndCheck newBItemEndCheck = db.PTP_BItemEndCheck.First(e => e.BItemCheckId == bItemCheckId);
             db.PTP_BItemEndCheck.DeleteOnSubmit(newBItemEndCheck);
             db.SubmitChanges();
@@ -88,7 +88,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistBItemEndCheck(string pipelineId)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).PTP_BItemEndCheck where x.PipelineId == pipelineId select x;
+            var q = from x in Funs.DB.PTP_BItemEndCheck where x.PipelineId == pipelineId select x;
             if (q.Count() > 0)
             {
                 return true;

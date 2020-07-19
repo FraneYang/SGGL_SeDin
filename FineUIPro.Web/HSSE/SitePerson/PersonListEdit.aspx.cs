@@ -456,7 +456,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             if (!string.IsNullOrEmpty(this.txtCardNo.Text))
             {
-                var q = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.CardNo == this.txtCardNo.Text.Trim() && (x.PersonId != this.PersonId || (this.PersonId == null && x.PersonId != null)));
+                var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.CardNo == this.txtCardNo.Text.Trim() && (x.PersonId != this.PersonId || (this.PersonId == null && x.PersonId != null)));
                 if (q != null)
                 {
                     ShowNotify("输入的卡号已存在！", MessageBoxIcon.Warning);
@@ -465,7 +465,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
 
             if (!string.IsNullOrEmpty(this.txtIdentityCard.Text))
             {
-                var q2 = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.IdentityCard == this.txtIdentityCard.Text.Trim() && (x.PersonId != this.PersonId || (this.PersonId == null && x.PersonId != null)));
+                var q2 = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.IdentityCard == this.txtIdentityCard.Text.Trim() && (x.PersonId != this.PersonId || (this.PersonId == null && x.PersonId != null)));
                 if (q2 != null)
                 {
                     ShowNotify("输入的身份证号码已存在！", MessageBoxIcon.Warning);
@@ -585,7 +585,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
 
         protected void btnReadIdentityCard_Click(object sender, EventArgs e)
         {
-            var getatt = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == this.PersonId + "#1");
+            var getatt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.PersonId + "#1");
             if (getatt != null && !string.IsNullOrEmpty(getatt.AttachUrl))
             {             
                 string url = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port+"/"+getatt.AttachUrl;

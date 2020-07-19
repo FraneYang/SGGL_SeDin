@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TrainingPlanService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取培训计划
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_Plan GetPlanById(string planId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Training_Plan.FirstOrDefault(e => e.PlanId == planId);
+            return Funs.DB.Training_Plan.FirstOrDefault(e => e.PlanId == planId);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace BLL
         /// <param name="plan"></param>
         public static void UpdatePlan(Model.Training_Plan plan)
         {
-            Model.Training_Plan newPlan = new Model.SGGLDB(Funs.ConnString).Training_Plan.FirstOrDefault(e => e.PlanId == plan.PlanId);
+            Model.Training_Plan newPlan = Funs.DB.Training_Plan.FirstOrDefault(e => e.PlanId == plan.PlanId);
             if (newPlan != null)
             {
                 newPlan.PlanCode = plan.PlanCode;
@@ -58,7 +58,7 @@ namespace BLL
                 newPlan.WorkPostId = plan.WorkPostId;
                 newPlan.QRCodeUrl = plan.QRCodeUrl;
                 newPlan.States = plan.States;
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -68,11 +68,11 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeletePlanById(string planId)
         {
-            Model.Training_Plan plan = new Model.SGGLDB(Funs.ConnString).Training_Plan.FirstOrDefault(e => e.PlanId == planId);
+            Model.Training_Plan plan = Funs.DB.Training_Plan.FirstOrDefault(e => e.PlanId == planId);
             if (plan != null)
             {
-                new Model.SGGLDB(Funs.ConnString).Training_Plan.DeleteOnSubmit(plan);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Training_Plan.DeleteOnSubmit(plan);
+                Funs.DB.SubmitChanges();
             }
         }
 

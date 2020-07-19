@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class OccupationalDiseaseAccidentService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取职业病事故
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.OccupationHealth_OccupationalDiseaseAccident GetOccupationalDiseaseAccidentById(string fileId)
         {
-            return new Model.SGGLDB(Funs.ConnString).OccupationHealth_OccupationalDiseaseAccident.FirstOrDefault(e => e.FileId == fileId);
+            return Funs.DB.OccupationHealth_OccupationalDiseaseAccident.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="OccupationalDiseaseAccident"></param>
         public static void AddOccupationalDiseaseAccident(Model.OccupationHealth_OccupationalDiseaseAccident OccupationalDiseaseAccident)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.OccupationHealth_OccupationalDiseaseAccident newOccupationalDiseaseAccident = new Model.OccupationHealth_OccupationalDiseaseAccident
             {
                 FileId = OccupationalDiseaseAccident.FileId,
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="OccupationalDiseaseAccident"></param>
         public static void UpdateOccupationalDiseaseAccident(Model.OccupationHealth_OccupationalDiseaseAccident OccupationalDiseaseAccident)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.OccupationHealth_OccupationalDiseaseAccident newOccupationalDiseaseAccident = db.OccupationHealth_OccupationalDiseaseAccident.FirstOrDefault(e => e.FileId == OccupationalDiseaseAccident.FileId);
             if (newOccupationalDiseaseAccident != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteOccupationalDiseaseAccidentById(string FileId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.OccupationHealth_OccupationalDiseaseAccident OccupationalDiseaseAccident = db.OccupationHealth_OccupationalDiseaseAccident.FirstOrDefault(e => e.FileId == FileId);
             if (OccupationalDiseaseAccident != null)
             {

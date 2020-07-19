@@ -76,7 +76,7 @@ namespace FineUIPro.Web.SysManage
                     this.ckMenuFlowOperate.Checked = false;
                 }
             }
-            var sysSet5= (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const  where x.ConstText == "员工绩效考核第一季度生成时间" select x).ToList().FirstOrDefault();
+            var sysSet5= (from x in Funs.DB.Sys_Const  where x.ConstText == "员工绩效考核第一季度生成时间" select x).ToList().FirstOrDefault();
             if (sysSet5 != null) {
                 string[] str = sysSet5.ConstValue.Split('|');
                 if (str.Length > 0) {
@@ -84,7 +84,7 @@ namespace FineUIPro.Web.SysManage
                     this.txtMarchday.Text= (str[1] == null ? "" : str[1]).ToString();
                 }
             }
-            var sysSet6 = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.ConstText == "员工绩效考核第二季度生成时间" select x).ToList().FirstOrDefault();
+            var sysSet6 = (from x in Funs.DB.Sys_Const where x.ConstText == "员工绩效考核第二季度生成时间" select x).ToList().FirstOrDefault();
             if (sysSet6 != null)
             {
                 string[] str = sysSet6.ConstValue.Split('|');
@@ -94,7 +94,7 @@ namespace FineUIPro.Web.SysManage
                     this.txtJuneday.Text = (str[1] == null ? "" : str[1]).ToString();
                 }
             }
-            var sysSet7 = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.ConstText == "员工绩效考核第三季度生成时间" select x).ToList().FirstOrDefault();
+            var sysSet7 = (from x in Funs.DB.Sys_Const where x.ConstText == "员工绩效考核第三季度生成时间" select x).ToList().FirstOrDefault();
             if (sysSet7 != null)
             {
                 string[] str = sysSet7.ConstValue.Split('|');
@@ -104,7 +104,7 @@ namespace FineUIPro.Web.SysManage
                     this.txtSeptemberday.Text = (str[1] == null ? "" : str[1]).ToString();
                 }
             }
-            var sysSet8 = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.ConstText == "员工绩效考核第四季度生成时间" select x).ToList().FirstOrDefault();
+            var sysSet8 = (from x in Funs.DB.Sys_Const where x.ConstText == "员工绩效考核第四季度生成时间" select x).ToList().FirstOrDefault();
             if (sysSet8 != null)
             {
                 string[] str = sysSet8.ConstValue.Split('|');
@@ -135,7 +135,7 @@ namespace FineUIPro.Web.SysManage
             //    {
             //        sysSet.ConstValue = "0";
             //    }
-            //    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            //    Funs.DB.SubmitChanges();
             //}
             var sysSet2 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_IsMonthReportGetAVG).FirstOrDefault();
             if (sysSet2 != null)
@@ -154,7 +154,7 @@ namespace FineUIPro.Web.SysManage
             if (sysSet3 != null)
             {
                 sysSet3.ConstValue = this.txtMonthReportFreezeDay.Text.Trim();
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
 
             var sysSet4 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_MenuFlowOperate).FirstOrDefault();
@@ -179,7 +179,7 @@ namespace FineUIPro.Web.SysManage
                 if (!string.IsNullOrEmpty(this.txtMarchday.Text.Trim())) {
                     sysSet5.ConstValue += "|" + this.txtMarchday.Text.Trim();
                 }
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
             var sysSet6 = db.Sys_Const.FirstOrDefault(x => x.ConstText == "员工绩效考核第二季度生成时间");
             if (sysSet6 != null)
@@ -363,7 +363,7 @@ namespace FineUIPro.Web.SysManage
             var sysMenu = SysMenuService.GetSysMenuByMenuId(this.drpMenu.Value);
             if (sysMenu != null && sysMenu.IsEnd == true)
             {
-                var getMenuFlowOperate = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == sysMenu.MenuId && x.IsFlowEnd == true);
+                var getMenuFlowOperate = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == sysMenu.MenuId && x.IsFlowEnd == true);
                 if (getMenuFlowOperate == null)
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MenuFlowOperateEdit.aspx?MenuId={0}&FlowOperateId={1}", sysMenu.MenuId, string.Empty, "增加 - ")));
@@ -446,7 +446,7 @@ namespace FineUIPro.Web.SysManage
         /// </summary>
         private void LoadTab3Data()
         {
-            var sysTestRule = new Model.SGGLDB(Funs.ConnString).Sys_TestRule.FirstOrDefault();
+            var sysTestRule = Funs.DB.Sys_TestRule.FirstOrDefault();
             if (sysTestRule != null)
             {
                 this.txtDuration.Text = sysTestRule.Duration.ToString();
@@ -468,10 +468,10 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void btnTab3Save_Click(object sender, EventArgs e)
         {
-            var getTestRule = from x in new Model.SGGLDB(Funs.ConnString).Sys_TestRule select x;
+            var getTestRule = from x in Funs.DB.Sys_TestRule select x;
             if (getTestRule.Count() > 0)
             {
-                new Model.SGGLDB(Funs.ConnString).Sys_TestRule.DeleteAllOnSubmit(getTestRule);
+                Funs.DB.Sys_TestRule.DeleteAllOnSubmit(getTestRule);
             }
 
             Model.Sys_TestRule newTestRule = new Model.Sys_TestRule
@@ -487,8 +487,8 @@ namespace FineUIPro.Web.SysManage
                 PassingScore = Funs.GetNewIntOrZero(this.txtPassingScore.Text),
             };
 
-            new Model.SGGLDB(Funs.ConnString).Sys_TestRule.InsertOnSubmit(newTestRule);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            Funs.DB.Sys_TestRule.InsertOnSubmit(newTestRule);
+            Funs.DB.SubmitChanges();
 
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             LogService.AddSys_Log(this.CurrUser, "修改考试规则设置！", string.Empty, Const.SysConstSetMenuId, Const.BtnModify);

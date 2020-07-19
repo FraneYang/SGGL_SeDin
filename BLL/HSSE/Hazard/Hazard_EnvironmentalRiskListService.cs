@@ -9,7 +9,7 @@ namespace BLL
 {
     public static class Hazard_EnvironmentalRiskListService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 要求主键获取危险清单信息
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Hazard_EnvironmentalRiskList GetEnvironmentalRiskList(string environmentalRiskListId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Hazard_EnvironmentalRiskList.FirstOrDefault(e => e.EnvironmentalRiskListId == environmentalRiskListId);
+            return Funs.DB.Hazard_EnvironmentalRiskList.FirstOrDefault(e => e.EnvironmentalRiskListId == environmentalRiskListId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetEnvironmentalRiskCountByProjectIdAndDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Hazard_EnvironmentalRiskList where x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate <= endTime select x).ToList();
+            var q = (from x in Funs.DB.Hazard_EnvironmentalRiskList where x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate <= endTime select x).ToList();
             return q.Count();
         }
 
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="environmentalRiskList">危险源辨识与评价清单实体</param>
         public static void AddEnvironmentalRiskList(Model.Hazard_EnvironmentalRiskList environmentalRiskList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Hazard_EnvironmentalRiskList newEnvironmentalRiskList = new Model.Hazard_EnvironmentalRiskList
             {
                 EnvironmentalRiskListId = environmentalRiskList.EnvironmentalRiskListId,
@@ -55,8 +55,8 @@ namespace BLL
                 IdentificationDate = environmentalRiskList.IdentificationDate,
                 ControllingPerson = environmentalRiskList.ControllingPerson
             };
-            new Model.SGGLDB(Funs.ConnString).Hazard_EnvironmentalRiskList.InsertOnSubmit(newEnvironmentalRiskList);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            Funs.DB.Hazard_EnvironmentalRiskList.InsertOnSubmit(newEnvironmentalRiskList);
+            Funs.DB.SubmitChanges();
 
             ////增加一条编码记录
             BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectEnvironmentalRiskListMenuId, environmentalRiskList.ProjectId, null, environmentalRiskList.EnvironmentalRiskListId, environmentalRiskList.CompileDate);
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="environmentalRiskList">危险源辨识与评价清单实体</param>
         public static void UpdateEnvironmentalRiskList(Model.Hazard_EnvironmentalRiskList environmentalRiskList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Hazard_EnvironmentalRiskList newEnvironmentalRiskList = db.Hazard_EnvironmentalRiskList.FirstOrDefault(e => e.EnvironmentalRiskListId == environmentalRiskList.EnvironmentalRiskListId);
             if (newEnvironmentalRiskList != null)
             {
@@ -91,7 +91,7 @@ namespace BLL
         /// <param name="environmentalRiskListId">危险源辨识与评价清单Id</param>
         public static void DeleteEnvironmentalRiskListById(string environmentalRiskListId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Hazard_EnvironmentalRiskList newEnvironmentalRiskList = db.Hazard_EnvironmentalRiskList.FirstOrDefault(e => e.EnvironmentalRiskListId == environmentalRiskListId);
             if (newEnvironmentalRiskList != null)
             {

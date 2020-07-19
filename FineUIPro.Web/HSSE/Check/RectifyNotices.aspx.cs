@@ -272,21 +272,21 @@ namespace FineUIPro.Web.HSSE.Check
 
                         LogService.AddSys_Log(this.CurrUser, RectifyNotices.RectifyNoticesCode, rowID, BLL.Const.ProjectRectifyNoticeMenuId, BLL.Const.BtnDelete);
                         RectifyNoticesService.DeleteRectifyNoticesById(rowID);
-                        Model.Check_CheckSpecialDetail specialDetail = (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecialDetail
+                        Model.Check_CheckSpecialDetail specialDetail = (from x in Funs.DB.Check_CheckSpecialDetail
                                                                         where x.RectifyNoticeId == rowID
                                                                         select x).FirstOrDefault();
-                        Model.Check_CheckColligationDetail colligationDetail = (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckColligationDetail
+                        Model.Check_CheckColligationDetail colligationDetail = (from x in Funs.DB.Check_CheckColligationDetail
                                                                                 where x.RectifyNoticeId == rowID
                                                                                 select x).FirstOrDefault();               
                         if (specialDetail != null)
                         {
                             specialDetail.RectifyNoticeId = null;
-                            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                            Funs.DB.SubmitChanges();
                         }
                         else if (colligationDetail != null)
                         {
                             colligationDetail.RectifyNoticeId = null;
-                            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                            Funs.DB.SubmitChanges();
                         }
                     }
                 }

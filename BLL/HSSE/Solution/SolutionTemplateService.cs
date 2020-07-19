@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class SolutionTemplateService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取方案模板
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Solution_SolutionTemplate GetSolutionTemplateById(string solutionTemplateId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Solution_SolutionTemplate.FirstOrDefault(e => e.SolutionTemplateId == solutionTemplateId);
+            return Funs.DB.Solution_SolutionTemplate.FirstOrDefault(e => e.SolutionTemplateId == solutionTemplateId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Solution_SolutionTemplate GetSolutionTemplateBySolutionTemplateType(string solutionTemplateType, string projectId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Solution_SolutionTemplate.FirstOrDefault(e => e.SolutionTemplateType == solutionTemplateType && e.ProjectId == projectId);
+            return Funs.DB.Solution_SolutionTemplate.FirstOrDefault(e => e.SolutionTemplateType == solutionTemplateType && e.ProjectId == projectId);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace BLL
         /// <param name="solutionTemplate"></param>
         public static void AddSolutionTemplate(Model.Solution_SolutionTemplate solutionTemplate)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Solution_SolutionTemplate newSolutionTemplate = new Model.Solution_SolutionTemplate
             {
                 SolutionTemplateId = solutionTemplate.SolutionTemplateId,
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="solutionTemplate"></param>
         public static void UpdateSolutionTemplate(Model.Solution_SolutionTemplate solutionTemplate)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Solution_SolutionTemplate newSolutionTemplate = db.Solution_SolutionTemplate.FirstOrDefault(e => e.SolutionTemplateId == solutionTemplate.SolutionTemplateId);
             if (newSolutionTemplate != null)
             {
@@ -83,7 +83,7 @@ namespace BLL
         /// <param name="solutionTemplateId"></param>
         public static void DeleteSolutionTemplateById(string solutionTemplateId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Solution_SolutionTemplate solutionTemplate = db.Solution_SolutionTemplate.FirstOrDefault(e => e.SolutionTemplateId == solutionTemplateId);
             if (solutionTemplate != null)
             {

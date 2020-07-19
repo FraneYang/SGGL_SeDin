@@ -175,7 +175,7 @@ namespace FineUIPro.Web.HSSE.Accident
 
             if (type == BLL.Const.BtnSubmit)
             {
-                var flowOperate = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.FirstOrDefault(x => x.DataId == this.AccidentHandleId && x.State == BLL.Const.State_2 && x.IsClosed == true);
+                var flowOperate = Funs.DB.Sys_FlowOperate.FirstOrDefault(x => x.DataId == this.AccidentHandleId && x.State == BLL.Const.State_2 && x.IsClosed == true);
                 if (flowOperate != null)
                 {
                     accidentHandle.States = BLL.Const.State_2;

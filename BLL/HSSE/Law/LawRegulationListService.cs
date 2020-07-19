@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class LawRegulationListService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取法律法规
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Law_LawRegulationList GetLawRegulationListById(string lawRegulationId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Law_LawRegulationList.FirstOrDefault(e => e.LawRegulationId == lawRegulationId);
+            return Funs.DB.Law_LawRegulationList.FirstOrDefault(e => e.LawRegulationId == lawRegulationId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.View_Law_LawRegulationList GetViewLawRegulationListById(string lawRegulationId)
         {
-            return new Model.SGGLDB(Funs.ConnString).View_Law_LawRegulationList.FirstOrDefault(e => e.LawRegulationId == lawRegulationId);
+            return Funs.DB.View_Law_LawRegulationList.FirstOrDefault(e => e.LawRegulationId == lawRegulationId);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Law_LawRegulationList> GetLawRegulationListByCompileMan(string compileMan)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Law_LawRegulationList where x.CompileMan== compileMan select x).ToList();
+            return (from x in Funs.DB.Law_LawRegulationList where x.CompileMan== compileMan select x).ToList();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace BLL
         /// <param name="lawRegulationList"></param>
         public static void AddLawRegulationList(Model.Law_LawRegulationList lawRegulationList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_LawRegulationList newLawRegulationList = new Model.Law_LawRegulationList
             {
                 LawRegulationId = lawRegulationList.LawRegulationId,
@@ -76,7 +76,7 @@ namespace BLL
         /// <param name="lawRegulationList"></param>
         public static void UpdateLawRegulationList(Model.Law_LawRegulationList lawRegulationList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_LawRegulationList newLawRegulationList = db.Law_LawRegulationList.FirstOrDefault(e => e.LawRegulationId == lawRegulationList.LawRegulationId);
             if (newLawRegulationList != null)
             {
@@ -98,7 +98,7 @@ namespace BLL
         /// <param name="lawRegulationList"></param>
         public static void UpdateLawRegulationListIsPass(Model.Law_LawRegulationList lawRegulationList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_LawRegulationList newLawRegulationList = db.Law_LawRegulationList.FirstOrDefault(e => e.LawRegulationId == lawRegulationList.LawRegulationId);
             if (newLawRegulationList != null)
             {              
@@ -116,7 +116,7 @@ namespace BLL
         /// <param name="lawRegulationId"></param>
         public static void DeleteLawRegulationListById(string lawRegulationId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_LawRegulationList lawRegulationList = db.Law_LawRegulationList.FirstOrDefault(e => e.LawRegulationId == lawRegulationId);
             if (lawRegulationList!=null)
             {

@@ -103,7 +103,7 @@ namespace BLL
         /// <returns></returns>
         public static void SaveEquipmentQuality(Model.EquipmentQualityItem newItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentQuality newEquipmentQuality = new Model.QualityAudit_EquipmentQuality
             {
                 EquipmentQualityId = newItem.EquipmentQualityId,

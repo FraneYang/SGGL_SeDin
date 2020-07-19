@@ -8,7 +8,7 @@ namespace BLL
 {
     public static class Person_QuarterCheckService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取人员信息
@@ -17,11 +17,11 @@ namespace BLL
         /// <returns>人员信息</returns>
         public static Model.Person_QuarterCheck GetPerson_QuarterCheckById(string QuarterCheckId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Person_QuarterCheck.FirstOrDefault(e => e.QuarterCheckId == QuarterCheckId);
+            return Funs.DB.Person_QuarterCheck.FirstOrDefault(e => e.QuarterCheckId == QuarterCheckId);
         }
         public static Model.Person_QuarterCheck GetQuarterCheckByDateTime(DateTime startTime, DateTime endTime)
         {
-            return new Model.SGGLDB(Funs.ConnString).Person_QuarterCheck.FirstOrDefault(e => e.StartTime  == startTime && e.EndTime == endTime);
+            return Funs.DB.Person_QuarterCheck.FirstOrDefault(e => e.StartTime  == startTime && e.EndTime == endTime);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <param name="user">人员实体</param>
         public static void AddPerson_QuarterCheck(Model.Person_QuarterCheck check)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Person_QuarterCheck newcheck = new Model.Person_QuarterCheck
             {
                 QuarterCheckId = check.QuarterCheckId,
@@ -52,7 +52,7 @@ namespace BLL
         /// <param name="user">实体</param>
         public static void UpdatePerson_QuarterCheck(Model.Person_QuarterCheck total)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Person_QuarterCheck newTotal = db.Person_QuarterCheck.FirstOrDefault(e => e.QuarterCheckId == total.QuarterCheckId);
             if (newTotal != null)
             {
@@ -66,7 +66,7 @@ namespace BLL
         /// <param name="PersonTotalId"></param>
         public static void DeleteQuarterCheck(string QuarterCheckId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Person_QuarterCheck check = db.Person_QuarterCheck.FirstOrDefault(e => e.QuarterCheckId == QuarterCheckId);
             if (check != null)
             {

@@ -261,7 +261,7 @@ namespace FineUIPro.Web.PersonManage.Test
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (new Model.SGGLDB(Funs.ConnString).Test_TestRecord.FirstOrDefault(x => x.TestPlanId == id) != null)
+            if (Funs.DB.Test_TestRecord.FirstOrDefault(x => x.TestPlanId == id) != null)
             {
                 content = "该计划已存在【考试记录】，不能删除！";
             }

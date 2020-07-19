@@ -9,7 +9,7 @@ namespace BLL
     /// </summary>
     public static class SpecialMeetingService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取专题例会
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Meeting_SpecialMeeting GetSpecialMeetingById(string specialMeetingId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Meeting_SpecialMeeting.FirstOrDefault(e => e.SpecialMeetingId == specialMeetingId);
+            return Funs.DB.Meeting_SpecialMeeting.FirstOrDefault(e => e.SpecialMeetingId == specialMeetingId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Meeting_SpecialMeeting where x.SpecialMeetingDate >= startTime && x.SpecialMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+            return (from x in Funs.DB.Meeting_SpecialMeeting where x.SpecialMeetingDate >= startTime && x.SpecialMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace BLL
         /// <returns></returns>
         public static int? GetSumAttentPersonNumByMeetingDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            int? sumAttentPersonNum = (from x in new Model.SGGLDB(Funs.ConnString).Meeting_SpecialMeeting where x.SpecialMeetingDate >= startTime && x.SpecialMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.AttentPersonNum).Sum();
+            int? sumAttentPersonNum = (from x in Funs.DB.Meeting_SpecialMeeting where x.SpecialMeetingDate >= startTime && x.SpecialMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.AttentPersonNum).Sum();
             if (sumAttentPersonNum == null)
             {
                 return 0;
@@ -59,7 +59,7 @@ namespace BLL
         /// <returns>会议记录集合</returns>
         public static List<Model.Meeting_SpecialMeeting> GetMeetingListsByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Meeting_SpecialMeeting where x.SpecialMeetingDate >= startTime && x.SpecialMeetingDate <= endTime && x.ProjectId == projectId orderby x.SpecialMeetingDate select x).ToList();
+            return (from x in Funs.DB.Meeting_SpecialMeeting where x.SpecialMeetingDate >= startTime && x.SpecialMeetingDate <= endTime && x.ProjectId == projectId orderby x.SpecialMeetingDate select x).ToList();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="specialMeeting"></param>
         public static void AddSpecialMeeting(Model.Meeting_SpecialMeeting specialMeeting)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Meeting_SpecialMeeting newSpecialMeeting = new Model.Meeting_SpecialMeeting
             {
                 SpecialMeetingId = specialMeeting.SpecialMeetingId,
@@ -101,7 +101,7 @@ namespace BLL
         /// <param name="specialMeeting"></param>
         public static void UpdateSpecialMeeting(Model.Meeting_SpecialMeeting specialMeeting)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Meeting_SpecialMeeting newSpecialMeeting = db.Meeting_SpecialMeeting.FirstOrDefault(e => e.SpecialMeetingId == specialMeeting.SpecialMeetingId);
             if (newSpecialMeeting != null)
             {
@@ -131,7 +131,7 @@ namespace BLL
         /// <param name="specialMeetingId"></param>
         public static void DeleteSpecialMeetingById(string specialMeetingId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Meeting_SpecialMeeting spcialMeeting = db.Meeting_SpecialMeeting.FirstOrDefault(e => e.SpecialMeetingId == specialMeetingId);
             if (spcialMeeting != null)
             { 

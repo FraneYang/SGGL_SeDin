@@ -14,7 +14,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.Sys_MenuFlowOperate GetMenuFlowOperateByFlowOperateId(string flowOperateId)
        {
-           return  new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(x=> x.FlowOperateId == flowOperateId);
+           return  Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x=> x.FlowOperateId == flowOperateId);
        }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_MenuFlowOperate> GetMenuFlowOperateListByMenuId(string menuId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate where x.MenuId == menuId
+            return (from x in Funs.DB.Sys_MenuFlowOperate where x.MenuId == menuId
                     orderby x.FlowStep select x).ToList();
         }
 
@@ -45,8 +45,8 @@ namespace BLL
                 RoleId = flow.RoleId,
                 IsFlowEnd = flow.IsFlowEnd,                
             };
-            new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.InsertOnSubmit(newMenuFlowOperate);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            Funs.DB.Sys_MenuFlowOperate.InsertOnSubmit(newMenuFlowOperate);
+            Funs.DB.SubmitChanges();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace BLL
         /// <param name="flow"></param>
         public static void UpdateAuditFlow(Model.Sys_MenuFlowOperate flow)
         {
-            Model.Sys_MenuFlowOperate newMenuFlow = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.FirstOrDefault(e => e.FlowOperateId == flow.FlowOperateId);
+            Model.Sys_MenuFlowOperate newMenuFlow = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(e => e.FlowOperateId == flow.FlowOperateId);
             if (newMenuFlow != null)
             {
                 newMenuFlow.MenuId = flow.MenuId;
@@ -65,7 +65,7 @@ namespace BLL
                 newMenuFlow.AuditFlowName = flow.AuditFlowName;
                 newMenuFlow.RoleId = flow.RoleId;
                 newMenuFlow.IsFlowEnd = flow.IsFlowEnd;
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -75,11 +75,11 @@ namespace BLL
        /// <param name="FlowOperateId"></param>
        public static void DeleteAuditFlow(string FlowOperateId)
        {
-           Model.Sys_MenuFlowOperate flow = new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.First(e => e.FlowOperateId == FlowOperateId);
+           Model.Sys_MenuFlowOperate flow = Funs.DB.Sys_MenuFlowOperate.First(e => e.FlowOperateId == FlowOperateId);
            if (flow != null)
            {
-               new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate.DeleteOnSubmit(flow);
-               new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+               Funs.DB.Sys_MenuFlowOperate.DeleteOnSubmit(flow);
+               Funs.DB.SubmitChanges();
            }
        }
        
@@ -88,7 +88,7 @@ namespace BLL
        /// </summary>
        public static void SetSortIndex(string menuId)
        {
-           var menuFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate where x.MenuId == menuId  select x;
+           var menuFlowOperate = from x in Funs.DB.Sys_MenuFlowOperate where x.MenuId == menuId  select x;
            if (menuFlowOperate.Count() > 0)
            {
                var maxSortIndex = menuFlowOperate.Select(x => x.FlowStep).Max();
@@ -99,7 +99,7 @@ namespace BLL
                    {
                        sortIndex++;
                        item.FlowStep = sortIndex;
-                       new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                       Funs.DB.SubmitChanges();
                    }
                }
            }
@@ -111,7 +111,7 @@ namespace BLL
        public static string GetFlowOperateName(string menuId)
        {
            string returnValue = string.Empty;
-           var menuFlowOperate = from x in new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate 
+           var menuFlowOperate = from x in Funs.DB.Sys_MenuFlowOperate 
                                  where x.MenuId == menuId 
                                  orderby x.FlowStep
                                  select x;
@@ -143,7 +143,7 @@ namespace BLL
         {
             dropName.DataValueField = "FlowOperateId";
             dropName.DataTextField = "AuditFlowName";
-            dropName.DataSource = (from x in new Model.SGGLDB(Funs.ConnString).Sys_MenuFlowOperate
+            dropName.DataSource = (from x in Funs.DB.Sys_MenuFlowOperate
                                    where x.MenuId == menuId && x.IsFlowEnd == false && x.FlowOperateId != thisId
                                    orderby x.FlowStep
                                    select x).ToList();

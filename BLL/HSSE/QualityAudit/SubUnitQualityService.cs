@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class SubUnitQualityService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取分包商资质
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_SubUnitQuality GetSubUnitQualityById(string subUnitQualityId)
         {
-            return new Model.SGGLDB(Funs.ConnString).QualityAudit_SubUnitQuality.FirstOrDefault(e => e.SubUnitQualityId == subUnitQualityId);
+            return Funs.DB.QualityAudit_SubUnitQuality.FirstOrDefault(e => e.SubUnitQualityId == subUnitQualityId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_SubUnitQuality GetSubUnitQualityByUnitId(string unitId)
         {
-            return new Model.SGGLDB(Funs.ConnString).QualityAudit_SubUnitQuality.FirstOrDefault(e => e.UnitId == unitId);
+            return Funs.DB.QualityAudit_SubUnitQuality.FirstOrDefault(e => e.UnitId == unitId);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="subUnitQuality"></param>
         public static void AddSubUnitQuality(Model.QualityAudit_SubUnitQuality subUnitQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_SubUnitQuality newSubUnitQuality = new Model.QualityAudit_SubUnitQuality
             {
                 SubUnitQualityId = subUnitQuality.SubUnitQualityId,
@@ -79,7 +79,7 @@ namespace BLL
         /// <param name="subUnitQuality"></param>
         public static void UpdateSubUnitQuality(Model.QualityAudit_SubUnitQuality subUnitQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_SubUnitQuality newSubUnitQuality = db.QualityAudit_SubUnitQuality.FirstOrDefault(e => e.SubUnitQualityId == subUnitQuality.SubUnitQualityId);
             if (newSubUnitQuality != null)
             {                
@@ -119,7 +119,7 @@ namespace BLL
         /// <param name="subUnitQualityId"></param>
         public static void DeleteSubUnitQualityById(string subUnitQualityId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_SubUnitQuality subUnitQuality = db.QualityAudit_SubUnitQuality.FirstOrDefault(e => e.SubUnitQualityId == subUnitQualityId);
             if (subUnitQuality != null)
             {

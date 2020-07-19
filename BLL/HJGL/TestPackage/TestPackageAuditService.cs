@@ -17,7 +17,7 @@ namespace BLL
         public static List<Model.View_PTP_TestPackageAudit> GetTestPackageAuditByPTP_ID(string PTP_ID)
         {
 
-            var view = from x in new Model.SGGLDB(Funs.ConnString).View_PTP_TestPackageAudit
+            var view = from x in Funs.DB.View_PTP_TestPackageAudit
                        where x.PTP_ID == PTP_ID
                        select x;
             return view.ToList();
@@ -29,7 +29,7 @@ namespace BLL
         /// <param name="testPackage">试压实体</param>
         public static void AuditTestPackage(Model.PTP_TestPackage testPackage)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage newTestPackage = db.PTP_TestPackage.FirstOrDefault(e => e.PTP_ID == testPackage.PTP_ID);
             if (newTestPackage != null)
             {
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="testPackage">试压实体</param>
         public static void AuditFinishDef(Model.PTP_TestPackage testPackage)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage newTestPackage = db.PTP_TestPackage.FirstOrDefault(e => e.PTP_ID == testPackage.PTP_ID);
             if (newTestPackage != null)
             {

@@ -7,7 +7,7 @@
 
     public static class ProjectPageDataService
     {
-        public static SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static SGGLDB db = Funs.DB;
 
         /// <summary>
         ///获取移动端首页
@@ -15,7 +15,7 @@
         /// <returns></returns>
         public static Wx_PageData GetPageDataByPageDataId(string PageDataId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Wx_PageData.FirstOrDefault(e => e.PageDataId == PageDataId);
+            return Funs.DB.Wx_PageData.FirstOrDefault(e => e.PageDataId == PageDataId);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@
         /// <returns></returns>
         public static void AddPageData(Wx_PageData PageData)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             Wx_PageData newPageData = new Wx_PageData
             {
                 PageDataId = PageData.PageDataId,
@@ -53,7 +53,7 @@
         /// <param name="PageData"></param>
         public static void UpdatePageData(Wx_PageData PageData)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             Wx_PageData newPageData = db.Wx_PageData.FirstOrDefault(e => e.PageDataId == PageData.PageDataId);
             if (newPageData != null)
             {

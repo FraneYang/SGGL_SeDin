@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class HazardListTypeService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取危险源类型
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Technique_HazardListType GetHazardListTypeById(string hazardListTypeId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Technique_HazardListType.FirstOrDefault(e => e.HazardListTypeId == hazardListTypeId);
+            return Funs.DB.Technique_HazardListType.FirstOrDefault(e => e.HazardListTypeId == hazardListTypeId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Technique_HazardListType> GetHazardListTypeBySupItem(string supItem)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where x.SupHazardListTypeId == supItem select x).ToList();
+            return (from x in Funs.DB.Technique_HazardListType where x.SupHazardListTypeId == supItem select x).ToList();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="hazardListType"></param>
         public static void AddHazardListType(Model.Technique_HazardListType hazardListType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_HazardListType newHazardListType = new Model.Technique_HazardListType
             {
                 HazardListTypeId = hazardListType.HazardListTypeId,
@@ -59,7 +59,7 @@ namespace BLL
         /// <param name="hazardListType"></param>
         public static void UpdateHazardListType(Model.Technique_HazardListType hazardListType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_HazardListType newHazardListType = db.Technique_HazardListType.FirstOrDefault(e => e.HazardListTypeId == hazardListType.HazardListTypeId);
             if (newHazardListType != null)
             {
@@ -79,7 +79,7 @@ namespace BLL
         /// <param name="hazardListTypeId"></param>
         public static void DeleteHazardListTypeById(string hazardListTypeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_HazardListType hazardListType = db.Technique_HazardListType.FirstOrDefault(e => e.HazardListTypeId == hazardListTypeId);
             if (hazardListType != null)
             {
@@ -105,7 +105,7 @@ namespace BLL
                 }
                 if (hazardListType.IsEndLevel == true)
                 {
-                    var detailCout = new Model.SGGLDB(Funs.ConnString).Technique_HazardList.FirstOrDefault(x => x.HazardListTypeId == hazardListTypeId);
+                    var detailCout = Funs.DB.Technique_HazardList.FirstOrDefault(x => x.HazardListTypeId == hazardListTypeId);
                     if (detailCout != null)
                     {
                         isDelete = false;
@@ -152,7 +152,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Technique_HazardListType GetHazardListTypeByHazardListTypeName(string hazardListTypeName)
         {
-            return new Model.SGGLDB(Funs.ConnString).Technique_HazardListType.FirstOrDefault(e => e.HazardListTypeName == hazardListTypeName);
+            return Funs.DB.Technique_HazardListType.FirstOrDefault(e => e.HazardListTypeName == hazardListTypeName);
         }
     }
 }

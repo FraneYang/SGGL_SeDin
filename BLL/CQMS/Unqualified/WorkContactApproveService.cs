@@ -9,7 +9,7 @@ namespace BLL
 {
     public class WorkContactApproveService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取分页列表
@@ -41,7 +41,7 @@ namespace BLL
         /// <param name="noticeId">工作联系单主键</param>
         public static void DeleteWorkContactApproveByWorkContactId(string noticeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var data = (from x in db.Unqualified_WorkContactApprove where x.WorkContactId == noticeId select x).ToList();
             if (data != null)
             {
@@ -56,7 +56,7 @@ namespace BLL
         /// <param name="workContactApprove">工作联系单审批实体</param>
         public static void AddWorkContactApprove(Model.Unqualified_WorkContactApprove workContactApprove)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Unqualified_WorkContactApprove));
             Model.Unqualified_WorkContactApprove newWorkContactApprove = new Model.Unqualified_WorkContactApprove();
             newWorkContactApprove.WorkContactApproveId = newKeyID;
@@ -121,7 +121,7 @@ namespace BLL
         /// <param name="workContactApprove">工作联系单审批实体</param>
         public static void UpdateWorkContactApprove(Model.Unqualified_WorkContactApprove workContactApprove)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Unqualified_WorkContactApprove newWorkContactApprove = db.Unqualified_WorkContactApprove.First(e => e.WorkContactApproveId == workContactApprove.WorkContactApproveId);
             newWorkContactApprove.WorkContactId = workContactApprove.WorkContactId;
             newWorkContactApprove.ApproveMan = workContactApprove.ApproveMan;

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ProjectEvaluationService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取项目绩效评价
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.ProjectSupervision_ProjectEvaluation GetPerfomanceRecordById(string perfomanceRecordId)
         {
-            return new Model.SGGLDB(Funs.ConnString).ProjectSupervision_ProjectEvaluation.FirstOrDefault(e => e.PerfomanceRecordId == perfomanceRecordId);
+            return Funs.DB.ProjectSupervision_ProjectEvaluation.FirstOrDefault(e => e.PerfomanceRecordId == perfomanceRecordId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="perfomanceRecord"></param>
         public static void AddPerfomanceRecord(Model.ProjectSupervision_ProjectEvaluation perfomanceRecord)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectSupervision_ProjectEvaluation newPerfomanceRecord = new Model.ProjectSupervision_ProjectEvaluation
             {
                 PerfomanceRecordId = perfomanceRecord.PerfomanceRecordId,
@@ -96,7 +96,7 @@ namespace BLL
         /// <param name="perfomanceRecord"></param>
         public static void UpdatePerfomanceRecord(Model.ProjectSupervision_ProjectEvaluation perfomanceRecord)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectSupervision_ProjectEvaluation newPerfomanceRecord = db.ProjectSupervision_ProjectEvaluation.FirstOrDefault(e => e.PerfomanceRecordId == perfomanceRecord.PerfomanceRecordId);
             if (newPerfomanceRecord != null)
             {
@@ -163,7 +163,7 @@ namespace BLL
         /// <param name="perfomanceRecordId"></param>
         public static void DeletePerfomanceRecordById(string perfomanceRecordId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectSupervision_ProjectEvaluation perfomanceRecord = db.ProjectSupervision_ProjectEvaluation.FirstOrDefault(e => e.PerfomanceRecordId == perfomanceRecordId);
             if (perfomanceRecord != null)
             {

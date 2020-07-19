@@ -12,14 +12,14 @@ namespace BLL
 {
     public class CheckControlService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
         /// <summary>
         /// 根据质量检查与控制Id删除一个质量检查与控制信息
         /// </summary>
         /// <param name="CheckControlId"></param>
         public static void DeleteCheckControl(string CheckControlId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckControl CheckControl = db.Check_CheckControl.First(e => e.CheckControlCode == CheckControlId);
             db.Check_CheckControl.DeleteOnSubmit(CheckControl);
             db.SubmitChanges();
@@ -41,7 +41,7 @@ namespace BLL
         /// <param name="CheckControl"></param>
         public static void AddCheckControl(Model.Check_CheckControl CheckControl)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckControl newCheckControl = new Model.Check_CheckControl();
             newCheckControl.CheckControlCode = CheckControl.CheckControlCode;
             newCheckControl.ProposeUnitId = CheckControl.ProposeUnitId;
@@ -105,7 +105,7 @@ namespace BLL
         /// <param name="CheckControlDetailId"></param>
         public static Model.Check_CheckControl GetCheckControl(string CheckControlCode)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_CheckControl.FirstOrDefault(e => e.CheckControlCode == CheckControlCode);
+            return Funs.DB.Check_CheckControl.FirstOrDefault(e => e.CheckControlCode == CheckControlCode);
         }
         public static Model.Check_CheckControl GetCheckControlForApi(string CheckControlCode)
         {
@@ -195,7 +195,7 @@ namespace BLL
         /// <param name="CheckControl"></param>
         public static void UpdateCheckControl(Model.Check_CheckControl CheckControl)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckControl newCheckControl = db.Check_CheckControl.First(e => e.CheckControlCode == CheckControl.CheckControlCode);
             newCheckControl.DocCode = CheckControl.DocCode;
             newCheckControl.ProposeUnitId = CheckControl.ProposeUnitId;
@@ -227,7 +227,7 @@ namespace BLL
                 List<string> ids = new List<string>();
                 if (!string.IsNullOrEmpty(name))
                 {
-                    var qunit = from u in new Model.SGGLDB(Funs.ConnString).Base_Unit
+                    var qunit = from u in Funs.DB.Base_Unit
                                 where u.UnitName.Contains(name)
                                 select u.UnitId;
                     ids = qunit.ToList();

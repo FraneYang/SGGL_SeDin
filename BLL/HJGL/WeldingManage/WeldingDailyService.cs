@@ -12,7 +12,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_WeldingDaily GetPipeline_WeldingDailyByWeldingDailyId(string WeldingDailyId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_WeldingDaily.FirstOrDefault(e => e.WeldingDailyId == WeldingDailyId);
+            return Funs.DB.HJGL_WeldingDaily.FirstOrDefault(e => e.WeldingDailyId == WeldingDailyId);
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace BLL
         /// <returns>焊接日报信息</returns>
         public static bool IsExistWeldingDailyCode(string weldingDailyCode, string weldingDailyId, string projectId)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).HJGL_WeldingDaily.FirstOrDefault(x => x.WeldingDailyCode == weldingDailyCode && x.ProjectId == projectId && x.WeldingDailyId != weldingDailyId);
+            var q = Funs.DB.HJGL_WeldingDaily.FirstOrDefault(x => x.WeldingDailyCode == weldingDailyCode && x.ProjectId == projectId && x.WeldingDailyId != weldingDailyId);
             if (q != null)
             {
                 return true;
@@ -41,7 +41,7 @@ namespace BLL
         public static List<Model.SpWeldingDailyItem> GetWeldingDailyItem(string weldingDailyId)
         {
             List<Model.SpWeldingDailyItem> returnViewMatch = new List<Model.SpWeldingDailyItem>();
-            var weldlineLists = from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint
+            var weldlineLists = from x in Funs.DB.View_HJGL_WeldJoint
                                 where x.WeldingDailyId == weldingDailyId
                                 select x;
             if (weldlineLists.Count() > 0)
@@ -119,7 +119,7 @@ namespace BLL
                     {
                         //if (returnViewMatch.FirstOrDefault(x => x.JOT_ID == jotItem) == null)
                         //{
-                        var jot= new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldlineItem);
+                        var jot= Funs.DB.View_HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldlineItem);
                         //var weldline = BLL.Pipeline_WeldJointService.GetViewWeldJointById(weldlineItem);
                         if (jot != null)
                         {
@@ -183,8 +183,8 @@ namespace BLL
         {
             List<Model.SpWeldingDailyItem> returnViewMatch = new List<Model.SpWeldingDailyItem>();
             // 组批条件的字段不能为空
-            //var jotLists = from x in new Model.SGGLDB(Funs.ConnString).HJGL_PW_JointInfo
-            //               join y in new Model.SGGLDB(Funs.ConnString).HJGL_PW_IsoInfo on x.ISO_ID equals y.ISO_ID
+            //var jotLists = from x in Funs.DB.HJGL_PW_JointInfo
+            //               join y in Funs.DB.HJGL_PW_IsoInfo on x.ISO_ID equals y.ISO_ID
             //               where x.InstallationId != null && x.JOTY_ID != null && x.NDTR_ID != null && x.IsSpecial != null
             //                  && y.ISC_ID != null && y.SER_ID != null && y.STE_ID != null && y.ISO_Executive != null
             //                  && x.ProjectId == projectId && x.ISO_ID == pipelineId
@@ -192,11 +192,11 @@ namespace BLL
             //               select x;
 
             //// 预提交焊口
-            //var pre_JotId = from x in new Model.SGGLDB(Funs.ConnString).HJGL_BO_PreWeldReportMain
-            //                join y in new Model.SGGLDB(Funs.ConnString).HJGL_PW_JointInfo on x.JOT_ID equals y.JOT_ID
+            //var pre_JotId = from x in Funs.DB.HJGL_BO_PreWeldReportMain
+            //                join y in Funs.DB.HJGL_PW_JointInfo on x.JOT_ID equals y.JOT_ID
             //                where x.ProjectId == projectId && y.ISO_ID == pipelineId
             //                select x.JOT_ID;
-            var weldlineLists = from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint
+            var weldlineLists = from x in Funs.DB.View_HJGL_WeldJoint
                                 where x.PipelineId == pipelineId &&
                                       (x.WeldingDailyId == null || x.WeldingDailyId == weldingDailyId)
                                 select x;
@@ -224,7 +224,7 @@ namespace BLL
         /// <param name="WeldingDaily"></param>
         public static void AddWeldingDaily(Model.HJGL_WeldingDaily WeldingDaily)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_WeldingDaily newWeldingDaily = new HJGL_WeldingDaily
             {
                 WeldingDailyId = WeldingDaily.WeldingDailyId,
@@ -248,7 +248,7 @@ namespace BLL
         /// <param name="WeldingDaily"></param>
         public static void UpdateWeldingDaily(Model.HJGL_WeldingDaily WeldingDaily)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_WeldingDaily newWeldingDaily = db.HJGL_WeldingDaily.FirstOrDefault(e => e.WeldingDailyId == WeldingDaily.WeldingDailyId);
             if (newWeldingDaily != null)
             {
@@ -269,7 +269,7 @@ namespace BLL
         /// <param name="WeldingDailyId"></param>
         public static void DeleteWeldingDaily(string WeldingDailyId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_WeldingDaily delWeldingDaily = db.HJGL_WeldingDaily.FirstOrDefault(e => e.WeldingDailyId == WeldingDailyId);
             if (delWeldingDaily != null)
             {
@@ -285,7 +285,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_WeldingDaily> GetPipeline_WeldingDailyList(string unitId)
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldingDaily
+            var list = (from x in Funs.DB.HJGL_WeldingDaily
                         where x.UnitId == unitId
                         orderby x.WeldingDailyCode
                         select x).ToList();

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EquipmentInItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取特种设备机具入场报批明细信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InApproveManager_EquipmentInItem GetEquipmentInItemById(string equipmentInItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InApproveManager_EquipmentInItem.FirstOrDefault(e => e.EquipmentInItemId == equipmentInItemId);
+            return Funs.DB.InApproveManager_EquipmentInItem.FirstOrDefault(e => e.EquipmentInItemId == equipmentInItemId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.InApproveManager_EquipmentInItem> GetEquipmentInItemByEquipmentInId(string equipmentInId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).InApproveManager_EquipmentInItem where x.EquipmentInId == equipmentInId select x).ToList();
+            return (from x in Funs.DB.InApproveManager_EquipmentInItem where x.EquipmentInId == equipmentInId select x).ToList();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="equipmentInItem"></param>
         public static void AddEquipmentInItem(Model.InApproveManager_EquipmentInItem equipmentInItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentInItem newEquipmentItem = new Model.InApproveManager_EquipmentInItem
             {
                 EquipmentInItemId = equipmentInItem.EquipmentInItemId,
@@ -64,7 +64,7 @@ namespace BLL
         /// <param name="equipmentInItem"></param>
         public static void UpdateEquipmentInItem(Model.InApproveManager_EquipmentInItem equipmentInItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentInItem newEquipmentItem = db.InApproveManager_EquipmentInItem.FirstOrDefault(e => e.EquipmentInItemId == equipmentInItem.EquipmentInItemId);
             if (newEquipmentItem != null)
             {
@@ -89,7 +89,7 @@ namespace BLL
         /// <param name="equipmentInItemId"></param>
         public static void DeleteEquipmentInItemById(string equipmentInItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentInItem equipmenetInItem = db.InApproveManager_EquipmentInItem.FirstOrDefault(e => e.EquipmentInItemId == equipmentInItemId);
             if (equipmenetInItem != null)
             {
@@ -104,8 +104,8 @@ namespace BLL
         /// <param name="equipmentInId"></param>
         public static void DeleteEquipmentInItemByEquipmentInId(string equipmentInId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).InApproveManager_EquipmentInItem where x.EquipmentInId == equipmentInId select x).ToList();
+            Model.SGGLDB db = Funs.DB;
+            var q = (from x in Funs.DB.InApproveManager_EquipmentInItem where x.EquipmentInId == equipmentInId select x).ToList();
             if (q != null)
             {
                 db.InApproveManager_EquipmentInItem.DeleteAllOnSubmit(q);

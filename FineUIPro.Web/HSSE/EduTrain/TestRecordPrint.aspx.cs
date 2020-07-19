@@ -80,7 +80,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                             }
 
                             this.lbTestPerson.Text = personInfo;
-                            var attachFile = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == this.TestRecordId);
+                            var attachFile = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.TestRecordId);
                             if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
                             {
                                 List<string> listUrl = Funs.GetStrListByStr(attachFile.AttachUrl, ',');

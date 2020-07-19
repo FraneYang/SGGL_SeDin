@@ -11,7 +11,7 @@ namespace BLL
     /// </summary>
     public static class CostManageItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键删除费用管理明细
@@ -20,7 +20,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.CostGoods_CostManageItem GetCostManageItemById(string costManageItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).CostGoods_CostManageItem.FirstOrDefault(e => e.CostManageItemId == costManageItemId);
+            return Funs.DB.CostGoods_CostManageItem.FirstOrDefault(e => e.CostManageItemId == costManageItemId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.CostGoods_CostManageItem> GetCostManageItemByCostManageId(string costManageId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostManageItem where x.CostManageId == costManageId select x).ToList();
+            return (from x in Funs.DB.CostGoods_CostManageItem where x.CostManageId == costManageId select x).ToList();
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.CostGoods_CostManageItem> GetCostManageItemByUnitIdAndDate(string projectId, string unidId, DateTime date)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostManageItem
-                    join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostManage
+            return (from x in Funs.DB.CostGoods_CostManageItem
+                    join y in Funs.DB.CostGoods_CostManage
                     on x.CostManageId equals y.CostManageId
                     where y.ProjectId == projectId && y.UnitId == unidId
                     && y.CostManageDate.Value.Year == date.Year && y.CostManageDate.Value.Month == date.Month
@@ -54,7 +54,7 @@ namespace BLL
         /// <param name="costManageItem"></param>
         public static void AddCostManageItem(Model.CostGoods_CostManageItem costManageItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostManageItem newCostManageItem = new Model.CostGoods_CostManageItem
             {
                 CostManageItemId = costManageItem.CostManageItemId,
@@ -77,7 +77,7 @@ namespace BLL
         /// <param name="costManageItem"></param>
         public static void UpdateCostManageItem(Model.CostGoods_CostManageItem costManageItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostManageItem newCostManageItem = db.CostGoods_CostManageItem.FirstOrDefault(e => e.CostManageItemId == costManageItem.CostManageItemId);
             if (newCostManageItem != null)
             {
@@ -99,7 +99,7 @@ namespace BLL
         /// <param name="costManageId"></param>
         public static void DeleteCostManageItemByCostManageId(string costManageId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.CostGoods_CostManageItem where x.CostManageId == costManageId select x).ToList();
             if (q != null)
             {
@@ -114,7 +114,7 @@ namespace BLL
         /// <param name="costManageItemId"></param>
         public static void DeleteCostManageItemById(string costManageItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostManageItem costManageItem = db.CostGoods_CostManageItem.FirstOrDefault(e => e.CostManageItemId == costManageItemId);
             if (costManageItem != null)
             {

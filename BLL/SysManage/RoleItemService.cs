@@ -8,7 +8,7 @@ namespace BLL
 {
     public static class RoleItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取角色明细信息
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns>用户信息</returns>
         public static Model.Sys_RoleItem GeRoleItemByUserId(string userId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Sys_RoleItem.FirstOrDefault(e => e.UserId == userId);
+            return Funs.DB.Sys_RoleItem.FirstOrDefault(e => e.UserId == userId);
         }
         /// <summary>
         /// 增加
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="newitem">实体</param>
         public static void AddRoleItem(Model.Sys_RoleItem newitem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Sys_RoleItem));
             Model.Sys_RoleItem newUser = new Model.Sys_RoleItem
             {
@@ -45,7 +45,7 @@ namespace BLL
         /// <param name="user">实体</param>
         public static void UpdateRoleItem(Model.Sys_RoleItem NewRole)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Sys_RoleItem item = db.Sys_RoleItem.FirstOrDefault(e => e.UserId == NewRole.UserId);
             if (item != null)
             {
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="userId"></param>
         public static void DeleteRoleItem(string userId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Sys_RoleItem user = db.Sys_RoleItem.FirstOrDefault(e => e.UserId == userId);
             if (user != null)
             {

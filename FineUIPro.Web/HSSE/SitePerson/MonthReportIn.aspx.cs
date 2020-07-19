@@ -162,8 +162,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var units = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit select x;
-                var posts = from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost select x;
+                var units = from x in Funs.DB.Base_Unit select x;
+                var posts = from x in Funs.DB.Base_WorkPost select x;
                 for (int i = 0; i < ir; i++)
                 {
                     string col0 = pds.Rows[i][0].ToString().Trim();
@@ -325,8 +325,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var units = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit select x;
-                var posts = from x in new Model.SGGLDB(Funs.ConnString).Base_WorkPost select x;
+                var units = from x in Funs.DB.Base_Unit select x;
+                var posts = from x in Funs.DB.Base_WorkPost select x;
                 for (int i = 0; i < ir; i++)
                 {
                     Model.View_MonthReportView monthReportView = new Model.View_MonthReportView();

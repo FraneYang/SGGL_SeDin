@@ -487,7 +487,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             }
             else
             {
-                Model.InformationProject_SafetyQuarterlyReport oldSafetyQuarterlyReport = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_SafetyQuarterlyReport
+                Model.InformationProject_SafetyQuarterlyReport oldSafetyQuarterlyReport = (from x in Funs.DB.InformationProject_SafetyQuarterlyReport
                                                                                            where x.ProjectId == safetyQuarterlyReport.ProjectId && x.YearId == safetyQuarterlyReport.YearId && x.Quarters == safetyQuarterlyReport.Quarters
                                                                                            select x).FirstOrDefault();
                 if (oldSafetyQuarterlyReport == null)
@@ -497,7 +497,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     BLL.ProjectSafetyQuarterlyReportService.AddSafetyQuarterlyReport(safetyQuarterlyReport);
                     BLL.LogService.AddSys_Log(this.CurrUser, safetyQuarterlyReport.YearId.ToString() + "-" + safetyQuarterlyReport.Quarters.ToString(), safetyQuarterlyReport.SafetyQuarterlyReportId, BLL.Const.ProjectSafetyQuarterlyReportMenuId, BLL.Const.BtnAdd);
                     ////删除未上报月报信息
-                    //Model.ManagementReport_ReportRemind reportRemind = (from x in new Model.SGGLDB(Funs.ConnString).ManagementReport_ReportRemind
+                    //Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                     //                                                    where x.ProjectId == this.ProjectId && x.Year == safetyQuarterlyReport.YearId && x.Quarterly == safetyQuarterlyReport.Quarters && x.ReportName == "安全生产数据季报"
                     //                                                    select x).FirstOrDefault();
                     //if (reportRemind != null)

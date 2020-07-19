@@ -9,7 +9,7 @@ namespace BLL
     /// </summary>
     public static class IncentiveNoticeService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取奖励通知单
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_IncentiveNotice GetIncentiveNoticeById(string incentiveNoticeId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_IncentiveNotice.FirstOrDefault(e => e.IncentiveNoticeId == incentiveNoticeId);
+            return Funs.DB.Check_IncentiveNotice.FirstOrDefault(e => e.IncentiveNoticeId == incentiveNoticeId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns>HSE奖励通知单集合</returns>
         public static List<Model.Check_IncentiveNotice> GetIncentiveNoticeListsByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_IncentiveNotice where x.IncentiveDate >= startTime && x.IncentiveDate <= endTime && x.ProjectId == projectId orderby x.IncentiveDate select x).ToList();
+            return (from x in Funs.DB.Check_IncentiveNotice where x.IncentiveDate >= startTime && x.IncentiveDate <= endTime && x.ProjectId == projectId orderby x.IncentiveDate select x).ToList();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace BLL
         /// <returns>时间段内的HSE奖励通知单集合</returns>
         public static int GetCountByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_IncentiveNotice where x.IncentiveDate >= startTime && x.IncentiveDate <= endTime && x.ProjectId == projectId select x).Count();
+            return (from x in Funs.DB.Check_IncentiveNotice where x.IncentiveDate >= startTime && x.IncentiveDate <= endTime && x.ProjectId == projectId select x).Count();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace BLL
         /// <returns>时间段内的HSE奖励通知单奖励总金额</returns>
         public static decimal GetSumMoneyByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_IncentiveNotice where x.IncentiveDate >= startTime && x.IncentiveDate <= endTime && x.ProjectId == projectId select x).ToList();
+            var q = (from x in Funs.DB.Check_IncentiveNotice where x.IncentiveDate >= startTime && x.IncentiveDate <= endTime && x.ProjectId == projectId select x).ToList();
             if (q.Count > 0)
             {
                 return (from x in q select x.IncentiveMoney ?? 0).Sum();
@@ -72,7 +72,7 @@ namespace BLL
         /// <returns></returns>
         public static decimal? GetSumMoney(string projectId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             decimal? sumRewardMoney = (from x in db.Check_IncentiveNotice
                                        where
                                        x.ProjectId == projectId && x.States == BLL.Const.State_2
@@ -94,7 +94,7 @@ namespace BLL
         /// <returns></returns>
         public static decimal? GetSumMoneyByTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             decimal? sumRewardMoney = (from x in db.Check_IncentiveNotice
                                        where
                                        x.IncentiveDate >= startTime && x.IncentiveDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2
@@ -116,7 +116,7 @@ namespace BLL
         /// <returns></returns>
         public static decimal? GetSumMoneyByTimeAndType(DateTime startTime, DateTime endTime, string rewardType, string projectId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             decimal? sumRewardMoney = (from x in db.Check_IncentiveNotice
                                        where
                                        x.RewardType == rewardType &&
@@ -135,7 +135,7 @@ namespace BLL
         /// <param name="incentiveNotice"></param>
         public static void AddIncentiveNotice(Model.Check_IncentiveNotice incentiveNotice)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_IncentiveNotice newIncentiveNotice = new Model.Check_IncentiveNotice
             {
                 IncentiveNoticeId = incentiveNotice.IncentiveNoticeId,
@@ -170,7 +170,7 @@ namespace BLL
         /// <param name="incentiveNotice"></param>
         public static void UpdateIncentiveNotice(Model.Check_IncentiveNotice incentiveNotice)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_IncentiveNotice newIncentiveNotice = db.Check_IncentiveNotice.FirstOrDefault(e => e.IncentiveNoticeId == incentiveNotice.IncentiveNoticeId);
             if (newIncentiveNotice != null)
             {
@@ -203,7 +203,7 @@ namespace BLL
         /// <param name="incentiveNoticeId"></param>
         public static void DeleteIncentiveNoticeById(string incentiveNoticeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_IncentiveNotice incentiveNotice = db.Check_IncentiveNotice.FirstOrDefault(e => e.IncentiveNoticeId == incentiveNoticeId);
             if (incentiveNotice != null)
             {

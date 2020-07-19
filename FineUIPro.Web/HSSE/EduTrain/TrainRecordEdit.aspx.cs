@@ -102,7 +102,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                         this.txtTrainPersonNum.Text = Convert.ToString(trainRecord.TrainPersonNum);
                     }
                     this.txtTrainContent.Text = trainRecord.TrainContent;                   
-                    trainRecordDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_EduTrain_TrainRecordDetail
+                    trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail
                                           where x.TrainingId == this.TrainingId
                                           orderby x.UnitName,x.PersonName
                                           select x).ToList();
@@ -342,7 +342,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="e"></param>
         protected void Window1_Close(object sender, EventArgs e)
         {
-            trainRecordDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_EduTrain_TrainRecordDetail where x.TrainingId == this.TrainingId orderby x.UnitName select x).ToList();
+            trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail where x.TrainingId == this.TrainingId orderby x.UnitName select x).ToList();
             Grid1.DataSource = trainRecordDetails;
             Grid1.DataBind();
             this.txtTrainPersonNum.Text = trainRecordDetails.Count.ToString();
@@ -365,7 +365,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     BLL.EduTrain_TrainRecordDetailService.DeleteTrainDetailByTrainDetail(rowID);
                 }
                 
-                trainRecordDetails = (from x in new Model.SGGLDB(Funs.ConnString).View_EduTrain_TrainRecordDetail where x.TrainingId == this.TrainingId orderby x.UnitName select x).ToList();
+                trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail where x.TrainingId == this.TrainingId orderby x.UnitName select x).ToList();
                 this.Grid1.DataSource = trainRecordDetails;
                 this.Grid1.DataBind();
                 this.txtTrainPersonNum.Text = trainRecordDetails.Count.ToString();              
@@ -449,17 +449,17 @@ namespace FineUIPro.Web.HSSE.EduTrain
         protected string GetCheckScore(object TrainDetailId)
         {
             string values = string.Empty;
-            var getTrainRecordDetail = new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainDetailId == TrainDetailId.ToString());
+            var getTrainRecordDetail = Funs.DB.EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainDetailId == TrainDetailId.ToString());
             if (getTrainRecordDetail != null)
             {
-                var getTrainRecord = new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord.FirstOrDefault(x => x.TrainingId == getTrainRecordDetail.TrainingId);
+                var getTrainRecord = Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.TrainingId == getTrainRecordDetail.TrainingId);
                 if (getTrainRecord != null)
                 {
-                    var getTestPlan = new Model.SGGLDB(Funs.ConnString).Training_TestPlan.FirstOrDefault(x => x.PlanId == getTrainRecord.PlanId);
+                    var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.PlanId == getTrainRecord.PlanId);
                     if (getTestPlan != null)
                     {
                         decimal? scors = 0;
-                        var getTestRecord = new Model.SGGLDB(Funs.ConnString).Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == getTrainRecordDetail.PersonId);
+                        var getTestRecord = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == getTrainRecordDetail.PersonId);
                         foreach (var item in getTestRecord)
                         {
                             if (scors == 0)

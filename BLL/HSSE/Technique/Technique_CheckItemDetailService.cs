@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class Technique_CheckItemDetailService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取检查项明细
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Technique_CheckItemDetail GetCheckItemDetailById(string checkItemDetailId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Technique_CheckItemDetail.FirstOrDefault(e => e.CheckItemDetailId == checkItemDetailId);
+            return Funs.DB.Technique_CheckItemDetail.FirstOrDefault(e => e.CheckItemDetailId == checkItemDetailId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="checkItemDetail"></param>
         public static void AddCheckItemDetail(Model.Technique_CheckItemDetail checkItemDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_CheckItemDetail newCheckItemDetail = new Model.Technique_CheckItemDetail
             {
                 CheckItemDetailId = checkItemDetail.CheckItemDetailId,
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="checkItemDetail"></param>
         public static void UpdateCheckItemDetail(Model.Technique_CheckItemDetail checkItemDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_CheckItemDetail newCheckItemDetail = db.Technique_CheckItemDetail.FirstOrDefault(e => e.CheckItemDetailId == checkItemDetail.CheckItemDetailId);
             if (newCheckItemDetail != null)
             {
@@ -64,7 +64,7 @@ namespace BLL
         /// <param name="checkItemDetailId"></param>
         public static void DeleteCheckItemDetail(string checkItemDetailId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_CheckItemDetail checkItemDetail = db.Technique_CheckItemDetail.FirstOrDefault(e => e.CheckItemDetailId == checkItemDetailId);
             if (checkItemDetail != null)
             {
@@ -79,7 +79,7 @@ namespace BLL
         /// <param name="rectifyId"></param>
         public static void DeleteCheckItemDetailByCheckItemSetId(string checkItemSetId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Technique_CheckItemDetail where x.CheckItemSetId == checkItemSetId select x).ToList();
             if (q.Count() > 0)
             {
@@ -98,10 +98,10 @@ namespace BLL
             string type = string.Empty;
             if (CheckItem != null)
             {
-                var detail = new Model.SGGLDB(Funs.ConnString).Technique_CheckItemDetail.FirstOrDefault(e => e.CheckItemDetailId == CheckItem.ToString());
+                var detail = Funs.DB.Technique_CheckItemDetail.FirstOrDefault(e => e.CheckItemDetailId == CheckItem.ToString());
                 if (detail != null)
                 {
-                    var item = new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet.FirstOrDefault (x=>x.CheckItemSetId == detail.CheckItemSetId);
+                    var item = Funs.DB.Technique_CheckItemSet.FirstOrDefault (x=>x.CheckItemSetId == detail.CheckItemSetId);
                     if (item != null)
                     {
                         if (item.SupCheckItem == "0")
@@ -116,7 +116,7 @@ namespace BLL
                 }
                 else
                 {
-                    var  item = new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet.FirstOrDefault(x => x.CheckItemSetId == CheckItem.ToString());
+                    var  item = Funs.DB.Technique_CheckItemSet.FirstOrDefault(x => x.CheckItemSetId == CheckItem.ToString());
                     if (item != null)
                     {
                         if (item.SupCheckItem == "0")
@@ -141,7 +141,7 @@ namespace BLL
         public static string GetCheckItemNameBySupCheckItem(string supCheckItem)
         {
             string name = string.Empty;
-            var checkItemSet = new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet.FirstOrDefault(e => e.CheckItemSetId == supCheckItem);
+            var checkItemSet = Funs.DB.Technique_CheckItemSet.FirstOrDefault(e => e.CheckItemSetId == supCheckItem);
             if (checkItemSet != null)
             {
                 if (checkItemSet.SupCheckItem == "0")

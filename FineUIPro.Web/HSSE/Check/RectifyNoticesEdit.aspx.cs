@@ -425,7 +425,7 @@ namespace FineUIPro.Web.HSSE.Check
                     System.Web.UI.WebControls.TextBox txtlimitTim = (System.Web.UI.WebControls.TextBox)Grid1.Rows[i].FindControl("txtLimitTimes");
                     System.Web.UI.WebControls.DropDownList drpIsRect = (System.Web.UI.WebControls.DropDownList)Grid1.Rows[i].FindControl("drpIsRectify");
                     string limitTime = txtlimitTim.Text.Trim();
-                        Model.Check_RectifyNoticesItem rectifyNoticesItem = new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesItem.FirstOrDefault(e => e.RectifyNoticesItemId == rectifyNoticesItemId);
+                        Model.Check_RectifyNoticesItem rectifyNoticesItem = Funs.DB.Check_RectifyNoticesItem.FirstOrDefault(e => e.RectifyNoticesItemId == rectifyNoticesItemId);
                         if (rectifyNoticesItem != null)
                         {
                             rectifyNoticesItem.RectifyNoticesItemId = rectifyNoticesItemId;
@@ -438,7 +438,7 @@ namespace FineUIPro.Web.HSSE.Check
                             {
                                     rectifyNoticesItem.IsRectify = Convert.ToBoolean(drpIsRect.SelectedValue);
                             }
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                     
                     else
@@ -457,8 +457,8 @@ namespace FineUIPro.Web.HSSE.Check
                                 item.IsRectify = Convert.ToBoolean(drpIsRect.SelectedValue);
                         }
 
-                        new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesItem.InsertOnSubmit(item);
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.Check_RectifyNoticesItem.InsertOnSubmit(item);
+                        Funs.DB.SubmitChanges();
                     }
                     //item.RectifyResults = Grid1.Rows[i].Values[3].ToString()
                 }
@@ -879,7 +879,7 @@ namespace FineUIPro.Web.HSSE.Check
             }
             else
             {
-                var isUpdate = new Model.SGGLDB(Funs.ConnString).Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == RectifyNoticesId);
+                var isUpdate = Funs.DB.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == RectifyNoticesId);
                 if (isUpdate != null)
                 {
                     if (string.IsNullOrEmpty(isUpdate.States))
@@ -926,13 +926,13 @@ namespace FineUIPro.Web.HSSE.Check
                             OperateTime = DateTime.Now,
 
                         };
-                        new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
+                        Funs.DB.SubmitChanges();
                     }
 
                     
                     saveNoticesItemDetail();
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.SubmitChanges();
                 }
                 else if (Notices.States == "2") ////总包单位项目安全经理 审核
                 {
@@ -967,7 +967,7 @@ namespace FineUIPro.Web.HSSE.Check
                             return;
                         }
                         Notices.States = isUpdate.States = "2";
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
 
                     }
                     Model.Check_RectifyNoticesFlowOperate newOItem = new Model.Check_RectifyNoticesFlowOperate
@@ -981,8 +981,8 @@ namespace FineUIPro.Web.HSSE.Check
                         OperateTime = DateTime.Now,
 
                     };
-                    new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
+                    Funs.DB.SubmitChanges();
 
                 }
                 else if (Notices.States == "3") /// 施工单位项目安全经理 整改 提交施工单位项目负责人
@@ -993,11 +993,11 @@ namespace FineUIPro.Web.HSSE.Check
                     //{
                     //    foreach (var rItem in getViewList)
                     //    {
-                    //        var getUpdateItem = new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesItem.FirstOrDefault(x => x.RectifyNoticesItemId == rItem.RectifyNoticesItemId);
+                    //        var getUpdateItem = Funs.DB.Check_RectifyNoticesItem.FirstOrDefault(x => x.RectifyNoticesItemId == rItem.RectifyNoticesItemId);
                     //        if (getUpdateItem != null)
                     //        {
                     //            getUpdateItem.RectifyResults = rItem.RectifyResults;
-                    //            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    //            Funs.DB.SubmitChanges();
                     //        }
                     //    }
                     //}
@@ -1013,7 +1013,7 @@ namespace FineUIPro.Web.HSSE.Check
                         Alert.ShowInTop("施工单位负责人不能为空！", MessageBoxIcon.Warning);
                         return;
                     }
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.SubmitChanges();
                     Model.Check_RectifyNoticesFlowOperate newOItem = new Model.Check_RectifyNoticesFlowOperate
                     {
                         FlowOperateId = SQLHelper.GetNewID(typeof(Model.Check_RectifyNoticesFlowOperate)),
@@ -1023,8 +1023,8 @@ namespace FineUIPro.Web.HSSE.Check
                         OperateTime = DateTime.Now,
 
                     };
-                    new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
+                    Funs.DB.SubmitChanges();
 
                 }
                 else if (Notices.States == "4")
@@ -1047,7 +1047,7 @@ namespace FineUIPro.Web.HSSE.Check
                             Alert.ShowInTop("安全经理/安全工程师不能为空！", MessageBoxIcon.Warning);
                             return;
                         }
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
 
                     }
                     Model.Check_RectifyNoticesFlowOperate newOItem = new Model.Check_RectifyNoticesFlowOperate
@@ -1061,8 +1061,8 @@ namespace FineUIPro.Web.HSSE.Check
                         OperateTime = DateTime.Now,
 
                     };
-                    new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
+                    Funs.DB.SubmitChanges();
                     
                 }
 
@@ -1083,14 +1083,14 @@ namespace FineUIPro.Web.HSSE.Check
                         isUpdate.ReCheckDate = DateTime.Now;
                         Notices.States = isUpdate.States = "5";
                     }
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.SubmitChanges();
                     //// 整改明细反馈
                     // var getViewList = this.CollectGridInfo();
                     //if (getViewList != null && getViewList.Count() > 0)
                     //{
                     //    foreach (var rItem in getViewList)
                     //    {
-                    //        var getUpdateItem = new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesItem.FirstOrDefault(x => x.RectifyNoticesItemId == rItem.RectifyNoticesItemId);
+                    //        var getUpdateItem = Funs.DB.Check_RectifyNoticesItem.FirstOrDefault(x => x.RectifyNoticesItemId == rItem.RectifyNoticesItemId);
                     //        if (getUpdateItem != null)
                     //        {
                     //            if (this.drpReCheckOpinion.SelectedValue.Equals("false"))
@@ -1102,19 +1102,19 @@ namespace FineUIPro.Web.HSSE.Check
                     //                getUpdateItem.IsRectify = true;
                     //            }
 
-                    //            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    //            Funs.DB.SubmitChanges();
                     //        }
                     //    }
                     //}
                     //// 回写专项检查明细表                            
-                    var getcheck = from x in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecialDetail where x.RectifyNoticeId == isUpdate.RectifyNoticesId select x;
+                    var getcheck = from x in Funs.DB.Check_CheckSpecialDetail where x.RectifyNoticeId == isUpdate.RectifyNoticesId select x;
                     if (getcheck.Count() > 0)
                     {
                         foreach (var item in getcheck)
                         {
                             item.CompleteStatus = true;
                             item.CompletedDate = DateTime.Now;
-                            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                            Funs.DB.SubmitChanges();
                         }
                     }
                     bool flag = false;
@@ -1133,8 +1133,8 @@ namespace FineUIPro.Web.HSSE.Check
                         OperateTime = DateTime.Now,
 
                     };
-                    new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
+                    Funs.DB.SubmitChanges();
                     saveNoticesItemDetail();
                 }
             }
@@ -1175,8 +1175,8 @@ namespace FineUIPro.Web.HSSE.Check
                     OperateTime = DateTime.Now,
 
                 };
-                new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
+                Funs.DB.SubmitChanges();
                 saveNoticesItemDetail();
 
                 //var getViewList = this.CollectGridInfo();
@@ -1191,8 +1191,8 @@ namespace FineUIPro.Web.HSSE.Check
                 //                            };
                 //if (getRectifyNoticesItem.Count() > 0)
                 //{
-                //    new Model.SGGLDB(Funs.ConnString).Check_RectifyNoticesItem.InsertAllOnSubmit(getRectifyNoticesItem);
-                //    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                //    Funs.DB.Check_RectifyNoticesItem.InsertAllOnSubmit(getRectifyNoticesItem);
+                //    Funs.DB.SubmitChanges();
                 //}
             }
 

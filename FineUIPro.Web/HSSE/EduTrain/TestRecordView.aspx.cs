@@ -38,7 +38,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                 {
                     if (Request.Params["type"] == "1")
                     {
-                        var testRecordItem =new Model.SGGLDB(Funs.ConnString).Test_TestRecordItem.FirstOrDefault (x=>x.TestRecordItemId == this.TestRecordItemId);
+                        var testRecordItem =Funs.DB.Test_TestRecordItem.FirstOrDefault (x=>x.TestRecordItemId == this.TestRecordItemId);
                         if (testRecordItem != null)
                         {
                             this.txtAbstracts.Text = testRecordItem.Abstracts;

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EmergencySupplyService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取应急物资管理
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Emergency_EmergencySupply GetEmergencySupplyById(string fileId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Emergency_EmergencySupply.FirstOrDefault(e => e.FileId == fileId);
+            return Funs.DB.Emergency_EmergencySupply.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="EmergencySupply"></param>
         public static void AddEmergencySupply(Model.Emergency_EmergencySupply EmergencySupply)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencySupply newEmergencySupply = new Model.Emergency_EmergencySupply
             {
                 FileId = EmergencySupply.FileId,
@@ -54,7 +54,7 @@ namespace BLL
         /// <param name="EmergencySupply"></param>
         public static void UpdateEmergencySupply(Model.Emergency_EmergencySupply EmergencySupply)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencySupply newEmergencySupply = db.Emergency_EmergencySupply.FirstOrDefault(e => e.FileId == EmergencySupply.FileId);
             if (newEmergencySupply != null)
             {
@@ -76,7 +76,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteEmergencySupplyById(string FileId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencySupply EmergencySupply = db.Emergency_EmergencySupply.FirstOrDefault(e => e.FileId == FileId);
             if (EmergencySupply != null)
             {

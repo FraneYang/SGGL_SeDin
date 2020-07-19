@@ -11,7 +11,7 @@ namespace BLL
     /// </summary>
     public static class EduTrain_TrainRecordService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据教育培训主键获取教育培训信息
@@ -20,7 +20,7 @@ namespace BLL
         /// <returns>教育培训信息</returns>
         public static Model.EduTrain_TrainRecord GetTrainingByTrainingId(string trainingId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord where x.TrainingId == trainingId select x).FirstOrDefault();
+            return (from x in Funs.DB.EduTrain_TrainRecord where x.TrainingId == trainingId select x).FirstOrDefault();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <param name="training">教育培训实体</param>
         public static void AddTraining(Model.EduTrain_TrainRecord training)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_TrainRecord newTraining = new Model.EduTrain_TrainRecord
             {
                 TrainingId = training.TrainingId,
@@ -75,7 +75,7 @@ namespace BLL
         /// <param name="training">教育培训实体</param>
         public static void UpdateTraining(Model.EduTrain_TrainRecord training)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_TrainRecord newTraining = db.EduTrain_TrainRecord.FirstOrDefault(e => e.TrainingId == training.TrainingId);
             if (newTraining != null)
             {
@@ -113,7 +113,7 @@ namespace BLL
         /// <param name="trainingId">教育培训主键</param>
         public static void DeleteTrainingByTrainingId(string trainingId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_TrainRecord training = db.EduTrain_TrainRecord.FirstOrDefault(e => e.TrainingId == trainingId);
             if (training != null)
             {
@@ -134,22 +134,22 @@ namespace BLL
 
         public static List<Model.EduTrain_TrainRecord> GetTrainingsByTrainDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord where x.TrainStartDate >= startTime && x.TrainStartDate < endTime && x.ProjectId == projectId select x).ToList();
+            return (from x in Funs.DB.EduTrain_TrainRecord where x.TrainStartDate >= startTime && x.TrainStartDate < endTime && x.ProjectId == projectId select x).ToList();
         }
 
         public static int GetCountByTrainDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord where x.TrainStartDate >= startTime && x.TrainStartDate < endTime && x.ProjectId == projectId select x).Count();
+            return (from x in Funs.DB.EduTrain_TrainRecord where x.TrainStartDate >= startTime && x.TrainStartDate < endTime && x.ProjectId == projectId select x).Count();
         }
 
         public static List<Model.EduTrain_TrainRecord> GetTrainingsByTrainType(DateTime time, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord where x.TrainStartDate < time && x.ProjectId == projectId select x).ToList();
+            return (from x in Funs.DB.EduTrain_TrainRecord where x.TrainStartDate < time && x.ProjectId == projectId select x).ToList();
         }
 
         public static int GetCount(DateTime time, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord where x.TrainStartDate < time && x.ProjectId == projectId select x).Count();
+            return (from x in Funs.DB.EduTrain_TrainRecord where x.TrainStartDate < time && x.ProjectId == projectId select x).Count();
         }
     }
 }

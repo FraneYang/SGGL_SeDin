@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Pipeline GetPipelineByPipelineId(string pipelineId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline.FirstOrDefault(e => e.PipelineId == pipelineId);
+            return Funs.DB.HJGL_Pipeline.FirstOrDefault(e => e.PipelineId == pipelineId);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.View_HJGL_Pipeline GetViewPipelineByPipelineId(string pipelineId)
         {
-            return new Model.SGGLDB(Funs.ConnString).View_HJGL_Pipeline.FirstOrDefault(e => e.PipelineId == pipelineId);
+            return Funs.DB.View_HJGL_Pipeline.FirstOrDefault(e => e.PipelineId == pipelineId);
         }
 
         /// <summary>
@@ -36,15 +36,15 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistPipelineCode(string pipelineCode, string workAreaId, string PipelineId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Pipeline q = null;
             if (!string.IsNullOrEmpty(PipelineId))
             {
-                q = new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline.FirstOrDefault(x => x.PipelineCode == pipelineCode && x.UnitWorkId == workAreaId && x.PipelineId != PipelineId);
+                q = Funs.DB.HJGL_Pipeline.FirstOrDefault(x => x.PipelineCode == pipelineCode && x.UnitWorkId == workAreaId && x.PipelineId != PipelineId);
             }
             else
             {
-                q = new Model.SGGLDB(Funs.ConnString).HJGL_Pipeline.FirstOrDefault(x => x.PipelineCode == pipelineCode && x.UnitWorkId == workAreaId);
+                q = Funs.DB.HJGL_Pipeline.FirstOrDefault(x => x.PipelineCode == pipelineCode && x.UnitWorkId == workAreaId);
             }
 
             if (q != null)
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="pipeline"></param>
         public static void AddPipeline(Model.HJGL_Pipeline pipeline)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Pipeline newPipeline = new Model.HJGL_Pipeline();
             newPipeline.PipelineId = pipeline.PipelineId;
             newPipeline.ProjectId = pipeline.ProjectId;
@@ -90,7 +90,7 @@ namespace BLL
         /// <param name="pipeline"></param>
         public static void UpdatePipeline(Model.HJGL_Pipeline pipeline)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Pipeline newPipeline = db.HJGL_Pipeline.FirstOrDefault(e => e.PipelineId == pipeline.PipelineId);
             if (newPipeline != null)
             {
@@ -129,7 +129,7 @@ namespace BLL
         /// <param name="pipelineId"></param>
         public static void DeletePipeline(string pipelineId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Pipeline pipeline = db.HJGL_Pipeline.FirstOrDefault(e => e.PipelineId == pipelineId);
             var jot = db.HJGL_Pipeline.Where(e => e.PipelineId == pipelineId);
             if (pipeline != null)

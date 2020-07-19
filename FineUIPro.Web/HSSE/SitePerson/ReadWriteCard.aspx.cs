@@ -110,7 +110,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             if (!string.IsNullOrEmpty(this.txtCardNo.Text))
             {
-                var q = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.CardNo == this.txtCardNo.Text.Trim() && (x.PersonId != this.PersonId || (this.PersonId == null && x.PersonId != null)));
+                var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.CardNo == this.txtCardNo.Text.Trim() && (x.PersonId != this.PersonId || (this.PersonId == null && x.PersonId != null)));
                 if (q != null)
                 {
                     ShowNotify("输入的卡号已存在！", MessageBoxIcon.Warning);

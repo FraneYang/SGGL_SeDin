@@ -110,7 +110,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 //DataTable dtPersonStatistic = BLL.SQLHelper.GetDataTableRunProc("SpPersonStatistic", values);
                 //if (dtPersonStatistic.Rows.Count == 0)
                 //{
-                //    this.Grid1.DataSource = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Checking where x.CardNo == null select x).ToList();
+                //    this.Grid1.DataSource = (from x in Funs.DB.SitePerson_Checking where x.CardNo == null select x).ToList();
                 //    this.Grid1.DataBind();
                 //}
                 //else

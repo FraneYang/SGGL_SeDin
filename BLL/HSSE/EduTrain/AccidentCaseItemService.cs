@@ -8,7 +8,7 @@ namespace BLL
 {
     public class AccidentCaseItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据常见事故案例明细Id获取事故案例明细
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.EduTrain_AccidentCaseItem GetAccidentCaseItemById(string accidentCaseItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).EduTrain_AccidentCaseItem.FirstOrDefault(e => e.AccidentCaseItemId == accidentCaseItemId);
+            return Funs.DB.EduTrain_AccidentCaseItem.FirstOrDefault(e => e.AccidentCaseItemId == accidentCaseItemId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.EduTrain_AccidentCaseItem> GetAccidentCaseItemByCompileMan(string compileMan)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_AccidentCaseItem where x.CompileMan == compileMan select x).ToList();
+            return (from x in Funs.DB.EduTrain_AccidentCaseItem where x.CompileMan == compileMan select x).ToList();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BLL
         /// <param name="item"></param>
         public static void AddAccidentCaseItem(Model.EduTrain_AccidentCaseItem item)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_AccidentCaseItem newItem = new Model.EduTrain_AccidentCaseItem
             {
                 AccidentCaseItemId = item.AccidentCaseItemId,
@@ -61,7 +61,7 @@ namespace BLL
         /// <param name="item"></param>
         public static void UpdateAccidentCaseItem(Model.EduTrain_AccidentCaseItem item)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_AccidentCaseItem newItem = db.EduTrain_AccidentCaseItem.FirstOrDefault(e => e.AccidentCaseItemId == item.AccidentCaseItemId);
             if (newItem != null)
             {
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="item"></param>
         public static void UpdateAccidentCaseItemIsPass(Model.EduTrain_AccidentCaseItem item)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_AccidentCaseItem newItem = db.EduTrain_AccidentCaseItem.FirstOrDefault(e => e.AccidentCaseItemId == item.AccidentCaseItemId);
             if (newItem != null)
             {
@@ -98,7 +98,7 @@ namespace BLL
         /// <param name="trainingId">教育培训项ID</param>
         public static void DeleteAccidentCaseItemsByAccidentCaseId(string accidentCaseId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var accidentCaseItems = (from x in db.EduTrain_AccidentCaseItem where x.AccidentCaseId == accidentCaseId select x).ToList();
             if (accidentCaseItems != null)
             {
@@ -112,7 +112,7 @@ namespace BLL
         /// <param name="accidentCaseItemId">常见事故案例明细主键</param>
         public static void DeleteAccidentCaseItemId(string accidentCaseItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_AccidentCaseItem item = db.EduTrain_AccidentCaseItem.FirstOrDefault(e => e.AccidentCaseItemId == accidentCaseItemId);
             if (item != null)
             {

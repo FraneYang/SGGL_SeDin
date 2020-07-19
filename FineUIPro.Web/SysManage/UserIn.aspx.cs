@@ -159,8 +159,8 @@ namespace FineUIPro.Web.SysManage
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var units = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit select x;
-                var roles = from x in new Model.SGGLDB(Funs.ConnString).Sys_Role select x;
+                var units = from x in Funs.DB.Base_Unit select x;
+                var roles = from x in Funs.DB.Sys_Role select x;
                 for (int i = 0; i < ir; i++)
                 {
                     Model.View_Sys_User newSysUser = new Model.View_Sys_User
@@ -290,7 +290,7 @@ namespace FineUIPro.Web.SysManage
                         IsPost = userViews[i].IsPost,
                         IsOffice=userViews[i].IsOffice,
                     };
-                    var getUser = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.Account == userViews[i].Account);
+                    var getUser = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == userViews[i].Account);
                     if (getUser == null)
                     {
                         newUser.Password = Funs.EncryptionPassword(Const.Password);

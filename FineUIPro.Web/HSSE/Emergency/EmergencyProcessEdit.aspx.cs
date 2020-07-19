@@ -52,7 +52,7 @@ namespace FineUIPro.Web.HSSE.Emergency
                 this.EmergencyProcessId = Request.Params["EmergencyProcessId"];
                 if (!string.IsNullOrEmpty(this.EmergencyProcessId))
                 {
-                    var EmergencyProcess = new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyProcess.FirstOrDefault(x => x.EmergencyProcessId == this.EmergencyProcessId);
+                    var EmergencyProcess = Funs.DB.Emergency_EmergencyProcess.FirstOrDefault(x => x.EmergencyProcessId == this.EmergencyProcessId);
                     if (EmergencyProcess != null)
                     {
                         this.txtProcessSteps.Text = EmergencyProcess.ProcessSteps;
@@ -84,14 +84,14 @@ namespace FineUIPro.Web.HSSE.Emergency
         /// <param name="type"></param>
          void SaveData()
         {
-            var EmergencyProcess = new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyProcess.FirstOrDefault(x => x.EmergencyProcessId == this.EmergencyProcessId);
+            var EmergencyProcess = Funs.DB.Emergency_EmergencyProcess.FirstOrDefault(x => x.EmergencyProcessId == this.EmergencyProcessId);
             if (EmergencyProcess != null)
             {
 
                 EmergencyProcess.ProcessName = this.txtProcessName.Text.Trim();
                 EmergencyProcess.StepOperator = this.txtStepOperator.Text.Trim();
                 EmergencyProcess.Remark = this.txtRemark.Text.Trim();
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
         #endregion

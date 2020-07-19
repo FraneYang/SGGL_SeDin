@@ -7,7 +7,7 @@ namespace BLL
 {
     public class AccidentCaseService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取事故伤害及预防
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.EduTrain_AccidentCase GetAccidentCaseById(string accidentCaseId)
         {
-            return new Model.SGGLDB(Funs.ConnString).EduTrain_AccidentCase.FirstOrDefault(e => e.AccidentCaseId == accidentCaseId);
+            return Funs.DB.EduTrain_AccidentCase.FirstOrDefault(e => e.AccidentCaseId == accidentCaseId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="accidentCase"></param>
         public static void AddAccidentCase(Model.EduTrain_AccidentCase accidentCase)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_AccidentCase newAccidentCase = new Model.EduTrain_AccidentCase
             {
                 AccidentCaseId = accidentCase.AccidentCaseId,
@@ -44,7 +44,7 @@ namespace BLL
         /// <param name="accidentCase"></param>
         public static void UpdateAccidentCase(Model.EduTrain_AccidentCase accidentCase)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_AccidentCase newAccidentCase = db.EduTrain_AccidentCase.FirstOrDefault(e => e.AccidentCaseId == accidentCase.AccidentCaseId);
             if (newAccidentCase != null)
             {
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="accidentCaseId"></param>
         public static void DeleteAccidentCaseByAccidentCaseId(string accidentCaseId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.EduTrain_AccidentCase accidentCase = db.EduTrain_AccidentCase.FirstOrDefault(e => e.AccidentCaseId == accidentCaseId);
             if (accidentCase != null)
             {
@@ -89,7 +89,7 @@ namespace BLL
                 }
                 if (accidentCase.IsEndLever == true)
                 {
-                    var detailCout = new Model.SGGLDB(Funs.ConnString).EduTrain_AccidentCaseItem.FirstOrDefault(x => x.AccidentCaseId == accidentCaseId);
+                    var detailCout = Funs.DB.EduTrain_AccidentCaseItem.FirstOrDefault(x => x.AccidentCaseId == accidentCaseId);
                     if (detailCout != null)
                     {
                         isDelete = false;
@@ -115,7 +115,7 @@ namespace BLL
         /// <returns>事故案例的集合</returns>
         public static List<Model.EduTrain_AccidentCase> GetAccidentCaseBySupItem(string supItem)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).EduTrain_AccidentCase
+            return (from x in Funs.DB.EduTrain_AccidentCase
                     where x.SupAccidentCaseId == supItem
                     orderby x.AccidentCaseCode
                     select x).ToList();

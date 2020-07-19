@@ -21,7 +21,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
                 GetButtonPower();
                 string equipmentQualityId = Request.Params["EquipmentQualityId"];
                 btnNew.OnClientClick = Window1.GetShowReference("EquipmentQualityAuditEdit.aspx?EquipmentQualityId=" + equipmentQualityId) + "return false;";
-                var details = (from x in new Model.SGGLDB(Funs.ConnString).View_QualityAudit_EquipmentQualityAuditDetail
+                var details = (from x in Funs.DB.View_QualityAudit_EquipmentQualityAuditDetail
                                                                                      where x.ProjectId == this.CurrUser.LoginProjectId && x.EquipmentQualityId == equipmentQualityId
                                                                                    orderby x.AuditDate descending
                                                                                    select x).ToList();
@@ -93,7 +93,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
                     }
                 }
 
-                var details = (from x in new Model.SGGLDB(Funs.ConnString).View_QualityAudit_EquipmentQualityAuditDetail
+                var details = (from x in Funs.DB.View_QualityAudit_EquipmentQualityAuditDetail
                                                                                      where x.ProjectId == this.CurrUser.LoginProjectId && x.EquipmentQualityId == Request.Params["EquipmentQualityId"]
                                                                                    orderby x.AuditDate descending
                                                                                    select x).ToList();
@@ -142,7 +142,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
         /// <param name="e"></param>
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
-            var details = (from x in new Model.SGGLDB(Funs.ConnString).View_QualityAudit_EquipmentQualityAuditDetail
+            var details = (from x in Funs.DB.View_QualityAudit_EquipmentQualityAuditDetail
                                                                                  where x.ProjectId == this.CurrUser.LoginProjectId && x.EquipmentQualityId == Request.Params["EquipmentQualityId"]
                                                                                orderby x.AuditDate descending
                                                                                select x).ToList();

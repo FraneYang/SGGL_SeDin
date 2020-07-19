@@ -8,7 +8,7 @@ namespace BLL
 {
     public static class PersonTotalService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取人员信息
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns>人员信息</returns>
         public static Model.PersonTotal GetPersonByPersonTotalId(string PersonTotalId)
         {
-            return new Model.SGGLDB(Funs.ConnString).PersonTotal.FirstOrDefault(e => e.PersonTotalId == PersonTotalId);
+            return Funs.DB.PersonTotal.FirstOrDefault(e => e.PersonTotalId == PersonTotalId);
         }
         
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="user">人员实体</param>
         public static void AddPersonTotal(Model.PersonTotal total)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PersonTotal newTotla = new Model.PersonTotal
             {
                 PersonTotalId = total.PersonTotalId,
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="user">实体</param>
         public static void UpdatePersonTotal(Model.PersonTotal total)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PersonTotal newTotal = db.PersonTotal.FirstOrDefault(e => e.PersonTotalId == total.PersonTotalId);
             if (newTotal != null)
             {
@@ -66,7 +66,7 @@ namespace BLL
         /// <param name="PersonTotalId"></param>
         public static void DeletePersonTotal(string PersonTotalId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PersonTotal user = db.PersonTotal.FirstOrDefault(e => e.PersonTotalId == PersonTotalId);
             if (user != null)
             {

@@ -146,7 +146,7 @@ namespace FineUIPro.Web.Person
         /// <param name="e"></param>
         protected void BtnCreat_Click(object sender, EventArgs e)
         {
-            var QuarterCheck = new Model.SGGLDB(Funs.ConnString).Person_QuarterCheck.FirstOrDefault(x => x.EndTime > DateTime.Now);
+            var QuarterCheck = Funs.DB.Person_QuarterCheck.FirstOrDefault(x => x.EndTime > DateTime.Now);
             if (QuarterCheck != null)
             {
                 ShowNotify("本季度已生成考核表");

@@ -9,7 +9,7 @@ namespace BLL
     /// </summary>
     public static class MonthMeetingService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全月例会
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Meeting_MonthMeeting GetMonthMeetingById(string monthMeetingId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Meeting_MonthMeeting.FirstOrDefault(e => e.MonthMeetingId == monthMeetingId);
+            return Funs.DB.Meeting_MonthMeeting.FirstOrDefault(e => e.MonthMeetingId == monthMeetingId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Meeting_MonthMeeting where x.MonthMeetingDate >= startTime && x.MonthMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+            return (from x in Funs.DB.Meeting_MonthMeeting where x.MonthMeetingDate >= startTime && x.MonthMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace BLL
         /// <returns></returns>
         public static int? GetSumAttentPersonNumByMeetingDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            int? sumAttentPersonNum = (from x in new Model.SGGLDB(Funs.ConnString).Meeting_MonthMeeting where x.MonthMeetingDate >= startTime && x.MonthMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.AttentPersonNum).Sum();
+            int? sumAttentPersonNum = (from x in Funs.DB.Meeting_MonthMeeting where x.MonthMeetingDate >= startTime && x.MonthMeetingDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.AttentPersonNum).Sum();
             if (sumAttentPersonNum == null)
             {
                 return 0;
@@ -59,7 +59,7 @@ namespace BLL
         /// <returns>会议记录集合</returns>
         public static List<Model.Meeting_MonthMeeting> GetMeetingListsByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Meeting_MonthMeeting where x.MonthMeetingDate >= startTime && x.MonthMeetingDate <= endTime && x.ProjectId == projectId orderby x.MonthMeetingDate select x).ToList();
+            return (from x in Funs.DB.Meeting_MonthMeeting where x.MonthMeetingDate >= startTime && x.MonthMeetingDate <= endTime && x.ProjectId == projectId orderby x.MonthMeetingDate select x).ToList();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="monthMeeting"></param>
         public static void AddMonthMeeting(Model.Meeting_MonthMeeting monthMeeting)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Meeting_MonthMeeting newMonthMeeting = new Model.Meeting_MonthMeeting
             {
                 MonthMeetingId = monthMeeting.MonthMeetingId,
@@ -101,7 +101,7 @@ namespace BLL
         /// <param name="monthMeeting"></param>
         public static void UpdateMonthMeeting(Model.Meeting_MonthMeeting monthMeeting)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Meeting_MonthMeeting newMonthMeeting = db.Meeting_MonthMeeting.FirstOrDefault(e => e.MonthMeetingId == monthMeeting.MonthMeetingId);
             if (newMonthMeeting != null)
             {
@@ -131,7 +131,7 @@ namespace BLL
         /// <param name="monthMeetingId"></param>
         public static void DeleteMonthMeetingById(string monthMeetingId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Meeting_MonthMeeting monthMeeting = db.Meeting_MonthMeeting.FirstOrDefault(e => e.MonthMeetingId == monthMeetingId);
             if (monthMeeting != null)
             {

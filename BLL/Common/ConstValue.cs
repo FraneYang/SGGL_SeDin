@@ -78,7 +78,7 @@ namespace BLL
         /// <returns>常量集合</returns>
         public static List<Sys_Const> drpConstItemList(string groupId)
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const
+            var list = (from x in Funs.DB.Sys_Const
                         where x.GroupId == groupId
                         orderby x.SortIndex
                         select x).ToList();
@@ -93,7 +93,7 @@ namespace BLL
         /// <returns></returns>
         public static Sys_Const GetConstByConstValueAndGroupId(string constValue, string groupId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Sys_Const.FirstOrDefault(e => e.ConstValue == constValue && e.GroupId == groupId);
+            return Funs.DB.Sys_Const.FirstOrDefault(e => e.ConstValue == constValue && e.GroupId == groupId);
         }
 
         #region 根据多ID得到名称字符串

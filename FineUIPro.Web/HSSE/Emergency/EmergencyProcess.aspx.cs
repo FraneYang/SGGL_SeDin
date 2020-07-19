@@ -51,12 +51,12 @@ namespace FineUIPro.Web.HSSE.Emergency
         /// </summary>
          void BindGrid()
         {
-            var getEmergencys = (from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyProcess
+            var getEmergencys = (from x in Funs.DB.Emergency_EmergencyProcess
                                 where x.ProjectId == this.ProjectId
                                 select x).ToList();
             if (getEmergencys.Count() == 0)
             {
-                var getEEmergencyProcessItems = from x in new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyProcess
+                var getEEmergencyProcessItems = from x in Funs.DB.Emergency_EmergencyProcess
                                                 where x.ProjectId == null
                                                 select x;
                 foreach (var item in getEEmergencyProcessItems)
@@ -70,8 +70,8 @@ namespace FineUIPro.Web.HSSE.Emergency
                         StepOperator = item.StepOperator,
                         Remark = item.Remark,
                     };
-                    new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyProcess.InsertOnSubmit(newItem);
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.Emergency_EmergencyProcess.InsertOnSubmit(newItem);
+                    Funs.DB.SubmitChanges();
 
                     getEmergencys.Add(item);
                 }

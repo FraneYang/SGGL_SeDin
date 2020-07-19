@@ -5,7 +5,7 @@ namespace BLL
 {
     public class TrainingService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据上级Id查询所有教育培训主键列的值
@@ -14,7 +14,7 @@ namespace BLL
         /// <returns>教育培训主键列值的集合</returns>
         public static List<string> GetTrainingIdsBySupItem(string supItem)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Training_Training where x.SupTrainingId == supItem select x.TrainingId).ToList();
+            return (from x in Funs.DB.Training_Training where x.SupTrainingId == supItem select x.TrainingId).ToList();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <returns>教育培训的集合</returns>
         public static List<Model.Training_Training> GetTrainingBySupItem(string supItem)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Training_Training where x.SupTrainingId == supItem select x).ToList();
+            return (from x in Funs.DB.Training_Training where x.SupTrainingId == supItem select x).ToList();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BLL
         /// <returns>教育培训实体</returns>
         public static Model.Training_Training GetTrainingByTrainingId(string TrainingId)
         {
-            Model.Training_Training Training = new Model.SGGLDB(Funs.ConnString).Training_Training.FirstOrDefault(e => e.TrainingId == TrainingId);
+            Model.Training_Training Training = Funs.DB.Training_Training.FirstOrDefault(e => e.TrainingId == TrainingId);
             return Training;
         }
 
@@ -44,7 +44,7 @@ namespace BLL
         /// <param name="Training">教育培训实体</param>
         public static void AddTraining(Model.Training_Training Training)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Training_Training newTraining = new Model.Training_Training
             {
                 TrainingId = Training.TrainingId,
@@ -64,7 +64,7 @@ namespace BLL
         /// <param name="Training">教育培训实体</param>
         public static void UpdateTraining(Model.Training_Training Training)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Training_Training newTraining = db.Training_Training.First(e => e.TrainingId == Training.TrainingId);
             newTraining.TrainingCode = Training.TrainingCode;
             newTraining.TrainingName = Training.TrainingName;
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="TrainingId">教育培训ID</param>
         public static void DeleteTrainingByTrainingId(string TrainingId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Training_Training Training = db.Training_Training.FirstOrDefault(e => e.TrainingId == TrainingId);
             if (Training != null)
             {
@@ -96,7 +96,7 @@ namespace BLL
         /// <param name="supItem">上级Id</param>
         public static void DeleteTrainingBySupItem(string supItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Training_Training where x.SupTrainingId == supItem select x).ToList();
             if (q.Count() > 0)
             {
@@ -115,7 +115,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistCheckItemName(string TrainingId, string SupTrainingId, string trainingName)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Training_Training.FirstOrDefault(x => x.SupTrainingId == SupTrainingId && x.TrainingName == trainingName
+            var q = Funs.DB.Training_Training.FirstOrDefault(x => x.SupTrainingId == SupTrainingId && x.TrainingName == trainingName
                     && x.TrainingId != TrainingId);
             if (q != null)
             {
@@ -144,7 +144,7 @@ namespace BLL
                 //}
                 if (Training.IsEndLever == true)
                 {
-                    var detailCout = new Model.SGGLDB(Funs.ConnString).Training_TrainingItem.FirstOrDefault(x => x.TrainingId == TrainingId);
+                    var detailCout = Funs.DB.Training_TrainingItem.FirstOrDefault(x => x.TrainingId == TrainingId);
                     if (detailCout != null)
                     {
                         isDelete = false;

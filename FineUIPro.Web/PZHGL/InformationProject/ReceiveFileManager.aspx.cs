@@ -272,7 +272,7 @@ namespace FineUIPro.Web.PZHGL.InformationProject
             var InformationProject = BLL.ReceiveFileManagerService.GetReceiveFileManagerById(Grid1.SelectedRowID);
             if (InformationProject != null && InformationProject.FileType == "1")
             {
-                var getF = new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager.FirstOrDefault(x => x.FromId == InformationProject.ReceiveFileManagerId);
+                var getF = Funs.DB.InformationProject_ReceiveFileManager.FirstOrDefault(x => x.FromId == InformationProject.ReceiveFileManagerId);
                 if (getF == null)
                 {
                     ReceiveFileManagerService.IssueReceiveFile(InformationProject.ReceiveFileManagerId);

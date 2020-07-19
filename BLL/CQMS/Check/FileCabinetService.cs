@@ -9,7 +9,7 @@ namespace BLL
 {
     public class FileCabinetService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
         /// <summary>
         /// 增加信息
         /// </summary>
@@ -44,7 +44,7 @@ namespace BLL
         /// <param name="fileCabinetId">信息Id</param>
         public static void DeleteFileCabinet(string fileCabinetId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Project_FileCabinet FileCabinet = db.Project_FileCabinet.FirstOrDefault(e => e.FileCabinetId == fileCabinetId);
             if (FileCabinet != null)
             {
@@ -68,7 +68,7 @@ namespace BLL
         /// <returns></returns>
         public static IList<Model.FileCabinetItem> getList(string projectId)
         {
-            var fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Project_FileCabinet
+            var fileCabinets = (from x in Funs.DB.Project_FileCabinet
                                 where x.ProjectId == projectId
                                 select new Model.FileCabinetItem
                                 {
@@ -79,7 +79,7 @@ namespace BLL
                                     FileDate = x.FileDate,
                                     FileUrl = x.FileUrl,
                                     CreateManId = x.CreateManId,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CreateManId).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CreateManId).UserName,
                                 }).ToList();
             return fileCabinets;
         }
@@ -135,7 +135,7 @@ namespace BLL
             /// 质量验收记录
             if (type == "1") //Check_SpotCheck
             {
-                fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheck
+                fileCabinets = (from x in Funs.DB.Check_SpotCheck
                                 where x.ProjectId == projectId
                                 select new Model.FileCabinetItem
                                 {
@@ -145,13 +145,13 @@ namespace BLL
                                     FileContent = x.DocCode,
                                     FileDate = x.SpotCheckDate,
                                     CreateManId = x.CreateMan,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CreateMan).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CreateMan).UserName,
                                     FileUrl = x.AttachUrl,
                                 }).ToList();
             }
             else if (type == "2")
             {
-                fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckControl
+                fileCabinets = (from x in Funs.DB.Check_CheckControl
                                 where x.ProjectId == projectId && x.State == BLL.Const.CheckControl_Complete
                                 select new Model.FileCabinetItem
                                 {
@@ -162,12 +162,12 @@ namespace BLL
                                     FileDate = x.CheckDate,
                                     FileUrl = x.AttachUrl,
                                     CreateManId = x.CheckMan,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(e => e.UserId == x.CheckMan).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(e => e.UserId == x.CheckMan).UserName,
                                 }).ToList();
             }
             else if (type == "3")
             {
-                fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Check_JointCheck
+                fileCabinets = (from x in Funs.DB.Check_JointCheck
                                 where x.ProjectId == projectId && x.State == BLL.Const.JointCheck_Complete
                                 select new Model.FileCabinetItem
                                 {
@@ -178,12 +178,12 @@ namespace BLL
                                     FileDate = x.CheckDate,
                                     FileUrl = string.Empty,
                                     CreateManId = x.CheckMan,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CheckMan).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CheckMan).UserName,
                                 }).ToList();
             }
             else if (type == "4")
             {
-                fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Check_TechnicalContactList
+                fileCabinets = (from x in Funs.DB.Check_TechnicalContactList
                                 where x.ProjectId == projectId && x.State == Const.TechnicalContactList_Complete
                                 select new Model.FileCabinetItem
                                 {
@@ -194,12 +194,12 @@ namespace BLL
                                     FileDate = x.CompileDate,
                                     FileUrl = x.AttachUrl,
                                     CreateManId = x.CompileMan,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CompileMan).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CompileMan).UserName,
                                 }).ToList();
             }
             else if (type == "5")
             {
-                var designs = from x in new Model.SGGLDB(Funs.ConnString).Check_Design
+                var designs = from x in Funs.DB.Check_Design
                               where x.ProjectId == projectId && x.State == Const.Design_Complete
                               select x;
                 if (mainItemId != Const._Null)
@@ -220,12 +220,12 @@ namespace BLL
                                     FileDate = x.DesignDate,
                                     FileUrl = x.AttachUrl,
                                     CreateManId = x.CompileMan,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CompileMan).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CompileMan).UserName,
                                 }).ToList();
             }
             else if (type == "6")
             {
-                fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckMonth
+                fileCabinets = (from x in Funs.DB.Check_CheckMonth
                                 where x.ProjectId == projectId
                                 select new Model.FileCabinetItem
                                 {
@@ -236,12 +236,12 @@ namespace BLL
                                     FileDate = x.CompileDate,
                                     FileUrl = string.Empty,
                                     CreateManId = x.CompileMan,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CompileMan).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CompileMan).UserName,
                                 }).ToList();
             }
             else if (type == "7")
             {
-                fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Solution_CQMSConstructSolution
+                fileCabinets = (from x in Funs.DB.Solution_CQMSConstructSolution
                                 where x.ProjectId == projectId && x.State == Const.CQMSConstructSolution_Complete
                                 select new Model.FileCabinetItem
                                 {
@@ -252,12 +252,12 @@ namespace BLL
                                     FileDate = x.CompileDate,
                                     FileUrl = x.AttachUrl,
                                     CreateManId = x.CompileMan,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CompileMan).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CompileMan).UserName,
                                 }).ToList();
             }
             else if (type == "8")
             {
-                fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Unqualified_WorkContact
+                fileCabinets = (from x in Funs.DB.Unqualified_WorkContact
                                 where x.ProjectId == projectId && x.State == Const.WorkContact_Complete
                                 select new Model.FileCabinetItem
                                 {
@@ -268,12 +268,12 @@ namespace BLL
                                     FileDate = x.CompileDate,
                                     FileUrl = x.AttachUrl,
                                     CreateManId = x.CompileMan,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CompileMan).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CompileMan).UserName,
                                 }).ToList();
             }
             else if (type == "-1")
             {
-                fileCabinets = (from x in new Model.SGGLDB(Funs.ConnString).Project_FileCabinet
+                fileCabinets = (from x in Funs.DB.Project_FileCabinet
                                 where x.ProjectId == projectId
                                 select new Model.FileCabinetItem
                                 {
@@ -284,7 +284,7 @@ namespace BLL
                                     FileDate = x.FileDate,
                                     FileUrl = x.FileUrl,
                                     CreateManId = x.CreateManId,
-                                    CreateManName = new Model.SGGLDB(Funs.ConnString).Sys_User.First(y => y.UserId == x.CreateManId).UserName,
+                                    CreateManName = Funs.DB.Sys_User.First(y => y.UserId == x.CreateManId).UserName,
                                 }).ToList();
             }
 

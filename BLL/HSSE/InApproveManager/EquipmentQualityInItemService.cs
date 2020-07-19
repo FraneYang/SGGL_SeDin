@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
    public static class EquipmentQualityInItemService
    {
-       public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+       public static Model.SGGLDB db = Funs.DB;
 
        /// <summary>
        /// 根据主表ID获取明细信息
@@ -19,7 +19,7 @@ namespace BLL
        /// <returns></returns>
        public static List<Model.InApproveManager_EquipmentQualityInItem> GetEquipmentQualityInItemByEquipmentQualityInId(string EquipmentQualityInId)
        {
-           return (from x in new Model.SGGLDB(Funs.ConnString).InApproveManager_EquipmentQualityInItem where x.EquipmentQualityInId == EquipmentQualityInId select x).ToList();
+           return (from x in Funs.DB.InApproveManager_EquipmentQualityInItem where x.EquipmentQualityInId == EquipmentQualityInId select x).ToList();
        }
 
        /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
        /// <param name="EquipmentQualityInItem"></param>
        public static void AddEquipmentQualityInItem(Model.InApproveManager_EquipmentQualityInItem EquipmentQualityInItem)
        {
-           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+           Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentQualityInItem newEquipmentQualityInItem = new Model.InApproveManager_EquipmentQualityInItem
             {
                 EquipmentQualityInItemId = EquipmentQualityInItem.EquipmentQualityInItemId,
@@ -64,7 +64,7 @@ namespace BLL
        /// <param name="EquipmentQualityInId"></param>
        public static void DeleteEquipmentQualityInItemByEquipmentQualityInId(string EquipmentQualityInId)
        {
-           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+           Model.SGGLDB db = Funs.DB;
            var q = (from x in db.InApproveManager_EquipmentQualityInItem where x.EquipmentQualityInId == EquipmentQualityInId select x).ToList();
            if (q != null)
            {

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class RulesRegulationsTypeService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取规章制度类别
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_RulesRegulationsType GetRulesRegulationsTypeById(string rulesRegulationsTypeId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_RulesRegulationsType.FirstOrDefault(e => e.RulesRegulationsTypeId == rulesRegulationsTypeId);
+            return Funs.DB.Base_RulesRegulationsType.FirstOrDefault(e => e.RulesRegulationsTypeId == rulesRegulationsTypeId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="rulesRegulationsType"></param>
         public static void AddRulesRegulationsType(Model.Base_RulesRegulationsType rulesRegulationsType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_RulesRegulationsType newRulesRegulationsType = new Model.Base_RulesRegulationsType
             {
                 RulesRegulationsTypeId = rulesRegulationsType.RulesRegulationsTypeId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="rulesRegulationsType"></param>
         public static void UpdateRulesRegulationsType(Model.Base_RulesRegulationsType rulesRegulationsType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_RulesRegulationsType newRulesRegulationsType = db.Base_RulesRegulationsType.FirstOrDefault(e => e.RulesRegulationsTypeId == rulesRegulationsType.RulesRegulationsTypeId);
             if (newRulesRegulationsType != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="rulesRegulationsTypeId"></param>
         public static void DeleteRulesRegulationsTypeById(string rulesRegulationsTypeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_RulesRegulationsType rulesRegulationType = db.Base_RulesRegulationsType.FirstOrDefault(e => e.RulesRegulationsTypeId == rulesRegulationsTypeId);
             if (rulesRegulationType != null)
             {
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_RulesRegulationsType> GetRulesRegulationsTypeList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_RulesRegulationsType orderby x.RulesRegulationsTypeCode select x).ToList();           
+            var list = (from x in Funs.DB.Base_RulesRegulationsType orderby x.RulesRegulationsTypeCode select x).ToList();           
             return list;
         }
     }

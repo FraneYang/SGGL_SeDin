@@ -8,7 +8,7 @@ namespace BLL
 {
     public static class Person_QuarterCheckItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取人员信息
@@ -17,16 +17,16 @@ namespace BLL
         /// <returns>人员信息</returns>
         public static Model.Person_QuarterCheckItem GetCheckItemById(string QuarterCheckItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Person_QuarterCheckItem.FirstOrDefault(e => e.QuarterCheckItemId == QuarterCheckItemId);
+            return Funs.DB.Person_QuarterCheckItem.FirstOrDefault(e => e.QuarterCheckItemId == QuarterCheckItemId);
         }
         public static List<Model.Person_QuarterCheckItem> GetCheckItemListById(string QuarterCheckId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Person_QuarterCheckItem where x.QuarterCheckId == QuarterCheckId  orderby x.SortId select x).ToList();
+            return (from x in Funs.DB.Person_QuarterCheckItem where x.QuarterCheckId == QuarterCheckId  orderby x.SortId select x).ToList();
            
         }
         public static Decimal GetCheckItemSumById(string QuarterCheckId)
         {
-            return decimal.Parse((from x in new Model.SGGLDB(Funs.ConnString).Person_QuarterCheckItem where x.QuarterCheckId == QuarterCheckId  select x.Grade).Sum().ToString());
+            return decimal.Parse((from x in Funs.DB.Person_QuarterCheckItem where x.QuarterCheckId == QuarterCheckId  select x.Grade).Sum().ToString());
 
         }
         /// <summary>
@@ -35,7 +35,7 @@ namespace BLL
         /// <param name="user">人员实体</param>
         public static void AddCheckItem(Model.Person_QuarterCheckItem contruct)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Person_QuarterCheckItem newcontruct = new Model.Person_QuarterCheckItem
             {
                 QuarterCheckItemId=contruct.QuarterCheckItemId,
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="user">实体</param>
         public static void UpdateCheckItem(Model.Person_QuarterCheckItem item)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Person_QuarterCheckItem newItem = db.Person_QuarterCheckItem.FirstOrDefault(e => e.QuarterCheckItemId == item.QuarterCheckItemId);
             if (newItem != null)
             {
@@ -72,7 +72,7 @@ namespace BLL
         /// <param name="PersonTotalId"></param>
         public static void DeleteCheckItem(string QuarterCheckItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Person_QuarterCheckItem check = db.Person_QuarterCheckItem.FirstOrDefault(e => e.QuarterCheckItemId == QuarterCheckItemId);
             if (check != null)
             {

@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_RepairRecord GetRepairRecordById(string repairRecordId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_RepairRecord.FirstOrDefault(e => e.RepairRecordId == repairRecordId);
+            return Funs.DB.HJGL_RepairRecord.FirstOrDefault(e => e.RepairRecordId == repairRecordId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_RepairRecord GetRepairRecordByNdeItemId(string ndeItemID)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_RepairRecord.FirstOrDefault(e => e.NDEItemID == ndeItemID);
+            return Funs.DB.HJGL_RepairRecord.FirstOrDefault(e => e.NDEItemID == ndeItemID);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BLL
         /// <param name="NDEItem"></param>
         public static void AddRepairRecord(Model.HJGL_RepairRecord repair)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_RepairRecord newRepair = new Model.HJGL_RepairRecord();
             newRepair.RepairRecordId = repair.RepairRecordId;
             newRepair.RepairRecordCode = repair.RepairRecordCode;
@@ -60,7 +60,7 @@ namespace BLL
 
         public static void UpdateRepairRecord(Model.HJGL_RepairRecord repair)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_RepairRecord newRepair = db.HJGL_RepairRecord.FirstOrDefault(e => e.RepairRecordId == repair.RepairRecordId);
             if (newRepair != null)
             {
@@ -90,7 +90,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_Batch_PointBatchItem> GetExportItem(string repairRecordId)
         {
-            var exp = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem where x.RepairRecordId == repairRecordId select x;
+            var exp = from x in Funs.DB.HJGL_Batch_PointBatchItem where x.RepairRecordId == repairRecordId select x;
             if (exp.Count() > 0)
             {
                 return exp.ToList();
@@ -108,7 +108,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetExportNum(string repairRecordId)
         {
-            var exp = from x in new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem where x.RepairRecordId == repairRecordId select x;
+            var exp = from x in Funs.DB.HJGL_Batch_PointBatchItem where x.RepairRecordId == repairRecordId select x;
             return exp.Count();
         }
     }

@@ -9,7 +9,7 @@ namespace BLL
 {
     public class SpotCheckDetailService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取实体验收记录明细
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="SpotCheckDetail"></param>
         public static void AddSpotCheckDetail(Model.Check_SpotCheckDetail SpotCheckDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_SpotCheckDetail newSpotCheckDetail = new Model.Check_SpotCheckDetail();
             newSpotCheckDetail.SpotCheckDetailId = SpotCheckDetail.SpotCheckDetailId;
             newSpotCheckDetail.SpotCheckCode = SpotCheckDetail.SpotCheckCode;
@@ -76,7 +76,7 @@ namespace BLL
         /// <param name="SpotCheckDetail"></param>
         public static void UpdateSpotCheckDetail(Model.Check_SpotCheckDetail SpotCheckDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_SpotCheckDetail newSpotCheckDetail = db.Check_SpotCheckDetail.First(e => e.SpotCheckDetailId == SpotCheckDetail.SpotCheckDetailId);
             newSpotCheckDetail.SpotCheckCode = SpotCheckDetail.SpotCheckCode;
             newSpotCheckDetail.ControlItemAndCycleId = SpotCheckDetail.ControlItemAndCycleId;
@@ -99,7 +99,7 @@ namespace BLL
         /// <param name="SpotCheckDetailId"></param>
         public static void DeleteSpotCheckDetail(string SpotCheckDetailId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_SpotCheckDetail SpotCheckDetail = db.Check_SpotCheckDetail.First(e => e.SpotCheckDetailId == SpotCheckDetailId);
             db.Check_SpotCheckDetail.DeleteOnSubmit(SpotCheckDetail);
             db.SubmitChanges();
@@ -119,7 +119,7 @@ namespace BLL
         /// <param name="DrawingAuditId"></param>
         public static void DeleteAllSpotCheckDetail(string SpotCheckCode)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Check_SpotCheckDetail where x.SpotCheckCode == SpotCheckCode select x).ToList();
             db.Check_SpotCheckDetail.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -131,7 +131,7 @@ namespace BLL
         /// <param name="SpotCheckDetailId"></param>
         public static Model.Check_SpotCheckDetail GetSpotCheckDetail(string SpotCheckDetailId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail.FirstOrDefault(e => e.SpotCheckDetailId == SpotCheckDetailId);
+            return Funs.DB.Check_SpotCheckDetail.FirstOrDefault(e => e.SpotCheckDetailId == SpotCheckDetailId);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace BLL
         /// <param name="SpotCheckDetailId"></param>
         public static Model.Check_SpotCheckDetail GetSpotCheckDetailBySoptCheckCode(string SpotCheckCode)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode);
+            return Funs.DB.Check_SpotCheckDetail.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace BLL
         /// <param name="SpotCheckDetailId"></param>
         public static Model.Check_SpotCheckDetail GetNotOKSpotCheckDetailBySoptCheckCode(string SpotCheckCode)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode && (e.IsOK == null || e.IsOK == false));
+            return Funs.DB.Check_SpotCheckDetail.FirstOrDefault(e => e.SpotCheckCode == SpotCheckCode && (e.IsOK == null || e.IsOK == false));
         }
 
         /// <summary>
@@ -158,7 +158,8 @@ namespace BLL
         /// <param name="SpotCheckCode"></param>
         public static List<Model.Check_SpotCheckDetail> GetSpotCheckDetails(string SpotCheckCode)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 return (from x in db.Check_SpotCheckDetail
                         join y in db.WBS_ControlItemAndCycle
                         on x.ControlItemAndCycleId equals y.ControlItemAndCycleId
@@ -186,7 +187,8 @@ namespace BLL
         /// <param name="SpotCheckCode"></param>
         public static List<Model.Check_SpotCheckDetail> GetOKSpotCheckDetails(string SpotCheckCode)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 return (from x in db.Check_SpotCheckDetail
                         join y in db.WBS_ControlItemAndCycle
                         on x.ControlItemAndCycleId equals y.ControlItemAndCycleId
@@ -233,13 +235,13 @@ namespace BLL
         {
             if (string.IsNullOrEmpty(isDataOK))   //不按资料合格统计
             {
-                return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+                return (from x in Funs.DB.View_Check_SoptCheckDetail
                         where x.UnitWorkId == unitWorkId && x.IsOK == true && x.SpotCheckDate <= endDate
                         select x).ToList();
             }
             else    //按资料合格统计
             {
-                return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+                return (from x in Funs.DB.View_Check_SoptCheckDetail
                         where x.UnitWorkId == unitWorkId && x.IsOK == true && (x.IsDataOK == "1" || x.IsDataOK == "2") && x.SpotCheckDate <= endDate
                         select x).ToList();
             }
@@ -253,13 +255,13 @@ namespace BLL
         {
             if (string.IsNullOrEmpty(isDataOK))   //不按资料合格统计
             {
-                return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+                return (from x in Funs.DB.View_Check_SoptCheckDetail
                         where x.ProjectId == projectId && x.IsOK == true && x.SpotCheckDate <= endDate
                         select x).ToList();
             }
             else    //按资料合格统计
             {
-                return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+                return (from x in Funs.DB.View_Check_SoptCheckDetail
                         where x.ProjectId == projectId && x.IsOK == true && (x.IsDataOK == "1" || x.IsDataOK == "2") && x.SpotCheckDate <= endDate
                         select x).ToList();
             }
@@ -271,7 +273,7 @@ namespace BLL
         /// <param name="SpotCheckCode"></param>
         public static List<Model.Check_SpotCheckDetail> GetSpotCheckDetailsByControlItemAndCycleId(string controlItemAndCycleId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail
+            return (from x in Funs.DB.Check_SpotCheckDetail
                     where x.ControlItemAndCycleId == controlItemAndCycleId && x.IsOK == true
                     select x).ToList();
         }
@@ -282,7 +284,7 @@ namespace BLL
         /// <param name="SpotCheckCode"></param>
         public static List<Model.Check_SpotCheckDetail> GetSpotCheckDetailsByControlItemAndCycleIds(List<string> controlItemAndCycleId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_SpotCheckDetail
+            return (from x in Funs.DB.Check_SpotCheckDetail
                     where controlItemAndCycleId.Contains(x.ControlItemAndCycleId) && x.IsOK == true
                     select x).ToList();
         }
@@ -295,7 +297,8 @@ namespace BLL
         /// <param name="projectType">工程类型</param>
         public static List<Model.Check_SpotCheckDetail> GetOKSpotCheckDetailListByTime(string projectId, DateTime startTime, DateTime endTime)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 return (from x in db.Check_SpotCheckDetail
                         join y in db.Check_SpotCheck
                         on x.SpotCheckCode equals y.SpotCheckCode
@@ -312,7 +315,8 @@ namespace BLL
         /// <param name="projectType">工程类型</param>
         public static List<Model.Check_SpotCheckDetail> GetTotalOKSpotCheckDetailListByTime(string projectId, DateTime endTime)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 return (from x in db.Check_SpotCheckDetail
                         join y in db.Check_SpotCheck
                         on x.SpotCheckCode equals y.SpotCheckCode
@@ -354,7 +358,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static List<Model.View_Check_SoptCheckDetail> GetOKSpotCheckDetailListByTime1(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+            return (from x in Funs.DB.View_Check_SoptCheckDetail
                     where x.ProjectId == projectId && !x.ControlPoint.Contains("C") && x.SpotCheckDate >= startTime && x.SpotCheckDate < endTime && x.IsOK == true
                     select x).ToList();
         }
@@ -364,7 +368,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static List<Model.View_Check_SoptCheckDetail> GetAllSpotCheckDetailListByTime(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+            return (from x in Funs.DB.View_Check_SoptCheckDetail
                     where x.ProjectId == projectId && !x.ControlPoint.Contains("C") && x.SpotCheckDate >= startTime && x.SpotCheckDate < endTime && x.IsOK != null
                     select x).ToList();
         }
@@ -374,7 +378,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static List<Model.View_Check_SoptCheckDetail> GetTotalOKSpotCheckDetailListByTime1(string projectId, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+            return (from x in Funs.DB.View_Check_SoptCheckDetail
                     where x.ProjectId == projectId && !x.ControlPoint.Contains("C") && x.SpotCheckDate < endTime && x.IsOK == true
                     select x).ToList();
         }
@@ -384,7 +388,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static List<Model.View_Check_SoptCheckDetail> GetTotalAllSpotCheckDetailListByTime(string projectId, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+            return (from x in Funs.DB.View_Check_SoptCheckDetail
                     where x.ProjectId == projectId && !x.ControlPoint.Contains("C") && x.SpotCheckDate < endTime && x.IsOK != null
                     select x).ToList();
         }
@@ -395,7 +399,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static List<Model.View_Check_SoptCheckDetail> GetMonthDataOkSpotCheckDetailListByTime(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+            return (from x in Funs.DB.View_Check_SoptCheckDetail
                     where x.ProjectId == projectId && !x.ControlPoint.Contains("C") && x.SpotCheckDate >= startTime && x.SpotCheckDate < endTime && x.IsDataOK == "1"
                     select x).ToList();
         }
@@ -407,7 +411,7 @@ namespace BLL
         /// <param name="projectType">工程类型</param>
         public static List<Model.View_Check_SoptCheckDetail> GetAllDataOkSpotCheckDetailListByTime(string projectId, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+            return (from x in Funs.DB.View_Check_SoptCheckDetail
                     where x.ProjectId == projectId && !x.ControlPoint.Contains("C") && x.SpotCheckDate < endTime && x.IsDataOK == "1"
                     select x).ToList();
         }
@@ -420,13 +424,13 @@ namespace BLL
         {
             if (string.IsNullOrEmpty(isDataOK))   //不按资料合格统计
             {
-                return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+                return (from x in Funs.DB.View_Check_SoptCheckDetail
                         where unitWorkIds.Contains(x.UnitWorkId) && x.IsOK == true && x.SpotCheckDate <= endDate
                         select x).ToList();
             }
             else    //按资料合格统计
             {
-                return (from x in new Model.SGGLDB(Funs.ConnString).View_Check_SoptCheckDetail
+                return (from x in Funs.DB.View_Check_SoptCheckDetail
                         where unitWorkIds.Contains(x.UnitWorkId) && x.IsOK == true && (x.IsDataOK == "1" || x.IsDataOK == "2") && x.SpotCheckDate <= endDate
                         select x).ToList();
             }

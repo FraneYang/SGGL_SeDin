@@ -40,7 +40,7 @@ namespace FineUIPro.Web.ProjectData
                 BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, true);
                 BLL.ConstValue.InitConstValueDropDownList(this.drpIsPost, ConstValue.Group_0001, false);
                 BLL.WorkPostService.InitWorkPostDropDownList(this.drpWorkPost, true);
-                gvUnitWork.DataSource = (from x in new Model.SGGLDB(Funs.ConnString).WBS_UnitWork where x.SuperUnitWork == null && x.ProjectId == this.CurrUser.LoginProjectId select x);
+                gvUnitWork.DataSource = (from x in Funs.DB.WBS_UnitWork where x.SuperUnitWork == null && x.ProjectId == this.CurrUser.LoginProjectId select x);
                 gvUnitWork.DataBind();
                 this.ProjectUserId = Request.QueryString["ProjectUserId"];
                 if (!String.IsNullOrEmpty(this.ProjectUserId))

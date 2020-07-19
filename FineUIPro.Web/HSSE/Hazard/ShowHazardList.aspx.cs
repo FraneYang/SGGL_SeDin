@@ -58,7 +58,7 @@ namespace FineUIPro.Web.HSSE.Hazard
 
         private void BoundTree(TreeNodeCollection nodes, string parentId)
         {
-            var dt = (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where x.SupHazardListTypeId == parentId orderby x.HazardListTypeCode select x).ToList(); 
+            var dt = (from x in Funs.DB.Technique_HazardListType where x.SupHazardListTypeId == parentId orderby x.HazardListTypeCode select x).ToList(); 
             if (dt.Count() > 0)
             {
                 TreeNode tn = null;

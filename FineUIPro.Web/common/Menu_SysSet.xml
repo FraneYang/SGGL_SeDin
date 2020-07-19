@@ -53,7 +53,8 @@
 <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0007" Text="探伤比例定义" NavigateUrl="HJGL/BaseInfo/Detection.aspx"></TreeNode>
 <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0015" Text="试压类型定义" NavigateUrl="HJGL/BaseInfo/Pressure.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="24A40837-0756-49B0-8B3C-EFB8A9879336" Text="合同设置" NavigateUrl=""></TreeNode>
+<TreeNode id="24A40837-0756-49B0-8B3C-EFB8A9879336" Text="合同设置" NavigateUrl=""><TreeNode id="E40C8FCE-3530-47D6-85EB-5C7E7E0A89FC" Text="施工分包方式定义" NavigateUrl=""></TreeNode>
+</TreeNode>
 </TreeNode>
 <TreeNode id="75AA6177-8AAD-4AA4-BC4E-3883FB095A65" Text="项目设置" NavigateUrl=""></TreeNode>
 </Tree>

@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Model.Base_WeldingMethod GetWeldingMethodByWeldingMethodId(string weldingMethodId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_WeldingMethod.FirstOrDefault(e => e.WeldingMethodId == weldingMethodId);
+            return Funs.DB.Base_WeldingMethod.FirstOrDefault(e => e.WeldingMethodId == weldingMethodId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@
         /// <param name="weldingMethod"></param>
         public static void AddWeldingMethod(Model.Base_WeldingMethod weldingMethod)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_WeldingMethod newWeldingMethod = new Base_WeldingMethod
             {
                 WeldingMethodId = weldingMethod.WeldingMethodId,
@@ -40,7 +40,7 @@
         /// <param name="weldingMethod"></param>
         public static void UpdateWeldingMethod(Model.Base_WeldingMethod weldingMethod)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_WeldingMethod newWeldingMethod = db.Base_WeldingMethod.FirstOrDefault(e => e.WeldingMethodId == weldingMethod.WeldingMethodId);
             if (newWeldingMethod != null)
             {
@@ -58,7 +58,7 @@
         /// <param name="weldingMethodId"></param>
         public static void DeleteWeldingMethodByWeldingMethodId(string weldingMethodId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_WeldingMethod delWeldingMethod = db.Base_WeldingMethod.FirstOrDefault(e => e.WeldingMethodId == weldingMethodId);
             if (delWeldingMethod != null)
             {
@@ -74,7 +74,7 @@
         /// <returns></returns>
         public static List<Model.Base_WeldingMethod> GetWeldingMethodList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_WeldingMethod
+            var list = (from x in Funs.DB.Base_WeldingMethod
                         orderby x.WeldingMethodCode
                         select x).ToList();
 

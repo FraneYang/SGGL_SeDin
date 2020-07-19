@@ -9,7 +9,7 @@ namespace BLL
 {
     public class DesignApproveService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取设计变更模板列表
@@ -85,7 +85,7 @@ namespace BLL
         /// <param name="managerRuleApprove">设计变更审批实体</param>
         public static void AddDesignApprove(Model.Check_DesignApprove approve)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_DesignApprove));
             Model.Check_DesignApprove newApprove = new Model.Check_DesignApprove();
             newApprove.DesignApproveId = newKeyID;
@@ -124,7 +124,7 @@ namespace BLL
         /// <param name="managerRuleApprove">设计变更审批实体</param>
         public static void UpdateDesignApprove(Model.Check_DesignApprove approve)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_DesignApprove newApprove = db.Check_DesignApprove.First(e => e.DesignApproveId == approve.DesignApproveId && e.ApproveDate == null);
             newApprove.DesignId = approve.DesignId;
             newApprove.ApproveMan = approve.ApproveMan;
@@ -169,7 +169,7 @@ namespace BLL
         /// <param name="DesignCode">设计变更编号</param>
         public static void DeleteDesignApprovesByDesignId(string DesignId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Check_DesignApprove where x.DesignId == DesignId select x).ToList();
             db.Check_DesignApprove.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -182,7 +182,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetManagerRuleApproveCountByUserId(string userId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_DesignApprove where x.ApproveMan == userId select x).ToList();
+            var q = (from x in Funs.DB.Check_DesignApprove where x.ApproveMan == userId select x).ToList();
             return q.Count();
         }
         public static List<Model.Check_DesignApprove> getListDataByIdForApi(string DesignId)

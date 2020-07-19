@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class CertificateService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取特岗证书
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_Certificate GetCertificateById(string certificateId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_Certificate.FirstOrDefault(e => e.CertificateId == certificateId);
+            return Funs.DB.Base_Certificate.FirstOrDefault(e => e.CertificateId == certificateId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="certificate"></param>
         public static void AddCertificate(Model.Base_Certificate certificate)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Certificate newCertificate = new Model.Base_Certificate
             {
                 CertificateId = certificate.CertificateId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="certificate"></param>
         public static void UpdateCertificate(Model.Base_Certificate certificate)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Certificate newCertificate = db.Base_Certificate.FirstOrDefault(e => e.CertificateId == certificate.CertificateId);
             if (newCertificate != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="certificateId"></param>
         public static void DeleteCertificateById(string certificateId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Certificate certificate = db.Base_Certificate.FirstOrDefault(e => e.CertificateId == certificateId);
             if (certificate != null)
             {
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Certificate> GetCertificateList()
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Base_Certificate orderby x.CertificateCode select x).ToList();
+            return (from x in Funs.DB.Base_Certificate orderby x.CertificateCode select x).ToList();
         }
 
         #region 表下拉框

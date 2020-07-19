@@ -345,7 +345,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             }
             else
             {
-                Model.InformationProject_DrillConductedQuarterlyReport oldDrillConductedQuarterlyReport = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_DrillConductedQuarterlyReport
+                Model.InformationProject_DrillConductedQuarterlyReport oldDrillConductedQuarterlyReport = (from x in Funs.DB.InformationProject_DrillConductedQuarterlyReport
                                                                                                            where x.ProjectId == drillConductedQuarterlyReport.ProjectId && x.YearId == drillConductedQuarterlyReport.YearId && x.Quarter == drillConductedQuarterlyReport.Quarter
                                                                                                            select x).FirstOrDefault();
                 if (oldDrillConductedQuarterlyReport == null)
@@ -355,7 +355,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     BLL.ProjectDrillConductedQuarterlyReportService.AddDrillConductedQuarterlyReport(drillConductedQuarterlyReport);
                     BLL.LogService.AddSys_Log(this.CurrUser, drillConductedQuarterlyReport.YearId.ToString() + "-" + drillConductedQuarterlyReport.Quarter.ToString(), drillConductedQuarterlyReport.DrillConductedQuarterlyReportId, BLL.Const.ProjectDrillConductedQuarterlyReportMenuId, BLL.Const.BtnAdd);
                     ////删除未上报月报信息
-                    //Model.ManagementReport_ReportRemind reportRemind = (from x in new Model.SGGLDB(Funs.ConnString).ManagementReport_ReportRemind
+                    //Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                     //                                                    where x.ProjectId == this.ProjectId && x.Year == drillConductedQuarterlyReport.YearId && x.Quarterly == drillConductedQuarterlyReport.Quarter && x.ReportName == "应急演练开展情况季报"
                     //                                                    select x).FirstOrDefault();
                     //if (reportRemind != null)

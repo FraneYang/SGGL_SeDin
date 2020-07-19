@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EmergencyTeamAndTrainService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取应急队伍/培训
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Emergency_EmergencyTeamAndTrain GetEmergencyTeamAndTrainById(string fileId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyTeamAndTrain.FirstOrDefault(e => e.FileId == fileId);
+            return Funs.DB.Emergency_EmergencyTeamAndTrain.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="EmergencyTeamAndTrain"></param>
         public static void AddEmergencyTeamAndTrain(Model.Emergency_EmergencyTeamAndTrain EmergencyTeamAndTrain)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencyTeamAndTrain newEmergencyTeamAndTrain = new Model.Emergency_EmergencyTeamAndTrain
             {
                 FileId = EmergencyTeamAndTrain.FileId,
@@ -54,7 +54,7 @@ namespace BLL
         /// <param name="EmergencyTeamAndTrain"></param>
         public static void UpdateEmergencyTeamAndTrain(Model.Emergency_EmergencyTeamAndTrain EmergencyTeamAndTrain)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencyTeamAndTrain newEmergencyTeamAndTrain = db.Emergency_EmergencyTeamAndTrain.FirstOrDefault(e => e.FileId == EmergencyTeamAndTrain.FileId);
             if (newEmergencyTeamAndTrain != null)
             {
@@ -76,7 +76,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteEmergencyTeamAndTrainById(string FileId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencyTeamAndTrain EmergencyTeamAndTrain = db.Emergency_EmergencyTeamAndTrain.FirstOrDefault(e => e.FileId == FileId);
             if (EmergencyTeamAndTrain != null)
             {
@@ -97,7 +97,7 @@ namespace BLL
         /// <param name="item"></param>
         public static void AddEmergencyTeamItem(Model.Emergency_EmergencyTeamItem item)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_EmergencyTeamItem newItem = new Model.Emergency_EmergencyTeamItem
             {
                 EmergencyTeamItemId = item.EmergencyTeamItemId,
@@ -115,7 +115,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteEmergency_EmergencyTeamItem(string FileId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var delItem = from x in db.Emergency_EmergencyTeamItem where x.FileId == FileId select x;
             if (delItem.Count() > 0)
             {

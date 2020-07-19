@@ -6,7 +6,7 @@
 
     public static class ProjectUserService
     {
-        public static SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static SGGLDB db = Funs.DB;
 
         /// <summary>
         ///获取项目用户信息
@@ -14,7 +14,7 @@
         /// <returns></returns>
         public static Project_ProjectUser GetProjectUserById(string projectUserId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(e => e.ProjectUserId == projectUserId);
+            return Funs.DB.Project_ProjectUser.FirstOrDefault(e => e.ProjectUserId == projectUserId);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@
         /// <returns></returns>
         public static Project_ProjectUser GetProjectUserByUserIdProjectId(string projectId, string userId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(e => e.ProjectId == projectId && e.UserId == userId);
+            return Funs.DB.Project_ProjectUser.FirstOrDefault(e => e.ProjectId == projectId && e.UserId == userId);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@
         /// <returns></returns>
         public static List<Project_ProjectUser> GetProjectUserByUserId(string userId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser where x.UserId == userId select x).ToList();
+            return (from x in Funs.DB.Project_ProjectUser where x.UserId == userId select x).ToList();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@
         /// <returns></returns>
         public static void AddProjectUser(Project_ProjectUser projectUser)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             Project_ProjectUser newProjectUser = new Project_ProjectUser
             {
                 ProjectUserId = SQLHelper.GetNewID(typeof(Project_ProjectUser)),
@@ -62,7 +62,7 @@
         /// <param name="projectUser"></param>
         public static void UpdateProjectUser(Project_ProjectUser projectUser)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             Project_ProjectUser newProjectUser = db.Project_ProjectUser.FirstOrDefault(e => e.ProjectUserId == projectUser.ProjectUserId);
             if (newProjectUser != null)
             {
@@ -83,7 +83,7 @@
         /// <param name="projectUserId"></param>
         public static void DeleteProjectUserById(string projectUserId)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             Project_ProjectUser delProjectUser = db.Project_ProjectUser.FirstOrDefault(e => e.ProjectUserId == projectUserId);
             if (delProjectUser != null)
             {
@@ -98,7 +98,7 @@
         /// <param name="projectUserId"></param>
         public static void DeleteProjectUserByProjectIdUserId(string projectId, string userId)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             var delProjectUser = from x in db.Project_ProjectUser where x.ProjectId == projectId && x.UserId == userId select x;
             if (delProjectUser.Count() > 0)
             {
@@ -113,7 +113,7 @@
         /// <returns></returns>
         public static List<Project_ProjectUser> GetProjectUsersByProjectIds(List<string> ProjectIds)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Project_ProjectUser where ProjectIds.Contains(x.ProjectId) select x).ToList();
+            return (from x in Funs.DB.Project_ProjectUser where ProjectIds.Contains(x.ProjectId) select x).ToList();
         }
 
         /// <summary>
@@ -122,7 +122,7 @@
         /// <returns></returns>
         public static Project_ProjectUser GetProjectUserByProjectId(string ProjectId, string RoleId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(e => e.ProjectId == ProjectId && e.RoleId == RoleId);
+            return Funs.DB.Project_ProjectUser.FirstOrDefault(e => e.ProjectId == ProjectId && e.RoleId == RoleId);
         }
     }
 }

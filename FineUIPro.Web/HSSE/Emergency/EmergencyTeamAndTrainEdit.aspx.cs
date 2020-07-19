@@ -80,7 +80,7 @@ namespace FineUIPro.Web.HSSE.Emergency
                         }
                         this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", EmergencyTeamAndTrain.CompileDate);
                         //    this.txtFileContent.Text = HttpUtility.HtmlDecode(EmergencyTeamAndTrain.FileContent);
-                        viewEmergencyTeamItemList = (from x in new Model.SGGLDB(Funs.ConnString).View_Emergency_EmergencyTeamItem
+                        viewEmergencyTeamItemList = (from x in Funs.DB.View_Emergency_EmergencyTeamItem
                                                      where x.FileId == this.FileId
                                                      select x).ToList();
                         Grid1.DataSource = viewEmergencyTeamItemList;
@@ -205,8 +205,8 @@ namespace FineUIPro.Web.HSSE.Emergency
                                        };
             if (getItems.Count() > 0)
             {
-                new Model.SGGLDB(Funs.ConnString).Emergency_EmergencyTeamItem.InsertAllOnSubmit(getItems);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Emergency_EmergencyTeamItem.InsertAllOnSubmit(getItems);
+                Funs.DB.SubmitChanges();
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectEmergencyTeamAndTrainMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), EmergencyTeamAndTrain.FileName, "../Emergency/EmergencyTeamAndTrainView.aspx?FileId={0}");

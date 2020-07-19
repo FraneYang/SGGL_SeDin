@@ -42,7 +42,7 @@ namespace FineUIPro.Web.BaseInfo
         /// <returns></returns>
         private List<Model.Base_UnitType> GetPagedDataTable(int pageIndex, int pageSize)
         {
-            List<Model.Base_UnitType> source = (from x in new Model.SGGLDB(Funs.ConnString).Base_UnitType orderby x.UnitTypeCode select x).ToList();
+            List<Model.Base_UnitType> source = (from x in Funs.DB.Base_UnitType orderby x.UnitTypeCode select x).ToList();
             List<Model.Base_UnitType> paged = new List<Model.Base_UnitType>();
 
             int rowbegin = pageIndex * pageSize;
@@ -223,7 +223,7 @@ namespace FineUIPro.Web.BaseInfo
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            if (new Model.SGGLDB(Funs.ConnString).Base_Unit.FirstOrDefault(x => x.UnitTypeId == id) != null)
+            if (Funs.DB.Base_Unit.FirstOrDefault(x => x.UnitTypeId == id) != null)
             {
                 content = "该单位类型已在【单位设置】中使用，不能删除！";
             }
@@ -249,13 +249,13 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_UnitType.FirstOrDefault(x => x.UnitTypeCode == this.txtUnitTypeCode.Text.Trim() && (x.UnitTypeId != hfFormID.Text || (hfFormID.Text == null && x.UnitTypeId != null)));
+            var q = Funs.DB.Base_UnitType.FirstOrDefault(x => x.UnitTypeCode == this.txtUnitTypeCode.Text.Trim() && (x.UnitTypeId != hfFormID.Text || (hfFormID.Text == null && x.UnitTypeId != null)));
             if (q != null)
             {
                 ShowNotify("输入的编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_UnitType.FirstOrDefault(x => x.UnitTypeName == this.txtUnitTypeName.Text.Trim() && (x.UnitTypeId != hfFormID.Text || (hfFormID.Text == null && x.UnitTypeId != null)));
+            var q2 = Funs.DB.Base_UnitType.FirstOrDefault(x => x.UnitTypeName == this.txtUnitTypeName.Text.Trim() && (x.UnitTypeId != hfFormID.Text || (hfFormID.Text == null && x.UnitTypeId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的名称已存在！", MessageBoxIcon.Warning);

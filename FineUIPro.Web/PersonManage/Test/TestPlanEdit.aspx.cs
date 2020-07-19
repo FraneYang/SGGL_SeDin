@@ -58,7 +58,7 @@ namespace FineUIPro.Web.PersonManage.Test
                     this.txtTestPalce.Text = getTestPlan.TestPalce;
                     //this.lbQuestionCount.Text = getTestPlan.QuestionCount.ToString();
                     //this.lbTotalScore.Text = getTestPlan.TotalScore.ToString();
-                    viewTestPlanTrainingList = (from x in new Model.SGGLDB(Funs.ConnString).View_Test_TestPlanTraining
+                    viewTestPlanTrainingList = (from x in Funs.DB.View_Test_TestPlanTraining
                                                 where x.TestPlanId == this.TestPlanId
                                                 select x).ToList();
                     Grid1.DataSource = viewTestPlanTrainingList;
@@ -334,8 +334,8 @@ namespace FineUIPro.Web.PersonManage.Test
                                       };
            if(getTestPlanTrainings.Count() >0 )
             {
-                new Model.SGGLDB(Funs.ConnString).Test_TestPlanTraining.InsertAllOnSubmit(getTestPlanTrainings);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Test_TestPlanTraining.InsertAllOnSubmit(getTestPlanTrainings);
+                Funs.DB.SubmitChanges();
             }
 
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

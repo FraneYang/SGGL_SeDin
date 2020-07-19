@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ProjectMillionsMonthlyReportService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取百万工时安全统计月报
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_MillionsMonthlyReport GetMillionsMonthlyReportById(string millionsMonthlyReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_MillionsMonthlyReport.FirstOrDefault(e => e.MillionsMonthlyReportId == millionsMonthlyReportId);
+            return Funs.DB.InformationProject_MillionsMonthlyReport.FirstOrDefault(e => e.MillionsMonthlyReportId == millionsMonthlyReportId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="millionsMonthlyReport"></param>
         public static void AddMillionsMonthlyReport(Model.InformationProject_MillionsMonthlyReport millionsMonthlyReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_MillionsMonthlyReport newMillionsMonthlyReport = new Model.InformationProject_MillionsMonthlyReport
             {
                 MillionsMonthlyReportId = millionsMonthlyReport.MillionsMonthlyReportId,
@@ -78,7 +78,7 @@ namespace BLL
         /// <param name="millionsMonthlyReport"></param>
         public static void UpdateMillionsMonthlyReport(Model.InformationProject_MillionsMonthlyReport millionsMonthlyReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_MillionsMonthlyReport newMillionsMonthlyReport = db.InformationProject_MillionsMonthlyReport.FirstOrDefault(e => e.MillionsMonthlyReportId == millionsMonthlyReport.MillionsMonthlyReportId);
             if (newMillionsMonthlyReport != null)
             {
@@ -127,7 +127,7 @@ namespace BLL
         /// <param name="millionsMonthlyReportId"></param>
         public static void DeleteMillionsMonthlyReportById(string millionsMonthlyReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_MillionsMonthlyReport millionsMonthlyReport = db.InformationProject_MillionsMonthlyReport.FirstOrDefault(e => e.MillionsMonthlyReportId == millionsMonthlyReportId);
             if (millionsMonthlyReport != null)
             {

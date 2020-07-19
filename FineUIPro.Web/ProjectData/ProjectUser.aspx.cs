@@ -170,7 +170,7 @@ namespace FineUIPro.Web.ProjectData
         {
             if (!string.IsNullOrEmpty(this.drpProject.SelectedValue))
             {
-                var punit = new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == this.drpProject.SelectedValue);
+                var punit = Funs.DB.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == this.drpProject.SelectedValue);
                 if (punit != null)
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUserSelect.aspx?ProjectId={0}", this.drpProject.SelectedValue), "选择项目用户", 800, 500));

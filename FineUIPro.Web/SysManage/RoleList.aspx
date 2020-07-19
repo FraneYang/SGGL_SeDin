@@ -4,13 +4,7 @@
 <html>
 <head runat="server">
     <title>角色管理</title>
-    <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        .f-grid-row .f-grid-cell-inner {
-            white-space: normal;
-            word-break: break-all;
-        }     
-    </style>
+    <link href="../res/css/common.css" rel="stylesheet" type="text/css" />   
 </head>
 <body>
     <form id="form1" runat="server">
@@ -49,7 +43,11 @@
                         SortField="RoleName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center"
                         TextAlign="Left">                      
                     </f:RenderField>
-                    <f:TemplateField ColumnID="CNCodes" Width="180px" HeaderText="角色对口专业设置" HeaderTextAlign="Center" TextAlign="Center"
+                      <f:RenderField Width="90px" ColumnID="RoleTypeName" DataField="RoleTypeName" 
+                        SortField="RoleTypeName" FieldType="String" HeaderText="类型" HeaderTextAlign="Center"
+                        TextAlign="Left">                       
+                    </f:RenderField>
+                    <f:TemplateField ColumnID="CNCodes" Width="180px" HeaderText="对口专业" HeaderTextAlign="Center" TextAlign="Center"
                             EnableLock="true" Locked="False">
                             <ItemTemplate>
                                 <asp:Label ID="Label2" runat="server" Text='<%# ConvertCNCodes(Eval("CNCodes")) %>'></asp:Label>

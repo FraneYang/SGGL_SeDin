@@ -8,7 +8,7 @@ namespace BLL
 {
     public class SitePerson_DayReportUnitDetailService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
 
         /// <summary>
@@ -17,7 +17,7 @@ namespace BLL
         /// <param name="dayReportUnitDetail">工作日报明细实体</param>
         public static void AddDayReportUnitDetail(Model.SitePerson_DayReportUnitDetail dayReportUnitDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_DayReportUnitDetail newDayReportUnitDetail = new Model.SitePerson_DayReportUnitDetail();
             string newKeyID = SQLHelper.GetNewID(typeof(Model.SitePerson_DayReportUnitDetail));
             newDayReportUnitDetail.DayReportUnitDetailId = newKeyID;
@@ -37,7 +37,7 @@ namespace BLL
         /// <param name="dayReportDetail">工作日报明细实体</param>
         public static void UpdateDayReportUnitDetail(Model.SitePerson_DayReportUnitDetail dayReportUnitDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_DayReportUnitDetail newDayReportUnitDetail = db.SitePerson_DayReportUnitDetail.FirstOrDefault(e => e.DayReportUnitDetailId == dayReportUnitDetail.DayReportUnitDetailId);
             if (newDayReportUnitDetail != null)
             {

@@ -424,7 +424,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getTrainType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_TrainType
+            var getDataLists = (from x in Funs.DB.Base_TrainType
                                 orderby x.TrainTypeCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.TrainTypeId, BaseInfoCode = x.TrainTypeCode, BaseInfoName = x.TrainTypeName }).ToList();
             return getDataLists;
@@ -438,7 +438,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getTrainLevel()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_TrainLevel
+            var getDataLists = (from x in Funs.DB.Base_TrainLevel
                                 orderby x.TrainLevelCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.TrainLevelId, BaseInfoCode = x.TrainLevelCode, BaseInfoName = x.TrainLevelName }).ToList();
             return getDataLists;
@@ -452,7 +452,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getLawsRegulationsType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_LawsRegulationsType
+            var getDataLists = (from x in Funs.DB.Base_LawsRegulationsType
                                 orderby x.Code
                                 select new Model.BaseInfoItem { BaseInfoId = x.Id, BaseInfoCode = x.Code, BaseInfoName = x.Name }).ToList();
             return getDataLists;
@@ -466,7 +466,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getHSSEStandardListType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_HSSEStandardListType
+            var getDataLists = (from x in Funs.DB.Base_HSSEStandardListType
                                 orderby x.TypeCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.TypeId, BaseInfoCode = x.TypeCode, BaseInfoName = x.TypeName }).ToList();
             return getDataLists;
@@ -480,7 +480,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getRulesRegulationsType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_RulesRegulationsType
+            var getDataLists = (from x in Funs.DB.Base_RulesRegulationsType
                                 orderby x.RulesRegulationsTypeCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.RulesRegulationsTypeId, BaseInfoCode = x.RulesRegulationsTypeCode, BaseInfoName = x.RulesRegulationsTypeName }).ToList();
             return getDataLists;
@@ -494,7 +494,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getManageRuleType()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_ManageRuleType
+            var getDataLists = (from x in Funs.DB.Base_ManageRuleType
                                 orderby x.ManageRuleTypeCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.ManageRuleTypeId, BaseInfoCode = x.ManageRuleTypeCode, BaseInfoName = x.ManageRuleTypeName }).ToList();
             return getDataLists;
@@ -508,7 +508,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getSpecialEquipment(bool isSpecial)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment
+            var getDataLists = (from x in Funs.DB.Base_SpecialEquipment
                                 where x.IsSpecial == isSpecial
                                 orderby x.SpecialEquipmentCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.SpecialEquipmentId, BaseInfoCode = x.SpecialEquipmentCode, BaseInfoName = x.SpecialEquipmentName }).ToList();
@@ -523,7 +523,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getWorkStage()
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).Base_WorkStage
+            var getDataLists = (from x in Funs.DB.Base_WorkStage
                                 orderby x.WorkStageCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.WorkStageId, BaseInfoCode = x.WorkStageCode, BaseInfoName = x.WorkStageName }).ToList();
             return getDataLists;
@@ -539,7 +539,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getTeamGroup(string projectId, string unitId)
         {
-            var getDataLists = (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup
+            var getDataLists = (from x in Funs.DB.ProjectData_TeamGroup
                                 where x.ProjectId == projectId && (unitId == null || x.UnitId == unitId)
                                 orderby x.TeamGroupCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.TeamGroupId, BaseInfoCode = x.TeamGroupCode, BaseInfoName = x.TeamGroupName }).ToList();

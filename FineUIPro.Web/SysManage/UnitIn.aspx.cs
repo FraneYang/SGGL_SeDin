@@ -163,7 +163,7 @@ namespace FineUIPro.Web.SysManage
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var unitTypes = from x in new Model.SGGLDB(Funs.ConnString).Base_UnitType select x;
+                var unitTypes = from x in Funs.DB.Base_UnitType select x;
                 for (int i = 0; i < ir; i++)
                 {
                     string col0 = pds.Rows[i][0].ToString().Trim();
@@ -314,7 +314,7 @@ namespace FineUIPro.Web.SysManage
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var unitTypes = from x in new Model.SGGLDB(Funs.ConnString).Base_UnitType select x;
+                var unitTypes = from x in Funs.DB.Base_UnitType select x;
                 for (int i = 0; i < ir; i++)
                 {
                     Model.Base_Unit unit = new Model.Base_Unit();

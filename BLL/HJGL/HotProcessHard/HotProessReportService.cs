@@ -14,7 +14,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_HotProess_Report GetHotProessReportById(string hotProessReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_Report.FirstOrDefault(e => e.HotProessReportId == hotProessReportId);
+            return Funs.DB.HJGL_HotProess_Report.FirstOrDefault(e => e.HotProessReportId == hotProessReportId);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace BLL
         /// <param name="hotProessReport"></param>
         public static void AddHotProessReport(Model.HJGL_HotProess_Report hotProessReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_HotProess_Report newHotProessReport = new Model.HJGL_HotProess_Report();
             newHotProessReport.HotProessReportId = hotProessReport.HotProessReportId;
             newHotProessReport.HotProessTrustItemId = hotProessReport.HotProessTrustItemId;
@@ -44,7 +44,7 @@ namespace BLL
         /// <param name="hotProessReport"></param>
         public static void UpdateHotProessReport(Model.HJGL_HotProess_Report hotProessReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_HotProess_Report newHotProessReport = db.HJGL_HotProess_Report.FirstOrDefault(e => e.HotProessReportId == hotProessReport.HotProessReportId);
             if (newHotProessReport != null)
             {
@@ -64,7 +64,7 @@ namespace BLL
         /// <param name="hotProessReportId"></param>
         public static void DeleteHotProessReportById(string hotProessReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_HotProess_Report hotProessReport = db.HJGL_HotProess_Report.FirstOrDefault(e => e.HotProessReportId == hotProessReportId);
             if (hotProessReport != null)
             {

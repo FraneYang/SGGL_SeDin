@@ -8,7 +8,7 @@ namespace BLL
    public static class UnitTypeService
     {
 
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取信息
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_UnitType GetUnitTypeById(string unitTypeId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_UnitType.FirstOrDefault(e => e.UnitTypeId == unitTypeId);
+            return Funs.DB.Base_UnitType.FirstOrDefault(e => e.UnitTypeId == unitTypeId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_UnitType GetUnitTypeByName(string unitTypeName)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_UnitType.FirstOrDefault(e => e.UnitTypeName == unitTypeName);
+            return Funs.DB.Base_UnitType.FirstOrDefault(e => e.UnitTypeName == unitTypeName);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BLL
         /// <param name="?"></param>
         public static void AddUnitType(Model.Base_UnitType unitType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_UnitType newUnitType = new Model.Base_UnitType
             {
                 UnitTypeId = unitType.UnitTypeId,
@@ -55,7 +55,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void UpdateUnitType(Model.Base_UnitType unitType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_UnitType newUnitType = db.Base_UnitType.FirstOrDefault(e => e.UnitTypeId == unitType.UnitTypeId);
             if (newUnitType != null)
             {
@@ -72,7 +72,7 @@ namespace BLL
         /// <param name="unitTypeId"></param>
         public static void DeleteUnitTypeById(string unitTypeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_UnitType unitType = db.Base_UnitType.FirstOrDefault(e => e.UnitTypeId == unitTypeId);
             {
                 db.Base_UnitType.DeleteOnSubmit(unitType);
@@ -86,7 +86,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_UnitType> GetUnitTypeList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_UnitType orderby x.UnitTypeCode select x).ToList();
+            var list = (from x in Funs.DB.Base_UnitType orderby x.UnitTypeCode select x).ToList();
             return list;
         }
         /// <summary>
@@ -95,7 +95,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_UnitType> GetUnitTypeDropDownList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_UnitType orderby x.UnitTypeCode select x).ToList();          
+            var list = (from x in Funs.DB.Base_UnitType orderby x.UnitTypeCode select x).ToList();          
             return list;
         }
 

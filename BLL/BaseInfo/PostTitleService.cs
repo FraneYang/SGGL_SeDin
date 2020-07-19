@@ -7,7 +7,7 @@ namespace BLL
 {
    public static class PostTitleService
    {
-       public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+       public static Model.SGGLDB db = Funs.DB;
 
        /// <summary>
        /// 根据主键获取信息
@@ -16,7 +16,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.Base_PostTitle GetPostTitleById(string postTitleId)
        {
-           return new Model.SGGLDB(Funs.ConnString).Base_PostTitle.FirstOrDefault(e => e.PostTitleId == postTitleId);
+           return Funs.DB.Base_PostTitle.FirstOrDefault(e => e.PostTitleId == postTitleId);
        }
 
        /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.Base_PostTitle GetPostTitleByName(string postTitleName)
        {
-           return new Model.SGGLDB(Funs.ConnString).Base_PostTitle.FirstOrDefault(e => e.PostTitleName == postTitleName);
+           return Funs.DB.Base_PostTitle.FirstOrDefault(e => e.PostTitleName == postTitleName);
        }
 
        /// <summary>
@@ -35,7 +35,7 @@ namespace BLL
        /// <param name="?"></param>
        public static void AddPostTitle(Model.Base_PostTitle postTitle)
        {
-           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+           Model.SGGLDB db = Funs.DB;
             Model.Base_PostTitle newPostTitle = new Model.Base_PostTitle
             {
                 PostTitleId = postTitle.PostTitleId,
@@ -54,7 +54,7 @@ namespace BLL
        /// <param name="teamGroup"></param>
        public static void UpdatePostTitle(Model.Base_PostTitle postTitle)
        {
-           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+           Model.SGGLDB db = Funs.DB;
            Model.Base_PostTitle newPostTitle = db.Base_PostTitle.FirstOrDefault(e => e.PostTitleId == postTitle.PostTitleId);
            if (newPostTitle != null)
            {
@@ -71,7 +71,7 @@ namespace BLL
        /// <param name="postTitleId"></param>
        public static void DeletePostTitleById(string postTitleId)
        {
-           Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+           Model.SGGLDB db = Funs.DB;
            Model.Base_PostTitle postTitle = db.Base_PostTitle.FirstOrDefault(e => e.PostTitleId == postTitleId);
            {
                db.Base_PostTitle.DeleteOnSubmit(postTitle);
@@ -85,7 +85,7 @@ namespace BLL
        /// <returns></returns>
        public static List<Model.Base_PostTitle> GetPostTitleList()
        {
-           var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_PostTitle orderby x.PostTitleCode select x).ToList();
+           var list = (from x in Funs.DB.Base_PostTitle orderby x.PostTitleCode select x).ToList();
            return list;
        }
 
@@ -95,7 +95,7 @@ namespace BLL
        /// <returns></returns>
        public static List<Model.Base_PostTitle> GetPostTitleDropDownList()
        {
-           var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_PostTitle orderby x.PostTitleCode select x).ToList();           
+           var list = (from x in Funs.DB.Base_PostTitle orderby x.PostTitleCode select x).ToList();           
            return list;
        }
 

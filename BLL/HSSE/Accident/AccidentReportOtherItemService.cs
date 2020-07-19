@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public class AccidentReportOtherItemService
     {
-        Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据事故调查处理报告主键获取所有相关调查组成员信息列表
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Accident_AccidentReportOtherItem> GetAccidentReportOtherItemByAccidentReportOtherId(string accidentReportOtherId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOtherItem where x.AccidentReportOtherId == accidentReportOtherId select x).ToList();
+            return (from x in Funs.DB.Accident_AccidentReportOtherItem where x.AccidentReportOtherId == accidentReportOtherId select x).ToList();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Accident_AccidentReportOtherItem GetAccidentReportOtherItemById(string accidentReportOtherItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOtherItem.FirstOrDefault(e => e.AccidentReportOtherItemId == accidentReportOtherItemId);
+            return Funs.DB.Accident_AccidentReportOtherItem.FirstOrDefault(e => e.AccidentReportOtherItemId == accidentReportOtherItemId);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="accidentReportOtherItem"></param>
         public static void AddAccidentReportOtherItem(Model.Accident_AccidentReportOtherItem accidentReportOtherItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentReportOtherItem newAccidentReportOtherItem = new Model.Accident_AccidentReportOtherItem
             {
                 AccidentReportOtherItemId = accidentReportOtherItem.AccidentReportOtherItemId,
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="accidentReportOtherItem"></param>
         public static void UpdateAccidentReportOtherItem(Model.Accident_AccidentReportOtherItem accidentReportOtherItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentReportOtherItem newAccidentReportOtherItem = db.Accident_AccidentReportOtherItem.FirstOrDefault(e => e.AccidentReportOtherItemId == accidentReportOtherItem.AccidentReportOtherItemId);
             if (newAccidentReportOtherItem != null)
             {
@@ -75,7 +75,7 @@ namespace BLL
         /// <param name="accidentReportOtherId"></param>
         public static void DeleteAccidentReportOtherItemByAccidentReportOtherId(string accidentReportOtherId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Accident_AccidentReportOtherItem where x.AccidentReportOtherId == accidentReportOtherId select x).ToList();
             if (q != null)
             {
@@ -90,7 +90,7 @@ namespace BLL
         /// <param name="accidentReportOtherItemId"></param>
         public static void DeleteAccidentReportOtherItemById(string accidentReportOtherItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentReportOtherItem item = db.Accident_AccidentReportOtherItem.FirstOrDefault(e => e.AccidentReportOtherItemId == accidentReportOtherItemId);
             if (item != null)
             {

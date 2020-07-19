@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ProjectDrillConductedQuarterlyReportService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取应急演练开展情况季报表
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_DrillConductedQuarterlyReport GetDrillConductedQuarterlyReportById(string drillConductedQuarterlyReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_DrillConductedQuarterlyReport.FirstOrDefault(e => e.DrillConductedQuarterlyReportId == drillConductedQuarterlyReportId);
+            return Funs.DB.InformationProject_DrillConductedQuarterlyReport.FirstOrDefault(e => e.DrillConductedQuarterlyReportId == drillConductedQuarterlyReportId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="drillConductedQuarterlyReport"></param>
         public static void AddDrillConductedQuarterlyReport(Model.InformationProject_DrillConductedQuarterlyReport drillConductedQuarterlyReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillConductedQuarterlyReport newDrillConductedQuarterlyReport = new Model.InformationProject_DrillConductedQuarterlyReport
             {
                 DrillConductedQuarterlyReportId = drillConductedQuarterlyReport.DrillConductedQuarterlyReportId,
@@ -50,7 +50,7 @@ namespace BLL
         /// <param name="drillConductedQuarterlyReport"></param>
         public static void UpdateDrillConductedQuarterlyReport(Model.InformationProject_DrillConductedQuarterlyReport drillConductedQuarterlyReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillConductedQuarterlyReport newDrillConductedQuarterlyReport = db.InformationProject_DrillConductedQuarterlyReport.FirstOrDefault(e => e.DrillConductedQuarterlyReportId == drillConductedQuarterlyReport.DrillConductedQuarterlyReportId);
             if (newDrillConductedQuarterlyReport != null)
             {
@@ -71,7 +71,7 @@ namespace BLL
         /// <param name="drillConductedQuarterlyReportId"></param>
         public static void DeleteDrillConductedQuarterlyReportById(string drillConductedQuarterlyReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillConductedQuarterlyReport drillConductedQuarterlyReport = db.InformationProject_DrillConductedQuarterlyReport.FirstOrDefault(e => e.DrillConductedQuarterlyReportId == drillConductedQuarterlyReportId);
             if (drillConductedQuarterlyReport != null)
             {

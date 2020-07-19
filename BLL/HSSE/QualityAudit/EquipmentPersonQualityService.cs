@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EquipmentPersonQualityService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取特种设备作业人员资质
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_EquipmentPersonQuality GetEquipmentPersonQualityByPersonId(string personId)
         {
-            return new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentPersonQuality.FirstOrDefault(e => e.PersonId == personId);
+            return Funs.DB.QualityAudit_EquipmentPersonQuality.FirstOrDefault(e => e.PersonId == personId);
         }
 
         /// <summary>
@@ -31,8 +31,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.QualityAudit_EquipmentPersonQuality> GetListByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentPersonQuality
-                    join y in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
+            return (from x in Funs.DB.QualityAudit_EquipmentPersonQuality
+                    join y in Funs.DB.SitePerson_Person
                     on x.PersonId equals y.PersonId
                     where y.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime
                     orderby x.AuditDate
@@ -66,7 +66,7 @@ namespace BLL
         /// <param name="EquipmentPersonQuality"></param>
         public static void AddEquipmentPersonQuality(Model.QualityAudit_EquipmentPersonQuality EquipmentPersonQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentPersonQuality newEquipmentPersonQuality = new Model.QualityAudit_EquipmentPersonQuality
             {
                 EquipmentPersonQualityId = EquipmentPersonQuality.EquipmentPersonQualityId,
@@ -97,7 +97,7 @@ namespace BLL
         /// <param name="EquipmentPersonQuality"></param>
         public static void UpdateEquipmentPersonQuality(Model.QualityAudit_EquipmentPersonQuality EquipmentPersonQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentPersonQuality newEquipmentPersonQuality = db.QualityAudit_EquipmentPersonQuality.FirstOrDefault(e => e.EquipmentPersonQualityId == EquipmentPersonQuality.EquipmentPersonQualityId);
             if (newEquipmentPersonQuality != null)
             {

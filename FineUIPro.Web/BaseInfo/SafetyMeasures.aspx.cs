@@ -210,7 +210,7 @@
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            //if (new Model.SGGLDB(Funs.ConnString).Project_ProjectSafetyMeasures.FirstOrDefault(x => x.SafetyMeasuresId == id) != null)
+            //if (Funs.DB.Project_ProjectSafetyMeasures.FirstOrDefault(x => x.SafetyMeasuresId == id) != null)
             //{
             //    content = "该用户已在【项目用户】中使用，不能删除！";
             //}

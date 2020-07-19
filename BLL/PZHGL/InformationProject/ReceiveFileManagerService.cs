@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ReceiveFileManagerService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取一般来文
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_ReceiveFileManager GetReceiveFileManagerById(string ReceiveFileManagerId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager.FirstOrDefault(e => e.ReceiveFileManagerId == ReceiveFileManagerId);
+            return Funs.DB.InformationProject_ReceiveFileManager.FirstOrDefault(e => e.ReceiveFileManagerId == ReceiveFileManagerId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="ReceiveFileManager"></param>
         public static void AddReceiveFileManager(Model.InformationProject_ReceiveFileManager ReceiveFileManager)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_ReceiveFileManager newReceiveFileManager = new Model.InformationProject_ReceiveFileManager
             {
                 ReceiveFileManagerId = ReceiveFileManager.ReceiveFileManagerId,
@@ -61,7 +61,7 @@ namespace BLL
         /// <param name="ReceiveFileManager"></param>
         public static void UpdateReceiveFileManager(Model.InformationProject_ReceiveFileManager ReceiveFileManager)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_ReceiveFileManager newReceiveFileManager = db.InformationProject_ReceiveFileManager.FirstOrDefault(e => e.ReceiveFileManagerId == ReceiveFileManager.ReceiveFileManagerId);
             if (newReceiveFileManager != null)
             {
@@ -88,7 +88,7 @@ namespace BLL
         /// <param name="ReceiveFileManagerId"></param>
         public static void DeleteReceiveFileManagerById(string ReceiveFileManagerId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_ReceiveFileManager ReceiveFileManager = db.InformationProject_ReceiveFileManager.FirstOrDefault(e => e.ReceiveFileManagerId == ReceiveFileManagerId);
             if (ReceiveFileManager != null)
             {
@@ -110,7 +110,7 @@ namespace BLL
         {
             var getProjects = Funs.GetStrListByStr(notice.AccessProjectId, ',');
             string unitId =Const.UnitId_SEDIN;
-            var getAtt = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == notice.NoticeId);
+            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == notice.NoticeId);
             foreach (var item in getProjects)
             {
                 Model.InformationProject_ReceiveFileManager newFile = new Model.InformationProject_ReceiveFileManager
@@ -132,7 +132,7 @@ namespace BLL
                 if (!string.IsNullOrEmpty(notice.ProjectId))
                 {
                     newFile.FileType = "0";
-                    var getPUnits = new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit.Where(x => x.ProjectId == item);
+                    var getPUnits = Funs.DB.Project_ProjectUnit.Where(x => x.ProjectId == item);
                     foreach (var uItem in getPUnits)
                     {
                         if (string.IsNullOrEmpty(newFile.UnitIds))
@@ -166,10 +166,10 @@ namespace BLL
         /// </summary>
         public static void IssueReceiveFile(string receiveFileManagerId)
         {
-            var getFile = new Model.SGGLDB(Funs.ConnString).InformationProject_ReceiveFileManager.FirstOrDefault(x => x.ReceiveFileManagerId == receiveFileManagerId);
+            var getFile = Funs.DB.InformationProject_ReceiveFileManager.FirstOrDefault(x => x.ReceiveFileManagerId == receiveFileManagerId);
             if (getFile != null && getFile.FileType == "1")
             {
-                var getPUnits = new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit.Where(x => x.ProjectId == getFile.ProjectId);
+                var getPUnits = Funs.DB.Project_ProjectUnit.Where(x => x.ProjectId == getFile.ProjectId);
                 foreach (var uItem in getPUnits)
                 {
                     if (string.IsNullOrEmpty(getFile.UnitIds))
@@ -210,7 +210,7 @@ namespace BLL
                 ////增加一条编码记录
                 BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ReceiveFileManagerMenuId, newReceiveFileManager.ProjectId, null, newReceiveFileManager.ReceiveFileManagerId, newReceiveFileManager.GetFileDate);
 
-                var getAtt = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == getFile.ReceiveFileManagerId);
+                var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == getFile.ReceiveFileManagerId);
                 if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
                 {
                     APIUpLoadFileService.SaveAttachUrl(Const.ReceiveFileManagerMenuId, newReceiveFileManager.ReceiveFileManagerId, getAtt.AttachUrl, "0");

@@ -53,7 +53,7 @@ namespace FineUIPro.Web.HSSE.Hazard
                     this.txtWorkArea.Text = environmentalRiskList.WorkAreaName;
                     this.txtControllingPerson.Text = BLL.UserService.GetUserNameByUserId(environmentalRiskList.ControllingPerson);
                     this.txtIdentificationDate.Text = string.Format("{0:yyyy-MM-dd}", environmentalRiskList.IdentificationDate);
-                    environmentalRiskItems = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == this.EnvironmentalRiskListId orderby x.EType, x.Code select x).ToList();
+                    environmentalRiskItems = (from x in Funs.DB.View_Hazard_EnvironmentalRiskItem where x.EnvironmentalRiskListId == this.EnvironmentalRiskListId orderby x.EType, x.Code select x).ToList();
                     //if (!string.IsNullOrEmpty(Request.Params["IsImportant"]))
                     //{
                     //    environmentalRiskItems = environmentalRiskItems.Where(x => x.IsImportant == true).ToList();

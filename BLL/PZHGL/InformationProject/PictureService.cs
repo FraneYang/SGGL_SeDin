@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class PictureService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取项目图片
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_Picture GetPictureById(string pictureId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_Picture.FirstOrDefault(e => e.PictureId == pictureId);
+            return Funs.DB.InformationProject_Picture.FirstOrDefault(e => e.PictureId == pictureId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="personQuality">图片实体</param>
         public static void AddPicture(Model.InformationProject_Picture picture)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_Picture newPicture = new Model.InformationProject_Picture
             {
                 PictureId = picture.PictureId,
@@ -54,7 +54,7 @@ namespace BLL
         /// <param name="picture"></param>
         public static void UpdatePicture(Model.InformationProject_Picture picture)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_Picture newPicture = db.InformationProject_Picture.FirstOrDefault(e => e.PictureId == picture.PictureId);
             if (newPicture != null)
             {
@@ -76,7 +76,7 @@ namespace BLL
         /// <param name="pictureId"></param>
         public static void deletePictureById(string pictureId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_Picture picture = db.InformationProject_Picture.FirstOrDefault(e => e.PictureId == pictureId);
             if (picture != null)
             {

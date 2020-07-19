@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class CostSmallDetailItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全费用投入登记明细
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.CostGoods_CostSmallDetailItem GetCostSmallDetailItemById(string costSmallDetailItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem.FirstOrDefault(e => e.CostSmallDetailItemId == costSmallDetailItemId);
+            return Funs.DB.CostGoods_CostSmallDetailItem.FirstOrDefault(e => e.CostSmallDetailItemId == costSmallDetailItemId);
         }
 
         public static List<Model.CostGoods_CostSmallDetailItem> GetCostDetailsByUnitId(string projectId,string unitId, DateTime? startTime, DateTime? endTime)
@@ -62,8 +62,8 @@ namespace BLL
                     }
                 }
                 return cost;
-                //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-                //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                //return (from x in Funs.DB.CostGoods_CostSmallDetailItem
+                //        join y in Funs.DB.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
                 //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
                 //        select x.CostMoney ?? 0).Sum();
             }
@@ -96,8 +96,8 @@ namespace BLL
                     }
                 }
                 return cost;
-                //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-                //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                //return (from x in Funs.DB.CostGoods_CostSmallDetailItem
+                //        join y in Funs.DB.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
                 //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
                 //        select x.CostMoney ?? 0).Sum();
             }
@@ -130,8 +130,8 @@ namespace BLL
                     }
                 }
                 return cost;
-                //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem
-                //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                //return (from x in Funs.DB.CostGoods_CostSmallDetailItem
+                //        join y in Funs.DB.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
                 //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
                 //        select x.CostMoney ?? 0).Sum();
             }
@@ -144,7 +144,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.CostGoods_CostSmallDetailItem> GetCostSmallDetailItemByCostSmallDetailId(string costSmallDetailId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetailItem where x.CostSmallDetailId == costSmallDetailId select x).ToList();
+            return (from x in Funs.DB.CostGoods_CostSmallDetailItem where x.CostSmallDetailId == costSmallDetailId select x).ToList();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace BLL
         /// <param name="pauseNotice">费用明细实体</param>
         public static void AddCostDetail(string costSmallDetailId, string costType, decimal costMoney, string costDef)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostSmallDetailItem newCostSmallDetailItem = new Model.CostGoods_CostSmallDetailItem
             {
                 CostSmallDetailItemId = SQLHelper.GetNewID(typeof(Model.CostGoods_CostSmallDetailItem)),
@@ -172,7 +172,7 @@ namespace BLL
         /// <param name="costSmallDetailItemId"></param>
         public static void DeleteCostSmallDetailItemById(string costSmallDetailItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostSmallDetailItem costSmallDetailItem = db.CostGoods_CostSmallDetailItem.FirstOrDefault(e => e.CostSmallDetailItemId == costSmallDetailItemId);
             if (costSmallDetailItem != null)
             {
@@ -187,7 +187,7 @@ namespace BLL
         /// <param name="costSmallDetailId"></param>
         public static void DeleteCostSmallDetailItemByCostSmallDetailId(string costSmallDetailId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.CostGoods_CostSmallDetailItem where x.CostSmallDetailId == costSmallDetailId select x).ToList();
             if (q != null)
             {

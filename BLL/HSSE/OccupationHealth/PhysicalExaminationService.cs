@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class PhysicalExaminationService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取体检管理
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.OccupationHealth_PhysicalExamination GetPhysicalExaminationById(string fileId)
         {
-            return new Model.SGGLDB(Funs.ConnString).OccupationHealth_PhysicalExamination.FirstOrDefault(e => e.FileId == fileId);
+            return Funs.DB.OccupationHealth_PhysicalExamination.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="PhysicalExamination"></param>
         public static void AddPhysicalExamination(Model.OccupationHealth_PhysicalExamination PhysicalExamination)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.OccupationHealth_PhysicalExamination newPhysicalExamination = new Model.OccupationHealth_PhysicalExamination
             {
                 FileId = PhysicalExamination.FileId,
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="PhysicalExamination"></param>
         public static void UpdatePhysicalExamination(Model.OccupationHealth_PhysicalExamination PhysicalExamination)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.OccupationHealth_PhysicalExamination newPhysicalExamination = db.OccupationHealth_PhysicalExamination.FirstOrDefault(e => e.FileId == PhysicalExamination.FileId);
             if (newPhysicalExamination != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeletePhysicalExaminationById(string FileId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.OccupationHealth_PhysicalExamination PhysicalExamination = db.OccupationHealth_PhysicalExamination.FirstOrDefault(e => e.FileId == FileId);
             if (PhysicalExamination != null)
             {

@@ -10,7 +10,7 @@ namespace BLL
 {
     public class QualityQuestionTypeService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取实体集合
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_QualityQuestionType> GetList()
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_QualityQuestionType orderby x.SortIndex select x).ToList();
+            var q = (from x in Funs.DB.Base_QualityQuestionType orderby x.SortIndex select x).ToList();
             return q;
         }
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <param name="?"></param>
         public static void AddQualityQuestionType(Model.Base_QualityQuestionType qualityQuestionType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_QualityQuestionType newQualityQuestionType = new Model.Base_QualityQuestionType
             {
                 QualityQuestionTypeId = qualityQuestionType.QualityQuestionTypeId,
@@ -45,7 +45,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void UpdateQualityQuestionType(Model.Base_QualityQuestionType qualityQuestionType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_QualityQuestionType newQualityQuestionType = db.Base_QualityQuestionType.FirstOrDefault(e => e.QualityQuestionTypeId == qualityQuestionType.QualityQuestionTypeId);
             if (newQualityQuestionType != null)
             {
@@ -61,7 +61,7 @@ namespace BLL
         /// <param name="qualityQuestionTypeId"></param>
         public static void DeleteQualityQuestionTypeById(string qualityQuestionTypeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_QualityQuestionType qualityQuestionType = db.Base_QualityQuestionType.FirstOrDefault(e => e.QualityQuestionTypeId == qualityQuestionTypeId);
             {
                 db.Base_QualityQuestionType.DeleteOnSubmit(qualityQuestionType);
@@ -102,7 +102,7 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetQualityQuestionTypeItem()
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Base_QualityQuestionType orderby x.SortIndex select x).ToList();
+            var q = (from x in Funs.DB.Base_QualityQuestionType orderby x.SortIndex select x).ToList();
             ListItem[] list = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {
@@ -117,7 +117,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_QualityQuestionType GetQualityQuestionType(string QualityQuestionTypeId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_QualityQuestionType.FirstOrDefault(e => e.QualityQuestionTypeId == QualityQuestionTypeId);
+            return Funs.DB.Base_QualityQuestionType.FirstOrDefault(e => e.QualityQuestionTypeId == QualityQuestionTypeId);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.PTP_TestPackage GetTestPackageByID(string PTP_ID)
         {
-            var view = new Model.SGGLDB(Funs.ConnString).PTP_TestPackage.FirstOrDefault(e => e.PTP_ID == PTP_ID);
+            var view = Funs.DB.PTP_TestPackage.FirstOrDefault(e => e.PTP_ID == PTP_ID);
             return view;
         }
 
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HJGL_Pipeline> GetPipeLineListByPTP_ID(string PTP_ID)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var view = from x in db.HJGL_Pipeline
                        join y in db.PTP_PipelineList on x.PipelineId equals y.PipelineId
                        where y.PTP_ID == PTP_ID
@@ -41,7 +41,7 @@ namespace BLL
         /// <param name="testPackage">试压实体</param>
         public static void AddTestPackage(Model.PTP_TestPackage testPackage)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage newTestPackage = new Model.PTP_TestPackage();
             newTestPackage.PTP_ID = testPackage.PTP_ID;
             newTestPackage.UnitWorkId = testPackage.UnitWorkId;
@@ -90,7 +90,7 @@ namespace BLL
         /// <param name="weldReport">试压实体</param>
         public static void UpdateTestPackage(Model.PTP_TestPackage testPackage)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage newTestPackage = db.PTP_TestPackage.First(e => e.PTP_ID == testPackage.PTP_ID);
             newTestPackage.UnitId = testPackage.UnitId;
             newTestPackage.UnitWorkId = testPackage.UnitWorkId;
@@ -137,7 +137,7 @@ namespace BLL
         /// <param name="testPackageID">试压主键</param>
         public static void DeleteTestPackage(string testPackageID)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage testPackage = db.PTP_TestPackage.First(e => e.PTP_ID == testPackageID);
             db.PTP_TestPackage.DeleteOnSubmit(testPackage);
             db.SubmitChanges();
@@ -149,7 +149,7 @@ namespace BLL
         /// <param name="testPackageID">试压主键</param>
         public static void DeletePipelineListByPTP_ID(string testPackageID)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var testPackage = from x in db.PTP_PipelineList where x.PTP_ID == testPackageID select x;
             if (testPackage != null)
             {
@@ -164,7 +164,7 @@ namespace BLL
         /// <param name="IsoList">试压明细实体</param>
         public static void AddPipelineList(Model.PTP_PipelineList IsoList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_PipelineList newPipelineList = new Model.PTP_PipelineList();
 
             newPipelineList.PT_PipeId = SQLHelper.GetNewID(typeof(Model.PTP_PipelineList));
@@ -182,7 +182,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetTestPackageByUnitId(string unitId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).PTP_TestPackage where x.UnitId == unitId select x).ToList();
+            var q = (from x in Funs.DB.PTP_TestPackage where x.UnitId == unitId select x).ToList();
             return q.Count();
         }
         /// <summary>
@@ -192,7 +192,7 @@ namespace BLL
         /// <returns></returns>
         //public static int GetTestPackageByInstallationId(string installationId)
         //{
-        //    var q = (from x in new Model.SGGLDB(Funs.ConnString).PTP_TestPackage where x.InstallationId == installationId select x).ToList();
+        //    var q = (from x in Funs.DB.PTP_TestPackage where x.InstallationId == installationId select x).ToList();
         //    return q.Count();
         //}
 
@@ -204,7 +204,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistTestPackageCode(string TestPackageNo, string PTP_ID, string projectId)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).PTP_TestPackage.FirstOrDefault(x => x.TestPackageNo == TestPackageNo && x.ProjectId == projectId && x.PTP_ID != PTP_ID);
+            var q = Funs.DB.PTP_TestPackage.FirstOrDefault(x => x.TestPackageNo == TestPackageNo && x.ProjectId == projectId && x.PTP_ID != PTP_ID);
             if (q != null)
             {
                 return true;
@@ -223,25 +223,25 @@ namespace BLL
         public static string IsExistNoHotHardItem(string PTP_ID)
         {
             string isohot = string.Empty;
-            var pipelineList = from x in new Model.SGGLDB(Funs.ConnString).PTP_PipelineList where x.PTP_ID == PTP_ID select x;
+            var pipelineList = from x in Funs.DB.PTP_PipelineList where x.PTP_ID == PTP_ID select x;
             if (pipelineList.Count() > 0)
             {
                 foreach (var pipe in pipelineList)
                 {
-                    var jots = from x in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint where x.PipelineId == pipe.PipelineId && x.IsHotProess == true select x;
+                    var jots = from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == pipe.PipelineId && x.IsHotProess == true select x;
                     if (jots.Count() > 0)
                     {
                         string jotMessage = string.Empty;
                         foreach (var jotItem in jots)
                         {
-                            var hotProssItem = new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == jotItem.WeldJointId);
+                            var hotProssItem = Funs.DB.HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == jotItem.WeldJointId);
                             if (hotProssItem == null)
                             {
                                 jotMessage += "焊口：" + jotItem.WeldJointCode + "未作热处理；";
                             }
                             else
                             {
-                                var hotHardItem = new Model.SGGLDB(Funs.ConnString).HJGL_Hard_TrustItem.FirstOrDefault(x => x.WeldJointId == jotItem.WeldJointId);
+                                var hotHardItem = Funs.DB.HJGL_Hard_TrustItem.FirstOrDefault(x => x.WeldJointId == jotItem.WeldJointId);
                                 if (hotHardItem == null)
                                 {
                                     jotMessage += "焊口：" + jotItem.WeldJointCode + "未作硬度检测；";
@@ -271,7 +271,7 @@ namespace BLL
         /// <returns></returns>
         public static string InspectionIsoRate(string PTP_ID)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string isoRate = string.Empty;
             var pipelineList = from x in db.PTP_PipelineList where x.PTP_ID == PTP_ID select x;
             if (pipelineList.Count() > 0)

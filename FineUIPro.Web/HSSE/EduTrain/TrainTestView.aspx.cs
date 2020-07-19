@@ -37,11 +37,11 @@ namespace FineUIPro.Web.HSSE.EduTrain
                 if (person != null && trainRecord != null)
                 {
                     List<Model.View_EduTrain_TrainTest> viewList = new List<Model.View_EduTrain_TrainTest>();
-                    var trainTest = from x in new Model.SGGLDB(Funs.ConnString).View_EduTrain_TrainTest
+                    var trainTest = from x in Funs.DB.View_EduTrain_TrainTest
                                     where x.TrainingId == trainRecord.TrainingId
                                     orderby x.COrder
                                     select x;
-                    var trainPersonRecord = new Model.SGGLDB(Funs.ConnString).EduTrain_TrainPersonRecord.FirstOrDefault(x => x.RecordId == trainRecord.FromRecordId && x.IdentifyId == person.IdentityCard);
+                    var trainPersonRecord = Funs.DB.EduTrain_TrainPersonRecord.FirstOrDefault(x => x.RecordId == trainRecord.FromRecordId && x.IdentifyId == person.IdentityCard);
                     if (trainPersonRecord != null && !string.IsNullOrEmpty(trainPersonRecord.Answers))
                     {
                         List<string> listAnswers = Funs.GetStrListByStr(trainPersonRecord.Answers, '|');

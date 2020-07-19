@@ -76,7 +76,7 @@ namespace FineUIPro.Web.CQMS.WBS
             e.Node.Nodes.Clear();
             if (e.Node.CommandName == "ProjectType")   //展开工程类型
             {
-                var workPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.ProjectType == e.NodeID && x.SuperWorkPack == null orderby x.WorkPackageCode select x;
+                var workPackages = from x in Funs.DB.WBS_WorkPackageInit where x.ProjectType == e.NodeID && x.SuperWorkPack == null orderby x.WorkPackageCode select x;
                 foreach (var workPackage in workPackages)
                 {
                     TreeNode newNode = new TreeNode();
@@ -86,7 +86,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     newNode.EnableExpandEvent = true;
                     newNode.EnableClickEvent = true;
                     e.Node.Nodes.Add(newNode);
-                    var childWorkPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.SuperWorkPack == workPackage.WorkPackageCode select x;
+                    var childWorkPackages = from x in Funs.DB.WBS_WorkPackageInit where x.SuperWorkPack == workPackage.WorkPackageCode select x;
                     if (childWorkPackages.Count() > 0)
                     {
                         TreeNode emptyNode = new TreeNode();
@@ -98,7 +98,7 @@ namespace FineUIPro.Web.CQMS.WBS
             }
             else if (e.Node.CommandName == "WorkPackage")   //展开单位工程节点
             {
-                var workPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.SuperWorkPack == e.Node.NodeID orderby x.WorkPackageCode select x;
+                var workPackages = from x in Funs.DB.WBS_WorkPackageInit where x.SuperWorkPack == e.Node.NodeID orderby x.WorkPackageCode select x;
                 if (workPackages.Count() > 0)   //存在子单位工程
                 {
                     foreach (var workPackage in workPackages)
@@ -110,7 +110,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         newNode.EnableExpandEvent = true;
                         newNode.EnableClickEvent = true;
                         e.Node.Nodes.Add(newNode);
-                        var childWorkPackages = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.SuperWorkPack == workPackage.WorkPackageCode select x;
+                        var childWorkPackages = from x in Funs.DB.WBS_WorkPackageInit where x.SuperWorkPack == workPackage.WorkPackageCode select x;
                         if (childWorkPackages.Count() > 0)
                         {
                             TreeNode emptyNode = new TreeNode();
@@ -551,7 +551,7 @@ namespace FineUIPro.Web.CQMS.WBS
                 if (rootNode.NodeID == projectType)
                 {
                     rootNode.Expanded = true;
-                    var workPackages1 = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.ProjectType == projectType && x.SuperWorkPack == null orderby x.WorkPackageCode select x;
+                    var workPackages1 = from x in Funs.DB.WBS_WorkPackageInit where x.ProjectType == projectType && x.SuperWorkPack == null orderby x.WorkPackageCode select x;
                     foreach (var workPackage1 in workPackages1)
                     {
                         TreeNode newNode = new TreeNode();
@@ -564,7 +564,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         if (workPackageCode1 == workPackage1.WorkPackageCode)
                         {
                             newNode.Expanded = true;
-                            var workPackages2 = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.ProjectType == projectType && x.SuperWorkPack == workPackage1.WorkPackageCode orderby x.WorkPackageCode select x;
+                            var workPackages2 = from x in Funs.DB.WBS_WorkPackageInit where x.ProjectType == projectType && x.SuperWorkPack == workPackage1.WorkPackageCode orderby x.WorkPackageCode select x;
                             foreach (var workPackage2 in workPackages2)
                             {
                                 TreeNode newNode2 = new TreeNode();
@@ -577,7 +577,7 @@ namespace FineUIPro.Web.CQMS.WBS
                                 if (workPackageCode2 == workPackage2.WorkPackageCode)
                                 {
                                     newNode2.Expanded = true;
-                                    var workPackages3 = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.ProjectType == projectType && x.SuperWorkPack == workPackage2.WorkPackageCode orderby x.WorkPackageCode select x;
+                                    var workPackages3 = from x in Funs.DB.WBS_WorkPackageInit where x.ProjectType == projectType && x.SuperWorkPack == workPackage2.WorkPackageCode orderby x.WorkPackageCode select x;
                                     foreach (var workPackage3 in workPackages3)
                                     {
                                         TreeNode newNode3 = new TreeNode();
@@ -591,7 +591,7 @@ namespace FineUIPro.Web.CQMS.WBS
                                 }
                                 else
                                 {
-                                    var childWorkPackages2 = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.SuperWorkPack == workPackage2.WorkPackageCode select x;
+                                    var childWorkPackages2 = from x in Funs.DB.WBS_WorkPackageInit where x.SuperWorkPack == workPackage2.WorkPackageCode select x;
                                     if (childWorkPackages2.Count() > 0)
                                     {
                                         TreeNode emptyNode = new TreeNode();
@@ -604,7 +604,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         }
                         else
                         {
-                            var childWorkPackages1 = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.SuperWorkPack == workPackage1.WorkPackageCode select x;
+                            var childWorkPackages1 = from x in Funs.DB.WBS_WorkPackageInit where x.SuperWorkPack == workPackage1.WorkPackageCode select x;
                             if (childWorkPackages1.Count() > 0)
                             {
                                 TreeNode emptyNode = new TreeNode();

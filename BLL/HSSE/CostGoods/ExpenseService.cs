@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ExpenseService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取措施费用使用计划
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.CostGoods_Expense GetExpenseById(string expenseId)
         {
-            return new Model.SGGLDB(Funs.ConnString).CostGoods_Expense.FirstOrDefault(e => e.ExpenseId == expenseId);
+            return Funs.DB.CostGoods_Expense.FirstOrDefault(e => e.ExpenseId == expenseId);
         }
 
         /// <summary>
@@ -30,8 +30,8 @@ namespace BLL
         /// <returns></returns>
         public static List<string> GetUnitIdsByTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_Expense
-                    join y in new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate
+            return (from x in Funs.DB.CostGoods_Expense
+                    join y in Funs.DB.Sys_FlowOperate
                     on x.ExpenseId equals y.DataId
                     where x.States == BLL.Const.State_2 && x.ProjectId == projectId && y.State == BLL.Const.State_2 && y.OperaterTime >= startTime && y.OperaterTime < endTime
                     select x.UnitId).Distinct().ToList();
@@ -43,7 +43,7 @@ namespace BLL
         /// <param name="expense"></param>
         public static void AddExpense(Model.CostGoods_Expense expense)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_Expense newExpense = new Model.CostGoods_Expense
             {
                 ExpenseId = expense.ExpenseId,
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="expense"></param>
         public static void UpdateExpense(Model.CostGoods_Expense expense)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_Expense newExpense = db.CostGoods_Expense.FirstOrDefault(e => e.ExpenseId == expense.ExpenseId);
             if (newExpense != null)
             {
@@ -103,7 +103,7 @@ namespace BLL
         /// <param name="expenseId"></param>
         public static void DeleteExpenseById(string expenseId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_Expense expense = db.CostGoods_Expense.FirstOrDefault(e => e.ExpenseId == expenseId);
             if (expense != null)
             {

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class HazardListService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取危险源清单
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Technique_HazardList GetHazardListById(string hazardId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Technique_HazardList.FirstOrDefault(e => e.HazardId == hazardId);
+            return Funs.DB.Technique_HazardList.FirstOrDefault(e => e.HazardId == hazardId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Technique_HazardList> GetHazardListByCompileMan(string compileMan)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardList where x.CompileMan == compileMan select x).ToList();
+            return (from x in Funs.DB.Technique_HazardList where x.CompileMan == compileMan select x).ToList();
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Technique_HazardList> GetHazardListByHazardListTypeId(string hazardListTypeId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardList where x.HazardListTypeId == hazardListTypeId select x).ToList();
+            return (from x in Funs.DB.Technique_HazardList where x.HazardListTypeId == hazardListTypeId select x).ToList();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace BLL
         /// <param name="hazardList"></param>
         public static void AddHazardList(Model.Technique_HazardList hazardList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_HazardList newHazardList = new Model.Technique_HazardList
             {
                 HazardId = hazardList.HazardId,
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="hazardList"></param>
         public static void UpdateHazardList(Model.Technique_HazardList hazardList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_HazardList newHazardList = db.Technique_HazardList.FirstOrDefault(e => e.HazardId == hazardList.HazardId);
             if (newHazardList != null)
             {
@@ -107,7 +107,7 @@ namespace BLL
         /// <param name="hazardList"></param>
         public static void UpdateHazardListIsPass(Model.Technique_HazardList hazardList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_HazardList newHazardList = db.Technique_HazardList.FirstOrDefault(e => e.HazardId == hazardList.HazardId);
             if (newHazardList != null)
             {
@@ -125,7 +125,7 @@ namespace BLL
         /// <param name="hazardId"></param>
         public static void DeleteHazardListById(string hazardId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Technique_HazardList hazardList = db.Technique_HazardList.FirstOrDefault(e => e.HazardId == hazardId);
             if (hazardList != null)
             {
@@ -143,7 +143,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistHazardCode(string hazardListTypeId, string hazardId, string hazardCode)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Technique_HazardList.FirstOrDefault(x => x.IsPass == true && x.HazardListTypeId == hazardListTypeId && x.HazardCode == hazardCode && (x.HazardId != hazardId || (hazardId == null && x.HazardId != null)));
+            var q = Funs.DB.Technique_HazardList.FirstOrDefault(x => x.IsPass == true && x.HazardListTypeId == hazardListTypeId && x.HazardCode == hazardCode && (x.HazardId != hazardId || (hazardId == null && x.HazardId != null)));
             if (q != null)
             {
                 return true;

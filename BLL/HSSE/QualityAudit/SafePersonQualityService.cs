@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class SafePersonQualityService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全人员资质
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_SafePersonQuality GetSafePersonQualityByPersonId(string personId)
         {
-            return new Model.SGGLDB(Funs.ConnString).QualityAudit_SafePersonQuality.FirstOrDefault(e => e.PersonId == personId);
+            return Funs.DB.QualityAudit_SafePersonQuality.FirstOrDefault(e => e.PersonId == personId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="SafePersonQuality"></param>
         public static void AddSafePersonQuality(Model.QualityAudit_SafePersonQuality SafePersonQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_SafePersonQuality newSafePersonQuality = new Model.QualityAudit_SafePersonQuality
             {
                 SafePersonQualityId = SafePersonQuality.SafePersonQualityId,
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="SafePersonQuality"></param>
         public static void UpdateSafePersonQuality(Model.QualityAudit_SafePersonQuality SafePersonQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_SafePersonQuality newSafePersonQuality = db.QualityAudit_SafePersonQuality.FirstOrDefault(e => e.SafePersonQualityId == SafePersonQuality.SafePersonQualityId);
             if (newSafePersonQuality != null)
             {

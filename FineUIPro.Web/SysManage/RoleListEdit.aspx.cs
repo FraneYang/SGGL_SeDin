@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
 
 namespace FineUIPro.Web.SysManage
 {
@@ -40,6 +36,7 @@ namespace FineUIPro.Web.SysManage
                 this.RoleId = Request.Params["roleId"];
                 ///权限
                 this.GetButtonPower();
+                BLL.ConstValue.InitConstValueDropDownList(this.drpRoleType, BLL.ConstValue.Group_0013, false);
                 gvCNCodes.DataSource = BLL.CNProfessionalService.GetList();
                 gvCNCodes.DataBind();
                 if (!string.IsNullOrEmpty(this.RoleId))
@@ -49,7 +46,10 @@ namespace FineUIPro.Web.SysManage
                     {
                         this.txtRoleCode.Text = role.RoleCode;
                         this.txtRoleName.Text = role.RoleName;
-                  
+                        if (!string.IsNullOrEmpty(role.RoleType))
+                        {
+                            this.drpRoleType.SelectedValue = role.RoleType;
+                        }
                         if (role.IsAuditFlow == true)
                         {
                             chkIsAuditFlow.Checked = true;
@@ -109,6 +109,7 @@ namespace FineUIPro.Web.SysManage
                 {
                     RoleCode = this.txtRoleCode.Text.Trim(),
                     RoleName = this.txtRoleName.Text.Trim(),
+                    RoleType = this.drpRoleType.SelectedValue,
                     Def = this.txtDef.Text.Trim()
                 };
                 if (this.chkIsAuditFlow.Checked)
@@ -148,7 +149,7 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q2 = new Model.SGGLDB(Funs.ConnString).Sys_Role.FirstOrDefault(x => x.RoleName == this.txtRoleName.Text.Trim() && (x.RoleId != this.RoleId || (this.RoleId == null && x.RoleId != null)));
+            var q2 = Funs.DB.Sys_Role.FirstOrDefault(x => x.RoleName == this.txtRoleName.Text.Trim() && (x.RoleId != this.RoleId || (this.RoleId == null && x.RoleId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的角色名称已存在！", MessageBoxIcon.Warning);

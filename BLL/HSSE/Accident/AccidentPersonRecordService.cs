@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class AccidentPersonRecordService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取HSSE事故（对人员）记录
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Accident_AccidentPersonRecord GetAccidentPersonRecordById(string accidentPersonRecordId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Accident_AccidentPersonRecord.FirstOrDefault(e => e.AccidentPersonRecordId == accidentPersonRecordId);
+            return Funs.DB.Accident_AccidentPersonRecord.FirstOrDefault(e => e.AccidentPersonRecordId == accidentPersonRecordId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="accidentPersonRecord"></param>
         public static void AddAccidentPersonRecord(Model.Accident_AccidentPersonRecord accidentPersonRecord)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentPersonRecord newAccidentPersonRecord = new Model.Accident_AccidentPersonRecord
             {
                 AccidentPersonRecordId = accidentPersonRecord.AccidentPersonRecordId,
@@ -58,7 +58,7 @@ namespace BLL
         /// <param name="accidentPersonRecord"></param>
         public static void UpdateAccidentPersonRecord(Model.Accident_AccidentPersonRecord accidentPersonRecord)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentPersonRecord newAccidentPersonRecord = db.Accident_AccidentPersonRecord.FirstOrDefault(e => e.AccidentPersonRecordId == accidentPersonRecord.AccidentPersonRecordId);
             if (newAccidentPersonRecord != null)
             {
@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="accidentPersonRecordId"></param>
         public static void DeleteAccidentPersonRecordById(string accidentPersonRecordId)
         { 
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentPersonRecord accidentPersonRecord = db.Accident_AccidentPersonRecord.FirstOrDefault(e => e.AccidentPersonRecordId == accidentPersonRecordId);
             if (accidentPersonRecord != null)
             {

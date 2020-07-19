@@ -9,7 +9,7 @@ namespace BLL
 {
     public static class Hazard_HazardListService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 要求主键获取危险清单信息
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Hazard_HazardList GetHazardList(string hazardListId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Hazard_HazardList.FirstOrDefault(e => e.HazardListId == hazardListId);
+            return Funs.DB.Hazard_HazardList.FirstOrDefault(e => e.HazardListId == hazardListId);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetHazardListCountByProjectIdAndDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardList where x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate <= endTime select x).ToList();
+            var q = (from x in Funs.DB.Hazard_HazardList where x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate <= endTime select x).ToList();
             return q.Count();
         }
 
@@ -49,7 +49,7 @@ namespace BLL
         /// <param name="hazardList">危险源辨识与评价清单实体</param>
         public static void AddHazardList(Model.Hazard_HazardList hazardList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Hazard_HazardList newHazardList = new Model.Hazard_HazardList
             {
                 HazardListId = hazardList.HazardListId,
@@ -65,8 +65,8 @@ namespace BLL
                 IdentificationDate = hazardList.IdentificationDate,
                 ControllingPerson = hazardList.ControllingPerson
             };
-            new Model.SGGLDB(Funs.ConnString).Hazard_HazardList.InsertOnSubmit(newHazardList);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            Funs.DB.Hazard_HazardList.InsertOnSubmit(newHazardList);
+            Funs.DB.SubmitChanges();
             ////增加一条编码记录
             BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectHazardListMenuId, hazardList.ProjectId, null, hazardList.HazardListId, hazardList.CompileDate);
         }
@@ -77,7 +77,7 @@ namespace BLL
         /// <param name="hazardList">危险源辨识与评价清单实体</param>
         public static void UpdateHazardList(Model.Hazard_HazardList hazardList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Hazard_HazardList newHazardList = db.Hazard_HazardList.FirstOrDefault(e => e.HazardListId == hazardList.HazardListId);
             if (newHazardList != null)
             {
@@ -102,7 +102,7 @@ namespace BLL
         /// <param name="hazardListCode">危险源辨识与评价清单Id</param>
         public static void DeleteHazardListByHazardListId(string hazardListId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Hazard_HazardList hazardList = db.Hazard_HazardList.FirstOrDefault(e => e.HazardListId == hazardListId);
             if (hazardList != null)
             {
@@ -124,7 +124,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetHazardListCountByUserId(string userId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardList where x.CompileMan == userId select x).ToList();
+            var q = (from x in Funs.DB.Hazard_HazardList where x.CompileMan == userId select x).ToList();
             return q.Count();
         }
 
@@ -135,7 +135,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetHazardListCountByProjectId(string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Hazard_HazardList where x.ProjectId == projectId select x).ToList();
+            var q = (from x in Funs.DB.Hazard_HazardList where x.ProjectId == projectId select x).ToList();
             return q.Count();
         }
     }

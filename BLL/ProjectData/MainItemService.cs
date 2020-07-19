@@ -10,7 +10,7 @@ namespace BLL
 {
     public class MainItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 记录数
@@ -44,7 +44,7 @@ namespace BLL
         /// <returns>一个主项和单位工程对应关系实体</returns>
         public static Model.ProjectData_MainItem GetMainItemByMainItemId(string mainItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).ProjectData_MainItem.First(x => x.MainItemId == mainItemId);
+            return Funs.DB.ProjectData_MainItem.First(x => x.MainItemId == mainItemId);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistMainItem(string mainItemCode, string projectId)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).ProjectData_MainItem where x.MainItemCode == mainItemCode && x.ProjectId == projectId select x;
+            var q = from x in Funs.DB.ProjectData_MainItem where x.MainItemCode == mainItemCode && x.ProjectId == projectId select x;
             if (q.Count() > 0)
             {
                 return true;
@@ -71,7 +71,7 @@ namespace BLL
         /// <param name="mainItemToUnitWork">主项和单位工程对应关系实体</param>
         public static void AddMainItem(Model.ProjectData_MainItem mainItemToUnitWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string newKeyID = SQLHelper.GetNewID(typeof(Model.ProjectData_MainItem));
             Model.ProjectData_MainItem newMainItem = new Model.ProjectData_MainItem();
             newMainItem.MainItemId = newKeyID;
@@ -91,7 +91,7 @@ namespace BLL
         /// <param name="mainItemToUnitWork">主项和单位工程对应关系实体</param>
         public static void UpdateMainItem(Model.ProjectData_MainItem mainItemToUnitWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectData_MainItem newMainItem = db.ProjectData_MainItem.First(e => e.MainItemId == mainItemToUnitWork.MainItemId);
             newMainItem.MainItemCode = mainItemToUnitWork.MainItemCode;
             newMainItem.MainItemName = mainItemToUnitWork.MainItemName;
@@ -107,7 +107,7 @@ namespace BLL
         /// <param name="mainItemId">主项和单位工程对应关系Id</param>
         public static void DeleteMainItemByMainItemId(string mainItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectData_MainItem mainItemToUnitWork = db.ProjectData_MainItem.First(e => e.MainItemId == mainItemId);
 
             db.ProjectData_MainItem.DeleteOnSubmit(mainItemToUnitWork);
@@ -121,7 +121,7 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetMainItemList(string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_MainItem where x.ProjectId == projectId orderby x.MainItemCode select x).ToList();
+            var q = (from x in Funs.DB.ProjectData_MainItem where x.ProjectId == projectId orderby x.MainItemCode select x).ToList();
             ListItem[] item = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {
@@ -155,7 +155,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.ProjectData_MainItem> GetMainItemList(string projectId, string name, string unitWorks)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_MainItem
+            var q = (from x in Funs.DB.ProjectData_MainItem
                      where x.ProjectId == projectId && (name == "" || x.MainItemName.Contains(name)) && (unitWorks == "" || x.UnitWorkIds == unitWorks)
                      orderby x.MainItemCode
                      select x).ToList();

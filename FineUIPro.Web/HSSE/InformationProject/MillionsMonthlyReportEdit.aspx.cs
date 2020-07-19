@@ -286,7 +286,7 @@ namespace FineUIPro.Web.InformationProject
             millionsMonthlyReport.States = BLL.Const.State_0;
             if (type == BLL.Const.BtnSubmit)
             {
-                var flowOperate = new Model.SGGLDB(Funs.ConnString).Sys_FlowOperate.FirstOrDefault(x => x.DataId == this.MillionsMonthlyReportId && x.State == BLL.Const.State_2 && x.IsClosed == true);
+                var flowOperate = Funs.DB.Sys_FlowOperate.FirstOrDefault(x => x.DataId == this.MillionsMonthlyReportId && x.State == BLL.Const.State_2 && x.IsClosed == true);
                 if (flowOperate != null)
                 {
                     millionsMonthlyReport.States = BLL.Const.State_2;
@@ -334,7 +334,7 @@ namespace FineUIPro.Web.InformationProject
             }
             else
             {
-                Model.InformationProject_MillionsMonthlyReport oldMillionsMonthlyReport = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_MillionsMonthlyReport
+                Model.InformationProject_MillionsMonthlyReport oldMillionsMonthlyReport = (from x in Funs.DB.InformationProject_MillionsMonthlyReport
                                                                                            where x.ProjectId == millionsMonthlyReport.ProjectId && x.Year == millionsMonthlyReport.Year && x.Month == millionsMonthlyReport.Month
                                                                                            select x).FirstOrDefault();
                 if (oldMillionsMonthlyReport == null)
@@ -344,7 +344,7 @@ namespace FineUIPro.Web.InformationProject
                     BLL.ProjectMillionsMonthlyReportService.AddMillionsMonthlyReport(millionsMonthlyReport);
                     BLL.LogService.AddSys_Log(this.CurrUser, millionsMonthlyReport.Year.ToString() + "-" + millionsMonthlyReport.Month.ToString(), millionsMonthlyReport.MillionsMonthlyReportId, BLL.Const.ProjectMillionsMonthlyReportMenuId, BLL.Const.BtnAdd);
                     ////删除未上报月报信息
-                    //Model.ManagementReport_ReportRemind reportRemind = (from x in new Model.SGGLDB(Funs.ConnString).ManagementReport_ReportRemind
+                    //Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                     //                                                    where x.ProjectId == this.ProjectId && x.Year == millionsMonthlyReport.Year && x.Month == millionsMonthlyReport.Month && x.ReportName == "百万工时安全统计月报"
                     //                                                    select x).FirstOrDefault();
                     //if (reportRemind != null)

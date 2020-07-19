@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ConstructSolutionService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取施工方案/审查
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Solution_ConstructSolution GetConstructSolutionById(string constructSolutionId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Solution_ConstructSolution.FirstOrDefault(e => e.ConstructSolutionId == constructSolutionId);
+            return Funs.DB.Solution_ConstructSolution.FirstOrDefault(e => e.ConstructSolutionId == constructSolutionId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Solution_ConstructSolution> GetConstructSolutionListByDate(string p, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Solution_ConstructSolution where x.ProjectId == p && x.CompileDate >= startTime && x.CompileDate <= endTime select x).ToList();
+            return (from x in Funs.DB.Solution_ConstructSolution where x.ProjectId == p && x.CompileDate >= startTime && x.CompileDate <= endTime select x).ToList();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetConstructSolutionCountByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Solution_ConstructSolution where x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate <= endTime orderby x.CompileDate select x).ToList();
+            var q = (from x in Funs.DB.Solution_ConstructSolution where x.ProjectId == projectId && x.CompileDate >= startTime && x.CompileDate <= endTime orderby x.CompileDate select x).ToList();
             return q.Count();
         }
 
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="constructSolution"></param>
         public static void AddConstructSolution(Model.Solution_ConstructSolution constructSolution)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Solution_ConstructSolution newConstructSolution = new Model.Solution_ConstructSolution
             {
                 ConstructSolutionId = constructSolution.ConstructSolutionId,
@@ -85,7 +85,7 @@ namespace BLL
         /// <param name="constructSolution"></param>
         public static void UpdateConstructSolution(Model.Solution_ConstructSolution constructSolution)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Solution_ConstructSolution newConstructSolution = db.Solution_ConstructSolution.FirstOrDefault(e => e.ConstructSolutionId == constructSolution.ConstructSolutionId);
             if (newConstructSolution != null)
             {                
@@ -116,7 +116,7 @@ namespace BLL
         /// <param name="constructSolutionId"></param>
         public static void DeleteConstructSolutionById(string constructSolutionId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Solution_ConstructSolution constructSolution = db.Solution_ConstructSolution.FirstOrDefault(e => e.ConstructSolutionId == constructSolutionId);
             if (constructSolution != null)
             {

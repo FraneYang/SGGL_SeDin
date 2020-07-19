@@ -298,7 +298,7 @@ namespace FineUIPro.Web.HSSE.Check
         //                SignDate = DateTime.Now,
         //            };
 
-        //            var workArea = new Model.SGGLDB(Funs.ConnString).ProjectData_WorkArea.FirstOrDefault(x => x.ProjectId == checkColligation.ProjectId && x.WorkAreaName == detail.WorkArea);
+        //            var workArea = Funs.DB.ProjectData_WorkArea.FirstOrDefault(x => x.ProjectId == checkColligation.ProjectId && x.WorkAreaName == detail.WorkArea);
         //            if (workArea != null)
         //            {
         //                rectifyNotice.WorkAreaId = workArea.WorkAreaId;

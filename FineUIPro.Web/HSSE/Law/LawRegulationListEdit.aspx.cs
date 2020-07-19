@@ -177,7 +177,7 @@ namespace FineUIPro.Web.HSSE.Law
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var lawRegulation = new Model.SGGLDB(Funs.ConnString).Law_LawRegulationList.FirstOrDefault(x => x.IsPass == true && x.LawRegulationName == this.txtLawRegulationName.Text.Trim() && (x.LawRegulationId != this.LawRegulationId || (this.LawRegulationId == null && x.LawRegulationId != null)));
+            var lawRegulation = Funs.DB.Law_LawRegulationList.FirstOrDefault(x => x.IsPass == true && x.LawRegulationName == this.txtLawRegulationName.Text.Trim() && (x.LawRegulationId != this.LawRegulationId || (this.LawRegulationId == null && x.LawRegulationId != null)));
             if (lawRegulation != null)
             {
                 ShowNotify("输入的法律法规名称已存在！", MessageBoxIcon.Warning);

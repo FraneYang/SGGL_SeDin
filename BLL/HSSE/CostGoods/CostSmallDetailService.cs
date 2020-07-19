@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class CostSmallDetailService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全费用投入登记
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.CostGoods_CostSmallDetail GetCostSmallDetailById(string costSmallDetailId)
         {
-            return new Model.SGGLDB(Funs.ConnString).CostGoods_CostSmallDetail.FirstOrDefault(e => e.CostSmallDetailId == costSmallDetailId);
+            return Funs.DB.CostGoods_CostSmallDetail.FirstOrDefault(e => e.CostSmallDetailId == costSmallDetailId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="costSmallDetail"></param>
         public static void AddCostSmallDetail(Model.CostGoods_CostSmallDetail costSmallDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostSmallDetail newCostSmallDetail = new Model.CostGoods_CostSmallDetail
             {
                 CostSmallDetailId = costSmallDetail.CostSmallDetailId,
@@ -56,7 +56,7 @@ namespace BLL
         /// <param name="costSmallDetail"></param>
         public static void UpdateCostSmallDetail(Model.CostGoods_CostSmallDetail costSmallDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostSmallDetail newCostSmallDetail = db.CostGoods_CostSmallDetail.FirstOrDefault(e => e.CostSmallDetailId == costSmallDetail.CostSmallDetailId);
             if (newCostSmallDetail != null)
             {
@@ -82,7 +82,7 @@ namespace BLL
         /// <param name="costSmallDetailId"></param>
         public static void DeleteCostSmallDetailById(string costSmallDetailId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostSmallDetail costSmallDetail = db.CostGoods_CostSmallDetail.FirstOrDefault(e => e.CostSmallDetailId == costSmallDetailId);
             if (costSmallDetail != null)
             {

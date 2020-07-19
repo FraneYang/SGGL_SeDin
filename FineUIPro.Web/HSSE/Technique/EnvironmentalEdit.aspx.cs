@@ -235,7 +235,7 @@ namespace FineUIPro.Web.HSSE.Technique
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Technique_Environmental.FirstOrDefault(x => x.Code == this.txtCode.Text.Trim() && (x.EnvironmentalId != this.EnvironmentalId || (this.EnvironmentalId == null && x.EnvironmentalId != null)));
+            var q = Funs.DB.Technique_Environmental.FirstOrDefault(x => x.Code == this.txtCode.Text.Trim() && (x.EnvironmentalId != this.EnvironmentalId || (this.EnvironmentalId == null && x.EnvironmentalId != null)));
             if (q != null)
             {
                 ShowNotify("输入的危险源代码已存在！", MessageBoxIcon.Warning);

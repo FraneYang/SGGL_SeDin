@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HSSE_Hazard_HazardRegisterTypes GetTitleByRegisterTypesId(string RegisterTypesId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegisterTypes.FirstOrDefault(e => e.RegisterTypesId == RegisterTypesId);
+            return Funs.DB.HSSE_Hazard_HazardRegisterTypes.FirstOrDefault(e => e.RegisterTypesId == RegisterTypesId);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="TypeCode"></param>
         public static void AddHazardRegisterTypes(Model.HSSE_Hazard_HazardRegisterTypes types)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSE_Hazard_HazardRegisterTypes newTitle = new Model.HSSE_Hazard_HazardRegisterTypes();
             newTitle.RegisterTypesId = types.RegisterTypesId;
             newTitle.RegisterTypesName = types.RegisterTypesName;
@@ -48,7 +48,7 @@ namespace BLL
         /// <param name="TypeCode"></param>
         public static void UpdateHazardRegisterTypes(Model.HSSE_Hazard_HazardRegisterTypes types)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSE_Hazard_HazardRegisterTypes newTitle = db.HSSE_Hazard_HazardRegisterTypes.FirstOrDefault(e => e.RegisterTypesId == types.RegisterTypesId);
             if (newTitle != null)
             {
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="RegisterTypesId"></param>
         public static void DeleteTitle(string RegisterTypesId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSE_Hazard_HazardRegisterTypes types = db.HSSE_Hazard_HazardRegisterTypes.FirstOrDefault(e => e.RegisterTypesId == RegisterTypesId);
             if (types != null)
             {
@@ -83,7 +83,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HSSE_Hazard_HazardRegisterTypes> GetHazardRegisterTypesList(string hazardRegisterType)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegisterTypes where x.HazardRegisterType == hazardRegisterType orderby x.TypeCode select x).ToList();
+            return (from x in Funs.DB.HSSE_Hazard_HazardRegisterTypes where x.HazardRegisterType == hazardRegisterType orderby x.TypeCode select x).ToList();
         }
     }
 }

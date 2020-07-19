@@ -9,7 +9,7 @@ namespace BLL
     /// </summary>
     public static class ServerTestPlanService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取知识竞赛计划
@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Test_TestPlan GetTestPlanById(string TestPlanId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Test_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlanId);
+            return Funs.DB.Test_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlanId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <param name="TestPlan"></param>
         public static void AddTestPlan(Model.Test_TestPlan TestPlan)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Test_TestPlan newTestPlan = new Model.Test_TestPlan
             {
                 TestPlanId = TestPlan.TestPlanId,
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="TestPlan"></param>
         public static void UpdateTestPlan(Model.Test_TestPlan TestPlan)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Test_TestPlan newTestPlan = db.Test_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlan.TestPlanId);
             if (newTestPlan != null)
             {
@@ -86,7 +86,7 @@ namespace BLL
         /// <param name="TestPlanId"></param>
         public static void DeleteTestPlanById(string TestPlanId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Test_TestPlan TestPlan = db.Test_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlanId);
             if (TestPlan != null)
             {
@@ -107,7 +107,7 @@ namespace BLL
         /// <returns></returns>
         public static string EndTestPlan(string testPlanId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string info = string.Empty;
             var getTestPlans = from x in db.Test_TestPlan
                                where x.States == Const.State_2 && x.TestEndTime.Value.AddMinutes(x.Duration.Value) < DateTime.Now
@@ -160,7 +160,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Test_TestPlan> GetTestPlanList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Test_TestPlan orderby x.PlanCode descending  select x).ToList();
+            var list = (from x in Funs.DB.Test_TestPlan orderby x.PlanCode descending  select x).ToList();
             return list;
         }
 

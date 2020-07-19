@@ -6,7 +6,7 @@ namespace BLL
 
     public static class UserService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 获取用户信息
@@ -15,7 +15,7 @@ namespace BLL
         /// <returns>用户信息</returns>
         public static Model.Sys_User GetUserByUserId(string userId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(e => e.UserId == userId);
+            return Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace BLL
         public static bool IsExistUserAccount(string userId, string account)
         {
             bool isExist = false;
-            var role = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.Account == account && (x.UserId != userId || (userId == null && x.UserId != null)));
+            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == account && (x.UserId != userId || (userId == null && x.UserId != null)));
             if (role != null)
             {
                 isExist = true;
@@ -65,7 +65,7 @@ namespace BLL
         public static bool IsExistUserIdentityCard(string userId, string identityCard)
         {
             bool isExist = false;
-            var role = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.IdentityCard == identityCard && (x.UserId != userId || (userId == null && x.UserId != null)));
+            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.IdentityCard == identityCard && (x.UserId != userId || (userId == null && x.UserId != null)));
             if (role != null)
             {
                 isExist = true;
@@ -80,7 +80,7 @@ namespace BLL
         /// <returns></returns>
         public static string GetPasswordByUserId(string userId)
         {
-            Model.Sys_User m = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(e => e.UserId == userId);
+            Model.Sys_User m = Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
             return m.Password;
         }
 
@@ -92,7 +92,7 @@ namespace BLL
         public static string GetUserNameByUserId(string userId)
         {
             string userName = string.Empty;
-            Model.Sys_User user = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(e => e.UserId == userId);
+            Model.Sys_User user = Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
             if (user != null)
             {
                 userName = user.UserName;
@@ -109,7 +109,7 @@ namespace BLL
         public static string GetUserNameAndTelByUserId(string userId)
         {
             string userName = string.Empty;
-            Model.Sys_User user = new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(e => e.UserId == userId);
+            Model.Sys_User user = Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
             if (user != null)
             {
                 userName = user.UserName ;
@@ -128,7 +128,7 @@ namespace BLL
         /// <param name="password"></param>
         public static void UpdatePassword(string userId, string password)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Sys_User m = db.Sys_User.FirstOrDefault(e => e.UserId == userId);
             if (m != null)
             {
@@ -143,7 +143,7 @@ namespace BLL
         /// <param name="user">人员实体</param>
         public static void AddUser(Model.Sys_User user)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Sys_User));
             Model.Sys_User newUser = new Model.Sys_User
             {
@@ -184,7 +184,7 @@ namespace BLL
         /// <param name="user">人员实体</param>
         public static void UpdateUser(Model.Sys_User user)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Sys_User newUser = db.Sys_User.FirstOrDefault(e => e.UserId == user.UserId);
             if (newUser != null)
             {
@@ -224,7 +224,7 @@ namespace BLL
         /// <param name="userId"></param>
         public static void DeleteUser(string userId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Sys_User user = db.Sys_User.FirstOrDefault(e => e.UserId == userId);
             if (user != null)
             {
@@ -244,7 +244,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_User> GetUserList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_User orderby x.UserName select x).ToList();
+            var list = (from x in Funs.DB.Sys_User orderby x.UserName select x).ToList();
             return list;
         }
 
@@ -522,12 +522,12 @@ namespace BLL
         /// <param name="dataId"></param>
         public static void DeleteUserRead(string dataId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
-            var userRs = from x in new Model.SGGLDB(Funs.ConnString).Sys_UserRead where x.DataId == dataId select x;
+            Model.SGGLDB db = Funs.DB;
+            var userRs = from x in Funs.DB.Sys_UserRead where x.DataId == dataId select x;
             if (userRs.Count()>0)
             {
-                new Model.SGGLDB(Funs.ConnString).Sys_UserRead.DeleteAllOnSubmit(userRs);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Sys_UserRead.DeleteAllOnSubmit(userRs);
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -1183,7 +1183,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Sys_User FindUserByAccount(string account)
         {
-            var q = from y in new Model.SGGLDB(Funs.ConnString).Sys_User
+            var q = from y in Funs.DB.Sys_User
                     where y.Account == account && y.IsPost == true
                     select y;
             return q.FirstOrDefault();

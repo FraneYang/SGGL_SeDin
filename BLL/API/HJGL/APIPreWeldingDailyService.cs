@@ -73,7 +73,7 @@ namespace BLL
         /// <returns></returns>
         public static void SavePreWeldingDaily(Model.HJGL_PreWeldingDailyItem newItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_PreWeldingDaily newP= new Model.HJGL_PreWeldingDaily
             {
                 PreWeldingDailyId = newItem.PreWeldingDailyId,

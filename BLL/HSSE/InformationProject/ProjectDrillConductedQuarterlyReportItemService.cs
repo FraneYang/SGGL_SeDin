@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ProjectDrillConductedQuarterlyReportItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取应急演练开展情况季报表明细信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_DrillConductedQuarterlyReportItem GetDrillConductedQuarterlyReportItemById(string drillConductedQuarterlyReportItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_DrillConductedQuarterlyReportItem.FirstOrDefault(e => e.DrillConductedQuarterlyReportItemId == drillConductedQuarterlyReportItemId);
+            return Funs.DB.InformationProject_DrillConductedQuarterlyReportItem.FirstOrDefault(e => e.DrillConductedQuarterlyReportItemId == drillConductedQuarterlyReportItemId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.InformationProject_DrillConductedQuarterlyReportItem> GetDrillConductedQuarterlyReportItemList(string drillConductedQuarterlyReportId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_DrillConductedQuarterlyReportItem where x.DrillConductedQuarterlyReportId == drillConductedQuarterlyReportId orderby x.SortIndex select x).ToList();
+            return (from x in Funs.DB.InformationProject_DrillConductedQuarterlyReportItem where x.DrillConductedQuarterlyReportId == drillConductedQuarterlyReportId orderby x.SortIndex select x).ToList();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="drillConductedQuarterlyReportItem"></param>
         public static void AddDrillConductedQuarterlyReportItem(Model.InformationProject_DrillConductedQuarterlyReportItem drillConductedQuarterlyReportItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillConductedQuarterlyReportItem newDrillConductedQuarterlyReportItem = new Model.InformationProject_DrillConductedQuarterlyReportItem
             {
                 DrillConductedQuarterlyReportItemId = drillConductedQuarterlyReportItem.DrillConductedQuarterlyReportItemId,
@@ -71,7 +71,7 @@ namespace BLL
         /// <param name="drillConductedQuarterlyReportItem"></param>
         public static void UpdateDrillConductedQuarterlyReportItem(Model.InformationProject_DrillConductedQuarterlyReportItem drillConductedQuarterlyReportItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillConductedQuarterlyReportItem newDrillConductedQuarterlyReportItem = db.InformationProject_DrillConductedQuarterlyReportItem.FirstOrDefault(e => e.DrillConductedQuarterlyReportItemId == drillConductedQuarterlyReportItem.DrillConductedQuarterlyReportItemId);
             if (newDrillConductedQuarterlyReportItem != null)
             {
@@ -102,7 +102,7 @@ namespace BLL
         /// <param name="drillConductedQuarterlyReportItemId"></param>
         public static void DeleteDrillConductedQuarterlyReportItemById(string drillConductedQuarterlyReportItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillConductedQuarterlyReportItem drillConductedQuarterlyReportItem = db.InformationProject_DrillConductedQuarterlyReportItem.FirstOrDefault(e => e.DrillConductedQuarterlyReportItemId == drillConductedQuarterlyReportItemId);
             if (drillConductedQuarterlyReportItem != null)
             {
@@ -117,7 +117,7 @@ namespace BLL
         /// <param name="drillConductedQuarterlyReportId"></param>
         public static void DeleteDrillConductedQuarterlyReportItemList(string drillConductedQuarterlyReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.InformationProject_DrillConductedQuarterlyReportItem where x.DrillConductedQuarterlyReportId == drillConductedQuarterlyReportId select x).ToList();
             if (q != null)
             {

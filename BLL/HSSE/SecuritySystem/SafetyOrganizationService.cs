@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class SafetyOrganizationService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全管理机构信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SecuritySystem_SafetyOrganization GetSafetyOrganizationById(string SafetyOrganizationId)
         {
-            return new Model.SGGLDB(Funs.ConnString).SecuritySystem_SafetyOrganization.FirstOrDefault(e => e.SafetyOrganizationId == SafetyOrganizationId);
+            return Funs.DB.SecuritySystem_SafetyOrganization.FirstOrDefault(e => e.SafetyOrganizationId == SafetyOrganizationId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="item"></param>
         public static void AddSafetyOrganization(Model.SecuritySystem_SafetyOrganization item)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SecuritySystem_SafetyOrganization newItem = new Model.SecuritySystem_SafetyOrganization
             {
                 SafetyOrganizationId = item.SafetyOrganizationId,
@@ -52,7 +52,7 @@ namespace BLL
         /// <param name="item"></param>
         public static void UpdateSafetyOrganization(Model.SecuritySystem_SafetyOrganization item)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SecuritySystem_SafetyOrganization newItem = db.SecuritySystem_SafetyOrganization.FirstOrDefault(e => e.SafetyOrganizationId == item.SafetyOrganizationId);
             if (newItem != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="SafetyOrganizationId"></param>
         public static void DeleteSafetyOrganization(string SafetyOrganizationId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SecuritySystem_SafetyOrganization item = db.SecuritySystem_SafetyOrganization.FirstOrDefault(e => e.SafetyOrganizationId == SafetyOrganizationId);
             if (item != null)
             {

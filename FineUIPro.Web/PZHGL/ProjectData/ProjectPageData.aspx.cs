@@ -202,7 +202,7 @@ namespace FineUIPro.Web.PZHGL.ProjectData
 
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            var getData = new Model.SGGLDB(Funs.ConnString).Wx_PageData.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.CreatDate.Value.Year == DateTime.Now.Year
+            var getData = Funs.DB.Wx_PageData.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.CreatDate.Value.Year == DateTime.Now.Year
                                     && x.CreatDate.Value.Month == DateTime.Now.Month && x.CreatDate.Value.Day == DateTime.Now.Day);
             if (getData == null)
             {

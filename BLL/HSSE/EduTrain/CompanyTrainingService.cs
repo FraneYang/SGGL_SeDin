@@ -8,7 +8,7 @@ namespace BLL
     /// </summary>
     public class CompanyTrainingService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取公司培训
@@ -80,7 +80,7 @@ namespace BLL
             {
                 if (Training.IsEndLever == true)
                 {
-                    var detailCout = new Model.SGGLDB(Funs.ConnString).Training_CompanyTrainingItem.FirstOrDefault(x => x.CompanyTrainingId == companyTrainingId);
+                    var detailCout = Funs.DB.Training_CompanyTrainingItem.FirstOrDefault(x => x.CompanyTrainingId == companyTrainingId);
                     if (detailCout != null)
                     {
                         isDelete = false;
@@ -105,7 +105,7 @@ namespace BLL
         /// <returns>公司培训的集合</returns>
         public static List<Model.Training_CompanyTraining> GetCompanyTrainingBySupItem(string supItem)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Training_CompanyTraining where x.SupCompanyTrainingId == supItem select x).ToList();
+            return (from x in Funs.DB.Training_CompanyTraining where x.SupCompanyTrainingId == supItem select x).ToList();
         }
     }
 }

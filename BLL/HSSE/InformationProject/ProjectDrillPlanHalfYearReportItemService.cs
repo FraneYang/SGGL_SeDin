@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ProjectDrillPlanHalfYearReportItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取应急演练工作计划半年报明细信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_DrillPlanHalfYearReportItem GetDrillPlanHalfYearReportItemById(string drillPlanHalfYearReportItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_DrillPlanHalfYearReportItem.FirstOrDefault(e => e.DrillPlanHalfYearReportItemId == drillPlanHalfYearReportItemId);
+            return Funs.DB.InformationProject_DrillPlanHalfYearReportItem.FirstOrDefault(e => e.DrillPlanHalfYearReportItemId == drillPlanHalfYearReportItemId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.InformationProject_DrillPlanHalfYearReportItem> GetDrillPlanHalfYearReportItemList(string drillPlanHalfYearReportId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_DrillPlanHalfYearReportItem where x.DrillPlanHalfYearReportId == drillPlanHalfYearReportId orderby x.SortIndex select x).ToList();
+            return (from x in Funs.DB.InformationProject_DrillPlanHalfYearReportItem where x.DrillPlanHalfYearReportId == drillPlanHalfYearReportId orderby x.SortIndex select x).ToList();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="drillPlanHalfYearReportItem"></param>
         public static void AddDrillPlanHalfYearReportItem(Model.InformationProject_DrillPlanHalfYearReportItem drillPlanHalfYearReportItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillPlanHalfYearReportItem newDrillPlanHalfYearReportItem = new Model.InformationProject_DrillPlanHalfYearReportItem
             {
                 DrillPlanHalfYearReportItemId = drillPlanHalfYearReportItem.DrillPlanHalfYearReportItemId,
@@ -60,7 +60,7 @@ namespace BLL
         /// <param name="drillPlanHalfYearReportItem"></param>
         public static void UpdateDrillPlanHalfYearReportItem(Model.InformationProject_DrillPlanHalfYearReportItem drillPlanHalfYearReportItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillPlanHalfYearReportItem newDrillPlanHalfYearReportItem = db.InformationProject_DrillPlanHalfYearReportItem.FirstOrDefault(e => e.DrillPlanHalfYearReportItemId == drillPlanHalfYearReportItem.DrillPlanHalfYearReportItemId);
             if (newDrillPlanHalfYearReportItem != null)
             {
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="drillPlanHalfYearReportItemId"></param>
         public static void DeleteDrillPlanHalfYearReportItemById(string drillPlanHalfYearReportItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillPlanHalfYearReportItem drillPlanHalfYearReportItem = db.InformationProject_DrillPlanHalfYearReportItem.FirstOrDefault(e => e.DrillPlanHalfYearReportItemId == drillPlanHalfYearReportItemId);
             if (drillPlanHalfYearReportItem != null)
             {
@@ -95,7 +95,7 @@ namespace BLL
         /// <param name="drillPlanHalfYearReportId"></param>
         public static void DeleteDrillPlanHalfYearReportItemList(string drillPlanHalfYearReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.InformationProject_DrillPlanHalfYearReportItem where x.DrillPlanHalfYearReportId == drillPlanHalfYearReportId select x).ToList();
             if (q != null)
             {

@@ -450,7 +450,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             string sumValue = "0";
             if (monthReportId != null)
             {
-                var sum=  new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReportId.ToString()).Sum(x=>x.PersonWorkTime);
+                var sum=  Funs.DB.SitePerson_MonthReportDetail.Where(x => x.MonthReportId == monthReportId.ToString()).Sum(x=>x.PersonWorkTime);
                 if (sum.HasValue)
                 {
                     sumValue= sum.Value.ToString();

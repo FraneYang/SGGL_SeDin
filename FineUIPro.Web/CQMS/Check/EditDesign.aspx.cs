@@ -593,7 +593,7 @@ namespace FineUIPro.Web.CQMS.Check
             else if (this.drpHandleType.SelectedValue == BLL.Const.Design_ReCompile)
             {
                 this.drpHandleMan.Enabled = true;
-                string userId = (from x in new Model.SGGLDB(Funs.ConnString).Check_DesignApprove where x.DesignId == DesignId && x.ApproveType == BLL.Const.Design_Compile select x.ApproveMan).First();
+                string userId = (from x in Funs.DB.Check_DesignApprove where x.DesignId == DesignId && x.ApproveType == BLL.Const.Design_Compile select x.ApproveMan).First();
                 ListItem lis = new ListItem(BLL.UserService.GetUserByUserId(userId).UserName, userId);
                 this.drpHandleMan.Items.Add(lis);
                 this.drpHandleMan.SelectedIndex = 0;

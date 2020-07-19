@@ -15,7 +15,7 @@ namespace BLL
         /// <param name="WorkPackageId"></param>
         public static List<Model.WBS_ControlItemInit> GetItemsByWorkPackageCode(string workPackageCode)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemInit where x.WorkPackageCode == workPackageCode orderby x.ControlItemCode select x).ToList();
+            var q = (from x in Funs.DB.WBS_ControlItemInit where x.WorkPackageCode == workPackageCode orderby x.ControlItemCode select x).ToList();
             if (q.Count > 0)
             {
                 return q;
@@ -32,7 +32,7 @@ namespace BLL
         /// <param name="controlItemCode"></param>
         public static Model.WBS_ControlItemInit GetControlItemInitByCode(string controlItemCode)
         {
-            return new Model.SGGLDB(Funs.ConnString).WBS_ControlItemInit.FirstOrDefault(e => e.ControlItemCode == controlItemCode);
+            return Funs.DB.WBS_ControlItemInit.FirstOrDefault(e => e.ControlItemCode == controlItemCode);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace BLL
         /// <param name="ControlItemAndCycle"></param>
         public static void AddControlItemInit(Model.WBS_ControlItemInit controlItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemInit newControlItem = new Model.WBS_ControlItemInit();
 
             newControlItem.ControlItemCode = controlItem.ControlItemCode;
@@ -65,7 +65,7 @@ namespace BLL
         /// <param name="controlItem"></param>
         public static void UpdateControlItemInit(Model.WBS_ControlItemInit controlItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemInit newControlItem = db.WBS_ControlItemInit.First(e => e.ControlItemCode == controlItem.ControlItemCode);
 
             newControlItem.WorkPackageCode = controlItem.WorkPackageCode;
@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="controlItemCode"></param>
         public static void DeleteControlItemInit(string controlItemCode)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemInit controlItem = db.WBS_ControlItemInit.First(e => e.ControlItemCode == controlItemCode);
             db.WBS_ControlItemInit.DeleteOnSubmit(controlItem);
             db.SubmitChanges();
@@ -99,7 +99,7 @@ namespace BLL
         /// <param name="workPackageCode"></param>
         public static void DeleteAllControlItemInit(string workPackageCode)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             List<Model.WBS_ControlItemInit> q = (from x in db.WBS_ControlItemInit where x.WorkPackageCode == workPackageCode orderby x.ControlItemCode select x).ToList();
             db.WBS_ControlItemInit.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -112,7 +112,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistControlItemInitName(string workPackageCode, string controlItemContent, string controlItemCode)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemInit where x.WorkPackageCode == workPackageCode && x.ControlItemContent == controlItemContent && x.ControlItemCode != controlItemCode select x;
+            var q = from x in Funs.DB.WBS_ControlItemInit where x.WorkPackageCode == workPackageCode && x.ControlItemContent == controlItemContent && x.ControlItemCode != controlItemCode select x;
             if (q.Count() > 0)
             {
                 return true;

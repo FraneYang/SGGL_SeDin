@@ -90,7 +90,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TestPlanTrainingItem> getTestPlanTrainingListByTestPlanId(string testPlanId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var getDataLists = (from x in db.Test_TestPlanTraining
                                 join y in db.Training_TestTraining on x.TrainingId equals y.TrainingId
                                 where x.TestPlanId == testPlanId

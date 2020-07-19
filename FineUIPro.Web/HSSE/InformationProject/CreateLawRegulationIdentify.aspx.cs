@@ -104,7 +104,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
         /// </summary>
         private void BindGrid()
         {
-            var laws = from x in new Model.SGGLDB(Funs.ConnString).View_Law_LawRegulationList select x;
+            var laws = from x in Funs.DB.View_Law_LawRegulationList select x;
             if (!string.IsNullOrEmpty(this.txtLawRegulationCode.Text.Trim()))
             {
                 laws = laws.Where(x => x.LawRegulationCode.Contains(this.txtLawRegulationCode.Text.Trim()));

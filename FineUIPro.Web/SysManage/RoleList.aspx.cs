@@ -37,7 +37,7 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Roles.RoleId,Roles.RoleName,Roles.RoleCode,Roles.RoleType,Roles.CNCodes,Roles.Def,Roles.IsAuditFlow,Roles.IsSystemBuilt"
+            string strSql = @"SELECT Roles.RoleId,Roles.RoleName,Roles.RoleCode,Roles.RoleType,Roles.CNCodes,Roles.Def,Roles.IsAuditFlow,Const13.ConstText AS RoleTypeName,Roles.IsSystemBuilt"
                           + @" FROM dbo.Sys_Role AS Roles "
                           + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
                           + @" WHERE 1=1 ";
@@ -218,7 +218,7 @@
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            if (new Model.SGGLDB(Funs.ConnString).Sys_User.FirstOrDefault(x => x.RoleId == id) != null)
+            if (Funs.DB.Sys_User.FirstOrDefault(x => x.RoleId == id) != null)
             {
                 content = "该角色已在【用户信息】中使用，不能删除！";
             }

@@ -8,7 +8,7 @@ namespace BLL
 {
     public class SitePerson_MonthReportUnitDetailService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 增加工作日报明细信息
@@ -16,7 +16,7 @@ namespace BLL
         /// <param name="monthReportUnitDetail">工作日报明细实体</param>
         public static void AddMonthReportUnitDetail(Model.SitePerson_MonthReportUnitDetail monthReportUnitDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_MonthReportUnitDetail newMonthReportUnitDetail = new Model.SitePerson_MonthReportUnitDetail();
             string newKeyID = SQLHelper.GetNewID(typeof(Model.SitePerson_MonthReportUnitDetail));
             newMonthReportUnitDetail.MonthReportUnitDetailId = newKeyID;
@@ -36,7 +36,7 @@ namespace BLL
         /// <param name="monthReportDetail">工作日报明细实体</param>
         public static void UpdateMonthReportUnitDetail(Model.SitePerson_MonthReportUnitDetail monthReportUnitDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_MonthReportUnitDetail newMonthReportUnitDetail = db.SitePerson_MonthReportUnitDetail.FirstOrDefault(e => e.MonthReportUnitDetailId == monthReportUnitDetail.MonthReportUnitDetailId);
             if (newMonthReportUnitDetail != null)
             {

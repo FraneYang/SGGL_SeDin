@@ -8,7 +8,7 @@ namespace BLL
     /// </summary>
     public static class TestPlanService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取培训计划
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TestPlan GetTestPlanById(string TestPlanId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Training_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlanId);
+            return Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlanId);
         }
 
         /// <summary>
@@ -97,11 +97,11 @@ namespace BLL
             var getTestPlan = GetTestPlanById(TestPlanId);
             if (getTestPlan != null)
             {
-                var testPlanTrainings = from x in new Model.SGGLDB(Funs.ConnString).Training_TestPlanTraining where x.TestPlanId == TestPlanId select x;
+                var testPlanTrainings = from x in Funs.DB.Training_TestPlanTraining where x.TestPlanId == TestPlanId select x;
                 if (testPlanTrainings.Count() > 0)
                 {
-                    new Model.SGGLDB(Funs.ConnString).Training_TestPlanTraining.DeleteAllOnSubmit(testPlanTrainings);
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.Training_TestPlanTraining.DeleteAllOnSubmit(testPlanTrainings);
+                    Funs.DB.SubmitChanges();
                 }
                 if (getTestPlan.States == "3") //状态考试结束
                 {
@@ -110,7 +110,7 @@ namespace BLL
                     {
                         updateTrainingPlan.States = "2";
                         TrainingPlanService.UpdatePlan(updateTrainingPlan);
-                        var getTrainingTasks = from x in new Model.SGGLDB(Funs.ConnString).Training_Task
+                        var getTrainingTasks = from x in Funs.DB.Training_Task
                                                where x.PlanId == updateTrainingPlan.PlanId 
                                                select x;
                         foreach (var item in getTrainingTasks)
@@ -119,7 +119,7 @@ namespace BLL
                             TrainingTaskService.UpdateTask(item);
                         }
                         ////删除归档的培训记录
-                        var trainRecord = new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == getTestPlan.PlanId);
+                        var trainRecord = Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == getTestPlan.PlanId);
                         if (trainRecord != null)
                         {
                             EduTrain_TrainRecordService.DeleteTrainingByTrainingId(trainRecord.TrainingId);
@@ -127,8 +127,8 @@ namespace BLL
                     }
                 }
 
-                new Model.SGGLDB(Funs.ConnString).Training_TestPlan.DeleteOnSubmit(getTestPlan);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();              
+                Funs.DB.Training_TestPlan.DeleteOnSubmit(getTestPlan);
+                Funs.DB.SubmitChanges();              
             }
         }
 

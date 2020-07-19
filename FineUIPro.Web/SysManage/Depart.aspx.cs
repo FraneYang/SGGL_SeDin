@@ -32,7 +32,7 @@ namespace FineUIPro.Web.SysManage
         /// </summary>
         private void BindGrid()
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).Base_Depart orderby x.DepartCode select x;
+            var q = from x in Funs.DB.Base_Depart orderby x.DepartCode select x;
             Grid1.RecordCount = q.Count();
             // 2.获取当前分页数据
             var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
@@ -46,7 +46,7 @@ namespace FineUIPro.Web.SysManage
         /// <returns></returns>
         private List<Model.Base_Depart> GetPagedDataTable(int pageIndex, int pageSize)
         {
-            List<Model.Base_Depart> source = (from x in new Model.SGGLDB(Funs.ConnString).Base_Depart orderby x.DepartCode select x).ToList();
+            List<Model.Base_Depart> source = (from x in Funs.DB.Base_Depart orderby x.DepartCode select x).ToList();
             List<Model.Base_Depart> paged = new List<Model.Base_Depart>();
 
             int rowbegin = pageIndex * pageSize;
@@ -228,13 +228,13 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_Depart.FirstOrDefault(x => x.DepartCode == this.txtDepartCode.Text.Trim() && (x.DepartId != hfFormID.Text || (hfFormID.Text == null && x.DepartId != null)));
+            var q = Funs.DB.Base_Depart.FirstOrDefault(x => x.DepartCode == this.txtDepartCode.Text.Trim() && (x.DepartId != hfFormID.Text || (hfFormID.Text == null && x.DepartId != null)));
             if (q != null)
             {
                 ShowNotify("输入的部门编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_Depart.FirstOrDefault(x => x.DepartName == this.txtDepartName.Text.Trim() && (x.DepartId != hfFormID.Text || (hfFormID.Text == null && x.DepartId != null)));
+            var q2 = Funs.DB.Base_Depart.FirstOrDefault(x => x.DepartName == this.txtDepartName.Text.Trim() && (x.DepartId != hfFormID.Text || (hfFormID.Text == null && x.DepartId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的部门名称已存在！", MessageBoxIcon.Warning);

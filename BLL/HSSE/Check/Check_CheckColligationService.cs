@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_CheckColligation GetCheckColligationByCheckColligationId(string checkColligationId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_CheckColligation.FirstOrDefault(e => e.CheckColligationId == checkColligationId);
+            return Funs.DB.Check_CheckColligation.FirstOrDefault(e => e.CheckColligationId == checkColligationId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByCheckTimeAndCheckType(DateTime startTime, DateTime endTime, string projectId, string checkType)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckColligation where x.CheckTime >= startTime && x.CheckTime < endTime && x.ProjectId == projectId && x.CheckType == checkType && x.States == BLL.Const.State_2 select x).Count();
+            return (from x in Funs.DB.Check_CheckColligation where x.CheckTime >= startTime && x.CheckTime < endTime && x.ProjectId == projectId && x.CheckType == checkType && x.States == BLL.Const.State_2 select x).Count();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByCheckTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckColligation where x.CheckTime >= startTime && x.CheckTime < endTime && x.ProjectId == projectId select x).Count();
+            return (from x in Funs.DB.Check_CheckColligation where x.CheckTime >= startTime && x.CheckTime < endTime && x.ProjectId == projectId select x).Count();
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace BLL
         /// <param name="checkColligation"></param>
         public static void AddCheckColligation(Model.Check_CheckColligation checkColligation)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckColligation newCheckColligation = new Model.Check_CheckColligation
             {
                 CheckColligationId = checkColligation.CheckColligationId,
@@ -101,7 +101,7 @@ namespace BLL
         /// <param name="checkColligation"></param>
         public static void UpdateCheckColligation(Model.Check_CheckColligation checkColligation)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckColligation newCheckColligation = db.Check_CheckColligation.FirstOrDefault(e => e.CheckColligationId == checkColligation.CheckColligationId);
             if (newCheckColligation != null)
             {
@@ -128,7 +128,7 @@ namespace BLL
         /// <param name="superviseCheckReportId"></param>
         public static void DeleteCheckColligation(string checkColligationId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var checkColligation = (from x in db.Check_CheckColligation where x.CheckColligationId == checkColligationId select x).FirstOrDefault();
             if (checkColligation != null)
             {

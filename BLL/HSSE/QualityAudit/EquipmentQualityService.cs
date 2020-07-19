@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EquipmentQualityService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取特殊机具设备资质
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_EquipmentQuality GetEquipmentQualityById(string equipmentQualityId)
         {
-            return new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQuality.FirstOrDefault(e => e.EquipmentQualityId == equipmentQualityId);
+            return Funs.DB.QualityAudit_EquipmentQuality.FirstOrDefault(e => e.EquipmentQualityId == equipmentQualityId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQuality where x.ProjectId == projectId && x.InDate >= startTime && x.InDate <= endTime orderby x.InDate select x).ToList();
+            var q = (from x in Funs.DB.QualityAudit_EquipmentQuality where x.ProjectId == projectId && x.InDate >= startTime && x.InDate <= endTime orderby x.InDate select x).ToList();
             return q.Count();
         }
 
@@ -41,7 +41,7 @@ namespace BLL
         /// <param name="equipmentQuality"></param>
         public static void AddEquipmentQuality(Model.QualityAudit_EquipmentQuality equipmentQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentQuality newEquipmentQuality = new Model.QualityAudit_EquipmentQuality
             {
                 EquipmentQualityId = equipmentQuality.EquipmentQualityId,
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="equipmentQuality"></param>
         public static void UpdateEquipmentQuality(Model.QualityAudit_EquipmentQuality equipmentQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentQuality newEquipmentQuality = db.QualityAudit_EquipmentQuality.FirstOrDefault(e => e.EquipmentQualityId == equipmentQuality.EquipmentQualityId);
             if (newEquipmentQuality != null)
             {
@@ -106,7 +106,7 @@ namespace BLL
         /// <param name="equipmentQualityId"></param>
         public static void DeleteEquipmentQualityById(string equipmentQualityId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentQuality equipmentQuality = db.QualityAudit_EquipmentQuality.FirstOrDefault(e => e.EquipmentQualityId == equipmentQualityId);
             if (equipmentQuality != null)
             {

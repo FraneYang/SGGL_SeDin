@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_MonthReport GetMonthReportByMonthReportId(string monthReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReport.FirstOrDefault(x => x.MonthReportId == monthReportId);
+            return Funs.DB.SitePerson_MonthReport.FirstOrDefault(x => x.MonthReportId == monthReportId);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <param name="monthReport">工作月报实体</param>
         public static void AddMonthReport(Model.SitePerson_MonthReport monthReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_MonthReport newMonthReport = new Model.SitePerson_MonthReport
             {
                 MonthReportId = monthReport.MonthReportId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="monthReport">工作月报实体</param>
         public static void UpdateMonthReport(Model.SitePerson_MonthReport monthReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_MonthReport newMonthReport = db.SitePerson_MonthReport.FirstOrDefault(e => e.MonthReportId == monthReport.MonthReportId);
             if (newMonthReport != null)
             {
@@ -65,7 +65,7 @@ namespace BLL
         /// <param name="monthReportId">工作月报主键</param>
         public static void DeleteMonthReportByMonthReportId(string monthReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_MonthReport monthReport = db.SitePerson_MonthReport.FirstOrDefault(e => e.MonthReportId == monthReportId);
             if (monthReport != null)
             {
@@ -85,7 +85,7 @@ namespace BLL
         /// <returns>true 存在；false：不存在</returns>
         public static bool IsExistMonthReport(DateTime compileDate, string projectId)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReport
+            var q = from x in Funs.DB.SitePerson_MonthReport
                     where x.CompileDate == compileDate && x.ProjectId == projectId
                     select x;
             if (q.Count() > 0)
@@ -106,7 +106,7 @@ namespace BLL
         /// <returns>工作月报信息</returns>
         public static Model.SitePerson_MonthReport GetMonthReportsByCompileDate(DateTime startTime, string projectId)
         {
-            return new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReport.FirstOrDefault(x => x.CompileDate.Value.Year >= startTime.Year && x.CompileDate.Value.Month >= startTime.Month && x.ProjectId == projectId && x.States == BLL.Const.State_2);
+            return Funs.DB.SitePerson_MonthReport.FirstOrDefault(x => x.CompileDate.Value.Year >= startTime.Year && x.CompileDate.Value.Month >= startTime.Month && x.ProjectId == projectId && x.States == BLL.Const.State_2);
         }
     }
 }

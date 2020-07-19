@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class DrillRecordListService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取应急演练
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Emergency_DrillRecordList GetDrillRecordListById(string DrillRecordListId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Emergency_DrillRecordList.FirstOrDefault(e => e.DrillRecordListId == DrillRecordListId);
+            return Funs.DB.Emergency_DrillRecordList.FirstOrDefault(e => e.DrillRecordListId == DrillRecordListId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns>应急演练信息</returns>
         public static List<Model.Emergency_DrillRecordList> GetDrillRecordListsByDrillRecordDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Emergency_DrillRecordList where x.DrillRecordDate >= startTime && x.DrillRecordDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
+            return (from x in Funs.DB.Emergency_DrillRecordList where x.DrillRecordDate >= startTime && x.DrillRecordDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace BLL
         /// <returns>时间段内的HSE应急演练数量</returns>
         public static int GetCountByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Emergency_DrillRecordList where x.DrillRecordDate >= startTime && x.DrillRecordDate <= endTime && x.ProjectId == projectId select x).Count();
+            return (from x in Funs.DB.Emergency_DrillRecordList where x.DrillRecordDate >= startTime && x.DrillRecordDate <= endTime && x.ProjectId == projectId select x).Count();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace BLL
         /// <returns>时间段内的HSE应急演练数量</returns>
         public static int GetCountByDate2(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Emergency_DrillRecordList where x.DrillRecordDate >= startTime && x.DrillRecordDate < endTime && x.ProjectId == projectId select x).Count();
+            return (from x in Funs.DB.Emergency_DrillRecordList where x.DrillRecordDate >= startTime && x.DrillRecordDate < endTime && x.ProjectId == projectId select x).Count();
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace BLL
         /// <returns>时间段内的HSE应急演练数量</returns>
         public static int GetCount(string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Emergency_DrillRecordList where x.ProjectId == projectId select x).Count();
+            return (from x in Funs.DB.Emergency_DrillRecordList where x.ProjectId == projectId select x).Count();
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace BLL
         /// <param name="DrillRecordList"></param>
         public static void AddDrillRecordList(Model.Emergency_DrillRecordList DrillRecordList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_DrillRecordList newDrillRecordList = new Model.Emergency_DrillRecordList
             {
                 DrillRecordListId = DrillRecordList.DrillRecordListId,
@@ -108,7 +108,7 @@ namespace BLL
         /// <param name="DrillRecordList"></param>
         public static void UpdateDrillRecordList(Model.Emergency_DrillRecordList DrillRecordList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_DrillRecordList newDrillRecordList = db.Emergency_DrillRecordList.FirstOrDefault(e => e.DrillRecordListId == DrillRecordList.DrillRecordListId);
             if (newDrillRecordList != null)
             {
@@ -137,7 +137,7 @@ namespace BLL
         /// <param name="DrillRecordListId"></param>
         public static void DeleteDrillRecordListById(string DrillRecordListId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Emergency_DrillRecordList DrillRecordList = db.Emergency_DrillRecordList.FirstOrDefault(e => e.DrillRecordListId == DrillRecordListId);
             if (DrillRecordList != null)
             {

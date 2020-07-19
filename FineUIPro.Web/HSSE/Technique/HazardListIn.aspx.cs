@@ -176,7 +176,7 @@ namespace FineUIPro.Web.HSSE.Technique
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var hazardListTypes = from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType select x;
+                var hazardListTypes = from x in Funs.DB.Technique_HazardListType select x;
                 for (int i = 0; i < ir; i++)
                 {
                     string col0 = pds.Rows[i][0].ToString();
@@ -383,7 +383,7 @@ namespace FineUIPro.Web.HSSE.Technique
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var hazardListTypes = from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType select x;
+                var hazardListTypes = from x in Funs.DB.Technique_HazardListType select x;
                 for (int i = 0; i < ir; i++)
                 {
                     Model.Technique_HazardList hazardList = new Model.Technique_HazardList();

@@ -33,7 +33,7 @@ namespace FineUIPro.Web.OfficeCheck.ProjectEvaluation
         /// </summary>
         private void BindGrid2()
         {
-            Grid2.DataSource = from x in new Model.SGGLDB(Funs.ConnString).Base_Project                               
+            Grid2.DataSource = from x in Funs.DB.Base_Project                               
                                orderby x.ProjectCode 
                                select x;
             Grid2.DataBind();

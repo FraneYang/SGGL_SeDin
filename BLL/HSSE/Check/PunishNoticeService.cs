@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class PunishNoticeService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取处罚通知单
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_PunishNotice GetPunishNoticeById(string punishNoticeId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_PunishNotice.FirstOrDefault(e => e.PunishNoticeId == punishNoticeId);
+            return Funs.DB.Check_PunishNotice.FirstOrDefault(e => e.PunishNoticeId == punishNoticeId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns>HSE奖励通知单集合</returns>
         public static List<Model.Check_PunishNotice> GetPunishNoticeListsByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNotice where x.PunishNoticeDate >= startTime && x.PunishNoticeDate <= endTime && x.ProjectId == projectId orderby x.PunishNoticeDate select x).ToList();
+            return (from x in Funs.DB.Check_PunishNotice where x.PunishNoticeDate >= startTime && x.PunishNoticeDate <= endTime && x.ProjectId == projectId orderby x.PunishNoticeDate select x).ToList();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BLL
         /// <returns>时间段内的HSE处罚通知单集合</returns>
         public static int GetCountByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNotice where x.PunishNoticeDate >= startTime && x.PunishNoticeDate <= endTime && x.ProjectId == projectId select x).Count();
+            return (from x in Funs.DB.Check_PunishNotice where x.PunishNoticeDate >= startTime && x.PunishNoticeDate <= endTime && x.ProjectId == projectId select x).Count();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace BLL
         /// <returns>时间段内的HSE处罚通知单处罚总金额</returns>
         public static decimal GetSumMoneyByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_PunishNotice where x.PunishNoticeDate >= startTime && x.PunishNoticeDate <= endTime && x.ProjectId == projectId select x).ToList();
+            var q = (from x in Funs.DB.Check_PunishNotice where x.PunishNoticeDate >= startTime && x.PunishNoticeDate <= endTime && x.ProjectId == projectId select x).ToList();
             if (q.Count > 0)
             {
                 return (from x in q select x.PunishMoney ?? 0).Sum();
@@ -72,7 +72,7 @@ namespace BLL
         /// <returns></returns>
         public static decimal? GetSumMoney(string projectId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             decimal? sumRewardMoney = (from x in db.Check_PunishNotice
                                        where x.ProjectId == projectId && x.States == BLL.Const.State_2
                                        select x.PunishMoney).Sum();
@@ -92,7 +92,7 @@ namespace BLL
         /// <returns></returns>
         public static decimal? GetSumMoneyByTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             decimal? sumRewardMoney = (from x in db.Check_PunishNotice
                                        where x.PunishNoticeDate >= startTime && x.PunishNoticeDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2
                                        select x.PunishMoney).Sum();
@@ -109,7 +109,7 @@ namespace BLL
         /// <param name="punishNotice"></param>
         public static void AddPunishNotice(Model.Check_PunishNotice punishNotice)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_PunishNotice newPunishNotice = new Model.Check_PunishNotice
             {
                 PunishNoticeId = punishNotice.PunishNoticeId,
@@ -143,7 +143,7 @@ namespace BLL
         /// <param name="punishNotice"></param>
         public static void UpdatePunishNotice(Model.Check_PunishNotice punishNotice)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_PunishNotice newPunishNotice = db.Check_PunishNotice.FirstOrDefault(e => e.PunishNoticeId == punishNotice.PunishNoticeId);
             if (newPunishNotice != null)
             {
@@ -175,7 +175,7 @@ namespace BLL
         /// <param name="punishNoticeId"></param>
         public static void DeletePunishNoticeById(string punishNoticeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_PunishNotice punishNotice = db.Check_PunishNotice.FirstOrDefault(e => e.PunishNoticeId == punishNoticeId);
             if (punishNotice != null)
             {

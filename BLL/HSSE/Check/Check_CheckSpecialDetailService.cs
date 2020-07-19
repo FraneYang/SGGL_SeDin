@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public class Check_CheckSpecialDetailService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据专项检查id获取所有相关明细信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Check_CheckSpecialDetail> GetCheckSpecialDetailByCheckSpecialId(string checkSpecialId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecialDetail where x.CheckSpecialId == checkSpecialId select x).ToList();
+            return (from x in Funs.DB.Check_CheckSpecialDetail where x.CheckSpecialId == checkSpecialId select x).ToList();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_CheckSpecialDetail GetCheckSpecialDetailByCheckSpecialDetailId(string checkSpecialDetailId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_CheckSpecialDetail.FirstOrDefault(e => e.CheckSpecialDetailId == checkSpecialDetailId);
+            return Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(e => e.CheckSpecialDetailId == checkSpecialDetailId);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="CheckSpecialDetail"></param>
         public static void AddCheckSpecialDetail(Model.Check_CheckSpecialDetail CheckSpecialDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckSpecialDetail newCheckSpecialDetail = new Model.Check_CheckSpecialDetail
             {
                 CheckSpecialDetailId = CheckSpecialDetail.CheckSpecialDetailId,
@@ -69,7 +69,7 @@ namespace BLL
         /// <param name="CheckSpecialDetail"></param>
         public static void UpdateCheckSpecialDetail(Model.Check_CheckSpecialDetail CheckSpecialDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var newCheckSpecialDetail = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == CheckSpecialDetail.CheckSpecialDetailId);
             if (newCheckSpecialDetail != null)
             {
@@ -94,7 +94,7 @@ namespace BLL
         /// <param name="checkSpecialId"></param>
         public static void DeleteCheckSpecialDetails(string checkSpecialId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Check_CheckSpecialDetail where x.CheckSpecialId == checkSpecialId select x).ToList();
             if (q != null)
             {
@@ -114,7 +114,7 @@ namespace BLL
         /// <param name="checkSpecialDetailId"></param>
         public static void DeleteCheckSpecialDetailById(string checkSpecialDetailId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Check_CheckSpecialDetail where x.CheckSpecialDetailId == checkSpecialDetailId select x).FirstOrDefault();
             if (q != null)
             {

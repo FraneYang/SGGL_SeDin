@@ -78,7 +78,7 @@ namespace FineUIPro.Web.CQMS.WBS
                 if (Request.Params["type"] == "add")
                 {
                     List<String> codelist = null;
-                    codelist = (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit
+                    codelist = (from x in Funs.DB.WBS_WorkPackageInit
                                 where x.SuperWorkPack == WorkPackageCode
                                 orderby x.WorkPackageCode
                                 select x.WorkPackageCode).ToList();

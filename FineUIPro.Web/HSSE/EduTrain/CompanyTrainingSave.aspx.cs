@@ -124,7 +124,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var companyTraining = new Model.SGGLDB(Funs.ConnString).Training_CompanyTraining.FirstOrDefault(x => x.SupCompanyTrainingId == this.SupCompanyTrainingId && x.CompanyTrainingName == this.txtCompanyTrainingName.Text.Trim() && (x.CompanyTrainingId != this.CompanyTrainingId || (this.CompanyTrainingId == null && x.CompanyTrainingId != null)));
+            var companyTraining = Funs.DB.Training_CompanyTraining.FirstOrDefault(x => x.SupCompanyTrainingId == this.SupCompanyTrainingId && x.CompanyTrainingName == this.txtCompanyTrainingName.Text.Trim() && (x.CompanyTrainingId != this.CompanyTrainingId || (this.CompanyTrainingId == null && x.CompanyTrainingId != null)));
             if (companyTraining != null)
             {
                 ShowNotify("输入的名称已存在！", MessageBoxIcon.Warning);

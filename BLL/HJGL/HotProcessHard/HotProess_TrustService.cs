@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_HotProess_Trust GetHotProessTrustById(string hotProessTrustId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_Trust.FirstOrDefault(e => e.HotProessTrustId == hotProessTrustId);
+            return Funs.DB.HJGL_HotProess_Trust.FirstOrDefault(e => e.HotProessTrustId == hotProessTrustId);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="hotProessTrust"></param>
         public static void AddHotProessTrust(Model.HJGL_HotProess_Trust hotProessTrust)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_HotProess_Trust newHotProessTrust = new Model.HJGL_HotProess_Trust();
             newHotProessTrust.HotProessTrustId = hotProessTrust.HotProessTrustId;
             newHotProessTrust.HotProessTrustNo = hotProessTrust.HotProessTrustNo;
@@ -48,7 +48,7 @@ namespace BLL
         /// <param name="hotProessTrust"></param>
         public static void UpdateHotProessTrust(Model.HJGL_HotProess_Trust hotProessTrust)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_HotProess_Trust newHotProessTrust = db.HJGL_HotProess_Trust.FirstOrDefault(e => e.HotProessTrustId == hotProessTrust.HotProessTrustId);
             if (newHotProessTrust != null)
             {
@@ -71,7 +71,7 @@ namespace BLL
         /// <param name="hotProessTrustId"></param>
         public static void DeleteHotProessTrustById(string hotProessTrustId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_HotProess_Trust hotProessTrust = db.HJGL_HotProess_Trust.FirstOrDefault(e => e.HotProessTrustId == hotProessTrustId);
             if (hotProessTrust != null)
             {
@@ -88,7 +88,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistTrustCode(string hotProessTrustNo, string hotProessTrustId, string projectId)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_Trust.FirstOrDefault(x => x.HotProessTrustNo == hotProessTrustNo && x.ProjectId == projectId && x.HotProessTrustId != hotProessTrustId);
+            var q = Funs.DB.HJGL_HotProess_Trust.FirstOrDefault(x => x.HotProessTrustNo == hotProessTrustNo && x.ProjectId == projectId && x.HotProessTrustId != hotProessTrustId);
             if (q != null)
             {
                 return true;
@@ -106,7 +106,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_HJGL_HotProess_TrustItem> GetHotProessTrustAddItem(string hdItemsString)
         {
-            var jointInfos = from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint select x;
+            var jointInfos = from x in Funs.DB.View_HJGL_WeldJoint select x;
             List<Model.View_HJGL_HotProess_TrustItem> returnViewMatch = new List<Model.View_HJGL_HotProess_TrustItem>();
             if (!string.IsNullOrEmpty(hdItemsString))
             {
@@ -135,7 +135,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_HJGL_HotProess_TrustItem> GetHotProessTrustItem(string projectId, string hotProessTrustId)
         {
-            List<Model.View_HJGL_HotProess_TrustItem> returnViewMatch = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_HotProess_TrustItem
+            List<Model.View_HJGL_HotProess_TrustItem> returnViewMatch = (from x in Funs.DB.View_HJGL_HotProess_TrustItem
                                                                          where x.ProjectId == projectId && x.HotProessTrustId == hotProessTrustId
                                                                     select x).ToList();
             return returnViewMatch;
@@ -150,11 +150,11 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.View_HJGL_HotProessTrustItemSearch> GetHotProessTrustFind(string projectId, string hotProessTrustId, string pipelineId)
         {
-            var weldJoints = (from x in new Model.SGGLDB(Funs.ConnString).View_HJGL_WeldJoint select x).ToList();
+            var weldJoints = (from x in Funs.DB.View_HJGL_WeldJoint select x).ToList();
             List<Model.View_HJGL_HotProessTrustItemSearch> returnViewMatch = new List<Model.View_HJGL_HotProessTrustItemSearch>();
 
-            var hotProessTrustItems = from x in new Model.SGGLDB(Funs.ConnString).HJGL_HotProess_TrustItem
-                                      join z in new Model.SGGLDB(Funs.ConnString).HJGL_WeldJoint
+            var hotProessTrustItems = from x in Funs.DB.HJGL_HotProess_TrustItem
+                                      join z in Funs.DB.HJGL_WeldJoint
                                       on x.WeldJointId equals z.WeldJointId
                                       where z.ProjectId == projectId && z.PipelineId == pipelineId
                                       select x;

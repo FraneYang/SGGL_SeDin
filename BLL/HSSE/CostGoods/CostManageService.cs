@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class CostManageService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全费用管理
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.CostGoods_CostManage GetCostManageById(string costManageId)
         {
-            return new Model.SGGLDB(Funs.ConnString).CostGoods_CostManage.FirstOrDefault(e => e.CostManageId == costManageId);
+            return Funs.DB.CostGoods_CostManage.FirstOrDefault(e => e.CostManageId == costManageId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.CostGoods_CostManage GetCostManageByUnitIdAndDate(string projectId, string unidId, DateTime date)
         {
-            return new Model.SGGLDB(Funs.ConnString).CostGoods_CostManage.FirstOrDefault(e => e.CostManageId == projectId && e.UnitId == unidId && e.CostManageDate.Value.Year == date.Year && e.CostManageDate.Value.Month == date.Month);
+            return Funs.DB.CostGoods_CostManage.FirstOrDefault(e => e.CostManageId == projectId && e.UnitId == unidId && e.CostManageDate.Value.Year == date.Year && e.CostManageDate.Value.Month == date.Month);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="costManage"></param>
         public static void AddCostManage(Model.CostGoods_CostManage costManage)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostManage newCostManage = new Model.CostGoods_CostManage
             {
                 CostManageId = costManage.CostManageId,
@@ -67,7 +67,7 @@ namespace BLL
         /// <param name="costManage"></param>
         public static void UpdateCostManage(Model.CostGoods_CostManage costManage)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostManage newCostManage = db.CostGoods_CostManage.FirstOrDefault(e => e.CostManageId == costManage.CostManageId);
             if (newCostManage != null)
             {
@@ -94,7 +94,7 @@ namespace BLL
         /// <param name="costManageId"></param>
         public static void DeleteCostManageById(string costManageId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_CostManage costManage = db.CostGoods_CostManage.FirstOrDefault(e => e.CostManageId == costManageId);
             if (costManage != null)
             {

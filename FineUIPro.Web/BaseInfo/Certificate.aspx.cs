@@ -34,7 +34,7 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).Base_Certificate orderby x.CertificateCode select x;
+            var q = from x in Funs.DB.Base_Certificate orderby x.CertificateCode select x;
             Grid1.RecordCount = q.Count();
             // 2.获取当前分页数据
             var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
@@ -58,7 +58,7 @@ namespace FineUIPro.Web.BaseInfo
         /// <returns></returns>
         private List<Model.Base_Certificate> GetPagedDataTable(int pageIndex, int pageSize)
         {
-            List<Model.Base_Certificate> source = (from x in new Model.SGGLDB(Funs.ConnString).Base_Certificate orderby x.CertificateCode select x).ToList();
+            List<Model.Base_Certificate> source = (from x in Funs.DB.Base_Certificate orderby x.CertificateCode select x).ToList();
             List<Model.Base_Certificate> paged = new List<Model.Base_Certificate>();
 
             int rowbegin = pageIndex * pageSize;
@@ -231,13 +231,13 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_Certificate.FirstOrDefault(x => x.CertificateCode == this.txtCertificateCode.Text.Trim() && (x.CertificateId != hfFormID.Text || (hfFormID.Text == null && x.CertificateId != null)));
+            var q = Funs.DB.Base_Certificate.FirstOrDefault(x => x.CertificateCode == this.txtCertificateCode.Text.Trim() && (x.CertificateId != hfFormID.Text || (hfFormID.Text == null && x.CertificateId != null)));
             if (q != null)
             {
                 ShowNotify("输入的证书编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_Certificate.FirstOrDefault(x => x.CertificateName == this.txtCertificateName.Text.Trim() && (x.CertificateId != hfFormID.Text || (hfFormID.Text == null && x.CertificateId != null)));
+            var q2 = Funs.DB.Base_Certificate.FirstOrDefault(x => x.CertificateName == this.txtCertificateName.Text.Trim() && (x.CertificateId != hfFormID.Text || (hfFormID.Text == null && x.CertificateId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的证书名称已存在！", MessageBoxIcon.Warning);

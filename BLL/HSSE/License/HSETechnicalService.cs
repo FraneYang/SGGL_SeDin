@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class HSETechnicalService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全技术交底
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_HSETechnical GetHSETechnicalById(string hSETechnicalId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_HSETechnical.FirstOrDefault(e => e.HSETechnicalId == hSETechnicalId);
+            return Funs.DB.License_HSETechnical.FirstOrDefault(e => e.HSETechnicalId == hSETechnicalId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="hseTechnical"></param>
         public static void AddHSETechnical(Model.License_HSETechnical hseTechnical)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_HSETechnical newHSETechnical = new Model.License_HSETechnical
             {
                 HSETechnicalId = hseTechnical.HSETechnicalId,
@@ -55,7 +55,7 @@ namespace BLL
         /// <param name="hSETechnical"></param>
         public static void UpdateHSETechnical(Model.License_HSETechnical hseTechnical)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_HSETechnical newHSETechnical = db.License_HSETechnical.FirstOrDefault(e => e.HSETechnicalId == hseTechnical.HSETechnicalId);
             if (newHSETechnical != null)
             {
@@ -79,7 +79,7 @@ namespace BLL
         /// <param name="hseTechnicalId"></param>
         public static void DeleteHSETechnicalById(string hseTechnicalId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_HSETechnical hseTechnical = db.License_HSETechnical.FirstOrDefault(e => e.HSETechnicalId == hseTechnicalId);
             if (hseTechnical != null)
             {

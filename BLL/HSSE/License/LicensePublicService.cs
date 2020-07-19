@@ -9,7 +9,7 @@ namespace BLL
     /// </summary>
     public static class LicensePublicService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
         /// <summary>
         /// 状态下拉框
         /// </summary>
@@ -44,7 +44,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_FireWork GetFireWorkById(string fireWorkId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_FireWork.FirstOrDefault(e => e.FireWorkId == fireWorkId);
+            return Funs.DB.License_FireWork.FirstOrDefault(e => e.FireWorkId == fireWorkId);
         }
         
         /// <summary>
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="fireWork"></param>
         public static void AddFireWork(Model.License_FireWork fireWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_FireWork newFireWork = new Model.License_FireWork
             {
                 FireWorkId = fireWork.FireWorkId,
@@ -89,7 +89,7 @@ namespace BLL
         /// <param name="fireWork"></param>
         public static void UpdateFireWork(Model.License_FireWork fireWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_FireWork newFireWork = db.License_FireWork.FirstOrDefault(e => e.FireWorkId == fireWork.FireWorkId);
             if (newFireWork != null)
             {
@@ -116,7 +116,7 @@ namespace BLL
         /// <param name="fireWorkId"></param>
         public static void DeleteFireWorkById(string fireWorkId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_FireWork fireWork = db.License_FireWork.FirstOrDefault(e => e.FireWorkId == fireWorkId);
             if (fireWork!=null)
             {
@@ -140,7 +140,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_HeightWork GetHeightWorkById(string heightWorkId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_HeightWork.FirstOrDefault(e => e.HeightWorkId == heightWorkId);
+            return Funs.DB.License_HeightWork.FirstOrDefault(e => e.HeightWorkId == heightWorkId);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace BLL
         /// <param name="heightWork"></param>
         public static void AddHeightWork(Model.License_HeightWork heightWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_HeightWork newHeightWork = new Model.License_HeightWork
             {
                 HeightWorkId = heightWork.HeightWorkId,
@@ -185,7 +185,7 @@ namespace BLL
         /// <param name="heightWork"></param>
         public static void UpdateHeightWork(Model.License_HeightWork heightWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_HeightWork newHeightWork = db.License_HeightWork.FirstOrDefault(e => e.HeightWorkId == heightWork.HeightWorkId);
             if (newHeightWork != null)
             {
@@ -213,7 +213,7 @@ namespace BLL
         /// <param name="heightWorkId"></param>
         public static void DeleteHeightWorkById(string heightWorkId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_HeightWork heightWork = db.License_HeightWork.FirstOrDefault(e => e.HeightWorkId == heightWorkId);
             if (heightWork != null)
             {
@@ -237,7 +237,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_LimitedSpace GetLimitedSpaceById(string limitedSpaceId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_LimitedSpace.FirstOrDefault(e => e.LimitedSpaceId == limitedSpaceId);
+            return Funs.DB.License_LimitedSpace.FirstOrDefault(e => e.LimitedSpaceId == limitedSpaceId);
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace BLL
         /// <param name="limitedSpace"></param>
         public static void AddLimitedSpace(Model.License_LimitedSpace limitedSpace)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LimitedSpace newLimitedSpace = new Model.License_LimitedSpace
             {
                 LimitedSpaceId = limitedSpace.LimitedSpaceId,
@@ -282,7 +282,7 @@ namespace BLL
         /// <param name="limitedSpace"></param>
         public static void UpdateLimitedSpace(Model.License_LimitedSpace limitedSpace)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LimitedSpace newLimitedSpace = db.License_LimitedSpace.FirstOrDefault(e => e.LimitedSpaceId == limitedSpace.LimitedSpaceId);
             if (newLimitedSpace != null)
             {
@@ -309,7 +309,7 @@ namespace BLL
         /// <param name="limitedSpaceId"></param>
         public static void DeleteLimitedSpaceById(string limitedSpaceId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LimitedSpace limitedSpace = db.License_LimitedSpace.FirstOrDefault(e => e.LimitedSpaceId == limitedSpaceId);
             if (limitedSpace != null)
             {
@@ -333,7 +333,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_RadialWork GetRadialWorkById(string radialWorkId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_RadialWork.FirstOrDefault(e => e.RadialWorkId == radialWorkId);
+            return Funs.DB.License_RadialWork.FirstOrDefault(e => e.RadialWorkId == radialWorkId);
         }
 
         /// <summary>
@@ -342,7 +342,7 @@ namespace BLL
         /// <param name="radialWork"></param>
         public static void AddRadialWork(Model.License_RadialWork radialWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_RadialWork newRadialWork = new Model.License_RadialWork
             {
                 RadialWorkId = radialWork.RadialWorkId,
@@ -381,7 +381,7 @@ namespace BLL
         /// <param name="radialWork"></param>
         public static void UpdateRadialWork(Model.License_RadialWork radialWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_RadialWork newRadialWork = db.License_RadialWork.FirstOrDefault(e => e.RadialWorkId == radialWork.RadialWorkId);
             if (newRadialWork != null)
             {
@@ -418,7 +418,7 @@ namespace BLL
         /// <param name="radialWorkId"></param>
         public static void DeleteRadialWorkById(string radialWorkId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_RadialWork radialWork = db.License_RadialWork.FirstOrDefault(e => e.RadialWorkId == radialWorkId);
             if (radialWork != null)
             {
@@ -444,7 +444,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_OpenCircuit GetOpenCircuitById(string openCircuitId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_OpenCircuit.FirstOrDefault(e => e.OpenCircuitId == openCircuitId);
+            return Funs.DB.License_OpenCircuit.FirstOrDefault(e => e.OpenCircuitId == openCircuitId);
         }
 
         /// <summary>
@@ -453,7 +453,7 @@ namespace BLL
         /// <param name="openCircuit"></param>
         public static void AddOpenCircuit(Model.License_OpenCircuit openCircuit)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_OpenCircuit newOpenCircuit = new Model.License_OpenCircuit
             {
                 OpenCircuitId = openCircuit.OpenCircuitId,
@@ -489,7 +489,7 @@ namespace BLL
         /// <param name="openCircuit"></param>
         public static void UpdateOpenCircuit(Model.License_OpenCircuit openCircuit)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_OpenCircuit newOpenCircuit = db.License_OpenCircuit.FirstOrDefault(e => e.OpenCircuitId == openCircuit.OpenCircuitId);
             if (newOpenCircuit != null)
             {
@@ -517,7 +517,7 @@ namespace BLL
         /// <param name="openCircuitId"></param>
         public static void DeleteOpenCircuitById(string openCircuitId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_OpenCircuit openCircuit = db.License_OpenCircuit.FirstOrDefault(e => e.OpenCircuitId == openCircuitId);
             if (openCircuit != null)
             {
@@ -541,7 +541,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_BreakGround GetBreakGroundById(string breakGroundId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_BreakGround.FirstOrDefault(e => e.BreakGroundId == breakGroundId);
+            return Funs.DB.License_BreakGround.FirstOrDefault(e => e.BreakGroundId == breakGroundId);
         }
 
         /// <summary>
@@ -550,7 +550,7 @@ namespace BLL
         /// <param name="breakGround"></param>
         public static void AddBreakGround(Model.License_BreakGround breakGround)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_BreakGround newBreakGround = new Model.License_BreakGround
             {
                 BreakGroundId = breakGround.BreakGroundId,
@@ -585,7 +585,7 @@ namespace BLL
         /// <param name="breakGround"></param>
         public static void UpdateBreakGround(Model.License_BreakGround breakGround)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_BreakGround newBreakGround = db.License_BreakGround.FirstOrDefault(e => e.BreakGroundId == breakGround.BreakGroundId);
             if (newBreakGround != null)
             {
@@ -612,7 +612,7 @@ namespace BLL
         /// <param name="breakGroundId"></param>
         public static void DeleteBreakGroundById(string breakGroundId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_BreakGround breakGround = db.License_BreakGround.FirstOrDefault(e => e.BreakGroundId == breakGroundId);
             if (breakGround != null)
             {
@@ -638,7 +638,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_NightWork GetNightWorkById(string nightWorkId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_NightWork.FirstOrDefault(e => e.NightWorkId == nightWorkId);
+            return Funs.DB.License_NightWork.FirstOrDefault(e => e.NightWorkId == nightWorkId);
         }
 
         /// <summary>
@@ -647,7 +647,7 @@ namespace BLL
         /// <param name="nightWork"></param>
         public static void AddNightWork(Model.License_NightWork nightWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_NightWork newNightWork = new Model.License_NightWork
             {
                 NightWorkId = nightWork.NightWorkId,
@@ -685,7 +685,7 @@ namespace BLL
         /// <param name="nightWork"></param>
         public static void UpdateNightWork(Model.License_NightWork nightWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_NightWork newNightWork = db.License_NightWork.FirstOrDefault(e => e.NightWorkId == nightWork.NightWorkId);
             if (newNightWork != null)
             {
@@ -715,7 +715,7 @@ namespace BLL
         /// <param name="nightWorkId"></param>
         public static void DeleteNightWorkById(string nightWorkId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_NightWork nightWork = db.License_NightWork.FirstOrDefault(e => e.NightWorkId == nightWorkId);
             if (nightWork != null)
             {
@@ -739,7 +739,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_LiftingWork GetLiftingWorkById(string liftingWorkId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_LiftingWork.FirstOrDefault(e => e.LiftingWorkId == liftingWorkId);
+            return Funs.DB.License_LiftingWork.FirstOrDefault(e => e.LiftingWorkId == liftingWorkId);
         }
 
         /// <summary>
@@ -748,7 +748,7 @@ namespace BLL
         /// <param name="liftingWork"></param>
         public static void AddLiftingWork(Model.License_LiftingWork liftingWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LiftingWork newLiftingWork = new Model.License_LiftingWork
             {
                 LiftingWorkId = liftingWork.LiftingWorkId,
@@ -784,7 +784,7 @@ namespace BLL
         /// <param name="liftingWork"></param>
         public static void UpdateLiftingWork(Model.License_LiftingWork liftingWork)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LiftingWork newLiftingWork = db.License_LiftingWork.FirstOrDefault(e => e.LiftingWorkId == liftingWork.LiftingWorkId);
             if (newLiftingWork != null)
             {
@@ -812,7 +812,7 @@ namespace BLL
         /// <param name="liftingWorkId"></param>
         public static void DeleteLiftingWorkById(string liftingWorkId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LiftingWork liftingWork = db.License_LiftingWork.FirstOrDefault(e => e.LiftingWorkId == liftingWorkId);
             if (liftingWork != null)
             {
@@ -838,7 +838,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_LicenseItem GetLicenseItemById(string licenseItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_LicenseItem.FirstOrDefault(e => e.LicenseItemId == licenseItemId);
+            return Funs.DB.License_LicenseItem.FirstOrDefault(e => e.LicenseItemId == licenseItemId);
         }
 
         /// <summary>
@@ -848,7 +848,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.License_LicenseItem> GetLicenseItemListByDataId(string dataId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).License_LicenseItem
+            return (from x in Funs.DB.License_LicenseItem
                     where x.DataId == dataId
                     orderby x.SortIndex
                     select x).ToList();
@@ -860,7 +860,7 @@ namespace BLL
         /// <param name="licenseItem"></param>
         public static void AddLicenseItem(Model.License_LicenseItem licenseItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LicenseItem newLicenseItem = new Model.License_LicenseItem
             {
                 LicenseItemId = SQLHelper.GetNewID(),
@@ -880,7 +880,7 @@ namespace BLL
         /// <param name="licenseItem"></param>
         public static void UpdateLicenseItem(Model.License_LicenseItem licenseItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LicenseItem newLicenseItem = db.License_LicenseItem.FirstOrDefault(e => e.LicenseItemId == licenseItem.LicenseItemId);
             if (newLicenseItem != null)
             {
@@ -896,7 +896,7 @@ namespace BLL
         /// <param name="licenseItemId"></param>
         public static void DeleteLicenseItemById(string licenseItemId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_LicenseItem licenseItem = db.License_LicenseItem.FirstOrDefault(e => e.LicenseItemId == licenseItemId);
             if (licenseItem != null)
             {                      
@@ -911,7 +911,7 @@ namespace BLL
         /// <param name="dataId"></param>
         public static void DeleteLicenseItemByDataId(string dataId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var licenseItems = from x in db.License_LicenseItem where x.DataId == dataId select x;
             if (licenseItems.Count()>0)
             {
@@ -930,7 +930,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_FlowOperate GetFlowOperateById(string flowOperateId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_FlowOperate.FirstOrDefault(e => e.FlowOperateId == flowOperateId);
+            return Funs.DB.License_FlowOperate.FirstOrDefault(e => e.FlowOperateId == flowOperateId);
         }
 
         /// <summary>
@@ -940,7 +940,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.License_FlowOperate> GetFlowOperateListByDataId(string dataId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperate
+            return (from x in Funs.DB.License_FlowOperate
                     where x.DataId == dataId
                     orderby x.SortIndex
                     select x).ToList();
@@ -952,7 +952,7 @@ namespace BLL
         /// <param name="flowOperate"></param>
         public static void AddFlowOperate(Model.License_FlowOperate flowOperate)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
             {
                 FlowOperateId = SQLHelper.GetNewID(),
@@ -974,7 +974,7 @@ namespace BLL
         /// <param name="flowOperate"></param>
         public static void UpdateFlowOperate(Model.License_FlowOperate flowOperate)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_FlowOperate newFlowOperate = db.License_FlowOperate.FirstOrDefault(e => e.FlowOperateId == flowOperate.FlowOperateId);
             if (newFlowOperate != null)
             {
@@ -993,7 +993,7 @@ namespace BLL
         /// <param name="flowOperateId"></param>
         public static void DeleteFlowOperateById(string flowOperateId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_FlowOperate flowOperate = db.License_FlowOperate.FirstOrDefault(e => e.FlowOperateId == flowOperateId);
             if (flowOperate != null)
             {
@@ -1009,7 +1009,7 @@ namespace BLL
         /// <param name="dataId"></param>
         public static void DeleteFlowOperateByDataId(string dataId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var flowOperates = from x in db.License_FlowOperate where x.DataId == dataId select x;
             if (flowOperates.Count() > 0)
             {
@@ -1029,7 +1029,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.License_FlowOperateItem GetFlowOperateItemById(string flowOperateItemId)
         {
-            return new Model.SGGLDB(Funs.ConnString).License_FlowOperateItem.FirstOrDefault(e => e.FlowOperateItemId == flowOperateItemId);
+            return Funs.DB.License_FlowOperateItem.FirstOrDefault(e => e.FlowOperateItemId == flowOperateItemId);
         }
 
         /// <summary>
@@ -1039,7 +1039,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.License_FlowOperateItem> GetFlowOperateItemListByDataId(string flowOperateId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).License_FlowOperateItem
+            return (from x in Funs.DB.License_FlowOperateItem
                     where x.FlowOperateId == flowOperateId
                     orderby x.OperaterTime
                     select x).ToList();
@@ -1051,7 +1051,7 @@ namespace BLL
         /// <param name="flowOperateItem"></param>
         public static void AddFlowOperateItem(Model.License_FlowOperateItem flowOperateItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.License_FlowOperateItem newFlowOperateItem = new Model.License_FlowOperateItem
             {
                 FlowOperateItemId = flowOperateItem.FlowOperateItemId,
@@ -1071,7 +1071,7 @@ namespace BLL
         /// <param name="flowOperateId"></param>
         public static void DeleteFlowOperateItemByDataId(string flowOperateId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var flowOperateItems = from x in db.License_FlowOperateItem where x.FlowOperateId == flowOperateId select x;
             if (flowOperateItems.Count() > 0)
             {

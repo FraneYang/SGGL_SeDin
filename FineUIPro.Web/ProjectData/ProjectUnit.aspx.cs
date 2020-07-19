@@ -102,7 +102,7 @@ namespace FineUIPro.Web.ProjectData
                     var delProjectUnit = BLL.ProjectUnitService.GetProjectUnitById(projectUnitId);
                     if (delProjectUnit != null)
                     {
-                        //var person = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.ProjectId == delProjectUnit.ProjectId && x.UnitId == delProjectUnit.UnitId);
+                        //var person = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == delProjectUnit.ProjectId && x.UnitId == delProjectUnit.UnitId);
                         //if (person == null)
                         //{
                         //    BLL.LogService.AddSys_Log(this.CurrUser, "删除项目单位！", delProjectUnit.ProjectUnitId,BLL.Const.ProjectUnitMenuId,BLL.Const.BtnDelete);

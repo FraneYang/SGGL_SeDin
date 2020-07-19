@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ProjectDrillPlanHalfYearReportService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取应急演练工作计划半年报
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_DrillPlanHalfYearReport GetDrillPlanHalfYearReportById(string drillPlanHalfYearReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_DrillPlanHalfYearReport.FirstOrDefault(e => e.DrillPlanHalfYearReportId == drillPlanHalfYearReportId);
+            return Funs.DB.InformationProject_DrillPlanHalfYearReport.FirstOrDefault(e => e.DrillPlanHalfYearReportId == drillPlanHalfYearReportId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="drillPlanHalfYearReport"></param>
         public static void AddDrillPlanHalfYearReport(Model.InformationProject_DrillPlanHalfYearReport drillPlanHalfYearReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillPlanHalfYearReport newDrillPlanHalfYearReport = new Model.InformationProject_DrillPlanHalfYearReport
             {
                 DrillPlanHalfYearReportId = drillPlanHalfYearReport.DrillPlanHalfYearReportId,
@@ -51,7 +51,7 @@ namespace BLL
         /// <param name="drillPlanHalfYearReport"></param>
         public static void UpdateDrillPlanHalfYearReport(Model.InformationProject_DrillPlanHalfYearReport drillPlanHalfYearReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillPlanHalfYearReport newDrillPlanHalfYearReport = db.InformationProject_DrillPlanHalfYearReport.FirstOrDefault(e => e.DrillPlanHalfYearReportId == drillPlanHalfYearReport.DrillPlanHalfYearReportId);
             if (newDrillPlanHalfYearReport != null)
             {
@@ -73,7 +73,7 @@ namespace BLL
         /// <param name="drillPlanHalfYearReportId"></param>
         public static void DeleteDrillPlanHalfYearReportById(string drillPlanHalfYearReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_DrillPlanHalfYearReport drillPlanHalfYearReport = db.InformationProject_DrillPlanHalfYearReport.FirstOrDefault(e => e.DrillPlanHalfYearReportId == drillPlanHalfYearReportId);
             if (drillPlanHalfYearReport != null)
             {

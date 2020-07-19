@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class CostTypeService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取费用类型
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_CostType GetCostTypeById(string costTypeId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_CostType.FirstOrDefault(e => e.CostTypeId == costTypeId);
+            return Funs.DB.Base_CostType.FirstOrDefault(e => e.CostTypeId == costTypeId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="costType"></param>
         public static void AddCostType(Model.Base_CostType costType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_CostType newCostType = new Model.Base_CostType
             {
                 CostTypeId = costType.CostTypeId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="costType"></param>
         public static void UpdateCostType(Model.Base_CostType costType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_CostType newCostType = db.Base_CostType.FirstOrDefault(e => e.CostTypeId == costType.CostTypeId);
             if (newCostType != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="costTypeId"></param>
         public static void DeleteCostTypeById(string costTypeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_CostType costType = db.Base_CostType.FirstOrDefault(e => e.CostTypeId == costTypeId);
             if (costType != null)
             {
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_CostType> GetCostTypeList()
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Base_CostType orderby x.CostTypeCode select x).ToList();
+            return (from x in Funs.DB.Base_CostType orderby x.CostTypeCode select x).ToList();
         }
     }
 }

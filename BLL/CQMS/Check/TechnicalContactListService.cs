@@ -11,7 +11,7 @@ namespace BLL
 {
     public class TechnicalContactListService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据工程联络单信息Id删除一个工程联络单信息信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <param name="TechnicalContactListCode">工程联络单信息Id</param>
         public static void DeleteTechnicalContactList(string TechnicalContactListId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_TechnicalContactList TechnicalContactList = db.Check_TechnicalContactList.First(e => e.TechnicalContactListId == TechnicalContactListId);
 
             db.Check_TechnicalContactList.DeleteOnSubmit(TechnicalContactList);
@@ -59,7 +59,7 @@ namespace BLL
         }
         public static void AddTechnicalContactList(Model.Check_TechnicalContactList TechnicalContactList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_TechnicalContactList newTechnicalContactList = new Model.Check_TechnicalContactList();
             newTechnicalContactList.TechnicalContactListId = TechnicalContactList.TechnicalContactListId;
             newTechnicalContactList.ProjectId = TechnicalContactList.ProjectId;
@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="managerRuleApprove">工程联络单审批实体</param>
         public static void AddTechnicalContactListApprove(Model.Check_TechnicalContactListApprove approve)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_TechnicalContactListApprove));
             Model.Check_TechnicalContactListApprove newApprove = new Model.Check_TechnicalContactListApprove();
             newApprove.TechnicalContactListApproveId = newKeyID;
@@ -108,7 +108,7 @@ namespace BLL
         /// <param name="TechnicalContactList">工程联络单信息实体</param>
         public static void UpdateTechnicalContactList(Model.Check_TechnicalContactList TechnicalContactList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_TechnicalContactList newTechnicalContactList = db.Check_TechnicalContactList.First(e => e.TechnicalContactListId == TechnicalContactList.TechnicalContactListId);
             newTechnicalContactList.Code = TechnicalContactList.Code;
             newTechnicalContactList.ProposedUnitId = TechnicalContactList.ProposedUnitId;
@@ -466,7 +466,7 @@ namespace BLL
         /// <returns>一个工程联络单信息实体</returns>
         public static Model.Check_TechnicalContactList GetTechnicalContactListByTechnicalContactListId(string TechnicalContactListId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_TechnicalContactList.FirstOrDefault(x => x.TechnicalContactListId == TechnicalContactListId);
+            return Funs.DB.Check_TechnicalContactList.FirstOrDefault(x => x.TechnicalContactListId == TechnicalContactListId);
         }
         public static Model.Check_TechnicalContactList GetTechnicalContactListByTechnicalContactListIdForApi(string TechnicalContactListId)
         {
@@ -629,7 +629,7 @@ namespace BLL
                 if (!string.IsNullOrEmpty(name))
                 {
                     List<string> ids = new List<string>();
-                    var qunit = from u in new Model.SGGLDB(Funs.ConnString).Base_Unit
+                    var qunit = from u in Funs.DB.Base_Unit
                                 where u.UnitName.Contains(name)
                                 select u.UnitId;
                     ids = qunit.ToList();

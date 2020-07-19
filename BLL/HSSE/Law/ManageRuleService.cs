@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ManageRuleService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取管理规定
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Law_ManageRule GetManageRuleById(string manageRuleId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Law_ManageRule.FirstOrDefault(e => e.ManageRuleId == manageRuleId);
+            return Funs.DB.Law_ManageRule.FirstOrDefault(e => e.ManageRuleId == manageRuleId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Law_ManageRule> GetManageRuleByCompileMan(string compileMan)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Law_ManageRule where x.CompileMan == compileMan select x).ToList();
+            return (from x in Funs.DB.Law_ManageRule where x.CompileMan == compileMan select x).ToList();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="manageRule"></param>
         public static void AddManageRule(Model.Law_ManageRule manageRule)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_ManageRule newManageRule = new Model.Law_ManageRule
             {
                 ManageRuleId = manageRule.ManageRuleId,
@@ -65,7 +65,7 @@ namespace BLL
         /// <param name="manageRule"></param>
         public static void UpdateManageRule(Model.Law_ManageRule manageRule)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_ManageRule newManageRule = db.Law_ManageRule.FirstOrDefault(e => e.ManageRuleId == manageRule.ManageRuleId);
             if (newManageRule != null)
             {
@@ -89,7 +89,7 @@ namespace BLL
         /// <param name="manageRule"></param>
         public static void UpdateManageRuleIsPass(Model.Law_ManageRule manageRule)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_ManageRule newManageRule = db.Law_ManageRule.FirstOrDefault(e => e.ManageRuleId == manageRule.ManageRuleId);
             if (newManageRule!=null)
             {
@@ -106,7 +106,7 @@ namespace BLL
         /// <param name="manageRuleId"></param>
         public static void DeleteManageRuleById(string manageRuleId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_ManageRule manageRule = db.Law_ManageRule.FirstOrDefault(e => e.ManageRuleId == manageRuleId);
             if (manageRule != null)
             {

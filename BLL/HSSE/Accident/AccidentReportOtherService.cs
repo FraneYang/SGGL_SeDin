@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class AccidentReportOtherService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取事故调查处理报告
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Accident_AccidentReportOther GetAccidentReportOtherById(string accidentReportOtherId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther.FirstOrDefault(e => e.AccidentReportOtherId == accidentReportOtherId);
+            return Funs.DB.Accident_AccidentReportOther.FirstOrDefault(e => e.AccidentReportOtherId == accidentReportOtherId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static DateTime? GetLastNoStartAccidentReportOther(string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther
+            var q = (from x in Funs.DB.Accident_AccidentReportOther
                      where (x.AccidentTypeId == "1" || x.AccidentTypeId == "2")
                         && x.ProjectId == projectId
                      orderby x.AccidentDate descending
@@ -53,7 +53,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Accident_AccidentReportOther> GetAccidentReportOthersByAccidentTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
+            return (from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Accident_AccidentReportOther> GetRecordAccidentReportOthersByAccidentTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.ProjectId == projectId && (x.AccidentTypeId == "1" || x.AccidentTypeId == "2") && x.States == BLL.Const.State_2 select x).ToList();
+            return (from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.ProjectId == projectId && (x.AccidentTypeId == "1" || x.AccidentTypeId == "2") && x.States == BLL.Const.State_2 select x).ToList();
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByAccidentType(string accidentType, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+            return (from x in Funs.DB.Accident_AccidentReportOther where x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByAccidentTimeAndAccidentType(DateTime startTime, DateTime endTime, string accidentType, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+            return (from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace BLL
         public static int GetPersonNumByAccidentTimeAndAccidentType(DateTime startTime, DateTime endTime, string accidentType, string projectId)
         {
             int num = 0;
-            var q = from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.PeopleNum;
+            var q = from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.PeopleNum;
             foreach (var item in q)
             {
                 if (item != null)
@@ -114,7 +114,7 @@ namespace BLL
                 }
             }
             return num;
-            //return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId select x.PeopleNum ?? 0).Sum();
+            //return (from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId select x.PeopleNum ?? 0).Sum();
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace BLL
         public static decimal GetSumLoseWorkTimeByAccidentTimeAndAccidentType(DateTime startTime, DateTime endTime, string accidentType, string projectId)
         {
             decimal loseTime = 0;
-            var q = from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.WorkingHoursLoss;
+            var q = from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.WorkingHoursLoss;
             foreach (var item in q)
             {
                 if (item != null)
@@ -137,7 +137,7 @@ namespace BLL
                 }
             }
             return loseTime;
-            //return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId select x.WorkingHoursLoss ?? 0).Sum();
+            //return (from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId select x.WorkingHoursLoss ?? 0).Sum();
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace BLL
         public static decimal GetSumLosMoneyByAccidentTimeAndAccidentType(DateTime startTime, DateTime endTime, string accidentType, string projectId)
         {
             decimal loseMoney = 0;
-            var q = from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.EconomicLoss;
+            var q = from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.EconomicLoss;
             foreach (var item in q)
             {
                 if (item != null)
@@ -159,7 +159,7 @@ namespace BLL
                     loseMoney += Funs.GetNewDecimalOrZero(item.ToString());
                 }
             }
-            var c = from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.EconomicOtherLoss;
+            var c = from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x.EconomicOtherLoss;
             foreach (var item in c)
             {
                 if (item != null)
@@ -168,7 +168,7 @@ namespace BLL
                 }
             }
             return loseMoney;
-            //return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId select x.EconomicLoss ?? 0).Sum();
+            //return (from x in Funs.DB.Accident_AccidentReportOther where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId select x.EconomicLoss ?? 0).Sum();
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Accident_AccidentReportOther> GetAccidentReportOthersByTimeAndAccidentTypeId(DateTime startTime, DateTime endTime, string projectId, string accidentTypeId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Accident_AccidentReportOther
+            return (from x in Funs.DB.Accident_AccidentReportOther
                     where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.ProjectId == projectId && x.AccidentTypeId == accidentTypeId && x.States == BLL.Const.State_2
                     select x).ToList();
         }
@@ -191,7 +191,7 @@ namespace BLL
         /// <param name="accidentReportOther"></param>
         public static void AddAccidentReportOther(Model.Accident_AccidentReportOther accidentReportOther)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentReportOther newAccidentReportOther = new Model.Accident_AccidentReportOther
             {
                 AccidentReportOtherId = accidentReportOther.AccidentReportOtherId,
@@ -232,7 +232,7 @@ namespace BLL
         /// <param name="accidentReportOther"></param>
         public static void UpdateAccidentReportOther(Model.Accident_AccidentReportOther accidentReportOther)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentReportOther newAccidentReportOther = db.Accident_AccidentReportOther.FirstOrDefault(e => e.AccidentReportOtherId == accidentReportOther.AccidentReportOtherId);
             if (newAccidentReportOther != null)
             {
@@ -270,7 +270,7 @@ namespace BLL
         /// <param name="accidentReportOtherId"></param>
         public static void DeleteAccidentReportOtherById(string accidentReportOtherId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentReportOther accidentReportOther = db.Accident_AccidentReportOther.FirstOrDefault(e => e.AccidentReportOtherId == accidentReportOtherId);
             if (accidentReportOther != null)
             {

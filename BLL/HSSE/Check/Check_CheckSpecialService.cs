@@ -18,7 +18,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_CheckSpecial GetCheckSpecialByCheckSpecialId(string checkSpecialId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_CheckSpecial.FirstOrDefault(e => e.CheckSpecialId == checkSpecialId);
+            return Funs.DB.Check_CheckSpecial.FirstOrDefault(e => e.CheckSpecialId == checkSpecialId);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByCheckTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecial where x.CheckTime >= startTime && x.CheckTime < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+            return (from x in Funs.DB.Check_CheckSpecial where x.CheckTime >= startTime && x.CheckTime < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace BLL
         /// <returns>专项检查集合</returns>
         public static List<Model.Check_CheckSpecial> GetListByCheckTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckSpecial where x.CheckTime >= startTime && x.CheckTime < endTime && x.ProjectId == projectId select x).ToList();
+            return (from x in Funs.DB.Check_CheckSpecial where x.CheckTime >= startTime && x.CheckTime < endTime && x.ProjectId == projectId select x).ToList();
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace BLL
         /// <param name="checkSpecial"></param>
         public static void AddCheckSpecial(Model.Check_CheckSpecial checkSpecial)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckSpecial newCheckSpecial = new Model.Check_CheckSpecial
             {
                 CheckSpecialId = checkSpecial.CheckSpecialId,
@@ -105,7 +105,7 @@ namespace BLL
         /// <param name="checkSpecial"></param>
         public static void UpdateCheckSpecial(Model.Check_CheckSpecial checkSpecial)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckSpecial newCheckSpecial = db.Check_CheckSpecial.FirstOrDefault(e => e.CheckSpecialId == checkSpecial.CheckSpecialId);
             if (newCheckSpecial != null)
             {
@@ -133,7 +133,7 @@ namespace BLL
         /// <param name="superviseCheckReportId"></param>
         public static void DeleteCheckSpecial(string checkSpecialId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Check_CheckSpecial where x.CheckSpecialId == checkSpecialId select x).FirstOrDefault();
             if (q != null)
             {
@@ -237,7 +237,7 @@ namespace BLL
                             {
                                 rectifyNotices.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
                             }
-                            var getAtt = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
+                            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
                             if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
                             {
                                 newRItem.PhotoBeforeUrl = getAtt.AttachUrl;
@@ -327,7 +327,7 @@ namespace BLL
                             {
                                 pauseNotice.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
                             }
-                            var getAtt = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
+                            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
                             if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
                             {
                                 pauseNotice.PauseNoticeAttachUrl = getAtt.AttachUrl;

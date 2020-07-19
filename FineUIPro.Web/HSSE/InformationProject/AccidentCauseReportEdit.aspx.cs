@@ -87,7 +87,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                         else
                         {
                             int month = Funs.GetNewIntOrZero(drpMonth.SelectedValue);
-                            string lastMonth = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (month - 1) select x.ConstText).FirstOrDefault();
+                            string lastMonth = (from x in Funs.DB.Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (month - 1) select x.ConstText).FirstOrDefault();
                             lbLastMonth.Text = "(" + lastMonth + ")";
                         }
                         txtAccidentCauseReportCode.Text = q.AccidentCauseReportCode;
@@ -181,7 +181,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     }
                     else
                     {
-                        string lastMonth = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (Convert.ToInt32(this.drpMonth.SelectedValue) - 1) select x.ConstText).FirstOrDefault();
+                        string lastMonth = (from x in Funs.DB.Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (Convert.ToInt32(this.drpMonth.SelectedValue) - 1) select x.ConstText).FirstOrDefault();
                         lbLastMonth.Text = "(" + lastMonth + ")"; ;
                     }
                     var accidentTypes = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_0012);
@@ -273,7 +273,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             else
             {
                 int month = Funs.GetNewIntOrZero(drpMonth.SelectedValue);
-                string lastMonth = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (month - 1) select x.ConstText).FirstOrDefault();
+                string lastMonth = (from x in Funs.DB.Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (month - 1) select x.ConstText).FirstOrDefault();
                 lbLastMonth.Text = "(" + lastMonth + ")";
             }
             if (this.drpYear.SelectedValue != BLL.Const._Null && this.drpMonth.SelectedValue != BLL.Const._Null)
@@ -382,7 +382,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             }
             else
             {
-                Model.InformationProject_AccidentCauseReport oldAccidentCauseReport = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_AccidentCauseReport
+                Model.InformationProject_AccidentCauseReport oldAccidentCauseReport = (from x in Funs.DB.InformationProject_AccidentCauseReport
                                                                                        where x.ProjectId == accidentCauseReport.ProjectId && x.Year == accidentCauseReport.Year && x.Month == accidentCauseReport.Month
                                                                                        select x).FirstOrDefault();
                 if (oldAccidentCauseReport == null)
@@ -392,7 +392,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     BLL.ProjectAccidentCauseReportService.AddAccidentCauseReport(accidentCauseReport);
                     BLL.LogService.AddSys_Log(this.CurrUser, accidentCauseReport.AccidentCauseReportCode, accidentCauseReport.AccidentCauseReportId, BLL.Const.ProjectAccidentCauseReportMenuId, BLL.Const.BtnAdd);
                     ////删除未上报月报信息
-                    //Model.ManagementReport_ReportRemind reportRemind = (from x in new Model.SGGLDB(Funs.ConnString).ManagementReport_ReportRemind
+                    //Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                     //                                                    where x.ProjectId == this.ProjectId && x.Year == accidentCauseReport.Year && x.Month == accidentCauseReport.Month && x.ReportName == "职工伤亡事故原因分析报"
                     //                                                    select x).FirstOrDefault();
                     //if (reportRemind != null)

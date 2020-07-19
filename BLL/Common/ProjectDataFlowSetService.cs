@@ -8,7 +8,7 @@
     /// </summary>
     public static class ProjectDataFlowSetService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
         /// <summary>
         /// 记录数
         /// </summary>
@@ -73,7 +73,7 @@
         /// <returns></returns>
         public static Model.ProjectData_FlowOperate getProjectDataFlowOperateByFlowOperateId(string flowOperateId)
         {
-            return new Model.SGGLDB(Funs.ConnString).ProjectData_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
+            return Funs.DB.ProjectData_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
         }
 
         #region 项目单据流程 增删改
@@ -84,7 +84,7 @@
         /// <param name="def"></param>
         public static void AddProjectData_FlowOperate(Model.ProjectData_FlowOperate flowSet)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectData_FlowOperate newFlowOperate =new Model.ProjectData_FlowOperate
             {
                 FlowOperateId = SQLHelper.GetNewID(typeof(Model.ProjectData_FlowOperate)),
@@ -108,7 +108,7 @@
         /// <param name="flowSetId"></param>
         public static void DeleteFlowSetByFlowSetId(string flowSetId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectData_FlowOperate flowSet = db.ProjectData_FlowOperate.FirstOrDefault(e => e.FlowOperateId == flowSetId);
             if (flowSet != null)
             {
@@ -123,7 +123,7 @@
         /// <param name="flowSetId"></param>
         public static void DeleteFlowSetByDataId(string dataId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var flowSets = from x in db.ProjectData_FlowOperate where x.DataId == dataId select x;
             if (flowSets.Count() > 0)
             {
@@ -142,7 +142,7 @@
         /// <returns></returns>
         public static Model.ProjectData_FlowOperate getUnFlowOperate(string dataId)
         {
-            var unFlowOperate = (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_FlowOperate
+            var unFlowOperate = (from x in Funs.DB.ProjectData_FlowOperate
                                  where x.DataId == dataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                                  orderby x.SortIndex descending
                                  select x).FirstOrDefault();
@@ -156,7 +156,7 @@
         /// <returns></returns>
         public static Model.ProjectData_FlowOperate getCompileFlowOperate(string dataId)
         {
-            var unFlowOperate = (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_FlowOperate
+            var unFlowOperate = (from x in Funs.DB.ProjectData_FlowOperate
                                  where x.DataId == dataId && x.SortIndex == 1
                                  select x).FirstOrDefault();
             return unFlowOperate;
@@ -168,7 +168,7 @@
         /// <param name="upFlowOperate"></param>
         public static void UpdateFlowOperateOpinion(Model.ProjectData_FlowOperate flowOperate)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var upFlowOperate = from x in db.ProjectData_FlowOperate
                                 where x.MenuId == flowOperate.MenuId && x.DataId == flowOperate.DataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                                 select x;
@@ -181,7 +181,7 @@
                     item.State = flowOperate.State;
                     item.Opinion = flowOperate.Opinion;
                     item.IsClosed = flowOperate.IsClosed;
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.SubmitChanges();
                 }
             }
             else
@@ -210,7 +210,7 @@
         public static int getFlowSetMaxSortIndexByMenuId(string menuId, string dataId)
         {
             int maxSortIndex = 1;
-            var flowSet = new Model.SGGLDB(Funs.ConnString).ProjectData_FlowOperate.Where(x => x.MenuId == menuId && x.DataId == dataId);
+            var flowSet = Funs.DB.ProjectData_FlowOperate.Where(x => x.MenuId == menuId && x.DataId == dataId);
             var sortIndex = flowSet.Select(x => x.SortIndex).Max();
             if (sortIndex.HasValue)
             {
@@ -272,7 +272,7 @@
         public static Model.ProjectData_FlowOperate GetNextProjectData_FlowOperate(string dataId)
         {
             Model.ProjectData_FlowOperate flowSet = new Model.ProjectData_FlowOperate();
-            var flowSets = from x in new Model.SGGLDB(Funs.ConnString).ProjectData_FlowOperate
+            var flowSets = from x in Funs.DB.ProjectData_FlowOperate
                            where x.DataId == dataId && (!x.IsClosed.HasValue || x.IsClosed == false)
                            orderby x.SortIndex
                            select x;
@@ -306,7 +306,7 @@
         /// <param name="upFlowOperate"></param>
         public static Model.ProjectData_FlowOperate GetFlowOperateOpinion(string menuId, string dataId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             return (from x in db.ProjectData_FlowOperate
                     where x.MenuId == menuId && x.DataId == dataId && (x.IsClosed == false || !x.IsClosed.HasValue)
                     select x).FirstOrDefault();

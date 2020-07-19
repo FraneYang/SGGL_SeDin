@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class GeneralEquipmentQualityService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取一般机具设备资质
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_GeneralEquipmentQuality GetGeneralEquipmentQualityById(string generalEquipmentQualityId)
         {
-            return new Model.SGGLDB(Funs.ConnString).QualityAudit_GeneralEquipmentQuality.FirstOrDefault(e => e.GeneralEquipmentQualityId == generalEquipmentQualityId);
+            return Funs.DB.QualityAudit_GeneralEquipmentQuality.FirstOrDefault(e => e.GeneralEquipmentQualityId == generalEquipmentQualityId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.QualityAudit_GeneralEquipmentQuality> GetListByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_GeneralEquipmentQuality where x.ProjectId == projectId && x.InDate >= startTime && x.InDate <= endTime orderby x.InDate select x).ToList();
+            return (from x in Funs.DB.QualityAudit_GeneralEquipmentQuality where x.ProjectId == projectId && x.InDate >= startTime && x.InDate <= endTime orderby x.InDate select x).ToList();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace BLL
         public static int GetSumCountByDate(string projectId, DateTime startTime, DateTime endTime)
         {
             int sum = 0;
-            var q= (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_GeneralEquipmentQuality where x.ProjectId == projectId && x.InDate >= startTime && x.InDate <= endTime select x).ToList();
+            var q= (from x in Funs.DB.QualityAudit_GeneralEquipmentQuality where x.ProjectId == projectId && x.InDate >= startTime && x.InDate <= endTime select x).ToList();
             foreach (var item in q)
             {
                 sum += item.EquipmentCount ?? 0;
@@ -58,7 +58,7 @@ namespace BLL
         /// <param name="generalEquipmentQuality"></param>
         public static void AddGeneralEquipmentQuality(Model.QualityAudit_GeneralEquipmentQuality generalEquipmentQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_GeneralEquipmentQuality newGeneralEquipmentQuality = new Model.QualityAudit_GeneralEquipmentQuality
             {
                 GeneralEquipmentQualityId = generalEquipmentQuality.GeneralEquipmentQualityId,
@@ -84,7 +84,7 @@ namespace BLL
         /// <param name="generalEquipmentQuality"></param>
         public static void UpdateGeneralEquipmentQuality(Model.QualityAudit_GeneralEquipmentQuality generalEquipmentQuality)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_GeneralEquipmentQuality newGeneralEquipmentQuality = db.QualityAudit_GeneralEquipmentQuality.FirstOrDefault(e => e.GeneralEquipmentQualityId == generalEquipmentQuality.GeneralEquipmentQualityId);
             if (newGeneralEquipmentQuality != null)
             {
@@ -109,7 +109,7 @@ namespace BLL
         /// <param name="generalEquipmentQualityId"></param>
         public static void DeleteGeneralEquipmentQualityById(string generalEquipmentQualityId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_GeneralEquipmentQuality generalEquipmentQuality = db.QualityAudit_GeneralEquipmentQuality.FirstOrDefault(e => e.GeneralEquipmentQualityId == generalEquipmentQualityId);
             if (generalEquipmentQuality != null)
             {

@@ -147,7 +147,7 @@ namespace FineUIPro.Web.HSSE.Technique
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Technique_HazardListType.FirstOrDefault(x => x.SupHazardListTypeId == this.SupHazardListTypeId && x.HazardListTypeName == this.txtHazardListTypeName.Text.Trim() && (x.HazardListTypeId != this.HazardListTypeId || (this.HazardListTypeId == null && x.HazardListTypeId != null)));
+            var q = Funs.DB.Technique_HazardListType.FirstOrDefault(x => x.SupHazardListTypeId == this.SupHazardListTypeId && x.HazardListTypeName == this.txtHazardListTypeName.Text.Trim() && (x.HazardListTypeId != this.HazardListTypeId || (this.HazardListTypeId == null && x.HazardListTypeId != null)));
             if (q != null)
             {
                 ShowNotify("输入的名称已存在！", MessageBoxIcon.Warning);

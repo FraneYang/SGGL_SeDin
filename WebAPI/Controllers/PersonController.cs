@@ -133,7 +133,7 @@ namespace WebAPI.Controllers
                                where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
                                && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
                                select x;
-                if (unitId != Const.UnitId_SEDIN || string.IsNullOrEmpty(unitId))
+                if (unitId != Const.UnitId_SEDIN && !string.IsNullOrEmpty(unitId))
                 {
                     getViews = getViews.Where(x => x.UnitId == unitId);
                 }

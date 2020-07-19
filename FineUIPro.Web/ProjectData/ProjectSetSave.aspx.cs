@@ -98,19 +98,19 @@ namespace FineUIPro.Web.ProjectData
                         }
                         this.txtPostCode.Text = project.PostCode;
                         ///项目经理
-                        var m = new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ProjectManager));
+                        var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ProjectManager));
                         if (m != null)
                         {
                             this.drpProjectManager.SelectedValue = m.UserId;
                         }
                         ///施工经理 
-                        var c = new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
+                        var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
                         if (c != null)
                         {
                             this.drpConstructionManager.SelectedValue = c.UserId;
                         }
                         ////安全经理
-                        var h = new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.HSSEManager));
+                        var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.HSSEManager));
                         if (h != null)
                         {
                             this.drpHSSEManager.SelectedValue = h.UserId;
@@ -227,13 +227,13 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_Project.FirstOrDefault(x => x.ProjectCode == this.txtProjectCode.Text.Trim() && (x.ProjectId != this.ProjectId || (this.ProjectId == null && x.ProjectId != null)));
+            var q = Funs.DB.Base_Project.FirstOrDefault(x => x.ProjectCode == this.txtProjectCode.Text.Trim() && (x.ProjectId != this.ProjectId || (this.ProjectId == null && x.ProjectId != null)));
             if (q != null)
             {
                 ShowNotify("输入的项目编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_Project.FirstOrDefault(x => x.ProjectName == this.txtProjectName.Text.Trim() && (x.ProjectId != this.ProjectId || (this.ProjectId == null && x.ProjectId != null)));
+            var q2 = Funs.DB.Base_Project.FirstOrDefault(x => x.ProjectName == this.txtProjectName.Text.Trim() && (x.ProjectId != this.ProjectId || (this.ProjectId == null && x.ProjectId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的项目名称已存在！", MessageBoxIcon.Warning);
@@ -255,7 +255,7 @@ namespace FineUIPro.Web.ProjectData
             if (project != null)
             {
                 //string OldProjectManager = string.Empty; ////项目经理
-                //var m = new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ProjectManager));
+                //var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ProjectManager));
                 //if (m != null)
                 //{
                 //    OldProjectManager = m.UserId;
@@ -293,7 +293,7 @@ namespace FineUIPro.Web.ProjectData
                 //}
                 //////施工经理
                 //string OldConstructionManager = string.Empty;
-                //var c = new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
+                //var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
                 //if (c != null)
                 //{
                 //    OldConstructionManager = c.UserId;
@@ -331,7 +331,7 @@ namespace FineUIPro.Web.ProjectData
                 //}
                 /////安全经理
                 //string OldHSSEManager = string.Empty;
-                //var h = new Model.SGGLDB(Funs.ConnString).Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.HSSEManager));
+                //var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.HSSEManager));
                 //if (h != null)
                 //{
                 //    OldHSSEManager = h.UserId;

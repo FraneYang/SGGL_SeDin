@@ -372,13 +372,12 @@ namespace FineUIPro.Web
         {
             if (!IsPostBack)
             {
-               ProjectService.InitAllProjectShortNameDropDownList(this.drpProject, false);
+               ProjectService.InitAllProjectShortNameDropDownList(this.drpProject,this.CurrUser.UserId, false);
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]))
                 {
                     this.drpProject.SelectedValue = Request.Params["projectId"];
                 }
-                this.MenuSwitchMethod(Request.Params["menuType"]);
-           
+                this.MenuSwitchMethod(Request.Params["menuType"]);           
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
                 this.InitLangMenuButton();

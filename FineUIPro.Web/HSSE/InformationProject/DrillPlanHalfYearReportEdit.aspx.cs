@@ -308,7 +308,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             }
             else
             {
-                Model.InformationProject_DrillPlanHalfYearReport oldDrillPlanHalfYearReport = (from x in new Model.SGGLDB(Funs.ConnString).InformationProject_DrillPlanHalfYearReport
+                Model.InformationProject_DrillPlanHalfYearReport oldDrillPlanHalfYearReport = (from x in Funs.DB.InformationProject_DrillPlanHalfYearReport
                                                                                                where x.ProjectId == drillPlanHalfYearReport.ProjectId && x.YearId == drillPlanHalfYearReport.YearId && x.HalfYearId == drillPlanHalfYearReport.HalfYearId
                                                                                                select x).FirstOrDefault();
                 if (oldDrillPlanHalfYearReport == null)
@@ -318,7 +318,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     BLL.ProjectDrillPlanHalfYearReportService.AddDrillPlanHalfYearReport(drillPlanHalfYearReport);
                     BLL.LogService.AddSys_Log(this.CurrUser, drillPlanHalfYearReport.YearId.ToString() + "-" + drillPlanHalfYearReport.HalfYearId.ToString(), drillPlanHalfYearReport.DrillPlanHalfYearReportId, BLL.Const.ProjectDrillPlanHalfYearReportMenuId, BLL.Const.BtnAdd);
                     ////删除未上报月报信息
-                    //Model.ManagementReport_ReportRemind reportRemind = (from x in new Model.SGGLDB(Funs.ConnString).ManagementReport_ReportRemind
+                    //Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                     //                                                    where x.ProjectId == this.ProjectId && x.Year == drillPlanHalfYearReport.YearId && x.HalfYear == drillPlanHalfYearReport.HalfYearId && x.ReportName == "应急演练工作计划半年报"
                     //                                                    select x).FirstOrDefault();
                     //if (reportRemind != null)

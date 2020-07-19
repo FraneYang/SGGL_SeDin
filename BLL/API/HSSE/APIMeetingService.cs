@@ -364,7 +364,7 @@ namespace BLL
         /// <returns></returns>
         public static void SaveMeeting(Model.MeetingItem meeting)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string menuId = string.Empty;
             if (meeting.MeetingType == "C")
             {

@@ -7,7 +7,7 @@ namespace BLL
     /// </summary>
     public static class CompletionReportService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取完工报告
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Manager_CompletionReport GetCompletionReportById(string completionReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Manager_CompletionReport.FirstOrDefault(e => e.CompletionReportId == completionReportId);
+            return Funs.DB.Manager_CompletionReport.FirstOrDefault(e => e.CompletionReportId == completionReportId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="completionReport"></param>
         public static void AddCompletionReport(Model.Manager_CompletionReport completionReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Manager_CompletionReport newCompletionReport = new Model.Manager_CompletionReport
             {
                 CompletionReportId = completionReport.CompletionReportId,
@@ -49,7 +49,7 @@ namespace BLL
         /// <param name="completionReport"></param>
         public static void UpdateCompletionReport(Model.Manager_CompletionReport completionReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Manager_CompletionReport newCompletionReport = db.Manager_CompletionReport.FirstOrDefault(e => e.CompletionReportId == completionReport.CompletionReportId);
             if (newCompletionReport != null)
             {
@@ -70,7 +70,7 @@ namespace BLL
         /// <param name="completionReportId"></param>
         public static void DeleteCompletionReportById(string completionReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Manager_CompletionReport completionReport = db.Manager_CompletionReport.FirstOrDefault(e => e.CompletionReportId == completionReportId);
             if (completionReport != null)
             {

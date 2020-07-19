@@ -8,7 +8,7 @@ namespace BLL
 {
    public static class SysMenuService
     {
-       public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+       public static Model.SGGLDB db = Funs.DB;
 
        /// <summary>
        /// 根据MenuId获取菜单名称项
@@ -17,7 +17,7 @@ namespace BLL
        /// <returns></returns>
        public static List<Model.Sys_Menu> GetSupMenuListBySuperMenu(string superMenu)
        {
-           var list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Menu where x.SuperMenu == superMenu orderby x.SortIndex select x).ToList();          
+           var list = (from x in Funs.DB.Sys_Menu where x.SuperMenu == superMenu orderby x.SortIndex select x).ToList();          
            return list;
        }
 
@@ -28,7 +28,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.Sys_Menu GetSupMenuBySuperMenu(string superMenu)
        {
-           return new Model.SGGLDB(Funs.ConnString).Sys_Menu.FirstOrDefault(x => x.SuperMenu == superMenu);    
+           return Funs.DB.Sys_Menu.FirstOrDefault(x => x.SuperMenu == superMenu);    
        }
 
        /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
        /// <returns></returns>
        public static Model.Sys_Menu GetSysMenuByMenuId(string menuId)
        {
-           return new Model.SGGLDB(Funs.ConnString).Sys_Menu.FirstOrDefault(x => x.MenuId == menuId);
+           return Funs.DB.Sys_Menu.FirstOrDefault(x => x.MenuId == menuId);
        }
 
        /// <summary>
@@ -48,7 +48,7 @@ namespace BLL
        /// <returns></returns>
        public static List<Model.Sys_Menu> GetMenuListByMenuType(string menuType)
        {
-           var list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Menu where x.MenuType == menuType orderby x.SortIndex select x).ToList();
+           var list = (from x in Funs.DB.Sys_Menu where x.MenuType == menuType orderby x.SortIndex select x).ToList();
            return list;
        }
 
@@ -59,7 +59,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Sys_Menu> GetIsUsedMenuListByMenuType(string menuType)
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Menu
+            var list = (from x in Funs.DB.Sys_Menu
                         where (x.MenuType == menuType || menuType == null) && x.IsUsed == true
                         orderby x.SortIndex
                         select x).Distinct().ToList();
@@ -77,14 +77,14 @@ namespace BLL
 
             if (menuType == "MenuType_S")
             {
-                lists = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Menu
+                lists = (from x in Funs.DB.Sys_Menu
                          where x.IsOffice == true && x.IsUsed == true
                          orderby x.SortIndex
                          select x).Distinct().ToList();
             }
             else
             {
-                lists = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Menu
+                lists = (from x in Funs.DB.Sys_Menu
                          where x.IsOffice == false && x.IsUsed == true
                          orderby x.SortIndex
                          select x).Distinct().ToList();

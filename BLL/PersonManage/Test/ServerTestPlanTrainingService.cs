@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ServerTestPlanTrainingService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取知识竞赛计划
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Test_TestPlanTraining GetTestPlanTrainingById(string TestPlanTrainingId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Test_TestPlanTraining.FirstOrDefault(e => e.TestPlanTrainingId == TestPlanTrainingId);
+            return Funs.DB.Test_TestPlanTraining.FirstOrDefault(e => e.TestPlanTrainingId == TestPlanTrainingId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="TestPlanTraining"></param>
         public static void AddTestPlanTraining(Model.Test_TestPlanTraining TestPlanTraining)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Test_TestPlanTraining newTestPlanTraining = new Model.Test_TestPlanTraining
             {
                 TestPlanTrainingId = TestPlanTraining.TestPlanTrainingId,
@@ -49,7 +49,7 @@ namespace BLL
         /// <param name="TestPlanTraining"></param>
         public static void UpdateTestPlanTraining(Model.Test_TestPlanTraining TestPlanTraining)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Test_TestPlanTraining newTestPlanTraining = db.Test_TestPlanTraining.FirstOrDefault(e => e.TestPlanTrainingId == TestPlanTraining.TestPlanTrainingId);
             if (newTestPlanTraining != null)
             {
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="TestPlanTrainingId"></param>
         public static void DeleteTestPlanTrainingById(string TestPlanTrainingId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Test_TestPlanTraining TestPlanTraining = db.Test_TestPlanTraining.FirstOrDefault(e => e.TestPlanTrainingId == TestPlanTrainingId);
             if (TestPlanTraining != null)
             { 
@@ -83,7 +83,7 @@ namespace BLL
         /// <param name="TestPlanTrainingId"></param>
         public static void DeleteTestPlanTrainingByTestPlanId(string TestPlanId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var TestPlanTraining = from x in db.Test_TestPlanTraining where x.TestPlanId == TestPlanId select x;
             if (TestPlanTraining.Count() > 0)
             {

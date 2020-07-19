@@ -7,7 +7,7 @@ namespace BLL
 
     public static class LogService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 添加操作日志
@@ -80,7 +80,7 @@ namespace BLL
         /// <param name="projectId"></param>
         public static void DeleteLog(string projectId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Sys_Log where x.ProjectId == projectId select x).ToList();
             if (q != null)
             {

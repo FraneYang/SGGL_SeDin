@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EnvironmentalMonitoringService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取环境监测数据
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Environmental_EnvironmentalMonitoring GetEnvironmentalMonitoringById(string fileId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Environmental_EnvironmentalMonitoring.FirstOrDefault(e => e.FileId == fileId);
+            return Funs.DB.Environmental_EnvironmentalMonitoring.FirstOrDefault(e => e.FileId == fileId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="EnvironmentalMonitoring"></param>
         public static void AddEnvironmentalMonitoring(Model.Environmental_EnvironmentalMonitoring EnvironmentalMonitoring)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Environmental_EnvironmentalMonitoring newEnvironmentalMonitoring = new Model.Environmental_EnvironmentalMonitoring
             {
                 FileId = EnvironmentalMonitoring.FileId,
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="EnvironmentalMonitoring"></param>
         public static void UpdateEnvironmentalMonitoring(Model.Environmental_EnvironmentalMonitoring EnvironmentalMonitoring)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Environmental_EnvironmentalMonitoring newEnvironmentalMonitoring = db.Environmental_EnvironmentalMonitoring.FirstOrDefault(e => e.FileId == EnvironmentalMonitoring.FileId);
             if (newEnvironmentalMonitoring != null)
             {
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="FileId"></param>
         public static void DeleteEnvironmentalMonitoringById(string FileId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Environmental_EnvironmentalMonitoring EnvironmentalMonitoring = db.Environmental_EnvironmentalMonitoring.FirstOrDefault(e => e.FileId == FileId);
             if (EnvironmentalMonitoring != null)
             {

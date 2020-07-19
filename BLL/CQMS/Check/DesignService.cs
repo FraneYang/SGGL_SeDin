@@ -11,7 +11,7 @@ namespace BLL
 {
     public class DesignService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 记录数
@@ -59,7 +59,7 @@ namespace BLL
         /// <returns>一个设计变更信息实体</returns>
         public static Model.Check_Design GetDesignByDesignId(string DesignId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_Design.FirstOrDefault(x => x.DesignId == DesignId);
+            return Funs.DB.Check_Design.FirstOrDefault(x => x.DesignId == DesignId);
         }
         public static Model.Check_Design GetDesignByDesignIdForApi(string DesignId)
         {
@@ -83,7 +83,7 @@ namespace BLL
         /// <param name="Design">设计变更信息实体</param>
         public static void AddDesign(Model.Check_Design Design)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_Design newDesign = new Model.Check_Design();
             newDesign.DesignId = Design.DesignId;
             newDesign.ProjectId = Design.ProjectId;
@@ -147,7 +147,7 @@ namespace BLL
         /// <param name="Design">设计变更信息实体</param>
         public static void UpdateDesign(Model.Check_Design Design)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_Design newDesign = db.Check_Design.First(e => e.DesignId == Design.DesignId);
             newDesign.DesignCode = Design.DesignCode;
             newDesign.MainItemId = Design.MainItemId;
@@ -176,7 +176,7 @@ namespace BLL
         /// <param name="DesignCode">设计变更信息Id</param>
         public static void DeleteDesign(string DesignId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_Design Design = db.Check_Design.First(e => e.DesignId == DesignId);
 
             db.Check_Design.DeleteOnSubmit(Design);
@@ -190,7 +190,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetDesignCountByProjectId(string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_Design where x.ProjectId == projectId select x).ToList();
+            var q = (from x in Funs.DB.Check_Design where x.ProjectId == projectId select x).ToList();
             return q.Count();
         }
 
@@ -201,7 +201,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetDesignCountByMainItemId(string mainItemId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).Check_Design where x.MainItemId == mainItemId select x).ToList();
+            var q = (from x in Funs.DB.Check_Design where x.MainItemId == mainItemId select x).ToList();
             return q.Count();
         }
         private static string GetUnitNames(string unitIds)
@@ -232,7 +232,7 @@ namespace BLL
         /// <param name="endTime">结束时间</param>
         public static IEnumerable GetDesignListByTime(string projectId, DateTime startTime, DateTime endTime)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             return from x in db.Check_Design
                    where x.ProjectId == projectId && x.DesignDate >= startTime && x.DesignDate < endTime
                    select new
@@ -380,7 +380,7 @@ namespace BLL
                 if (!string.IsNullOrEmpty(unitName))
                 {
                     List<string> ids;
-                    var qids = from x in new Model.SGGLDB(Funs.ConnString).Base_Unit where x.UnitName.Contains(unitName) select x.UnitId;
+                    var qids = from x in Funs.DB.Base_Unit where x.UnitName.Contains(unitName) select x.UnitId;
                     ids = qids.ToList();
 
 

@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class WorkStageService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取工作阶段
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_WorkStage GetWorkStageById(string workStageId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_WorkStage.FirstOrDefault(e => e.WorkStageId == workStageId);
+            return Funs.DB.Base_WorkStage.FirstOrDefault(e => e.WorkStageId == workStageId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_WorkStage GetWorkStageByName(string workStageName)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_WorkStage.FirstOrDefault(e => e.WorkStageName == workStageName);
+            return Funs.DB.Base_WorkStage.FirstOrDefault(e => e.WorkStageName == workStageName);
         }
 
         /// <summary>

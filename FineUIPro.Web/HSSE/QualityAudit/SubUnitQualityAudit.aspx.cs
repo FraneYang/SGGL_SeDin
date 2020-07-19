@@ -21,7 +21,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
                 GetButtonPower();
                 string unitId = Request.Params["UnitId"];
                 btnNew.OnClientClick = Window1.GetShowReference("SubUnitQualityAuditEdit.aspx?UnitId=" + unitId) + "return false;";
-                List<Model.View_QualityAudit_SubUnitQualityAuditDetail> details = (from x in new Model.SGGLDB(Funs.ConnString).View_QualityAudit_SubUnitQualityAuditDetail 
+                List<Model.View_QualityAudit_SubUnitQualityAuditDetail> details = (from x in Funs.DB.View_QualityAudit_SubUnitQualityAuditDetail 
                                                                                    where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == unitId orderby x.AuditDate descending select x).ToList();
                 Grid1.DataSource = details;
                 Grid1.DataBind();
@@ -89,7 +89,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
                         BLL.LogService.AddSys_Log(this.CurrUser, null, subUnitQuality.AuditDetailId, BLL.Const.SubUnitQualityMenuId, BLL.Const.BtnModify);
                         BLL.SubUnitQualityAuditDetailService.DeleteSubUnitQualityAuditDetailById(rowID);
                     }
-                    List<Model.View_QualityAudit_SubUnitQualityAuditDetail> details = (from x in new Model.SGGLDB(Funs.ConnString).View_QualityAudit_SubUnitQualityAuditDetail
+                    List<Model.View_QualityAudit_SubUnitQualityAuditDetail> details = (from x in Funs.DB.View_QualityAudit_SubUnitQualityAuditDetail
                                                                                        where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == Request.Params["UnitId"]
                                                                                        orderby x.AuditDate descending
                                                                                        select x).ToList();
@@ -139,7 +139,7 @@ namespace FineUIPro.Web.HSSE.QualityAudit
         /// <param name="e"></param>
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
-            List<Model.View_QualityAudit_SubUnitQualityAuditDetail> details = (from x in new Model.SGGLDB(Funs.ConnString).View_QualityAudit_SubUnitQualityAuditDetail
+            List<Model.View_QualityAudit_SubUnitQualityAuditDetail> details = (from x in Funs.DB.View_QualityAudit_SubUnitQualityAuditDetail
                                                                                where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == Request.Params["UnitId"]
                                                                                orderby x.AuditDate descending
                                                                                select x).ToList();

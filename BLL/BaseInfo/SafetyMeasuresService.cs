@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class SafetyMeasuresService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全措施
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_SafetyMeasures GetSafetyMeasuresBySafetyMeasuresId(string SafetyMeasuresId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_SafetyMeasures.FirstOrDefault(e => e.SafetyMeasuresId == SafetyMeasuresId);
+            return Funs.DB.Base_SafetyMeasures.FirstOrDefault(e => e.SafetyMeasuresId == SafetyMeasuresId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         public static bool IsExistSafetyMeasures(string SafetyMeasuresId, string SafetyMeasures)
         {
             bool isExist = false;
-            var role = new Model.SGGLDB(Funs.ConnString).Base_SafetyMeasures.FirstOrDefault(x => x.SafetyMeasures == SafetyMeasures && x.SafetyMeasuresId != SafetyMeasuresId);
+            var role = Funs.DB.Base_SafetyMeasures.FirstOrDefault(x => x.SafetyMeasures == SafetyMeasures && x.SafetyMeasuresId != SafetyMeasuresId);
             if (role != null)
             {
                 isExist = true;
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="SafetyMeasures"></param>
         public static void UpdateSafetyMeasures(Model.Base_SafetyMeasures SafetyMeasures)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_SafetyMeasures newSafetyMeasures = db.Base_SafetyMeasures.FirstOrDefault(e => e.SafetyMeasuresId == SafetyMeasures.SafetyMeasuresId);
             if (newSafetyMeasures != null)
             {
@@ -79,7 +79,7 @@ namespace BLL
         /// <param name="SafetyMeasuresId"></param>
         public static void DeleteSafetyMeasuresById(string SafetyMeasuresId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_SafetyMeasures SafetyMeasures = db.Base_SafetyMeasures.FirstOrDefault(e => e.SafetyMeasuresId == SafetyMeasuresId);
             if (SafetyMeasures != null)
             {
@@ -95,7 +95,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_SafetyMeasures> GetSafetyMeasuresList(string licenseType)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Base_SafetyMeasures
+            return (from x in Funs.DB.Base_SafetyMeasures
                     where x.LicenseType == licenseType
                     orderby x.SortIndex
                     select x).ToList();

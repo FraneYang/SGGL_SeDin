@@ -8,7 +8,7 @@ namespace BLL
     /// </summary>
     public static class HSSEMainDutyService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全主体责任
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HSSESystem_HSSEMainDuty GetHSSEMainDutyById(string hsseMainDutyId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HSSESystem_HSSEMainDuty.FirstOrDefault(e => e.HSSEMainDutyId == hsseMainDutyId);
+            return Funs.DB.HSSESystem_HSSEMainDuty.FirstOrDefault(e => e.HSSEMainDutyId == hsseMainDutyId);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HSSESystem_HSSEMainDuty> GetHSSEMainDutyByWorkPostId(string workPostId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).HSSESystem_HSSEMainDuty where x.WorkPostId == workPostId select x).ToList();
+            return (from x in Funs.DB.HSSESystem_HSSEMainDuty where x.WorkPostId == workPostId select x).ToList();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace BLL
         /// <param name="hsseMainDuty"></param>
         public static void AddHSSEMainDuty(Model.HSSESystem_HSSEMainDuty hsseMainDuty)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSESystem_HSSEMainDuty newHSSEMainDuty = new Model.HSSESystem_HSSEMainDuty
             {
                 HSSEMainDutyId = hsseMainDuty.HSSEMainDutyId,
@@ -55,7 +55,7 @@ namespace BLL
         /// <param name="hsseMainDuty"></param>
         public static void UpdateHSSEMainDuty(Model.HSSESystem_HSSEMainDuty hsseMainDuty)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSESystem_HSSEMainDuty newHSSEMainDuty = db.HSSESystem_HSSEMainDuty.FirstOrDefault(e => e.HSSEMainDutyId == hsseMainDuty.HSSEMainDutyId);
             if (newHSSEMainDuty != null)
             {
@@ -72,7 +72,7 @@ namespace BLL
         /// <param name="hsseMainDutyId"></param>
         public static void DeleteHSSEMainDuty(string hsseMainDutyId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSESystem_HSSEMainDuty hsseMainDuty = db.HSSESystem_HSSEMainDuty.FirstOrDefault(e => e.HSSEMainDutyId == hsseMainDutyId);
             if (hsseMainDuty != null)
             {

@@ -6,7 +6,7 @@
 
     public static class ProjectUnitService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         ///获取项目单位信息
@@ -14,7 +14,7 @@
         /// <returns></returns>
         public static Model.Project_ProjectUnit GetProjectUnitById(string projectUnitId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit.FirstOrDefault(e => e.ProjectUnitId == projectUnitId);
+            return Funs.DB.Project_ProjectUnit.FirstOrDefault(e => e.ProjectUnitId == projectUnitId);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@
         /// <returns></returns>
         public static Model.Project_ProjectUnit GetProjectUnitByUnitIdProjectId(string projectId, string unitId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit.FirstOrDefault(e => e.ProjectId == projectId && e.UnitId == unitId);
+            return Funs.DB.Project_ProjectUnit.FirstOrDefault(e => e.ProjectId == projectId && e.UnitId == unitId);
         }
 
         /// <summary>
@@ -32,7 +32,8 @@
         /// <returns></returns>
         public static List<Model.Project_ProjectUnit> GetProjectUnitListByProjectId(string projectId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 return (from x in db.Project_ProjectUnit
                         join y in db.Base_Unit on x.UnitId equals y.UnitId
                         where x.ProjectId == projectId
@@ -48,7 +49,8 @@
         /// <returns></returns>
         public static List<Model.Project_ProjectUnit> GetProjectUnitListByProjectIdUnitType(string projectId, string unitType)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 return (from x in db.Project_ProjectUnit
                         join y in db.Base_Unit on x.UnitId equals y.UnitId
                         where x.ProjectId == projectId && x.UnitType == unitType
@@ -63,7 +65,7 @@
         /// <returns></returns>
         public static void AddProjectUnit(Project_ProjectUnit projectUnit)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
             {
                 ProjectUnitId = SQLHelper.GetNewID(typeof(Model.Project_ProjectUnit)),
@@ -86,7 +88,7 @@
         /// <param name="projectUnit"></param>
         public static void UpdateProjectUnit(Model.Project_ProjectUnit projectUnit)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Project_ProjectUnit newProjectUnit = db.Project_ProjectUnit.FirstOrDefault(e => e.ProjectUnitId == projectUnit.ProjectUnitId);
             if (newProjectUnit != null)
             {
@@ -106,7 +108,7 @@
         /// <param name="projectUnitId"></param>
         public static void DeleteProjectProjectUnitById(string projectUnitId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Project_ProjectUnit delProjectUnit = db.Project_ProjectUnit.FirstOrDefault(e => e.ProjectUnitId == projectUnitId);
             if (delProjectUnit != null)
             {
@@ -124,7 +126,7 @@
             bool isShow = false;
             if (unitId != Const.UnitId_SEDIN)
             {
-                var pUnit = new Model.SGGLDB(Funs.ConnString).Project_ProjectUnit.FirstOrDefault(e => e.ProjectId == projectId && e.UnitId == unitId);
+                var pUnit = Funs.DB.Project_ProjectUnit.FirstOrDefault(e => e.ProjectId == projectId && e.UnitId == unitId);
                 if (pUnit != null)
                 {
                     if (pUnit.UnitType == Const.ProjectUnitType_2 || pUnit.UnitType == Const.ProjectUnitType_0)
@@ -145,7 +147,8 @@
         /// <param name="isShowPlease">是否显示请选择</param>
         public static void InitUnitDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitType, bool isShowPlease)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var pUnit = (from x in db.Project_ProjectUnit
                              join y in db.Base_Unit on x.UnitId equals y.UnitId
                              where x.ProjectId == projectId && x.UnitType == unitType
@@ -180,7 +183,7 @@
 
         public static List<Model.Project_ProjectUnit> GetProjectUnitListByProjectIdForApi(string projectId, string unitType, string name)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string[] types = unitType.Split(',');
             return (from x in db.Project_ProjectUnit
                     join y in db.Base_Unit on x.UnitId equals y.UnitId

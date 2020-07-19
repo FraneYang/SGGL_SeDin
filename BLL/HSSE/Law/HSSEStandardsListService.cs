@@ -5,7 +5,7 @@ namespace BLL
 {
     public class HSSEStandardsListService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据id查询标准规范信息
@@ -14,7 +14,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Law_HSSEStandardsList GetHSSEStandardsListByHSSEStandardsListId(string standardId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList.FirstOrDefault(e => e.StandardId == standardId);
+            return Funs.DB.Law_HSSEStandardsList.FirstOrDefault(e => e.StandardId == standardId);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Law_HSSEStandardsList> GetHSSEStandardsListByCompileMan(string compileMan)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList where x.CompileMan == compileMan select x).ToList();
+            return (from x in Funs.DB.Law_HSSEStandardsList where x.CompileMan == compileMan select x).ToList();
         }
         
         /// <summary>
@@ -74,8 +74,8 @@ namespace BLL
                 UpState = hSSEStandardsList.UpState,
                 IsBuild = false
             };
-            new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList.InsertOnSubmit(newHSSEStandardsList);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            Funs.DB.Law_HSSEStandardsList.InsertOnSubmit(newHSSEStandardsList);
+            Funs.DB.SubmitChanges();
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void UpdateHSSEStandardsList(Model.Law_HSSEStandardsList hSSEStandardsList)
         {            
-            Model.Law_HSSEStandardsList newHSSEStandardsList = new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList.FirstOrDefault(e => e.StandardId == hSSEStandardsList.StandardId);
+            Model.Law_HSSEStandardsList newHSSEStandardsList = Funs.DB.Law_HSSEStandardsList.FirstOrDefault(e => e.StandardId == hSSEStandardsList.StandardId);
             if (newHSSEStandardsList != null)
             {
                 newHSSEStandardsList.StandardGrade = hSSEStandardsList.StandardGrade;
@@ -119,7 +119,7 @@ namespace BLL
                 newHSSEStandardsList.IsSelected25 = hSSEStandardsList.IsSelected25;
                 newHSSEStandardsList.IsSelected90 = hSSEStandardsList.IsSelected90;
                 newHSSEStandardsList.UpState = hSSEStandardsList.UpState;
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -129,7 +129,7 @@ namespace BLL
         /// <param name="lawRegulationList"></param>
         public static void UpdateHSSEStandardsListIsPass(Model.Law_HSSEStandardsList standardsList)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_HSSEStandardsList newHSSEStandardsList = db.Law_HSSEStandardsList.FirstOrDefault(e => e.StandardId == standardsList.StandardId);
             if (newHSSEStandardsList != null)
             {
@@ -147,7 +147,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistStandardName(string standardName)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList where x.StandardName == standardName select x;
+            var q = from x in Funs.DB.Law_HSSEStandardsList where x.StandardName == standardName select x;
             if (q.Count() > 0)
             {
                 return true;
@@ -166,7 +166,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistStandardNo(string standardNo)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).Law_HSSEStandardsList where x.StandardNo == standardNo select x;
+            var q = from x in Funs.DB.Law_HSSEStandardsList where x.StandardNo == standardNo select x;
             if (q.Count() > 0)
             {
                 return true;
@@ -183,7 +183,7 @@ namespace BLL
         /// <param name="EDU_ID"></param>
         public static void DeleteHSSEStandardsList(string standardId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Law_HSSEStandardsList hSSEStandardsList = db.Law_HSSEStandardsList.FirstOrDefault(e => e.StandardId == standardId);
             if (hSSEStandardsList != null)
             {

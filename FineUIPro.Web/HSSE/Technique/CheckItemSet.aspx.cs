@@ -72,11 +72,11 @@ namespace FineUIPro.Web.HSSE.Technique
             List<Model.Technique_CheckItemSet> checkItemSet = null;
             if (parentId == null)
             {
-                checkItemSet = (from x in new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet where x.SupCheckItem == "0" && x.CheckType == this.ckType.SelectedValue orderby x.SortIndex select x).ToList();
+                checkItemSet = (from x in Funs.DB.Technique_CheckItemSet where x.SupCheckItem == "0" && x.CheckType == this.ckType.SelectedValue orderby x.SortIndex select x).ToList();
             }
             else
             {
-                checkItemSet = (from x in new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet where x.SupCheckItem == parentId && x.CheckType == this.ckType.SelectedValue orderby x.SortIndex select x).ToList();
+                checkItemSet = (from x in Funs.DB.Technique_CheckItemSet where x.SupCheckItem == parentId && x.CheckType == this.ckType.SelectedValue orderby x.SortIndex select x).ToList();
             }
 
             foreach (var q in checkItemSet)
@@ -380,7 +380,7 @@ namespace FineUIPro.Web.HSSE.Technique
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             string checkType = this.ckType.SelectedValue;
-            var checkItems = from x in new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet where x.CheckType == checkType select x;
+            var checkItems = from x in Funs.DB.Technique_CheckItemSet where x.CheckType == checkType select x;
             if (checkItems.Count() > 0)
             {
                 foreach (var item in checkItems)
@@ -399,7 +399,7 @@ namespace FineUIPro.Web.HSSE.Technique
         /// <param name="supCheckItem"></param>
         private void DeleteCheckItemSet(string supCheckItem)
         {
-            var checkItemSet = from x in new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet where x.SupCheckItem == supCheckItem select x;
+            var checkItemSet = from x in Funs.DB.Technique_CheckItemSet where x.SupCheckItem == supCheckItem select x;
             if (checkItemSet.Count() > 0)
             {
                 foreach (var item in checkItemSet)
@@ -412,7 +412,7 @@ namespace FineUIPro.Web.HSSE.Technique
             }
             else
             {
-                var checkItemSetEnd = new Model.SGGLDB(Funs.ConnString).Technique_CheckItemSet.FirstOrDefault(x => x.CheckItemSetId == supCheckItem);
+                var checkItemSetEnd = Funs.DB.Technique_CheckItemSet.FirstOrDefault(x => x.CheckItemSetId == supCheckItem);
                 if (checkItemSetEnd != null)
                 {
                     ///删除详细项

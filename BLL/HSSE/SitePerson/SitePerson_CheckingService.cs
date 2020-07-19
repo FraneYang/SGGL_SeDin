@@ -8,7 +8,7 @@ namespace BLL
 {
     public class SitePerson_CheckingService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据人员考勤主键获取人员考勤管理信息
@@ -17,7 +17,7 @@ namespace BLL
         /// <returns>人员考勤管理信息</returns>
         public static Model.SitePerson_Checking GetPersonInfoByCheckingId(string checkingId)
         {
-            return new Model.SGGLDB(Funs.ConnString).SitePerson_Checking.FirstOrDefault(x=> x.CheckingId == checkingId);
+            return Funs.DB.SitePerson_Checking.FirstOrDefault(x=> x.CheckingId == checkingId);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <param name="personInfo">人员考勤管理实体</param>
         public static void AddPersonInfo(Model.SitePerson_Checking personInfo)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_Checking newPersonInfo = new Model.SitePerson_Checking
             {
                 CheckingId = personInfo.CheckingId,
@@ -52,7 +52,7 @@ namespace BLL
         /// <param name="personInfo">人员考勤管理实体</param>
         public static void UpdatePersonInfo(Model.SitePerson_Checking personInfo)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_Checking newPersonInfo = db.SitePerson_Checking.First(e => e.CheckingId == personInfo.CheckingId);
             newPersonInfo.CardNo = personInfo.CardNo;
             newPersonInfo.PersonId = personInfo.PersonId;
@@ -74,7 +74,7 @@ namespace BLL
         /// <returns>人员实体</returns>
         public static Model.SitePerson_Checking GetPersonCheckByCardNo(string projectId, string cardNo, DateTime? intoOutTime)
         {
-            return new Model.SGGLDB(Funs.ConnString).SitePerson_Checking.FirstOrDefault(e => e.ProjectId == projectId && e.CardNo == cardNo && e.IntoOutTime == intoOutTime);
+            return Funs.DB.SitePerson_Checking.FirstOrDefault(e => e.ProjectId == projectId && e.CardNo == cardNo && e.IntoOutTime == intoOutTime);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace BLL
         /// <param name="checkingId">人员考勤主键</param>
         public static void DeletePersonInfoByCheckingId(string checkingId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_Checking personInfo = db.SitePerson_Checking.FirstOrDefault(e => e.CheckingId == checkingId);
             if (personInfo != null)
             {
@@ -99,7 +99,7 @@ namespace BLL
         /// <returns>人员考勤信息数量</returns>
         public static int GetCheckingCountByWorkAreaId(string workAreaId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Checking where x.WorkAreaId == workAreaId select x).ToList().Count();
+            return (from x in Funs.DB.SitePerson_Checking where x.WorkAreaId == workAreaId select x).ToList().Count();
         }
 
 
@@ -109,7 +109,7 @@ namespace BLL
         /// <param name="checkingId">人员考勤主键</param>
         public static void DeletePersonInOutByCheckingId(string PersonInOutId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_PersonInOut personInOut = db.SitePerson_PersonInOut.FirstOrDefault(e => e.PersonInOutId == PersonInOutId);
             if (personInOut != null)
             {

@@ -12,7 +12,7 @@
         /// <returns></returns>
         public static Model.Base_Consumables GetConsumablesByConsumablesId(string consumablesId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_Consumables.FirstOrDefault(e => e.ConsumablesId == consumablesId);
+            return Funs.DB.Base_Consumables.FirstOrDefault(e => e.ConsumablesId == consumablesId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@
         /// <param name="consumables"></param>
         public static void AddConsumables(Model.Base_Consumables consumables)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Consumables newConsumables = new Base_Consumables
             {
                 ConsumablesId = consumables.ConsumablesId,
@@ -44,7 +44,7 @@
         /// <param name="consumables"></param>
         public static void UpdateConsumables(Model.Base_Consumables consumables)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Consumables newConsumables = db.Base_Consumables.FirstOrDefault(e => e.ConsumablesId == consumables.ConsumablesId);
             if (newConsumables != null)
             {
@@ -65,7 +65,7 @@
         /// <param name="consumablesId"></param>
         public static void DeleteConsumablesByConsumablesId(string consumablesId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Consumables delConsumables = db.Base_Consumables.FirstOrDefault(e => e.ConsumablesId == consumablesId);
             if (delConsumables != null)
             {
@@ -81,7 +81,7 @@
         /// <returns></returns>
         public static List<Model.Base_Consumables> GetConsumablesListByConsumablesType(string consumablesType)
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Consumables
+            var list = (from x in Funs.DB.Base_Consumables
                         orderby x.ConsumablesName
                         select x).ToList();
 

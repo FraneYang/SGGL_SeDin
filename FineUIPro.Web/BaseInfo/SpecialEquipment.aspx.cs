@@ -28,7 +28,7 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment                        
+            var q = from x in Funs.DB.Base_SpecialEquipment                        
                         orderby x.SpecialEquipmentCode select  new
                         {
                             x.SpecialEquipmentId,
@@ -255,13 +255,13 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment.FirstOrDefault(x => x.SpecialEquipmentCode == this.txtSpecialEquipmentCode.Text.Trim() && (x.SpecialEquipmentId != hfFormID.Text || (hfFormID.Text == null && x.SpecialEquipmentId != null)));
+            var q = Funs.DB.Base_SpecialEquipment.FirstOrDefault(x => x.SpecialEquipmentCode == this.txtSpecialEquipmentCode.Text.Trim() && (x.SpecialEquipmentId != hfFormID.Text || (hfFormID.Text == null && x.SpecialEquipmentId != null)));
             if (q != null)
             {
                 ShowNotify("输入的设备编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_SpecialEquipment.FirstOrDefault(x => x.SpecialEquipmentName == this.txtSpecialEquipmentName.Text.Trim() && (x.SpecialEquipmentId != hfFormID.Text || (hfFormID.Text == null && x.SpecialEquipmentId != null)));
+            var q2 = Funs.DB.Base_SpecialEquipment.FirstOrDefault(x => x.SpecialEquipmentName == this.txtSpecialEquipmentName.Text.Trim() && (x.SpecialEquipmentId != hfFormID.Text || (hfFormID.Text == null && x.SpecialEquipmentId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的设备名称已存在！", MessageBoxIcon.Warning);

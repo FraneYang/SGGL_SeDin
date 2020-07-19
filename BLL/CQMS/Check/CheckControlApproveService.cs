@@ -10,7 +10,7 @@ namespace BLL
 {
     public class CheckControlApproveService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
         /// <summary>
         /// 获取质量巡检模板列表
         /// </summary>
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="CheckControlCode">质量巡检编号</param>
         public static void DeleteCheckControlApprovesByCheckControlCode(string CheckControlCode)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Check_CheckControlApprove where x.CheckControlCode == CheckControlCode select x).ToList();
             db.Check_CheckControlApprove.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -53,7 +53,8 @@ namespace BLL
         /// <returns></returns>
         public static IQueryable getList(string userId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var res = from x in db.Check_CheckControlApprove
                           join ca in db.Check_CheckControl on x.CheckControlCode equals ca.CheckControlCode
                           where x.ApproveDate == null && x.ApproveType == "S" && x.ApproveMan == userId
@@ -108,7 +109,7 @@ namespace BLL
         /// <param name="managerRuleApprove">质量巡检审批实体</param>
         public static void UpdateCheckControlApprove(Model.Check_CheckControlApprove approve)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckControlApprove newApprove = db.Check_CheckControlApprove.First(e => e.CheckControlApproveId == approve.CheckControlApproveId && e.ApproveDate == null);
             newApprove.CheckControlCode = approve.CheckControlCode;
             newApprove.ApproveMan = approve.ApproveMan;
@@ -125,7 +126,7 @@ namespace BLL
         /// <param name="managerRuleApprove">质量巡检审批实体</param>
         public static void AddCheckControlApprove(Model.Check_CheckControlApprove approve)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_CheckControlApprove));
             Model.Check_CheckControlApprove newApprove = new Model.Check_CheckControlApprove();
             newApprove.CheckControlApproveId = newKeyID;

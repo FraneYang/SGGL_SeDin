@@ -68,7 +68,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     };
                     nodes.Add(tn);
                     ///是否存在下级节点
-                    var sup = new Model.SGGLDB(Funs.ConnString).Training_TestTraining.FirstOrDefault(x => x.SupTrainingId == tn.NodeID);
+                    var sup = Funs.DB.Training_TestTraining.FirstOrDefault(x => x.SupTrainingId == tn.NodeID);
                     if (sup != null)
                     {
                         BoundTree(tn.Nodes, tn.NodeID);
@@ -84,7 +84,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <returns></returns>
         private List<Model.Training_TestTraining> GetNewTraining(string parentId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Training_TestTraining
+            return (from x in Funs.DB.Training_TestTraining
                     where x.SupTrainingId == parentId
                     orderby x.TrainingCode
                     select x).ToList();
@@ -131,7 +131,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         {
             if (this.tvTestTraining.SelectedNode != null && this.tvTestTraining.SelectedNodeID != "0")
             {
-                var edu = new Model.SGGLDB(Funs.ConnString).Training_TestTraining.FirstOrDefault(x => x.SupTrainingId == this.tvTestTraining.SelectedNode.NodeID);
+                var edu = Funs.DB.Training_TestTraining.FirstOrDefault(x => x.SupTrainingId == this.tvTestTraining.SelectedNode.NodeID);
                 if (edu == null)
                 {
                     BLL.TestTrainingService.DeleteTestTrainingById(this.tvTestTraining.SelectedNode.NodeID);
@@ -438,7 +438,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="e"></param>
         protected void Refresh_Click(object sender, EventArgs e)
         {
-            var trainingItems = from x in new Model.SGGLDB(Funs.ConnString).Training_TestTrainingItem select x;
+            var trainingItems = from x in Funs.DB.Training_TestTrainingItem select x;
             if (trainingItems.Count() > 0)
             {
                 foreach (var trainingItem in trainingItems)
@@ -485,7 +485,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="e"></param>
         protected void Refresh1_Click(object sender, EventArgs e)
         {
-            var trainingItems = from x in new Model.SGGLDB(Funs.ConnString).Training_TestTrainingItem select x;
+            var trainingItems = from x in Funs.DB.Training_TestTrainingItem select x;
             if (trainingItems.Count() > 0)
             {
                 foreach (var trainingItem in trainingItems)
@@ -504,7 +504,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                         {
                             foreach (var installItem in installList)
                             {
-                                var install = new Model.SGGLDB(Funs.ConnString).Base_WorkPost.FirstOrDefault(x => x.WorkPostName == installItem);
+                                var install = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostName == installItem);
                                 if (install != null && !string.IsNullOrEmpty(install.WorkPostId))
                                 {
                                     getInstallationId += install.WorkPostId + ",";

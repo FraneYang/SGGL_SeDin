@@ -82,7 +82,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <returns></returns>
         private List<Model.Training_Training> GetNewTraining(string parentId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Training_Training where x.SupTrainingId == parentId
+            return (from x in Funs.DB.Training_Training where x.SupTrainingId == parentId
                     orderby x.TrainingCode select x).ToList();
         }
 

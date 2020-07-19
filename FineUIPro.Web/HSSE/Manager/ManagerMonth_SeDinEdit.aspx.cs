@@ -69,7 +69,7 @@ namespace FineUIPro.Web.HSSE.Manager
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.AuditManId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, false);
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.ApprovalManId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, false);
                 string montvalues = ReporMonth.Text;
-                var getMont = new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport.FirstOrDefault(x => x.MonthReportId == this.MonthReportId);
+                var getMont = Funs.DB.SeDin_MonthReport.FirstOrDefault(x => x.MonthReportId == this.MonthReportId);
                 if (getMont != null)
                 {
                     this.CompileManId.SelectedValue = getMont.CompileManId;

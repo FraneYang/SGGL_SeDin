@@ -18,7 +18,7 @@ namespace BLL
         /// <returns>月报告信息</returns>
         public static Model.SeDin_MonthReport GetMonthReportByMonthReportId(string monthReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport.FirstOrDefault(x => x.MonthReportId == monthReportId);
+            return Funs.DB.SeDin_MonthReport.FirstOrDefault(x => x.MonthReportId == monthReportId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <returns></returns>
         public static bool GetMonthReportByDate(DateTime date, string projectId)
         {
-            var a = new Model.SGGLDB(Funs.ConnString).SeDin_MonthReport.FirstOrDefault(x => x.ProjectId == projectId && x.ReporMonth.Value.Year == date.Year && x.ReporMonth.Value.Month == date.Month);
+            var a = Funs.DB.SeDin_MonthReport.FirstOrDefault(x => x.ProjectId == projectId && x.ReporMonth.Value.Year == date.Year && x.ReporMonth.Value.Month == date.Month);
             return (a != null);
         }
 
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="monthReportId">月报告主键</param>
         public static void DeleteMonthReportByMonthReportId(string monthReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SeDin_MonthReport monthReport = db.SeDin_MonthReport.FirstOrDefault(e => e.MonthReportId == monthReportId);
             if (monthReport != null)
             {

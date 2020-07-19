@@ -48,7 +48,7 @@
         private void InitTreeMenu()
         {
             this.tvTestTraining.Nodes.Clear();
-            var getTestTrainings = from x in new Model.SGGLDB(Funs.ConnString).Training_TestTraining select x;
+            var getTestTrainings = from x in Funs.DB.Training_TestTraining select x;
             if (getTestTrainings.Count() > 0)
             {
                 var rootT = getTestTrainings.Where(x => x.SupTrainingId == "0").OrderBy(x => x.TrainingCode);
@@ -95,7 +95,7 @@
                     };
                     nodes.Add(tn);
                     ///是否存在下级节点
-                    var sup = new Model.SGGLDB(Funs.ConnString).Training_TestTraining.FirstOrDefault(x => x.SupTrainingId == tn.NodeID);
+                    var sup = Funs.DB.Training_TestTraining.FirstOrDefault(x => x.SupTrainingId == tn.NodeID);
                     if (sup != null)
                     {
                         BoundTree(tn.Nodes, tn.NodeID, getTestTrainings.ToList());
@@ -251,7 +251,7 @@
                     JCount = Funs.GetNewIntOrZero(this.txtJCount.Text),
                 };
 
-                var deleteItem = new Model.SGGLDB(Funs.ConnString).Base_TrainTypeItem.FirstOrDefault(x => x.TrainTypeId == newItem.TrainTypeId && x.TrainingId == newItem.TrainingId);
+                var deleteItem = Funs.DB.Base_TrainTypeItem.FirstOrDefault(x => x.TrainTypeId == newItem.TrainTypeId && x.TrainingId == newItem.TrainingId);
                 if (deleteItem != null)
                 {
                     TrainTypeService.DeleteTrainTypeItemById(deleteItem.TrainTypeItemId);

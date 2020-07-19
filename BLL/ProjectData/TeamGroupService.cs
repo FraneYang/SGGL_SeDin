@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TeamGroupService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString); 
+        public static Model.SGGLDB db = Funs.DB; 
 
         /// <summary>
         /// 根据主键获取班组信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.ProjectData_TeamGroup GetTeamGroupById(string teamGroupId)
         {
-            return new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup.FirstOrDefault(e => e.TeamGroupId == teamGroupId);
+            return Funs.DB.ProjectData_TeamGroup.FirstOrDefault(e => e.TeamGroupId == teamGroupId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void AddTeamGroup(Model.ProjectData_TeamGroup teamGroup)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectData_TeamGroup newTeamGroup = new Model.ProjectData_TeamGroup
             {
                 TeamGroupId = teamGroup.TeamGroupId,
@@ -49,7 +49,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void UpdateTeamGroup(Model.ProjectData_TeamGroup teamGroup)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectData_TeamGroup newTeamGroup = db.ProjectData_TeamGroup.FirstOrDefault(e => e.TeamGroupId == teamGroup.TeamGroupId);
             if (newTeamGroup != null)
             {
@@ -69,7 +69,7 @@ namespace BLL
         /// <param name="teamGroupId"></param>
         public static void DeleteTeamGroupById(string teamGroupId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.ProjectData_TeamGroup teamGroup = db.ProjectData_TeamGroup.FirstOrDefault(e => e.TeamGroupId == teamGroupId);
             if (teamGroup != null)
             {
@@ -85,8 +85,8 @@ namespace BLL
         /// <returns></returns>
         public static int getTeamGroupPersonNum(string teamGroupId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
-            return  (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
+            Model.SGGLDB db = Funs.DB;
+            return  (from x in Funs.DB.SitePerson_Person
              where x.TeamGroupId == teamGroupId && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
              select x).Count();
         }
@@ -98,7 +98,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.ProjectData_TeamGroup> GetTeamGroupList(string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup where x.ProjectId == projectId orderby x.TeamGroupCode select x).ToList();
+            return (from x in Funs.DB.ProjectData_TeamGroup where x.ProjectId == projectId orderby x.TeamGroupCode select x).ToList();
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace BLL
         /// <returns></returns>
         public static object GetTeamGroupListByUnitId(string projectId, string unitId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup where x.ProjectId == projectId && x.UnitId == unitId orderby x.TeamGroupCode select x).ToList();
+            return (from x in Funs.DB.ProjectData_TeamGroup where x.ProjectId == projectId && x.UnitId == unitId orderby x.TeamGroupCode select x).ToList();
         }
 
         #region 表下拉框
@@ -139,7 +139,7 @@ namespace BLL
         public static string GetTeamGroupNameByTeamGroupId(string TeamGroupId)
         {
             string name = string.Empty;
-            var TeamGroup = new Model.SGGLDB(Funs.ConnString).ProjectData_TeamGroup.FirstOrDefault(x => x.TeamGroupId == TeamGroupId);
+            var TeamGroup = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x => x.TeamGroupId == TeamGroupId);
             if (TeamGroup != null)
             {
                 name = TeamGroup.TeamGroupName;

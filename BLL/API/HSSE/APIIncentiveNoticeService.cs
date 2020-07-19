@@ -119,7 +119,7 @@ namespace BLL
         /// <returns></returns>
         public static void SaveIncentiveNotice(Model.IncentiveNoticeItem newItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_IncentiveNotice newIncentiveNotice = new Model.Check_IncentiveNotice
             {
                 IncentiveNoticeId = newItem.IncentiveNoticeId,

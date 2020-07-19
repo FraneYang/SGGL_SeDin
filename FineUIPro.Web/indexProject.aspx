@@ -175,7 +175,7 @@
                                     <div class="baseInfo">
                                         <ul class="layui-nav navSelect">
                                             <li class="layui-nav-item">
-                                                <f:Button runat="server" CssClass="bgbtntop" Text="25℃" IconFont="Cloud" ToolTip="2020年6月26日 太原 晴 25℃ 至 28℃"
+                                                <f:Button runat="server" CssClass="bgbtntop" Text="25℃" IconFont="Cloud" ToolTip="2020年7月20日 太原 晴 25℃ 至 28℃"
                                                     EnablePostBack="false" EnableDefaultState="true" EnableDefaultCorner="false" ID="Button1">
                                                 </f:Button>
                                             </li>

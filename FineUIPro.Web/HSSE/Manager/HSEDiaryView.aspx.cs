@@ -37,7 +37,7 @@
                 this.HSEDiaryId = Request.Params["HSEDiaryId"];
                 if (!string.IsNullOrEmpty(this.HSEDiaryId))
                 {
-                    var getHSEDiary = new Model.SGGLDB(Funs.ConnString).Project_HSEDiary.FirstOrDefault(x => x.HSEDiaryId == this.HSEDiaryId);
+                    var getHSEDiary = Funs.DB.Project_HSEDiary.FirstOrDefault(x => x.HSEDiaryId == this.HSEDiaryId);
                     if (getHSEDiary != null)
                     {                      
                         this.txtDiaryDate.Text = string.Format("{0:yyyy-MM-dd}", getHSEDiary.DiaryDate);

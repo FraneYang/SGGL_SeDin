@@ -14,7 +14,7 @@ namespace BLL
         /// <param name="WorkPackageId"></param>
         public static Model.WBS_ControlItemAndCycle GetControlItemAndCycleById(string ControlItemAndCycleId)
         {
-            return new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle.FirstOrDefault(e => e.ControlItemAndCycleId == ControlItemAndCycleId);
+            return Funs.DB.WBS_ControlItemAndCycle.FirstOrDefault(e => e.ControlItemAndCycleId == ControlItemAndCycleId);
         }
         public static Model.WBS_ControlItemAndCycle GetControlItemAndCycleByIdForApi(string ControlItemAndCycleId)
         {
@@ -30,12 +30,12 @@ namespace BLL
         /// <returns></returns>
         public static int GetControlItemAndCyclesByControlPoint(string controlPoint)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle where x.ControlPoint == controlPoint && x.IsApprove == true select x).Count();
+            return (from x in Funs.DB.WBS_ControlItemAndCycle where x.ControlPoint == controlPoint && x.IsApprove == true select x).Count();
         }
 
         public static List<Model.WBS_ControlItemAndCycle> GetTotalControlItemAndCycles(string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle where x.ProjectId == projectId && x.IsApprove == true && (x.ControlPoint.Contains("A") || x.ControlPoint.Contains("B")) orderby x.ControlItemAndCycleCode select x).ToList();
+            return (from x in Funs.DB.WBS_ControlItemAndCycle where x.ProjectId == projectId && x.IsApprove == true && (x.ControlPoint.Contains("A") || x.ControlPoint.Contains("B")) orderby x.ControlItemAndCycleCode select x).ToList();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace BLL
         /// <param name="ControlItemAndCycle"></param>
         public static void AddControlItemAndCycle(Model.WBS_ControlItemAndCycle ControlItemAndCycle)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemAndCycle newControlItemAndCycle = new Model.WBS_ControlItemAndCycle();
             //string newKeyID = SQLHelper.GetNewID(typeof(Model.WBS_ControlItemAndCycle));
             newControlItemAndCycle.ControlItemAndCycleId = ControlItemAndCycle.ControlItemAndCycleId;
@@ -77,7 +77,7 @@ namespace BLL
         /// <param name="ControlItemAndCycle"></param>
         public static void UpdateControlItemAndCycle(Model.WBS_ControlItemAndCycle ControlItemAndCycle)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemAndCycle newControlItemAndCycle = db.WBS_ControlItemAndCycle.First(e => e.ControlItemAndCycleId == ControlItemAndCycle.ControlItemAndCycleId);
             newControlItemAndCycle.ControlItemAndCycleCode = ControlItemAndCycle.ControlItemAndCycleCode;
             newControlItemAndCycle.WorkPackageId = ControlItemAndCycle.WorkPackageId;
@@ -108,7 +108,7 @@ namespace BLL
         /// <param name="ControlItemAndCycleId"></param>
         public static void DeleteControlItemAndCycle(string ControlItemAndCycleId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemAndCycle ControlItemAndCycle = db.WBS_ControlItemAndCycle.First(e => e.ControlItemAndCycleId == ControlItemAndCycleId);
             db.WBS_ControlItemAndCycle.DeleteOnSubmit(ControlItemAndCycle);
             db.SubmitChanges();
@@ -122,7 +122,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_ControlItemAndCycle> GetControlItemAndCyclesByInitControlItemCodeAndWorkPackageId(string initControlItemCode, string workPackageId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle where x.InitControlItemCode == initControlItemCode && x.WorkPackageId == workPackageId orderby x.ControlItemAndCycleCode descending select x).ToList();
+            return (from x in Funs.DB.WBS_ControlItemAndCycle where x.InitControlItemCode == initControlItemCode && x.WorkPackageId == workPackageId orderby x.ControlItemAndCycleCode descending select x).ToList();
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace BLL
         /// <param name="ControlItemAndCycleId"></param>
         public static void DeleteAllControlItemAndCycle(string WorkPackageId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             List<Model.WBS_ControlItemAndCycle> q = (from x in db.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId orderby x.ControlItemAndCycleCode select x).ToList();
             db.WBS_ControlItemAndCycle.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -143,7 +143,7 @@ namespace BLL
         /// <param name="ControlItemAndCycleId"></param>
         public static void DeleteAllControlItemAndCycleByUnitWorkId(string unitWorkId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             List<Model.WBS_ControlItemAndCycle> q = (from x in db.WBS_ControlItemAndCycle
                                                      join y in db.WBS_WorkPackage
                                                      on x.WorkPackageId equals y.WorkPackageId
@@ -160,7 +160,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_ControlItemAndCycle> GetListByWorkPackageId(string WorkPackageId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId orderby x.ControlItemAndCycleCode select x).ToList();
+            return (from x in Funs.DB.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId orderby x.ControlItemAndCycleCode select x).ToList();
         }
         public static List<Model.WBS_ControlItemAndCycle> GetListByWorkPackageIdForApi(string WorkPackageId)
         {
@@ -241,7 +241,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistControlItemAndCycleName(string workPackageId, string controlItemContent, string controlItemCode, string projectId)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle where x.WorkPackageId == workPackageId && x.ControlItemContent == controlItemContent && x.ControlItemAndCycleCode != controlItemCode && x.ProjectId == projectId select x;
+            var q = from x in Funs.DB.WBS_ControlItemAndCycle where x.WorkPackageId == workPackageId && x.ControlItemContent == controlItemContent && x.ControlItemAndCycleCode != controlItemCode && x.ProjectId == projectId select x;
             if (q.Count() > 0)
             {
                 return true;
@@ -260,7 +260,7 @@ namespace BLL
         public static string ConvertContronInfo(object ControlItemAndCycleId)
         {
             StringBuilder sbform = new StringBuilder();
-            var str = new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle.FirstOrDefault(e => e.ControlItemAndCycleId == ControlItemAndCycleId.ToString());
+            var str = Funs.DB.WBS_ControlItemAndCycle.FirstOrDefault(e => e.ControlItemAndCycleId == ControlItemAndCycleId.ToString());
             if (str != null)
             {
                 if (!string.IsNullOrWhiteSpace(str.HGForms))
@@ -290,8 +290,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_ControlItemAndCycle> GetControlItemAndCyclesByUnitWorkIdAndDate(string UnitWorkId, DateTime endDate)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle
-                    join y in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage
+            return (from x in Funs.DB.WBS_ControlItemAndCycle
+                    join y in Funs.DB.WBS_WorkPackage
                     on x.WorkPackageId equals y.WorkPackageId
                     where y.UnitWorkId == UnitWorkId
                     where x.IsApprove == true && x.Weights != null
@@ -307,8 +307,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_ControlItemAndCycle> GetControlItemAndCyclesByProjectIdAndDate(string projectId, DateTime endDate)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle
-                    join y in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage
+            return (from x in Funs.DB.WBS_ControlItemAndCycle
+                    join y in Funs.DB.WBS_WorkPackage
                     on x.WorkPackageId equals y.WorkPackageId
                     where y.ProjectId == projectId
                     where x.IsApprove == true && x.Weights != null
@@ -324,8 +324,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_ControlItemAndCycle> GetControlItemAndCyclesByUnitWorkIdsAndDate(string[] UnitWorkIds, DateTime endDate)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemAndCycle
-                    join y in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackage
+            return (from x in Funs.DB.WBS_ControlItemAndCycle
+                    join y in Funs.DB.WBS_WorkPackage
                     on x.WorkPackageId equals y.WorkPackageId
                     where UnitWorkIds.Contains(y.UnitWorkId)
                     where x.IsApprove == true && x.Weights != null

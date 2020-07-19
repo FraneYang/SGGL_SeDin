@@ -71,7 +71,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     {
                         this.txtDayNum.Text = monthReportDetail.DayNum.ToString();
                     }
-                    var viewMonthReportUnitDetail = from x in new Model.SGGLDB(Funs.ConnString).View_SitePerson_MonthReportUnitDetail
+                    var viewMonthReportUnitDetail = from x in Funs.DB.View_SitePerson_MonthReportUnitDetail
                                                     where x.MonthReportDetailId == monthReportDetail.MonthReportDetailId 
                                                     orderby x.WorkPostCode
                                                     select x;
@@ -99,7 +99,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 monthReportDetail.DayNum = Funs.GetNewDecimalOrZero(this.txtDayNum.Text.Trim());
                 int totalRealPersonNum = 0;
                 decimal totalPersonWorkTime = 0;
-                List<Model.SitePerson_MonthReportUnitDetail> monthReportUnitDetails = (from x in new Model.SGGLDB(Funs.ConnString).SitePerson_MonthReportUnitDetail where x.MonthReportDetailId == this.MonthReportDetailId select x).ToList();
+                List<Model.SitePerson_MonthReportUnitDetail> monthReportUnitDetails = (from x in Funs.DB.SitePerson_MonthReportUnitDetail where x.MonthReportDetailId == this.MonthReportDetailId select x).ToList();
                 
                 JArray mergedData = Grid1.GetMergedData();
                 foreach (JObject mergedRow in mergedData)
@@ -147,7 +147,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             decimal time = Funs.GetNewDecimalOrZero(this.txtWorkTime.Text.Trim());
             int dayNum = Funs.GetNewIntOrZero(this.txtDayNum.Text.Trim());
             List<Model.View_SitePerson_MonthReportUnitDetail> viwList = new List<Model.View_SitePerson_MonthReportUnitDetail>();
-            var viewDayReportUnitDetail = from x in new Model.SGGLDB(Funs.ConnString).View_SitePerson_MonthReportUnitDetail where x.MonthReportDetailId == this.MonthReportDetailId orderby x.WorkPostCode select x;           
+            var viewDayReportUnitDetail = from x in Funs.DB.View_SitePerson_MonthReportUnitDetail where x.MonthReportDetailId == this.MonthReportDetailId orderby x.WorkPostCode select x;           
 
             JArray mergedData = Grid1.GetMergedData();
             foreach (JObject mergedRow in mergedData)

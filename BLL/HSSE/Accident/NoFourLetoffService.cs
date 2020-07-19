@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class NoFourLetoffService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取四不放过
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Accident_NoFourLetoff GetNoFourLetoffById(string noFourLetoffId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Accident_NoFourLetoff.FirstOrDefault(e => e.NoFourLetoffId == noFourLetoffId);
+            return Funs.DB.Accident_NoFourLetoff.FirstOrDefault(e => e.NoFourLetoffId == noFourLetoffId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns>一个四不放过实体</returns>
         public static Model.Accident_NoFourLetoff GetNoFourLetoffByAccidentHandleId(string accidentHandleId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Accident_NoFourLetoff.FirstOrDefault(x => x.AccidentHandleId == accidentHandleId);
+            return Funs.DB.Accident_NoFourLetoff.FirstOrDefault(x => x.AccidentHandleId == accidentHandleId);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="noFourLetoff"></param>
         public static void AddNoFourLetoff(Model.Accident_NoFourLetoff noFourLetoff)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_NoFourLetoff newNoFourLetoff = new Model.Accident_NoFourLetoff
             {
                 NoFourLetoffId = noFourLetoff.NoFourLetoffId,
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="noFourLetoff"></param>
         public static void UpdateNoFourLetoff(Model.Accident_NoFourLetoff noFourLetoff)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_NoFourLetoff newNoFourLetoff = db.Accident_NoFourLetoff.FirstOrDefault(e => e.NoFourLetoffId == noFourLetoff.NoFourLetoffId);
             if (newNoFourLetoff != null)
             {
@@ -85,7 +85,7 @@ namespace BLL
         /// <param name="noFourLetoffId"></param>
         public static void DeleteNoFourLetoffByNoFourLetoffId(string noFourLetoffId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_NoFourLetoff noFourLetoff = db.Accident_NoFourLetoff.FirstOrDefault(e => e.NoFourLetoffId == noFourLetoffId);
             if (noFourLetoff != null)
             {
@@ -103,7 +103,7 @@ namespace BLL
         /// <param name="accidentHandleId"></param>
         public static void DeleteNoFourLetoffByAccidentHandleId(string accidentHandleId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Accident_NoFourLetoff where x.AccidentHandleId == accidentHandleId select x).ToList();
             if (q!=null)
             {

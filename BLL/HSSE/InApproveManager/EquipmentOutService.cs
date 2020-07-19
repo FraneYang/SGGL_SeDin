@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EquipmentOutService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取特种设备机具出场报批
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InApproveManager_EquipmentOut GetEquipmentOutById(string equipmentOutId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InApproveManager_EquipmentOut.FirstOrDefault(e => e.EquipmentOutId == equipmentOutId);
+            return Funs.DB.InApproveManager_EquipmentOut.FirstOrDefault(e => e.EquipmentOutId == equipmentOutId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="equipmentOut"></param>
         public static void AddEquipmentOut(Model.InApproveManager_EquipmentOut equipmentOut)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentOut newEquipmentOut = new Model.InApproveManager_EquipmentOut
             {
                 EquipmentOutId = equipmentOut.EquipmentOutId,
@@ -57,7 +57,7 @@ namespace BLL
         /// <param name="equipmentOut"></param>
         public static void UpdateEquipmentOut(Model.InApproveManager_EquipmentOut equipmentOut)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentOut newEquipmentOut = db.InApproveManager_EquipmentOut.FirstOrDefault(e => e.EquipmentOutId == equipmentOut.EquipmentOutId);
             if (newEquipmentOut != null)
             {
@@ -83,7 +83,7 @@ namespace BLL
         /// <param name="equipmentOutId"></param>
         public static void DeleteEquipmentOutById(string equipmentOutId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentOut equipmentOut = db.InApproveManager_EquipmentOut.FirstOrDefault(e => e.EquipmentOutId == equipmentOutId);
             if (equipmentOut != null)
             {

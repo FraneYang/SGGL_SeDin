@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.SitePerson_Person GetWelderById(string welderId)
         {
-            return new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.PersonId == welderId);
+            return Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == welderId);
         }
 
         ///// <summary>
@@ -42,8 +42,8 @@ namespace BLL
         //    newWelder.PhotoUrl = welder.PhotoUrl;
         //    newWelder.WorkPostId = welder.WorkPostId;
         //    newWelder.Isprint = welder.Isprint;
-        //    new Model.SGGLDB(Funs.ConnString).SitePerson_Person.InsertOnSubmit(newWelder);
-        //    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+        //    Funs.DB.SitePerson_Person.InsertOnSubmit(newWelder);
+        //    Funs.DB.SubmitChanges();
         //}
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace BLL
         /// <param name="welder"></param>
         public static void UpdateWelder(Model.SitePerson_Person welder)
         {
-            Model.SitePerson_Person newWelder = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(e => e.PersonId == welder.PersonId);
+            Model.SitePerson_Person newWelder = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == welder.PersonId);
             if (newWelder != null)
             {
                 newWelder.WelderCode = welder.WelderCode;
@@ -71,13 +71,13 @@ namespace BLL
                 newWelder.PhotoUrl = welder.PhotoUrl;
                 newWelder.WorkPostId = welder.WorkPostId;
                 newWelder.Isprint = welder.Isprint;
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
         public static void UpdateQRCode(string welderId,string qRCode)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_Person newWelder = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == welderId);
             if (newWelder != null)
             {
@@ -92,7 +92,7 @@ namespace BLL
         /// <param name="welderId"></param>
         public static void DeleteWelderById(string welderId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.SitePerson_Person welder = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == welderId);
             if (welder != null)
             {
@@ -110,7 +110,7 @@ namespace BLL
         public static bool IsExisWelderCode(string welderId, string welderCode)
         {
             bool isExitCode = false;
-            var q = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person where x.WelderCode == welderCode && x.PersonId != welderId select x;
+            var q = from x in Funs.DB.SitePerson_Person where x.WelderCode == welderCode && x.PersonId != welderId select x;
             if (q.Count() > 0)
             {
                 isExitCode = true;
@@ -126,8 +126,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SitePerson_Person> GetWelderByProjectIdAndUnitId(string projectId, string unitId)
         {
-            var users = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                        join y in new Model.SGGLDB(Funs.ConnString).Base_Project on x.ProjectId equals y.ProjectId
+            var users = from x in Funs.DB.SitePerson_Person
+                        join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId
                         where y.ProjectId == projectId && x.UnitId == unitId
                         select x;
             return users.ToList();
@@ -172,8 +172,8 @@ namespace BLL
         {
             dropName.DataValueField = "WelderCode";
             dropName.DataTextField = "WelderCode";
-            dropName.DataSource = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                                  join y in new Model.SGGLDB(Funs.ConnString).Base_Project on x.ProjectId equals y.ProjectId
+            dropName.DataSource = from x in Funs.DB.SitePerson_Person
+                                  join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId
                                   where y.ProjectId == projectId && x.UnitId == unitId
                                   select x; ;
             dropName.DataBind();

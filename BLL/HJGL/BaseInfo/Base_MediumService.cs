@@ -12,7 +12,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_Medium GetMediumByMediumId(string mediumId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_Medium.FirstOrDefault(e => e.MediumId == mediumId);
+            return Funs.DB.Base_Medium.FirstOrDefault(e => e.MediumId == mediumId);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace BLL
         /// <param name="medium"></param>
         public static void AddMedium(Model.Base_Medium medium)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Medium newMedium = new Base_Medium
             {
                 MediumId = medium.MediumId,
@@ -42,7 +42,7 @@ namespace BLL
         /// <param name="medium"></param>
         public static void UpdateMedium(Model.Base_Medium medium)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Medium newMedium = db.Base_Medium.FirstOrDefault(e => e.MediumId == medium.MediumId);
             if (newMedium != null)
             {
@@ -62,7 +62,7 @@ namespace BLL
         /// <param name="mediumId"></param>
         public static void DeleteMediumByMediumId(string mediumId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Medium delMedium = db.Base_Medium.FirstOrDefault(e => e.MediumId == mediumId);
             if (delMedium != null)
             {
@@ -81,14 +81,14 @@ namespace BLL
             List<Model.Base_Medium> list = null;
             if (isTestMedium == null)
             {
-                list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Medium
+                list = (from x in Funs.DB.Base_Medium
                         where x.ProjectId==ProjectId
                         orderby x.MediumCode
                         select x).ToList();
             }
             else
             {
-                list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Medium
+                list = (from x in Funs.DB.Base_Medium
                         where x.IsTestMedium == isTestMedium
                         orderby x.MediumCode
                         select x).ToList();

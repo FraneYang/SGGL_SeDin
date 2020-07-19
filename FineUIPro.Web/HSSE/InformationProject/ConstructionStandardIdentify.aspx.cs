@@ -51,7 +51,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             {
                 projectId = Request.Params["projectId"];
             }
-            List<Model.View_InformationProject_ConstructionStandardIdentify> q = (from x in new Model.SGGLDB(Funs.ConnString).View_InformationProject_ConstructionStandardIdentify
+            List<Model.View_InformationProject_ConstructionStandardIdentify> q = (from x in Funs.DB.View_InformationProject_ConstructionStandardIdentify
                                                                                   where x.ProjectId == projectId && x.State == BLL.Const.State_2
                                                                                   orderby x.IdentifyDate descending
                                                                                   select x).ToList();
@@ -75,7 +75,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
         private List<Model.View_InformationProject_ConstructionStandardIdentify> GetPagedDataTable(int pageIndex, int pageSize)
         {
             List<Model.View_InformationProject_ConstructionStandardIdentify> source = new List<Model.View_InformationProject_ConstructionStandardIdentify>();
-            source = (from x in new Model.SGGLDB(Funs.ConnString).View_InformationProject_ConstructionStandardIdentify
+            source = (from x in Funs.DB.View_InformationProject_ConstructionStandardIdentify
                       where x.ProjectId == this.CurrUser.LoginProjectId
                       orderby x.IdentifyDate descending
                       select x).ToList();

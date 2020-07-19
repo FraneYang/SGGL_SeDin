@@ -48,7 +48,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     {
                         if (q.Month != null && q.Year != null)
                         {
-                            string lastMonth = (from x in new Model.SGGLDB(Funs.ConnString).Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (q.Month - 1) select x.ConstText).FirstOrDefault();
+                            string lastMonth = (from x in Funs.DB.Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (q.Month - 1) select x.ConstText).FirstOrDefault();
                             lbLastMonth.Text = "(" + lastMonth + ")";
                             this.lblYearAndMonth.Text = "职工伤亡事故原因分析【" + q.Year.ToString() + "年" + q.Month.ToString() + "月】报表";
                         }

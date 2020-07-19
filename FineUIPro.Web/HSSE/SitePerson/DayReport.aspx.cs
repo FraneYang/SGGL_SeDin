@@ -429,7 +429,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             if (dayReportId != null)
             {
-                var q = from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail where y.DayReportId == dayReportId.ToString() select y;
+                var q = from y in Funs.DB.SitePerson_DayReportDetail where y.DayReportId == dayReportId.ToString() select y;
                 if (q.Count() > 0)
                 {
                      return q.Sum(x => x.PersonWorkTime ?? 0).ToString();
@@ -448,9 +448,9 @@ namespace FineUIPro.Web.HSSE.SitePerson
             if (compileDate != null)
             {                
                 DateTime date = Convert.ToDateTime(compileDate);
-                var q = from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail
+                var q = from y in Funs.DB.SitePerson_DayReportDetail
                         where
-                            (from z in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport
+                            (from z in Funs.DB.SitePerson_DayReport
                              where z.CompileDate <= date && z.CompileDate.Value.Year == date.Year
                              && z.ProjectId == this.CurrUser.LoginProjectId
                              select z.DayReportId).Contains(y.DayReportId)
@@ -473,7 +473,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             if (compileDate != null)
             {                
                 DateTime date = Convert.ToDateTime(compileDate);
-                var q = from y in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReportDetail where (from z in new Model.SGGLDB(Funs.ConnString).SitePerson_DayReport where z.CompileDate <= date && z.ProjectId == this.CurrUser.LoginProjectId select z.DayReportId).Contains(y.DayReportId) select y;
+                var q = from y in Funs.DB.SitePerson_DayReportDetail where (from z in Funs.DB.SitePerson_DayReport where z.CompileDate <= date && z.ProjectId == this.CurrUser.LoginProjectId select z.DayReportId).Contains(y.DayReportId) select y;
                 if (q.Count() > 0)
                 {
                     return q.Sum(x => x.PersonWorkTime ?? 0).ToString();

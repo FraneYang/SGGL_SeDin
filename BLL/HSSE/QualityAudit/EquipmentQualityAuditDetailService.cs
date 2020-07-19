@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EquipmentQualityAuditDetailService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取特种设备资质审查明细
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.QualityAudit_EquipmentQualityAuditDetail GetEquipmentQualityAuditDetailById(string auditDetailId)
         {
-            return new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQualityAuditDetail.FirstOrDefault(e => e.AuditDetailId == auditDetailId);
+            return Funs.DB.QualityAudit_EquipmentQualityAuditDetail.FirstOrDefault(e => e.AuditDetailId == auditDetailId);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.QualityAudit_EquipmentQualityAuditDetail> GetListByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQualityAuditDetail where x.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).ToList();
+            return (from x in Funs.DB.QualityAudit_EquipmentQualityAuditDetail where x.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).ToList();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BLL
         /// <returns></returns>
         public static int GetCountByDate(string projectId, DateTime startTime, DateTime endTime)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).QualityAudit_EquipmentQualityAuditDetail where x.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).ToList();
+            var q = (from x in Funs.DB.QualityAudit_EquipmentQualityAuditDetail where x.ProjectId == projectId && x.AuditDate >= startTime && x.AuditDate <= endTime orderby x.AuditDate select x).ToList();
             return q.Count();
         }
 
@@ -53,7 +53,7 @@ namespace BLL
         /// <param name="auditDetail"></param>
         public static void AddEquipmentQualityAuditDetail(Model.QualityAudit_EquipmentQualityAuditDetail auditDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentQualityAuditDetail newEquipmentQualityAuditDetail = new Model.QualityAudit_EquipmentQualityAuditDetail
             {
                 AuditDetailId = auditDetail.AuditDetailId,
@@ -74,7 +74,7 @@ namespace BLL
         /// <param name="auditDetail"></param>
         public static void UpdateEquipmentQualityAuditDetail(Model.QualityAudit_EquipmentQualityAuditDetail auditDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentQualityAuditDetail newEquipmentQualityAuditDetail = db.QualityAudit_EquipmentQualityAuditDetail.FirstOrDefault(e => e.AuditDetailId == auditDetail.AuditDetailId);
             if (newEquipmentQualityAuditDetail != null)
             {
@@ -92,7 +92,7 @@ namespace BLL
         /// <param name="auditDetailId"></param>
         public static void DeleteEquipmentQualityAuditDetailById(string auditDetailId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.QualityAudit_EquipmentQualityAuditDetail auditDetail = db.QualityAudit_EquipmentQualityAuditDetail.FirstOrDefault(e => e.AuditDetailId == auditDetailId);
             if (auditDetail != null)
             {

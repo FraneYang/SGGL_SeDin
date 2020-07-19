@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class AccidentHandleService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取HSSE事故（含未遂）处理
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Accident_AccidentHandle GetAccidentHandleById(string accidentHandleId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Accident_AccidentHandle.FirstOrDefault(e => e.AccidentHandleId == accidentHandleId);
+            return Funs.DB.Accident_AccidentHandle.FirstOrDefault(e => e.AccidentHandleId == accidentHandleId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="accidentHandle"></param>
         public static void AddAccidentHandle(Model.Accident_AccidentHandle accidentHandle)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentHandle newAccidentHandle = new Model.Accident_AccidentHandle
             {
                 AccidentHandleId = accidentHandle.AccidentHandleId,
@@ -61,7 +61,7 @@ namespace BLL
         /// <param name="accidentHandle"></param>
         public static void UpdateAccidentHandle(Model.Accident_AccidentHandle accidentHandle)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentHandle newAccidentHandle = db.Accident_AccidentHandle.FirstOrDefault(e => e.AccidentHandleId == accidentHandle.AccidentHandleId);
             if (newAccidentHandle != null)
             {
@@ -92,7 +92,7 @@ namespace BLL
         /// <param name="accidentHandleId"></param>
         public static void DeleteAccidentHandleById(string accidentHandleId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Accident_AccidentHandle accidentHandle = db.Accident_AccidentHandle.FirstOrDefault(e => e.AccidentHandleId == accidentHandleId);
             if (accidentHandle != null)
             {

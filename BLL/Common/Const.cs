@@ -246,6 +246,21 @@ namespace BLL
         public const string ProjectUnitType_0 = "0";
         #endregion
 
+        #region 角色类型
+        /// <summary>
+        /// 一般角色
+        /// </summary>
+        public const string RoleType_1 = "1";
+        /// <summary>
+        /// 管理角色
+        /// </summary>
+        public const string RoleType_2 = "2";
+        /// <summary>
+        /// 领导角色
+        /// </summary>
+        public const string RoleType_3 = "3";
+        #endregion
+
         #region 岗位类型
         /// <summary>
         /// 一般管理岗位

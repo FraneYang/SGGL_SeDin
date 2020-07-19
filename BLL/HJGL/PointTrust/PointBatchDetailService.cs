@@ -15,7 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Batch_PointBatchItem GetBatchDetailById(string batchDetailId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == batchDetailId);
+            return Funs.DB.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == batchDetailId);
         }
 
         /// <summary>
@@ -25,12 +25,12 @@ namespace BLL
         /// <returns></returns>
         public static Model.HJGL_Batch_PointBatchItem GetBatchDetailByJotId(string jotId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.WeldJointId == jotId);
+            return Funs.DB.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.WeldJointId == jotId);
         }
 
         public static List<Model.HJGL_Batch_PointBatchItem> GetBatchDetailByBatchId(string batchId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem.Where(e => e.PointBatchId == batchId).ToList();
+            return Funs.DB.HJGL_Batch_PointBatchItem.Where(e => e.PointBatchId == batchId).ToList();
         }
 
         public static List<Model.HJGL_Batch_PointBatchItem> GetGBatchDetailByBatchId(string batchId)
@@ -52,7 +52,7 @@ namespace BLL
         /// <param name="batchDetail"></param>
         public static void UpdatePointBatchDetail(Model.HJGL_Batch_PointBatchItem batchDetail)
         {
-            Model.HJGL_Batch_PointBatchItem newBatchDetail = new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == batchDetail.PointBatchItemId);
+            Model.HJGL_Batch_PointBatchItem newBatchDetail = Funs.DB.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == batchDetail.PointBatchItemId);
             if (newBatchDetail != null)
             {
                 newBatchDetail.PointBatchId = batchDetail.PointBatchId;
@@ -68,18 +68,18 @@ namespace BLL
                 newBatchDetail.IsPipelineFirst = batchDetail.IsPipelineFirst;
                 newBatchDetail.Remark = batchDetail.Remark;
 
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
         public static void UpdatePointBatchDetail(string pointBatchItemId, string pointState, DateTime? pointDate)
         {
-            Model.HJGL_Batch_PointBatchItem newBatchDetail = new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == pointBatchItemId);
+            Model.HJGL_Batch_PointBatchItem newBatchDetail = Funs.DB.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == pointBatchItemId);
             if (newBatchDetail != null)
             {
                 newBatchDetail.PointState = pointState;
                 newBatchDetail.PointDate = pointDate;
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -91,7 +91,7 @@ namespace BLL
         /// <param name="isAudit"></param>
         public static void PointAudit(string pointBatchItemId, bool isAudit)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Batch_PointBatchItem newPointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == pointBatchItemId);
             if (newPointBatchItem != null)
             {
@@ -110,7 +110,7 @@ namespace BLL
         /// <param name="welderFirst"></param>
         public static void UpdateWelderFirst(string pointBatchItemId, bool? welderFirst)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Batch_PointBatchItem newPointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == pointBatchItemId);
             newPointBatchItem.IsWelderFirst = welderFirst;
 
@@ -124,7 +124,7 @@ namespace BLL
         /// <param name="pipelineFirst"></param>
         public static void UpdatePipelineFirst(string pointBatchItemId, bool? pipelineFirst)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Batch_PointBatchItem newPointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == pointBatchItemId);
             newPointBatchItem.IsPipelineFirst = pipelineFirst;
 
@@ -138,7 +138,7 @@ namespace BLL
         /// <param name="checkId"></param>
         public static void DeleteBatchDetail(string jotId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Batch_PointBatchItem batch = db.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.WeldJointId == jotId);
             if (batch != null)
             {
@@ -167,8 +167,8 @@ namespace BLL
             newBatchDetail.IsWelderFirst = batchDetail.IsWelderFirst;
             newBatchDetail.IsPipelineFirst = batchDetail.IsPipelineFirst;
             newBatchDetail.Remark = batchDetail.Remark;
-            new Model.SGGLDB(Funs.ConnString).HJGL_Batch_PointBatchItem.InsertOnSubmit(newBatchDetail);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            Funs.DB.HJGL_Batch_PointBatchItem.InsertOnSubmit(newBatchDetail);
+            Funs.DB.SubmitChanges();
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace BLL
         /// <param name="batchDetailId"></param>
         public static void DeleteBatchDetailById(string batchDetailId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HJGL_Batch_PointBatchItem batch = db.HJGL_Batch_PointBatchItem.FirstOrDefault(e => e.PointBatchItemId == batchDetailId);
             if (batch != null)
             {

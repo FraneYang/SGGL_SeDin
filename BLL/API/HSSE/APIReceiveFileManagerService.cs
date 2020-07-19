@@ -122,7 +122,7 @@ namespace BLL
         /// <returns></returns>
         public static void SaveReceiveFileManager(Model.ReceiveFileManagerItem newItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             string menuId = string.Empty;
             Model.InformationProject_ReceiveFileManager newReceiveFile = new Model.InformationProject_ReceiveFileManager
             {

@@ -306,14 +306,14 @@ namespace FineUIPro.Web.AttachFile
             {
                 Session[sessionName] = new JArray();
                 Model.AttachFile sour = new Model.AttachFile();
-                sour = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
+                sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
                 //if (!string.IsNullOrEmpty(this.MenuId))
                 //{
-                //    sour = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
+                //    sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
                 //}
                 //else
                 //{
-                //    sour = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
+                //    sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
                 //}
 
                 if (sour != null)
@@ -405,7 +405,7 @@ namespace FineUIPro.Web.AttachFile
         /// <param name="attachUrl"></param>
         private void SaveData(string source, string attachUrl)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             List<Model.AttachFile> sour = new List<Model.AttachFile>();
             if (!string.IsNullOrEmpty(this.MenuId))
             {
@@ -503,7 +503,7 @@ namespace FineUIPro.Web.AttachFile
                                 }
                                 string oldSrouce = string.Empty;
                                 string FullPath = string.Empty;
-                                Model.AttachFile att = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == this.ToKeyId);
+                                Model.AttachFile att = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.ToKeyId);
                                 if (att != null && !string.IsNullOrEmpty(att.AttachUrl))
                                 {
                                     FullPath = att.AttachUrl + "," + attachUrl;

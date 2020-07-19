@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public class Check_CheckColligationDetailService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据综合检查id获取所有相关明细信息
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Check_CheckColligationDetail> GetCheckColligationDetailByCheckColligationId(string checkColligationId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Check_CheckColligationDetail where x.CheckColligationId == checkColligationId select x).ToList();
+            return (from x in Funs.DB.Check_CheckColligationDetail where x.CheckColligationId == checkColligationId select x).ToList();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_CheckColligationDetail GetCheckColligationDetailByCheckColligationDetailId(string checkColligationDetailId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Check_CheckColligationDetail.FirstOrDefault(e => e.CheckColligationDetailId == checkColligationDetailId);
+            return Funs.DB.Check_CheckColligationDetail.FirstOrDefault(e => e.CheckColligationDetailId == checkColligationDetailId);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="CheckColligationDetail"></param>
         public static void AddCheckColligationDetail(Model.Check_CheckColligationDetail CheckColligationDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Check_CheckColligationDetail newCheckColligationDetail = new Model.Check_CheckColligationDetail
             {
                 CheckColligationDetailId = CheckColligationDetail.CheckColligationDetailId,
@@ -71,7 +71,7 @@ namespace BLL
         /// <param name="CheckColligationDetail"></param>
         public static void UpdateCheckColligationDetail(Model.Check_CheckColligationDetail CheckColligationDetail)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var newCheckColligationDetail = db.Check_CheckColligationDetail.FirstOrDefault(x => x.CheckColligationDetailId == CheckColligationDetail.CheckColligationDetailId);
             if (newCheckColligationDetail != null)
             {
@@ -99,7 +99,7 @@ namespace BLL
         /// <param name="checkColligationId"></param>
         public static void DeleteCheckColligationDetails(string checkColligationId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.Check_CheckColligationDetail where x.CheckColligationId == checkColligationId select x).ToList();
             if (q != null)
             {
@@ -119,7 +119,7 @@ namespace BLL
         /// <param name="checkColligationDetailId"></param>
         public static void DeleteCheckColligationDetailById(string checkColligationDetailId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = db.Check_CheckColligationDetail.FirstOrDefault(x => x.CheckColligationDetailId == checkColligationDetailId);
             if (q != null)
             {

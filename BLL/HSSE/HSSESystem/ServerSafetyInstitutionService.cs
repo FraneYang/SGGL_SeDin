@@ -7,7 +7,7 @@ namespace BLL
     /// </summary>
     public static class ServerSafetyInstitutionService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取安全制度
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.HSSESystem_SafetyInstitution GetSafetyInstitutionById(string safetyInstitutionId)
         {
-            return new Model.SGGLDB(Funs.ConnString).HSSESystem_SafetyInstitution.FirstOrDefault(e => e.SafetyInstitutionId == safetyInstitutionId);
+            return Funs.DB.HSSESystem_SafetyInstitution.FirstOrDefault(e => e.SafetyInstitutionId == safetyInstitutionId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="SafetyInstitution"></param>
         public static void AddSafetyInstitution(Model.HSSESystem_SafetyInstitution safetyInstitution)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSESystem_SafetyInstitution newSafetyInstitution = new Model.HSSESystem_SafetyInstitution
             {
                 SafetyInstitutionId = safetyInstitution.SafetyInstitutionId,
@@ -45,7 +45,7 @@ namespace BLL
         /// <param name="safetyInstitution"></param>
         public static void UpdateSafetyInstitution(Model.HSSESystem_SafetyInstitution safetyInstitution)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSESystem_SafetyInstitution newSafetyInstitution = db.HSSESystem_SafetyInstitution.FirstOrDefault(e => e.SafetyInstitutionId == safetyInstitution.SafetyInstitutionId);
             if (newSafetyInstitution != null)
             {
@@ -64,7 +64,7 @@ namespace BLL
         /// <param name="safetyInstitutionId"></param>
         public static void DeleteSafetyInstitutionById(string safetyInstitutionId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.HSSESystem_SafetyInstitution safetyInstitution = db.HSSESystem_SafetyInstitution.FirstOrDefault(e => e.SafetyInstitutionId == safetyInstitutionId);
             if (safetyInstitution != null)
             {

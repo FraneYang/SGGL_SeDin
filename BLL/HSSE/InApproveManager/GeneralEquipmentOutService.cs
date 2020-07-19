@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class GeneralEquipmentOutService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取一般设备机具出场报批
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InApproveManager_GeneralEquipmentOut GetGeneralEquipmentOutById(string generalEquipmentOutId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InApproveManager_GeneralEquipmentOut.FirstOrDefault(e => e.GeneralEquipmentOutId == generalEquipmentOutId);
+            return Funs.DB.InApproveManager_GeneralEquipmentOut.FirstOrDefault(e => e.GeneralEquipmentOutId == generalEquipmentOutId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="generalEquipmentOut"></param>
         public static void AddGeneralEquipmentOut(Model.InApproveManager_GeneralEquipmentOut generalEquipmentOut)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_GeneralEquipmentOut newGeneralEquipmentOut = new Model.InApproveManager_GeneralEquipmentOut
             {
                 GeneralEquipmentOutId = generalEquipmentOut.GeneralEquipmentOutId,
@@ -58,7 +58,7 @@ namespace BLL
         /// <param name="generalEquipmentOut"></param>
         public static void UpdateGeneralEquipmentOut(Model.InApproveManager_GeneralEquipmentOut generalEquipmentOut)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_GeneralEquipmentOut newGeneralEquipmentOut = db.InApproveManager_GeneralEquipmentOut.FirstOrDefault(e => e.GeneralEquipmentOutId == generalEquipmentOut.GeneralEquipmentOutId);
             if (newGeneralEquipmentOut != null)
             {
@@ -85,7 +85,7 @@ namespace BLL
         /// <param name="generalEquipmentOutId"></param>
         public static void DeleteGeneralEquipmentOutById(string generalEquipmentOutId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_GeneralEquipmentOut generalEquipmentOut = db.InApproveManager_GeneralEquipmentOut.FirstOrDefault(e => e.GeneralEquipmentOutId == generalEquipmentOutId);
             if (generalEquipmentOut != null)
             {

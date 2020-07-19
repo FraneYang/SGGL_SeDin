@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ServerTestRecordService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取考试记录
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Test_TestRecord GetTestRecordById(string testRecordId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Test_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
+            return Funs.DB.Test_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
         }
         
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="Training"></param>
         public static void AddTestRecord(Model.Test_TestRecord testRecord)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Test_TestRecord newTestRecord = new Model.Test_TestRecord
             {
                 TestRecordId = testRecord.TestRecordId,
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="Training"></param>
         public static void UpdateTestRecord(Model.Test_TestRecord testRecord)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Test_TestRecord newTestRecord = db.Test_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecord.TestRecordId);
             if (newTestRecord != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeleteTestRecordByTestPlanId(string testPlanId)
         {
-            var deleteRecords = from x in new Model.SGGLDB(Funs.ConnString).Test_TestRecord where x.TestPlanId == testPlanId select x;
+            var deleteRecords = from x in Funs.DB.Test_TestRecord where x.TestPlanId == testPlanId select x;
             if (deleteRecords.Count() > 0)
             {
                 foreach (var item in deleteRecords)

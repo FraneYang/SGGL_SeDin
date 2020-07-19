@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.PTP_AItemEndCheck GetAItemEndCheckByID(string id)
         {
-            return new Model.SGGLDB(Funs.ConnString).PTP_AItemEndCheck.FirstOrDefault(x=>x.AItemCheckId == id);
+            return Funs.DB.PTP_AItemEndCheck.FirstOrDefault(x=>x.AItemCheckId == id);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PTP_AItemEndCheck> GetAItemEndCheckBypipelineId(string pipelineId)
         {
-            var view = from x in new Model.SGGLDB(Funs.ConnString).PTP_AItemEndCheck
+            var view = from x in Funs.DB.PTP_AItemEndCheck
                        where x.PipelineId == pipelineId
                        orderby x.CheckDate
                        select x;
@@ -39,7 +39,7 @@ namespace BLL
         /// <param name="aItemEndCheck">试压实体</param>
         public static void AddAItemEndCheck(Model.PTP_AItemEndCheck aItemEndCheck)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_AItemEndCheck newAItemEndCheck = new Model.PTP_AItemEndCheck();
             newAItemEndCheck.AItemCheckId = SQLHelper.GetNewID(typeof(Model.PTP_AItemEndCheck));
             newAItemEndCheck.PipelineId = aItemEndCheck.PipelineId;
@@ -58,7 +58,7 @@ namespace BLL
         /// <param name="weldReport">试压实体</param>
         public static void UpdateAItemEndCheck(Model.PTP_AItemEndCheck aItemEndCheck)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_AItemEndCheck newAItemEndCheck = db.PTP_AItemEndCheck.First(e => e.AItemCheckId == aItemEndCheck.AItemCheckId);
             newAItemEndCheck.PipelineId = aItemEndCheck.PipelineId;
             newAItemEndCheck.CheckMan = aItemEndCheck.CheckMan;
@@ -75,7 +75,7 @@ namespace BLL
         /// <param name="id">业务_A项尾工检查表主键</param>
         public static void DeleteAItemEndCheckByID(string aItemCheckId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.PTP_AItemEndCheck newAItemEndCheck = db.PTP_AItemEndCheck.First(e => e.AItemCheckId == aItemCheckId);
             db.PTP_AItemEndCheck.DeleteOnSubmit(newAItemEndCheck);
             db.SubmitChanges();
@@ -88,7 +88,7 @@ namespace BLL
         /// <returns></returns>
         public static bool IsExistAItemEndCheck(string pipelineId)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).PTP_AItemEndCheck where x.PipelineId == pipelineId select x;
+            var q = from x in Funs.DB.PTP_AItemEndCheck where x.PipelineId == pipelineId select x;
             if (q.Count() > 0)
             {
                 return true;

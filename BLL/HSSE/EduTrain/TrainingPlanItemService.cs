@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TrainingPlanItemService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据培训计划明细表Id获取所有相关明细信息
@@ -58,7 +58,7 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeletePlanItemByPlanId(string planId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var planItem = (from x in db.Training_PlanItem where x.PlanId == planId select x).ToList();
             if (planItem.Count() > 0)
             {                

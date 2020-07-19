@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class EquipmentInService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取特种设备机具入场报批
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InApproveManager_EquipmentIn GetEquipmentInById(string equipmentInId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InApproveManager_EquipmentIn.FirstOrDefault(e => e.EquipmentInId == equipmentInId);
+            return Funs.DB.InApproveManager_EquipmentIn.FirstOrDefault(e => e.EquipmentInId == equipmentInId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="equipmentIn"></param>
         public static void AddEquipmentIn(Model.InApproveManager_EquipmentIn equipmentIn)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentIn newEquipmenteIn = new Model.InApproveManager_EquipmentIn
             {
                 EquipmentInId = equipmentIn.EquipmentInId,
@@ -55,7 +55,7 @@ namespace BLL
         /// <param name="equipmentIn"></param>
         public static void UpdateEquipmentIn(Model.InApproveManager_EquipmentIn equipmentIn)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentIn newEquipmenteIn = db.InApproveManager_EquipmentIn.FirstOrDefault(e => e.EquipmentInId == equipmentIn.EquipmentInId);
             if (newEquipmenteIn != null)
             {
@@ -79,7 +79,7 @@ namespace BLL
         /// <param name="equipmentInId"></param>
         public static void DeleteEquipmentInById(string equipmentInId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InApproveManager_EquipmentIn equipmentIn = db.InApproveManager_EquipmentIn.FirstOrDefault(e => e.EquipmentInId == equipmentInId);
             if (equipmentIn != null)
             {

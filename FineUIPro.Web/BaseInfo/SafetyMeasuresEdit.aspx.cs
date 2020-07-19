@@ -122,13 +122,13 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).Base_SafetyMeasures.FirstOrDefault(x => x.SafetyMeasures == this.txtSafetyMeasures.Text.Trim() && (x.SafetyMeasuresId != this.SafetyMeasuresId || (this.SafetyMeasuresId == null && x.SafetyMeasuresId != null)));
+            var q = Funs.DB.Base_SafetyMeasures.FirstOrDefault(x => x.SafetyMeasures == this.txtSafetyMeasures.Text.Trim() && (x.SafetyMeasuresId != this.SafetyMeasuresId || (this.SafetyMeasuresId == null && x.SafetyMeasuresId != null)));
             if (q != null)
             {
                 ShowNotify("输入的名称已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = new Model.SGGLDB(Funs.ConnString).Base_SafetyMeasures.FirstOrDefault(x => x.SortIndex.ToString() == this.txtSortIndex.Text.Trim() && (x.SafetyMeasuresId != this.SafetyMeasuresId || (this.SafetyMeasuresId == null && x.SafetyMeasuresId != null)));
+            var q2 = Funs.DB.Base_SafetyMeasures.FirstOrDefault(x => x.SortIndex.ToString() == this.txtSortIndex.Text.Trim() && (x.SafetyMeasuresId != this.SafetyMeasuresId || (this.SafetyMeasuresId == null && x.SafetyMeasuresId != null)));
             if (q2 != null)
             {
                 ShowNotify("输入的编号已存在！", MessageBoxIcon.Warning);

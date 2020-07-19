@@ -96,7 +96,7 @@ namespace BLL
         /// <returns></returns>
         public static void SaveConstructSolution(Model.ConstructSolutionItem newItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Solution_ConstructSolution newConstructSolution = new Model.Solution_ConstructSolution
             {
                 ConstructSolutionId = newItem.ConstructSolutionId,

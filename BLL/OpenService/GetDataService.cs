@@ -67,7 +67,7 @@ namespace BLL
         /// </summary>
         public static void UpdateTestPlanStates()
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var getTestPlans = from x in db.Training_TestPlan
                                where x.States == Const.State_2 && x.TestEndTime.AddMinutes(x.Duration) < DateTime.Now
                                select x;
@@ -100,7 +100,7 @@ namespace BLL
         /// </summary>
         public static void UpdateServerTestPlanStates()
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
 
             var getTrainingTestRecords = from x in db.Test_TestRecord
                                          where x.TestStartTime.Value.AddMinutes(x.Duration.Value) < DateTime.Now

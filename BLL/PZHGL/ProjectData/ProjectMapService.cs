@@ -7,7 +7,7 @@ namespace BLL
     /// </summary>
     public static class ProjectMapService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取项目地图
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.InformationProject_ProjectMap GetProjectMapById(string ProjectMapId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_ProjectMap.FirstOrDefault(e => e.ProjectMapId == ProjectMapId);
+            return Funs.DB.InformationProject_ProjectMap.FirstOrDefault(e => e.ProjectMapId == ProjectMapId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="personQuality">地图实体</param>
         public static void AddProjectMap(Model.InformationProject_ProjectMap ProjectMap)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_ProjectMap newProjectMap = new Model.InformationProject_ProjectMap
             {
                 ProjectMapId = ProjectMap.ProjectMapId,
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="ProjectMap"></param>
         public static void UpdateProjectMap(Model.InformationProject_ProjectMap ProjectMap)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_ProjectMap newProjectMap = db.InformationProject_ProjectMap.FirstOrDefault(e => e.ProjectMapId == ProjectMap.ProjectMapId);
             if (newProjectMap != null)
             {
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="ProjectMapId"></param>
         public static void deleteProjectMapById(string ProjectMapId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_ProjectMap ProjectMap = db.InformationProject_ProjectMap.FirstOrDefault(e => e.ProjectMapId == ProjectMapId);
             if (ProjectMap != null)
             {

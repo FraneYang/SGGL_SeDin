@@ -15,7 +15,7 @@ namespace BLL
         /// <param name="UnitWork"></param>
         public static void AddWorkPackageInit(Model.WBS_WorkPackageInit workPack)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_WorkPackageInit newPack = new Model.WBS_WorkPackageInit();
             newPack.WorkPackageCode = workPack.WorkPackageCode;
             newPack.SuperWorkPack = workPack.SuperWorkPack;
@@ -33,7 +33,7 @@ namespace BLL
         /// <param name="UnitWork"></param>
         public static void UpdateWorkPackageInit(Model.WBS_WorkPackageInit workPack)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_WorkPackageInit newPack = db.WBS_WorkPackageInit.First(e => e.WorkPackageCode == workPack.WorkPackageCode);
             newPack.IsChild = workPack.IsChild;
             newPack.PackageContent = workPack.PackageContent;
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="UnitWorkId"></param>
         public static void DeleteWorkPackageInit(string workPackageCode)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_WorkPackageInit delWorkPack = db.WBS_WorkPackageInit.First(e => e.WorkPackageCode == workPackageCode);
             db.WBS_WorkPackageInit.DeleteOnSubmit(delWorkPack);
             db.SubmitChanges();
@@ -60,7 +60,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistWorkPackageInitName(string supWorkPack, string packageContent, string workPackageCode)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.SuperWorkPack == supWorkPack && x.PackageContent == packageContent && x.WorkPackageCode != workPackageCode select x;
+            var q = from x in Funs.DB.WBS_WorkPackageInit where x.SuperWorkPack == supWorkPack && x.PackageContent == packageContent && x.WorkPackageCode != workPackageCode select x;
             if (q.Count() > 0)
             {
                 return true;
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.WBS_WorkPackageInit GetWorkPackageInitByWorkPackageCode(string workPackageCode)
         {
-            return new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit.FirstOrDefault(x => x.WorkPackageCode == workPackageCode);
+            return Funs.DB.WBS_WorkPackageInit.FirstOrDefault(x => x.WorkPackageCode == workPackageCode);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackageInit> GetWorkPackageInitsBySuperWorkPack(string workPackageCode)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).WBS_WorkPackageInit where x.SuperWorkPack == workPackageCode select x).ToList();
+            return (from x in Funs.DB.WBS_WorkPackageInit where x.SuperWorkPack == workPackageCode select x).ToList();
         }
     }
 }

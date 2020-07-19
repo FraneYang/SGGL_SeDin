@@ -160,7 +160,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = new Model.SGGLDB(Funs.ConnString).EduTrain_AccidentCaseItem.FirstOrDefault(x => x.IsPass == true && x.AccidentCaseId == this.AccidentCaseId && x.AccidentName == this.txtAccidentName.Text.Trim() && (x.AccidentCaseItemId != this.AccidentCaseItemId || (this.AccidentCaseItemId == null && x.AccidentCaseItemId != null)));
+            var q = Funs.DB.EduTrain_AccidentCaseItem.FirstOrDefault(x => x.IsPass == true && x.AccidentCaseId == this.AccidentCaseId && x.AccidentName == this.txtAccidentName.Text.Trim() && (x.AccidentCaseItemId != this.AccidentCaseItemId || (this.AccidentCaseItemId == null && x.AccidentCaseItemId != null)));
             if (q != null)
             {
                 ShowNotify("输入的事故名称已存在！", MessageBoxIcon.Warning);

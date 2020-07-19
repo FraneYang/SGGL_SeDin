@@ -67,7 +67,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                 this.HazardRegisterId = Request.Params["HazardRegisterId"];
                 if (!string.IsNullOrEmpty(this.HazardRegisterId))
                 {
-                    Model.View_Hazard_HazardRegister registration = (from x in new Model.SGGLDB(Funs.ConnString).View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
+                    Model.View_Hazard_HazardRegister registration = (from x in Funs.DB.View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
                     if (registration != null)
                     {
                         this.txtWorkAreaName.Text = registration.WorkAreaName;
@@ -85,7 +85,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                         this.RectificationImageUrl = registration.RectificationImageUrl;
                         this.divImageUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.ImageUrl);
                         this.divRectificationImageUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.RectificationImageUrl);
-                        //var punishRecords = (from x in new Model.SGGLDB(Funs.ConnString).View_Common_PunishRecord
+                        //var punishRecords = (from x in Funs.DB.View_Common_PunishRecord
                         //                     where x.HazardRegisterId == this.HazardRegisterId
                         //                     orderby x.PunishDate descending
                         //                     select x).ToList();

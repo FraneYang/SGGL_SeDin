@@ -14,7 +14,7 @@ namespace BLL
         /// <param name="WorkPackageId"></param>
         public static List<Model.WBS_ControlItemProject> GetItemsByWorkPackageCode(string workPackageCode, string projectId)
         {
-            var q = (from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemProject where x.WorkPackageCode == workPackageCode && x.ProjectId == projectId orderby x.ControlItemCode select x).ToList();
+            var q = (from x in Funs.DB.WBS_ControlItemProject where x.WorkPackageCode == workPackageCode && x.ProjectId == projectId orderby x.ControlItemCode select x).ToList();
             if (q.Count > 0)
             {
                 return q;
@@ -31,7 +31,7 @@ namespace BLL
         /// <param name="controlItemCode"></param>
         public static Model.WBS_ControlItemProject GetControlItemProjectByCode(string controlItemCode, string projectId)
         {
-            return new Model.SGGLDB(Funs.ConnString).WBS_ControlItemProject.FirstOrDefault(e => e.ControlItemCode == controlItemCode && e.ProjectId == projectId);
+            return Funs.DB.WBS_ControlItemProject.FirstOrDefault(e => e.ControlItemCode == controlItemCode && e.ProjectId == projectId);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace BLL
         /// <param name="ControlItemAndCycle"></param>
         public static void AddControlItemProject(Model.WBS_ControlItemProject controlItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemProject newControlItem = new Model.WBS_ControlItemProject();
 
             newControlItem.ControlItemCode = controlItem.ControlItemCode;
@@ -66,7 +66,7 @@ namespace BLL
         /// <param name="controlItem"></param>
         public static void UpdateControlItemProject(Model.WBS_ControlItemProject controlItem)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemProject newControlItem = db.WBS_ControlItemProject.First(e => e.ControlItemCode == controlItem.ControlItemCode);
 
             newControlItem.WorkPackageCode = controlItem.WorkPackageCode;
@@ -89,7 +89,7 @@ namespace BLL
         /// <param name="workPackageCode"></param>
         public static void DeleteAllControlItemProject(string workPackageCode, string projectId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             List<Model.WBS_ControlItemProject> q = (from x in db.WBS_ControlItemProject where x.WorkPackageCode == workPackageCode && x.ProjectId == projectId orderby x.ControlItemCode select x).ToList();
             db.WBS_ControlItemProject.DeleteAllOnSubmit(q);
             db.SubmitChanges();
@@ -101,7 +101,7 @@ namespace BLL
         /// <param name="controlItemCode"></param>
         public static void DeleteControlItemProject(string controlItemCode, string projectId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.WBS_ControlItemProject controlItem = db.WBS_ControlItemProject.First(e => e.ControlItemCode == controlItemCode && e.ProjectId == projectId);
             db.WBS_ControlItemProject.DeleteOnSubmit(controlItem);
             db.SubmitChanges();
@@ -114,7 +114,7 @@ namespace BLL
         /// <returns>true-存在，false-不存在</returns>
         public static bool IsExistControlItemProjectName(string workPackageCode, string controlItemContent, string controlItemCode, string projectId)
         {
-            var q = from x in new Model.SGGLDB(Funs.ConnString).WBS_ControlItemProject where x.WorkPackageCode == workPackageCode && x.ControlItemContent == controlItemContent && x.ControlItemCode != controlItemCode && x.ProjectId == projectId select x;
+            var q = from x in Funs.DB.WBS_ControlItemProject where x.WorkPackageCode == workPackageCode && x.ControlItemContent == controlItemContent && x.ControlItemCode != controlItemCode && x.ProjectId == projectId select x;
             if (q.Count() > 0)
             {
                 return true;

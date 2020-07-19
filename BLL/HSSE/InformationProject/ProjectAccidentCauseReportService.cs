@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class ProjectAccidentCauseReportService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 职工伤亡事故原因分析报表
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns>职工伤亡事故原因分析报表</returns>
         public static Model.InformationProject_AccidentCauseReport GetAccidentCauseReportById(string accidentCauseReportId)
         {
-            return new Model.SGGLDB(Funs.ConnString).InformationProject_AccidentCauseReport.FirstOrDefault(e => e.AccidentCauseReportId == accidentCauseReportId);
+            return Funs.DB.InformationProject_AccidentCauseReport.FirstOrDefault(e => e.AccidentCauseReportId == accidentCauseReportId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="AccidentCauseReport">职工伤亡事故原因分析报表实体</param>
         public static void AddAccidentCauseReport(Model.InformationProject_AccidentCauseReport AccidentCauseReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_AccidentCauseReport newAccidentCauseReport = new Model.InformationProject_AccidentCauseReport
             {
                 AccidentCauseReportId = AccidentCauseReport.AccidentCauseReportId,
@@ -68,7 +68,7 @@ namespace BLL
         /// <param name="AccidentCauseReport">职工伤亡事故原因分析报表实体</param>
         public static void UpdateAccidentCauseReport(Model.InformationProject_AccidentCauseReport AccidentCauseReport)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_AccidentCauseReport newAccidentCauseReport = db.InformationProject_AccidentCauseReport.FirstOrDefault(e => e.AccidentCauseReportId == AccidentCauseReport.AccidentCauseReportId);
             if (newAccidentCauseReport != null)
             {
@@ -106,7 +106,7 @@ namespace BLL
         /// <param name="AccidentCauseReportId"></param>
         public static void DeleteAccidentCauseReportById(string AccidentCauseReportId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.InformationProject_AccidentCauseReport newAccidentCauseReport = db.InformationProject_AccidentCauseReport.FirstOrDefault(e => e.AccidentCauseReportId == AccidentCauseReportId);
             if (newAccidentCauseReport != null)
             {

@@ -200,31 +200,31 @@ namespace FineUIPro.Web.HSSE.Hazard
             {
                 if (parentId == "0")
                 {
-                    hazardListType = (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == parentId && x.WorkStage.Contains(nodeId) orderby x.HazardListTypeCode select x).ToList();
+                    hazardListType = (from x in Funs.DB.Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == parentId && x.WorkStage.Contains(nodeId) orderby x.HazardListTypeCode select x).ToList();
                     if (hazardListType.Count() == 0)
                     {
-                        hazardListType = (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == parentId && x.WorkStage == null orderby x.HazardListTypeCode select x).ToList();
+                        hazardListType = (from x in Funs.DB.Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == parentId && x.WorkStage == null orderby x.HazardListTypeCode select x).ToList();
                     }
                 }
                 else
                 {
-                    hazardListType = (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == parentId orderby x.HazardListTypeCode select x).ToList();
+                    hazardListType = (from x in Funs.DB.Technique_HazardListType where x.IsCompany == true && x.SupHazardListTypeId == parentId orderby x.HazardListTypeCode select x).ToList();
                 }
             }
             else
             {
                 if (parentId == "0")
                 {
-                    hazardListType = (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where (x.IsCompany == false || x.IsCompany == null) && x.SupHazardListTypeId == parentId && x.WorkStage.Contains(nodeId) orderby x.HazardListTypeCode select x).ToList();
+                    hazardListType = (from x in Funs.DB.Technique_HazardListType where (x.IsCompany == false || x.IsCompany == null) && x.SupHazardListTypeId == parentId && x.WorkStage.Contains(nodeId) orderby x.HazardListTypeCode select x).ToList();
                     if (hazardListType == null)
                     {
-                        hazardListType = (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where (x.IsCompany == false || x.IsCompany == null) && x.SupHazardListTypeId == parentId && x.WorkStage == null orderby x.HazardListTypeCode select x).ToList();
+                        hazardListType = (from x in Funs.DB.Technique_HazardListType where (x.IsCompany == false || x.IsCompany == null) && x.SupHazardListTypeId == parentId && x.WorkStage == null orderby x.HazardListTypeCode select x).ToList();
                     }
 
                 }
                 else
                 {
-                    hazardListType = (from x in new Model.SGGLDB(Funs.ConnString).Technique_HazardListType where (x.IsCompany == false || x.IsCompany == null) && x.SupHazardListTypeId == parentId orderby x.HazardListTypeCode select x).ToList();
+                    hazardListType = (from x in Funs.DB.Technique_HazardListType where (x.IsCompany == false || x.IsCompany == null) && x.SupHazardListTypeId == parentId orderby x.HazardListTypeCode select x).ToList();
                 }
             }
             return hazardListType;

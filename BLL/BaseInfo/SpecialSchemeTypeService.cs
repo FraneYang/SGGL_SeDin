@@ -7,7 +7,7 @@ namespace BLL
 {
     public static class SpecialSchemeTypeService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取信息
@@ -16,7 +16,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_SpecialSchemeType GetSpecialSchemeTypeById(string specialSchemeTypeId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_SpecialSchemeType.FirstOrDefault(e => e.SpecialSchemeTypeId == specialSchemeTypeId);
+            return Funs.DB.Base_SpecialSchemeType.FirstOrDefault(e => e.SpecialSchemeTypeId == specialSchemeTypeId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BLL
         /// <param name="?"></param>
         public static void AddSpecialSchemeType(Model.Base_SpecialSchemeType specialSchemeType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_SpecialSchemeType newSpecialSchemeType = new Model.Base_SpecialSchemeType
             {
                 SpecialSchemeTypeId = specialSchemeType.SpecialSchemeTypeId,
@@ -44,7 +44,7 @@ namespace BLL
         /// <param name="teamGroup"></param>
         public static void UpdateSpecialSchemeType(Model.Base_SpecialSchemeType specialSchemeType)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_SpecialSchemeType newSpecialSchemeType = db.Base_SpecialSchemeType.FirstOrDefault(e => e.SpecialSchemeTypeId == specialSchemeType.SpecialSchemeTypeId);
             if (newSpecialSchemeType != null)
             {
@@ -61,7 +61,7 @@ namespace BLL
         /// <param name="specialSchemeTypeId"></param>
         public static void DeleteSpecialSchemeTypeById(string specialSchemeTypeId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_SpecialSchemeType specialSchemeType = db.Base_SpecialSchemeType.FirstOrDefault(e => e.SpecialSchemeTypeId == specialSchemeTypeId);
             {
                 db.Base_SpecialSchemeType.DeleteOnSubmit(specialSchemeType);
@@ -75,7 +75,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_SpecialSchemeType> GetSpecialSchemeTypeList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_SpecialSchemeType orderby x.SpecialSchemeTypeCode select x).ToList();
+            var list = (from x in Funs.DB.Base_SpecialSchemeType orderby x.SpecialSchemeTypeCode select x).ToList();
             return list;
         }
 
@@ -98,7 +98,7 @@ namespace BLL
 
         public static Model.Base_SpecialSchemeType GetSpecialSchemeTypeByName(string name)
         {
-                return new Model.SGGLDB(Funs.ConnString).Base_SpecialSchemeType.FirstOrDefault(e => e.SpecialSchemeTypeName == name);
+                return Funs.DB.Base_SpecialSchemeType.FirstOrDefault(e => e.SpecialSchemeTypeName == name);
         }
     }
 }

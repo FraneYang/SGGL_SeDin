@@ -424,7 +424,7 @@ namespace FineUIPro.Web.HSSE.Check
                 punishNotice.SignMan = this.drpSignPerson.SelectedValue;
             }
             punishNotice.Currency = this.txtCurrency.Text.Trim();
-            var getUpdate = new Model.SGGLDB(Funs.ConnString).Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == PunishNoticeId);
+            var getUpdate = Funs.DB.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == PunishNoticeId);
             if (type == BLL.Const.BtnSubmit)
             {
                 punishNotice.PunishStates = Convert.ToInt32(Convert.ToInt32(State) + 1).ToString();
@@ -457,8 +457,8 @@ namespace FineUIPro.Web.HSSE.Check
                 else {
                     punishNotice.PunishNoticeId = this.hdPunishNoticeId.Text;
                 }
-                new Model.SGGLDB(Funs.ConnString).Check_PunishNotice.InsertOnSubmit(punishNotice);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Check_PunishNotice.InsertOnSubmit(punishNotice);
+                Funs.DB.SubmitChanges();
                 CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectPunishNoticeMenuId, punishNotice.ProjectId, punishNotice.UnitId, punishNotice.PunishNoticeId, punishNotice.CompileDate);
                 this.PunishNoticeId = punishNotice.PunishNoticeId;
                 saveNoticesItemDetail();
@@ -490,7 +490,7 @@ namespace FineUIPro.Web.HSSE.Check
                         getUpdate.PunishStates = "1";
                         SaveOperate("总包安全工程师重新下发处罚单", 1);
                     }
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.SubmitChanges();
                     saveNoticesItemDetail();
                 }
                 else if (punishNotice.PunishStates == BLL.Const.State_2) ////【签发】总包安全经理
@@ -527,7 +527,7 @@ namespace FineUIPro.Web.HSSE.Check
                         SaveOperate("总包安全经理签发", 1);
                     }
 
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.SubmitChanges();
 
                 }
                 else if (punishNotice.PunishStates == BLL.Const.State_3) ////【批准】总包项目经理
@@ -553,18 +553,18 @@ namespace FineUIPro.Web.HSSE.Check
                         }
                         SaveOperate("总包项目经理经理批准", 1);
                     }
-                    new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                    Funs.DB.SubmitChanges();
                 }
                 else if (punishNotice.PunishStates == BLL.Const.State_4)
                 {
                     Model.AttachFile sour = new Model.AttachFile();
-                    sour = new Model.SGGLDB(Funs.ConnString).AttachFile.FirstOrDefault(x => x.ToKeyId == getUpdate.PunishNoticeId && x.MenuId == Const.ProjectPunishNoticeMenuId);
+                    sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == getUpdate.PunishNoticeId && x.MenuId == Const.ProjectPunishNoticeMenuId);
                     if (sour != null)
                     {
                         getUpdate.DutyPersonDate = DateTime.Now;
                         getUpdate.States = Const.State_2;
                         getUpdate.PunishStates = "4";
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                         SaveOperate("施工分包单位回执", 1);
                     }
                     else
@@ -602,8 +602,8 @@ namespace FineUIPro.Web.HSSE.Check
                     OperateTime = DateTime.Now,
                     IsAgree = true
                 };
-                new Model.SGGLDB(Funs.ConnString).Check_PunishNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Check_PunishNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
+                Funs.DB.SubmitChanges();
             }
             else
             {
@@ -617,8 +617,8 @@ namespace FineUIPro.Web.HSSE.Check
                     Opinion = this.reason.Text,
                     IsAgree = false
                 };
-                new Model.SGGLDB(Funs.ConnString).Check_PunishNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.Check_PunishNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
+                Funs.DB.SubmitChanges();
             }
 
         }
@@ -725,7 +725,7 @@ namespace FineUIPro.Web.HSSE.Check
                     string PunishMoney = values.Value<string>("PunishMoney");
                     AspNet.Label lblNumber = (AspNet.Label)Grid1.Rows[i].FindControl("lblNumber");
                     string SortIndex = lblNumber.Text.Trim();
-                    Model.Check_PunishNoticeItem PunishNoticeItem = new Model.SGGLDB(Funs.ConnString).Check_PunishNoticeItem.FirstOrDefault(e => e.PunishNoticeItemId == PunishNoticeItemId);
+                    Model.Check_PunishNoticeItem PunishNoticeItem = Funs.DB.Check_PunishNoticeItem.FirstOrDefault(e => e.PunishNoticeItemId == PunishNoticeItemId);
                     if (PunishNoticeItem != null)
                     {
                         PunishNoticeItem.PunishNoticeItemId = PunishNoticeItemId;
@@ -733,7 +733,7 @@ namespace FineUIPro.Web.HSSE.Check
                         PunishNoticeItem.PunishContent = PunishContent;
                         PunishNoticeItem.PunishMoney = decimal.Round(Funs.GetNewDecimalOrZero(PunishMoney),2);
                         PunishNoticeItem.SortIndex = Funs.GetNewInt(SortIndex);
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.SubmitChanges();
                     }
                     else
                     {
@@ -744,8 +744,8 @@ namespace FineUIPro.Web.HSSE.Check
                         item.PunishContent = PunishContent;
                         item.PunishMoney = decimal.Round(Funs.GetNewDecimalOrZero(PunishMoney),2);
                         item.SortIndex = Funs.GetNewInt(SortIndex);
-                        new Model.SGGLDB(Funs.ConnString).Check_PunishNoticeItem.InsertOnSubmit(item);
-                        new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                        Funs.DB.Check_PunishNoticeItem.InsertOnSubmit(item);
+                        Funs.DB.SubmitChanges();
                     }
                 }
 

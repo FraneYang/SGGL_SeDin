@@ -17,7 +17,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.ActionPlan_ActionPlanList GetActionPlanListById(string actionPlanListId)
         {
-            return new Model.SGGLDB(Funs.ConnString).ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanListId);
+            return Funs.DB.ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanListId);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BLL
         /// <returns>实施计划集合</returns>
         public static List<Model.ActionPlan_ActionPlanList> GetActionPlanListsByDate(DateTime startTime, DateTime endTime, string projectId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).ActionPlan_ActionPlanList where x.CompileDate >= startTime && x.CompileDate <= endTime && x.ProjectId == projectId orderby x.CompileDate select x).ToList();
+            return (from x in Funs.DB.ActionPlan_ActionPlanList where x.CompileDate >= startTime && x.CompileDate <= endTime && x.ProjectId == projectId orderby x.CompileDate select x).ToList();
         }
 
         /// <summary>
@@ -51,12 +51,12 @@ namespace BLL
                 CompileDate = actionPlanList.CompileDate,
                 States = actionPlanList.States
             };
-            new Model.SGGLDB(Funs.ConnString).ActionPlan_ActionPlanList.InsertOnSubmit(newActionPlanList);
-            new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+            Funs.DB.ActionPlan_ActionPlanList.InsertOnSubmit(newActionPlanList);
+            Funs.DB.SubmitChanges();
 
             ////增加一条编码记录
             BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectActionPlanListMenuId, newActionPlanList.ProjectId, null, newActionPlanList.ActionPlanListId, newActionPlanList.CompileDate);
-                        
+
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace BLL
         /// <param name="actionPlanList"></param>
         public static void UpdateActionPlanList(Model.ActionPlan_ActionPlanList actionPlanList)
         {
-            Model.ActionPlan_ActionPlanList newActionPlanList = new Model.SGGLDB(Funs.ConnString).ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanList.ActionPlanListId);
+            Model.ActionPlan_ActionPlanList newActionPlanList = Funs.DB.ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanList.ActionPlanListId);
             if (newActionPlanList != null)
             {
                 //newActionPlanList.ProjectId = actionPlanList.ProjectId;
@@ -77,7 +77,7 @@ namespace BLL
                 newActionPlanList.CompileMan = actionPlanList.CompileMan;
                 newActionPlanList.CompileDate = actionPlanList.CompileDate;
                 newActionPlanList.States = actionPlanList.States;
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -86,8 +86,8 @@ namespace BLL
         /// </summary>
         /// <param name="actionPlanListId"></param>
         public static void DeleteActionPlanListById(string actionPlanListId)
-        {            
-            Model.ActionPlan_ActionPlanList actionPlanList = new Model.SGGLDB(Funs.ConnString).ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanListId);
+        {
+            Model.ActionPlan_ActionPlanList actionPlanList = Funs.DB.ActionPlan_ActionPlanList.FirstOrDefault(e => e.ActionPlanListId == actionPlanListId);
             if (actionPlanList != null)
             {
                 ////删除审核流程表
@@ -96,8 +96,8 @@ namespace BLL
                 BLL.CommonService.DeleteAttachFileById(actionPlanListId);
                 ////删除编码表记录
                 BLL.CodeRecordsService.DeleteCodeRecordsByDataId(actionPlanList.ActionPlanListId);
-                new Model.SGGLDB(Funs.ConnString).ActionPlan_ActionPlanList.DeleteOnSubmit(actionPlanList);
-                new Model.SGGLDB(Funs.ConnString).SubmitChanges();
+                Funs.DB.ActionPlan_ActionPlanList.DeleteOnSubmit(actionPlanList);
+                Funs.DB.SubmitChanges();
             }
         }
     }

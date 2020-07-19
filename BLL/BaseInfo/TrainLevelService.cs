@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TrainLevelService
     {
-        public static Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取主键
@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_TrainLevel GetTrainLevelById(string trainLevelId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_TrainLevel.FirstOrDefault(e => e.TrainLevelId == trainLevelId);
+            return Funs.DB.Base_TrainLevel.FirstOrDefault(e => e.TrainLevelId == trainLevelId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace BLL
         /// <param name="trainLevel"></param>
         public static void AddTrainLevel(Model.Base_TrainLevel trainLevel)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_TrainLevel newTrainLevel = new Model.Base_TrainLevel
             {
                 TrainLevelId = trainLevel.TrainLevelId,
@@ -46,7 +46,7 @@ namespace BLL
         /// <param name="trainLevel"></param>
         public static void UpdateTrainLevel(Model.Base_TrainLevel trainLevel)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_TrainLevel newTrainLevel = db.Base_TrainLevel.FirstOrDefault(e => e.TrainLevelId == trainLevel.TrainLevelId);
             if (newTrainLevel != null)
             {
@@ -63,7 +63,7 @@ namespace BLL
         /// <param name="trainLevelId"></param>
         public static void DeleteTrainLevelById(string trainLevelId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_TrainLevel trainLevel = db.Base_TrainLevel.FirstOrDefault(e => e.TrainLevelId == trainLevelId);
             if (trainLevel != null)
             {
@@ -78,7 +78,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_TrainLevel> GetTrainLevelList()
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).Base_TrainLevel orderby x.TrainLevelCode select x).ToList();
+            return (from x in Funs.DB.Base_TrainLevel orderby x.TrainLevelCode select x).ToList();
         }
 
         #region 培训级别下拉框

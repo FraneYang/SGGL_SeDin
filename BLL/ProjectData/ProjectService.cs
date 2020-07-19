@@ -7,7 +7,7 @@
 
     public static class ProjectService
     {
-        public static SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+        public static SGGLDB db = Funs.DB;
         
         /// <summary>
         ///获取项目信息
@@ -15,7 +15,7 @@
         /// <returns></returns>
         public static Model.Base_Project GetProjectByProjectId(string projectId)
         {
-            return new Model.SGGLDB(Funs.ConnString).Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
+            return Funs.DB.Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@
         public static string GetProjectNameByProjectId(string projectId)
         {
             string name = string.Empty;
-            var project = new Model.SGGLDB(Funs.ConnString).Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
+            var project = Funs.DB.Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
             if (project != null)
             {
                 name = project.ProjectName;
@@ -39,7 +39,7 @@
         /// <returns></returns>
         public static void AddProject(Model.Base_Project project)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.Base_Project newProject = new Base_Project
             {
                 ProjectId = project.ProjectId,
@@ -74,7 +74,7 @@
         /// <param name="project"></param>
         public static void UpdateProject(Model.Base_Project project)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             Base_Project newProject = db.Base_Project.FirstOrDefault(e => e.ProjectId == project.ProjectId);
             if (newProject != null)
             {
@@ -109,7 +109,7 @@
         /// <param name="projectId"></param>
         public static void DeleteProject(string projectId)
         {
-            SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            SGGLDB db = Funs.DB;
             Base_Project project = db.Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
             if (project != null)
             {
@@ -124,7 +124,7 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetProjectWorkList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
+            var list = (from x in Funs.DB.Base_Project
                         where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
                         orderby x.ProjectCode descending
                         select x).ToList();
@@ -139,7 +139,7 @@
         {
             if (state == BLL.Const.ProjectState_1)  //施工
             {
-                var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
+                var list = (from x in Funs.DB.Base_Project
                             where x.ProjectState == state || x.ProjectState == null
                             orderby x.ProjectCode descending
                             select x).ToList();
@@ -147,7 +147,7 @@
             }
             else
             {
-                var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
+                var list = (from x in Funs.DB.Base_Project
                             where x.ProjectState == state
                             orderby x.ProjectCode descending
                             select x).ToList();
@@ -161,24 +161,12 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetAllProjectDropDownList()
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
+            var list = (from x in Funs.DB.Base_Project
                         orderby x.ProjectCode descending
                         select x).ToList();
             return list;
         }
-
-        /// <summary>
-        /// 获取非设计项目下拉选项
-        /// </summary>
-        /// <returns></returns>
-        public static List<Model.Base_Project> GetNoEProjectDropDownList()
-        {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
-                        where x.ProjectType != "5"
-                        orderby x.ProjectCode descending
-                        select x).ToList();
-            return list;
-        }
+        
 
         /// <summary>
         /// 获取某类型下项目下拉选项
@@ -186,11 +174,36 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetProjectByProjectTypeDropDownList(string projectType)
         {
-            var list = (from x in new Model.SGGLDB(Funs.ConnString).Base_Project
+            var list = (from x in Funs.DB.Base_Project
                         where x.ProjectType == projectType
                         orderby x.ProjectCode descending
                         select x).ToList();
             return list;
+        }
+
+        /// <summary>
+        /// 获取userId参与项目下拉框
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_Project> GetProjectByUserIdDropDownList(string userId)
+        {
+            /// 获取角色类型
+            string roleType =RoleService.GetRoleTypeByUserId(userId);
+            if (roleType == Const.RoleType_2 || roleType == Const.RoleType_3)
+            {
+                return (from x in Funs.DB.Base_Project
+                        where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
+                        orderby x.ProjectCode descending
+                        select x).ToList();
+            }
+            else
+            {
+                return (from x in Funs.DB.Base_Project
+                        join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
+                        where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1 && y.UserId ==userId
+                        orderby x.ProjectCode descending
+                        select x).ToList();
+            }
         }
 
         #region 项目表下拉框
@@ -210,8 +223,7 @@
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
-
-
+        
         /// <summary>
         ///  项目表下拉框
         /// </summary>
@@ -234,11 +246,17 @@
             }
         }
 
-        public static void InitAllProjectShortNameDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="userId"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitAllProjectShortNameDropDownList(FineUIPro.DropDownList dropName,string userId, bool isShowPlease)
         {
             dropName.DataValueField = "ProjectId";
             dropName.DataTextField = "ShortName";
-            var projectlist = BLL.ProjectService.GetAllProjectDropDownList();
+            var projectlist = GetProjectByUserIdDropDownList(userId);
             dropName.DataSource = projectlist;
             dropName.DataBind();
             if (projectlist.Count() == 0)
@@ -250,29 +268,7 @@
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
-
-        /// <summary>
-        ///  非设计项目表下拉框
-        /// </summary>
-        /// <param name="dropName">下拉框名字</param>
-        /// <param name="isShowPlease">是否显示请选择</param>
-        public static void InitNoEProjectDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
-        {
-            dropName.DataValueField = "ProjectId";
-            dropName.DataTextField = "ProjectName";
-            var projectlist = BLL.ProjectService.GetNoEProjectDropDownList();
-            dropName.DataSource = projectlist;
-            dropName.DataBind();
-            if (projectlist.Count() == 0)
-            {
-                isShowPlease = true;
-            }
-            if (isShowPlease)
-            {
-                Funs.FineUIPleaseSelect(dropName);
-            }
-        }
-
+        
         /// <summary>
         ///  某类型下项目表下拉框
         /// </summary>
@@ -304,7 +300,8 @@
         /// <returns></returns>
         public static string GetProjectManagerName(string projectId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 string name = string.Empty;
                 if (projectId != null)
                 {
@@ -325,7 +322,8 @@
         /// <returns></returns>
         public static string GetConstructionManagerName(string projectId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 string name = string.Empty;
                 if (projectId != null)
                 {
@@ -346,7 +344,8 @@
         /// <returns></returns>
         public static string GetHSSEManagerName(string projectId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 string name = string.Empty;
                 if (projectId != null)
                 {

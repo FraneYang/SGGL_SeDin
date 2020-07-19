@@ -9,17 +9,17 @@ namespace BLL
     {
         public static decimal? GetSumCostMoneyByExpenseId(string expenseId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_ExpenseDetail where x.ExpenseId == expenseId select x.CostMoney).Sum();
+            return (from x in Funs.DB.CostGoods_ExpenseDetail where x.ExpenseId == expenseId select x.CostMoney).Sum();
         }
 
         public static List<Model.CostGoods_ExpenseDetail> GetExpenseDetailsByExpenseId(string expenseId)
         {
-            return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_ExpenseDetail where x.ExpenseId == expenseId select x).ToList();
+            return (from x in Funs.DB.CostGoods_ExpenseDetail where x.ExpenseId == expenseId select x).ToList();
         }
 
         public static decimal GetSumCostMoneyByExpenseIdAndType(string expenseId, string costType)
         {
-            Model.CostGoods_ExpenseDetail detail = (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_ExpenseDetail where x.ExpenseId == expenseId && x.CostType == costType select x).FirstOrDefault();
+            Model.CostGoods_ExpenseDetail detail = (from x in Funs.DB.CostGoods_ExpenseDetail where x.ExpenseId == expenseId && x.CostType == costType select x).FirstOrDefault();
             if (detail != null)
             {
                 return detail.CostMoney ?? 0;
@@ -75,8 +75,8 @@ namespace BLL
                     }
                 }
                 return cost;
-                //return (from x in new Model.SGGLDB(Funs.ConnString).CostGoods_ExpenseDetail
-                //        join y in new Model.SGGLDB(Funs.ConnString).CostGoods_Expense on x.ExpenseId equals y.ExpenseId
+                //return (from x in Funs.DB.CostGoods_ExpenseDetail
+                //        join y in Funs.DB.CostGoods_Expense on x.ExpenseId equals y.ExpenseId
                 //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
                 //        select x.CostMoney ?? 0).Sum();
             }
@@ -88,7 +88,7 @@ namespace BLL
         /// <param name="pauseNotice">费用明细实体</param>
         public static void AddCostDetail(string expenseId, string costType, decimal costMoney, string costDef)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             Model.CostGoods_ExpenseDetail newExpenseDetail = new Model.CostGoods_ExpenseDetail
             {
                 ExpenseDetailId = SQLHelper.GetNewID(typeof(Model.CostGoods_ExpenseDetail)),
@@ -109,7 +109,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.CostGoods_ExpenseDetail GetCostDetailByExpenseIdAndCostType(string expenseId, string costType)
         {
-            return new Model.SGGLDB(Funs.ConnString).CostGoods_ExpenseDetail.FirstOrDefault(e => (e.ExpenseId == expenseId && e.CostType == costType));
+            return Funs.DB.CostGoods_ExpenseDetail.FirstOrDefault(e => (e.ExpenseId == expenseId && e.CostType == costType));
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace BLL
         /// <param name="expenseId">编号</param>
         public static void DeleteCostDetailByExpenseId(string expenseId)
         {
-            Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+            Model.SGGLDB db = Funs.DB;
             var q = (from x in db.CostGoods_ExpenseDetail where x.ExpenseId == expenseId select x).ToList();
             db.CostGoods_ExpenseDetail.DeleteAllOnSubmit(q);
             db.SubmitChanges();
