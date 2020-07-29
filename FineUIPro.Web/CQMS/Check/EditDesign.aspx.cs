@@ -175,7 +175,6 @@ namespace FineUIPro.Web.CQMS.Check
                         this.drpHandleMan.DataValueField = "UserId";
                         this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                         this.drpHandleMan.DataBind();
-                        this.drpHandleMan.SelectedIndex = 1;
                     }
                     else
                     {
@@ -183,7 +182,6 @@ namespace FineUIPro.Web.CQMS.Check
                         this.drpHandleMan.DataValueField = "UserId";
                         this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                         this.drpHandleMan.DataBind();
-                        this.drpHandleMan.SelectedIndex = 1;
                         this.HideOptions.Hidden = false;
                         this.rblIsAgree.Hidden = false;
                     }
@@ -213,7 +211,6 @@ namespace FineUIPro.Web.CQMS.Check
                     this.drpHandleMan.DataValueField = "UserId";
                     this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                     this.drpHandleMan.DataBind();
-                    this.drpHandleMan.SelectedIndex = 1;
                     plApprove2.Hidden = true;
                 }
                 if (State == Const.Design_Compile || State == Const.Design_ReCompile)
@@ -471,6 +468,7 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     approve.ApproveType = this.drpHandleType.SelectedValue;
                     BLL.DesignApproveService.AddDesignApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "设计变更待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 design.DesignId = DesignId;
                 BLL.DesignService.UpdateDesign(design);
@@ -509,6 +507,7 @@ namespace FineUIPro.Web.CQMS.Check
                     approve.ApproveType = this.drpHandleType.SelectedValue;
 
                     BLL.DesignApproveService.AddDesignApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "设计变更待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 else
                 {
@@ -760,6 +759,68 @@ namespace FineUIPro.Web.CQMS.Check
                 item.Text = user.UserName;
                 this.drpHandleMan.Items.Add(item);
                 this.drpHandleMan.SelectedIndex = 1;
+            }
+        }
+
+        protected void txtPlanDay_Blur(object sender, EventArgs e)
+        {
+            this.txtPlanCompleteDate.Text = string.Empty;
+            if (!string.IsNullOrEmpty(this.txtPlanDay.Text.Trim()))
+            {
+                try
+                {
+                    decimal d = Convert.ToDecimal(this.txtPlanDay.Text.Trim());
+                    int i = 0;
+                    if (this.txtPlanDay.Text.Contains("."))  //有小数
+                    {
+                        i = (Int32)d + 1;
+                    }
+                    else
+                    {
+                        i = (Int32)d;
+                    }
+                    if (this.rblIsNeedMaterial.SelectedValue == "true")  //需要增补材料
+                    {
+                        if (!string.IsNullOrEmpty(this.txtMaterialPlanReachDate.Text.Trim()))
+                        {
+                            DateTime date = Convert.ToDateTime(this.txtMaterialPlanReachDate.Text.Trim());
+                            date = date.AddDays(i);
+                            this.txtPlanCompleteDate.Text = string.Format("{0:yyyy-MM-dd}", date);
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(this.txtDesignDate.Text.Trim()))
+                        {
+                            DateTime date = Convert.ToDateTime(this.txtDesignDate.Text.Trim());
+                            date = date.AddDays(i);
+                            this.txtPlanCompleteDate.Text = string.Format("{0:yyyy-MM-dd}", date);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    this.txtPlanDay.Text = string.Empty;
+                    ScriptManager.RegisterStartupScript(this, typeof(string), "_alert", "alert('预计施工周期只能录入整数或小数！')", true);
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(DesignId))
+            {
+                Model.Check_Design Design = DesignService.GetDesignByDesignId(DesignId);
+                if (Design.CarryUnitIds != null)
+                {
+                    txtCarryUnit.Values = Design.CarryUnitIds.Split(',');
+
+                }
+                if (Design.BuyMaterialUnitIds != null)
+                {
+                    if (this.rblIsNeedMaterial.SelectedValue == "true")
+                    {
+                        txtBuyMaterialUnit.Values = Design.BuyMaterialUnitIds.Split(',');
+                    }
+
+                }
+
             }
         }
     }

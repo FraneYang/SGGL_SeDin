@@ -71,17 +71,52 @@ namespace BLL
             {
                 ////项目
                 string ruleCode = string.Empty;
-                var codeTempRule = Funs.DB.Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId);
-                if (codeTempRule != null && !string.IsNullOrEmpty(codeTempRule.Prefix))
+                var project = ProjectService.GetProjectByProjectId(projectId);
+                if (project != null)
                 {
-                    if (!string.IsNullOrEmpty(codeTempRule.Symbol))
+                    string projectCode = project.ProjectCode; ///项目编号                               
+                    ////编码规则表
+                    var sysCodeTemplateRule = ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(menuId, project.ProjectId);
+                    if (sysCodeTemplateRule != null)
                     {
-                        symbol = codeTempRule.Symbol;
+                        symbol = sysCodeTemplateRule.Symbol;
+                        if (sysCodeTemplateRule.Digit.HasValue)
+                        {
+                            digit = sysCodeTemplateRule.Digit.Value;
+                        }
+                        if (sysCodeTemplateRule.IsProjectCode == true)
+                        {
+                            ruleCode = projectCode + symbol;
+                        }
+                        if (!string.IsNullOrEmpty(sysCodeTemplateRule.Prefix))
+                        {
+                            ruleCode += sysCodeTemplateRule.Prefix + symbol;
+                        }
+                        if (sysCodeTemplateRule.IsUnitCode == true)
+                        {
+                            var unit = UnitService.GetUnitByUnitId(unitId);
+                            if (unit != null)
+                            {
+                                ruleCode += unit.UnitCode + symbol;
+                            }
+                        }
+                        ruleCodes = ruleCode;
                     }
-                    ruleCodes = codeTempRule.Prefix + symbol;
-                    if (codeTempRule.Digit.HasValue)
+                }
+                else
+                {
+                    var codeTempRule = Funs.DB.Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId);
+                    if (codeTempRule != null && !string.IsNullOrEmpty(codeTempRule.Prefix))
                     {
-                        digit = codeTempRule.Digit.Value;
+                        if (!string.IsNullOrEmpty(codeTempRule.Symbol))
+                        {
+                            symbol = codeTempRule.Symbol;
+                        }
+                        ruleCodes = codeTempRule.Prefix + symbol;
+                        if (codeTempRule.Digit.HasValue)
+                        {
+                            digit = codeTempRule.Digit.Value;
+                        }
                     }
                 }
             }
@@ -127,52 +162,52 @@ namespace BLL
                 if (project != null && !string.IsNullOrEmpty(dataId))
                 {
                     string projectCode = project.ProjectCode; ///项目编号               
-                    //////编码规则表
-                    //var sysCodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(menuId, projectId);
-                    //if (sysCodeTemplateRule != null)
-                    //{
-                    //    symbol = sysCodeTemplateRule.Symbol;
-                    //    symbolower = sysCodeTemplateRule.OwerSymbol;
+                    ////编码规则表
+                    var sysCodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(menuId, projectId);
+                    if (sysCodeTemplateRule != null)
+                    {
+                        symbol = sysCodeTemplateRule.Symbol;
+                        symbolower = sysCodeTemplateRule.OwerSymbol;
 
-                    //    if (sysCodeTemplateRule.Digit.HasValue)
-                    //    {
-                    //        digit = sysCodeTemplateRule.Digit.Value;
-                    //    }
-                    //    if (sysCodeTemplateRule.OwerDigit.HasValue)
-                    //    {
-                    //        digitower = sysCodeTemplateRule.OwerDigit.Value;
-                    //    }
-                    //    if (sysCodeTemplateRule.IsProjectCode == true)
-                    //    {
-                    //        ruleCode = projectCode + symbol;
-                    //    }
-                    //    if (sysCodeTemplateRule.OwerIsProjectCode == true)
-                    //    {
-                    //        ruleCodeower = projectCode + symbolower;
-                    //    }
-                    //    if (!string.IsNullOrEmpty(sysCodeTemplateRule.Prefix))
-                    //    {
-                    //        ruleCode += sysCodeTemplateRule.Prefix + symbol;
-                    //    }
-                    //    if (!string.IsNullOrEmpty(sysCodeTemplateRule.OwerPrefix))
-                    //    {
-                    //        ruleCodeower += sysCodeTemplateRule.OwerPrefix + symbolower;
-                    //    }
-                    //    if (sysCodeTemplateRule.IsUnitCode == true || sysCodeTemplateRule.OwerIsUnitCode == true)
-                    //    {
-                    //        var unit = BLL.UnitService.GetUnitByUnitId(unitId);
-                    //        if (unit != null)
-                    //        {
-                    //            if (sysCodeTemplateRule.IsUnitCode == true)
-                    //            { ruleCode = unit.UnitCode + symbol; }
+                        if (sysCodeTemplateRule.Digit.HasValue)
+                        {
+                            digit = sysCodeTemplateRule.Digit.Value;
+                        }
+                        if (sysCodeTemplateRule.OwerDigit.HasValue)
+                        {
+                            digitower = sysCodeTemplateRule.OwerDigit.Value;
+                        }
+                        if (sysCodeTemplateRule.IsProjectCode == true)
+                        {
+                            ruleCode = projectCode + symbol;
+                        }
+                        if (sysCodeTemplateRule.OwerIsProjectCode == true)
+                        {
+                            ruleCodeower = projectCode + symbolower;
+                        }
+                        if (!string.IsNullOrEmpty(sysCodeTemplateRule.Prefix))
+                        {
+                            ruleCode += sysCodeTemplateRule.Prefix + symbol;
+                        }
+                        if (!string.IsNullOrEmpty(sysCodeTemplateRule.OwerPrefix))
+                        {
+                            ruleCodeower += sysCodeTemplateRule.OwerPrefix + symbolower;
+                        }
+                        if (sysCodeTemplateRule.IsUnitCode == true || sysCodeTemplateRule.OwerIsUnitCode == true)
+                        {
+                            var unit = BLL.UnitService.GetUnitByUnitId(unitId);
+                            if (unit != null)
+                            {
+                                if (sysCodeTemplateRule.IsUnitCode == true)
+                                { ruleCode = unit.UnitCode + symbol; }
 
-                    //            if (sysCodeTemplateRule.OwerIsUnitCode == true)
-                    //            {
-                    //                ruleCodeower = unit.UnitCode + symbolower;
-                    //            }
-                    //        }
-                    //    }
-                    //}
+                                if (sysCodeTemplateRule.OwerIsUnitCode == true)
+                                {
+                                    ruleCodeower = unit.UnitCode + symbolower;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 ////获取编码记录表最大排列序号              
@@ -228,7 +263,6 @@ namespace BLL
                 {
                     newCodeRecords.OwnerCode = (maxNewSortIndex.ToString().PadLeft(digitower, '0'));
                 }
-
                 Funs.DB.Sys_CodeRecords.InsertOnSubmit(newCodeRecords);
                 Funs.DB.SubmitChanges();
             }
@@ -259,66 +293,66 @@ namespace BLL
                     if (project != null)
                     {
                         string projectCode = project.ProjectCode; ///项目编号  
-                        //var sysCodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(menuId, projectId);////编码规则表
-                        //if (sysCodeTemplateRule != null)
-                        //{
-                        //    symbol = sysCodeTemplateRule.Symbol;
-                        //    symbolower = sysCodeTemplateRule.OwerSymbol;
-                        //    if (sysCodeTemplateRule.Digit.HasValue)
-                        //    {
-                        //        digit = sysCodeTemplateRule.Digit.Value;
-                        //    }
-                        //    if (sysCodeTemplateRule.OwerDigit.HasValue)
-                        //    {
-                        //        digitower = sysCodeTemplateRule.OwerDigit.Value;
-                        //    }
-                        //    if (sysCodeTemplateRule.IsProjectCode == true)
-                        //    {
-                        //        ruleCode = projectCode + symbol;
-                        //    }
-                        //    if (sysCodeTemplateRule.OwerIsProjectCode == true)
-                        //    {
-                        //        ruleCodeower = projectCode + symbolower;
-                        //    }
-                        //    if (!string.IsNullOrEmpty(sysCodeTemplateRule.Prefix))
-                        //    {
-                        //        ruleCode += sysCodeTemplateRule.Prefix + symbol;
-                        //    }
-                        //    if (!string.IsNullOrEmpty(sysCodeTemplateRule.OwerPrefix))
-                        //    {
-                        //        ruleCodeower += sysCodeTemplateRule.OwerPrefix + symbolower;
-                        //    }
-                        //    if (sysCodeTemplateRule.IsUnitCode == true || sysCodeTemplateRule.OwerIsUnitCode == true)
-                        //    {
-                        //        var unit = BLL.UnitService.GetUnitByUnitId(itemRecords.UnitId);
-                        //        if (unit != null)
-                        //        {
-                        //            if (sysCodeTemplateRule.IsUnitCode == true)
-                        //            {
-                        //                if (sysCodeTemplateRule.IsProjectCode == true)
-                        //                {
-                        //                    ruleCode = projectCode + symbol + unit.UnitCode + symbol;
-                        //                }
-                        //                else
-                        //                {
-                        //                    ruleCode = unit.UnitCode + symbol;
-                        //                }
-                        //            }
+                        var sysCodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(menuId, projectId);////编码规则表
+                        if (sysCodeTemplateRule != null)
+                        {
+                            symbol = sysCodeTemplateRule.Symbol;
+                            symbolower = sysCodeTemplateRule.OwerSymbol;
+                            if (sysCodeTemplateRule.Digit.HasValue)
+                            {
+                                digit = sysCodeTemplateRule.Digit.Value;
+                            }
+                            if (sysCodeTemplateRule.OwerDigit.HasValue)
+                            {
+                                digitower = sysCodeTemplateRule.OwerDigit.Value;
+                            }
+                            if (sysCodeTemplateRule.IsProjectCode == true)
+                            {
+                                ruleCode = projectCode + symbol;
+                            }
+                            if (sysCodeTemplateRule.OwerIsProjectCode == true)
+                            {
+                                ruleCodeower = projectCode + symbolower;
+                            }
+                            if (!string.IsNullOrEmpty(sysCodeTemplateRule.Prefix))
+                            {
+                                ruleCode += sysCodeTemplateRule.Prefix + symbol;
+                            }
+                            if (!string.IsNullOrEmpty(sysCodeTemplateRule.OwerPrefix))
+                            {
+                                ruleCodeower += sysCodeTemplateRule.OwerPrefix + symbolower;
+                            }
+                            if (sysCodeTemplateRule.IsUnitCode == true || sysCodeTemplateRule.OwerIsUnitCode == true)
+                            {
+                                var unit = BLL.UnitService.GetUnitByUnitId(itemRecords.UnitId);
+                                if (unit != null)
+                                {
+                                    if (sysCodeTemplateRule.IsUnitCode == true)
+                                    {
+                                        if (sysCodeTemplateRule.IsProjectCode == true)
+                                        {
+                                            ruleCode = projectCode + symbol + unit.UnitCode + symbol;
+                                        }
+                                        else
+                                        {
+                                            ruleCode = unit.UnitCode + symbol;
+                                        }
+                                    }
 
-                        //            if (sysCodeTemplateRule.OwerIsUnitCode == true)
-                        //            { 
-                        //                if (sysCodeTemplateRule.OwerIsProjectCode == true)
-                        //                {
-                        //                    ruleCode = projectCode + symbolower + unit.UnitCode + symbolower;
-                        //                }
-                        //                else
-                        //                {
-                        //                    ruleCode = unit.UnitCode + symbolower;
-                        //                }  
-                        //            }
-                        //        }
-                        //    }
-                        //}
+                                    if (sysCodeTemplateRule.OwerIsUnitCode == true)
+                                    {
+                                        if (sysCodeTemplateRule.OwerIsProjectCode == true)
+                                        {
+                                            ruleCode = projectCode + symbolower + unit.UnitCode + symbolower;
+                                        }
+                                        else
+                                        {
+                                            ruleCode = unit.UnitCode + symbolower;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     if (ruleCode != itemRecords.RuleCodes || ruleCodeower != itemRecords.OwnerRuleCodes)

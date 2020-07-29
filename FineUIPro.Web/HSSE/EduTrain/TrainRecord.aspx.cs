@@ -36,7 +36,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
-        {          
+        {
             if (!IsPostBack)
             {
                 Funs.DropDownPageSize(this.ddlPageSize);
@@ -54,7 +54,10 @@ namespace FineUIPro.Web.HSSE.EduTrain
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
-
+                if (this.CurrUser.UserId == Const.hfnbdId)
+                {
+                    this.btnRefresh.Hidden = false;
+                }
             }
         }
 
@@ -432,7 +435,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="unitIds"></param>
         /// <returns></returns>
         protected string ConvertUnitName(object unitIds)
-        {            
+        {
             string unitName = string.Empty;
             if (unitIds != null)
             {
@@ -493,6 +496,103 @@ namespace FineUIPro.Web.HSSE.EduTrain
             }
             this.TrainingId = Grid1.SelectedRowID;
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TrainRecordView.aspx?TrainingId={0}", TrainingId, "查看 - ")));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
+            var getTrainRecords = from x in Funs.DB.EduTrain_TrainRecord
+                                  where x.ProjectId == this.CurrUser.LoginProjectId && x.PlanId != null
+                                  select x;
+            if (getTrainRecords.Count() > 0)
+            {
+                foreach (var itemRecord in getTrainRecords)
+                {
+                    var getTrainRecordDetail = Funs.DB.EduTrain_TrainRecordDetail.Where(x => x.TrainingId == itemRecord.TrainingId);
+                    if (itemRecord.TrainPersonNum > getTrainRecordDetail.Count())
+                    {                      
+                        var getTrainingTasks = from x in Funs.DB.Training_Task
+                                               where x.PlanId == itemRecord.PlanId
+                                               select x;
+                        ////及格分数                       
+                        int passScore = 80;
+                        var testRule = Funs.DB.Sys_TestRule.FirstOrDefault();
+                        if (testRule != null)
+                        {
+                            passScore = testRule.PassingScore;
+                        }
+                        foreach (var item in getTrainingTasks)
+                        {
+                            bool isInsert = true;
+                            var geteu = getTrainRecordDetail.FirstOrDefault(x => x.PersonId == item.UserId);
+                            if (geteu != null)
+                            {
+                                var getperson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.PersonId == geteu.PersonId);
+                                if (getperson != null && !string.IsNullOrEmpty(getperson.CardNo))
+                                {
+                                    isInsert = false;
+                                }
+                                else
+                                {
+                                    Funs.DB.EduTrain_TrainRecordDetail.DeleteOnSubmit(geteu);
+                                    Funs.DB.SubmitChanges();
+                                }
+                            }
+
+                            if (isInsert)
+                            {
+                                decimal gScores = 0;
+                                bool result = false;
+                                var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.PlanId == itemRecord.PlanId);
+                                if (getTestPlan != null)
+                                {
+                                    ////获取 考生试卷
+                                    var getTestRecord = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == item.UserId);
+                                    foreach (var itemR in getTestRecord)
+                                    {
+                                        if (itemR.TestScores > gScores)
+                                        {
+                                            gScores = itemR.TestScores ?? 0;
+                                        }
+                                    }
+
+                                    if (gScores >= passScore)
+                                    {
+                                        result = true;
+                                    }
+
+                                    Model.EduTrain_TrainRecordDetail newDetail = new Model.EduTrain_TrainRecordDetail
+                                    {
+                                        TrainDetailId = SQLHelper.GetNewID(),
+                                        TrainingId = itemRecord.TrainingId,
+                                        PersonId = item.UserId,
+                                        CheckScore = gScores,
+                                        CheckResult = result,
+                                    };
+                                    Funs.DB.EduTrain_TrainRecordDetail.InsertOnSubmit(newDetail);
+                                    Funs.DB.SubmitChanges();
+
+                                    ///// 培训考试 通过 更新卡号
+                                    if (result)
+                                    {
+                                        var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.PersonId == newDetail.PersonId);
+                                        if (getPerson != null && string.IsNullOrEmpty(getPerson.CardNo))
+                                        {
+                                            getPerson.CardNo = SQLHelper.RunProcNewId("SpGetNewNumber", "SitePerson_Person", "CardNo", getPerson.ProjectId, UnitService.GetUnitCodeByUnitId(getPerson.UnitId));
+                                            Funs.DB.SubmitChanges();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                Alert.ShowInTop("刷新完成！", MessageBoxIcon.Success);
+            }
         }
     }
 }

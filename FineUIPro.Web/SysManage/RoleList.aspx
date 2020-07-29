@@ -35,11 +35,11 @@
                 </Toolbars>
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>                   
-                    <f:RenderField Width="140px" ColumnID="RoleCode" DataField="RoleCode" 
+                    <f:RenderField Width="100px" ColumnID="RoleCode" DataField="RoleCode" 
                         SortField="RoleCode" FieldType="String" HeaderText="编码" HeaderTextAlign="Center"
                         TextAlign="Left">                      
                     </f:RenderField>
-                    <f:RenderField Width="140px" ColumnID="RoleName" DataField="RoleName" EnableFilter="true"
+                    <f:RenderField Width="200px" ColumnID="RoleName" DataField="RoleName" EnableFilter="true"
                         SortField="RoleName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center"
                         TextAlign="Left">                      
                     </f:RenderField>
@@ -76,7 +76,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="角色管理" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" IsModal="true" 
-        Width="700px" Height="280px">
+        Width="700px" Height="400px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"

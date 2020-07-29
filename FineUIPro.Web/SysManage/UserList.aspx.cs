@@ -21,17 +21,11 @@
                 Funs.DropDownPageSize(this.ddlPageSize);
                 ////权限按钮方法
                 this.GetButtonPower();
-                this.btnNew.OnClientClick = Window1.GetShowReference("UserListEdit.aspx") + "return false;";
+                this.btnNew.OnClientClick = Window1.GetShowReference("UserListEdit.aspx?type=0") + "return false;";
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
                 }
-                if (this.CurrUser.UnitId != Const.UnitId_SEDIN && this.CurrUser.UserId != Const.sysglyId && this.CurrUser.UserId != Const.hfnbdId)
-                {
-                    this.rbUnit.SelectedValue = "1";
-                    this.rbUnit.Readonly = true;
-                }
-
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 this.BindGrid();
@@ -50,18 +44,9 @@
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
                           + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
                           + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "'";
-
             List<SqlParameter> listStr = new List<SqlParameter>();
-            if (this.rbUnit.SelectedValue == "0")
-            {
-                strSql += " AND Users.UnitId = @ThisUnitId";
-                listStr.Add(new SqlParameter("@ThisUnitId", Const.UnitId_SEDIN));
-            }
-            else
-            {
-                strSql += " AND Users.UnitId != @ThisUnitId";
-                listStr.Add(new SqlParameter("@ThisUnitId", Const.UnitId_SEDIN));
-            }
+            strSql += " AND Users.UnitId = @ThisUnitId";
+            listStr.Add(new SqlParameter("@ThisUnitId", Const.UnitId_SEDIN));
 
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
@@ -163,7 +148,7 @@
                         string cont = judgementDelete(rowID);
                         if (string.IsNullOrEmpty(cont))
                         {
-                            BLL.LogService.AddSys_Log(this.CurrUser, user.UserCode, user.UserId, BLL.Const.UserMenuId, BLL.Const.BtnAdd);
+                            BLL.LogService.AddSys_Log(this.CurrUser, user.UserCode, user.UserId, BLL.Const.UserMenuId, BLL.Const.BtnDelete);
                             BLL.UserService.DeleteUser(rowID);
                         }
                         else
@@ -250,7 +235,7 @@
                 return;
             }
             string Id = Grid1.SelectedRowID;
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("UserListEdit.aspx?userId={0}", Id, "编辑 - ")));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("UserListEdit.aspx?userId={0}&type=0", Id, "编辑 - ")));
         }
 
         #region 判断是否可删除
@@ -265,19 +250,18 @@
             {
                 content += "已在【项目用户】中使用，不能删除！";
             }
-            //if (Funs.DB.Law_LawRegulationList.FirstOrDefault(x => x.CompileMan == id) != null)
-            //{
-            //    content += "已在【法律法规】中使用，不能删除！";
-            //}
-            //if (Funs.DB.Law_HSSEStandardsList.FirstOrDefault(x => x.CompileMan == id) != null)
-            //{
-            //    content += "已在【标准规范】中使用，不能删除！";
-            //}
-            //if (Funs.DB.ProjectData_FlowOperate.FirstOrDefault(x => x.OperaterId == id) != null)
-            //{
-            //    content += "已在【报表审核】中使用，不能删除！";
-            //}
-
+            if (Funs.DB.Law_LawRegulationList.FirstOrDefault(x => x.CompileMan == id) != null)
+            {
+                content += "已在【法律法规】中使用，不能删除！";
+            }
+            if (Funs.DB.Law_HSSEStandardsList.FirstOrDefault(x => x.CompileMan == id) != null)
+            {
+                content += "已在【标准规范】中使用，不能删除！";
+            }
+            if (Funs.DB.ProjectData_FlowOperate.FirstOrDefault(x => x.OperaterId == id) != null)
+            {
+                content += "已在【报表审核】中使用，不能删除！";
+            }
             return content;
         }
         #endregion

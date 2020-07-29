@@ -25,7 +25,7 @@
                 <Items>
                     <f:TextBox ID="txtUnitName" runat="server" Label="责任单位" Readonly="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="作业区域" Readonly="true">
+                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="单位工程" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>

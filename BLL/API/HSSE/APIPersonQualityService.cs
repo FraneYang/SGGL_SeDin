@@ -153,10 +153,11 @@ namespace BLL
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
         /// <param name="qualityType">资质类型</param>
+        /// <param name="workPostId">岗位ID</param> 
         /// <param name="states">0-待提交；1-待审核；2-已审核；-1打回</param>
         /// <param name="unitIdQ">查询单位ID</param>
         /// <returns></returns>
-        public static List<Model.PersonQualityItem> getPersonQualityList(string projectId, string unitId, string qualityType, string states, string unitIdQ)
+        public static List<Model.PersonQualityItem> getPersonQualityList(string projectId, string unitId, string qualityType, string workPostId, string states, string unitIdQ)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -295,6 +296,10 @@ namespace BLL
                 if (!string.IsNullOrEmpty(unitIdQ))
                 {
                     getLists = getLists.Where(x => x.UnitId == unitIdQ).ToList();
+                }
+                if (!string.IsNullOrEmpty(workPostId))
+                {
+                    getLists = getLists.Where(x => x.WorkPostId == workPostId).ToList();
                 }
                 if (states == Const.State_0)
                 {

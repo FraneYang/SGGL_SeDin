@@ -31,7 +31,7 @@
                     <f:DropDownList runat="server" EnableSimulateTree="True" Label="责任单位" ID="drpUnit"
                         AutoPostBack="true" OnSelectedIndexChanged="drpUnit_OnSelectedIndexChanged">
                     </f:DropDownList>
-                    <f:DropDownList runat="server" EnableSimulateTree="True" Label="作业区域" ID="drpWorkArea">
+                    <f:DropDownList runat="server" EnableSimulateTree="True" Label="单位工程" ID="drpWorkArea">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>

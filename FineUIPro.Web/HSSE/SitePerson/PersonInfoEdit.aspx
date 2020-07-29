@@ -74,7 +74,7 @@
             </f:FormRow>
             <f:FormRow ColumnWidths="40% 25% 35%">
                 <Items>
-                    <f:TextBox ID="txtWorkArea" runat="server" Label="作业区域" MaxLength="100" ShowRedStar="true"
+                    <f:TextBox ID="txtWorkArea" runat="server" Label="单位工程" MaxLength="100" ShowRedStar="true"
                         Required="true" LabelAlign="Right">
                     </f:TextBox>
                     <f:DropDownList ID="drpWorkArea" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpWorkArea_SelectedIndexChanged">

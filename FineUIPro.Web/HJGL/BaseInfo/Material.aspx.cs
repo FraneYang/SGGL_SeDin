@@ -19,6 +19,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         {
             if (!IsPostBack)
             {
+                Funs.DropDownPageSize(this.ddlPageSize);
                 this.drpSteType.DataTextField = "Text";
                 this.drpSteType.DataValueField = "Value";
                 this.drpSteType.DataSource = BLL.DropListService.HJGL_GetSteTypeList();

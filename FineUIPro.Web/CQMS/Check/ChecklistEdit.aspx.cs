@@ -459,6 +459,7 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     approve.ApproveType = this.drpHandleType.SelectedValue;
                     BLL.CheckControlApproveService.AddCheckControlApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "质量巡检问题待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 checkControl.CheckControlCode = CheckControlCode;
                 BLL.CheckControlService.UpdateCheckControl(checkControl);
@@ -493,6 +494,7 @@ namespace FineUIPro.Web.CQMS.Check
                     approve.ApproveType = this.drpHandleType.SelectedValue;
 
                     BLL.CheckControlApproveService.AddCheckControlApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "质量巡检问题待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 else
                 {
@@ -542,6 +544,15 @@ namespace FineUIPro.Web.CQMS.Check
                 if (drpHandleMan.Items.Count > 0)
                 {
                     drpHandleMan.SelectedIndex = 0;
+                }
+                if (drpHandleType.SelectedText.Contains("重新编制"))
+                {
+                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
+                    var HandleMan = BLL.CheckControlApproveService.GetComplie(this.CheckControlCode);
+                    if (HandleMan != null)
+                    {
+                        this.drpHandleMan.SelectedValue = HandleMan.ApproveMan;
+                    }
                 }
                 if (drpHandleType.SelectedValue == BLL.Const.CheckControl_Complete)
                 {

@@ -18,13 +18,13 @@
                 DataKeyNames="UnitTypeId" DataIDField="UnitTypeId" OnPageIndexChange="Grid1_PageIndexChange" AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True">
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                    <f:RenderField Width="150px" ColumnID="UnitTypeCode" DataField="UnitTypeCode" FieldType="String"
+                    <f:RenderField Width="100px" ColumnID="UnitTypeCode" DataField="UnitTypeCode" FieldType="String"
                         HeaderText="编号" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="UnitTypeName" DataField="UnitTypeName" FieldType="String"
+                    <f:RenderField Width="200px" ColumnID="UnitTypeName" DataField="UnitTypeName" FieldType="String"
                         HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="Remark" DataField="Remark" FieldType="String"
+                    <f:RenderField Width="350px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                 </Columns>

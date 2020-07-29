@@ -20,8 +20,8 @@
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="用户信息" EnableCollapse="true"
-                    runat="server" BoxFlex="1" DataKeyNames="UserId" AllowCellEditing="true" EnableColumnLines="true"
-                    ClicksToEdit="2" DataIDField="UserId" AllowSorting="true" SortField="UserCode" ForceFit="true"
+                    runat="server" BoxFlex="1" DataKeyNames="UserId"  EnableColumnLines="true"
+                     DataIDField="UserId" AllowSorting="true" SortField="UserCode" ForceFit="true"
                     SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
                     PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true"
                     OnRowDoubleClick="Grid1_RowDoubleClick" Width="980px" EnableTextSelection="True">
@@ -91,8 +91,8 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="用户信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
-            Height="650px">
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+            Height="560px">
         </f:Window>
         <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"

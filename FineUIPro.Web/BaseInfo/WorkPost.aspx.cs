@@ -266,7 +266,7 @@ namespace FineUIPro.Web.BaseInfo
 
         #region 格式化字符串
         /// <summary>
-        /// 获取工作阶段
+        /// 格式化字符串
         /// </summary>
         /// <param name="WorkStage"></param>
         /// <returns></returns>

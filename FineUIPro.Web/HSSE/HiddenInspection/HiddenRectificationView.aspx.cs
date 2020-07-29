@@ -1,5 +1,6 @@
 ﻿using BLL;
 using System;
+using System.Data;
 using System.Linq;
 
 namespace FineUIPro.Web.HSSE.HiddenInspection

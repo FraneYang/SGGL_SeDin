@@ -118,8 +118,10 @@ namespace Mvc.Controllers
                    
                     BLL.JointCheckDetailService.AddJointCheckDetailForApi(CheckControl);
 
-                    BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.JointCheckDetailId + "r", Const.JointCheckMenuId);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.JointCheckDetailId, Const.JointCheckMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.JointCheckDetailId + "r", Const.JointCheckMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.JointCheckDetailId, Const.JointCheckMenuId);
+                    SaveAttachFile(CheckControl.JointCheckDetailId + "r", BLL.Const.JointCheckMenuId, CheckControl.ReAttachUrl);
+                    SaveAttachFile(CheckControl.JointCheckDetailId, BLL.Const.JointCheckMenuId, CheckControl.AttachUrl);
                     res.resultValue = CheckControl.JointCheckDetailId;
 
                     res.successful = true;
@@ -128,8 +130,10 @@ namespace Mvc.Controllers
                 {
                     BLL.JointCheckDetailService.UpdateJointCheckDetailForApi(CheckControl);
                     res.resultValue = CheckControl.JointCheckDetailId;
-                    BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.JointCheckDetailId + "r", Const.JointCheckMenuId);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.JointCheckDetailId, Const.JointCheckMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.JointCheckDetailId + "r", Const.JointCheckMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.JointCheckDetailId, Const.JointCheckMenuId);
+                    SaveAttachFile(CheckControl.JointCheckDetailId + "r", BLL.Const.JointCheckMenuId, CheckControl.ReAttachUrl);
+                    SaveAttachFile(CheckControl.JointCheckDetailId, BLL.Const.JointCheckMenuId, CheckControl.AttachUrl);
                     res.successful = true;
                 }
             }
@@ -142,6 +146,19 @@ namespace Mvc.Controllers
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SaveAttachFile(string dataId, string menuId, string url)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = dataId,
+                UrlStr = url,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+        }
 
         [HttpPost]
         public ResponseData<string> AddJointCheck([FromBody]Model.Check_JointCheck CheckControl)

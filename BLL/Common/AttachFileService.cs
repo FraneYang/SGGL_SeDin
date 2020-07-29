@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -218,7 +219,6 @@ namespace BLL
         public static string getAttachSource(string url, string fileDir)
         {
             string res = "";
-            string localRoot = "E:\\工作\\赛鼎施工平台\\SGGL\\SGGL";
             string attachSource = string.Empty;
             if (!string.IsNullOrEmpty(url))
             {
@@ -235,7 +235,7 @@ namespace BLL
                     {
                         strInt = item.LastIndexOf("/");
                     }
-                    string filepath = localRoot + "/FileUpLoad/" + fileDir + "/" + item.Substring(strInt + 1);
+                    string filepath = ConfigurationManager.AppSettings["localRoot"] + "/FileUpLoad/" + fileDir + "/" + item.Substring(strInt + 1);
                     strInt = filepath.LastIndexOf("~");
                     if (strInt < 0)
                     {
@@ -245,7 +245,7 @@ namespace BLL
                     {
                         strInt = filepath.LastIndexOf("/");
                     }
-                    if (File.Exists(localRoot + "/" + item))
+                    if (File.Exists(ConfigurationManager.AppSettings["localRoot"] + "/" + item))
                     {
                         if (!Directory.Exists(filepath.Substring(0, strInt)))
                         {
@@ -253,7 +253,7 @@ namespace BLL
                         }
                         if (!File.Exists(filepath))
                         {
-                            File.Copy(localRoot + "/" + item, filepath);
+                            File.Copy(ConfigurationManager.AppSettings["localRoot"] + "/" + item, filepath);
                         }
                         FileInfo fileInfo = new System.IO.FileInfo(filepath);
                         size = System.Math.Ceiling(fileInfo.Length / 1024.0) + "";

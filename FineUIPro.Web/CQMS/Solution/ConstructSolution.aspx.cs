@@ -49,11 +49,7 @@ namespace FineUIPro.Web.CQMS.Solution
             if (!IsPostBack)
             {
                 GetButtonPower();
-                drpSolutionType.DataSource = CQMSConstructSolutionService.GetSolutionType();
-                drpSolutionType.DataTextField = "Text";
-                drpSolutionType.DataValueField = "Value";
-                drpSolutionType.DataBind();
-                Funs.FineUIPleaseSelect(drpSolutionType);
+                BLL.SolutionTempleteTypeService.InitSolutionTempleteDropDownList(drpSolutionType, true);
                 Funs.FineUIPleaseSelect(drpState);
                 UnitWorkService.InitUnitWorkDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);
                 CNProfessionalService.InitCNProfessionalDownList(drpCNProfessional, true);
@@ -95,10 +91,13 @@ namespace FineUIPro.Web.CQMS.Solution
 
             string strSql = @"SELECT chec.ConstructSolutionId,chec.ProjectId,chec.UnitId,chec.UnitWorkIds,chec.CNProfessionalCodes,"
                               + @" chec.CompileMan,chec.CompileDate,chec.code,chec.state,chec.SolutionType,chec.SolutionName,"
-                              + @" unit.UnitName,u.userName as CompileManName"
+                              + @" unit.UnitName,u.userName as CompileManName,chec.SpecialSchemeTypeId,s.SolutionTempleteTypeName,"
+                              + @" t.SpecialSchemeTypeName"
                               + @" FROM Solution_CQMSConstructSolution chec "
                               + @" left join Base_Unit unit on unit.unitId=chec.UnitId "
                               + @" left join sys_User u on u.userId = chec.CompileMan"
+                              + @" left join[dbo].[Base_SolutionTempleteType] s on chec.SolutionType=s.SolutionTempleteTypeCode"
+                              + @" left join[dbo].[Base_SpecialSchemeType] t on chec.SpecialSchemeTypeId=t.SpecialSchemeTypeId"
                               + @" where chec.ProjectId=@ProjectId";
 
             List<SqlParameter> listStr = new List<SqlParameter>();

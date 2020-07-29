@@ -55,13 +55,11 @@ namespace BLL
         /// <returns>已完成的综合大检查整改数量</returns>
         public static int GetIsOKViolationCountByCheckTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
-            {
-                return (from x in db.Check_CheckColligation
+            Model.SGGLDB db = Funs.DB;
+            return (from x in db.Check_CheckColligation
                         join y in db.Check_CheckColligationDetail on x.CheckColligationId equals y.CheckColligationId
                         where x.CheckTime >= startTime && x.CheckTime <= endTime && x.ProjectId == projectId && y.CompleteStatus != null && y.CompleteStatus == true
                         select y).Count();
-            }
         }
 
         /// <summary>

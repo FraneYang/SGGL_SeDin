@@ -52,7 +52,7 @@ namespace FineUIPro.Web
             
             if (!IsPostBack)
             {
-                this.CurrUser.LoginProjectId = string.Empty;
+                this.CurrUser.LoginProjectId = null;
             }
         }
 
@@ -240,11 +240,11 @@ namespace FineUIPro.Web
         private bool GetIsPowerMenu(XmlNode node)
         {
             bool result = true;
-            //XmlAttribute isNewAttr = node.Attributes["id"];
-            //if (isNewAttr != null)
-            //{
-            //    result = BLL.CommonService.ReturnMenuByUserIdMenuId(this.CurrUser.UserId, isNewAttr.Value.ToString(),this.CurrUser.LoginProjectId);
-            //}
+            XmlAttribute isNewAttr = node.Attributes["id"];
+            if (isNewAttr != null)
+            {
+                result = BLL.CommonService.ReturnMenuByUserIdMenuId(this.CurrUser.UserId, isNewAttr.Value.ToString(), this.CurrUser.LoginProjectId);
+            }
 
             return result;
         }
@@ -368,9 +368,17 @@ namespace FineUIPro.Web
         {
             if (!string.IsNullOrEmpty(type))
             {
-                this.leftPanel.Hidden = false;
-                this.XmlDataSource1.DataFile = "common/" + type + ".xml";
-                this.Tab1.IFrameUrl ="";
+                if (CommonService.IsHaveSystemPower(this.CurrUser.UserId, type, this.CurrUser.LoginProjectId) || type == Const.Menu_Personal)
+                {
+                    this.leftPanel.Hidden = false;
+                    this.XmlDataSource1.DataFile = "common/" + type + ".xml";
+                    this.Tab1.IFrameUrl = "";
+                }
+                else
+                {
+                    Alert.ShowInParent("您没有此模块操作权限，请联系管理员授权！", MessageBoxIcon.Warning);
+                    return;
+                }
             }
             else
             {

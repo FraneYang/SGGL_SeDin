@@ -24,7 +24,8 @@
                 // 日志文件所在目录
                 ErrLogInfo.DefaultErrLogFullPath = Server.MapPath("~/ErrLog.txt");
                 Funs.ConnString = ConfigurationManager.AppSettings["ConnectionString"];
-                Funs.SystemName = ConfigurationManager.AppSettings["SystemName"];             
+                Funs.SystemName = ConfigurationManager.AppSettings["SystemName"];
+                Funs.SGGLUrl = ConfigurationManager.AppSettings["SGGLUrl"];            
             }
             catch (Exception ex)
             {
@@ -115,7 +116,7 @@
                 {
                     try
                     {
-                        PageBase.PageRefresh(Request.ApplicationPath + "/OperationError.aspx");
+                        PageBase.PageRefresh(Request.ApplicationPath + "/LogOff.aspx");
                     }
                     catch
                     {
@@ -132,7 +133,7 @@
                     ErrLogInfo.WriteLog(newErr.ErrLogId, ex, errLog == null ? null : errLog.ToString());
                     Server.ClearError();
 
-                    PageBase.PageRefresh(Request.ApplicationPath + "/OperationError.aspx");
+                    PageBase.PageRefresh(Request.ApplicationPath + "/LogOff.aspx");
                 }
             }
         }

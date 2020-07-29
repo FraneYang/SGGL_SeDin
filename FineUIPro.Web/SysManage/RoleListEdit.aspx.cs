@@ -63,11 +63,12 @@ namespace FineUIPro.Web.SysManage
                             txtCNCodes.Values = role.CNCodes.Split(',');
                         }
                         this.txtDef.Text = role.Def;
-                                         
+
                     }
-                }else
+                }
+                else
                 {
-                    this.txtRoleCode.Text = SQLHelper.RunProcNewId("SpGetNewCode3", "Sys_Role", "RoleCode","");
+                    this.txtRoleCode.Text = SQLHelper.RunProcNewId("SpGetNewCode3", "Sys_Role", "RoleCode", "");
                 }
             }
         }

@@ -1,6 +1,7 @@
 namespace BLL
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -23,7 +24,7 @@ namespace BLL
         /// </summary>
         /// <param name="userId">用户Id</param>
         /// <returns>用户信息</returns>
-        public static void UpdateLastUserInfo(string userId, string LastMenuType,bool LastIsOffice,string LastProjectId)
+        public static void UpdateLastUserInfo(string userId, string LastMenuType, bool LastIsOffice, string LastProjectId)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -158,28 +159,59 @@ namespace BLL
                 IdentityCard = user.IdentityCard,
                 PageSize = 10,
                 IsOffice = user.IsOffice,
-                Telephone=user.Telephone,
+                Telephone = user.Telephone,
                 DataSources = user.DataSources,
                 SignatureUrl = user.SignatureUrl,
                 DepartId = user.DepartId,
-                Politicalstatus =user.Politicalstatus,
+                Politicalstatus = user.Politicalstatus,
                 Hometown = user.Hometown,
                 Education = user.Education,
                 Graduate = user.Graduate,
                 Major = user.Major,
-                Certificate = user.Certificate,
-                IntoDate=user.IntoDate,
-                ValidityDate=user.ValidityDate,
-                Sex=user.Sex,
-                BirthDay=user.BirthDay,
-                PositionId=user.PositionId
+                CertificateId = user.CertificateId,
+                IntoDate = user.IntoDate,
+                ValidityDate = user.ValidityDate,
+                Sex = user.Sex,
+                BirthDay = user.BirthDay,
+                PositionId = user.PositionId,
+                PostTitleId = user.PostTitleId,
             };
             db.Sys_User.InsertOnSubmit(newUser);
             db.SubmitChanges();
         }
 
+        #region 用户信息维护 --更新
         /// <summary>
-        /// 修改人员信息
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="user">人员实体</param>
+        public static void UpdateSysUser(Model.Sys_User user)
+        {
+            Model.SGGLDB db = Funs.DB;
+            Model.Sys_User newUser = db.Sys_User.FirstOrDefault(e => e.UserId == user.UserId);
+            if (newUser != null)
+            {
+                newUser.Account = user.Account;
+                newUser.UserName = user.UserName;
+                newUser.UserCode = user.UserCode;
+                if (!string.IsNullOrEmpty(user.Password))
+                {
+                    newUser.Password = user.Password;
+                }
+                newUser.IdentityCard = user.IdentityCard;
+                newUser.UnitId = user.UnitId;
+                newUser.RoleId = user.RoleId;
+                newUser.IsPost = user.IsPost;
+                newUser.IsOffice = user.IsOffice;
+                newUser.Telephone = user.Telephone;
+                newUser.SignatureUrl = user.SignatureUrl;
+                newUser.DepartId = user.DepartId;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 修改员工信息
         /// </summary>
         /// <param name="user">人员实体</param>
         public static void UpdateUser(Model.Sys_User user)
@@ -208,15 +240,17 @@ namespace BLL
                 newUser.Education = user.Education;
                 newUser.Graduate = user.Graduate;
                 newUser.Major = user.Major;
-                newUser.Certificate = user.Certificate;
+                newUser.CertificateId = user.CertificateId;
                 newUser.IntoDate = user.IntoDate;
                 newUser.ValidityDate = user.ValidityDate;
                 newUser.Sex = user.Sex;
                 newUser.BirthDay = user.BirthDay;
                 newUser.PositionId = user.PositionId;
+                newUser.PostTitleId = user.PostTitleId;
                 db.SubmitChanges();
             }
         }
+        #endregion
 
         /// <summary>
         /// 根据人员Id删除一个人员信息
@@ -254,76 +288,74 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SpSysUserItem> GetProjectRoleUserListByProjectId(string projectId, string unitId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            Model.SGGLDB db = Funs.DB;
+            IQueryable<Model.SpSysUserItem> users = null;
+            if (!string.IsNullOrEmpty(projectId))
             {
-                IQueryable<Model.SpSysUserItem> users = null;
-                if (!string.IsNullOrEmpty(projectId))
+                List<Model.SpSysUserItem> returUsers = new List<Model.SpSysUserItem>();
+                List<Model.Project_ProjectUser> getPUser = new List<Model.Project_ProjectUser>();
+                if (!string.IsNullOrEmpty(unitId))
                 {
-                    List<Model.SpSysUserItem> returUsers = new List<Model.SpSysUserItem>();
-                    List<Model.Project_ProjectUser> getPUser = new List<Model.Project_ProjectUser>();
-                    if (!string.IsNullOrEmpty(unitId))
-                    {
-                        getPUser = (from x in db.Project_ProjectUser
-                                    join u in db.Project_ProjectUnit on new { x.ProjectId, x.UnitId } equals new { u.ProjectId, u.UnitId }
-                                    where x.ProjectId == projectId && (u.UnitId == unitId || u.UnitType == BLL.Const.ProjectUnitType_1 || u.UnitType == BLL.Const.ProjectUnitType_3 || u.UnitType == BLL.Const.ProjectUnitType_4)
-                                    select x).ToList();
-                    }
-                    else
-                    {
-                        getPUser = (from x in db.Project_ProjectUser
-                                    where x.ProjectId == projectId
-                                    select x).ToList();
-                    }
-
-                    if (getPUser.Count() > 0)
-                    {
-                        foreach (var item in getPUser)
-                        {
-                            List<string> roleIdList = Funs.GetStrListByStr(item.RoleId, ',');
-                            var getRoles = db.Sys_Role.FirstOrDefault(x => x.IsAuditFlow == true && roleIdList.Contains(x.RoleId));
-                            if (getRoles != null)
-                            {
-                                string userName = RoleService.getRoleNamesRoleIds(item.RoleId) + "-" + UserService.GetUserNameByUserId(item.UserId);
-                                Model.SpSysUserItem newsysUser = new Model.SpSysUserItem
-                                {
-                                    UserId = item.UserId,
-                                    UserName = userName,
-                                };
-                                returUsers.Add(newsysUser);
-                            }
-                        }
-                    }
-                    return returUsers;
+                    getPUser = (from x in db.Project_ProjectUser
+                                join u in db.Project_ProjectUnit on new { x.ProjectId, x.UnitId } equals new { u.ProjectId, u.UnitId }
+                                where x.ProjectId == projectId && (u.UnitId == unitId || u.UnitType == BLL.Const.ProjectUnitType_1 || u.UnitType == BLL.Const.ProjectUnitType_3 || u.UnitType == BLL.Const.ProjectUnitType_4)
+                                select x).ToList();
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(unitId))
+                    getPUser = (from x in db.Project_ProjectUser
+                                where x.ProjectId == projectId
+                                select x).ToList();
+                }
+
+                if (getPUser.Count() > 0)
+                {
+                    foreach (var item in getPUser)
                     {
-                        users = (from x in db.Sys_User
-                                 join z in db.Sys_Role on x.RoleId equals z.RoleId
-                                 where x.IsPost == true && z.IsAuditFlow == true && x.UnitId == unitId
-                                 orderby x.UserCode
-                                 select new Model.SpSysUserItem
-                                 {
-                                     UserName = z.RoleName + "- " + x.UserName,
-                                     UserId = x.UserId,
-                                 });
-                    }
-                    else
-                    {
-                        users = (from x in db.Sys_User
-                                 join z in db.Sys_Role on x.RoleId equals z.RoleId
-                                 where x.IsPost == true && z.IsAuditFlow == true
-                                 orderby x.UserCode
-                                 select new Model.SpSysUserItem
-                                 {
-                                     UserName = z.RoleName + "- " + x.UserName,
-                                     UserId = x.UserId,
-                                 });
+                        List<string> roleIdList = Funs.GetStrListByStr(item.RoleId, ',');
+                        var getRoles = db.Sys_Role.FirstOrDefault(x => x.IsAuditFlow == true && roleIdList.Contains(x.RoleId));
+                        if (getRoles != null)
+                        {
+                            string userName = RoleService.getRoleNamesRoleIds(item.RoleId) + "-" + UserService.GetUserNameByUserId(item.UserId);
+                            Model.SpSysUserItem newsysUser = new Model.SpSysUserItem
+                            {
+                                UserId = item.UserId,
+                                UserName = userName,
+                            };
+                            returUsers.Add(newsysUser);
+                        }
                     }
                 }
-                return users.ToList();
+                return returUsers;
             }
+            else
+            {
+                if (!string.IsNullOrEmpty(unitId))
+                {
+                    users = (from x in db.Sys_User
+                             join z in db.Sys_Role on x.RoleId equals z.RoleId
+                             where x.IsPost == true && z.IsAuditFlow == true && x.UnitId == unitId
+                             orderby x.UserCode
+                             select new Model.SpSysUserItem
+                             {
+                                 UserName = z.RoleName + "- " + x.UserName,
+                                 UserId = x.UserId,
+                             });
+                }
+                else
+                {
+                    users = (from x in db.Sys_User
+                             join z in db.Sys_Role on x.RoleId equals z.RoleId
+                             where x.IsPost == true && z.IsAuditFlow == true
+                             orderby x.UserCode
+                             select new Model.SpSysUserItem
+                             {
+                                 UserName = z.RoleName + "- " + x.UserName,
+                                 UserId = x.UserId,
+                             });
+                }
+            }
+            return users.ToList();
         }
 
         /// <summary>
@@ -1068,7 +1100,7 @@ namespace BLL
                             on x.UserId equals y.UserId
                             join z in db.Project_ProjectUnit
                             on x.UnitId equals z.UnitId
-                            where y.ProjectId == projectId && z.UnitType == unitType
+                            where y.ProjectId == projectId && z.ProjectId == projectId && z.UnitType == unitType
                             orderby x.UserName
                             select x).ToList();
                 }
@@ -1125,7 +1157,7 @@ namespace BLL
                 {
                     users = (from x in users
                              join y in db.Project_ProjectUser on x.UserId equals y.UserId
-                             where y.ProjectId == projectId
+                             where y.ProjectId == projectId 
                              orderby x.UserName
                              select x).ToList();
                 }
@@ -1161,12 +1193,10 @@ namespace BLL
                         unitIds = unitId.Split(',');
                     }
                     list = (from x in db.Sys_User
-                            join y in db.Project_ProjectUser
-                            on x.UserId equals y.UserId
-                            join z in db.Project_ProjectUnit
-                            on x.UnitId equals z.UnitId
+                            join y in db.Project_ProjectUser  on x.UserId equals y.UserId
+                            join z in db.Project_ProjectUnit on x.UnitId equals z.UnitId
                             where name == "" || x.UserName.Contains(name)
-                            where y.ProjectId == projectId
+                            where y.ProjectId == projectId && z.ProjectId == projectId
                             where unitType == "" || unitTypes.Contains(z.UnitType)
                             where unitId == "" || unitIds.Contains(z.UnitId)
                             orderby x.UserName
@@ -1235,6 +1265,31 @@ namespace BLL
                         orderby x.UserId
                         select x).Distinct().ToList();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static string getSignatureName(string userId)
+        {
+            string userName = string.Empty;
+            var getUser = UserService.GetUserByUserId(userId);
+            if (getUser != null)
+            {
+                userName = getUser.UserName;
+                if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                {
+                    string url = Funs.RootPath + getUser.SignatureUrl;
+                    FileInfo info = new FileInfo(url);
+                    if (info.Exists)
+                    {
+                        userName = "<img width='90' height='35' src='" + (Funs.SGGLUrl + getUser.SignatureUrl).Replace('\\', '/') + "'></img>";
+                    }
+                }
+            }
+            return userName;
         }
     }
 }

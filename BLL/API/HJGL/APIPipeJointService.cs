@@ -61,7 +61,6 @@ namespace BLL
         }
         #endregion
 
-
         #region 根据管线ID获取所有焊口信息
         /// <summary>
         ///  根据管线ID获取所有焊口信息
@@ -85,7 +84,6 @@ namespace BLL
             }
         }
         #endregion
-
 
         #region 获取焊工列表
         /// <summary>
@@ -112,8 +110,6 @@ namespace BLL
             }
         }
         #endregion
-
-
 
         #region 根据焊口ID获取焊口信息
         /// <summary>
@@ -366,6 +362,7 @@ namespace BLL
         }
 
         #endregion
+
         /// <summary>
         /// 保存预提交日报
         /// </summary>

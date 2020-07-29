@@ -24,8 +24,16 @@
                     <f:RenderField Width="300px" ColumnID="Name" DataField="Name" FieldType="String"
                         HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
+                      <f:TemplateField Width="120px" HeaderText="类型" HeaderTextAlign="Center" TextAlign="Center">
+                        <ItemTemplate>
+                            <asp:Label ID="Label1" runat="server" Text='<%# ConvertMenuType(Eval("MenuType")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
                     <f:RenderField Width="300px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                    </f:RenderField>
+                     <f:RenderField Width="10px" ColumnID="MenuType" DataField="MenuType" FieldType="String"
+                        HeaderText="类型" Hidden="true" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -53,6 +61,9 @@
                     <f:TextBox ID="txtName" Label="名称" ShowRedStar="true" Required="true" runat="server"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
+                       <f:DropDownList ID="drpMenuType" runat="server" Label="类型" LabelAlign="Right" Required="true"
+                         ShowRedStar="true" LabelWidth="80px" EnableEdit="true">
+                    </f:DropDownList>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right">
                     </f:TextArea>
                 </Items>
@@ -107,6 +118,7 @@
         var hfFormIDClientID = '<%= hfFormID.ClientID %>';
         var txtCodeClientID = '<%= txtCode.ClientID %>';
         var txtNameClientID = '<%= txtName.ClientID %>';
+         var drpMenuTypeClientID = '<%= drpMenuType.ClientID %>';
         var txtRemarkClientID = '<%=txtRemark.ClientID %>';
 
         function onGridRowSelect(event, rowId) {
@@ -122,6 +134,7 @@
             F(hfFormIDClientID).setValue(rowId);
             F(txtCodeClientID).setValue(rowValue['Code']);
             F(txtNameClientID).setValue(rowValue['Name']);
+               F(drpMenuTypeClientID).setValue(rowValue['MenuType']);
             F(txtRemarkClientID).setValue(rowValue['Remark']);
 
             // 更新保存按钮文本

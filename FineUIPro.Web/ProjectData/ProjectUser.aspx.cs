@@ -266,10 +266,12 @@ namespace FineUIPro.Web.ProjectData
                     {
                         this.btnNew.Hidden = false;
                         this.btnMenuEdit.Hidden = false;
+                        this.btnEdit.Hidden = false;
                     }
                     if (buttonList.Contains(BLL.Const.BtnDelete))
                     {
                         this.btnMenuDelete.Hidden = false;
+                        this.btnDelete.Hidden = false;
                     }
                 }
             }
@@ -387,6 +389,96 @@ namespace FineUIPro.Web.ProjectData
 
             return sb.ToString();
         }
-        #endregion        
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+
+            string projectUserId = Grid1.SelectedRowID;
+            var pu = ProjectUserService.GetProjectUserById(projectUserId);
+            if (pu != null)
+            {
+                var users = UserService.GetUserByUserId(pu.UserId);
+                if (users != null && CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId) && users.UnitId != Const.UnitId_SEDIN)
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../SysManage/UserListEdit.aspx?userId={0}&type=-1", users.UserId, "编辑 - ")));                    
+                }
+                else
+                {
+                    Alert.ShowInTop("本单位人员信息请在系统设置中修改！", MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+
+            string projectUserId = Grid1.SelectedRowID;
+            var pu = ProjectUserService.GetProjectUserById(projectUserId);
+            if (pu != null)
+            {
+                var users = UserService.GetUserByUserId(pu.UserId);
+                if (users != null && CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId) && users.UnitId != Const.UnitId_SEDIN)
+                {
+                    string cont = judgementDelete(users.UserId);
+                    if (string.IsNullOrEmpty(cont))
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, users.UserCode, users.UserId, BLL.Const.UserMenuId, BLL.Const.BtnDelete);
+                        BLL.ProjectUserService.DeleteProjectUserById(projectUserId);
+                        BLL.UserService.DeleteUser(users.UserId);
+                        ShowNotify("删除用户成功！", MessageBoxIcon.Success);
+                        BindGrid();
+                    }
+                    else
+                    {
+                        Alert.ShowInParent( "用户：" + users.UserName + cont,MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    Alert.ShowInTop("本单位人员信息请在系统设置中删除！", MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        #region 判断是否可删除
+        /// <summary>
+        /// 判断是否可以删除
+        /// </summary>
+        /// <returns></returns>
+        private string judgementDelete(string id)
+        {
+            string content = string.Empty;
+            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id && x.ProjectId !=this.CurrUser.LoginProjectId) != null)
+            {
+                content += "已在【项目用户】中使用，不能删除！";
+            }
+            if (Funs.DB.ProjectData_FlowOperate.FirstOrDefault(x => x.OperaterId == id) != null)
+            {
+                content += "已在【审核流程】中使用，不能删除！";
+            }
+            return content;
+        }
+        #endregion
     }
 }

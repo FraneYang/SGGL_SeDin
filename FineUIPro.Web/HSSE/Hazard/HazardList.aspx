@@ -58,7 +58,7 @@
                         </ItemTemplate>
                     </f:TemplateField>
                     <f:RenderField Width="130px" ColumnID="WorkAreaName" DataField="WorkAreaName" 
-                        SortField="WorkAreaName" FieldType="String" HeaderText="项目区域" TextAlign="Left"
+                        SortField="WorkAreaName" FieldType="String" HeaderText="单位工程" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="IdentificationDate" DataField="IdentificationDate"

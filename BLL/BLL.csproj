@@ -139,6 +139,8 @@
     <Compile Include="BaseInfo\PictureTypeService.cs" />
     <Compile Include="BaseInfo\PositionService.cs" />
     <Compile Include="BaseInfo\PostTitleService.cs" />
+    <Compile Include="BaseInfo\PracticeCertificateService.cs" />
+    <Compile Include="BaseInfo\ProjectTypeService.cs" />
     <Compile Include="BaseInfo\QualityQuestionTypeService.cs" />
     <Compile Include="BaseInfo\RulesRegulationsTypeService.cs" />
     <Compile Include="BaseInfo\SafetyMeasuresService.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Common\CodeRecordsService.cs" />
     <Compile Include="Common\CommonService.cs" />
     <Compile Include="Common\CreateQRCodeService.cs" />
+    <Compile Include="Common\PrinterDocService.cs" />
     <Compile Include="Common\ProjectDataFlowSetService.cs" />
     <Compile Include="Common\UploadFileService.cs" />
     <Compile Include="Common\UpLoadImageService.cs" />
@@ -370,6 +373,7 @@
     <Compile Include="Person\Person_QuarterCheckItemService.cs" />
     <Compile Include="Person\Person_QuarterCheckService.cs" />
     <Compile Include="ProjectData\MainItemService.cs" />
+    <Compile Include="ProjectData\ProjectData_CodeTemplateRuleService.cs" />
     <Compile Include="ProjectData\ProjectService.cs" />
     <Compile Include="ProjectData\ProjectUnitService.cs" />
     <Compile Include="ProjectData\ProjectUserService.cs" />

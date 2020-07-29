@@ -64,7 +64,7 @@
                             </f:RadioButtonList>
                             <f:DropDownList ID="drpPost" runat="server" Label="所属岗位" LabelAlign="Right" Required="True" ShowRedStar="True" EnableEdit="true">
                             </f:DropDownList>
-                            <f:DropDownList ID="drpWorkArea" runat="server" Label="作业区域" LabelAlign="Right" EnableEdit="true">
+                            <f:DropDownList ID="drpWorkArea" runat="server" Label="单位工程" LabelAlign="Right" EnableEdit="true">
                             </f:DropDownList>
                             <f:TextBox ID="txtTelephone" runat="server" Label="电话" LabelAlign="Right" MaxLength="50">
                             </f:TextBox>

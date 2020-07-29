@@ -844,7 +844,7 @@ namespace BLL
                                        ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
                                        ChangeTimeD = x.ChangeTime,
                                    };
-                if (!string.IsNullOrEmpty(userUnitId) && unitId != Const.UnitId_SEDIN)
+                if (!string.IsNullOrEmpty(userUnitId) && userUnitId != Const.UnitId_SEDIN)
                 {
                     personInOuts = personInOuts.Where(x => x.UnitId == userUnitId);
                 }

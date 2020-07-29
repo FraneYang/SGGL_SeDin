@@ -96,7 +96,7 @@ namespace FineUIPro.Web.PZHGL.InformationProject
         private void InitDropDownList()
         {
             UserService.InitUserDropDownList(this.drpCompileMan, this.ProjectId, true);
-            PictureTypeService.InitPictureTypeDropDownList(this.drpPictureType, false);
+            PictureTypeService.InitPictureTypeDropDownList(this.drpPictureType, Const.Menu_HSSE, false);
         }
 
         #region 保存

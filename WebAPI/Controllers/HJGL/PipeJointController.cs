@@ -149,7 +149,7 @@ namespace WebAPI.Controllers
         /// <param name="addItem">管线焊口项</param>
         /// <returns></returns>
         [HttpPost]
-        public Model.ResponeData SavePipeWeldJoint([FromBody] Model.WeldJointItem addItem)
+        public Model.ResponeData PostSavePipeWeldJoint([FromBody] Model.WeldJointItem addItem)
         {
             var responeData = new Model.ResponeData();
             try
@@ -173,7 +173,7 @@ namespace WebAPI.Controllers
         /// <param name="addItems">管线焊口项</param>
         /// <returns></returns>
         [HttpPost]
-        public Model.ResponeData SavePipeWeldJointList([FromBody] List<Model.WeldJointItem> addItems)
+        public Model.ResponeData PostSavePipeWeldJointList([FromBody] List<Model.WeldJointItem> addItems)
         {
             var responeData = new Model.ResponeData();
             try

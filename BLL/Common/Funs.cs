@@ -89,7 +89,11 @@ namespace BLL
             get;
             set;
         }
-
+    public static string SGGLUrl
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// Èí¼þ°æ±¾
         /// </summary>

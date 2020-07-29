@@ -25,7 +25,7 @@
                     <f:DropDownList ID="drpAccidentTypeId" runat="server" Label="事故类别" LabelAlign="Right"
                         EnableEdit="true" Required="true" ShowRedStar="true" LabelWidth="110px">
                     </f:DropDownList>
-                     <f:DropDownList ID="drpWorkAreaId" runat="server" Label="发生区域" LabelAlign="Right"
+                     <f:DropDownList ID="drpWorkAreaId" runat="server" Label="单位工程" LabelAlign="Right"
                         EnableEdit="true" Required="true" ShowRedStar="true" LabelWidth="110px">
                     </f:DropDownList>
                     <f:DatePicker ID="txtAccidentDate" runat="server" Label="发生时间" LabelAlign="Right"

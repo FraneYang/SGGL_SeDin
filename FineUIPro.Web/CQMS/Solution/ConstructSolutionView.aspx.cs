@@ -45,7 +45,11 @@ namespace FineUIPro.Web.CQMS.Solution
                     }
                     if (!string.IsNullOrEmpty(constructSolution.SolutionType))
                     {
-                        drpModelType.Text = CQMSConstructSolutionService.ConvertSolutionType(constructSolution.SolutionType);
+                        drpModelType.Text = BLL.SolutionTempleteTypeService.GetSolutionTempleteTypeById(constructSolution.SolutionType).SolutionTempleteTypeName;
+                    }
+                    if (!string.IsNullOrEmpty(constructSolution.SpecialSchemeTypeId))
+                    {
+                        txtSpecialType.Text = BLL.SpecialSchemeTypeService.GetSpecialSchemeTypeById(constructSolution.SpecialSchemeTypeId).SpecialSchemeTypeName;
                     }
                     if (constructSolution.CompileDate != null)
                     {
@@ -148,8 +152,8 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.CVEngineer) || x.RoleId.Contains(Const.FEEngineer) || x.RoleId.Contains(Const.PDEngineer)
-                               || x.RoleId.Contains(Const.EHEngineer) || x.RoleId.Contains(Const.EAEngineer) || x.RoleId.Contains(Const.HJEngineer))
+                               where (p.RoleId.Contains(Const.CVEngineer) || p.RoleId.Contains(Const.FEEngineer) || p.RoleId.Contains(Const.PDEngineer)
+                               || p.RoleId.Contains(Const.EHEngineer) || p.RoleId.Contains(Const.EAEngineer) || p.RoleId.Contains(Const.HJEngineer))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                select x;
                 //var ss = LINQToDataTable(userList);
@@ -179,7 +183,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.QAManager) || x.RoleId.Contains(Const.CQEngineer))
+                               where (p.RoleId.Contains(Const.QAManager) || p.RoleId.Contains(Const.CQEngineer))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -229,7 +233,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.HSSEManager) || x.RoleId.Contains(Const.HSSEEngineer))
+                               where (p.RoleId.Contains(Const.HSSEManager) || p.RoleId.Contains(Const.HSSEEngineer))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -258,7 +262,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.ControlManager) || x.RoleId.Contains(Const.KZEngineer))
+                               where (p.RoleId.Contains(Const.ControlManager) || p.RoleId.Contains(Const.KZEngineer))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -288,7 +292,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                               on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.ConstructionManager) || x.RoleId.Contains(Const.ConstructionAssistantManager))
+                               where (p.RoleId.Contains(Const.ConstructionManager) || p.RoleId.Contains(Const.ConstructionAssistantManager))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -318,7 +322,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                               on x.UserId equals p.UserId
-                               where x.RoleId.Contains(Const.ProjectManager)
+                               where p.RoleId.Contains(Const.ProjectManager)
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;

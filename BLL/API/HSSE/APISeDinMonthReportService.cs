@@ -130,7 +130,7 @@ namespace BLL
                               {
                                   ProjectCode = x.ProjectCode,
                                   ProjectName = x.ProjectName,
-                                  ProjectType = db.Sys_Const.First(y => y.GroupId == ConstValue.Group_ProjectType && y.ConstValue == x.ProjectType).ConstText,
+                                  ProjectType = db.Base_ProjectType.First(y => y.ProjectTypeId ==  x.ProjectType).ProjectTypeName,
                                   StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
                                   EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
                                   ProjectManager = UserService.GetUserNameAndTelByUserId(projectManagerId),
@@ -301,6 +301,7 @@ namespace BLL
                 var getUnits = from x in db.Base_Unit
                                join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
                                where y.ProjectId == projectId
+                               orderby x.UnitName
                                select x;
                 var getPersons = (from x in db.SitePerson_Person
                                   where x.ProjectId == projectId && x.InTime <= startDateD && (!x.OutTime.HasValue)
@@ -390,6 +391,7 @@ namespace BLL
                 var getUnits = from x in db.Base_Unit
                                join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
                                where y.ProjectId == projectId
+                               orderby x.UnitName
                                select x;
                 var getAll = from x in db.QualityAudit_EquipmentQuality
                              where x.ProjectId == projectId && x.InDate <= endDateD && (!x.OutDate.HasValue || x.OutDate > startDateD)
@@ -569,6 +571,7 @@ namespace BLL
                 var getUnits = from x in db.Base_Unit
                                join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
                                where y.ProjectId == projectId
+                               orderby x.UnitName
                                select x;
                 var getClassMeets = from x in db.Meeting_ClassMeeting
                                     where x.ProjectId == projectId && x.ClassMeetingDate >= startDateD && x.ClassMeetingDate < endDateD
@@ -688,6 +691,7 @@ namespace BLL
                 var getUnits = from x in db.Base_Unit
                                join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
                                where y.ProjectId == projectId && y.UnitType == Const.ProjectUnitType_2
+                               orderby x.UnitName
                                select x;
                 var getAll = from x in db.Check_RectifyNotices where x.ProjectId == projectId select x;
                 var getMon = from x in getAll where x.CheckedDate >= startDateD && x.CheckedDate < endDateD select x;
@@ -767,6 +771,7 @@ namespace BLL
                 var getUnits = from x in db.Base_Unit
                                join y in db.Project_ProjectUnit on x.UnitId equals y.UnitId
                                where y.ProjectId == projectId && y.UnitType == Const.ProjectUnitType_2
+                               orderby x.UnitName
                                select x;
                 var getAll = from x in db.Check_PauseNotice where x.ProjectId == projectId select x;
                 var getMon = getAll.Where(x => x.PauseTime >= startDateD && x.PauseTime < endDateD);
@@ -1116,6 +1121,7 @@ namespace BLL
                     getInfo = (from x in db.SeDin_MonthReport4
                                join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
                                where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               orderby x.UnitName
                                select new Model.SeDinMonthReport4Item
                                {
                                    MonthReport4Id = x.MonthReport4Id,
@@ -1150,6 +1156,7 @@ namespace BLL
                     getInfo = (from x in db.SeDin_MonthReport5
                                join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
                                where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               orderby x.UnitName
                                select new Model.SeDinMonthReport5Item
                                {
                                    MonthReport5Id = x.MonthReport5Id,

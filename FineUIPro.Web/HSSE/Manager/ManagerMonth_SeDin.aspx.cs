@@ -57,6 +57,7 @@ namespace FineUIPro.Web.HSSE.Manager
         {
             string strSql = @"SELECT mr.MonthReportId,mr.ProjectId,mr.DueDate,mr.StartDate,mr.EndDate,mr.ReporMonth,mr.CompileManId,CompileMan.UserName AS CompileManName,mr.AuditManId
                             ,AuditMan.UserName AS AuditManName,mr.ApprovalManId,mr.AuditManId,ApprovalMan.UserName AS ApprovalManName,mr.ThisSummary,mr.NextPlan,mr.States
+                            ,(CASE WHEN mr.States='1' THEN '已提交' ELSE '待提交' END) AS StateName
                             FROM dbo.SeDin_MonthReport AS mr 
                             LEFT JOIN Sys_User AS CompileMan on mr.CompileManId = CompileMan.UserId
                             LEFT JOIN Sys_User AS AuditMan on mr.AuditManId = AuditMan.UserId
@@ -260,5 +261,16 @@ namespace FineUIPro.Web.HSSE.Manager
             Response.End();
         }
         #endregion
+
+        protected void btnPrinter_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+
+            PrinterDocService.PrinterDocMethod(Const.ProjectManagerMonth_SeDinMenuId, Grid1.SelectedRowID, "安全月报");
+        }
     }
 }

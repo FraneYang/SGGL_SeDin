@@ -185,7 +185,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                 }
                 if (this.drpWorkArea.SelectedValue == BLL.Const._Null)
                 {
-                    ShowNotify("请选择作业区域！", MessageBoxIcon.Warning);
+                    ShowNotify("请选择单位工程！", MessageBoxIcon.Warning);
                     return;
                 }
                 if (this.drpWorkArea.SelectedValue == BLL.Const._Null)

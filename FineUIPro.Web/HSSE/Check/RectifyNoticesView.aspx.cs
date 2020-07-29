@@ -3,6 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using AspNet = System.Web.UI.WebControls;
+
 namespace FineUIPro.Web.HSSE.Check
 {
     public partial class RectifyNoticesView1 : PageBase
@@ -110,7 +114,7 @@ namespace FineUIPro.Web.HSSE.Check
                 var RectifyNoticesItem = BLL.AttachFileService.GetAttachFile(RectifyNoticesItemId.ToString() + "#1", BLL.Const.ProjectRectifyNoticesMenuId);
                 if (RectifyNoticesItem != null)
                 {
-                    url = BLL.UploadAttachmentService.ShowImage("~/", RectifyNoticesItem.AttachUrl);
+                    url = BLL.UploadAttachmentService.ShowImage("../../", RectifyNoticesItem.AttachUrl);
                 }
             }
             return url;
@@ -129,7 +133,7 @@ namespace FineUIPro.Web.HSSE.Check
                 var RectifyNoticesItem = BLL.AttachFileService.GetAttachFile(RectifyNoticesItemId.ToString() + "#2", BLL.Const.ProjectRectifyNoticesMenuId);
                 if (RectifyNoticesItem != null)
                 {
-                    url = BLL.UploadAttachmentService.ShowImage("~/", RectifyNoticesItem.AttachUrl);
+                    url = BLL.UploadAttachmentService.ShowImage("../../", RectifyNoticesItem.AttachUrl);
                 }
             }
             return url;

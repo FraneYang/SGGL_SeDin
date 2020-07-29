@@ -704,7 +704,7 @@
                     name: '事故统计',
                     type: 'pie',
                     center: ['25%', '60%'],
-                    radius: ['40%', '80%'],
+                    radius: ['40%', '75%'],
                     avoidLabelOverlap: false,
                     label: {
                         show: true,

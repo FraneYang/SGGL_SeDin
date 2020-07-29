@@ -80,7 +80,7 @@
                                 </tr>
                                 <tr style="height: 32px;">
                                     <td align="right">
-                                        发生区域：
+                                        单位工程：
                                     </td>
                                     <td align="left">
                                         <asp:Label runat="server" ID="txtWorkAreaName"></asp:Label>

@@ -57,18 +57,14 @@
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckSpecialDetailId"
-                        DataKeyNames="CheckSpecialDetailId" EnableMultiSelect="false" ShowGridHeader="true" 
-                        Height="350px" AllowCellEditing="true" AllowSorting="true"  
-                        EnableColumnLines="true"  OnPreDataBound="Grid1_PreDataBound" EnableTextSelection="True" >   
-                        <Columns>   
-                            <%--<f:CheckBoxField ColumnID="IsChecked" Width="80px" RenderAsStaticField="false" DataField="OK1"
-                               HeaderText="全选"  />--%>
-                            <f:RenderCheckField Width="80px" ColumnID="IsChecked" DataField="OK1"
-                        HeaderText="选择" TextAlign="Center" HeaderTextAlign="Center" Hidden="true"/>
+                        DataKeyNames="CheckSpecialDetailId" ShowGridHeader="true"  SortField="SortIndex" SortDirection="ASC" 
+                        Height="350px" AllowCellEditing="true" AllowSorting="true"  EnableColumnLines="true"  OnPreDataBound="Grid1_PreDataBound" 
+                        EnableTextSelection="True" >   
+                        <Columns>                       
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
-                        TextAlign="Center" />
-                             <f:RenderField Width="120px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查区域">
+                                TextAlign="Center" />
+                             <f:RenderField Width="110px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位工程">
                                 <Editor>
                                     <f:TextBox ID="txtWorkArea" runat="server" >
                                     </f:TextBox>
@@ -76,27 +72,27 @@
                             </f:RenderField>
                             <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="受检单位">
-                                <Editor>
-                                    <f:DropDownList ID="drpWorkUnit" Required="true" runat="server" EnableEdit="true" ShowRedStar="true">
-                                    </f:DropDownList>
+                                    <Editor>
+                                        <f:DropDownList ID="drpWorkUnit" Required="true" runat="server" EnableEdit="true" ShowRedStar="true">
+                                        </f:DropDownList>
                                     </Editor>
                             </f:RenderField>
-                             <f:RenderField Width="200px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
+                             <f:RenderField Width="150px" ColumnID="Unqualified" DataField="Unqualified" 
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="问题描述" ExpandUnusedSpace="true">
                                  <Editor>
                                     <f:TextBox ID="txtUnqualified" runat="server" ShowRedStar="true">
                                     </f:TextBox>
                                 </Editor>
-                            </f:RenderField>
-                            <f:RenderField Width="180px" ColumnID="CheckItemName" DataField="CheckItemName" SortField="CheckItemName"
+                            </f:RenderField>                            
+                            <f:RenderField Width="150px" ColumnID="CheckItemName" DataField="CheckItemName" 
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="问题类型">
                                 <Editor>
-                                       <f:DropDownList ID="drpCheckItem" runat="server" EnableEdit="true">
+                                    <f:DropDownList ID="drpCheckItem" runat="server" EnableEdit="true">
                                     </f:DropDownList>
                                 </Editor>
                             </f:RenderField>
                             <f:RenderField Width="80px" ColumnID="CompleteStatusName" DataField="CompleteStatusName" SortField="CompleteStatusName"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理结果" Hidden="true">
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理结果">
                                 <Editor>
                                   <f:DropDownList ID="drpCompleteStatus" Required="true" runat="server" EnableEdit="true" ShowRedStar="true">
                                       <f:ListItem Text="待整改" Value="待整改" Selected="true"/>
@@ -104,18 +100,30 @@
                                     </f:DropDownList>
                                     </Editor>
                             </f:RenderField> 
-                            <f:RenderField Width="110px" ColumnID="HandleStepStr" DataField="HandleStepStr" SortField="HandleStepStr"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理措施" Hidden="true">
+                            <f:RenderField Width="150px" ColumnID="HandleStepStr" DataField="HandleStepStr" SortField="HandleStepStr"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理措施" >
                                  <Editor>
                                         <f:DropDownList ID="drpHandleStep" Required="true" EnableCheckBoxSelect="true" runat="server" EnableEdit="true" EnableMultiSelect="true">
                                         </f:DropDownList>
                                     </Editor>
-                            </f:RenderField>                                                          
+                            </f:RenderField>    
+                            <f:RenderField Width="80px" ColumnID="HiddenHazardTypeName" DataField="HiddenHazardTypeName" SortField="HiddenHazardType"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="隐患类别">
+                                <Editor>
+                                  <f:DropDownList ID="drpHiddenHazardType" Required="true" runat="server" EnableEdit="true" ShowRedStar="true">
+                                      <f:ListItem Text="一般" Value="一般" Selected="true"/>
+                                      <f:ListItem Text="较大" Value="较大"/>
+                                      <f:ListItem Text="重大" Value="重大"/>
+                                    </f:DropDownList>
+                                    </Editor>
+                            </f:RenderField>
                              <f:LinkButtonField ColumnID="Delete" Width="50px" EnablePostBack="false" Icon="Delete"
                                 HeaderTextAlign="Center" HeaderText="删除" />
                         </Columns>
                         <Listeners>
-                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
+                             <%-- <f:Listener Event="beforeedit" Handler="onGridBeforeEdit" />--%>
+                                  <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
+                                <f:Listener Event="afteredit" Handler="onGridAfterEdit" />
                         </Listeners>
                     </f:Grid>
                 </Items>
@@ -154,20 +162,41 @@
         }
 
          var grid1ClientID = '<%= Grid1.ClientID %>';
+        var drpCompleteStatusClientID = '<%= drpCompleteStatus.ClientID %>';
+        var drpHandleStepClientID = '<%= drpHandleStep.ClientID %>';
+        var drpHiddenHazardTypeClientID = '<%= drpHiddenHazardType.ClientID %>';
 
-        F.ready(function () {
+        function onGridAfterEdit(event, value, params) {
+            var grid = F(grid1ClientID);
+            var drpHiddenHazardType = F(drpHiddenHazardTypeClientID);
+              var drpHandleStep = F(drpHandleStepClientID);
+            if (params.columnId === 'CompleteStatusName') {              
+                var CompleteStatusName = grid.getCellValue(params.rowId, 'CompleteStatusName');                
+                if (CompleteStatusName.indexOf("待整改") != -1) {
+                    drpHandleStep.enable();
+                    drpHandleStep.setEmptyText('');
+                    // drpHandleStep.loadData(shidata);
+                } else {
+                    drpHandleStep.setEmptyText('');
+                    drpHandleStep.disable();
+                    drpHiddenHazardType.setEmptyText('');
+                    drpHiddenHazardType.disable();
+                }
+            }
 
-            var grid1 = F(grid1ClientID);
+            if (params.columnId === 'HandleStepStr') {
+                var HandleStepStr = grid.getCellValue(params.rowId, 'HandleStepStr');                
+                if (HandleStepStr.indexOf("整改通知单") != -1) {
+                    drpHiddenHazardType.enable();
+                    drpHiddenHazardType.setEmptyText('一般');
+                   // drpHandleStep.loadData(shidata);
+                } else {
+                    drpHiddenHazardType.setEmptyText('');
+                    drpHiddenHazardType.disable();
+                }
+            }
+        }
 
-            grid1.el.on('click', '.myheadercheckbox', function () {
-                var checked = $(this).hasClass('f-checked'), thIndex = $(this).parents('th').index();
-
-                // nth-child选择器是从 1 开始的
-                var checkboxEls = grid1.el.find('.f-grid-row td:nth-child(' + (thIndex + 1) + ') .f-grid-checkbox');
-                checkboxEls.toggleClass('f-checked', checked);
-            });
-
-        });
     </script>
 </body>
 </html>

@@ -90,7 +90,6 @@ namespace BLL
         /// 查看
         /// </summary>
         public const string BtnSee = "查看";
-
         /// <summary>
         /// 保存并上报
         /// </summary>
@@ -263,7 +262,7 @@ namespace BLL
 
         #region 岗位类型
         /// <summary>
-        /// 一般管理岗位
+        /// 管理岗位
         /// </summary>
         public const string PostType_1 = "1";
         /// <summary>
@@ -787,6 +786,14 @@ namespace BLL
         /// 项目图片分类
         /// </summary>
         public const string PictureTypeMenuId = "D95CA72C-182C-4718-92A4-3F665E0FB660";
+        /// <summary>
+        /// 项目类别
+        /// </summary>
+        public const string ProjectTypeMenuId = "AEB427BD-AE1A-47CC-9337-368BB06B37F7";
+        /// <summary>
+        /// 执业资格证书证书
+        /// </summary>
+        public const string PracticeCertificateMenuId = "1390195D8-874B-4E7B-8DBF-D81A5984E973";
         #endregion
 
         #region 质量基础信息
@@ -2016,30 +2023,12 @@ namespace BLL
         /// HSSE管理周报
         /// </summary>
         public const string ProjectManagerWeekMenuId = "AE118E9C-C309-43B7-A198-8CA90A8D98EB";
-        /// <summary>
-        /// HSSE管理月报
-        /// </summary>
-        public const string ProjectManagerMonthMenuId = "5D006DDC-3AED-4E5A-8597-3C972D96F983";
-        /// <summary>
-        /// HSSE管理月报B
-        /// </summary>
-        public const string ProjectManagerMonthBMenuId = "363EB208-7BB1-4A55-85F3-2501B2F10B45";
-        /// <summary>
-        /// HSSE管理月报C
-        /// </summary>
-        public const string ProjectManagerMonthCMenuId = "68A52EEA-2661-4CB0-9382-A36AA5DCC480";
-        /// <summary>
-        /// HSSE管理月报D
-        /// </summary>
-        public const string ProjectManagerMonthDMenuId = "E18AF205-9C5B-40F8-B77B-B30C31B10BB5";
+        
         /// <summary>
         /// 月报(赛鼎)
         /// </summary>
         public const string ProjectManagerMonth_SeDinMenuId = "D0EC3002-E1FA-457D-AC3B-4C7B2D71DD82";
-        /// <summary>
-        /// HSSE管理季报
-        /// </summary>
-        public const string ProjectManagerQuarterlyMenuId = "28668BD9-3E14-438F-8BEE-24BAF6031B63";
+        
         /// <summary>
         /// HSSE完工报告
         /// </summary>
@@ -2404,7 +2393,7 @@ namespace BLL
         /// <summary>
         /// 硬度委托录入
         /// </summary>
-        public const string HJGL_HotHardManageEditMenuId = "72B3E508-1315-4CC3-6666-E840FA701A0E";
+        public const string HJGL_HotHardManageEditMenuId = "72B3E508-1315-4CC3-939F-E840FA701A0E";
 
         /// <summary>
         /// 硬度检验结果反馈
@@ -2687,30 +2676,7 @@ namespace BLL
         /// </summary>
         public const string State_C = "-2";
         #endregion
-
-        #region APP专项检查流程定义
-        /// <summary>
-        /// 重新编制
-        /// </summary>
-        public const string APPCheckSpecial_ReCompile = "0";
-
-        /// <summary>
-        /// 编制
-        /// </summary>
-        public static string APPCheckSpecial_Compile = "1";
-
-        /// <summary>
-        /// 办理中
-        /// </summary>
-        public static string APPCheckSpecial_Check = "2";
-
-        /// <summary>
-        /// 审批完成
-        /// </summary>
-        public static string APPCheckSpecial_ApproveCompleted = "3";
-
-        #endregion
-
+        
         #region 报表类型
         /// <summary>
         /// 百万工时安全统计月报
@@ -2757,13 +2723,6 @@ namespace BLL
         /// 项目现场应急演练工作计划半年报表
         /// </summary>
         public const string ProjectInformation_DrillPlanHalfYearReportId = "10";
-        #endregion
-
-        #region 移动端菜单
-        /// <summary>
-        /// 安全巡检
-        /// </summary>
-        public const string APP_HazardRegisterMenuId = "F21FFCAA-872A-4995-BB5B-E9C430950845";
         #endregion
 
         #region 质量

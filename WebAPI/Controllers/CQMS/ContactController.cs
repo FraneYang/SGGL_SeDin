@@ -83,17 +83,20 @@ namespace Web.obj
                     BLL.WorkContactService.AddWorkContactForApi(CheckControl);
                     res.resultValue = CheckControl.WorkContactId;
 
-                    BLL.AttachFileService.updateAttachFile(CheckControl.ReturnAttachUrl, CheckControl.WorkContactId + "r", BLL.Const.WorkContactMenuId);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.WorkContactId, BLL.Const.WorkContactMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.ReturnAttachUrl, CheckControl.WorkContactId + "r", BLL.Const.WorkContactMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.WorkContactId, BLL.Const.WorkContactMenuId);
+                    SaveAttachFile(CheckControl.WorkContactId + "r", BLL.Const.WorkContactMenuId, CheckControl.ReturnAttachUrl);
+                    SaveAttachFile(CheckControl.WorkContactId, BLL.Const.WorkContactMenuId, CheckControl.AttachUrl);
 
                 }
                 else
                 {
                     BLL.WorkContactService.UpdateWorkContactForApi(CheckControl);
                     res.resultValue = CheckControl.WorkContactId;
-                    BLL.AttachFileService.updateAttachFile(CheckControl.ReturnAttachUrl, CheckControl.WorkContactId + "r", BLL.Const.WorkContactMenuId);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.WorkContactId, BLL.Const.WorkContactMenuId);
-
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.ReturnAttachUrl, CheckControl.WorkContactId + "r", BLL.Const.WorkContactMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.WorkContactId, BLL.Const.WorkContactMenuId);
+                    SaveAttachFile(CheckControl.WorkContactId + "r", BLL.Const.WorkContactMenuId, CheckControl.ReturnAttachUrl);
+                    SaveAttachFile(CheckControl.WorkContactId, BLL.Const.WorkContactMenuId, CheckControl.AttachUrl);
                 }
                 res.successful = true;
             }
@@ -104,6 +107,20 @@ namespace Web.obj
             }
             return res;
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SaveAttachFile(string dataId, string menuId, string url)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = dataId,
+                UrlStr = url,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
         }
 
         [HttpPost]
@@ -166,7 +183,7 @@ namespace Web.obj
                                 if (!string.IsNullOrEmpty(workContact.ProposedUnitId) && workContact.ProposedUnitId != "$$")
                                 {
                                     
-                                    if (workContact.ProposedUnitId.Split('$')[2] == "5")
+                                    if (workContact.ProposedUnitId.Split('$')[2] == BLL.Const.ProjectUnitType_1)
                                     {
                                         Model.Unqualified_WorkContactApprove approveTemp = WorkContactApproveService.GetWorkContactApproveById(approve.WorkContactApproveId);
 
@@ -191,7 +208,7 @@ namespace Web.obj
                                // Project_ProjectUnit unit1 = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(workContact.ProjectId, workContact.ProposedUnitId.Split('$')[0]);
 
                               //  Base_Unit unit1 = BLL.UnitService.GetUnitByUnitId(workContact.ProposedUnitId.Split('$')[0]);
-                                if (workContact.ProposedUnitId.Split('$')[2] != "5")
+                                if (workContact.ProposedUnitId.Split('$')[2] != BLL.Const.ProjectUnitType_1)
                                 {
                                     Model.Unqualified_WorkContactApprove approveTemp = WorkContactApproveService.GetWorkContactApproveById(approve.WorkContactApproveId);
 

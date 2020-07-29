@@ -31,7 +31,7 @@
                         <f:DropDownList ID="drpLicenseTypeId" runat="server" Label="许可证类型" LabelAlign="Right" EnableEdit="true"
                             Required="true" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpLicenseTypeId_SelectedIndexChanged">
                         </f:DropDownList>
-                           <f:DropDownList ID="drpWorkAreaId" runat="server" Label="作业区域" LabelAlign="Right" EnableEdit="true" EnableMultiSelect="true" EnableCheckBoxSelect="true" AutoSelectFirstItem="false">
+                           <f:DropDownList ID="drpWorkAreaId" runat="server" Label="单位工程" LabelAlign="Right" EnableEdit="true" EnableMultiSelect="true" EnableCheckBoxSelect="true" AutoSelectFirstItem="false">
                         </f:DropDownList>
                           <f:DropDownList ID="drpStates" runat="server" Label="状态" LabelAlign="Right" >
                               <f:ListItem Text="待开工"   Value="1"/>

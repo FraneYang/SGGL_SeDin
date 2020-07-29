@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,7 @@ namespace BLL
 {
     public static class APITestPackageService
     {
-        #region 
+        #region 获取试压包号
         /// <summary>
         /// 获取试压包号
         /// </summary>
@@ -77,6 +79,67 @@ namespace BLL
 
                 return getDataLists;
             }
+        }
+        #endregion
+
+        #region  获取具备试压条件的试压包提醒
+        /// <summary>
+        /// 获取具备试压条件的试压包提醒
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetCanTestPackageWarning(string projectId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.BaseInfoItem> canTest = new List<Model.BaseInfoItem>();
+                // 获取项目中未完成的试压包
+                var testPackage = from x in db.PTP_TestPackage
+                                  where x.ProjectId == projectId && !x.FinishDate.HasValue
+                                  select x;
+
+                foreach (var t in testPackage)
+                {
+                    string strSql = @"SELECT ProjectId,PTP_ID,WeldJointCount,WeldJointCountT,CountU 
+                              FROM dbo.View_PTP_TestPackageAudit
+                             WHERE PTP_ID=@PTP_ID";
+
+                    List<SqlParameter> listStr = new List<SqlParameter>();
+                    listStr.Add(new SqlParameter("@PTP_ID", t.PTP_ID));
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable dt = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                    if(IsCanTest(dt))
+                    {
+
+                        Model.BaseInfoItem item = new Model.BaseInfoItem();
+                        item.BaseInfoId = t.PTP_ID;
+                        item.BaseInfoCode ="具备试压条件："+ t.TestPackageNo;
+                        canTest.Add(item);
+                    }
+                }
+                return canTest;
+            }
+        }
+
+
+        private static bool IsCanTest(DataTable dt)
+        {
+            bool isPass = true;
+            foreach (DataRow row in dt.Rows)
+            {
+                int totalJoint = Convert.ToInt32(row["WeldJointCount"]);
+                int compJoint = Convert.ToInt32(row["WeldJointCountT"]);
+                int noPassJoint = Convert.ToInt32(row["CountU"]);
+
+                if (totalJoint != compJoint || noPassJoint != 0)
+                {
+                    isPass = false;
+                    break;
+                }
+            }
+
+            return isPass;
         }
         #endregion
     }

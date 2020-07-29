@@ -20,6 +20,8 @@ namespace FineUIPro.Web.BaseInfo
             {
                 ////权限按钮方法
                 this.GetButtonPower();
+                //岗位类型            
+                BLL.ConstValue.InitConstValueDropDownList(this.drpMenuType, ConstValue.Group_MenuType_P, false);
                 Funs.DropDownPageSize(this.ddlPageSize);
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
@@ -182,6 +184,10 @@ namespace FineUIPro.Web.BaseInfo
                 this.txtCode.Text = PictureType.Code;
                 this.txtName.Text = PictureType.Name;
                 this.txtRemark.Text = PictureType.Remark;
+                if (!string.IsNullOrEmpty(PictureType.MenuType))
+                {
+                    this.drpMenuType.SelectedValue = PictureType.MenuType;
+                }
                 hfFormID.Text = Id;
                 this.btnDelete.Enabled = true;
             }
@@ -201,6 +207,7 @@ namespace FineUIPro.Web.BaseInfo
             {
                 Code = this.txtCode.Text.Trim(),
                 Name = this.txtName.Text.Trim(),
+                MenuType = this.drpMenuType.SelectedValue,
                 Remark = txtRemark.Text.Trim()
             };
             if (string.IsNullOrEmpty(strRowID))
@@ -285,10 +292,10 @@ namespace FineUIPro.Web.BaseInfo
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            //if (Funs.DB.InformationProject_Picture.FirstOrDefault(x => x.PictureType == id) != null)
-            //{
-            //    content = "该类型已在【项目图片】中使用，不能删除！";
-            //}
+            if (Funs.DB.InformationProject_Picture.FirstOrDefault(x => x.PictureType == id) != null)
+            {
+                content = "该类型已在【项目图片】中使用，不能删除！";
+            }
             if (string.IsNullOrEmpty(content))
             {
                 return true;
@@ -303,5 +310,25 @@ namespace FineUIPro.Web.BaseInfo
             }
         }
 
+        #region 格式化字符串
+        /// <summary>
+        /// 格式化字符串
+        /// </summary>
+        /// <param name="WorkStage"></param>
+        /// <returns></returns>
+        protected string ConvertMenuType(object MenuType)
+        {
+            string name = string.Empty;
+            if (MenuType != null)
+            {
+               var c = ConstValue.drpConstItemList(ConstValue.Group_MenuType_P).FirstOrDefault(x => x.ConstValue == MenuType.ToString().Trim());
+                if (c != null)
+                {
+                    name = c.ConstText;
+                }
+            }
+            return name;
+        }
+        #endregion
     }
 }

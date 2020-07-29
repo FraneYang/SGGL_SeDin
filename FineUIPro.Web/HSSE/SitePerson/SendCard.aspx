@@ -66,7 +66,7 @@
                      <f:RenderField HeaderText="岗位名称" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
                             FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="120px">                               
                     </f:RenderField>
-                     <f:RenderField HeaderText="作业区域" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
+                     <f:RenderField HeaderText="单位工程" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
                             FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="120px">                               
                     </f:RenderField>
                     <f:TemplateField  ColumnID="tflTrainResult" Width="100px" HeaderText="培训结果" HeaderTextAlign="Center" TextAlign="Left">

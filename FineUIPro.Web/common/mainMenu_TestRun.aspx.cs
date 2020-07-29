@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web
 {
-    public partial class OperationError : System.Web.UI.Page
+    public partial class mainMenu_TestRun : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

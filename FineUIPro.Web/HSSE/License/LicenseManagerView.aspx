@@ -30,7 +30,7 @@
                     <f:TextBox ID="txtLicenseTypeName" runat="server" Label="许可证类型" LabelAlign="Right"
                         Readonly="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="作业区域" LabelAlign="Right" Readonly="true"></f:TextBox>
+                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="单位工程" LabelAlign="Right" Readonly="true"></f:TextBox>
                    <f:TextBox ID="txtWorkStates" runat="server" Label="状态" LabelAlign="Right" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>

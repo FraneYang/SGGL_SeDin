@@ -49,7 +49,7 @@
                              <f:RadioButtonList runat="server" ID="rbStates" Width="280px" AutoPostBack="true" OnSelectedIndexChanged="rbStates_SelectedIndexChanged">
                                 <f:RadioItem Text="全部" Value="-1" Selected="true" />
                                 <f:RadioItem Text="待提交" Value="0" />
-                                <f:RadioItem Text="待处理" Value="1" />
+                                <f:RadioItem Text="待整改" Value="1" />
                                 <f:RadioItem Text="已完成" Value="2" />
                             </f:RadioButtonList>
                             <f:DropDownList ID="drpSupCheckItemSet" runat="server" Label="检查类别"  AutoPostBack="true" 

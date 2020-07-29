@@ -14,7 +14,7 @@ namespace WebAPI.Controllers
     /// </summary>
     public class TestPackageController : ApiController
     {
-        #region 
+        #region 获取试压包号
         /// <summary>
         /// 获取试压包号
         /// </summary>
@@ -60,6 +60,30 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
+        #endregion
+
+        #region 获取具备试压条件的试压包提醒
+        /// <summary>
+        /// 获取具备试压条件的试压包提醒
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetCanTestPackageWarning(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APITestPackageService.GetCanTestPackageWarning(projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
         #endregion
     }
 }

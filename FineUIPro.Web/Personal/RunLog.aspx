@@ -6,12 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        .f-grid-row .f-grid-cell-inner {
-            white-space: normal;
-            word-break: break-all;
-        }        
-    </style> 
 </head>
 <body>
     <form id="form1" runat="server">
@@ -67,11 +61,7 @@
                             <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
                             </f:ToolbarText>
                             <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
-                                OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">                               
-                                <f:ListItem Text="15" Value="15" />
-                                <f:ListItem Text="20" Value="20" />
-                                <f:ListItem Text="25" Value="25" />
-                                <f:ListItem Text="所有行" Value="100000" />
+                                OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">        
                             </f:DropDownList>
                         </PageItems>
                     </f:Grid>

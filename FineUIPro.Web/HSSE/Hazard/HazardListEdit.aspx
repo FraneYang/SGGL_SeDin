@@ -25,7 +25,7 @@
                                     <f:TextBox ID="txtHazardListCode" runat="server" Label="清单编号" MaxLength="50" LabelAlign="Right"
                                         Readonly="true" Required="true" ShowRedStar="true">
                                     </f:TextBox>
-                                    <f:TextBox ID="txtWorkArea" runat="server" Label="项目区域" MaxLength="500" ShowRedStar="true"
+                                    <f:TextBox ID="txtWorkArea" runat="server" Label="单位工程" MaxLength="500" ShowRedStar="true"
                                         Required="true" FocusOnPageLoad="true" LabelAlign="Right">
                                     </f:TextBox>
                                     <f:DropDownList ID="drpWorkArea" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpWorkArea_SelectedIndexChanged">

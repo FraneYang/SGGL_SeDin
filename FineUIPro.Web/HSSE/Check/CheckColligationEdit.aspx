@@ -66,7 +66,7 @@
             </f:FormRow>
        <%--     <f:FormRow>
                 <Items>
-                     <f:DropDownList ID="drpCheckAreas" runat="server" Label="检查区域" EnableCheckBoxSelect="true" EnableMultiSelect="true">
+                     <f:DropDownList ID="drpCheckAreas" runat="server" Label="单位工程" EnableCheckBoxSelect="true" EnableMultiSelect="true">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>--%>
@@ -112,7 +112,7 @@
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="整改要求">
                             </f:RenderField>
                             <f:RenderField Width="110px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查区域">
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位工程">
                             </f:RenderField>
                             <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="责任单位">

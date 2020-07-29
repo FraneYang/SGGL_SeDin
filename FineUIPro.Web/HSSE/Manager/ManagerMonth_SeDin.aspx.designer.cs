@@ -175,6 +175,15 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::FineUIPro.MenuButton btnMenuModify;
         
         /// <summary>
+        /// btnPrinter 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnPrinter;
+        
+        /// <summary>
         /// btnMenuDel 控件。
         /// </summary>
         /// <remarks>

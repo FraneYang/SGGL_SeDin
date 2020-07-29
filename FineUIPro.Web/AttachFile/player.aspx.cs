@@ -19,7 +19,7 @@ namespace FineUIPro.Web.AttachFile
 
             string urls = HttpUtility.UrlDecode(Request.QueryString["url"]);
             //videoUrl = httpstring + "://" + Request.ServerVariables["SERVER_NAME"] + ":" + Request.ServerVariables["SERVER_PORT"]+"/"+ urls;            
-            videoUrl = "https://c.sedin.com/hsse/" + urls;
+            videoUrl =BLL.Funs.SGGLUrl + urls; //"https://c.sedin.com/sggl/"
         }
     }
 }

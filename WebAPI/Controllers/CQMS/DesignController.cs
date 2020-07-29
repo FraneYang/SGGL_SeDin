@@ -75,16 +75,16 @@ namespace Mvc.Controllers
                 {
                     CheckControl.DesignId = Guid.NewGuid().ToString();
                     BLL.DesignService.AddDesignForApi(CheckControl);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.DesignId, Const.DesignMenuId);
-
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.DesignId, Const.DesignMenuId);
+                    SaveAttachFile(CheckControl.DesignId, BLL.Const.DesignMenuId, CheckControl.AttachUrl);
                     res.resultValue = CheckControl.DesignId;
                     res.successful = true;
                 }
                 else
                 {
                     BLL.DesignService.UpdateDesignForApi(CheckControl);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.DesignId, Const.DesignMenuId);
-
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.DesignId, Const.DesignMenuId);
+                    SaveAttachFile(CheckControl.DesignId, BLL.Const.DesignMenuId, CheckControl.AttachUrl);
                     res.resultValue = CheckControl.DesignId;
                     res.successful = true;
                 }
@@ -97,6 +97,20 @@ namespace Mvc.Controllers
            
             return res;
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SaveAttachFile(string dataId, string menuId, string url)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = dataId,
+                UrlStr = url,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
         }
 
         [HttpPost]

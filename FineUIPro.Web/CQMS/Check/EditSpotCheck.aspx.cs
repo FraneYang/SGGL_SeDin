@@ -846,6 +846,7 @@ namespace FineUIPro.Web.CQMS.Check
                     approve.ApproveType = this.drpHandleType.SelectedValue;
                     approve.Sign = "1";
                     BLL.SpotCheckApproveService.AddSpotCheckApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "工序验收待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     //总包专工确认时，通知相关人员
                     if (this.drpHandleType.SelectedValue == BLL.Const.SpotCheck_Audit3 || this.drpHandleType.SelectedValue == BLL.Const.SpotCheck_Audit4)
                     {
@@ -1015,6 +1016,7 @@ namespace FineUIPro.Web.CQMS.Check
                     approve.ApproveType = this.drpHandleType.SelectedValue;
                     approve.Sign = "1";
                     BLL.SpotCheckApproveService.AddSpotCheckApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "工序验收待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 else
                 {
@@ -1044,11 +1046,8 @@ namespace FineUIPro.Web.CQMS.Check
             drpHandleMan.Items.Clear();
             if (!string.IsNullOrEmpty(drpHandleType.SelectedText))
             {
-                if (drpHandleType.SelectedText.Contains("重新编制") || drpHandleType.SelectedText.Contains("分包"))
-                {
-                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, drpUnit.SelectedValue);
-                }
-                else if (drpHandleType.SelectedText.Contains("总包"))
+                
+                if (drpHandleType.SelectedText.Contains("总包"))
                 {
                     UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
                 }
@@ -1063,6 +1062,15 @@ namespace FineUIPro.Web.CQMS.Check
                 if (drpHandleMan.Items.Count > 0)
                 {
                     drpHandleMan.SelectedIndex = 0;
+                }
+                if (drpHandleType.SelectedText.Contains("重新编制") || drpHandleType.SelectedText.Contains("分包"))
+                {
+                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, drpUnit.SelectedValue);
+                    var HandleMan = BLL.SpotCheckApproveService.GetComplie(this.SpotCheckCode);
+                    if (HandleMan != null)
+                    {
+                        this.drpHandleMan.SelectedValue = HandleMan.ApproveMan;
+                    }
                 }
                 if (drpHandleType.SelectedValue == BLL.Const.SpotCheck_Complete)
                 {

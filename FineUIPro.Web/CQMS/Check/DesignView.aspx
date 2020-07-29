@@ -205,7 +205,7 @@
                         <f:ContentPanel Title="设计变更审批列表" ShowBorder="true"
                             BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
                             runat="server">
-                            <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false" DataIDField="DesignApproveId" SortField="ApproveDate" SortDirection="DESC"
+                            <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false" DataIDField="DesignApproveId" SortField="ApproveDate" SortDirection="ASC"
                                 DataKeyNames="DesignApproveId" EnableColumnLines="true" ForceFit="true">
                                 <Columns>
                                     <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"

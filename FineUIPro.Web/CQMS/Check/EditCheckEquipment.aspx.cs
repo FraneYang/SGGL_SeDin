@@ -139,7 +139,6 @@ namespace FineUIPro.Web.CQMS.Check
                         this.drpHandleMan.DataValueField = "UserId";
                         this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                         this.drpHandleMan.DataBind();
-                        this.drpHandleMan.SelectedIndex = 1;
                     }
                     else
                     {
@@ -190,7 +189,6 @@ namespace FineUIPro.Web.CQMS.Check
                     this.drpHandleMan.DataValueField = "UserId";
                     this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                     this.drpHandleMan.DataBind();
-                    this.drpHandleMan.SelectedIndex = 1;
                     this.cbIsCheckCertificate.Checked = true;
                     this.cbIsIdentification.Checked = true;
                 }
@@ -332,7 +330,11 @@ namespace FineUIPro.Web.CQMS.Check
                         this.drpHandleMan.DataValueField = "UserId";
                         this.drpHandleMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
                         this.drpHandleMan.DataBind();
-                        this.drpHandleMan.SelectedIndex = 1;
+                        var HandleMan = BLL.CheckEquipmentApproveService.GetComplie(this.CheckEquipmentId);
+                        if (HandleMan != null)
+                        {
+                            this.drpHandleMan.SelectedValue = HandleMan.ApproveMan;
+                        }
                         drpHandleMan.Enabled = true;
                     }
                 }

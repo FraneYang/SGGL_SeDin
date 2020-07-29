@@ -33,8 +33,8 @@ namespace FineUIPro.Web.ProjectData
         {            
             if (!IsPostBack)
             {
-                this.ProjectId = Request.QueryString["ProjectId"];
-                
+                Funs.DropDownPageSize(this.ddlPageSize);
+                this.ProjectId = Request.QueryString["ProjectId"];                
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
@@ -65,10 +65,12 @@ namespace FineUIPro.Web.ProjectData
                                 + @" LEFT JOIN Base_Unit AS Unit ON Users.UnitId =Unit.UnitId "
                                 + @" WHERE ProjectUnit.ProjectId =@ProjectId AND ProjectUnit.UnitId=@UnitId AND Users.UserId <> @UserId "
                                 + @" AND Users.UserId NOT IN (SELECT UserId FROM Project_ProjectUser WHERE ProjectId =ProjectUnit.ProjectId) ";
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
-                listStr.Add(new SqlParameter("@UnitId", this.drpUnit.SelectedValue));
-                listStr.Add(new SqlParameter("@UserId", BLL.Const.sysglyId));               
+                List<SqlParameter> listStr = new List<SqlParameter>
+                {
+                    new SqlParameter("@ProjectId", this.ProjectId),
+                    new SqlParameter("@UnitId", this.drpUnit.SelectedValue),
+                    new SqlParameter("@UserId", BLL.Const.sysglyId)
+                };
                 if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
                 {
                     strSql += " AND Users.UserName LIKE @UserName";
@@ -78,7 +80,6 @@ namespace FineUIPro.Web.ProjectData
                 SqlParameter[] parameter = listStr.ToArray();
                 DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
                 Grid1.RecordCount = tb.Rows.Count;
-                tb = GetFilteredTable(Grid1.FilteredData, tb);
                 var table = this.GetPagedDataTable(Grid1, tb);
                 Grid1.DataSource = table;
                 Grid1.DataBind();
@@ -216,7 +217,7 @@ namespace FineUIPro.Web.ProjectData
 
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../SysManage/UserListEdit.aspx?UnitId={0}", this.drpUnit.SelectedValue, "新增 - ")));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../SysManage/UserListEdit.aspx?UnitId={0}&type=-1", this.drpUnit.SelectedValue, "新增 - ")));
         }
     }
 }

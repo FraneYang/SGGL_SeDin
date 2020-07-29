@@ -119,7 +119,8 @@ namespace BLL
                     };
                     newTrainRecord.CompileMan = UserService.GetUserNameByUserId(getTrainingPlan.DesignerId);
                     ///获取培训人员
-                    var getTrainingTasks = from x in db.Training_Task where x.PlanId == getTrainingPlan.PlanId
+                    var getTrainingTasks = from x in db.Training_Task
+                                           where x.PlanId == getTrainingPlan.PlanId
                                            select x;
                     newTrainRecord.TrainPersonNum = getTrainingTasks.Count();
                     ///新增培训记录
@@ -140,12 +141,12 @@ namespace BLL
                         bool result = false;
                         ////获取 考生试卷
                         var getTestRecord = db.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == item.UserId);
-                       foreach(var itemR in getTestRecord)
+                        foreach (var itemR in getTestRecord)
                         {
                             if (itemR.TestScores > gScores)
                             {
                                 gScores = itemR.TestScores ?? 0;
-                            } 
+                            }
                         }
 
                         if (gScores >= passScore)
@@ -158,12 +159,12 @@ namespace BLL
                             TrainDetailId = SQLHelper.GetNewID(),
                             TrainingId = newTrainRecord.TrainingId,
                             PersonId = item.UserId,
-                            CheckScore= gScores,
-                            CheckResult=result,
+                            CheckScore = gScores,
+                            CheckResult = result,
                         };
                         db.EduTrain_TrainRecordDetail.InsertOnSubmit(newDetail);
                         db.SubmitChanges();
-                     
+
                         ///// 培训考试 通过 更新卡号
                         if (result)
                         {

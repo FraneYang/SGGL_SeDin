@@ -59,11 +59,7 @@ namespace FineUIPro.Web.CQMS.Solution
                 var gvCNProfessional = CNProfessionalService.GetList();
                 gvCNPro.DataSource = gvCNProfessional;
                 gvCNPro.DataBind();
-                drpModelType.DataSource = CQMSConstructSolutionService.GetSolutionType();
-                drpModelType.DataTextField = "Text";
-                drpModelType.DataValueField = "Value";
-                drpModelType.DataBind();
-                Funs.FineUIPleaseSelect(drpModelType);
+                BLL.SolutionTempleteTypeService.InitSolutionTempleteDropDownList(drpModelType, false);
                 UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
                 BindZYRole();
                 BindZLRole();
@@ -87,6 +83,14 @@ namespace FineUIPro.Web.CQMS.Solution
                     if (!string.IsNullOrEmpty(constructSolution.SolutionType))
                     {
                         drpModelType.SelectedValue = constructSolution.SolutionType;
+                    }
+                    if (!string.IsNullOrEmpty(constructSolution.SpecialSchemeTypeId))
+                    {
+                        if (!string.IsNullOrEmpty(constructSolution.SolutionType)) {
+                            BLL.SpecialSchemeTypeService.InitSpecialSchemeTypeByTempleteDropDownList(drpSpecialType, constructSolution.SolutionType, false);
+                            drpSpecialType.SelectedValue = constructSolution.SpecialSchemeTypeId;
+                        }
+                        
                     }
                     if (constructSolution.CompileDate != null)
                     {
@@ -148,6 +152,7 @@ namespace FineUIPro.Web.CQMS.Solution
                         txtCode.Enabled = false;
                         drpUnit.Enabled = false;
                         drpModelType.Enabled = false;
+                        drpSpecialType.Enabled = false;
                         txtCompileDate.Enabled = false;
                         txtSolutionName.Enabled = false;
                         txtCNProfessional.Enabled = false;
@@ -162,6 +167,7 @@ namespace FineUIPro.Web.CQMS.Solution
                         txtCode.Enabled = true;
                         drpUnit.Enabled = true;
                         drpModelType.Enabled = true;
+                        drpSpecialType.Enabled = true;
                         txtCompileDate.Enabled = true;
                         txtSolutionName.Enabled = true;
                         txtCNProfessional.Enabled = true;
@@ -329,9 +335,13 @@ namespace FineUIPro.Web.CQMS.Solution
             {
                 constructSolution.UnitId = drpUnit.SelectedValue;
             }
-            if (drpUnit.SelectedValue != "0")
+            if (drpModelType.SelectedValue != "0")
             {
                 constructSolution.SolutionType = drpModelType.SelectedValue;
+            }
+            if (drpSpecialType.SelectedValue != "0")
+            {
+                constructSolution.SpecialSchemeTypeId = drpSpecialType.SelectedValue;
             }
             constructSolution.SolutionName = txtSolutionName.Text.Trim();
             int edtion = Convert.ToInt32(txtEdition.Text);
@@ -497,6 +507,10 @@ namespace FineUIPro.Web.CQMS.Solution
             {
                 constructSolution.SolutionType = drpModelType.SelectedValue;
             }
+            if (drpSpecialType.SelectedValue != "0")
+            {
+                constructSolution.SpecialSchemeTypeId = drpSpecialType.SelectedValue;
+            }
             constructSolution.SolutionName = txtSolutionName.Text.Trim();
             if (!string.IsNullOrEmpty(txtCompileDate.Text.Trim()))
             {
@@ -598,6 +612,7 @@ namespace FineUIPro.Web.CQMS.Solution
                         approve.Edition = edtion;
                         delSolutionApprove(constructSolutionId, tn.NodeID);
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
+                        APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
@@ -626,6 +641,7 @@ namespace FineUIPro.Web.CQMS.Solution
                         approve.Edition = edtion;
                         delSolutionApprove(constructSolutionId, tn.NodeID);
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
+                        APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
@@ -654,6 +670,7 @@ namespace FineUIPro.Web.CQMS.Solution
                         approve.Edition = edtion;
                         delSolutionApprove(constructSolutionId, tn.NodeID);
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
+                        APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
@@ -682,6 +699,7 @@ namespace FineUIPro.Web.CQMS.Solution
                         approve.Edition = edtion;
                         delSolutionApprove(constructSolutionId, tn.NodeID);
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
+                        APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
 
                     }
                     else
@@ -711,6 +729,7 @@ namespace FineUIPro.Web.CQMS.Solution
                         approve.Edition = edtion;
                         delSolutionApprove(constructSolutionId, tn.NodeID);
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
+                        APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
@@ -738,6 +757,7 @@ namespace FineUIPro.Web.CQMS.Solution
                         approve.Edition = edtion;
                         delSolutionApprove(constructSolutionId, tn.NodeID);
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
+                        APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
@@ -783,8 +803,8 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.CVEngineer) || x.RoleId.Contains(Const.FEEngineer) || x.RoleId.Contains(Const.PDEngineer)
-                               || x.RoleId.Contains(Const.EHEngineer) || x.RoleId.Contains(Const.EAEngineer) || x.RoleId.Contains(Const.HJEngineer))
+                               where (p.RoleId.Contains(Const.CVEngineer) || p.RoleId.Contains(Const.FEEngineer) || p.RoleId.Contains(Const.PDEngineer)
+                               || p.RoleId.Contains(Const.EHEngineer) || p.RoleId.Contains(Const.EAEngineer) || p.RoleId.Contains(Const.HJEngineer))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId== CurrUser.LoginProjectId
                                select x;
                 //var ss = LINQToDataTable(userList);
@@ -814,7 +834,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.QAManager) || x.RoleId.Contains(Const.CQEngineer))
+                               where (p.RoleId.Contains(Const.QAManager) || p.RoleId.Contains(Const.CQEngineer))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -864,7 +884,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.HSSEManager) || x.RoleId.Contains(Const.HSSEEngineer))
+                               where (p.RoleId.Contains(Const.HSSEManager) || p.RoleId.Contains(Const.HSSEEngineer))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -893,7 +913,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.ControlManager) || x.RoleId.Contains(Const.KZEngineer))
+                               where (p.RoleId.Contains(Const.ControlManager) || p.RoleId.Contains(Const.KZEngineer))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -923,7 +943,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                               on x.UserId equals p.UserId
-                               where (x.RoleId.Contains(Const.ConstructionManager) || x.RoleId.Contains(Const.ConstructionAssistantManager))
+                               where (p.RoleId.Contains(Const.ConstructionManager) || p.RoleId.Contains(Const.ConstructionAssistantManager))
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -953,7 +973,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                               on x.UserId equals p.UserId
-                               where x.RoleId.Contains(Const.ProjectManager)
+                               where p.RoleId.Contains(Const.ProjectManager)
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                orderby x.UserCode
                                select x;
@@ -1088,6 +1108,17 @@ namespace FineUIPro.Web.CQMS.Solution
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(
                  String.Format("../../AttachFile/webuploader.aspx?type={0}&toKeyId={1}&path=FileUpload/Solution&menuId={2}",
                  -1, fileId, Const.CQMSConstructSolutionMenuId)));
+        }
+        /// <summary>
+        /// 根据施工方案加载专项施工方案
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void drpModelType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (drpModelType.SelectedValue != BLL.Const._Null) {
+                BLL.SpecialSchemeTypeService.InitSpecialSchemeTypeByTempleteDropDownList(drpSpecialType, drpModelType.SelectedValue,false);
+            }
         }
     }
 }

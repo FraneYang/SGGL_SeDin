@@ -74,7 +74,7 @@
                                 HeaderText="所在班组" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="90px" ColumnID="WorkAreaName" DataField="WorkAreaName" FieldType="String"
-                                HeaderText="作业区域" HeaderTextAlign="Center" TextAlign="Center">
+                                HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="90px" ColumnID="PostName" DataField="PostName" SortField="PostName"
                                 FieldType="String" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center">
@@ -123,7 +123,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:Label ID="lblBottom" runat="server" Text="说明：1 人员信息导入模板中，灰色项为必填项。2 身份证号码必须为15或18位，所属单位、所在班组、作业区域、岗位、特岗证书等必须与基础信息中对应类型的名称一致,否则无法导入。3 如需修改已有人员信息，请到系统中修改。4 数据导入后，点击“保存”，即可完成人员信息导入。">
+                    <f:Label ID="lblBottom" runat="server" Text="说明：1 人员信息导入模板中，灰色项为必填项。2 身份证号码必须为15或18位，所属单位、所在班组、单位工程、岗位、特岗证书等必须与基础信息中对应类型的名称一致,否则无法导入。3 如需修改已有人员信息，请到系统中修改。4 数据导入后，点击“保存”，即可完成人员信息导入。">
                     </f:Label>
                 </Items>
             </f:FormRow>

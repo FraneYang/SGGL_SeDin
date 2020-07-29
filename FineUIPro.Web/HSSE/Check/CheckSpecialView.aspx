@@ -40,28 +40,31 @@
             <f:FormRow>
                 <Items>
                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckSpecialDetailId"
-                        DataKeyNames="CheckSpecialDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="350px" 
+                        DataKeyNames="CheckSpecialDetailId" ShowGridHeader="true" Height="350px"       
+                        AllowSorting="true" SortField="SortIndex" SortDirection="ASC" 
                         EnableColumnLines="true"  EnableTextSelection="True" OnRowCommand="Grid1_RowCommand">                           
                         <Columns>      
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
-                        TextAlign="Center" />
+                                  TextAlign="Center" />
                             <f:RenderField Width="110px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查区域">
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位工程">
                             </f:RenderField>
-                            <f:RenderField Width="235px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                            <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="受检单位">
                             </f:RenderField>
                                   <f:RenderField Width="200px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="问题描述" ExpandUnusedSpace="true">                              
                             </f:RenderField>
-                            <f:RenderField Width="180px" ColumnID="CheckItemName" DataField="CheckItemName" SortField="CheckItemName"
+                            <f:RenderField Width="160px" ColumnID="CheckItemName" DataField="CheckItemName" SortField="CheckItemName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="问题类型">                                
                             </f:RenderField>
                             <f:RenderField Width="80px" ColumnID="CompleteStatusName" DataField="CompleteStatusName" SortField="CompleteStatusName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理结果">
                             </f:RenderField>   
-                            <f:RenderField Width="140px" ColumnID="HandleStepLink" DataField="HandleStepLink" SortField="HandleStepLink"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理措施">
+                            <f:LinkButtonField Width="160px" ColumnID="HandleStepLink" DataTextField="HandleStepLink" DataToolTipField="HandleStepLink" HeaderText="处理措施"
+                                 CommandName="click" EnableAjax="false"  />                            
+                            <f:RenderField Width="80px" ColumnID="HiddenHazardTypeName" DataField="HiddenHazardTypeName" SortField="HiddenHazardTypeName"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="隐患类别">
                             </f:RenderField>
                             <%--<f:LinkButtonField Width="140px" HeaderText="处理措施" ConfirmTarget="Parent" CommandName="click"
                                  TextAlign="Center"  DataTextField="HandleStepLink" ColumnID="HandleStepLink" />    --%>
@@ -92,7 +95,7 @@
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
-        <f:Window ID="Window1" Title="查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        <f:Window ID="Window1" Title="详细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" 
         Width="1100px" Height="500px">
     </f:Window>

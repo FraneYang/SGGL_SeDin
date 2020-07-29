@@ -209,11 +209,11 @@ namespace BLL
 
                 var weldG = from x in db.HJGL_Batch_PointBatchItem
                             join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                            where y.JointAttribute == "固定口"
+                            where y.JointAttribute == "固定口" && x.PointBatchId==pointBatchId
                             select x;
                 var weldA = from x in db.HJGL_Batch_PointBatchItem
                             join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                            where y.JointAttribute == "活动口"
+                            where y.JointAttribute == "活动口" && x.PointBatchId == pointBatchId
                             select x;
                 if (weldG.Count() > 0)
                 {

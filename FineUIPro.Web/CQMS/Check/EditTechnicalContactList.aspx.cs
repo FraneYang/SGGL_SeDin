@@ -104,7 +104,7 @@ namespace FineUIPro.Web.CQMS.Check
                     if (!string.IsNullOrEmpty(technicalContactList.ProposedUnitId))
                     {
                         drpProposeUnit.SelectedValue = technicalContactList.ProposedUnitId;
-                        Model.Project_ProjectUnit unit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId,technicalContactList.ProposedUnitId);
+                        Model.Project_ProjectUnit unit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, technicalContactList.ProposedUnitId);
                         if (unit != null)
                         {
                             unitType = unit.UnitType;
@@ -169,7 +169,6 @@ namespace FineUIPro.Web.CQMS.Check
                         rblIsAgree.Visible = false;
                         drpHandleMan.Enabled = true;
                         drpHandleMan.Required = true;
-
                         if (drpHandleType.SelectedValue == Const.TechnicalContactList_ReCompile)
                         {
                             drpHandleMan.Enabled = true;
@@ -199,7 +198,7 @@ namespace FineUIPro.Web.CQMS.Check
                         HandleImg = 0;
                         ReplyFileImg = 0;
                     }
-                    if (unitType == "3")  //分包发起
+                    if (unitType == BLL.Const.ProjectUnitType_2)  //分包发起
                     {
                         if (contactListType == "1")  //图纸类
                         {
@@ -258,7 +257,7 @@ namespace FineUIPro.Web.CQMS.Check
                         btnSubmit.Visible = false;
                         next.Visible = false;
                     }
-                    if (unitType == "3")  //施工分包商
+                    if (unitType == BLL.Const.ProjectUnitType_2)  //施工分包商
                     {
                         if (State == Const.TechnicalContactList_Audit2 || State == Const.TechnicalContactList_Audit2R || State == Const.TechnicalContactList_Audit2H || State == Const.TechnicalContactList_Audit3 || State == Const.TechnicalContactList_Audit4 || State == Const.TechnicalContactList_Audit4R)
                         {
@@ -370,11 +369,13 @@ namespace FineUIPro.Web.CQMS.Check
                     drpHandleMan.SelectedIndex = 1;
                     plApprove2.Hidden = true;
                     txtCode.Text = SQLHelper.RunProcNewId2("SpGetNewCode3ByProjectId", "dbo.Check_TechnicalContactList", "Code", CurrUser.LoginProjectId);
-                    var mainUnit = UnitService.GetUnitByProjectIdUnitTypeList(this.CurrUser.LoginProjectId,Const.ProjectUnitType_1)[0];
+                    string unitId = string.Empty;
+                    var mainUnit = UnitService.GetUnitByProjectIdUnitTypeList(this.CurrUser.LoginProjectId, Const.ProjectUnitType_1)[0];
                     if (mainUnit != null)
                     {
-                        drpProposeUnit.SelectedValue = mainUnit.UnitId;
+                        unitId = mainUnit.UnitId;
                     }
+                    this.drpProposeUnit.SelectedValue = this.CurrUser.UnitId ?? unitId;
                     HandleImg = 0;
                     drpProposeUnit_SelectedIndexChanged(null, null);
                 }
@@ -547,6 +548,7 @@ namespace FineUIPro.Web.CQMS.Check
         /// </summary>
         public void Reply(string type)
         {
+            Model.Check_TechnicalContactList technicalContactList = TechnicalContactListService.GetTechnicalContactListByTechnicalContactListId(TechnicalContactListId);
             if (rblIsReply.SelectedValue.Equals("1"))
             {
                 //回复操作
@@ -581,6 +583,15 @@ namespace FineUIPro.Web.CQMS.Check
                         ReOpinion.Hidden = true;
                         HideOptions.Hidden = false;
 
+                        if (State == Const.TechnicalContactList_ReCompile)
+                        {
+                            if (!string.IsNullOrEmpty(technicalContactList.ReOpinion))
+                            {
+                                this.ReOpinion.Hidden = false;
+                                this.txtReOpinion.Enabled = false;
+                            }
+                            this.txtOpinions.Hidden = true;
+                        }
                     }
 
                     if (drpHandleType.SelectedValue.Equals(Const.TechnicalContactList_Audit1) || drpHandleType.SelectedValue.Equals(Const.TechnicalContactList_Audit6) || drpHandleType.SelectedValue.Equals(Const.TechnicalContactList_Audit6R))
@@ -613,6 +624,16 @@ namespace FineUIPro.Web.CQMS.Check
                         HideReplyFile.Hidden = true;
                         ReOpinion.Hidden = true;
                         HideOptions.Hidden = false;
+
+                        if (State == Const.TechnicalContactList_ReCompile)
+                        {
+                            if (!string.IsNullOrEmpty(technicalContactList.ReOpinion))
+                            {
+                                this.ReOpinion.Hidden = false;
+                                this.txtReOpinion.Enabled = false;
+                            }
+                            this.txtOpinions.Hidden = true;
+                        }
                     }
 
                     if (drpHandleType.SelectedValue.Equals(Const.TechnicalContactList_Audit2H) || drpHandleType.SelectedValue.Equals(Const.TechnicalContactList_Audit2R)
@@ -653,7 +674,7 @@ namespace FineUIPro.Web.CQMS.Check
         protected void drpProposeUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
             string unitType = string.Empty;
-            Model.Project_ProjectUnit unit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId,drpProposeUnit.SelectedValue);
+            Model.Project_ProjectUnit unit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, drpProposeUnit.SelectedValue);
             if (unit != null)
             {
                 unitType = unit.UnitType;
@@ -862,8 +883,9 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     approve.ApproveType = drpHandleType.SelectedValue;
                     TechnicalContactListApproveService.AddTechnicalContactListApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "工程联络单待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     //}
-                    if (unitType == "5" && technicalContactList.IsReply == "2" && drpHandleType.SelectedValue == Const.TechnicalContactList_Complete)  //总包发起
+                    if (unitType == BLL.Const.ProjectUnitType_1 && technicalContactList.IsReply == "2" && drpHandleType.SelectedValue == Const.TechnicalContactList_Complete)  //总包发起
                     {
                         List<Model.Sys_User> seeUsers = new List<Model.Sys_User>();
                         seeUsers.AddRange(UserService.GetSeeUserList3(CurrUser.LoginProjectId, technicalContactList.ProposedUnitId, technicalContactList.MainSendUnitId, technicalContactList.CCUnitIds, technicalContactList.CNProfessionalCode, technicalContactList.UnitWorkId.ToString()));
@@ -877,7 +899,7 @@ namespace FineUIPro.Web.CQMS.Check
                             TechnicalContactListApproveService.AddTechnicalContactListApprove(approveS);
                         }
                     }
-                    if (unitType == "3" && technicalContactList.IsReply == "2" && drpHandleType.SelectedValue == Const.TechnicalContactList_Complete)  //分包发起
+                    if (unitType == BLL.Const.ProjectUnitType_2 && technicalContactList.IsReply == "2" && drpHandleType.SelectedValue == Const.TechnicalContactList_Complete)  //分包发起
                     {
                         List<Model.Sys_User> seeUsers = new List<Model.Sys_User>();
                         seeUsers.AddRange(UserService.GetSeeUserList3(CurrUser.LoginProjectId, technicalContactList.ProposedUnitId, technicalContactList.MainSendUnitId, technicalContactList.CCUnitIds, technicalContactList.CNProfessionalCode, technicalContactList.UnitWorkId.ToString()));
@@ -931,6 +953,7 @@ namespace FineUIPro.Web.CQMS.Check
                     approve.ApproveType = drpHandleType.SelectedValue;
 
                     TechnicalContactListApproveService.AddTechnicalContactListApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "工程联络单待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 else
                 {
@@ -980,6 +1003,7 @@ namespace FineUIPro.Web.CQMS.Check
         public void Agree()
         {
             string unitType = string.Empty;
+            bool flag = false;
             Model.Project_ProjectUnit unit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, drpProposeUnit.SelectedValue);
             if (unit != null)
             {
@@ -994,7 +1018,7 @@ namespace FineUIPro.Web.CQMS.Check
             TechnicalContactListService.InitHandleType(drpHandleType, false, State, unitType, rblContactListType.SelectedValue, rblIsReply.SelectedValue);
             if (rblIsAgree.SelectedValue.Equals("true"))
             {
-                if (unitType == "3")  //分包发起
+                if (unitType == BLL.Const.ProjectUnitType_2)  //分包发起
                 {
                     if (contactListType == "1")  //图纸类
                     {
@@ -1110,6 +1134,7 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     drpHandleMan.Enabled = true;
                     UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, drpProposeUnit.SelectedValue);
+                    var HandleMan = BLL.TechnicalContactListApproveService.GetComplie(this.TechnicalContactListId);                    if (HandleMan != null)                    {                        this.drpHandleMan.SelectedValue = HandleMan.ApproveMan;                        flag = true;                    }
                     drpHandleMan.Required = true;
                 }
                 else
@@ -1125,8 +1150,11 @@ namespace FineUIPro.Web.CQMS.Check
 
             if (drpHandleMan.Items.Count > 0)
             {
+                if (!flag)
+                {
+                    drpHandleMan.SelectedIndex = 0;
+                }
 
-                drpHandleMan.SelectedIndex = 0;
             }
         }
 

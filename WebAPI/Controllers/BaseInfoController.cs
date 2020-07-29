@@ -987,7 +987,25 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIBaseInfoService.getPictureType();
+                responeData.data = APIBaseInfoService.getPictureType(null);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        /// <summary>
+        ///   获取项目图片分类
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getPictureType(string menuType)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getPictureType(menuType);
             }
             catch (Exception ex)
             {

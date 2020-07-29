@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -20,6 +21,7 @@ namespace FineUIPro.Web.BaseInfo
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
+                SolutionTempleteTypeService.InitSolutionTempleteDropDownList(drpSolutionTempleteType, true);
             }
         }
 
@@ -28,10 +30,13 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            var q = from x in Funs.DB.Base_SpecialSchemeType orderby x.SpecialSchemeTypeCode select x;
-            Grid1.RecordCount = q.Count();
-            // 2.获取当前分页数据
-            var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
+            string strSql = @"select SpecialSchemeTypeId, SpecialSchemeTypeCode, SpecialSchemeTypeName, S.Remark, S.SolutionTempleteTypeCode,T.SolutionTempleteTypeName from Base_SpecialSchemeType S
+              left join Base_SolutionTempleteType T on S.SolutionTempleteTypeCode=T.SolutionTempleteTypeCode ";
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, null);
+            Grid1.RecordCount = tb.Rows.Count;
+            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            var table = this.GetPagedDataTable(Grid1, tb);
+
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
@@ -169,6 +174,9 @@ namespace FineUIPro.Web.BaseInfo
                 SpecialSchemeTypeName = this.txtSpecialSchemeTypeName.Text.Trim(),
                 Remark = txtRemark.Text.Trim()
             };
+            if (drpSolutionTempleteType.SelectedValue != BLL.Const._Null) {
+                newSpecialSchemeType.SolutionTempleteTypeCode = drpSolutionTempleteType.SelectedValue;
+            }
             if (string.IsNullOrEmpty(strRowID))
             {
                 newSpecialSchemeType.SpecialSchemeTypeId = SQLHelper.GetNewID(typeof(Model.Base_SpecialSchemeType));
@@ -259,13 +267,13 @@ namespace FineUIPro.Web.BaseInfo
             var q = Funs.DB.Base_SpecialSchemeType.FirstOrDefault(x => x.SpecialSchemeTypeCode == this.txtSpecialSchemeTypeCode.Text.Trim() && (x.SpecialSchemeTypeId != hfFormID.Text || (hfFormID.Text == null && x.SpecialSchemeTypeId != null)));
             if (q != null)
             {
-                ShowNotify("输入的类别编号已存在！", MessageBoxIcon.Warning);
+                ShowNotify("输入的分部分项工程编号已存在！", MessageBoxIcon.Warning);
             }
 
             var q2 = Funs.DB.Base_SpecialSchemeType.FirstOrDefault(x => x.SpecialSchemeTypeName == this.txtSpecialSchemeTypeName.Text.Trim() && (x.SpecialSchemeTypeId != hfFormID.Text || (hfFormID.Text == null && x.SpecialSchemeTypeId != null)));
             if (q2 != null)
             {
-                ShowNotify("输入的类别名称已存在！", MessageBoxIcon.Warning);
+                ShowNotify("输入的分部分项工程名称已存在！", MessageBoxIcon.Warning);
             }
         }
         #endregion

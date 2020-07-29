@@ -332,7 +332,7 @@ namespace FineUIPro.Web.Controls
                 State = this.rblFlowOperate.SelectedValue,
                 IsClosed = isClosed,
                 Opinion = this.txtOpinions.Text.Trim(),
-                ProjectId = projectId,
+                ProjectId = string.IsNullOrEmpty(projectId) ? null : projectId,
                 Url = url
             };
             var user = BLL.UserService.GetUserByUserId(newFlowOperate.OperaterId);

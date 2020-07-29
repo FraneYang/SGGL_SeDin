@@ -64,7 +64,8 @@ namespace FineUIPro.Web.Person
         {
             if (!IsPostBack)
             {
-
+                PostTitleService.InitPostTitleDropDownList(this.drpPostTitle, true);
+                PracticeCertificateService.InitPracticeCertificateDropDownList(this.drpCertificate, true);
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 ///权限
                 this.GetButtonPower();
@@ -116,8 +117,14 @@ namespace FineUIPro.Web.Person
                         this.txtEducation.Text = user.Education;
                         this.txtGraduate.Text = user.Graduate;
                         this.txtMajor.Text = user.Major;
-                        this.txtCertificate.Text = user.Certificate;
-                        this.txtPosition.Text = user.PositionId;
+                        if (!string.IsNullOrEmpty(user.PostTitleId))
+                        {
+                            this.drpPostTitle.SelectedValue = user.PostTitleId;
+                        }
+                        if (!string.IsNullOrEmpty(user.CertificateId))
+                        {
+                            this.drpCertificate.SelectedValue = user.CertificateId;
+                        }
                         this.rblSex.SelectedValue = user.Sex;
                         if (user.BirthDay.HasValue)
                         {
@@ -206,9 +213,7 @@ namespace FineUIPro.Web.Person
                 Education = this.txtEducation.Text.Trim(),
                 Graduate = this.txtGraduate.Text.Trim(),
                 Major = this.txtMajor.Text.Trim(),
-                Certificate = this.txtCertificate.Text.Trim(),
                 Sex = this.rblSex.SelectedValue,
-                PositionId = this.txtPosition.Text.Trim()
             };
             if (this.drpUnit.SelectedValue != Const._Null)
             {
@@ -225,6 +230,14 @@ namespace FineUIPro.Web.Person
             if (this.drpDepart.SelectedValue != Const._Null)
             {
                 newUser.DepartId = this.drpDepart.SelectedValue;
+            }
+            if (this.drpCertificate.SelectedValue != Const._Null)
+            {
+                newUser.CertificateId = this.drpCertificate.SelectedValue;
+            }
+            if (this.drpPostTitle.SelectedValue != Const._Null)
+            {
+                newUser.PostTitleId = this.drpPostTitle.SelectedValue;
             }
             newUser.SignatureUrl = this.SignatureUrl;
             newUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
@@ -298,10 +311,13 @@ namespace FineUIPro.Web.Person
                 ShowNotify("输入的账号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = Funs.DB.Sys_User.FirstOrDefault(x => x.UserCode == this.txtUserCode.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
-            if (q2 != null)
+            if (!string.IsNullOrEmpty(this.txtUserCode.Text))
             {
-                ShowNotify("输入的编号已存在！", MessageBoxIcon.Warning);
+                var q2 = Funs.DB.Sys_User.FirstOrDefault(x => x.UserCode == this.txtUserCode.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
+                if (q2 != null)
+                {
+                    ShowNotify("输入的编号已存在！", MessageBoxIcon.Warning);
+                }
             }
 
             if (!string.IsNullOrEmpty(this.txtIdentityCard.Text) && BLL.UserService.IsExistUserIdentityCard(this.UserId, this.txtIdentityCard.Text.Trim()) == true)

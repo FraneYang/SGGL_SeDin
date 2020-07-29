@@ -148,8 +148,8 @@ namespace BLL
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.WeldJointId,
-                                        BaseInfoCode = y.HardTrustNo,
-                                        BaseInfoName = z.WeldJointCode
+                                        BaseInfoCode = "硬度委托单号：" + y.HardTrustNo,
+                                        BaseInfoName = "不合格焊口：" + z.WeldJointCode
                                     }
                                ).ToList();
                 return getDataLists;

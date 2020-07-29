@@ -334,21 +334,19 @@ namespace BLL
         /// <returns></returns>                        
         public static List<Model.Accident_AccidentReport> GetAccidentReportsByTimeAndAccidentTypeId(DateTime startTime, DateTime endTime, string projectId, string accidentTypeId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            Model.SGGLDB db = Funs.DB;
+            if (accidentTypeId == "1" || accidentTypeId == "2" || accidentTypeId == "3")  //轻重死事故按审批完成时间
             {
-                if (accidentTypeId == "1" || accidentTypeId == "2" || accidentTypeId == "3")  //轻重死事故按审批完成时间
-                {
-                    return (from x in db.Accident_AccidentReport
-                            join y in db.Sys_FlowOperate
-                            on x.AccidentReportId equals y.DataId
-                            where x.AccidentTypeId == accidentTypeId && x.ProjectId == projectId && x.States == BLL.Const.State_2
-                            && y.State == BLL.Const.State_2 && y.OperaterTime >= startTime && y.OperaterTime < endTime
-                            select x).Distinct().ToList();
-                }
-                else
-                {
-                    return (from x in db.Accident_AccidentReport where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentTypeId && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
-                }
+                return (from x in db.Accident_AccidentReport
+                        join y in db.Sys_FlowOperate
+                        on x.AccidentReportId equals y.DataId
+                        where x.AccidentTypeId == accidentTypeId && x.ProjectId == projectId && x.States == BLL.Const.State_2
+                        && y.State == BLL.Const.State_2 && y.OperaterTime >= startTime && y.OperaterTime < endTime
+                        select x).Distinct().ToList();
+            }
+            else
+            {
+                return (from x in db.Accident_AccidentReport where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentTypeId && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
             }
         }
 

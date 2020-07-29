@@ -41,6 +41,7 @@ namespace FineUIPro.Web.CQMS.Check
                 Funs.FineUIPleaseSelect(drpState);
                 btnNew.OnClientClick = Window1.GetShowReference("EditDesign.aspx") + "return false;";
                 BindGrid();
+                ProjectId = CurrUser.LoginProjectId;
                 GetButtonPower();
             }
         }

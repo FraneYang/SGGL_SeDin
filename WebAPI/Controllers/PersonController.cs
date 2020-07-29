@@ -129,28 +129,31 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getViews = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                               where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
-                               && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
-                               select x;
-                if (unitId != Const.UnitId_SEDIN && !string.IsNullOrEmpty(unitId))
+                using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
                 {
-                    getViews = getViews.Where(x => x.UnitId == unitId);
+                    var getViews = from x in db.SitePerson_Person
+                                   where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
+                                   && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
+                                   select x;
+                    if (unitId != Const.UnitId_SEDIN && !string.IsNullOrEmpty(unitId))
+                    {
+                        getViews = getViews.Where(x => x.UnitId == unitId);
+                    }
+                    if (!string.IsNullOrEmpty(strParam))
+                    {
+                        getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
+                    }
+                    int tatalCount = getViews.Count();
+                    //在审
+                    int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
+                    //在岗
+                    int count1 = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
+                    //离岗
+                    int count2 = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now).Count();
+                    //打回
+                    int count3 = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue).Count();
+                    responeData.data = new { tatalCount, count0, count1, count2, count3 };
                 }
-                if (!string.IsNullOrEmpty(strParam))
-                {
-                    getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
-                }
-                int tatalCount = getViews.Count();
-                //在审
-                int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
-                //在岗
-                int count1 = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
-                //离岗
-                int count2 = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now).Count();
-                //打回
-                int count3 = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue).Count();
-                responeData.data = new { tatalCount, count0, count1, count2, count3 };
             }
             catch (Exception ex)
             {
@@ -254,20 +257,23 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {                
-                var getDataList = new Model.SGGLDB(Funs.ConnString).View_QualityAudit_PersonQuality.Where(x => x.ProjectId == projectId && x.CertificateId != null);
-                if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+            {
+                using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
                 {
-                    getDataList = getDataList.Where(x => x.UnitId == unitId);
-                }
-                //总数
-                int tatalCount = getDataList.Count();
-                //过期
-                int count1 = getDataList.Where(x => x.LimitDate < DateTime.Now).Count();
-                //即将过期
-                int count2 = getDataList.Where(x => x.LimitDate >= DateTime.Now && x.LimitDate < DateTime.Now.AddMonths(1)).Count();
+                    var getDataList = db.View_QualityAudit_PersonQuality.Where(x => x.ProjectId == projectId && x.CertificateId != null);
+                    if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+                    {
+                        getDataList = getDataList.Where(x => x.UnitId == unitId);
+                    }
+                    //总数
+                    int tatalCount = getDataList.Count();
+                    //过期
+                    int count1 = getDataList.Where(x => x.LimitDate < DateTime.Now).Count();
+                    //即将过期
+                    int count2 = getDataList.Where(x => x.LimitDate >= DateTime.Now && x.LimitDate < DateTime.Now.AddMonths(1)).Count();
 
-                responeData.data = new { tatalCount, count1, count2 };
+                    responeData.data = new { tatalCount, count1, count2 };
+                }
             }
             catch (Exception ex)
             {
@@ -378,23 +384,26 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                if (person != null && !string.IsNullOrEmpty(person.IdentityCard))
+                using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
                 {
-                    var getPerson = new Model.SGGLDB(Funs.ConnString).SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard && x.ProjectId == person.ProjectId);
-                    if (getPerson != null && getPerson.PersonId != person.PersonId)
+                    if (person != null && !string.IsNullOrEmpty(person.IdentityCard))
                     {
-                        responeData.code = 2;
-                        responeData.message = "人员身份证号码已存在！";
+                        var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard && x.ProjectId == person.ProjectId);
+                        if (getPerson != null && getPerson.PersonId != person.PersonId)
+                        {
+                            responeData.code = 2;
+                            responeData.message = "人员身份证号码已存在！";
+                        }
+                        else
+                        {
+                            APIPersonService.SaveSitePerson(person);
+                        }
                     }
                     else
                     {
-                        APIPersonService.SaveSitePerson(person);
+                        responeData.code = 2;
+                        responeData.message = "人员信息有误！";
                     }
-                }
-                else
-                {
-                    responeData.code = 2;
-                    responeData.message = "人员信息有误！";
                 }
             }
             catch (Exception ex)
@@ -521,9 +530,8 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
-                responeData.data = from x in db.SitePerson_Person
-                                   join y in db.Base_Unit on x.UnitId equals y.UnitId
+                responeData.data = from x in Funs.DB.SitePerson_Person
+                                   join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
                                    where x.ProjectId == projectId
                                    && !x.ExchangeTime.HasValue
                                    && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime.HasValue && x.InTime < DateTime.Now
@@ -538,14 +546,13 @@ namespace WebAPI.Controllers
                                        y.UnitCode,
                                        y.UnitName,
                                        x.Sex,
-                                       new Model.SGGLDB(Funs.ConnString).Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
+                                       Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
                                        x.Telephone,
                                        x.Address,
                                        x.ExchangeTime,
                                        x.ExchangeTime2,
-                                       PhotoUrl = (x.PhotoUrl == null || x.PhotoUrl =="") ? x.IDCardUrl : x.PhotoUrl,
+                                       PhotoUrl = (x.PhotoUrl == null || x.PhotoUrl == "") ? x.IDCardUrl : x.PhotoUrl,
                                    };
-
             }
             catch (Exception ex)
             {
@@ -567,17 +574,20 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_Person
-                                   where x.ProjectId == projectId && x.InTime.HasValue && ((x.IsUsed == true && !x.OutTime.HasValue) || x.OutTime.HasValue)
-                                    && x.InTime < DateTime.Now && x.CardNo != null && !x.ExchangeTime2.HasValue && x.ExchangeTime.HasValue
-                                   select new
-                                   {
-                                       x.PersonId,
-                                       x.PersonName,
-                                       x.CardNo,
-                                       x.IdentityCard,
-                                       OutTime = x.OutTime == null ? DateTime.Now.AddYears(10) : x.OutTime,
-                                   };
+                using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+                {
+                    responeData.data = from x in db.SitePerson_Person
+                                       where x.ProjectId == projectId && x.InTime.HasValue && ((x.IsUsed == true && !x.OutTime.HasValue) || x.OutTime.HasValue)
+                                        && x.InTime < DateTime.Now && x.CardNo != null && !x.ExchangeTime2.HasValue && x.ExchangeTime.HasValue
+                                       select new
+                                       {
+                                           x.PersonId,
+                                           x.PersonName,
+                                           x.CardNo,
+                                           x.IdentityCard,
+                                           OutTime = x.OutTime == null ? DateTime.Now.AddYears(10) : x.OutTime,
+                                       };
+                }
             }
             catch (Exception ex)
             {

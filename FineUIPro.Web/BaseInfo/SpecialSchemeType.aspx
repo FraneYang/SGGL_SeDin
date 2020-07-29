@@ -4,15 +4,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>专项方案类别</title>
+    <title>分部分项工程</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
-    <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" Title="专项方案" Layout="HBox"  ShowHeader="false">
+    <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" Title="分部分项工程" Layout="HBox"  ShowHeader="false">
         <Items>
-            <f:Grid ID="Grid1" Title="专项方案类别" ShowHeader="false" EnableCollapse="true" PageSize="10" ForceFit="true"
+            <f:Grid ID="Grid1" Title="分部分项工程" ShowHeader="false" EnableCollapse="true" PageSize="10" ForceFit="true"
                 ShowBorder="true" AllowPaging="true" IsDatabasePaging="true" runat="server" Width="750px" EnableColumnLines="true"
                 DataKeyNames="SpecialSchemeTypeId" DataIDField="SpecialSchemeTypeId" OnPageIndexChange="Grid1_PageIndexChange"
                 AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True">
@@ -24,8 +24,14 @@
                     <f:RenderField Width="300px" ColumnID="SpecialSchemeTypeName" DataField="SpecialSchemeTypeName"
                         FieldType="String" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
+                    <f:RenderField Width="300px" ColumnID="SolutionTempleteTypeName" DataField="SolutionTempleteTypeName"
+                        FieldType="String" HeaderText="类别" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
                     <f:RenderField Width="300px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                    </f:RenderField>
+                    <f:RenderField Width="10px" ColumnID="SolutionTempleteTypeCode" DataField="SolutionTempleteTypeCode" FieldType="String"
+                        HeaderText="类型" Hidden="true" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -53,8 +59,11 @@
                     <f:TextBox ID="txtSpecialSchemeTypeName" Label="名称" ShowRedStar="true" Required="true"  MaxLength="500"
                         runat="server" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
+                    <f:DropDownList ID="drpSolutionTempleteType" runat="server" Label="类别" LabelAlign="right" MaxLength="50" >
+                        </f:DropDownList>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right"  MaxLength="2000">
                     </f:TextArea>
+
                 </Items>
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Bottom" runat="server">
@@ -98,7 +107,6 @@
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
         }
-
         var gridClientID = '<%= Grid1.ClientID %>';
         var btnDeleteClientID = '<%= btnDelete.ClientID %>';
         var btnSaveClientID = '<%= btnSave.ClientID %>';
@@ -108,7 +116,7 @@
         var txtCodeClientID = '<%= txtSpecialSchemeTypeCode.ClientID %>';
         var txtNameClientID = '<%= txtSpecialSchemeTypeName.ClientID %>';
         var txtRemarkClientID = '<%=txtRemark.ClientID %>';
-
+        var txtSolutionTempleteType = '<%=drpSolutionTempleteType.ClientID%>';
         function onGridRowSelect(event, rowId) {
             var grid = F(gridClientID);
 
@@ -123,7 +131,7 @@
             F(txtCodeClientID).setValue(rowValue['SpecialSchemeTypeCode']);
             F(txtNameClientID).setValue(rowValue['SpecialSchemeTypeName']);
             F(txtRemarkClientID).setValue(rowValue['Remark']);
-
+            F(txtSolutionTempleteType).setValue(rowValue['SolutionTempleteTypeCode']);
             // 更新保存按钮文本
 //            F(btnSaveClientID).setText('保存数据（编辑）');
         }

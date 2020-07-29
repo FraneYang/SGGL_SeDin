@@ -73,7 +73,7 @@ namespace FineUIPro.Web.CQMS.Check
             }
             if (drpMainItem.SelectedValue != BLL.Const._Null)
             {
-                strSql += " AND M.MainItemToUnitWorkId=@MainItem";
+                strSql += " AND M.MainItemId=@MainItem";
                 listStr.Add(new SqlParameter("@MainItem", drpMainItem.SelectedValue));
             }
             if (drpDesignCN.SelectedValue != BLL.Const._Null)

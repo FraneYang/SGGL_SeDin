@@ -145,7 +145,7 @@ namespace FineUIPro.Web.HSSE.Accident
             }
             if (this.drpWorkAreaId.SelectedValue == BLL.Const._Null)
             {
-                Alert.ShowInTop("请选择发生区域！", MessageBoxIcon.Warning);
+                Alert.ShowInTop("请选择单位工程！", MessageBoxIcon.Warning);
                 return;
             }
             if (this.drpPersonId.SelectedValue == BLL.Const._Null)
@@ -171,7 +171,7 @@ namespace FineUIPro.Web.HSSE.Accident
             }
             if (this.drpWorkAreaId.SelectedValue == BLL.Const._Null)
             {
-                Alert.ShowInTop("请选择发生区域！", MessageBoxIcon.Warning);
+                Alert.ShowInTop("请选择单位工程！", MessageBoxIcon.Warning);
                 return;
             }
             if (this.drpPersonId.SelectedValue == BLL.Const._Null)
@@ -275,7 +275,7 @@ namespace FineUIPro.Web.HSSE.Accident
                 }
                 if (this.drpWorkAreaId.SelectedValue == BLL.Const._Null)
                 {
-                    Alert.ShowInTop("请选择发生区域！", MessageBoxIcon.Warning);
+                    Alert.ShowInTop("请选择单位工程！", MessageBoxIcon.Warning);
                     return;
                 }
                 if (this.drpPersonId.SelectedValue == BLL.Const._Null)

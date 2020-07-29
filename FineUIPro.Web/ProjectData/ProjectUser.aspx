@@ -32,7 +32,7 @@
        ShowHeader="false"  Layout="VBox" BoxConfigAlign="Stretch" >
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="项目用户" 
-                EnableCollapse="true" runat="server" BoxFlex="1"  EnableColumnLines="true"
+                EnableCollapse="true" runat="server" BoxFlex="1"  EnableColumnLines="true" ForceFit="true"
                 DataKeyNames="ProjectUserId" AllowCellEditing="true" ClicksToEdit="2" DataIDField="ProjectUserId"
                 AllowSorting="true" SortField="UnitType,UnitCode" SortDirection="ASC"  OnSort="Grid1_Sort"                
                 AllowPaging="true" IsDatabasePaging="true"  PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" 
@@ -60,28 +60,28 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:TemplateField ColumnID="tfNumber" Width="55px" HeaderText="序号" HeaderTextAlign="Center"
+                    <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
                         TextAlign="Center">
                         <ItemTemplate>
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="UnitTypeName" DataField="UnitTypeName" SortField="UnitTypeName" FieldType="String"
+                    <f:RenderField Width="90px" ColumnID="UnitTypeName" DataField="UnitTypeName" SortField="UnitTypeName" FieldType="String"
                         HeaderText="单位类型"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName" FieldType="String"
-                        HeaderText="单位名称"  HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName" FieldType="String"
+                        HeaderText="单位名称"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="UserName" DataField="UserName" SortField="UserName"
+                    <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                         FieldType="String" HeaderText="用户名称"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
+                    <f:RenderField Width="200px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
                         FieldType="String" HeaderText="项目角色"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
                         FieldType="String" HeaderText="项目岗位"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="WorkAreaId" Width="280px" HeaderText="分管范围" HeaderTextAlign="Center" TextAlign="Center"
+                    <f:TemplateField ColumnID="WorkAreaId" Width="200px" HeaderText="分管范围" HeaderTextAlign="Center" TextAlign="Center"
                             EnableLock="true" Locked="False">
                             <ItemTemplate>
                                 <asp:Label ID="Label2" runat="server" Text='<%# ConvertWorkAreaId(Eval("WorkAreaId")) %>'></asp:Label>
@@ -107,7 +107,7 @@
             </f:Grid>
         </Items>
     </f:Panel> 
-    <f:Window ID="Window1" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+    <f:Window ID="Window1" Hidden="true" EnableIFrame="true" EnableMaximize="true" Width="800px"  Height="500px"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true">
     </f:Window>                  
     <f:Menu ID="Menu1" runat="server">
@@ -116,6 +116,12 @@
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
             Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
+        </f:MenuButton>
+         <f:MenuButton ID="btnEdit" OnClick="btnEdit_Click" EnablePostBack="true" Hidden="true"
+           Icon="Pencil" runat="server" Text="编辑[用户]">
+        </f:MenuButton>
+        <f:MenuButton ID="btnDelete" OnClick="btnDelete_Click" EnablePostBack="true" Hidden="true"
+            Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除[用户]">
         </f:MenuButton>
     </f:Menu>
     </form>

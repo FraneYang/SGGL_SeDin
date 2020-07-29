@@ -1,9 +1,11 @@
-﻿using BLL;
+﻿using Aspose.Words;
+using BLL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-
+using System.IO;
+using System.Text;
 namespace FineUIPro.Web.HSSE.EduTrain
 {
     public partial class TestRecord : PageBase
@@ -289,14 +291,25 @@ namespace FineUIPro.Web.HSSE.EduTrain
         }
         #endregion
 
+        //protected void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    if (Grid1.SelectedRowIndexArray.Length == 0)
+        //    {
+        //        Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
+        //        return;
+        //    }
+        //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TestRecordPrint.aspx?TestRecordId={0}", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 900, 650));
+        //}
+
         protected void btnPrint_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length == 0)
             {
-                Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TestRecordPrint.aspx?TestRecordId={0}", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 900, 650));
+
+            PrinterDocService.PrinterDocMethod(Const.ProjectTestRecordMenuId, Grid1.SelectedRowID, "试卷");
         }
     }
 }

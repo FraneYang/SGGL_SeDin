@@ -66,7 +66,7 @@ namespace FineUIPro.Web.HSSE.Check
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpSignPerson, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
 
                 ///检察人员
-                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpCheckMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
+                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpCheckMan, this.CurrUser.LoginProjectId, null, true);
                 //Funs.FineUIPleaseSelect(drpIsRectify);
                 RectifyNoticesId = Request.Params["RectifyNoticesId"];
 
@@ -528,7 +528,7 @@ namespace FineUIPro.Web.HSSE.Check
                 }
                 else
                 {
-                    PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CheckColligation&menuId={1}&type=0&strParam=1", itemId, BLL.Const.ProjectRectifyNoticesMenuId)));
+                    PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/RectifyNotices&menuId={1}&type=0&strParam=1", itemId, BLL.Const.ProjectRectifyNoticesMenuId)));
                 }
                 }
             if (e.CommandName == "delete")
@@ -660,7 +660,7 @@ namespace FineUIPro.Web.HSSE.Check
         //    }
         //    else
         //    {
-        //        PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CheckColligation&menuId={1}&type=0&strParam=1", this.hdTestPlanTrainingId.Text, BLL.Const.ProjectRectifyNoticesMenuId)));
+        //        PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/RectifyNotices&menuId={1}&type=0&strParam=1", this.hdTestPlanTrainingId.Text, BLL.Const.ProjectRectifyNoticesMenuId)));
         //    }
         //}
         ///// <summary>

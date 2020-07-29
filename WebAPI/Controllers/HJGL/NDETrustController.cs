@@ -329,6 +329,168 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 返修/扩透
+        /// <summary>
+        /// 获取返修单列表
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <param name="isAudit"></param>
+        /// <param name="repairRecordCode"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetRepairRecord(string unitWorkId, bool isAudit, string repairRecordCode)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GetRepairRecord(unitWorkId, isAudit, repairRecordCode);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 获取返修单信息
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetRepairInfoByRepairRecordId(string repairRecordId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GetRepairInfoByRepairRecordId(repairRecordId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 根据条件获取可选取扩透口的批明细
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        /// <param name="welder">同焊工</param>
+        /// <param name="pipeLine">同管线</param>
+        /// <param name="daily">同一天</param>
+        /// <param name="repairBefore">返修前所焊</param>
+        /// <param name="mat">同材质</param>
+        /// <param name="spec">同规格</param>
+        /// <returns></returns>
+        public Model.ResponeData GetRepairExpDetail(string repairRecordId, bool welder, bool pipeLine, bool daily, bool repairBefore, bool mat, bool spec)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GetRepairExpDetail(repairRecordId, welder, pipeLine, daily, repairBefore, mat, spec);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 获取扩透口的随机数
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetRandomExport(int num)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.RandomExport(num);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 保存返修/扩透口信息
+        /// </summary>
+        /// <param name="repairRecordId">返修ID</param>
+        /// <param name="expandId">扩透口ID（多个用“,”号隔开）</param>
+        /// <param name="repairWelder">返修焊工</param>
+        /// <param name="repairDate">返修日期</param>
+        /// <param name="isCut">是否切除</param>
+        public Model.ResponeData GetRepairExpSaveInfo(string repairRecordId, string expandId, string repairWelder, string repairDate, bool isCut)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APINDETrustService.GetRepairExpSaveInfo(repairRecordId, expandId, repairWelder, repairDate, isCut);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 返修单审核
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetRepairAudit(string repairRecordId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APINDETrustService.RepairAudit(repairRecordId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 生成返修委托单
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetGenerateRepairTrust(string repairRecordId)
+
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.GenerateRepairTrust(repairRecordId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        #endregion
+
         #region NDE预警
         /// <summary>
         /// 无损检测不合格焊口信息

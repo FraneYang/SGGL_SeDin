@@ -64,7 +64,7 @@ namespace FineUIPro.Web.SysManage
         {
             if (!IsPostBack)
             {
-
+            
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 ///权限
                 this.GetButtonPower();
@@ -120,55 +120,23 @@ namespace FineUIPro.Web.SysManage
                             this.drpIsOffice.SelectedValue = "False";
                         }
                         this.txtIdentityCard.Text = user.IdentityCard;
-                        this.txtPoliticalstatus.Text = user.Politicalstatus;
-                        this.txtHometown.Text = user.Hometown;
-                        this.txtEducation.Text = user.Education;
-                        this.txtGraduate.Text = user.Graduate;
-                        this.txtMajor.Text = user.Major;
-                        this.txtCertificate.Text = user.Certificate;
-                        this.txtPosition.Text = user.PositionId;
-                        this.rblSex.SelectedValue = user.Sex;
-                        if (user.BirthDay.HasValue)
-                        {
-                            this.txtBirthday.Text = string.Format("{0:yyyy-MM-dd}", user.BirthDay);
-                        }
-                        if (user.IntoDate.HasValue)
-                        {
-                            this.txtIntoDate.Text = string.Format("{0:yyyy-MM-dd}", user.IntoDate);
-                        }
-                        if (user.ValidityDate.HasValue)
-                        {
-                            this.txtValidityDate.Text = string.Format("{0:yyyy-MM-dd}", user.ValidityDate);
-                        }
                         if (!string.IsNullOrEmpty(user.SignatureUrl))
                         {
                             this.SignatureUrl = user.SignatureUrl;
                             this.Image2.ImageUrl = "~/" + this.SignatureUrl;
                         }
-                        if (!string.IsNullOrEmpty(user.ProjectId)) {
-                            this.txtProjectId.Text = BLL.ProjectService.GetProjectByProjectId(user.ProjectId).ProjectName;
-                        }
-                        if (!string.IsNullOrEmpty(user.ProjectRoleId)) {
-                                string[] Ids = user.ProjectRoleId.ToString().Split(',');
-                                foreach (string t in Ids)
-                                {
-                                    var type = BLL.RoleService.GetRoleByRoleId(t);
-                                    if (type != null)
-                                    {
-                                        this.txtProjectRoleId.Text += type.RoleName + ",";
-                                    }
-                                }
-                            if (!string.IsNullOrEmpty(this.txtProjectRoleId.Text.Trim()))
-                            {
-                                this.txtProjectRoleId.Text= this.txtProjectRoleId.Text.Substring(0, this.txtProjectRoleId.Text.Length - 1);
-                            }
-                        }
                         this.drpDepart.SelectedValue = user.DepartId;
-                        var roleItem = BLL.RoleItemService.GeRoleItemByUserId(this.UserId);
-                        if (roleItem != null) {
-                            this.txtIntoProjectDate.Text = roleItem.IntoDate.ToString();
-                        }
                     }
+                }
+
+                string type = Request.Params["type"];
+                if (type == "-1")
+                {
+                    this.trServer.Hidden = true;
+                }
+                else if (type == "0")
+                {
+                    this.drpUnit.SelectedValue = Const.UnitId_SEDIN;                  
                 }
             }
         }
@@ -185,21 +153,28 @@ namespace FineUIPro.Web.SysManage
                 Alert.ShowInParent("请选择单位！", MessageBoxIcon.Warning);
                 return;
             }
-            if (BLL.UserService.IsExistUserAccount(this.UserId, this.txtAccount.Text.Trim()))
+            var q = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == this.txtAccount.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
+            if (q != null)
             {
-                Alert.ShowInParent("用户账号已存在，请修改后再保存！", MessageBoxIcon.Warning);
+                Alert.ShowInParent("输入的账号已存在！", MessageBoxIcon.Warning);
                 return;
             }
+            if (!string.IsNullOrEmpty(this.txtUserCode.Text))
+            {
+                var q2 = Funs.DB.Sys_User.FirstOrDefault(x => x.UserCode == this.txtUserCode.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
+                if (q2 != null)
+                {
+                    Alert.ShowInParent("输入的编号已存在！", MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             if (!string.IsNullOrEmpty(this.txtIdentityCard.Text) && BLL.UserService.IsExistUserIdentityCard(this.UserId, this.txtIdentityCard.Text.Trim()) == true)
             {
-                ShowNotify("身份证号码已存在，请修改后再保存！", MessageBoxIcon.Warning);
+                Alert.ShowInParent("输入的身份证号码已存在！", MessageBoxIcon.Warning);
                 return;
             }
-            //if (this.txtIdentityCard.Text.Trim().Length!=18)
-            //{
-            //    ShowNotify("身份证号码必须是18位！", MessageBoxIcon.Warning);
-            //    return;
-            //}
+            
             Model.Sys_User newUser = new Model.Sys_User
             {
                 UserCode = this.txtUserCode.Text.Trim(),
@@ -207,14 +182,6 @@ namespace FineUIPro.Web.SysManage
                 Account = this.txtAccount.Text.Trim(),
                 IdentityCard = this.txtIdentityCard.Text.Trim(),
                 Telephone = this.txtTelephone.Text.Trim(),
-                Politicalstatus = this.txtPoliticalstatus.Text.Trim(),
-                Hometown = this.txtHometown.Text.Trim(),
-                Education = this.txtEducation.Text.Trim(),
-                Graduate = this.txtGraduate.Text.Trim(),
-                Major = this.txtMajor.Text.Trim(),
-                Certificate = this.txtCertificate.Text.Trim(),
-                Sex = this.rblSex.SelectedValue,
-                PositionId = this.txtPosition.Text.Trim()
         };
             if (this.drpUnit.SelectedValue != Const._Null)
             {
@@ -232,20 +199,11 @@ namespace FineUIPro.Web.SysManage
             {
                 newUser.DepartId = this.drpDepart.SelectedValue;
             }
+          
             newUser.SignatureUrl = this.SignatureUrl;
             newUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
             newUser.IsOffice = Convert.ToBoolean(this.drpIsOffice.SelectedValue);
-            if (!string.IsNullOrEmpty(txtBirthday.Text.Trim())) {
-                newUser.BirthDay = Funs.GetNewDateTime(this.txtBirthday.Text.Trim());
-            }
-            if (!string.IsNullOrEmpty(this.txtIntoDate.Text.Trim()))
-            {
-                newUser.IntoDate = Convert.ToDateTime(this.txtIntoDate.Text.Trim());
-            }
-            if (!string.IsNullOrEmpty(this.txtValidityDate.Text.Trim()))
-            {
-                newUser.ValidityDate = Convert.ToDateTime(this.txtValidityDate.Text.Trim());
-            }
+           
             if (string.IsNullOrEmpty(this.UserId))
             {
                 newUser.Password = Funs.EncryptionPassword(Const.Password);
@@ -297,22 +255,7 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == this.txtAccount.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
-            if (q != null)
-            {
-                ShowNotify("输入的账号已存在！", MessageBoxIcon.Warning);
-            }
-
-            var q2 = Funs.DB.Sys_User.FirstOrDefault(x => x.UserCode == this.txtUserCode.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
-            if (q2 != null)
-            {
-                ShowNotify("输入的编号已存在！", MessageBoxIcon.Warning);
-            }
-
-            if (!string.IsNullOrEmpty(this.txtIdentityCard.Text) && BLL.UserService.IsExistUserIdentityCard(this.UserId, this.txtIdentityCard.Text.Trim()) == true)
-            {
-                ShowNotify("输入的身份证号码已存在！", MessageBoxIcon.Warning);                
-            }
+           
         }
         #endregion
 

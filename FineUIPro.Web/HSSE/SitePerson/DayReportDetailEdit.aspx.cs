@@ -100,7 +100,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         }
                         else
                         {
-                            if (postType == Const.PostType_1 || postType == Const.PostType_4)    //一般管理岗位和特种管理人员
+                            if (postType == Const.PostType_1)    //管理岗位
                             {
                                 glAllPerson += dayReportUnitDetail.RealPersonNum.Value;
                             }

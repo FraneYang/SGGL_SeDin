@@ -47,11 +47,11 @@
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:TextBox runat="server" Label="单位" ID="txtUnitName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="50px"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px"
                                 LabelAlign="right">
                             </f:TextBox>
-                            <f:TextBox runat="server" Label="区域" ID="txtWorkAreaName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"
+                            <f:TextBox runat="server" Label="单位工程" ID="txtWorkAreaName" EmptyText="输入查询条件"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="80px"
                                 LabelAlign="right">
                             </f:TextBox>
                             <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime"
@@ -87,7 +87,7 @@
                         HeaderTextAlign="Center">
                     </f:RenderField>                   
                     <f:RenderField Width="120px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
-                        FieldType="String" HeaderText="检查区域" TextAlign="Left" HeaderTextAlign="Center">
+                        FieldType="String" HeaderText="单位工程" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName"
                         SortField="UnitName" FieldType="String" HeaderText="责任单位" TextAlign="Left" HeaderTextAlign="Center">

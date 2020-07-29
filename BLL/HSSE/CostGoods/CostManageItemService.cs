@@ -164,9 +164,8 @@ namespace BLL
 
         public static decimal? GetCostsByUnitId(string unitId, DateTime startTime, DateTime endTime)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
-            {
-                var q = (from x in db.CostGoods_CostManageItem
+            Model.SGGLDB db = Funs.DB;
+            var q = (from x in db.CostGoods_CostManageItem
                          join y in db.CostGoods_CostManage
                          on x.CostManageId equals y.CostManageId
                          where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.CostManageDate >= startTime && y.CostManageDate < endTime
@@ -176,7 +175,6 @@ namespace BLL
                     return q.Sum(e => (e.AuditCounts * e.AuditPriceMoney));
                 }
                 return null;
-            }
         }
     }
 }

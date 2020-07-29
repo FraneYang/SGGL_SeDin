@@ -62,8 +62,9 @@ namespace FineUIPro.Web.CQMS.Check
         {
             if (!IsPostBack)
             {
-                GetButtonPower();
                 ProjectId = CurrUser.LoginProjectId;
+                GetButtonPower();
+                
                 btnNew.OnClientClick = Window1.GetShowReference("EditJointCheck.aspx") + "return false;";
                 //if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
                 //{

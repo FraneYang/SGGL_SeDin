@@ -606,11 +606,12 @@ namespace BLL
         /// 获取图片分类
         /// </summary>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getPictureType()
+        public static List<Model.BaseInfoItem> getPictureType(string menuType)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getDataLists = (from x in db.Base_PictureType
+                                    where menuType == null || x.MenuType ==menuType
                                     orderby x.Code
                                     select new Model.BaseInfoItem { BaseInfoId = x.PictureTypeId, BaseInfoCode = x.Code, BaseInfoName = x.Name }).ToList();
                 return getDataLists;

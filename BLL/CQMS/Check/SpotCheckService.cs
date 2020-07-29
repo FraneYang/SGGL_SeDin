@@ -422,6 +422,7 @@ namespace BLL
                     jc.JointCheckMans = item.JointCheckMans + "$" + BLL.UserService.getUserNamesUserIds(item.JointCheckMans);
                     jc.JointCheckMans2 = item.JointCheckMans2 + "$" + BLL.UserService.getUserNamesUserIds(item.JointCheckMans2);
                     jc.JointCheckMans3 = item.JointCheckMans3 + "$" + BLL.UserService.getUserNamesUserIds(item.JointCheckMans3);
+                    jc.AttachUrl = AttachFileService.getFileUrl(jc.SpotCheckCode);
                     res.Add(jc);
                 }
                 return res;
@@ -442,6 +443,7 @@ namespace BLL
                 res.JointCheckMans3 = res.JointCheckMans3 + "$" + BLL.UserService.getUserNamesUserIds(res.JointCheckMans3);
                 res.UnitId = res.UnitId + "$" + UnitService.getUnitNamesUnitIds(res.UnitId);
                 res.CNProfessionalCode = res.CNProfessionalCode + "$" + CNProfessionalService.GetCNProfessionalNameByCode(res.CNProfessionalCode);
+                res.AttachUrl = AttachFileService.getFileUrl(res.SpotCheckCode);
                 return res;
             }
         }
@@ -453,6 +455,46 @@ namespace BLL
         public static IList<Model.Check_SpotCheck> GetSpotChecks(List<string> spotCheckCode)
         {
             return Funs.DB.Check_SpotCheck.Where(p => spotCheckCode.Contains(p.SpotCheckCode)).ToList();
+        }
+        public static void UpdateSpotCheckForUpdateForApi(Model.Check_SpotCheck SpotCheck)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Check_SpotCheck newSpotCheck = db.Check_SpotCheck.First(e => e.SpotCheckCode == SpotCheck.SpotCheckCode);
+                if (!string.IsNullOrEmpty(SpotCheck.DocCode))
+                    newSpotCheck.DocCode = SpotCheck.DocCode;
+                if (!string.IsNullOrEmpty(SpotCheck.UnitId))
+                    newSpotCheck.UnitId = SpotCheck.UnitId;
+                if (!string.IsNullOrEmpty(SpotCheck.CheckDateType))
+                    newSpotCheck.CheckDateType = SpotCheck.CheckDateType;
+                if (SpotCheck.SpotCheckDate.HasValue)
+                    newSpotCheck.SpotCheckDate = SpotCheck.SpotCheckDate;
+                if (SpotCheck.SpotCheckDate2.HasValue)
+                    newSpotCheck.SpotCheckDate2 = SpotCheck.SpotCheckDate2;
+                if (!string.IsNullOrEmpty(SpotCheck.CheckArea))
+                    newSpotCheck.CheckArea = SpotCheck.CheckArea;
+                if (SpotCheck.IsOK.HasValue)
+                    newSpotCheck.IsOK = SpotCheck.IsOK;
+                //if (!string.IsNullOrEmpty(SpotCheck.JointCheckMans))
+                newSpotCheck.JointCheckMans = SpotCheck.JointCheckMans;
+                if (!string.IsNullOrEmpty(SpotCheck.AttachUrl))
+                    newSpotCheck.AttachUrl = SpotCheck.AttachUrl;
+                if (!string.IsNullOrEmpty(SpotCheck.State))
+                    newSpotCheck.State = SpotCheck.State;
+                if (!string.IsNullOrEmpty(SpotCheck.CreateMan))
+                    newSpotCheck.CreateMan = SpotCheck.CreateMan;
+                if (SpotCheck.IsShow.HasValue)
+                    newSpotCheck.IsShow = SpotCheck.IsShow;
+                if (!string.IsNullOrEmpty(SpotCheck.State2))
+                    newSpotCheck.State2 = SpotCheck.State2;
+                // if (!string.IsNullOrEmpty(SpotCheck.JointCheckMans2))
+                newSpotCheck.JointCheckMans2 = SpotCheck.JointCheckMans2;
+                // if (!string.IsNullOrEmpty(SpotCheck.JointCheckMans3))
+                newSpotCheck.JointCheckMans3 = SpotCheck.JointCheckMans3;
+                if (!string.IsNullOrEmpty(SpotCheck.CNProfessionalCode))
+                    newSpotCheck.CNProfessionalCode = SpotCheck.CNProfessionalCode;
+                db.SubmitChanges();
+            }
         }
         public static void UpdateSpotCheckForApi(Model.Check_SpotCheck SpotCheck)
         {

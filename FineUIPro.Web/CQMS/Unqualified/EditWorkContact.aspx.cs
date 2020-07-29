@@ -164,7 +164,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
                             WorkContactApproveService.UpdateWorkContactApprove(approve);
                         }
                     }
-                    if (unitType == "3")   //施工分包商发起
+                    if (unitType == BLL.Const.ProjectUnitType_2)   //施工分包商发起
                     {
                         if (rblIsReply.SelectedValue == "1")    //需要回复
                         {
@@ -204,6 +204,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
                     {
                         if (rblIsReply.SelectedValue == "1")    //需要回复
                         {
+                            ContactImg = 0;
                             if (State == Const.WorkContact_Audit4 || State == Const.WorkContact_Audit1R || State == Const.WorkContact_Audit1)
                             {
                                 //txtCode.Enabled = false;
@@ -218,7 +219,6 @@ namespace FineUIPro.Web.CQMS.Unqualified
                                 DoEabled();
                                 //imgfile.Visible = false;//权限等于-1
                             }
-
                             if (State == Const.WorkContact_Audit4 || State == Const.WorkContact_Audit1R)
                             {
                                 rblIsAgree.Hidden = true;
@@ -264,11 +264,13 @@ namespace FineUIPro.Web.CQMS.Unqualified
                     drpHandleMan.SelectedIndex = 0;
                     plApprove2.Hidden = true;
                     txtCode.Text = SQLHelper.RunProcNewId2("SpGetNewCode3ByProjectId", "dbo.Unqualified_WorkContact", "Code", CurrUser.LoginProjectId);
+                    string unitId = string.Empty;
                     var mainUnit = UnitService.GetUnitByProjectIdUnitTypeList(CurrUser.LoginProjectId, Const.ProjectUnitType_1)[0];
                     if (mainUnit != null)
                     {
                         drpUnit.SelectedValue = mainUnit.UnitId;
                     }
+                    this.drpUnit.SelectedValue = this.CurrUser.UnitId ?? unitId;
                     drpUnit_SelectedIndexChanged(null, null);
                 }
 
@@ -383,6 +385,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
 
         public void Reply(string type)
         {
+            Model.Unqualified_WorkContact workContact = WorkContactService.GetWorkContactByWorkContactId(WorkContactId);
             if (rblIsReply.SelectedValue.Equals("1"))
             {
                 if (type.Equals(Const.ProjectUnitType_1))
@@ -401,6 +404,16 @@ namespace FineUIPro.Web.CQMS.Unqualified
                         HideReplyFile.Hidden = true;
                         ReOpinion.Hidden = true;
                         HideOptions.Hidden = false;
+
+                        if (State == Const.WorkContact_ReCompile)
+                        {
+                            if (!string.IsNullOrEmpty(workContact.ReOpinion))
+                            {
+                                this.ReOpinion.Hidden = false;
+                                this.txtReOpinion.Enabled = false;
+                            }
+                            this.txtOpinions.Hidden = true;
+                        }
                     }
 
                     if (drpHandleType.SelectedValue.Equals(Const.WorkContact_Audit1) || drpHandleType.SelectedValue.Equals(Const.WorkContact_Audit4)
@@ -430,6 +443,16 @@ namespace FineUIPro.Web.CQMS.Unqualified
                         HideReplyFile.Hidden = true;
                         ReOpinion.Hidden = true;
                         HideOptions.Hidden = false;
+
+                        if (State == Const.WorkContact_ReCompile)
+                        {
+                            if (!string.IsNullOrEmpty(workContact.ReOpinion))
+                            {
+                                this.ReOpinion.Hidden = false;
+                                this.txtReOpinion.Enabled = false;
+                            }
+                            this.txtOpinions.Hidden = true;
+                        }
                     }
 
                     if (drpHandleType.SelectedValue.Equals(Const.WorkContact_Audit2) || drpHandleType.SelectedValue.Equals(Const.WorkContact_Audit3)
@@ -522,6 +545,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
                     }
                     approve.ApproveType = drpHandleType.SelectedValue;
                     WorkContactApproveService.AddWorkContactApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "工作联系单待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     if (workContact.IsReply == "2" && drpHandleType.SelectedValue == Const.WorkContact_Complete)
                     {
                         List<Model.Sys_User> seeUsers = new List<Model.Sys_User>();
@@ -573,6 +597,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
                     approve.ApproveType = drpHandleType.SelectedValue;
 
                     WorkContactApproveService.AddWorkContactApprove(approve);
+                    APICommonService.SendSubscribeMessage(approve.ApproveMan, "工作联系单待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 else
                 {
@@ -704,6 +729,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
         public void Agree()
         {
             string unitType = string.Empty;
+            bool flag = false;
             Model.Project_ProjectUnit unit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, drpUnit.SelectedValue);
             if (unit != null)
             {
@@ -715,7 +741,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
             WorkContactService.InitHandleType(drpHandleType, false, State, unitType, rblIsReply.SelectedValue);
             if (rblIsAgree.SelectedValue.Equals("true"))
             {
-                if (unitType == "3")  //分包发起
+                if (unitType == BLL.Const.ProjectUnitType_2)  //分包发起
                 {
                     if (State == Const.WorkContact_Audit1)
                     {
@@ -800,6 +826,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
                 {
                     drpHandleMan.Enabled = true;
                     UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, drpUnit.SelectedValue);
+                    var HandleMan = BLL.WorkContactApproveService.GetComplie(this.WorkContactId);                    if (HandleMan != null)                    {                        this.drpHandleMan.SelectedValue = HandleMan.ApproveMan;                        flag = true;                    }
                     drpHandleMan.Required = true;
                 }
                 else
@@ -815,8 +842,10 @@ namespace FineUIPro.Web.CQMS.Unqualified
 
             if (drpHandleMan.Items.Count > 0)
             {
-
-                drpHandleMan.SelectedIndex = 0;
+                if (!flag) {
+                    drpHandleMan.SelectedIndex = 0;
+                }
+                
             }
         }
 

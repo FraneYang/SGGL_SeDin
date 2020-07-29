@@ -27,6 +27,24 @@ namespace Model
         }
 
         /// <summary>
+        /// 点口批明细ID
+        /// </summary>
+        public string PointBatchItemId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 点口状态
+        /// </summary>
+        public string PointState
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 批开始日期
         /// </summary>
         public DateTime? StartDate

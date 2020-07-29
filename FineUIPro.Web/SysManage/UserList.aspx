@@ -26,12 +26,7 @@
                     OnRowDoubleClick="Grid1_RowDoubleClick" Width="980px" EnableTextSelection="True">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
-                            <Items>
-                                   <f:RadioButtonList ID="rbUnit" runat="server"   Width="200px"
-                                      AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
-                                      <f:RadioItem  Selected="true"  Text="本单位" Value="0"/>
-                                      <f:RadioItem  Text="其他单位" Value="1"/>
-                                  </f:RadioButtonList>
+                            <Items>                             
                                 <f:TextBox runat="server" Label="用户" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
                                     OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px">
                                 </f:TextBox>
@@ -68,7 +63,7 @@
                             FieldType="String" HeaderText="身份证号码" HeaderTextAlign="Center" TextAlign="Right" Hidden="true">
                         </f:RenderField>--%>
                         <f:RenderField Width="200px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
-                            FieldType="String" HeaderText="角色" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="String" HeaderText="本部角色" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                             FieldType="String" HeaderText="手机号码" HeaderTextAlign="Center" TextAlign="Right" Hidden="true">
@@ -76,14 +71,14 @@
                         <f:CheckBoxField Width="50px" SortField="IsPost" RenderAsStaticField="true" DataField="IsPost"
                             HeaderText="在岗" HeaderTextAlign="Center" TextAlign="Center">
                         </f:CheckBoxField>
-                        <f:CheckBoxField Width="50px" SortField="IsOffice" RenderAsStaticField="true" DataField="IsOffice"
+                 <%--       <f:CheckBoxField Width="50px" SortField="IsOffice" RenderAsStaticField="true" DataField="IsOffice"
                             HeaderText="本部" HeaderTextAlign="Center" TextAlign="Center">
                         </f:CheckBoxField>
                         <f:TemplateField Width="250px" ColumnID="UserId" HeaderText="参与项目" TextAlign="Left">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lbtnPro" runat="server" Text='<%# ConvertProject(Eval("UserId")) %>' OnClick="lbtnPro_Click"></asp:LinkButton>
                             </ItemTemplate>
-                        </f:TemplateField>
+                        </f:TemplateField>--%>
                     </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -101,8 +96,8 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="用户信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
-            Height="650px">
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+            Height="420px">
         </f:Window>
         <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"

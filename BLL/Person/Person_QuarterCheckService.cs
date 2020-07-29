@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 
 namespace BLL
 {
@@ -36,6 +37,7 @@ namespace BLL
                 QuarterCheckId = check.QuarterCheckId,
                 QuarterCheckName=check.QuarterCheckName,
                 UserId = check.UserId,
+                RoleId=check.RoleId,
                 ProjectId = check.ProjectId,
                 StartTime = check.StartTime,
                 EndTime = check.EndTime,
@@ -73,6 +75,27 @@ namespace BLL
                 db.Person_QuarterCheck.DeleteOnSubmit(check);
                 db.SubmitChanges();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] GetQuarterCheckList()
+        {
+            ListItem[] list = new ListItem[11];
+            list[0] = new ListItem("施工经理工作任务书", "1");
+            list[1] = new ListItem("安全经理工作任务书", "2");
+            list[2] = new ListItem("质量经理工作任务书", "3");
+            list[3] = new ListItem("试车经理工作任务书", "4");
+            list[4] = new ListItem("施工专业工程师工作任务书", "5");
+            list[5] = new ListItem("安全专业工程是工作任务书", "6");
+            list[6] = new ListItem("质量专业工程师工作任务书", "7");
+            list[7] = new ListItem("试车专业工程师工作任务书", "8");
+            list[8] = new ListItem("员工综合管理工作任务书", "9");
+            list[9] = new ListItem("员工合同管理工作任务书", "10");
+            list[10] = new ListItem("员工安全质量工作任务书", "11");
+            return list;
         }
     }
 }

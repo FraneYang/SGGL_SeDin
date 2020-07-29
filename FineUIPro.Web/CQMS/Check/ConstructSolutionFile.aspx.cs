@@ -15,11 +15,7 @@ namespace FineUIPro.Web.CQMS.Check
         {
             if (!IsPostBack)
             {
-                drpSolutionType.DataSource = CQMSConstructSolutionService.GetSolutionType();
-                drpSolutionType.DataTextField = "Text";
-                drpSolutionType.DataValueField = "Value";
-                drpSolutionType.DataBind();
-                Funs.FineUIPleaseSelect(drpSolutionType);
+                BLL.SolutionTempleteTypeService.InitSolutionTempleteDropDownList(drpSolutionType, true);
                 UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpProposeUnit, CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
                 BindGrid();
             }
@@ -29,10 +25,11 @@ namespace FineUIPro.Web.CQMS.Check
         {
             string strSql = @"SELECT chec.ConstructSolutionId,chec.ProjectId,chec.UnitId,"
                           + @" chec.CompileMan,chec.CompileDate,chec.code,chec.state,chec.SolutionType,chec.SolutionName,"
-                          + @" unit.UnitName,u.userName as CompileManName"
+                          + @" unit.UnitName,u.userName as CompileManName,s.SolutionTempleteTypeName"
                           + @" FROM Solution_CQMSConstructSolution chec "
                           + @" left join Base_Unit unit on unit.unitId=chec.UnitId "
                           + @" left join sys_User u on u.userId = chec.CompileMan"
+                          + @" left join[dbo].[Base_SolutionTempleteType] s on chec.SolutionType=s.SolutionTempleteTypeCode"
                           + @" where chec.ProjectId=@ProjectId";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -245,18 +242,35 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkSolutionType = doc.Range.Bookmarks["SolutionType"];
                 if (bookmarkSolutionType != null)
                 {
-                    if (constructSolution.SolutionType == "1")
-                    {
-                        bookmarkSolutionType.Text = "■施工组织设计   □专项施工方案   □施工方案";
+                    string SolutionType = string.Empty;
+                    List<Model.Base_SolutionTempleteType> Solution = BLL.SolutionTempleteTypeService.GetSolutionTempleteList();
+                    if (Solution.Count > 0) {
+                        for (int i = 0; i < Solution.Count; i++)
+                        {
+                                if (constructSolution.SolutionType == Solution[i].SolutionTempleteTypeCode)
+                                {
+                                    SolutionType += "■" + Solution[i].SolutionTempleteTypeName + "   ";
+                                }
+                                else
+                                {
+                                    SolutionType += "□" + Solution[i].SolutionTempleteTypeName + "   ";
+                                }
+                            
+                        }
                     }
-                    else if (constructSolution.SolutionType == "1")
-                    {
-                        bookmarkSolutionType.Text = "□施工组织设计   ■专项施工方案   □施工方案";
-                    }
-                    else
-                    {
-                        bookmarkSolutionType.Text = "□施工组织设计   □专项施工方案   ■施工方案";
-                    }
+                    //if (constructSolution.SolutionType == "1")
+                    //{
+                    //    bookmarkSolutionType.Text = "■施工组织设计   □专项施工方案   □施工方案";
+                    //}
+                    //else if (constructSolution.SolutionType == "1")
+                    //{
+                    //    bookmarkSolutionType.Text = "□施工组织设计   ■专项施工方案   □施工方案";
+                    //}
+                    //else
+                    //{
+                    //    bookmarkSolutionType.Text = "□施工组织设计   □专项施工方案   ■施工方案";
+                    //}
+                    bookmarkSolutionType.Text = SolutionType;
                 }
                 var reDate = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove where x.ConstructSolutionId == fileId && x.ApproveType == Const.CQMSConstructSolution_ReCompile orderby x.ApproveDate descending select x.ApproveDate).FirstOrDefault();
                 List<Model.Solution_CQMSConstructSolutionApprove> approves1 = new List<Model.Solution_CQMSConstructSolutionApprove>();

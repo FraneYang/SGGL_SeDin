@@ -24,7 +24,7 @@
                 <f:FormRow>
                     <Items>
                         <f:DropDownList ID="drpRoleType" runat="server" Label="角色类型" EnableEdit="true"
-                            ForceSelection="false" Required="true" ShowRedStar="true">
+                            ForceSelection="false" Required="true" ShowRedStar="true" LabelWidth="90px">
                         </f:DropDownList>
                         <f:CheckBox ID="chkIsAuditFlow" runat="server" Label="参与审批" LabelWidth="90px">
                         </f:CheckBox>
@@ -32,8 +32,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownBox runat="server" Label="对口专业" ShowRedStar="true"
-                            Required="true" ID="txtCNCodes" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true" LabelWidth="160px">
+                        <f:DropDownBox runat="server" Label="对口专业" ID="txtCNCodes" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true" LabelWidth="90px">
                             <PopPanel>
                                 <f:Grid ID="gvCNCodes" DataIDField="CNProfessionalId" ForceFit="true"
                                     EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="SortIndex" DataTextField="ProfessionalName"

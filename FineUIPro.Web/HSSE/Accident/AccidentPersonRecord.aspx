@@ -52,7 +52,7 @@
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
-                        FieldType="String" HeaderText="发生区域" HeaderTextAlign="Center" TextAlign="Left">
+                        FieldType="String" HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="AccidentDate" DataField="AccidentDate" SortField="AccidentDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发生时间"

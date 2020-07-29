@@ -79,15 +79,19 @@ namespace Mvc.Controllers
                     }
                     CheckControl.CheckControlCode = Guid.NewGuid().ToString();
                     BLL.CheckControlService.AddCheckControlForApi(CheckControl);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.CheckControlCode+"r", Const.CheckListMenuId);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.CheckControlCode, Const.CheckListMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.CheckControlCode+"r", Const.CheckListMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.CheckControlCode, Const.CheckListMenuId);
+                    SaveAttachFile(CheckControl.CheckControlCode + "r", BLL.Const.CheckListMenuId, CheckControl.ReAttachUrl);
+                    SaveAttachFile(CheckControl.CheckControlCode, BLL.Const.CheckListMenuId, CheckControl.AttachUrl);
                     res.resultValue = CheckControl.CheckControlCode;
                 }
                 else
                 {
                     BLL.CheckControlService.UpdateCheckControlForApi(CheckControl);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.CheckControlCode + "r", Const.CheckListMenuId);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.CheckControlCode, Const.CheckListMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.CheckControlCode + "r", Const.CheckListMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.CheckControlCode, Const.CheckListMenuId);
+                    SaveAttachFile(CheckControl.CheckControlCode + "r", BLL.Const.CheckListMenuId, CheckControl.ReAttachUrl);
+                    SaveAttachFile(CheckControl.CheckControlCode, BLL.Const.CheckListMenuId, CheckControl.AttachUrl);
                     res.resultValue = CheckControl.CheckControlCode;
                 }
 
@@ -101,6 +105,20 @@ namespace Mvc.Controllers
             }
             return res;
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SaveAttachFile(string dataId, string menuId, string url)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = dataId,
+                UrlStr = url,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
         }
 
         [HttpPost]

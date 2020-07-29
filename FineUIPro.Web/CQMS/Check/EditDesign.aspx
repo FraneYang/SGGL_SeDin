@@ -185,7 +185,7 @@
                                                 EnableEdit="true" LabelWidth="170px" OnTextChanged="txtMaterialPlanReachDate_TextChanged">
                                             </f:DatePicker>
                                             <f:NumberBox ID="txtPlanDay" Label="预计施工周期(天)" runat="server"
-                                                LabelWidth="170px" DecimalPrecision="1" NoNegative="true" ShowRedStar="true" Required="true" AutoPostBack="true" OnTextChanged="txtMaterialPlanReachDate_TextChanged">
+                                                LabelWidth="170px"  NoNegative="true" ShowRedStar="true" Required="true" OnBlur="txtPlanDay_Blur" EnableBlurEvent="true">
                                             </f:NumberBox>
                                         </Items>
                                     </f:FormRow>
@@ -275,7 +275,7 @@
                         <f:ContentPanel Title="设计变更审批列表" ShowBorder="true"
                             BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
                             runat="server">
-                            <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false" DataIDField="DesignApproveId" SortField="ApproveDate" SortDirection="DESC"
+                            <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false" DataIDField="DesignApproveId" SortField="ApproveDate" SortDirection="ASC"
                                 DataKeyNames="DesignApproveId" EnableColumnLines="true" ForceFit="true">
                                 <Columns>
                                     <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"

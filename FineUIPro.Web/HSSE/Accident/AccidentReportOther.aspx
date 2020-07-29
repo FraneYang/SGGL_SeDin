@@ -59,7 +59,7 @@
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>--%>
                     <f:RenderField Width="110px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
-                        FieldType="String" HeaderText="发生区域" HeaderTextAlign="Center" TextAlign="Left">
+                        FieldType="String" HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="80px" ColumnID="PeopleNum" DataField="PeopleNum" SortField="PeopleNum"
                         FieldType="Int" HeaderText="人数" HeaderTextAlign="Center" TextAlign="Left">

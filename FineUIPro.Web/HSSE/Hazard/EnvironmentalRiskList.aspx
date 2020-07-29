@@ -22,8 +22,8 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
-                            <f:TextBox runat="server" Label="区域" ID="txtWorkAreaName" EmptyText="输入查询条件" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" LabelWidth="70px" LabelAlign="right" Width="210">
+                            <f:TextBox runat="server" Label="单位工程" ID="txtWorkAreaName" EmptyText="输入查询条件" AutoPostBack="true"
+                                OnTextChanged="TextBox_TextChanged" LabelWidth="80px" LabelAlign="right" Width="210">
                             </f:TextBox>
                             <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"
                                 LabelWidth="70px" Width="250px">
@@ -57,7 +57,7 @@
                         HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="WorkAreaName" DataField="WorkAreaName" ExpandUnusedSpace="true"
-                        SortField="WorkAreaName" FieldType="String" HeaderText="项目区域" TextAlign="Left"
+                        SortField="WorkAreaName" FieldType="String" HeaderText="单位工程" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="IdentificationDate" DataField="IdentificationDate"

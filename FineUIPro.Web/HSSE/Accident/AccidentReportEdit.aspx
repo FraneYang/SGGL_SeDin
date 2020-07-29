@@ -103,7 +103,7 @@
                                     <f:DatePicker ID="txtAccidentDate" runat="server" Label="发生时间" LabelAlign="Right"
                                         EnableEdit="true" ShowRedStar="true" Required="true">
                                     </f:DatePicker>
-                                    <f:TextBox ID="txtWorkArea" runat="server" Label="发生区域" LabelAlign="Right" MaxLength="200">
+                                    <f:TextBox ID="txtWorkArea" runat="server" Label="单位工程" LabelAlign="Right" MaxLength="200">
                                     </f:TextBox>
                                     <f:NumberBox ID="txtPeopleNum" runat="server" Label="人数" ShowRedStar="true" Required="true"
                                         LabelAlign="Right" NoDecimal="true" NoNegative="true">

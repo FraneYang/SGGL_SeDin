@@ -101,7 +101,7 @@ namespace BLL
         }
         #endregion
 
-#       region 根据人员ID获取焊工合格项目
+        #       region 根据人员ID获取焊工合格项目
         /// <summary>
         ///  根据人员ID获取焊工合格项目
         /// </summary>
@@ -152,17 +152,17 @@ namespace BLL
                         if (validity.Value.AddMonths(-1) < nowDate && validity >= nowDate)
                         {
                             Model.BaseInfoItem item = new Model.BaseInfoItem();
-                            item.BaseInfoId = q.WelderCode;
-                            item.BaseInfoCode = q.CertificateLimitTime.HasValue ? q.CertificateLimitTime.Value.ToString() : "";
-                            item.BaseInfoName = "即将过期";
+                            item.BaseInfoId = q.PersonId;
+                            item.BaseInfoCode = q.WelderCode;
+                            item.BaseInfoName = q.CertificateLimitTime.HasValue ? q.CertificateLimitTime.Value.ToString() : "" + "即将过期";
                             warnWelder.Add(item);
                         }
                         else if (validity < nowDate)
                         {
                             Model.BaseInfoItem item = new Model.BaseInfoItem();
-                            item.BaseInfoId = q.WelderCode;
-                            item.BaseInfoCode = q.CertificateLimitTime.HasValue ? q.CertificateLimitTime.Value.ToString() : "";
-                            item.BaseInfoName = "已过期";
+                            item.BaseInfoId = q.PersonId;
+                            item.BaseInfoCode =q.WelderCode;
+                            item.BaseInfoName = q.CertificateLimitTime.HasValue ? q.CertificateLimitTime.Value.ToString() : "" + "已过期";
                             warnWelder.Add(item);
                         }
                     }
@@ -170,6 +170,71 @@ namespace BLL
 
                 return warnWelder;
             }
+        }
+        #endregion
+
+
+        #region  焊工一次合格率低于96%预警
+        /// <summary>
+        /// 焊工一次合格率低于96%预警
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> GetWelderOnePassRateWarning(string projectId)
+        {
+
+            string strSql = @"SELECT welder.ProjectId, welder.WelderCode, welder.PersonName,
+	                                 CONVERT(NVARCHAR(10),(CAST((CASE ISNULL(oneCheck.OneCheckJotNum,0) WHEN 0 THEN 0 
+		                             ELSE 100.0 * (ISNULL(oneCheck.OneCheckJotNum,0)-ISNULL(oneCheckRepair.oneCheckRepairJotNum,0))/(1.0 * oneCheck.OneCheckJotNum) END) AS DECIMAL(8,1))))+'%' AS passRate
+                              FROM SitePerson_Person AS welder 
+                              LEFT JOIN (SELECT jot.CoverWelderId,COUNT(ndeItem.NDEItemID) AS OneCheckJotNum
+			                             FROM dbo.HJGL_Batch_NDEItem ndeItem
+				                         LEFT JOIN dbo.HJGL_Batch_BatchTrustItem trustItem ON trustItem.TrustBatchItemId = ndeItem.TrustBatchItemId
+				                         LEFT JOIN dbo.HJGL_WeldJoint jot ON jot.WeldJointId = trustItem.WeldJointId
+					                     LEFT JOIN dbo.HJGL_WeldingDaily daily ON  daily.WeldingDailyId = jot.WeldingDailyId 	
+					                     LEFT JOIN dbo.HJGL_Batch_PointBatchItem pointItem ON pointItem.PointBatchItemId = trustItem.PointBatchItemId
+				                         LEFT JOIN dbo.HJGL_Batch_PointBatch point ON point.PointBatchId = pointItem.PointBatchId
+			                             WHERE pointItem.PointDate IS NOT NULL AND pointItem.PointState=1 AND trustItem.RepairRecordId IS NULL		
+			                            GROUP BY jot.CoverWelderId) AS oneCheck ON oneCheck.CoverWelderId = welder.PersonId
+
+                              LEFT JOIN (SELECT jot.CoverWelderId,COUNT(ndeItem.NDEItemID) AS OneCheckRepairJotNum --一次检测返修焊口数
+		                                 FROM dbo.HJGL_Batch_NDEItem ndeItem
+				                         LEFT JOIN dbo.HJGL_Batch_BatchTrustItem trustItem ON trustItem.TrustBatchItemId = ndeItem.TrustBatchItemId
+				                         LEFT JOIN dbo.HJGL_WeldJoint jot ON jot.WeldJointId = trustItem.WeldJointId
+					                     LEFT JOIN dbo.HJGL_WeldingDaily daily ON  daily.WeldingDailyId = jot.WeldingDailyId 	
+					                     LEFT JOIN dbo.HJGL_Batch_PointBatchItem pointItem ON pointItem.PointBatchItemId = trustItem.PointBatchItemId
+				                         LEFT JOIN dbo.HJGL_Batch_PointBatch point ON point.PointBatchId = pointItem.PointBatchId  
+			                             WHERE pointItem.PointDate IS NOT NULL AND pointItem.PointState=1
+				                              AND trustItem.RepairRecordId IS NULL AND ndeItem.CheckResult='2' 			
+			                             GROUP BY jot.CoverWelderId) AS oneCheckRepair ON oneCheckRepair.CoverWelderId = welder.PersonId
+
+                             WHERE (welder.WelderCode IS NOT NULL AND welder.WelderCode!='') 
+                                    AND (welder.WorkPostId='19B8F2A9-28D3-4F20-867A-1B2237C2E228')
+	                                AND ISNULL(oneCheck.OneCheckJotNum,0)>0
+	                                AND (CAST((CASE ISNULL(oneCheck.OneCheckJotNum,0) WHEN 0 THEN 0 
+		                            ELSE 100.0 * (ISNULL(oneCheck.OneCheckJotNum,0)-ISNULL(oneCheckRepair.oneCheckRepairJotNum,0))/(1.0 * oneCheck.OneCheckJotNum) END) AS DECIMAL(8,1)))<=96";
+
+            List<SqlParameter> listStr = new List<SqlParameter>();
+
+
+            strSql += " AND welder.ProjectId=@ProjectId";
+            listStr.Add(new SqlParameter("@ProjectId", projectId));
+
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable dt = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+            List<Model.BaseInfoItem> warnWelder = new List<Model.BaseInfoItem>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Model.BaseInfoItem item = new Model.BaseInfoItem();
+                item.BaseInfoCode = row["WelderCode"].ToString();
+                item.BaseInfoName = "一次合格率：" + row["passRate"].ToString();
+                warnWelder.Add(item);
+            }
+
+            return warnWelder;
+
         }
         #endregion
 

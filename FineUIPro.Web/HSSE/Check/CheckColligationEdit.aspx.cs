@@ -129,7 +129,7 @@ namespace FineUIPro.Web.HSSE.Check
             BLL.UserService.InitUserDropDownList(this.drpCheckPerson, this.ProjectId, true);
             //检查组成员
             BLL.UserService.InitUserDropDownList(this.drpPartInPersons, this.ProjectId, true);
-            //检查区域
+            //单位工程
             //BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpCheckAreas, this.ProjectId, false);
         }
         
@@ -331,7 +331,7 @@ namespace FineUIPro.Web.HSSE.Check
 
             checkColligation.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
 
-            //检查区域
+            //单位工程
             //string workAreaIds = string.Empty;
             //foreach (var item in this.drpCheckAreas.SelectedValueArray)
             //{

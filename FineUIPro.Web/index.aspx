@@ -220,7 +220,7 @@
                                                 </f:Button>
                                             </li>
                                             <li>
-                                                <f:Button runat="server" CssClass="bgbtn" Text="党工群团" ID="btnParty" OnClick="btnParty_Click"
+                                                <f:Button runat="server" CssClass="bgbtn" Text="功能预留" ID="btnParty" OnClick="btnParty_Click"
                                                     EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
                                                 </f:Button>
                                             </li>

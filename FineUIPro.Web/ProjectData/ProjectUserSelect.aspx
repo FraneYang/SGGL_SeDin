@@ -63,20 +63,15 @@
                 <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
                 </f:ToolbarText>
                 <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                    <f:ListItem Text="10" Value="10" />
-                    <f:ListItem Text="15" Value="15" />
-                    <f:ListItem Text="20" Value="20" />
-                    <f:ListItem Text="25" Value="25" />
-                    <f:ListItem Text="所有行" Value="100000" />
+                    OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">                   
                 </f:DropDownList>        
             </PageItems>            
             </f:Grid>
         </Items>
     </f:Panel>     
     <f:Window ID="Window1" Title="用户信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
-        Height="360px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+        Height="400px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuSure" OnClick="btnSure_Click" EnablePostBack="true" Icon="Accept" runat="server" Text="确定">

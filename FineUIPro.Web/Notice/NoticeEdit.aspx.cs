@@ -90,11 +90,11 @@ namespace FineUIPro.Web.Notice
                     this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
                     {
-                        //var pcodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectNoticeMenuId, this.CurrUser.LoginProjectId);
-                        //if (pcodeTemplateRule != null)
-                        //{
-                        //    this.txtMainContent.Text = HttpUtility.HtmlDecode(pcodeTemplateRule.Template);
-                        //}
+                        var pcodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectNoticeMenuId, this.CurrUser.LoginProjectId);
+                        if (pcodeTemplateRule != null)
+                        {
+                            this.txtMainContent.Text = HttpUtility.HtmlDecode(pcodeTemplateRule.Template);
+                        }
                         ////自动生成编码
                         this.txtNoticeCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectNoticeMenuId, this.ProjectId, this.CurrUser.UnitId);
                     }
@@ -166,6 +166,7 @@ namespace FineUIPro.Web.Notice
         protected void btnSave_Click(object sender, EventArgs e)
         {           
             this.SaveData(BLL.Const.BtnSave);
+            Alert.ShowInParent("保存成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
 
@@ -182,6 +183,7 @@ namespace FineUIPro.Web.Notice
                return;
            }
             this.SaveData(BLL.Const.BtnSubmit);
+            Alert.ShowInParent("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
             
         }

@@ -43,7 +43,7 @@
             </f:FormRow>
             <f:FormRow ColumnWidths="35% 15% 50%">
                 <Items>
-                    <f:TextBox ID="txtWorkArea" runat="server" Label="检查区域" MaxLength="3000" ShowRedStar="true" Required="true">
+                    <f:TextBox ID="txtWorkArea" runat="server" Label="单位工程" MaxLength="3000" ShowRedStar="true" Required="true">
                     </f:TextBox>
                     <f:DropDownList ID="drpWorkArea" runat="server" Label="" AutoPostBack="true" 
                         OnSelectedIndexChanged="drpWorkArea_SelectedIndexChanged">
@@ -73,7 +73,7 @@
             </f:FormRow>
              <f:FormRow>
                 <Items>
-                     <f:Label ID="Label1" runat="server" Text="说明：检查区域可从下拉框选择也可手动编辑。" CssClass="lab" MarginLeft="5px">
+                     <f:Label ID="Label1" runat="server" Text="说明：单位工程可从下拉框选择也可手动编辑。" CssClass="lab" MarginLeft="5px">
                       </f:Label>
                 </Items>
             </f:FormRow>

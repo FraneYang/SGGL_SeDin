@@ -412,7 +412,7 @@ namespace BLL
         /// <param name="testRecordItemId"></param>
         /// <param name="answerItems"></param>
         public static void getTestRecordItemAnswerBySelectedItem(Model.Training_TestRecordItem getTItemT, string selectedItem)
-        {            
+        {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getTItem = db.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordItemId == getTItemT.TestRecordItemId);
@@ -504,11 +504,11 @@ namespace BLL
                 if (getTestPlan != null)
                 {
                     //// 获取参加考试 记录
-                    var getAllTestRecords = db.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId);                  
+                    var getAllTestRecords = db.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId);
                     if (getAllTestRecords.Count() > 0)
                     {
                         /// 参加考试人数
-                        int testManCout = getAllTestRecords.Select(x=>x.TestManId).Distinct().Count();
+                        int testManCout = getAllTestRecords.Select(x => x.TestManId).Distinct().Count();
                         //// 获取培训计划人员
                         var getAllTrainingTasks = db.Training_Task.Where(x => x.PlanId == getTestPlan.PlanId);
                         //// 考试人数大于等于 培训人数
@@ -518,7 +518,7 @@ namespace BLL
                             var getAllTestRecord = getAllTestRecords.FirstOrDefault(x => !x.TestEndTime.HasValue);
                             if (getAllTestRecord == null)
                             {
-                                var getTrainingTasks = getAllTrainingTasks.Where(x=>x.States != "2" || x.States == null);
+                                var getTrainingTasks = getAllTrainingTasks.Where(x => x.States != "2" || x.States == null);
                                 foreach (var item in getTrainingTasks)
                                 {
                                     item.States = "2";
@@ -542,31 +542,28 @@ namespace BLL
         /// <param name="testRecord"></param>
         public static string getResitTestRecord(Model.Training_TestRecord getTestRecord)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
             {
-                Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
-                {
-                    TestRecordId = SQLHelper.GetNewID(),
-                    ProjectId = getTestRecord.ProjectId,
-                    TestPlanId = getTestRecord.TestPlanId,
-                    TestManId = getTestRecord.TestManId,
-                    TestType = getTestRecord.TestType,
-                    TemporaryUser = getTestRecord.TemporaryUser,
-                    Duration = getTestRecord.Duration,
-                    // TestStartTime = DateTime.Now,
-                };
+                TestRecordId = SQLHelper.GetNewID(),
+                ProjectId = getTestRecord.ProjectId,
+                TestPlanId = getTestRecord.TestPlanId,
+                TestManId = getTestRecord.TestManId,
+                TestType = getTestRecord.TestType,
+                TemporaryUser = getTestRecord.TemporaryUser,
+                Duration = getTestRecord.Duration,
+                // TestStartTime = DateTime.Now,
+            };
 
-                db.Training_TestRecord.InsertOnSubmit(newTestRecord);
-                db.SubmitChanges();
+            Funs.DB.Training_TestRecord.InsertOnSubmit(newTestRecord);
+            Funs.DB.SubmitChanges();
 
-                var getTestPlan = db.Training_TestPlan.FirstOrDefault(x => x.TestPlanId == newTestRecord.TestPlanId);
-                var person = PersonService.GetPersonByUserId(newTestRecord.TestManId, getTestPlan.ProjectId);
-                if (getTestPlan != null && person != null)
-                {
-                    CreateTestRecordItem(getTestPlan, newTestRecord.TestRecordId, person);
-                }
-                return newTestRecord.TestRecordId;
+            var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.TestPlanId == newTestRecord.TestPlanId);
+            var person = PersonService.GetPersonByUserId(newTestRecord.TestManId, getTestPlan.ProjectId);
+            if (getTestPlan != null && person != null)
+            {
+                CreateTestRecordItem(getTestPlan, newTestRecord.TestRecordId, person);
             }
+            return newTestRecord.TestRecordId;
         }
         #endregion
     }

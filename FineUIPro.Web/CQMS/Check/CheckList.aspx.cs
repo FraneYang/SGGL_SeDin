@@ -37,8 +37,8 @@ namespace FineUIPro.Web.CQMS.Check
             //FilterDataRowItem = FilterDataRowItemImplement;
             if (!IsPostBack)
             {
-                GetButtonPower();
                 this.ProjectId = this.CurrUser.LoginProjectId;
+                GetButtonPower();
                 //if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
                 //{
                 //    this.ProjectId = Request.Params["projectId"];

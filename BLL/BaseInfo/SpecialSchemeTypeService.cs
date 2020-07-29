@@ -51,6 +51,7 @@ namespace BLL
                 newSpecialSchemeType.SpecialSchemeTypeCode = specialSchemeType.SpecialSchemeTypeCode;
                 newSpecialSchemeType.SpecialSchemeTypeName = specialSchemeType.SpecialSchemeTypeName;
                 newSpecialSchemeType.Remark = specialSchemeType.Remark;
+                newSpecialSchemeType.SolutionTempleteTypeCode = specialSchemeType.SolutionTempleteTypeCode;
                 db.SubmitChanges();
             }
         }
@@ -99,6 +100,32 @@ namespace BLL
         public static Model.Base_SpecialSchemeType GetSpecialSchemeTypeByName(string name)
         {
                 return Funs.DB.Base_SpecialSchemeType.FirstOrDefault(e => e.SpecialSchemeTypeName == name);
+        }
+        /// <summary>
+        /// 根据方案类别获取专项方案类别下拉项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_SpecialSchemeType> GetSpecialSchemeTypeByTempleteList(string SolutionTempleteTypeCode)
+        {
+            var list = (from x in Funs.DB.Base_SpecialSchemeType where x.SolutionTempleteTypeCode== SolutionTempleteTypeCode orderby x.SpecialSchemeTypeCode select x).ToList();
+            return list;
+        }
+
+        /// <summary>
+        ///  类型表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitSpecialSchemeTypeByTempleteDropDownList(FineUIPro.DropDownList dropName, string SolutionTempleteTypeCode, bool isShowPlease)
+        {
+            dropName.DataValueField = "SpecialSchemeTypeId";
+            dropName.DataTextField = "SpecialSchemeTypeName";
+            dropName.DataSource = GetSpecialSchemeTypeByTempleteList(SolutionTempleteTypeCode);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
         }
     }
 }

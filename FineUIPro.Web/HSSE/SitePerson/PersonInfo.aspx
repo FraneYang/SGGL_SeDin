@@ -70,7 +70,7 @@
                             <asp:Label ID="lblAddress" runat="server" Text='<%# Bind("Address") %>' ToolTip='<%#Bind("Address") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>--%>
-                    <f:TemplateField ColumnID="tfWorkAreaName" Width="120px" HeaderText="作业区域" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:TemplateField ColumnID="tfWorkAreaName" Width="120px" HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
                             <asp:Label ID="lblWorkAreaName" runat="server" Text='<%# Bind("WorkAreaName") %>' ToolTip='<%#Bind("WorkAreaName") %>'></asp:Label>
                         </ItemTemplate>

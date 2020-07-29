@@ -325,7 +325,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getTestRecord = new Model.SGGLDB(Funs.ConnString).Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
+                var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
                 if (getTestRecord != null)
                 {
                     string returnTestRecordId = string.Empty;
@@ -335,7 +335,7 @@ namespace WebAPI.Controllers
                     int getPassScores = SysConstSetService.getPassScore();
                     if (getTestScores <= getPassScores)
                     {
-                        int testCount = new Model.SGGLDB(Funs.ConnString).Training_TestRecord.Where(x => x.TestPlanId == getTestRecord.TestPlanId && x.TestManId == getTestRecord.TestManId).Count();
+                        int testCount = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestRecord.TestPlanId && x.TestManId == getTestRecord.TestManId).Count();
                         if (testCount < 2)
                         {
                             ////重新生成一条考试记录 以及考试试卷
@@ -351,9 +351,9 @@ namespace WebAPI.Controllers
                     else
                     {
                         APITestRecordService.updateAll(getTestRecord.TestPlanId);
-                        responeData.message = "恭喜考试通过！您的成绩为：【" + getTestScores.ToString()+"】。";
+                        responeData.message = "恭喜考试通过！您的成绩为：【" + getTestScores.ToString() + "】。";
                     }
-                    
+
                     responeData.data = new { getTestScores, getPassScores, returnTestRecordId };
                 }
             }

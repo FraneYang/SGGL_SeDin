@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using BLL;
 using Model;
 
 namespace Mvc.Controllers
@@ -77,15 +78,19 @@ namespace Mvc.Controllers
                     CheckControl.TechnicalContactListId = Guid.NewGuid().ToString();
                     CheckControl.CompileDate = DateTime.Now;
                     BLL.TechnicalContactListService.AddTechnicalContactListForApi(CheckControl);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.ReturnAttachUrl, CheckControl.TechnicalContactListId + "r",BLL. Const.TechnicalContactListMenuId);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.TechnicalContactListId, BLL.Const.TechnicalContactListMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.ReturnAttachUrl, CheckControl.TechnicalContactListId + "r",BLL. Const.TechnicalContactListMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.TechnicalContactListId, BLL.Const.TechnicalContactListMenuId);
+                    SaveAttachFile(CheckControl.TechnicalContactListId + "r", BLL.Const.TechnicalContactListMenuId, CheckControl.ReturnAttachUrl);
+                    SaveAttachFile(CheckControl.TechnicalContactListId, BLL.Const.TechnicalContactListMenuId, CheckControl.AttachUrl);
                     res.resultValue = CheckControl.TechnicalContactListId;
                 }
                 else
                 {
                     BLL.TechnicalContactListService.UpdateTechnicalContactListForApi(CheckControl);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.ReturnAttachUrl, CheckControl.TechnicalContactListId + "r", BLL.Const.TechnicalContactListMenuId);
-                    BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.TechnicalContactListId, BLL.Const.TechnicalContactListMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.ReturnAttachUrl, CheckControl.TechnicalContactListId + "r", BLL.Const.TechnicalContactListMenuId);
+                    //BLL.AttachFileService.updateAttachFile(CheckControl.AttachUrl, CheckControl.TechnicalContactListId, BLL.Const.TechnicalContactListMenuId);
+                    SaveAttachFile(CheckControl.TechnicalContactListId + "r", BLL.Const.TechnicalContactListMenuId, CheckControl.ReturnAttachUrl);
+                    SaveAttachFile(CheckControl.TechnicalContactListId, BLL.Const.TechnicalContactListMenuId, CheckControl.AttachUrl);
                     res.resultValue = CheckControl.TechnicalContactListId;
                 }
                 res.successful = true;
@@ -98,6 +103,20 @@ namespace Mvc.Controllers
 
             return res;
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SaveAttachFile(string dataId, string menuId, string url)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = dataId,
+                UrlStr = url,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
         }
 
         [HttpPost]
@@ -160,7 +179,7 @@ namespace Mvc.Controllers
                         case "2":
                             Project_ProjectUnit unit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(technicalContactList.ProjectId, technicalContactList.ProposedUnitId);
                             //Base_Unit unit = BLL.UnitService.GetUnitByUnitId(technicalContactList.ProposedUnitId);
-                            if (unit.UnitType == "5")
+                            if (unit.UnitType == BLL.Const.ProjectUnitType_1)
                             {
                                 Model.Check_TechnicalContactList CheckControl = new Model.Check_TechnicalContactList();
                                 CheckControl.TechnicalContactListId = approve1.TechnicalContactListId;
@@ -174,7 +193,7 @@ namespace Mvc.Controllers
                         case "4":
                             Project_ProjectUnit unit1 = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(technicalContactList.ProjectId, technicalContactList.ProposedUnitId);
 
-                            if (unit1.UnitType != "5")
+                            if (unit1.UnitType != BLL.Const.ProjectUnitType_1)
                             {
                                 Model.Check_TechnicalContactList CheckControl = new Model.Check_TechnicalContactList();
                                 CheckControl.TechnicalContactListId = approve1.TechnicalContactListId;

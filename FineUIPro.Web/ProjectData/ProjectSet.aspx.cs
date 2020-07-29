@@ -259,7 +259,7 @@ namespace FineUIPro.Web.ProjectData
             //}
             //if (Funs.DB.ProjectData_WorkArea.FirstOrDefault(x => x.ProjectId == id) != null)
             //{
-            //    content += "该项目已在【作业区域】中使用，不能删除！";
+            //    content += "该项目已在【单位工程】中使用，不能删除！";
             //}
             //if (Funs.DB.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == id) != null)
             //{

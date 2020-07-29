@@ -54,13 +54,11 @@ namespace BLL
         /// <returns>已完成的专项检查整改数量</returns>
         public static int GetIsOKViolationCountByCheckTime(DateTime startTime, DateTime endTime, string projectId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
-            {
-                return (from x in db.Check_CheckSpecial
+            Model.SGGLDB db = Funs.DB;
+            return (from x in db.Check_CheckSpecial
                         join y in db.Check_CheckSpecialDetail on x.CheckSpecialId equals y.CheckSpecialId
                         where x.CheckTime >= startTime && x.CheckTime <= endTime && x.ProjectId == projectId && y.CompleteStatus != null && y.CompleteStatus == true
                         select y).Count();
-            }
         }
 
         /// <summary>
@@ -193,10 +191,15 @@ namespace BLL
             return name;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="detailLists"></param>
+        /// <param name="checkSpecial"></param>
+        /// <returns></returns>
         public static string IssueRectification(List<Model.Check_CheckSpecialDetail> detailLists, Model.Check_CheckSpecial checkSpecial)
         {
             string info = string.Empty;
-
             if (detailLists.Count() > 0 && checkSpecial != null)
             {
                 ////隐患整改单
@@ -206,47 +209,52 @@ namespace BLL
                     var getUnitList = getDetail1.Select(x => x.UnitId).Distinct();
                     foreach (var unitItem in getUnitList)
                     {
-                        Model.RectifyNoticesItem rectifyNotices = new Model.RectifyNoticesItem
+                        var getTypeIds = getDetail1.Select(x => x.HiddenHazardType).Distinct();
+                        foreach (var itemTypeId in getTypeIds)
                         {
-                            ProjectId = checkSpecial.ProjectId,
-                            UnitId = unitItem,
-                            CompleteManId = checkSpecial.CompileMan,
-                            CheckManNames = checkSpecial.PartInPersons,
-                            CheckManIds = checkSpecial.PartInPersonIds,
-                            CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),
-                            States = Const.State_0,
-                        };
-                        rectifyNotices.RectifyNoticesItemItem = new List<Model.RectifyNoticesItemItem>();
-                        var getUnitDItem = getDetail1.Where(x => x.UnitId == unitItem);
-                        foreach (var item in getUnitDItem)
-                        {
-                            Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();
-                            if (!string.IsNullOrEmpty(item.WorkArea))
+                            Model.RectifyNoticesItem rectifyNotices = new Model.RectifyNoticesItem
                             {
-                                newRItem.WrongContent = item.WorkArea + item.Unqualified;
-                            }
-                            else
-                            {
-                                newRItem.WrongContent = item.Unqualified;
-                            }
-                            if (string.IsNullOrEmpty(rectifyNotices.CheckSpecialDetailId))
-                            {
-                                rectifyNotices.CheckSpecialDetailId = item.CheckSpecialDetailId;
-                            }
-                            else
-                            {
-                                rectifyNotices.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
-                            }
-                            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
-                            if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
-                            {
-                                newRItem.PhotoBeforeUrl = getAtt.AttachUrl;
-                            }
-                          
-                            rectifyNotices.RectifyNoticesItemItem.Add(newRItem);
-                        }
+                                ProjectId = checkSpecial.ProjectId,
+                                UnitId = unitItem,
+                                CompleteManId = checkSpecial.CompileMan,
+                                CheckManNames = checkSpecial.PartInPersons,
+                                CheckManIds = checkSpecial.PartInPersonIds,
+                                CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),
+                                States = Const.State_0,
+                            };
 
-                        APIRectifyNoticesService.SaveRectifyNotices(rectifyNotices);
+                            rectifyNotices.RectifyNoticesItemItem = new List<Model.RectifyNoticesItemItem>();
+                            var getUnitDItem = getDetail1.Where(x => x.UnitId == unitItem && x.HiddenHazardType == itemTypeId);
+                            foreach (var item in getUnitDItem)
+                            {
+                                Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();
+                                if (!string.IsNullOrEmpty(item.WorkArea))
+                                {
+                                    newRItem.WrongContent = item.WorkArea + item.Unqualified;
+                                }
+                                else
+                                {
+                                    newRItem.WrongContent = item.Unqualified;
+                                }
+                                if (string.IsNullOrEmpty(rectifyNotices.CheckSpecialDetailId))
+                                {
+                                    rectifyNotices.CheckSpecialDetailId = item.CheckSpecialDetailId;
+                                }
+                                else
+                                {
+                                    rectifyNotices.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
+                                }
+                                var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
+                                if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
+                                {
+                                    newRItem.PhotoBeforeUrl = getAtt.AttachUrl;
+                                }
+
+                                rectifyNotices.RectifyNoticesItemItem.Add(newRItem);
+                            }
+
+                            APIRectifyNoticesService.SaveRectifyNotices(rectifyNotices);
+                        }
                     }
                     info += "整改单已下发。";
                 }
@@ -338,6 +346,9 @@ namespace BLL
                     }
                     info += "整改单已下发。";
                 }
+
+                checkSpecial.States = Const.State_1;
+                Check_CheckSpecialService.UpdateCheckSpecial(checkSpecial);
             }
 
             if (!string.IsNullOrEmpty(info))

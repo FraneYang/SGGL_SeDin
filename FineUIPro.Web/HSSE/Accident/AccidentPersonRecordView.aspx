@@ -24,7 +24,7 @@
                     <f:TextBox ID="txtAccidentTypeName" runat="server" Label="事故类别" LabelAlign="Right" LabelWidth="110px"
                         Readonly="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="发生区域" LabelAlign="Right" Readonly="true" LabelWidth="110px">
+                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="单位工程" LabelAlign="Right" Readonly="true" LabelWidth="110px">
                     </f:TextBox>
                     <f:TextBox ID="txtAccidentDate" runat="server" Label="发生时间" LabelAlign="Right" Readonly="true" LabelWidth="110px">
                     </f:TextBox>

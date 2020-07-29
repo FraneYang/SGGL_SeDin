@@ -165,8 +165,28 @@ namespace FineUIPro.Web
                 //Form.Attributes["autocomplete"] = "off";
             }
 
+            this.Load += new EventHandler(this.PageBase_Load);
             this.Unload += new EventHandler(this.PageBase_UNLoad);
             base.OnInit(e);
+        }
+
+        /// <summary>
+        /// 页面登录成功
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void PageBase_Load(object sender, EventArgs e)
+        {
+            //这是后置式的权限管理策略.
+            //页面装载完成以后才检查是否有权限打开此页....
+            //anyway,its ok.
+
+            this.Title = BLL.Funs.SystemName;
+            //if (CurrUser == null)
+            //{
+            //    if (this.Page.Request.AppRelativeCurrentExecutionFilePath != "~/Login.aspx")
+            //        Response.Redirect("~/Login.aspx");
+            //}
         }
 
         /// <summary>

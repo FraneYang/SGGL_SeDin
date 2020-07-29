@@ -274,7 +274,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             var workArea = workAreas.FirstOrDefault(e => e.UnitWorkName == col7);
                             if (workArea == null)
                             {
-                                result += "第" + (i + 2).ToString() + "行," + "作业区域" + "," + "[" + col7 + "]错误！" + "|";
+                                result += "第" + (i + 2).ToString() + "行," + "单位工程" + "," + "[" + col7 + "]错误！" + "|";
                             }
                         }
 
@@ -567,7 +567,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                                 person.TeamGroupName = teamGroup.TeamGroupName;
                             }
                         }
-                        if (!string.IsNullOrEmpty(col7))//作业区域
+                        if (!string.IsNullOrEmpty(col7))//单位工程
                         {
                             var workArea = workAreas.FirstOrDefault(e => e.UnitWorkName == col7);
                             if (workArea != null)

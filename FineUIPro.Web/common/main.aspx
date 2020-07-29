@@ -9,24 +9,20 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
-        .flexV {
-            -webkit-box-orient: vertical;
-            -webkit-flex-direction: column;
-            -ms-flex-direction: column;
-            flex-direction: column;
+        .bw-item-content {
+            padding: 0;
         }
-
+       
         .bw-item {
             height: auto;
             margin: 0 0 10px 0;
         }
-
-            .bw-item:last-child {
-                margin-bottom: 0;
-            }
+        .bw-item:last-child {
+            margin-bottom: 0;
+        }
 
         .wrap {
-            padding: 15px 0;
+            padding: 10px 0;
             height: 100%;
             box-sizing: border-box;
         }
@@ -39,7 +35,9 @@
         .bw-b-bottom-up {
             height: 100%;
         }
-
+        .bw-b-bottom {
+            height: 120px;
+        }
         .bw-b, .bw-b-bottom {
             box-sizing: border-box;
         }
@@ -57,65 +55,181 @@
         }
 
         .swiperHeightWrap {
-            height: 220px;
+            height: 170px;
         }
 
         .swiperHeight {
-            height: 180px;
+            height: 90px;
         }
-
+        .content-wrap{
+            padding:0  20px 20px;
+        }
         @media screen and (max-height: 625px) {
             .swiperHeightWrap {
-                height: 220px;
+                height: 170px;
             }
 
             .swiperHeight {
-                height: 180px;
+                height: 90px;
             }
-
-            .bw-item-content {
-                padding: 10px;
+            .content-wrap{
+                padding:0  10px 10px;
             }
         }
 
         @media screen and (min-height: 625px) {
             .swiperHeightWrap {
-                height: 340px;
+                height: 300px;
             }
 
             .swiperHeight {
-                height: 300px;
+                height: 200px;
             }
         }
+       
+        .link{
+            color:#fff;
+        }
+        .map-desc{
+            position:absolute;
+            right:10px;
+            top:50%;
+            transform:translateY(-50%);
+        }
+  
+        .map-desc .desc{
+           
+            color:#9292ff;
+            /*text-shadow: 0 0 10px #7a7cd0,0 0 20px #7a7cd0,0 0 30px #7a7cd0,0 0 40px #7a7cd0;*/	/*设置发光效果*/
+           /*text-shadow: 0 0 10px #7a7cd0;*/
+        }
+         .map-desc .desc .d-item{
+            /*border-top: 1px solid #00a2e9;
+            border-bottom: 1px solid #00a2e9;*/
+            padding: 3px 10px;
+             /*background-color: rgba(1, 30, 50 ,0.3);*/
+             display:flex;
+             flex-direction:column;
+             align-items:center;
+             margin-bottom:5px;
+             position:relative;
+         }
+         .map-desc .desc .d-item:last-child{
+              margin-bottom:0;
+         }
+          .map-desc .desc .d-item:before, .map-desc .desc .d-item:after{
+              content: '';
+              display:inline-block;
+              width:12px;
+              height:12px;
+              position:absolute;
+          }
+           .map-desc .desc .d-item:before{
+               width:100%;
+                top:0;
+                left:0;
+              border-top: 1px solid #00a2e9;
+              border-left: 1px solid #00a2e9;
+           }
+           .map-desc .desc .d-item:after{
+                width:100%;
+               bottom:0;
+               right:0;
+              border-bottom: 1px solid #00a2e9;
+              border-right: 1px solid #00a2e9;
+           }
+         .map-desc .desc .d-item-1{
+            /*background-color: rgba(0,53,97 ,0.3) !important;*/
+        }
+        .map-desc .desc .d-item .tit{
+            font-size:10px;
+        }
+         .map-desc .desc .d-item .num{
+             font-size:18px;
+        }
+        .project-wrap {
+            position:absolute;
+            left:50%;
+            top:0px;
+            transform:translateX(-50%);
+            color:#fff;
+        }
+        .project-wrap .project{
+            border: 1px solid #004F88;
+            position:relative;
+            min-width:100px;
+        } 
+        .project-wrap .project-tit{
+            padding: 5px 10px;
+            color:#fff;
+            border: 1px solid #004F88;
+            background-color: #004F88;
+            position:relative;
+            min-width:100px;
+        }
+        .project-wrap .project:before{
+            content: '';
+            position:absolute;
+            right: 0px;
+            top: 4px;
+            width: 8px;
+            height:8px;
+            border-top:1px solid #fff;
+            border-right:1px solid #fff;
+            transform:rotate(135deg);
+        }
+        .project-list{
+            display:none;
+            background-color:rgba(1,82,138, 0.8);
+            color:#fff;
+        }
+         .project-list>div{
+             padding: 5px 10px;
+         }
+         .project-list>div:hover{
+            background-color:rgba(1,82,138, 0.9);
+         }
+          .tab-content .line-item{
+            background-color:#0B5EA5;
+            border-radius: 10px;
+            height:10px;
+        }
+         .tab-content .line-item>div{
+            background-color:#29D8DD;
+         }
     </style>
 </head>
 <body>
     <div class="wrap">
         <div class="bottom-wrap flex">
             <!--左侧-->
-            <div class="bw-s flex1 flexV flex">
-                <div class="bw-item flex1">
-                    <%-- <img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="" />--%>
-                    <div class="bw-item-content">
-                        <div id='main' style="width: 100%; height: 100%;"></div>
+            <div class="bw-s flex1 flex flexV">
+                <div class="bg-item flex1">
+                    <div class="bw-item-content flex flexV">
+                        <div class="tit-new">安全数据统计</div>
+                        <div class="content-wrap flex1 flex">
+                            <div class="flex1" id='one1' style="width: 100%; height: 100%;"></div>
+                            <div class="spline-mid"></div>
+                            <div class="flex1" id='one2' style="width: 100%; height: 100%;"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="bw-item flex1">
-                    <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
-                    <div class="bw-item-content">
-                        <div id='cqms' style="width: 100%; height: 100%;"></div>
+                <div class="bg-item flex1">
+                    <div class="bw-item-content flex flexV">
+                        <div class="tit-new">质量一次验收合格率</div>
+                        <div id='two' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
-                <div class="bw-item bw-item-h flex1">
-                    <%--<img class="bw-img bw-img-h" src="../res/index/images/Bg-S-2.png" alt="">--%>
-                    <div class="bw-item-content">
-                        <div id='radar' style="width: 100%; height: 100%;"></div>
+                <div class="bg-item flex1">
+                    <div class="bw-item-content flex flexV">
+                        <div class="tit-new">焊接数据统计</div>
+                        <div id='three' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
             </div>
-            <!--中间 margin-top:10px; ptop6-->
-            <div class="bw-b flex2 flexV flex" style="">
-                <div class="bw-b-bottom flex1 mb">
+            <!--中间 -->
+            <div class="bw-b flex2 flexV flex">
+                <div class="flex2 ">
                     <div class="bw-b-bottom-up">
                         <div class="tab-wrap">
                             <div class="tab">
@@ -125,98 +239,122 @@
                             </div>
                         </div>
                         <div id='map' style="width: 100%; height: 100%;"></div>
+                        <div class="project-wrap">
+                            <div class="project">
+                                <div>
+                                    <input autocomplete="off" class="project-tit" type="text" name="name" value="" />
+                                </div>
+                                <div class="project-list">
+                                    <div>项目1</div>
+                                    <div>项目2</div>
+                                    <div>项目3</div>
+                                </div>
+                            </div>
+                            <%--<f:DropDownList runat="server" Width="200px" ID="drpProject" OnSelectedIndexChanged="drpProject_SelectedIndexChanged"
+                                AutoPostBack="true" EnableEdit="true">
+                            </f:DropDownList>--%>
+                        </div>
+                        <div class="map-desc">
+                            <div class="desc">
+                                <div class="d-item">
+                                    <div class="tit">工地总数</div>
+                                    <div class="num">1，231</div>
+                                </div>
+                                <div  class="d-item d-item-1">
+                                    <div class="tit">在建</div>
+                                    <div class="num">35</div>
+                                </div>
+                                <div  class="d-item d-item-1">
+                                    <div class="tit">停工</div>
+                                    <div class="num">12</div>
+                                </div>
+                                <div  class="d-item">
+                                    <div class="tit">施工</div>
+                                    <div class="num">59</div>
+                                </div>
+                                <div  class="d-item">
+                                    <div class="tit">单位：(个)</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="bw-b-bottom flex swiperHeightWrap">
-                    <div class="bw-item flex1 mr mbnone" style="flex: 1; width: 48%;">
-                        <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
-                        <%--style="height:180px;"--%>
-                        <div class="bw-item-content">
-                            <div id='swiper1' class="swiper-container swiperHeight">
-                                <ul class="content-ul swiper-wrapper">
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">【001】待整改</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">【005】日报待审核</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">【2020-06】百万工时日报催报</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">待办事项四</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">待办事项五</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">待办事项六</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">待办事项四</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">待办事项五</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">待办事项六</div>
-                                        <div class="time">2020-02-09</div>
-                                    </li>
-                                </ul>
+                <div class="flex flex1" style="margin-top:10px;">
+                    <div id="swiper-pre" class="bw-item flex1 mr mbnone" style="flex: 1; width: 48%;">
+                        <div class="bw-item-content flex flexV">
+                            <div class="tit-new">劳务统计</div>
+                            <%--<div class=" flex1">
+                                <div id='Accumulation' style="width: 100%; height: 100%;"></div>
+                            </div>--%>
+                            <div class="content-wrap tab-content flex1" style="overflow:auto;">
+                                <div class="flex tab-h">
+                                    <div class="txt">名称</div>
+                                    <div class="txt">状态</div>
+                                    <div class="flex1">在线率</div>
+                                </div>
+                                <div class="flex tab-i">
+                                    <div class="txt">合同1</div>
+                                    <div class="txt">二化建</div>
+                                    <div class="flex1 flex line-wrap">
+                                        <div class="line-item">
+                                            <div style="width:50%"></div>
+                                        </div>
+                                        <div class="per">50%</div>
+                                    </div>
+                                </div>
+                                <div class="flex tab-i">
+                                    <div class="txt">合同2</div>
+                                    <div class="txt">分包商</div>
+                                    <div class="flex1 flex line-wrap">
+                                        <div class="line-item">
+                                            <div style="width:90%"></div>
+                                        </div>
+                                        <div class="per">90%</div>
+                                    </div>
+                                </div>
+                                <div class="flex tab-i">
+                                    <div class="txt">合同3</div>
+                                    <div class="txt">分包商</div>
+                                    <div class="flex1 flex line-wrap">
+                                        <div class="line-item">
+                                            <div style="width:90%"></div>
+                                        </div>
+                                        <div class="per">90%</div>
+                                    </div>
+                                </div>
+                                <%--<div class="flex tab-i">
+                                    <div class="txt">合同4</div>
+                                    <div class="txt">分包商</div>
+                                    <div class="flex1 flex line-wrap">
+                                        <div class="line-item">
+                                            <div style="width:90%"></div>
+                                        </div>
+                                        <div class="per">90%</div>
+                                    </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>
                     <div class="spline" style="width: 2%;"></div>
                     <div class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
-                        <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
-                        <div class="bw-item-content">
-                            <div class="swiper-container swiperHeight" id='swiper2'>
-                                <ul class="content-ul swiper-wrapper">
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">关于加强全国两会期间安全防范工作</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                    <li class="c-item swiper-slide">
+                        <div class="bw-item-content flex flexV">
+                            <div class="tit-new">通知/待办</div>
+                            <div class="" style="padding:10px 10px 0;">
+                                <div class="swiper-container " id='swiper2'>
+                                     <ul class="content-ul swiper-wrapper">
+                                        <li class="c-item swiper-slide">
+                                            <div class="tit">关于加强全国两会期间安全防范工作</div>
+                                        </li>
+                                         <li class="c-item swiper-slide">
                                         <div class="tit">关于组织开展全国“两会”期间安全质量环保专项督导检查</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">赛鼎公司2020年第一次安全生产委员会会议纪要</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">转发集团公司2020年安全工作会议精神</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">关于传达贯彻4月10日全国安全生产电视电话会议主要精神的通知</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">关于做好2020年项目复（开）工的通知</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">关于贯彻落实疫情防控和进一步做好安全生产工作的有关通知</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">关于贯彻落实疫情防控和进一步做好安全生产工作的有关通知</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                    <li class="c-item swiper-slide">
-                                        <div class="tit">关于贯彻落实疫情防控和进一步做好安全生产工作的有关通知</div>
-                                        <!-- <div class="time">2020-02-09</div> -->
-                                    </li>
-                                </ul>
+                                        <!-- <div class="time">2020-02-09</div> swiperHeight-->
+                                        </li>
+                                        <li class="c-item swiper-slide">
+                                            <div class="tit">赛鼎公司2020年第一次安全生产委员会会议纪要</div>
+                                            <!-- <div class="time">2020-02-09</div> -->
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -224,22 +362,77 @@
             </div>
             <!--右侧-->
             <div class="bw-s flex1 flexV flex" style="">
-                <div class="bw-item flex1">
-                    <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
-                    <div class="bw-item-content">
-                        <div id='echartsBar' style="width: 100%; height: 100%;"></div>
+                <div class="bg-item flex1">
+                    <%--<div class="bw-item-content flex flexV">
+                        <div class="tit-new">进度统计</div>
+                        <div class="content-wrap flex1">
+                            <div id='echartsBar' style="width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>--%>
+                    <div class="bw-item-content flex flexV">
+                        <div class="tit-new">进度统计</div>
+                        <div class="content-wrap tab-content flex1" style="overflow:auto;">
+                            <div class="flex tab-h">
+                                <div class="txt">工地名称</div>
+                                <div class="flex1" style="text-align:center">状态</div>
+                            </div>
+                            <div class="flex tab-i">
+                                <div class="txt">工地1</div>
+                                <div class="flex1 flex line-wrap">
+                                    <div class="line-item">
+                                        <div class="normal" style="width:80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex tab-i">
+                                <div class="txt">工地2</div>
+                                <div class="flex1 flex line-wrap">
+                                    <div class="line-item">
+                                        <div class="normal" style="width:50%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex tab-i">
+                                <div class="txt">工地3</div>
+                                <div class="flex1 flex line-wrap">
+                                    <div class="line-item">
+                                        <div class="warn" style="width:100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%--<div class="flex tab-i">
+                                <div class="txt">合同4</div>
+                                <div class="txt">分包商</div>
+                                <div class="flex1 flex line-wrap">
+                                    <div class="line-item">
+                                        <div style="width:90%"></div>
+                                    </div>
+                                    <div class="per">90%</div>
+                                </div>
+                            </div>--%>
+                        </div>
                     </div>
                 </div>
-                <div class="bw-item flex1">
-                    <%--<img class="bw-img" src="../res/index/images/Bg-S-2.png" alt="">--%>
-                    <div class="bw-item-content">
-                        <div id='line1' style="width: 100%; height: 100%;"></div>
+                <div class="bg-item flex1">
+                   <div class="bw-item-content flex flexV">
+                        <div class="tit-new">产值/合同统计</div>
+                        <div class="content-wrap flex1">
+                            <div id='five' style="width: 100%; height: 100%;"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="bw-item bw-item-h flex1">
-                    <%--<img class="bw-img bw-img-h" src="../res/index/images/Bg-S-2.png" alt="">--%>
-                    <div class="bw-item-content">
-                        <div id='Accumulation' style="width: 100%; height: 100%;"></div>
+                <div class="bg-item flex1">
+                   <%--<div class="bw-item-content flex flexV">
+                        <div class="tit-new">劳务统计</div>
+                        <div class="content-wrap flex1">
+                            <div id='Accumulation' style="width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>--%>
+                    <div class="bw-item-content flex flexV">
+                        <div class="tit-new">站点链接</div>
+                        <div class="content-wrap tab-content flex1" style="overflow:auto;">
+                            <a class="link">公司网站</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -252,6 +445,154 @@
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
 <script type="text/javascript" src="../res/index/js/china.js"></script>
 <script type="text/javascript" src="../res/index/js/world.js"></script>
+    <script type="text/javascript">
+    function category_One(id, dataNum) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(id))
+        // 指定图表的配置项和数据
+        var option = {
+            //tooltip: {
+            //    formatter: '{a} <br/>{b} : {c}%'
+            //},
+            title: {
+                bottom: '0',
+                left:'center',
+                text: '安全人工时统计',
+                textStyle: {
+                    color: '#fff',
+                    fontSize: 10,
+                    fontWeight:'300'
+                },
+                show: true
+            },
+            series: [
+                {
+                    name: ' ',
+                    center: ["50%", "50%"],
+                    type: 'gauge',
+                    radius: "80%",
+                    pointer: {
+                        show: true,
+                        length: '70%',
+                        width : 3
+                    },
+                    axisTick : { //刻度线样式（及短线样式）
+                      length : 0
+                    },
+                    splitLine: {
+                        length: 10,
+                        lineStyle: {
+                            color: 'rgba(255,255,255,.1)'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color : [ //表盘颜色
+                                [ 0.5, "#91C7AE" ],//0-50%处的颜色
+                                [ 0.7, "#63869E" ],//51%-70%处的颜色
+                                [ 1, "#88C8E2" ],//70%-100%处的颜色
+                            ],
+                            width : 10//表盘宽度
+                        }
+                    },
+                    min: 0,
+                    max: 100,
+                    detail: {
+                        show: false,
+                        formatter: '{value}%'
+                    },
+                    data: [{
+                        value: dataNum,
+                        name: ''
+                    }]
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option, true)
+    }
+    category_One('one1', 80)
+</script>
+    <script>
+    function pie(id, data, title, text) {
+        var myChartPie = echarts.init(document.getElementById(id));
+        var optionPie = {
+            //tooltip: {
+            //    trigger: 'item',
+            //    show: false
+            //},
+            legend: {
+                show: false,
+                selectedMode: false,
+                left: 'right',
+                orient: 'horizontal',
+                textStyle: {//图例文字的样式
+                    color: '#ffffff'
+                }
+            },
+            title: {
+                left: 'center',
+                bottom: '0',
+                text: title,
+                textStyle: {
+                    color: '#fff',
+                    fontSize: 10,
+                    fontWeight:'300'
+                },
+                show: true
+            },
+            graphic: {
+                type: "text",
+                left: "center",
+                top: "center",
+                style: {
+                    text: text,
+                    textAlign: "center",
+                    fill: "#fff",
+                    fontSize: 18,
+                    fontWeight: 700
+                }
+            },
+            color: ['#21839C', '#289CB3'],
+            series: [
+                {
+                    name: ' ',
+                    hoverOffset: 0,
+                    type: 'pie',
+                    clickable:false,
+                    radius: ['55%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false
+                    },
+                    itemStyle: {
+                        normal: {
+                            //opacity: 0.7,
+                            borderWidth: 3,
+                            borderColor: 'rgba(137,214,243, 1)'
+                        }
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '12',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: data
+                }
+            ]
+        };
+        //为echarts对象加载数据
+        myChartPie.setOption(optionPie);
+    }
+    var data = [{ value: 10, name: '' },
+    { value: 5, name: '' }];
+    pie('one2', data, "安全隐患整改统计", "43")
+</script>
 <script type="text/javascript">
     function category(id) {
         // 基于准备好的dom，初始化echarts实例
@@ -264,7 +605,7 @@
                 textStyle: {
                     color: '#fff'
                 },
-                show: true
+                show: false
             },
             tooltip: {},
             legend: {
@@ -311,7 +652,7 @@
                 data: [5, 20, 66, 10, 10, 20]
             }],
             grid: {
-                top: '25%',
+                top: '15',
                 left: '0%',
                 right: '0%',
                 bottom: '0%',
@@ -332,10 +673,301 @@
         myChart.setOption(option)
     }
 
-    category('main')
+    //category('main')
+</script>
+    <script type="text/javascript">
+    function category(id, xArr, series) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(id))
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                // left:'center',
+                text: '',
+                textStyle: {
+                    color: '#fff',
+                    fontWeight: 'normal',
+                    fontSize:16
+                },
+                show: false
+            },
+            tooltip: {},
+            legend: {
+                left: '3%',
+                show: false,
+                selectedMode: false,
+                textStyle:{//图例文字的样式
+                    color:'#ffffff'
+                }
+            },
+            xAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                },
+                type: 'category',
+                data: xArr
+            },
+            yAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: false,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                }
+            },
+            series: series,
+            grid: {
+                top: '12%',
+                left: '10',
+                right: '10',
+                bottom: '10',
+                containLabel: true,
+                backgroundColor: 'rgba(0,162,233, 0.01)',
+                // borderColor: 'rgba(0,162,233, 1)'
+            },
+            backgroundColor: 'rgba(0,162,233, 0.01)',
+            textStyle: {
+                color: 'rgba(255, 255, 255, 0.3)'
+            }
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option)
+    }
+    //var xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
+    var xArr = ["项目1", "项目2", "项目3", "项目4", "项目5", "项目6", "项目7", "项目8", "项目9"]
+    var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
+    var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
+    var series = [{
+        name: '质量一次性合格率',
+        type: 'bar',
+        data: data,
+        itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
+    },
+    {
+        name: '施工资料同步率',
+        type: 'bar',
+        data: data1,
+        itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
+    }];
+    category('two', xArr, series)
+    category('three', xArr, series)
+</script>
+    <script type="text/javascript">
+    function category_Five(id, xArr, data)  {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(id))
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                left:'center',
+                text: '',
+                textStyle: {
+                    color: '#fff',
+                    fontSize: 14,
+                    fontWeight:'300'
+                },
+                show: false
+            },
+            tooltip: {},
+            legend: {
+                show: false
+            },
+            xAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                },
+                type: 'category',
+                data: xArr
+            },
+            yAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: false,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                }
+            },
+            series: data,
+            grid: {
+                top: '15%',
+                left: '10',
+                right: '10',
+                bottom: '0%',
+                containLabel: true,
+                backgroundColor: 'rgba(0,162,233, 0.01)',
+                // borderColor: 'rgba(0,162,233, 1)'
+            },
+            itemStyle: {
+                color: 'rgba(200,201,10, 1)'
+            },
+            backgroundColor: 'rgba(0,162,233, 0.01)',
+            textStyle: {
+                color: 'rgba(255, 255, 255, 0.3)'
+            }
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option)
+    }
+    var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7"]
+    var data = [{
+            name: '',
+            type: 'bar',
+            stack: '总量',
+            data: [20, 2, 1, 34, 39, 30, 20],
+            itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
+        },
+        {
+            name: '',
+            type: 'bar',
+            stack: '总量',
+            data: [12, 32, 10, 14, 9, 30, 21],
+            itemStyle: { normal: { color: 'rgba(28,110,173, 1)' } }
+        }]
+    category_Five('five', xArr, data)
+</script>
+    <script type="text/javascript">
+    function line(id, xArr, data)  {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(id))
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                left:'center',
+                text: ' ',
+                textStyle: {
+                    color: '#fff',
+                    fontSize: 14,
+                    fontWeight:'300'
+                },
+                show: false
+            },
+            tooltip: {},
+            legend: {
+                show: false
+            },
+            xAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                },
+                type: 'category',
+                data: xArr
+            },
+            yAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: false,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                }
+            },
+            series: data,
+            grid: {
+                top: '15%',
+                left: '10',
+                right: '10',
+                bottom: '0%',
+                containLabel: true,
+                backgroundColor: 'rgba(0,162,233, 0.01)',
+                // borderColor: 'rgba(0,162,233, 1)'
+            },
+            itemStyle: {
+                //color: 'rgba(200,201,10, 1)'
+            },
+            backgroundColor: 'rgba(0,162,233, 0.01)',
+            textStyle: {
+                color: 'rgba(255, 255, 255, 0.3)'
+            }
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option)
+    }
+    var xArr = ["11.07", "11.08", "11.09", "11.10", "11.11", "11.12", "11.13", "11.14", "11.15", "11.16", "11.17", "11.18"]
+    var data = [ {
+        name: '项目安全人工时',
+        type: 'line',
+        //smooth: true,
+        data: [3, 5, 2, 3, 4, 2, 9, 8, 4, 7, 6, 1],
+        lineStyle: {
+            //color: 'rgba(200,201,10, 1)'
+        }
+    },{
+        name: '项目安全人工时1',
+        type: 'line',
+        //smooth: true,
+        data:  [6, 5, 3, 3, 4, 1, 3, 2, 4, 7, 6, 1]
+    },{
+        name: '项目安全人工时2',
+        type: 'line',
+        //smooth: true,
+        data:  [5, 4, 2, 3, 8, 2, 9, 2, 4, 1, 6, 4]
+    }]
+    //line('three', xArr, data)
 </script>
 <script>
-    function line(id, name) {
+    function line1(id, name) {
         var myChartLine = echarts.init(document.getElementById(id));
         optionLine = {
             title: {
@@ -344,7 +976,7 @@
                 textStyle: {
                     color: '#fff'
                 },
-                show: true
+                show: false
             },
             tooltip: {
                 trigger: 'axis'
@@ -372,7 +1004,7 @@
             //     }
             // },
             grid: {
-                top: '25%',
+                top: '15',
                 left: '3%',
                 right: '4%',
                 bottom: '9%',
@@ -458,7 +1090,7 @@
                     textStyle: {
                         color: '#fff'
                     },
-                    show: true
+                    show: false
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -472,7 +1104,7 @@
                     //data: ['单位三', '单位二', '单位一']
                 },
                 grid: {
-                    top: '20%',
+                    top: '15',
                     left: '6%',
                     right: '6%',
                     bottom: '0%',
@@ -550,9 +1182,9 @@
             //为echarts对象加载数据
             myChartLine.setOption(option);
         }
-    cqms('cqms', '质量统计', cqmsData)
+    //cqms('cqms', '质量统计', cqmsData)
     $(document).ready(function () {
-        line('line1', '合同统计')
+        //line1('line1', '合同统计')
     })
 </script>
 <script>
@@ -652,9 +1284,9 @@
         optionMap = {
             title: {
                 // x:"center",
-                text: '在建项目',
+                text: '',
                 textStyle: {
-                    fontSize: 20,
+                    fontSize: 15,
                     fontWeight: 'normal',
                     color: '#fff'
                     // color:'rgba(0,162,233)'
@@ -708,6 +1340,7 @@
                     type: 'map',
                     // mapType: 'world',
                     mapType: mapType,
+                    zoom: 1.2,
                     roam: false,
                     data: [
                         { name: 'China', value: randomData() },
@@ -910,7 +1543,7 @@
     })
 </script>
 <script>
-    echartsBarInit('echartsBar', jdglData)
+    //echartsBarInit('echartsBar', jdglData)
     var jdglData =<%=JDGLData %>
         function echartsBarInit(id, data) {
             var myChart = echarts.init(document.getElementById(id))   // 初始化echarts实例
@@ -922,7 +1555,7 @@
                         textStyle: {
                             color: '#fff'
                         },
-                        show: true
+                        show: false
                     },
                     grid: {   // 直角坐标系内绘图网格
                         left: '0',  //grid 组件离容器左侧的距离,
@@ -1026,7 +1659,7 @@
                 textStyle: {
                     color: '#fff'
                 },
-                show: true
+                show: false
             },
             tooltip: {
                 trigger: 'axis',
@@ -1039,7 +1672,7 @@
                 data: ['单位三', '单位二', '单位一']
             },
             grid: {
-                top: '20%',
+                top: '15',
                 left: '6%',
                 right: '6%',
                 bottom: '0%',
@@ -1128,7 +1761,7 @@
         };
         myChartLine.setOption(option);
     }
-    Accumulation('Accumulation')
+    //Accumulation('Accumulation')
 </script>
 <script>
     function radar(id) {
@@ -1139,6 +1772,7 @@
                 textStyle: {
                     color: '#fff'
                 },
+                show: false
             },
             tooltip: {},
             legend: {
@@ -1182,21 +1816,26 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    radar('radar')
+    //radar('radar')
 </script>
-<script>        
-    var mySwiper = new Swiper('#swiper1', {
-        autoplay: 3000,//可选选项，自动滑动
-        direction: 'vertical',
-        loop: true,
-        slidesPerView: 6
+<script>
+    $(document).ready(function () {
+        var height = $("#swiper-pre").height()
+        $("#swiper2").css("height", (height -38) + 'px')
+        var mySwiper = new Swiper('#swiper2', {
+            autoplay: 4000,//可选选项，自动滑动
+            direction: 'vertical',
+            loop: true,
+            slidesPerView: 3
+        })
     })
+    //var mySwiper = new Swiper('#swiper1', {
+    //    autoplay: 3000,//可选选项，自动滑动
+    //    direction: 'vertical',
+    //    loop: true,
+    //    slidesPerView: 3
+    //})
 
-    var mySwiper = new Swiper('#swiper2', {
-        autoplay: 4000,//可选选项，自动滑动
-        direction: 'vertical',
-        loop: true,
-        slidesPerView: 6
-    })
+   
 </script>
 </html>

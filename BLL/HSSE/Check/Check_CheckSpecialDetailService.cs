@@ -35,28 +35,29 @@ namespace BLL
         /// <summary>
         /// 增加专项检查明细信息
         /// </summary>
-        /// <param name="CheckSpecialDetail"></param>
-        public static void AddCheckSpecialDetail(Model.Check_CheckSpecialDetail CheckSpecialDetail)
+        /// <param name="checkSpecialDetail"></param>
+        public static void AddCheckSpecialDetail(Model.Check_CheckSpecialDetail checkSpecialDetail)
         {
             Model.SGGLDB db = Funs.DB;
             Model.Check_CheckSpecialDetail newCheckSpecialDetail = new Model.Check_CheckSpecialDetail
             {
-                CheckSpecialDetailId = CheckSpecialDetail.CheckSpecialDetailId,
-                CheckSpecialId = CheckSpecialDetail.CheckSpecialId,
-                SortIndex = CheckSpecialDetail.SortIndex,
-                CheckItem = CheckSpecialDetail.CheckItem,
-                CheckItemType = CheckSpecialDetail.CheckItemType,
-                Unqualified = CheckSpecialDetail.Unqualified,
-                CheckArea = CheckSpecialDetail.CheckArea,
-                UnitId = CheckSpecialDetail.UnitId,
-                HandleStep = CheckSpecialDetail.HandleStep,
-                CompleteStatus = CheckSpecialDetail.CompleteStatus,
-                RectifyNoticeId = CheckSpecialDetail.RectifyNoticeId,
-                LimitedDate = CheckSpecialDetail.LimitedDate,
-                CompletedDate = CheckSpecialDetail.CompletedDate,
-                Suggestions = CheckSpecialDetail.Suggestions,
-                WorkArea = CheckSpecialDetail.WorkArea,
-                CheckContent = CheckSpecialDetail.CheckContent
+                CheckSpecialDetailId = checkSpecialDetail.CheckSpecialDetailId,
+                CheckSpecialId = checkSpecialDetail.CheckSpecialId,
+                SortIndex = checkSpecialDetail.SortIndex,
+                CheckItem = checkSpecialDetail.CheckItem,
+                CheckItemType = checkSpecialDetail.CheckItemType,
+                Unqualified = checkSpecialDetail.Unqualified,
+                CheckArea = checkSpecialDetail.CheckArea,
+                UnitId = checkSpecialDetail.UnitId,
+                HandleStep = checkSpecialDetail.HandleStep,
+                CompleteStatus = checkSpecialDetail.CompleteStatus,
+                RectifyNoticeId = checkSpecialDetail.RectifyNoticeId,
+                LimitedDate = checkSpecialDetail.LimitedDate,
+                CompletedDate = checkSpecialDetail.CompletedDate,
+                Suggestions = checkSpecialDetail.Suggestions,
+                WorkArea = checkSpecialDetail.WorkArea,
+                CheckContent = checkSpecialDetail.CheckContent,
+                HiddenHazardType=checkSpecialDetail.HiddenHazardType,
             };
             db.Check_CheckSpecialDetail.InsertOnSubmit(newCheckSpecialDetail);
             db.SubmitChanges();

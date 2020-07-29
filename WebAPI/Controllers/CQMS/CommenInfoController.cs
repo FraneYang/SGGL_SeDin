@@ -18,14 +18,37 @@ namespace Mvc.Controllers
             ResponseData<List<Base_Unit>> res = new ResponseData<List<Base_Unit>>();
             if (string.IsNullOrEmpty(name)) name = "";
             if (string.IsNullOrEmpty(unitType)) unitType = "";
-            List<Project_ProjectUnit> q = BLL.ProjectUnitService.GetProjectUnitListByProjectIdForApi(projectId, unitType ,  name );
+            List<Project_ProjectUnit> q = BLL.ProjectUnitService.GetProjectUnitListByProjectIdForApi(projectId, unitType, name);
             List<Base_Unit> a = new List<Base_Unit>();
             for (int i = 0; i < q.Count; i++)
             {
-                a.Add(BeanUtil.CopyOjbect<Base_Unit>(q[i].Base_Unit, true));
+                var unit = q[i].Base_Unit;
+                unit.UnitTypeId = q[i].UnitType;
+                a.Add(BeanUtil.CopyOjbect<Base_Unit>(unit, true));
             }
             res.successful = true;
             res.resultValue = a;
+            return res;
+        }
+
+        /// <summary>
+        /// 根据项目Id和单位Id获取项目单位类型
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ResponseData<string> GetUnitType(string projectId, string unitId)
+        {
+            ResponseData<string> res = new ResponseData<string>();
+            string unitType = string.Empty;
+            var projectUnit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, unitId);
+            if (projectUnit != null)
+            {
+                unitType = projectUnit.UnitType;
+            }
+            res.successful = true;
+            res.resultValue = unitType;
             return res;
         }
 
@@ -80,7 +103,7 @@ namespace Mvc.Controllers
             return res;
         }
         [HttpGet]
-        public ResponseData<List<WBS_UnitWork>> GetUnitWorkListByPidAndPtype(string projectId,string projectType)
+        public ResponseData<List<WBS_UnitWork>> GetUnitWorkListByPidAndPtype(string projectId, string projectType)
         {
             ResponseData<List<WBS_UnitWork>> res = new ResponseData<List<WBS_UnitWork>>();
             List<WBS_UnitWork> a = BLL.UnitWorkService.GetUnitWorkListByPidForApi(projectId, projectType);
@@ -102,9 +125,10 @@ namespace Mvc.Controllers
             ResponseData<List<Base_CNProfessional>> res = new ResponseData<List<Base_CNProfessional>>();
             List<Base_CNProfessional> resList = new List<Base_CNProfessional>();
             var list = BLL.CNProfessionalService.GetList();
-            if(list != null)
+            if (list != null)
             {
-                foreach(var item in list){
+                foreach (var item in list)
+                {
                     Base_CNProfessional main = new Base_CNProfessional();
                     main.CNProfessionalCode = item.CNProfessionalId;
                     main.SortIndex = item.SortIndex;
@@ -112,7 +136,7 @@ namespace Mvc.Controllers
                     resList.Add(main);
                 }
             }
-            res.successful = true;  
+            res.successful = true;
             res.resultValue = resList;
             return res;
         }
@@ -162,7 +186,7 @@ namespace Mvc.Controllers
             if (string.IsNullOrEmpty(name))
                 name = "";
 
-            list = BLL.UserService.GetProjectUserListByProjectIdForApi(projectId,name);
+            list = BLL.UserService.GetProjectUserListByProjectIdForApi(projectId, name);
             List<Sys_User> users = new List<Sys_User>();
             foreach (var item in list)
             {
@@ -173,7 +197,7 @@ namespace Mvc.Controllers
             return res;
         }
         [HttpGet]
-        public ResponseData<List<Sys_User>> FindUserByUnit(string projectId,string unitId="",string unitType="", string name = "")
+        public ResponseData<List<Sys_User>> FindUserByUnit(string projectId, string unitId = "", string unitType = "", string name = "")
         {
             ResponseData<List<Sys_User>> res = new ResponseData<List<Sys_User>>();
             List<Sys_User> list;
@@ -212,7 +236,7 @@ namespace Mvc.Controllers
         {
             ResponseData<List<WBS_WorkPackage>> res = new ResponseData<List<WBS_WorkPackage>>();
             List<WBS_WorkPackage> list = new List<WBS_WorkPackage>();
-            List<WBS_WorkPackage> pagelist = BLL.WorkPackageService.GetAllWorkPackagesByUnitWorkId(  unitWorkId);
+            List<WBS_WorkPackage> pagelist = BLL.WorkPackageService.GetAllWorkPackagesByUnitWorkId(unitWorkId);
             foreach (WBS_WorkPackage w in pagelist)
             {
                 WBS_WorkPackage temp = BeanUtil.CopyOjbect<WBS_WorkPackage>(w, true);
@@ -241,7 +265,7 @@ namespace Mvc.Controllers
             return res;
         }
         [HttpGet]
-        public ResponseData<List<Base_Unit>> FindAllUnit(string projectId="")
+        public ResponseData<List<Base_Unit>> FindAllUnit(string projectId = "")
         {
             ResponseData<List<Base_Unit>> res = new ResponseData<List<Base_Unit>>();
             List<Base_Unit> list = BLL.UnitService.GetMainAndSubUnitByProjectIdList(projectId);
@@ -297,7 +321,7 @@ namespace Mvc.Controllers
                     }
                 }
             }
-            
+
             return reUrl;
         }
 
@@ -312,6 +336,7 @@ namespace Mvc.Controllers
         {
             HttpFileCollection files = HttpContext.Current.Request.Files;
             string typeName = HttpContext.Current.Request["typeName"];
+            string fName = HttpContext.Current.Request["fileName"];
             if (string.IsNullOrEmpty(typeName))
             {
                 typeName = "WebApi";
@@ -331,6 +356,9 @@ namespace Mvc.Controllers
                     if (!string.IsNullOrEmpty(file.FileName))
                     {
                         string fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+
+                        if (!string.IsNullOrEmpty(fName))
+                            fileName = Guid.NewGuid() + "_" + fName;// Path.GetExtension(file.FileName);
                         file.SaveAs(localRoot + fileName);
                         if (string.IsNullOrEmpty(reUrl))
                         {
@@ -347,6 +375,44 @@ namespace Mvc.Controllers
             res.successful = true;
             res.resultValue = reUrl;
             return res;
+            //HttpFileCollection files = HttpContext.Current.Request.Files;
+            //string typeName = HttpContext.Current.Request["typeName"];
+            //string fName = HttpContext.Current.Request["fileName"];
+            //if (string.IsNullOrEmpty(typeName))
+            //{
+            //    typeName = "WebApi";
+            //}
+            //string reUrl = string.Empty;
+            //if (files != null && files.Count > 0)
+            //{
+            //    string folderUrl = "FileUpLoad/" + typeName + "/" + DateTime.Now.ToString("yyyy-MM") + "/";
+            //    string localRoot = ConfigurationManager.AppSettings["localRoot"] + folderUrl; //物理路径 
+            //    if (!Directory.Exists(localRoot))
+            //    {
+            //        Directory.CreateDirectory(localRoot);
+            //    }
+            //    foreach (string key in files.AllKeys)
+            //    {
+            //        HttpPostedFile file = files[key];//file.ContentLength文件长度 
+            //        if (!string.IsNullOrEmpty(file.FileName))
+            //        {
+            //            string fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+            //            file.SaveAs(localRoot + fileName);
+            //            if (string.IsNullOrEmpty(reUrl))
+            //            {
+            //                reUrl += folderUrl + fileName;
+            //            }
+            //            else
+            //            {
+            //                reUrl += "," + folderUrl + fileName;
+            //            }
+            //        }
+            //    }
+            //}
+            //ResponseData<string> res = new ResponseData<string>();
+            //res.successful = true;
+            //res.resultValue = reUrl;
+            //return res;
         }
 
         [HttpGet]
@@ -386,7 +452,7 @@ namespace Mvc.Controllers
                 case "spotCheck":
                     {
                         string prefix = BLL.ProjectService.GetProjectByProjectId(projectId).ProjectCode + "-06-CM03-XJ-";
-                        res.resultValue = BLL.SQLHelper.RunProcNewId("SpGetNewCode5", "dbo.Check_SpotCheck", "DocCode", prefix);                        
+                        res.resultValue = BLL.SQLHelper.RunProcNewId("SpGetNewCode5", "dbo.Check_SpotCheck", "DocCode", prefix);
                     }
                     break;
 

@@ -87,14 +87,14 @@ namespace FineUIPro.Web.HSSE.EduTrain
                                 int count = listUrl.Count();
                                 if (count > 0)
                                 {
-                                    this.timg1.Src = "../" + listUrl[0];
-                                    this.timg2.Src = "../" + listUrl[0];
+                                    this.timg1.Src = "../../" + listUrl[0];
+                                    this.timg2.Src = "../../" + listUrl[0];
                                     if (count >= 2)
                                     {
                                         int cout2 = count / 2;
-                                        this.timg2.Src = "../" + listUrl[cout2];
+                                        this.timg2.Src = "../../" + listUrl[cout2];
                                     }
-                                    this.timg3.Src = "../" + listUrl[count - 1];
+                                    this.timg3.Src = "../../" + listUrl[count - 1];
                                 }
                             }
                             var getTestPlan = db.Test_TestPlan.FirstOrDefault(x => x.TestPlanId == testRecord.TestPlanId);
@@ -161,14 +161,14 @@ namespace FineUIPro.Web.HSSE.EduTrain
                                 int count = listUrl.Count();
                                 if (count > 0)
                                 {
-                                    this.timg1.Src = "../" + listUrl[0];
-                                    this.timg2.Src = "../" + listUrl[0];
+                                    this.timg1.Src = "../../" + listUrl[0];
+                                    this.timg2.Src = "../../" + listUrl[0];
                                     if (count >= 2)
                                     {
                                         int cout2 = count / 2;
-                                        this.timg2.Src = "../" + listUrl[cout2];
+                                        this.timg2.Src = "../../" + listUrl[cout2];
                                     }
-                                    this.timg3.Src = "../" + listUrl[count - 1];
+                                    this.timg3.Src = "../../" + listUrl[count - 1];
                                 }
                             }
 

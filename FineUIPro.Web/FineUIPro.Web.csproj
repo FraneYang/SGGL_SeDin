@@ -189,6 +189,8 @@
     <Content Include="BaseInfo\PictureType.aspx" />
     <Content Include="BaseInfo\Position.aspx" />
     <Content Include="BaseInfo\PostTitle.aspx" />
+    <Content Include="BaseInfo\PracticeCertificate.aspx" />
+    <Content Include="BaseInfo\ProjectType.aspx" />
     <Content Include="BaseInfo\QualityQuestionType.aspx" />
     <Content Include="BaseInfo\QualityQuestionTypeEdit.aspx" />
     <Content Include="BaseInfo\QualityQuestionTypeView.aspx" />
@@ -204,6 +206,11 @@
     <Content Include="BaseInfo\UnitType.aspx" />
     <Content Include="BaseInfo\WorkPost.aspx" />
     <Content Include="BaseInfo\WorkStage.aspx" />
+    <Content Include="common\mainMenu_DigitalSite.aspx" />
+    <Content Include="common\mainMenu_PDigData.aspx" />
+    <Content Include="common\mainMenu_PZHGL.aspx" />
+    <Content Include="common\mainMenu_TestRun.aspx" />
+    <Content Include="common\mainMenu_PHTGL.aspx" />
     <Content Include="common\mainMenu_JDGL.aspx" />
     <Content Include="common\mainMenu_HJGL.aspx" />
     <Content Include="common\mainMenu_CQMS.aspx" />
@@ -793,6 +800,7 @@
     <Content Include="ProjectData\MainItem.aspx" />
     <Content Include="ProjectData\MainItemEdit.aspx" />
     <Content Include="ProjectData\MainItemView.aspx" />
+    <Content Include="ProjectData\ProjectInformation.aspx" />
     <Content Include="ProjectData\ProjectSet.aspx" />
     <Content Include="ProjectData\ProjectSetSave.aspx" />
     <Content Include="ProjectData\ProjectSetView.aspx" />
@@ -874,6 +882,10 @@
     <Content Include="File\Word\Person\试车经理工作任务书.doc" />
     <Content Include="File\Word\Person\质量专业工程师工作任务书.doc" />
     <Content Include="File\Word\Person\质量经理工作任务书.doc" />
+    <Content Include="File\Word\HSSE\~%24隐患整改反馈单.doc" />
+    <Content Include="File\Word\HSSE\~%24隐患整改通知单.doc" />
+    <Content Include="File\Word\HSSE\安全隐患整改反馈单.doc" />
+    <Content Include="File\Word\HSSE\安全隐患整改通知单.doc" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -1624,7 +1636,6 @@
     <None Include="res\images\themes\small\Thumbs.db" />
     <None Include="res\images\themes\Thumbs.db" />
     <Content Include="LogOff.aspx" />
-    <Content Include="OperationError.aspx" />
     <Content Include="ReportPrint\CalculateChinaEx.aspx" />
     <Content Include="ReportPrint\css\chinaexcel.css" />
     <Content Include="ReportPrint\ExPrintSet.aspx" />
@@ -4868,6 +4879,8 @@
     <Content Include="SysManage\Unit.aspx" />
     <Content Include="SysManage\UnitEdit.aspx" />
     <Content Include="SysManage\UnitIn.aspx" />
+    <Content Include="SysManage\UpdatePassword.aspx" />
+    <Content Include="SysManage\UpdatePasswordEdit.aspx" />
     <Content Include="SysManage\UserIn.aspx" />
     <Content Include="SysManage\UserList.aspx" />
     <Content Include="SysManage\UserListEdit.aspx" />
@@ -5044,6 +5057,20 @@
     <Compile Include="BaseInfo\PostTitle.aspx.designer.cs">
       <DependentUpon>PostTitle.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BaseInfo\PracticeCertificate.aspx.cs">
+      <DependentUpon>PracticeCertificate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseInfo\PracticeCertificate.aspx.designer.cs">
+      <DependentUpon>PracticeCertificate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaseInfo\ProjectType.aspx.cs">
+      <DependentUpon>ProjectType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseInfo\ProjectType.aspx.designer.cs">
+      <DependentUpon>ProjectType.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BaseInfo\QualityQuestionType.aspx.cs">
       <DependentUpon>QualityQuestionType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5148,6 +5175,41 @@
     </Compile>
     <Compile Include="BaseInfo\WorkStage.aspx.designer.cs">
       <DependentUpon>WorkStage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\mainMenu_DigitalSite.aspx.cs">
+      <DependentUpon>mainMenu_DigitalSite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mainMenu_DigitalSite.aspx.designer.cs">
+      <DependentUpon>mainMenu_DigitalSite.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\mainMenu_PDigData.aspx.cs">
+      <DependentUpon>mainMenu_PDigData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mainMenu_PDigData.aspx.designer.cs">
+      <DependentUpon>mainMenu_PDigData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\mainMenu_PZHGL.aspx.cs">
+      <DependentUpon>mainMenu_PZHGL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mainMenu_PZHGL.aspx.designer.cs">
+      <DependentUpon>mainMenu_PZHGL.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\mainMenu_TestRun.aspx.cs">
+      <DependentUpon>mainMenu_TestRun.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mainMenu_TestRun.aspx.designer.cs">
+      <DependentUpon>mainMenu_TestRun.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="common\mainMenu_PHTGL.aspx.cs">
+      <DependentUpon>mainMenu_PHTGL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mainMenu_PHTGL.aspx.designer.cs">
+      <DependentUpon>mainMenu_PHTGL.aspx</DependentUpon>
     </Compile>
     <Compile Include="common\mainMenu_JDGL.aspx.cs">
       <DependentUpon>mainMenu_JDGL.aspx</DependentUpon>
@@ -8848,6 +8910,13 @@
     <Compile Include="ProjectData\MainItemView.aspx.designer.cs">
       <DependentUpon>MainItemView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ProjectData\ProjectInformation.aspx.cs">
+      <DependentUpon>ProjectInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectInformation.aspx.designer.cs">
+      <DependentUpon>ProjectInformation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectData\ProjectSet.aspx.cs">
       <DependentUpon>ProjectSet.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -9191,13 +9260,6 @@
     <Compile Include="LogOff.aspx.designer.cs">
       <DependentUpon>LogOff.aspx</DependentUpon>
     </Compile>
-    <Compile Include="OperationError.aspx.cs">
-      <DependentUpon>OperationError.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="OperationError.aspx.designer.cs">
-      <DependentUpon>OperationError.aspx</DependentUpon>
-    </Compile>
     <Compile Include="common\PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -9332,6 +9394,20 @@
     </Compile>
     <Compile Include="SysManage\UnitIn.aspx.designer.cs">
       <DependentUpon>UnitIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysManage\UpdatePassword.aspx.cs">
+      <DependentUpon>UpdatePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysManage\UpdatePassword.aspx.designer.cs">
+      <DependentUpon>UpdatePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysManage\UpdatePasswordEdit.aspx.cs">
+      <DependentUpon>UpdatePasswordEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysManage\UpdatePasswordEdit.aspx.designer.cs">
+      <DependentUpon>UpdatePasswordEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysManage\UserIn.aspx.cs">
       <DependentUpon>UserIn.aspx</DependentUpon>

@@ -9,160 +9,157 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
-        .top {
+        * {
+            box-sizing: border-box;
+        }
+        .pd{
+            padding: 20px;
+        }
+        .pd10{
+            padding: 10px !important;
+        }
+        .wrap{
+            height:100%;
+            padding:15px;
+        }
+        .bw-item-content{
+            padding: 0;
+        }
+        .bottom-wrap{
+           padding:0;
+        }
+         .top {
             display: flex;
             display: -webkit-flex;
             overflow: hidden;
             width: 100%;
-            height: 360px;
-            margin-bottom: 5px;
-            box-sizing: border-box;
         }
-
-            .top .item {
-                flex: 1;
-                width: 50%;
-                float: left;
-                box-sizing: border-box;
-                margin: 0 10px 20px;
-            }
-
-        .bw-b {
-            width: 50%;
+        .bw-b-bottom{
+            width:100%;
+            height:100%;
         }
 
         .bw-b-bottom-up {
-            box-sizing: border-box;
-            height: 340px;
+            border-radius:0;
+            height: 100%;
+            margin:0;
         }
 
         .tab-wrap {
             left: auto;
             right: 15px;
+            top: 10px;
         }
-
+        .tab{
+            border: none;
+            box-shadow: none;
+        }
+        .tab .active {
+            color: #fff;
+            background-color: transparent;
+        }
         .tab .t-item {
             width: auto;
-            padding: 5px 10px;
-        }
-
-        .bottom-list {
-            height: 100px;
-            padding: 15px;
-            overflow: hidden;
-            color: #fff;
-            margin: 0 10px;
-        }
-
-            .bottom-list .bl-left {
-                float: left;
-                margin-right: 30px;
-                margin-left: 50px;
-            }
-
-            .bottom-list .bl-right {
-                float: right;
-                margin-right: 50px;
-            }
-
-        .tab .t-item {
             font-size: 13px;
+            padding: 2px;
         }
+
     </style>
 </head>
 <body>
-    <div class="wrap">
-        <div class="bottom-wrap">
+    <div class="wrap flex flexV">
+        <div class="bottom-wrap flex1">
             <div class="top">
-                <div class="item">
-                    <div class="bw-b-bottom ptop6">
+                <div class="item flex3">
+                    <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
-                            <div class="tab-wrap">
-                                <div class="tab" data-value="1">
-                                    <div class="t-item active">施工分包商</div>
-                                    <div class="spline"></div>
-                                    <div class="t-item ">单位工程</div>
-                                    <div class="spline"></div>
-                                    <div class="t-item">专业</div>
+                            <div class="bw-item-content flex">
+                                <div class="flex1 pd" >
+                                     <div id='one'  style="width: 100%; height: 100%;"></div>
                                 </div>
-                            </div>
-                            <div class="bw-item-content">
-                                <div id='one' style="width: 100%; height: 100%;"></div>
+                               <div class="flex1 pd" >
+                                     <div id='one1'   style="width: 100%; height: 100%;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="bw-b-bottom ptop6">
+                <div class="item flex2">
+                    <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
-                            <div class="tab-wrap">
-                                <div class="tab" data-value="2">
-                                    <div class="t-item active">施工分包商</div>
-                                    <div class="spline"></div>
-                                    <div class="t-item ">单位工程</div>
-                                    <div class="spline"></div>
-                                    <div class="t-item">专业</div>
-                                </div>
-                            </div>
                             <div class="bw-item-content">
                                 <div id='two' style="width: 100%; height: 100%;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="bottom-wrap">
-            <div class="top">
-                <div class="item">
-                    <div class="bw-b-bottom ptop6">
+                <div class="item flex3">
+                    <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="tab-wrap">
-                                <div class="tab" data-value="3">
-                                    <div class="t-item active">施工分包商</div>
-                                    <div class="spline"></div>
-                                    <div class="t-item ">单位工程</div>
-                                    <div class="spline"></div>
-                                    <div class="t-item">专业</div>
-                                    <div class="spline"></div>
-                                    <div class="t-item">问题类别</div>
+                                <div class="tab" data-value="2">
+                                    <div class="t-item active">按分包商</div>
+                                    <div class="t-item ">按单位工程</div>
+                                    <div class="t-item">按材质类别</div>
                                 </div>
                             </div>
-                            <div class="bw-item-content">
+                            <div class="bw-item-content pd10">
                                 <div id='three' style="width: 100%; height: 100%;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="bw-b-bottom ptop6">
+            </div>
+        </div>
+        <div class="bottom-wrap flex1">
+            <div class="top">
+                <div class="item flex3">
+                    <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="tab-wrap">
-                                <div class="tab" data-value="4">
-                                    <div class="t-item active">主项</div>
-                                    <div class="spline"></div>
-                                    <div class="t-item">专业</div>
+                                <div class="tab" data-value="3">
+                                    <div class="t-item active">按分包商</div>
+                                    <div class="t-item ">按单位工程</div>
+                                    <div class="t-item">按材质类别</div>
                                 </div>
                             </div>
-                            <div class="bw-item-content">
+                            <div class="bw-item-content pd10">
                                 <div id='four' style="width: 100%; height: 100%;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="bottom-wrap">
-            <div class="bw-b-bottom-up bottom-list">
-                <div class="bl-left">
-                    <div>质量控制点：总数量200，已完成178，未完成22，完成百分比89%</div>
-                    <div>质量问题：总数量100，已完成84，未完成16，完成百分比84%</div>
-                    <div>设计变更：总数量65，已完成52，未完成13，完成百分比80%</div>
+                <div class="item flex2">
+                    <div class="bw-b-bottom">
+                        <div class="bw-b-bottom-up">
+                            <div class="tab-wrap">
+                                <div class="tab" data-value="4">
+                                    <div class="t-item active">按分包商</div>
+                                    <div class="t-item ">按单位工程</div>
+                                    <div class="t-item">按材质类别</div>
+                                </div>
+                            </div>
+                            <div class="bw-item-content">
+                                <div id='five' style="width: 100%; height: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bl-right">
-                    <div>工程联系单：总数量65，已完成56，未完成9 </div>
-                    <div>工作联系单：总数量42，已完成35，未完成7 </div>
-                    <div>施工方案：总数量34，已完成30，未完成4 </div>
+                <div class="item flex3">
+                    <div class="bw-b-bottom">
+                        <div class="bw-b-bottom-up">
+                            <div class="tab-wrap">
+                                <div class="tab" data-value="3">
+                                    <div class="t-item active">按分包商</div>
+                                    <div class="t-item ">按单位工程</div>
+                                    <div class="t-item">按材质类别</div>
+                                </div>
+                            </div>
+                            <div class="bw-item-content pd10">
+                                <div id='six' style="width: 100%; height: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,78 +169,132 @@
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
 <script type="text/javascript">
-    function category_One(id, xArr, data) {
+    function category_One(id, dataNum, title, detail) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
+            //tooltip: {
+            //    formatter: '{a} <br/>{b} : {c}%'
+            //},
             title: {
-                // left:'center',
-                text: '质量验收一次合格率 施工资料同步率',
+                left:'center',
+                text: title,
                 textStyle: {
-                    color: '#fff',
-                    fontWeight: 'normal',   
-                    fontSize:16
+                    color: '#278AC8',
+                    fontSize: 14,
+                    fontWeight:'300'
                 },
                 show: true
             },
-            tooltip: {},
-            legend: {
-                //data: ['销量'],
-                show: false
-            },
-            xAxis: {
-                axisTick: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    }
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    }
-                },
-                type: 'category',
-                data: xArr,
-                boundaryGap: [0, 0.01],
-            },
-            yAxis: {
-                axisTick: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    }
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
+            series: [
+                {
+                    name: ' ',
+                    center: ["50%", "65%"],
+                    type: 'gauge',
+                    radius: "100%",
+                    pointer: {
+                        show: true,
+                        length: '70%',
+                        width : 3
                     },
-                    formatter: function (value, index) {
-                        return (value * 100) + "%";
-                    }
+                    axisTick : { //刻度线样式（及短线样式）
+                      length : 0
+                    },
+                    splitLine: {
+                        length: 10,
+                        lineStyle: {
+                            color: 'rgba(255,255,255,.1)'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width : 10//表盘宽度
+                        }
+                    },
+                    min: 0,
+                    max: 100,
+                    detail: {
+                        show: true,
+                        formatter: detail
+                    },
+                    data: [{
+                        value: dataNum,
+                        name: ''
+                    }]
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option, true)
+    }
+    category_One('one', 80, '项目焊接一次合格率', '{value}%');
+    category_One('one1', 76, '项目焊工总人数', '{value}人');
+</script>
+<script type="text/javascript">
+    function category_two(id, xArr, data) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(id))
+        // 指定图表的配置项和数据
+        var option = {
+                title: [{
+	            text: '项目焊接工程量统计',
+	            top:'7%',
+	            left:'center',
+	            textStyle:{
+	                color: '#278AC8',
+                    fontSize: 14,
+                    fontWeight:300
+	            }
+	        }],
+            //tooltip: {
+            //    trigger: 'item',
+            //    formatter: '{a} <br/>{b}: {c} ({d}%)'
+            //},
+            legend: {
+                show: true,
+                bottom: 5,
+                align: 'left',
+                textStyle:{//图例文字的样式
+                    color:'#fff'
                 }
             },
-            series: data,
-            grid: {
-                top: '25%',
-                left: '0%',
-                right: '0%',
-                bottom: '0%',
-                containLabel: true,
-                backgroundColor: 'rgba(0,162,233, 0.01)',
-                // borderColor: 'rgba(0,162,233, 1)'
-            },
-            backgroundColor: 'rgba(0,162,233, 0.01)',
-            textStyle: {
-                color: 'rgba(255, 255, 255, 0.3)'
-            }
+            color: ['#1E9B7D', '#8EC43D'],
+            series: [
+                {
+                    name: '项目焊接工程量统计',
+                    type: 'pie',
+                    center: ['50%', '55%'],
+                    radius: ['50%', '65%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: true,
+                        position: 'inside',
+                        formatter: function(data){ return data.percent.toFixed(2)+"%";} 
+                    },
+                    //emphasis: {
+                    //    label: {
+                    //        show: true,
+                    //        fontSize: '20',
+                    //        fontWeight: 'bold'
+                    //    }
+                    //},
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        { value: 35, name: '已完成' },
+                        { value: 10, name: '未完成' }
+                    ],
+                    itemStyle: {
+                        normal: {
+                            //opacity: 0.7,
+                            borderWidth: 3,
+                            borderColor: 'rgba(218,235,234, 1)'
+                        }
+                    }
+                }
+            ]
         }
 
         // 使用刚指定的配置项和数据显示图表。
@@ -264,130 +315,21 @@
             //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
         }
     ]
-    category_One('one', xArr, data)
+    category_two('two', xArr, data)
 </script>
 <script type="text/javascript">
-    function category_Two(id, xArr, data) {
+    function category_Three(id, xArr, series, title) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
             title: {
                 // left:'center',
-                text: '施工进度',
+                text: title,
                 textStyle: {
+                    fontSize: 14,
                     color: '#fff',
-                    fontWeight: 'normal',
-                    fontSize:16
-                },
-                show: true
-            },
-            tooltip: {},
-            legend: {
-                //data: ['销量'],
-                show: false
-            },
-            xAxis: {
-                axisTick: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    }
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    }
-                },
-                type: 'category',
-                data: xArr,
-                boundaryGap: [0, 0.01],
-            },
-            yAxis: {
-                axisTick: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    }
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    },
-                    formatter: function (value, index) {
-                        return (value * 100) + "%";
-                    }
-                }
-            },
-            series: data,
-            grid: {
-                top: '25%',
-                left: '0%',
-                right: '0%',
-                bottom: '0%',
-                containLabel: true,
-                backgroundColor: 'rgba(0,162,233, 0.01)',
-                // borderColor: 'rgba(0,162,233, 1)'
-            },
-            backgroundColor: 'rgba(0,162,233, 0.01)',
-            textStyle: {
-                color: 'rgba(255, 255, 255, 0.3)'
-            }
-        }
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option)
-    }
-    var xArr = ["分包一", "分包二", "分包三"]
-    var data = [
-        {
-            name: '计划值',
-            type: 'bar',
-            data: [0.23, 0.35, 0.42],
-            //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-        },
-        {
-            name: '实际值',
-            type: 'bar',
-            data: [0.2, 0.28, 0.35],
-            //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
-        },
-        {
-            name: '累计计划值',
-            type: 'line',
-            smooth: true,
-            data: [0.23, 0.58, 1],
-            //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-        },
-        {
-            name: '累计实际值',
-            type: 'line',
-            smooth: true,
-            data: [0.2, 0.48, 0.83],
-            //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-        }
-    ]
-    category_Two('two', xArr, data)
-</script>
-<script type="text/javascript">
-    function category(id, xArr, data) {
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById(id))
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                // left:'center',
-                text: '设计变更',
-                textStyle: {
-                    color: '#fff',
-                    fontWeight: 'normal',
-                    fontSize:16
+                    fontWeight:'300'
                 },
                 show: true
             },
@@ -419,6 +361,7 @@
                     show: false
                 },
                 axisLine: {
+                     show: false,
                     lineStyle: {
                         color: 'rgba(255, 255, 255, 0.3)'
                     }
@@ -430,11 +373,7 @@
                     }
                 }
             },
-            series: [{
-                name: '数量',
-                type: 'bar',
-                data: data
-            }],
+            series: series,
             grid: {
                 top: '25%',
                 left: '0%',
@@ -456,91 +395,189 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["主项1", "主项2", "主项3", "主项4", "主项5", "主项6"]
-    var data = [12, 5, 28, 43, 22, 11]
-    category('four', xArr, data)
+    var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7", "类别8", "类别9"]
+    var data = [12, 5, 28, 43, 22, 11, 23, 50, 8]
+    var series = [{
+        name: '数量',
+        type: 'bar',
+        data: data,
+        itemStyle: { normal: { color: 'rgba(236,157,27, 1)' } }
+    }];
+   
+    category_Three('three', xArr, series, '安全检查问题统计')
+
+     var series1 = [{
+        name: '数量',
+        type: 'bar',
+        data: data,
+        itemStyle: { normal: { color: 'rgba(57,178,210, 1)' } }
+    }];
+    category_Three('four', xArr, series1, '焊接一次合格率')
 </script>
-<script>
-    function pie(id, data) {
-        var myChartPie = echarts.init(document.getElementById(id));
-
-        optionPie = {
+<script type="text/javascript">
+    function category_five(id, xArr, data)  {
+        // 基于准备好的dom，初始化echarts实例 
+        var myChart = echarts.init(document.getElementById(id))
+        // 指定图表的配置项和数据
+        var option = {
             title: {
-                text: '质量问题',
+                top: 10,
+                left: 10,
+                text: '焊接缺陷分析',
                 textStyle: {
-                    // fontSize:14,
-                    fontWeight: 'normal',
-                    fontSize:16,
-                    color: '#fff'
-
-                }
-                , left: 0
-                , top: 0
+                    color: '#fff',
+                    fontWeight: '300',
+                    fontSize: 14
+                },
             },
             tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b}: {c} ({d}%)"
+                trigger: 'axis'
             },
-            //legend: {
-            //    show: false,
-            //    data: ['已整改', '未整改'],
-            //    color: ['#32A8FF', ' #02C800'],
-            //    orient: 'vertical',
-            //    x: 'right',
-            //    y: 'top',
-            //    textStyle: {
-            //        color: ['#32A8FF', ' #02C800']
-            //    }
-            //},
-            //graphic: {
-            //    type: "text",
-            //    left: "center",
-            //    top: "center",
-            //    style: {
-            //        text: "进度80%",
-            //        textAlign: "center",
-            //        fill: "#fff",
-            //        fontSize: 18,
-            //        fontWeight: 700
-            //    }
-            //},
+            legend: {
+                show: false,
+                left: 'center',
+                data: ['降水量', '蒸发量']
+            },
+            radar: [
+                {
+                    shape: 'circle',
+                    indicator: (function () {
+                        var res = [];
+                        for (var i = 1; i <= 12; i++) {
+                            res.push({ text: '问题' + i , max: 100 });
+                        }
+                        return res;
+                    })(),
+                    center: ['50%', '55%'],
+                    radius: 90
+                }
+            ],
             series: [
                 {
-                    name: '质量问题',
-                    label: {
-                        show: false
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            textStyle: {
-                                // fontSize:14,
-                                fontWeight: 'normal',
-                                fontSize:16,
-                                color: '#fff'
-                            }
+                    type: 'radar',
+                    //areaStyle: {},
+                    data: [
+                        {
+                            name: '降水量',
+                            value: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 75.6, 82.2, 48.7, 18.8, 6.0, 2.3],
+                        },
+                        {
+                            name: '蒸发量',
+                            value: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 35.6, 62.2, 32.6, 20.0, 6.4, 3.3]
                         }
-                    },
-                    type: 'pie',
-                    roseType: 'radius',
-                    radius: [20, 160],
-                    center: ['50%', '60%'],
-                    // avoidLabelOverlap:false,
-                    //color: ['#32A8FF', ' #02C800'],
-                    data: data
+                    ]
                 }
             ]
         };
-        //为echarts对象加载数据
-        myChartPie.setOption(optionPie);
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option)
     }
-    var data = [{ value: 10, name: '分包一' },
-    { value: 5, name: '分包二' },
-    { value: 15, name: '分包三' },
-    { value: 25, name: '分包四' },
-    { value: 20, name: '分包五' },
-    { value: 35, name: '分包六' }];
-    pie('three', data)
+    var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7"]
+    var data = [ {
+        name: '',
+        type: 'line',
+        data: [23, 25, 22, 13, 4, 12, 9],
+        itemStyle: { normal: { color: 'rgba(110,164,133, 1)' } }
+    }, {
+            name: '',
+            type: 'bar',
+            data: [20, 2, 1, 34, 39, 30, 20],
+            itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
+        }]
+    category_five('five', xArr, data)
+</script>
+<script type="text/javascript">
+    function category_six(id, xArr, data)  {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById(id))
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                left:'10',
+                text: '人场安全培训',
+                textStyle: {
+                    color: '#fff',
+                    fontSize: 14,
+                    fontWeight:'300'
+                },
+                show: true
+            },
+            tooltip: {},
+            legend: {
+                show: false
+            },
+            xAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                },
+                type: 'category',
+                data: xArr
+            },
+            yAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: false,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.8)'
+                    }
+                }
+            },
+            series: data,
+            grid: {
+                top: '15%',
+                left: '10',
+                right: '10',
+                bottom: '0%',
+                containLabel: true,
+                backgroundColor: 'rgba(0,162,233, 0.01)',
+                // borderColor: 'rgba(0,162,233, 1)'
+            },
+            itemStyle: {
+                color: 'rgba(200,201,10, 1)'
+            },
+            backgroundColor: 'rgba(0,162,233, 0.01)',
+            textStyle: {
+                color: 'rgba(255, 255, 255, 0.3)'
+            }
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option)
+    }
+    var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7"]
+    var data = [ {
+        name: '',
+        type: 'line',
+        data: [23, 25, 22, 13, 4, 12, 9],
+        itemStyle: { normal: { color: 'rgba(110,164,133, 1)' } }
+    }, {
+            name: '',
+            type: 'bar',
+            data: [20, 2, 1, 34, 39, 30, 20],
+            itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
+        }]
+    category_six('six', xArr, data)
 </script>
 <script>
     $(".tab .t-item").click(function () {
@@ -731,21 +768,6 @@
             }
             category('four', xArr, data)
         }
-    })
-</script>
-<script>        
-    var mySwiper = new Swiper('#swiper1', {
-        autoplay: 3000,//可选选项，自动滑动
-        direction: 'vertical',
-        loop: true,
-        slidesPerView: 6
-    })
-
-    var mySwiper = new Swiper('#swiper2', {
-        autoplay: 4000,//可选选项，自动滑动
-        direction: 'vertical',
-        loop: true,
-        slidesPerView: 6
     })
 </script>
 </html>

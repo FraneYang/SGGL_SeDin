@@ -28,7 +28,7 @@
                             <f:TextBox runat="server" Label="检查项" ID="txtType" EmptyText="输入查询条件" AutoPostBack="true"
                                 OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="210px" LabelWidth="80px">
                             </f:TextBox>
-                            <f:TextBox runat="server" Label="区域" ID="txtWorkAreaName" EmptyText="输入查询条件" AutoPostBack="true"
+                            <f:TextBox runat="server" Label="单位工程" ID="txtWorkAreaName" EmptyText="输入查询条件" AutoPostBack="true"
                                 OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="210px" LabelWidth="80px">
                             </f:TextBox>
                             <f:TextBox runat="server" Label="责任单位" ID="txtResponsibilityUnitName" EmptyText="输入查询条件"

@@ -41,12 +41,12 @@ namespace FineUIPro.Web.ProjectData
                 //{
                 //    this.drpProjectState.Readonly = false;
                 //}
-                /////项目经理
-                //UserService.InitUserDropDownList(this.drpProjectManager, string.Empty, false);
-                /////施工经理
-                //UserService.InitUserDropDownList(this.drpConstructionManager, string.Empty, true);
-                /////安全经理
-                //UserService.InitUserDropDownList(this.drpHSSEManager, string.Empty, true);
+                ///项目经理
+                UserService.InitUserDropDownList(this.drpProjectManager, string.Empty, true);
+                ///施工经理
+                UserService.InitUserDropDownList(this.drpConstructionManager, string.Empty, true);
+                ///安全经理
+                UserService.InitUserDropDownList(this.drpHSSEManager, string.Empty, true);
                 UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
                 this.drpUnit.SelectedValue = Const.UnitId_SEDIN;
                 //var thisUnit = BLL.CommonService.GetIsThisUnit();
@@ -254,119 +254,119 @@ namespace FineUIPro.Web.ProjectData
             var project = BLL.ProjectService.GetProjectByProjectId(projectId);
             if (project != null)
             {
-                //string OldProjectManager = string.Empty; ////项目经理
-                //var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ProjectManager));
-                //if (m != null)
-                //{
-                //    OldProjectManager = m.UserId;
-                //}
-                //////此人不在项目中
-                //if (!string.IsNullOrEmpty(newProjectManager) && newProjectManager != OldProjectManager)
-                //{
-                //    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, newProjectManager);
-                //    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, OldProjectManager);
-                //    var user = BLL.UserService.GetUserByUserId(newProjectManager);
-                //    if (user != null && !string.IsNullOrEmpty(user.UnitId))
-                //    {
-                //        var punit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, user.UnitId);
-                //        if (punit == null) ///项目单位为空时要增加项目单位
-                //        {
-                //            Model.Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
-                //            {
-                //                ProjectId = projectId,
-                //                UnitId = user.UnitId,
-                //                InTime = System.DateTime.Now
-                //            };
-                //            BLL.ProjectUnitService.AddProjectUnit(newProjectUnit);
-                //        }
+                string OldProjectManager = string.Empty; ////项目经理
+                var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ProjectManager));
+                if (m != null)
+                {
+                    OldProjectManager = m.UserId;
+                }
+                ////此人不在项目中
+                if (!string.IsNullOrEmpty(newProjectManager) && newProjectManager != OldProjectManager)
+                {
+                    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, newProjectManager);
+                    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, OldProjectManager);
+                    var user = BLL.UserService.GetUserByUserId(newProjectManager);
+                    if (user != null && !string.IsNullOrEmpty(user.UnitId))
+                    {
+                        var punit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, user.UnitId);
+                        if (punit == null) ///项目单位为空时要增加项目单位
+                        {
+                            Model.Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
+                            {
+                                ProjectId = projectId,
+                                UnitId = user.UnitId,
+                                InTime = System.DateTime.Now
+                            };
+                            BLL.ProjectUnitService.AddProjectUnit(newProjectUnit);
+                        }
 
-                //        Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
-                //        {
-                //            ProjectId = projectId,
-                //            UserId = newProjectManager,
-                //            UnitId = user.UnitId,
-                //            RoleId = BLL.Const.ProjectManager,
-                //            IsPost = true
-                //        };
-                //        BLL.ProjectUserService.AddProjectUser(newProjectUser);
-                //    }
-                //}
-                //////施工经理
-                //string OldConstructionManager = string.Empty;
-                //var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
-                //if (c != null)
-                //{
-                //    OldConstructionManager = c.UserId;
-                //}
-                //////此人不在项目中
-                //if (!string.IsNullOrEmpty(newConstructionManager) && newConstructionManager != BLL.Const._Null && newConstructionManager != OldConstructionManager)
-                //{
-                //    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, newConstructionManager);
-                //    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, OldConstructionManager);
-                //    var user = BLL.UserService.GetUserByUserId(newConstructionManager);
-                //    if (user != null && !string.IsNullOrEmpty(user.UnitId))
-                //    {
-                //        var punit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, user.UnitId);
-                //        if (punit == null) ///项目单位为空时要增加项目单位
-                //        {
-                //            Model.Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
-                //            {
-                //                ProjectId = projectId,
-                //                UnitId = user.UnitId,
-                //                InTime = System.DateTime.Now
-                //            };
-                //            BLL.ProjectUnitService.AddProjectUnit(newProjectUnit);
-                //        }
+                        Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
+                        {
+                            ProjectId = projectId,
+                            UserId = newProjectManager,
+                            UnitId = user.UnitId,
+                            RoleId = BLL.Const.ProjectManager,
+                            IsPost = true
+                        };
+                        BLL.ProjectUserService.AddProjectUser(newProjectUser);
+                    }
+                }
+                ////施工经理
+                string OldConstructionManager = string.Empty;
+                var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
+                if (c != null)
+                {
+                    OldConstructionManager = c.UserId;
+                }
+                ////此人不在项目中
+                if (!string.IsNullOrEmpty(newConstructionManager) && newConstructionManager != BLL.Const._Null && newConstructionManager != OldConstructionManager)
+                {
+                    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, newConstructionManager);
+                    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, OldConstructionManager);
+                    var user = BLL.UserService.GetUserByUserId(newConstructionManager);
+                    if (user != null && !string.IsNullOrEmpty(user.UnitId))
+                    {
+                        var punit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, user.UnitId);
+                        if (punit == null) ///项目单位为空时要增加项目单位
+                        {
+                            Model.Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
+                            {
+                                ProjectId = projectId,
+                                UnitId = user.UnitId,
+                                InTime = System.DateTime.Now
+                            };
+                            BLL.ProjectUnitService.AddProjectUnit(newProjectUnit);
+                        }
 
-                //        Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
-                //        {
-                //            ProjectId = projectId,
-                //            UserId = newConstructionManager,
-                //            UnitId = user.UnitId,
-                //            RoleId = BLL.Const.ConstructionManager,
-                //            IsPost = true
-                //        };
-                //        BLL.ProjectUserService.AddProjectUser(newProjectUser);
-                //    }
-                //}
-                /////安全经理
-                //string OldHSSEManager = string.Empty;
-                //var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.HSSEManager));
-                //if (h != null)
-                //{
-                //    OldHSSEManager = h.UserId;
-                //}
-                //////此人不在项目中
-                //if (!string.IsNullOrEmpty(newHSSEManager) && newHSSEManager != BLL.Const._Null && newHSSEManager != OldHSSEManager)
-                //{
-                //    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, newHSSEManager);
-                //    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, OldHSSEManager);
-                //    var user = BLL.UserService.GetUserByUserId(newHSSEManager);
-                //    if (user != null && !string.IsNullOrEmpty(user.UnitId))
-                //    {
-                //        var punit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, user.UnitId);
-                //        if (punit == null) ///项目单位为空时要增加项目单位
-                //        {
-                //            Model.Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
-                //            {
-                //                ProjectId = projectId,
-                //                UnitId = user.UnitId,
-                //                InTime = System.DateTime.Now
-                //            };
-                //            BLL.ProjectUnitService.AddProjectUnit(newProjectUnit);
-                //        }
+                        Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
+                        {
+                            ProjectId = projectId,
+                            UserId = newConstructionManager,
+                            UnitId = user.UnitId,
+                            RoleId = BLL.Const.ConstructionManager,
+                            IsPost = true
+                        };
+                        BLL.ProjectUserService.AddProjectUser(newProjectUser);
+                    }
+                }
+                ///安全经理
+                string OldHSSEManager = string.Empty;
+                var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.HSSEManager));
+                if (h != null)
+                {
+                    OldHSSEManager = h.UserId;
+                }
+                ////此人不在项目中
+                if (!string.IsNullOrEmpty(newHSSEManager) && newHSSEManager != BLL.Const._Null && newHSSEManager != OldHSSEManager)
+                {
+                    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, newHSSEManager);
+                    BLL.ProjectUserService.DeleteProjectUserByProjectIdUserId(projectId, OldHSSEManager);
+                    var user = BLL.UserService.GetUserByUserId(newHSSEManager);
+                    if (user != null && !string.IsNullOrEmpty(user.UnitId))
+                    {
+                        var punit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, user.UnitId);
+                        if (punit == null) ///项目单位为空时要增加项目单位
+                        {
+                            Model.Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
+                            {
+                                ProjectId = projectId,
+                                UnitId = user.UnitId,
+                                InTime = System.DateTime.Now
+                            };
+                            BLL.ProjectUnitService.AddProjectUnit(newProjectUnit);
+                        }
 
-                //        Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
-                //        {
-                //            ProjectId = projectId,
-                //            UserId = newHSSEManager,
-                //            UnitId = user.UnitId,
-                //            RoleId = BLL.Const.HSSEManager,
-                //            IsPost = true
-                //        };
-                //        BLL.ProjectUserService.AddProjectUser(newProjectUser);
-                //    }
-                //}
+                        Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
+                        {
+                            ProjectId = projectId,
+                            UserId = newHSSEManager,
+                            UnitId = user.UnitId,
+                            RoleId = BLL.Const.HSSEManager,
+                            IsPost = true
+                        };
+                        BLL.ProjectUserService.AddProjectUser(newProjectUser);
+                    }
+                }
             }
         }
         #endregion

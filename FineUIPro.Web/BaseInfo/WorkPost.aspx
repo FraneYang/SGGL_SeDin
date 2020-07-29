@@ -80,11 +80,9 @@
                     </f:TextArea>
                     <f:Label ID="lb1" runat="server" Text="岗位类型说明：" LabelWidth="120px">
                     </f:Label>
-                    <f:Label ID="Label4" runat="server" Text="1、一般管理岗位和特种管理人员为管理人员；">
+                    <f:Label ID="Label2" runat="server" Text="1、若选中安管人员即为安全专职人员；">
                     </f:Label>
-                    <f:Label ID="Label2" runat="server" Text="2、若选中安管人员即为安全专职人员；">
-                    </f:Label>
-                    <f:Label ID="Label3" runat="server" Text="3、特种作业人员和一般作业岗位为单位作业人员。">
+                    <f:Label ID="Label3" runat="server" Text="2、特种作业人员和一般作业岗位为单位作业人员。">
                     </f:Label>
                 </Items>
                 <Toolbars>

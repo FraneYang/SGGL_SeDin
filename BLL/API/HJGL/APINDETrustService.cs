@@ -540,9 +540,304 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        /// 获取返修单信息
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        /// <returns></returns>
+        public static Model.WeldJointItem GetRepairInfoByRepairRecordId(string repairRecordId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.HJGL_RepairRecord
+                                    join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                    join z in db.SitePerson_Person on y.BackingWelderId equals z.PersonId
+                                    where x.RepairRecordId == repairRecordId
+                                    select new Model.WeldJointItem
+                                    {
+                                        PipelineCode = y.PipelineCode,
+                                        WeldJointCode = y.WeldJointCode,
+                                        BackingWelderCode = z.WelderCode,
+                                        BackingWelderId = y.BackingWelderId
+                                    }).FirstOrDefault();
+                return getDataLists;
+            }
+        }
+
+        /// <summary>
+        /// 根据条件获取可选取扩透口的批明细
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        /// <param name="welder">同焊工</param>
+        /// <param name="pipeLine">同管线</param>
+        /// <param name="daily">同一天</param>
+        /// <param name="repairBefore">返修前所焊</param>
+        /// <param name="mat">同材质</param>
+        /// <param name="spec">同规格</param>
+        /// <returns></returns>
+        public static List<Model.NDETrustItem> GetRepairExpDetail(string repairRecordId, bool welder, bool pipeLine, bool daily, bool repairBefore, bool mat, bool spec)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var record = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+                var jot = BLL.WeldJointService.GetViewWeldJointById(record.WeldJointId);
+                var day = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(jot.WeldingDailyId);
+
+                var repairExp = from x in db.HJGL_Batch_PointBatchItem
+                                join z in db.HJGL_Batch_PointBatch on x.PointBatchId equals z.PointBatchId
+                                join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                join d in db.HJGL_WeldingDaily on y.WeldingDailyId equals d.WeldingDailyId
+                                where z.DetectionTypeId == record.DetectionTypeId
+                                 && !x.PointDate.HasValue || (x.PointDate.HasValue && x.RepairRecordId == repairRecordId)
+                                select new
+                                {
+                                    x.PointBatchItemId,
+                                    x.PointState,
+                                    y.WeldJointCode,
+                                    y.PipelineId,
+                                    y.PipelineCode,
+                                    y.JointArea,
+                                    y.BackingWelderId,
+                                    y.Material1Id,
+                                    y.Specification,
+                                    d.WeldingDate
+                                };
+
+                if (welder)
+                {
+                    repairExp = repairExp.Where(x => x.BackingWelderId == jot.BackingWelderId);
+                }
+                if (pipeLine)
+                {
+                    repairExp = repairExp.Where(x => x.PipelineId == jot.PipelineId);
+                }
+                if (daily)
+                {
+                    repairExp = repairExp.Where(x => x.WeldingDate == day.WeldingDate);
+                }
+                if (repairBefore)
+                {
+                    repairExp = repairExp.Where(x => x.WeldingDate <= day.WeldingDate);
+                }
+                if (mat)
+                {
+                    repairExp = repairExp.Where(x => x.Material1Id == jot.Material1Id);
+                }
+                if (spec)
+                {
+                    repairExp = repairExp.Where(x => x.Specification == jot.Specification);
+                }
+
+                var getDataLists = (from x in repairExp
+                                    select new Model.NDETrustItem
+                                    {
+                                        PointBatchItemId = x.PointBatchItemId,
+                                        PointState=x.PointState,
+                                        WeldJointCode = x.WeldJointCode,
+                                        PipelineCode = x.PipelineCode,
+                                        JointArea = x.JointArea
+                                    }).ToList();
+                return getDataLists;
+            }
+        }
+
+        /// <summary>
+        /// 保存返修/扩透口信息
+        /// </summary>
+        /// <param name="repairRecordId">返修ID</param>
+        /// <param name="expandId">扩透口ID（多个用“,”号隔开）</param>
+        /// <param name="repairWelder">返修焊工</param>
+        /// <param name="repairDate">返修日期</param>
+        /// <param name="isCut">是否切除</param>
+        public static void GetRepairExpSaveInfo(string repairRecordId, string expandId, string repairWelder, string repairDate, bool isCut)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.HJGL_RepairRecord repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+                // 更新返修记录
+                var repair = db.HJGL_RepairRecord.FirstOrDefault(x => x.RepairRecordId == repairRecordId);
+                if (repair != null)
+                {
+                    repair.RepairWelder = repairWelder;
+                    repair.RepairDate = Convert.ToDateTime(repairDate);
+                    if (isCut)
+                    {
+                        repair.IsCut = true;
+                    }
+                }
+
+                // 更新返修口
+                var batchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.WeldJointId == repairRecord.WeldJointId);
+                if (batchItem != null)
+                {
+                    batchItem.RepairDate = Convert.ToDateTime(repairDate);
+                    if (isCut)
+                    {
+                        batchItem.CutDate = DateTime.Now.Date;
+                    }
+                }
+                db.SubmitChanges();
+
+                var exp = BLL.RepairRecordService.GetExportItem(repairRecordId);
+                if (exp != null)
+                {
+                    foreach (Model.HJGL_Batch_PointBatchItem item in exp)
+                    {
+                        Model.HJGL_Batch_PointBatchItem newPointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.PointBatchItemId == item.PointBatchItemId);
+                        newPointBatchItem.PointState = null;
+                        newPointBatchItem.PointDate = null;
+                        newPointBatchItem.RepairRecordId = null;
+                        db.SubmitChanges();
+                    }
+                }
+                // 更新扩透口
+                string[] checkedRow = expandId.Split(',');
+                if (checkedRow.Count() > 0)
+                {
+                    foreach (string item in checkedRow)
+                    {
+                        Model.HJGL_Batch_PointBatchItem newPointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.PointBatchItemId == item);
+                        if (newPointBatchItem != null)
+                        {
+                            newPointBatchItem.PointState = "2";
+                            newPointBatchItem.PointDate = DateTime.Now;
+                            newPointBatchItem.RepairRecordId = repairRecordId;
+                            db.SubmitChanges();
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region 返修单审核
+        /// <summary>
+        /// 返修单审核
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        public static void RepairAudit(string repairRecordId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                // 更新返修记录
+                var repair = db.HJGL_RepairRecord.FirstOrDefault(x => x.RepairRecordId == repairRecordId);
+                if (!repair.AuditDate.HasValue)
+                {
+                    repair.AuditDate = DateTime.Now;
+                    db.SubmitChanges();
+                }
+            }
+        }
+        #endregion
+
+        #region 生成返修委托单
+        /// <summary>
+        /// 生成返修委托单
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        /// <returns></returns>
+        public static string GenerateRepairTrust(string repairRecordId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                string submitStr = string.Empty;
+                Model.HJGL_RepairRecord repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+                var trustItem = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.RepairRecordId == repairRecordId select x;
+                if (trustItem.Count() == 0)
+                {
+                    if (!string.IsNullOrEmpty(repairRecordId) && repairRecord.AuditDate.HasValue)
+                    {
+                        // 返修委托
+                        Model.HJGL_Batch_BatchTrust newRepairTrust = new Model.HJGL_Batch_BatchTrust();
+                        string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
+                        newRepairTrust.TrustBatchId = trustBatchId;
+                        newRepairTrust.TrustBatchCode = repairRecord.RepairRecordCode;
+                        newRepairTrust.TrustDate = DateTime.Now;
+                        newRepairTrust.ProjectId = repairRecord.ProjectId;
+                        newRepairTrust.UnitId = repairRecord.UnitId;
+                        newRepairTrust.UnitWorkId = repairRecord.UnitWorkId;
+                        newRepairTrust.DetectionTypeId = repairRecord.DetectionTypeId;
+
+                        BLL.Batch_BatchTrustService.AddBatchTrust(newRepairTrust);  // 新增返修委托单
+
+                        Model.HJGL_Batch_BatchTrustItem newRepairTrustItem = new Model.HJGL_Batch_BatchTrustItem();
+                        newRepairTrustItem.TrustBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrustItem));
+                        newRepairTrustItem.TrustBatchId = trustBatchId;
+                        newRepairTrustItem.RepairRecordId = repairRecordId;
+                        newRepairTrustItem.WeldJointId = repairRecord.WeldJointId;
+                        newRepairTrustItem.CreateDate = DateTime.Now;
+                        Batch_BatchTrustItemService.AddBatchTrustItem(newRepairTrustItem);
+
+                        // 扩透委托
+                        var exp = BLL.RepairRecordService.GetExportItem(repairRecordId);
+                        if (exp != null)
+                        {
+                            foreach (var q in exp)
+                            {
+                                Model.HJGL_Batch_BatchTrustItem newExportTrustItem = new Model.HJGL_Batch_BatchTrustItem();
+                                newExportTrustItem.TrustBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrustItem));
+                                newExportTrustItem.TrustBatchId = trustBatchId;
+                                newExportTrustItem.PointBatchItemId = q.PointBatchItemId;
+                                newExportTrustItem.WeldJointId = q.WeldJointId;
+                                newExportTrustItem.CreateDate = DateTime.Now;
+                                Batch_BatchTrustItemService.AddBatchTrustItem(newExportTrustItem);
+
+                                Model.HJGL_Batch_PointBatchItem pointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.PointBatchItemId == q.PointBatchItemId);
+                                pointBatchItem.IsBuildTrust = true;
+                                db.SubmitChanges();
+                            }
+                        }
+
+                        submitStr = "成功生成委托单！";
+                    }
+                    else
+                    {
+                        submitStr = "选中返修单并确认已审核！";
+                    }
+                }
+                else
+                {
+                    submitStr = "已生成委托单！";
+                }
+
+                return submitStr;
+            }
+        }
+        #endregion
+
+        #region 获取扩透口的随机数
+        /// <summary>
+        /// 获取扩透口的随机数
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string RandomExport(int num)
+        {
+            string strNum = string.Empty;
+            if (num > 0 && num <= 2)
+            {
+                if (num == 1)
+                {
+                    strNum = "0";
+                }
+                else
+                {
+                    strNum = "0,1";
+                }
+            }
+            else
+            {
+                int[] r = Funs.GetRandomNum(2, 0, num - 1);
+                strNum = r[0].ToString() + "," + r[1].ToString();
+            }
+
+            return strNum;
+
+        }
         #endregion
 
         //////////////////////////////////////////// NDE预警//////////////////////////////////////
+        
         #region NDE预警
         /// <summary>
         /// 无损检测不合格焊口信息
@@ -561,8 +856,8 @@ namespace BLL
                                       select new Model.BaseInfoItem
                                       {
                                           BaseInfoId = y.WeldJointId,
-                                          BaseInfoCode = w.WeldJointCode,
-                                          BaseInfoName = z.NDECode
+                                          BaseInfoCode = "检测单：" + z.NDECode,
+                                          BaseInfoName = "不合格焊口：" + w.WeldJointCode
                                       }).ToList();
 
                 var repairPass = (from x in db.HJGL_Batch_NDEItem
@@ -573,8 +868,8 @@ namespace BLL
                                   select new Model.BaseInfoItem
                                   {
                                       BaseInfoId = y.WeldJointId,
-                                      BaseInfoCode = w.WeldJointCode,
-                                      BaseInfoName = z.NDECode
+                                      BaseInfoCode = "检测单：" + z.NDECode,
+                                      BaseInfoName = "不合格焊口：" + w.WeldJointCode
                                   }).ToList();
 
                 List<Model.BaseInfoItem> getDataLists = new List<Model.BaseInfoItem>();
@@ -608,8 +903,8 @@ namespace BLL
                              select new Model.BaseInfoItem
                              {
                                  BaseInfoId = x.WeldJointId,
-                                 BaseInfoCode = z.WeldJointCode,
-                                 BaseInfoName = "批号：" + y.PointBatchCode
+                                 BaseInfoCode ="批号：" + y.PointBatchCode,
+                                 BaseInfoName =  "未委托焊口：" + z.WeldJointCode,
                              }).ToList();
 
                 var repair = (from x in db.HJGL_RepairRecord
@@ -620,8 +915,8 @@ namespace BLL
                               select new Model.BaseInfoItem
                               {
                                   BaseInfoId = x.WeldJointId,
-                                  BaseInfoCode = z.WeldJointCode,
-                                  BaseInfoName = "返修单号：" + x.RepairRecordCode
+                                  BaseInfoCode = "返修单号：" + x.RepairRecordCode,
+                                  BaseInfoName = "未委托焊口：" + z.WeldJointCode,
                               }).ToList();
 
                 return point.Concat(repair).ToList<Model.BaseInfoItem>();
@@ -646,8 +941,8 @@ namespace BLL
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.WeldJointId,
-                                        BaseInfoCode = z.WeldJointCode,
-                                        BaseInfoName = "委托单号：" + y.TrustBatchCode
+                                        BaseInfoCode ="委托单号：" + y.TrustBatchCode,
+                                        BaseInfoName = "焊口：" + z.WeldJointCode,
                                     }).ToList();
 
                 return getDataLists;

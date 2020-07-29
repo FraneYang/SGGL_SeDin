@@ -24,7 +24,7 @@
                 <Items>
                      <f:TextBox ID="txtRiskCode" runat="server" Label="危险源编号" Readonly="true" >
                     </f:TextBox>
-                     <f:TextBox ID="txtWorkArea" runat="server" Label="项目区域" Readonly="true">
+                     <f:TextBox ID="txtWorkArea" runat="server" Label="单位工程" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>

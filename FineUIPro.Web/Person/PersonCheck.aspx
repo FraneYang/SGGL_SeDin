@@ -18,12 +18,24 @@
                 <f:Grid ID="Grid1" ShowBorder="true" EnableAjax="false" ShowHeader="false" Title="员工绩效考核"
                     EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataIDField="QuarterCheckId"
                      DataKeyNames="QuarterCheckId" AllowCellEditing="true" ClicksToEdit="2" SortDirection="DESC"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnRowDoubleClick="Grid1_RowDoubleClick" EnableRowDoubleClickEvent="true" EnableTextSelection="True" OnRowCommand="Grid1_RowCommand">
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnRowDoubleClick="Grid1_RowDoubleClick" EnableRowDoubleClickEvent="true" EnableTextSelection="True" OnRowCommand="Grid1_RowCommand" OnPageIndexChange="Grid1_PageIndexChange">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
+                                <f:DropDownList ID="drpCheckType" runat="server" Label="考核类型" LabelAlign="Right" EnableEdit="true" LabelWidth="80px" > 
+                                </f:DropDownList>
+                                <f:DropDownList ID="drpProject" runat="server" Label="项目" LabelAlign="Right" EnableEdit="true" LabelWidth="80px">
+                                </f:DropDownList>
+                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime"
+                                      LabelAlign="right" >
+                                </f:DatePicker>
+                                  <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime"
+                                      LabelAlign="right"  >
+                                </f:DatePicker>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                 </f:ToolbarFill>
+                                 <f:Button ID="btnQuery" OnClick="btnQuery_Click" ToolTip="查询"    Icon="SystemSearch" EnablePostBack="true" runat="server" >
+                                </f:Button>
                                 <f:Button ID="BtnCreat" Text="生成考核表" Icon="ChartPie"
                                     runat="server" OnClick="BtnCreat_Click" Hidden="true">
                                 </f:Button>
@@ -31,6 +43,7 @@
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
+
                     <Columns>
                         <f:TemplateField ColumnID="tfNumber" HeaderText="序号"
                             Width="60px" HeaderTextAlign="Center" TextAlign="Center">

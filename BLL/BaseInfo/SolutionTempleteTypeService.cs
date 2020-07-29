@@ -77,5 +77,32 @@ namespace BLL
         {
             return (from x in db.Base_SolutionTempleteType orderby x.SortIndex select x).ToList();
         }
+        /// <summary>
+        /// 获取类别下拉项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_SolutionTempleteType> GetSolutionTempleteList()
+        {
+            var list = (from x in Funs.DB.Base_SolutionTempleteType orderby x.SortIndex select x).ToList();
+            return list;
+        }
+        #region 表下拉框
+        /// <summary>
+        ///  表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitSolutionTempleteDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "SolutionTempleteTypeCode";
+            dropName.DataTextField = "SolutionTempleteTypeName";
+            dropName.DataSource = BLL.SolutionTempleteTypeService.GetSolutionTempleteList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

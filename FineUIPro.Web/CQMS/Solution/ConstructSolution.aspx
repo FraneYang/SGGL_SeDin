@@ -135,12 +135,9 @@
                             FieldType="String" HeaderText="专业" TextAlign="Center" HeaderTextAlign="Center">
                         </f:RenderField>
 
-                        <f:TemplateField ColumnID="SolutionType" Width="100px" HeaderText="方案类别" HeaderTextAlign="Center" TextAlign="Center"
-                            EnableLock="true" Locked="False">
-                            <ItemTemplate>
-                                <asp:Label ID="Label2" runat="server" Text='<%# BLL.CQMSConstructSolutionService.ConvertSolutionType(Eval("SolutionType")) %>'></asp:Label>
-                            </ItemTemplate>
-                        </f:TemplateField>
+                        <f:RenderField Width="120px" ColumnID="SolutionTempleteTypeName"  DataField="SolutionTempleteTypeName" SortField="SolutionTempleteTypeName"
+                            FieldType="String" HeaderText="方案类别" TextAlign="Center" HeaderTextAlign="Center">
+                        </f:RenderField>
 
 
                         <f:RenderField ColumnID="CompileManName" Width="70px" DataField="CompileManName"

@@ -91,22 +91,58 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
         {
+            string checkSpecialDetailId = Grid1.DataKeys[e.RowIndex][0].ToString();
             if (e.CommandName == "click")
             {
                 var detail = Check_CheckSpecialDetailService.GetCheckSpecialDetailByCheckSpecialDetailId(Grid1.DataKeys[e.RowIndex][0].ToString());
                 if (detail != null)
                 {
-                    if (detail.DataType == "1")
+                    List<string> getList = Funs.GetStrListByStr(detail.DataId,'|');
+                    foreach (var item in getList)
                     {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", detail.DataId, "查看 - ")));
-                    }
-                    else if (detail.DataType == "2")
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PunishNoticeView.aspx?PunishNoticeId={0}", detail.DataId, "查看 - ")));
-                    }
-                    else if (detail.DataType == "3")
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeView.aspx?PauseNoticeId={0}", detail.DataId, "查看 - ")));
+                        List<string> getItemList = Funs.GetStrListByStr(item, ',');
+                        if (getItemList.Count() > 1)
+                        {
+                            if (getItemList[0].ToString() == "1")
+                            {
+                                var getRe = RectifyNoticesService.GetRectifyNoticesById(getItemList[1].ToString());
+                                if (getRe != null)
+                                {
+                                    if (getRe.CompleteManId ==this.CurrUser.UserId &&( string.IsNullOrEmpty(getRe.States) || getRe.States == Const.State_0))
+                                    {
+                                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", getRe.RectifyNoticesId, "编辑 - ")));
+                                    }
+                                    else
+                                    {
+                                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", getRe.RectifyNoticesId, "查看 - ")));
+                                    }
+                                }
+                            }
+                            if (getItemList[0].ToString() == "2")
+                            {
+                                var getpu = PunishNoticeService.GetPunishNoticeById(getItemList[1].ToString());
+                                if (getpu.CompileMan == this.CurrUser.UserId && (string.IsNullOrEmpty(getpu.PunishStates) || getpu.PunishStates == Const.State_0))
+                                {
+                                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PunishNoticeEdit.aspx?PunishNoticeId={0}", getpu.PunishNoticeId, "编辑 - ")));
+                                }
+                                else
+                                {
+                                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PunishNoticeView.aspx?PunishNoticeId={0}", getpu.PunishNoticeId, "查看 - ")));
+                                }
+                            }
+                            if (getItemList[0].ToString() == "3")
+                            {
+                                var getpau = Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(getItemList[1].ToString());
+                                if (getpau.CompileManId == this.CurrUser.UserId && (string.IsNullOrEmpty(getpau.PauseStates) || getpau.PauseStates == Const.State_0))
+                                {
+                                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeEdit.aspx?PauseNoticeId={0}", getpau.PauseNoticeId, "编辑 - ")));
+                                }
+                                else
+                                {
+                                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeView.aspx?PauseNoticeId={0}", getpau.PauseNoticeId, "查看 - ")));
+                                }
+                            }
+                        }
                     }
                 }
             }

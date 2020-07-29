@@ -44,6 +44,8 @@
                                 <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                     EnableAjax="false" DisableControlBeforePostBack="false">
                                 </f:Button>
+                                   <f:Button ID="btnRefresh" ToolTip="刷明细" Icon="ArrowRefresh" runat="server" Hidden="true" OnClick="btnRefresh_Click">
+                                </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>

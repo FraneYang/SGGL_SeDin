@@ -415,6 +415,7 @@ namespace FineUIPro.Web.CQMS.Check
                                         approve.ApproveType = type.SelectedValue;
                                         approve.JointCheckDetailId = jointCheckDetailId;
                                         JointCheckApproveService.AddJointCheckApprove(approve);
+                                        APICommonService.SendSubscribeMessage(approve.ApproveMan, "质量共检问题待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                                     }
                                 }
                             }

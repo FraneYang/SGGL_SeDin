@@ -27,13 +27,13 @@
                 <Items>
                     <f:TextBox ID="txtRiskCode" runat="server" Label="危险源编号" Readonly="true" MaxLength="50">
                     </f:TextBox>
-                    <f:TextBox ID="txtWorkArea" runat="server" Label="项目区域" MaxLength="500" ShowRedStar="true"
+                    <f:TextBox ID="txtWorkArea" runat="server" Label="单位工程" MaxLength="500" ShowRedStar="true"
                         Required="true" FocusOnPageLoad="true">
                     </f:TextBox>
                     <f:DropDownList ID="drpWorkArea" runat="server"  EnableEdit="true"
                         AutoPostBack="true" OnSelectedIndexChanged="drpWorkArea_SelectedIndexChanged">
                     </f:DropDownList>
-                    <f:Label runat="server" Text="说明：检查区域可从下拉框选择也可手动编辑。" CssClass="lab" MarginLeft="5px">
+                    <f:Label runat="server" Text="说明：单位工程可从下拉框选择也可手动编辑。" CssClass="lab" MarginLeft="5px">
                     </f:Label>
                 </Items>
             </f:FormRow>

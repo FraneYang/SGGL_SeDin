@@ -81,6 +81,9 @@
                     <f:RenderField Width="90px" ColumnID="ApprovalManName" DataField="ApprovalManName" 
                         SortField="ReportManName" FieldType="String" HeaderText="批准人" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
+                      <f:RenderField Width="90px" ColumnID="StateName" DataField="StateName" 
+                        SortField="StateName" FieldType="String" HeaderText="状态" TextAlign="Left" HeaderTextAlign="Center">
+                    </f:RenderField>
                  <%--    <f:RenderField Width="250px" ColumnID="ThisSummary" DataField="ThisSummary" 
                          FieldType="String" HeaderText="本月HSE活动综述" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>--%>
@@ -115,6 +118,9 @@
             <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"
                 Text="编辑" Icon="Pencil" OnClick="btnMenuModify_Click">
             </f:MenuButton>
+               <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server" 
+                    Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="false">
+                </f:MenuButton>
             <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Hidden="true"
                 Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？" OnClick="btnMenuDel_Click">
             </f:MenuButton>

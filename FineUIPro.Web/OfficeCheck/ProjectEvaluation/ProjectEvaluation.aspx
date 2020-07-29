@@ -20,7 +20,7 @@
     <f:RegionPanel ID="RegionPanel1" ShowBorder="false" runat="server" Margin="5px">
         <Regions>
             <f:Region ID="Region1" ShowBorder="false" ShowHeader="false" RegionPosition="Left"
-                BodyPadding="0 5 0 0" Width="300px" Layout="Fit" runat="server">
+                BodyPadding="0 5 0 0" Width="200px" Layout="Fit" runat="server">
                 <Items>
                     <f:Grid ID="Grid2" ShowBorder="true" ShowHeader="true" Title="项目名称" runat="server"
                         DataKeyNames="ProjectId,ProjectName" EnableMultiSelect="false" EnableRowSelectEvent="true"

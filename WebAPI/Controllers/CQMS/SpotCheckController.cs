@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using BLL;
 using Model;
 
 namespace Mvc.Controllers
@@ -124,15 +125,19 @@ namespace Mvc.Controllers
                     if (string.IsNullOrEmpty(SpotControl.DocCode))
                     {
                         string prefix = BLL.ProjectService.GetProjectByProjectId(SpotControl.ProjectId).ProjectCode + "-06-CM03-SJ-";
-                        SpotControl.DocCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode5", "dbo.Check_CheckControl", "DocCode", prefix);
+                        SpotControl.DocCode = BLL.SQLHelper.RunProcNewId("SpGetNewIncentiveCode", "dbo.Check_CheckControl", "DocCode", prefix);
                     }
                     BLL.SpotCheckService.AddSpotCheckForApi(SpotControl);
+                    //BLL.AttachFileService.updateAttachFile(SpotControl.AttachUrl, SpotControl.SpotCheckCode, BLL.Const.SpotCheckMenuId);
+                    SaveAttachFile(SpotControl.SpotCheckCode, BLL.Const.SpotCheckMenuId, SpotControl.AttachUrl);
                     res.resultValue = SpotControl.SpotCheckCode;
                     res.successful = true;
                 }
                 else
                 {
-                    BLL.SpotCheckService.UpdateSpotCheckForApi(SpotControl);
+                    BLL.SpotCheckService.UpdateSpotCheckForUpdateForApi(SpotControl);
+                    //BLL.AttachFileService.updateAttachFile(SpotControl.AttachUrl, SpotControl.SpotCheckCode, BLL.Const.SpotCheckMenuId);
+                    SaveAttachFile(SpotControl.SpotCheckCode, BLL.Const.SpotCheckMenuId, SpotControl.AttachUrl);
                     res.resultValue = SpotControl.SpotCheckCode;
                     res.successful = true;
                 }
@@ -146,6 +151,19 @@ namespace Mvc.Controllers
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SaveAttachFile(string dataId, string menuId, string url)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = dataId,
+                UrlStr = url,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+        }
 
         [HttpPost]
         public ResponseData<string> AddSpotCheckDetail([FromBody]Model.Check_SpotCheckDetail SpotCheckDetail)
@@ -397,7 +415,7 @@ namespace Mvc.Controllers
                     t1.child = new List<TreeNode>();
                 }
                 t1.child.Add(tw);
-                List<Model.WBS_WorkPackage> packages = BLL.WorkPackageService.GetWorkPackages1sByUnitWorkId(item.UnitWorkId);
+                List<Model.WBS_WorkPackage> packages = BLL.WorkPackageService.GetApproveWorkPackages1sByUnitWorkId(item.UnitWorkId);
                 foreach(var wp in packages)
                 {
                     if(tw.child == null)
@@ -426,7 +444,7 @@ namespace Mvc.Controllers
                     t2.child = new List<TreeNode>();
                 }
                 t2.child.Add(tw);
-                List<Model.WBS_WorkPackage> packages = BLL.WorkPackageService.GetWorkPackages1sByUnitWorkId(item.UnitWorkId);
+                List<Model.WBS_WorkPackage> packages = BLL.WorkPackageService.GetApproveWorkPackages1sByUnitWorkId(item.UnitWorkId);
                 foreach (var wp in packages)
                 {
                     if (tw.child == null)
@@ -447,7 +465,7 @@ namespace Mvc.Controllers
             node.ID = package.WorkPackageId;
             node.Type = "package";
             node.Depth = depth;
-            List<Model.WBS_WorkPackage> packages = BLL.WorkPackageService.GetAllWorkPackagesBySuperWorkPackageId(package.WorkPackageId);
+            List<Model.WBS_WorkPackage> packages = BLL.WorkPackageService.GetAllApproveWorkPackagesBySuperWorkPackageId(package.WorkPackageId);
             foreach (var wp in packages)
             {
                 if (node.child == null)

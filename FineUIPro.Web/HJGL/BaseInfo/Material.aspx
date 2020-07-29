@@ -14,7 +14,7 @@
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="材质定义"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="MaterialId"
-                AllowCellEditing="true" ClicksToEdit="2" DataIDField="MaterialId" AllowSorting="true"
+                AllowCellEditing="true" ClicksToEdit="2" DataIDField="MaterialId" AllowSorting="true" ForceFit="true"
                 SortField="MaterialCode" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
@@ -66,8 +66,7 @@
                         TextAlign="Left" SortField="MaterialGroup">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="Remark" DataField="Remark" FieldType="String"
-                        HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left"
-                        ExpandUnusedSpace="true">
+                        HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -80,10 +79,6 @@
                     </f:ToolbarText>
                     <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                        <f:ListItem Text="10" Value="10" />
-                        <f:ListItem Text="15" Value="15" />
-                        <f:ListItem Text="20" Value="20" />
-                        <f:ListItem Text="25" Value="25" />
                     </f:DropDownList>
                 </PageItems>
             </f:Grid>

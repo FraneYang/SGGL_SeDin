@@ -484,7 +484,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                 var registration = BLL.HSSE_Hazard_HazardRegisterService.GetHazardRegisterByHazardRegisterId(registrationId.ToString());
                 if (registration != null)
                 {
-                    url = BLL.UploadAttachmentService.ShowImage("~/", registration.ImageUrl);
+                    url = BLL.UploadAttachmentService.ShowImage("../../", registration.ImageUrl);
                 }
             }
             return url;
@@ -522,7 +522,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                 var registration = BLL.HSSE_Hazard_HazardRegisterService.GetHazardRegisterByHazardRegisterId(registrationId.ToString());
                 if (registration != null)
                 {
-                    url = BLL.UploadAttachmentService.ShowImage("~/", registration.RectificationImageUrl);
+                    url = BLL.UploadAttachmentService.ShowImage("../../", registration.RectificationImageUrl);
                 }
             }
             return url;

@@ -34,6 +34,7 @@ namespace BLL
                 PictureTypeId = PictureType.PictureTypeId,
                 Code = PictureType.Code,
                 Name = PictureType.Name,
+                MenuType = PictureType.MenuType,
                 Remark = PictureType.Remark
             };
             db.Base_PictureType.InsertOnSubmit(newPictureType);
@@ -52,6 +53,7 @@ namespace BLL
             {
                 newPictureType.Code = PictureType.Code;
                 newPictureType.Name = PictureType.Name;
+                newPictureType.MenuType = PictureType.MenuType;
                 newPictureType.Remark = PictureType.Remark;
                 db.SubmitChanges();
             }
@@ -80,6 +82,18 @@ namespace BLL
         {
             return (from x in Funs.DB.Base_PictureType orderby x.Code select x).ToList();
         }
+        /// <summary>
+        /// 获取项目图片分类下拉列表项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_PictureType> GetPictureTypeList(string menuType)
+        {
+            return (from x in Funs.DB.Base_PictureType
+                    where x.MenuType == menuType
+                    orderby x.Code
+                    select x).ToList();
+        }
+
 
         #region 项目图片分类下拉框
         /// <summary>
@@ -87,11 +101,11 @@ namespace BLL
         /// </summary>
         /// <param name="dropName">下拉框名字</param>
         /// <param name="isShowPlease">是否显示请选择</param>
-        public static void InitPictureTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        public static void InitPictureTypeDropDownList(FineUIPro.DropDownList dropName,string menuType, bool isShowPlease)
         {
             dropName.DataValueField = "PictureTypeId";
             dropName.DataTextField = "Name";
-            dropName.DataSource = GetPictureTypeList();
+            dropName.DataSource = GetPictureTypeList(menuType);
             dropName.DataBind();
             if (isShowPlease)
             {

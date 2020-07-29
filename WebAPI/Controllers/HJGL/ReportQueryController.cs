@@ -108,6 +108,29 @@ namespace WebAPI.Controllers
 
         #endregion
 
+        #region 焊工一次合格率低于96%预警
+        /// <summary>
+        /// 焊工一次合格率低于96%预警
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData GetWelderOnePassRateWarning(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIReportQueryService.GetWelderOnePassRateWarning(projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        #endregion
 
         #region 根据焊口ID获取焊口信息和焊接信息
         /// <summary>

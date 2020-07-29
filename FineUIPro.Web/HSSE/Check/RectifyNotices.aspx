@@ -27,8 +27,8 @@
                                     AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="50px"
                                     LabelAlign="right">
                                 </f:TextBox>
-                                <f:TextBox runat="server" Label="区域" ID="txtWorkAreaName" EmptyText="输入查询条件"
-                                    AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"
+                                <f:TextBox runat="server" Label="单位工程" ID="txtWorkAreaName" EmptyText="输入查询条件"
+                                    AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="80px"
                                     LabelAlign="right">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="编号" ID="txtRectifyNoticesCode" EmptyText="输入查询条件" Width="200px"
@@ -77,10 +77,10 @@
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="110px" ColumnID="WorkAreaName" DataField="WorkAreaName"
-                            SortField="WorkAreaName" FieldType="String" HeaderText="单位工程名称" TextAlign="Left"
+                            SortField="WorkAreaName" FieldType="String" HeaderText="单位工程" TextAlign="Left"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
+                        <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
                             SortField="UnitName" FieldType="String" HeaderText="受检单位名称" TextAlign="Left" HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:TemplateField ColumnID="CheckManNames" Width="180px" HeaderText="检查人" HeaderTextAlign="Center" TextAlign="Left"
@@ -101,7 +101,7 @@
                             FieldType="Date" Renderer="Date" HeaderText="接收日期"
                             HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="150px" ColumnID="StatesName" DataField="StatesName"
+                        <f:RenderField Width="140px" ColumnID="StatesName" DataField="StatesName"
                             SortField="StatesName" FieldType="String" HeaderText="状态"
                             TextAlign="Left" HeaderTextAlign="Center">
                         </f:RenderField>
@@ -127,8 +127,14 @@
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>
-                <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"
+		 <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"
                     Text="修改" Icon="Pencil" OnClick="btnMenuModify_Click">
+                </f:MenuButton>
+                 <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server" 
+                    Text="导出[通知单]" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="false">
+                </f:MenuButton>
+                <f:MenuButton ID="btnPrinterReturn" EnablePostBack="true" runat="server" 
+                    Text="导出[反馈单]" Icon="Printer" OnClick="btnPrinterReturn_Click" EnableAjax="false" DisableControlBeforePostBack="false">
                 </f:MenuButton>
                 <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Hidden="true"
                     Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？" OnClick="btnMenuDel_Click">

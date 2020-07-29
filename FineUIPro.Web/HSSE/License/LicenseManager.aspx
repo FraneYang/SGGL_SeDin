@@ -66,7 +66,7 @@
                         FieldType="String" HeaderText="申请单位" HeaderTextAlign="Center" TextAlign="Left"  >
                     </f:RenderField>
                     <f:RenderField Width="140px" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
-                        FieldType="String" HeaderText="作业区域" HeaderTextAlign="Center" TextAlign="Left">
+                        FieldType="String" HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                   
                     <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="申请日期"

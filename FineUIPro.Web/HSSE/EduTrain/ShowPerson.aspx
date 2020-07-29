@@ -74,7 +74,7 @@
                         SortField="TeamGroupName" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                         Width="110px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="作业区域名称" ColumnID="WorkAreaName" DataField="WorkAreaName"
+                    <f:RenderField HeaderText="单位工程" ColumnID="WorkAreaName" DataField="WorkAreaName"
                         SortField="WorkAreaName" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                         Width="110px">
                     </f:RenderField>

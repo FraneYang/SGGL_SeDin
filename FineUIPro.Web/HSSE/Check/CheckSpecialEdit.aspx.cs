@@ -106,48 +106,24 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     { "WorkArea", "" },
                     { "UnitName", "" },
-                     { "Unqualified", "" },
+                    { "Unqualified", "" },
                     { "CheckContent", "" },
-                     { "CompleteStatusName", "" },
+                    { "CompleteStatusName", "" },
                     { "HandleStepStr", "" },
-                     { "HandleStep", "" },
+                    { "HandleStep", "" },
+                    { "HiddenHazardType", "" },
                     { "UnitId", "" },
                     { "Delete", String.Format("<a href=\"javascript:;\" onclick=\"{0}\"><img src=\"{1}\"/></a>", deleteScript, IconHelper.GetResolvedIconUrl(Icon.Delete)) }
                 };
                 // 在第一行新增一条数据
                 btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, true);
-                // 删除选中行按钮
-                //btnDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！") + deleteScript;
-                //CheckBoxField cbf1 = Grid1.FindColumn("IsChecked") as CheckBoxField;
-                //cbf1.HeaderText = "<i class=\"f-icon f-grid-checkbox f-iconfont f-checkbox myheadercheckbox\"></i>&nbsp;全选";
                 Grid1.DataSource = checkSpecialDetails;
                 Grid1.DataBind();
-                ShowChecked(checkSpecialDetails);
 
             }
         }
         #endregion
-
-        private void ShowChecked(List<Model.View_CheckSpecialDetail> checkSpecialDetails)
-        {
-            for (int i = 0; i < this.Grid1.Rows.Count; i++)
-            {
-                string id = this.Grid1.Rows[i].RowID;
-                var detail = checkSpecialDetails.FirstOrDefault(x => x.CheckSpecialDetailId == id);
-                if (detail != null)
-                {
-                    if (detail.CompleteStatus == true || (detail.CompleteStatus == false && !string.IsNullOrEmpty(detail.DataId)))
-                    {
-                        this.Grid1.Rows[i].Values[0] = "True";
-                        foreach (GridColumn column in Grid1.AllColumns)
-                        {
-                            Grid1.Rows[i].CellCssClasses[column.ColumnIndex] = "f-grid-cell-uneditable";
-                        }
-                    }
-                }
-            }
-        }
-
+        
         /// <summary>
         ///  初始化下拉框
         /// </summary>
@@ -155,10 +131,8 @@ namespace FineUIPro.Web.HSSE.Check
         {
             //检查组成员
             UserService.InitUserDropDownList(this.drpPartInPersons, this.ProjectId, true);
-
             checkSpecialDetails.Clear();
             ConstValue.InitConstNameDropDownList(this.drpHandleStep, ConstValue.Group_HandleStep, true);
-
             Technique_CheckItemSetService.InitCheckItemSetDropDownList(this.drpSupCheckItemSet, "2", "0", false);
             this.getCheckItemDrp();
             ///责任单位
@@ -222,32 +196,7 @@ namespace FineUIPro.Web.HSSE.Check
                 return;
             }
 
-            this.SaveData(Const.BtnSubmit);
-            bool isAllCheck = true;
-            JArray teamGroupData = Grid1.GetMergedData();
-            foreach (JObject teamGroupRow in teamGroupData)
-            {
-                JObject values = teamGroupRow.Value<JObject>("values");
-                if (values.Value<string>("CompleteStatusName") != "已整改" && values.Value<string>("IsChecked") != "True")
-                {
-                    isAllCheck = false;
-                    break;
-                }
-            }
-            if (isAllCheck)
-            {
-                PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
-            }
-            else
-            {
-                checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
-                                       where x.CheckSpecialId == this.CheckSpecialId
-                                       orderby x.SortIndex
-                                       select x).ToList();
-                Grid1.DataSource = checkSpecialDetails;
-                Grid1.DataBind();
-                ShowChecked(checkSpecialDetails);
-            }
+            this.SaveData(Const.BtnSubmit);            
         }
         #endregion
 
@@ -264,8 +213,7 @@ namespace FineUIPro.Web.HSSE.Check
                 ShowNotify("请选择检查类别！", MessageBoxIcon.Warning);
                 return;
             }
-            this.SaveData(Const.BtnSave);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            this.SaveData(Const.BtnSave);          
         }
         #endregion
 
@@ -278,9 +226,12 @@ namespace FineUIPro.Web.HSSE.Check
             Model.Check_CheckSpecial checkSpecial = new Model.Check_CheckSpecial
             {
                 CheckSpecialCode = this.txtCheckSpecialCode.Text.Trim(),
-                ProjectId = this.ProjectId
+                ProjectId = this.ProjectId,
+                PartInPersonNames = this.txtPartInPersonNames.Text.Trim(),
+                CheckTime = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim()),
+                ////单据状态
+                States = Const.State_0,
             };
-
             ///组成员
             string partInPersonIds = string.Empty;
             string partInPersons = string.Empty;
@@ -298,30 +249,7 @@ namespace FineUIPro.Web.HSSE.Check
                 checkSpecial.PartInPersonIds = partInPersonIds.Substring(0, partInPersonIds.LastIndexOf(","));
                 checkSpecial.PartInPersons = partInPersons.Substring(0, partInPersons.LastIndexOf(","));
             }
-
-            checkSpecial.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
-            checkSpecial.CheckTime = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim());
-            ////单据状态
-            checkSpecial.States = Const.State_0;
-            bool complete = true;
-            JArray teamGroupData = Grid1.GetMergedData();
-            foreach (JObject teamGroupRow in teamGroupData)
-            {
-                JObject values = teamGroupRow.Value<JObject>("values");
-                if (values.Value<string>("CompleteStatusName") != "已整改" && values.Value<string>("IsChecked") != "True")
-                {
-                    complete = false;
-                    break;
-                }
-            }
-            if (complete)
-            {
-                checkSpecial.States = Const.State_1;
-            }
-            //if (type == Const.BtnSubmit)
-            //{
-            //    checkSpecial.States = Const.State_1;
-            //}
+            
             if (!string.IsNullOrEmpty(this.drpSupCheckItemSet.SelectedValue) && this.drpSupCheckItemSet.SelectedValue != Const._Null)
             {
                 checkSpecial.CheckItemSetId = this.drpSupCheckItemSet.SelectedValue;
@@ -341,14 +269,17 @@ namespace FineUIPro.Web.HSSE.Check
                 Check_CheckSpecialService.AddCheckSpecial(checkSpecial);
                 LogService.AddSys_Log(this.CurrUser, checkSpecial.CheckSpecialCode, checkSpecial.CheckSpecialId, BLL.Const.ProjectCheckSpecialMenuId, BLL.Const.BtnAdd);
             }
-            this.SaveDetail(type, checkSpecial);
+
+            ShowNotify(this.SaveDetail(type, checkSpecial), MessageBoxIcon.Success);
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
 
         /// <summary>
         ///  保存明细项
         /// </summary>
-        private void SaveDetail(string type, Model.Check_CheckSpecial checkSpecial)
+        private string SaveDetail(string type, Model.Check_CheckSpecial checkSpecial)
         {
+            string info = string.Empty;
             List<Model.Check_CheckSpecialDetail> detailLists = new List<Model.Check_CheckSpecialDetail>();
             JArray teamGroupData = Grid1.GetMergedData();
             foreach (JObject teamGroupRow in teamGroupData)
@@ -383,6 +314,21 @@ namespace FineUIPro.Web.HSSE.Check
                     handleStep = handleStep.Substring(0, handleStep.LastIndexOf(","));
                 }
                 newDetail.HandleStep = handleStep;
+                if (newDetail.HandleStep.Contains("1"))
+                {
+                     if (values.Value<string>("HiddenHazardTypeName") == "较大")
+                    {
+                        newDetail.HiddenHazardType = "2";
+                    }
+                    else if (values.Value<string>("HiddenHazardTypeName") == "重大")
+                    {
+                        newDetail.HiddenHazardType = "3";
+                    }
+                    else
+                    {
+                        newDetail.HiddenHazardType = "1";
+                    }
+                }
                 if (values.Value<string>("CompleteStatusName") == "已整改")
                 {
                     newDetail.CompleteStatus = true;
@@ -399,19 +345,35 @@ namespace FineUIPro.Web.HSSE.Check
                 }
                 newDetail.SortIndex = rowIndex;
                 Check_CheckSpecialDetailService.AddCheckSpecialDetail(newDetail);
-                if (type == Const.BtnSubmit)
+                detailLists.Add(newDetail);
+            }
+            if (type == Const.BtnSubmit)
+            {
+                var getDails = detailLists.Where(x => x.CompleteStatus == false);
+                if (getDails.Count() > 0)
                 {
-                    if (newDetail.CompleteStatus == false)
+                    if (getDails.FirstOrDefault(x => x.HandleStep == null) != null)
                     {
-                        if (values.Value<string>("IsChecked") == "True")
-                        {
-                            detailLists.Add(newDetail);
-                        }
+                        info = "存在待整改问题，没有处理措施！";
+                    }
+                    else
+                    {
+                        info = Check_CheckSpecialService.IssueRectification(getDails.ToList(), checkSpecial);
                     }
                 }
+                else
+                {
+                    checkSpecial.States = Const.State_2;
+                    Check_CheckSpecialService.UpdateCheckSpecial(checkSpecial);
+                    info = "提交成功！";
+                }
+            }
+            else
+            {
+                info = "保存成功！";
             }
 
-            Check_CheckSpecialService.IssueRectification(detailLists, checkSpecial);
+            return info;
         }
 
         #region 附件上传

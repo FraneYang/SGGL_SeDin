@@ -36,8 +36,7 @@ namespace FineUIPro.Web.Person
                 if (getCheck != null)
                 {
                     this.txtCheckedMan.Text = BLL.UserService.GetUserByUserId(getCheck.UserId).UserName;
-                    var RoleId = BLL.UserService.GetUserByUserId(getCheck.UserId).RoleId;
-                    this.txtRoleName.Text = BLL.RoleService.GetRoleByRoleId(RoleId).RoleName;
+                    this.txtRoleName.Text = BLL.RoleService.GetRoleByRoleId(getCheck.RoleId).RoleName;
                     this.txtProject.Text = BLL.ProjectService.GetProjectNameByProjectId(getCheck.ProjectId);
                     if (string.IsNullOrEmpty(this.txtProject.Text))
                     {

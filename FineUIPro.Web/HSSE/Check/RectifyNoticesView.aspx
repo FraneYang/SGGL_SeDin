@@ -27,21 +27,21 @@
                             <Items>
                                 <f:TextBox ID="txtUnitId" runat="server" Label="受检单位名称" LabelWidth="160px" LabelAlign="Right" Readonly="true">
                                 </f:TextBox>
-                                <f:TextBox ID="txtWorkAreaId" runat="server" Label="单位工程名称" LabelWidth="160px" LabelAlign="Right"  Readonly="true">
+                                <f:TextBox ID="txtWorkAreaId" runat="server" Label="单位工程名称" LabelWidth="160px" LabelAlign="Right" Readonly="true">
                                 </f:TextBox>
                             </Items>
                         </f:FormRow>
                         <f:FormRow runat="server">
                             <Items>
-                                <f:TextBox ID="txtCheckPersonId" runat="server" Label="检查人员" LabelWidth="160px" LabelAlign="Right"  Readonly="true">
+                                <f:TextBox ID="txtCheckPersonId" runat="server" Label="检查人员" LabelWidth="160px" LabelAlign="Right" Readonly="true">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="检察人员" ID="txtCheckPerson" Readonly="true" LabelWidth="160px"></f:TextBox>
-                               
+
                             </Items>
                         </f:FormRow>
                         <f:FormRow runat="server">
                             <Items>
-                                 <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="txtCheckedDate"
+                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="txtCheckedDate"
                                     LabelAlign="right" LabelWidth="160px" ShowRedStar="true" Readonly="true">
                                 </f:DatePicker>
                                 <f:DropDownList ID="drpHiddenHazardType" runat="server" Label="隐患类别" LabelWidth="160px" LabelAlign="Right" EnableEdit="true" EmptyText="--请选择--" Readonly="true">
@@ -92,15 +92,14 @@
                         </f:FormRow>
                     </Rows>
                 </f:Form>
-
                 <f:Form ID="Form4" ShowBorder="true" ShowHeader="true" Title="审核意见" AutoScroll="true"
-                    runat="server" RedStarPosition="BeforeText" LabelAlign="Right" EnableTableStyle="true"> 
+                    runat="server" RedStarPosition="BeforeText" LabelAlign="Right" EnableTableStyle="true">
                     <Rows>
                         <f:FormRow>
                             <Items>
                                 <f:Grid ID="gvFlowOperate" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server" DataIDField="FlowOperateId" AllowSorting="true" SortField="OperateTime" SortDirection="ASC" EnableTextSelection="True" Height="260px" ForceFit="true" EnableTableStyle="true">
                                     <Columns>
-                                        <f:RenderField Width="200px" ColumnID="OperateName" DataField="OperateName" FieldType="String" HeaderText="操作步骤"  HeaderTextAlign="Center" TextAlign="Left">
+                                        <f:RenderField Width="200px" ColumnID="OperateName" DataField="OperateName" FieldType="String" HeaderText="操作步骤" HeaderTextAlign="Center" TextAlign="Left">
                                         </f:RenderField>
                                         <f:RenderField Width="200px" ColumnID="UserName" DataField="UserName" FieldType="String" HeaderText="操作人" HeaderTextAlign="Center" TextAlign="Left">
                                         </f:RenderField>

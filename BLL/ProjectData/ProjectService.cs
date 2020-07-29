@@ -189,7 +189,7 @@
         {
             /// 获取角色类型
             string roleType =RoleService.GetRoleTypeByUserId(userId);
-            if (roleType == Const.RoleType_2 || roleType == Const.RoleType_3)
+            if (roleType == Const.RoleType_2 || roleType == Const.RoleType_3 || userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
             {
                 return (from x in Funs.DB.Base_Project
                         where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1

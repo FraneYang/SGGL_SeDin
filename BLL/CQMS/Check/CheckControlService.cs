@@ -114,6 +114,7 @@ namespace BLL
                 Model.Check_CheckControl x = db.Check_CheckControl.FirstOrDefault(e => e.CheckControlCode == CheckControlCode);
                 x.AttachUrl = AttachFileService.getFileUrl(x.CheckControlCode);
                 x.ReAttachUrl = AttachFileService.getFileUrl(x.CheckControlCode + "r");
+                x.QuestionType = x.QuestionType + "$" + BLL.QualityQuestionTypeService.GetQualityQuestionType(x.QuestionType).QualityQuestionType;
                 var unit = UnitService.GetUnitByUnitId(x.UnitId);
                 x.UnitId = x.UnitId + "$" + unit.UnitName;
                 var ppunit = UnitService.GetUnitByUnitId(x.ProposeUnitId);
@@ -276,14 +277,20 @@ namespace BLL
                     x.UnitWorkId = list[i].UnitWorkId;
                     x.CheckDate = list[i].CheckDate;
                     x.UnitId = list[i].UnitId + "$" + UnitService.GetUnitNameByUnitId(list[i].UnitId);
-                    x.ProposeUnitId = list[i].ProposeUnitId + "$" + UnitService.GetUnitNameByUnitId(list[i].ProposeUnitId);
+                    var punit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, list[i].ProposeUnitId);
+                    string unitType = string.Empty;
+                    if(punit!=null)
+                    {
+                        unitType = punit.UnitType;
+                    }
+                    x.ProposeUnitId = list[i].ProposeUnitId + "$" + UnitService.GetUnitNameByUnitId(list[i].ProposeUnitId)+"$"+ unitType;
                     x.CheckMan = list[i].CheckMan + "$" + list[i].UnitWork + "$" + ConvertManAndID(list[i].CheckControlCode);
                     x.State = list[i].State;
                     x.CheckSite = list[i].CheckSite;
                     x.IsSubmit = list[i].IsSubmit;
                     x.AttachUrl = list[i].AttachUrl;
                     x.QuestionDef = list[i].QuestionDef;
-                    x.QuestionType = list[i].QuestionType;
+                    x.QuestionType = list[i].QuestionType + "$" + BLL.QualityQuestionTypeService.GetQualityQuestionType(list[i].QuestionType).QualityQuestionType;
                     x.RectifyOpinion = list[i].RectifyOpinion;
                     x.LimitDate = list[i].LimitDate;
                     x.CNProfessionalCode = list[i].CNProfessionalCode + "$" + list[i].CNProfessionalName;

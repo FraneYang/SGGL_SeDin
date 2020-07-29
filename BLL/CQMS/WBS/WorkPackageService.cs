@@ -79,13 +79,22 @@ namespace BLL
             return (from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == null && x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode select x).ToList();
         }
         /// <summary>
+        /// 根据单位工程Id获取第一级审批所有分部信息
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <returns></returns>
+        public static List<Model.WBS_WorkPackage> GetApproveWorkPackages1sByUnitWorkId(string unitWorkId)
+        {
+            return (from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == null && x.UnitWorkId.ToString() == unitWorkId && x.IsApprove == true orderby x.WorkPackageCode select x).ToList();
+        }
+        /// <summary>
         /// 根据单位工程Id获取所有分部信息
         /// </summary>
         /// <param name="unitWorkId"></param>
         /// <returns></returns>
         public static List<Model.WBS_WorkPackage> GetAllWorkPackagesByUnitWorkId(string unitWorkId)
         {
-            return (from x in Funs.DB.WBS_WorkPackage where  x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode select x).ToList();
+            return (from x in Funs.DB.WBS_WorkPackage where x.UnitWorkId.ToString() == unitWorkId orderby x.WorkPackageCode select x).ToList();
         }
         /// <summary>
         /// 根据项目Id获取所有分部信息
@@ -114,6 +123,16 @@ namespace BLL
         public static List<Model.WBS_WorkPackage> GetAllWorkPackagesBySuperWorkPackageId(string workPackageId)
         {
             return (from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackageId select x).ToList();
+        }
+
+        /// <summary>
+        /// 根据父级Id获取所有审批分部分项信息
+        /// </summary>
+        /// <param name="workPackageId"></param>
+        /// <returns></returns>
+        public static List<Model.WBS_WorkPackage> GetAllApproveWorkPackagesBySuperWorkPackageId(string workPackageId)
+        {
+            return (from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackageId && x.IsApprove == true select x).ToList();
         }
 
         /// <summary>

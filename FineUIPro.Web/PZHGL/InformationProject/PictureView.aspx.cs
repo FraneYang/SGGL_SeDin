@@ -33,7 +33,7 @@ namespace FineUIPro.Web.PZHGL.InformationProject
             if (!IsPostBack)
             {
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                PictureTypeService.InitPictureTypeDropDownList(this.drpPictureType, true);
+                PictureTypeService.InitPictureTypeDropDownList(this.drpPictureType, Const.Menu_HSSE, true);
                 this.PictureId = Request.Params["PictureId"];
                 if (!string.IsNullOrEmpty(this.PictureId))
                 {

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Web.UI.HtmlControls;
 
 namespace FineUIPro.Web.HSSE.Manager
@@ -54,7 +53,8 @@ namespace FineUIPro.Web.HSSE.Manager
             if (!IsPostBack)
             {
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
-            
+                ////权限按钮方法
+                this.GetButtonPower();
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
                 {
@@ -76,6 +76,11 @@ namespace FineUIPro.Web.HSSE.Manager
                     this.AuditManId.SelectedValue = getMont.AuditManId;
                     this.ApprovalManId.SelectedValue = getMont.ApprovalManId;
                     montvalues = string.Format("{0:yyyy-MM-dd}", getMont.ReporMonth);
+                    if (getMont.States == Const.State_1)
+                    {
+                        this.btnSave.Hidden = true;
+                        this.btnSysSubmit.Hidden = true;
+                    }
                 }
                 else
                 {
@@ -97,7 +102,12 @@ namespace FineUIPro.Web.HSSE.Manager
             }
         }
                
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="j"></param>
+        /// <param name="bigType"></param>
+        /// <param name="i"></param>
         private void display(int j, List<Model.SeDinMonthReport3Item> bigType, int i)
         {
             HtmlGenericControl myLabel = (HtmlGenericControl)ContentPanel2.FindControl("AccidentType" + (j + 1));
@@ -534,61 +544,37 @@ namespace FineUIPro.Web.HSSE.Manager
             }
         }
         
-
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(SaveSeDinMonthReport0(0)))
-            {
-                SaveSeDinMonthReport1();
-                SaveSeDinMonthReport2();
-                SaveSeDinMonthReport3();
-                SaveSeDinMonthReport4();
-                SaveSeDinMonthReport5();
-                SaveSeDinMonthReport6();
-                SaveSeDinMonthReport7();
-                SaveSeDinMonthReport8();
-                SaveSeDinMonthReport9();
-                SaveSeDinMonthReport10();
-                SaveSeDinMonthReport11();
-                SaveSeDinMonthReport12();
-                SaveSeDinMonthReport13();
-
-            }
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
-        }
-
-
-
         #region 保存 MonthReport0 封面
         /// <summary>
         /// 保存赛鼎月报
         /// </summary>
         /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
-
-        public string SaveSeDinMonthReport0(int type)
+        public string SaveSeDinMonthReport0(string type)
         {
-            SeDinMonthReportItem newItem = new SeDinMonthReportItem();
-            newItem.ProjectId = ProjectId;
+            SeDinMonthReportItem newItem = new SeDinMonthReportItem
+            {
+                ProjectId = ProjectId,
+                DueDate = DueDate.Text,
+                StartDate = StartDate.Text,
+                EndDate = EndDate.Text,
+                ReporMonth = ReporMonth.Text,
+                CompileManId = CompileManId.SelectedValue,
+                AuditManId = AuditManId.SelectedValue,
+                ApprovalManId = ApprovalManId.SelectedValue,
+            };
             if (!string.IsNullOrWhiteSpace(MonthReportId))
             {
                 newItem.MonthReportId = MonthReportId;
             }
-            newItem.DueDate = DueDate.Text;
-            newItem.StartDate = StartDate.Text;
-            newItem.EndDate = EndDate.Text;
-            newItem.ReporMonth = ReporMonth.Text;
-            newItem.CompileManId = CompileManId.SelectedValue;
-            newItem.AuditManId = AuditManId.SelectedValue;
-            newItem.ApprovalManId = ApprovalManId.SelectedValue;
-           
-            if (type == 1)
-            { //保存
-                newItem.States = "0";
+            ////提交
+            if (type ==Const.BtnSubmit)
+            { 
+                newItem.States = Const.State_1;
             }
             else
             {
-                newItem.States = "1";
+                newItem.States = Const.State_0;
             }
             MonthReportId = APISeDinMonthReportService.SaveSeDinMonthReport0(newItem);
             return MonthReportId;
@@ -602,21 +588,22 @@ namespace FineUIPro.Web.HSSE.Manager
         /// <returns></returns>
         public void SaveSeDinMonthReport1()
         {
-
             if (APISeDinMonthReportService.count(MonthReportId) == 1)
             {
-                SeDinMonthReport1Item newItem = new SeDinMonthReport1Item();
-                newItem.MonthReportId = MonthReportId;
-                newItem.ProjectCode = projectCode.Text;
-                newItem.ProjectName = projectName.Text;
-                newItem.ProjectType = projectType.Text;
-                newItem.StartDate = pStartDate.Text;
-                newItem.EndDate = pEndDate.Text;
-                newItem.ProjectManager = ProjectManager.Text;
-                newItem.HsseManager = HsseManager.Text;
-                newItem.ContractAmount = ContractAmount.Text;
-                newItem.ConstructionStage = ConstructionStage.Text;
-                newItem.ProjectAddress = ProjectAddress.Text;
+                SeDinMonthReport1Item newItem = new SeDinMonthReport1Item
+                {
+                    MonthReportId = MonthReportId,
+                    ProjectCode = projectCode.Text,
+                    ProjectName = projectName.Text,
+                    ProjectType = projectType.Text,
+                    StartDate = pStartDate.Text,
+                    EndDate = pEndDate.Text,
+                    ProjectManager = ProjectManager.Text,
+                    HsseManager = HsseManager.Text,
+                    ContractAmount = ContractAmount.Text,
+                    ConstructionStage = ConstructionStage.Text,
+                    ProjectAddress = ProjectAddress.Text
+                };
                 APISeDinMonthReportService.SaveSeDinMonthReport1(newItem);
             }
             else
@@ -1232,26 +1219,43 @@ namespace FineUIPro.Web.HSSE.Manager
                 Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
             }
         }
-        #endregion
-       
+        #endregion       
+     
         /// <summary>
-        /// 提交本月人员投入情况
+        /// 保存
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnMonthReport4Item_Click(object sender, EventArgs e)
+        protected void btnSave_Click(object sender, EventArgs e)
         {
-            wdSeDinMonthReport4Item.Hidden = true;
-            drpUnit.SelectedIndex = 0;
-            SafeManangerNum.Text = string.Empty;
-            OtherManangerNum.Text = string.Empty;
-            SpecialWorkerNum.Text = string.Empty;
-            GeneralWorkerNum.Text = string.Empty;
-            getInfo(ProjectId, DueDate.Text, StartDate.Text, EndDate.Text, "4");
+            if (!string.IsNullOrEmpty(SaveSeDinMonthReport0(Const.BtnSave)))
+            {
+                SaveSeDinMonthReport1();
+                SaveSeDinMonthReport2();
+                SaveSeDinMonthReport3();
+                SaveSeDinMonthReport4();
+                SaveSeDinMonthReport5();
+                SaveSeDinMonthReport6();
+                SaveSeDinMonthReport7();
+                SaveSeDinMonthReport8();
+                SaveSeDinMonthReport9();
+                SaveSeDinMonthReport10();
+                SaveSeDinMonthReport11();
+                SaveSeDinMonthReport12();
+                SaveSeDinMonthReport13();
+
+            }
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
+
+        /// <summary>
+        /// 提交
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSysSubmit_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SaveSeDinMonthReport0(1)))
+            if (!string.IsNullOrEmpty(SaveSeDinMonthReport0(Const.BtnSubmit)))
             {
                 SaveSeDinMonthReport1();
                 SaveSeDinMonthReport2();
@@ -1269,12 +1273,35 @@ namespace FineUIPro.Web.HSSE.Manager
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
-        
+
         //protected void GvSeDinMonthReport4Item_RowDataBound(object sender, GridRowEventArgs e)
         //{
         //    System.Web.UI.WebControls.DropDownList dropname = (System.Web.UI.WebControls.DropDownList)e.Row.FindControl("ddlUnitName");
         //    UnitService.InitUnitDrop(dropname, ProjectId);
 
         //}
+        #region 获取按钮权限
+        /// <summary>
+        /// 获取按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
+        private void GetButtonPower()
+        {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+            var buttonList = CommonService.GetAllButtonList(this.ProjectId, this.CurrUser.UserId, BLL.Const.ProjectManagerMonth_SeDinMenuId);
+            if (buttonList.Count() > 0)
+            {
+                if (buttonList.Contains(Const.BtnSave))
+                {
+                    this.btnSave.Hidden = false;
+                    this.btnSysSubmit.Hidden = false;
+                }
+            }
+        }
+        #endregion
     }
 }

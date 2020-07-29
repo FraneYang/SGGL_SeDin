@@ -327,12 +327,12 @@ namespace FineUIPro.Web
         /// <returns></returns>
         private bool GetIsPowerMenu(XmlNode node)
         {
-            bool result = true;           
-            //XmlAttribute isNewAttr = node.Attributes["id"];
-            //if (isNewAttr != null)
-            //{
-            //    result = BLL.CommonService.ReturnMenuByUserIdMenuId(this.CurrUser.UserId, isNewAttr.Value.ToString(),this.CurrUser.LoginProjectId);
-            //}
+            bool result = true;
+            XmlAttribute isNewAttr = node.Attributes["id"];
+            if (isNewAttr != null)
+            {
+                result = BLL.CommonService.ReturnMenuByUserIdMenuId(this.CurrUser.UserId, isNewAttr.Value.ToString(), this.CurrUser.LoginProjectId);
+            }
 
             return result;
         }
@@ -464,14 +464,33 @@ namespace FineUIPro.Web
         {
             if (!string.IsNullOrEmpty(type))
             {
-                this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;
-                this.XmlDataSource1.DataFile = "common/" + type + ".xml";
-                this.leftPanel.Hidden = false;
-                this.Tab1.IFrameUrl = "~/common/main" + type + ".aspx";
+                if (!string.IsNullOrEmpty(this.drpProject.SelectedValue))
+                {
+                    this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;
+                }
+                if (CommonService.IsHaveSystemPower(this.CurrUser.UserId, type, this.CurrUser.LoginProjectId) || type == Const.Menu_Personal)
+                {
+                    this.XmlDataSource1.DataFile = "common/" + type + ".xml";
+                    this.leftPanel.Hidden = false;
+                    this.Tab1.IFrameUrl = "~/common/main" + type + ".aspx";
+                    if (type == Const.Menu_Personal)
+                    {
+                        this.Tab1.IFrameUrl = "~/Personal/PersonalInfo.aspx";
+                    }
+                    else if (type == Const.Menu_ProjectSet)
+                    {
+                        this.Tab1.IFrameUrl = "~/ProjectData/ProjectSet.aspx";
+                    }
+                }
+                else
+                {
+                    Alert.ShowInParent("您没有此模块操作权限，请联系管理员授权！", MessageBoxIcon.Warning);
+                    return;
+                }
             }
             else
             {
-                this.CurrUser.LoginProjectId = string.Empty;
+                this.CurrUser.LoginProjectId = null;
                 this.XmlDataSource1.DataFile = "common/Menu_Personal.xml";
                 this.leftPanel.Hidden = true;
                 this.Tab1.IFrameUrl = "~/common/mainProject.aspx";
@@ -483,11 +502,12 @@ namespace FineUIPro.Web
 
         protected void btnHome_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.CurrUser.LoginProjectId) 
-                && (this.CurrUser.UnitId == Const.UnitId_SEDIN || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId))
+            if (string.IsNullOrEmpty(this.CurrUser.LoginProjectId)
+                && ((this.CurrUser.UnitId == Const.UnitId_SEDIN && this.CurrUser.IsOffice ==true) || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId))
             {
                 PageContext.Redirect("~/index.aspx", "_top");
-            }else
+            }
+            else
             {
                 this.MenuSwitchMethod(string.Empty);
             }

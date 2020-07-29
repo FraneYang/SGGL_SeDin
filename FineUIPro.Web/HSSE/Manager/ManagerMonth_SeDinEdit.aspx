@@ -164,7 +164,7 @@
                                 <tr>                                    
                                     <td>
                                         <f:DatePicker runat="server"  LabelWidth="150px" LabelAlign="right" DateFormatString="yyyy-MM-dd"
-                                            EmptyText="请选择开始日期" Label="本项目" 
+                                            EmptyText="请选择开始日期" Label="本项目自" 
                                             ID="PsafeStartDate">
                                         </f:DatePicker>
                                     </td>
@@ -527,7 +527,7 @@
                                 <Columns>
                                     <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="100px" ExpandUnusedSpace="true"
                                         HeaderText="单位名称" HeaderTextAlign="Center" />
-                                    <f:GroupField ColumnID="henan" HeaderText="特种设备T" TextAlign="Center">
+                                    <f:GroupField ColumnID="henan" HeaderText="特种设备" TextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="90px" ColumnID="T01" DataField="T01" FieldType="Int" HeaderTextAlign="Center"
                                                     HeaderText="汽车吊">
@@ -615,7 +615,7 @@
                                             </f:RenderField>                                        
                                         </Columns>
                                     </f:GroupField>
-                                    <f:GroupField ColumnID="Sp" HeaderText="大型机具设备" TextAlign="Center" Width="110px" HeaderTextAlign="Center">
+                                    <f:GroupField ColumnID="Sp" HeaderText="特殊机具设备" TextAlign="Center" Width="110px" HeaderTextAlign="Center">
                                         <Columns>
                                               <f:RenderField Width="110px" ColumnID="S01" DataField="S01" FieldType="Int"
                                                 HeaderText="吊篮" HeaderTextAlign="Center">
@@ -1197,9 +1197,11 @@
                     <Items>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" OnClick="btnSave_Click" ValidateForms="SimpleForm1">
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" 
+                            OnClick="btnSave_Click" ValidateForms="SimpleForm1" Hidden="true">
                         </f:Button>
-                        <f:Button ID="btnSysSubmit" OnClick="btnSysSubmit_Click" Icon="SystemSaveNew" runat="server" ToolTip="提交" ValidateForms="SimpleForm1">
+                        <f:Button ID="btnSysSubmit" OnClick="btnSysSubmit_Click" Icon="SystemSaveNew" runat="server" ToolTip="提交"
+                            ValidateForms="SimpleForm1" Hidden="true">
                         </f:Button>
                         <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
                         </f:Button>
@@ -1238,16 +1240,8 @@
                                     NoDecimal="true" NoNegative="true"  ShowRedStar="true" MaxLength="5" />
                             </Items>
                         </f:FormRow>
-                        <f:FormRow>
-                            <Items>
-                                <f:Button ID="btnMonthReport4Item" runat="server" Width="150px" ValidateForms="Form4" OnClick="btnMonthReport4Item_Click" Text="提交">
-                                </f:Button>
-                            </Items>
-                        </f:FormRow>
-
                     </Rows>
                 </f:Form>
-
             </Items>
         </f:Window>
     </form>

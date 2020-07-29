@@ -56,7 +56,8 @@ namespace FineUIPro.Web.HSSE.Check
         private void BindGrid()
         {
             string strSql = @"SELECT CheckSpecial.CheckSpecialId,CodeRecords.Code AS CheckSpecialCode,"
-                          + @" CheckItemSet.CheckItemName,CheckSpecial.CheckTime,(CASE WHEN CheckSpecial.States='0' OR CheckSpecial.States IS NULL THEN '待提交' ELSE '已提交' END) AS StatesName"
+                          + @" CheckItemSet.CheckItemName,CheckSpecial.CheckTime"
+                          +@" ,(CASE WHEN CheckSpecial.States='2' THEN '已完成' WHEN CheckSpecial.States='1' THEN '待整改' ELSE '待提交' END) AS StatesName"
                           + @" FROM Check_CheckSpecial AS CheckSpecial "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON CheckSpecial.CheckSpecialId=CodeRecords.DataId "
                           + @" LEFT JOIN Technique_CheckItemSet AS CheckItemSet ON CheckItemSet.CheckItemSetId = CheckSpecial.CheckItemSetId where 1=1";
@@ -181,7 +182,7 @@ namespace FineUIPro.Web.HSSE.Check
             var checkSpecial = BLL.Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(CheckSpecialId);
             if (checkSpecial != null)
             {
-                if (this.btnMenuModify.Hidden || checkSpecial.States == BLL.Const.State_1)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
+                if (this.btnMenuModify.Hidden || checkSpecial.States == BLL.Const.State_1 || checkSpecial.States == BLL.Const.State_2)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckSpecialView.aspx?CheckSpecialId={0}", CheckSpecialId, "查看 - ")));
                 }
@@ -216,7 +217,7 @@ namespace FineUIPro.Web.HSSE.Check
                     }
                 }
                 BindGrid();
-                ShowNotify("删除数据成功!（表格数据已重新绑定）");
+                ShowNotify("删除数据成功!");
             }
         }
         #endregion
@@ -264,7 +265,7 @@ namespace FineUIPro.Web.HSSE.Check
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("专项检查" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
-            this.Grid1.PageSize = 500;
+            this.Grid1.PageSize = this.Grid1.RecordCount;
             BindGrid();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();

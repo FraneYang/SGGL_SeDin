@@ -64,6 +64,7 @@ namespace BLL
             newConstructSolution.CompileDate = constructSolution.CompileDate;
             newConstructSolution.State = constructSolution.State;
             newConstructSolution.Edition = constructSolution.Edition;
+            newConstructSolution.SpecialSchemeTypeId = constructSolution.SpecialSchemeTypeId;
             db.Solution_CQMSConstructSolution.InsertOnSubmit(newConstructSolution);
             db.SubmitChanges();
         }
@@ -84,6 +85,7 @@ namespace BLL
             newConstructSolution.AttachUrl = constructSolution.AttachUrl;
             newConstructSolution.State = constructSolution.State;
             newConstructSolution.Edition = constructSolution.Edition;
+            newConstructSolution.SpecialSchemeTypeId = constructSolution.SpecialSchemeTypeId;
             db.SubmitChanges();
         }
 
@@ -375,7 +377,7 @@ namespace BLL
                 cs.SolutionType = item.SolutionType;
                 cs.UnitWorkIds = item.UnitWorkIds + "$" + item.UnitWorkName;
                 cs.CNProfessionalCodes = item.CNProfessionalCodes + "$" + item.ProfessionalName;
-                cs.AttachUrl = item.AttachUrl;
+                cs.AttachUrl = AttachFileService.getFileUrl(item.ConstructSolutionId);
                 cs.CompileMan = item.CompileMan + "$" + item.CompileManName;
                 cs.CompileDate = item.CompileDate;
                 cs.State = item.State;

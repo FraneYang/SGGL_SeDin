@@ -212,7 +212,7 @@ namespace FineUIPro.Web.CQMS.Check
 
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            if (this.drpUnit.SelectedValue == BLL.Const._Null)
+            if (this.drpUnit.SelectedValue == null)
             {
                 Alert.ShowInTop("请选择受检施工单位！", MessageBoxIcon.Warning);
                 return;
@@ -386,6 +386,7 @@ namespace FineUIPro.Web.CQMS.Check
                             approve.ApproveType = Const.JointCheck_Audit1;
                             approve.JointCheckDetailId = SQLHelper.GetNewID(typeof(Model.Check_JointCheck));
                             JointCheckApproveService.AddJointCheckApprove(approve);
+                            APICommonService.SendSubscribeMessage(approve.ApproveMan, "质量共检问题待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                         }
                     }
                 }
@@ -416,6 +417,7 @@ namespace FineUIPro.Web.CQMS.Check
                             approve.ApproveType = Const.JointCheck_Audit1;
                             approve.JointCheckDetailId = Grid1.Rows[i].RowID;
                             JointCheckApproveService.AddJointCheckApprove(approve);
+                            APICommonService.SendSubscribeMessage(approve.ApproveMan, "质量共检问题待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                         }
                     }
                 }

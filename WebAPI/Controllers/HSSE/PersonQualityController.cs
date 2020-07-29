@@ -45,8 +45,9 @@ namespace WebAPI.Controllers
         /// <param name="unitId">单位ID</param>
         /// <param name="qualityType">人员资质类型（1-特种作业；2-安管人员；3-特种设备作业人员）</param>
         /// <param name="unitIdQ">查询单位ID</param>
+        /// <param name="workPostId">岗位id</param>
         /// <returns>人员资质数量</returns>
-        public Model.ResponeData getPersonQualityCount(string projectId, string unitId, string unitIdQ, string qualityType)
+        public Model.ResponeData getPersonQualityCount(string projectId, string unitId, string unitIdQ, string qualityType, string workPostId=null)
         {
             var responeData = new Model.ResponeData();
             try
@@ -67,6 +68,10 @@ namespace WebAPI.Controllers
                     if (!string.IsNullOrEmpty(unitIdQ))
                     {
                         getPersons = getPersons.Where(x => x.UnitId == unitIdQ);
+                    }
+                    if (!string.IsNullOrEmpty(workPostId))
+                    {
+                        getPersons = getPersons.Where(x => x.WorkPostId == workPostId);
                     }
                     /////总数
                     tatalCount = getPersons.Count();
@@ -98,6 +103,10 @@ namespace WebAPI.Controllers
                     {
                         getPersons = getPersons.Where(x => x.UnitId == unitIdQ);
                     }
+                    if (!string.IsNullOrEmpty(workPostId))
+                    {
+                        getPersons = getPersons.Where(x => x.WorkPostId == workPostId);
+                    }
                     /////总数
                     tatalCount = getPersons.Count();
                     var getPersonQuality = from x in db.QualityAudit_SafePersonQuality
@@ -127,6 +136,10 @@ namespace WebAPI.Controllers
                     if (!string.IsNullOrEmpty(unitIdQ))
                     {
                         getPersons = getPersons.Where(x => x.UnitId == unitIdQ);
+                    }
+                    if (!string.IsNullOrEmpty(workPostId))
+                    {
+                        getPersons = getPersons.Where(x => x.WorkPostId == workPostId);
                     }
                     /////总数
                     tatalCount = getPersons.Count();
@@ -172,7 +185,41 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonQualityService.getPersonQualityList(projectId, unitId, qualityType, states, unitIdQ);
+                var getDataList = APIPersonQualityService.getPersonQualityList(projectId, unitId, qualityType, null, states, unitIdQ);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据projectId、unitid获取特岗人员资质信息-查询
+        /// <summary>
+        /// 根据projectId、unitid获取特岗人员资质信息
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="unitId">单位ID</param>
+        /// <param name="qualityType">资质类型</param> 
+        /// <param name="workPostId">岗位ID</param> 
+        /// <param name="states">0-待提交；1-待审核；2-已审核；-1打回</param>
+        /// <param name="unitIdQ">查询单位ID</param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonQualityListQuery(string projectId, string unitId, string qualityType,string workPostId, string states, string unitIdQ, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIPersonQualityService.getPersonQualityList(projectId, unitId, qualityType, null, states, unitIdQ);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {

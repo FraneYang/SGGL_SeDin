@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<title>施工方案</title>
+    <title>施工方案</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .labcenter {
@@ -45,10 +45,9 @@
                                     <f:FormRow>
                                         <Items>
                                             <f:TextBox ID="txtProjectName" runat="server" Readonly="true" Label="项目名称" LabelAlign="Right"
-                                                MaxLength="50">
+                                                MaxLength="50" >
                                             </f:TextBox>
-                                            <f:TextBox ID="txtCode" runat="server" Required="true" ShowRedStar="true" Label="编号" LabelAlign="Right"
-                                                MaxLength="50">
+                                            <f:TextBox ID="txtCode" runat="server" Required="true" ShowRedStar="true" Label="编号" LabelAlign="Right" MaxLength="50" LabelWidth="120px">
                                             </f:TextBox>
 
                                         </Items>
@@ -58,49 +57,37 @@
                                             <f:DropDownList ID="drpUnit" ShowRedStar="true"
                                                 runat="server" Required="true" Label="施工单位" EmptyText="--请选择--" AutoSelectFirstItem="false" LabelAlign="Right" EnableEdit="true">
                                             </f:DropDownList>
-
-                                            <f:DropDownList ID="drpModelType" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" Required="true" runat="server" Width="350px" Label="方案类别" LabelAlign="Right" EnableEdit="true">
-                                            </f:DropDownList>
-                                        </Items>
-                                    </f:FormRow>
-                                    <f:FormRow>
-                                        <Items>
-                                        </Items>
-                                    </f:FormRow>
-                                    <f:FormRow>
-                                        <Items>
-                                            <f:DatePicker ID="txtCompileDate" ShowRedStar="true" Required="true" runat="server" Label="编制时间" LabelAlign="Right"
-                                                EnableEdit="true">
-                                            </f:DatePicker>
-                                            <f:Panel ID="plfile" ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
-                                                <Items>
-
-                                                    <f:Panel ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
-                                                        <Items>
-                                                          
-                                                            <f:Label runat="server" Text="<span style='color:red;'>*</span>附件：" EncodeText="false"  ShowRedStar="true" Label="附件："   CssStyle="padding-left:48px"  Width="102px" CssClass="marginr" ShowLabel="false"></f:Label>
-                                                            <f:Button ID="imgBtnFile" Text="附件" ToolTip="上传及查看" Icon="TableCell" OnClick="imgBtnFile_Click" runat="server">
-                                                            </f:Button>
-                                                        </Items>
-                                                    </f:Panel>
-                                                </Items>
-                                            </f:Panel>
-                                        </Items>
-                                    </f:FormRow>
-                                    <f:FormRow>
-                                        <Items>
-                                            <f:TextBox ID="txtSolutionName" runat="server" ShowRedStar="true" Required="true" Label="方案名称" LabelAlign="Right"
-                                                MaxLength="50">
+                                            <f:TextBox ID="txtSolutionName" runat="server" ShowRedStar="true" Required="true" Label="方案名称" LabelAlign="Right" MaxLength="50" LabelWidth="120px">
                                             </f:TextBox>
-                                            <f:NumberBox ID="txtEdition" Label="版次" runat="server" NoDecimal="true" Readonly="true"
-                                                LabelWidth="100px" NoNegative="true" ShowRedStar="true" MaxLength="3" Required="true">
+                                           
+
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                             <f:DropDownList ID="drpModelType" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" Required="true" runat="server" Width="350px" Label="方案类别" LabelAlign="Right" EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="drpModelType_SelectedIndexChanged" >
+                                            </f:DropDownList>
+                                            <f:DropDownList ID="drpSpecialType" EmptyText="--请选择--" AutoSelectFirstItem="false" runat="server" Width="350px" Label="分部分项工程" LabelAlign="Right" EnableEdit="true" LabelWidth="120px">
+                                            </f:DropDownList>
+                                            
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:DatePicker ID="txtCompileDate" ShowRedStar="true" Required="true" runat="server" Label="编制时间" LabelAlign="Right" EnableEdit="true" >
+                                            </f:DatePicker>
+                                            <f:NumberBox ID="txtEdition" Label="版次" runat="server" NoDecimal="true" Readonly="true" NoNegative="true" ShowRedStar="true" MaxLength="3" Required="true" LabelWidth="120px">
                                             </f:NumberBox>
                                         </Items>
                                     </f:FormRow>
 
                                     <f:FormRow>
                                         <Items>
-                                            <f:DropDownBox runat="server" Label="专业" ShowRedStar="true" Required="true" ID="txtCNProfessional" EmptyText="--请选择--" DataControlID="txtCNProfessional" EnableMultiSelect="true" MatchFieldWidth="true">
+                                            <f:DropDownBox runat="server" Label="专业" ShowRedStar="true" Required="true" ID="txtCNProfessional" EmptyText="--请选择--" DataControlID="txtCNProfessional" EnableMultiSelect="true" MatchFieldWidth="true" >
                                                 <PopPanel>
                                                     <f:Grid ID="gvCNPro" BoxFlex="1"
                                                         DataIDField="CNProfessionalId" DataTextField="ProfessionalName" EnableMultiSelect="true" KeepCurrentSelection="true"
@@ -110,7 +97,7 @@
                                                             <%--<f:RowNumberField />--%>
                                                             <f:BoundField Width="100px" DataField="CNProfessionalId" SortField="CNProfessionalId" DataFormatString="{0}" Hidden="true" />
                                                             <f:BoundField Width="100px" DataField="ProfessionalName" SortField="ProfessionalName" DataFormatString="{0}"
-                                                                 HeaderText="名称" />
+                                                                HeaderText="名称" />
                                                         </Columns>
                                                     </f:Grid>
                                                 </PopPanel>
@@ -120,7 +107,7 @@
                                     <f:FormRow>
                                         <Items>
                                             <f:DropDownBox runat="server" Label="单位工程" ShowRedStar="true"
-                                                Required="true" ID="txtUnitWork" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="false">
+                                                Required="true" ID="txtUnitWork" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="false" >
                                                 <PopPanel>
                                                     <f:Grid ID="gvUnitWork" DataIDField="UnitWorkId" DataTextField="UnitWorkName" DataKeyNames="UnitWorkId"
                                                         EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true"
@@ -129,14 +116,26 @@
                                                         <Columns>
                                                             <f:BoundField Width="100px" DataField="UnitWorkId" SortField="UnitWorkId" DataFormatString="{0}" Hidden="true" />
                                                             <f:BoundField Width="100px" DataField="UnitWorkName" SortField="UnitWorkName" DataFormatString="{0}"
-                                                                 HeaderText="工程名称" />
+                                                                HeaderText="工程名称" />
                                                         </Columns>
                                                     </f:Grid>
                                                 </PopPanel>
                                             </f:DropDownBox>
                                         </Items>
                                     </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
 
+                                            <f:Panel ShowHeader="false" ShowBorder="false" Layout="Column" runat="server" >
+                                                <Items>
+
+                                                    <f:Label runat="server" Text="<span style='color:red;'>*</span>附件：" EncodeText="false" ShowRedStar="true" Label="附件：" CssStyle="padding-left:48px" Width="102px" CssClass="marginr" ShowLabel="false" ></f:Label>
+                                                    <f:Button ID="imgBtnFile" Text="附件" ToolTip="上传及查看" Icon="TableCell" OnClick="imgBtnFile_Click" runat="server">
+                                                    </f:Button>
+                                                </Items>
+                                            </f:Panel>
+                                        </Items>
+                                    </f:FormRow>
                                 </Rows>
                             </f:Form>
                         </f:ContentPanel>
@@ -262,7 +261,7 @@
                                         </ItemTemplate>
                                     </f:TemplateField>
                                     <f:BoundField Width="100px" DataField="ApproveDate" HeaderTextAlign="Center" TextAlign="Center" DataFormatString="{0:yyyy-MM-dd}" HeaderText="办理时间" />
-                                    <f:BoundField Width="180px" DataField="ApproveIdea" HeaderTextAlign="Center" TextAlign="Center"  HeaderText="办理意见" />
+                                    <f:BoundField Width="180px" DataField="ApproveIdea" HeaderTextAlign="Center" TextAlign="Center" HeaderText="办理意见" />
                                     <f:LinkButtonField HeaderText="附件" ColumnID="download" Width="60px" Icon="ArrowDown" CommandName="download" />
                                 </Columns>
                             </f:Grid>
