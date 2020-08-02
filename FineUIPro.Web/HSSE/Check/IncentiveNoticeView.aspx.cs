@@ -1,5 +1,8 @@
 ﻿using BLL;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -54,6 +57,7 @@ namespace FineUIPro.Web.HSSE.Check
                 this.txtCurrency.Text = "人民币";
                 if (!string.IsNullOrEmpty(this.IncentiveNoticeId))
                 {
+                    BindGrid();
                     Model.Check_IncentiveNotice incentiveNotice = BLL.IncentiveNoticeService.GetIncentiveNoticeById(this.IncentiveNoticeId);
                     if (incentiveNotice != null)
                     {
@@ -121,10 +125,21 @@ namespace FineUIPro.Web.HSSE.Check
                         }
                     }
                 }
-                ///初始化审核菜单
-                this.ctlAuditFlow.MenuId = BLL.Const.ProjectIncentiveNoticeMenuId;
-                this.ctlAuditFlow.DataId = this.IncentiveNoticeId;
             }
+        }
+
+        //办理记录
+        public void BindGrid()
+        {
+            string strSql = @"select FlowOperateId, IncentiveNoticeId, OperateName, OperateManId, OperateTime, case when IsAgree='False' then '否' else '是' end  As IsAgree, Opinion,S.UserName from Check_IncentiveNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            strSql += "where IncentiveNoticeId= @IncentiveNoticeId";
+            listStr.Add(new SqlParameter("@IncentiveNoticeId", IncentiveNoticeId));
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            var table = this.GetPagedDataTable(gvFlowOperate, tb);
+            gvFlowOperate.DataSource = table;
+            gvFlowOperate.DataBind();
         }
         #endregion
     }

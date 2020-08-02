@@ -191,7 +191,10 @@ namespace FineUIPro.Web.CQMS.Check
                         this.txtSpotCheckDate2.Text = string.Format("{0:yyyy-MM-dd HH:mm}", spotCheck.SpotCheckDate2);
                     }
                     this.txtCheckArea.Text = spotCheck.CheckArea;
-                    this.txtControlPointType.Text = spotCheck.ControlPointType == "C" ? "C级" : "非C级";
+                    if (!string.IsNullOrEmpty(spotCheck.ControlPointType))
+                    {
+                        this.txtControlPointType.Text = spotCheck.ControlPointType == "C" ? "C级" : "非C级";
+                    }
                     State = spotCheck.State;
                     //设置页面图片附件是否可以编辑
                     QuestionImg = -1;

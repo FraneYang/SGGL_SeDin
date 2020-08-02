@@ -19,7 +19,7 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar3" Position="Top" ToolbarAlign="Right" runat="server">
                         <Items>
-                            <f:TextBox runat="server" Label="姓名" ID="txtPersonName" EmptyText="输入查询条件"
+                            <f:TextBox runat="server" Label="姓名" ID="txtPersonName" EmptyText="输入查询条件" 
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
                                 LabelAlign="right">
                             </f:TextBox>
@@ -32,7 +32,12 @@
                                 OnSelectedIndexChanged="TextBox_TextChanged"  AutoPostBack="true">
                                 <f:CheckItem Text="未发卡" Value="0" Selected="true"/>
                                 <f:CheckItem Text="已发卡" Value="1"  />
-                             </f:CheckBoxList>                             
+                             </f:CheckBoxList>  
+                                <f:CheckBoxList runat="server" ID="ckPrint" ShowLabel="false" Width="200px"  LabelAlign="Right"
+                                OnSelectedIndexChanged="TextBox_TextChanged"  AutoPostBack="true" Hidden="true">
+                                <f:CheckItem Text="未打印" Value="0" Selected="true"/>
+                                <f:CheckItem Text="已打印" Value="1"  />
+                             </f:CheckBoxList>  
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>                                                     
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                     EnableAjax="false" DisableControlBeforePostBack="false">
@@ -97,6 +102,9 @@
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnSendCard" OnClick="btnSendCard_Click" EnablePostBack="true"
              runat="server" Icon="Vcard" Text="发卡">
+        </f:MenuButton>
+        <f:MenuButton ID="btnPrint" OnClick="btnPrint_Click" EnableAjax="false" DisableControlBeforePostBack="false"
+             runat="server" Icon="Printer" Text="导出" Hidden="true">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -62,6 +62,8 @@ namespace BLL
             db.Check_CheckSpecialDetail.InsertOnSubmit(newCheckSpecialDetail);
             db.SubmitChanges();
 
+            //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
+            Check_CheckSpecialService.UpdateCheckSpecialStates(checkSpecialDetail.CheckSpecialId);
         }
 
         /// <summary>

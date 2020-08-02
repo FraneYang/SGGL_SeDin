@@ -33,7 +33,7 @@ namespace FineUIPro.Web.CQMS.Check
             if (!IsPostBack)
             {
                 UnitService.InitUnitByProjectIdUnitTypeDropDownList1(drpUnit, this.CurrUser.LoginProjectId, true);//施工单位
-                CNProfessionalService.InitCNProfessionalDownList(drpCNProfessional, true);//专业
+                DesignProfessionalService.InitDesignProfessionalDownList(drpCNProfessional, true);//专业
                 BLL.MainItemService.InitMainItemDownList(drpMainItem, this.CurrUser.LoginProjectId, true);//主项
                 this.drpDesignType.DataTextField = "Text";
                 this.drpDesignType.DataValueField = "Value";
@@ -309,7 +309,7 @@ namespace FineUIPro.Web.CQMS.Check
         }
         private void BindGrid()
         {
-            string strSql = "select D.CarryUnitIds, D.BuyMaterialUnitIds,D.MainItemId,D.DesignId,D.ProjectId,M.MainItemName,C.ProfessionalName, D.State,D.DesignType,D.DesignCode,D.DesignContents,D.DesignDate,U.UnitName as CarryUnit,(case D.IsNoChange when 'true' then '是' when 'false' then '否' else '' end) IsNoChange,(case D.IsNeedMaterial when 'true' then '是' when 'false' then '否' else '' end) IsNeedMaterial,U1.UnitName as BuyMaterialUnit,D.MaterialPlanReachDate,D.PlanDay,D.PlanCompleteDate,D.PlanCompleteDate,D.RealCompleteDate,D.CompileMan,C.ProfessionalName, D.CompileDate from Check_Design D left join Base_Unit U1 on U1.UnitId = D.BuyMaterialUnitIds left join Base_Unit U on U.UnitId = D.CarryUnitIds left join ProjectData_MainItem M on M.MainItemId = D.MainItemId left join Base_DesignProfessional C on C.DesignProfessionalId = D.CNProfessionalCode";
+            string strSql = "select D.CarryUnitIds, D.BuyMaterialUnitIds,D.MainItemId,D.DesignId,D.ProjectId,D.MaterialRealReachDate,M.MainItemName,C.ProfessionalName, D.State,D.DesignType,D.DesignCode,D.DesignContents,D.DesignDate,U.UnitName as CarryUnit,(case D.IsNoChange when 'true' then '是' when 'false' then '否' else '' end) IsNoChange,(case D.IsNeedMaterial when 'true' then '是' when 'false' then '否' else '' end) IsNeedMaterial,U1.UnitName as BuyMaterialUnit,D.MaterialPlanReachDate,D.PlanDay,D.PlanCompleteDate,D.PlanCompleteDate,D.RealCompleteDate,D.CompileMan,C.ProfessionalName, D.CompileDate from Check_Design D left join Base_Unit U1 on U1.UnitId = D.BuyMaterialUnitIds left join Base_Unit U on U.UnitId = D.CarryUnitIds left join ProjectData_MainItem M on M.MainItemId = D.MainItemId left join Base_DesignProfessional C on C.DesignProfessionalId = D.CNProfessionalCode";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " where D.ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));

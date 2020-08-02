@@ -9,72 +9,84 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
-         *{
-            box-sizing:border-box;
+        * {
+            box-sizing: border-box;
         }
-        .flexV{
-            flex-direction:column;
+
+        .flexV {
+            flex-direction: column;
         }
-        .wrap{
-            height:100%;
-            padding:15px;
-        }
-        .bottom-wrap{
-           padding:0;
-        }
-        .bw-b-bottom{
-            width:100%;
-            height:100%;
-        }
-        .bw-b-bottom-up {
-            border-radius:0;
+
+        .wrap {
             height: 100%;
-            margin:0;
+            padding: 15px;
         }
-         .bw-item-content{
-           padding:5px;
+
+        .bottom-wrap {
+            padding: 0;
         }
+
+        .bw-b-bottom {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bw-b-bottom-up {
+            border-radius: 0;
+            height: 100%;
+            margin: 0;
+        }
+
+        .bw-item-content {
+            padding: 5px;
+        }
+
         .top {
             width: 100%;
         }
 
-        .top .item {
-        }
+            .top .item {
+            }
+
         .bw-b {
             width: 50%;
         }
 
         .bw-b-bottom-up {
-            
         }
-         .tab-wrap {
+
+        .tab-wrap {
             left: auto;
             right: 15px;
             top: 5px;
-            font-size:12px;
+            font-size: 12px;
         }
 
         .tab .t-item {
             width: auto;
             padding: 5px 10px;
         }
-        .tit-item{
+
+        .tit-item {
             padding: 0 10px;
-            color:#fff;
+            color: #fff;
             justify-content: space-between;
         }
-        .tip-item{
+
+        .tip-item {
             margin-left: 10px;
-            align-items:center;
-            font-size:10px;
+            align-items: center;
+            font-size: 10px;
         }
-        .tip{
-            width:25px;
-            height:13px;
+
+        .tip {
+            width: 25px;
+            height: 13px;
             background-color: #258F76;
             border-radius: 2px;
-            margin-right:5px;
+            margin-right: 5px;
         }
+
         .tip-next {
             background-color: #92BF55;
         }
@@ -88,7 +100,7 @@
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content flex">
-                                <div id='one1' class="flex1"  style="width: 100%; height: 100%;"></div>
+                                <div id='one1' class="flex1" style="width: 100%; height: 100%;"></div>
                                 <div id='one2' class="flex1" style="width: 100%; height: 100%;"></div>
                                 <div id='one3' class="flex1" style="width: 100%; height: 100%;"></div>
                             </div>
@@ -96,8 +108,8 @@
                     </div>
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
-                            <div class="bw-item-content flex flexV" style="padding:0;position:relative;">
-                                <div class="flex " style="position:absolute;width:100%;font-size:14px;">
+                            <div class="bw-item-content flex flexV" style="padding: 0; position: relative;">
+                                <div class="flex " style="position: absolute; width: 100%; font-size: 14px;">
                                     <div class="flex flex1  tit-item">
                                         <div class="tit">质量控制点通知</div>
                                         <div class="flex">
@@ -175,7 +187,7 @@
 <script type="text/javascript" src="../res/index/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
     function category_One(id, title, dataNum) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
@@ -191,7 +203,7 @@
                 textStyle: {
                     color: '#fff',
                     fontSize: 10,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: true
             },
@@ -204,10 +216,10 @@
                     pointer: {
                         show: true,
                         length: '70%',
-                        width : 3
+                        width: 3
                     },
-                    axisTick : { //刻度线样式（及短线样式）
-                      length : 0
+                    axisTick: { //刻度线样式（及短线样式）
+                        length: 0
                     },
                     splitLine: {
                         length: 10,
@@ -217,7 +229,7 @@
                     },
                     axisLine: {
                         lineStyle: {
-                            width : 10//表盘宽度
+                            width: 10//表盘宽度
                         }
                     },
                     min: 0,
@@ -236,11 +248,14 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option, true)
     }
-        category_One('one1', "项目质量验收一次合格率", 80)
-        category_One('one2', "项目施工资料同步率", 40)
-        category_One('one3', "项目质量问题整改完成率", 20)
+    var one1 =<%=One1 %>
+    var one2 =<%=One2 %>
+    var one3 =<%=One3 %>
+    category_One('one1', "项目质量验收一次合格率", one1)
+    category_One('one2', "项目施工资料同步率", one2)
+    category_One('one3', "项目质量问题整改完成率", one3)
 </script>
-    <script type="text/javascript">
+<script type="text/javascript">
     function category_six(id, title, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
@@ -253,7 +268,7 @@
                 textStyle: {
                     color: '#fff',
                     fontSize: 14,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: true
             },
@@ -292,7 +307,7 @@
                 label: {
                     show: true,
                     position: 'inside',
-                    formatter: function(data){ return data.percent.toFixed(2)+"%";} 
+                    formatter: function (data) { return data.percent.toFixed(2) + "%"; }
                 },
                 itemStyle: {
                     normal: {
@@ -310,8 +325,8 @@
                 label: {
                     show: true,
                     position: 'inside',
-                    formatter: function(data){ return data.percent.toFixed(2)+"%";} 
-                    },
+                    formatter: function (data) { return data.percent.toFixed(2) + "%"; }
+                },
                 itemStyle: {
                     normal: {
                         //opacity: 0.7,
@@ -331,8 +346,8 @@
                 label: {
                     show: true,
                     position: 'inside',
-                    formatter: function(data){ return data.percent.toFixed(2)+"%";} 
-                    },
+                    formatter: function (data) { return data.percent.toFixed(2) + "%"; }
+                },
                 itemStyle: {
                     normal: {
                         //opacity: 0.7,
@@ -350,11 +365,11 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-        var xArr = ["已整改", "未整改"]
-        var series = [
-            { value: 335, name: '人身伤害' },
-            { value: 310, name: '未' }
-        ]
+    var xArr = ["已整改", "未整改"]
+    var series = [
+        { value: 335, name: '人身伤害' },
+        { value: 310, name: '未' }
+    ]
         //category_six('one4', "A类", xArr, );
 </script>
 <script type="text/javascript">
@@ -364,7 +379,7 @@
         var optionPie = {
             tooltip: {
                 trigger: 'item',
-                show: false
+                show: true
             },
             legend: {
                 show: needLegend,
@@ -382,7 +397,7 @@
                 textStyle: {
                     color: '#fff',
                     fontSize: 14,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: true
             },
@@ -404,7 +419,7 @@
                     name: ' ',
                     hoverOffset: 0,
                     type: 'pie',
-                    clickable:false,
+                    clickable: false,
                     radius: ['50%', '65%'],
                     avoidLabelOverlap: false,
                     label: {
@@ -434,11 +449,16 @@
         //为echarts对象加载数据
         myChartPie.setOption(optionPie);
     }
-    var data = [{ value: 10, name: '未整改' },
-    { value: 5, name: '已整改' }];
-    pie('one4', data, "A类", "15")
-    pie('one5', data, "B类", "23")
-    pie('one6', data, "C类", "45")
+    var one4 =<%=One4 %>;
+    var data4 = [{ value: one4.num2, name: '已完成' },
+    { value: one4.num1, name: '未完成' }];
+    var data5 = [{ value: one4.num5, name: '已完成' },
+        { value: one4.num4, name: '未完成' }];
+    var data6 = [{ value: one4.num8, name: '已完成' },
+        { value: one4.num7, name: '未完成' }];
+    pie('one4', data4, "A类", one4.num3)
+    pie('one5', data5, "B类", one4.num6)
+    pie('one6', data6, "C类", one4.num9)
 </script>
 
 <script type="text/javascript">
@@ -453,7 +473,7 @@
                 textStyle: {
                     color: '#fff',
                     fontWeight: 'normal',
-                    fontSize:16
+                    fontSize: 16
                 },
                 show: true
             },
@@ -461,8 +481,8 @@
             legend: {
                 left: '15%',
                 show: true,
-                textStyle:{//图例文字的样式
-                color:'#ffffff'
+                textStyle: {//图例文字的样式
+                    color: '#ffffff'
                 }
             },
             xAxis: {
@@ -520,38 +540,42 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6", "分包7", "分包8", "分包9"]
+    var two =<%=Two %>;
+    //var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6", "分包7", "分包8", "分包9"]
+    var xArr = two.categories
     var data = [
         {
             name: '未整改',
             type: 'bar',
             stack: '总量',
-            data: [3, 5, 8, 10, 6, 4, 5, 9, 12],
-            itemStyle: { normal: {  color: 'rgba(162,63,21, 1)' } }
+            //data: [3, 5, 8, 10, 6, 4, 5, 9, 12],
+            data: two.series[0].data,
+            itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
         },
         {
             name: '已整改',
             type: 'bar',
             stack: '总量',
-            data: [2, 7, 5, 9 ,12, 9, 2, 8, 10],
+            //data: [2, 7, 5, 9, 12, 9, 2, 8, 10],
+            data: two.series[1].data,
             itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
         }
     ]
     category_Two('two', xArr, data)
 </script>
 <script type="text/javascript">
-    function category_Three(id, xArr, series)  {
+    function category_Three(id, xArr, series) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
             title: {
-                left:'center',
+                left: 'center',
                 text: '作业许可数量统计',
                 textStyle: {
                     color: '#fff',
                     fontSize: 14,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: false
             },
@@ -562,7 +586,7 @@
                 top: '0',
                 show: true,
                 selectedMode: false,
-                textStyle:{//图例文字的样式
+                textStyle: {//图例文字的样式
                     color: '#ffffff',
                     fontSize: '12'
                 }
@@ -621,19 +645,21 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6"]
-    var data = [12, 5, 28, 43, 22, 11]
-    var data1 = [21, 9, 12, 15, 8, 43]
+    var three =<%=Three %>;
+    //var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6"]
+    var xArr =three.categories
+    //var data = [12, 5, 28, 43, 22, 11]
+    //var data1 = [21, 9, 12, 15, 8, 43]
     var series = [{
         name: '质量一次性合格率',
         type: 'bar',
-        data: data,
+        data: three.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     },
     {
         name: '施工资料同步率',
         type: 'bar',
-        data: data1,
+        data: three.series[1].data,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }]
     category_Three('three', xArr, series)
@@ -650,7 +676,7 @@
                 textStyle: {
                     color: '#fff',
                     fontWeight: 'normal',
-                    fontSize:16
+                    fontSize: 16
                 },
                 show: false
             },
@@ -659,8 +685,8 @@
                 left: '3%',
                 show: true,
                 selectedMode: false,
-                textStyle:{//图例文字的样式
-                    color:'#ffffff'
+                textStyle: {//图例文字的样式
+                    color: '#ffffff'
                 }
             },
             xAxis: {
@@ -717,19 +743,21 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
-    var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
-    var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
+    var four =<%=Four %>;
+    //var xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
+     var xArr =four.categories
+    //var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
+    //var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
     var series = [{
         name: '质量一次性合格率',
         type: 'bar',
-        data: data,
+        data: four.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     },
     {
         name: '施工资料同步率',
         type: 'bar',
-        data: data1,
+        data: four.series[1].data,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }];
     category('four', xArr, series)
@@ -747,84 +775,111 @@
         $tab.find(".t-item").removeClass('active');
         $this.addClass('active')
 
+        var two =<%=Two %>;
+        var two2 =<%=Two2 %>;
+        var two3 =<%=Two3 %>;
+        var three =<%=Three %>;
+        var three2 =<%=Three2 %>;
         if (value == 2) {
-            var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6", "分包7", "分包8", "分包9"]
+            var xArr = two.categories
             var data = [
                 {
                     name: '未整改',
                     type: 'bar',
                     stack: '总量',
-                    data: [3, 5, 8, 10, 6, 4, 5, 9, 12],
+                    //data: [3, 5, 8, 10, 6, 4, 5, 9, 12],
+                    data: two.series[0].data,
                     itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
                 },
                 {
                     name: '已整改',
                     type: 'bar',
                     stack: '总量',
-                    data: [2, 7, 5, 9, 12, 9, 2, 8, 10],
+                    //data: [2, 7, 5, 9, 12, 9, 2, 8, 10],
+                    data: two.series[1].data,
                     itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
                 }
             ];
             if (index == 2) {
-                xArr =["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
+                //xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
+                xArr = two2.categories
                 data = [
-                {
-                    name: '未整改',
-                    type: 'bar',
-                    stack: '总量',
-                    data: [13, 5, 18, 10, 6, 4, 5, 9, 22],
-                    itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
-                },
-                {
-                    name: '已整改',
-                    type: 'bar',
-                    stack: '总量',
-                    data: [2, 7, 15, 9, 12, 29, 12, 18, 10],
-                    itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
-                }
-            ];
+                    {
+                        name: '未整改',
+                        type: 'bar',
+                        stack: '总量',
+                        //data: [13, 5, 18, 10, 6, 4, 5, 9, 22],
+                        data: two2.series[0].data,
+                        itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
+                    },
+                    {
+                        name: '已整改',
+                        type: 'bar',
+                        stack: '总量',
+                        //data: [2, 7, 15, 9, 12, 29, 12, 18, 10],
+                        data: two2.series[1].data,
+                        itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
+                    }
+                ];
             }
             else if (index == 4) {
-                xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6", "专业7", "专业8", "专业9"]
+                //xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6", "专业7", "专业8", "专业9"]
+                xArr = two3.categories
                 data = [
-                {
-                    name: '未整改',
-                    type: 'bar',
-                    stack: '总量',
-                    data: [23, 25, 18, 10, 16, 4, 5, 29, 2],
-                    itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
-                },
-                {
-                    name: '已整改',
-                    type: 'bar',
-                    stack: '总量',
-                    data: [2, 27, 15, 9, 12, 29, 32, 18, 1],
-                    itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
-                }
-            ];
+                    {
+                        name: '未整改',
+                        type: 'bar',
+                        stack: '总量',
+                        //data: [23, 25, 18, 10, 16, 4, 5, 29, 2],
+                        data: two3.series[0].data,
+                        itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
+                    },
+                    {
+                        name: '已整改',
+                        type: 'bar',
+                        stack: '总量',
+                        //data: [2, 27, 15, 9, 12, 29, 32, 18, 1],
+                        data: two3.series[1].data,
+                        itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
+                    }
+                ];
             }
             category_Two('two', xArr, data)
         }
         else if (value == 3) {
-            var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6"]
-            var data = [12, 5, 28, 43, 22, 11]
-            var data1 = [21, 9, 12, 15, 8, 43]
+            //var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6"]
+            var xArr =three.categories
+            //var data = [12, 5, 28, 43, 22, 11]
+            //var data1 = [21, 9, 12, 15, 8, 43]
             var series = [{
                 name: '质量一次性合格率',
                 type: 'bar',
-                data: data,
+                data: three.series[0].data,
                 itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
             },
             {
                 name: '施工资料同步率',
                 type: 'bar',
-                data: data1,
+                data: three.series[1].data,
                 itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
             }];
             if (index == 2) {
-                 xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6"]
+                //xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6"]
+                xArr = three2.categories
+                series = [{
+                name: '质量一次性合格率',
+                type: 'bar',
+                data: three2.series[0].data,
+                itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
+            },
+            {
+                name: '施工资料同步率',
+                type: 'bar',
+                data: three2.series[1].data,
+                itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
+            }];
             }
-             category_Three('three', xArr, series)
+            category_Three('three', xArr, series)
         }
     })
 </script>

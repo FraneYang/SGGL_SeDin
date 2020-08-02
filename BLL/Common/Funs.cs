@@ -877,30 +877,38 @@ namespace BLL
         #endregion
 
         /// <summary>
-        /// 
+        ///  去除选择框多选项中请选择
         /// </summary>
-        public static void SubmitChanges()
+        /// <param name="projectType"></param>
+        /// <returns></returns>
+        public static string[] RemoveDropDownListNull(string[] selectedValueArray)
         {
-            try
+            List<string> str = new List<string>();
+            foreach (var item in selectedValueArray)
             {
-                DB.SubmitChanges(ConflictMode.ContinueOnConflict);
-            }
-            catch (ChangeConflictException ex)
-            {
-                foreach (ObjectChangeConflict occ in DB.ChangeConflicts)
+                if (item != BLL.Const._Null)
                 {
-                    //以下是解决冲突的三种方法，选一种即可
-                    //// 使用当前数据库中的值，覆盖Linq缓存中实体对象的值
-                    //occ.Resolve(RefreshMode.OverwriteCurrentValues);
-                    //// 使用Linq缓存中实体对象的值，覆盖当前数据库中的值
-                    //occ.Resolve(RefreshMode.KeepCurrentValues);
-                    // 只更新实体对象中改变的字段的值，其他的保留不变
-                    occ.Resolve(RefreshMode.KeepChanges);
+                    str.Add(item);
                 }
-                // 这个地方要注意，Catch方法中，我们前面只是指明了怎样来解决冲突，这个地方还需要再次提交更新，这样的话，值    //才会提交到数据库。
-                DB.SubmitChanges();                
-                ErrLogInfo.WriteLog(string.Empty, ex);
             }
+            return str.ToArray();
+        }
+
+        public static string  GetStringByArray(string[] array)
+        {
+            string str = string.Empty;
+            foreach (var item in array)
+            {
+                if (item != BLL.Const._Null)
+                {
+                    str += item + ",";
+                }
+            }
+            if (!string.IsNullOrEmpty(str))
+            {
+                str = str.Substring(0, str.LastIndexOf(","));
+            }
+            return str;
         }
 
         /// <summary>

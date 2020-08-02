@@ -102,6 +102,28 @@ namespace BLL
        }
         #endregion
 
+        #region 根据岗位ID得到岗位名称
+        /// <summary>
+        /// 根据岗位ID得到岗位名称
+        /// </summary>
+        /// <param name="workPostId"></param>
+        /// <returns></returns>
+        public static string getWorkPostNameById(string workPostId)
+        {
+            string workPostName = string.Empty;
+            if (!string.IsNullOrEmpty(workPostId))
+            {
+                var q = GetWorkPostById(workPostId);
+                if (q != null)
+                {
+                    workPostName = q.WorkPostName ;
+                }
+            }
+
+            return workPostName;
+        }
+        #endregion
+
         #region 根据多岗位ID得到岗位名称字符串
         /// <summary>
         /// 根据多岗位ID得到岗位名称字符串

@@ -106,7 +106,6 @@ namespace FineUIPro.Web.HSSE.Check
                             this.txtPauseTime.Text = string.Format("{0:yyyy-MM-dd HH:mm}", pauseNotice.PauseTime);
                         }
                         this.AttachUrl = pauseNotice.AttachUrl;
-                        //this.divFile1.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.AttachUrl);
                         if (!string.IsNullOrEmpty(pauseNotice.PauseStates))
                         {
                             State = pauseNotice.PauseStates;
@@ -115,23 +114,16 @@ namespace FineUIPro.Web.HSSE.Check
                         {
                             State = "0";
                         }
-                        if (State == "0")
-                        {
-                            
-                            this.next.Hidden = false;
-                            this.btnSave.Hidden = false;
-                            BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpSignPerson, this.CurrUser.LoginProjectId,Const.UnitId_SEDIN, true);
-                            this.drpSignPerson.SelectedValue = pauseNotice.SignManId;
-                            this.drpUnit.Readonly = false;
-                            this.txtProjectPlace.Readonly = false;
-                            this.txtWrongContent.Readonly = false;
-                            this.txtPauseTime.Readonly = false;
-                        }
-                        else if (State == "1")
+                        if (State == "1")
                         {
                             this.IsAgree.Hidden = false;
-                            this.next1.Hidden = false;
-                            UserService.InitFlowOperateControlUserDropDownList(this.drpApproveMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//总包项目经理
+                            
+                            UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
+                            this.drpHandleMan.Label = "总包项目经理";
+                            if (!string.IsNullOrEmpty(pauseNotice.ApproveManId)) {
+                                this.drpHandleMan.SelectedValue = pauseNotice.ApproveManId;
+                            }
+                            this.GroupPanel2.Hidden = false;
                             UserService.InitFlowOperateControlUserDropDownList(this.drpProfessionalEngineer, this.CurrUser.LoginProjectId,Const.UnitId_SEDIN, true);//专业工程师
                             UserService.InitFlowOperateControlUserDropDownList(this.drpConstructionManager, this.CurrUser.LoginProjectId,Const.UnitId_SEDIN, true);//施工经理
                             UserService.InitUserProjectIdUnitIdDropDownList(this.drpUnitHeadMan, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, true);//分包单位
@@ -141,28 +133,17 @@ namespace FineUIPro.Web.HSSE.Check
                         }
                         else if (State == "2")
                         {
-                            this.next2.Hidden = false;
                             this.IsAgree.Hidden = false;
-                            BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpDutyPerson, this.CurrUser.LoginProjectId, pauseNotice.UnitId, true);//分包单位
+                            BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, pauseNotice.UnitId, true);//分包单位
+                            this.drpHandleMan.Label = "施工分包单位";
                         }
                         else if (State == "3")
                         {
+                            this.BackMan.Hidden = true;
                             this.ckAccept.Hidden = false;
                         }
 
                     }
-                }
-                else
-                {
-                    
-                    State = "0";
-                    this.next.Hidden = false;
-                    this.btnSave.Hidden = false;
-                    BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpSignPerson, this.CurrUser.LoginProjectId,Const.UnitId_SEDIN, true);
-                    this.drpUnit.Readonly = false;
-                    this.txtProjectPlace.Readonly = false;
-                    this.txtWrongContent.Readonly = false;
-                    this.txtPauseTime.Readonly = false;
                 }
 
 
@@ -172,7 +153,7 @@ namespace FineUIPro.Web.HSSE.Check
 
         public void BindGrid()
         {
-            string strSql = @"select FlowOperateId, PauseNoticeId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_PauseNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            string strSql = @"select FlowOperateId, PauseNoticeId, OperateName, OperateManId, OperateTime, case when IsAgree='False' then '否' else '是' end  As IsAgree, Opinion,S.UserName from Check_PauseNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += "where PauseNoticeId= @PauseNoticeId";
             listStr.Add(new SqlParameter("@PauseNoticeId", PauseNoticeId));
@@ -249,182 +230,112 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="type"></param>
         private void SavePauseNotice(string type)
         {
-            Model.Check_PauseNotice pauseNotice = new Model.Check_PauseNotice
+            string PauseStates = Convert.ToInt32(Convert.ToInt32(State) + 1).ToString();
+            Model.Check_PauseNotice isUpdate = Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(PauseNoticeId);
+            if (isUpdate!=null)
             {
-                PauseNoticeCode = this.txtPauseNoticeCode.Text.Trim(),
-                ProjectId = this.ProjectId,
-
-                UnitId = this.drpUnit.SelectedValue,
-                ProjectPlace = this.txtProjectPlace.Text.Trim(),
-                WrongContent = this.txtWrongContent.Text.Trim(),
-                PauseTime = Funs.GetNewDateTime(this.txtPauseTime.Text.Trim())
-            };
-            if (this.drpSignPerson.SelectedValue != BLL.Const._Null)
-            {
-                pauseNotice.SignManId = this.drpSignPerson.SelectedValue;
-            }
-            pauseNotice.IsConfirm = false;
-            pauseNotice.AttachUrl = this.AttachUrl;
-            if (type == BLL.Const.BtnSubmit)
-            {
-                //pauseNotice.PauseStates = this.drpHandleType.SelectedValue;
-                pauseNotice.PauseStates = Convert.ToInt32(Convert.ToInt32(State) + 1).ToString();
-            }
-            else
-            {
-                var isUpdate = Funs.DB.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == PauseNoticeId);
-                if (isUpdate != null)
+                
+                if (PauseStates == BLL.Const.State_2)
                 {
-                    if (string.IsNullOrEmpty(isUpdate.PauseStates))
+                    /// 不同意 打回 同意抄送专业工程师、施工经理、项目经理 并下发分包接收人（也就是施工单位项目安全经理）
+                    if (this.rdbIsAgree.SelectedValue.Equals("false"))
                     {
-                        pauseNotice.PauseStates = "0";
+                        isUpdate.PauseStates = "0";
+
                     }
                     else
                     {
-                        pauseNotice.PauseStates = isUpdate.PauseStates;
-                    }
-                }
-                else
-                {
-                    pauseNotice.PauseStates = "0";
-                }
-            }
-            if (!string.IsNullOrEmpty(this.PauseNoticeId))
-            {
-                Model.Check_PauseNotice isUpdate = Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(PauseNoticeId);
-                if (type == BLL.Const.BtnSubmit)
-                {
-
-                    //isUpdate.PauseStates = this.drpHandleType.SelectedValue;
-                    if (pauseNotice.PauseStates == BLL.Const.State_0 || pauseNotice.PauseStates == BLL.Const.State_1)
-                    {
-                        isUpdate.UnitId = this.drpUnit.SelectedValue;
-                        isUpdate.ProjectPlace = this.txtProjectPlace.Text.Trim();
-                        isUpdate.WrongContent = this.txtWrongContent.Text.Trim();
-                        if (!string.IsNullOrEmpty(this.txtPauseTime.Text.Trim()))
+                        if (this.drpHandleMan.SelectedValue != BLL.Const._Null)
                         {
-                            isUpdate.PauseTime = Funs.GetNewDateTimeOrNow(this.txtPauseTime.Text.Trim());
-                        }
-                        if (pauseNotice.PauseStates == BLL.Const.State_1 && !string.IsNullOrEmpty(pauseNotice.SignManId))
-                        {
-                            isUpdate.SignManId = pauseNotice.SignManId;
-                            isUpdate.PauseStates = "1";
-
-                        }
-                        Funs.DB.SubmitChanges();
-                    }
-                    else if (pauseNotice.PauseStates == BLL.Const.State_2)
-                    {
-                        /// 不同意 打回 同意抄送专业工程师、施工经理、项目经理 并下发分包接收人（也就是施工单位项目安全经理）
-                        if (this.rdbIsAgree.SelectedValue.Equals("false"))
-                        {
-                            isUpdate.PauseStates = "0";
-
+                            isUpdate.ApproveManId = this.drpHandleMan.SelectedValue;
                         }
                         else
                         {
-                            if (this.drpApproveMan.SelectedValue != BLL.Const._Null)
-                            {
-                                isUpdate.ApproveManId = this.drpApproveMan.SelectedValue;
-                            }
-                            else
-                            {
-                                Alert.ShowInTop("总包项目经理不能为空！", MessageBoxIcon.Warning);
-                                return;
-                            }
-                            if (this.drpProfessionalEngineer.SelectedValue != BLL.Const._Null)
-                            {
-                                isUpdate.ProfessionalEngineerId = this.drpProfessionalEngineer.SelectedValue;
-                            }
-                            if (this.drpConstructionManager.SelectedValue != BLL.Const._Null)
-                            {
-                                isUpdate.ConstructionManagerId = this.drpConstructionManager.SelectedValue;
-                            }
-                            if (this.drpUnitHeadMan.SelectedValue != BLL.Const._Null)
-                            {
-                                isUpdate.UnitHeadManId = this.drpUnitHeadMan.SelectedValue;
-                            }
-                            if (this.drpSupervisorMan.SelectedValue != BLL.Const._Null)
-                            {
-                                isUpdate.SupervisorManId = this.drpSupervisorMan.SelectedValue;
-                            }
-                            if (this.drpOwner.SelectedValue != BLL.Const._Null)
-                            {
-                                isUpdate.OwnerId = this.drpOwner.SelectedValue;
-                            }
-                            isUpdate.IsConfirm = true;
-                            isUpdate.SignDate = DateTime.Now;
-                            isUpdate.PauseStates = "2";
+                            Alert.ShowInTop("总包项目经理不能为空！", MessageBoxIcon.Warning);
+                            return;
                         }
-                        Funs.DB.SubmitChanges();
-                        SaveData("总包施工经理签发", 1);
-
-                    }
-                    else if (pauseNotice.PauseStates == BLL.Const.State_3)
-                    {
-                        if (this.rdbIsAgree.SelectedValue.Equals("false"))
+                        if (this.drpProfessionalEngineer.SelectedValue != BLL.Const._Null)
                         {
-                            isUpdate.IsConfirm = false;
-                            isUpdate.PauseStates = "1";
-                            SaveData("总包项目经理批准", 0);
+                            isUpdate.ProfessionalEngineerId = this.drpProfessionalEngineer.SelectedValue;
+                        }
+                        if (this.drpConstructionManager.SelectedValue != BLL.Const._Null)
+                        {
+                            isUpdate.ConstructionManagerId = this.drpConstructionManager.SelectedValue;
+                        }
+                        if (this.drpUnitHeadMan.SelectedValue != BLL.Const._Null)
+                        {
+                            isUpdate.UnitHeadManId = this.drpUnitHeadMan.SelectedValue;
+                        }
+                        if (this.drpSupervisorMan.SelectedValue != BLL.Const._Null)
+                        {
+                            isUpdate.SupervisorManId = this.drpSupervisorMan.SelectedValue;
+                        }
+                        if (this.drpOwner.SelectedValue != BLL.Const._Null)
+                        {
+                            isUpdate.OwnerId = this.drpOwner.SelectedValue;
+                        }
+                        isUpdate.IsConfirm = true;
+                        isUpdate.SignDate = DateTime.Now;
+                        isUpdate.PauseStates = "2";
+                    }
+                    Funs.DB.SubmitChanges();
+                    SaveData("总包项目经理签发");
+
+                }
+                else if (PauseStates == BLL.Const.State_3)
+                {
+                    if (this.rdbIsAgree.SelectedValue.Equals("false"))
+                    {
+                        isUpdate.IsConfirm = false;
+                        isUpdate.PauseStates = "1";
+                    }
+                    else
+                    {
+                        if (this.drpHandleMan.SelectedValue != BLL.Const._Null)
+                        {
+                            isUpdate.DutyPersonId = this.drpHandleMan.SelectedValue;
                         }
                         else
                         {
-                            isUpdate.DutyPersonId = this.drpDutyPerson.SelectedValue;
-                            isUpdate.ApproveDate = DateTime.Now;
-                            SaveData("总包项目经理批准", 1);
-                            isUpdate.PauseStates ="3";
+                            Alert.ShowInTop("施工分包单位不能为空！", MessageBoxIcon.Warning);
+                            return;
                         }
-                        Funs.DB.SubmitChanges();
+                        isUpdate.ApproveDate = DateTime.Now;
+                        
+                        isUpdate.PauseStates = "3";
                     }
-                    else if (pauseNotice.PauseStates == BLL.Const.State_4)
+                    Funs.DB.SubmitChanges();
+                    SaveData("施工分包单位批准");
+                }
+                else if (PauseStates == BLL.Const.State_4)
+                {
+                    isUpdate.States = "2";
+                    isUpdate.DutyPersonDate = DateTime.Now;
+                    SaveData("施工分包单位接受");
+                    isUpdate.PauseStates = "4";
+                    Funs.DB.SubmitChanges();
+
+                    //// 回写专项检查明细表                            
+                    var getcheck = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(isUpdate.PauseNoticeId));
+                    if (getcheck != null)
                     {
-                            isUpdate.States = "2";
-                            isUpdate.DutyPersonDate = DateTime.Now;
-                            SaveData("施工分包单位接受", 1);
-                            isUpdate.PauseStates = "4";
+                        getcheck.CompleteStatus = true;
+                        getcheck.CompletedDate = DateTime.Now;
                         Funs.DB.SubmitChanges();
+                        //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
+                        Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
                     }
-
                 }
-            }
-            else
-            {
-                pauseNotice.States = "0";
-                if (string.IsNullOrEmpty(this.hdPauseNoticeId.Text))
-                {
-                    pauseNotice.PauseNoticeId = SQLHelper.GetNewID(typeof(Model.Check_PauseNotice));
-                }
-                else {
-                    pauseNotice.PauseNoticeId = this.hdPauseNoticeId.Text;
-                }
-                pauseNotice.CompileManId = this.CurrUser.UserId;
-                pauseNotice.CompileDate = DateTime.Now;
-                if (this.drpSignPerson.SelectedValue != BLL.Const._Null)
-                {
-                    pauseNotice.SignManId = drpSignPerson.SelectedValue;
-                }
-                else
-                {
-                    Alert.ShowInTop("签发人不能为空！", MessageBoxIcon.Warning);
-                    return;
-                }
-                BLL.Check_PauseNoticeService.AddPauseNotice(pauseNotice);
-                BLL.LogService.AddSys_Log(this.CurrUser, pauseNotice.PauseNoticeCode, pauseNotice.PauseNoticeId, BLL.Const.ProjectPauseNoticeMenuId, BLL.Const.BtnAdd);
-                this.PauseNoticeId = pauseNotice.PauseNoticeId;
-
-
-                SaveData("总包安全工程师/安全经理下发暂停令", 1);
-
-
+                    
             }
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
 
         }
-
+        #region 上传附件
+        
         /// <summary>
-        /// 
+        /// 上传附件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -445,7 +356,7 @@ namespace FineUIPro.Web.HSSE.Check
                 PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.hdPauseNoticeId.Text)));
             }
         }
-
+        #endregion
         #region 保存流程审核数据
         /// <summary>
         /// 保存数据
@@ -455,66 +366,67 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="isClosed">是否关闭这步流程</param>
         /// <param name="content">单据内容</param>
         /// <param name="url">路径</param>
-        public void SaveData(string OperateName, int flag)
+        public void SaveData(string OperateName)
         {
-            if (flag == 1)
+            Model.Check_PauseNoticeFlowOperate newFlowOperate = new Model.Check_PauseNoticeFlowOperate();
+            newFlowOperate.FlowOperateId = SQLHelper.GetNewID(typeof(Model.Check_PauseNoticeFlowOperate));
+            newFlowOperate.PauseNoticeId = PauseNoticeId;
+            newFlowOperate.OperateName = OperateName;
+            newFlowOperate.OperateManId = CurrUser.UserId;
+            newFlowOperate.OperateTime = DateTime.Now;
+            if (this.rdbIsAgree.SelectedValue.Contains("false"))
             {
-                Model.Check_PauseNoticeFlowOperate newFlowOperate = new Model.Check_PauseNoticeFlowOperate
-                {
-                    FlowOperateId = SQLHelper.GetNewID(typeof(Model.Check_PauseNoticeFlowOperate)),
-                    PauseNoticeId = PauseNoticeId,
-                    OperateName = OperateName,
-                    OperateManId = CurrUser.UserId,
-                    OperateTime = DateTime.Now,
-                    IsAgree = true
-                };
-                Funs.DB.Check_PauseNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
-                Funs.DB.SubmitChanges();
+                newFlowOperate.Opinion = this.reason.Text;
+                newFlowOperate.IsAgree = false;
             }
-            else
-            {
-                Model.Check_PauseNoticeFlowOperate newFlowOperate = new Model.Check_PauseNoticeFlowOperate
-                {
-                    FlowOperateId = SQLHelper.GetNewID(typeof(Model.Check_PauseNoticeFlowOperate)),
-                    PauseNoticeId = PauseNoticeId,
-                    OperateName = OperateName,
-                    OperateManId = CurrUser.UserId,
-                    OperateTime = DateTime.Now,
-                    Opinion = this.reason.Text,
-                    IsAgree = false
-                };
-                Funs.DB.Check_PauseNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
-                Funs.DB.SubmitChanges();
+            else {
+                newFlowOperate.Opinion ="同意";
+                newFlowOperate.IsAgree = true;
             }
+            Funs.DB.Check_PauseNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
+            Funs.DB.SubmitChanges();
 
         }
         #endregion
 
         protected void rdbIsAgree_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.drpHandleMan.Items.Clear();
+            var pauseNotice = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(PauseNoticeId);
             if (this.rdbIsAgree.SelectedValue.Contains("false"))
             {
-                Model.Check_PauseNotice pauseNotice = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(PauseNoticeId);
+                this.GroupPanel2.Hidden = true;
                 this.NoAgree.Hidden = false;
-                this.HandleType.Hidden = true;
                 if (State == "1")
                 {
                     BLL.UserService.InitUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
                     this.drpHandleMan.SelectedValue = pauseNotice.CompileManId;
+                    this.drpHandleMan.Label = "打回编制人";
                 }
                 else if (State == "2")
                 {
                     BLL.UserService.InitUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
                     this.drpHandleMan.SelectedValue = pauseNotice.SignManId;
+                    this.drpHandleMan.Label = "打回签发人";
+                   
                 }
-                this.BackMan.Hidden = false;
+                this.drpHandleMan.Readonly = true;
             }
             else
             {
+                
                 this.NoAgree.Hidden = true;
-                this.HandleType.Hidden = false;
-                this.BackMan.Hidden = true;
-
+                if (State == "1") {
+                    UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
+                    this.drpHandleMan.Label = "总包项目经理";
+                    this.GroupPanel2.Hidden = false;
+                }
+                else if (State == "2") {
+                    BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, pauseNotice.UnitId, true);//分包单位
+                    this.drpHandleMan.Label = "施工分包单位";
+                }
+                this.drpHandleMan.SelectedIndex = 0;
+                this.drpHandleMan.Readonly = false;
             }
         }
     }

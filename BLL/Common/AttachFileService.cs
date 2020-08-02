@@ -305,5 +305,18 @@ namespace BLL
             var list = Funs.DB.AttachFile.FirstOrDefault((x => x.ToKeyId == toKeyId && x.MenuId == menuId));
             return list;
         }
+
+        public static IList<Model.AttachFile> GetfileDetaillist(List<string> toKeyId, string menuId)
+        {
+            if (toKeyId.Count > 0)
+            {
+                var list = Funs.DB.AttachFile.Where(p => toKeyId.Contains(p.ToKeyId) && p.MenuId == menuId).ToList();
+                return list;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -65,7 +65,10 @@ namespace FineUIPro.Web.CQMS.Solution
                     {
                         txtCNProfessional.Text = CQMSConstructSolutionService.GetProfessionalName(constructSolution.CNProfessionalCodes);
                     }
-                    txtEdition.Text = constructSolution.Edition.ToString();
+                    if (constructSolution.Edition != null)
+                    {
+                        txtEdition.Text = constructSolution.Edition.ToString();
+                    }
                     bindApprove();
                     BindZYRole();
                     BindZLRole();
@@ -146,7 +149,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trOne.Nodes.Add(rootNode);
             trOne.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -177,7 +181,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trTwo.Nodes.Add(rootNode);
             trTwo.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -227,7 +232,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trThree.Nodes.Add(rootNode);
             trThree.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -256,7 +262,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trFour.Nodes.Add(rootNode);
             trFour.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -286,7 +293,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trFive.Nodes.Add(rootNode);
             trFive.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -316,7 +324,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trSixe.Nodes.Add(rootNode);
             trSixe.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId

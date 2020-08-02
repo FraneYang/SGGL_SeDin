@@ -22,7 +22,7 @@ namespace BLL
         }
         public static Model.Person_QuarterCheck GetQuarterCheckByDateTime(DateTime startTime, DateTime endTime)
         {
-            return Funs.DB.Person_QuarterCheck.FirstOrDefault(e => e.StartTime  == startTime && e.EndTime == endTime);
+            return Funs.DB.Person_QuarterCheck.FirstOrDefault(e => e.StartTime == startTime && e.EndTime == endTime);
         }
 
         /// <summary>
@@ -35,14 +35,14 @@ namespace BLL
             Model.Person_QuarterCheck newcheck = new Model.Person_QuarterCheck
             {
                 QuarterCheckId = check.QuarterCheckId,
-                QuarterCheckName=check.QuarterCheckName,
+                QuarterCheckName = check.QuarterCheckName,
                 UserId = check.UserId,
-                RoleId=check.RoleId,
+                RoleId = check.RoleId,
                 ProjectId = check.ProjectId,
                 StartTime = check.StartTime,
                 EndTime = check.EndTime,
                 State = check.State,
-                CheckType=check.CheckType
+                CheckType = check.CheckType
             };
             db.Person_QuarterCheck.InsertOnSubmit(newcheck);
             db.SubmitChanges();
@@ -96,6 +96,81 @@ namespace BLL
             list[9] = new ListItem("员工合同管理工作任务书", "10");
             list[10] = new ListItem("员工安全质量工作任务书", "11");
             return list;
+        }
+
+        public static List<Model.Person_QuarterCheck> GetListDataForApi(string userId, int index, int page)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                IQueryable<Model.Person_QuarterCheck> q = db.Person_QuarterCheck;
+                List<string> ids = new List<string>();
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    q = q.Where(e => e.UserId == userId);
+                }
+
+                var qq1 = from x in q
+                          orderby x.UserId descending
+                          select new
+                          {
+                              x.QuarterCheckId,
+                              x.QuarterCheckName,
+                              x.UserId,
+                              x.ProjectId,
+                              x.StartTime,
+                              x.EndTime,
+                              x.State,
+                              x.CheckType,
+                              x.RoleId,
+
+                              UserName = (from y in db.Sys_User where y.UserId == x.UserId select y.UserName).First(),
+                              ProjectName = (from y in db.Base_Project where y.ProjectId == x.ProjectId select y.ProjectName).First(),
+                              RoleName = (from y in db.Sys_Role where y.RoleId == x.RoleId select y.RoleName).First()
+
+                          };
+                var list = qq1.Skip(index * page).Take(page).ToList();
+
+                List<Model.Person_QuarterCheck> listRes = new List<Model.Person_QuarterCheck>();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Model.Person_QuarterCheck x = new Model.Person_QuarterCheck();
+                    x.QuarterCheckId = list[i].QuarterCheckId;
+                    x.QuarterCheckName = list[i].QuarterCheckName;
+                    x.UserId = list[i].UserId + "$" + list[i].UserName;
+                    x.ProjectId = list[i].ProjectId+"$"+list[i].ProjectName;
+                    x.StartTime = list[i].StartTime;
+                    x.EndTime = list[i].EndTime;
+                    x.State = list[i].State;
+                    x.CheckType = list[i].CheckType;
+                    x.RoleId = list[i].RoleId+"$"+list[i].RoleName;
+                    listRes.Add(x);
+                }
+                return listRes;
+            }
+        }
+
+        public static Model.Person_QuarterCheck GetPersonCheckForApi(string id)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Person_QuarterCheck x = db.Person_QuarterCheck.FirstOrDefault(e => e.QuarterCheckId == id);
+                x.QuarterCheckId = x.QuarterCheckId;
+                x.QuarterCheckName = x.QuarterCheckName;
+                x.UserId = x.UserId + "$" + BLL.UserService.GetUserNameByUserId(x.UserId);
+                x.ProjectId = x.ProjectId + "$" + BLL.ProjectService.GetProjectNameByProjectId(x.ProjectId);
+                x.StartTime = x.StartTime;
+                x.EndTime = x.EndTime;
+                x.State = x.State;
+                x.CheckType = x.CheckType;
+                string roleName = string.Empty;
+                var role = BLL.RoleService.GetRoleByRoleId(x.RoleId);
+                if (role != null)
+                {
+                    roleName = role.RoleName;
+                }
+                x.RoleId = x.RoleId + "$" + roleName;
+                return x;
+            }
         }
     }
 }

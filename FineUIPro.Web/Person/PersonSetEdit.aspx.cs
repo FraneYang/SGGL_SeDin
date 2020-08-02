@@ -143,27 +143,9 @@ namespace FineUIPro.Web.Person
                             this.SignatureUrl = user.SignatureUrl;
                             this.Image2.ImageUrl = "~/" + this.SignatureUrl;
                         }
-                        if (!string.IsNullOrEmpty(user.ProjectId))
-                        {
-                            this.txtProjectId.Text = BLL.ProjectService.GetProjectByProjectId(user.ProjectId).ProjectName;
-                        }
-                        if (!string.IsNullOrEmpty(user.ProjectRoleId))
-                        {
-                            string[] Ids = user.ProjectRoleId.ToString().Split(',');
-                            foreach (string t in Ids)
-                            {
-                                var type = BLL.RoleService.GetRoleByRoleId(t);
-                                if (type != null)
-                                {
-                                    this.txtProjectRoleId.Text += type.RoleName + ",";
-                                }
-                            }
-                            if (!string.IsNullOrEmpty(this.txtProjectRoleId.Text.Trim()))
-                            {
-                                this.txtProjectRoleId.Text = this.txtProjectRoleId.Text.Substring(0, this.txtProjectRoleId.Text.Length - 1);
-                            }
-                        }
-                        
+                        this.txtProjectId.Text = BLL.ProjectService.GetProjectNameByProjectId(user.ProjectId);
+                        this.txtProjectRoleId.Text =RoleService.getRoleNamesRoleIds(user.ProjectRoleId);
+
                         var roleItem = BLL.RoleItemService.GeRoleItemByUserId(this.UserId);
                         if (roleItem != null)
                         {
@@ -297,7 +279,7 @@ namespace FineUIPro.Web.Person
         }
         #endregion
 
-        #region 验证用户编号、账号是否存在
+        #region 验证用户编号、工号是否存在
         /// <summary>
         /// 验证用户编号、账号是否存在
         /// </summary>
@@ -308,7 +290,7 @@ namespace FineUIPro.Web.Person
             var q = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == this.txtAccount.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
             if (q != null)
             {
-                ShowNotify("输入的账号已存在！", MessageBoxIcon.Warning);
+                ShowNotify("输入的工号已存在！", MessageBoxIcon.Warning);
             }
 
             if (!string.IsNullOrEmpty(this.txtUserCode.Text))

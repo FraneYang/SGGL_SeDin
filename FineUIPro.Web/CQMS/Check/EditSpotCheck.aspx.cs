@@ -330,6 +330,11 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     HandleType();
                 }
+                Model.Check_SpotCheck spotCheck1 = SpotCheckService.GetSpotCheckBySpotCheckCode(SpotCheckCode);
+                if (spotCheck1 != null && !string.IsNullOrEmpty(spotCheck1.SaveHandleMan))
+                {
+                    this.drpHandleMan.SelectedValue = spotCheck1.SaveHandleMan;
+                }
             }
         }
 
@@ -675,27 +680,27 @@ namespace FineUIPro.Web.CQMS.Check
             //string projectId, string userId, string menuId, string buttonName)
             if (BLL.CommonService.GetAllButtonPowerList(CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.SpotCheckMenuId, BLL.Const.BtnSave))
             {
-                if (this.rblCheckDateType.SelectedValue == "1")
-                {
-                    if (string.IsNullOrEmpty(this.txtSpotCheckDate.Text.Trim()))
-                    {
-                        Alert.ShowInTop("请选择共检时间！", MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(this.txtSpotCheckDate.Text.Trim()) || string.IsNullOrEmpty(this.txtSpotCheckDate2.Text.Trim()))
-                    {
-                        Alert.ShowInTop("请选择开始时间和结束时间！", MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-                if (this.Grid1.Rows.Count == 0)
-                {
-                    Alert.ShowInTop("共检内容列表不能为空！", MessageBoxIcon.Warning);
-                    return;
-                }
+                //if (this.rblCheckDateType.SelectedValue == "1")
+                //{
+                //    if (string.IsNullOrEmpty(this.txtSpotCheckDate.Text.Trim()))
+                //    {
+                //        Alert.ShowInTop("请选择共检时间！", MessageBoxIcon.Warning);
+                //        return;
+                //    }
+                //}
+                //else
+                //{
+                //    if (string.IsNullOrEmpty(this.txtSpotCheckDate.Text.Trim()) || string.IsNullOrEmpty(this.txtSpotCheckDate2.Text.Trim()))
+                //    {
+                //        Alert.ShowInTop("请选择开始时间和结束时间！", MessageBoxIcon.Warning);
+                //        return;
+                //    }
+                //}
+                //if (this.Grid1.Rows.Count == 0)
+                //{
+                //    Alert.ShowInTop("共检内容列表不能为空！", MessageBoxIcon.Warning);
+                //    return;
+                //}
                 SavePauseNotice("save");
                 PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
                 //Response.Redirect("/check/CheckList.aspx");
@@ -788,12 +793,21 @@ namespace FineUIPro.Web.CQMS.Check
             spotCheck.CheckDateType = this.rblCheckDateType.SelectedValue;
             if (this.rblCheckDateType.SelectedValue == "1")
             {
-                spotCheck.SpotCheckDate = Convert.ToDateTime(this.txtSpotCheckDate.Text.Trim());
+                if (!string.IsNullOrEmpty(this.txtSpotCheckDate.Text.Trim()))
+                {
+                    spotCheck.SpotCheckDate = Convert.ToDateTime(this.txtSpotCheckDate.Text.Trim());
+                }
             }
             else
             {
-                spotCheck.SpotCheckDate = Convert.ToDateTime(this.txtSpotCheckDate.Text.Trim());
-                spotCheck.SpotCheckDate2 = Convert.ToDateTime(this.txtSpotCheckDate2.Text.Trim());
+                if (!string.IsNullOrEmpty(this.txtSpotCheckDate.Text.Trim()))
+                {
+                    spotCheck.SpotCheckDate = Convert.ToDateTime(this.txtSpotCheckDate.Text.Trim());
+                }
+                if (!string.IsNullOrEmpty(this.txtSpotCheckDate2.Text.Trim()))
+                {
+                    spotCheck.SpotCheckDate2 = Convert.ToDateTime(this.txtSpotCheckDate2.Text.Trim());
+                }
             }
             spotCheck.CheckArea = this.txtCheckArea.Text.Trim();
             if (this.drpControlPointType.SelectedValue != Const._Null)
@@ -837,6 +851,7 @@ namespace FineUIPro.Web.CQMS.Check
                 }
                 if (saveType == "submit")
                 {
+                    spotCheck.SaveHandleMan = null;
                     Model.Check_SpotCheckApprove approve = new Model.Check_SpotCheckApprove();
                     approve.SpotCheckCode = SpotCheckCode;
                     if (this.drpHandleMan.SelectedValue != "0")
@@ -917,6 +932,10 @@ namespace FineUIPro.Web.CQMS.Check
                     detail.SpotCheckCode = spotCheck.SpotCheckCode;
                     BLL.SpotCheckDetailService.UpdateSpotCheckDetail(detail);
                 }
+                if (saveType == "save")
+                {
+                    spotCheck.SaveHandleMan = this.drpHandleMan.SelectedValue;
+                }
                 if (saveType == "submit" && this.drpHandleType.SelectedValue == BLL.Const.SpotCheck_Complete)  //审批完成时，生成分包上传交工资料的办理记录
                 {
                     spotCheck.State2 = BLL.Const.SpotCheck_Audit5;   //更新主表状态
@@ -988,6 +1007,7 @@ namespace FineUIPro.Web.CQMS.Check
             else
             {
                 spotCheck.CreateMan = this.CurrUser.UserId;
+                spotCheck.CreateDate = DateTime.Now;
                 if (!string.IsNullOrEmpty(this.hdSpotCheckCode.Text))
                 {
                     spotCheck.SpotCheckCode = this.hdSpotCheckCode.Text;
@@ -995,6 +1015,10 @@ namespace FineUIPro.Web.CQMS.Check
                 else
                 {
                     spotCheck.SpotCheckCode = SQLHelper.GetNewID(typeof(Model.Check_SpotCheck));
+                }
+                if (saveType == "save")
+                {
+                    spotCheck.SaveHandleMan = this.drpHandleMan.SelectedValue;
                 }
                 BLL.SpotCheckService.AddSpotCheck(spotCheck);
                 if (saveType == "submit")

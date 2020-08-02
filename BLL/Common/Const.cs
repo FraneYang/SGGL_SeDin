@@ -378,6 +378,10 @@ namespace BLL
         /// </summary>
         public const string ConstructionManager = "22F78A47-F59C-4FE8-9C43-2DD304CB2108";
         /// <summary>
+        /// 项目经理(施工单位)
+        /// </summary>
+        public const string SubProjectManager = "ca1bce28-5790-4531-ba47-ce4f643f1977";
+        /// <summary>
         /// 施工副经理
         /// </summary>
         public const string ConstructionAssistantManager = "AAE579CF-A249-4336-BAFE-7FB4D5753451";
@@ -539,7 +543,7 @@ namespace BLL
         /// </summary>
         public const string Menu_Notice = "Menu_Notice";
         /// <summary>
-        /// 项目菜单
+        /// 项目清单
         /// </summary>
         public const string Menu_Project = "Menu_Project";
         /// <summary>
@@ -1027,6 +1031,10 @@ namespace BLL
 
         #region 本部菜单管理
         #region 项目管理
+        /// <summary>
+        /// 项目清单
+        /// </summary>
+        public const string SeverProjectListMenuId = "B95DF6F0-EB0C-4120-BD56-A4453AB42059";
         /// <summary>
         /// 项目信息
         /// </summary>

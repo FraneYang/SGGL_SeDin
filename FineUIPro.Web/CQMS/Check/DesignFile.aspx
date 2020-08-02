@@ -138,7 +138,7 @@
                             </Columns>
                         </f:GroupField>
                         <f:GroupField HeaderText="变更实施" TextAlign="Center">
-                            <Columns>
+                            <Columns>                                                                    
                                 <f:RenderField Width="100px" ColumnID="MaterialRealReachDate" DataField="MaterialRealReachDate"
                                     FieldType="Date" HeaderText="增补材料到齐时间" TextAlign="Center" HeaderTextAlign="Center" RendererArgument="yyyy-MM-dd">
                                 </f:RenderField>

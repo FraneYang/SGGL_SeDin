@@ -5,6 +5,7 @@ using BLL;
 using Newtonsoft.Json.Linq;
 using WIA;
 using System.Collections.Generic;
+using System.Text;
 
 namespace FineUIPro.Web.AttachFile
 {
@@ -60,6 +61,29 @@ namespace FineUIPro.Web.AttachFile
                 ViewState["Type"] = value;
             }
         }
+
+        public string Source
+        {
+            get
+            {
+                return (string)ViewState["Source"];
+            }
+            set
+            {
+                ViewState["Source"] = value;
+            }
+        }
+        public string JointCheck
+        {
+            get
+            {
+                return (string)ViewState["JointCheck"];
+            }
+            set
+            {
+                ViewState["JointCheck"] = value;
+            }
+        }
         #endregion
 
         #region 加载页面
@@ -85,7 +109,9 @@ namespace FineUIPro.Web.AttachFile
                 this.AttachPath = Request.QueryString["path"];
                 this.ParamStr = sessionName + "|" + AttachPath;
                 this.MenuId = Request.QueryString["menuId"];
-                this.Type = Request.Params["type"]; 
+                this.Type = Request.Params["type"];
+                JointCheck = Request.Params["JointCheck"];//是否共检页面
+                Source = Request.QueryString["source"];//如果等于1则是文件柜
                 //Request.QueryString["type"]; ////类型：0时是上传资源页面，附件权限不需要判断 -1时只查看权限 -2查看集团公司
                 this.GetButtonPower();
                 this.BindGrid();
@@ -106,11 +132,181 @@ namespace FineUIPro.Web.AttachFile
         /// </summary>
         private void BindGrid()
         {
-            Grid1.DataSource = GetSourceData();
+            if (Source == "1")  //文件柜
+            {
+                if (!string.IsNullOrWhiteSpace(JointCheck))
+                {
+                    if (JointCheck.Equals("JointCheck"))
+                    {
+                        Grid1.DataSource = JointData();
+                    }
+                }
+                else
+                {
+                    Grid1.DataSource = SourceData();
+                }
+            }
+            else
+            {
+                Grid1.DataSource = GetSourceData();
+            }
             Grid1.DataBind();
         }
 
         #endregion
+
+        private JArray JointData()
+        {
+            if (Session[sessionName] == null && !string.IsNullOrEmpty(ToKeyId))
+            {
+                //Session[sessionName] = new JArray();
+                StringBuilder stxt = new StringBuilder();
+                var jointChecks = JointCheckDetailService.GetViewLists(ToKeyId);
+                var liststr = new List<string>();
+                if (jointChecks.Count > 0)
+                {
+                    foreach (var itemjointChecks in jointChecks)
+                    {
+                        liststr.Add(itemjointChecks.JointCheckDetailId);
+                        liststr.Add(itemjointChecks.JointCheckDetailId + "r");
+                    }
+
+                }
+                var sourlist = AttachFileService.GetfileDetaillist(liststr, MenuId);
+                if (sourlist.Count > 0)
+                {
+                    stxt.Append("[");
+
+                    foreach (var sour in sourlist)
+                    {
+                        int index = sourlist.IndexOf(sour);
+                        string str = string.Empty;
+                        if (sour != null)
+                        {
+                            string url = sour.AttachUrl.Replace('\\', '/');
+
+                            List<string> list = Funs.GetStrListByStr(url, ',');
+                            if (list.Count() > 0)
+                            {
+                                int i = 0;
+                                foreach (var item in list)
+                                {
+                                    string atturl = Funs.RootPath + item.Replace(';', ' ').Trim();
+                                    if (File.Exists(atturl))
+                                    {
+                                        i += 1;
+                                        break;
+                                    }
+                                }
+                                if (i > 0)
+                                {
+                                    if (sourlist.Count == 1)
+                                    {
+                                        str = sour.AttachSource.Substring(0, sour.AttachSource.Length - 1);
+                                        str = str.Substring(1);
+                                    }
+                                    else if (sourlist.Count > 1)
+                                    {
+
+                                        var st = sour.AttachSource.Substring(0, sour.AttachSource.Length - 1);
+                                        st = st.Substring(1);
+                                        if (sourlist.Count - 1 != index)
+                                        {
+                                            st += ",";
+                                        }
+                                        str += st;
+
+                                    }
+
+                                }
+                            }
+                            stxt.Append(str);
+                        }
+                    }
+
+                    stxt.Append("]");
+
+                    Session[sessionName] = JArray.Parse(stxt.ToString());
+
+                }
+
+
+            }
+
+            return (JArray)Session[sessionName];
+        }
+
+        /// <summary>
+        /// 文件柜专用
+        /// </summary>
+        /// <returns></returns>
+        private JArray SourceData()
+        {
+            if (Session[sessionName] == null && !string.IsNullOrEmpty(ToKeyId))
+            {
+                //Session[sessionName] = new JArray();
+                StringBuilder stxt = new StringBuilder();
+                IList<Model.AttachFile> sourlist = AttachFileService.Getfilelist(ToKeyId, MenuId);
+                if (sourlist.Count > 0)
+                {
+                    stxt.Append("[");
+
+                    foreach (var sour in sourlist)
+                    {
+                        int index = sourlist.IndexOf(sour);
+                        string str = string.Empty;
+                        if (sour != null)
+                        {
+                            string url = sour.AttachUrl.Replace('\\', '/');
+
+                            List<string> list = Funs.GetStrListByStr(url, ',');
+                            if (list.Count() > 0)
+                            {
+                                int i = 0;
+                                foreach (var item in list)
+                                {
+                                    string atturl = Funs.RootPath + item.Replace(';', ' ').Trim();
+                                    if (File.Exists(atturl))
+                                    {
+                                        i += 1;
+                                        break;
+                                    }
+                                }
+                                if (i > 0)
+                                {
+                                    if (sourlist.Count == 1)
+                                    {
+                                        str = sour.AttachSource.Substring(0, sour.AttachSource.Length - 1);
+                                        str = str.Substring(1);
+                                    }
+                                    else if (sourlist.Count > 1)
+                                    {
+
+                                        var st = sour.AttachSource.Substring(0, sour.AttachSource.Length - 1);
+                                        st = st.Substring(1);
+                                        if (sourlist.Count - 1 != index)
+                                        {
+                                            st += ",";
+                                        }
+                                        str += st;
+
+                                    }
+
+                                }
+                            }
+                            stxt.Append(str);
+                        }
+                    }
+
+                    stxt.Append("]");
+
+                    Session[sessionName] = JArray.Parse(stxt.ToString());
+
+                }
+            }
+
+            return (JArray)Session[sessionName];
+        }
 
         #region Events
         /// <summary>

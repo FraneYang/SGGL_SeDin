@@ -34,7 +34,7 @@ namespace FineUIPro.Web.ProjectData
             if (!IsPostBack)
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                BLL.ConstValue.InitConstValueDropDownList(this.drpProjectType, ConstValue.Group_ProjectType, false);       
+                ProjectTypeService.InitProjectTypeDropDownList(this.drpProjectType, true);                
                 this.ProjectId = Request.QueryString["ProjectId"];
                 //// this.txtProjectState.Text = "施工中";
                 //if (CommonService.GetIsThisUnit(Const.UnitId_7))
@@ -49,25 +49,6 @@ namespace FineUIPro.Web.ProjectData
                 UserService.InitUserDropDownList(this.drpHSSEManager, string.Empty, true);
                 UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
                 this.drpUnit.SelectedValue = Const.UnitId_SEDIN;
-                //var thisUnit = BLL.CommonService.GetIsThisUnit();
-                //if (thisUnit != null)
-                //{
-                //    this.drpUnit.SelectedValue = thisUnit.UnitId;
-                //    if (thisUnit.UnitId == Const.UnitId_6)
-                //    {
-                //        this.drpUnit.Label = "所属分公司";
-                //    }
-                //    if (thisUnit.UnitId == BLL.Const.UnitId_ECEC)
-                //    {
-                //        this.ckIsUpTotalMonth.Hidden = false;
-                //    }
-                //    if (thisUnit.UnitId == BLL.Const.UnitId_TCC_)
-                //    {
-                //        this.trAPP.Hidden = false;
-                //        this.trIsForeign.Hidden = false;
-                //    }
-                //}
-
                 if (!String.IsNullOrEmpty(this.ProjectId))
                 {
                     var project = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
@@ -140,6 +121,7 @@ namespace FineUIPro.Web.ProjectData
                             this.ckbIsForeign.Checked = true;
                         }
                         this.txtMapCoordinates.Text = project.MapCoordinates;
+                        this.txtProjectMoney.Text = project.ProjectMoney.ToString();
                     }
                 }
             }
@@ -162,6 +144,7 @@ namespace FineUIPro.Web.ProjectData
                 Duration = Funs.GetNewIntOrZero(this.txtDuration.Text.Trim()),
                 MapCoordinates = this.txtMapCoordinates.Text.Trim(),
                 ProjectState = this.drpProjectState.SelectedValue,
+                ProjectMoney=Funs.GetNewDecimal(this.txtProjectMoney.Text),
             };
 
             if (!string.IsNullOrEmpty(txtStartDate.Text.Trim()))
@@ -194,7 +177,6 @@ namespace FineUIPro.Web.ProjectData
 
                 // 初始化焊接环境变量设置
                 BLL.Project_SysSetService.InsertHjglInit(project.ProjectId);
-
                 LogService.AddSys_Log(this.CurrUser, project.ProjectCode, project.ProjectId, BLL.Const.ProjectSetMenuId, BLL.Const.BtnAdd);
             }
             else

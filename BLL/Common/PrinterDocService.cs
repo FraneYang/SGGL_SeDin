@@ -37,6 +37,10 @@
             {
                 htmlStr = GetTestRecordHtml(id);
             }
+            else if (menuId == Const.SendCardMenuId)
+            {
+                htmlStr = GetSendCardHtml(id);
+            }
             if (!string.IsNullOrEmpty(htmlStr))
             {
                 string filename = name + Funs.GetNewFileName();
@@ -1523,6 +1527,176 @@
                 ///图片
 
             }
+            return sb.ToString();
+        }
+        #endregion
+
+        #region 人员上岗证
+        /// <summary>
+        /// 导出方法
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public static string GetSendCardHtml(string personIds)
+        {
+            Model.SGGLDB db = Funs.DB;
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/word; charset=UTF-8\"/>");
+            sb.Append("<table width=\"100% \" cellspacing=\"0\" rules=\"all\" border=\"0\" style=\"border-collapse:collapse;\">");
+            List<string> pList = Funs.GetStrListByStr(personIds, ',');
+            if (pList.Count() > 0)
+            {
+                string imgStrUrl = "<img width='60' height='50' src='" + (Funs.SGGLUrl + "Images/SUBimages/CNCEC.png").Replace('\\', '/') + "'></img>";
+                for (int pageIndex = 1; pageIndex * 2 <= pList.Count() + 1; pageIndex++)
+                {
+                    string projectName = "";
+                    string unitName1 = "";
+                    string unitName2 = "";
+                    string workName1 = "";
+                    string workName2 = "";
+                    string personName1 = "";
+                    string personName2 = "";
+                    string cardNo1 = "";
+                    string cardNo2 = "";
+                    string photoUrl1 = "";
+                    string photoUrl2 = "";
+                    string QRUrl1 = "";
+                    string QRUrl2 = "";
+                    var getDataList = pList.Skip(2 * (pageIndex - 1)).Take(2).ToList();
+                    int i = 0;
+                    foreach (var item in getDataList)
+                    {
+                        var getPerson = PersonService.GetPersonById(item);
+                        if (getPerson != null)
+                        {
+                            string qrurl = string.Empty;
+                            if (!string.IsNullOrEmpty(getPerson.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(getPerson.QRCodeAttachUrl))
+                            {
+                                qrurl= getPerson.QRCodeAttachUrl;
+                            }
+                            else
+                            {
+                                qrurl = CreateQRCodeService.CreateCode_Simple(getPerson.IdentityCard);
+                                getPerson.QRCodeAttachUrl = qrurl;
+                                db.SubmitChanges();
+                            }
+
+                            projectName = ProjectService.GetShortNameByProjectId(getPerson.ProjectId);
+                            if (i == 0)
+                            {
+                                unitName1 = UnitService.GetUnitNameByUnitId(getPerson.UnitId);
+                                workName1 = WorkPostService.getWorkPostNameById(getPerson.WorkPostId);
+                                personName1 = getPerson.PersonName;
+                                cardNo1 = getPerson.CardNo;
+                                photoUrl1 = getPerson.PhotoUrl; 
+                                QRUrl1 = qrurl;
+                            }
+                            else
+                            {
+                                unitName2 = UnitService.GetUnitNameByUnitId(getPerson.UnitId);
+                                workName2 = WorkPostService.getWorkPostNameById(getPerson.WorkPostId);
+                                personName2 = getPerson.PersonName;
+                                cardNo2 = getPerson.CardNo;
+                                photoUrl2 = getPerson.PhotoUrl;
+                                QRUrl2 = qrurl;
+                            }
+                            i++;
+                        }
+                    }
+          
+                    sb.Append("<tr >");
+                    sb.Append("<td align=\"left\" style=\"width: 49%;\" >");
+                    sb.Append("<table width=\"100% \" cellspacing=\"0\" rules=\"all\" border=\"0\" style=\"border-collapse:collapse;\">");
+                    sb.Append("<tr style=\"height: 40px\">");
+                    sb.AppendFormat("<td align=\"center\"  style=\"width: 25%;\" rowspan=\"2\">{0}</td> ", imgStrUrl);
+                    sb.AppendFormat("<td align=\"center\"  style=\"width: 50%;font-size: 11pt;font-weight: bold;\">{0}</td> ", "赛鼎工程有限公司");
+                    string imgStrQRUrl1 = "<img width='60' height='50' src='" + (Funs.SGGLUrl + QRUrl1).Replace('\\', '/') + "'></img>";
+                    sb.AppendFormat("<td align=\"center\"  style=\"width: 25%;\" rowspan=\"2\">{0}</td> ", imgStrQRUrl1);
+                    sb.Append("</tr>");
+                    sb.Append("<tr style=\"height: 30px\"  valign=\"top\">");
+                    sb.AppendFormat("<td align=\"center\"  style=\" font-size: 9pt; font-weight: bold;\">{0}</td> ", projectName);
+                    sb.Append("</tr>");
+                    sb.Append("</table>");
+
+                    sb.Append("<table width=\"100% \" cellspacing=\"0\" rules=\"all\" border=\"0\" style=\"border-collapse:collapse;font-size: 9pt;background-color:#5b9bd5\">");
+                    sb.Append("<tr style=\"height: 25PX\">");
+                    sb.AppendFormat("<td align=\"right\"  style=\"width: 20%;\" >{0}</td> ", "单位：");
+                    sb.AppendFormat("<td align=\"left\"  style=\"width: 55%;\" >{0}</td> ",  unitName1);
+                    string imgStrphotoUrl1 = "<img width='85' height='110' src='" + (Funs.SGGLUrl + photoUrl1).Replace('\\', '/') + "'></img>";
+                        sb.AppendFormat("<td align=\"center\"  style=\"width: 25%;\" rowspan=\"5\">{0}</td> ", imgStrphotoUrl1);
+                    sb.Append("</tr>");
+                    sb.Append("<tr style=\"height: 25PX\">");
+                    sb.AppendFormat("<td align=\"right\" >{0}</td> ", "岗位：" );
+                    sb.AppendFormat("<td align=\"left\" >{0}</td> ",  workName1);
+                    sb.Append("</tr>");
+                    sb.Append("<tr style=\"height: 25PX\">");
+                    sb.AppendFormat("<td align=\"right\" >{0}</td> ", "姓名：");
+                    sb.AppendFormat("<td align=\"left\" >{0}</td> ", personName1);
+                    sb.Append("</tr>");
+                    sb.Append("<tr style=\"height: 25PX\">");
+                    sb.AppendFormat("<td align=\"right\" >{0}</td> ", "编号：");
+                    sb.AppendFormat("<td align=\"left\" >{0}</td> ",  cardNo1);
+                    sb.Append("</tr>");
+                    sb.Append("<tr style=\"height: 25PX\">");
+                    sb.AppendFormat("<td align=\"right\" >{0}</td> ", "");
+                    sb.AppendFormat("<td align=\"left\" >{0}</td> ", "");
+                    sb.Append("</tr>");
+                    sb.Append("</table>");
+                    sb.Append("</td >");
+
+                    sb.AppendFormat("<td align=\"center\"  style=\"width: 2%;\">{0}</td> ", "");
+
+                    sb.Append("<td align=\"right\" style=\"width: 49%;\">");
+                    if (!string.IsNullOrEmpty(personName2))
+                    {
+                        sb.Append("<table width=\"100% \" cellspacing=\"0\" rules=\"all\" border=\"0\" style=\"border-collapse:collapse;\">");
+                        sb.Append("<tr style=\"height: 40px\">");
+                        sb.AppendFormat("<td align=\"center\"  style=\"width: 25%;\" rowspan=\"2\">{0}</td> ", imgStrUrl);
+                        sb.AppendFormat("<td align=\"center\"  style=\"width: 50%;font-size: 11pt;font-weight: bold;\">{0}</td> ", "赛鼎工程有限公司");
+                        string imgStrQRUrl2 = "<img width='60' height='50' src='" + (Funs.SGGLUrl + QRUrl2).Replace('\\', '/') + "'></img>";
+                        sb.AppendFormat("<td align=\"center\"  style=\"width: 25%;\" rowspan=\"2\">{0}</td> ", imgStrQRUrl2);
+                        sb.Append("</tr>");
+                        sb.Append("<tr style=\"height: 30px\">");
+                        sb.AppendFormat("<td align=\"center\" valign=\"top\" style=\" font-size: 9pt; font-weight: bold;\">{0}</td> ", projectName);
+                        sb.Append("</tr>");
+                        sb.Append("</table>");
+
+                        sb.Append("<table width=\"100% \" cellspacing=\"0\" rules=\"all\" border=\"0\" style=\"border-collapse:collapse;font-size: 9pt;background-color:#5b9bd5;\">");
+                        sb.Append("<tr style=\"height: 25PX\">");
+                        sb.AppendFormat("<td align=\"right\"  style=\"width: 20%;\" >{0}</td> ", "单位：");
+                        sb.AppendFormat("<td align=\"left\"  style=\"width: 55%;\" >{0}</td> ", unitName2);
+                        string imgStrphotoUrl2 = "<img width='85' height='110' src='" + (Funs.SGGLUrl + photoUrl2).Replace('\\', '/') + "'></img>";
+                        sb.AppendFormat("<td align=\"center\"  style=\"width: 25%;\" rowspan=\"5\">{0}</td> ", imgStrphotoUrl2);
+                        sb.Append("</tr>");
+
+                        sb.Append("<tr style=\"height: 25PX\">");
+                        sb.AppendFormat("<td align=\"right\" >{0}</td> ", "岗位：");
+                        sb.AppendFormat("<td align=\"left\" >{0}</td> ", workName2);
+                        sb.Append("</tr>");
+                        sb.Append("<tr style=\"height: 25PX\">");
+                        sb.AppendFormat("<td align=\"right\" >{0}</td> ", "姓名：");
+                        sb.AppendFormat("<td align=\"left\" >{0}</td> ", personName2);
+                        sb.Append("</tr>");
+                        sb.Append("<tr style=\"height: 25PX\">");
+                        sb.AppendFormat("<td align=\"right\" >{0}</td> ", "编号：");
+                        sb.AppendFormat("<td align=\"left\" >{0}</td> ", cardNo2);
+                        sb.Append("</tr>");
+                        sb.Append("<tr style=\"height: 25PX\">");
+                        sb.AppendFormat("<td align=\"right\" >{0}</td> ", "");
+                        sb.AppendFormat("<td align=\"left\" >{0}</td> ", "");
+                        sb.Append("</tr>");
+
+                        sb.Append("</table>");
+                    }
+                    sb.Append("</td >");
+                    sb.Append("</tr>");
+
+                    sb.Append("<tr  style=\"height:15px\">");
+                    sb.AppendFormat("<td align=\"right\"  style=\"width: 100%\" colspan=\"3\">{0}</td> ", "");
+                    sb.Append("<tr >");
+                }
+            }
+            sb.Append("</table>");
             return sb.ToString();
         }
         #endregion

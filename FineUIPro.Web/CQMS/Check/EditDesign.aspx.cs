@@ -298,6 +298,11 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     this.txtRealCompleteDate.Enabled = true;
                 }
+                Model.Check_Design design1 = BLL.DesignService.GetDesignByDesignId(DesignId);
+                if (design1 != null && !string.IsNullOrEmpty(design1.SaveHandleMan))
+                {
+                    this.drpHandleMan.SelectedValue = design1.SaveHandleMan;
+                }
             }
         }
         private void BindGrid()
@@ -460,6 +465,7 @@ namespace FineUIPro.Web.CQMS.Check
                 }
                 if (saveType == "submit")
                 {
+                    design.SaveHandleMan = null;
                     Model.Check_DesignApprove approve = new Model.Check_DesignApprove();
                     approve.DesignId = design1.DesignId;
                     if (this.drpHandleMan.SelectedValue != BLL.Const._Null)
@@ -469,6 +475,10 @@ namespace FineUIPro.Web.CQMS.Check
                     approve.ApproveType = this.drpHandleType.SelectedValue;
                     BLL.DesignApproveService.AddDesignApprove(approve);
                     APICommonService.SendSubscribeMessage(approve.ApproveMan, "设计变更待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                }
+                if (saveType == "save")
+                {
+                    design.SaveHandleMan = this.drpHandleMan.SelectedValue;
                 }
                 design.DesignId = DesignId;
                 BLL.DesignService.UpdateDesign(design);
@@ -482,6 +492,10 @@ namespace FineUIPro.Web.CQMS.Check
                 else
                 {
                     design.DesignId = SQLHelper.GetNewID(typeof(Model.Check_Design));
+                }
+                if (saveType == "save")
+                {
+                    design.SaveHandleMan = this.drpHandleMan.SelectedValue;
                 }
                 design.CompileMan = this.CurrUser.UserId;
                 design.CompileDate = DateTime.Now;

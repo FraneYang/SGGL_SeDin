@@ -13,5 +13,7 @@ namespace Model
         public List<string> legend { get; set; }
         public List<string> categories { get; set; }
         public List<SingleSerie> series { get; set; }
+
+        public List<SingleSerie> series2 { get; set; }
     }
 }

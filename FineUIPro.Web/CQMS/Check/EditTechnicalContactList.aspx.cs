@@ -379,8 +379,11 @@ namespace FineUIPro.Web.CQMS.Check
                     HandleImg = 0;
                     drpProposeUnit_SelectedIndexChanged(null, null);
                 }
-
-
+                Model.Check_TechnicalContactList technicalContactList1 = TechnicalContactListService.GetTechnicalContactListByTechnicalContactListId(TechnicalContactListId);
+                if (technicalContactList1 != null && !string.IsNullOrEmpty(technicalContactList1.SaveHandleMan))
+                {
+                    this.drpHandleMan.SelectedValue = technicalContactList1.SaveHandleMan;
+                }
             }
             else
             {
@@ -866,6 +869,7 @@ namespace FineUIPro.Web.CQMS.Check
                 }
                 if (saveType == "submit")
                 {
+                    technicalContactList.SaveHandleMan = null;
                     //if (tr1.Visible == true && !string.IsNullOrEmpty(hdReFilePath.Value))    //总包专工操作且已上传反馈附件
                     //{
                     //    Model.Check_TechnicalContactListApprove approve = new Model.Check_TechnicalContactListApprove();
@@ -914,6 +918,10 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                     }
                 }
+                if (saveType == "save")
+                {
+                    technicalContactList.SaveHandleMan = this.drpHandleMan.SelectedValue;
+                }
                 technicalContactList.TechnicalContactListId = TechnicalContactListId;
                 technicalContactList.ReOpinion = txtReOpinion.Text.Trim();
                 TechnicalContactListService.UpdateTechnicalContactList(technicalContactList);
@@ -927,6 +935,10 @@ namespace FineUIPro.Web.CQMS.Check
                 else
                 {
                     technicalContactList.TechnicalContactListId = SQLHelper.GetNewID(typeof(Model.Check_TechnicalContactList));
+                }
+                if (saveType == "save")
+                {
+                    technicalContactList.SaveHandleMan = this.drpHandleMan.SelectedValue;
                 }
                 //technicalContactList.TechnicalContactListId = newId;
                 technicalContactList.CompileMan = CurrUser.UserId;

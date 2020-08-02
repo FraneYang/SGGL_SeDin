@@ -115,8 +115,14 @@ namespace BLL
                 newJointCheck.ProjectId = JointCheck.ProjectId;
                 newJointCheck.CheckType = JointCheck.CheckType;
                 newJointCheck.CheckName = JointCheck.CheckName;
-                newJointCheck.ProposeUnitId = JointCheck.ProposeUnitId;
-                newJointCheck.UnitId = JointCheck.UnitId;
+                if (!string.IsNullOrEmpty(JointCheck.ProposeUnitId))
+                {
+                    newJointCheck.ProposeUnitId = JointCheck.ProposeUnitId;
+                }
+                if (!string.IsNullOrEmpty(JointCheck.UnitId))
+                {
+                    newJointCheck.UnitId = JointCheck.UnitId;
+                }
                 newJointCheck.CheckDate = JointCheck.CheckDate;
                 newJointCheck.CheckMan = JointCheck.CheckMan;
                 newJointCheck.State = JointCheck.State;
@@ -295,7 +301,7 @@ namespace BLL
                                ProposeUnitName = UnitService.getUnitNamesUnitIds(x.ProposeUnitId)
                            };
                 List<Model.Check_JointCheck> res = new List<Model.Check_JointCheck>();
-                var list = qres.Skip(startRowIndex).Take(maximumRows).ToList();
+                var list = qres.Skip(startRowIndex* maximumRows).Take(maximumRows).ToList();
                 foreach (var item in list)
                 {
                     Model.Check_JointCheck jc = new Model.Check_JointCheck();
@@ -390,7 +396,7 @@ namespace BLL
                                ProposeUnitName = UnitService.getUnitNamesUnitIds(x.ProposeUnitId)
                            };
                 List<Model.Check_JointCheck> res = new List<Model.Check_JointCheck>();
-                var list = qres.Skip(startRowIndex).Take(maximumRows).ToList();
+                var list = qres.Skip(startRowIndex* maximumRows).Take(maximumRows).ToList();
                 foreach (var item in list)
                 {
                     Model.Check_JointCheck jc = new Model.Check_JointCheck();

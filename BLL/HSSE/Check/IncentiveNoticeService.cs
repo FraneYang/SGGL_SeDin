@@ -211,6 +211,11 @@ namespace BLL
                 UploadFileService.DeleteFile(Funs.RootPath, incentiveNotice.AttachUrl);//删除附件
                 ////删除流程表
                 BLL.CommonService.DeleteFlowOperateByID(incentiveNotice.IncentiveNoticeId);
+                var getFlow = db.Check_IncentiveNoticeFlowOperate.Where(x => x.IncentiveNoticeId == incentiveNotice.IncentiveNoticeId);
+                if (getFlow.Count() > 0)
+                {
+                    db.Check_IncentiveNoticeFlowOperate.DeleteAllOnSubmit(getFlow);
+                }
                 db.Check_IncentiveNotice.DeleteOnSubmit(incentiveNotice);
                 db.SubmitChanges();
             }

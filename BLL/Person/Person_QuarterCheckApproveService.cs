@@ -17,7 +17,7 @@ namespace BLL
         /// <returns>人员信息</returns>
         public static List<Model.Person_QuarterCheckApprove> GetApproveByQuarterCheckId(string QuarterCheckId)
         {
-            var getApprove=(from x in Funs.DB.Person_QuarterCheckApprove where x.QuarterCheckId == QuarterCheckId && x.ApproveDate == null select x).ToList();
+            var getApprove = (from x in Funs.DB.Person_QuarterCheckApprove where x.QuarterCheckId == QuarterCheckId && x.ApproveDate == null select x).ToList();
             return getApprove;
         }
         public static Model.Person_QuarterCheckApprove GetApproveByQuarterCheckIdUserId(string QuarterCheckId, string UserId)
@@ -40,7 +40,7 @@ namespace BLL
             {
                 ApproveId = contruct.ApproveId,
                 QuarterCheckId = contruct.QuarterCheckId,
-                UserId=contruct.UserId,
+                UserId = contruct.UserId,
             };
             db.Person_QuarterCheckApprove.InsertOnSubmit(newcontruct);
             db.SubmitChanges();
@@ -72,6 +72,58 @@ namespace BLL
             {
                 db.Person_QuarterCheckApprove.DeleteOnSubmit(check);
                 db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主表id和用户id获取审批记录
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static Model.Person_QuarterCheckApprove getCurrApproveForApi(string id, string userId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Person_QuarterCheckApprove newApprove = db.Person_QuarterCheckApprove.FirstOrDefault(e => e.QuarterCheckId == id && e.UserId == userId && e.ApproveDate == null);
+                //if (newApprove != null)
+                //{
+                //    Model.Sys_User user = BLL.UserService.GetUserByUserId(newApprove.ApproveMan);
+                //    if (user != null)
+                //    {
+                //        newApprove.ApproveIdea = user.UserName;
+                //    }
+                //}
+                return newApprove;
+            }
+        }
+
+        /// <summary>
+        /// 根据审批信息id更新审批记录
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static void UpdateApproveForApi(string approveId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Person_QuarterCheckApprove newApprove = db.Person_QuarterCheckApprove.FirstOrDefault(e => e.ApproveId == approveId);
+                if (newApprove != null)
+                {
+                    newApprove.ApproveDate = DateTime.Now;
+                    db.SubmitChanges();
+                }
+                var getApprove = (from x in db.Person_QuarterCheckApprove where x.QuarterCheckId == newApprove.QuarterCheckId && x.ApproveDate == null select x).ToList();
+                if (getApprove.Count == 0)
+                {
+                    Model.Person_QuarterCheck Construct = BLL.Person_QuarterCheckService.GetPerson_QuarterCheckById(newApprove.QuarterCheckId);
+                    if (Construct != null)
+                    {
+                        Construct.State = "1";
+                        BLL.Person_QuarterCheckService.UpdatePerson_QuarterCheck(Construct);
+                    }
+                }
             }
         }
     }

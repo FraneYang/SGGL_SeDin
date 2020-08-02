@@ -64,6 +64,7 @@ namespace BLL
             newCheckControl.RectifyDate = CheckControl.RectifyDate;
             newCheckControl.ReAttachUrl = CheckControl.ReAttachUrl;
             newCheckControl.State = CheckControl.State;
+            newCheckControl.SaveHandleMan = CheckControl.SaveHandleMan;
 
             db.Check_CheckControl.InsertOnSubmit(newCheckControl);
             db.SubmitChanges();
@@ -94,6 +95,7 @@ namespace BLL
                 newCheckControl.RectifyDate = CheckControl.RectifyDate;
                 newCheckControl.ReAttachUrl = CheckControl.ReAttachUrl;
                 newCheckControl.State = CheckControl.State;
+                newCheckControl.SaveHandleMan = CheckControl.SaveHandleMan;
 
                 db.Check_CheckControl.InsertOnSubmit(newCheckControl);
                 db.SubmitChanges();
@@ -217,6 +219,7 @@ namespace BLL
             newCheckControl.RectifyDate = CheckControl.RectifyDate;
             newCheckControl.ReAttachUrl = CheckControl.ReAttachUrl;
             newCheckControl.State = CheckControl.State;
+            newCheckControl.SaveHandleMan = CheckControl.SaveHandleMan;
 
             db.SubmitChanges();
         }
@@ -279,18 +282,21 @@ namespace BLL
                     x.UnitId = list[i].UnitId + "$" + UnitService.GetUnitNameByUnitId(list[i].UnitId);
                     var punit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(projectId, list[i].ProposeUnitId);
                     string unitType = string.Empty;
-                    if(punit!=null)
+                    if (punit != null)
                     {
                         unitType = punit.UnitType;
                     }
-                    x.ProposeUnitId = list[i].ProposeUnitId + "$" + UnitService.GetUnitNameByUnitId(list[i].ProposeUnitId)+"$"+ unitType;
+                    x.ProposeUnitId = list[i].ProposeUnitId + "$" + UnitService.GetUnitNameByUnitId(list[i].ProposeUnitId) + "$" + unitType;
                     x.CheckMan = list[i].CheckMan + "$" + list[i].UnitWork + "$" + ConvertManAndID(list[i].CheckControlCode);
                     x.State = list[i].State;
                     x.CheckSite = list[i].CheckSite;
                     x.IsSubmit = list[i].IsSubmit;
                     x.AttachUrl = list[i].AttachUrl;
                     x.QuestionDef = list[i].QuestionDef;
-                    x.QuestionType = list[i].QuestionType + "$" + BLL.QualityQuestionTypeService.GetQualityQuestionType(list[i].QuestionType).QualityQuestionType;
+                    if (!string.IsNullOrEmpty(list[i].QuestionType))
+                    {
+                        x.QuestionType = list[i].QuestionType + "$" + BLL.QualityQuestionTypeService.GetQualityQuestionType(list[i].QuestionType).QualityQuestionType;
+                    }
                     x.RectifyOpinion = list[i].RectifyOpinion;
                     x.LimitDate = list[i].LimitDate;
                     x.CNProfessionalCode = list[i].CNProfessionalCode + "$" + list[i].CNProfessionalName;

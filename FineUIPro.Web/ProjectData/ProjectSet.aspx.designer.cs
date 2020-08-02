@@ -148,15 +148,6 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.Menu Menu1;
         
         /// <summary>
-        /// btnEnter 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnEnter;
-        
-        /// <summary>
         /// btnMenuEdit 控件。
         /// </summary>
         /// <remarks>
@@ -166,13 +157,13 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.MenuButton btnMenuEdit;
         
         /// <summary>
-        /// btnView 控件。
+        /// btnEnter 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnView;
+        protected global::FineUIPro.MenuButton btnEnter;
         
         /// <summary>
         /// btnMenuDelete 控件。

@@ -280,6 +280,7 @@ namespace BLL
             newWorkContact.State = workContact.State;
             newWorkContact.IsFinal = workContact.IsFinal;
             newWorkContact.ReOpinion = workContact.ReOpinion;
+            newWorkContact.SaveHandleMan = workContact.SaveHandleMan;
             db.Unqualified_WorkContact.InsertOnSubmit(newWorkContact);
             db.SubmitChanges();
         }
@@ -303,6 +304,7 @@ namespace BLL
                 newWorkContact.State = workContact.State;
                 newWorkContact.IsFinal = workContact.IsFinal;
                 newWorkContact.ReOpinion = workContact.ReOpinion;
+                newWorkContact.SaveHandleMan = workContact.SaveHandleMan;
                 db.Unqualified_WorkContact.InsertOnSubmit(newWorkContact);
                 db.SubmitChanges();
             }
@@ -325,6 +327,7 @@ namespace BLL
             newWorkContact.AttachUrl = workContact.AttachUrl;
             newWorkContact.State = workContact.State;
             newWorkContact.ReOpinion = workContact.ReOpinion;
+            newWorkContact.SaveHandleMan = workContact.SaveHandleMan;
             db.SubmitChanges();
         }
         public static List<Model.Unqualified_WorkContact> getListDataForApi(string projectId, string name, int startRowIndex, int maximumRows)

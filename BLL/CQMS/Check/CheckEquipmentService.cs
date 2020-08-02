@@ -140,6 +140,7 @@ namespace BLL
             newCheckEquipment.CompileDate = CheckEquipment.CompileDate;
             newCheckEquipment.State = CheckEquipment.State;
             newCheckEquipment.Isdamage = CheckEquipment.Isdamage;
+            newCheckEquipment.SaveHandleMan = CheckEquipment.SaveHandleMan;
             db.Check_CheckEquipment.InsertOnSubmit(newCheckEquipment);
             db.SubmitChanges();
         }
@@ -164,6 +165,7 @@ namespace BLL
             newCheckEquipment.AttachUrl = CheckEquipment.AttachUrl;
             newCheckEquipment.State = CheckEquipment.State;
             newCheckEquipment.Isdamage = CheckEquipment.Isdamage;
+            newCheckEquipment.SaveHandleMan = CheckEquipment.SaveHandleMan;
             db.SubmitChanges();
         }
 

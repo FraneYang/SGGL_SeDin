@@ -109,7 +109,7 @@ namespace FineUIPro.Web.HSSE.Check {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtCheckedDate;
+        protected global::FineUIPro.TextBox txtCheckedDate;
         
         /// <summary>
         /// drpHiddenHazardType 控件。
@@ -118,16 +118,7 @@ namespace FineUIPro.Web.HSSE.Check {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpHiddenHazardType;
-        
-        /// <summary>
-        /// Form2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form2;
+        protected global::FineUIPro.TextBox drpHiddenHazardType;
         
         /// <summary>
         /// Grid1 控件。
@@ -137,6 +128,15 @@ namespace FineUIPro.Web.HSSE.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Grid Grid1;
+        
+        /// <summary>
+        /// Label1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// lbImageUrl 控件。
@@ -157,15 +157,6 @@ namespace FineUIPro.Web.HSSE.Check {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// Form4 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form4;
-        
-        /// <summary>
         /// gvFlowOperate 控件。
         /// </summary>
         /// <remarks>
@@ -173,6 +164,15 @@ namespace FineUIPro.Web.HSSE.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Grid gvFlowOperate;
+        
+        /// <summary>
+        /// lblPageIndex 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPageIndex;
         
         /// <summary>
         /// WindowAtt 控件。

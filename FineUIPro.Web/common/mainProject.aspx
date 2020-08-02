@@ -58,7 +58,10 @@
             font-size:12px;
         }
         .bg-item-fix{
-            padding:0 10px 10px;box-sizing:border-box;
+            width:100%;
+            height:100%;
+            padding:0 10px 10px;
+            box-sizing:border-box;
         }
         .mbnone{
             margin-bottom: 0;
@@ -92,7 +95,7 @@
             background-size: 100% 100%;
         }
         .wrap{
-            padding: 10px 0;
+            padding: 10px 0 0;
             height:100%;
             box-sizing:border-box;
         }
@@ -129,12 +132,13 @@
         }
         .bw-b-bottom-up{
             height:100%;
+            margin-bottom: 0!important;
         }
-        .tab .t-item{
+         .tab-wrap .tab .t-item{
             width:auto;
-            background-color:#2779AA;
+            background-color:#2779AA !important;
         }
-        .tab .active{
+        .tab-wrap .tab .active{
              background-color:#fff;
         }
         
@@ -160,7 +164,7 @@
         .num-wrap .tit{
             color:#fff;
             margin-bottom: 10px;
-            font-size:10px;
+            font-size:11px;
         }
         .num-wrap .num{
             align-items:center;
@@ -173,6 +177,25 @@
             padding: 2px;
             font-size:24px;
         }
+        .num-wrap .color1>div{
+             color:green;
+        }
+        .num-wrap .color2>div{
+             color:blue;
+        }
+        .bg-item{
+             height:100%;
+        }
+        .itemflex{
+           padding-bottom:10px;
+        }
+        .itemflex2{
+             padding-top:10px;
+        }
+        .bw-b-bottom{
+            width:100%;
+            height:100%;
+        }
     </style>
 </head>
 <body >
@@ -180,37 +203,68 @@
         <div class="bottom-wrap-new flex">
             <!--左侧-->
             <div class="bw-s flex1 flex flexV">
-                <div class="bg-item flex1">
-                    <div class="bw-item-content flex flexV">
-                        <div class="tit-new">安全数据统计</div>
-                        <div class="content-wrap flex1 flex">
-                            <div class="flex1" id='one1' style="width: 100%; height: 100%;"></div>
-                            <div class="spline-mid"></div>
-                            <div class="flex1" id='one2' style="width: 100%; height: 100%;"></div>
+                <div class="flex1 itemflex">
+                    <div class="bg-item">
+                        <div class="bw-item-content flex flexV">
+                            <div class="tit-new">安全数据统计</div>
+                            <div class="content-wrap flex1 flex flexV" style="padding:0 10px;">
+                                <div class="row1 flex">
+                                    <div>安全人工时：</div><span class="num">1432345</span><div>小时</div>
+                                </div>
+                                <div class="row2 flex1 flex">
+                                    <div class="item flex1">
+                                        <div id="one2" style="width: 100%; height: 100%;"></div>
+                                    </div>
+                                    <div class="item flex1">
+                                      <div class="item-txt-list flex">
+                                        <div class="txt-tit">总数量：</div>
+                                        <div>43</div>
+                                      </div>
+                                      <div class="item-txt-list flex">
+                                        <div class="txt-tit fixtt">待整改：</div>
+                                        <div>10</div>
+                                      </div>
+                                      <div class="item-txt-list flex">
+                                        <div class="txt-tit fixtt">已整改：</div>
+                                        <div>33</div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%--<div class="content-wrap flex1 flex">
+                                <div class="flex1" id='one1' style="width: 100%; height: 100%;"></div>
+                                <div class="spline-mid"></div>
+                                <div class="flex1" id='one2' style="width: 100%; height: 100%;"></div>
+                            </div>--%>
                         </div>
                     </div>
                 </div>
-                <div class="bg-item flex1">
-                    <div class="bw-item-content flex flexV">
-                        <div class="tit-new">质量一次验收合格率</div>
-                        <div id='two' style="width: 100%; height: 100%;"></div>
+                <div class="flex1 itemflex">
+                    <div class="bg-item ">
+                        <div class="bw-item-content flex flexV">
+                            <div class="tit-new">质量一次验收合格率</div>
+                            <div id='two' style="width: 100%; height: 100%;"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-item flex1">
-                    <div class="bw-item-content flex flexV">
-                        <div class="tit-new">焊接数据统计</div>
-                        <%--<div id='three' style="width: 100%; height: 100%;"></div>--%>
-                        <div class="content-wrap flex1 flex">
-                            <div class="flex1" id='three1' style="width: 100%; height: 100%;"></div>
-                            <div class="spline-mid"></div>
-                            <div class="flex1" id='three2' style="width: 100%; height: 100%;"></div>
+                <div class="flex1 itemflex">
+                    <div class="bg-item ">
+                        <div class="bw-item-content flex flexV">
+                            <div class="tit-new">焊接数据统计</div>
+                            <%--<div id='three' style="width: 100%; height: 100%;"></div>--%>
+                            <div class="content-wrap flex1 flex">
+                                <div class="flex1" id='three1' style="width: 100%; height: 100%;"></div>
+                                <div class="spline-mid"></div>
+                                <div class="flex1" id='three2' style="width: 100%; height: 100%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--中间-->
             <div class="bw-b flex2 flex flexV">
-                <div class="bw-b-bottom-up flex1">
+                <div class="flex2 ">
+                    <div class="bw-b-bottom-up">
                         <div class="info js-item-1" style="display:none">
                             <div class="row" style="margin-top:50px;">
                                 <div class="item">
@@ -278,11 +332,21 @@
                         </div>
                         <%--<div id='map' style="width: 100%; height: 100%;"></div>--%>
                     </div>
+                </div>
+                <div class="flex1 itemflex itemflex2">
                 <div class="bw-b-bottom flex">
-                    <div class="flex1 widthper mbnone" >
-                        <div class="bg-item bg-item-fix pd0">
-                            <div class="tit-new">待办/预警</div>
-                            <div class="swiper-container swiperHeight pdlrb" id='swiper1'>
+                    <div class="flex1 widthper mbnone"  id="swiper-pre" style="flex: 1; width: 48%;">
+                        <div class="flex1 flex flexV bg-item bg-item-fix pd0">
+                            <div class="tit-new">
+                                <div class="tab-wrap-tit">
+                                    <div class="tab" data-value="1">
+                                        <div class="t-item active">待办</div>
+                                        <div class="spline"></div>
+                                        <div class="t-item">预警</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-container pdlrb" id='swiper1' style="width:100%;">
                                 <ul class="content-ul swiper-wrapper">
                                     <li class="c-item swiper-slide">
                                         <div class="tit">关于加强全国两会期间安全防范工作</div>
@@ -325,10 +389,10 @@
                         </div>
                     </div>
                     <div class="spline" style="width:2%;"></div>
-                    <div class="flex1 widthper mbnone">
-                        <div class="bg-item bg-item-fix pd0">
+                    <div class="flex1 widthper mbnone" style="flex: 1; width: 48%;">
+                        <div class="flex1 flex flexV bg-item bg-item-fix pd0">
                             <div class="tit-new">通知</div>
-                            <div class="swiper-container swiperHeight pdlrb" id='swiper2'>
+                            <div class="swiper-container pdlrb" id='swiper2' style="width:100%;">
                                 <ul class="content-ul swiper-wrapper">
                                     <li class="c-item swiper-slide">
                                         <div class="tit">关于加强全国两会期间安全防范工作</div>
@@ -372,10 +436,12 @@
                     </div>
                     
                 </div>
+                </div>
             </div>
             <!--右侧-->
             <div class="bw-s flex1 flex flexV">
-                 <div class="bg-item " style="height:150px;">
+                 <div class="flex1 itemflex">
+                 <div class="bg-item" >
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">劳务数据统计</div>
                         <%--总人数--%>
@@ -390,7 +456,7 @@
                             </div>
                              <div class="num-wrap">
                                 <div class="tit">作业人员总人数</div>
-                                <div class="num flex">
+                                <div class="num flex color1">
                                     <div>3</div>
                                     <div>0</div>
                                     <div>1</div>
@@ -398,7 +464,7 @@
                             </div>
                             <div class="num-wrap">
                                 <div class="tit">管理人员总人数</div>
-                                <div class="num flex">
+                                <div class="num flex color2">
                                     <div>2</div>
                                     <div>7</div>
                                     <div>2</div>
@@ -407,7 +473,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-item flex2">
+                </div>
+                 <div class="flex1 itemflex">
+                <div class="bg-item">
                      <div class="bw-item-content flex flexV">
                         <div class="tit-new">进度统计</div>
                         <div class="content-wrap flex1 flex">
@@ -415,7 +483,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-item flex2">
+                </div>
+                 <div class="flex1 itemflex">
+                <div class="bg-item">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">合同统计</div>
                         <div class="content-wrap tab-content flex1" style="overflow:auto;">
@@ -467,7 +537,7 @@
                         </div>
                     </div>
                 </div>
-                
+                </div>
             </div>
 
         </div>
@@ -542,7 +612,7 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option, true)
     }
-    category_One('one1', '安全人工时统计', 80)
+    //category_One('one1', '安全人工时统计', 80)
     category_One('three1', '项目焊接一次合格率', 80)
     category_One('three2', '项目焊接进度完成率', 80)
 </script>
@@ -572,7 +642,7 @@
                     fontSize: 10,
                     fontWeight:'300'
                 },
-                show: true
+                show: false
             },
             graphic: {
                 type: "text",
@@ -622,9 +692,10 @@
         //为echarts对象加载数据
         myChartPie.setOption(optionPie);
     }
-    var data = [{ value: 10, name: '' },
-    { value: 5, name: '' }];
-    pie('one2', data, "安全隐患整改统计", "43")
+    var data = [{ value: 33, name: '' },
+    { value: 10, name: '' }];
+    //pie('one2', data, "安全隐患整改统计", "43")
+    pie('one2', data, "", "43")
 </script>
 <script type="text/javascript">
     function category(id, xArr, series) {
@@ -959,31 +1030,7 @@
                 $(".js-item-1").eq(2).show()
             }
         }else if (value == 1) {
-            if (index == 0) {
-                var xArr = ["分包一", "分包二", "分包三"]
-                var data = [
-                    {
-                        name: '累计计划值',
-                        type: 'line',
-                        smooth: true,
-                        data: [0.23, 0.58, 1],
-                        //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                    },
-                    {
-                        name: '累计实际值',
-                        type: 'line',
-                        smooth: true,
-                        data: [0.2, 0.48, 0.83],
-                        //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                    }
-                ]
-                category_Two('two', xArr, data)
-            } else if (index == 2) {
-                var dataX = ['施工已完产值', '项目施工合同总额']
-                var data = [20, 40,]
-                var dataT = [100, 100]
-               echartsBarInit('two', "进度统计", dataX, data, dataT);
-            }
+            
         }
         else if (value == 2) {
             var xArr = ["分包一", "分包二", "分包三"]
@@ -1236,19 +1283,24 @@
 </script>
 
 
-<script>        
-    var mySwiper = new Swiper('#swiper1', {
-        //autoplay: 3000,//可选选项，自动滑动
-        direction: 'vertical',
-        loop: false,
-        slidesPerView: 5
-    })
+<script>    
+    $(document).ready(function () {
+        var height = $("#swiper-pre").height()
+        $("#swiper1,#swiper2").css("height", (height -38) + 'px')
+         var mySwiper = new Swiper('#swiper1', {
+            //autoplay: 3000,//可选选项，自动滑动
+            direction: 'vertical',
+            loop: false,
+            slidesPerView: 5
+        })
 
-    var mySwiper = new Swiper('#swiper2', {
-        //autoplay: 4000,//可选选项，自动滑动
-        direction: 'vertical',
-        loop: false,
-        slidesPerView: 5
+        var mySwiper = new Swiper('#swiper2', {
+            //autoplay: 4000,//可选选项，自动滑动
+            direction: 'vertical',
+            loop: false,
+            slidesPerView: 5
+        })
     })
+   
 </script>
 </html>

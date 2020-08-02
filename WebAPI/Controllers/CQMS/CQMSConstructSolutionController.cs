@@ -2,6 +2,7 @@
 using Model;
 using System.Collections.Generic;
 using System;
+using BLL;
 
 namespace Mvc.Controllers
 {
@@ -68,6 +69,19 @@ namespace Mvc.Controllers
             return res;
         }
         /// <summary>
+        /// 
+        /// </summary>
+        public static void SaveAttachFile(string dataId, string menuId, string url)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = dataId,
+                UrlStr = url,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+        }
+        /// <summary>
         /// 当前版次 会签人
         /// </summary>
         /// <param name="id"></param>
@@ -108,6 +122,7 @@ namespace Mvc.Controllers
             ResponseData<string> res = new ResponseData<string>();
             try
             {
+                SaveAttachFile(approve.ConstructSolutionApproveId, BLL.Const.CQMSConstructSolutionMenuId, approve.AttachUrl);
                 // Model.Check_CheckControlApprove approve1 = BLL.CheckControlApproveService.GetCheckControlApproveByCheckControlId(approve.CheckControlCode);
                 approve.ApproveDate = DateTime.Now;
                 approve = BLL.CQMSConstructSolutionApproveService.UpdateConstructSolutionApproveForApi(approve);

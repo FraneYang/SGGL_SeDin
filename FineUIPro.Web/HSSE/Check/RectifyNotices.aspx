@@ -76,7 +76,7 @@
                             SortField="RectifyNoticesCode" FieldType="String" HeaderText="单号" TextAlign="Left"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="110px" ColumnID="WorkAreaName" DataField="WorkAreaName"
+                        <f:RenderField Width="150px" ColumnID="WorkAreaName" DataField="WorkAreaName"
                             SortField="WorkAreaName" FieldType="String" HeaderText="单位工程" TextAlign="Left"
                             HeaderTextAlign="Center">
                         </f:RenderField>
@@ -93,15 +93,15 @@
                             FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="检查日期"
                             HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="90px" ColumnID="DutyPersonName" DataField="DutyPersonName"
-                            SortField="DutyPersonName" FieldType="String" HeaderText="接收人"
+                        <f:RenderField Width="110px" ColumnID="DutyPersonName" DataField="DutyPersonName"
+                            SortField="DutyPersonName" FieldType="String" HeaderText="整改责任人"
                             TextAlign="Left" HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="145px" ColumnID="DutyPersonTime" DataField="DutyPersonTime" SortField="DutyPersonTime"
-                            FieldType="Date" Renderer="Date" HeaderText="接收日期"
+                        <f:RenderField Width="100px" ColumnID="CompleteDate" DataField="CompleteDate" SortField="CompleteDate"
+                            FieldType="Date" Renderer="Date" HeaderText="整改日期"
                             HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="140px" ColumnID="StatesName" DataField="StatesName"
+                        <f:RenderField Width="145px" ColumnID="StatesName" DataField="StatesName"
                             SortField="StatesName" FieldType="String" HeaderText="状态"
                             TextAlign="Left" HeaderTextAlign="Center">
                         </f:RenderField>
@@ -123,12 +123,15 @@
         </f:Panel>
         <f:Window ID="Window1" Title="编辑隐患整改通知单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="1200px" Height="600px">
+            Width="1100px" Height="560px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>
-		 <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"
-                    Text="修改" Icon="Pencil" OnClick="btnMenuModify_Click">
+		        <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"
+                    Text="编辑" Icon="Pencil" OnClick="btnMenuModify_Click">
+                </f:MenuButton>
+                 <f:MenuButton ID="btnView" EnablePostBack="true" runat="server" 
+                    Text="查看" Icon="Find" OnClick="btnView_Click">
                 </f:MenuButton>
                  <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server" 
                     Text="导出[通知单]" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="false">

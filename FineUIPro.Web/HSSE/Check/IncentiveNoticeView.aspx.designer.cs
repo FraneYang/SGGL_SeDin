@@ -328,22 +328,31 @@ namespace FineUIPro.Web.HSSE.Check {
         protected global::FineUIPro.HtmlEditor txtFileContents;
         
         /// <summary>
-        /// ContentPanel1 控件。
+        /// GroupPanel3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ContentPanel ContentPanel1;
+        protected global::FineUIPro.GroupPanel GroupPanel3;
         
         /// <summary>
-        /// ctlAuditFlow 控件。
+        /// gvFlowOperate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Web.Controls.FlowOperateControl ctlAuditFlow;
+        protected global::FineUIPro.Grid gvFlowOperate;
+        
+        /// <summary>
+        /// Label1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// Toolbar1 控件。

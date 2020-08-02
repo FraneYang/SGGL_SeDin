@@ -255,7 +255,7 @@
                             <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
                                 DataKeyNames="CheckControlApproveId" EnableColumnLines="true" ForceFit="true">
                                 <Columns>
-                                    <f:RowNumberField Width="20px" />
+                                    <f:RowNumberField Width="40px" />
                                     <f:TemplateField ColumnID="State" Width="250px" HeaderText="办理类型" HeaderTextAlign="Center" TextAlign="Center"
                                         EnableLock="true" Locked="False">
                                         <ItemTemplate>
@@ -281,7 +281,7 @@
                         <f:HiddenField ID="hdTechnicalContactListId" runat="server"></f:HiddenField>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" OnClick="btnSave_Click" runat="server" ToolTip="保存" ValidateForms="SimpleForm1">
+                        <f:Button ID="btnSave" Icon="SystemSave" OnClick="btnSave_Click" runat="server" ToolTip="保存">
                         </f:Button>
                         <f:Button ID="btnSubmit" Icon="SystemSaveNew" OnClick="btnSubmit_Click" runat="server" ToolTip="提交" ValidateForms="SimpleForm1">
                         </f:Button>

@@ -124,6 +124,22 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 隐患类别
+        /// </summary>
+        public string HiddenHazardType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 隐患类别名称
+        /// </summary>
+        public string HiddenHazardTypeName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 限制时间
         /// </summary>
         public string LimitedDate

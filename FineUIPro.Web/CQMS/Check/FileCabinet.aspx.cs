@@ -161,7 +161,7 @@ namespace FineUIPro.Web.CQMS.Check
             }
             if (e.CommandName.Equals("download"))
             {
-                PageContext.RegisterStartupScript(Windowtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?type={0}&toKeyId={1}&path=FileUpload/FileCabinet&menuId={2}",
+                PageContext.RegisterStartupScript(Windowtt.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?type={0}&toKeyId={1}&path=FileUpload/FileCabinet&menuId={2}",
                 -1, fileId, Const.FileCabinetMenuId)));
             }
 

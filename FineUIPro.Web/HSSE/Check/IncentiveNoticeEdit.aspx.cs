@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
 
 namespace FineUIPro.Web.HSSE.Check
@@ -52,6 +53,20 @@ namespace FineUIPro.Web.HSSE.Check
                 ViewState["AttachUrl"] = value;
             }
         }
+        /// <summary>
+        /// 当前状态
+        /// </summary>
+        public string State
+        {
+            get
+            {
+                return (string)ViewState["State"];
+            }
+            set
+            {
+                ViewState["State"] = value;
+            }
+        }
         #endregion
 
         #region 加载
@@ -66,19 +81,18 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                BLL.UserService.InitUserDropDownList(this.drpSignMan, this.CurrUser.LoginProjectId, true);
 
                 BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.ProjectId, true);
                 Funs.FineUIPleaseSelect(this.drpTeamGroup);
                 Funs.FineUIPleaseSelect(this.drpPerson);
-                BLL.UserService.InitUserDropDownList(this.drpApproveMan, this.CurrUser.LoginProjectId, true);
                 BLL.ConstValue.InitConstValueDropDownList(this.drpRewardType, BLL.ConstValue.Group_RewardType, true);
                 //BindGrid(string.Empty);
                 this.IncentiveNoticeId = Request.Params["IncentiveNoticeId"];
                 this.txtCurrency.Text = "人民币";
-                if (!string.IsNullOrEmpty(this.IncentiveNoticeId))
+                Model.Check_IncentiveNotice incentiveNotice = BLL.IncentiveNoticeService.GetIncentiveNoticeById(this.IncentiveNoticeId);
+                if (incentiveNotice!=null)
                 {
-                    Model.Check_IncentiveNotice incentiveNotice = BLL.IncentiveNoticeService.GetIncentiveNoticeById(this.IncentiveNoticeId);
+                    BindGrid();
                     if (incentiveNotice != null)
                     {
                         this.ProjectId = incentiveNotice.ProjectId;
@@ -123,193 +137,62 @@ namespace FineUIPro.Web.HSSE.Check
                         this.AttachUrl = incentiveNotice.AttachUrl;
                         this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.AttachUrl);
                         this.txtFileContents.Text = HttpUtility.HtmlDecode(incentiveNotice.FileContents);
-                        if (!string.IsNullOrEmpty(incentiveNotice.SignMan))
-                        {
-                            this.drpSignMan.SelectedValue = incentiveNotice.SignMan;
-                        }
-                        if (!string.IsNullOrEmpty(incentiveNotice.ApproveMan))
-                        {
-                            this.drpApproveMan.SelectedValue = incentiveNotice.ApproveMan;
-                        }
                         if (!string.IsNullOrEmpty(incentiveNotice.Currency))
                         {
                             this.txtCurrency.Text = incentiveNotice.Currency;
                         }
+                        if (!string.IsNullOrEmpty(incentiveNotice.States))
+                        {
+                            State = incentiveNotice.States;
+                        }
+                        if (State == "1")///状态1  签发人选择下一步批准人 并且发送抄送人员
+                        {
+                            this.IsAgree.Hidden = false;
+                            this.GroupPanel2.Hidden = false;
+                            BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//总包项目经理
+                            this.drpHandleMan.Label = "总包项目经理";
+                            if (!string.IsNullOrEmpty(incentiveNotice.ApproveMan))
+                            {
+                                this.drpHandleMan.SelectedValue = incentiveNotice.ApproveMan;
+                            }
+                            BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpProfessionalEngineer, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//专业工程师
+                            BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpConstructionManager, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//施工经理
+                            BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpUnitHeadMan, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, true);//分包单位
+
+                        }
+                        if (State == "2")///状态2 批准人选择下一步接收人
+                        {
+                            this.IsAgree.Hidden = false;
+                            BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, incentiveNotice.UnitId, true);//分包单位
+                            this.drpHandleMan.Label = "施工分包单位";
+                        }
+                        if (State == "3")
+                        {
+                            this.ckAccept.Hidden = false;
+                            this.BackMan.Hidden = true;
+                        }
                     }
                 }
-                else
-                {
-                    this.drpSignMan.SelectedValue = this.CurrUser.UserId;
-                    this.txtIncentiveDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                    //var codeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectIncentiveNoticeMenuId, this.ProjectId);
-                    //if (codeTemplateRule != null)
-                    //{
-                    //    this.txtFileContents.Text = HttpUtility.HtmlDecode(codeTemplateRule.Template);
-                    //}
-                    ////自动生成编码
-                    this.txtIncentiveNoticeCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectIncentiveNoticeMenuId, this.ProjectId, this.CurrUser.UnitId);
-                }
-                ///初始化审核菜单
-                this.ctlAuditFlow.MenuId = BLL.Const.ProjectIncentiveNoticeMenuId;
-                this.ctlAuditFlow.DataId = this.IncentiveNoticeId;
-                this.ctlAuditFlow.ProjectId = this.ProjectId;
-                this.ctlAuditFlow.UnitId = this.CurrUser.UnitId;
+               
             }
+        }
+        //办理记录
+        public void BindGrid()
+        {
+            string strSql = @"select FlowOperateId, IncentiveNoticeId, OperateName, OperateManId, OperateTime, case when IsAgree='False' then '否' else '是' end  As IsAgree, Opinion,S.UserName from Check_IncentiveNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            strSql += "where IncentiveNoticeId= @IncentiveNoticeId";
+            listStr.Add(new SqlParameter("@IncentiveNoticeId", IncentiveNoticeId));
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            var table = this.GetPagedDataTable(gvFlowOperate, tb);
+            gvFlowOperate.DataSource = table;
+            gvFlowOperate.DataBind();
         }
         #endregion
+        
 
-        #region DropDownList下拉选择事件
-        /// <summary>
-        ///  单位下拉框选择
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.drpTeamGroup.Items.Clear();
-            this.drpPerson.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null)
-            {
-                BLL.TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.ProjectId, this.drpUnit.SelectedValue, true);
-                BLL.PersonService.InitPersonByProjectUnitDropDownList(this.drpPerson, this.ProjectId, this.drpUnit.SelectedValue, true);
-                this.drpTeamGroup.SelectedValue = BLL.Const._Null;
-                this.drpPerson.SelectedValue = BLL.Const._Null;
-            }
-            else
-            {
-                Funs.FineUIPleaseSelect(this.drpTeamGroup);
-                Funs.FineUIPleaseSelect(this.drpPerson);
-                this.drpTeamGroup.SelectedValue = BLL.Const._Null;
-                this.drpPerson.SelectedValue = BLL.Const._Null;
-            }
-        }
-        #endregion
-
-        #region   奖励方式选择
-        /// <summary>
-        /// 经济奖励
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void rbtnIncentiveWay1_CheckedChanged(object sender, CheckedEventArgs e)
-        {
-            if (rbtnIncentiveWay1.Checked)
-            {
-                this.txtPayMoney.Readonly = false;
-                this.rbtnIncentiveWay2.Checked = false;
-                this.rbtnIncentiveWay3.Checked = false;
-                this.txtTitleReward.Text = string.Empty;
-                this.txtMattleReward.Text = string.Empty;
-                this.txtTitleReward.Readonly = true;
-                this.txtMattleReward.Readonly = true;
-            }
-            else
-            {
-                this.txtPayMoney.Enabled = false;
-            }
-        }
-
-        /// <summary>
-        /// 称号奖励
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void rbtnIncentiveWay2_CheckedChanged(object sender, CheckedEventArgs e)
-        {
-            if (rbtnIncentiveWay2.Checked)
-            {
-                this.txtTitleReward.Readonly = false;
-                this.rbtnIncentiveWay1.Checked = false;
-                this.rbtnIncentiveWay3.Checked = false;
-                this.txtPayMoney.Text = string.Empty;
-                this.txtBig.Text = string.Empty;
-                this.txtMattleReward.Text = string.Empty;
-                this.txtPayMoney.Readonly = true;
-                this.txtMattleReward.Readonly = true;
-            }
-            else
-            {
-                this.txtTitleReward.Readonly = true;
-            }
-        }
-
-        /// <summary>
-        /// 物质奖励
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void rbtnIncentiveWay3_CheckedChanged(object sender, CheckedEventArgs e)
-        {
-            if (rbtnIncentiveWay3.Checked)
-            {
-                this.txtMattleReward.Readonly = false;
-                this.rbtnIncentiveWay1.Checked = false;
-                this.rbtnIncentiveWay2.Checked = false;
-                this.txtMattleReward.Text = string.Empty;
-                this.txtBig.Text = string.Empty;
-                this.txtTitleReward.Text = string.Empty;
-                this.txtPayMoney.Readonly = true;
-                this.txtTitleReward.Readonly = true;
-            }
-            else
-            {
-                this.txtMattleReward.Readonly = true;
-            }
-        }
-        #endregion
-
-        #region  获取大写金额事件
-        /// <summary>
-        /// 获取大写金额事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void txtPayMoney_Blur(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtPayMoney.Text))
-            {
-                this.txtBig.Text = Funs.NumericCapitalization(Funs.GetNewDecimalOrZero(this.txtPayMoney.Text));//转换大写
-            }
-            else
-            {
-                this.txtBig.Text = string.Empty;
-            }
-        }
-        #endregion
-
-        #region 附件上传
-        /// <summary>
-        /// 附件上传
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnFile_Click(object sender, EventArgs e)
-        {
-            if (btnFile.HasFile)
-            {
-                this.AttachUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.btnFile, this.AttachUrl, UploadFileService.IncentiveNoticeFilePath);
-                this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.AttachUrl);
-            }
-        }
-        #endregion
-
-        #region 保存、提交
-        /// <summary>
-        /// 保存按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            if (this.drpUnit.SelectedValue == BLL.Const._Null)
-            {
-                Alert.ShowInTop("请选择受奖单位", MessageBoxIcon.Warning);
-                return;
-            }
-            this.SaveData(BLL.Const.BtnSave);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
-        }
-
+        #region 提交
         /// <summary>
         /// 提交按钮
         /// </summary>
@@ -322,11 +205,6 @@ namespace FineUIPro.Web.HSSE.Check
                 Alert.ShowInTop("请选择受奖单位", MessageBoxIcon.Warning);
                 return;
             }
-            if (this.ctlAuditFlow.NextStep == BLL.Const.State_1 && this.ctlAuditFlow.NextPerson == BLL.Const._Null)
-            {
-                ShowNotify("请选择下一步办理人！", MessageBoxIcon.Warning);
-                return;
-            }
             this.SaveData(BLL.Const.BtnSubmit);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
@@ -337,63 +215,165 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="type"></param>
         private void SaveData(string type)
         {
-            Model.Check_IncentiveNotice incentiveNotice = new Model.Check_IncentiveNotice
-            {
-                ProjectId = this.ProjectId,
-                IncentiveNoticeCode = this.txtIncentiveNoticeCode.Text.Trim(),
-                UnitId = this.drpUnit.SelectedValue,
-                IncentiveDate = Funs.GetNewDateTime(this.txtIncentiveDate.Text.Trim())
-            };
-            if (this.drpTeamGroup.SelectedValue!=BLL.Const._Null)
-            {
-                incentiveNotice.TeamGroupId = this.drpTeamGroup.SelectedValue;
+            string States = Convert.ToInt32(Convert.ToInt32(State) + 1).ToString();
+            Model.Check_IncentiveNotice incentiveNotice = BLL.IncentiveNoticeService.GetIncentiveNoticeById(this.IncentiveNoticeId);
+            if (incentiveNotice != null) {
+                if (States == BLL.Const.State_2) ////【签发】总包安全经理
+                {
+                    /// 不同意 打回 同意抄送专业工程师、施工经理、相关施工分包单位并提交【批准】总包项目经理
+                    if (this.rdbIsAgree.SelectedValue.Equals("false"))
+                    {
+                        incentiveNotice.States = "0";
+                    }
+                    else
+                    {
+                        if (drpProfessionalEngineer.SelectedValue != BLL.Const._Null)
+                        {
+                            incentiveNotice.ProfessionalEngineerId = drpProfessionalEngineer.SelectedValue;
+                        }
+                        if (drpConstructionManager.SelectedValue != BLL.Const._Null)
+                        { incentiveNotice.ConstructionManagerId = drpConstructionManager.SelectedValue; }
+                        if (drpUnitHeadMan.SelectedValue != BLL.Const._Null)
+                        {
+                            incentiveNotice.UnitHeadManId = drpUnitHeadMan.SelectedValue;
+                        }
+                        if (drpHandleMan.SelectedValue != BLL.Const._Null)
+                        {
+                            incentiveNotice.ApproveMan = drpHandleMan.SelectedValue;
+                            incentiveNotice.SignDate = DateTime.Now;
+                            incentiveNotice.States = "2";
+                        }
+                        else
+                        {
+                            Alert.ShowInTop("总包项目经理不能为空！", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        
+                    }
+                    SaveOperate("总包安全经理签发");
+                    Funs.DB.SubmitChanges();
+                }
+                else if (States == BLL.Const.State_3) ////【批准】总包项目经理
+                {
+                    /// 不同意 打回 同意下发【回执】施工分包单位
+                    if (this.rdbIsAgree.SelectedValue.Equals("false"))
+                    {
+                        incentiveNotice.States = "1";
+                    }
+                    else
+                    {
+                        if (this.drpHandleMan.SelectedValue != BLL.Const._Null)
+                        {
+                            incentiveNotice.DutyPersonId = this.drpHandleMan.SelectedValue;
+                            incentiveNotice.ApproveDate = DateTime.Now;
+                            incentiveNotice.States = "3";
+                        }
+                        else
+                        {
+                            Alert.ShowInTop("施工分包单位不能为空！", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        
+                    }
+                    Funs.DB.SubmitChanges();
+                    SaveOperate("总包项目经理经理批准");
+                }
+                else if (States == BLL.Const.State_4)
+                {
+                    incentiveNotice.DutyPersonDate = DateTime.Now;
+                    incentiveNotice.States = "4";
+                    Funs.DB.SubmitChanges();
+                    SaveOperate("施工分包单位回执");
+
+                    //// 回写专项检查明细表                            
+                    var getcheck = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(incentiveNotice.IncentiveNoticeId));
+                    if (getcheck != null)
+                    {
+                        getcheck.CompleteStatus = true;
+                        getcheck.CompletedDate = DateTime.Now;
+                        Funs.DB.SubmitChanges();
+                        //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
+                        Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
+                    }
+
+                }
             }
-            if (this.drpPerson.SelectedValue != BLL.Const._Null)
+            
+        }
+        #endregion
+        #region 保存流程审核数据
+        /// <summary>
+        /// 保存数据
+        /// </summary>
+        /// <param name="menuId">菜单id</param>
+        /// <param name="dataId">主键id</param>
+        /// <param name="isClosed">是否关闭这步流程</param>
+        /// <param name="content">单据内容</param>
+        /// <param name="url">路径</param>
+        public void SaveOperate(string OperateName)
+        {
+            Model.Check_IncentiveNoticeFlowOperate newFlowOperate = new Model.Check_IncentiveNoticeFlowOperate();
+            newFlowOperate.FlowOperateId = SQLHelper.GetNewID(typeof(Model.Check_IncentiveNoticeFlowOperate));
+            newFlowOperate.IncentiveNoticeId = IncentiveNoticeId;
+            newFlowOperate.OperateName = OperateName;
+            newFlowOperate.OperateManId = CurrUser.UserId;
+            newFlowOperate.OperateTime = DateTime.Now;
+            if (this.rdbIsAgree.SelectedValue.Equals("false"))
             {
-                incentiveNotice.PersonId = this.drpPerson.SelectedValue;
-            }
-            incentiveNotice.BasicItem = this.txtBasicItem.Text.Trim();
-            if (this.drpRewardType.SelectedValue != BLL.Const._Null)
-            {
-                incentiveNotice.RewardType = this.drpRewardType.SelectedValue;
-            }
-            incentiveNotice.IncentiveMoney = Funs.GetNewDecimalOrZero(this.txtPayMoney.Text.Trim());
-            incentiveNotice.TitleReward = this.txtTitleReward.Text.Trim();
-            incentiveNotice.MattleReward = this.txtMattleReward.Text.Trim();
-            incentiveNotice.FileContents = HttpUtility.HtmlEncode(this.txtFileContents.Text);
-            incentiveNotice.AttachUrl = this.AttachUrl;
-            incentiveNotice.CompileMan = this.CurrUser.UserId;
-            incentiveNotice.CompileDate = Funs.GetNewDateTime(this.txtIncentiveDate.Text.Trim());
-            if (this.drpSignMan.SelectedValue != BLL.Const._Null)
-            {
-                incentiveNotice.SignMan = this.drpSignMan.SelectedValue;
-            }
-            if (this.drpApproveMan.SelectedValue != BLL.Const._Null)
-            {
-                incentiveNotice.ApproveMan = this.drpApproveMan.SelectedValue;
-            }
-            incentiveNotice.States = BLL.Const.State_0;
-            if (type == BLL.Const.BtnSubmit)
-            {
-                incentiveNotice.States = this.ctlAuditFlow.NextStep;
-            }
-            incentiveNotice.Currency = this.txtCurrency.Text.Trim();
-            if (!string.IsNullOrEmpty(this.IncentiveNoticeId))
-            {
-                incentiveNotice.IncentiveNoticeId = this.IncentiveNoticeId;
-                BLL.IncentiveNoticeService.UpdateIncentiveNotice(incentiveNotice);
-                BLL.LogService.AddSys_Log(this.CurrUser, incentiveNotice.IncentiveNoticeCode, incentiveNotice.IncentiveNoticeId, BLL.Const.ProjectIncentiveNoticeMenuId, BLL.Const.BtnModify);
+                newFlowOperate.IsAgree = false;
+                newFlowOperate.Opinion = this.reason.Text;
             }
             else
             {
-                this.IncentiveNoticeId = SQLHelper.GetNewID(typeof(Model.Check_IncentiveNotice));
-                incentiveNotice.IncentiveNoticeId = this.IncentiveNoticeId;
-                BLL.IncentiveNoticeService.AddIncentiveNotice(incentiveNotice);
-                BLL.LogService.AddSys_Log(this.CurrUser, incentiveNotice.IncentiveNoticeCode, incentiveNotice.IncentiveNoticeId, BLL.Const.ProjectIncentiveNoticeMenuId, BLL.Const.BtnAdd);
+                newFlowOperate.IsAgree = true;
+                newFlowOperate.Opinion = "同意";
             }
-            ////保存流程审核数据         
-            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectIncentiveNoticeMenuId, this.IncentiveNoticeId, (type == BLL.Const.BtnSubmit ? true : false), incentiveNotice.IncentiveNoticeCode, "../Check/IncentiveNoticeView.aspx?IncentiveNoticeId={0}");
+            Funs.DB.Check_IncentiveNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
+            Funs.DB.SubmitChanges();
+
+
         }
         #endregion
+        protected void rdbIsAgree_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpHandleMan.Items.Clear();
+            Model.Check_IncentiveNotice incentiveNotice = BLL.IncentiveNoticeService.GetIncentiveNoticeById(this.IncentiveNoticeId);
+            if (this.rdbIsAgree.SelectedValue.Contains("false"))
+            {
+                this.GroupPanel2.Hidden = true;
+                this.NoAgree.Hidden = false;
+                if (State == "1")
+                {
+                    BLL.UserService.InitUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
+                    this.drpHandleMan.SelectedValue = incentiveNotice.CompileMan;
+                    this.drpHandleMan.Label = "打回编制人";
+                }
+                else if (State == "2")
+                {
+                    BLL.UserService.InitUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
+                    this.drpHandleMan.SelectedValue = incentiveNotice.SignMan;
+                    this.drpHandleMan.Label = "打回签发人";
+                }
+                this.drpHandleMan.Readonly = true;
+            }
+            else
+            {
+
+                this.NoAgree.Hidden = true;
+                if (State == "1")
+                {
+                    BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//总包项目经理
+                    this.drpHandleMan.Label = "总包项目经理";
+                    this.GroupPanel2.Hidden = false;
+                }
+                else if (State == "2")
+                {
+                    BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, incentiveNotice.UnitId, true);//分包单位
+                    this.drpHandleMan.Label = "施工分包单位";
+                }
+                this.drpHandleMan.SelectedIndex = 0;
+                this.drpHandleMan.Readonly = false;
+            }
+        }
     }
 }

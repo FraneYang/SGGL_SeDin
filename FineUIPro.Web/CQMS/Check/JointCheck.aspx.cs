@@ -64,7 +64,7 @@ namespace FineUIPro.Web.CQMS.Check
             {
                 ProjectId = CurrUser.LoginProjectId;
                 GetButtonPower();
-                
+
                 btnNew.OnClientClick = Window1.GetShowReference("EditJointCheck.aspx") + "return false;";
                 //if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
                 //{
@@ -356,7 +356,14 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     if (this.CurrUser.UserId == approve.ApproveMan || CurrUser.UserId == Const.sysglyId)
                     {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EditJointCheckTwo.aspx?JointCheckId={0}", JointCheckId, "查看 - ")));
+                        if (jointCheck.State == BLL.Const.JointCheck_Compile)
+                        {
+                            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EditJointCheck.aspx?JointCheckId={0}", JointCheckId, "查看 - ")));
+                        }
+                        else
+                        {
+                            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EditJointCheckTwo.aspx?JointCheckId={0}", JointCheckId, "查看 - ")));
+                        }
                         return;
                     }
                     else

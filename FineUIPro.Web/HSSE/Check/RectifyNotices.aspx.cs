@@ -65,7 +65,7 @@ namespace FineUIPro.Web.HSSE.Check
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
-                btnNew.OnClientClick = Window1.GetShowReference("RectifyNoticesEdit.aspx") + "return false;";
+                btnNew.OnClientClick = Window1.GetShowReference("RectifyNoticesAdd.aspx") + "return false;";
             }
         }
 
@@ -81,7 +81,7 @@ namespace FineUIPro.Web.HSSE.Check
                         LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = R.UnitId 
 						LEFT JOIN Sys_User AS CompileMan ON CompileMan.UserId=R.CompleteManId 
                         LEFT JOIN Sys_User AS SignMan ON SignMan.UserId=R.SignPerson  
-                        LEFT JOIN Sys_User AS DutyPerson ON DutyPerson.UserId = R.DutyPerson
+                        LEFT JOIN Sys_User AS DutyPerson ON DutyPerson.UserId = R.DutyPersonId
 						LEFT JOIN Sys_User AS UnitHeadMan ON UnitHeadMan.UserId = R.UnitHeadManId
 						LEFT JOIN Sys_User AS CheckPerson ON CheckPerson.UserId = R.CheckPerson
                         LEFT JOIN Sys_CodeRecords AS CodeRecords ON R.RectifyNoticesId = CodeRecords.DataId 
@@ -124,7 +124,6 @@ namespace FineUIPro.Web.HSSE.Check
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.RecordCount = tb.Rows.Count;
             var table = this.GetPagedDataTable(Grid1, tb);
-
             Grid1.DataSource = table;
             Grid1.DataBind();
             this.RowCount = Grid1.RecordCount;
@@ -223,36 +222,30 @@ namespace FineUIPro.Web.HSSE.Check
         /// </summary>
         private void EditData(string rectifyNoticeId)
         {
-            bool flag = false;
-            Model.Check_RectifyNotices RectifyNotices = RectifyNoticesService.GetRectifyNoticesById(Grid1.SelectedRowID);
+            string url = "RectifyNoticesView.aspx?RectifyNoticesId={0}";
+            var RectifyNotices = RectifyNoticesService.GetRectifyNoticesById(Grid1.SelectedRowID);
             if (RectifyNotices.States == "0" && this.CurrUser.UserId == RectifyNotices.CompleteManId)
             {
-                flag = true;
+                url = "RectifyNoticesAdd.aspx?RectifyNoticesId={0}";
             }
-            if (RectifyNotices.States == "1" && this.CurrUser.UserId == RectifyNotices.SignPerson)
+           else if (RectifyNotices.States == "1" && this.CurrUser.UserId == RectifyNotices.SignPerson)
             {
-                flag = true;
+                url = "RectifyNoticesAudit.aspx?RectifyNoticesId={0}";
             }
             else if (RectifyNotices.States == "2" && this.CurrUser.UserId == RectifyNotices.DutyPersonId)
             {
-                flag = true;
+                url = "RectifyNoticesRectify.aspx?RectifyNoticesId={0}";
             }
             else if (RectifyNotices.States == "3" && this.CurrUser.UserId == RectifyNotices.UnitHeadManId)
             {
-                flag = true;
+                url = "RectifyNoticesAudit.aspx?RectifyNoticesId={0}";
             }
             else if (RectifyNotices.States == "4" && this.CurrUser.UserId == RectifyNotices.CheckPerson)
             {
-                flag = true;
+                url = "RectifyNoticesRecheck.aspx?RectifyNoticesId={0}";
             }
-            else
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", rectifyNoticeId, "查看 - ")));
-            }
-            if (flag)
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
-            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, rectifyNoticeId, "操作 - ")));
         }
         #endregion
 
@@ -348,17 +341,7 @@ namespace FineUIPro.Web.HSSE.Check
             Response.End();
         }
         #endregion
-
-        //protected void btnPrint_Click(object sender, EventArgs e)
-        //{
-        //    if (Grid1.SelectedRowIndexArray.Length == 0)
-        //    {
-        //        Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
-        //        return;
-        //    }
-        //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticePrint.aspx?RectifyNoticeId={0}", Grid1.SelectedRowID, "打印 - ")));
-        //}
-
+        
         protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.BindGrid();
@@ -415,8 +398,9 @@ namespace FineUIPro.Web.HSSE.Check
             string filePath = string.Empty;
             initTemplatePath = "File\\Word\\HSSE\\安全隐患整改通知单.doc";
             uploadfilepath = rootPath + initTemplatePath;
-            newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".doc");
-            filePath = initTemplatePath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
+            string filename = Funs.GetNewFileName();
+            newUrl = uploadfilepath.Replace(".doc", filename + ".doc");
+            filePath = initTemplatePath.Replace(".doc", filename + ".pdf");
             File.Copy(uploadfilepath, newUrl);
             ///更新书签内容
             var getRectify = BLL.RectifyNoticesService.GetRectifyNoticesById(Id);
@@ -540,26 +524,22 @@ namespace FineUIPro.Web.HSSE.Check
                     if (!string.IsNullOrEmpty(getRectify.SignPerson))
                     {
                         var getUser = UserService.GetUserByUserId(getRectify.SignPerson);
-                        if (getUser != null) {
-                            bookmarkSignPersonName.Text =getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                        if (getUser != null)
+                        {
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
-
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url)) {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("SignPersonName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
-                                    
-                                }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("SignPersonName");
+                                builders.InsertImage(file, 80, 20);
+                            }
+                            else
+                            {
+                                bookmarkSignPersonName.Text = getUser.UserName;
                             }
                         }
-                        
-                        
+
+
                     }
 
                 }
@@ -583,21 +563,16 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.ProfessionalEngineerId);
                         if (getUser != null)
                         {
-                            bookmarkProfessionalEngineerName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
-
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url)) {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("ProfessionalEngineerName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
-                                        
-                                }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("ProfessionalEngineerName");
+                                builders.InsertImage(file, 80, 20);
+                            }
+                            else
+                            {
+                                bookmarkProfessionalEngineerName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -623,21 +598,16 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.ConstructionManagerId);
                         if (getUser != null)
                         {
-                            bookmarkConstructionManagerName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
-
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url)) {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("ConstructionManagerName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
-                                        
-                                }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("ConstructionManagerName");
+                                builders.InsertImage(file, 80, 20);
+                            }
+                            else
+                            {
+                                bookmarkConstructionManagerName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -662,21 +632,16 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.ProjectManagerId);
                         if (getUser != null)
                         {
-                            bookmarkProjectManagerName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
-
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url)) {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("ProjectManagerName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
-                                        
-                                }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("ProjectManagerName");
+                                builders.InsertImage(file, 80, 20);
+                            }
+                            else
+                            {
+                                bookmarkProjectManagerName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -701,21 +666,18 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.DutyPersonId);
                         if (getUser != null)
                         {
-                            bookmarkDutyPersonName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
-
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url)) {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("DutyPersonName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
-                                       
-                                }
+                                
+                                var file = rootPath + getUser.SignatureUrl;
+                                    DocumentBuilder builders = new DocumentBuilder(doc);
+                                    builders.MoveToBookmark("DutyPersonName");
+                                    builders.InsertImage(file, 80, 20);
+                               
+                            }
+                            else
+                            {
+                                bookmarkDutyPersonName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -767,15 +729,14 @@ namespace FineUIPro.Web.HSSE.Check
                         List<string> listStr = Funs.GetStrListByStr(att.AttachUrl, ',');
                         foreach (var urlItem in listStr)
                         {
-
                             string url = rootPath + urlItem;
-                            DocumentBuilder builders = new DocumentBuilder(doc);
-                            builder.InsertImage(url, 150, 150);
-                            builder.Write("   ");
-
+                            if (File.Exists(url))
+                            {
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builder.InsertImage(url, 150, 150);
+                                builder.Write("   ");
+                            }
                         }
-
-
                     }
                     builder.Font.Size = 8;
                     builder.Write("图" + j);
@@ -970,22 +931,18 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.DutyPersonId);
                         if (getUser != null)
                         {
-                            bookmarkDutyPersonName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
 
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url))
-                                    {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("DutyPersonName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("DutyPersonName");
+                                builders.InsertImage(file, 80, 20);
 
-                                }
+                            }
+                            else
+                            {
+                                bookmarkDutyPersonName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -1010,22 +967,18 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.UnitHeadManId);
                         if (getUser != null)
                         {
-                            bookmarkUnitHeadManName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
 
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url))
-                                    {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("UnitHeadManName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("UnitHeadManName");
+                                builders.InsertImage(file, 80, 20);
 
-                                }
+                            }
+                            else
+                            {
+                                bookmarkUnitHeadManName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -1061,22 +1014,18 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.CheckPerson);
                         if (getUser != null)
                         {
-                            bookmarkCheckPersonName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
 
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url))
-                                    {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("CheckPersonName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("CheckPersonName");
+                                builders.InsertImage(file, 80, 20);
 
-                                }
+                            }
+                            else
+                            {
+                                bookmarkCheckPersonName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -1102,22 +1051,18 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.ProfessionalEngineerId);
                         if (getUser != null)
                         {
-                            bookmarkProfessionalEngineerName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
 
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url))
-                                    {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("ProfessionalEngineerName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("ProfessionalEngineerName");
+                                builders.InsertImage(file, 80, 20);
 
-                                }
+                            }
+                            else
+                            {
+                                bookmarkProfessionalEngineerName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -1143,22 +1088,18 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.ConstructionManagerId);
                         if (getUser != null)
                         {
-                            bookmarkConstructionManagerName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
 
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url))
-                                    {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("ConstructionManagerName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("ConstructionManagerName");
+                                builders.InsertImage(file, 80, 20);
 
-                                }
+                            }
+                            else
+                            {
+                                bookmarkConstructionManagerName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -1183,22 +1124,18 @@ namespace FineUIPro.Web.HSSE.Check
                         var getUser = UserService.GetUserByUserId(getRectify.ProjectManagerId);
                         if (getUser != null)
                         {
-                            bookmarkProjectManagerName.Text = getUser.UserName;
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
 
-                                var file = getUser.SignatureUrl;
-                                if (!string.IsNullOrWhiteSpace(file))
-                                {
-                                    string url = rootPath + file;
-                                    if (File.Exists(url))
-                                    {
-                                        DocumentBuilder builders = new DocumentBuilder(doc);
-                                        builders.MoveToBookmark("ProjectManagerName");
-                                        builders.InsertImage(url, 100, 20);
-                                    }
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("ProjectManagerName");
+                                builders.InsertImage(file, 80, 20);
 
-                                }
+                            }
+                            else
+                            {
+                                bookmarkProjectManagerName.Text = getUser.UserName;
                             }
                         }
                     }
@@ -1291,5 +1228,15 @@ namespace FineUIPro.Web.HSSE.Check
 
         #endregion
 
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", Grid1.SelectedRowID, "查看 - ")));
+        }
     }
 }

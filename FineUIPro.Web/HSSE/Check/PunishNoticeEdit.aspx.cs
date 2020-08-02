@@ -72,7 +72,6 @@ namespace FineUIPro.Web.HSSE.Check
 
         #endregion
         public static List<Model.Check_PunishNoticeItem> viewPunishNoticeList = new List<Model.Check_PunishNoticeItem>();
-
         #region 加载
         /// <summary>
         /// 加载页面
@@ -94,7 +93,6 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     BindGrid();
                     BindGrid1();
-                    this.hdPunishNoticeId.Text = this.PunishNoticeId;
                     Model.Check_PunishNotice punishNotice = BLL.PunishNoticeService.GetPunishNoticeById(this.PunishNoticeId);
                     if (punishNotice != null)
                     {
@@ -120,6 +118,7 @@ namespace FineUIPro.Web.HSSE.Check
                             this.txtPunishMoney.Text = Convert.ToString(punishNotice.PunishMoney);
                             this.txtBig.Text = Funs.NumericCapitalization(Funs.GetNewDecimalOrZero(txtPunishMoney.Text));
                         }
+
                         this.txtFileContents.Text = HttpUtility.HtmlDecode(punishNotice.FileContents);
 
                         if (!string.IsNullOrEmpty(punishNotice.Currency))
@@ -130,129 +129,33 @@ namespace FineUIPro.Web.HSSE.Check
                         {
                             State = punishNotice.PunishStates;
                         }
-                        else
-                        {
-                            State = "0";
-                        }
-                        if (State == "0")///状态0 选择签发人
-                        {
-                            this.next.Hidden = false;
-                            this.btnSave.Hidden = false;
-                            BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpSignPerson, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
-                            this.drpSignPerson.SelectedValue = punishNotice.SignMan;
-                            btnAdd.Hidden = false;
-                            GridColumn columndel = Grid1.FindColumn("del");
-                            columndel.Hidden = false;
-                            this.drpUnitId.Readonly = false;
-                            this.drpPunishPersonId.Readonly = false;
-                            this.txtBasicItem.Readonly = false;
-                            this.txtPunishMoney.Readonly = false;
-                            this.txtPunishNoticeDate.Readonly = false;
-                            this.txtIncentiveReason.Readonly = false;
-                            this.txtFileContents.Readonly = false;
-                        }
                         if (State == "1")///状态1  签发人选择下一步批准人 并且发送抄送人员
                         {
                             this.IsAgree.Hidden = false;
-                            this.next1.Hidden = false;
-                            BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpApproveMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//总包项目经理
+                            this.GroupPanel2.Hidden = false;
+                            BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//总包项目经理
+                            this.drpHandleMan.Label = "总包项目经理";
+                            if (!string.IsNullOrEmpty(punishNotice.ApproveMan))
+                            {
+                                this.drpHandleMan.SelectedValue = punishNotice.ApproveMan;
+                            }
                             BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpProfessionalEngineer, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//专业工程师
                             BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpConstructionManager, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//施工经理
                             BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpUnitHeadMan, this.CurrUser.LoginProjectId, this.drpUnitId.SelectedValue, true);//分包单位
-                            ///禁用明细列表
-                            var datas = Grid1.GetMergedData();
-                            if (datas != null)
-                            {
-                                foreach (JObject mergedRow in Grid1.GetMergedData())
-                                {
-                                    int i = mergedRow.Value<int>("index");
-                                    foreach (GridColumn column in Grid1.AllColumns)
-                                    {
-                                        Grid1.Rows[i].CellCssClasses[1] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[2] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[3] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[4] = "f-grid-cell-uneditable";
-                                    }
-                                }
-                            }
 
                         }
                         if (State == "2")///状态2 批准人选择下一步接收人
                         {
-                            this.next2.Hidden = false;
                             this.IsAgree.Hidden = false;
-                            BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpDutyPerson, this.CurrUser.LoginProjectId, punishNotice.UnitId, true);//分包单位
-                            ///禁用明细列表
-                            var datas = Grid1.GetMergedData();
-                            if (datas != null)
-                            {
-                                foreach (JObject mergedRow in Grid1.GetMergedData())
-                                {
-                                    int i = mergedRow.Value<int>("index");
-                                    foreach (GridColumn column in Grid1.AllColumns)
-                                    {
-                                        Grid1.Rows[i].CellCssClasses[1] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[2] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[3] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[4] = "f-grid-cell-uneditable";
-                                    }
-                                }
-                            }
+                            BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, punishNotice.UnitId, true);//分包单位
+                            this.drpHandleMan.Label = "施工分包单位";
                         }
                         if (State == "3")
                         {
                             this.ckAccept.Hidden = false;
-                            ///禁用明细列表
-                            var datas = Grid1.GetMergedData();
-                            if (datas != null)
-                            {
-                                foreach (JObject mergedRow in Grid1.GetMergedData())
-                                {
-                                    int i = mergedRow.Value<int>("index");
-                                    foreach (GridColumn column in Grid1.AllColumns)
-                                    {
-                                        Grid1.Rows[i].CellCssClasses[1] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[2] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[3] = "f-grid-cell-uneditable";
-                                        Grid1.Rows[i].CellCssClasses[4] = "f-grid-cell-uneditable";
-                                    }
-                                }
-                            }
+                            this.drpHandleMan.Hidden = true;
                         }
                     }
-                }
-                else
-                {
-                    this.txtPunishNoticeDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                    //var codeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectPunishNoticeMenuId, this.ProjectId);
-                    //if (codeTemplateRule != null)
-                    //{
-                    //    this.txtFileContents.Text = HttpUtility.HtmlDecode(codeTemplateRule.Template);
-                    //}
-                    BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpSignPerson, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
-                    ////自动生成编码
-                    this.txtPunishNoticeCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectPunishNoticeMenuId, this.ProjectId, this.CurrUser.UnitId);
-                    State = "0";
-                    this.next.Hidden = false;
-                    this.btnSave.Hidden = false;
-                    btnAdd.Hidden = false;
-                    GridColumn columndel = Grid1.FindColumn("del");
-                    columndel.Hidden = false;
-                    this.drpUnitId.Readonly = false;
-                    this.drpPunishPersonId.Readonly = false;
-                    this.txtBasicItem.Readonly = false;
-                    this.txtPunishMoney.Readonly = false;
-                    this.txtPunishNoticeDate.Readonly = false;
-                    this.txtIncentiveReason.Readonly = false;
-                    this.txtFileContents.Readonly = false;
-                }
-            }
-            else
-            {
-                if (GetRequestEventArgument() == "UPDATE_SUMMARY")
-                {
-                    // 页面要求计算总金额的值
-                    OutputSummaryData();
                 }
             }
         }
@@ -272,7 +175,7 @@ namespace FineUIPro.Web.HSSE.Check
         //办理记录
         public void BindGrid1()
         {
-            string strSql = @"select FlowOperateId, PunishNoticeId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_PunishNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            string strSql = @"select FlowOperateId, PunishNoticeId, OperateName, OperateManId, OperateTime, case when IsAgree='False' then '否' else '是' end  As IsAgree, Opinion,S.UserName from Check_PunishNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += "where PunishNoticeId= @PunishNoticeId";
             listStr.Add(new SqlParameter("@PunishNoticeId", PunishNoticeId));
@@ -283,22 +186,7 @@ namespace FineUIPro.Web.HSSE.Check
             gvFlowOperate.DataBind();
         }
         #endregion
-
-        #region 合计金额
-        private void OutputSummaryData()
-        {
-            decimal TotalMoney = 0;
-            foreach (JObject mergedRow in Grid1.GetMergedData())
-            {
-                JObject values = mergedRow.Value<JObject>("values");
-                if (!string.IsNullOrEmpty(values["PunishMoney"].ToString()))
-                {
-                    TotalMoney += values.Value<decimal>("PunishMoney");
-                }
-            }
-            this.txtPunishMoney.Text = TotalMoney.ToString();
-        }
-        #endregion
+        
 
         /// <summary>
         ///  初始化下拉框
@@ -307,25 +195,7 @@ namespace FineUIPro.Web.HSSE.Check
         {
             BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, false);
         }
-
-        #region  获取大写金额事件
-        /// <summary>
-        /// 获取大写金额事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void txtPunishMoney_Blur(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(this.txtPunishMoney.Text))
-            {
-                this.txtBig.Text = Funs.NumericCapitalization(Funs.GetNewDecimalOrZero(txtPunishMoney.Text));
-            }
-            else
-            {
-                this.txtBig.Text = string.Empty;
-            }
-        }
-        #endregion
+        
 
         #region 附件上传
         /// <summary>
@@ -335,11 +205,8 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.hdPunishNoticeId.Text))
-            {
-                this.hdPunishNoticeId.Text = SQLHelper.GetNewID(typeof(Model.Check_RectifyNotices));
-            }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PunishNotice&menuId=" + Const.ProjectPunishNoticeMenuId, this.hdPunishNoticeId.Text)));
+            
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PunishNotice&menuId=" + Const.ProjectPunishNoticeMenuId, this.PunishNoticeId)));
         }
 
         /// <summary>
@@ -350,17 +217,13 @@ namespace FineUIPro.Web.HSSE.Check
         protected void btnPunishNoticeUrl_Click(object sender, EventArgs e)
         {
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ProjectPunishNoticeMenuId);
-            if (string.IsNullOrEmpty(this.hdPunishNoticeId.Text))
-            {
-                this.hdPunishNoticeId.Text = SQLHelper.GetNewID(typeof(Model.Check_RectifyNotices));
-            }
             if (buttonList.Count() > 0)
             {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&type=0&path=FileUpload/PunishNoticeStatistics&menuId=" + BLL.Const.ProjectPunishNoticeStatisticsMenuId, this.hdPunishNoticeId.Text)));
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&type=0&path=FileUpload/PunishNoticeStatistics&menuId=" + BLL.Const.ProjectPunishNoticeStatisticsMenuId, this.PunishNoticeId)));
             }
             else
             {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PunishNoticeStatistics&menuId=" + BLL.Const.ProjectPunishNoticeStatisticsMenuId, this.hdPunishNoticeId.Text)));
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PunishNoticeStatistics&menuId=" + BLL.Const.ProjectPunishNoticeStatisticsMenuId, this.PunishNoticeId)));
             }
         }
         #endregion
@@ -392,114 +255,18 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="type"></param>
         private void SaveData(string type)
         {
-            if (this.drpUnitId.SelectedValue==BLL.Const._Null)
-            {
-                Alert.ShowInTop("请选择受罚单位", MessageBoxIcon.Warning);
-                return;
-            }
 
-            Model.Check_PunishNotice punishNotice = new Model.Check_PunishNotice
+            var getUpdate = BLL.PunishNoticeService.GetPunishNoticeById(PunishNoticeId); 
+            string PunishStates = Convert.ToInt32(Convert.ToInt32(State) + 1).ToString();
+            if (getUpdate != null)
             {
-                ProjectId = this.ProjectId,
-                PunishNoticeCode = this.txtPunishNoticeCode.Text.Trim()
-            };
-            if (this.drpUnitId.SelectedValue!=BLL.Const._Null)
-            {
-                punishNotice.UnitId = this.drpUnitId.SelectedValue;
-            }
-            if (this.drpPunishPersonId.SelectedValue!=BLL.Const._Null)
-            {
-                punishNotice.PunishPersonId = this.drpPunishPersonId.SelectedValue;
-            }
-            punishNotice.PunishNoticeDate = Funs.GetNewDateTime(this.txtPunishNoticeDate.Text.Trim());
-            punishNotice.IncentiveReason = this.txtIncentiveReason.Text.Trim();
-            punishNotice.BasicItem = this.txtBasicItem.Text.Trim();
-            punishNotice.PunishMoney = Funs.GetNewDecimalOrZero(this.txtPunishMoney.Text.Trim());
-            punishNotice.FileContents = HttpUtility.HtmlEncode(this.txtFileContents.Text);
-            punishNotice.CompileMan = this.CurrUser.UserId;
-            punishNotice.CompileDate = DateTime.Now;
-            punishNotice.States = Const.State_0;
-            if (this.drpSignPerson.SelectedValue != BLL.Const._Null)
-            {
-                punishNotice.SignMan = this.drpSignPerson.SelectedValue;
-            }
-            punishNotice.Currency = this.txtCurrency.Text.Trim();
-            var getUpdate = Funs.DB.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == PunishNoticeId);
-            if (type == BLL.Const.BtnSubmit)
-            {
-                punishNotice.PunishStates = Convert.ToInt32(Convert.ToInt32(State) + 1).ToString();
-            }
-            else
-            {
-                if (getUpdate != null)
-                {
-                    if (string.IsNullOrEmpty(getUpdate.PunishStates))
-                    {
-                        punishNotice.PunishStates = "0";
-                    }
-                    else
-                    {
-                        punishNotice.PunishStates = getUpdate.PunishStates;
-                    }
-                }
-                else
-                {
-                    punishNotice.PunishStates = "0";
-                }
-            }
-            //没有就新增一条处罚单
-            if (getUpdate == null)
-            {
-                if (string.IsNullOrEmpty(this.hdPunishNoticeId.Text))
-                {
-                    punishNotice.PunishNoticeId = SQLHelper.GetNewID(typeof(Model.Check_RectifyNotices));
-                }
-                else {
-                    punishNotice.PunishNoticeId = this.hdPunishNoticeId.Text;
-                }
-                Funs.DB.Check_PunishNotice.InsertOnSubmit(punishNotice);
-                Funs.DB.SubmitChanges();
-                CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectPunishNoticeMenuId, punishNotice.ProjectId, punishNotice.UnitId, punishNotice.PunishNoticeId, punishNotice.CompileDate);
-                this.PunishNoticeId = punishNotice.PunishNoticeId;
-                saveNoticesItemDetail();
-                SaveOperate("总包安全工程师下发处罚单", 1);
-            }
-            else
-            {
-                ///根据状态编辑页面信息
-                if (punishNotice.PunishStates == BLL.Const.State_0 || punishNotice.PunishStates == BLL.Const.State_1)////编制人 修改或提交
-                {
-                    if (this.drpUnitId.SelectedValue!=BLL.Const._Null)
-                    {
-                        getUpdate.UnitId = this.drpUnitId.SelectedValue;
-                    }
-                    getUpdate.PunishNoticeDate = Funs.GetNewDateTime(this.txtPunishNoticeDate.Text.Trim());
-                    getUpdate.IncentiveReason = this.txtIncentiveReason.Text.Trim();
-                    getUpdate.BasicItem = this.txtBasicItem.Text.Trim();
-                    getUpdate.PunishMoney = Funs.GetNewDecimalOrZero(this.txtPunishMoney.Text.Trim());
-                    getUpdate.FileContents = HttpUtility.HtmlEncode(this.txtFileContents.Text);
-                    getUpdate.CompileMan = this.CurrUser.UserId;
-                    getUpdate.CompileDate = DateTime.Now;
-                    if (this.drpSignPerson.SelectedValue != BLL.Const._Null)
-                    {
-                        getUpdate.SignMan = this.drpSignPerson.SelectedValue;
-                    }
-                    getUpdate.Currency = this.txtCurrency.Text.Trim();
-                    if (punishNotice.PunishStates == BLL.Const.State_1)
-                    {
-                        getUpdate.PunishStates = "1";
-                        SaveOperate("总包安全工程师重新下发处罚单", 1);
-                    }
-                    Funs.DB.SubmitChanges();
-                    saveNoticesItemDetail();
-                }
-                else if (punishNotice.PunishStates == BLL.Const.State_2) ////【签发】总包安全经理
+                 if (PunishStates == BLL.Const.State_2) ////【签发】总包安全经理
                 {
                     /// 不同意 打回 同意抄送专业工程师、施工经理、相关施工分包单位并提交【批准】总包项目经理
                     if (this.rdbIsAgree.SelectedValue.Equals("false"))
                     {
                         getUpdate.PunishStates = "0";
-                        SaveOperate("总包安全经理签发", 0);
+                        getUpdate.SginOpinion = reason.Text;
                     }
                     else
                     {
@@ -513,9 +280,9 @@ namespace FineUIPro.Web.HSSE.Check
                         {
                             getUpdate.UnitHeadManId = drpUnitHeadMan.SelectedValue;
                         }
-                        if (drpApproveMan.SelectedValue != BLL.Const._Null)
+                        if (drpHandleMan.SelectedValue != BLL.Const._Null)
                         {
-                            getUpdate.ApproveMan = drpApproveMan.SelectedValue;
+                            getUpdate.ApproveMan = drpHandleMan.SelectedValue;
                             getUpdate.SignDate = DateTime.Now;
                             getUpdate.PunishStates = "2";
                         }
@@ -524,25 +291,26 @@ namespace FineUIPro.Web.HSSE.Check
                             Alert.ShowInTop("总包项目经理不能为空！", MessageBoxIcon.Warning);
                             return;
                         }
-                        SaveOperate("总包安全经理签发", 1);
+                       
+                        getUpdate.SginOpinion = "同意";
                     }
-
+                    SaveOperate("总包安全经理签发");
                     Funs.DB.SubmitChanges();
 
                 }
-                else if (punishNotice.PunishStates == BLL.Const.State_3) ////【批准】总包项目经理
+                else if (PunishStates == BLL.Const.State_3) ////【批准】总包项目经理
                 {
                     /// 不同意 打回 同意下发【回执】施工分包单位
                     if (this.rdbIsAgree.SelectedValue.Equals("false"))
                     {
                         getUpdate.PunishStates = "1";
-                        SaveOperate("总包项目经理经理批准", 0);
+                        getUpdate.ApproveOpinion = reason.Text;
                     }
                     else
                     {
-                        if (this.drpDutyPerson.SelectedValue != BLL.Const._Null)
+                        if (this.drpHandleMan.SelectedValue != BLL.Const._Null)
                         {
-                            getUpdate.DutyPersonId = this.drpDutyPerson.SelectedValue;
+                            getUpdate.DutyPersonId = this.drpHandleMan.SelectedValue;
                             getUpdate.ApproveDate = DateTime.Now;
                             getUpdate.PunishStates = "3";
                         }
@@ -551,21 +319,33 @@ namespace FineUIPro.Web.HSSE.Check
                             Alert.ShowInTop("施工分包单位不能为空！", MessageBoxIcon.Warning);
                             return;
                         }
-                        SaveOperate("总包项目经理经理批准", 1);
+                        
+                        getUpdate.ApproveOpinion = "同意";
                     }
                     Funs.DB.SubmitChanges();
+                    SaveOperate("总包项目经理经理批准");
                 }
-                else if (punishNotice.PunishStates == BLL.Const.State_4)
+                else if (PunishStates == BLL.Const.State_4)
                 {
-                    Model.AttachFile sour = new Model.AttachFile();
-                    sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == getUpdate.PunishNoticeId && x.MenuId == Const.ProjectPunishNoticeMenuId);
+                    var sour = BLL.AttachFileService.GetAttachFile(getUpdate.PunishNoticeId, Const.ProjectPunishNoticeMenuId); 
                     if (sour != null)
                     {
                         getUpdate.DutyPersonDate = DateTime.Now;
                         getUpdate.States = Const.State_2;
                         getUpdate.PunishStates = "4";
                         Funs.DB.SubmitChanges();
-                        SaveOperate("施工分包单位回执", 1);
+                        SaveOperate("施工分包单位回执");
+
+                        //// 回写专项检查明细表                            
+                        var getcheck = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(getUpdate.PunishNoticeId));
+                        if (getcheck != null)
+                        {
+                            getcheck.CompleteStatus = true;
+                            getcheck.CompletedDate = DateTime.Now;
+                            Funs.DB.SubmitChanges();
+                            //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
+                            Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
+                        }
                     }
                     else
                     {
@@ -589,37 +369,26 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="isClosed">是否关闭这步流程</param>
         /// <param name="content">单据内容</param>
         /// <param name="url">路径</param>
-        public void SaveOperate(string OperateName, int flag)
+        public void SaveOperate(string OperateName)
         {
-            if (flag == 1)
+            Model.Check_PunishNoticeFlowOperate newFlowOperate = new Model.Check_PunishNoticeFlowOperate();
+            newFlowOperate.FlowOperateId = SQLHelper.GetNewID(typeof(Model.Check_PunishNoticeFlowOperate));
+            newFlowOperate.PunishNoticeId = PunishNoticeId;
+            newFlowOperate.OperateName = OperateName;
+            newFlowOperate.OperateManId = CurrUser.UserId;
+            newFlowOperate.OperateTime = DateTime.Now;
+            if (this.rdbIsAgree.SelectedValue.Equals("false"))
             {
-                Model.Check_PunishNoticeFlowOperate newFlowOperate = new Model.Check_PunishNoticeFlowOperate
-                {
-                    FlowOperateId = SQLHelper.GetNewID(typeof(Model.Check_PunishNoticeFlowOperate)),
-                    PunishNoticeId = PunishNoticeId,
-                    OperateName = OperateName,
-                    OperateManId = CurrUser.UserId,
-                    OperateTime = DateTime.Now,
-                    IsAgree = true
-                };
+                newFlowOperate.IsAgree = false;
+                newFlowOperate.Opinion = this.reason.Text;
+            }
+            else {
+                newFlowOperate.IsAgree = true;
+                newFlowOperate.Opinion = "同意";
+            }
                 Funs.DB.Check_PunishNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
                 Funs.DB.SubmitChanges();
-            }
-            else
-            {
-                Model.Check_PunishNoticeFlowOperate newFlowOperate = new Model.Check_PunishNoticeFlowOperate
-                {
-                    FlowOperateId = SQLHelper.GetNewID(typeof(Model.Check_PunishNoticeFlowOperate)),
-                    PunishNoticeId = PunishNoticeId,
-                    OperateName = OperateName,
-                    OperateManId = CurrUser.UserId,
-                    OperateTime = DateTime.Now,
-                    Opinion = this.reason.Text,
-                    IsAgree = false
-                };
-                Funs.DB.Check_PunishNoticeFlowOperate.InsertOnSubmit(newFlowOperate);
-                Funs.DB.SubmitChanges();
-            }
+           
 
         }
         #endregion
@@ -628,145 +397,45 @@ namespace FineUIPro.Web.HSSE.Check
 
         protected void rdbIsAgree_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.drpHandleMan.Items.Clear();
+            Model.Check_PunishNotice PunishNotice = BLL.PunishNoticeService.GetPunishNoticeById(PunishNoticeId);
             if (this.rdbIsAgree.SelectedValue.Contains("false"))
             {
-                Model.Check_PunishNotice PunishNotice = BLL.PunishNoticeService.GetPunishNoticeById(PunishNoticeId);
+                this.GroupPanel2.Hidden = true;
                 this.NoAgree.Hidden = false;
-                this.HandleType.Hidden = true;
                 if (State == "1")
                 {
                     BLL.UserService.InitUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
                     this.drpHandleMan.SelectedValue = PunishNotice.CompileMan;
+                    this.drpHandleMan.Label = "打回编制人";
                 }
                 else if (State == "2")
                 {
                     BLL.UserService.InitUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
                     this.drpHandleMan.SelectedValue = PunishNotice.SignMan;
+                    this.drpHandleMan.Label = "打回签发人";
                 }
-
-
-                this.BackMan.Hidden = false;
+                this.drpHandleMan.Readonly = true;
             }
             else
             {
+                
                 this.NoAgree.Hidden = true;
-                this.HandleType.Hidden = false;
-                this.BackMan.Hidden = true;
-
-            }
-        }
-        protected void btnAdd_Click(object sender, EventArgs e)
-        {
-            addPunishNoticeList();
-            Model.Check_PunishNoticeItem notice = new Model.Check_PunishNoticeItem();
-            notice.PunishNoticeItemId = SQLHelper.GetNewID(typeof(Model.Check_PunishNoticeItem));
-            viewPunishNoticeList.Add(notice);
-            //将gd数据保存在list中
-            Grid1.DataSource = viewPunishNoticeList;
-            Grid1.DataBind();
-        }
-
-        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            string itemId = Grid1.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "delete")
-            {
-                viewPunishNoticeList.Remove(viewPunishNoticeList.FirstOrDefault(p => p.PunishNoticeItemId == itemId));
-                Grid1.DataSource = viewPunishNoticeList;
-                Grid1.DataBind();
-            }
-        }
-
-        protected void Grid1_RowDataBound(object sender, GridRowEventArgs e)
-        {
-            DataRowView row = e.DataItem as DataRowView;
-        }
-        private void addPunishNoticeList()
-        {
-            viewPunishNoticeList.Clear();
-            var data = Grid1.GetMergedData();
-            if (data != null)
-            {
-                foreach (JObject mergedRow in Grid1.GetMergedData())
+                if (State == "1")
                 {
-                    int i = mergedRow.Value<int>("index");
-                    JObject values = mergedRow.Value<JObject>("values");
-                    string PunishNoticeItemId = values.Value<string>("PunishNoticeItemId");
-                    string PunishContent = values.Value<string>("PunishContent");
-                    string PunishMoney = values.Value<string>("PunishMoney");
-                    var item = new Model.Check_PunishNoticeItem();
-                    item.PunishNoticeItemId = PunishNoticeItemId;
-                    item.PunishNoticeId = PunishNoticeId;
-                    item.PunishContent = PunishContent;
-                    item.PunishMoney = Funs.GetNewDecimal(PunishMoney);
-                    viewPunishNoticeList.Add(item);
+                    BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);//总包项目经理
+                    this.drpHandleMan.Label = "总包项目经理";
+                    this.GroupPanel2.Hidden = false;
                 }
-                //item.RectifyResults = Grid1.Rows[i].Values[3].ToString()
-
-            }
-
-
-        }
-        /// <summary>
-        /// 保存处罚单明细
-        /// </summary>
-        public void saveNoticesItemDetail()
-        {
-            var data = Grid1.GetMergedData();
-            if (data != null)
-            {
-
-                foreach (JObject mergedRow in Grid1.GetMergedData())
+                else if (State == "2")
                 {
-                    int i = mergedRow.Value<int>("index");
-                    JObject values = mergedRow.Value<JObject>("values");
-                    string PunishNoticeItemId = values.Value<string>("PunishNoticeItemId");
-                    string PunishContent = values.Value<string>("PunishContent");
-                    string PunishMoney = values.Value<string>("PunishMoney");
-                    AspNet.Label lblNumber = (AspNet.Label)Grid1.Rows[i].FindControl("lblNumber");
-                    string SortIndex = lblNumber.Text.Trim();
-                    Model.Check_PunishNoticeItem PunishNoticeItem = Funs.DB.Check_PunishNoticeItem.FirstOrDefault(e => e.PunishNoticeItemId == PunishNoticeItemId);
-                    if (PunishNoticeItem != null)
-                    {
-                        PunishNoticeItem.PunishNoticeItemId = PunishNoticeItemId;
-                        PunishNoticeItem.PunishNoticeId = PunishNoticeId;
-                        PunishNoticeItem.PunishContent = PunishContent;
-                        PunishNoticeItem.PunishMoney = decimal.Round(Funs.GetNewDecimalOrZero(PunishMoney),2);
-                        PunishNoticeItem.SortIndex = Funs.GetNewInt(SortIndex);
-                        Funs.DB.SubmitChanges();
-                    }
-                    else
-                    {
-
-                        var item = new Model.Check_PunishNoticeItem();
-                        item.PunishNoticeItemId = PunishNoticeItemId;
-                        item.PunishNoticeId = PunishNoticeId;
-                        item.PunishContent = PunishContent;
-                        item.PunishMoney = decimal.Round(Funs.GetNewDecimalOrZero(PunishMoney),2);
-                        item.SortIndex = Funs.GetNewInt(SortIndex);
-                        Funs.DB.Check_PunishNoticeItem.InsertOnSubmit(item);
-                        Funs.DB.SubmitChanges();
-                    }
+                    BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, PunishNotice.UnitId, true);//分包单位
+                    this.drpHandleMan.Label = "施工分包单位";
                 }
-
+                this.drpHandleMan.SelectedIndex = 0;
+                this.drpHandleMan.Readonly = false;
             }
         }
-        /// <summary>
-        /// 根据受罚单位定位受罚人
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
-            {
-                BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpPunishPersonId, this.CurrUser.LoginProjectId, this.drpUnitId.SelectedValue, true);//分包单位
-                this.drpPunishPersonId.SelectedIndex = 0;
-            }
-            else
-            {
-                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpPunishPersonId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
-            }
-        }
+        
     }
 }

@@ -42,9 +42,10 @@ namespace FineUIPro.Web.ProjectData
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT Project.ProjectId,Project.ProjectCode,Project.ProjectName,unit.UnitName,Project.StartDate,Project.EndDate,Project.ProjectAddress,SysConst.ConstText AS ProjectTypeName,ShortName, "
-                          + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' WHEN SysConst.ConstText='E' THEN '设计中' ELSE '施工中' END) AS ProjectStateName,Project.ProjectState"
-                          + @" FROM Base_Project AS Project LEFT JOIN Base_Unit as unit on unit.UnitId=Project.UnitId LEFT JOIN Sys_Const AS SysConst ON Project.ProjectType =SysConst.ConstValue AND SysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'"
+            string strSql = "SELECT Project.ProjectId,Project.ProjectCode,Project.ProjectName,unit.UnitName,Project.StartDate,Project.EndDate,Project.ProjectAddress,ProjectType.ProjectTypeName AS ProjectTypeName,ShortName, "
+                          + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工'  ELSE '施工中' END) AS ProjectStateName,Project.ProjectState"
+                          + @" FROM Base_Project AS Project LEFT JOIN Base_Unit as unit on unit.UnitId=Project.UnitId"
+                          + @" LEFT JOIN Base_ProjectType AS ProjectType ON Project.ProjectType =ProjectType.ProjectTypeId"
                           + @" WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();            
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
@@ -199,15 +200,15 @@ namespace FineUIPro.Web.ProjectData
             }
         }
 
-        /// <summary>
-        /// 查看
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnView_Click(object sender, EventArgs e)
-        {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectShutdown.aspx?projectId={0}&value=0", Grid1.SelectedRowID, "查看 - ")));
-        }
+        ///// <summary>
+        ///// 查看
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //protected void btnView_Click(object sender, EventArgs e)
+        //{
+        //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectShutdown.aspx?projectId={0}&value=0", Grid1.SelectedRowID, "查看 - ")));
+        //}
 
         #region 获取按钮权限
         /// <summary>

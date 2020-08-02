@@ -21,12 +21,12 @@ namespace BLL
         }
         public static List<Model.Person_QuarterCheckItem> GetCheckItemListById(string QuarterCheckId)
         {
-            return (from x in Funs.DB.Person_QuarterCheckItem where x.QuarterCheckId == QuarterCheckId  orderby x.SortId select x).ToList();
-           
+            return (from x in Funs.DB.Person_QuarterCheckItem where x.QuarterCheckId == QuarterCheckId orderby x.SortId select x).ToList();
+
         }
         public static Decimal GetCheckItemSumById(string QuarterCheckId)
         {
-            return decimal.Parse((from x in Funs.DB.Person_QuarterCheckItem where x.QuarterCheckId == QuarterCheckId  select x.Grade).Sum().ToString());
+            return decimal.Parse((from x in Funs.DB.Person_QuarterCheckItem where x.QuarterCheckId == QuarterCheckId select x.Grade).Sum().ToString());
 
         }
         /// <summary>
@@ -38,14 +38,14 @@ namespace BLL
             Model.SGGLDB db = Funs.DB;
             Model.Person_QuarterCheckItem newcontruct = new Model.Person_QuarterCheckItem
             {
-                QuarterCheckItemId=contruct.QuarterCheckItemId,
+                QuarterCheckItemId = contruct.QuarterCheckItemId,
                 QuarterCheckId = contruct.QuarterCheckId,
                 UserId = contruct.UserId,
                 TargetClass1 = contruct.TargetClass1,
                 TargetClass2 = contruct.TargetClass2,
                 CheckContent = contruct.CheckContent,
-                SortId=contruct.SortId,
-                StandardGrade=contruct.StandardGrade,
+                SortId = contruct.SortId,
+                StandardGrade = contruct.StandardGrade,
             };
             db.Person_QuarterCheckItem.InsertOnSubmit(newcontruct);
             db.SubmitChanges();
@@ -78,6 +78,53 @@ namespace BLL
             {
                 db.Person_QuarterCheckItem.DeleteOnSubmit(check);
                 db.SubmitChanges();
+            }
+        }
+
+        public static List<Model.Person_QuarterCheckItem> GetListDataForApi(string id, string userId)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                IQueryable<Model.Person_QuarterCheckItem> q = db.Person_QuarterCheckItem;
+                List<string> ids = new List<string>();
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    q = q.Where(e => e.UserId == userId);
+                }
+
+                var qq1 = from x in q
+                          orderby x.UserId descending
+                          select new
+                          {
+                              x.QuarterCheckItemId,
+                              x.QuarterCheckId,
+                              x.UserId,
+                              x.TargetClass1,
+                              x.TargetClass2,
+                              x.CheckContent,
+                              x.Grade,
+                              x.SortId,
+                              x.StandardGrade,
+
+                          };
+                var list = qq1.ToList();
+
+                List<Model.Person_QuarterCheckItem> listRes = new List<Model.Person_QuarterCheckItem>();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Model.Person_QuarterCheckItem x = new Model.Person_QuarterCheckItem();
+                    x.QuarterCheckItemId = list[i].QuarterCheckItemId;
+                    x.QuarterCheckId = list[i].QuarterCheckId;
+                    x.UserId = list[i].UserId;
+                    x.TargetClass1 = list[i].TargetClass1;
+                    x.TargetClass2 = list[i].TargetClass2;
+                    x.CheckContent = list[i].CheckContent;
+                    x.Grade = list[i].Grade;
+                    x.SortId = list[i].SortId;
+                    x.StandardGrade = list[i].StandardGrade;
+                    listRes.Add(x);
+                }
+                return listRes;
             }
         }
     }

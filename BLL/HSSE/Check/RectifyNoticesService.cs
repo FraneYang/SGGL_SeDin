@@ -10,8 +10,6 @@ namespace BLL
     /// </summary>
     public static class RectifyNoticesService
     {
-        public static Model.SGGLDB db = Funs.DB;
-
         /// <summary>
         /// 根据主键获取隐患整改通知单
         /// </summary>
@@ -67,10 +65,7 @@ namespace BLL
             db.Check_RectifyNotices.InsertOnSubmit(newRectifyNotices);
             db.SubmitChanges();
             ////增加一条编码记录
-            if (rectifyNotice.RectifyNoticesCode == BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticesMenuId, rectifyNotice.ProjectId, null))
-            {
-                CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRectifyNoticesMenuId, rectifyNotice.ProjectId, rectifyNotice.UnitId, rectifyNotice.RectifyNoticesId, rectifyNotice.CheckedDate);
-            }
+            CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRectifyNoticesMenuId, rectifyNotice.ProjectId, rectifyNotice.UnitId, rectifyNotice.RectifyNoticesId, rectifyNotice.CheckedDate);
         }
 
         /// <summary>
@@ -79,6 +74,7 @@ namespace BLL
         /// <param name="rectifyNotices"></param>
         public static void UpdateRectifyNotices(Model.Check_RectifyNotices rectifyNotices)
         {
+            Model.SGGLDB db = Funs.DB;
             Model.Check_RectifyNotices newRectifyNotices = db.Check_RectifyNotices.FirstOrDefault(e => e.RectifyNoticesId == rectifyNotices.RectifyNoticesId);
             if (newRectifyNotices != null)
             {
@@ -133,7 +129,8 @@ namespace BLL
                 CommonService.DeleteAttachFileById(rectifyNoticesId);
 
                 var getCheck_RectifyNoticesItem = from x in db.Check_RectifyNoticesItem
-                                                  where x.RectifyNoticesId == rectifyNoticesId select x;
+                                                  where x.RectifyNoticesId == rectifyNoticesId
+                                                  select x;
                 if (getCheck_RectifyNoticesItem.Count() > 0)
                 {
                     db.Check_RectifyNoticesItem.DeleteAllOnSubmit(getCheck_RectifyNoticesItem);
@@ -141,8 +138,8 @@ namespace BLL
                 }
 
                 var getRectifyNoticesFlowOperate = from x in db.Check_RectifyNoticesFlowOperate
-                                                  where x.RectifyNoticesId == rectifyNoticesId
-                                                  select x;
+                                                   where x.RectifyNoticesId == rectifyNoticesId
+                                                   select x;
                 if (getRectifyNoticesFlowOperate.Count() > 0)
                 {
                     db.Check_RectifyNoticesFlowOperate.DeleteAllOnSubmit(getRectifyNoticesFlowOperate);
@@ -151,6 +148,16 @@ namespace BLL
 
                 db.Check_RectifyNotices.DeleteOnSubmit(rectifyNotices);
                 db.SubmitChanges();
+            }
+        }
+
+        public static void DeleteRectifyNoticesRectifyNoticesItemById(string rectifyNoticesId)
+        {
+            var deleteItem = from x in Funs.DB.Check_RectifyNoticesItem where x.RectifyNoticesId == rectifyNoticesId select x;
+            if (deleteItem.Count() > 0)
+            {
+                Funs.DB.Check_RectifyNoticesItem.DeleteAllOnSubmit(deleteItem);
+                Funs.DB.SubmitChanges();
             }
         }
     }

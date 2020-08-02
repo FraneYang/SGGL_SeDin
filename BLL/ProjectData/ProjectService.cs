@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        ///获取项目信息
+        ///获取项目名称
         /// </summary>
         /// <returns></returns>
         public static string GetProjectNameByProjectId(string projectId)
@@ -33,6 +33,20 @@
             return name;
         }
 
+        /// <summary>
+        ///获取项目简称
+        /// </summary>
+        /// <returns></returns>
+        public static string GetShortNameByProjectId(string projectId)
+        {
+            string name = string.Empty;
+            var project = Funs.DB.Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
+            if (project != null)
+            {
+                name = project.ShortName;
+            }
+            return name;
+        }
         /// <summary>
         /// 增加项目信息
         /// </summary>
@@ -63,7 +77,8 @@
                 IsForeign = project.IsForeign,
                 FromProjectId = project.FromProjectId,
                 MapCoordinates = project.MapCoordinates,
-            };
+                ProjectMoney = project.ProjectMoney,
+        };
             db.Base_Project.InsertOnSubmit(newProject);
             db.SubmitChanges();
         }
@@ -98,7 +113,7 @@
                 newProject.IsForeign = project.IsForeign;
                 newProject.FromProjectId = project.FromProjectId;
                 newProject.MapCoordinates = project.MapCoordinates;
-
+                newProject.ProjectMoney = project.ProjectMoney;
                 db.SubmitChanges();
             }
         }

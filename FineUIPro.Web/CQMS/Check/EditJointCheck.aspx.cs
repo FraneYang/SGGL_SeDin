@@ -72,16 +72,129 @@ namespace FineUIPro.Web.CQMS.Check
                     string questionImg = "0";
                     var str = String.Format("../../AttachFile/webuploader.aspx?type={0}&toKeyId={1}&path=FileUpload/CheckControl&menuId={2}", questionImg, JointCheckId, Const.JointCheckMenuId);
                     //imgAttachUrl.OnClientClick=Window1.GetShowReference(str) + "return false;";
-                    var mainUnit = BLL.UnitService.GetUnitByProjectIdUnitTypeList(this.CurrUser.LoginProjectId,Const.ProjectUnitType_1)[0];
+                    var mainUnit = BLL.UnitService.GetUnitByProjectIdUnitTypeList(this.CurrUser.LoginProjectId, Const.ProjectUnitType_1)[0];
                     if (mainUnit != null)
                     {
                         this.drpProposeUnit.SelectedValue = mainUnit.UnitId;
                     }
                     //txtCheckName.Text = CheckControlService.GetValByText("总包负责人审核", State);
                 }
+                else
+                {
+                    Model.Check_JointCheck jointCheck = BLL.JointCheckService.GetJointCheck(JointCheckId);
+                    txtJointCheckCode.Text = jointCheck.JointCheckCode;
+                    if (!string.IsNullOrEmpty(jointCheck.UnitId))
+                    {
+                        drpUnit.SelectedValue = jointCheck.UnitId;
+                    }
+                    if (!string.IsNullOrEmpty(jointCheck.ProposeUnitId))
+                    {
+                        drpProposeUnit.SelectedValue = jointCheck.ProposeUnitId;
+                    }
+                    if (!string.IsNullOrEmpty(jointCheck.CheckType))
+                    {
+                        drpCheckType.SelectedValue = jointCheck.CheckType;
+                    }
+                    if (jointCheck.CheckDate != null)
+                    {
+                        txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", jointCheck.CheckDate);
+                    }
+                    txtCheckName.Text = jointCheck.CheckName;
+                    if (!string.IsNullOrEmpty(jointCheck.State))
+                    {
+                        State = jointCheck.State;
+                    }
+                    else
+                    {
+                        State = BLL.Const.JointCheck_Compile;
+                    }
+                    jointCheckDetails.Clear();
+                    BindData();
+                }
                 //this.drpHandleType.Enabled = true;
 
             }
+        }
+
+        private void BindData()
+        {
+            jointCheckDetails = JointCheckDetailService.GetLists(JointCheckId);
+            //var unitWorks = BLL.UnitWorkService.GetUnitWorkLists(CurrUser.LoginProjectId);
+            //var cNProfessionals = BLL.CNProfessionalService.GetCNProfessionalItem();
+            //var questionTypes = BLL.QualityQuestionTypeService.GetQualityQuestionTypeItem();
+            //var users = BLL.UserService.GetProjectUserListByProjectId(CurrUser.LoginProjectId);
+            //if (jointCheckDetails.Count > 0)
+            //{
+            //    for (int i = 0; i < jointCheckDetails.Count; i++)
+            //    {
+            //        var cn = cNProfessionals.FirstOrDefault(x => x.Value == jointCheckDetails[i].CNProfessionalCode);
+            //        if (cn != null)
+            //        {
+            //            jointCheckDetails[i].CNProfessionalCode = cn.Text;
+            //        }
+            //        var unitWork = unitWorks.FirstOrDefault(x => x.UnitWorkId == jointCheckDetails[i].UnitWorkId);
+            //        if (unitWork != null)
+            //        {
+            //            jointCheckDetails[i].UnitWorkId = unitWork.UnitWorkName;
+            //        }
+            //        var questionType = questionTypes.FirstOrDefault(x => x.Value == jointCheckDetails[i].QuestionType);
+            //        if (questionType != null)
+            //        {
+            //            jointCheckDetails[i].QuestionType = questionType.Text;
+            //        }
+            //    }
+            //}
+            Grid1.DataSource = jointCheckDetails;
+            Grid1.DataBind();
+            if (Grid1.Rows.Count > 0)
+            {
+                foreach (JObject mergedRow in Grid1.GetMergedData())
+                {
+                    int i = mergedRow.Value<int>("index");
+                    GridRow row = Grid1.Rows[i];
+                    JObject values = mergedRow.Value<JObject>("values");
+                    AspNet.DropDownList drpUnitWork = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpUnitWork");
+                    AspNet.HiddenField hdUnitWork = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdUnitWork");
+                    drpUnitWork.Items.AddRange(BLL.UnitWorkService.GetUnitWork(this.CurrUser.LoginProjectId));
+                    Funs.PleaseSelect(drpUnitWork);
+                    if (!string.IsNullOrEmpty(hdUnitWork.Value))
+                    {
+                        drpUnitWork.SelectedValue = hdUnitWork.Value;
+                    }
+                    AspNet.HiddenField hdCNProfessional = (AspNet.HiddenField)(this.Grid1.Rows[i].FindControl("hdCNProfessional"));
+                    AspNet.DropDownList drpCNProfessional = (AspNet.DropDownList)(this.Grid1.Rows[i].FindControl("drpCNProfessional"));
+                    drpCNProfessional.Items.AddRange(BLL.CNProfessionalService.GetCNProfessionalItem());
+                    Funs.PleaseSelect(drpCNProfessional);
+                    if (!string.IsNullOrEmpty(hdCNProfessional.Value))
+                    {
+                        drpCNProfessional.SelectedValue = hdCNProfessional.Value;
+                    }
+                    AspNet.HiddenField hdQuestionType = (AspNet.HiddenField)(this.Grid1.Rows[i].FindControl("hdQuestionType"));
+                    AspNet.DropDownList drpQuestionType = (AspNet.DropDownList)(this.Grid1.Rows[i].FindControl("drpQuestionType"));
+                    drpQuestionType.Items.AddRange(BLL.QualityQuestionTypeService.GetQualityQuestionTypeItem());
+                    Funs.PleaseSelect(drpQuestionType);
+                    if (!string.IsNullOrEmpty(hdQuestionType.Value))
+                    {
+                        drpQuestionType.SelectedValue = hdQuestionType.Value;
+                    }
+                    System.Web.UI.WebControls.DropDownList handtype = (System.Web.UI.WebControls.DropDownList)(row.FindControl("drpHandleType"));
+                    System.Web.UI.WebControls.DropDownList handman = (System.Web.UI.WebControls.DropDownList)(row.FindControl("drpHandleMan"));
+
+                    //System.Web.UI.WebControls.TextBox handleWays = (System.Web.UI.WebControls.TextBox)(Grid1.Rows[i].FindControl("txtHandleWay"));
+                    //System.Web.UI.WebControls.TextBox rectifyDate = (System.Web.UI.WebControls.TextBox)(Grid1.Rows[i].FindControl("txtRectifyDate"));
+                    AspNet.HiddenField hdHandleMan = (AspNet.HiddenField)(this.Grid1.Rows[i].FindControl("hdHandleMan"));
+                    AspNet.DropDownList drpHandleMan = (AspNet.DropDownList)(this.Grid1.Rows[i].FindControl("drpHandleMan"));
+                    Funs.PleaseSelect(drpHandleMan);
+                    drpHandleMan.Items.AddRange(BLL.UserService.GetUserByUnitId(CurrUser.LoginProjectId, drpUnit.SelectedValue));
+                    if (!string.IsNullOrEmpty(hdHandleMan.Value))
+                    {
+                        drpHandleMan.SelectedValue = hdHandleMan.Value;
+                    }
+                }
+                //setHandelMan();
+            }
+            var list = JointCheckApproveService.getListData(JointCheckId);
+
         }
 
         protected void Grid1_RowDataBound(object sender, GridRowEventArgs e)
@@ -431,6 +544,7 @@ namespace FineUIPro.Web.CQMS.Check
                 }
             }
             addGvList();
+            BLL.JointCheckDetailService.DeleteJointCheckDetailByJointCheckId(jointCheck.JointCheckId);
             List<Model.Sys_User> seeUsers = new List<Model.Sys_User>();
             foreach (Model.Check_JointCheckDetail a in jointCheckDetails)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using BLL;
 using Model;
@@ -129,8 +130,42 @@ namespace Mvc.Controllers
                 CheckControl.TechnicalContactListId = approve.TechnicalContactListId;
                 CheckControl.State = approve.ApproveType;
                 BLL.TechnicalContactListService.UpdateTechnicalContactListForApi(CheckControl);
-
-              res.resultValue=  BLL.TechnicalContactListApproveService.AddTechnicalContactListApprove(approve);
+                Model.Check_TechnicalContactList technicalContactList = TechnicalContactListService.GetTechnicalContactListByTechnicalContactListId(approve.TechnicalContactListId);
+                string unitType = string.Empty;
+                Model.Project_ProjectUnit unit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(technicalContactList.ProjectId, technicalContactList.ProposedUnitId);
+                if (unit != null)
+                {
+                    unitType = unit.UnitType;
+                }
+                if (unitType == BLL.Const.ProjectUnitType_1 && technicalContactList.IsReply == "2" && approve.ApproveType == Const.TechnicalContactList_Complete)  //总包发起
+                {
+                    List<Model.Sys_User> seeUsers = new List<Model.Sys_User>();
+                    seeUsers.AddRange(UserService.GetSeeUserList3(technicalContactList.ProjectId, technicalContactList.ProposedUnitId, technicalContactList.MainSendUnitId, technicalContactList.CCUnitIds, technicalContactList.CNProfessionalCode, technicalContactList.UnitWorkId.ToString()));
+                    seeUsers = seeUsers.Distinct().ToList();
+                    foreach (var seeUser in seeUsers)
+                    {
+                        Model.Check_TechnicalContactListApprove approveS = new Model.Check_TechnicalContactListApprove();
+                        approveS.TechnicalContactListId = approve.TechnicalContactListId;
+                        approveS.ApproveMan = seeUser.UserId;
+                        approveS.ApproveType = "S";
+                        TechnicalContactListApproveService.AddTechnicalContactListApprove(approveS);
+                    }
+                }
+                if (unitType == BLL.Const.ProjectUnitType_2 && technicalContactList.IsReply == "2" && approve.ApproveType == Const.TechnicalContactList_Complete)  //分包发起
+                {
+                    List<Model.Sys_User> seeUsers = new List<Model.Sys_User>();
+                    seeUsers.AddRange(UserService.GetSeeUserList3(technicalContactList.ProjectId, technicalContactList.ProposedUnitId, technicalContactList.MainSendUnitId, technicalContactList.CCUnitIds, technicalContactList.CNProfessionalCode, technicalContactList.UnitWorkId.ToString()));
+                    seeUsers = seeUsers.Distinct().ToList();
+                    foreach (var seeUser in seeUsers)
+                    {
+                        Model.Check_TechnicalContactListApprove approveS = new Model.Check_TechnicalContactListApprove();
+                        approveS.TechnicalContactListId = approve.TechnicalContactListId;
+                        approveS.ApproveMan = seeUser.UserId;
+                        approveS.ApproveType = "S";
+                        TechnicalContactListApproveService.AddTechnicalContactListApprove(approveS);
+                    }
+                }
+                res.resultValue=  BLL.TechnicalContactListApproveService.AddTechnicalContactListApprove(approve);
                 res.successful = true;
             }
             catch (Exception e)

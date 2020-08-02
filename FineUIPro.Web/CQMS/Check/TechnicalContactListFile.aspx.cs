@@ -356,7 +356,7 @@ namespace FineUIPro.Web.CQMS.Check
                 if (bookmarkContents != null)
                 {
                     bookmarkContents.Text = technicalContactList.Contents;
-                    if (unitType == "3")
+                    if (unitType == BLL.Const.ProjectUnitType_2)
                     {
                         Model.Check_TechnicalContactListApprove approve = TechnicalContactListApproveService.GetApprove(fileId);
                         if (approve != null)
@@ -394,7 +394,8 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkCompileMan = doc.Range.Bookmarks["CompileMan"];
                 if (bookmarkCompileMan != null)
                 {
-                    var file = AttachFileService.GetfileUrl(technicalContactList.CompileMan);
+                    Model.Sys_User user= UserService.GetUserByUserId(technicalContactList.CompileMan);
+                    var file = user.SignatureUrl;
                     if (!string.IsNullOrWhiteSpace(file))
                     {
                         string url = rootPath + file;
@@ -421,7 +422,6 @@ namespace FineUIPro.Web.CQMS.Check
                             }
                             else
                             {
-                                var user = UserService.GetUserByUserId(technicalContactList.CompileMan);
                                 bookmarkCompileMan.Text = user.UserName;
                             }
 
@@ -429,8 +429,7 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     else
                     {
-                        var user = UserService.GetUserByUserId(technicalContactList.CompileMan);
-                        bookmarkCompileMan.Text = user.UserName;
+                        bookmarkCompileMan.Text = UserService.GetUserNameByUserId(technicalContactList.CompileMan);
                     }
 
                 }
@@ -438,7 +437,7 @@ namespace FineUIPro.Web.CQMS.Check
                 if (bookmarkAuditMan1 != null)
                 {
                     Model.Check_TechnicalContactListApprove approve = null;
-                    if (unitType == "3")   //施工分包发起
+                    if (unitType == BLL.Const.ProjectUnitType_2)   //施工分包发起
                     {
                         approve = TechnicalContactListApproveService.GetApprove(technicalContactList.TechnicalContactListId);
                     }
@@ -448,7 +447,8 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     if (approve != null)
                     {
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        var file = user.SignatureUrl;
                         if (!string.IsNullOrWhiteSpace(file))
                         {
                             string url = rootPath + file;
@@ -475,7 +475,6 @@ namespace FineUIPro.Web.CQMS.Check
                                 }
                                 else
                                 {
-                                    var user = UserService.GetUserByUserId(approve.ApproveMan);
                                     bookmarkAuditMan1.Text = user.UserName;
                                 }
 
@@ -483,8 +482,7 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                         else
                         {
-                            var user = UserService.GetUserByUserId(approve.ApproveMan);
-                            bookmarkAuditMan1.Text = user.UserName;
+                            bookmarkAuditMan1.Text = UserService.GetUserNameByUserId(approve.ApproveMan);
                         }
                     }
                 }
@@ -500,7 +498,7 @@ namespace FineUIPro.Web.CQMS.Check
                 if (bookmarkAuditMan2 != null)
                 {
                     Model.Check_TechnicalContactListApprove approve = null;
-                    if (unitType == "3")   //施工分包发起
+                    if (unitType == BLL.Const.ProjectUnitType_2)   //施工分包发起
                     {
                         approve = TechnicalContactListApproveService.GetApprove3(technicalContactList.TechnicalContactListId);
                     }
@@ -510,7 +508,8 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     if (approve != null)
                     {
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        var file = user.SignatureUrl;
                         if (!string.IsNullOrWhiteSpace(file))
                         {
                             string url = rootPath + file;
@@ -537,7 +536,6 @@ namespace FineUIPro.Web.CQMS.Check
                                 }
                                 else
                                 {
-                                    var user = UserService.GetUserByUserId(approve.ApproveMan);
                                     bookmarkAuditMan2.Text = user.UserName;
                                 }
 
@@ -545,7 +543,6 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                         else
                         {
-                            var user = UserService.GetUserByUserId(approve.ApproveMan);
                             bookmarkAuditMan2.Text = user.UserName;
                         }
 
@@ -567,7 +564,7 @@ namespace FineUIPro.Web.CQMS.Check
                 if (bookmarkAuditMan3 != null)
                 {
                     Model.Check_TechnicalContactListApprove approve = null;
-                    if (unitType == "3")   //施工分包发起
+                    if (unitType == BLL.Const.ProjectUnitType_2)   //施工分包发起
                     {
                         approve = TechnicalContactListApproveService.GetApprove2(technicalContactList.TechnicalContactListId);
                     }
@@ -577,7 +574,8 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     if (approve != null)
                     {
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        var file = user.SignatureUrl;
                         if (!string.IsNullOrWhiteSpace(file))
                         {
                             string url = rootPath + file;
@@ -604,7 +602,6 @@ namespace FineUIPro.Web.CQMS.Check
                                 }
                                 else
                                 {
-                                    var user = UserService.GetUserByUserId(approve.ApproveMan);
                                     bookmarkAuditMan3.Text = user.UserName;
                                 }
 
@@ -612,7 +609,6 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                         else
                         {
-                            var user = UserService.GetUserByUserId(approve.ApproveMan);
                             bookmarkAuditMan3.Text = user.UserName;
                         }
 

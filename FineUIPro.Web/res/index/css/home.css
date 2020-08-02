@@ -172,6 +172,43 @@ body {
     box-shadow: 0 0 10px rgb(0,162,233);
 }
 
+.tab-wrap-tit{
+
+}
+
+.tab-wrap-tit .tab {
+    font-size: 11px;
+    display: flex;
+    display: -webkit-flex;
+}
+
+.tab-wrap-tit .tab .t-item {
+    cursor: pointer;
+    width: 48px;
+    text-align: center;
+    color: #fff;
+}
+
+.tab-wrap-tit .tab .t-item:first-child {
+    /*border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;*/
+}
+
+.tab-wrap .tab .t-item:last-child {
+    /*border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;*/
+}
+
+.tab-wrap-tit .tab .spline {
+    width: 0;
+    border-left: 1px solid rgba(0,162,233,1);
+}
+
+.tab-wrap-tit .tab .active {
+    color: #333;
+    background-color: #fff;
+}
+
 .tab-wrap {
     position: absolute;
     top: 15px;
@@ -179,42 +216,42 @@ body {
     z-index: 99;
 }
 
-.tab {
-    font-size:11px;
-    border-radius: 4px;
-    border: 1px solid rgba(0,162,233,1);
-    box-shadow: 0 0 10px rgba(0,162,233, 0.8);
-    display: flex;
-    display: -webkit-flex;
-}
+    .tab-wrap .tab {
+        font-size: 11px;
+        border-radius: 4px;
+        border: 1px solid rgba(0,162,233,1);
+        box-shadow: 0 0 10px rgba(0,162,233, 0.8);
+        display: flex;
+        display: -webkit-flex;
+    }
 
-    .tab .t-item {
+    .tab-wrap .tab .t-item {
         cursor: pointer;
-        width: 48px;
+        width: auto;
         text-align: center;
         color: #fff;
         padding: 5px;
     }
 
-        .tab .t-item:first-child {
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-        }
+    .tab-wrap .tab .t-item:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
 
-        .tab .t-item:last-child {
+    .tab-wrap .tab .t-item:last-child {
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
         }
 
-    .tab .spline {
+    .tab-wrap .tab .spline {
         width: 0;
         border-left: 1px solid rgba(0,162,233,1);
     }
 
-    .tab .active {
-        color: #333;
-        background-color: #fff;
-    }
+    .tab-wrap .tab .active {
+            color: #333;
+            background-color: #fff;
+        }
 
 .content-ul {
     color: #fff;
@@ -242,6 +279,7 @@ body {
             white-space: nowrap;
             text-overflow: ellipsis;
             word-break: keep-all;
+            font-size:11px;
         }
 
         .content-ul .c-item .time {
@@ -495,7 +533,7 @@ body {
 .tab-content {
     color: #fff;
     margin-top: 10px;
-    font-size:10px;
+    font-size:11px;
 }
 
 .tab-content .tab-i {
@@ -542,4 +580,42 @@ body {
 
 .line-item .warn {
     background-color: #C71D26 !important;
+}
+.row1 {
+    font-size: 11px;
+    background-color: orangered;
+    color: #fff;
+    border-radius: 4px;
+    height: 36px;
+    line-height: 36px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+    .row1 span.num {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+.row2 {
+    color: #fff;
+    font-size: 11px;
+    align-items: center;
+}
+ .row2 .txt {
+    
+}
+
+.row2 .item-txt-list {
+    width: 100%;
+}
+
+.row2 .item-txt-list .txt-tit {
+    width: 70px;
+}
+
+.row2 .item-txt-list .fixtt {
+    letter-spacing: 4px;
+}
+
+.row2 .item-txt-list:last-child {
+    margin-bottom: 0;
 }

@@ -483,17 +483,16 @@ namespace BLL
                         }
                         else
                         {                         
-                            isUpdate.ReCheckDate = DateTime.Now;                                                        
+                            isUpdate.ReCheckDate = DateTime.Now;
                             //// 回写专项检查明细表                            
-                            var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId.Contains(isUpdate.RectifyNoticesId) select x;
-                            if (getcheck.Count() > 0)
+                            var getcheck = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(isUpdate.RectifyNoticesId));
+                            if (getcheck != null)
                             {
-                                foreach (var item in getcheck)
-                                {
-                                    item.CompleteStatus = true;
-                                    item.CompletedDate = DateTime.Now;
-                                    db.SubmitChanges();
-                                }
+                                getcheck.CompleteStatus = true;
+                                getcheck.CompletedDate = DateTime.Now;
+                                db.SubmitChanges();
+                                //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
+                                Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
                             }
                         }
                         db.SubmitChanges();                        

@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.HSSE.Check
 {
@@ -25,59 +22,42 @@ namespace FineUIPro.Web.HSSE.Check
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                txtProjectName.Text = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId).ProjectName;
-                RectifyNoticesId = Request.Params["RectifyNoticesId"];
+            {            
+                this.RectifyNoticesId = Request.Params["RectifyNoticesId"];
                 if (!string.IsNullOrEmpty(RectifyNoticesId))
                 {
-                    Model.Check_RectifyNotices RectifyNotices = RectifyNoticesService.GetRectifyNoticesById(RectifyNoticesId);
-                    if (RectifyNotices != null) {
-                        if (!string.IsNullOrEmpty(RectifyNotices.UnitId)) {
-                            txtUnitId.Text = BLL.UnitService.GetUnitNameByUnitId(RectifyNotices.UnitId);
-                        }
-                        if (!string.IsNullOrEmpty(RectifyNotices.CheckManIds))
+                    var getRectifyNotices = RectifyNoticesService.GetRectifyNoticesById(RectifyNoticesId);
+                    if (getRectifyNotices != null)
+                    {
+                        this.txtProjectName.Text = ProjectService.GetProjectNameByProjectId(getRectifyNotices.ProjectId);
+                        this.txtUnitId.Text = UnitService.GetUnitNameByUnitId(getRectifyNotices.UnitId);
+                        this.txtCheckPersonId.Text = UserService.getUserNamesUserIds(getRectifyNotices.CheckManIds);
+                        this.txtWorkAreaId.Text = BLL.UnitWorkService.GetUnitWorkName(getRectifyNotices.WorkAreaId);
+                        this.txtCheckPerson.Text = getRectifyNotices.CheckManNames;
+                        this.txtRectifyNoticesCode.Text = getRectifyNotices.RectifyNoticesCode;
+                        this.txtCheckedDate.Text =string.Format("{0:yyyy-MM-dd}",getRectifyNotices.CheckedDate);
+                        this.drpHiddenHazardType.Text = "一般";
+                        if (getRectifyNotices.HiddenHazardType == "2")
                         {
-                            string CheckManId = string.Empty;
-                            if (RectifyNotices.CheckManIds != null)
-                            {
-                                string[] Ids = RectifyNotices.CheckManIds.ToString().Split(',');
-                                foreach (string t in Ids)
-                                {
-                                    var Name = BLL.UserService.GetUserNameByUserId(t);
-                                    if (Name != null)
-                                    {
-                                        CheckManId += Name + ",";
-                                    }
-                                }
-                            }
-                            if (CheckManId != string.Empty)
-                            {
-                                
-                                txtCheckPersonId.Text= CheckManId.Substring(0, CheckManId.Length - 1);
-                            }
+                            this.drpHiddenHazardType.Text = "较大";
                         }
-                        if (!string.IsNullOrEmpty(RectifyNotices.WorkAreaId) )
+                        else if (getRectifyNotices.HiddenHazardType == "3")
                         {
-                            txtWorkAreaId.Text = BLL.UnitWorkService.GetUnitWorkName(RectifyNotices.WorkAreaId);
-                        }
-                        this.txtCheckPerson.Text = RectifyNotices.CheckManNames;
-                        this.txtRectifyNoticesCode.Text = RectifyNotices.RectifyNoticesCode;
-                        this.txtCheckedDate.Text = RectifyNotices.CheckedDate.ToString();
-                        if (!string.IsNullOrEmpty(RectifyNotices.HiddenHazardType))
-                        {
-                            this.drpHiddenHazardType.SelectedValue = RectifyNotices.HiddenHazardType;
+                            this.drpHiddenHazardType.Text = "重大";
                         }
                         BindGrid1();
                         BindGrid();
+
                     }
-                    
                 }
             }
         }
 
         public void BindGrid1()
         {
-            string strSql = @"select RectifyNoticesItemId, RectifyNoticesId, WrongContent, Requirement, LimitTime, RectifyResults, (case IsRectify when 'True' then '合格' when 'False' then '不合格' else '' end) As IsRectify  from [dbo].[Check_RectifyNoticesItem] ";
+            string strSql = @"select RectifyNoticesItemId, RectifyNoticesId, WrongContent, Requirement, LimitTime, RectifyResults
+                , (case IsRectify when 'True' then '合格' when 'False' then '不合格' else '' end) As IsRectify 
+                from [dbo].[Check_RectifyNoticesItem] ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += "where RectifyNoticesId = @RectifyNoticesId";
             listStr.Add(new SqlParameter("@RectifyNoticesId", RectifyNoticesId));
@@ -90,7 +70,9 @@ namespace FineUIPro.Web.HSSE.Check
 
         public void BindGrid()
         {
-            string strSql = @"select FlowOperateId, RectifyNoticesId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_RectifyNoticesFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            string strSql = @"select FlowOperateId, RectifyNoticesId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName 
+                             ,(case when IsAgree=0 then '不同意' else '同意' end) as IsAgreeName                
+                            from Check_RectifyNoticesFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += "where RectifyNoticesId= @RectifyNoticesId";
             listStr.Add(new SqlParameter("@RectifyNoticesId", RectifyNoticesId));

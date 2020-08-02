@@ -267,7 +267,7 @@ namespace FineUIPro.Web.CQMS.Check
                 }
                 else if (state.ToString() == BLL.Const.Design_Complete)
                 {
-                    return "审批";
+                    return "审批完成";
                 }
                 else
                 {

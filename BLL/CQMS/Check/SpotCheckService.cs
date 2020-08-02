@@ -39,6 +39,7 @@ namespace BLL
             newSpotCheck.State = SpotCheck.State;
             newSpotCheck.ControlPointType = SpotCheck.ControlPointType;
             newSpotCheck.State2 = SpotCheck.State2;
+            newSpotCheck.SaveHandleMan = SpotCheck.SaveHandleMan;
 
             db.Check_SpotCheck.InsertOnSubmit(newSpotCheck);
             db.SubmitChanges();
@@ -66,6 +67,7 @@ namespace BLL
                 newSpotCheck.State = SpotCheck.State;
                 newSpotCheck.ControlPointType = SpotCheck.ControlPointType;
                 newSpotCheck.State2 = SpotCheck.State2;
+                newSpotCheck.SaveHandleMan = SpotCheck.SaveHandleMan;
 
                 db.Check_SpotCheck.InsertOnSubmit(newSpotCheck);
                 db.SubmitChanges();
@@ -95,6 +97,7 @@ namespace BLL
             newSpotCheck.ControlPointType = SpotCheck.ControlPointType;
             newSpotCheck.State2 = SpotCheck.State2;
             newSpotCheck.IsShow = SpotCheck.IsShow;
+            newSpotCheck.SaveHandleMan = SpotCheck.SaveHandleMan;
 
             db.SubmitChanges();
         }
@@ -403,7 +406,7 @@ namespace BLL
                                x.IsOK
                            };
                 List<Model.Check_SpotCheck> res = new List<Model.Check_SpotCheck>();
-                var list = qres.Skip(startRowIndex).Take(maximumRows).ToList();
+                var list = qres.Skip(startRowIndex* maximumRows).Take(maximumRows).ToList();
 
                 foreach (var item in list)
                 {

@@ -90,11 +90,7 @@ namespace BLL
             db.Check_CheckSpecial.InsertOnSubmit(newCheckSpecial);
             db.SubmitChanges();
             ////增加一条编码记录
-            BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectCheckSpecialMenuId, checkSpecial.ProjectId, null, checkSpecial.CheckSpecialId, checkSpecial.CheckTime);
-
-            if (!string.IsNullOrEmpty(newCheckSpecial.PartInPersonIds))
-            { 
-            }
+            BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectCheckSpecialMenuId, checkSpecial.ProjectId, null, checkSpecial.CheckSpecialId, checkSpecial.CheckTime);         
         }
 
         /// <summary>
@@ -122,6 +118,24 @@ namespace BLL
                 newCheckSpecial.CheckType = checkSpecial.CheckType;
                 newCheckSpecial.CheckItemSetId = checkSpecial.CheckItemSetId;
                 db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据专项检查ID 更新专项检查状态
+        /// </summary>
+        /// <param name="checkSpecialDetailId"></param>
+        public static void UpdateCheckSpecialStates(string checkSpecialId)
+        {
+            var getS = Funs.DB.Check_CheckSpecial.FirstOrDefault(x => x.CheckSpecialId == checkSpecialId);
+            if (getS != null && getS.States == Const.State_1)
+            {
+                var getNCDetail = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialId == getS.CheckSpecialId && x.CompleteStatus == false);
+                if (getNCDetail == null)
+                {
+                    getS.States = Const.State_2;
+                    Funs.DB.SubmitChanges();
+                }
             }
         }
 

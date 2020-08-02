@@ -311,6 +311,11 @@ namespace FineUIPro.Web.CQMS.Check
                     HandleType();
 
                 }
+                Model.Check_CheckControl checkControl1 = CheckControlService.GetCheckControl(CheckControlCode);
+                if (checkControl1 != null && !string.IsNullOrEmpty(checkControl1.SaveHandleMan))
+                {
+                    this.drpHandleMan.SelectedValue = checkControl1.SaveHandleMan;
+                }
             }
         }
 
@@ -451,6 +456,7 @@ namespace FineUIPro.Web.CQMS.Check
                 }
                 if (saveType == "submit")
                 {
+                    checkControl.SaveHandleMan = null;
                     Model.Check_CheckControlApprove approve = new Model.Check_CheckControlApprove();
                     approve.CheckControlCode = CheckControlCode;
                     if (this.drpHandleMan.SelectedValue != "0")
@@ -461,12 +467,20 @@ namespace FineUIPro.Web.CQMS.Check
                     BLL.CheckControlApproveService.AddCheckControlApprove(approve);
                     APICommonService.SendSubscribeMessage(approve.ApproveMan, "质量巡检问题待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
+                if (saveType == "save")
+                {
+                    checkControl.SaveHandleMan = this.drpHandleMan.SelectedValue;
+                }
                 checkControl.CheckControlCode = CheckControlCode;
                 BLL.CheckControlService.UpdateCheckControl(checkControl);
             }
             else
             {
                 checkControl.CheckMan = this.CurrUser.UserId;
+                if (saveType == "save")
+                {
+                    checkControl.SaveHandleMan = this.drpHandleMan.SelectedValue;
+                }
                 if (!string.IsNullOrEmpty(this.hdCheckControlCode.Text))
                 {
                     checkControl.CheckControlCode = this.hdCheckControlCode.Text;
@@ -504,14 +518,17 @@ namespace FineUIPro.Web.CQMS.Check
                     approve1.ApproveType = BLL.Const.CheckControl_Compile;
                     BLL.CheckControlApproveService.AddCheckControlApprove(approve1);
                 }
-                List<Model.Sys_User> seeUsers = BLL.UserService.GetSeeUserList(this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, this.drpCNProfessional.SelectedValue, this.drpUnitWork.SelectedValue, this.drpHandleMan.SelectedValue, this.CurrUser.UserId);
-                foreach (var seeUser in seeUsers)
+                if (saveType == "submit")
                 {
-                    Model.Check_CheckControlApprove approve = new Model.Check_CheckControlApprove();
-                    approve.CheckControlCode = checkControl.CheckControlCode;
-                    approve.ApproveMan = seeUser.UserId;
-                    approve.ApproveType = "S";
-                    BLL.CheckControlApproveService.AddCheckControlApprove(approve);
+                    List<Model.Sys_User> seeUsers = BLL.UserService.GetSeeUserList(this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, this.drpCNProfessional.SelectedValue, this.drpUnitWork.SelectedValue, this.drpHandleMan.SelectedValue, this.CurrUser.UserId);
+                    foreach (var seeUser in seeUsers)
+                    {
+                        Model.Check_CheckControlApprove approve = new Model.Check_CheckControlApprove();
+                        approve.CheckControlCode = checkControl.CheckControlCode;
+                        approve.ApproveMan = seeUser.UserId;
+                        approve.ApproveType = "S";
+                        BLL.CheckControlApproveService.AddCheckControlApprove(approve);
+                    }
                 }
             }
             BLL.LogService.AddSys_Log(this.CurrUser, checkControl.DocCode, CheckControlCode, BLL.Const.CheckListMenuId, "编辑质量巡检记录");

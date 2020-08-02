@@ -298,7 +298,7 @@ namespace FineUIPro.Web.CQMS.Check
                 Model.Unqualified_WorkContactApprove approve1 = new Model.Unqualified_WorkContactApprove();
                 Model.Unqualified_WorkContactApprove approve2 = new Model.Unqualified_WorkContactApprove();
                 Model.Unqualified_WorkContactApprove approve3 = new Model.Unqualified_WorkContactApprove();
-                if (unitType == "3")   //分包商提出
+                if (unitType == BLL.Const.ProjectUnitType_2)   //分包商提出
                 {
                     approve1 = WorkContactApproveService.GetAudit1(fileId);
                     if (approve1 != null)
@@ -348,7 +348,8 @@ namespace FineUIPro.Web.CQMS.Check
                     approve1 = WorkContactApproveService.GetAudit3(fileId);
                     if (approve1 != null)
                     {
-                        var file = AttachFileService.GetfileUrl(approve1.ApproveMan);
+                        Model.Sys_User user = UserService.GetUserByUserId(approve1.ApproveMan);
+                        var file = user.SignatureUrl;
                         if (!string.IsNullOrWhiteSpace(file))
                         {
                             string url = rootPath + file;
@@ -375,7 +376,6 @@ namespace FineUIPro.Web.CQMS.Check
                                 }
                                 else
                                 {
-                                    var user = UserService.GetUserByUserId(approve1.ApproveMan);
                                     auditMan1 = user.UserName;
                                 }
 
@@ -383,7 +383,6 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                         else
                         {
-                            var user = UserService.GetUserByUserId(approve1.ApproveMan);
                             auditMan1 = user.UserName;
                         }
                         if (approve1.ApproveDate != null)
@@ -395,7 +394,8 @@ namespace FineUIPro.Web.CQMS.Check
                     approve2 = WorkContactApproveService.GetAudit4(fileId);
                     if (approve2 != null)
                     {
-                        var file = AttachFileService.GetfileUrl(approve2.ApproveMan);
+                        Model.Sys_User user = UserService.GetUserByUserId(approve2.ApproveMan);
+                        var file = user.SignatureUrl;
                         if (!string.IsNullOrWhiteSpace(file))
                         {
                             string url = rootPath + file;
@@ -422,7 +422,6 @@ namespace FineUIPro.Web.CQMS.Check
                                 }
                                 else
                                 {
-                                    var user = UserService.GetUserByUserId(approve2.ApproveMan);
                                     auditMan2 = user.UserName;
                                 }
 
@@ -430,7 +429,6 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                         else
                         {
-                            var user = UserService.GetUserByUserId(approve2.ApproveMan);
                             auditMan2 = user.UserName;
                         }
 
@@ -444,7 +442,8 @@ namespace FineUIPro.Web.CQMS.Check
                     approve3 = WorkContactApproveService.GetAudit1(fileId);
                     if (approve3 != null)
                     {
-                        var file = AttachFileService.GetfileUrl(approve3.ApproveMan);
+                        Model.Sys_User user = UserService.GetUserByUserId(approve3.ApproveMan);
+                        var file = user.SignatureUrl;
                         if (!string.IsNullOrWhiteSpace(file))
                         {
                             string url = rootPath + file;
@@ -471,7 +470,6 @@ namespace FineUIPro.Web.CQMS.Check
                                 }
                                 else
                                 {
-                                    var user = UserService.GetUserByUserId(approve3.ApproveMan);
                                     auditMan3 = user.UserName;
                                 }
 
@@ -479,7 +477,6 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                         else
                         {
-                            var user = UserService.GetUserByUserId(approve3.ApproveMan);
                             auditMan3 = user.UserName;
                         }
                         if (approve3.ApproveDate != null)
@@ -512,7 +509,8 @@ namespace FineUIPro.Web.CQMS.Check
                     Model.Unqualified_WorkContactApprove approve = WorkContactApproveService.GetComplie(fileId);
                     if (approve != null)
                     {
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        var file = user.SignatureUrl;
                         if (!string.IsNullOrWhiteSpace(file))
                         {
                             string url = rootPath + file;
@@ -539,7 +537,6 @@ namespace FineUIPro.Web.CQMS.Check
                                 }
                                 else
                                 {
-                                    var user = UserService.GetUserByUserId(approve.ApproveMan);
                                     bookmarkCompileMan.Text = user.UserName;
                                 }
 
@@ -547,7 +544,6 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                         else
                         {
-                            var user = UserService.GetUserByUserId(approve.ApproveMan);
                             bookmarkCompileMan.Text = user.UserName;
                         }
 

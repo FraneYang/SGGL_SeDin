@@ -60,7 +60,7 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getCheckSpecial = from x in db.Check_CheckSpecial
-                                      where x.ProjectId == projectId && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
+                                      where x.ProjectId == projectId && (states == null ||  x.States ==states)
                                       orderby x.CheckSpecialCode descending
                                       select new Model.CheckSpecialItem
                                       {
@@ -115,12 +115,12 @@ namespace BLL
                     PartInPersons = UserService.getUserNamesUserIds(newItem.PartInPersonIds),
                     PartInPersonNames = newItem.PartInPersonNames2,
                     CompileMan = newItem.CompileManId,
-                    States = newItem.States,
+                    States = Const.State_0,
                 };
-                if (newItem.States != Const.State_1)
-                {
-                    newCheckSpecial.States = Const.State_0;
-                }
+                //if (newItem.States != Const.State_1)
+                //{
+                //    newCheckSpecial.States = Const.State_0;
+                //}
 
                 var updateCheckSpecial = db.Check_CheckSpecial.FirstOrDefault(x => x.CheckSpecialId == newItem.CheckSpecialId);
                 if (updateCheckSpecial == null)
@@ -137,11 +137,7 @@ namespace BLL
                     Check_CheckSpecialService.UpdateCheckSpecial(newCheckSpecial);
                     //// 删除专项检查明细项
                     Check_CheckSpecialDetailService.DeleteCheckSpecialDetails(newCheckSpecial.CheckSpecialId);
-                }
-                if (newCheckSpecial.States == "1")
-                {
-                    CommonService.btnSaveData(newCheckSpecial.ProjectId, Const.ProjectCheckSpecialMenuId, newCheckSpecial.CheckSpecialId, newCheckSpecial.CompileMan, true, newCheckSpecial.CheckSpecialCode, "../Check/CheckSpecialView.aspx?CheckSpecialId={0}");
-                }
+                }               
                 ////保存附件
                 if (!string.IsNullOrEmpty(newItem.AttachUrl1))
                 {
@@ -154,20 +150,36 @@ namespace BLL
 
                 ///// 新增检查项
                 if (newItem.CheckSpecialDetailItems != null && newItem.CheckSpecialDetailItems.Count() > 0)
-                {
-                      
+                {                      
                     foreach (var item in newItem.CheckSpecialDetailItems)
                     {
                         item.CheckSpecialId = newCheckSpecial.CheckSpecialId;
                         SaveCheckSpecialDetail(item);                      
                     }
                     //// 单据完成后 系统自动按照单位 整改要求生成隐患整改单
-                    if (newCheckSpecial.States == Const.State_1)
+                    if (newItem.States == Const.State_1)
                     {
-                        var detailLists = db.Check_CheckSpecialDetail.Where(x => x.CheckSpecialId == newCheckSpecial.CheckSpecialId && x.CompleteStatus == false);
-                        if (detailLists.Count() > 0)
+                        var getC = newItem.CheckSpecialDetailItems.FirstOrDefault(x => x.CompleteStatus == false);
+                        if (getC == null)
                         {
-                            message= Check_CheckSpecialService.IssueRectification(detailLists.ToList(), newCheckSpecial);
+                            newCheckSpecial.States = Const.State_2;
+                            Check_CheckSpecialService.UpdateCheckSpecial(newCheckSpecial);
+                        }
+                        else
+                        {
+                            var getNA = newItem.CheckSpecialDetailItems.FirstOrDefault(x => x.CompleteStatus == false && (x.HandleStep== null || x.HandleStep==""));
+                            if (getNA == null)
+                            {
+                                var detailLists = db.Check_CheckSpecialDetail.Where(x => x.CheckSpecialId == newCheckSpecial.CheckSpecialId && x.CompleteStatus == false);
+                                if (detailLists.Count() > 0)
+                                {
+                                    message = Check_CheckSpecialService.IssueRectification(detailLists.ToList(), newCheckSpecial);
+                                }
+                            }
+                            else
+                            {
+                                message += "存在待整改，没有处理措施的记录！";
+                            }
                         }
                     }
                 }
@@ -188,6 +200,7 @@ namespace BLL
             {
                 var getInfo = from x in db.Check_CheckSpecialDetail
                               where x.CheckSpecialId == checkSpecialId
+                              orderby x.SortIndex
                               select new Model.CheckSpecialDetailItem
                               {
                                   CheckSpecialDetailId = x.CheckSpecialDetailId,
@@ -203,6 +216,8 @@ namespace BLL
                                   UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
                                   HandleStep = x.HandleStep,
                                   HandleStepName = getNames(x.HandleStep),
+                                  HiddenHazardType = x.HiddenHazardType,
+                                  HiddenHazardTypeName = x.HiddenHazardType == "3" ? "重大" : (x.HiddenHazardType == "2" ? "较大" : "一般"),
                                   LimitedDate = string.Format("{0:yyyy-MM-dd}", x.LimitedDate),
                                   CompleteStatus = x.CompleteStatus,
                                   CompleteStatusName = x.CompleteStatus == true ? "已整改" : "待整改",
@@ -234,6 +249,7 @@ namespace BLL
             {
                 var getInfo = from x in db.Check_CheckSpecialDetail
                               where x.CheckSpecialDetailId == checkSpecialDetailId
+                              orderby x.SortIndex
                               select new Model.CheckSpecialDetailItem
                               {
                                   CheckSpecialDetailId = x.CheckSpecialDetailId,
@@ -248,7 +264,9 @@ namespace BLL
                                   UnitId = x.UnitId,
                                   UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
                                   HandleStep = x.HandleStep,
-                                  HandleStepName = db.Sys_Const.First(y => y.GroupId == ConstValue.Group_HandleStep && y.ConstValue == x.HandleStep).ConstText,
+                                  HandleStepName = getNames(x.HandleStep),
+                                  HiddenHazardType = x.HiddenHazardType,
+                                  HiddenHazardTypeName = x.HiddenHazardType == "3" ? "重大" : (x.HiddenHazardType == "2" ? "较大" : "一般"),
                                   LimitedDate = string.Format("{0:yyyy-MM-dd}", x.LimitedDate),
                                   CompleteStatus = x.CompleteStatus,
                                   CompleteStatusName = x.CompleteStatus == true ? "已整改" : "待整改",
@@ -279,6 +297,7 @@ namespace BLL
                         Unqualified = newDetail.Unqualified,
                         UnitId = newDetail.UnitId,
                         HandleStep = newDetail.HandleStep,
+                        HiddenHazardType = newDetail.HiddenHazardType,
                         CompleteStatus = newDetail.CompleteStatus ?? false,
                         RectifyNoticeId = newDetail.RectifyNoticeId,
                         LimitedDate = Funs.GetNewDateTime(newDetail.LimitedDate),
@@ -288,6 +307,10 @@ namespace BLL
                         CheckArea = newDetail.WorkAreaId,
                         CheckContent = newDetail.CheckContent,
                     };
+                    if (newCheckSpecialDetail.CompleteStatus == false && newCheckSpecialDetail.HandleStep.Contains("1") && string.IsNullOrEmpty(newCheckSpecialDetail.HiddenHazardType))
+                    {
+                        newCheckSpecialDetail.HiddenHazardType = "1";
+                    }
                     var getUnit = UnitService.GetUnitByUnitId(newDetail.UnitId);
                     if (getUnit != null)
                     {
@@ -310,6 +333,7 @@ namespace BLL
                         updateDetail.Unqualified = newCheckSpecialDetail.Unqualified;
                         updateDetail.UnitId = newCheckSpecialDetail.UnitId;
                         updateDetail.HandleStep = newCheckSpecialDetail.HandleStep;
+                        updateDetail.HiddenHazardType = newCheckSpecialDetail.HiddenHazardType;
                         updateDetail.CompleteStatus = newCheckSpecialDetail.CompleteStatus;
                         updateDetail.RectifyNoticeId = newCheckSpecialDetail.RectifyNoticeId;
                         updateDetail.LimitedDate = newCheckSpecialDetail.LimitedDate;

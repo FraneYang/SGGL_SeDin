@@ -50,99 +50,11 @@ namespace FineUIPro.Web
                 return;
             }
             ////////////////////////////////////////////////////////////////
-
-            //// 从Cookie中读取 - 左侧菜单类型
-            //HttpCookie menuCookie = Request.Cookies["MenuStyle_Pro"];
-            //if (menuCookie != null)
-            //{
-            //    _menuType = menuCookie.Value;
-            //}
-            
-            //// 从Cookie中读取 - 是否启用紧凑模式
-            //HttpCookie menuCompactMode = Request.Cookies["EnableCompactMode_Pro"];
-            //if (menuCompactMode != null)
-            //{
-            //    _compactMode = Convert.ToBoolean(menuCompactMode.Value);
-            //}
-            //// 从Cookie中读取 - 搜索文本
-            //HttpCookie searchText = Request.Cookies["SearchText_Pro"];
-            //if (searchText != null)
-            //{
-            //    _searchText = HttpUtility.UrlDecode(searchText.Value);
-            //}
-
             if (!IsPostBack)
             {
                 
             }
         }
-
-        #endregion
-        
-        #region InitAccordionMenu
-
-        //private Accordion InitAccordionMenu()
-        //{
-        //    Accordion accordionMenu = new Accordion
-        //    {
-        //        ID = "accordionMenu",
-        //        EnableFill = false,
-        //        ShowBorder = false,
-        //        ShowHeader = false
-        //    };
-
-        //    leftPanel.Items.Add(accordionMenu);
-        //    XmlDocument xmlDoc = XmlDataSource1.GetXmlDocument();
-        //    XmlNodeList xmlNodes = xmlDoc.SelectNodes("/Tree/TreeNode");
-        //    foreach (XmlNode xmlNode in xmlNodes)
-        //    {
-        //        //if (xmlNode.HasChildNodes)
-        //        //{
-        //            string accordionPaneTitle = xmlNode.Attributes["Text"].Value;
-        //            if (GetIsNewHtml(xmlNode))
-        //            {
-        //                accordionPaneTitle = "<span class=\"isnew\">" + accordionPaneTitle + "</span>";
-        //                if (xmlNode.ParentNode != null)
-        //                {
-        //                    xmlNode.ParentNode.Attributes["Text"].Value = "<span class=\"isnew\">" + xmlNode.ParentNode.Attributes["Text"].Value + "</span>";
-        //                }
-        //            }
-
-        //        AccordionPane accordionPane = new AccordionPane
-        //        {
-        //            Title = accordionPaneTitle,
-        //            //Layout = Layout.Fit,
-        //            ShowBorder = false
-        //        };
-        //        var accordionPaneIconAttr = xmlNode.Attributes["Icon"];
-        //            if (accordionPaneIconAttr != null)
-        //            {
-        //                accordionPane.Icon = (Icon)Enum.Parse(typeof(Icon), accordionPaneIconAttr.Value, true);
-        //            }
-
-        //            accordionMenu.Items.Add(accordionPane);
-        //        Tree innerTree = new Tree
-        //        {
-        //            ShowBorder = false,
-        //            ShowHeader = false,
-        //            EnableIcons = false,
-        //            AutoScroll = true,
-        //            EnableSingleClickExpand = true
-        //        };
-        //        accordionPane.Items.Add(innerTree);
-        //            XmlDocument doc = new XmlDocument();
-        //            doc.LoadXml(String.Format("<?xml version=\"1.0\" encoding=\"utf-8\" ?><Tree>{0}</Tree>", xmlNode.InnerXml));
-        //            ResolveXmlDocument(doc);
-        //            // 绑定AccordionPane内部的树控件
-        //            innerTree.NodeDataBound += treeMenu_NodeDataBound;
-        //            innerTree.PreNodeDataBound += treeMenu_PreNodeDataBound;
-        //            innerTree.DataSource = doc;
-        //            innerTree.DataBind();
-        //        //}
-        //    }
-
-        //    return accordionMenu;
-        //}
 
         #endregion
 
@@ -380,8 +292,7 @@ namespace FineUIPro.Web
                 this.MenuSwitchMethod(Request.Params["menuType"]);           
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
-                this.InitLangMenuButton();
-             
+                this.InitLangMenuButton();             
             }
         }
         
@@ -451,9 +362,10 @@ namespace FineUIPro.Web
         
         protected void drpProject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //MenuSwitchMethod(string.Empty);
-            this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;
+            //this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;            
             PageContext.RegisterStartupScript("parent.removeActiveTab();");
+            MenuSwitchMethod(this.CurrUser.LastMenuType);
+          
         }
 
         /// <summary>
@@ -462,6 +374,10 @@ namespace FineUIPro.Web
         /// <param name="type"></param>
         protected void MenuSwitchMethod(string type)
         {
+            this.CurrUser.LoginProjectId = null;
+            this.XmlDataSource1.DataFile = "common/Menu_Personal.xml";
+            this.leftPanel.Hidden = true;
+            this.Tab1.IFrameUrl = "~/common/mainProject.aspx";
             if (!string.IsNullOrEmpty(type))
             {
                 if (!string.IsNullOrEmpty(this.drpProject.SelectedValue))
@@ -488,14 +404,8 @@ namespace FineUIPro.Web
                     return;
                 }
             }
-            else
-            {
-                this.CurrUser.LoginProjectId = null;
-                this.XmlDataSource1.DataFile = "common/Menu_Personal.xml";
-                this.leftPanel.Hidden = true;
-                this.Tab1.IFrameUrl = "~/common/mainProject.aspx";
-            }
-
+        
+            this.CurrUser.LastMenuType = type;
             UserService.UpdateLastUserInfo(this.CurrUser.UserId, type, false, this.drpProject.SelectedValue);            
             InitTreeMenu();
         }

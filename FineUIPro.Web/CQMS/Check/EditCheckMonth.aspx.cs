@@ -203,24 +203,24 @@ namespace FineUIPro.Web.CQMS.Check
             checkItems.Add(checkItem3);
             Model.CheckItem checkItem4 = new Model.CheckItem();
             checkItem4.Depart = "建设单位";
-            checkItem4.ThisRectifyNum = checkLists.Where(x => x.ProposeUnitType == "1").Count().ToString();
-            checkItem4.ThisOKRectifyNum = checkLists.Where(x => x.ProposeUnitType == "1" && x.OK == 1).Count().ToString();
-            checkItem4.TotalRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == "1").Count().ToString();
-            checkItem4.TotalOKRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == "1" && x.OK == 1).Count().ToString();
+            checkItem4.ThisRectifyNum = checkLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_4).Count().ToString();
+            checkItem4.ThisOKRectifyNum = checkLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_4 && x.OK == 1).Count().ToString();
+            checkItem4.TotalRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_4).Count().ToString();
+            checkItem4.TotalOKRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_4 && x.OK == 1).Count().ToString();
             checkItems.Add(checkItem4);
             Model.CheckItem checkItem5 = new Model.CheckItem();
             checkItem5.Depart = "监理单位";
-            checkItem5.ThisRectifyNum = checkLists.Where(x => x.ProposeUnitType == "2").Count().ToString();
-            checkItem5.ThisOKRectifyNum = checkLists.Where(x => x.ProposeUnitType == "2" && x.OK == 1).Count().ToString();
-            checkItem5.TotalRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == "2").Count().ToString();
-            checkItem5.TotalOKRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == "2" && x.OK == 1).Count().ToString();
+            checkItem5.ThisRectifyNum = checkLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_3).Count().ToString();
+            checkItem5.ThisOKRectifyNum = checkLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_3 && x.OK == 1).Count().ToString();
+            checkItem5.TotalRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_3).Count().ToString();
+            checkItem5.TotalOKRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_3 && x.OK == 1).Count().ToString();
             checkItems.Add(checkItem5);
             Model.CheckItem checkItem6 = new Model.CheckItem();
             checkItem6.Depart = "总承包商项目部";
-            checkItem6.ThisRectifyNum = checkLists.Where(x => x.ProposeUnitType == "5").Count().ToString();
-            checkItem6.ThisOKRectifyNum = checkLists.Where(x => x.ProposeUnitType == "5" && x.OK == 1).Count().ToString();
-            checkItem6.TotalRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == "5").Count().ToString();
-            checkItem6.TotalOKRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == "5" && x.OK == 1).Count().ToString();
+            checkItem6.ThisRectifyNum = checkLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_1).Count().ToString();
+            checkItem6.ThisOKRectifyNum = checkLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_1 && x.OK == 1).Count().ToString();
+            checkItem6.TotalRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_1).Count().ToString();
+            checkItem6.TotalOKRectifyNum = totalCheckLists.Where(x => x.ProposeUnitType == BLL.Const.ProjectUnitType_1 && x.OK == 1).Count().ToString();
             checkItems.Add(checkItem6);
             GridRectify.DataSource = checkItems;
             GridRectify.DataBind();
@@ -288,7 +288,7 @@ namespace FineUIPro.Web.CQMS.Check
                                                 select x).Count().ToString();
             if (Convert.ToInt32(monthSpotCheckDetail1.TotalNum) > 0)
             {
-                monthSpotCheckDetail1.TotalOKRate = decimal.Round(Convert.ToDecimal(Convert.ToInt32(monthSpotCheckDetail1.TotalOKNum) * 100 / Convert.ToInt32(monthSpotCheckDetail1.TotalNum)), 2) + "%";
+                monthSpotCheckDetail1.TotalOKRate = decimal.Round(Convert.ToDecimal(Convert.ToDecimal(monthSpotCheckDetail1.TotalOKNum) * 100 / Convert.ToDecimal(monthSpotCheckDetail1.TotalNum)), 2) + "%";
             }
             else
             {
@@ -311,7 +311,7 @@ namespace FineUIPro.Web.CQMS.Check
                                                 select x).Count().ToString();
             if (Convert.ToInt32(monthSpotCheckDetail2.TotalNum) > 0)
             {
-                monthSpotCheckDetail2.TotalOKRate = decimal.Round(Convert.ToDecimal(Convert.ToInt32(monthSpotCheckDetail2.TotalOKNum) * 100 / Convert.ToInt32(monthSpotCheckDetail2.TotalNum)), 2) + "%";
+                monthSpotCheckDetail2.TotalOKRate = decimal.Round(Convert.ToDecimal(Convert.ToDecimal(monthSpotCheckDetail2.TotalOKNum) * 100 / Convert.ToDecimal(monthSpotCheckDetail2.TotalNum)), 2) + "%";
             }
             else
             {
@@ -334,7 +334,7 @@ namespace FineUIPro.Web.CQMS.Check
                                                 select x).Count().ToString();
             if (Convert.ToInt32(monthSpotCheckDetail3.TotalNum) > 0)
             {
-                monthSpotCheckDetail3.TotalOKRate = decimal.Round(Convert.ToDecimal(Convert.ToInt32(monthSpotCheckDetail3.TotalOKNum) * 100 / Convert.ToInt32(monthSpotCheckDetail3.TotalNum)), 2) + "%";
+                monthSpotCheckDetail3.TotalOKRate = decimal.Round(Convert.ToDecimal(Convert.ToDecimal(monthSpotCheckDetail3.TotalOKNum) * 100 / Convert.ToDecimal(monthSpotCheckDetail3.TotalNum)), 2) + "%";
             }
             else
             {
@@ -357,7 +357,7 @@ namespace FineUIPro.Web.CQMS.Check
                                                 select x).Count().ToString();
             if (Convert.ToInt32(monthSpotCheckDetail4.TotalNum) > 0)
             {
-                monthSpotCheckDetail4.TotalOKRate = decimal.Round(Convert.ToDecimal(Convert.ToInt32(monthSpotCheckDetail4.TotalOKNum) * 100 / Convert.ToInt32(monthSpotCheckDetail4.TotalNum)), 2) + "%";
+                monthSpotCheckDetail4.TotalOKRate = decimal.Round(Convert.ToDecimal(Convert.ToDecimal(monthSpotCheckDetail4.TotalOKNum) * 100 / Convert.ToDecimal(monthSpotCheckDetail4.TotalNum)), 2) + "%";
             }
             else
             {

@@ -373,6 +373,10 @@ namespace FineUIPro.Web
                     this.leftPanel.Hidden = false;
                     this.XmlDataSource1.DataFile = "common/" + type + ".xml";
                     this.Tab1.IFrameUrl = "";
+                    if (type == Const.Menu_Project)
+                    {
+                        this.Tab1.IFrameUrl = "ProjectData/ProjectList.aspx";
+                    }
                 }
                 else
                 {

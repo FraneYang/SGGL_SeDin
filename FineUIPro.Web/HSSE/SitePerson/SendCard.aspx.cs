@@ -81,9 +81,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 strSql += " AND unit.UnitName LIKE @UnitName";
                 listStr.Add(new SqlParameter("@UnitName", "%" + this.txtUnitName.Text.Trim() + "%"));
             }
-            if (this.cbIsSend.SelectedValueArray.Length == 1)
+            if (this.cbIsSend.SelectedValueArray.Length == 1) ///是否发卡
             {
-                ///是否发布
                 string selectValue = String.Join(", ", this.cbIsSend.SelectedValueArray);
                 if (selectValue == "1")
                 {
@@ -94,6 +93,25 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     strSql += " AND person.CardNo IS NULL ";
                 }
             }
+
+            if (!this.ckPrint.Hidden)
+            {
+                ///是否打印
+                if (this.ckPrint.SelectedValueArray.Length == 1)
+                {
+                   
+                    string selectValue = String.Join(", ", this.ckPrint.SelectedValueArray);
+                    if (selectValue == "1")
+                    {                        
+                        strSql += " AND person.isprint ='1'";
+                    }
+                    else
+                    {                        
+                        strSql += " AND person.isprint ='0' ";
+                    }
+                }
+            }
+
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
@@ -282,8 +300,44 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
+            this.ckPrint.Hidden = true;
+            this.btnPrint.Hidden = true;
+            string selectValue = String.Join(", ", this.cbIsSend.SelectedValueArray);
+            if (selectValue.Contains("1"))
+            {
+                this.ckPrint.Hidden = false;
+                this.btnPrint.Hidden = false;
+            }
             this.BindGrid();
         }
         #endregion
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length > 0)
+            {
+                string pList = string.Empty;
+                foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                {
+                    if (string.IsNullOrEmpty(pList))
+                    {
+                        pList =  Grid1.DataKeys[rowIndex][0].ToString();
+                    }
+                    else
+                    {
+                        pList +=","+ Grid1.DataKeys[rowIndex][0].ToString();
+                    }
+                }
+                if (!string.IsNullOrEmpty(pList))
+                {
+                    PrinterDocService.PrinterDocMethod(BLL.Const.SendCardMenuId, pList, "人员上岗证安全卡片");
+                }
+                else
+                {
+                    Alert.ShowInParent("请选择要导出的卡片！");
+                    return;
+                }
+            }
+        }
     }
 }

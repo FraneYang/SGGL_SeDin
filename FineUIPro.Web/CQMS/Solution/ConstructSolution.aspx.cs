@@ -33,7 +33,7 @@ namespace FineUIPro.Web.CQMS.Solution
                     btnNew.Hidden = false;
 
                 }
-                if (buttonList.Contains(Const.BtnAuditing))
+                if (buttonList.Contains(Const.BtnModify) || buttonList.Contains(Const.BtnSubmit))
                 {
                     btnMenuModify.Hidden = false;
                 }

@@ -20,7 +20,7 @@
                         <f:TextBox ID="txtUserName" runat="server" Label="姓名" Required="true" ShowRedStar="true" MaxLength="20"
                             FocusOnPageLoad="true" LabelWidth="110px">
                         </f:TextBox>
-                        <f:TextBox ID="txtAccount" runat="server" Label="登录账号" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="110px">
+                        <f:TextBox ID="txtAccount" runat="server" Label="工号" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="110px">
                         </f:TextBox>
                      
                     </Items>
@@ -93,7 +93,6 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-
                         <f:TextBox ID="txtProjectRoleId" runat="server" Label="当前项目角色" MaxLength="50" LabelWidth="110px" Readonly="true">
                         </f:TextBox>
                         <f:DatePicker runat="server" Label="进入项目时间" ID="txtIntoProjectDate" LabelWidth="110px" Readonly="true"></f:DatePicker>

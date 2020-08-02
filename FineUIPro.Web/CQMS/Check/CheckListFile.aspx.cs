@@ -404,16 +404,24 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkQuestionType = doc.Range.Bookmarks["QuestionType"];
                 if (bookmarkQuestionType != null)
                 {
-                    if (checkControl.QuestionType == "1")
+                    string questionType = string.Empty;
+                    var lists = BLL.QualityQuestionTypeService.GetList();
+                    if (lists.Count > 0)
                     {
-                        bookmarkQuestionType.Text = "■质量不合格   □质量缺陷";
-                    }
+                        for (int i = 0; i < lists.Count; i++)
+                        {
+                            if (checkControl.QuestionType == lists[i].QualityQuestionTypeId)
+                            {
+                                questionType += "■" + lists[i].QualityQuestionType + "   ";
+                            }
+                            else
+                            {
+                                questionType += "□" + lists[i].QualityQuestionType + "   ";
+                            }
 
-
-                    else
-                    {
-                        bookmarkQuestionType.Text = "□质量不合格   ■质量缺陷";
+                        }
                     }
+                    bookmarkQuestionType.Text = questionType;
                 }
                 Bookmark bookmarkCheckSite = doc.Range.Bookmarks["CheckSite"];
                 if (bookmarkCheckSite != null)
@@ -461,10 +469,10 @@ namespace FineUIPro.Web.CQMS.Check
                         Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
                         if (user != null)
                         {
-                            var file = AttachFileService.GetfileUrl(approve.ApproveMan);
+                            var file = user.SignatureUrl;
                             if (!string.IsNullOrWhiteSpace(file))
                             {
-                                string url = file;
+                                string url = rootPath + file;
                                 DocumentBuilder builder = new DocumentBuilder(doc);
                                 builder.MoveToBookmark("CompileMan");
                                 if (!string.IsNullOrEmpty(url))
@@ -510,9 +518,9 @@ namespace FineUIPro.Web.CQMS.Check
                     if (approve != null)
                     {
                         Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
                         if (user != null)
                         {
+                            var file = user.SignatureUrl;
                             if (!string.IsNullOrWhiteSpace(file))
                             {
                                 string url = rootPath + file;
@@ -617,9 +625,9 @@ namespace FineUIPro.Web.CQMS.Check
                     if (approve != null)
                     {
                         Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
                         if (user != null)
                         {
+                            var file = user.SignatureUrl;
                             if (!string.IsNullOrWhiteSpace(file))
                             {
                                 string url = rootPath + file;
@@ -716,9 +724,9 @@ namespace FineUIPro.Web.CQMS.Check
                     if (approve2 != null)
                     {
                         Model.Sys_User user = UserService.GetUserByUserId(approve2.ApproveMan);
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
                         if (user != null)
                         {
+                            var file = user.SignatureUrl;
                             if (!string.IsNullOrWhiteSpace(file))
                             {
                                 string url = rootPath + file;
@@ -775,9 +783,9 @@ namespace FineUIPro.Web.CQMS.Check
                     if (approve != null)
                     {
                         Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
                         if (user != null)
                         {
+                            var file = user.SignatureUrl;
                             if (!string.IsNullOrWhiteSpace(file))
                             {
                                 string url = rootPath + file;
@@ -830,9 +838,9 @@ namespace FineUIPro.Web.CQMS.Check
                     if (approve != null)
                     {
                         Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
-                        var file = AttachFileService.GetfileUrl(approve.ApproveMan);
                         if (user != null)
                         {
+                            var file = user.SignatureUrl;
                             if (!string.IsNullOrWhiteSpace(file))
                             {
                                 string url = rootPath + file;
@@ -902,25 +910,27 @@ namespace FineUIPro.Web.CQMS.Check
                                     //}
                                     UploadAttachmentService.getJpgSize(rootPath + spliurl, out JpgSize, out Wpx, out Hpx);
                                     float i = 1;
-
-                                    if (JpgSize.Width >= JpgSize.Height)
+                                    if (JpgSize.Width > 0 && JpgSize.Height > 0)
                                     {
-                                        if (JpgSize.Width > 320)
+                                        if (JpgSize.Width >= JpgSize.Height)
                                         {
-                                            i = (float)JpgSize.Width / 320;
+                                            if (JpgSize.Width > 320)
+                                            {
+                                                i = (float)JpgSize.Width / 320;
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        if (JpgSize.Height > 320)
+                                        else
                                         {
-                                            i = (float)JpgSize.Height / 320;
-                                        }
+                                            if (JpgSize.Height > 320)
+                                            {
+                                                i = (float)JpgSize.Height / 320;
+                                            }
 
-                                    }
-                                    if (File.Exists(rootPath + spliurl))
-                                    {
-                                        builder.InsertImage(rootPath + spliurl, Convert.ToDouble(JpgSize.Width / i), Convert.ToDouble(JpgSize.Height / i));
+                                        }
+                                        if (File.Exists(rootPath + spliurl))
+                                        {
+                                            builder.InsertImage(rootPath + spliurl, Convert.ToDouble(JpgSize.Width / i), Convert.ToDouble(JpgSize.Height / i));
+                                        }
                                     }
                                 }
 
@@ -954,24 +964,27 @@ namespace FineUIPro.Web.CQMS.Check
                                     //}
                                     UploadAttachmentService.getJpgSize(rootPath + spliurl, out JpgSize, out Wpx, out Hpx);
                                     float i = 1;
-                                    if (JpgSize.Width >= JpgSize.Height)
+                                    if (JpgSize.Width > 0 && JpgSize.Height > 0)
                                     {
-                                        if (JpgSize.Width > 320)
+                                        if (JpgSize.Width >= JpgSize.Height)
                                         {
-                                            i = (float)JpgSize.Width / 320;
+                                            if (JpgSize.Width > 320)
+                                            {
+                                                i = (float)JpgSize.Width / 320;
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        if (JpgSize.Height > 320)
+                                        else
                                         {
-                                            i = (float)JpgSize.Height / 320;
-                                        }
+                                            if (JpgSize.Height > 320)
+                                            {
+                                                i = (float)JpgSize.Height / 320;
+                                            }
 
-                                    }
-                                    if (File.Exists(rootPath + spliurl))
-                                    {
-                                        builder.InsertImage(rootPath + spliurl, JpgSize.Width / i, JpgSize.Height / i);
+                                        }
+                                        if (File.Exists(rootPath + spliurl))
+                                        {
+                                            builder.InsertImage(rootPath + spliurl, JpgSize.Width / i, JpgSize.Height / i);
+                                        }
                                     }
                                 }
 

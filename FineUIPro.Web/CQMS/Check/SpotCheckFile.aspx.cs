@@ -267,12 +267,17 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkSpotCheckDate = doc.Range.Bookmarks["SpotCheckDate"];
                 if (bookmarkSpotCheckDate != null)
                 {
+                    string day = string.Empty;
                     if (spCheck.SpotCheckDate != null)
                     {
-                        var day = Convert.ToDateTime(spCheck.SpotCheckDate).ToString("yyyy年MM月dd日hh时");
+                        day = Convert.ToDateTime(spCheck.SpotCheckDate).ToString("yyyy年MM月dd日hh时MM分");
                         //var hour = Convert.ToDateTime(spCheck.SpotCheckDate).Hour.ToString();
-                        bookmarkSpotCheckDate.Text = day;
                     }
+                    if (spCheck.SpotCheckDate2 != null)
+                    {
+                        day += "至"+Convert.ToDateTime(spCheck.SpotCheckDate2).ToString("yyyy年MM月dd日hh时MM分");
+                    }
+                    bookmarkSpotCheckDate.Text = day;
                 }
                 Bookmark bookmarkCreateDate = doc.Range.Bookmarks["CreateDate"];
                 if (bookmarkSpotCheckDate != null)
@@ -297,41 +302,28 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkCreateMan = doc.Range.Bookmarks["CreateMan"];
                 if (bookmarkCreateMan != null)
                 {
-                    var file = AttachFileService.GetfileUrl(spCheck.CreateMan);
-                    if (!string.IsNullOrWhiteSpace(file))
+                    Model.Sys_User user = (from x in Funs.DB.Sys_User
+                                                join y in Funs.DB.Project_ProjectUser
+                                                on x.UserId equals y.UserId
+                                                where y.ProjectId == CurrUser.LoginProjectId && y.UnitId == spCheck.UnitId && y.RoleId.Contains(Const.SubProjectManager)
+                                                select x).FirstOrDefault();
+                    if (user != null)
                     {
-                        string url = rootPath + file;
-                        DocumentBuilder builders = new DocumentBuilder(doc);
-                        builders.MoveToBookmark("CreateMan");
-                        if (!string.IsNullOrEmpty(url))
+                        if (!string.IsNullOrEmpty(user.SignatureUrl))
                         {
-                            System.Drawing.Size JpgSize;
-                            float Wpx;
-                            float Hpx;
-                            UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
-                            double i = 1;
-                            if (JpgSize.Width >= JpgSize.Height)
+                            var file = user.SignatureUrl;
+                            if (!string.IsNullOrWhiteSpace(file))
                             {
-                                i = JpgSize.Width / 320;
+                                string url = rootPath + file;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("CreateMan");
+                                builders.InsertImage(url);
                             }
-                            else
-                            {
-                                i = JpgSize.Height / 320;
-                            }
-                            if (File.Exists(url))
-                            {
-                                builders.InsertImage(url, 50, 50);
-                            }
-                            else
-                            {
-                                bookmarkCreateMan.Text = UserService.GetUserNameByUserId(spCheck.CreateMan);
-                            }
-
                         }
-                    }
-                    else
-                    {
-                        bookmarkCreateMan.Text = UserService.GetUserNameByUserId(spCheck.CreateMan);
+                        else
+                        {
+                            bookmarkCreateMan.Text = user.UserName;
+                        }
                     }
                 }
                 //Bookmark bookmarkTable = doc.Range.Bookmarks["Table"];

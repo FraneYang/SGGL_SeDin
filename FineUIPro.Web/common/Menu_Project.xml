@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="B830399C-CA36-4C23-A170-21E556D052DD" Text="项目信息" NavigateUrl="ProjectData/ProjectSet.aspx">
+  <TreeNode id="B95DF6F0-EB0C-4120-BD56-A4453AB42059" Text="项目列表" NavigateUrl="ProjectData/ProjectList.aspx">
   </TreeNode>
-<TreeNode id="B95DF6F0-EB0C-4120-BD56-A4453AB42059" Text="项目施工综合信息" NavigateUrl="ProjectData/ProjectInformation.aspx"></TreeNode>
 </Tree>

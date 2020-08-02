@@ -270,7 +270,7 @@ namespace BLL
                 }
                 else
                 {
-                    newPunishNotice.PunishNoticeId = getUpdate.PunishNoticeId;
+                        newPunishNotice.PunishNoticeId = getUpdate.PunishNoticeId;
                     getUpdate.PunishStates = newItem.PunishStates;
                     if (newPunishNotice.PunishStates == "0" || newPunishNotice.PunishStates == "1")  ////编制人 修改或提交
                     {
@@ -326,6 +326,7 @@ namespace BLL
                             {
                                 getUpdate.ApproveMan = newItem.ApproveManId;
                                 getUpdate.SignDate = DateTime.Now;
+                                getUpdate.SginOpinion = "同意";
                             }
                             else
                             {
@@ -345,6 +346,7 @@ namespace BLL
                         {
                             getUpdate.DutyPersonId = newItem.DutyPersonId;
                             getUpdate.ApproveDate = DateTime.Now;
+                            getUpdate.ApproveOpinion = "同意";
                         }
                         db.SubmitChanges();
                     }
@@ -391,6 +393,18 @@ namespace BLL
                     var getOperate = newItem.FlowOperateItem.FirstOrDefault();
                     if (getOperate != null && !string.IsNullOrEmpty(getOperate.OperaterId))
                     {
+                        if (newItem.IsAgree == false)
+                        {
+                            if (newPunishNotice.PunishStates == "2")
+                            {
+                                getUpdate.SginOpinion = getOperate.Opinion;
+                            }
+                            else if (newPunishNotice.PunishStates == "3")
+                            {
+                                getUpdate.ApproveOpinion = getOperate.Opinion;
+                            }
+                        }
+
                         Model.Check_PunishNoticeFlowOperate newOItem = new Model.Check_PunishNoticeFlowOperate
                         {
                             FlowOperateId = SQLHelper.GetNewID(),
@@ -417,15 +431,14 @@ namespace BLL
                 if (getUpdate != null && getUpdate.States == Const.State_2)
                 {
                     CommonService.btnSaveData(newPunishNotice.ProjectId, Const.ProjectPunishNoticeMenuId, newPunishNotice.PunishNoticeId, newPunishNotice.CompileMan, true, newPunishNotice.PunishNoticeCode, "../Check/PunishNoticeView.aspx?PunishNoticeId={0}");
-                    var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId.Contains(getUpdate.PunishNoticeId) select x;
-                    if (getcheck.Count() > 0)
+                    var getcheck = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(getUpdate.PunishNoticeId));
+                    if (getcheck != null)
                     {
-                        foreach (var item in getcheck)
-                        {
-                            item.CompleteStatus = true;
-                            item.CompletedDate = DateTime.Now;
-                            db.SubmitChanges();
-                        }
+                        getcheck.CompleteStatus = true;
+                        getcheck.CompletedDate = DateTime.Now;
+                        db.SubmitChanges();
+                        //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
+                        Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
                     }
                 }
             }

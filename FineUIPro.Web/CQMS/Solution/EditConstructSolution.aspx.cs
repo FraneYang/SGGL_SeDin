@@ -86,27 +86,36 @@ namespace FineUIPro.Web.CQMS.Solution
                     }
                     if (!string.IsNullOrEmpty(constructSolution.SpecialSchemeTypeId))
                     {
-                        if (!string.IsNullOrEmpty(constructSolution.SolutionType)) {
+                        if (!string.IsNullOrEmpty(constructSolution.SolutionType))
+                        {
                             BLL.SpecialSchemeTypeService.InitSpecialSchemeTypeByTempleteDropDownList(drpSpecialType, constructSolution.SolutionType, false);
                             drpSpecialType.SelectedValue = constructSolution.SpecialSchemeTypeId;
                         }
-                        
+
                     }
                     if (constructSolution.CompileDate != null)
                     {
                         txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", constructSolution.CompileDate);
                     }
                     txtSolutionName.Text = constructSolution.SolutionName;
-                    if (constructSolution.UnitWorkIds.Length > 0)
+                    if (!string.IsNullOrEmpty(constructSolution.UnitWorkIds))
                     {
-                        txtUnitWork.Values = constructSolution.UnitWorkIds.Split(',');
+                        if (constructSolution.UnitWorkIds.Length > 0)
+                        {
+                            txtUnitWork.Values = constructSolution.UnitWorkIds.Split(',');
+                        }
                     }
-                    if (constructSolution.CNProfessionalCodes.Length > 0)
+                    if (!string.IsNullOrEmpty(constructSolution.CNProfessionalCodes))
                     {
-                        txtCNProfessional.Values = constructSolution.CNProfessionalCodes.Split(',');
+                        if (constructSolution.CNProfessionalCodes.Length > 0)
+                        {
+                            txtCNProfessional.Values = constructSolution.CNProfessionalCodes.Split(',');
+                        }
                     }
-
-                    txtEdition.Text = constructSolution.Edition.ToString();
+                    if (constructSolution.Edition != null)
+                    {
+                        txtEdition.Text = constructSolution.Edition.ToString();
+                    }
                     bindApprove();
 
                     var zyUserIds = CQMSConstructSolutionApproveService.GetUserIdsApprovesBySignType(ConstructSolutionId, "ZY");
@@ -222,7 +231,17 @@ namespace FineUIPro.Web.CQMS.Solution
         #region 保存/提交
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            validate(Const.BtnSave, "save");
+            //validate(Const.BtnSave, "save");
+            if (CommonService.GetAllButtonPowerList(CurrUser.LoginProjectId, CurrUser.UserId, Const.CQMSConstructSolutionMenuId, Const.BtnSave))
+            {
+                SaveCQMSConstructSolution("save");
+                PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+                Alert.ShowInTop("保存成功!", MessageBoxIcon.Success);
+            }
+            else
+            {
+                Alert.ShowInTop("您没有这个权限，请与管理员联系!", MessageBoxIcon.Warning);
+            }
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -797,7 +816,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trOne.Nodes.Add(rootNode);
             trOne.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -805,7 +825,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UserId equals p.UserId
                                where (p.RoleId.Contains(Const.CVEngineer) || p.RoleId.Contains(Const.FEEngineer) || p.RoleId.Contains(Const.PDEngineer)
                                || p.RoleId.Contains(Const.EHEngineer) || p.RoleId.Contains(Const.EAEngineer) || p.RoleId.Contains(Const.HJEngineer))
-                               && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId== CurrUser.LoginProjectId
+                               && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                select x;
                 //var ss = LINQToDataTable(userList);
                 foreach (var u in userList)
@@ -828,7 +848,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trTwo.Nodes.Add(rootNode);
             trTwo.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -878,7 +899,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trThree.Nodes.Add(rootNode);
             trThree.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -907,7 +929,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trFour.Nodes.Add(rootNode);
             trFour.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -937,7 +960,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trFive.Nodes.Add(rootNode);
             trFive.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -967,7 +991,8 @@ namespace FineUIPro.Web.CQMS.Solution
             rootNode.EnableCheckEvent = true;
             trSixe.Nodes.Add(rootNode);
             trSixe.EnableCheckBox = true;
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))            {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
                 var userList = from x in db.Sys_User
                                join y in db.Project_ProjectUnit
                                on x.UnitId equals y.UnitId
@@ -1116,8 +1141,9 @@ namespace FineUIPro.Web.CQMS.Solution
         /// <param name="e"></param>
         protected void drpModelType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (drpModelType.SelectedValue != BLL.Const._Null) {
-                BLL.SpecialSchemeTypeService.InitSpecialSchemeTypeByTempleteDropDownList(drpSpecialType, drpModelType.SelectedValue,false);
+            if (drpModelType.SelectedValue != BLL.Const._Null)
+            {
+                BLL.SpecialSchemeTypeService.InitSpecialSchemeTypeByTempleteDropDownList(drpSpecialType, drpModelType.SelectedValue, false);
             }
         }
     }

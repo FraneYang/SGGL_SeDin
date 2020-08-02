@@ -128,7 +128,7 @@ namespace FineUIPro.Web.HSSE.Check
         //办理记录
         public void BindGrid()
         {
-            string strSql = @"select FlowOperateId, PunishNoticeId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_PunishNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            string strSql = @"select FlowOperateId, PunishNoticeId, OperateName, OperateManId, OperateTime, case when IsAgree='False' then '否' else '是' end  As IsAgree, Opinion,S.UserName from Check_PunishNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += "where PunishNoticeId= @PunishNoticeId";
             listStr.Add(new SqlParameter("@PunishNoticeId", PunishNoticeId));

@@ -24,7 +24,7 @@
                      DataIDField="UserId" AllowSorting="true" SortField="UserCode" ForceFit="true"
                     SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
                     PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true"
-                    OnRowDoubleClick="Grid1_RowDoubleClick" Width="980px" EnableTextSelection="True">
+                    OnRowDoubleClick="Grid1_RowDoubleClick"  EnableTextSelection="True">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                             <Items>
@@ -48,32 +48,45 @@
                     <Columns>
                         <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="45px" HeaderTextAlign="Center"
                             TextAlign="Center" />
+                        <f:RenderField Width="90px" ColumnID="UserCode" DataField="UserCode" SortField="UserCode"
+                            FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
                         <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                             FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
-                            FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" >
+                        <f:RenderField Width="100px" ColumnID="Account" DataField="Account" SortField="Account"
+                            FieldType="String" HeaderText="工号" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="120px" ColumnID="Account" DataField="Account" SortField="Account"
-                            FieldType="String" HeaderText="账号" HeaderTextAlign="Center" TextAlign="Left">
-                        </f:RenderField>
-                        <f:RenderField Width="200px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
-                            FieldType="String" HeaderText="角色" HeaderTextAlign="Center" TextAlign="Left">
+                         <f:RenderField Width="120px" ColumnID="DepartName" DataField="DepartName" SortField="DepartName"
+                            FieldType="String" HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                             FieldType="String" HeaderText="手机号码" HeaderTextAlign="Center" TextAlign="Right" Hidden="true">
                         </f:RenderField>
-                        <f:CheckBoxField Width="50px" SortField="IsPost" RenderAsStaticField="true" DataField="IsPost"
-                            HeaderText="在岗" HeaderTextAlign="Center" TextAlign="Center">
-                        </f:CheckBoxField>
-                        <f:CheckBoxField Width="50px" SortField="IsOffice" RenderAsStaticField="true" DataField="IsOffice"
+                             <f:CheckBoxField Width="60px" SortField="IsOffice" RenderAsStaticField="true" DataField="IsOffice"
                             HeaderText="本部" HeaderTextAlign="Center" TextAlign="Center">
                         </f:CheckBoxField>
-                        <f:TemplateField Width="250px" ColumnID="UserId" HeaderText="参与项目" TextAlign="Left">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="lbtnPro" runat="server" Text='<%# ConvertProject(Eval("UserId")) %>' OnClick="lbtnPro_Click"></asp:LinkButton>
-                            </ItemTemplate>
-                        </f:TemplateField>
+                           <f:RenderField Width="120px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
+                            FieldType="String" HeaderText="本部角色" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
+                        <f:CheckBoxField Width="60px" SortField="IsPost" RenderAsStaticField="true" DataField="IsPost"
+                            HeaderText="在岗" HeaderTextAlign="Center" TextAlign="Center">
+                        </f:CheckBoxField>
+                         <f:RenderField Width="100px" ColumnID="Major" DataField="Major" 
+                            FieldType="String" HeaderText="所学专业" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
+                            <f:RenderField Width="100px" ColumnID="PostTitleName" DataField="PostTitleName" 
+                            FieldType="String" HeaderText="职称" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
+                         <f:RenderField Width="130px" ColumnID="PracticeCertificateName" DataField="PracticeCertificateName"
+                            FieldType="String" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
+                        <f:RenderField Width="150px" ColumnID="ProjectName" DataField="ProjectName" SortField="ProjectName"
+                            FieldType="String" HeaderText="当前所在项目" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
+                        <f:RenderField Width="130px" ColumnID="ProjectRoleName" DataField="ProjectRoleName" 
+                            FieldType="String" HeaderText="当前项目角色" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
                     </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

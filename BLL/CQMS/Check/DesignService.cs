@@ -106,6 +106,7 @@ namespace BLL
             newDesign.CompileMan = Design.CompileMan;
             newDesign.CompileDate = Design.CompileDate;
             newDesign.State = Design.State;
+            newDesign.SaveHandleMan = Design.SaveHandleMan;
 
             db.Check_Design.InsertOnSubmit(newDesign);
             db.SubmitChanges();
@@ -136,6 +137,7 @@ namespace BLL
                 newDesign.CompileMan = Design.CompileMan;
                 newDesign.CompileDate = Design.CompileDate;
                 newDesign.State = Design.State;
+                newDesign.SaveHandleMan = Design.SaveHandleMan;
                 db.Check_Design.InsertOnSubmit(newDesign);
                 db.SubmitChanges();
             }
@@ -166,6 +168,7 @@ namespace BLL
             newDesign.RealCompleteDate = Design.RealCompleteDate;
             newDesign.AttachUrl = Design.AttachUrl;
             newDesign.State = Design.State;
+            newDesign.SaveHandleMan = Design.SaveHandleMan;
 
             db.SubmitChanges();
         }

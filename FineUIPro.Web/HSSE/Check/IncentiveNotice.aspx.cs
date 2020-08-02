@@ -50,7 +50,7 @@ namespace FineUIPro.Web.HSSE.Check
                 }
                 ////权限按钮方法
                 this.GetButtonPower();
-                this.btnNew.OnClientClick = Window1.GetShowReference("IncentiveNoticeEdit.aspx") + "return false;";
+                this.btnNew.OnClientClick = Window1.GetShowReference("IncentiveNoticeAdd.aspx") + "return false;";
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
@@ -79,13 +79,13 @@ namespace FineUIPro.Web.HSSE.Check
                           + @"IncentiveNotice.AttachUrl,"
                           + @"IncentiveNotice.CompileMan,"
                           + @"IncentiveNotice.CompileDate,"
-                          + @"SignMan.UserName AS SignMan,"
+                          + @"Sign.UserName AS SignMan,"
                           + @"ApproveMan.UserName AS ApproveMan,"
                           + @"RewardType.ConstText AS RewardTypeName,"
                           + @"IncentiveNotice.States,"
                           + @"Unit.UnitName,"
                           +@"Person.PersonName,"
-                          + @"(CASE WHEN IncentiveNotice.States = " + BLL.Const.State_0 + " OR IncentiveNotice.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN IncentiveNotice.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                          + @"(CASE WHEN IncentiveNotice.States = '0' THEN '待[' + Users.UserName + ']提交' WHEN IncentiveNotice.States = '1' THEN '待[' + Sign.UserName + ']签发'  WHEN IncentiveNotice.States = '2' THEN '待[' + Approve.UserName + ']批准' WHEN IncentiveNotice.States = '3' THEN '待[' + Duty.UserName + ']回执' WHEN IncentiveNotice.States = '4' THEN '已闭合' END) AS  FlowOperateName"
                           + @" FROM Check_IncentiveNotice AS IncentiveNotice "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON IncentiveNotice.IncentiveNoticeId = CodeRecords.DataId "
                           + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON IncentiveNotice.IncentiveNoticeId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
@@ -93,7 +93,9 @@ namespace FineUIPro.Web.HSSE.Check
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = IncentiveNotice.UnitId "
                           + @" LEFT JOIN SitePerson_Person AS Person ON Person.PersonId = IncentiveNotice.PersonId "
                           + @" LEFT JOIN Sys_Const AS RewardType ON RewardType.ConstValue = IncentiveNotice.RewardType and RewardType.GroupId='RewardType'"
-                          + @" LEFT JOIN Sys_User AS SignMan ON SignMan.UserId = IncentiveNotice.SignMan "
+                          + @" LEFT JOIN Sys_User AS Sign ON Sign.UserId = IncentiveNotice.SignMan "
+                          + @" LEFT JOIN Sys_User AS Approve ON Approve.UserId = IncentiveNotice.ApproveMan"
+                          + @" LEFT JOIN Sys_User AS Duty ON Duty.UserId = IncentiveNotice.DutyPersonId"
                           + @" LEFT JOIN Sys_User AS ApproveMan ON ApproveMan.UserId = IncentiveNotice.ApproveMan "
                           + @" LEFT JOIN Sys_User AS Users ON IncentiveNotice.CompileMan = Users.UserId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -109,14 +111,14 @@ namespace FineUIPro.Web.HSSE.Check
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
             }
             /// 施工分包 只看到自己已完成的奖励单
-            if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
-            {
-                strSql += " AND IncentiveNotice.UnitId = @UnitId";  ///状态为已完成
-                listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
+            //if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
+            //{
+            //    strSql += " AND IncentiveNotice.UnitId = @UnitId";  ///状态为已完成
+            //    listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
 
-                strSql += " AND IncentiveNotice.States = @States";  ///状态为已完成
-                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
-            }
+            //    strSql += " AND IncentiveNotice.States = @States";  ///状态为已完成
+            //    listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+            //}
             if (!string.IsNullOrEmpty(this.txtIncentiveNoticeCode.Text.Trim()))
             {
                 strSql += " AND IncentiveNoticeCode LIKE @IncentiveNoticeCode";
@@ -221,7 +223,16 @@ namespace FineUIPro.Web.HSSE.Check
         {
             this.EditData();
         }
-
+        protected void btnMenuView_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string id = Grid1.SelectedRowID;
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("IncentiveNoticeView.aspx?IncentiveNoticeId={0}", id, "操作 - ")));
+        }
         /// <summary>
         /// 编辑数据方法
         /// </summary>
@@ -236,14 +247,24 @@ namespace FineUIPro.Web.HSSE.Check
             var incentiveNotice = BLL.IncentiveNoticeService.GetIncentiveNoticeById(id);
             if (incentiveNotice != null)
             {
-                if (this.btnMenuEdit.Hidden || incentiveNotice.States == BLL.Const.State_2)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
+                string url = "IncentiveNoticeView.aspx?IncentiveNoticeId={0}";
+                if (incentiveNotice.States == BLL.Const.State_0 && incentiveNotice.CompileMan == this.CurrUser.UserId)
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("IncentiveNoticeView.aspx?IncentiveNoticeId={0}", id, "查看 - ")));
+                    url = "IncentiveNoticeAdd.aspx?incentiveNoticeId={0}";
                 }
-                else
+                else if (incentiveNotice.States == BLL.Const.State_1 && incentiveNotice.SignMan == this.CurrUser.UserId)
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("IncentiveNoticeEdit.aspx?IncentiveNoticeId={0}", id, "编辑 - ")));
+                    url = "IncentiveNoticeEdit.aspx?IncentiveNoticeId={0}";
                 }
+                else if (incentiveNotice.States == BLL.Const.State_2 && incentiveNotice.ApproveMan == this.CurrUser.UserId)
+                {
+                    url = "IncentiveNoticeEdit.aspx?IncentiveNoticeId={0}";
+                }
+                else if (incentiveNotice.States == BLL.Const.State_3 && incentiveNotice.DutyPersonId == this.CurrUser.UserId)
+                {
+                    url = "IncentiveNoticeEdit.aspx?IncentiveNoticeId={0}";
+                }
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, id, "操作 - ")));
             }
         }
         #endregion
@@ -324,5 +345,7 @@ namespace FineUIPro.Web.HSSE.Check
             Response.End();
         }
         #endregion
+
+        
     }
 }

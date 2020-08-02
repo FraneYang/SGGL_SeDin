@@ -166,13 +166,38 @@
                 </Items>
             </f:FormRow>
             <f:FormRow>
-                <Items>
-                    <f:ContentPanel ID="ContentPanel1" runat="server" ShowHeader="false" EnableCollapse="true"
-                        BodyPadding="0px">
-                        <uc1:FlowOperateControl ID="ctlAuditFlow" runat="server" />
-                    </f:ContentPanel>
-                </Items>
-            </f:FormRow>
+                    <Items>
+                        <f:GroupPanel runat="server" Title="审批步骤" BodyPadding="1px" ID="GroupPanel3"
+                            EnableCollapse="True" Collapsed="false" EnableCollapseEvent="true"
+                            EnableExpandEvent="true">
+                            <Items>
+                                <f:Grid ID="gvFlowOperate" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server" DataIDField="FlowOperateId" AllowSorting="true" SortField="OperateTime" SortDirection="ASC" EnableTextSelection="True">
+                                    <Columns>
+                                        <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                                            TextAlign="Center">
+                                            <ItemTemplate>
+                                                <asp:Label ID="Label1" runat="server" Text='<%# gvFlowOperate.PageIndex * gvFlowOperate.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </f:TemplateField>
+                                        <f:RenderField Width="200px" ColumnID="OperateName" DataField="OperateName" FieldType="String" HeaderText="步骤" HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                        <f:RenderField Width="200px" ColumnID="UserName" DataField="UserName" FieldType="String" HeaderText="操作人" HeaderTextAlign="Center" TextAlign="Center">
+                                        </f:RenderField>
+                                        <f:RenderField Width="150px" ColumnID="Opinion" DataField="Opinion" FieldType="string" HeaderText="意见" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                                        </f:RenderField>
+                                        <f:RenderField Width="80px" ColumnID="IsAgree" DataField="IsAgree" FieldType="String"
+                                            HeaderText="是否同意" HeaderTextAlign="Center" TextAlign="Center">
+                                        </f:RenderField>
+                                        <f:RenderField Width="150px" ColumnID="OperateTime" DataField="OperateTime" FieldType="string" HeaderText="时间" HeaderTextAlign="Center" TextAlign="Center">
+                                        </f:RenderField>
+
+                                    </Columns>
+                                </f:Grid>
+
+                            </Items>
+                        </f:GroupPanel>
+                    </Items>
+                </f:FormRow>
         </Rows>
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

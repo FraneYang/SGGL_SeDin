@@ -277,7 +277,7 @@
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
                         <f:HiddenField ID="HFConstructSolutionId" runat="server"></f:HiddenField>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" OnClick="btnSave_Click" ValidateForms="SimpleForm1">
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" OnClick="btnSave_Click" >
                         </f:Button>
                         <f:Button ID="btnSubmit" Icon="SystemSaveNew" runat="server" ToolTip="提交" OnClick="btnSubmit_Click" ValidateForms="SimpleForm1">
                         </f:Button>

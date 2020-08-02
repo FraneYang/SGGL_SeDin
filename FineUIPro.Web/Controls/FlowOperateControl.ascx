@@ -23,8 +23,8 @@
                                         <f:ListItem Value="1" Text="下一步" Selected="true" />
                                         <f:ListItem Value="2" Text="审批完成" />
                                     </f:DropDownList>
-                                    <f:TextBox runat="server" Label="办理步骤" ID="txtAuditFlowName"></f:TextBox>                                                           
-                                    <f:DropDownList ID="drpPerson" runat="server" Label="办理人员" EnableEdit="true">
+                                    <f:TextBox runat="server" Label="步骤" ID="txtAuditFlowName"></f:TextBox>                                                           
+                                    <f:DropDownList ID="drpPerson" runat="server" Label="审核/审批人" EnableEdit="true">
                                     </f:DropDownList>                                                                  
                                     <%--<f:CheckBox ID="IsFileCabinetA" Hidden="true" runat="server" Text="【文件柜A】" ></f:CheckBox>--%>
                                 </Items>
@@ -45,15 +45,15 @@
                             <f:RenderField  HeaderText="序号" ColumnID="SortIndex" DataField="SortIndex" FieldType="Int" 
                                 HeaderTextAlign="Center" TextAlign="Center" Width="50px">
                             </f:RenderField>
-                            <f:RenderField  HeaderText="审批步骤" ColumnID="AuditFlowName" DataField="AuditFlowName" FieldType="String" 
+                            <f:RenderField  HeaderText="步骤" ColumnID="AuditFlowName" DataField="AuditFlowName" FieldType="String" 
                                 HeaderTextAlign="Center" TextAlign="Left" Width="180px">
                             </f:RenderField>
-                            <f:RenderField  HeaderText="处理人" ColumnID="OperaterName" DataField="OperaterName" FieldType="String" 
-                                HeaderTextAlign="Center" TextAlign="Left" Width="100px">
+                            <f:RenderField  HeaderText="审核/审批人" ColumnID="OperaterName" DataField="OperaterName" FieldType="String" 
+                                HeaderTextAlign="Center" TextAlign="Left" Width="120px">
                             </f:RenderField>   
-                            <f:RenderField HeaderText="处理时间" ColumnID="OperaterTime" DataField="OperaterTime"
+                            <f:RenderField HeaderText="审核/审批时间" ColumnID="OperaterTime" DataField="OperaterTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
-                                HeaderTextAlign="Center" TextAlign="Center" Width="100px" >
+                                HeaderTextAlign="Center" TextAlign="Center" Width="120px" >
                             </f:RenderField> 
                             <f:RenderField  HeaderText="意见" ColumnID="Opinion" DataField="Opinion" FieldType="String" 
                                 HeaderTextAlign="Center" TextAlign="Left" Width="90px" ExpandUnusedSpace="true">

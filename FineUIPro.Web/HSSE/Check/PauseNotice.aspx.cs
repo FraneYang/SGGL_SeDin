@@ -1,8 +1,10 @@
-﻿using BLL;
+﻿using Aspose.Words;
+using BLL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using AspNet = System.Web.UI.WebControls;
@@ -46,7 +48,7 @@ namespace FineUIPro.Web.HSSE.Check
                 }
                 ////权限按钮方法
                 this.GetButtonPower();
-                btnNew.OnClientClick = Window1.GetShowReference("PauseNoticeEdit.aspx") + "return false;";
+                btnNew.OnClientClick = Window1.GetShowReference("PauseNoticeAdd.aspx") + "return false;";
 
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
@@ -172,7 +174,12 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
         {
-            btnMenuModify_Click(null, null);
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            EditData(Grid1.SelectedRowID);
         }
         #endregion
 
@@ -189,42 +196,44 @@ namespace FineUIPro.Web.HSSE.Check
                 Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            string PauseNoticeId = Grid1.SelectedRowID;
-            var pauseNotice = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(PauseNoticeId);
-            if (pauseNotice != null)
+            EditData(Grid1.SelectedRowID);
+            
+        }
+        protected void btnMenuView_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
             {
-                bool flag = false;
-                if (this.btnMenuModify.Hidden || pauseNotice.States == BLL.Const.State_2)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
-                {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeView.aspx?PauseNoticeId={0}", PauseNoticeId, "查看 - ")));
-                }
-                else
-                {
-                    if (pauseNotice.PauseStates == BLL.Const.State_0 && pauseNotice.CompileManId == this.CurrUser.UserId)
-                    {
-                        flag = true;
-                    }
-                    else if (pauseNotice.PauseStates == BLL.Const.State_1 && pauseNotice.SignManId == this.CurrUser.UserId)
-                    {
-                        flag = true;
-                    }
-                    else if (pauseNotice.PauseStates == BLL.Const.State_2 && pauseNotice.ApproveManId == this.CurrUser.UserId)
-                    {
-                        flag = true;
-                    }
-                    else if (pauseNotice.PauseStates == BLL.Const.State_3 && pauseNotice.DutyPersonId == this.CurrUser.UserId)
-                    {
-                        flag = true;
-                    }
-                    else {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeView.aspx?PauseNoticeId={0}", PauseNoticeId, "查看 - ")));
-                    }
-                    if (flag) {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeEdit.aspx?PauseNoticeId={0}", PauseNoticeId, "编辑 - ")));
-                    }
-                    
-                }
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
             }
+            string id = Grid1.SelectedRowID;
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeView.aspx?PauseNoticeId={0}", id, "操作 - ")));
+        }
+        /// <summary>
+        /// 编辑数据方法
+        /// </summary>
+        private void EditData(string PauseNoticeId)
+        {
+            string url = "PauseNoticeView.aspx?PauseNoticeId={0}";
+            var pauseNotice = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(PauseNoticeId);
+            if (pauseNotice.PauseStates == BLL.Const.State_0 && pauseNotice.CompileManId == this.CurrUser.UserId)
+            {
+                url = "PauseNoticeAdd.aspx?PauseNoticeId={0}";
+            }
+            else if (pauseNotice.PauseStates == BLL.Const.State_1 && pauseNotice.SignManId == this.CurrUser.UserId)
+            {
+                url = "PauseNoticeEdit.aspx?PauseNoticeId={0}";
+            }
+            else if (pauseNotice.PauseStates == BLL.Const.State_2 && pauseNotice.ApproveManId == this.CurrUser.UserId)
+            {
+                url = "PauseNoticeEdit.aspx?PauseNoticeId={0}";
+            }
+            else if (pauseNotice.PauseStates == BLL.Const.State_3 && pauseNotice.DutyPersonId == this.CurrUser.UserId)
+            {
+                url = "PauseNoticeEdit.aspx?PauseNoticeId={0}";
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, PauseNoticeId, "操作 - ")));
+            
         }
         #endregion
 
@@ -316,5 +325,214 @@ namespace FineUIPro.Web.HSSE.Check
         {
             this.BindGrid();
         }
+
+        #region 导出
+        protected void btnPrinter_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string Id = Grid1.SelectedRowID;
+
+            string rootPath = Server.MapPath("~/");
+            string initTemplatePath = string.Empty;
+            string uploadfilepath = string.Empty;
+            string newUrl = string.Empty;
+            string filePath = string.Empty;
+            initTemplatePath = "File\\Word\\HSSE\\工程停工令.doc";
+            uploadfilepath = rootPath + initTemplatePath;
+            newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".doc");
+            filePath = initTemplatePath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
+            File.Copy(uploadfilepath, newUrl);
+            ///更新书签内容
+            var getPauseNotice = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(Id);
+            Document doc = new Aspose.Words.Document(newUrl);
+            Bookmark bookmarkProjectName = doc.Range.Bookmarks["ProjectName"];
+            if (bookmarkProjectName != null)
+            {
+                if (getPauseNotice != null)
+                {
+                    bookmarkProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(getPauseNotice.ProjectId);
+                }
+            }
+            Bookmark bookmarkPunishNoticeCode = doc.Range.Bookmarks["PauseNoticeCode"];
+            if (bookmarkPunishNoticeCode != null)
+            {
+                if (getPauseNotice != null)
+                {
+                    bookmarkPunishNoticeCode.Text = getPauseNotice.PauseNoticeCode;
+                }
+            }
+            Bookmark bookmarkWrongContent = doc.Range.Bookmarks["WrongContent"];
+            if (bookmarkWrongContent != null)
+            {
+                if (getPauseNotice != null)
+                {
+                    if (!string.IsNullOrEmpty(getPauseNotice.WrongContent))
+                    {
+                        bookmarkWrongContent.Text = getPauseNotice.WrongContent;
+                    }
+
+                }
+            }
+            Bookmark bookmarkDateTime = doc.Range.Bookmarks["DateTime"];
+            if (bookmarkDateTime != null)
+            {
+                if (getPauseNotice != null)
+                {
+                    if (getPauseNotice.PauseTime.HasValue)
+                    {
+                        bookmarkDateTime.Text = getPauseNotice.PauseTime.Value.Year+"年"+ getPauseNotice.PauseTime.Value.Month+"月"+ getPauseNotice.PauseTime.Value.Day+"日";
+
+                    }
+
+                }
+            }
+                Bookmark bookmarkSignPerson = doc.Range.Bookmarks["SignPerson"];
+                if (bookmarkSignPerson != null)
+                {
+                    if (!string.IsNullOrEmpty(getPauseNotice.SignManId))
+                    {
+
+                        var getUser = UserService.GetUserByUserId(getPauseNotice.SignManId);
+                        if (getUser != null)
+                        {
+                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
+                            {
+                                var file = rootPath + getUser.SignatureUrl;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("SignPerson");
+                                builders.InsertImage(file, 80, 20);
+                            }
+                            else
+                            {
+                                bookmarkSignPerson.Text = getUser.UserName;
+                            }
+                        }
+                    }
+                }
+
+
+            Bookmark bookmarkSignDate = doc.Range.Bookmarks["SignTime"];
+            if (bookmarkSignDate != null)
+            {
+                if (getPauseNotice != null)
+                {
+                    bookmarkSignDate.Text = string.Format("{0:yyyy-MM-dd}", getPauseNotice.SignDate);
+                }
+            }
+                Bookmark bookmarkDutyPerson = doc.Range.Bookmarks["DutyPerson"];
+                if (bookmarkDutyPerson != null)
+                {
+                    var getUser = UserService.GetUserByUserId(getPauseNotice.DutyPersonId);
+                    if (getUser != null)
+                    {
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
+                        {
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("DutyPerson");
+                            builders.InsertImage(file, 80, 20);
+                        }
+                        else
+                        {
+                            bookmarkDutyPerson.Text = getUser.UserName;
+                        }
+                    }
+                }
+
+
+            Bookmark bookmarkDutyTime = doc.Range.Bookmarks["DutyTime"];
+            if (bookmarkDutyTime != null)
+            {
+                if (getPauseNotice != null)
+                {
+                    bookmarkDutyTime.Text = string.Format("{0:yyyy-MM-dd}", getPauseNotice.DutyPersonDate);
+                }
+            }
+            Bookmark bookmarkSupervisorMan = doc.Range.Bookmarks["SupervisorMan"];
+            if (bookmarkSupervisorMan != null)
+            {
+                var getUser = UserService.GetUserByUserId(getPauseNotice.SupervisorManId);
+                if (getUser != null)
+                {
+                    if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
+                    {
+                        var file = rootPath + getUser.SignatureUrl;
+                        DocumentBuilder builders = new DocumentBuilder(doc);
+                        builders.MoveToBookmark("SupervisorMan");
+                        builders.InsertImage(file, 80, 20);
+                    }
+                    else
+                    {
+                        bookmarkSupervisorMan.Text = getUser.UserName;
+                    }
+                }
+            }
+
+
+            Bookmark bookmarkSupervisorTime = doc.Range.Bookmarks["SupervisorTime"];
+            if (bookmarkSupervisorTime != null)
+            {
+                if (getPauseNotice != null)
+                {
+                    bookmarkSupervisorTime.Text = string.Format("{0:yyyy-MM-dd}", getPauseNotice.SupervisorManTime);
+                }
+            }
+            Bookmark bookmarkOwner = doc.Range.Bookmarks["Owner"];
+            if (bookmarkOwner != null)
+            {
+                var getUser = UserService.GetUserByUserId(getPauseNotice.OwnerId);
+                if (getUser != null)
+                {
+                    if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
+                    {
+                        var file = rootPath + getUser.SignatureUrl;
+                        DocumentBuilder builders = new DocumentBuilder(doc);
+                        builders.MoveToBookmark("Owner");
+                        builders.InsertImage(file, 80, 20);
+                    }
+                    else
+                    {
+                        bookmarkOwner.Text = getUser.UserName;
+                    }
+                }
+            }
+
+
+            Bookmark bookmarkOwnerTime = doc.Range.Bookmarks["OwnerTime"];
+            if (bookmarkOwnerTime != null)
+            {
+                if (getPauseNotice != null)
+                {
+                    bookmarkOwnerTime.Text = string.Format("{0:yyyy-MM-dd}", getPauseNotice.OwnerTime);
+                }
+            }
+           
+
+            doc.Save(newUrl);
+            //生成PDF文件
+            string pdfUrl = newUrl.Replace(".doc", ".pdf");
+            Document doc1 = new Aspose.Words.Document(newUrl);
+            //验证参数
+            if (doc1 == null) { throw new Exception("Word文件无效"); }
+            doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
+            string fileName = Path.GetFileName(filePath);
+            FileInfo info = new FileInfo(pdfUrl);
+            long fileSize = info.Length;
+            Response.Clear();
+            Response.ContentType = "application/x-zip-compressed";
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+            Response.AddHeader("Content-Length", fileSize.ToString());
+            Response.TransmitFile(pdfUrl, 0, fileSize);
+            Response.Flush();
+            Response.Close();
+            File.Delete(newUrl);
+            File.Delete(pdfUrl);
+            //PrinterDocService.PrinterDocMethod(Const.ProjectRectifyNoticesMenuId + "#1", Grid1.SelectedRowID, "隐患整改通知单");          
+        }
+        #endregion
     }
 }

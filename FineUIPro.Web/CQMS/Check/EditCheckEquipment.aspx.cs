@@ -192,6 +192,11 @@ namespace FineUIPro.Web.CQMS.Check
                     this.cbIsCheckCertificate.Checked = true;
                     this.cbIsIdentification.Checked = true;
                 }
+                Model.Check_CheckEquipment checkEquipment1 = BLL.CheckEquipmentService.GetCheckEquipmentByCheckEquipmentId(CheckEquipmentId);
+                if (checkEquipment1 != null && !string.IsNullOrEmpty(checkEquipment1.SaveHandleMan))
+                {
+                    this.drpHandleMan.SelectedValue = checkEquipment1.SaveHandleMan;
+                }
             }
         }
         private void BindGrid()
@@ -432,6 +437,7 @@ namespace FineUIPro.Web.CQMS.Check
                 }
                 if (saveType == "submit")
                 {
+                    checkEquipment.SaveHandleMan = null;
                     Model.Check_CheckEquipmentApprove approve = new Model.Check_CheckEquipmentApprove();
                     approve.CheckEquipmentId = checkEquipment1.CheckEquipmentId;
                     if (this.drpHandleMan.SelectedValue != BLL.Const._Null)
@@ -440,6 +446,10 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     approve.ApproveType = this.drpHandleType.SelectedValue;
                     BLL.CheckEquipmentApproveService.AddCheckEquipmentApprove(approve);
+                }
+                if (saveType == "save")
+                {
+                    checkEquipment.SaveHandleMan = this.drpHandleMan.SelectedValue;
                 }
                 checkEquipment.CheckEquipmentId = CheckEquipmentId;
                 BLL.CheckEquipmentService.UpdateCheckEquipment(checkEquipment);
@@ -453,6 +463,10 @@ namespace FineUIPro.Web.CQMS.Check
                 else
                 {
                     checkEquipment.CheckEquipmentId = SQLHelper.GetNewID(typeof(Model.Check_CheckEquipment));
+                }
+                if (saveType == "save")
+                {
+                    checkEquipment.SaveHandleMan = this.drpHandleMan.SelectedValue;
                 }
                 checkEquipment.CompileMan = this.CurrUser.UserId;
                 checkEquipment.CompileDate = DateTime.Now;

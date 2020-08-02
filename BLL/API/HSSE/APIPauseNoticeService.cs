@@ -351,15 +351,14 @@ namespace BLL
                 {
                     CommonService.btnSaveData(newPauseNotice.ProjectId, Const.ProjectPauseNoticeMenuId, newPauseNotice.PauseNoticeId, newPauseNotice.CompileManId, true, newPauseNotice.PauseContent, "../Check/PauseNoticeView.aspx?PauseNoticeId={0}");
 
-                    var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId.Contains(getUpdate.PauseNoticeId) select x;
-                    if (getcheck.Count() > 0)
+                    var getcheck = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(getUpdate.PauseNoticeId));
+                    if (getcheck != null)
                     {
-                        foreach (var item in getcheck)
-                        {
-                            item.CompleteStatus = true;
-                            item.CompletedDate = DateTime.Now;
-                            db.SubmitChanges();
-                        }
+                        getcheck.CompleteStatus = true;
+                        getcheck.CompletedDate = DateTime.Now;
+                        db.SubmitChanges();
+                        //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
+                        Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
                     }
                 }
             }

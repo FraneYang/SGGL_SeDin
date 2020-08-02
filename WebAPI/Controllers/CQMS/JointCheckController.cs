@@ -15,12 +15,12 @@ namespace Mvc.Controllers
         // 质量共检
         // GET: /Draw/
         [HttpGet]
-        public ResponseData<List<Check_JointCheck>> Index(string projectId, int index, int page, string name = null )
+        public ResponseData<List<Check_JointCheck>> Index(string projectId, int index, int page, string name = null)
         {
             ResponseData<List<Check_JointCheck>> res = new ResponseData<List<Check_JointCheck>>();
 
             res.successful = true;
-            res.resultValue = BLL.JointCheckService.GetListDataForApi(name,  projectId, index, page);
+            res.resultValue = BLL.JointCheckService.GetListDataForApi(name, projectId, index, page);
             return res;
         }
 
@@ -48,7 +48,7 @@ namespace Mvc.Controllers
         }
 
         [HttpGet]
-        public ResponseData<List<Check_JointCheckApprove>> GetApproveByJcid(string id,string detailId)
+        public ResponseData<List<Check_JointCheckApprove>> GetApproveByJcid(string id, string detailId)
         {
             ResponseData<List<Check_JointCheckApprove>> res = new ResponseData<List<Check_JointCheckApprove>>();
             res.successful = true;
@@ -71,7 +71,7 @@ namespace Mvc.Controllers
             ResponseData<List<Check_JointCheckApprove>> res = new ResponseData<List<Check_JointCheckApprove>>();
 
             res.successful = true;
-            res.resultValue =  BLL.JointCheckApproveService.getCurrApproveForApi(id) ;
+            res.resultValue = BLL.JointCheckApproveService.getCurrApproveForApi(id);
             return res;
         }
         [HttpGet]
@@ -112,10 +112,10 @@ namespace Mvc.Controllers
             {
                 if (string.IsNullOrEmpty(CheckControl.JointCheckDetailId))
                 {
-                  
+
                     CheckControl.JointCheckDetailId = Guid.NewGuid().ToString();
                     CheckControl.CreateDate = DateTime.Now;
-                   
+
                     BLL.JointCheckDetailService.AddJointCheckDetailForApi(CheckControl);
 
                     //BLL.AttachFileService.updateAttachFile(CheckControl.ReAttachUrl, CheckControl.JointCheckDetailId + "r", Const.JointCheckMenuId);
@@ -168,8 +168,15 @@ namespace Mvc.Controllers
             {
                 if (string.IsNullOrEmpty(CheckControl.JointCheckId))
                 {
-                    string prefix = "T18006-JC-";
-                    CheckControl.JointCheckCode =  BLL.SQLHelper.RunProcNewId("SpGetNewCode3", "dbo.Check_JointCheck", "JointCheckCode", prefix);
+                    var project = BLL.ProjectService.GetProjectByProjectId(CheckControl.ProjectId);
+                    string projectCode = string.Empty;
+                    string prefix = string.Empty;
+                    if (project != null)
+                    {
+                        projectCode = project.ProjectCode;
+                    }
+                    prefix = projectCode + "-JC-";
+                    CheckControl.JointCheckCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode3", "dbo.Check_JointCheck", "JointCheckCode", prefix);
                     CheckControl.JointCheckId = Guid.NewGuid().ToString();
                     BLL.JointCheckService.AddJointCheckForApi(CheckControl);
                     res.resultValue = CheckControl.JointCheckId;
@@ -234,8 +241,8 @@ namespace Mvc.Controllers
                     }
                     BLL.JointCheckService.UpdateJointCheckForApi(cj);
                 }
-                   res.resultValue = BLL.JointCheckApproveService.AddJointCheckApproveForApi(approve);
-                
+                res.resultValue = BLL.JointCheckApproveService.AddJointCheckApproveForApi(approve);
+
             }
             catch (Exception e)
             {
@@ -253,7 +260,7 @@ namespace Mvc.Controllers
             try
             {
                 approve.ApproveDate = DateTime.Now;
-             var resApprove =   BLL.JointCheckApproveService.UpdateJointCheckApproveForApi(approve);
+                var resApprove = BLL.JointCheckApproveService.UpdateJointCheckApproveForApi(approve);
 
                 if (approve.ApproveType == "1")
                 {

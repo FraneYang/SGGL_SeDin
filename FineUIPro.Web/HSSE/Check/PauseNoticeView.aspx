@@ -17,7 +17,7 @@
             <Rows>
                 <f:FormRow ColumnWidths="25% 45% 30%">
                     <Items>
-                        <f:TextBox ID="txtPauseNoticeCode" runat="server" Label="编号" Readonly="true">
+                        <f:TextBox ID="txtPauseNoticeCode" runat="server" Label="编号" Readonly="true" LabelWidth="150px">
                         </f:TextBox>
                         <f:TextBox ID="txtUnit" runat="server" Label="受检单位" Readonly="true">
                         </f:TextBox>
@@ -26,10 +26,10 @@
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
-                <f:FormRow >
+                <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtWrongContent" runat="server" Label="因" Required="true" ShowRedStar="true"
-                            MaxLength="150"  Width="250px" LabelWidth="80px" Readonly="true">
+                            MaxLength="150" Width="250px" Readonly="true" LabelWidth="150px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -42,14 +42,14 @@
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
-                    <Items>                       
-                        <f:TextBox ID="txtSignMan" runat="server" Label="签发人" Readonly="true">
+                    <Items>
+                        <f:TextBox ID="txtSignMan" runat="server" Label="签发人" Readonly="true" LabelWidth="150px">
                         </f:TextBox>
                         <f:TextBox ID="txtApproveMan" runat="server" Label="批准人" Readonly="true">
                         </f:TextBox>
                         <f:TextBox ID="txtSignPerson" runat="server" Label="编制人" Readonly="true">
                         </f:TextBox>
-                        <f:TextBox ID="txtComplieDate" runat="server" Label="编制时间" Readonly="true" >
+                        <f:TextBox ID="txtComplieDate" runat="server" Label="编制时间" Readonly="true">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -57,14 +57,28 @@
                     <Items>
                         <f:Grid ID="gvFlowOperate" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server" DataIDField="FlowOperateId" AllowSorting="true" SortField="OperateTime" SortDirection="ASC" EnableTextSelection="True" Height="260px">
                             <Columns>
-                                <f:RenderField Width="200px" ColumnID="OperateName" DataField="OperateName" FieldType="String" HeaderText="操作步骤" ExpandUnusedSpace="true" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:TemplateField ColumnID="tfNumber" Width="55px" HeaderText="序号" HeaderTextAlign="Center"
+                                    TextAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblNumber" runat="server" Text='<%# gvFlowOperate.PageIndex * gvFlowOperate.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                <f:RenderField Width="250px" ColumnID="OperateName" DataField="OperateName"
+                                    FieldType="String" HeaderText="步骤" HeaderTextAlign="Center" TextAlign="Left">
                                 </f:RenderField>
-                                <f:RenderField Width="200px" ColumnID="UserName" DataField="UserName" FieldType="String" HeaderText="操作人" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:RenderField Width="200px" ColumnID="UserName" DataField="UserName"
+                                    FieldType="String" HeaderText="操作人" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="150px" ColumnID="Opinion" DataField="Opinion" FieldType="string" HeaderText="操作意见" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:RenderField Width="150px" ColumnID="Opinion" DataField="Opinion"
+                                    FieldType="string" HeaderText="意见" HeaderTextAlign="Center" TextAlign="Left">
                                 </f:RenderField>
-                                <f:RenderField Width="150px" ColumnID="OperateTime" DataField="OperateTime" FieldType="string" HeaderText="操作时间" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:RenderField Width="80px" ColumnID="IsAgree" DataField="IsAgree" FieldType="String"
+                                    HeaderText="是否同意" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
+                                <f:RenderField Width="160px" ColumnID="OperateTime" DataField="OperateTime"
+                                    FieldType="string" HeaderText="时间" HeaderTextAlign="Center" TextAlign="Center">
+                                </f:RenderField>
+
 
                             </Columns>
                         </f:Grid>

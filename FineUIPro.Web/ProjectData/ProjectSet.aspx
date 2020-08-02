@@ -118,15 +118,15 @@
         Width="900px" Height="500px">
     </f:Window>       
     <f:Menu ID="Menu1" runat="server">
-          <f:MenuButton ID="btnEnter" EnablePostBack="true" runat="server"  Icon="Outline" Text="进入项目"
-                OnClick="btnEnter_Click">
-            </f:MenuButton>
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true" Hidden="true"
             runat="server" Text="编辑">
         </f:MenuButton>
-         <f:MenuButton ID="btnView" EnablePostBack="true" runat="server"  Icon="Find" Text="项目状态"
-                OnClick="btnView_Click">
+            <f:MenuButton ID="btnEnter" EnablePostBack="true" runat="server"  Icon="Outline" Text="进入项目"
+                OnClick="btnEnter_Click">
             </f:MenuButton>
+   <%--      <f:MenuButton ID="btnView" EnablePostBack="true" runat="server"  Icon="Find" Text="项目状态"
+                OnClick="btnView_Click">
+            </f:MenuButton>--%>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true" Icon="Delete"
             ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>

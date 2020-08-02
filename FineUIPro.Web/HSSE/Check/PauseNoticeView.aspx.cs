@@ -95,7 +95,7 @@ namespace FineUIPro.Web.HSSE.Check
             }
             public void BindGrid()
             {
-                string strSql = @"select FlowOperateId, PauseNoticeId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_PauseNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+                string strSql = @"select FlowOperateId, PauseNoticeId, OperateName, OperateManId, OperateTime, case when IsAgree='False' then '否' else '是' end  As IsAgree, Opinion,S.UserName from Check_PauseNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
                 List<SqlParameter> listStr = new List<SqlParameter>();
                 strSql += "where PauseNoticeId= @PauseNoticeId";
                 listStr.Add(new SqlParameter("@PauseNoticeId", PauseNoticeId));

@@ -94,24 +94,6 @@ namespace FineUIPro.Web.HSSE.Check {
         protected global::FineUIPro.DropDownList drpRewardType;
         
         /// <summary>
-        /// drpSignMan 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpSignMan;
-        
-        /// <summary>
-        /// drpApproveMan 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpApproveMan;
-        
-        /// <summary>
         /// txtBasicItem 控件。
         /// </summary>
         /// <remarks>
@@ -355,22 +337,148 @@ namespace FineUIPro.Web.HSSE.Check {
         protected global::FineUIPro.HtmlEditor txtFileContents;
         
         /// <summary>
-        /// ContentPanel1 控件。
+        /// IsAgree 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ContentPanel ContentPanel1;
+        protected global::FineUIPro.FormRow IsAgree;
         
         /// <summary>
-        /// ctlAuditFlow 控件。
+        /// rdbIsAgree 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Web.Controls.FlowOperateControl ctlAuditFlow;
+        protected global::FineUIPro.RadioButtonList rdbIsAgree;
+        
+        /// <summary>
+        /// NoAgree 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.FormRow NoAgree;
+        
+        /// <summary>
+        /// reason 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea reason;
+        
+        /// <summary>
+        /// BackMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.FormRow BackMan;
+        
+        /// <summary>
+        /// drpHandleMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpHandleMan;
+        
+        /// <summary>
+        /// tr 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.FormRow tr;
+        
+        /// <summary>
+        /// GroupPanel2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.GroupPanel GroupPanel2;
+        
+        /// <summary>
+        /// drpProfessionalEngineer 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpProfessionalEngineer;
+        
+        /// <summary>
+        /// drpConstructionManager 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpConstructionManager;
+        
+        /// <summary>
+        /// drpUnitHeadMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpUnitHeadMan;
+        
+        /// <summary>
+        /// next3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.FormRow next3;
+        
+        /// <summary>
+        /// ckAccept 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckAccept;
+        
+        /// <summary>
+        /// GroupPanel3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.GroupPanel GroupPanel3;
+        
+        /// <summary>
+        /// gvFlowOperate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid gvFlowOperate;
+        
+        /// <summary>
+        /// Label1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -398,15 +506,6 @@ namespace FineUIPro.Web.HSSE.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
-        
-        /// <summary>
-        /// btnSave 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnSave;
         
         /// <summary>
         /// btnSubmit 控件。

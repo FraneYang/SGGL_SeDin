@@ -436,17 +436,24 @@
     <Content Include="HSSE\Check\CheckSpecialEdit.aspx" />
     <Content Include="HSSE\Check\CheckSpecialView.aspx" />
     <Content Include="HSSE\Check\IncentiveNotice.aspx" />
+    <Content Include="HSSE\Check\IncentiveNoticeAdd.aspx" />
     <Content Include="HSSE\Check\IncentiveNoticeEdit.aspx" />
     <Content Include="HSSE\Check\IncentiveNoticeStatistics.aspx" />
     <Content Include="HSSE\Check\IncentiveNoticeView.aspx" />
     <Content Include="HSSE\Check\PauseNotice.aspx" />
+    <Content Include="HSSE\Check\PauseNoticeAdd.aspx" />
     <Content Include="HSSE\Check\PauseNoticeEdit.aspx" />
     <Content Include="HSSE\Check\PauseNoticeView.aspx" />
     <Content Include="HSSE\Check\PunishNotice.aspx" />
+    <Content Include="HSSE\Check\PunishNoticeAdd.aspx" />
     <Content Include="HSSE\Check\PunishNoticeEdit.aspx" />
     <Content Include="HSSE\Check\PunishNoticeStatistics.aspx" />
     <Content Include="HSSE\Check\PunishNoticeView.aspx" />
     <Content Include="HSSE\Check\RectifyNotices.aspx" />
+    <Content Include="HSSE\Check\RectifyNoticesRecheck.aspx" />
+    <Content Include="HSSE\Check\RectifyNoticesRectify.aspx" />
+    <Content Include="HSSE\Check\RectifyNoticesAudit.aspx" />
+    <Content Include="HSSE\Check\RectifyNoticesAdd.aspx" />
     <Content Include="HSSE\Check\RectifyNoticesEdit.aspx" />
     <Content Include="HSSE\Check\RectifyNoticesView.aspx" />
     <Content Include="HSSE\Check\ShowCheckItem.aspx" />
@@ -801,6 +808,7 @@
     <Content Include="ProjectData\MainItemEdit.aspx" />
     <Content Include="ProjectData\MainItemView.aspx" />
     <Content Include="ProjectData\ProjectInformation.aspx" />
+    <Content Include="ProjectData\ProjectList.aspx" />
     <Content Include="ProjectData\ProjectSet.aspx" />
     <Content Include="ProjectData\ProjectSetSave.aspx" />
     <Content Include="ProjectData\ProjectSetView.aspx" />
@@ -882,10 +890,18 @@
     <Content Include="File\Word\Person\试车经理工作任务书.doc" />
     <Content Include="File\Word\Person\质量专业工程师工作任务书.doc" />
     <Content Include="File\Word\Person\质量经理工作任务书.doc" />
-    <Content Include="File\Word\HSSE\~%24隐患整改反馈单.doc" />
-    <Content Include="File\Word\HSSE\~%24隐患整改通知单.doc" />
     <Content Include="File\Word\HSSE\安全隐患整改反馈单.doc" />
     <Content Include="File\Word\HSSE\安全隐患整改通知单.doc" />
+    <Content Include="File\Word\HSSE\动土作业票.doc" />
+    <Content Include="File\Word\HSSE\动火作业票.doc" />
+    <Content Include="File\Word\HSSE\受限空间作业票.doc" />
+    <Content Include="File\Word\HSSE\吊装作业票.doc" />
+    <Content Include="File\Word\HSSE\夜间施工作业票.doc" />
+    <Content Include="File\Word\HSSE\射线作业票.doc" />
+    <Content Include="File\Word\HSSE\断路（占道）作业票.doc" />
+    <Content Include="File\Word\HSSE\高处作业票.doc" />
+    <Content Include="File\Word\HSSE\安全处罚通知单.doc" />
+    <Content Include="File\Word\HSSE\工程停工令.doc" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -6656,6 +6672,13 @@
     <Compile Include="HSSE\Check\IncentiveNotice.aspx.designer.cs">
       <DependentUpon>IncentiveNotice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\Check\IncentiveNoticeAdd.aspx.cs">
+      <DependentUpon>IncentiveNoticeAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\IncentiveNoticeAdd.aspx.designer.cs">
+      <DependentUpon>IncentiveNoticeAdd.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\Check\IncentiveNoticeEdit.aspx.cs">
       <DependentUpon>IncentiveNoticeEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6684,6 +6707,13 @@
     <Compile Include="HSSE\Check\PauseNotice.aspx.designer.cs">
       <DependentUpon>PauseNotice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\Check\PauseNoticeAdd.aspx.cs">
+      <DependentUpon>PauseNoticeAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\PauseNoticeAdd.aspx.designer.cs">
+      <DependentUpon>PauseNoticeAdd.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\Check\PauseNoticeEdit.aspx.cs">
       <DependentUpon>PauseNoticeEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6704,6 +6734,13 @@
     </Compile>
     <Compile Include="HSSE\Check\PunishNotice.aspx.designer.cs">
       <DependentUpon>PunishNotice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\PunishNoticeAdd.aspx.cs">
+      <DependentUpon>PunishNoticeAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\PunishNoticeAdd.aspx.designer.cs">
+      <DependentUpon>PunishNoticeAdd.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\Check\PunishNoticeEdit.aspx.cs">
       <DependentUpon>PunishNoticeEdit.aspx</DependentUpon>
@@ -6732,6 +6769,34 @@
     </Compile>
     <Compile Include="HSSE\Check\RectifyNotices.aspx.designer.cs">
       <DependentUpon>RectifyNotices.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesRecheck.aspx.cs">
+      <DependentUpon>RectifyNoticesRecheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesRecheck.aspx.designer.cs">
+      <DependentUpon>RectifyNoticesRecheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesRectify.aspx.cs">
+      <DependentUpon>RectifyNoticesRectify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesRectify.aspx.designer.cs">
+      <DependentUpon>RectifyNoticesRectify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesAudit.aspx.cs">
+      <DependentUpon>RectifyNoticesAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesAudit.aspx.designer.cs">
+      <DependentUpon>RectifyNoticesAudit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesAdd.aspx.cs">
+      <DependentUpon>RectifyNoticesAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\RectifyNoticesAdd.aspx.designer.cs">
+      <DependentUpon>RectifyNoticesAdd.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\Check\RectifyNoticesEdit.aspx.cs">
       <DependentUpon>RectifyNoticesEdit.aspx</DependentUpon>
@@ -8916,6 +8981,13 @@
     </Compile>
     <Compile Include="ProjectData\ProjectInformation.aspx.designer.cs">
       <DependentUpon>ProjectInformation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectList.aspx.cs">
+      <DependentUpon>ProjectList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectList.aspx.designer.cs">
+      <DependentUpon>ProjectList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\ProjectSet.aspx.cs">
       <DependentUpon>ProjectSet.aspx</DependentUpon>

@@ -109,7 +109,7 @@
                                             </ItemTemplate>
                                         </f:TemplateField>
                                         <f:LinkButtonField HeaderText="整改前" ConfirmTarget="Top" Width="80" CommandName="AttachUrl"
-                                            TextAlign="Center" ToolTip="整改照片" Text="整改前" />
+                                            TextAlign="Center" ToolTip="整改照片" Text="详细" />
                                         <f:RenderField Width="100px" ColumnID="RectifyResults" DataField="RectifyResults" FieldType="string"
                                             HeaderText="整改结果">
                                             <Editor>
@@ -229,7 +229,8 @@
                                     <Rows>
                                         <f:FormRow>
                                             <Items>
-                                                <f:DropDownList ID="drpUnitHeadManId" runat="server" Label="施工单位负责人" LabelAlign="Right" EnableEdit="true" ShowRedStar="true">
+                                                <f:DropDownList ID="drpUnitHeadManId" runat="server" Label="施工单位负责人"  LabelWidth="120px"
+                                                    LabelAlign="Right" EnableEdit="true" ShowRedStar="true">
                                                 </f:DropDownList>
                                                 <f:Label runat="server">
                                                 </f:Label>
@@ -260,7 +261,8 @@
                                         </f:FormRow>
                                         <f:FormRow ID="step3_CheckPerson">
                                             <Items>
-                                                <f:DropDownList ID="drpCheckPerson" runat="server" Label="安全经理/安全工程师" LabelAlign="Right" EnableEdit="true" ShowRedStar="true">
+                                                <f:DropDownList ID="drpCheckPerson" runat="server" Label="安全经理/安全工程师"  LabelWidth="170px"
+                                                    LabelAlign="Right" EnableEdit="true" ShowRedStar="true">
                                                 </f:DropDownList>
                                                 <f:Label runat="server"></f:Label>
                                             </Items>
@@ -288,8 +290,8 @@
                                         <f:FormRow>
                                             <Items>
                                                 <f:DropDownList ID="drpReCheckOpinion" runat="server" Label="复查意见" LabelAlign="Right" EnableEdit="true" Readonly="true">
-                                                    <f:ListItem Text="整改不通过" Value="False" />
-                                                    <f:ListItem Text="整改通过" Value="True" />
+                                                    <f:ListItem Text="不通过" Value="False" />
+                                                    <f:ListItem Text="通过" Value="True" />
                                                 </f:DropDownList>
                                                 <f:TextBox runat="server" Label="整改意见" ID="opinion"></f:TextBox>
                                             </Items>
@@ -301,22 +303,34 @@
                     </Rows>
                     
                 </f:Form>
-                <f:Form ID="Form9" ShowBorder="true" ShowHeader="false" Title="安全隐患操作步骤" AutoScroll="true"
+                <f:Form ID="Form9" ShowBorder="true" ShowHeader="false" Title="审核步骤" AutoScroll="true"
                     runat="server" RedStarPosition="BeforeText" LabelAlign="Right" EnableTableStyle="true">
                     <Rows>
                         <f:FormRow>
                             <Items>
                                 <f:Grid ID="gvFlowOperate" ShowBorder="true" ShowHeader="false" EnableTableStyle="true"
-                                    EnableCollapse="true" runat="server" DataIDField="FlowOperateId" AllowSorting="true" 
+                                    EnableCollapse="true" runat="server" DataIDField="FlowOperateId" AllowSorting="true"  EnableColumnLines="true"
                                     SortField="OperateTime" SortDirection="ASC" EnableTextSelection="True"  ForceFit="true">
                                     <Columns>
-                                        <f:RenderField Width="120px" ColumnID="OperateName" DataField="OperateName" FieldType="String" HeaderText="操作步骤" ExpandUnusedSpace="true" HeaderTextAlign="Center" TextAlign="Center">
+                                          <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </f:TemplateField>
+                                        <f:RenderField Width="120px" ColumnID="OperateName" DataField="OperateName" 
+                                            FieldType="String" HeaderText="操作步骤"  HeaderTextAlign="Center" TextAlign="Left">
                                         </f:RenderField>
-                                        <f:RenderField Width="120px" ColumnID="UserName" DataField="UserName" FieldType="String" HeaderText="操作人" HeaderTextAlign="Center" TextAlign="Center">
+                                        <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" 
+                                            FieldType="String" HeaderText="操作人" HeaderTextAlign="Center" TextAlign="Center">
                                         </f:RenderField>
-                                        <f:RenderField Width="150px" ColumnID="Opinion" DataField="Opinion" FieldType="string" HeaderText="操作意见" HeaderTextAlign="Center" TextAlign="Center">
+                                        <f:RenderField Width="80px" ColumnID="IsAgreeName" DataField="IsAgreeName" FieldType="String" 
+                                                HeaderText="是否同意"  HeaderTextAlign="Center" TextAlign="Center">
                                         </f:RenderField>
-                                        <f:RenderField Width="150px" ColumnID="OperateTime" DataField="OperateTime" FieldType="string" HeaderText="操作时间" HeaderTextAlign="Center" TextAlign="Center">
+                                        <f:RenderField Width="150px" ColumnID="Opinion" DataField="Opinion"  ExpandUnusedSpace="true"
+                                            FieldType="string" HeaderText="操作意见" HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                        <f:RenderField Width="150px" ColumnID="OperateTime" DataField="OperateTime" 
+                                            FieldType="string" HeaderText="操作时间" HeaderTextAlign="Center" TextAlign="Center">
                                         </f:RenderField>
                                     </Columns>
                                 </f:Grid>

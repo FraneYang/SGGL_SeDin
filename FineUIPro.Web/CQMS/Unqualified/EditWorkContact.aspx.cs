@@ -275,6 +275,11 @@ namespace FineUIPro.Web.CQMS.Unqualified
                 }
 
                 txtProjectName.Text = ProjectService.GetProjectByProjectId(CurrUser.LoginProjectId).ProjectName;
+                Model.Unqualified_WorkContact workContact1 = WorkContactService.GetWorkContactByWorkContactId(WorkContactId);
+                if (workContact1 != null && !string.IsNullOrEmpty(workContact1.SaveHandleMan))
+                {
+                    this.drpHandleMan.SelectedValue = workContact1.SaveHandleMan;
+                }
             }
         }
 
@@ -537,6 +542,7 @@ namespace FineUIPro.Web.CQMS.Unqualified
                 }
                 if (saveType == "submit")
                 {
+                    workContact.SaveHandleMan = null;
                     Model.Unqualified_WorkContactApprove approve = new Model.Unqualified_WorkContactApprove();
                     approve.WorkContactId = workContact1.WorkContactId;
                     if (drpHandleMan.SelectedValue != "0")
@@ -561,6 +567,10 @@ namespace FineUIPro.Web.CQMS.Unqualified
                         }
                     }
                 }
+                if (saveType == "save")
+                {
+                    workContact.SaveHandleMan = this.drpHandleMan.SelectedValue;
+                }
                 workContact.WorkContactId = WorkContactId;
                 workContact.ReOpinion = txtReOpinion.Text.Trim();
                 WorkContactService.UpdateWorkContact(workContact);
@@ -574,6 +584,10 @@ namespace FineUIPro.Web.CQMS.Unqualified
                 else
                 {
                     workContact.WorkContactId = SQLHelper.GetNewID(typeof(Model.Unqualified_WorkContact));
+                }
+                if (saveType == "save")
+                {
+                    workContact.SaveHandleMan = this.drpHandleMan.SelectedValue;
                 }
                 workContact.ReOpinion = txtReOpinion.Text.Trim();
                 workContact.CompileMan = CurrUser.UserId;

@@ -351,7 +351,9 @@ namespace FineUIPro.Web.HSSE.Check
         }
         public void BindGrid1()
         {
-            string strSql = @"select FlowOperateId, RectifyNoticesId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_RectifyNoticesFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            string strSql = @"select FlowOperateId, RectifyNoticesId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName
+                ,(case when IsAgree=0 then '不同意' else '同意' end) as IsAgreeName
+                from Check_RectifyNoticesFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += "where RectifyNoticesId= @RectifyNoticesId";
             listStr.Add(new SqlParameter("@RectifyNoticesId", RectifyNoticesId));

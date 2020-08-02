@@ -158,7 +158,7 @@
                             <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
                                 DataKeyNames="CheckControlApproveId" EnableColumnLines="true" ForceFit="true">
                                 <Columns>
-                                    <f:RowNumberField Width="20px" />
+                                    <f:RowNumberField Width="40px" />
                                     <f:TemplateField ColumnID="State" Width="250px" HeaderText="办理类型" HeaderTextAlign="Center" TextAlign="Center"
                                         EnableLock="true" Locked="False">
                                         <ItemTemplate>

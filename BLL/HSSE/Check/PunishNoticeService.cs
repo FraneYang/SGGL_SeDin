@@ -179,13 +179,18 @@ namespace BLL
             Model.Check_PunishNotice punishNotice = db.Check_PunishNotice.FirstOrDefault(e => e.PunishNoticeId == punishNoticeId);
             if (punishNotice != null)
             {
-                CodeRecordsService.DeleteCodeRecordsByDataId(punishNoticeId);               
+                CodeRecordsService.DeleteCodeRecordsByDataId(punishNoticeId);
                 UploadFileService.DeleteFile(Funs.RootPath, punishNotice.AttachUrl);
                 ////删除审核流程表
                 var getFlow = db.Check_PunishNoticeFlowOperate.Where(x => x.PunishNoticeId == punishNoticeId);
                 if (getFlow.Count() > 0)
                 {
                     db.Check_PunishNoticeFlowOperate.DeleteAllOnSubmit(getFlow);
+                }
+                var PunishItem = db.Check_PunishNoticeItem.Where(x => x.PunishNoticeId == punishNoticeId);
+                if (PunishItem.Count() > 0)
+                {
+                    db.Check_PunishNoticeItem.DeleteAllOnSubmit(PunishItem);
                 }
                 db.Check_PunishNotice.DeleteOnSubmit(punishNotice);
                 db.SubmitChanges();

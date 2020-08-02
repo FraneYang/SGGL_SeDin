@@ -102,6 +102,11 @@
             <%--<f:MenuButton ID="btnMenuConfirm" EnablePostBack="true" runat="server" Hidden="true"
                 Text="确认" Icon="Accept" OnClick="btnMenuConfirm_Click">
             </f:MenuButton>--%>
+            <f:MenuButton ID="btnMenuView" EnablePostBack="true" runat="server" Text="查看" Icon="ApplicationViewIcons" OnClick="btnMenuView_Click">
+                </f:MenuButton>
+            <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server"
+                Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="false">
+            </f:MenuButton>
             <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Hidden="true"
                 Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？" OnClick="btnMenuDel_Click">
             </f:MenuButton>

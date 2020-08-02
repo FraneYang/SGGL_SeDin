@@ -155,6 +155,7 @@
     <Compile Include="HSSE\HSSE_HazardTemplate.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModelProc.cs" />
+    <Compile Include="Num.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleSerie.cs" />
     <Compile Include="SpSysMenuItem.cs" />

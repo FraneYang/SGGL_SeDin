@@ -53,6 +53,7 @@ namespace BLL
                 newTechnicalContactList.CompileDate = TechnicalContactList.CompileDate;
                 newTechnicalContactList.State = TechnicalContactList.State;
                 newTechnicalContactList.ReOpinion = TechnicalContactList.ReOpinion;
+                newTechnicalContactList.SaveHandleMan = TechnicalContactList.SaveHandleMan;
                 db.Check_TechnicalContactList.InsertOnSubmit(newTechnicalContactList);
                 db.SubmitChanges();
             }
@@ -78,6 +79,7 @@ namespace BLL
             newTechnicalContactList.CompileDate = TechnicalContactList.CompileDate;
             newTechnicalContactList.State = TechnicalContactList.State;
             newTechnicalContactList.ReOpinion = TechnicalContactList.ReOpinion;
+            newTechnicalContactList.SaveHandleMan = TechnicalContactList.SaveHandleMan;
             db.Check_TechnicalContactList.InsertOnSubmit(newTechnicalContactList);
             db.SubmitChanges();
         }
@@ -124,6 +126,7 @@ namespace BLL
             newTechnicalContactList.ReAttachUrl = TechnicalContactList.ReAttachUrl;
             newTechnicalContactList.State = TechnicalContactList.State;
             newTechnicalContactList.ReOpinion = TechnicalContactList.ReOpinion;
+            newTechnicalContactList.SaveHandleMan = TechnicalContactList.SaveHandleMan;
             db.SubmitChanges();
         }
 
@@ -662,7 +665,7 @@ namespace BLL
                            };
                 List<Model.Check_TechnicalContactList> res = new List<Model.Check_TechnicalContactList>();
 
-                var list = qres.Skip(startRowIndex).Take(maximumRows).ToList();
+                var list = qres.Skip(startRowIndex* maximumRows).Take(maximumRows).ToList();
                 foreach (var item in list)
                 {
                     Model.Check_TechnicalContactList tc = new Model.Check_TechnicalContactList();
@@ -785,7 +788,7 @@ namespace BLL
                            };
                 List<Model.Check_TechnicalContactList> res = new List<Model.Check_TechnicalContactList>();
 
-                var list = qres.Skip(startRowIndex).Take(maximumRows).ToList();
+                var list = qres.Skip(startRowIndex * maximumRows).Take(maximumRows).ToList();
                 foreach (var item in list)
                 {
                     Model.Check_TechnicalContactList tc = new Model.Check_TechnicalContactList();

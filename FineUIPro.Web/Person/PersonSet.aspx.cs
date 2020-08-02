@@ -42,12 +42,17 @@ namespace FineUIPro.Web.Person
         private void BindGrid()
         {
             string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Users.IdentityCard,Users.Telephone,Users.IsOffice,"
-                          + @"Roles.RoleName,Unit.UnitName,Unit.UnitCode,Const13.ConstText AS RoleTypeName"
-                          + @" From dbo.Sys_User AS Users"
-                          + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
-                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
-                          + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
-                          + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "' AND Unit.UnitId='"+Const.UnitId_SEDIN + "' AND Users.DepartId='"+Const.Depart_constructionId+"' ";
+                                    + @"Roles.RoleName,Unit.UnitName,Unit.UnitCode,Const13.ConstText AS RoleTypeName,Depart.DepartName,Users.Major,PostTitle.PostTitleName,pc.PracticeCertificateName,project.ProjectName"
+                                    + @",ProjectRoleName= STUFF(( SELECT ',' + RoleName FROM dbo.Sys_Role where PATINDEX('%,' + RTRIM(RoleId) + ',%',',' +Users.ProjectRoleId + ',')>0 FOR XML PATH('')), 1, 1,'')"
+                                    + @" From dbo.Sys_User AS Users"
+                                    + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
+                                    + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
+                                    + @" LEFT JOIN Base_Depart AS Depart ON Depart.DepartId=Users.DepartId"
+                                    + @" LEFT JOIN Base_PostTitle AS PostTitle ON PostTitle.PostTitleId=Users.PostTitleId"
+                                    + @" LEFT JOIN Base_PracticeCertificate AS pc ON pc.PracticeCertificateId=Users.CertificateId"
+                                    + @" LEFT JOIN Base_Project AS project ON project.projectId=Users.ProjectId"
+                                    + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
+                                    + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "' AND Unit.UnitId='"+Const.UnitId_SEDIN + "' AND Users.DepartId='"+Const.Depart_constructionId+"' ";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
@@ -257,30 +262,7 @@ namespace FineUIPro.Web.Person
         {
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ParticipateProject.aspx?userId={0}", Grid1.SelectedRowID, "参与项目情况 - "), "参与项目", 1000, 520));
         }
-
-        protected string ConvertProject(object userId)
-        {
-            string projectName = string.Empty;
-            if (userId != null)
-            {
-                var projectUsers = ProjectUserService.GetProjectUserByUserId(userId.ToString());
-
-                if (projectUsers.Count() == 1)
-                {
-                    projectName = BLL.ProjectService.GetProjectByProjectId(projectUsers.FirstOrDefault().ProjectId).ProjectName;
-                }
-                else if (projectUsers.Count() > 1)
-                {
-                    projectName = "查看";
-                }
-                else
-                {
-                    projectName = "无";
-                }
-            }
-            return projectName;
-        }
-
+        
         #region 导入
         /// <summary>
         /// 导入按钮

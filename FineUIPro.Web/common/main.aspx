@@ -99,7 +99,7 @@
   
         .map-desc .desc{
            
-            color:#9292ff;
+            color:#00a2e9;
             /*text-shadow: 0 0 10px #7a7cd0,0 0 20px #7a7cd0,0 0 30px #7a7cd0,0 0 40px #7a7cd0;*/	/*设置发光效果*/
            /*text-shadow: 0 0 10px #7a7cd0;*/
         }
@@ -142,7 +142,7 @@
             /*background-color: rgba(0,53,97 ,0.3) !important;*/
         }
         .map-desc .desc .d-item .tit{
-            font-size:10px;
+            font-size:11px;
         }
          .map-desc .desc .d-item .num{
              font-size:18px;
@@ -207,11 +207,35 @@
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">安全数据统计</div>
-                        <div class="content-wrap flex1 flex">
+                        <div class="content-wrap flex1 flex flexV" style="padding-bottom:0;">
+                            <div class="row1 flex">
+                                <div>安全人工时：</div><span class="num">1432345</span><div>小时</div>
+                            </div>
+                            <div class="row2 flex1 flex">
+                                <div class="item flex1">
+                                    <div id="one2" style="width: 100%; height: 100%;"></div>
+                                </div>
+                                <div class="item flex1">
+                                  <div class="item-txt-list flex">
+                                    <div class="txt-tit">总数量：</div>
+                                    <div>43</div>
+                                  </div>
+                                  <div class="item-txt-list flex">
+                                    <div class="txt-tit fixtt">待整改：</div>
+                                    <div>10</div>
+                                  </div>
+                                  <div class="item-txt-list flex">
+                                    <div class="txt-tit fixtt">已整改：</div>
+                                    <div>33</div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%--<div class="content-wrap flex1 flex">
                             <div class="flex1" id='one1' style="width: 100%; height: 100%;"></div>
                             <div class="spline-mid"></div>
                             <div class="flex1" id='one2' style="width: 100%; height: 100%;"></div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
                 <div class="bg-item flex1">
@@ -232,7 +256,7 @@
                 <div class="flex2 ">
                     <div class="bw-b-bottom-up">
                         <div class="tab-wrap">
-                            <div class="tab">
+                            <div class="tab" data-value="0">
                                 <div class="t-item ">境外</div>
                                 <div class="spline"></div>
                                 <div class="t-item active">境内</div>
@@ -272,7 +296,7 @@
                                     <div class="tit">施工</div>
                                     <div class="num">59</div>
                                 </div>
-                                <div  class="d-item">
+                                  <div  class="d-item">
                                     <div class="tit">单位：(个)</div>
                                 </div>
                             </div>
@@ -338,7 +362,15 @@
                     <div class="spline" style="width: 2%;"></div>
                     <div class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
                         <div class="bw-item-content flex flexV">
-                            <div class="tit-new">通知/待办</div>
+                            <div class="tit-new">
+                                <div class="tab-wrap-tit">
+                                    <div class="tab" data-value="1">
+                                        <div class="t-item active">通知</div>
+                                        <div class="spline"></div>
+                                        <div class="t-item">待办</div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="" style="padding:10px 10px 0;">
                                 <div class="swiper-container " id='swiper2'>
                                      <ul class="content-ul swiper-wrapper">
@@ -374,10 +406,12 @@
                         <div class="content-wrap tab-content flex1" style="overflow:auto;">
                             <div class="flex tab-h">
                                 <div class="txt">工地名称</div>
-                                <div class="flex1" style="text-align:center">状态</div>
+                                <div class="txt">状态</div>
+                                <div class="flex1" style="text-align:center">进度</div>
                             </div>
                             <div class="flex tab-i">
                                 <div class="txt">工地1</div>
+                                <div class="txt">正常</div>
                                 <div class="flex1 flex line-wrap">
                                     <div class="line-item">
                                         <div class="normal" style="width:80%"></div>
@@ -386,6 +420,7 @@
                             </div>
                             <div class="flex tab-i">
                                 <div class="txt">工地2</div>
+                                <div class="txt">正常</div>
                                 <div class="flex1 flex line-wrap">
                                     <div class="line-item">
                                         <div class="normal" style="width:50%"></div>
@@ -394,6 +429,7 @@
                             </div>
                             <div class="flex tab-i">
                                 <div class="txt">工地3</div>
+                                <div class="txt">超期</div>
                                 <div class="flex1 flex line-wrap">
                                     <div class="line-item">
                                         <div class="warn" style="width:100%"></div>
@@ -511,7 +547,7 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option, true)
     }
-    category_One('one1', 80)
+    //category_One('one1', 80)
 </script>
     <script>
     function pie(id, data, title, text) {
@@ -539,7 +575,7 @@
                     fontSize: 10,
                     fontWeight:'300'
                 },
-                show: true
+                show: false
             },
             graphic: {
                 type: "text",
@@ -589,9 +625,10 @@
         //为echarts对象加载数据
         myChartPie.setOption(optionPie);
     }
-    var data = [{ value: 10, name: '' },
-    { value: 5, name: '' }];
-    pie('one2', data, "安全隐患整改统计", "43")
+    var data = [{ value: 33, name: '' },
+    { value: 10, name: '' }];
+        //pie('one2', data, "安全隐患整改统计", "43")
+        pie('one2', data, "", "43")
 </script>
 <script type="text/javascript">
     function category(id) {
@@ -763,7 +800,8 @@
         type: 'bar',
         data: data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
-    },
+    }];
+    var series1 = [
     {
         name: '施工资料同步率',
         type: 'bar',
@@ -771,7 +809,7 @@
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }];
     category('two', xArr, series)
-    category('three', xArr, series)
+    category('three', xArr, series1)
 </script>
     <script type="text/javascript">
     function category_Five(id, xArr, data)  {
@@ -1536,10 +1574,16 @@
         if ($this.hasClass('active') && index == 0) {
             return
         }
-        var maptype = index == 0 ? 'world' : 'china'
-        $(".tab .t-item").removeClass('active');
+        var $tab = $this.closest(".tab")
+        var value = $tab.attr("data-value")
+        $tab.find(".t-item").removeClass('active');
         $this.addClass('active')
-        mapEchart('map', maptype)
+        if (value == 0) {
+            var maptype = index == 0 ? 'world' : 'china'
+            mapEchart('map', maptype)
+        } else if (value == 1) {
+
+        }
     })
 </script>
 <script>

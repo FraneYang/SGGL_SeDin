@@ -290,7 +290,7 @@
                         <f:HiddenField ID="hdIds" runat="server"></f:HiddenField>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" OnClick="btnSave_Click" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1">
+                        <f:Button ID="btnSave" OnClick="btnSave_Click" Icon="SystemSave" runat="server" ToolTip="保存" >
                         </f:Button>
                         <f:Button ID="btnSubmit" OnClick="btnSubmit_Click" Icon="SystemSaveNew" runat="server" ToolTip="提交" ValidateForms="SimpleForm1">
                         </f:Button>
