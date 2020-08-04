@@ -89,11 +89,11 @@ namespace BLL
                 List<string> ids = new List<string>();
                 if (!string.IsNullOrEmpty(userId))
                 {
-                    q = q.Where(e => e.UserId == userId);
+                    q = q.Where(e => e.QuarterCheckId == id && e.UserId == userId);
                 }
 
                 var qq1 = from x in q
-                          orderby x.UserId descending
+                          orderby x.SortId
                           select new
                           {
                               x.QuarterCheckItemId,

@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="6890E0DD-9606-41BC-8700-D32FA5B65B66" Text="施工进度" NavigateUrl="">
-    <TreeNode id="BAC3D994-03A8-466C-8975-A31039998BCC" Text="施工进度统计" NavigateUrl="JDGL/Check/ProgressShow.aspx">
-    </TreeNode>
+  <TreeNode id="BAC3D994-03A8-466C-8975-A31039998BCC" Text="施工进度统计" NavigateUrl="JDGL/Check/ProgressShow.aspx">
+  </TreeNode>
 <TreeNode id="1172B112-2A12-4410-AD66-E5BA6B461475" Text="施工进度赢得值曲线" NavigateUrl="JDGL/Check/ProgressStatistics.aspx"></TreeNode>
-</TreeNode>
 </Tree>

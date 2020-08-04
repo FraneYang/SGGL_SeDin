@@ -20,7 +20,7 @@
                         <f:TextBox ID="txtUserName" runat="server" Label="姓名" Required="true" ShowRedStar="true" MaxLength="20"
                             FocusOnPageLoad="true" LabelWidth="110px">
                         </f:TextBox>
-                        <f:TextBox ID="txtAccount" runat="server" Label="工号" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="110px">
+                        <f:TextBox ID="txtAccount" runat="server" Label="工号/账号" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="110px">
                         </f:TextBox>
                      
                     </Items>
@@ -85,7 +85,7 @@
                 <f:FormRow>
                     <Items>
                         <f:DatePicker runat="server" Label="入院日期" ID="txtIntoDate" LabelWidth="110px"></f:DatePicker>
-                        <f:DropDownList ID="drpCertificate" runat="server" Label="职业资格证书" MaxLength="50" LabelWidth="110px">
+                        <f:DropDownList ID="drpCertificate" runat="server" Label="职业资格证书" MaxLength="500" LabelWidth="110px" EnableCheckBoxSelect="true" EnableMultiSelect="true">
                         </f:DropDownList>
                         <f:TextBox ID="txtProjectId" runat="server" Label="当前所在项目" MaxLength="50" LabelWidth="110px" Readonly="true">
                         </f:TextBox>
@@ -103,10 +103,11 @@
                 <f:FormRow>
                     <Items>
                         <f:DatePicker runat="server" Label="合同到期时间" ID="txtValidityDate" LabelWidth="110px"></f:DatePicker>
+                        <f:DropDownList ID="drpWorkPost" runat="server" Label="岗位" MaxLength="500" LabelWidth="110px" EnableCheckBoxSelect="true" EnableMultiSelect="true">
+                        </f:DropDownList>
                         <f:Button ID="BtnRole" Text="历史角色" ToolTip="查看" Icon="TableCell" runat="server"
                             OnClick="BtnRole_Click" >
                         </f:Button>
-                        <f:Label runat="server"></f:Label>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
@@ -133,7 +134,7 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="880px"
             Height="500px">
         </f:Window>
     </form>

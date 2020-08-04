@@ -25,7 +25,8 @@
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>                     
                             <f:Button ID="btnEdit" ToolTip="修改选中项密码" Icon="Pencil" runat="server" OnClick="btnEdit_Click">
                             </f:Button>  
-                             <f:Button ID="btnDelete" ToolTip="重置选中项密码" Icon="ArrowRefresh" ConfirmText="确定恢复当前用户原始密码？" OnClick="btnDelete_Click"
+                             <f:Button ID="btnArrowRefresh" ToolTip="重置选中项密码" Icon="ArrowRefresh" Hidden="true"
+                                 ConfirmText="确定恢复当前用户原始密码？" OnClick="btnArrowRefresh_Click"
                                 runat="server">
                             </f:Button>                         
                         </Items>

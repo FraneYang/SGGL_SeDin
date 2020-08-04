@@ -106,7 +106,11 @@ namespace BLL
                 List<string> ids = new List<string>();
                 if (!string.IsNullOrEmpty(userId))
                 {
-                    q = q.Where(e => e.UserId == userId);
+                    q = from x in q
+                        join y in db.Person_QuarterCheckApprove
+                        on x.QuarterCheckId equals y.QuarterCheckId
+                        where y.UserId == userId && y.ApproveDate == null
+                        select x;
                 }
 
                 var qq1 = from x in q

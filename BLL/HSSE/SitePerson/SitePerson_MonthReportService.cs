@@ -108,5 +108,48 @@ namespace BLL
         {
             return Funs.DB.SitePerson_MonthReport.FirstOrDefault(x => x.CompileDate.Value.Year >= startTime.Year && x.CompileDate.Value.Month >= startTime.Month && x.ProjectId == projectId && x.States == BLL.Const.State_2);
         }
+
+
+        /// <summary>
+        ///  获取出入记录人工时
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.SitePerson_MonthReport> getMonthReports(string projectId, DateTime? sDate)
+        {
+            Model.SGGLDB db = Funs.DB;
+            List<Model.SitePerson_MonthReport> reports = new List<Model.SitePerson_MonthReport>();
+            var getAllPersonInOutList = from x in db.SitePerson_PersonInOutNumber
+                                        where x.ProjectId == projectId
+                                        select x;
+            if (getAllPersonInOutList.Count() > 0)
+            {
+                var getInMonths = (from x in getAllPersonInOutList select new { x.InOutDate.Year, x.InOutDate.Month }).Distinct();
+                if (sDate.HasValue)
+                {
+                    getInMonths = getInMonths.Where(x => x.Year == sDate.Value.Year && x.Month == sDate.Value.Month);
+                }
+                foreach (var item in getInMonths)
+                {
+                    DateTime compileDate = Funs.GetNewDateTimeOrNow(item.Year.ToString() + "-" + item.Month.ToString());
+                    var getNow = getAllPersonInOutList.Where(x => x.InOutDate.Year == compileDate.Year && x.InOutDate.Month == compileDate.Month).Max(x=>x.WorkHours);
+                    if (getNow.HasValue)
+                    {
+                        Model.SitePerson_MonthReport reportItem = new Model.SitePerson_MonthReport
+                        {
+                            MonthReportId = SQLHelper.GetNewID(),
+                            ProjectId = projectId,
+                            CompileDate = Funs.GetNewDateTime( item.Year.ToString()+"-"+item.Month.ToString()),
+                            TotalPersonWorkTime = getNow,
+                        };
+                        DateTime upDate = compileDate.AddMonths(-1);
+                        var getMax = getAllPersonInOutList.Where(x => x.InOutDate.Year == upDate.Year && x.InOutDate.Month == upDate.Month).Max(x => x.WorkHours) ?? 0;
+                        reportItem.DayWorkTime = (getNow ?? 0) - getMax;
+                        reports.Add(reportItem);
+                    }
+
+                }
+            }
+            return reports;
+        }
     }
 }

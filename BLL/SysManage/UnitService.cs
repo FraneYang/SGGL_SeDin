@@ -176,11 +176,17 @@ namespace BLL
         /// 获取分公司列表
         /// </summary>
         /// <returns></returns>
-        public static List<Model.Base_Unit> GetBranchUnitList()
+        public static List<Model.Base_Unit> GetBranchUnitList(bool isThisUnit)
         {
             var list = (from x in Funs.DB.Base_Unit
-                        where x.IsBranch == true 
+                        where x.IsBranch == true
                         select x).OrderBy(x => x.UnitCode).ToList();
+            if (isThisUnit)
+            {
+                list = (from x in Funs.DB.Base_Unit
+                        where x.IsBranch == true || x.UnitId == Const.UnitId_SEDIN
+                        select x).OrderBy(x => x.UnitCode).ToList();
+            }
             return list;
         }
 
@@ -500,6 +506,23 @@ namespace BLL
             dropName.DataValueField = "UnitId";
             dropName.DataTextField = "UnitName";
             dropName.DataSource = BLL.UnitService.GetUnitByProjectIdList(projectId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        
+        /// <summary>
+        /// 根据项目Id获取单位名称下拉选择项
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitBranchUnitDropDownList(FineUIPro.DropDownList dropName, bool isThis, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitId";
+            dropName.DataTextField = "UnitName";
+            dropName.DataSource = GetBranchUnitList(isThis);
             dropName.DataBind();
             if (isShowPlease)
             {

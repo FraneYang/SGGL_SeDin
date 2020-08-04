@@ -131,6 +131,8 @@
                                             <f:RadioItem Value="MenuType_S" Text="本部" />
                                             <f:RadioItem Value="MenuType_P" Text="项目" Selected="true" />
                                         </f:RadioButtonList>
+                                        <f:DropDownList runat="server" Label="菜单类型" LabelWidth="80px" Width="220px" AutoPostBack="true"  ID="drpSuperMenu"
+                                            OnSelectedIndexChanged="drpSuperMenu_SelectedIndexChanged"></f:DropDownList>
                                         <f:DropDownBox runat="server" ID="drpMenu" Values="henan" EmptyText="请选择末级菜单" Width="500px"
                                             EnableMultiSelect="false" AutoPostBack="true" OnTextChanged="drpMenu_TextChanged" EnableEdit="true">
                                             <PopPanel>
@@ -143,43 +145,99 @@
                                 </f:Toolbar>
                             </Toolbars>
                             <Items>
-                                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true"
-                                    runat="server" BoxFlex="1" DataKeyNames="FlowOperateId" AllowCellEditing="true" ClicksToEdit="2"
-                                    DataIDField="FlowOperateId" AllowSorting="true" SortField="FlowStep,GroupNum,OrderNum" SortDirection="ASC" Height="320px"
-                                    OnSort="Grid1_Sort" AllowPaging="true" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"
-                                    EnableTextSelection="True">
-                                    <Toolbars>
-                                        <f:Toolbar ID="Toolbar4" Position="Top" ToolbarAlign="Right" runat="server">
+                                  <f:TabStrip ID="TabStrip2" CssClass="f-tabstrip-theme-simple" ShowBorder="true" Height="450px"
+                                    TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" 
+                                    runat="server" ActiveTabIndex="2">
+                                      <Tabs>
+                                          <f:Tab ID="TabCode" Title="文档编码" BodyPadding="5px" Layout="Fit" runat="server">
+                                           <Items>
+                                            <f:Form ID="SimpleForm2" ShowBorder="false" ShowHeader="false" AutoScroll="true"
+                                                BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+                                                <Rows>                                        
+                                                  <f:FormRow>
+                                                    <Items>                                                       
+                                                        <f:CheckBox runat="server" ID="ckProjectCode" Label="项目号" LabelWidth="150px"></f:CheckBox>                                                        
+                                                        <f:Label runat="server" Text="说明：编号前是否添加项目代号。" MarginLeft="50px"></f:Label>
+                                                    </Items>
+                                                  </f:FormRow>  
+                                                   <f:FormRow>
+                                                    <Items>                                                       
+                                                       <f:TextBox runat="server" ID="txtPrefix" Label="前缀" MaxLength="50" EmptyText="请输入前缀" LabelWidth="150px"></f:TextBox>
+                                                       <f:Label ID="Label8" runat="server" Text="说明：编号添加前缀的字符。" MarginLeft="50px"></f:Label>
+                                                    </Items>
+                                                  </f:FormRow>   
+                                                  <f:FormRow>
+                                                    <Items>
+                                                        <f:CheckBox runat="server" ID="ckUnitCode" Label="单位代号" LabelWidth="150px" Width="500px"></f:CheckBox>                                                        
+                                                        <f:Label ID="Label22" runat="server" Text="说明：编号前是否添加单位代号。" MarginLeft="50px"></f:Label>
+                                                    </Items>
+                                                  </f:FormRow>   
+                                                  <f:FormRow>
+                                                    <Items>
+                                                       <f:NumberBox runat="server" ID="txtDigit" Label="流水号位数" NoDecimal="true" NoNegative="true" LabelWidth="150px" ></f:NumberBox>
+                                                       <f:Label ID="Label23" runat="server" Text="说明：编号最后生成流水号位数。" MarginLeft="50px"></f:Label>
+                                                    </Items>
+                                                  </f:FormRow>
+                                                  <f:FormRow>
+                                                    <Items>
+                                                        <f:TextBox runat="server" ID="txtSymbol" Label="间隔符" MaxLength="50" ShowRedStar="true" Required="true" LabelWidth="150px"></f:TextBox>
+                                                        <f:Label ID="Label24" runat="server" Text="说明：前缀字符与流水号之间连接字符。" MarginLeft="50px"></f:Label>
+                                                    </Items>
+                                                  </f:FormRow>                                                                                                                                                                                 
+                                                </Rows>
+                                            </f:Form>
+                                         </Items>
+                                        </f:Tab>
+                                          <f:Tab ID="Tab4" Title="模板设置" BodyPadding="5px"  Layout="Fit" runat="server">
                                             <Items>
-                                                <f:Button ID="btnFlowOperateNew" ToolTip="增加" Icon="Add" runat="server" OnClick="btnFlowOperateNew_Click" />
-                                                <f:Button ID="btnFlowOperateDelete" ToolTip="删除" Icon="Delete" ConfirmText="确定删除当前数据？" OnClick="btnFlowOperateDelete_Click" runat="server">
-                                                </f:Button>
+                                             <f:HtmlEditor runat="server" Label="模板" ID="txtTemplate" ShowLabel="false"
+                                                Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="400px">
+                                               </f:HtmlEditor>
                                             </Items>
-                                        </f:Toolbar>
-                                    </Toolbars>
-                                    <Columns>
-                                        <f:RenderField Width="100px" ColumnID="FlowStep" DataField="FlowStep" FieldType="Int"
-                                            HeaderText="步骤" HeaderTextAlign="Center" TextAlign="Center">
-                                        </f:RenderField>
-                                        <f:RenderField Width="100px" ColumnID="GroupNum" DataField="GroupNum" FieldType="Int"
-                                            HeaderText="组号" HeaderTextAlign="Center" TextAlign="Center" Hidden="true">
-                                        </f:RenderField>
-                                        <f:RenderField Width="100px" ColumnID="OrderNum" DataField="OrderNum" FieldType="Int"
-                                            HeaderText="组内序号" HeaderTextAlign="Center" TextAlign="Center" Hidden="true">
-                                        </f:RenderField>
-                                        <f:RenderField Width="250px" ColumnID="AuditFlowName" DataField="AuditFlowName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
-                                        </f:RenderField>
-                                        <f:TemplateField Width="300px" HeaderText="审批角色" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
-                                            <ItemTemplate>
-                                                <asp:Label ID="Label8" runat="server" Text='<%# ConvertRole(Eval("RoleId")) %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </f:TemplateField>
-                                        <f:CheckBoxField Width="80px" RenderAsStaticField="true" TextAlign="Center" DataField="IsFlowEnd" HeaderText="是否结束" />
-                                    </Columns>
-                                    <Listeners>
-                                        <f:Listener Event="dataload" Handler="onGridDataLoad" />
-                                    </Listeners>
-                                </f:Grid>
+                                        </f:Tab>
+                                          <f:Tab ID="Tab5" Title="单据流程" BodyPadding="5px"  Layout="Fit" runat="server">
+                                           <Items>
+                                            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false"  EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true"
+                                                runat="server" BoxFlex="1" DataKeyNames="FlowOperateId" AllowCellEditing="true" ClicksToEdit="2"
+                                                DataIDField="FlowOperateId" AllowSorting="true" SortField="FlowStep,GroupNum,OrderNum" SortDirection="ASC" Height="320px"
+                                                OnSort="Grid1_Sort" AllowPaging="true"  EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"
+                                                EnableTextSelection="True">
+                                                <Toolbars>
+                                                    <f:Toolbar ID="Toolbar4" Position="Top"  ToolbarAlign="Right" runat="server">
+                                                        <Items>                                                            
+                                                            <f:Button ID="btnFlowOperateNew" ToolTip="增加" Icon="Add" runat="server"  OnClick="btnFlowOperateNew_Click" />
+                                                            <f:Button ID="btnFlowOperateDelete" ToolTip="删除" Icon="Delete" ConfirmText="确定删除当前数据？" OnClick="btnFlowOperateDelete_Click" runat="server">
+                                                            </f:Button>
+                                                        </Items>
+                                                    </f:Toolbar>
+                                                </Toolbars>
+                                                <Columns>
+                                                    <f:RenderField Width="100px" ColumnID="FlowStep" DataField="FlowStep" FieldType="Int"
+                                                        HeaderText="步骤"  HeaderTextAlign="Center" TextAlign="Center">
+                                                    </f:RenderField>
+                                                     <f:RenderField Width="100px" ColumnID="GroupNum" DataField="GroupNum" FieldType="Int"
+                                                        HeaderText="组号"  HeaderTextAlign="Center" TextAlign="Center" Hidden="true">
+                                                    </f:RenderField>
+                                                     <f:RenderField Width="100px" ColumnID="OrderNum" DataField="OrderNum" FieldType="Int"
+                                                        HeaderText="组内序号"  HeaderTextAlign="Center" TextAlign="Center" Hidden="true">
+                                                    </f:RenderField>
+                                                    <f:RenderField Width="250px" ColumnID="AuditFlowName" DataField="AuditFlowName"  FieldType="String" HeaderText="名称"  HeaderTextAlign="Center" TextAlign="Left">
+                                                    </f:RenderField>
+                                                    <f:TemplateField Width="300px" HeaderText="审批角色" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true"> 
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="Label27" runat="server"  Text='<%# ConvertRole(Eval("RoleId")) %>' ></asp:Label>
+                                                        </ItemTemplate>
+                                                    </f:TemplateField>
+                                                    <f:CheckBoxField Width="80px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsFlowEnd" HeaderText="是否结束" />
+                                                </Columns>
+                                                <Listeners>
+                                                    <f:Listener Event="dataload" Handler="onGridDataLoad" />
+                                                </Listeners>
+                                            </f:Grid>
+                                        </Items>
+                                        </f:Tab>
+                                      </Tabs>
+                                    </f:TabStrip>
                             </Items>
                         </f:Tab>
                         <f:Tab ID="Tab3" Title="考试规则" BodyPadding="5px" Layout="Fit" IconFont="Bookmark" runat="server">

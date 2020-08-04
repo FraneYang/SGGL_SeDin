@@ -20,6 +20,7 @@
 
         .item-s {
             padding: 0;
+            margin: 0;
         }
 
         .f-btn .f-btn-text {

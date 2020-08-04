@@ -33,6 +33,10 @@ namespace FineUIPro.Web.ProjectData
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();   
 
                 this.ProjectId = Request.QueryString["ProjectId"];
+                if (string.IsNullOrEmpty(this.ProjectId))
+                {
+                    this.ProjectId = this.CurrUser.LoginProjectId;
+                }
                 if (!String.IsNullOrEmpty(this.ProjectId))
                 {
                     var project = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
@@ -57,21 +61,20 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.txtProjectType.Text = projectType.ConstText;
                         }
-                        this.txtPostCode.Text = project.PostCode;
                         this.txtProjectManager.Text = ProjectService.GetProjectManagerName(this.ProjectId);
                         this.txtConstructionManager.Text = ProjectService.GetConstructionManagerName(this.ProjectId);
                         this.txtHSSEManager.Text = ProjectService.GetHSSEManagerName(this.ProjectId);
                         if (project.ProjectState == Const.ProjectState_2)
                         {
-                            this.txtProjectState.Text = "暂停中";
+                            this.txtProjectState.Text = "停工";
                         }
                         else if (project.ProjectState == BLL.Const.ProjectState_3)
                         {
-                            this.txtProjectState.Text = "已完工";
+                            this.txtProjectState.Text = "竣工";
                         }
                         else
                         {
-                            this.txtProjectState.Text = "施工中";
+                            this.txtProjectState.Text = "在建";
                         }
                         Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(project.UnitId);
                         if (unit != null)
@@ -84,6 +87,7 @@ namespace FineUIPro.Web.ProjectData
                         }
 
                         this.txtMapCoordinates.Text = project.MapCoordinates;
+                        this.txtDuration.Text = project.Duration.ToString();
                     }
                 }
             }

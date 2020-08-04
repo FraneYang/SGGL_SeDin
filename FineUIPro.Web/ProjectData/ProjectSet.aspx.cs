@@ -48,16 +48,16 @@ namespace FineUIPro.Web.ProjectData
                           + @" LEFT JOIN Base_ProjectType AS ProjectType ON Project.ProjectType =ProjectType.ProjectTypeId"
                           + @" WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();            
-            if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
-            {
-                strSql += " AND ProjectId = @ProjectId";
-                listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));               
-            }
-            else if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
-            {
-                strSql += " AND ProjectId = @ProjectId";
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            }
+            //if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
+            //{
+            //    strSql += " AND ProjectId = @ProjectId";
+            //    listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));               
+            //}
+            //else if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
+            //{
+            //    strSql += " AND ProjectId = @ProjectId";
+            //    listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+            //}
 
             if (!string.IsNullOrEmpty(this.txtProjectName.Text.Trim()))
             {
@@ -73,7 +73,8 @@ namespace FineUIPro.Web.ProjectData
                 }
                 else
                 {
-                    strSql += " AND (ProjectState = '2' OR ProjectState = '3' )";
+                    strSql += " AND (ProjectState = @states )";
+                    listStr.Add(new SqlParameter("@states", this.ckState.SelectedValue));
                 }
             }
 

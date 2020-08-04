@@ -27,7 +27,11 @@
         }
         .bottom-wrap{
            padding:0;
+           margin-bottom:5px;
         }
+         .bottom-wrap:last-child{
+             margin-bottom:0;
+         }
          .top {
             display: flex;
             display: -webkit-flex;
@@ -43,6 +47,7 @@
             border-radius:0;
             height: 100%;
             margin:0;
+            box-shadow: none;
         }
 
         .tab-wrap {
@@ -63,7 +68,9 @@
             font-size: 13px;
             padding: 2px;
         }
-
+        .itemlr{
+            margin: 0 5px;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="item flex2">
+                <div class="item flex2 itemlr">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content">
@@ -129,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="item flex2">
+                <div class="item flex2 itemlr">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="tab-wrap">

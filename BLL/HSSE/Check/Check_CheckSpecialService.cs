@@ -231,7 +231,7 @@ namespace BLL
                                 ProjectId = checkSpecial.ProjectId,
                                 UnitId = unitItem,
                                 CompleteManId = checkSpecial.CompileMan,
-                                CheckManNames = checkSpecial.PartInPersons,
+                                CheckManNames = checkSpecial.PartInPersonNames,
                                 CheckManIds = checkSpecial.PartInPersonIds,
                                 CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),
                                 States = Const.State_0,
@@ -241,15 +241,10 @@ namespace BLL
                             var getUnitDItem = getDetail1.Where(x => x.UnitId == unitItem && x.HiddenHazardType == itemTypeId);
                             foreach (var item in getUnitDItem)
                             {
-                                Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();
-                                if (!string.IsNullOrEmpty(item.WorkArea))
+                                Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem
                                 {
-                                    newRItem.WrongContent = item.WorkArea + item.Unqualified;
-                                }
-                                else
-                                {
-                                    newRItem.WrongContent = item.Unqualified;
-                                }
+                                    WrongContent = item.Unqualified
+                                };
                                 if (string.IsNullOrEmpty(rectifyNotices.CheckSpecialDetailId))
                                 {
                                     rectifyNotices.CheckSpecialDetailId = item.CheckSpecialDetailId;
@@ -263,7 +258,17 @@ namespace BLL
                                 {
                                     newRItem.PhotoBeforeUrl = getAtt.AttachUrl;
                                 }
-
+                                if (!string.IsNullOrEmpty(item.CheckArea))
+                                {
+                                    if (string.IsNullOrEmpty(rectifyNotices.WorkAreaId))
+                                    {
+                                        rectifyNotices.WorkAreaId = item.CheckArea;
+                                    }
+                                    else if (!rectifyNotices.WorkAreaId.Contains(item.CheckArea))
+                                    {
+                                        rectifyNotices.WorkAreaId += "," + item.CheckArea;
+                                    }
+                                }
                                 rectifyNotices.RectifyNoticesItemItem.Add(newRItem);
                             }
 
@@ -330,15 +335,19 @@ namespace BLL
                         {
                             Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();
                             pauseNotice.ThirdContent += item.Unqualified;
-                            if (string.IsNullOrEmpty(pauseNotice.ProjectPlace))
+                            string checkAreaName= UnitWorkService.GetNameById(item.CheckArea);
+                            if (!string.IsNullOrEmpty(checkAreaName))
                             {
-                                pauseNotice.ProjectPlace = item.WorkArea;
-                            }
-                            else
-                            {
-                                if (!pauseNotice.ProjectPlace.Contains(item.WorkArea))
+                                if (string.IsNullOrEmpty(pauseNotice.ProjectPlace))
                                 {
-                                    pauseNotice.ProjectPlace += "," + item.WorkArea;
+                                    pauseNotice.ProjectPlace = checkAreaName;
+                                }
+                                else
+                                {
+                                    if (!pauseNotice.ProjectPlace.Contains(checkAreaName))
+                                    {
+                                        pauseNotice.ProjectPlace += "," + checkAreaName;
+                                    }
                                 }
                             }
                             if (string.IsNullOrEmpty(pauseNotice.CheckSpecialDetailId))

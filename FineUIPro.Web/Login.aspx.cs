@@ -85,12 +85,15 @@
                     this.CurrUser.LastIsOffice = this.CurrUser.IsOffice;
                 }
                 if (this.CurrUser.LastIsOffice == true)
-                {   ////本部菜单
+                {
+                    this.CurrUser.LoginProjectId = null;
+                    ////本部菜单
                     //   url = "index.aspx?menuType=" + this.CurrUser.LastMenuType;
                     url = "index.aspx";
                 }
                 else
                 {
+                    this.CurrUser.LoginProjectId = this.CurrUser.LastProjectId;
                     //// 项目菜单
                     //url = "indexProject.aspx?menuType=" + this.CurrUser.LastMenuType + "&projectId=" + this.CurrUser.LastProjectId;
                     url = "indexProject.aspx?projectId=" + this.CurrUser.LastProjectId;

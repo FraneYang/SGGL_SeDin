@@ -38,9 +38,11 @@
                 </f:FormRow>
                 <f:FormRow runat="server" ID="trServer">
                     <Items>                      
-                        <f:DropDownList ID="drpDepart" runat="server" Label="部门" EnableEdit="true" ForceSelection="false" LabelWidth="90px">
+                        <f:DropDownList ID="drpDepart" runat="server" Label="部门" ShowRedStar="true" Required="true"
+                            EnableEdit="true" ForceSelection="false" LabelWidth="90px">
                         </f:DropDownList>
-                        <f:DropDownList ID="drpIsOffice" runat="server" Label="本部人员" EnableEdit="true" ForceSelection="false" LabelWidth="90px">
+                        <f:DropDownList ID="drpIsOffice" runat="server" Label="本部人员"  
+                            EnableEdit="true" ForceSelection="false" LabelWidth="90px">
                         </f:DropDownList>
                           <f:DropDownList ID="drpRole" runat="server" Label="本部角色" EnableEdit="true" ForceSelection="false" LabelWidth="90px">
                         </f:DropDownList>
@@ -63,6 +65,10 @@
             <Toolbars>
                 <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
+                         <f:Button ID="btnArrowRefresh" ToolTip="重置选中项密码" Icon="ArrowRefresh" ConfirmText="确定恢复当前用户原始密码？" OnClick="btnArrowRefresh_Click"
+                                runat="server" Hidden="true">
+                            </f:Button>  
+                        <f:ToolbarFill runat="server"></f:ToolbarFill>
                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" ValidateForms="SimpleForm1" Hidden="true"
                             OnClick="btnSave_Click">
                         </f:Button>

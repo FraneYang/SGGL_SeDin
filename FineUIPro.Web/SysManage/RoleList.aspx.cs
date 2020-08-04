@@ -37,9 +37,9 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Roles.RoleId,Roles.RoleName,Roles.RoleCode,Roles.RoleType,Roles.CNCodes,Roles.Def,Roles.IsAuditFlow,Const13.ConstText AS RoleTypeName,Roles.IsSystemBuilt"
-                          + @" FROM dbo.Sys_Role AS Roles "
-                          + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
+            string strSql = @"SELECT Roles.RoleId,Roles.RoleName,Roles.RoleCode,Roles.Def,Roles.IsSystemBuilt"
+                          + @" ,(CASE WHEN IsOffice=1 THEN '本部角色' ELSE '项目角色' END) AS IsOfficeName"
+                          + @" FROM dbo.Sys_Role AS Roles "                          
                           + @" WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtRoleName.Text.Trim()))

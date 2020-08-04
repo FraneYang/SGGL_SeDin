@@ -571,8 +571,6 @@ namespace BLL
                 }
             }
         }
-
-
         /*	public static DataSet RunProcedure(string storedProcName, IDataParameter[] parameters, string tableName )
             {
                 DataSet dataSet = new DataSet();

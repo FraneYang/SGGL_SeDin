@@ -24,6 +24,7 @@
             border-radius:0;
             height: 100%;
             margin:0;
+            box-shadow:none;
         }
         .bottom-wrap{
         padding:0;
@@ -48,19 +49,21 @@
         .bg-img{
             width:100%;
             max-height:225px;
-        }  
-        .bg-img-1{
-           height:100%;
-        width:100%;
-        border-radius:5px;
-        background: url(../res/images/SUBimages/SEDIN.gif) center center no-repeat;
-        background-size: 100% 100%;
+        }
+        .item{
+            margin-bottom: 5px;
+        }
+        .item:last-child{
+            margin-bottom: 0;
+        }
+        .item-two{
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
     <div class="wrap flex">
-        <div class="flex3 flex flexV top-wrap">
+        <div class="flex3 flex flexV top-wrap" style="margin-right:5px;">
             <div class="item flex1">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
@@ -122,8 +125,7 @@
                         <div class="tit-one pdl">形象进度照片</div>
                         <div class="bw-item-content flex1 pdtb0">
                             <div style="width:100%;height:100%;">
-                                <div class="bg-img-1"></div>
-                                <%--<img  src="../res/images/my_face_80.jpg" alt="Alternate Text"  class="bg-img"/>--%>
+                                <img  src="../Images/SUBimages/sedinlogo.png" alt="Alternate Text"  class="bg-img"/>
                             </div>
                         </div>
                         <div class="more">更多</div>

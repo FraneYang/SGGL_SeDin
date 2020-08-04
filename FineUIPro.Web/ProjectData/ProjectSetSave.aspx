@@ -31,64 +31,51 @@
                  <Items>               
                    <f:DropDownList ID="drpProjectType" Label="项目类型" runat="server">
                    </f:DropDownList>
-                </Items> 
-                <Items>
-                  <%-- <f:TextBox ID="txtProjectState" runat="server" Label="项目状态" Readonly="true"></f:TextBox>--%>
-                     <f:DropDownList ID="drpProjectState" runat="server" Label="项目状态" LabelAlign="Right"  Readonly="true">
-                        <f:ListItem Text="施工" Value="1"  Selected="true"/>
-                        <f:ListItem Text="暂停" Value="2" />
-                        <f:ListItem Text="完工" Value="3" />
+                       <f:DropDownList ID="drpProjectState" runat="server" Label="项目状态" LabelAlign="Right" >
+                        <f:ListItem Text="在建" Value="1"  Selected="true"/>
+                        <f:ListItem Text="停工" Value="2" />
+                        <f:ListItem Text="竣工" Value="3" />
                     </f:DropDownList>
-               </Items>                                         
+                </Items>                                   
+            </f:FormRow> 
+               <f:FormRow>
+                <Items>
+                    <f:DatePicker runat="server" Label="开工日期" ID="txtStartDate" 
+                        Required="true" ShowRedStar="true" AutoPostBack="true"  OnTextChanged="txtStartDate_Blur"></f:DatePicker>             
+                   <f:DatePicker runat="server" Label="竣工日期" ID="txtEndDate"
+                       AutoPostBack="true"  OnTextChanged="txtStartDate_Blur"></f:DatePicker>
+               </Items>
             </f:FormRow>   
             <f:FormRow>
                  <Items>               
-                   <f:TextBox ID="txtContractNo" runat="server" Label="合同号"></f:TextBox>
-                </Items> 
-                <Items>
-                   <f:NumberBox runat="server" ID="txtDuration" Label="项目建设工期(月)" NoDecimal="true"
+                   <f:TextBox ID="txtContractNo" runat="server" Label="合同号"></f:TextBox>            
+                   <f:NumberBox runat="server" ID="txtDuration" Label="项目建设工期(月)"  DecimalPrecision="1"
                         NoNegative="true" LabelWidth="160px">
                     </f:NumberBox>
                </Items>                                         
             </f:FormRow>   
-             <f:FormRow>
-                <Items>
-                    <f:DatePicker runat="server" Label="开工日期" ID="txtStartDate" Required="true" ShowRedStar="true" ></f:DatePicker>
-                </Items>
-               <Items>
-                   <f:DatePicker runat="server" Label="竣工日期" ID="txtEndDate"></f:DatePicker>
-               </Items>
-            </f:FormRow>   
-            <f:FormRow>
-                <Items>
-                   <f:TextBox ID="txtPostCode" runat="server" Label="邮编" MaxLength="20"></f:TextBox>
-               </Items>    
+            <f:FormRow>              
                <Items>
                     <f:DropDownList ID="drpProjectManager" runat="server" Label="项目经理" 
                         EnableEdit="true" Required="true" ShowRedStar="true">
                     </f:DropDownList>     
+                      <f:DropDownList ID="drpConstructionManager" runat="server" Label="施工经理" EnableEdit="true">
+                    </f:DropDownList>     
                 </Items>
             </f:FormRow>  
             <f:FormRow>
-                <Items>
-                    <f:DropDownList ID="drpConstructionManager" runat="server" Label="施工经理" EnableEdit="true">
-                    </f:DropDownList>     
-                </Items>
                 <Items>
                     <f:DropDownList ID="drpHSSEManager" runat="server" Label="安全经理" EnableEdit="true">
                     </f:DropDownList>     
+                   <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" MaxLength="500" ></f:TextBox>
+
                 </Items>
             </f:FormRow>  
             <f:FormRow>
                  <Items>
-                   <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" MaxLength="500" ></f:TextBox>
                    <f:DropDownList ID="drpUnit" Label="所属单位" runat="server" EnableEdit="true">
                    </f:DropDownList>
-                </Items>
-            </f:FormRow> 
-            <f:FormRow>
-                 <Items>
-                   <f:TextArea ID="txtWorkRange" runat="server" Label="工作范围" MaxLength="500"  Height="64px"></f:TextArea>
+                     <f:TextBox ID="txtWorkRange" runat="server" Label="工作范围" MaxLength="500" ></f:TextBox>
                 </Items>
             </f:FormRow> 
             <f:FormRow runat="server" ID="trIsForeign">

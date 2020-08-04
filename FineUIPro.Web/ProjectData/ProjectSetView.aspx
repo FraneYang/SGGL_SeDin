@@ -20,40 +20,31 @@
             <f:FormRow>
                 <Items>
                    <f:TextBox ID="txtProjectCode" runat="server" Label="项目号" Readonly="true"></f:TextBox>
-                </Items>
-                 <Items>
                    <f:TextBox ID="txtShortName" runat="server" Label="简称" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                  <Items>               
-                  <f:TextBox ID="txtProjectType" runat="server" Label="项目类型" Readonly="true"></f:TextBox>
-                </Items> 
-                <Items>
+                  <f:TextBox ID="txtProjectType" runat="server" Label="项目类型" Readonly="true"></f:TextBox>               
                    <f:TextBox ID="txtProjectState" runat="server" Label="项目状态" Readonly="true"></f:TextBox>
                </Items>                                         
             </f:FormRow> 
             <f:FormRow>
                 <Items>
-                    <f:TextBox runat="server" Label="开工日期" ID="txtStartDate"  Readonly="true"></f:TextBox>
-                </Items>
-                 <Items>
+                    <f:TextBox runat="server" Label="开工日期" ID="txtStartDate"  Readonly="true"></f:TextBox>           
                    <f:TextBox runat="server" Label="竣工日期" ID="txtEndDate" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow> 
-             <f:FormRow>
-                <Items>
-                   <f:TextBox ID="txtPostCode" runat="server" Label="邮编" Readonly="true"></f:TextBox>
-               </Items>    
+             <f:FormRow>              
                <Items>
-                   <f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" Readonly="true"></f:TextBox>   
+                      <f:TextBox runat="server" ID="txtDuration" Label="项目建设工期(月)"  Readonly="true">
+                    </f:TextBox>
+                   <f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" Readonly="true"></f:TextBox>                      
                 </Items>
             </f:FormRow>  
             <f:FormRow>
-                <Items>    
-                    <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" Readonly="true"></f:TextBox>   
-                </Items>
-                <Items>                    
+                <Items>               
+                    <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" Readonly="true"></f:TextBox> 
                     <f:TextBox ID="txtHSSEManager" runat="server" Label="安全经理" Readonly="true"></f:TextBox>      
                 </Items>
             </f:FormRow>  

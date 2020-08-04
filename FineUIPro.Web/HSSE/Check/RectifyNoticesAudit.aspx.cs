@@ -51,16 +51,7 @@ namespace FineUIPro.Web.HSSE.Check
                     this.txtCheckPerson.Text = getRectifyNotices.CheckManNames;
                     this.txtRectifyNoticesCode.Text = getRectifyNotices.RectifyNoticesCode;
                     this.txtCheckedDate.Text = getRectifyNotices.CheckedDate.ToString();
-                    this.txtHiddenHazardType.Text = "一般";
-                    if (getRectifyNotices.HiddenHazardType == "2")
-                    {
-                        this.txtHiddenHazardType.Text = "较大";
-                    }
-                    else if (getRectifyNotices.HiddenHazardType == "3")
-                    {
-                        this.txtHiddenHazardType.Text = "重大";
-                    }
-
+                    this.drpHiddenHazardType.SelectedValue = getRectifyNotices.HiddenHazardType;
                     getControlShow();                   
                 }
                 BindGrid();
@@ -153,6 +144,7 @@ namespace FineUIPro.Web.HSSE.Check
                     ////签发
                     if (getRectifyNotices.States == Const.State_1)
                     {
+                        getRectifyNotices.HiddenHazardType = this.drpHiddenHazardType.SelectedValue;
                         if (this.drpProfessionalEngineer.SelectedValue == Const._Null && newOItem.IsAgree ==true)
                         {
                             Alert.ShowInParent("请选择抄送专业工程师！", MessageBoxIcon.Warning);
@@ -272,6 +264,7 @@ namespace FineUIPro.Web.HSSE.Check
             this.drpOperateMan.Items.Clear();
             this.step1_person2.Hidden = true;
             this.trOpinion.Hidden = true;
+            this.drpHiddenHazardType.Readonly = true;
             var getRectifyNotices = RectifyNoticesService.GetRectifyNoticesById(RectifyNoticesId);
             if (getRectifyNotices != null)
             {
@@ -280,6 +273,7 @@ namespace FineUIPro.Web.HSSE.Check
                     this.Grid1.Columns[4].Hidden = true;
                     this.Grid1.Columns[5].Hidden = true;
                     this.Grid1.Columns[6].Hidden = true;
+                    this.drpHiddenHazardType.Readonly = false;
                 }
 
                 if (this.rdbIsAgree.SelectedValue == "true")

@@ -45,7 +45,8 @@
             <f:FormRow>
                 <Items>
                   <f:DropDownList ID="drpPartInPersons" runat="server" Label="参检人员" EnableEdit="true" EnableMultiSelect="true"
-                        ForceSelection="false" MaxLength="2000" EnableCheckBoxSelect="true">
+                        ForceSelection="false" MaxLength="2000" EnableCheckBoxSelect="true"
+                      AutoPostBack="true"   OnSelectedIndexChanged="drpPartInPersons_SelectedIndexChanged">
                     </f:DropDownList>
                     <f:TextBox  runat="server" ID="txtPartInPersonNames" MaxLength="1000" ></f:TextBox>
                      <f:Button ID="btnNew" Text="新增" Icon="Add" EnablePostBack="false" runat="server" MarginLeft="50px">
@@ -63,11 +64,11 @@
                         <Columns>                       
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                 TextAlign="Center" />
-                             <f:RenderField Width="110px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
+                             <f:RenderField Width="110px" ColumnID="CheckAreaName" DataField="CheckAreaName" SortField="CheckAreaName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位工程">
                                 <Editor>
-                                    <f:TextBox ID="txtWorkArea" runat="server" >
-                                    </f:TextBox>
+                                    <f:DropDownList ID="drpCheckArea" Required="true" runat="server" EnableEdit="true" ShowRedStar="true">
+                                    </f:DropDownList>
                                 </Editor>
                             </f:RenderField>
                             <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"

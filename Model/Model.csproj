@@ -87,7 +87,6 @@
     <Compile Include="APIItem\HJGL\NDETrustItem.cs" />
     <Compile Include="APIItem\HJGL\WeldJointItem.cs" />
     <Compile Include="APIItem\HSSE\HSEDiaryItem.cs" />
-    <Compile Include="APIItem\HSSE\HSEMonthItem.cs" />
     <Compile Include="APIItem\HSSE\IncentiveNoticeItem.cs" />
     <Compile Include="APIItem\HSSE\LicenseDataItem.cs" />
     <Compile Include="APIItem\HSSE\LicenseItem.cs" />
@@ -99,7 +98,7 @@
     <Compile Include="APIItem\HSSE\PersonItem.cs" />
     <Compile Include="APIItem\HSSE\PersonQualityItem.cs" />
     <Compile Include="APIItem\HSSE\PictureItem.cs" />
-    <Compile Include="APIItem\HSSE\ProjectItem.cs" />
+    <Compile Include="APIItem\ProjectItem.cs" />
     <Compile Include="APIItem\HSSE\PunishNoticeItem.cs" />
     <Compile Include="APIItem\HSSE\PunishNoticeItemItem.cs" />
     <Compile Include="APIItem\HSSE\ReceiveFileManagerItem.cs" />
@@ -132,7 +131,7 @@
     <Compile Include="APIItem\HSSE\TestRecordItem.cs" />
     <Compile Include="APIItem\HSSE\TestRecordItemItem.cs" />
     <Compile Include="APIItem\HSSE\TestTrainingResourcesItem.cs" />
-    <Compile Include="APIItem\HSSE\ToDoItem.cs" />
+    <Compile Include="APIItem\ToDoItem.cs" />
     <Compile Include="APIItem\HSSE\TrainingPlanItem.cs" />
     <Compile Include="APIItem\HSSE\TrainingPlanItemItem.cs" />
     <Compile Include="APIItem\HSSE\TrainingTaskItem.cs" />
@@ -160,7 +159,7 @@
     <Compile Include="SingleSerie.cs" />
     <Compile Include="SpSysMenuItem.cs" />
     <Compile Include="SpSysUserItem.cs" />
-    <Compile Include="APIItem\HSSE\ResponeData.cs" />
+    <Compile Include="APIItem\ResponeData.cs" />
     <Compile Include="SpTDesktopItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

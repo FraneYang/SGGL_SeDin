@@ -48,8 +48,11 @@
                             <Items>
                                 <f:TextBox runat="server" Label="检查日期" ID="txtCheckedDate" LabelAlign="right" Readonly="true">
                                 </f:TextBox>
-                                <f:TextBox ID="txtHiddenHazardType" runat="server" Label="隐患类别" LabelAlign="Right" Readonly="true">
-                                </f:TextBox>
+                                <f:DropDownList ID="drpHiddenHazardType" runat="server" Label="隐患类别" LabelAlign="Right" Readonly="true">
+                                     <f:ListItem Text="一般" Value="1" Selected="true" />
+                                    <f:ListItem Text="较大" Value="2" />
+                                    <f:ListItem Text="重大" Value="3" />
+                                </f:DropDownList>
                                 <f:Label runat="server"></f:Label>
                             </Items>
                         </f:FormRow>

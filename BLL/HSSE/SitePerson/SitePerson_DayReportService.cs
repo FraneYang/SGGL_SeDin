@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Collections;
 
 namespace BLL
 {
@@ -145,6 +143,49 @@ namespace BLL
                         && y.UnitId == unitId
                         select x).Distinct().ToList();
             }
+        }
+
+
+        /// <summary>
+        ///  获取出入记录人工时
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.SitePerson_DayReport> getDayReports(string projectId, DateTime? sDate)
+        {
+            Model.SGGLDB db = Funs.DB;
+            List<Model.SitePerson_DayReport> reports = new List<Model.SitePerson_DayReport>();
+            var getAllPersonInOutList = from x in db.SitePerson_PersonInOutNumber
+                                        where x.ProjectId == projectId 
+                                        select x;
+            if (getAllPersonInOutList.Count() > 0)
+            {
+                var getInOutDates = getAllPersonInOutList.Select(x => x.InOutDate);
+                if (sDate.HasValue)
+                {
+                    getInOutDates = getInOutDates.Where(x => x.Year == sDate.Value.Year && x.Month == sDate.Value.Month && x.Day == sDate.Value.Day);
+                }
+
+                foreach (var item in getInOutDates)
+                {
+                    var getNow = getAllPersonInOutList.FirstOrDefault(x => x.InOutDate.Year == item.Year && x.InOutDate.Month == item.Month && x.InOutDate.Day == item.Day);
+                    if (getNow != null)
+                    {
+                        Model.SitePerson_DayReport reportItem = new Model.SitePerson_DayReport
+                        {
+                            DayReportId = SQLHelper.GetNewID(),
+                            ProjectId = projectId,
+                            CompileDate = item,
+                            TotalPersonWorkTime = getNow.WorkHours,
+                        };
+
+                        var getMax = getAllPersonInOutList.Where(x => x.InOutDate < item).Max(x => x.WorkHours) ?? 0;
+                        reportItem.DayWorkTime = (getNow.WorkHours ?? 0) - getMax;
+                        reports.Add(reportItem);
+                    }
+
+                }
+            }
+            return reports;
         }
     }
 }

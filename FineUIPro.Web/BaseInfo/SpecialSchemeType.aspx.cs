@@ -21,7 +21,7 @@ namespace FineUIPro.Web.BaseInfo
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
-                SolutionTempleteTypeService.InitSolutionTempleteDropDownList(drpSolutionTempleteType, true);
+                //SolutionTempleteTypeService.InitSolutionTempleteDropDownList(drpSolutionTempleteType, true);
             }
         }
 
@@ -174,9 +174,9 @@ namespace FineUIPro.Web.BaseInfo
                 SpecialSchemeTypeName = this.txtSpecialSchemeTypeName.Text.Trim(),
                 Remark = txtRemark.Text.Trim()
             };
-            if (drpSolutionTempleteType.SelectedValue != BLL.Const._Null) {
-                newSpecialSchemeType.SolutionTempleteTypeCode = drpSolutionTempleteType.SelectedValue;
-            }
+            //if (drpSolutionTempleteType.SelectedValue != BLL.Const._Null) {
+            //    newSpecialSchemeType.SolutionTempleteTypeCode = drpSolutionTempleteType.SelectedValue;
+            //}
             if (string.IsNullOrEmpty(strRowID))
             {
                 newSpecialSchemeType.SpecialSchemeTypeId = SQLHelper.GetNewID(typeof(Model.Base_SpecialSchemeType));

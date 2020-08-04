@@ -233,7 +233,7 @@ namespace BLL
                     RectifyNoticesId = rectifyNotices.RectifyNoticesId,
                     ProjectId = rectifyNotices.ProjectId,
                     RectifyNoticesCode = rectifyNotices.RectifyNoticesCode,
-                    UnitId = rectifyNotices.UnitId,                 
+                    UnitId = rectifyNotices.UnitId,
                     CheckManNames = rectifyNotices.CheckManNames,
                     CheckManIds = rectifyNotices.CheckManIds,
                     CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate),
@@ -255,7 +255,7 @@ namespace BLL
                 //// 新增整改单
                 var isUpdate = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == newRectifyNotices.RectifyNoticesId);
                 if (isUpdate == null)
-                {
+                {                   
                     newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();
                     newRectifyNotices.Isprint = "0";
                     newRectifyNotices.Isprintf = "0";

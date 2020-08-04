@@ -20,6 +20,43 @@ namespace BLL
         }
 
         /// <summary>
+        /// 获取用户项目上角色List
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <returns>用户信息</returns>
+        public static List<string> GetRoleListByProjectIdUserId(string projectId, string userId)
+        {
+            List<string> roleList = new List<string>();
+            var getUser = GetUserByUserId(userId);
+            if (getUser != null)
+            {
+                string rolesStr = string.Empty;
+                if (!string.IsNullOrEmpty(getUser.RoleId))
+                {
+                    rolesStr = getUser.RoleId;
+                }
+                var pUser = ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ////用户
+                if (pUser != null && !string.IsNullOrEmpty(pUser.RoleId))
+                {
+                    if (string.IsNullOrEmpty(rolesStr))
+                    {
+                        rolesStr = pUser.RoleId;
+                    }
+                    else
+                    {
+                        if (!rolesStr.Contains(pUser.RoleId))
+                        {
+                            rolesStr += "," + pUser.RoleId;
+                        }
+                    }
+                }
+
+                roleList = Funs.GetStrListByStr(rolesStr, ',');
+            }
+            return roleList;
+        }
+
+        /// <summary>
         /// 获取用户信息
         /// </summary>
         /// <param name="userId">用户Id</param>
@@ -113,7 +150,7 @@ namespace BLL
             Model.Sys_User user = Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
             if (user != null)
             {
-                userName = user.UserName ;
+                userName = user.UserName;
                 if (!string.IsNullOrEmpty(user.Telephone))
                 {
                     userName += "；" + user.Telephone;
@@ -175,6 +212,7 @@ namespace BLL
                 BirthDay = user.BirthDay,
                 PositionId = user.PositionId,
                 PostTitleId = user.PostTitleId,
+                WorkPostId=user.WorkPostId,
             };
             db.Sys_User.InsertOnSubmit(newUser);
             db.SubmitChanges();
@@ -247,6 +285,7 @@ namespace BLL
                 newUser.BirthDay = user.BirthDay;
                 newUser.PositionId = user.PositionId;
                 newUser.PostTitleId = user.PostTitleId;
+                newUser.WorkPostId = user.WorkPostId;
                 db.SubmitChanges();
             }
         }
@@ -313,7 +352,7 @@ namespace BLL
                     foreach (var item in getPUser)
                     {
                         List<string> roleIdList = Funs.GetStrListByStr(item.RoleId, ',');
-                        var getRoles = db.Sys_Role.FirstOrDefault(x => x.IsAuditFlow == true && roleIdList.Contains(x.RoleId));
+                        var getRoles = db.Sys_Role.FirstOrDefault(x =>roleIdList.Contains(x.RoleId));
                         if (getRoles != null)
                         {
                             string userName = RoleService.getRoleNamesRoleIds(item.RoleId) + "-" + UserService.GetUserNameByUserId(item.UserId);
@@ -334,7 +373,7 @@ namespace BLL
                 {
                     users = (from x in db.Sys_User
                              join z in db.Sys_Role on x.RoleId equals z.RoleId
-                             where x.IsPost == true && z.IsAuditFlow == true && x.UnitId == unitId
+                             where x.IsPost == true && x.UnitId == unitId
                              orderby x.UserCode
                              select new Model.SpSysUserItem
                              {
@@ -346,7 +385,7 @@ namespace BLL
                 {
                     users = (from x in db.Sys_User
                              join z in db.Sys_Role on x.RoleId equals z.RoleId
-                             where x.IsPost == true && z.IsAuditFlow == true
+                             where x.IsPost == true 
                              orderby x.UserCode
                              select new Model.SpSysUserItem
                              {
@@ -424,7 +463,7 @@ namespace BLL
                 return users;
             }
         }
-        
+
         /// <summary>
         /// 根据项目号和角色Id获取用户下拉选项
         /// </summary>
@@ -556,7 +595,7 @@ namespace BLL
         {
             Model.SGGLDB db = Funs.DB;
             var userRs = from x in Funs.DB.Sys_UserRead where x.DataId == dataId select x;
-            if (userRs.Count()>0)
+            if (userRs.Count() > 0)
             {
                 Funs.DB.Sys_UserRead.DeleteAllOnSubmit(userRs);
                 Funs.DB.SubmitChanges();
@@ -574,12 +613,16 @@ namespace BLL
                 List<Model.Sys_User> users = new List<Model.Sys_User>();
                 //分包用户
                 var q1 = (from x in db.Project_ProjectUser
-                          join y in db.Sys_Role
-                          on x.RoleId equals y.RoleId
+                          join y in db.Sys_User
+                          on x.UserId equals y.UserId
+                          join z in db.SitePerson_Person
+                          on y.IdentityCard equals z.IdentityCard
+                          join a in db.Base_WorkPost
+                          on z.WorkPostId equals a.WorkPostId
                           where x.IsPost == true && x.UnitId == subUnitId
-                          && y.CNCodes.Contains(cNProfessionalCode)
+                          && a.CNCodes.Contains(cNProfessionalCode)
                               && x.UserId != subUserId
-                              && x.ProjectId == projectId
+                              && x.ProjectId == projectId && z.ProjectId == projectId
                           orderby x.UserId
                           select x).ToList();
                 foreach (var item in q1)
@@ -604,11 +647,15 @@ namespace BLL
                     mainUnitId = mainUnit.UnitId;
                 }
                 var q2 = (from x in db.Project_ProjectUser
-                          join y in db.Sys_Role
-                          on x.RoleId equals y.RoleId
-                          where x.IsPost == true && x.UnitId == mainUnitId && y.CNCodes.Contains(cNProfessionalCode)
+                          join y in db.Sys_User
+                          on x.UserId equals y.UserId
+                          join z in db.SitePerson_Person
+                          on y.IdentityCard equals z.IdentityCard
+                          join a in db.Base_WorkPost
+                          on z.WorkPostId equals a.WorkPostId
+                          where x.IsPost == true && x.UnitId == mainUnitId && a.CNCodes.Contains(cNProfessionalCode)
                               && x.UserId != mainUserId
-                              && x.ProjectId == projectId
+                              && x.ProjectId == projectId && z.ProjectId == projectId
                           orderby x.UserId
                           select x).ToList();
                 foreach (var item in q2)
@@ -740,10 +787,14 @@ namespace BLL
                 List<Model.Sys_User> users = new List<Model.Sys_User>();
                 //分包用户
                 var q1 = (from x in db.Project_ProjectUser
-                          join y in db.Sys_Role
-                          on x.RoleId equals y.RoleId
-                          where x.IsPost == true && x.UnitId == subUnitId && y.CNCodes.Contains(cNProfessionalCode)
-                              && x.ProjectId == projectId
+                          join y in db.Sys_User
+                          on x.UserId equals y.UserId
+                          join z in db.SitePerson_Person
+                          on y.IdentityCard equals z.IdentityCard
+                          join a in db.Base_WorkPost
+                          on z.WorkPostId equals a.WorkPostId
+                          where x.IsPost == true && x.UnitId == subUnitId && a.CNCodes.Contains(cNProfessionalCode)
+                              && x.ProjectId == projectId && z.ProjectId == projectId
                           orderby x.UserId
                           select x).ToList();
                 foreach (var item in q1)
@@ -768,11 +819,15 @@ namespace BLL
                     mainUnitId = mainUnit.UnitId;
                 }
                 var q2 = (from x in db.Project_ProjectUser
-                          join y in db.Sys_Role
-                          on x.RoleId equals y.RoleId
-                          where x.IsPost == true && x.UnitId == mainUnitId && y.CNCodes.Contains(cNProfessionalCode)
+                          join y in db.Sys_User
+                          on x.UserId equals y.UserId
+                          join z in db.SitePerson_Person
+                          on y.IdentityCard equals z.IdentityCard
+                          join a in db.Base_WorkPost
+                          on z.WorkPostId equals a.WorkPostId
+                          where x.IsPost == true && x.UnitId == mainUnitId && a.CNCodes.Contains(cNProfessionalCode)
                               && x.UserId != mainUserId
-                              && x.ProjectId == projectId
+                              && x.ProjectId == projectId && z.ProjectId == projectId
                           orderby x.UserId
                           select x).ToList();
                 foreach (var item in q2)
@@ -803,10 +858,14 @@ namespace BLL
             {
                 List<Model.Sys_User> users = new List<Model.Sys_User>();
                 var q1 = (from x in db.Project_ProjectUser
-                          join y in db.Sys_Role
-                          on x.RoleId equals y.RoleId
-                          where x.IsPost == true && (x.UnitId == unitId1 || x.UnitId == unitId2) && y.CNCodes.Contains(cNProfessionalCode)
-                              && x.ProjectId == projectId
+                          join y in db.Sys_User
+                          on x.UserId equals y.UserId
+                          join z in db.SitePerson_Person
+                          on y.IdentityCard equals z.IdentityCard
+                          join a in db.Base_WorkPost
+                          on z.WorkPostId equals a.WorkPostId
+                          where x.IsPost == true && (x.UnitId == unitId1 || x.UnitId == unitId2) && a.CNCodes.Contains(cNProfessionalCode)
+                              && x.ProjectId == projectId && z.ProjectId == projectId
                           orderby x.UserId
                           select x).ToList();
                 foreach (var item in q1)
@@ -826,10 +885,14 @@ namespace BLL
                 if (!string.IsNullOrEmpty(unitId3))
                 {
                     var q2 = (from x in db.Project_ProjectUser
-                              join y in db.Sys_Role
-                              on x.RoleId equals y.RoleId
-                              where x.IsPost == true && y.CNCodes.Contains(cNProfessionalCode)
-                                  && x.ProjectId == projectId
+                              join y in db.Sys_User
+                              on x.UserId equals y.UserId
+                              join z in db.SitePerson_Person
+                              on y.IdentityCard equals z.IdentityCard
+                              join a in db.Base_WorkPost
+                              on z.WorkPostId equals a.WorkPostId
+                              where x.IsPost == true && a.CNCodes.Contains(cNProfessionalCode)
+                                  && x.ProjectId == projectId && z.ProjectId == projectId
                               orderby x.UserId
                               select x).ToList();
                     var q3 = (from x in q2
@@ -1157,7 +1220,7 @@ namespace BLL
                 {
                     users = (from x in users
                              join y in db.Project_ProjectUser on x.UserId equals y.UserId
-                             where y.ProjectId == projectId 
+                             where y.ProjectId == projectId
                              orderby x.UserName
                              select x).ToList();
                 }
@@ -1193,7 +1256,7 @@ namespace BLL
                         unitIds = unitId.Split(',');
                     }
                     list = (from x in db.Sys_User
-                            join y in db.Project_ProjectUser  on x.UserId equals y.UserId
+                            join y in db.Project_ProjectUser on x.UserId equals y.UserId
                             join z in db.Project_ProjectUnit on x.UnitId equals z.UnitId
                             where name == "" || x.UserName.Contains(name)
                             where y.ProjectId == projectId && z.ProjectId == projectId
@@ -1228,10 +1291,10 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 List<Model.Sys_User> list = new List<Model.Sys_User>();
-                    list = (from x in db.Sys_User
-                            where x.UnitId == unitId
-                            orderby x.UserName
-                            select x).ToList();
+                list = (from x in db.Sys_User
+                        where x.UnitId == unitId
+                        orderby x.UserName
+                        select x).ToList();
                 return list;
             }
         }
@@ -1261,7 +1324,8 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                return (from x in db.Sys_User where  x.RoleId == role
+                return (from x in db.Sys_User
+                        where x.RoleId == role
                         orderby x.UserId
                         select x).Distinct().ToList();
             }

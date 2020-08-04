@@ -48,6 +48,14 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
+            <f:FormRow>                 
+                <Items>
+                    <f:RadioButtonList runat="server" ID="rblIsBranch" Label="分公司">
+                        <f:RadioItem Value="true" Text="是" />
+                        <f:RadioItem Value="false" Text="否" Selected="true" />
+                    </f:RadioButtonList>
+                </Items>
+            </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextArea ID="txtProjectRange" runat="server" Height="100px" Label="工程范围" MaxLength="1000">

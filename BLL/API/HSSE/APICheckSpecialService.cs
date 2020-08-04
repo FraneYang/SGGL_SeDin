@@ -211,7 +211,8 @@ namespace BLL
                                   SortIndex = x.SortIndex,
                                   Unqualified = x.Unqualified,
                                   Suggestions = x.Suggestions,
-                                  WorkArea = x.WorkArea,
+                                  WorkArea = db.WBS_UnitWork.First(y=>y.UnitWorkId ==x.CheckArea).UnitWorkName,
+                                  WorkAreaId=x.CheckArea,
                                   UnitId = x.UnitId,
                                   UnitName = db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
                                   HandleStep = x.HandleStep,
@@ -339,7 +340,8 @@ namespace BLL
                         updateDetail.LimitedDate = newCheckSpecialDetail.LimitedDate;
                         updateDetail.CompletedDate = newCheckSpecialDetail.CompletedDate;
                         updateDetail.Suggestions = newCheckSpecialDetail.Suggestions;
-                        updateDetail.WorkArea = newCheckSpecialDetail.WorkArea;
+                        updateDetail.WorkArea = newCheckSpecialDetail.WorkArea;    
+                        updateDetail.CheckArea = newCheckSpecialDetail.CheckArea;
                         updateDetail.CheckContent = newCheckSpecialDetail.CheckContent;
                         db.SubmitChanges();
                     }

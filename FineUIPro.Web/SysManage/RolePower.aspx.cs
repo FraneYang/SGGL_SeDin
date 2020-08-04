@@ -31,10 +31,9 @@ namespace FineUIPro.Web.SysManage
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Roles.RoleId,Roles.RoleName,Roles.RoleCode,Roles.RoleType,Roles.Def,Roles.IsAuditFlow,Roles.IsSystemBuilt"
+            string strSql = @"SELECT Roles.RoleId,Roles.RoleName,Roles.RoleCode,Roles.Def,Roles.IsSystemBuilt"
                           + @" FROM dbo.Sys_Role AS Roles " 
                           + @" WHERE 1=1 ";
-
             if (!string.IsNullOrEmpty(strSql))
             {
                 List<SqlParameter> listStr = new List<SqlParameter>();
@@ -42,6 +41,14 @@ namespace FineUIPro.Web.SysManage
                 {
                     strSql += " AND RoleName LIKE @RoleName";
                     listStr.Add(new SqlParameter("@RoleName", "%" + this.txtRoleName.Text.Trim() + "%"));
+                }
+                if (this.rbIsOfficce.SelectedValue == "1")
+                {
+                    strSql += " AND IsOffice = '1'";
+                }
+                else
+                {
+                    strSql += " AND (IsOffice = '0' or IsOffice is null)";
                 }
                 SqlParameter[] parameter = listStr.ToArray();
                 DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);

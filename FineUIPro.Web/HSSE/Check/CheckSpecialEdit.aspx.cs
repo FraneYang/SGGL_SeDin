@@ -104,15 +104,13 @@ namespace FineUIPro.Web.HSSE.Check
                 // 新增数据初始值
                 JObject defaultObj = new JObject
                 {
-                    { "WorkArea", "" },
+                    { "CheckAreaName", "" },
                     { "UnitName", "" },
                     { "Unqualified", "" },
-                    { "CheckContent", "" },
+                    { "CheckItemName", "" },
                     { "CompleteStatusName", "" },
                     { "HandleStepStr", "" },
-                    { "HandleStep", "" },
-                    { "HiddenHazardType", "" },
-                    { "UnitId", "" },
+                    { "HiddenHazardTypeName", "" },
                     { "Delete", String.Format("<a href=\"javascript:;\" onclick=\"{0}\"><img src=\"{1}\"/></a>", deleteScript, IconHelper.GetResolvedIconUrl(Icon.Delete)) }
                 };
                 // 在第一行新增一条数据
@@ -137,6 +135,8 @@ namespace FineUIPro.Web.HSSE.Check
             this.getCheckItemDrp();
             ///责任单位
             UnitService.InitUnitNameByProjectIdUnitTypeDropDownList(this.drpWorkUnit, this.ProjectId, Const.ProjectUnitType_2, false);
+            ///单位工程
+            UnitWorkService.InitUnitWorkNameDropDownList(this.drpCheckArea, this.ProjectId, false);
         }
 
         /// <summary>
@@ -150,7 +150,8 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     CheckSpecialId = SQLHelper.GetNewID(typeof(Model.Check_CheckSpecial)),
                     CheckSpecialCode = this.txtCheckSpecialCode.Text.Trim(),
-                    ProjectId = this.ProjectId
+                    ProjectId = this.ProjectId,
+                    CompileMan=this.CurrUser.UserId,
                 };
 
                 ///组成员
@@ -229,6 +230,7 @@ namespace FineUIPro.Web.HSSE.Check
                 ProjectId = this.ProjectId,
                 PartInPersonNames = this.txtPartInPersonNames.Text.Trim(),
                 CheckTime = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim()),
+                CompileMan=this.CurrUser.UserId,
                 ////单据状态
                 States = Const.State_0,
             };
@@ -292,12 +294,18 @@ namespace FineUIPro.Web.HSSE.Check
                     CheckSpecialId = this.CheckSpecialId,
                     CheckContent = values.Value<string>("CheckItemName"),
                     Unqualified = values.Value<string>("Unqualified"),
-                    WorkArea = values.Value<string>("WorkArea"),
+                   // WorkArea = values.Value<string>("WorkArea"),
                 };
                 var getUnit = Funs.DB.Base_Unit.FirstOrDefault(x => x.UnitName == values.Value<string>("UnitName"));
                 if (getUnit != null)
                 {
                     newDetail.UnitId = getUnit.UnitId;
+                }
+
+                var getUnitWork = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkName == values.Value<string>("CheckAreaName") && x.ProjectId == this.ProjectId);
+                if (getUnitWork != null)
+                {
+                    newDetail.CheckArea = getUnitWork.UnitWorkId;                    
                 }
                 string[] strs = values.Value<string>("HandleStepStr").Split(',');
                 string handleStep = string.Empty;
@@ -429,6 +437,12 @@ namespace FineUIPro.Web.HSSE.Check
             checkSpecialDetails.Clear();
             Grid1.DataSource = checkSpecialDetails;
             Grid1.DataBind();
+        }
+
+        protected void drpPartInPersons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpPartInPersons.SelectedValueArray = Funs.RemoveDropDownListNull(this.drpPartInPersons.SelectedValueArray);
+
         }
     }
 }

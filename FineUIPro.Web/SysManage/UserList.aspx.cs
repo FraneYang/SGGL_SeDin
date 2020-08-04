@@ -38,11 +38,10 @@
         private void BindGrid()
         {
             string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Users.IdentityCard,Users.Telephone,Users.IsOffice,"
-                          + @"Roles.RoleName,Unit.UnitName,Unit.UnitCode,Const13.ConstText AS RoleTypeName"
+                          + @"Roles.RoleName,Unit.UnitName,Unit.UnitCode"
                           + @" From dbo.Sys_User AS Users"
                           + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
-                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
-                          + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
+                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"                          
                           + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND Users.UnitId = @ThisUnitId";

@@ -8,10 +8,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
-    <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" Title="岗位信息" ShowHeader="false"
-        Layout="HBox">
-        <Items>
+        <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
+        <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" Title="岗位信息" ShowHeader="false"
+            Layout="HBox">
+            <items>
             <f:Grid ID="Grid1" Title="岗位信息" ShowHeader="false" EnableCollapse="true" PageSize="10"
                 EnableColumnLines="true" ShowBorder="true" AllowPaging="true" IsDatabasePaging="true"
                 runat="server" Width="750px" DataKeyNames="WorkPostId" DataIDField="WorkPostId" AllowSorting="true"
@@ -36,11 +36,20 @@
                         RendererFunction="renderIsHsse" HeaderText="安管人员" HeaderTextAlign="Center"
                         TextAlign="Center">
                     </f:RenderField>
+                    <f:TemplateField Width="180px" HeaderText="对口专业" HeaderTextAlign="Center" TextAlign="Center"
+                            >
+                            <ItemTemplate>
+                                <asp:Label ID="Label4" runat="server" Text='<%# ConvertCNCodes(Eval("CNCodes")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
                     <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         ExpandUnusedSpace="true" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="10px" ColumnID="PostType" DataField="PostType" FieldType="String"
                         HeaderText="类型" Hidden="true" HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                    <f:RenderField Width="10px" ColumnID="CNCodes" DataField="CNCodes" FieldType="String"
+                        HeaderText="对口专业" Hidden="true" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -75,8 +84,22 @@
                     </f:DropDownList>
                     <f:CheckBox ID="ckbIsHsse" runat="server" Label="安管" LabelAlign="Right" LabelWidth="80px">
                     </f:CheckBox>
+                    <f:DropDownBox runat="server" Label="对口专业" ID="txtCNCodes" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true" LabelWidth="80px">
+                            <PopPanel>
+                                <f:Grid ID="gvCNCodes" DataIDField="CNProfessionalId" ForceFit="true"
+                                    EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="SortIndex" DataTextField="ProfessionalName"
+                                    ShowBorder="true" ShowHeader="false"
+                                    runat="server" EnableCheckBoxSelect="true">
+                                    <Columns>
+                                        <f:BoundField Width="100px" DataField="CNProfessionalId" SortField="CNProfessionalId" DataFormatString="{0}" Hidden="true" />
+                                        <f:BoundField Width="100px" DataField="ProfessionalName" SortField="ProfessionalName" DataFormatString="{0}"
+                                            HeaderText="专业名称" />
+                                    </Columns>
+                                </f:Grid>
+                            </PopPanel>
+                        </f:DropDownBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right" MaxLength="200"
-                        LabelWidth="120px">
+                        LabelWidth="80px">
                     </f:TextArea>
                     <f:Label ID="lb1" runat="server" Text="岗位类型说明：" LabelWidth="120px">
                     </f:Label>
@@ -106,16 +129,16 @@
                     </f:Toolbar>
                 </Toolbars>
             </f:SimpleForm>
-        </Items>
-    </f:Panel>
-    <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
-            Hidden="true" runat="server" Text="编辑" Icon="Pencil">
-        </f:MenuButton>
-        <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Icon="Delete"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
-        </f:MenuButton>
-    </f:Menu>
+        </items>
+        </f:Panel>
+        <f:Menu ID="Menu1" runat="server">
+            <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
+                Hidden="true" runat="server" Text="编辑" Icon="Pencil">
+            </f:MenuButton>
+            <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Icon="Delete"
+                Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
+            </f:MenuButton>
+        </f:Menu>
     </form>
     <script type="text/javascript">
         function renderIsHsse(value) {
@@ -134,20 +157,21 @@
 
         var gridClientID = '<%= Grid1.ClientID %>';
         var btnDeleteClientID = '<%= btnDelete.ClientID %>';
-        var btnSaveClientID = '<%= btnSave.ClientID %>';   
+        var btnSaveClientID = '<%= btnSave.ClientID %>';
         var formClientID = '<%= SimpleForm1.ClientID %>';
         var hfFormIDClientID = '<%= hfFormID.ClientID %>';
         var txtCodeClientID = '<%= txtWorkPostCode.ClientID %>';
         var txtNameClientID = '<%= txtWorkPostName.ClientID %>';
         var drpPostTypeClientID = '<%= drpPostType.ClientID %>';
         var ckbIsHsseClientID = '<%= ckbIsHsse.ClientID %>';
+        var txtCNCodesClientID = '<%= txtCNCodes.ClientID %>';
         var txtRemarkClientID = '<%=txtRemark.ClientID %>';
 
         function onGridRowSelect(event, rowId) {
             var grid = F(gridClientID);
 
             // 启用删除按钮
-            F(btnDeleteClientID).enable();  
+            F(btnDeleteClientID).enable();
             // 当前行数据
             var rowValue = grid.getRowValue(rowId);
 
@@ -157,6 +181,7 @@
             F(txtNameClientID).setValue(rowValue['WorkPostName']);
             F(drpPostTypeClientID).setValue(rowValue['PostType']);
             F(ckbIsHsseClientID).setValue(rowValue['IsHsse']);
+            F(txtCNCodesClientID).setValue(rowValue['CNCodes']);
             F(txtRemarkClientID).setValue(rowValue['Remark']);
 
             // 更新保存按钮文本

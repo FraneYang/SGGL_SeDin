@@ -49,6 +49,10 @@ namespace FineUIPro.Web.SysManage
                         this.txtFax.Text = unit.Fax;
                         this.txtEMail.Text = unit.EMail;
                         this.txtProjectRange.Text = unit.ProjectRange;
+                        if (unit.IsBranch == true)
+                        {
+                            this.rblIsBranch.SelectedValue = "true";
+                        }                        
                     }
                 }
             }
@@ -78,7 +82,7 @@ namespace FineUIPro.Web.SysManage
                 UnitName = this.txtUnitName.Text.Trim()
 
             };
-
+            unit.IsBranch = Convert.ToBoolean(this.rblIsBranch.SelectedValue);
             ////单位类型下拉框
             if (this.ddlUnitTypeId.SelectedValue != BLL.Const._Null)
             {

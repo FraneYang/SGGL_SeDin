@@ -23,33 +23,10 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList ID="drpRoleType" runat="server" Label="角色类型" EnableEdit="true"
-                            ForceSelection="false" Required="true" ShowRedStar="true" LabelWidth="90px">
-                        </f:DropDownList>
-                        <f:CheckBox ID="chkIsAuditFlow" runat="server" Label="参与审批" LabelWidth="90px">
-                        </f:CheckBox>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow>
-                    <Items>
-                        <f:DropDownBox runat="server" Label="对口专业" ID="txtCNCodes" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true" LabelWidth="90px">
-                            <PopPanel>
-                                <f:Grid ID="gvCNCodes" DataIDField="CNProfessionalId" ForceFit="true"
-                                    EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="SortIndex" DataTextField="ProfessionalName"
-                                    ShowBorder="true" ShowHeader="false"
-                                    runat="server" EnableCheckBoxSelect="true">
-                                    <Columns>
-                                        <f:BoundField Width="100px" DataField="CNProfessionalId" SortField="CNProfessionalId" DataFormatString="{0}" Hidden="true" />
-                                        <f:BoundField Width="100px" DataField="ProfessionalName" SortField="ProfessionalName" DataFormatString="{0}"
-                                            HeaderText="专业名称" />
-                                    </Columns>
-                                </f:Grid>
-                            </PopPanel>
-                        </f:DropDownBox>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow>
-                    <Items>
+                        <f:RadioButtonList runat="server" ID="rbIsOfficce" Label="类型" LabelWidth="90px">
+                            <f:RadioItem  Text="本部角色" Value="1" />
+                            <f:RadioItem  Text="项目角色" Value="0" Selected ="true"/>                            
+                        </f:RadioButtonList>
                         <f:TextBox ID="txtDef" runat="server" Label="备注" MaxLength="100" LabelWidth="90px"></f:TextBox>
                     </Items>
                 </f:FormRow>

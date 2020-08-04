@@ -21,6 +21,10 @@
         }
         .bottom-wrap{
            padding:0;
+           margin-bottom: 5px;
+        }
+        .bottom-wrap:last-child{
+            margin-bottom: 0;
         }
         .bw-item-content{
            padding:5px;
@@ -35,10 +39,14 @@
             width:100%;
             height:100%;
         }
+        .itemlr{
+            margin: 0 5px;
+        }
         .bw-b-bottom-up {
             border-radius:0;
             height: 100%;
             margin:0;
+            box-shadow:none;
         }
         .yj-info{
            align-items: center;
@@ -165,7 +173,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="item flex3">
+                <div class="item flex3 itemlr">
                      <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content">
@@ -217,7 +225,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="item flex2">
+                <div class="item flex2 itemlr">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content">
@@ -704,7 +712,7 @@
                     name: '事故统计',
                     type: 'pie',
                     center: ['25%', '60%'],
-                    radius: ['40%', '75%'],
+                    radius: ['40%', '80%'],
                     avoidLabelOverlap: false,
                     label: {
                         show: true,

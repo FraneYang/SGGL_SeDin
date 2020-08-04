@@ -14,27 +14,19 @@
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="人工时月报" EnableCollapse="true"
-                runat="server" BoxFlex="1" DataKeyNames="MonthReportId" DataIDField="MonthReportId" 
+                runat="server" BoxFlex="1" DataKeyNames="CompileDate" DataIDField="CompileDate" 
                 AllowSorting="true" SortField="CompileDate" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"  ForceFit="true"
                 SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" EnableColumnLines="true"                
                 EnableTextSelection="True" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
-                            <f:TextBox runat="server" Label="编号" ID="txtMonthReportCode" EmptyText="输入查询条件" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" LabelWidth="50px" LabelAlign="right">
-                            </f:TextBox>
+                            <f:DatePicker runat="server"  DateFormatString="yyyy-MM" Label="月报月份" EmptyText="请选择年月" 
+                                ID="txtDate" LabelAlign="right" DisplayType="Month" ShowTodayButton="false" 
+                                AutoPostBack="true"  OnTextChanged="txtDate_TextChanged">
+                            </f:DatePicker>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:DatePicker runat="server" Label="月报月份" ID="txtCompileDate" LabelWidth="100px" Width="200px"
-                                LabelAlign="right" DateFormatString="yyyy-MM">
-                            </f:DatePicker>
-                            <f:Button ID="btnNew" ToolTip="新增" Icon="Add" runat="server"
-                                OnClick="btnNew_Click" Hidden="true">
-                            </f:Button>
-                            <f:Button ID="btnImport" ToolTip="导入" Icon="ApplicationGet" Hidden="true" runat="server"
-                                OnClick="btnImport_Click">
-                            </f:Button>
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
@@ -42,47 +34,21 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
-                        EnableLock="true" Locked="False">
+                  <f:TemplateField ColumnID="tfPageIndex" Width="100px" HeaderText="序号" HeaderTextAlign="Center"
+                        TextAlign="Center" EnableLock="true" Locked="False">
                         <ItemTemplate>
                             <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="200px" ColumnID="MonthReportCode" DataField="MonthReportCode"
-                        SortField="MonthReportCode" FieldType="String" HeaderText="编号" TextAlign="Left"
-                        HeaderTextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
-                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM" HeaderText="月报月份"
+                    <f:RenderField Width="150px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM" HeaderText="日期"
                         HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>      
+                    <f:RenderField Width="250px" ColumnID="DayWorkTime" DataField="DayWorkTime" SortField="DayWorkTime"
+                        FieldType="Int"  HeaderText="当月人工时" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="UserName" DataField="UserName" SortField="UserName"
-                        FieldType="String" HeaderText="编制人" TextAlign="Left" HeaderTextAlign="Center">
-                    </f:RenderField>
-                    <f:TemplateField ColumnID="tfMonthWorkTime" Width="150px" HeaderText="当月人工时" HeaderTextAlign="Center" TextAlign="Center"
-                        >
-                        <ItemTemplate>
-                            <asp:Label ID="lblMonthWorkTime" runat="server" Text='<%# ConvertPersonWorkTimeSum(Eval("MonthReportId")) %>'
-                                ToolTip='<%# ConvertPersonWorkTimeSum(Eval("MonthReportId")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:TemplateField ColumnID="tfYearWorkTime" Width="150px" HeaderText="当年累计人工时" HeaderTextAlign="Center" TextAlign="Center"
-                        >
-                        <ItemTemplate>
-                            <asp:Label ID="lblYearWorkTime" runat="server" Text='<%# ConvertYearPersonWorkTime(Eval("CompileDate")) %>'
-                                ToolTip='<%# ConvertYearPersonWorkTime(Eval("CompileDate")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:TemplateField ColumnID="tfTotal" Width="150px" HeaderText="累计人工时" HeaderTextAlign="Center" TextAlign="Center"
-                        >
-                        <ItemTemplate>
-                            <asp:Label ID="lblTotal" runat="server" Text='<%# ConvertTotalPersonWorkTimeSum(Eval("CompileDate")) %>'
-                                ToolTip='<%# ConvertTotalPersonWorkTimeSum(Eval("CompileDate")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:RenderField Width="160px" ColumnID="FlowOperateName" DataField="FlowOperateName" 
-                        SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
-                        TextAlign="Left">
+                        <f:RenderField Width="250px" ColumnID="TotalPersonWorkTime" DataField="TotalPersonWorkTime" SortField="TotalPersonWorkTime"
+                        FieldType="Int"  HeaderText="项目累计人工时" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -101,15 +67,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="人工时月报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1200px" Height="620px">
+        Target="Parent" EnableResize="true" runat="server"  IsModal="true"
+        Width="1000px" Height="560px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"
-            Text="修改" Icon="Pencil" OnClick="btnMenuModify_Click">
-        </f:MenuButton>
-        <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Hidden="true"
-            Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？" OnClick="btnMenuDel_Click">
+        <f:MenuButton ID="btnView" EnablePostBack="true" runat="server" Text="查看" Icon="Find" OnClick="btnView_Click">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -34,6 +34,7 @@
                                 <f:TextBox runat="server" Label="角色" ID="txtRoleName" EmptyText="输入查询条件" AutoPostBack="true"
                                     OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
                                 </f:TextBox>
+                                <f:CheckBox runat="server" ID="ckbAll" Label="全部" LabelAlign="Right" AutoPostBack="true" OnCheckedChanged="ckbAll_CheckedChanged"></f:CheckBox>
                                 <f:ToolbarFill runat="server">
                                 </f:ToolbarFill>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"

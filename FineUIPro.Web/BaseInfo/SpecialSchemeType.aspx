@@ -24,9 +24,9 @@
                     <f:RenderField Width="300px" ColumnID="SpecialSchemeTypeName" DataField="SpecialSchemeTypeName"
                         FieldType="String" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="300px" ColumnID="SolutionTempleteTypeName" DataField="SolutionTempleteTypeName"
+                    <%--<f:RenderField Width="300px" ColumnID="SolutionTempleteTypeName" DataField="SolutionTempleteTypeName"
                         FieldType="String" HeaderText="类别" HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
+                    </f:RenderField>--%>
                     <f:RenderField Width="300px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
@@ -59,8 +59,8 @@
                     <f:TextBox ID="txtSpecialSchemeTypeName" Label="名称" ShowRedStar="true" Required="true"  MaxLength="500"
                         runat="server" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:DropDownList ID="drpSolutionTempleteType" runat="server" Label="类别" LabelAlign="right" MaxLength="50" >
-                        </f:DropDownList>
+                    <%--<f:DropDownList ID="drpSolutionTempleteType" runat="server" Label="类别" LabelAlign="right" MaxLength="50" >
+                        </f:DropDownList>--%>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right"  MaxLength="2000">
                     </f:TextArea>
 
@@ -116,7 +116,7 @@
         var txtCodeClientID = '<%= txtSpecialSchemeTypeCode.ClientID %>';
         var txtNameClientID = '<%= txtSpecialSchemeTypeName.ClientID %>';
         var txtRemarkClientID = '<%=txtRemark.ClientID %>';
-        var txtSolutionTempleteType = '<%=drpSolutionTempleteType.ClientID%>';
+        <%--var txtSolutionTempleteType = '<%=drpSolutionTempleteType.ClientID%>';--%>
         function onGridRowSelect(event, rowId) {
             var grid = F(gridClientID);
 
@@ -131,7 +131,7 @@
             F(txtCodeClientID).setValue(rowValue['SpecialSchemeTypeCode']);
             F(txtNameClientID).setValue(rowValue['SpecialSchemeTypeName']);
             F(txtRemarkClientID).setValue(rowValue['Remark']);
-            F(txtSolutionTempleteType).setValue(rowValue['SolutionTempleteTypeCode']);
+            //F(txtSolutionTempleteType).setValue(rowValue['SolutionTempleteTypeCode']);
             // 更新保存按钮文本
 //            F(btnSaveClientID).setText('保存数据（编辑）');
         }

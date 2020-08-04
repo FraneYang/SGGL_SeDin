@@ -9,6 +9,9 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />   
    <style type="text/css">
+       .row2 .item{
+           height:100%;
+       }
        .spline-mid{
            width: 1px;
            height: 80%;
@@ -156,32 +159,41 @@
 
         }
         .num-wrap{
-            background-color:#091D49;
+            background-color:#0b5089;
             border-radius:10px;
-            padding: 10px;
-            height: 90px;
+            padding: 5px;
+            /*min-height: 90px;*/
+            height: 70%;
+            justify-content:center;
+            align-items:center;
+            margin:5px;
         }
         .num-wrap .tit{
             color:#fff;
-            margin-bottom: 10px;
-            font-size:11px;
+            margin: 10px 0 0;
+            font-size: 11px;
+            width:100%;
+            text-align:center;
         }
         .num-wrap .num{
             align-items:center;
             justify-content: space-around;
             color:#fff;
+            width:100%;
+            text-align:center;
         }
         .num-wrap .num>div{
-            background-color:#2D354A;
-            color:#9E7758;
+            background-color:#387491;
+            color:#FFB84D;
             padding: 2px;
             font-size:24px;
+            margin:5px;
         }
         .num-wrap .color1>div{
-             color:green;
+             color:#19c719;
         }
         .num-wrap .color2>div{
-             color:blue;
+             color:#0000ff;
         }
         .bg-item{
              height:100%;
@@ -215,7 +227,7 @@
                                     <div class="item flex1">
                                         <div id="one2" style="width: 100%; height: 100%;"></div>
                                     </div>
-                                    <div class="item flex1">
+                                    <div class="item flex1 flex flexV" style="align-items:center;justify-content:center;">
                                       <div class="item-txt-list flex">
                                         <div class="txt-tit">总数量：</div>
                                         <div>43</div>
@@ -446,28 +458,28 @@
                         <div class="tit-new">劳务数据统计</div>
                         <%--总人数--%>
                         <div class="content-wrap flex1 flex txt-board">
-                            <div class="num-wrap">
+                            <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">当天在场总人数</div>
-                                <div class="num flex">
-                                    <div>5</div>
-                                    <div>1</div>
-                                    <div>9</div>
+                                <div class="num flex flex1">
+                                    <div class="flex1">5</div>
+                                    <div class="flex1">1</div>
+                                    <div class="flex1">9</div>
                                 </div>
                             </div>
-                             <div class="num-wrap">
+                             <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">作业人员总人数</div>
-                                <div class="num flex color1">
-                                    <div>3</div>
-                                    <div>0</div>
-                                    <div>1</div>
+                                <div class="num flex flex1 color1">
+                                    <div class="flex1">3</div>
+                                    <div class="flex1">0</div>
+                                    <div class="flex1">1</div>
                                 </div>
                             </div>
-                            <div class="num-wrap">
+                            <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">管理人员总人数</div>
-                                <div class="num flex color2">
-                                    <div>2</div>
-                                    <div>7</div>
-                                    <div>2</div>
+                                <div class="num flex flex1 color2">
+                                    <div class="flex1">2</div>
+                                    <div class="flex1">7</div>
+                                    <div class="flex1">2</div>
                                 </div>
                             </div>
                         </div>
@@ -656,7 +668,7 @@
                     fontWeight: 700
                 }
             },
-            color: ['#21839C', '#289CB3'],
+            color: ['#2566CF', '#289CB3'],
             series: [
                 {
                     name: ' ',
@@ -784,12 +796,6 @@
         type: 'bar',
         data: data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
-    },
-    {
-        name: '施工资料同步率',
-        type: 'bar',
-        data: data1,
-        itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }];
     category('two', xArr, series)
 </script>

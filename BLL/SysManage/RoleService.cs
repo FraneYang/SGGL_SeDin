@@ -25,7 +25,7 @@
         /// <param name="roleId">角色id</param>
         /// <param name="roleName">角色名称</param>
         /// <returns>是否存在</returns>
-        public static bool IsExistRoleName(string roleId,string roleName)
+        public static bool IsExistRoleName(string roleId, string roleName)
         {
             bool isExist = false;
             var role = Funs.DB.Sys_Role.FirstOrDefault(x => x.RoleName == roleName && x.RoleId != roleId);
@@ -35,7 +35,7 @@
             }
             return isExist;
         }
-        
+
         /// <summary>
         /// 增加角色
         /// </summary>
@@ -48,11 +48,9 @@
                 RoleId = role.RoleId,
                 RoleCode = role.RoleCode,
                 RoleName = role.RoleName,
-                RoleType = role.RoleType,
-                CNCodes=role.CNCodes,
                 Def = role.Def,
-                IsAuditFlow = role.IsAuditFlow,
                 IsSystemBuilt = role.IsSystemBuilt,
+                IsOffice = role.IsOffice,
             };
             db.Sys_Role.InsertOnSubmit(newRole);
             db.SubmitChanges();
@@ -72,10 +70,8 @@
             {
                 updateRole.RoleCode = role.RoleCode;
                 updateRole.RoleName = role.RoleName;
-                updateRole.RoleType = role.RoleType;
-                updateRole.CNCodes = role.CNCodes;
                 updateRole.Def = role.Def;
-                updateRole.IsAuditFlow = role.IsAuditFlow;
+                updateRole.IsOffice = role.IsOffice;
                 db.SubmitChanges();
             }
         }
@@ -89,7 +85,7 @@
             Model.SGGLDB db = Funs.DB;
             Model.Sys_Role deleteRole = db.Sys_Role.FirstOrDefault(e => e.RoleId == roleId);
             if (deleteRole != null)
-            {               
+            {
                 ///删除对应权限表记录
                 BLL.ButtonPowerService.DeleteButtonPower(roleId);
                 var rolePower = from x in db.Sys_RolePower where x.RoleId == roleId select x;
@@ -108,44 +104,25 @@
         /// 获取角色下拉选项
         /// </summary>
         /// <returns></returns>
-        public static List<Model.Sys_Role> GetRoleDropDownList(string roleId)
+        public static List<Model.Sys_Role> GetRoleDropDownList(string roleId, bool? isOffice)
         {
             var list = (from x in Funs.DB.Sys_Role orderby x.RoleCode select x).ToList();
             if (!string.IsNullOrEmpty(roleId))
             {
                 list = list.Where(x => x.RoleId != roleId).ToList();
             }
-            return list;
-        }
-
-        /// <summary>
-        /// 获取角色下拉选项
-        /// </summary>
-        /// <returns></returns>
-        public static List<Model.Sys_Role> GetRoleListByRoelTypeId(string roleTypeId)
-        {
-            var list = (from x in Funs.DB.Sys_Role where x.RoleType == roleTypeId orderby x.RoleCode select x).ToList();
-            return list;
-        }
-
-
-        /// <summary>
-        /// 根据用户ID获取角色类型
-        /// </summary>
-        /// <returns></returns>
-        public static string GetRoleTypeByUserId(string userId)
-        {
-            string roleType = Const.RoleType_1;
-            var getUser = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == userId);
-            if (getUser != null)
+            if (isOffice.HasValue)
             {
-                var getRole = Funs.DB.Sys_Role.FirstOrDefault(x => x.RoleId == getUser.RoleId);
-                if (getRole != null)
+                if (isOffice.Value)
                 {
-                    roleType = getRole.RoleType;
+                    list = list.Where(x => x.IsOffice == true).ToList();
+                }
+                else
+                {
+                    list = list.Where(x => x.IsOffice == false || !x.IsOffice.HasValue).ToList();
                 }
             }
-            return roleType;
+            return list;
         }
 
         /// <summary>
@@ -182,11 +159,11 @@
         /// <param name="dropName">下拉框名字</param>
         /// <param name="projectId">项目id</param>
         /// <param name="isShowPlease">是否显示请选择</param>
-        public static void InitRoleDropDownList(FineUIPro.DropDownList dropName, string roleId, bool isShowPlease)
+        public static void InitRoleDropDownList(FineUIPro.DropDownList dropName, string roleId, bool? isOffice, bool isShowPlease)
         {
             dropName.DataValueField = "RoleId";
             dropName.DataTextField = "RoleName";
-            dropName.DataSource = BLL.RoleService.GetRoleDropDownList(roleId);
+            dropName.DataSource = BLL.RoleService.GetRoleDropDownList(roleId, isOffice);
             dropName.DataBind();
             if (isShowPlease)
             {

@@ -21,57 +21,29 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtMonthReportCode" runat="server" Label="编号" Readonly="true" MaxLength="50">
+                     <f:TextBox ID="txtCompileDate" runat="server" Label="日期" Readonly="true" >
                     </f:TextBox>
-                    <f:TextBox ID="txtCompileMan" runat="server" Label="编制人" Readonly="true">
-                    </f:TextBox>
-                    <f:TextBox ID="txtCompileDate" runat="server" Label="月份" Readonly="true">
-                    </f:TextBox>
+                    <f:Label runat="server" ID="lb1"></f:Label>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="MonthReportDetailId"
                         DataKeyNames="MonthReportDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="300px"
-                        EnableColumnLines="true" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"> 
+                        EnableColumnLines="true" > 
                         <Columns>                           
-                            <f:RenderField Width="180px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位名称">
+                             <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
+                            <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位名称" ExpandUnusedSpace="true">
                             </f:RenderField>
-                            <f:RenderField Width="220px" ColumnID="StaffData" DataField="StaffData" SortField="StaffData"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="人员情况" >
+                            <f:RenderField Width="200px" ColumnID="RealPersonNum" DataField="RealPersonNum" SortField="RealPersonNum"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="当月人数">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="WorkTime" DataField="WorkTime" SortField="WorkTime"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="平均工时">
-                            </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="RealPersonNum" DataField="RealPersonNum" SortField="RealPersonNum"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="实际人数">
-                            </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="DayNum" DataField="DayNum" SortField="DayNum"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="工作天数">
-                            </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="PersonWorkTime" DataField="PersonWorkTime" SortField="PersonWorkTime"
+                            <f:RenderField Width="200px" ColumnID="PersonWorkTime" DataField="PersonWorkTime" SortField="PersonWorkTime"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="当月人工时">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="YearPersonWorkTime" DataField="YearPersonWorkTime" SortField="YearPersonWorkTime"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="当年人工时">
-                            </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="TotalPersonWorkTime" DataField="TotalPersonWorkTime" SortField="TotalPersonWorkTime"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="累计人工时">
-                            </f:RenderField>
-                        </Columns>
-                        <Listeners>
-                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
-                        </Listeners>
+                        </Columns>                  
                     </f:Grid>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:ContentPanel ID="ContentPanel1" runat="server" ShowHeader="false" EnableCollapse="true"
-                        BodyPadding="0px">
-                        <uc1:FlowOperateControl ID="ctlAuditFlow" runat="server" />
-                    </f:ContentPanel>
                 </Items>
             </f:FormRow>
         </Rows>
@@ -86,22 +58,12 @@
             </f:Toolbar>
         </Toolbars>
     </f:Form>
-    <f:Window ID="Window1" Title="编辑人工时明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1100px" Height="620px">
-    </f:Window>
-    <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
-            Icon="Pencil" runat="server" Text="查看">
-        </f:MenuButton>
-    </f:Menu>
     </form>
     <script>
-        var menuID = '<%= Menu1.ClientID %>';
-
+        
         // 返回false，来阻止浏览器右键菜单
         function onRowContextMenu(event, rowId) {
-            F(menuID).show();  //showAt(event.pageX, event.pageY);
+          //  F(menuID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
     </script>

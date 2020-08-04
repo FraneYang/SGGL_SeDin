@@ -21,6 +21,7 @@ namespace FineUIPro.Web.SysManage
             {
                 /// TAB1加载页面方法
                 this.LoadTab1Data();
+                ConstValue.InitConstValueDropDownList(this.drpSuperMenu, this.rblMenuType.SelectedValue, true);
                 /// TAB2加载页面方法
                 this.LoadTab2Data();
                 /// TAB2加载页面方法
@@ -233,7 +234,7 @@ namespace FineUIPro.Web.SysManage
         private void LoadTab2Data()
         {
             this.treeMenu.Nodes.Clear();
-            var sysMenu = BLL.SysMenuService.GetIsUsedMenuListBySupType(this.rblMenuType.SelectedValue);
+            var sysMenu = BLL.SysMenuService.GetMenuListByMenuType(this.drpSuperMenu.SelectedValue);
             if (sysMenu.Count() > 0)
             {
                 this.InitTreeMenu(sysMenu, null);
@@ -293,13 +294,46 @@ namespace FineUIPro.Web.SysManage
             var sysMenu = BLL.SysMenuService.GetSysMenuByMenuId(menuId);
             if (sysMenu != null && sysMenu.IsEnd == true)
             {
+                var codeTemplateRule = BLL.SysConstSetService.GetCodeTemplateRuleByMenuId(sysMenu.MenuId);
+                if (codeTemplateRule != null)
+                {
+                    if (codeTemplateRule.IsProjectCode == true)
+                    {
+                        this.ckProjectCode.Checked = true;
+                    }
+                    else
+                    {
+                        this.ckProjectCode.Checked = false;
+                    }
+                    this.txtPrefix.Text = codeTemplateRule.Prefix;
+                    if (codeTemplateRule.IsUnitCode == true)
+                    {
+                        this.ckUnitCode.Checked = true;
+                    }
+                    else
+                    {
+                        this.ckUnitCode.Checked = false;
+                    }
+                    this.txtDigit.Text = codeTemplateRule.Digit.ToString();
+                    this.txtTemplate.Text = HttpUtility.HtmlDecode(codeTemplateRule.Template);
+                    this.txtSymbol.Text = codeTemplateRule.Symbol;                    
+                }
+                else
+                {
+                    this.ckProjectCode.Checked = true;
+                    this.txtDigit.Text = "4";
+                    this.txtSymbol.Text = "-";
+                    this.txtPrefix.Text = string.Empty;
+                    this.ckUnitCode.Checked = false;
+                   this.txtTemplate.Text = HttpUtility.HtmlDecode(string.Empty);
+                }
             }
             else
             {
                 this.drpMenu.Text = string.Empty;
                 this.drpMenu.Value = string.Empty;
                 if (sysMenu != null)
-                { 
+                {
                     ShowNotify("请选择末级菜单操作！", MessageBoxIcon.Warning);
                 }
             }
@@ -401,22 +435,22 @@ namespace FineUIPro.Web.SysManage
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {
-                //if ( LicensePublicService.lisenWorkList.Contains(this.drpMenu.Value))
-                //{
-                //    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
-                //    {
-                //        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                //        BLL.SysConstSetService.DeleteMenuFlowOperateLicense(rowID);
-                //    }
-                //}
-                //else
-                //{
+                if (LicensePublicService.lisenWorkList.Contains(this.drpMenu.Value))
+                {
+                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                    {
+                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                        BLL.SysConstSetService.DeleteMenuFlowOperateLicense(rowID);
+                    }
+                }
+                else
+                {
                     foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                     {
                         string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                         BLL.SysConstSetService.DeleteMenuFlowOperateByFlowOperateId(rowID);
                     }
-                //}
+                }
 
                 BLL.MenuFlowOperateService.SetSortIndex(this.drpMenu.Value);
                 BindGrid();
@@ -438,6 +472,56 @@ namespace FineUIPro.Web.SysManage
         }
         #endregion
         #endregion        
+
+        #region TAB2保存按钮
+        /// <summary>
+        /// TAB2保存按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnTab2Save_Click(object sender, EventArgs e)
+        {
+            var sysMenu = BLL.SysMenuService.GetSysMenuByMenuId(this.drpMenu.Value);
+            if (sysMenu != null && sysMenu.IsEnd == true)
+            {
+                this.SaveData2(sysMenu.MenuId);
+                BLL.LogService.AddSys_Log(this.CurrUser, "修改菜单编码模板设置！", null, BLL.Const.SysConstSetMenuId, BLL.Const.BtnModify);
+                ShowNotify("保存成功！", MessageBoxIcon.Success);
+            }
+            else
+            {
+                ShowNotify("请选择菜单！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        /// <summary>
+        /// TAB2保存方法
+        /// </summary>
+        private void SaveData2(string menuId)
+        {
+            Model.Sys_CodeTemplateRule newCodeTemplateRule = new Model.Sys_CodeTemplateRule
+            {
+                MenuId = menuId,
+                Template = HttpUtility.HtmlEncode(this.txtTemplate.Text),
+                Symbol = this.txtSymbol.Text.Trim(),
+                IsProjectCode = this.ckProjectCode.Checked,
+                Prefix = this.txtPrefix.Text.Trim(),
+                IsUnitCode = this.ckUnitCode.Checked,
+                Digit = Funs.GetNewInt(this.txtDigit.Text),
+            };
+            var getCodeTemplateRule = BLL.SysConstSetService.GetCodeTemplateRuleByMenuId(menuId);
+            if (getCodeTemplateRule != null)
+            {
+                newCodeTemplateRule.CodeTemplateRuleId = getCodeTemplateRule.CodeTemplateRuleId;
+                BLL.SysConstSetService.UpdateCodeTemplateRule(newCodeTemplateRule);
+            }
+            else
+            {
+                BLL.SysConstSetService.AddCodeTemplateRule(newCodeTemplateRule);
+            }
+        }
+        #endregion
         #endregion
 
         #region TAB3加载页面方法
@@ -518,6 +602,15 @@ namespace FineUIPro.Web.SysManage
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void rblMenuType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpSuperMenu.Items.Clear();
+            ConstValue.InitConstValueDropDownList(this.drpSuperMenu, this.rblMenuType.SelectedValue, true);
+            this.LoadTab2Data();
+            this.drpMenu.Text = string.Empty;
+            this.drpMenu.Value = string.Empty;
+        }
+
+        protected void drpSuperMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.LoadTab2Data();
             this.drpMenu.Text = string.Empty;

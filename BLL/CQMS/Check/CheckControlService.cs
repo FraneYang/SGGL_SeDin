@@ -411,7 +411,10 @@ namespace BLL
                     x.IsSubmit = list[i].IsSubmit;
                     x.AttachUrl = list[i].AttachUrl;
                     x.QuestionDef = list[i].QuestionDef;
-                    x.QuestionType = list[i].QuestionType;
+                    if (!string.IsNullOrEmpty(list[i].QuestionType))
+                    {
+                        x.QuestionType = list[i].QuestionType + "$" + BLL.QualityQuestionTypeService.GetQualityQuestionType(list[i].QuestionType).QualityQuestionType;
+                    }
                     x.RectifyOpinion = list[i].RectifyOpinion;
                     x.LimitDate = list[i].LimitDate;
                     x.CNProfessionalCode = list[i].CNProfessionalCode + "$" + list[i].CNProfessionalName;

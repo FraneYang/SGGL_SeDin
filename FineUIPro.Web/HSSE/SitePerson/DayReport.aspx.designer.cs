@@ -76,42 +76,6 @@ namespace FineUIPro.Web.HSSE.SitePerson {
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
         
         /// <summary>
-        /// txtCompileDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtCompileDate;
-        
-        /// <summary>
-        /// btnNew 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnNew;
-        
-        /// <summary>
-        /// btnImport 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnImport;
-        
-        /// <summary>
-        /// btnImport2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnImport2;
-        
-        /// <summary>
         /// btnOut 控件。
         /// </summary>
         /// <remarks>
@@ -128,15 +92,6 @@ namespace FineUIPro.Web.HSSE.SitePerson {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPageIndex;
-        
-        /// <summary>
-        /// lblWorkTime 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWorkTime;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -184,21 +139,12 @@ namespace FineUIPro.Web.HSSE.SitePerson {
         protected global::FineUIPro.Menu Menu1;
         
         /// <summary>
-        /// btnMenuModify 控件。
+        /// btnView 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuModify;
-        
-        /// <summary>
-        /// btnMenuDel 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuDel;
+        protected global::FineUIPro.MenuButton btnView;
     }
 }

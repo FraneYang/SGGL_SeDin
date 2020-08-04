@@ -66,6 +66,7 @@ namespace FineUIPro.Web.Person
             {
                 PostTitleService.InitPostTitleDropDownList(this.drpPostTitle, true);
                 PracticeCertificateService.InitPracticeCertificateDropDownList(this.drpCertificate, true);
+                WorkPostService.InitWorkPostDropDownList(this.drpWorkPost, true);
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 ///权限
                 this.GetButtonPower();
@@ -81,7 +82,7 @@ namespace FineUIPro.Web.Person
                 }
                 this.drpDepart.SelectedValue =Const.Depart_constructionId;
                 ///角色下拉框
-                BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, true);
+                BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, true, true);
                 if (!string.IsNullOrEmpty(this.UserId))
                 {
                     var user = BLL.UserService.GetUserByUserId(this.UserId);
@@ -123,7 +124,11 @@ namespace FineUIPro.Web.Person
                         }
                         if (!string.IsNullOrEmpty(user.CertificateId))
                         {
-                            this.drpCertificate.SelectedValue = user.CertificateId;
+                            this.drpCertificate.SelectedValueArray = user.CertificateId.Split(',');
+                        }
+                        if (!string.IsNullOrEmpty(user.WorkPostId))
+                        {
+                            this.drpWorkPost.SelectedValueArray = user.WorkPostId.Split(',');
                         }
                         this.rblSex.SelectedValue = user.Sex;
                         if (user.BirthDay.HasValue)
@@ -213,9 +218,33 @@ namespace FineUIPro.Web.Person
             {
                 newUser.DepartId = this.drpDepart.SelectedValue;
             }
-            if (this.drpCertificate.SelectedValue != Const._Null)
+            foreach (var item in this.drpCertificate.SelectedValueArray)
             {
-                newUser.CertificateId = this.drpCertificate.SelectedValue;
+                if (item != BLL.Const._Null)
+                {
+                    if (string.IsNullOrEmpty(newUser.CertificateId))
+                    {
+                        newUser.CertificateId = item;
+                    }
+                    else
+                    {
+                        newUser.CertificateId += "," + item;
+                    }
+                }
+            }
+            foreach (var item in this.drpWorkPost.SelectedValueArray)
+            {
+                if (item != BLL.Const._Null)
+                {
+                    if (string.IsNullOrEmpty(newUser.WorkPostId))
+                    {
+                        newUser.WorkPostId = item;
+                    }
+                    else
+                    {
+                        newUser.WorkPostId += "," + item;
+                    }
+                }
             }
             if (this.drpPostTitle.SelectedValue != Const._Null)
             {
@@ -270,7 +299,7 @@ namespace FineUIPro.Web.Person
                 var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.PersonSetMenuId);
                 if (buttonList.Count() > 0)
                 {
-                    if (buttonList.Contains(BLL.Const.BtnSave))
+                    if (buttonList.Contains(BLL.Const.BtnAdd) || buttonList.Contains(BLL.Const.BtnModify))
                     {
                         this.btnSave.Hidden = false;
                     }

@@ -31,8 +31,9 @@
                             <f:RadioButtonList runat="server" ID="ckState" AutoPostBack="true" 
                                 OnSelectedIndexChanged="TextBox_TextChanged" Width="280px">
                                 <f:RadioItem Text="全部" Value="0" />
-                                <f:RadioItem Text="施工" Value="1" Selected="true" />
-                                <f:RadioItem Text="完工/暂停" Value="2" />
+                                <f:RadioItem Text="在建" Value="1" Selected="true" />
+                                <f:RadioItem Text="停工" Value="2" />
+                                <f:RadioItem Text="竣工" Value="3" />
                             </f:RadioButtonList>
                             <f:ToolbarSeparator runat="server"></f:ToolbarSeparator>                            
                             <f:TextBox runat="server" Label="名称" ID="txtProjectName" EmptyText="输入查询条件" 

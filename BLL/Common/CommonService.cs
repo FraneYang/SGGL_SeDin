@@ -25,58 +25,50 @@ namespace BLL
                     }
                     else
                     {
-                        string roleType = RoleService.GetRoleTypeByUserId(userId);
-                        if (getUser.UnitId == Const.UnitId_SEDIN && (roleType == Const.RoleType_2 || roleType == Const.RoleType_3))
+                        List<string> returnList = new List<string>();
+                        string rolesStr = string.Empty;
+                        if (!string.IsNullOrEmpty(getUser.RoleId))
                         {
-                            return new List<string>() { Const.Menu_Server, Const.Menu_HSSE, Const.Menu_CQMS, Const.Menu_HJGL };
+                            rolesStr = getUser.RoleId;
                         }
-                        else
+                        ////获取项目角色的集合
+                        var getPRoles = (from x in db.Project_ProjectUser
+                                         join y in db.Base_Project on x.ProjectId equals y.ProjectId
+                                         where (y.ProjectState == Const.ProjectState_1 || y.ProjectState == null) && x.UserId == userId && x.RoleId != null
+                                         select x.RoleId).ToList();                 
+                        foreach (var item in getPRoles)
                         {
-                            List<string> returnList = new List<string>();
-                            if (!string.IsNullOrEmpty(getUser.RoleId))
+                            if (string.IsNullOrEmpty(rolesStr))
                             {
-                                var getOffice = db.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == true);
-                                if (getOffice != null)
-                                {
-                                    returnList.Add(Const.Menu_Server);
-                                }
+                                rolesStr = item;
                             }
-                            ////获取项目角色的集合
-                            var getPRoles = (from x in db.Project_ProjectUser
-                                             join y in db.Base_Project on x.ProjectId equals y.ProjectId
-                                             where (y.ProjectState == Const.ProjectState_1 || y.ProjectState == null) && x.UserId == userId
-                                             select x.RoleId).ToList();
-                            string rolesStr = string.Empty;
-                            foreach (var item in getPRoles)
+                            else
                             {
-                                if (string.IsNullOrEmpty(rolesStr))
-                                {
-                                    rolesStr = item;
-                                }
-                                else
+                                if (!rolesStr.Contains(item))
                                 {
                                     rolesStr += "," + item;
                                 }
                             }
-                            ////项目角色集合list
-                            List<string> roleIdList = Funs.GetStrListByStr(rolesStr, ',').Distinct().ToList();
-                            var getRolePowers = (from x in db.Sys_RolePower
-                                                 where roleIdList.Contains(x.RoleId)
-                                                 select x).ToList();
-                            if (getRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_HSSE) != null)
-                            {
-                                returnList.Add(Const.Menu_HSSE);
-                            }
-                            if (getRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_CQMS) != null)
-                            {
-                                returnList.Add(Const.Menu_CQMS);
-                            }
-                            if (getRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_HJGL) != null)
-                            {
-                                returnList.Add(Const.Menu_HJGL);
-                            }
-                            return returnList;
                         }
+                        ////项目角色集合list
+                        List<string> roleIdList = Funs.GetStrListByStr(rolesStr, ',').Distinct().ToList();
+                        var getProjectRolePowers = (from x in db.Sys_RolePower
+                                                    where roleIdList.Contains(x.RoleId)
+                                                    select x).ToList();
+                        if (getProjectRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_HSSE) != null)
+                        {
+                            returnList.Add(Const.Menu_HSSE);
+                        }
+                        if (getProjectRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_CQMS) != null)
+                        {
+                            returnList.Add(Const.Menu_CQMS);
+                        }
+                        if (getProjectRolePowers.FirstOrDefault(x => x.MenuType == Const.Menu_HJGL) != null)
+                        {
+                            returnList.Add(Const.Menu_HJGL);
+                        }
+
+                        return returnList.Distinct().ToList();
                     }
                 }
                 else
@@ -133,23 +125,11 @@ namespace BLL
                         }
                         else
                         {
-                            string roleType = RoleService.GetRoleTypeByUserId(userId);
-                            if (getUser.UnitId == Const.UnitId_SEDIN && (roleType == Const.RoleType_2 || roleType == Const.RoleType_3))
-                            {
-                                menus = getMenus.ToList();
-                            }
-                            else
-                            {
-                                var pUser = ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ///项目用户
-                                if (pUser != null)
-                                {
-                                    List<string> roleIdList = Funs.GetStrListByStr(pUser.RoleId, ',');
-                                    menus = (from x in db.Sys_RolePower
-                                             join y in getMenus on x.MenuId equals y.MenuId
-                                             where roleIdList.Contains(x.RoleId)
-                                             select y).ToList();
-                                }
-                            }
+                            List<string> roleIdList = UserService.GetRoleListByProjectIdUserId(projectId, userId);
+                            menus = (from x in db.Sys_RolePower
+                                     join y in getMenus on x.MenuId equals y.MenuId
+                                     where roleIdList.Contains(x.RoleId)
+                                     select y).ToList();
                         }
                     }
                 }
@@ -169,12 +149,11 @@ namespace BLL
         {
             bool returnValue = false;
             var menu = Funs.DB.Sys_Menu.FirstOrDefault(x => x.MenuId == menuId);
-            var user = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == userId); ////用户
-            if (menu != null && user != null)
+            var getUser = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == userId); ////用户
+            if (menu != null && getUser != null)
             {
-
                 ///1、当前用户是管理员 
-                ///2、当前菜单是个人设置 资源库|| menu.MenuType == BLL.Const.Menu_Resource
+                ///2、当前菜单是个人设置 
                 if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
                 {
                     returnValue = true;
@@ -185,38 +164,22 @@ namespace BLL
                 }
                 else if (string.IsNullOrEmpty(projectId)) ///本部、系统设置
                 {
-
-                    if (!string.IsNullOrEmpty(user.RoleId))
+                    if (!string.IsNullOrEmpty(getUser.RoleId))
                     {
-                        var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == user.RoleId);
+                        var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == getUser.RoleId);
                         if (power != null)
                         {
                             returnValue = true;
                         }
-
-                        // var getRoles=Funs.DB.Sys_Role.FirstOrDefault(x=> user.RoleId)
                     }
                 }
                 else
                 {
-                    ///3、管理角色、领导角色能访问项目菜单
-                    string roleType = RoleService.GetRoleTypeByUserId(userId);
-                    if (user.UnitId == Const.UnitId_SEDIN && (roleType == Const.RoleType_2 || roleType == Const.RoleType_3))
+                    List<string> roleIdList = UserService.GetRoleListByProjectIdUserId(projectId, userId);
+                    var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && roleIdList.Contains(x.RoleId));
+                    if (power != null)
                     {
                         returnValue = true;
-                    }
-                    else
-                    {
-                        var puser = ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ////用户
-                        if (puser != null && !string.IsNullOrEmpty(puser.RoleId))
-                        {
-                            List<string> roleIdList = Funs.GetStrListByStr(puser.RoleId, ',');
-                            var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && roleIdList.Contains(x.RoleId));
-                            if (power != null)
-                            {
-                                returnValue = true;
-                            }
-                        }
                     }
                 }
             }
@@ -240,8 +203,10 @@ namespace BLL
             {
                 return buttonList;
             }
+
             var getMenu = Funs.DB.Sys_Menu.FirstOrDefault(x => x.MenuId == menuId);
-            if (getMenu != null)
+            var user = BLL.UserService.GetUserByUserId(userId); ////用户            
+            if (getMenu != null && user != null)
             {
                 if (userId == Const.sysglyId || userId == Const.hfnbdId || getMenu.MenuType == Const.Menu_Personal)
                 {
@@ -253,26 +218,19 @@ namespace BLL
                 {
                     if (string.IsNullOrEmpty(projectId))
                     {
-                        var user = BLL.UserService.GetUserByUserId(userId); ////用户            
-                        if (user != null)
-                        {
-                            buttons = (from x in db.Sys_ButtonToMenu
-                                       join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
-                                       where y.RoleId == user.RoleId && y.MenuId == menuId && x.MenuId == menuId
-                                       select x).ToList();
-                        }
+
+                        buttons = (from x in db.Sys_ButtonToMenu
+                                   join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
+                                   where y.RoleId == user.RoleId && y.MenuId == menuId && x.MenuId == menuId
+                                   select x).ToList();
                     }
                     else
                     {
-                        var pUser = BLL.ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ///项目用户
-                        if (pUser != null)
-                        {
-                            List<string> roleIdList = Funs.GetStrListByStr(pUser.RoleId, ',');
-                            buttons = (from x in db.Sys_ButtonToMenu
-                                       join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
-                                       where roleIdList.Contains(y.RoleId) && y.MenuId == menuId && x.MenuId == menuId
-                                       select x).ToList();
-                        }
+                        List<string> roleIdList = UserService.GetRoleListByProjectIdUserId(projectId, userId);
+                        buttons = (from x in db.Sys_ButtonToMenu
+                                   join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
+                                   where roleIdList.Contains(y.RoleId) && y.MenuId == menuId && x.MenuId == menuId
+                                   select x).ToList();
                     }
                 }
             }
@@ -317,10 +275,10 @@ namespace BLL
             // 根据角色判断是否有按钮权限
             if (!isPower)
             {
-                if (string.IsNullOrEmpty(projectId))
+                var user = UserService.GetUserByUserId(userId); ////用户            
+                if (user != null)
                 {
-                    var user = UserService.GetUserByUserId(userId); ////用户            
-                    if (user != null)
+                    if (string.IsNullOrEmpty(projectId))
                     {
                         if (!string.IsNullOrEmpty(user.RoleId))
                         {
@@ -336,25 +294,18 @@ namespace BLL
                             }
                         }
                     }
-                }
-                else
-                {
-                    var pUser = BLL.ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ///项目用户
-                    if (pUser != null)
+                    else
                     {
-                        if (!string.IsNullOrEmpty(pUser.RoleId))
+                        List<string> roleIdList = UserService.GetRoleListByProjectIdUserId(projectId, userId);
+                        var buttonToMenu = from x in db.Sys_ButtonToMenu
+                                           join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
+                                           join z in db.Sys_Menu on x.MenuId equals z.MenuId
+                                           where roleIdList.Contains(y.RoleId) && y.MenuId == menuId
+                                           && x.ButtonName == buttonName && x.MenuId == menuId
+                                           select x;
+                        if (buttonToMenu.Count() > 0)
                         {
-                            List<string> roleIdList = Funs.GetStrListByStr(pUser.RoleId, ',');
-                            var buttonToMenu = from x in db.Sys_ButtonToMenu
-                                               join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
-                                               join z in db.Sys_Menu on x.MenuId equals z.MenuId
-                                               where roleIdList.Contains(y.RoleId) && y.MenuId == menuId
-                                               && x.ButtonName == buttonName && x.MenuId == menuId
-                                               select x;
-                            if (buttonToMenu.Count() > 0)
-                            {
-                                isPower = true;
-                            }
+                            isPower = true;
                         }
                     }
                 }
@@ -437,43 +388,27 @@ namespace BLL
                 var getUser = db.Sys_User.FirstOrDefault(x => x.UserId == userId);
                 if (getUser != null)
                 {
-                    ////
                     if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId) 
                     {
                         isHave = true;
                     }
                     else
                     {
-                        string roleType = RoleService.GetRoleTypeByUserId(userId);
-                        if (getUser.UnitId == Const.UnitId_SEDIN && (roleType == Const.RoleType_2 || roleType == Const.RoleType_3))
+                        if (string.IsNullOrEmpty(projectId))
                         {
-                            isHave = true;
+                            var getOffice = db.Sys_RolePower.FirstOrDefault(x => x.MenuType == menuType);
+                            if (getOffice != null)
+                            {
+                                isHave = true;
+                            }
                         }
                         else
                         {
-                            if (string.IsNullOrEmpty(projectId))
+                            List<string> roleIdList = UserService.GetRoleListByProjectIdUserId(projectId, userId);
+                            var pPower = db.Sys_RolePower.FirstOrDefault(x => roleIdList.Contains(x.RoleId) && x.MenuType == menuType);
+                            if (pPower != null)
                             {
-                                var getOffice = db.Sys_RolePower.FirstOrDefault(x => x.MenuType == menuType);
-                                if (getOffice != null)
-                                {
-                                    isHave = true;
-                                }
-                            }
-                            else
-                            {
-                                var pUser = BLL.ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ///项目用户
-                                if (pUser != null)
-                                {
-                                    if (!string.IsNullOrEmpty(pUser.RoleId))
-                                    {
-                                        List<string> roleIdList = Funs.GetStrListByStr(pUser.RoleId, ',');
-                                        var pPower = db.Sys_RolePower.FirstOrDefault(x=>roleIdList.Contains(x.RoleId) && x.MenuType == menuType);                                                     
-                                        if (pPower != null)
-                                        {
-                                            isHave = true;
-                                        }
-                                    }
-                                }
+                                isHave = true;
                             }
                         }
                     }

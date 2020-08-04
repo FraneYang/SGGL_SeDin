@@ -31,7 +31,7 @@
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtWrongContent" runat="server" Label="因" Required="true" ShowRedStar="true"
-                            MaxLength="150" Width="250px" Readonly="true" LabelWidth="150px">
+                            Width="250px" Readonly="true" LabelWidth="150px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>

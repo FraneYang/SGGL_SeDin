@@ -202,22 +202,30 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetProjectByUserIdDropDownList(string userId)
         {
-            /// 获取角色类型
-            string roleType =RoleService.GetRoleTypeByUserId(userId);
-            if (roleType == Const.RoleType_2 || roleType == Const.RoleType_3 || userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
+            var getUser = UserService.GetUserByUserId(userId);
+            if (getUser != null)
             {
-                return (from x in Funs.DB.Base_Project
-                        where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
-                        orderby x.ProjectCode descending
-                        select x).ToList();
+                var getRoleP = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == false);
+                /// 获取角色类型
+                if (getRoleP != null || userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
+                {
+                    return (from x in Funs.DB.Base_Project
+                            where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
+                            orderby x.ProjectCode descending
+                            select x).ToList();
+                }
+                else
+                {
+                    return (from x in Funs.DB.Base_Project
+                            join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
+                            where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1 && y.UserId == userId
+                            orderby x.ProjectCode descending
+                            select x).ToList();
+                }
             }
             else
             {
-                return (from x in Funs.DB.Base_Project
-                        join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
-                        where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1 && y.UserId ==userId
-                        orderby x.ProjectCode descending
-                        select x).ToList();
+                return null;
             }
         }
 

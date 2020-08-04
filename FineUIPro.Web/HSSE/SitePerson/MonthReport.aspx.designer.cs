@@ -58,13 +58,13 @@ namespace FineUIPro.Web.HSSE.SitePerson {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
-        /// txtMonthReportCode 控件。
+        /// txtDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtMonthReportCode;
+        protected global::FineUIPro.DatePicker txtDate;
         
         /// <summary>
         /// ToolbarFill1 控件。
@@ -74,33 +74,6 @@ namespace FineUIPro.Web.HSSE.SitePerson {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
-        
-        /// <summary>
-        /// txtCompileDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtCompileDate;
-        
-        /// <summary>
-        /// btnNew 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnNew;
-        
-        /// <summary>
-        /// btnImport 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnImport;
         
         /// <summary>
         /// btnOut 控件。
@@ -119,33 +92,6 @@ namespace FineUIPro.Web.HSSE.SitePerson {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPageIndex;
-        
-        /// <summary>
-        /// lblMonthWorkTime 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMonthWorkTime;
-        
-        /// <summary>
-        /// lblYearWorkTime 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblYearWorkTime;
-        
-        /// <summary>
-        /// lblTotal 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotal;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -193,21 +139,12 @@ namespace FineUIPro.Web.HSSE.SitePerson {
         protected global::FineUIPro.Menu Menu1;
         
         /// <summary>
-        /// btnMenuModify 控件。
+        /// btnView 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuModify;
-        
-        /// <summary>
-        /// btnMenuDel 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuDel;
+        protected global::FineUIPro.MenuButton btnView;
     }
 }

@@ -32,7 +32,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 ///角色下拉框
-                BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, true);
+                BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, false, true);
                 BLL.ConstValue.InitConstValueDropDownList(this.drpIsPost, ConstValue.Group_0001, false);
                 BLL.WorkPostService.InitWorkPostDropDownList(this.drpWorkPost, true);
                 gvUnitWork.DataSource = (from x in Funs.DB.WBS_UnitWork where x.SuperUnitWork == null && x.ProjectId == this.CurrUser.LoginProjectId select x);

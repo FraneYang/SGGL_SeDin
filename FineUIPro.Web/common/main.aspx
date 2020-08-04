@@ -9,6 +9,9 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
+        .row2 .item{
+           height:100%;
+       }
         .bw-item-content {
             padding: 0;
         }
@@ -101,7 +104,7 @@
            
             color:#00a2e9;
             /*text-shadow: 0 0 10px #7a7cd0,0 0 20px #7a7cd0,0 0 30px #7a7cd0,0 0 40px #7a7cd0;*/	/*设置发光效果*/
-           /*text-shadow: 0 0 10px #7a7cd0;*/
+           text-shadow: 0 0 10px #00a2e9;
         }
          .map-desc .desc .d-item{
             /*border-top: 1px solid #00a2e9;
@@ -142,7 +145,7 @@
             /*background-color: rgba(0,53,97 ,0.3) !important;*/
         }
         .map-desc .desc .d-item .tit{
-            font-size:11px;
+            font-size:10px;
         }
          .map-desc .desc .d-item .num{
              font-size:18px;
@@ -197,6 +200,9 @@
          .tab-content .line-item>div{
             background-color:#29D8DD;
          }
+         .Accumulation-next .tab-h .txt,.Accumulation-next .tab-i .txt{
+             width:45px;
+         }
     </style>
 </head>
 <body>
@@ -215,7 +221,7 @@
                                 <div class="item flex1">
                                     <div id="one2" style="width: 100%; height: 100%;"></div>
                                 </div>
-                                <div class="item flex1">
+                                <div class="item flex1 flex flexV" style="align-items:center;justify-content:center;">
                                   <div class="item-txt-list flex">
                                     <div class="txt-tit">总数量：</div>
                                     <div>43</div>
@@ -293,10 +299,10 @@
                                     <div class="num">12</div>
                                 </div>
                                 <div  class="d-item">
-                                    <div class="tit">施工</div>
+                                    <div class="tit">竣工</div>
                                     <div class="num">59</div>
                                 </div>
-                                  <div  class="d-item">
+                                <div  class="d-item">
                                     <div class="tit">单位：(个)</div>
                                 </div>
                             </div>
@@ -310,52 +316,47 @@
                             <%--<div class=" flex1">
                                 <div id='Accumulation' style="width: 100%; height: 100%;"></div>
                             </div>--%>
-                            <div class="content-wrap tab-content flex1" style="overflow:auto;">
-                                <div class="flex tab-h">
-                                    <div class="txt">名称</div>
-                                    <div class="txt">状态</div>
-                                    <div class="flex1">在线率</div>
-                                </div>
-                                <div class="flex tab-i">
-                                    <div class="txt">合同1</div>
-                                    <div class="txt">二化建</div>
-                                    <div class="flex1 flex line-wrap">
-                                        <div class="line-item">
-                                            <div style="width:50%"></div>
-                                        </div>
-                                        <div class="per">50%</div>
+                            <div class="content-wrap tab-content flex1 flex" style="overflow:auto;">
+                                <div class="Accumulation-next">
+                                    <div class="flex tab-h">
+                                        <div class="txt">工程名</div>
+                                        <div class="txt">在线数</div>
+                                        <%--<div class="flex1">在线率</div>--%>
                                     </div>
-                                </div>
-                                <div class="flex tab-i">
-                                    <div class="txt">合同2</div>
-                                    <div class="txt">分包商</div>
-                                    <div class="flex1 flex line-wrap">
-                                        <div class="line-item">
-                                            <div style="width:90%"></div>
-                                        </div>
-                                        <div class="per">90%</div>
+                                    <div class="flex tab-i">
+                                        <div class="txt">工程1</div>
+                                        <div class="txt">12</div>
+                                       <%-- <div class="flex1 flex line-wrap">
+                                            <div class="line-item">
+                                                <div style="width:50%"></div>
+                                            </div>
+                                            <div class="per">50%</div>
+                                        </div>--%>
                                     </div>
-                                </div>
-                                <div class="flex tab-i">
-                                    <div class="txt">合同3</div>
-                                    <div class="txt">分包商</div>
-                                    <div class="flex1 flex line-wrap">
-                                        <div class="line-item">
-                                            <div style="width:90%"></div>
-                                        </div>
-                                        <div class="per">90%</div>
+                                    <div class="flex tab-i">
+                                        <div class="txt">工程2</div>
+                                        <div class="txt">23</div>
+                                        <%--<div class="flex1 flex line-wrap">
+                                            <div class="line-item">
+                                                <div style="width:90%"></div>
+                                            </div>
+                                            <div class="per">90%</div>
+                                        </div>--%>
                                     </div>
-                                </div>
-                                <%--<div class="flex tab-i">
-                                    <div class="txt">合同4</div>
-                                    <div class="txt">分包商</div>
-                                    <div class="flex1 flex line-wrap">
+                                    <div class="flex tab-i">
+                                    <div class="txt">工程3</div>
+                                    <div class="txt">34</div>
+                                   <%-- <div class="flex1 flex line-wrap">
                                         <div class="line-item">
                                             <div style="width:90%"></div>
                                         </div>
                                         <div class="per">90%</div>
-                                    </div>
-                                </div>--%>
+                                    </div>--%>
+                                </div>
+                                </div>
+                                <div class=" flex1">
+                                    <div id='Accumulation' style="width: 100%; height: 100%;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -589,7 +590,7 @@
                     fontWeight: 700
                 }
             },
-            color: ['#21839C', '#289CB3'],
+            color: ['#2566CF', '#289CB3'],
             series: [
                 {
                     name: ' ',
@@ -1319,6 +1320,7 @@
     function mapEchart(id, mapType) {
         myChart = echarts.init(document.getElementById(id));
         var mapType = mapType || 'china'
+        var mapZoom = mapType == 'china' ? 1.2 : 1
         optionMap = {
             title: {
                 // x:"center",
@@ -1378,7 +1380,7 @@
                     type: 'map',
                     // mapType: 'world',
                     mapType: mapType,
-                    zoom: 1.2,
+                    zoom: mapZoom,
                     roam: false,
                     data: [
                         { name: 'China', value: randomData() },
@@ -1717,8 +1719,8 @@
             },
             grid: {
                 top: '15',
-                left: '6%',
-                right: '6%',
+                left: '0',
+                right: '0',
                 bottom: '0%',
                 containLabel: true
             },
@@ -1743,7 +1745,7 @@
             },
             yAxis: {
                 // offset: 10,
-
+                show: false,
                 nameGap: 50,
                 axisTick: {
                     show: false
@@ -1765,7 +1767,8 @@
                     }
                 },
                 type: 'category',
-                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                data: ['周一', '周二', '周三', '周四']
+                //data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
             },
             series: [
                 {
@@ -1779,7 +1782,8 @@
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [320, 302, 301, 334, 390, 334, 390]
+                    data: [320, 302, 301, 334]
+                    //data: [320, 302, 301, 334, 390, 334, 390]
                 },
                 {
                     name: '单位二',
@@ -1789,7 +1793,7 @@
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [120, 132, 101, 134, 90, 334, 390]
+                    data: [120, 132, 101, 134] //, 90, 334, 390
                 },
                 {
                     name: '单位一',
@@ -1799,13 +1803,13 @@
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [220, 182, 191, 234, 290, 334, 390]
+                    data: [220, 182, 191, 234]//, 290, 334, 390
                 }
             ]
         };
         myChartLine.setOption(option);
     }
-    //Accumulation('Accumulation')
+    Accumulation('Accumulation')
 </script>
 <script>
     function radar(id) {

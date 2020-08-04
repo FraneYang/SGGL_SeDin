@@ -9,84 +9,83 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
-        * {
-            box-sizing: border-box;
+         *{
+            box-sizing:border-box;
         }
-
-        .flexV {
-            flex-direction: column;
+        .flexV{
+            flex-direction:column;
         }
-
-        .wrap {
-            height: 100%;
-            padding: 15px;
+        .wrap{
+            height:100%;
+            padding:15px;
         }
-
-        .bottom-wrap {
-            padding: 0;
+         .iteml{
+            margin-left: 5px;
         }
-
-        .bw-b-bottom {
-            width: 100%;
-            height: 100%;
+         .itemb{
+            margin-bottom:5px;
+         }
+        .bottom-wrap{
+           padding:0;
+           margin-bottom:5px;
         }
-
+         .bottom-wrap:last-child{
+              margin-bottom:0;
+         }
+        .bw-b-bottom{
+            width:100%;
+            height:100%;
+        }
         .bw-b-bottom-up {
-            border-radius: 0;
+            border-radius:0;
             height: 100%;
-            margin: 0;
+            margin:0;
+            box-shadow:none;
         }
-
-        .bw-item-content {
-            padding: 5px;
+         .bw-item-content{
+           padding:5px;
         }
-
         .top {
             width: 100%;
         }
 
-            .top .item {
-            }
-
+        .top .item {
+        }
         .bw-b {
             width: 50%;
         }
 
         .bw-b-bottom-up {
+            
         }
-
-        .tab-wrap {
+         .tab-wrap {
             left: auto;
             right: 15px;
             top: 5px;
-            font-size: 12px;
+            font-size:12px;
         }
 
         .tab .t-item {
             width: auto;
             padding: 5px 10px;
         }
-
-        .tit-item {
+        .tit-item{
             padding: 0 10px;
-            color: #fff;
+            color:#fff;
             justify-content: space-between;
         }
-
-        .tip-item {
+        .tip-item{
             margin-left: 10px;
-            align-items: center;
-            font-size: 10px;
+            align-items:center;
+            font-size:10px;
         }
-
-        .tip {
-            width: 25px;
-            height: 13px;
+        .tip{
+            width:25px;
+            height:13px;
             background-color: #258F76;
             border-radius: 2px;
-            margin-right: 5px;
+            margin-right:5px;
         }
-
         .tip-next {
             background-color: #92BF55;
         }
@@ -133,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="item flex2">
+               <div class="item flex2 iteml">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="tab-wrap">
@@ -171,7 +170,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="item flex2">
+                 <div class="item flex2 iteml">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content">

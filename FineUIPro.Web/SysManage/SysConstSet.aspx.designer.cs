@@ -337,6 +337,15 @@ namespace FineUIPro.Web.SysManage {
         protected global::FineUIPro.RadioButtonList rblMenuType;
         
         /// <summary>
+        /// drpSuperMenu 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpSuperMenu;
+        
+        /// <summary>
         /// drpMenu 控件。
         /// </summary>
         /// <remarks>
@@ -362,6 +371,141 @@ namespace FineUIPro.Web.SysManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
+        
+        /// <summary>
+        /// TabStrip2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TabStrip TabStrip2;
+        
+        /// <summary>
+        /// TabCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Tab TabCode;
+        
+        /// <summary>
+        /// SimpleForm2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Form SimpleForm2;
+        
+        /// <summary>
+        /// ckProjectCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckProjectCode;
+        
+        /// <summary>
+        /// txtPrefix 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtPrefix;
+        
+        /// <summary>
+        /// Label8 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label8;
+        
+        /// <summary>
+        /// ckUnitCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckUnitCode;
+        
+        /// <summary>
+        /// Label22 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label22;
+        
+        /// <summary>
+        /// txtDigit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtDigit;
+        
+        /// <summary>
+        /// Label23 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label23;
+        
+        /// <summary>
+        /// txtSymbol 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtSymbol;
+        
+        /// <summary>
+        /// Label24 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label24;
+        
+        /// <summary>
+        /// Tab4 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Tab Tab4;
+        
+        /// <summary>
+        /// txtTemplate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.HtmlEditor txtTemplate;
+        
+        /// <summary>
+        /// Tab5 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Tab Tab5;
         
         /// <summary>
         /// Grid1 控件。
@@ -400,13 +544,13 @@ namespace FineUIPro.Web.SysManage {
         protected global::FineUIPro.Button btnFlowOperateDelete;
         
         /// <summary>
-        /// Label8 控件。
+        /// Label27 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
+        protected global::System.Web.UI.WebControls.Label Label27;
         
         /// <summary>
         /// Tab3 控件。

@@ -24,6 +24,8 @@ namespace FineUIPro.Web.BaseInfo
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
                 }
+                gvCNCodes.DataSource = BLL.CNProfessionalService.GetList();
+                gvCNCodes.DataBind();
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
@@ -35,10 +37,10 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT wp.WorkPostId,wp.WorkPostName, wp.WorkPostCode, wp.Remark,wp.PostType,wp.IsHsse,
+            string strSql = @"SELECT wp.WorkPostId,wp.WorkPostName, wp.WorkPostCode, wp.Remark,wp.PostType,wp.IsHsse,wp.CNCodes,
                                             case wp.IsHsse when 1 then '是' else '否' end as IsHsseStr,const.ConstText as PostTypeName
                                             FROM dbo.Base_WorkPost AS wp
-                                            LEFT JOIN Sys_Const AS const ON const.ConstValue = wp.PostType and const.GroupId = '"+ConstValue.Group_PostType+"' ";
+                                            LEFT JOIN Sys_Const AS const ON const.ConstValue = wp.PostType and const.GroupId = '" + ConstValue.Group_PostType + "' ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             //strSql += " AND HazardList.ProjectId = @ProjectId";
             //listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
@@ -102,7 +104,7 @@ namespace FineUIPro.Web.BaseInfo
         {
             BLL.LogService.AddSys_Log(this.CurrUser, this.txtWorkPostCode.Text, hfFormID.Text, BLL.Const.WorkPostMenuId, BLL.Const.BtnDelete);
             BLL.WorkPostService.DeleteWorkPostById(hfFormID.Text);
-            
+
             // 重新绑定表格，并模拟点击[新增按钮]
             BindGrid();
             PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -159,6 +161,10 @@ namespace FineUIPro.Web.BaseInfo
                 {
                     this.ckbIsHsse.Checked = true;
                 }
+                if (!string.IsNullOrEmpty(workPost.CNCodes))
+                {
+                    txtCNCodes.Values = workPost.CNCodes.Split(',');
+                }
                 this.txtRemark.Text = workPost.Remark;
                 hfFormID.Text = Id;
                 this.btnDelete.Enabled = true;
@@ -189,6 +195,7 @@ namespace FineUIPro.Web.BaseInfo
                 WorkPostName = this.txtWorkPostName.Text.Trim(),
                 PostType = this.drpPostType.SelectedValue,
                 IsHsse = Convert.ToBoolean(this.ckbIsHsse.Checked),
+                CNCodes = string.Join(",", txtCNCodes.Values),
                 Remark = txtRemark.Text.Trim()
             };
             if (string.IsNullOrEmpty(strRowID))
@@ -283,6 +290,36 @@ namespace FineUIPro.Web.BaseInfo
                 }
             }
             return name;
+        }
+
+        /// <summary>
+        /// 获取角色对口专业设置
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        protected string ConvertCNCodes(object CNCodes)
+        {
+            string ProfessionalName = string.Empty;
+            if (CNCodes != null)
+            {
+                string[] Ids = CNCodes.ToString().Split(',');
+                foreach (string t in Ids)
+                {
+                    var type = BLL.CNProfessionalService.GetCNProfessional(t);
+                    if (type != null)
+                    {
+                        ProfessionalName += type.ProfessionalName + ",";
+                    }
+                }
+            }
+            if (ProfessionalName != string.Empty)
+            {
+                return ProfessionalName.Substring(0, ProfessionalName.Length - 1);
+            }
+            else
+            {
+                return "";
+            }
         }
         #endregion
     }

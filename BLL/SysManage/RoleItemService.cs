@@ -15,6 +15,16 @@ namespace BLL
         /// </summary>
         /// <param name="userId">用户Id</param>
         /// <returns>用户信息</returns>
+        public static Model.Sys_RoleItem GeRoleItemByRoleItemId(string roleItemId)
+        {
+            return Funs.DB.Sys_RoleItem.FirstOrDefault(e => e.RoleItemId == roleItemId);
+        }
+
+        /// <summary>
+        /// 获取角色明细信息
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <returns>用户信息</returns>
         public static Model.Sys_RoleItem GeRoleItemByUserId(string userId)
         {
             return Funs.DB.Sys_RoleItem.FirstOrDefault(e => e.UserId == userId);
@@ -33,7 +43,9 @@ namespace BLL
                 RoleId = newitem.RoleId,
                 ProjectId = newitem.ProjectId,
                 UserId = newitem.UserId,
-                IntoDate = newitem.IntoDate
+                ProjectName=newitem.ProjectName,
+                IntoDate = newitem.IntoDate,
+                OutDate = newitem.OutDate
             };
             db.Sys_RoleItem.InsertOnSubmit(newUser);
             db.SubmitChanges();
@@ -46,12 +58,14 @@ namespace BLL
         public static void UpdateRoleItem(Model.Sys_RoleItem NewRole)
         {
             Model.SGGLDB db = Funs.DB;
-            Model.Sys_RoleItem item = db.Sys_RoleItem.FirstOrDefault(e => e.UserId == NewRole.UserId);
+            Model.Sys_RoleItem item = db.Sys_RoleItem.FirstOrDefault(e => e.RoleItemId == NewRole.RoleItemId);
             if (item != null)
             {
                 item.RoleId = NewRole.RoleId;
                 item.ProjectId = NewRole.ProjectId;
+                item.IntoDate = NewRole.IntoDate;
                 item.OutDate = NewRole.OutDate;
+                item.ProjectName = NewRole.ProjectName;
                 db.SubmitChanges();
             }
         }
@@ -60,13 +74,13 @@ namespace BLL
         /// 根据Id删除一个明细信息
         /// </summary>
         /// <param name="userId"></param>
-        public static void DeleteRoleItem(string userId)
+        public static void DeleteRoleItem(string roleItemId)
         {
             Model.SGGLDB db = Funs.DB;
-            Model.Sys_RoleItem user = db.Sys_RoleItem.FirstOrDefault(e => e.UserId == userId);
-            if (user != null)
+            Model.Sys_RoleItem roleItem = db.Sys_RoleItem.FirstOrDefault(e => e.RoleItemId == roleItemId);
+            if (roleItem != null)
             {
-                db.Sys_RoleItem.DeleteOnSubmit(user);
+                db.Sys_RoleItem.DeleteOnSubmit(roleItem);
                 db.SubmitChanges();
             }
         }

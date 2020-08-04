@@ -130,13 +130,13 @@ namespace FineUIPro.Web.HSSE.Check {
         protected global::FineUIPro.TextBox txtCheckedDate;
         
         /// <summary>
-        /// txtHiddenHazardType 控件。
+        /// drpHiddenHazardType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtHiddenHazardType;
+        protected global::FineUIPro.DropDownList drpHiddenHazardType;
         
         /// <summary>
         /// Grid1 控件。

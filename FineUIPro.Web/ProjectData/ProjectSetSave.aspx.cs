@@ -35,19 +35,14 @@ namespace FineUIPro.Web.ProjectData
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 ProjectTypeService.InitProjectTypeDropDownList(this.drpProjectType, true);                
-                this.ProjectId = Request.QueryString["ProjectId"];
-                //// this.txtProjectState.Text = "施工中";
-                //if (CommonService.GetIsThisUnit(Const.UnitId_7))
-                //{
-                //    this.drpProjectState.Readonly = false;
-                //}
+                this.ProjectId = Request.QueryString["ProjectId"];              
                 ///项目经理
                 UserService.InitUserDropDownList(this.drpProjectManager, string.Empty, true);
                 ///施工经理
                 UserService.InitUserDropDownList(this.drpConstructionManager, string.Empty, true);
                 ///安全经理
                 UserService.InitUserDropDownList(this.drpHSSEManager, string.Empty, true);
-                UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
+                UnitService.InitBranchUnitDropDownList(this.drpUnit, true, true);
                 this.drpUnit.SelectedValue = Const.UnitId_SEDIN;
                 if (!String.IsNullOrEmpty(this.ProjectId))
                 {
@@ -77,7 +72,6 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.drpProjectType.SelectedValue = project.ProjectType;
                         }
-                        this.txtPostCode.Text = project.PostCode;
                         ///项目经理
                         var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ProjectManager));
                         if (m != null)
@@ -141,7 +135,7 @@ namespace FineUIPro.Web.ProjectData
                 ProjectAddress = this.txtProjectAddress.Text.Trim(),
                 WorkRange = this.txtWorkRange.Text.Trim(),
                 ContractNo = this.txtContractNo.Text.Trim(),
-                Duration = Funs.GetNewIntOrZero(this.txtDuration.Text.Trim()),
+                Duration = Funs.GetNewDecimal(this.txtDuration.Text.Trim()),
                 MapCoordinates = this.txtMapCoordinates.Text.Trim(),
                 ProjectState = this.drpProjectState.SelectedValue,
                 ProjectMoney=Funs.GetNewDecimal(this.txtProjectMoney.Text),
@@ -165,7 +159,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 project.UnitId = this.drpUnit.SelectedValue;
             }
-            project.PostCode = this.txtPostCode.Text.Trim();
+            //project.PostCode = this.txtPostCode.Text.Trim();
             project.IsUpTotalMonth = Convert.ToBoolean(this.ckIsUpTotalMonth.Checked);
             project.IsForeign = Convert.ToBoolean(this.ckbIsForeign.Checked);
             if (String.IsNullOrEmpty(this.ProjectId))
@@ -352,5 +346,22 @@ namespace FineUIPro.Web.ProjectData
             }
         }
         #endregion
+
+        protected void txtStartDate_Blur(object sender, EventArgs e)
+        {
+            var sDate = Funs.GetNewDateTime(this.txtStartDate.Text);
+            var eDate = Funs.GetNewDateTime(this.txtEndDate.Text);
+            if (sDate.HasValue && eDate.HasValue && eDate.Value >sDate.Value)
+            {
+                int m1 = sDate.Value.Year * 12 + sDate.Value.Month;
+                int m2 = eDate.Value.Year * 12 + eDate.Value.Month;
+                int a = m2 - m1;
+
+                TimeSpan ts1 = new TimeSpan(sDate.Value.Ticks);
+                TimeSpan ts2 = new TimeSpan(eDate.Value.AddMonths(0-a).Ticks);
+                TimeSpan ts = ts1.Subtract(ts2).Duration();
+                this.txtDuration.Text = (Math.Round((ts.Days * 1.0 / 30),1) + a).ToString();
+            }
+        }
     }
 }

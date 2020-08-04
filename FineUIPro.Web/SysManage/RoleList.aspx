@@ -42,20 +42,13 @@
                     <f:RenderField Width="200px" ColumnID="RoleName" DataField="RoleName" EnableFilter="true"
                         SortField="RoleName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center"
                         TextAlign="Left">                      
-                    </f:RenderField>
-                      <f:RenderField Width="90px" ColumnID="RoleTypeName" DataField="RoleTypeName" 
-                        SortField="RoleTypeName" FieldType="String" HeaderText="类型" HeaderTextAlign="Center"
-                        TextAlign="Left">                       
-                    </f:RenderField>
-                    <f:TemplateField ColumnID="CNCodes" Width="180px" HeaderText="对口专业" HeaderTextAlign="Center" TextAlign="Center"
-                            EnableLock="true" Locked="False">
-                            <ItemTemplate>
-                                <asp:Label ID="Label2" runat="server" Text='<%# ConvertCNCodes(Eval("CNCodes")) %>'></asp:Label>
-                            </ItemTemplate>
-                        </f:TemplateField>
-                    <f:CheckBoxField Width="80px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsAuditFlow" HeaderText="参与审批" />
-                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsSystemBuilt" HeaderText="内置" />
-                    <f:RenderField  ColumnID="Def" DataField="Def" SortField="Def" FieldType="String" Width="80px"
+                    </f:RenderField> 
+                     <f:RenderField Width="100px" ColumnID="IsOfficeName" DataField="IsOfficeName" EnableFilter="true"
+                        SortField="IsOfficeName" FieldType="String" HeaderText="类型" HeaderTextAlign="Center"
+                        TextAlign="Left">                      
+                    </f:RenderField> 
+                    <f:CheckBoxField Width="80px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsSystemBuilt" HeaderText="内置" />
+                    <f:RenderField  ColumnID="Def" DataField="Def" SortField="Def" FieldType="String" Width="150px"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
                 </Columns>

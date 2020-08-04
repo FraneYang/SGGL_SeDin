@@ -683,6 +683,7 @@
     <Content Include="HSSE\SecuritySystem\SafetyOrganization.aspx" />
     <Content Include="HSSE\SecuritySystem\SafetyOrganizationEdit.aspx" />
     <Content Include="HSSE\SitePerson\DayReport.aspx" />
+    <Content Include="HSSE\SitePerson\DayReportDetailView.aspx" />
     <Content Include="HSSE\SitePerson\DayReportDetailEdit.aspx" />
     <Content Include="HSSE\SitePerson\DayReportEdit.aspx" />
     <Content Include="HSSE\SitePerson\DayReportImport.aspx" />
@@ -3809,6 +3810,7 @@
     <Content Include="res\index\images\bg.png" />
     <Content Include="res\index\images\bigtitle.png" />
     <Content Include="res\index\images\bigtitle1.png" />
+    <Content Include="res\index\images\bigtitle4.png" />
     <Content Include="res\index\images\Button-1.png" />
     <Content Include="res\index\images\Button-2.png" />
     <Content Include="res\index\images\form.png" />
@@ -4886,6 +4888,7 @@
     <Content Include="SysManage\MenuFlowOperateEdit.aspx" />
     <Content Include="SysManage\ParticipateProject.aspx" />
     <Content Include="SysManage\RoleItem.aspx" />
+    <Content Include="SysManage\RoleItemEdit.aspx" />
     <Content Include="SysManage\RoleList.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -8401,6 +8404,13 @@
     <Compile Include="HSSE\SitePerson\DayReport.aspx.designer.cs">
       <DependentUpon>DayReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\SitePerson\DayReportDetailView.aspx.cs">
+      <DependentUpon>DayReportDetailView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\SitePerson\DayReportDetailView.aspx.designer.cs">
+      <DependentUpon>DayReportDetailView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\SitePerson\DayReportDetailEdit.aspx.cs">
       <DependentUpon>DayReportDetailEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -9417,6 +9427,13 @@
     </Compile>
     <Compile Include="SysManage\RoleItem.aspx.designer.cs">
       <DependentUpon>RoleItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysManage\RoleItemEdit.aspx.cs">
+      <DependentUpon>RoleItemEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysManage\RoleItemEdit.aspx.designer.cs">
+      <DependentUpon>RoleItemEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysManage\RoleList.aspx.cs">
       <DependentUpon>RoleList.aspx</DependentUpon>

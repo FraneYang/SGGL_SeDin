@@ -36,34 +36,18 @@ namespace FineUIPro.Web.SysManage
                 this.RoleId = Request.Params["roleId"];
                 ///权限
                 this.GetButtonPower();
-                BLL.ConstValue.InitConstValueDropDownList(this.drpRoleType, BLL.ConstValue.Group_0013, false);
-                gvCNCodes.DataSource = BLL.CNProfessionalService.GetList();
-                gvCNCodes.DataBind();
                 if (!string.IsNullOrEmpty(this.RoleId))
                 {
                     var role = BLL.RoleService.GetRoleByRoleId(this.RoleId);
                     if (role != null)
                     {
                         this.txtRoleCode.Text = role.RoleCode;
-                        this.txtRoleName.Text = role.RoleName;
-                        if (!string.IsNullOrEmpty(role.RoleType))
-                        {
-                            this.drpRoleType.SelectedValue = role.RoleType;
-                        }
-                        if (role.IsAuditFlow == true)
-                        {
-                            chkIsAuditFlow.Checked = true;
-                        }
-                        else
-                        {
-                            chkIsAuditFlow.Checked = false;
-                        }
-                        if (!string.IsNullOrEmpty(role.CNCodes))
-                        {
-                            txtCNCodes.Values = role.CNCodes.Split(',');
-                        }
+                        this.txtRoleName.Text = role.RoleName;                        
                         this.txtDef.Text = role.Def;
-
+                        if (role.IsOffice == true)
+                        {
+                            this.rbIsOfficce.SelectedValue = "1";
+                        }
                     }
                 }
                 else
@@ -110,21 +94,9 @@ namespace FineUIPro.Web.SysManage
                 {
                     RoleCode = this.txtRoleCode.Text.Trim(),
                     RoleName = this.txtRoleName.Text.Trim(),
-                    RoleType = this.drpRoleType.SelectedValue,
-                    Def = this.txtDef.Text.Trim()
-                };
-                if (this.chkIsAuditFlow.Checked)
-                {
-                    newRole.IsAuditFlow = true;
-                }
-                else
-                {
-                    newRole.IsAuditFlow = false;
-                }
-                if (!string.IsNullOrEmpty(String.Join(",", this.txtCNCodes.Values)))
-                {
-                    newRole.CNCodes = string.Join(",", txtCNCodes.Values);
-                }
+                    Def = this.txtDef.Text.Trim(),
+                    IsOffice = (this.rbIsOfficce.SelectedValue == "1" ? true : false),
+            };
                 if (string.IsNullOrEmpty(this.RoleId))
                 {
                     newRole.RoleId = SQLHelper.GetNewID(typeof(Model.Sys_Role));

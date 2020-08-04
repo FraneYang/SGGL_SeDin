@@ -54,30 +54,32 @@ namespace FineUIPro.Web.Person
                               left join Sys_User U on C.UserId=U.UserId where QuarterCheckId=@QuarterCheckId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@QuarterCheckId", this.QuarterCheckId));
-            if (this.CurrUser.UserId == BLL.Const.SGGLB)
-            {
-                strSql += " AND C.UserId=@UserId";
-                listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
-            }
-            else
-            {
-                var RoleId = BLL.UserService.GetUserByUserId(this.CurrUser.UserId).RoleId;
-                if (RoleId == BLL.Const.ProjectManager)
-                {
-                    strSql += " AND U.RoleId=@RoleId";
-                    listStr.Add(new SqlParameter("@RoleId", BLL.Const.ProjectManager));
-                }
-                else if (RoleId == BLL.Const.QAManager)
-                {
-                    strSql += " AND U.RoleId=@RoleId";
-                    listStr.Add(new SqlParameter("@RoleId", BLL.Const.QAManager));
-                }
-                else if (RoleId == BLL.Const.HSSEManager)
-                {
-                    strSql += " AND U.RoleId=@RoleId";
-                    listStr.Add(new SqlParameter("@RoleId", BLL.Const.HSSEManager));
-                }
-            }
+            strSql += " AND C.UserId=@UserId";
+            listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
+            //if (this.CurrUser.UserId == BLL.Const.SGGLB)
+            //{
+            //    strSql += " AND C.UserId=@UserId";
+            //    listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
+            //}
+            //else
+            //{
+            //    var RoleId = BLL.UserService.GetUserByUserId(this.CurrUser.UserId).RoleId;
+            //    if (RoleId == BLL.Const.ProjectManager)
+            //    {
+            //        strSql += " AND U.RoleId=@RoleId";
+            //        listStr.Add(new SqlParameter("@RoleId", BLL.Const.ProjectManager));
+            //    }
+            //    else if (RoleId == BLL.Const.QAManager)
+            //    {
+            //        strSql += " AND U.RoleId=@RoleId";
+            //        listStr.Add(new SqlParameter("@RoleId", BLL.Const.QAManager));
+            //    }
+            //    else if (RoleId == BLL.Const.HSSEManager)
+            //    {
+            //        strSql += " AND U.RoleId=@RoleId";
+            //        listStr.Add(new SqlParameter("@RoleId", BLL.Const.HSSEManager));
+            //    }
+            //}
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);

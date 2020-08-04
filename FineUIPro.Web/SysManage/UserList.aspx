@@ -27,7 +27,7 @@
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                             <Items>                             
-                                <f:TextBox runat="server" Label="用户" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
+                                <f:TextBox runat="server" Label="姓名" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
                                     OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="单位" ID="txtUnitName" EmptyText="输入查询条件" AutoPostBack="true"

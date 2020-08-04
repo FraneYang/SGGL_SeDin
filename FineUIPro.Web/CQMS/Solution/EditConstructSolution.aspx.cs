@@ -60,6 +60,7 @@ namespace FineUIPro.Web.CQMS.Solution
                 gvCNPro.DataSource = gvCNProfessional;
                 gvCNPro.DataBind();
                 BLL.SolutionTempleteTypeService.InitSolutionTempleteDropDownList(drpModelType, false);
+                BLL.SpecialSchemeTypeService.InitSpecialSchemeTypeDropDownList(drpSpecialType, false);
                 UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
                 BindZYRole();
                 BindZLRole();
@@ -88,7 +89,6 @@ namespace FineUIPro.Web.CQMS.Solution
                     {
                         if (!string.IsNullOrEmpty(constructSolution.SolutionType))
                         {
-                            BLL.SpecialSchemeTypeService.InitSpecialSchemeTypeByTempleteDropDownList(drpSpecialType, constructSolution.SolutionType, false);
                             drpSpecialType.SelectedValue = constructSolution.SpecialSchemeTypeId;
                         }
 
@@ -193,7 +193,10 @@ namespace FineUIPro.Web.CQMS.Solution
                     //{
                     //    GetCheck(tvCV.Nodes[0].ChildNodes, countersign.CVRole);
                     //}
-
+                    if (this.drpModelType.SelectedItem.Text == "施工组织设计")
+                    {
+                        drpSpecialType.Enabled = false;
+                    }
                 }
                 else
                 {
@@ -1143,7 +1146,17 @@ namespace FineUIPro.Web.CQMS.Solution
         {
             if (drpModelType.SelectedValue != BLL.Const._Null)
             {
-                BLL.SpecialSchemeTypeService.InitSpecialSchemeTypeByTempleteDropDownList(drpSpecialType, drpModelType.SelectedValue, false);
+                if (this.drpModelType.SelectedItem.Text == "施工组织设计")
+                {
+                    this.drpSpecialType.Enabled = false;
+                    this.drpSpecialType.SelectedValue = null;
+                    this.drpSpecialType.Required = false;
+                }
+                else
+                {
+                    this.drpSpecialType.Enabled = true;
+                    this.drpSpecialType.Required = true;
+                }
             }
         }
     }

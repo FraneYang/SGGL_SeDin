@@ -70,6 +70,7 @@ namespace FineUIPro.Web.SysManage
                 this.GetButtonPower();
                 this.UserId = Request.Params["userId"];
                 this.UnitId = Request.Params["UnitId"];
+
                 ConstValue.InitConstValueDropDownList(this.drpIsPost, ConstValue.Group_0001, false);
                 ConstValue.InitConstValueDropDownList(this.drpIsOffice, ConstValue.Group_0001, false);
                 UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, true);
@@ -89,7 +90,7 @@ namespace FineUIPro.Web.SysManage
                 }
 
                 ///角色下拉框
-                BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, true);
+                BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, true, true);
                 if (!string.IsNullOrEmpty(this.UserId))
                 {
                     var user = BLL.UserService.GetUserByUserId(this.UserId);
@@ -151,6 +152,11 @@ namespace FineUIPro.Web.SysManage
             if (this.drpUnit.SelectedValue == Const._Null)
             {
                 Alert.ShowInParent("请选择单位！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (this.drpDepart.SelectedValue == Const._Null)
+            {
+                Alert.ShowInParent("请选择部门！", MessageBoxIcon.Warning);
                 return;
             }
             var q = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == this.txtAccount.Text.Trim() && (x.UserId != this.UserId || (this.UserId == null && x.UserId != null)));
@@ -241,6 +247,7 @@ namespace FineUIPro.Web.SysManage
                     if (buttonList.Contains(BLL.Const.BtnSave))
                     {
                         this.btnSave.Hidden = false;
+                        this.btnArrowRefresh.Hidden = false;
                     }
                 }
             }
@@ -285,5 +292,25 @@ namespace FineUIPro.Web.SysManage
         {
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RoleItem.aspx?userId={0}", this.UserId, "查看 - ")));
         }
+
+        #region  重置
+        /// <summary>
+        /// 批量删除数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnArrowRefresh_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.UserId))
+            {
+                BLL.UserService.UpdatePassword(this.UserId, BLL.Const.Password);
+                ShowNotify("密码已重置为原始密码!", MessageBoxIcon.Success);
+            }
+            else
+            {
+                ShowNotify("请至少选中一行！", MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
     }
 }

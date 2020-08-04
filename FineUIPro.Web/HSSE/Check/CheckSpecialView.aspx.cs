@@ -110,7 +110,7 @@ namespace FineUIPro.Web.HSSE.Check
                                 {
                                     if (getRe.CompleteManId ==this.CurrUser.UserId &&( string.IsNullOrEmpty(getRe.States) || getRe.States == Const.State_0))
                                     {
-                                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", getRe.RectifyNoticesId, "编辑 - ")));
+                                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesAdd.aspx?RectifyNoticesId={0}", getRe.RectifyNoticesId, "编辑 - ")));
                                     }
                                     else
                                     {

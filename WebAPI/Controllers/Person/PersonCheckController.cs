@@ -78,6 +78,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="approveId"></param>
         /// <returns></returns>
+        [HttpGet]
         public ResponseData<string> UpdateApprove(string approveId)
         {
             ResponseData<string> res = new ResponseData<string>();
@@ -100,6 +101,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="approveId"></param>
         /// <returns></returns>
+        [HttpGet]
         public ResponseData<string> UpdateItems(string str)
         {
             ResponseData<string> res = new ResponseData<string>();

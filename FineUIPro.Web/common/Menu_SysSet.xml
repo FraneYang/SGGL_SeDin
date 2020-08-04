@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
   <TreeNode id="C2297533-B7C0-441E-B29F-ADE87C6F8978" Text="系统设置" NavigateUrl="">
-    <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0002" Text="单位设置" NavigateUrl="SysManage/Unit.aspx">
+    <TreeNode id="EBAD373C-8EB4-49A1-91F6-6794FFCAF9B6" Text="角色设置" NavigateUrl="SysManage/RoleList.aspx">
     </TreeNode>
-<TreeNode id="EBAD373C-8EB4-49A1-91F6-6794FFCAF9B6" Text="角色管理" NavigateUrl="SysManage/RoleList.aspx"></TreeNode>
 <TreeNode id="2231022B-3519-42FC-A2E6-1DB9A98039DD" Text="角色授权" NavigateUrl="SysManage/RolePower.aspx"></TreeNode>
 <TreeNode id="E6F0167E-B0FD-4A32-9C47-25FB9E0FDC4E" Text="用户信息" NavigateUrl="SysManage/UserList.aspx"></TreeNode>
 <TreeNode id="E4BFDCFD-2B1F-49C5-B02B-1C91BFFAAC6E" Text="环境设置" NavigateUrl="SysManage/SysConstSet.aspx"></TreeNode>

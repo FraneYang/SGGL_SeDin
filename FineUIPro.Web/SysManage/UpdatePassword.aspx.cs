@@ -33,18 +33,14 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Roles.RoleName,Unit.UnitName,Unit.UnitCode,Const13.ConstText AS RoleTypeName  "
+            string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Roles.RoleName,Unit.UnitName,Unit.UnitCode  "
                           + @" From dbo.Sys_User AS Users"
                           + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
-                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
-                          + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
+                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"                          
                           + @" WHERE  Users.Account !='hfnbd'";           
             List<SqlParameter> listStr = new List<SqlParameter>();
-            if (this.CurrUser.UserId != BLL.Const.sysglyId)
-            {
-                strSql += " AND UserId = @UserId";
-                listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
-            }
+            strSql += " AND UserId = @UserId";
+            listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
 
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
@@ -100,7 +96,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void btnArrowRefresh_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {               

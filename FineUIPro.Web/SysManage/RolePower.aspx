@@ -29,7 +29,12 @@
                                                 <Items>
                                                     <f:TextBox runat="server" Label="名称" ID="txtRoleName" EmptyText="输入查询条件" 
                                                         AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px">
-                                                     </f:TextBox>                                                          
+                                                     </f:TextBox>    
+                                                    <f:RadioButtonList runat="server" ID="rbIsOfficce" Label="类型" LabelWidth="90px"
+                                                        AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                                                        <f:RadioItem  Text="本部角色" Value="1" />
+                                                        <f:RadioItem  Text="项目角色" Value="0" Selected ="true"/>                            
+                                                    </f:RadioButtonList>
                                                 </Items>
                                             </f:Toolbar>
                                         </Toolbars>

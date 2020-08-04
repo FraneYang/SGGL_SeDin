@@ -24,6 +24,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
+                Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
                 var getProject = ProjectService.GetProjectByProjectId(projectId);
                 if (getProject != null)
                 {
@@ -39,7 +40,7 @@ namespace WebAPI.Controllers
                     }
 
                     //获取输入数据记录
-                    var getDataList = new Model.SGGLDB(Funs.ConnString).Wx_PageData.FirstOrDefault(x => x.ProjectId == projectId && x.CreatDate.Value.Year == DateTime.Now.Year
+                    var getDataList =db.Wx_PageData.FirstOrDefault(x => x.ProjectId == projectId && x.CreatDate.Value.Year == DateTime.Now.Year
                                     && x.CreatDate.Value.Month == DateTime.Now.Month && x.CreatDate.Value.Day == DateTime.Now.Day);
                     if (getDataList != null)
                     {
@@ -61,7 +62,7 @@ namespace WebAPI.Controllers
                         //当前周的范围
                         DateTime retStartDay = DateTime.Now.AddDays(-(weekDay - 1)).AddDays(-1);
                         DateTime retEndDay = DateTime.Now.AddDays(6 - weekDay).AddDays(1);
-                        Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString);
+                     
                         var getHazardItems = from x in db.Hazard_HazardSelectedItem
                                              join y in db.Hazard_HazardList on x.HazardListId equals y.HazardListId
                                              where y.ProjectId == projectId && y.CompileDate > retStartDay && y.CompileDate < retEndDay
@@ -97,7 +98,7 @@ namespace WebAPI.Controllers
                         }
 
                         //// 入场培训累计数量
-                        var getTrainRecords = from x in new Model.SGGLDB(Funs.ConnString).EduTrain_TrainRecord
+                        var getTrainRecords = from x in db.EduTrain_TrainRecord
                                               where x.ProjectId == projectId && x.TrainTypeId == Const.EntryTrainTypeId
                                               select x;
                         if (getTrainRecords.Count() > 0)
@@ -106,7 +107,7 @@ namespace WebAPI.Controllers
                         }
                     }
 
-                    var getPersonInOutNumber = new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectId && x.InOutDate.Year == DateTime.Now.Year
+                    var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectId && x.InOutDate.Year == DateTime.Now.Year
                       && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
                     if (getPersonInOutNumber != null)
                     {
