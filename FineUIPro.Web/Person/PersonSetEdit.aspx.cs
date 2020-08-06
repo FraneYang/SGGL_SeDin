@@ -12,7 +12,7 @@ namespace FineUIPro.Web.Person
     {
         #region 定义项
         /// <summary>
-        /// 用户主键
+        /// 员工主键
         /// </summary>
         public string UserId
         {
@@ -56,7 +56,7 @@ namespace FineUIPro.Web.Person
         #endregion
 
         /// <summary>
-        /// 用户编辑页面
+        /// 员工编辑页面
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -175,7 +175,7 @@ namespace FineUIPro.Web.Person
             }
             if (BLL.UserService.IsExistUserAccount(this.UserId, this.txtAccount.Text.Trim()))
             {
-                Alert.ShowInParent("用户账号已存在，请修改后再保存！", MessageBoxIcon.Warning);
+                Alert.ShowInParent("员工账号已存在，请修改后再保存！", MessageBoxIcon.Warning);
                 return;
             }
             if (!string.IsNullOrEmpty(this.txtIdentityCard.Text) && BLL.UserService.IsExistUserIdentityCard(this.UserId, this.txtIdentityCard.Text.Trim()) == true)
@@ -308,9 +308,9 @@ namespace FineUIPro.Web.Person
         }
         #endregion
 
-        #region 验证用户编号、工号是否存在
+        #region 验证员工编号、工号是否存在
         /// <summary>
-        /// 验证用户编号、账号是否存在
+        /// 验证员工编号、账号是否存在
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

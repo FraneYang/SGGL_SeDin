@@ -54,11 +54,22 @@
                    <f:TextBox ID="txtUnitName" runat="server" Label="所属单位" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow> 
+                <f:FormRow>
+                 <Items>
+                   <f:TextArea ID="txtWorkRange" runat="server" Label="工作范围" Readonly="true"></f:TextArea>
+                </Items>
+            </f:FormRow>  
             <f:FormRow>
                  <Items>
                    <f:TextArea ID="txtRemark" runat="server" Label="项目概况" Readonly="true"></f:TextArea>
                 </Items>
-            </f:FormRow>    
+            </f:FormRow>  
+            <f:FormRow>
+                 <Items>                   
+                    <f:TextBox runat="server" ID="txtProjectMoney" Label="合同额(万元)" Readonly="true"></f:TextBox>
+                     <f:TextBox runat="server" ID="txtConstructionMoney" Label="施工合同额(万元)" LabelWidth="140px" Readonly="true"></f:TextBox>
+                </Items>
+            </f:FormRow> 
             <f:FormRow>
                  <Items>
                    <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目" Enabled="false"></f:CheckBox>

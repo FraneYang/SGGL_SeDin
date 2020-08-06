@@ -61,7 +61,10 @@
                         FieldType="String" HeaderText="项目类型"  HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
                     <f:RenderField Width="110px" ColumnID="ProjectMoney" DataField="ProjectMoney" 
-                        FieldType="String" HeaderText="合同额(万元)"  HeaderTextAlign="Center" TextAlign="Left">
+                        FieldType="String" HeaderText="合同额(万元)"  HeaderTextAlign="Center" TextAlign="Right">
+                    </f:RenderField>
+                     <f:RenderField Width="120px" ColumnID="ConstructionMoney" DataField="ConstructionMoney" 
+                        FieldType="String" HeaderText="施工合同额(万元)"  HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
                     <f:TemplateField ColumnID="tfCM" Width="85px" HeaderText="施工经理" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>

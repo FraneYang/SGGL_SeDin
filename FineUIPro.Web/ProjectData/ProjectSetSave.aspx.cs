@@ -54,6 +54,7 @@ namespace FineUIPro.Web.ProjectData
                         this.txtProjectAddress.Text = project.ProjectAddress;
                         this.txtWorkRange.Text = project.WorkRange;
                         this.txtContractNo.Text = project.ContractNo;
+                        this.txtRemark.Text = project.Remark;
                         if (project.Duration != null)
                         {
                             this.txtDuration.Text = project.Duration.ToString();
@@ -116,6 +117,7 @@ namespace FineUIPro.Web.ProjectData
                         }
                         this.txtMapCoordinates.Text = project.MapCoordinates;
                         this.txtProjectMoney.Text = project.ProjectMoney.ToString();
+                        this.txtConstructionMoney.Text = project.ConstructionMoney.ToString();
                     }
                 }
             }
@@ -139,6 +141,8 @@ namespace FineUIPro.Web.ProjectData
                 MapCoordinates = this.txtMapCoordinates.Text.Trim(),
                 ProjectState = this.drpProjectState.SelectedValue,
                 ProjectMoney=Funs.GetNewDecimal(this.txtProjectMoney.Text),
+                ConstructionMoney = Funs.GetNewDecimal(this.txtConstructionMoney.Text),
+                Remark=this.txtRemark.Text.Trim(),
             };
 
             if (!string.IsNullOrEmpty(txtStartDate.Text.Trim()))

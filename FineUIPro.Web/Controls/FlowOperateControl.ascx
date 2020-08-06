@@ -17,7 +17,7 @@
                                     </f:TextArea>
                                 </Items>
                             </f:FormRow>
-                            <f:FormRow ColumnWidths="13% 25% 45% 17%">
+                            <f:FormRow ColumnWidths="20% 35% 45%">
                                 <Items>
                                     <f:DropDownList ID="rblFlowOperate" runat="server" MarginLeft="35px" OnSelectedIndexChanged="rblFlowOperate_SelectedIndexChanged" AutoPostBack="true">
                                         <f:ListItem Value="1" Text="下一步" Selected="true" />

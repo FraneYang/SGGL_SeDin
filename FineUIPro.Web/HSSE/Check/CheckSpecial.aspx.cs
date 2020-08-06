@@ -1,8 +1,10 @@
-﻿using BLL;
+﻿using Aspose.Words;
+using BLL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 
 namespace FineUIPro.Web.HSSE.Check
@@ -56,8 +58,8 @@ namespace FineUIPro.Web.HSSE.Check
         private void BindGrid()
         {
             string strSql = @"SELECT CheckSpecial.CheckSpecialId,CodeRecords.Code AS CheckSpecialCode,"
-                          + @" CheckItemSet.CheckItemName,CheckSpecial.CheckTime"
-                          +@" ,(CASE WHEN CheckSpecial.States='2' THEN '已完成' WHEN CheckSpecial.States='1' THEN '待整改' ELSE '待提交' END) AS StatesName"
+                          + @" CheckItemSet.CheckItemName,CheckSpecial.CheckTime,(CASE WHEN CheckSpecial.CheckType ='1' THEN '联合检查' ELSE '专项检查' END) AS CheckTypeName"
+                          + @" ,(CASE WHEN CheckSpecial.States='2' THEN '已完成' WHEN CheckSpecial.States='1' THEN '待整改' ELSE '待提交' END) AS StatesName"
                           + @" FROM Check_CheckSpecial AS CheckSpecial "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON CheckSpecial.CheckSpecialId=CodeRecords.DataId "
                           + @" LEFT JOIN Technique_CheckItemSet AS CheckItemSet ON CheckItemSet.CheckItemSetId = CheckSpecial.CheckItemSetId where 1=1";
@@ -69,6 +71,19 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 strSql += " AND CheckSpecial.States = @States"; 
                 listStr.Add(new SqlParameter("@States", this.rbStates.SelectedValue));
+            }
+            if (this.rbType.SelectedValue != "-1")
+            {
+                if (this.rbType.SelectedValue == "1")
+                {
+                    strSql += " AND CheckSpecial.CheckType = @CheckType";
+                    listStr.Add(new SqlParameter("@CheckType", this.rbType.SelectedValue));
+                }
+                else
+                {
+                    strSql += " AND (CheckSpecial.CheckType = @CheckType OR CheckSpecial.CheckType IS NULL) ";
+                    listStr.Add(new SqlParameter("@CheckType", this.rbType.SelectedValue));
+                }
             }
             if (this.drpSupCheckItemSet.SelectedValue!=BLL.Const._Null)
             {
@@ -318,5 +333,189 @@ namespace FineUIPro.Web.HSSE.Check
                 }
             }
         }
+
+        #region 导出详细
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnPrinter_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string Id = Grid1.SelectedRowID;
+            var checkSpecial = BLL.Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(Id);
+            string rootPath = Server.MapPath("~/");
+            string initTemplatePath = string.Empty;
+            string uploadfilepath = string.Empty;
+            string newUrl = string.Empty;
+            string filePath = string.Empty;
+            initTemplatePath = "File\\Word\\HSSE\\专项检查.doc";
+            uploadfilepath = rootPath + initTemplatePath;
+            newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".doc");
+            filePath = initTemplatePath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
+            File.Copy(uploadfilepath, newUrl);
+            ///更新书签
+            Document doc = new Aspose.Words.Document(newUrl);
+
+            Bookmark bookmarkProjectName = doc.Range.Bookmarks["ProjectName"];
+            if (bookmarkProjectName != null)
+            {
+                if (checkSpecial != null)
+                {
+                    var project = ProjectService.GetProjectByProjectId(checkSpecial.ProjectId);
+                    if (project != null)
+                    {
+                        bookmarkProjectName.Text = project.ProjectName;
+                    }
+                }
+
+            }
+            Bookmark bookmarkCheckSpecialCode = doc.Range.Bookmarks["CheckSpecialCode"];
+            if (bookmarkCheckSpecialCode != null)
+            {
+                if (checkSpecial != null)
+                {
+                    if (!string.IsNullOrEmpty(checkSpecial.CheckSpecialCode))
+                    {
+                        bookmarkCheckSpecialCode.Text = checkSpecial.CheckSpecialCode;
+                    }
+                }
+
+            }
+            Bookmark bookmarkSupCheckItemSet = doc.Range.Bookmarks["SupCheckItemSet"];
+            if (bookmarkSupCheckItemSet != null)
+            {
+                if (checkSpecial != null)
+                {
+                    bookmarkSupCheckItemSet.Text = Technique_CheckItemSetService.GetCheckItemSetNameById(checkSpecial.CheckItemSetId);
+                }
+
+            }
+            Bookmark bookmarkCheckDate = doc.Range.Bookmarks["CheckDate"];
+            if (bookmarkCheckDate != null)
+            {
+                if (checkSpecial != null)
+                {
+                    bookmarkSupCheckItemSet.Text = string.Format("{0:yyyy-MM-dd}", checkSpecial.CheckTime);
+                }
+
+            }
+            Bookmark bookmarkPartInPersons = doc.Range.Bookmarks["PartInPersons"];
+            if (bookmarkPartInPersons != null)
+            {
+                if (checkSpecial != null)
+                {
+                    if (!string.IsNullOrEmpty(checkSpecial.PartInPersons))
+                    {
+                        bookmarkPartInPersons.Text = checkSpecial.PartInPersons;
+                    }
+
+                }
+
+            }
+            //专项检查列表
+            Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
+            builder.MoveToBookmark("tab");
+            builder.StartTable();
+            builder.RowFormat.Alignment = Aspose.Words.Tables.RowAlignment.Center;
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.RowFormat.LeftIndent = 100;
+            builder.Bold = false;
+            builder.RowFormat.Height = 20;
+            builder.Bold = false;
+            var checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
+                                       where x.CheckSpecialId == Id
+                                       orderby x.SortIndex
+                                       select x).ToList();
+            int num = 1;
+            foreach (Model.View_CheckSpecialDetail detail in checkSpecialDetails)
+            {
+                //序号
+                builder.InsertCell();
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.Width = 20;
+                builder.Write(num.ToString());
+                //单位工程
+                builder.InsertCell();
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.Width = 55;
+                builder.Write(detail.CheckAreaName);
+                //单位
+                builder.InsertCell();
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.Width = 120;
+                builder.Write(detail.UnitName);
+                //问题描述
+                builder.InsertCell();
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.Width = 40;
+                builder.Write(detail.Unqualified);
+                //问题类型
+                builder.InsertCell();
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.Width = 100;
+                builder.Write(detail.CheckItemName);
+                //处理结果
+                builder.InsertCell();
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.Width = 50;
+                builder.Write(detail.CompleteStatusName);
+                //隐患类别
+                builder.InsertCell();
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.Width = 50;
+                builder.Write(detail.HiddenHazardTypeName);
+                builder.EndRow();
+                num++;
+            }
+            builder.EndTable();
+            doc.Save(newUrl);
+            //生成PDF文件
+            string pdfUrl = newUrl.Replace(".doc", ".pdf");
+            Document doc1 = new Aspose.Words.Document(newUrl);
+            //验证参数
+            if (doc1 == null) { throw new Exception("Word文件无效"); }
+            doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
+            string fileName = Path.GetFileName(filePath);
+            FileInfo info = new FileInfo(pdfUrl);
+            long fileSize = info.Length;
+            Response.Clear();
+            Response.ContentType = "application/x-zip-compressed";
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+            Response.AddHeader("Content-Length", fileSize.ToString());
+            Response.TransmitFile(pdfUrl, 0, fileSize);
+            Response.Flush();
+            Response.Close();
+            File.Delete(newUrl);
+            File.Delete(pdfUrl);
+        }
+        #endregion
     }
 }

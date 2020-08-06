@@ -19,7 +19,7 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="用户信息" EnableCollapse="true"
+                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="员工信息" EnableCollapse="true"
                     runat="server" BoxFlex="1" DataKeyNames="UserId"  EnableColumnLines="true"
                      DataIDField="UserId" AllowSorting="true" SortField="UserCode" ForceFit="true"
                     SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
@@ -28,11 +28,14 @@
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                             <Items>
-                                <f:TextBox runat="server" Label="用户" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
+                                <f:TextBox runat="server" Label="姓名" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="角色" ID="txtRoleName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px">
+                                </f:TextBox>
+                                    <f:TextBox runat="server" Label="项目" ID="txtProjectName" EmptyText="输入查询条件" AutoPostBack="true"
+                                    OnTextChanged="TextBox_TextChanged" Width="300px" LabelWidth="60px">
                                 </f:TextBox>
                                 <f:CheckBox runat="server" ID="ckbAll" Label="全部" LabelAlign="Right" AutoPostBack="true" OnCheckedChanged="ckbAll_CheckedChanged"></f:CheckBox>
                                 <f:ToolbarFill runat="server">
@@ -55,8 +58,8 @@
                         <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                             FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="100px" ColumnID="Account" DataField="Account" SortField="Account"
-                            FieldType="String" HeaderText="工号" HeaderTextAlign="Center" TextAlign="Left">
+                        <f:RenderField Width="120px" ColumnID="Account" DataField="Account" SortField="Account"
+                            FieldType="String" HeaderText="工号/账号" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                          <f:RenderField Width="120px" ColumnID="DepartName" DataField="DepartName" SortField="DepartName"
                             FieldType="String" HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left">
@@ -104,7 +107,7 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="用户信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        <f:Window ID="Window1" Title="员工信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
             Height="560px">
         </f:Window>

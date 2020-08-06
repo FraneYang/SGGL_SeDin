@@ -53,7 +53,7 @@ namespace FineUIPro.Web.ProjectData
                 }
                 txtProjectName.Text = ProjectService.GetProjectByProjectId(this.ProjectId).ProjectName;
                 MainItemId = Request.Params["MainItemId"];
-                gvCarryUnit.DataSource = (from x in Funs.DB.WBS_UnitWork where x.SuperUnitWork == null && x.ProjectId == this.CurrUser.LoginProjectId orderby x.UnitWorkCode select x);
+                gvCarryUnit.DataSource = (from x in Funs.DB.Base_DesignProfessional orderby x.DesignProfessionalCode select x);
                 gvCarryUnit.DataBind();
                 if (!string.IsNullOrEmpty(MainItemId))
                 {
@@ -61,9 +61,9 @@ namespace FineUIPro.Web.ProjectData
                     this.txtMainItemCode.Text = MaineItem.MainItemCode;
                     this.txtMainItemName.Text = MaineItem.MainItemName;
                     this.txtRemark.Text = MaineItem.Remark;
-                    if (!string.IsNullOrEmpty(MaineItem.UnitWorkIds))
+                    if (!string.IsNullOrEmpty(MaineItem.DesignProfessionalIds))
                     {
-                        txtCarryUnit.Values = MaineItem.UnitWorkIds.Split(',');
+                        txtCarryUnit.Values = MaineItem.DesignProfessionalIds.Split(',');
                     }
                 }
             }
@@ -75,7 +75,7 @@ namespace FineUIPro.Web.ProjectData
             maiItem.MainItemCode = this.txtMainItemCode.Text;
             maiItem.MainItemName = this.txtMainItemName.Text;
             maiItem.ProjectId = this.ProjectId;
-            maiItem.UnitWorkIds = string.Join(",", txtCarryUnit.Values);
+            maiItem.DesignProfessionalIds = string.Join(",", txtCarryUnit.Values);
             maiItem.Remark = this.txtRemark.Text.Trim();
             if (!string.IsNullOrEmpty(MainItemId))
             {

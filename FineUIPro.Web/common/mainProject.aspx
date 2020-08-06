@@ -139,10 +139,10 @@
         }
          .tab-wrap .tab .t-item{
             width:auto;
-            background-color:#2779AA !important;
+            background-color:rgb(23, 68, 122) !important;
         }
         .tab-wrap .tab .active{
-             background-color:#fff;
+             background-color:rgba(0,162,233, 1) !important;
         }
         
         .tab-content .line-item{
@@ -459,7 +459,7 @@
                         <%--总人数--%>
                         <div class="content-wrap flex1 flex txt-board">
                             <div class="num-wrap flex1 flex flexV">
-                                <div class="tit">当天在场总人数</div>
+                                <div class="tit">当前现场人数</div>
                                 <div class="num flex flex1">
                                     <div class="flex1">5</div>
                                     <div class="flex1">1</div>
@@ -467,7 +467,7 @@
                                 </div>
                             </div>
                              <div class="num-wrap flex1 flex flexV">
-                                <div class="tit">作业人员总人数</div>
+                                <div class="tit">作业人员总数</div>
                                 <div class="num flex flex1 color1">
                                     <div class="flex1">3</div>
                                     <div class="flex1">0</div>
@@ -475,7 +475,7 @@
                                 </div>
                             </div>
                             <div class="num-wrap flex1 flex flexV">
-                                <div class="tit">管理人员总人数</div>
+                                <div class="tit">管理人员总数</div>
                                 <div class="num flex flex1 color2">
                                     <div class="flex1">2</div>
                                     <div class="flex1">7</div>
@@ -583,7 +583,11 @@
                     name: ' ',
                     center: ["50%", "50%"],
                     type: 'gauge',
-                    radius: "80%",
+                    radius: "90%",
+                    axisLabel : { //文字样式（及“10”、“20”等文字样式）
+                        fontSize: 10,
+                        distance : 5 //文字离表盘的距离
+                    },
                     pointer: {
                         show: true,
                         length: '70%',

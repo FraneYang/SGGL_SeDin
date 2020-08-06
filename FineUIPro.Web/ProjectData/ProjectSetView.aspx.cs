@@ -56,10 +56,10 @@ namespace FineUIPro.Web.ProjectData
                         }
 
                         this.txtShortName.Text = project.ShortName;
-                        var projectType = BLL.ConstValue.GetConstByConstValueAndGroupId(project.ProjectType,BLL.ConstValue.Group_ProjectType);
+                        var projectType = ProjectTypeService.GetProjectTypeById(project.ProjectType);
                         if (projectType != null)
                         {
-                            this.txtProjectType.Text = projectType.ConstText;
+                            this.txtProjectType.Text = projectType.ProjectTypeName;
                         }
                         this.txtProjectManager.Text = ProjectService.GetProjectManagerName(this.ProjectId);
                         this.txtConstructionManager.Text = ProjectService.GetConstructionManagerName(this.ProjectId);
@@ -85,9 +85,11 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.ckbIsForeign.Checked = true;
                         }
-
+                        this.txtWorkRange.Text = project.WorkRange;
                         this.txtMapCoordinates.Text = project.MapCoordinates;
                         this.txtDuration.Text = project.Duration.ToString();
+                        this.txtProjectMoney.Text = project.ProjectMoney.ToString();
+                        this.txtConstructionMoney.Text = project.ConstructionMoney.ToString();
                     }
                 }
             }

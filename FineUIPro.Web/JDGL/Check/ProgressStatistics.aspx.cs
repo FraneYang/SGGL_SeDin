@@ -796,11 +796,11 @@ namespace FineUIPro.Web.JDGL.Check
             {
                 if (list1[i].ProjectType == "1")
                 {
-                    ListItem[i] = new ListItem(list1[i].UnitWorkName + "(建筑)", list1[i].UnitWorkId.ToString());
+                    ListItem[i] = new ListItem(list1[i].UnitWorkCode + "-" + list1[i].UnitWorkName + "(建筑)", list1[i].UnitWorkId.ToString());
                 }
                 else
                 {
-                    ListItem[i] = new ListItem(list1[i].UnitWorkName + "(安装)", list1[i].UnitWorkId.ToString());
+                    ListItem[i] = new ListItem(list1[i].UnitWorkCode + "-" + list1[i].UnitWorkName + "(安装)", list1[i].UnitWorkId.ToString());
                 }
 
             }

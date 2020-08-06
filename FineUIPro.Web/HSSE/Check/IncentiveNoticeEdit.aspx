@@ -195,12 +195,6 @@
                         </f:GroupPanel>
                     </Items>
                 </f:FormRow>
-                <f:FormRow ID="next3">
-                    <Items>
-                        <f:CheckBox ID="ckAccept" MarginLeft="40px" runat="server" Text="确认接受" LabelWidth="200px" Readonly="true" Hidden="true" Checked="true">
-                        </f:CheckBox>
-                    </Items>
-                </f:FormRow>
 
 
                 <f:FormRow>

@@ -264,7 +264,7 @@
                 text: '当前现场人数',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight:'300'
                 },
                 show: true
@@ -323,7 +323,7 @@
                 text: '项目安全人工时',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight:'300'
                 },
                 show: true
@@ -409,7 +409,7 @@
                 text: '作业许可数量统计',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                     fontSize: 12,
                     fontWeight:'300'
                 },
                 show: true
@@ -495,7 +495,8 @@
                 text: '安全检查问题统计',
                 textStyle: {
                     color: '#fff',
-                    fontWeight:'300'
+                     fontSize: 12,
+                    fontWeight: '300',
                 },
                 show: true
             },
@@ -587,7 +588,7 @@
                 text: '人场安全培训',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                   fontSize: 12,
                     fontWeight:'300'
                 },
                 show: true
@@ -688,7 +689,7 @@
 	            left:'12%',
 	            textStyle:{
 	                color: '#fff',
-                    fontSize: 16,
+                    fontSize: 12,
                     fontWeight:300
 	            }
 	        }],

@@ -43,17 +43,17 @@
                                              <f:TextBox ID="txtMainItemName" runat="server" Label="主项名称"
                                                 Required="true" MaxLength="70" ShowRedStar="true" LabelWidth="130px">
                                             </f:TextBox>
-                                            <f:DropDownBox runat="server" Label="单位工程" ShowRedStar="true"
+                                            <f:DropDownBox runat="server" Label="包含设计专业" ShowRedStar="true"
                                                 Required="true" ID="txtCarryUnit" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true" LabelWidth="130px">
                                                 <PopPanel>
-                                                    <f:Grid ID="gvCarryUnit" DataIDField="UnitWorkId"
-                                                        EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="UnitWorkId" DataTextField="UnitWorkName"
+                                                    <f:Grid ID="gvCarryUnit" DataIDField="DesignProfessionalId"
+                                                        EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="DesignProfessionalId" DataTextField="ProfessionalName"
                                                         ShowBorder="true" ShowHeader="false" ForceFit="true"
                                                         runat="server" EnableCheckBoxSelect="true">
                                                         <Columns>
-                                                            <f:BoundField Width="100px" DataField="UnitWorkId" SortField="UnitWorkId" DataFormatString="{0}" Hidden="true" />
-                                                            <f:BoundField Width="100px" DataField="UnitWorkName" SortField="UnitWorkName" DataFormatString="{0}"
-                                                                 HeaderText="单位工程名称" />
+                                                            <f:BoundField Width="100px" DataField="DesignProfessionalId" SortField="DesignProfessionalId" DataFormatString="{0}" Hidden="true" />
+                                                            <f:BoundField Width="100px" DataField="ProfessionalName" SortField="ProfessionalName" DataFormatString="{0}"
+                                                                 HeaderText="专业名称" />
                                                         </Columns>
                                                     </f:Grid>
                                                 </PopPanel>

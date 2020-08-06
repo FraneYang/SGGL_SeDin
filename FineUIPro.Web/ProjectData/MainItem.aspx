@@ -78,10 +78,10 @@
                         <f:RenderField Width="110px" ColumnID="MainItemName" DataField="MainItemName" FieldType="String" HeaderText="主项名称" TextAlign="Center" 
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:TemplateField ColumnID="UnitWorkIds" Width="260px" HeaderText="对应单位工程" HeaderTextAlign="Center" TextAlign="Center"
+                        <f:TemplateField ColumnID="UnitWorkIds" Width="260px" HeaderText="包含设计专业" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False" >
                                     <ItemTemplate>
-                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertUnitName(Eval("UnitWorkIds")) %>'></asp:Label>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertProfessionalName(Eval("DesignProfessionalIds")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
                     </Columns>

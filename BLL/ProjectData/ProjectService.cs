@@ -78,6 +78,7 @@
                 FromProjectId = project.FromProjectId,
                 MapCoordinates = project.MapCoordinates,
                 ProjectMoney = project.ProjectMoney,
+                ConstructionMoney = project.ConstructionMoney,
         };
             db.Base_Project.InsertOnSubmit(newProject);
             db.SubmitChanges();
@@ -114,6 +115,7 @@
                 newProject.FromProjectId = project.FromProjectId;
                 newProject.MapCoordinates = project.MapCoordinates;
                 newProject.ProjectMoney = project.ProjectMoney;
+                newProject.ConstructionMoney = project.ConstructionMoney;
                 db.SubmitChanges();
             }
         }

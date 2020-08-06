@@ -23,7 +23,7 @@ namespace FineUIPro.Web.ProjectData
                     this.txtMainItemCode.Text = MaineItem.MainItemCode;
                     this.txtMainItemName.Text = MaineItem.MainItemName;
                     this.txtRemark.Text = MaineItem.Remark;
-                    this.txtUnitWork.Text = UnitWorkService.GetUnitWorkName(MaineItem.UnitWorkIds);
+                    this.txtDesignProfessional.Text = DesignProfessionalService.GetDesignProfessionalNameByIds(MaineItem.DesignProfessionalIds);
                 }
             }
         }

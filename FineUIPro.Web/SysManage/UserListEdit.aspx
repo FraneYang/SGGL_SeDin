@@ -65,7 +65,7 @@
             <Toolbars>
                 <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
-                         <f:Button ID="btnArrowRefresh" ToolTip="重置选中项密码" Icon="ArrowRefresh" ConfirmText="确定恢复当前用户原始密码？" OnClick="btnArrowRefresh_Click"
+                         <f:Button ID="btnArrowRefresh" Text="重置密码" Icon="ArrowRefresh" ConfirmText="确定恢复当前用户原始密码？" OnClick="btnArrowRefresh_Click"
                                 runat="server" Hidden="true">
                             </f:Button>  
                         <f:ToolbarFill runat="server"></f:ToolbarFill>

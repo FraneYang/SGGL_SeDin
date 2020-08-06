@@ -55,7 +55,10 @@ namespace FineUIPro.Web.HSSE.Check
                     {
                         this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", checkSpecial.CheckTime);
                     }
-                   
+                    if (!String.IsNullOrEmpty(checkSpecial.CheckType))
+                    {
+                        this.rbType.SelectedValue = checkSpecial.CheckType;
+                    }
                     this.txtPartInPersonNames.Text = checkSpecial.PartInPersonNames;
                     this.txtSupCheckItemSet.Text = Technique_CheckItemSetService.GetCheckItemSetNameById(checkSpecial.CheckItemSetId);
                     this.txtPartInPersons.Text = checkSpecial.PartInPersons;

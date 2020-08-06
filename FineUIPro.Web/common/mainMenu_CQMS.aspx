@@ -73,6 +73,7 @@
             padding: 0 10px;
             color:#fff;
             justify-content: space-between;
+            font-size:12px;
         }
         .tip-item{
             margin-left: 10px;
@@ -110,7 +111,7 @@
                             <div class="bw-item-content flex flexV" style="padding: 0; position: relative;">
                                 <div class="flex " style="position: absolute; width: 100%; font-size: 14px;">
                                     <div class="flex flex1  tit-item">
-                                        <div class="tit">质量控制点通知</div>
+                                        <div class="tit">质量控制点统计</div>
                                         <div class="flex">
                                             <div class="tip-item flex">
                                                 <div class="tip"></div>
@@ -250,9 +251,9 @@
     var one1 =<%=One1 %>
     var one2 =<%=One2 %>
     var one3 =<%=One3 %>
-    category_One('one1', "项目质量验收一次合格率", one1)
-    category_One('one2', "项目施工资料同步率", one2)
-    category_One('one3', "项目质量问题整改完成率", one3)
+    category_One('one1', "质量验收一次合格率", one1)
+    category_One('one2', "施工资料同步率", one2)
+    category_One('one3', "质量问题整改完成率", one3)
 </script>
 <script type="text/javascript">
     function category_six(id, title, xArr, data) {
@@ -472,7 +473,7 @@
                 textStyle: {
                     color: '#fff',
                     fontWeight: 'normal',
-                    fontSize: 16
+                    fontSize: 12
                 },
                 show: true
             },

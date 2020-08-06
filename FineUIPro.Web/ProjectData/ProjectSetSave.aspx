@@ -75,13 +75,24 @@
                  <Items>
                    <f:DropDownList ID="drpUnit" Label="所属单位" runat="server" EnableEdit="true">
                    </f:DropDownList>
-                     <f:TextBox ID="txtWorkRange" runat="server" Label="工作范围" MaxLength="500" ></f:TextBox>
+                     <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目"></f:CheckBox>                     
                 </Items>
             </f:FormRow> 
-            <f:FormRow runat="server" ID="trIsForeign">
-                 <Items>
-                   <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目"></f:CheckBox>
+            <f:FormRow>
+                <Items>
+                    <f:TextArea ID="txtWorkRange" runat="server" Label="工作范围" MaxLength="500" Height="50px"></f:TextArea>
+                </Items>
+            </f:FormRow>
+             <f:FormRow>
+                <Items>
+                    <f:TextArea ID="txtRemark" runat="server" Label="项目概况" MaxLength="500" Height="50px"></f:TextArea>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                 <Items>                   
                     <f:NumberBox runat="server" ID="txtProjectMoney" Label="合同额(万元)" NoNegative="true" ></f:NumberBox>
+                     <f:NumberBox runat="server" ID="txtConstructionMoney" Label="施工合同额(万元)" LabelWidth="140px"
+                         NoNegative="true" ></f:NumberBox>
                 </Items>
             </f:FormRow>   
             <f:FormRow>   

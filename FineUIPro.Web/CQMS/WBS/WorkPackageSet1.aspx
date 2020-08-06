@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
@@ -46,12 +46,12 @@
                                         <asp:CheckBox runat="server" ID="cbSelect" AutoPostBack="true" OnCheckedChanged="cbSelect_CheckedChanged" />
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                
+
                                 <f:RenderField Width="200px" ColumnID="PackageContent" DataField="PackageContent" FieldType="String"
                                     HeaderText="第1级" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="定制" ColumnID="SuperWorkPack" DataField="SuperWorkPack" SortField="SuperWorkPack"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="200px" FieldType="String" >
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="200px" FieldType="String">
                                     <Editor>
                                         <f:TextBox runat="server" ID="txtName">
                                         </f:TextBox>
@@ -118,7 +118,7 @@
         var btnDelID = '<%= btnDel.ClientID %>';
         var btnReCheckID = '<%= btnReCheck.ClientID %>';
         var hdId = '<%= hdId.ClientID %>';
-        var hdTotalValue='<%= hdTotalValue.ClientID %>';
+        var hdTotalValue ='<%= hdTotalValue.ClientID %>';
         // 保存当前菜单对应的树节点ID
         var currentNodeId;
 
@@ -131,15 +131,18 @@
         }
 
         function onGridAfterEdit(event, value, params) {
-             var me = this, columnId = params.columnId, rowId = params.rowId;
+            var me = this, columnId = params.columnId, rowId = params.rowId;
             if (columnId === 'Weights') {
                 var Weights = me.getCellValue(rowId, 'Weights');
                 if (Weights.toString() != "") {
                     var totalValue = F(hdTotalValue).value;
                     me.updateCellValue(rowId, 'Weights', parseFloat(Weights).toFixed(2));
                     if (totalValue != "0") {
-                         me.updateCellValue(rowId, 'Costs', (totalValue/100*parseFloat(Weights)).toFixed(4));
+                        me.updateCellValue(rowId, 'Costs', (totalValue / 100 * parseFloat(Weights)).toFixed(4));
                     }
+                }
+                else{
+                    me.updateCellValue(rowId, 'Costs', "");
                 }
             }
             // 回发到后台更新
@@ -169,7 +172,7 @@
                 document.getElementById(btnDelID).click();
             }
             else {
-                 document.getElementById(btnReCheckID).click();
+                document.getElementById(btnReCheckID).click();
             }
         }
     </script>

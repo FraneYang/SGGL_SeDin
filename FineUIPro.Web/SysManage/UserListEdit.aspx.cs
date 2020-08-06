@@ -66,6 +66,7 @@ namespace FineUIPro.Web.SysManage
             {
             
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                string type = Request.Params["type"];
                 ///权限
                 this.GetButtonPower();
                 this.UserId = Request.Params["userId"];
@@ -75,20 +76,15 @@ namespace FineUIPro.Web.SysManage
                 ConstValue.InitConstValueDropDownList(this.drpIsOffice, ConstValue.Group_0001, false);
                 UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, true);
                 DepartService.InitDepartDropDownList(this.drpDepart, true);
-                if (!string.IsNullOrEmpty(this.CurrUser.UnitId))
-                {
-                    this.drpUnit.SelectedValue = this.CurrUser.UnitId;
-                }
                 if (!string.IsNullOrEmpty(this.UnitId))
                 {
-                    this.drpUnit.SelectedValue = this.UnitId;
                     this.drpIsOffice.SelectedValue= "False";
                 }
+
                 if (!BLL.CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId)) ///不是企业单位或者管理员
                 {
                     this.drpUnit.Enabled = false;
                 }
-
                 ///角色下拉框
                 BLL.RoleService.InitRoleDropDownList(this.drpRole, string.Empty, true, true);
                 if (!string.IsNullOrEmpty(this.UserId))
@@ -130,14 +126,13 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
 
-                string type = Request.Params["type"];
                 if (type == "-1")
                 {
                     this.trServer.Hidden = true;
                 }
                 else if (type == "0")
                 {
-                    this.drpUnit.SelectedValue = Const.UnitId_SEDIN;                  
+                    this.drpUnit.SelectedValue = Const.UnitId_SEDIN;
                 }
             }
         }
@@ -154,7 +149,7 @@ namespace FineUIPro.Web.SysManage
                 Alert.ShowInParent("请选择单位！", MessageBoxIcon.Warning);
                 return;
             }
-            if (this.drpDepart.SelectedValue == Const._Null)
+            if (this.drpDepart.SelectedValue == Const._Null && !this.trServer.Hidden)
             {
                 Alert.ShowInParent("请选择部门！", MessageBoxIcon.Warning);
                 return;

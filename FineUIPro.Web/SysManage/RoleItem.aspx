@@ -21,7 +21,7 @@
                 <Toolbars>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
-                                <f:TextBox runat="server" ID="txtProjectName" Label="项目"  Width="220px" LabelWidth="70px"
+                                <f:TextBox runat="server" ID="txtProjectName" Label="项目"  Width="300px" LabelWidth="70px"
                                     OnTextChanged="txtProjectName_Blur" AutoPostBack="true"></f:TextBox>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                 </f:ToolbarFill>
@@ -37,8 +37,8 @@
                         SortField="ProjectName" FieldType="String" HeaderText="项目名称" HeaderTextAlign="Center"
                         TextAlign="Left">                      
                     </f:RenderField>
-                    <f:RenderField Width="140px" ColumnID="ProjectName" DataField="ProjectName" EnableFilter="true"
-                        SortField="ProjectName" FieldType="String" HeaderText="项目名称" HeaderTextAlign="Center"
+                    <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" EnableFilter="true"
+                        SortField="UserName" FieldType="String" HeaderText="姓名" HeaderTextAlign="Center"
                         TextAlign="Left">                      
                     </f:RenderField>
                     <f:TemplateField ColumnID="RoleId" Width="180px" HeaderText="角色名称" HeaderTextAlign="Center" TextAlign="Center"
@@ -85,6 +85,7 @@
             </f:MenuButton>
         </f:Menu>
     </form>
+ </body>
     <script type="text/jscript">
         var menuID = '<%= Menu1.ClientID %>';
         // 返回false，来阻止浏览器右键菜单

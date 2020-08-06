@@ -166,6 +166,10 @@
                          me.updateCellValue(rowId, 'Costs', (totalValue/100*parseFloat(Weights)).toFixed(4));
                     }
                 }
+                else{
+                    me.updateCellValue(rowId, 'Costs', "");
+                    me.updateCellValue(rowId, 'PlanCompleteDate', "");
+                }
             }
             // 回发到后台更新
             __doPostBack('', 'UPDATE_SUMMARY');

@@ -54,8 +54,9 @@ namespace BLL
             }
             else if (state == Const.JointCheck_Audit1 || state == Const.JointCheck_Audit1R)
             {
-                ListItem[] lis = new ListItem[1];
+                ListItem[] lis = new ListItem[2];
                 lis[0] = new ListItem("分包负责人审批", Const.JointCheck_Audit2);
+                lis[1] = new ListItem("总包专工回复", Const.JointCheck_Audit3);
                 return lis;
             }
             else if (state == Const.JointCheck_Audit2)
@@ -67,9 +68,10 @@ namespace BLL
             }
             else if (state == Const.JointCheck_Audit3)
             {
-                ListItem[] lis = new ListItem[2];
+                ListItem[] lis = new ListItem[3];
                 lis[0] = new ListItem("总包负责人审批", Const.JointCheck_Audit4);
-                lis[1] = new ListItem("分包专工重新回复", Const.JointCheck_Audit1R);
+                lis[1] = new ListItem("审批完成", Const.JointCheck_Complete);
+                lis[2] = new ListItem("分包专工重新回复", Const.JointCheck_Audit1R);
                 return lis;
             }
             else if (state == Const.JointCheck_Audit4 || state == Const.JointCheck_Complete)

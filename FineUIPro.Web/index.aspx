@@ -191,7 +191,7 @@
                                                 </f:Button>
                                             </li>
                                             <li>
-                                                <f:Button runat="server" CssClass="bgbtn" Text="本部检查" ID="btnServer" OnClick="btnServer_Click"
+                                                <f:Button runat="server" CssClass="bgbtn" Text="总部检查" ID="btnServer" OnClick="btnServer_Click"
                                                     EnablePostBack="true" EnableDefaultState="true" EnableDefaultCorner="false" OnClientClick="parent.removeActiveTab();">
                                                 </f:Button>
                                             </li>

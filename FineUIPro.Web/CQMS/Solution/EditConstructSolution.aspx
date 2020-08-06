@@ -71,7 +71,7 @@
                                         <Items>
                                              <f:DropDownList ID="drpModelType" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" Required="true" runat="server" Width="350px" Label="方案类别" LabelAlign="Right" EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="drpModelType_SelectedIndexChanged" >
                                             </f:DropDownList>
-                                            <f:DropDownList ID="drpSpecialType" EmptyText="--请选择--" AutoSelectFirstItem="false" runat="server" Width="350px" Label="分部分项工程" LabelAlign="Right" EnableEdit="true" LabelWidth="120px">
+                                            <f:DropDownList ID="drpSpecialType" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" runat="server" Width="350px" Label="分部分项工程" LabelAlign="Right" EnableEdit="true" LabelWidth="120px">
                                             </f:DropDownList>
                                             
                                         </Items>

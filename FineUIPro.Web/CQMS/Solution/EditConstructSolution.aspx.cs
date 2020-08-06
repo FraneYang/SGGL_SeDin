@@ -54,7 +54,14 @@ namespace FineUIPro.Web.CQMS.Solution
             if (!IsPostBack)
             {
                 var unitWork = UnitWorkService.GetUnitWorkLists(CurrUser.LoginProjectId);
-                gvUnitWork.DataSource = unitWork;
+                var unitWorks = from x in unitWork
+                                select
+                                   new
+                                   {
+                                       UnitWorkId = x.UnitWorkId,
+                                       UnitWorkName = x.UnitWorkCode + "-" + x.UnitWorkName + BLL.UnitWorkService.GetProjectType(x.ProjectType)
+                                   };
+                gvUnitWork.DataSource = unitWorks;
                 gvUnitWork.DataBind();
                 var gvCNProfessional = CNProfessionalService.GetList();
                 gvCNPro.DataSource = gvCNProfessional;

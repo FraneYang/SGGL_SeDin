@@ -99,6 +99,7 @@
                                             <f:DropDownList ID="drpIsdamage" AutoPostBack="true" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" runat="server" Required="true" Label="状态" LabelAlign="Right" EnableEdit="true" LabelWidth="130px" >
                                                 <f:ListItem Text="正常" Value="正常" />
                                                 <f:ListItem Text="损坏" Value="损坏" />
+                                                <f:ListItem Text="退场" Value="退场" />
                                             </f:DropDownList>
                                         </Items>
                                     </f:FormRow>

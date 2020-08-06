@@ -350,6 +350,18 @@ namespace FineUIPro.Web.CQMS.Check
                 Alert.ShowInTop("该记录已审批完成，请右键查看!", MessageBoxIcon.Warning);
                 return;
             }
+            if (CurrUser.UserId == Const.sysglyId)
+            {
+                if (jointCheck.State == BLL.Const.JointCheck_Compile)
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EditJointCheck.aspx?JointCheckId={0}", JointCheckId, "查看 - ")));
+                }
+                else
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EditJointCheckTwo.aspx?JointCheckId={0}", JointCheckId, "查看 - ")));
+                }
+                return;
+            }
             if (approve != null)
             {
                 if (!string.IsNullOrEmpty(approve.ApproveMan))

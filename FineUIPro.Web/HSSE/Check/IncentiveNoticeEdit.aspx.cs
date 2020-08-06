@@ -163,13 +163,7 @@ namespace FineUIPro.Web.HSSE.Check
                         if (State == "2")///状态2 批准人选择下一步接收人
                         {
                             this.IsAgree.Hidden = false;
-                            BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, incentiveNotice.UnitId, true);//分包单位
-                            this.drpHandleMan.Label = "施工分包单位";
-                        }
-                        if (State == "3")
-                        {
-                            this.ckAccept.Hidden = false;
-                            this.BackMan.Hidden = true;
+                            this.drpHandleMan.Hidden = true;
                         }
                     }
                 }
@@ -277,14 +271,6 @@ namespace FineUIPro.Web.HSSE.Check
                     }
                     Funs.DB.SubmitChanges();
                     SaveOperate("总包项目经理经理批准");
-                }
-                else if (States == BLL.Const.State_4)
-                {
-                    incentiveNotice.DutyPersonDate = DateTime.Now;
-                    incentiveNotice.States = "4";
-                    Funs.DB.SubmitChanges();
-                    SaveOperate("施工分包单位回执");
-
                     //// 回写专项检查明细表                            
                     var getcheck = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(incentiveNotice.IncentiveNoticeId));
                     if (getcheck != null)
@@ -295,7 +281,6 @@ namespace FineUIPro.Web.HSSE.Check
                         //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
                         Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
                     }
-
                 }
             }
             
@@ -350,6 +335,7 @@ namespace FineUIPro.Web.HSSE.Check
                 }
                 else if (State == "2")
                 {
+                    this.drpHandleMan.Hidden = false;
                     BLL.UserService.InitUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
                     this.drpHandleMan.SelectedValue = incentiveNotice.SignMan;
                     this.drpHandleMan.Label = "打回签发人";
@@ -368,10 +354,9 @@ namespace FineUIPro.Web.HSSE.Check
                 }
                 else if (State == "2")
                 {
-                    BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId, incentiveNotice.UnitId, true);//分包单位
-                    this.drpHandleMan.Label = "施工分包单位";
+                    this.drpHandleMan.Hidden =true;
                 }
-                this.drpHandleMan.SelectedIndex = 0;
+                
                 this.drpHandleMan.Readonly = false;
             }
         }

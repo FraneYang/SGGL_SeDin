@@ -102,7 +102,7 @@ namespace FineUIPro.Web.CQMS.Check
             string strSql = @"SELECT chec.CheckControlCode,chec.CheckSite,chec.ProjectId,chec.unitId,cNProfessional.ProfessionalName,"
                           + @" QualityQuestionType.QualityQuestionType as QuestionType,"
                           + @" chec.checkman,chec.CheckDate,chec.DocCode,chec.submitman,chec.state,chec.CNProfessionalCode,"
-                          + @" unit.UnitName,unitWork.UnitWorkName,u.userName "
+                          + @" unit.UnitName,unitWork.UnitWorkName+(case unitWork.ProjectType when '1' then '(建筑)' else '(安装)' end) as UnitWorkName,u.userName "
                           + @" FROM Check_CheckControl chec"
                           + @" left join Base_Unit unit on unit.unitId=chec.unitId"
                           + @" left join Base_CNProfessional cNProfessional on cNProfessional.CNProfessionalId=chec.CNProfessionalCode"

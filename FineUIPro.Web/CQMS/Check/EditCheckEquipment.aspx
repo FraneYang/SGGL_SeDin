@@ -124,6 +124,7 @@
                                              <f:DropDownList ID="drpIsdamage"  ShowRedStar="true" runat="server" Required="true" Label="状态"  EnableEdit="true" LabelWidth="130px">
                                                 <f:ListItem Text="正常" Value="正常" />
                                                 <f:ListItem Text="损坏" Value="损坏" />
+                                                 <f:ListItem Text="退场" Value="退场" />
                                             </f:DropDownList>
                                         </Items>
                                     </f:FormRow>

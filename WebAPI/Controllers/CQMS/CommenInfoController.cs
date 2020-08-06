@@ -95,6 +95,7 @@ namespace Mvc.Controllers
             {
                 var temp = BeanUtil.CopyOjbect<WBS_UnitWork>(u, true);
                 temp.UnitWorkId = u.UnitWorkId;
+                temp.UnitWorkName = u.UnitWorkCode + "-" + u.UnitWorkName + BLL.UnitWorkService.GetProjectType(u.ProjectType);
                 q.Add(temp);
 
             }
@@ -112,6 +113,7 @@ namespace Mvc.Controllers
             {
                 var temp = BeanUtil.CopyOjbect<WBS_UnitWork>(u, true);
                 temp.UnitWorkId = u.UnitWorkId;
+                temp.UnitWorkName = u.UnitWorkCode + "-" + u.UnitWorkName + BLL.UnitWorkService.GetProjectType(u.ProjectType);
                 q.Add(temp);
 
             }

@@ -41,7 +41,7 @@ namespace FineUIPro.Web.HSSE.Check
         /// <summary>
         /// 定义集合
         /// </summary>
-        private static List<Model.View_CheckSpecialDetail> checkSpecialDetails = new List<Model.View_CheckSpecialDetail>();
+        //private static List<Model.View_CheckSpecialDetail> checkSpecialDetails = new List<Model.View_CheckSpecialDetail>();
         #endregion
 
         #region 加载页面
@@ -57,6 +57,7 @@ namespace FineUIPro.Web.HSSE.Check
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 this.InitDropDownList();
+                this.InitCheckItemSetDropDownList();
                 this.CheckSpecialId = Request.Params["CheckSpecialId"];
                 var checkSpecial = Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(this.CheckSpecialId);
                 if (checkSpecial != null)
@@ -66,6 +67,12 @@ namespace FineUIPro.Web.HSSE.Check
                     {
                         this.InitDropDownList();
                     }
+
+                    if (!String.IsNullOrEmpty(checkSpecial.CheckType))
+                    {
+                        this.rbType.SelectedValue = checkSpecial.CheckType;
+                    }
+                    this.InitCheckItemSetDropDownList();
                     this.txtCheckSpecialCode.Text = CodeRecordsService.ReturnCodeByDataId(this.CheckSpecialId);
                     if (checkSpecial.CheckTime != null)
                     {
@@ -75,19 +82,20 @@ namespace FineUIPro.Web.HSSE.Check
                     if (!string.IsNullOrEmpty(checkSpecial.CheckItemSetId))
                     {
                         this.drpSupCheckItemSet.SelectedValue = checkSpecial.CheckItemSetId;
-                        this.getCheckItemDrp();
                     }
                     if (!string.IsNullOrEmpty(checkSpecial.PartInPersonIds))
                     {
                         this.drpPartInPersons.SelectedValueArray = checkSpecial.PartInPersonIds.Split(',');
                     }
-                    checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
-                                           where x.CheckSpecialId == this.CheckSpecialId
-                                           orderby x.SortIndex
-                                           select x).ToList();
+
+                    var checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
+                                               where x.CheckSpecialId == this.CheckSpecialId
+                                               orderby x.SortIndex
+                                               select x).ToList();
                     if (checkSpecialDetails.Count() > 0)
                     {
                         this.drpSupCheckItemSet.Readonly = true;
+                        this.rbType.Readonly = true;
                     }
                 }
                 else
@@ -115,9 +123,8 @@ namespace FineUIPro.Web.HSSE.Check
                 };
                 // 在第一行新增一条数据
                 btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, true);
-                Grid1.DataSource = checkSpecialDetails;
-                Grid1.DataBind();
-
+                //Grid1.DataSource = checkSpecialDetails;
+                //Grid1.DataBind();
             }
         }
         #endregion
@@ -128,11 +135,8 @@ namespace FineUIPro.Web.HSSE.Check
         private void InitDropDownList()
         {
             //检查组成员
-            UserService.InitUserDropDownList(this.drpPartInPersons, this.ProjectId, true);
-            checkSpecialDetails.Clear();
-            ConstValue.InitConstNameDropDownList(this.drpHandleStep, ConstValue.Group_HandleStep, true);
-            Technique_CheckItemSetService.InitCheckItemSetDropDownList(this.drpSupCheckItemSet, "2", "0", false);
-            this.getCheckItemDrp();
+            UserService.InitUserDropDownList(this.drpPartInPersons, this.ProjectId, true);           
+            ConstValue.InitConstNameDropDownList(this.drpHandleStep, ConstValue.Group_HandleStep, true);      
             ///责任单位
             UnitService.InitUnitNameByProjectIdUnitTypeDropDownList(this.drpWorkUnit, this.ProjectId, Const.ProjectUnitType_2, false);
             ///单位工程
@@ -218,6 +222,7 @@ namespace FineUIPro.Web.HSSE.Check
         }
         #endregion
 
+        #region 保存方法
         /// <summary>
         /// 保存数据
         /// </summary>
@@ -231,6 +236,7 @@ namespace FineUIPro.Web.HSSE.Check
                 PartInPersonNames = this.txtPartInPersonNames.Text.Trim(),
                 CheckTime = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim()),
                 CompileMan=this.CurrUser.UserId,
+                CheckType=this.rbType.SelectedValue,
                 ////单据状态
                 States = Const.State_0,
             };
@@ -383,6 +389,7 @@ namespace FineUIPro.Web.HSSE.Check
 
             return info;
         }
+        #endregion
 
         #region 附件上传
         /// <summary>
@@ -427,22 +434,48 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void drpSupCheckItemSet_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.getCheckItemDrp();
-        }
-
-        private void getCheckItemDrp()
-        {
             this.drpCheckItem.Items.Clear();
             Technique_CheckItemSetService.InitCheckItemSetNameDropDownList(this.drpCheckItem, "2", this.drpSupCheckItemSet.SelectedValue, false);
-            checkSpecialDetails.Clear();
-            Grid1.DataSource = checkSpecialDetails;
-            Grid1.DataBind();
         }
-
+        
         protected void drpPartInPersons_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.drpPartInPersons.SelectedValueArray = Funs.RemoveDropDownListNull(this.drpPartInPersons.SelectedValueArray);
 
+        }
+
+        protected void rbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InitCheckItemSetDropDownList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitCheckItemSetDropDownList()
+        {
+            this.drpSupCheckItemSet.Items.Clear();
+            this.drpCheckItem.Items.Clear();
+            if (this.rbType.SelectedValue == "1")
+            {
+                this.drpSupCheckItemSet.SelectedIndex = 0;
+                this.drpSupCheckItemSet.Readonly = true;
+                Technique_CheckItemSetService.InitCheckItemSetNameDropDownList(this.drpCheckItem, "6", "0", false);                
+            }
+            else
+            {
+                this.drpSupCheckItemSet.Readonly = false;
+                Technique_CheckItemSetService.InitCheckItemSetDropDownList(this.drpSupCheckItemSet, "2", "0", false);
+                this.drpSupCheckItemSet.SelectedIndex = 0;
+                Technique_CheckItemSetService.InitCheckItemSetNameDropDownList(this.drpCheckItem, "2", this.drpSupCheckItemSet.SelectedValue, false);
+            }
+
+            this.drpCheckItem.SelectedValue = null;
+        }
+
+        protected void drpCheckItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpCheckItem.SelectedValueArray = Funs.RemoveDropDownListNull(this.drpCheckItem.SelectedValueArray);
         }
     }
 }

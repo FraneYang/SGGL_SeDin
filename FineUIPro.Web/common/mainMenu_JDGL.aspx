@@ -59,6 +59,26 @@
         .item-two{
             margin: 5px 0;
         }
+        .jd-list{
+            height:100%;
+            background-color:#1A5A92;
+        }
+        .jd-list .jd-title{
+            color:#333;
+        }
+        .jd-list .jd-item{
+            display:flex;
+            align-items:center;
+            border-bottom:1px solid #1D6FA9;
+        }
+         .jd-list .jd-item  .item{
+             flex:1;
+             display:flex;
+             justify-content:center;
+         }
+         .pd10{
+             padding:10px !important;
+         }
     </style>
 </head>
 <body>
@@ -67,7 +87,7 @@
             <div class="item flex1">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
-                        <div class="tit-one tit-center">按单位统计周计划</div>
+                        <div class="tit-one tit-center">周计划完成情况统计</div>
                         <div class="bw-item-content flex1 pd0 flex">
                             <div class="flex1" id='one1' style="width: 100%; height: 100%;"></div>
                             <div class="flex1" id='one2' style="width: 100%; height: 100%;"></div>
@@ -112,9 +132,23 @@
             <div class="item-two flex2">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
-                        <div class="tit-one pdl">项目工程节点</div>
-                        <div class="bw-item-content flex1 pdtb0">
-                             <div id='five' style="width: 100%; height: 100%;"></div>
+                        <div class="tit-one pdl">项目里程碑节点</div>
+                        <div class="bw-item-content flex1 pd10">
+                             <%--<div id='five' style="width: 100%; height: 100%;"></div>--%>
+                            <div class="jd-list">
+                                <div class="jd-item">
+                                    <div class="item jd-title">节点名称</div>
+                                    <div class="item jd-title">时间</div>
+                                </div>
+                                <div class="jd-item">
+                                    <div class="item">名称1</div>
+                                    <div class="item">2020-02-08</div>
+                                </div>
+                                <div class="jd-item">
+                                    <div class="item">名称2</div>
+                                    <div class="item">2020-02-18</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -337,11 +371,11 @@
         var option = {
                 title: [{
 	            text: title,
-	            top:'0',
-	            left:'20%',
+	            bottom:'0',
+	            left:'center',
 	            textStyle:{
 	                color: '#fff',
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight:300
 	            }
 	        }],
@@ -350,6 +384,7 @@
                 formatter: '{a} <br/>{b}: {c} ({d}%)'
             },
             legend: {
+                show: false,
                 orient: 'vertical',
                 left: 'right',
                 top: 'center',
@@ -364,7 +399,7 @@
                 {
                     name: title,
                     type: 'pie',
-                    center: ['33%', '50%'],
+                    center: ['50%', '50%'],
                     radius: ['40%', '70%'],
                     avoidLabelOverlap: false,
                     label: {
@@ -393,22 +428,20 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ['第一季度', '第二季度', '第三季度','第四季度']
+    var xArr = ['完成', '未完成']
     var data = [
-       { value: 58, name: '第一季度' },
-    { value: 23, name: '第二季度' },
-    { value: 10, name: '第三季度' },
-    { value: 9, name: '第四季度' }
+       { value: 80, name: '完成' },
+    { value: 20, name: '未完成' }
     ]
-    pie('one1', '周计划', xArr, data)
-    pie('one2', '周计划', xArr, data)
-    pie('one3', '周计划', xArr, data)
-    pie('one4', '周计划', xArr, data)
+    pie('one1', '单位一', xArr, data)
+    pie('one2', '单位二', xArr, data)
+    pie('one3', '单位三', xArr, data)
+    pie('one4', '单位四', xArr, data)
 </script>
 <script>
-    var dataX = ['项目', '工程']
-    var data = [20, 60]
-    var dataT = [100, 100]
+    var dataX = ['项目']
+    var data = [20]
+    var dataT = [100]
     echartsBarInit('four', "进度统计", dataX, data, dataT);
     function echartsBarInit(id, title, dataX, data, dataT) {
         var myChart = echarts.init(document.getElementById(id))   // 初始化echarts实例
@@ -517,4 +550,3 @@
     }
 </script>
 </html>
-

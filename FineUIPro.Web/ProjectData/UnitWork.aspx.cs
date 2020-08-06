@@ -30,8 +30,8 @@ namespace FineUIPro.Web.ProjectData
         {
             if (!IsPostBack)
             {
-                GetButtonPower();
                 this.ProjectId = this.CurrUser.LoginProjectId;
+                GetButtonPower();               
                 Funs.FineUIPleaseSelect(this.drpProjectType);
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
 

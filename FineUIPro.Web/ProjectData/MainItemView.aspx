@@ -44,7 +44,7 @@
                                              <f:TextBox ID="txtMainItemName" runat="server" Label="主项名称" Readonly="true"
                                                 Required="true" MaxLength="70" ShowRedStar="true" LabelWidth="130px">
                                             </f:TextBox>
-                                            <f:TextBox ID="txtUnitWork" runat="server" Label="单位工程" Readonly="true"
+                                            <f:TextBox ID="txtDesignProfessional" runat="server" Label="包含设计专业" Readonly="true"
                                                 Required="true" ShowRedStar="true" LabelWidth="130px" >
                                             </f:TextBox>
                                         </Items>

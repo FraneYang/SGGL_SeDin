@@ -175,24 +175,24 @@ namespace FineUIPro.Web.ProjectData
         /// </summary>
         /// <param name="UnitWorks"></param>
         /// <returns></returns>
-        protected string ConvertUnitName(object UnitWorks)
+        protected string ConvertProfessionalName(object DesignProfessionalIds)
         {
-            string UnitName = string.Empty;
-            if (UnitWorks != null)
+            string ProfessionalName = string.Empty;
+            if (DesignProfessionalIds != null)
             {
-                string[] Ids = UnitWorks.ToString().Split(',');
+                string[] Ids = DesignProfessionalIds.ToString().Split(',');
                 foreach (string t in Ids)
                 {
-                    var type = BLL.UnitWorkService.getUnitWorkByUnitWorkId(t);
+                    var type = BLL.DesignProfessionalService.GetDesignProfessional(t);
                     if (type != null)
                     {
-                        UnitName += type.UnitWorkName + ",";
+                        ProfessionalName += type.ProfessionalName + ",";
                     }
                 }
             }
-            if (UnitName != string.Empty)
+            if (ProfessionalName != string.Empty)
             {
-                return UnitName.Substring(0, UnitName.Length - 1);
+                return ProfessionalName.Substring(0, ProfessionalName.Length - 1);
             }
             else
             {

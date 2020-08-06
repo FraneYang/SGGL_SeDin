@@ -67,7 +67,7 @@ namespace BLL
                                           CheckSpecialId = x.CheckSpecialId,
                                           ProjectId = x.ProjectId,
                                           CheckSpecialCode = db.Sys_CodeRecords.First(y => y.DataId == x.CheckSpecialId).Code ?? x.CheckSpecialCode,
-                                          CheckType = x.CheckType == "0" ? "周检" : (x.CheckType == "1" ? "月检" : "其他"),
+                                          CheckType = (x.CheckType == "1" ? "联合" : "专项"),
                                           CheckItemSetId = x.CheckItemSetId,
                                           CheckItemSetName = db.Technique_CheckItemSet.First(y => y.CheckItemSetId == x.CheckItemSetId).CheckItemName,
                                           CheckPersonId = x.CheckPerson,
@@ -121,6 +121,14 @@ namespace BLL
                 //{
                 //    newCheckSpecial.States = Const.State_0;
                 //}
+
+                if (newItem.CheckSpecialDetailItems == null || newItem.CheckSpecialDetailItems.Count() == 0)
+                {
+                    if (newItem.States == Const.State_1)
+                    {
+                        newCheckSpecial.States = Const.State_2;
+                    }
+                }
 
                 var updateCheckSpecial = db.Check_CheckSpecial.FirstOrDefault(x => x.CheckSpecialId == newItem.CheckSpecialId);
                 if (updateCheckSpecial == null)

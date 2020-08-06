@@ -89,7 +89,7 @@ namespace FineUIPro.Web.CQMS.Check
 
         protected void btnAttach_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?type=-1&toKeyId={0}&path=FileUpload/CheckEquipment&menuId={1}", CheckEquipmentId, BLL.Const.CheckEquipmentMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?type=0&toKeyId={0}&path=FileUpload/CheckEquipment&menuId={1}", CheckEquipmentId, BLL.Const.CheckEquipmentMenuId)));
         }
 
         protected void btnSave_Click(object sender, EventArgs e)

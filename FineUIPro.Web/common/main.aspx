@@ -310,7 +310,7 @@
                     </div>
                 </div>
                 <div class="flex flex1" style="margin-top:10px;">
-                    <div id="swiper-pre" class="bw-item flex1 mr mbnone" style="flex: 1; width: 48%;">
+                    <div id="swiper-pre" class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
                         <div class="bw-item-content flex flexV">
                             <div class="tit-new">劳务统计</div>
                             <%--<div class=" flex1">

@@ -302,7 +302,7 @@ namespace BLL
 
                 var persons = from x in getViews
                               join y in db.Base_Unit on x.UnitId equals y.UnitId
-                              orderby x.CardNo descending
+                              orderby x.InTime descending
                               select new Model.PersonItem
                               {
                                   PersonId = x.PersonId,

@@ -39,7 +39,7 @@ namespace FineUIPro.Web.ProjectData
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT Project.ProjectId,Project.ProjectCode,Project.ProjectName,unit.UnitName,Project.StartDate,Project.EndDate,Project.ProjectAddress,ShortName, "
+            string strSql = "SELECT Project.ProjectId,Project.ProjectCode,Project.ProjectName,unit.UnitName,Project.StartDate,Project.EndDate,Project.ProjectAddress,ShortName, ConstructionMoney,"
                           + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工'  ELSE '施工中' END) AS ProjectStateName,Project.ProjectState"
                           + @" ,ProjectMoney,DATEDIFF(DAY,Project.StartDate,GETDATE()) AS DayCount,ProjectType.ProjectTypeName AS ProjectTypeName"
                           + @" FROM Base_Project AS Project LEFT JOIN Base_Unit as unit on unit.UnitId=Project.UnitId " 
@@ -56,7 +56,6 @@ namespace FineUIPro.Web.ProjectData
             //    strSql += " AND ProjectId = @ProjectId";
             //    listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
             //}
-
             if (!string.IsNullOrEmpty(this.txtProjectName.Text.Trim()))
             {
                 strSql += " AND ProjectName LIKE @ProjectName";

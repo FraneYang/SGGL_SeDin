@@ -213,7 +213,7 @@ namespace BLL
                     var un = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(item);
                     if (un != null)
                     {
-                        unitWorkName += un.UnitWorkName + ",";
+                        unitWorkName += un.UnitWorkName + BLL.UnitWorkService.GetProjectType(un.ProjectType) + ",";
                     }
                 }
                 if (!string.IsNullOrEmpty(unitWorkName))

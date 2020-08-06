@@ -194,7 +194,7 @@ namespace FineUIPro.Web.CQMS.Solution
                     if (list.Rows[i]["UnitWorkIds"] != null)
                     {
                         var code = list.Rows[i]["UnitWorkIds"].ToString().Split(',');
-                        var workid = uniWork.Where(p => code.Contains(p.UnitWorkId)).Select(p => p.UnitWorkName).ToArray();
+                        var workid = uniWork.Where(p => code.Contains(p.UnitWorkId)).Select(p => p.UnitWorkName + BLL.UnitWorkService.GetProjectType(p.ProjectType)).ToArray();
                         list.Rows[i]["UnitWorkIds"] = string.Join(",", workid);
                     }
                 }

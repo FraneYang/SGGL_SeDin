@@ -395,7 +395,7 @@ namespace FineUIPro.Web
                     }
                     else if (type == Const.Menu_ProjectSet)
                     {
-                        this.Tab1.IFrameUrl = "~/ProjectData/ProjectSet.aspx";
+                        this.Tab1.IFrameUrl = "~/ProjectData/ProjectSetView.aspx";
                     }
                 }
                 else

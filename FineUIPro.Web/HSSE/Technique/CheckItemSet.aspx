@@ -19,16 +19,17 @@
     <f:Panel ID="Panel1" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
         <Items>
             <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true"
-                EnableCollapse="true" Width="350" Title="检查项" TitleToolTip="右键点击添加、修改、删除" ShowBorder="true"
+                EnableCollapse="true" Width="400" Title="检查项" TitleToolTip="右键点击添加、修改、删除" ShowBorder="true"
                 ShowHeader="false" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Center" runat="server">
                         <Items>
-                            <f:RadioButtonList ID="ckType" runat="server" AutoPostBack="true" ColumnNumber="3" 
+                            <f:RadioButtonList ID="ckType" runat="server" AutoPostBack="true" ColumnNumber="4" 
                                 AutoColumnWidth="true"  OnSelectedIndexChanged="ckType_SelectedIndexChanged">
                                 <f:RadioItem Value="1" Text="日常检查"/>
                                 <f:RadioItem Value="2" Text="专项检查" />
                                 <f:RadioItem Value="3" Text="综合检查" />
+                                <f:RadioItem Value="6" Text="联合检查" />
                            <%--     <f:RadioItem Value="4" Text="开工前检查" />
                                 <f:RadioItem Value="5" Text="季节性/节假日检查"/>--%>
                             </f:RadioButtonList>

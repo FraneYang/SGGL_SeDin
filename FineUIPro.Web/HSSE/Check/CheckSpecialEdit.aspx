@@ -30,19 +30,24 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true" 
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow>
+            <f:FormRow ColumnWidths="35% 10% 30% 30%">
                 <Items>
                     <f:TextBox ID="txtCheckSpecialCode" runat="server" Label="检查编号" Readonly="true" MaxLength="50">
                     </f:TextBox>       
+                     <f:RadioButtonList runat="server" ID="rbType" 
+                         AutoPostBack="true" OnSelectedIndexChanged="rbType_SelectedIndexChanged">                               
+                        <f:RadioItem Text="专项" Value="0" Selected="true" />
+                        <f:RadioItem Text="联合" Value="1" />
+                    </f:RadioButtonList>
                      <f:DropDownList ID="drpSupCheckItemSet" runat="server" Label="检查类别" 
                         AutoPostBack="true" OnSelectedIndexChanged="drpSupCheckItemSet_SelectedIndexChanged"
-                        EnableEdit="true" Required="true" ShowLabel="true">
+                        EnableEdit="true">
                     </f:DropDownList>
                     <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="txtCheckDate">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
-            <f:FormRow>
+            <f:FormRow ColumnWidths="35% 35% 30%">
                 <Items>
                   <f:DropDownList ID="drpPartInPersons" runat="server" Label="参检人员" EnableEdit="true" EnableMultiSelect="true"
                         ForceSelection="false" MaxLength="2000" EnableCheckBoxSelect="true"
@@ -88,7 +93,8 @@
                             <f:RenderField Width="150px" ColumnID="CheckItemName" DataField="CheckItemName" 
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="问题类型">
                                 <Editor>
-                                    <f:DropDownList ID="drpCheckItem" runat="server" EnableEdit="true">
+                                    <f:DropDownList ID="drpCheckItem" runat="server" EnableEdit="true" AutoPostBack="true" 
+                                        OnSelectedIndexChanged="drpCheckItem_SelectedIndexChanged">
                                     </f:DropDownList>
                                 </Editor>
                             </f:RenderField>

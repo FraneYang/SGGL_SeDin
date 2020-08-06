@@ -813,6 +813,9 @@
     <Content Include="ProjectData\ProjectSet.aspx" />
     <Content Include="ProjectData\ProjectSetSave.aspx" />
     <Content Include="ProjectData\ProjectSetView.aspx" />
+    <Content Include="ProjectData\ProjectShutdown.aspx" />
+    <Content Include="ProjectData\ProjectShutdownEdit.aspx" />
+    <Content Include="ProjectData\ProjectShutdownView.aspx" />
     <Content Include="ProjectData\ProjectSysSet.aspx" />
     <Content Include="ProjectData\ProjectUnit.aspx" />
     <Content Include="ProjectData\ProjectUnitSave.aspx" />
@@ -903,6 +906,7 @@
     <Content Include="File\Word\HSSE\高处作业票.doc" />
     <Content Include="File\Word\HSSE\安全处罚通知单.doc" />
     <Content Include="File\Word\HSSE\工程停工令.doc" />
+    <Content Include="File\Word\HSSE\专项检查.doc" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -9019,6 +9023,27 @@
     </Compile>
     <Compile Include="ProjectData\ProjectSetView.aspx.designer.cs">
       <DependentUpon>ProjectSetView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectShutdown.aspx.cs">
+      <DependentUpon>ProjectShutdown.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectShutdown.aspx.designer.cs">
+      <DependentUpon>ProjectShutdown.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectShutdownEdit.aspx.cs">
+      <DependentUpon>ProjectShutdownEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectShutdownEdit.aspx.designer.cs">
+      <DependentUpon>ProjectShutdownEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectShutdownView.aspx.cs">
+      <DependentUpon>ProjectShutdownView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectShutdownView.aspx.designer.cs">
+      <DependentUpon>ProjectShutdownView.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\ProjectSysSet.aspx.cs">
       <DependentUpon>ProjectSysSet.aspx</DependentUpon>

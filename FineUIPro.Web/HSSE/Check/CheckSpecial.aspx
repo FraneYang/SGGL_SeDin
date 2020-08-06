@@ -52,15 +52,22 @@
                                 <f:RadioItem Text="待整改" Value="1" />
                                 <f:RadioItem Text="已完成" Value="2" />
                             </f:RadioButtonList>
-                            <f:DropDownList ID="drpSupCheckItemSet" runat="server" Label="检查类别"  AutoPostBack="true" 
-                                OnSelectedIndexChanged="drpSupCheckItemSet_SelectedIndexChanged"
-                        EnableEdit="true" ShowLabel="true" LabelWidth="75px">
-                    </f:DropDownList>
-                            <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="txtStartTime"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="200px" LabelWidth="80px">
+                            <f:ToolbarSeparator runat="server"></f:ToolbarSeparator>
+                             <f:RadioButtonList runat="server" ID="rbType" Width="180px" AutoPostBack="true" OnSelectedIndexChanged="rbStates_SelectedIndexChanged">
+                                <f:RadioItem Text="全部" Value="-1" Selected="true" />
+                                <f:RadioItem Text="专项" Value="0" />
+                                <f:RadioItem Text="联合" Value="1" />
+                            </f:RadioButtonList>
+                             <f:ToolbarSeparator runat="server"></f:ToolbarSeparator>
+                            <f:DropDownList ID="drpSupCheckItemSet" runat="server" Label="类别"  AutoPostBack="true" 
+                                OnSelectedIndexChanged="drpSupCheckItemSet_SelectedIndexChanged" Width="180px"
+                                EnableEdit="true" ShowLabel="true" LabelWidth="50px">
+                            </f:DropDownList>
+                            <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="日期" ID="txtStartTime"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="150px" LabelWidth="50px">
                             </f:DatePicker>
                             <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="至" ID="txtEndTime"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="150px" LabelWidth="40px">
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="140px" LabelWidth="30px">
                             </f:DatePicker>
                               <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -82,6 +89,10 @@
                     </f:TemplateField>
                     <f:RenderField Width="200px" ColumnID="CheckSpecialCode" DataField="CheckSpecialCode"
                         SortField="CheckSpecialCode" FieldType="String" HeaderText="编号" TextAlign="Left"
+                        HeaderTextAlign="Center">
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="CheckTypeName" DataField="CheckTypeName"
+                        SortField="CheckTypeName" FieldType="String" HeaderText="类型" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="CheckItemName" DataField="CheckItemName"
@@ -122,6 +133,9 @@
         <Items>
             <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"
                 Text="修改" Icon="Pencil" OnClick="btnMenuModify_Click">
+            </f:MenuButton>
+            <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server"
+                Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="false">
             </f:MenuButton>
             <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Hidden="true"
                 Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？" OnClick="btnMenuDel_Click">

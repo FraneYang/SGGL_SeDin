@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>编辑用户</title>
+    <title>编辑员工</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>

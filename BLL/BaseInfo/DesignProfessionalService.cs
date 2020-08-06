@@ -121,13 +121,13 @@ namespace BLL
         {
             return Funs.DB.Base_DesignProfessional.FirstOrDefault(e => e.DesignProfessionalId == DesignProfessionalId);
         }
-        public static string GetDesignProfessionalNameByCode(string cnProfessionalCode)
+        public static string GetDesignProfessionalNameByIds(string designProfessionalIds)
         {
             string res = "";
-            if (!string.IsNullOrEmpty(cnProfessionalCode))
+            if (!string.IsNullOrEmpty(designProfessionalIds))
             {
-                string[] codes = cnProfessionalCode.Split(',');
-                var list = Funs.DB.Base_DesignProfessional.Where(x => codes.Contains(x.DesignProfessionalCode));
+                string[] ids = designProfessionalIds.Split(',');
+                var list = Funs.DB.Base_DesignProfessional.Where(x => ids.Contains(x.DesignProfessionalId));
                 foreach (var item in list)
                 {
                     res += item.ProfessionalName + ",";

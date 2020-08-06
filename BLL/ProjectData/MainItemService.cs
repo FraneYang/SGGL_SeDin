@@ -78,7 +78,7 @@ namespace BLL
             newMainItem.ProjectId = mainItemToUnitWork.ProjectId;
             newMainItem.MainItemCode = mainItemToUnitWork.MainItemCode;
             newMainItem.MainItemName = mainItemToUnitWork.MainItemName;
-            newMainItem.UnitWorkIds = mainItemToUnitWork.UnitWorkIds;
+            newMainItem.DesignProfessionalIds = mainItemToUnitWork.DesignProfessionalIds;
             newMainItem.Remark = mainItemToUnitWork.Remark;
 
             db.ProjectData_MainItem.InsertOnSubmit(newMainItem);
@@ -95,7 +95,7 @@ namespace BLL
             Model.ProjectData_MainItem newMainItem = db.ProjectData_MainItem.First(e => e.MainItemId == mainItemToUnitWork.MainItemId);
             newMainItem.MainItemCode = mainItemToUnitWork.MainItemCode;
             newMainItem.MainItemName = mainItemToUnitWork.MainItemName;
-            newMainItem.UnitWorkIds = mainItemToUnitWork.UnitWorkIds;
+            newMainItem.DesignProfessionalIds = mainItemToUnitWork.DesignProfessionalIds;
             newMainItem.Remark = mainItemToUnitWork.Remark;
 
             db.SubmitChanges();
@@ -156,7 +156,7 @@ namespace BLL
         public static List<Model.ProjectData_MainItem> GetMainItemList(string projectId, string name, string unitWorks)
         {
             var q = (from x in Funs.DB.ProjectData_MainItem
-                     where x.ProjectId == projectId && (name == "" || x.MainItemName.Contains(name)) && (unitWorks == "" || x.UnitWorkIds == unitWorks)
+                     where x.ProjectId == projectId && (name == "" || x.MainItemName.Contains(name)) && (unitWorks == "" || x.DesignProfessionalIds == unitWorks)
                      orderby x.MainItemCode
                      select x).ToList();
             List<Model.ProjectData_MainItem> res = new List<Model.ProjectData_MainItem>();

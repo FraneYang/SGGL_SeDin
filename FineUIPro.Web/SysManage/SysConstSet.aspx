@@ -141,6 +141,9 @@
                                             </PopPanel>
                                         </f:DropDownBox>
                                         <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
+                                         <f:Button ID="btnTab2Save" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm2"
+                                            OnClick="btnTab2Save_Click">
+                                        </f:Button>    
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>

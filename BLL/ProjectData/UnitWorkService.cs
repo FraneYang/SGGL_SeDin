@@ -60,6 +60,10 @@ namespace BLL
                 db.SubmitChanges();
             }
             GetWeights(UnitWork.ProjectId);
+            if (UnitWork.Costs != null)
+            {
+                UpdateWBSCosts(UnitWork.UnitWorkId, Convert.ToDecimal(UnitWork.Costs));
+            }
         }
 
         private static void GetWeights(string projectId)
@@ -77,6 +81,57 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+        #region 更新计算单位工程WBS项的建安工程费
+        /// <summary>
+        /// 更新计算单位工程WBS项的建安工程费
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <param name="costs"></param>
+        private static void UpdateWBSCosts(string unitWorkId, decimal costs)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var workPackages = from x in db.WBS_WorkPackage where x.UnitWorkId == unitWorkId && x.SuperWorkPackageId == null && x.IsApprove == true select x;
+            foreach (var item in workPackages)
+            {
+                if (item.Weights != null)
+                {
+                    item.Costs = item.Weights / 100 * costs;
+                    db.SubmitChanges();
+                    UpdateWorkPackageCosts(item.WorkPackageId, Convert.ToDecimal(item.Costs));
+                }
+            }
+        }
+
+        private static void UpdateWorkPackageCosts(string workPackageId, decimal costs)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var childWorkPackages = from x in db.WBS_WorkPackage where x.SuperWorkPackageId == workPackageId && x.IsApprove == true select x;
+            if (childWorkPackages.Count() > 0)   //存在子级
+            {
+                foreach (var item in childWorkPackages)
+                {
+                    if (item.Weights != null)
+                    {
+                        item.Costs = item.Weights / 100 * costs;
+                        db.SubmitChanges();
+                        UpdateWorkPackageCosts(item.WorkPackageId, Convert.ToDecimal(item.Costs));
+                    }
+                }
+            }
+            else
+            {
+                var controlItemAndCycles = from x in db.WBS_ControlItemAndCycle where x.WorkPackageId == workPackageId && x.IsApprove == true select x;
+                foreach (var item in controlItemAndCycles)
+                {
+                    if (item.Weights != null)
+                    {
+                        item.Costs = item.Weights / 100 * costs;
+                        db.SubmitChanges();
+                    }
+                }
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 根据主键删除单位工程信息
@@ -167,23 +222,31 @@ namespace BLL
         /// <returns></returns>
         public static ListItem[] GetUnitWorkList(string projectId)
         {
-            List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
-            foreach (var unitWorkCode in a)
-            {
-                var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);
-                if (u != null)
-                {
-                    q.Add(u);
-                }
-            }
+            List<Model.WBS_UnitWork> q = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x).ToList();
             ListItem[] item = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {
-                item[i] = new ListItem((q[i].UnitWorkCode + "-" + q[i].UnitWorkName) ?? "", q[i].UnitWorkId.ToString());
+                item[i] = new ListItem((q[i].UnitWorkCode + "-" + q[i].UnitWorkName + GetProjectType(q[i].ProjectType)) ?? "", q[i].UnitWorkId.ToString());
             }
             return item;
+        }
+        /// <summary>
+        /// 根据工程类型获取名称
+        /// </summary>
+        /// <param name="projectType"></param>
+        /// <returns></returns>
+        public static string GetProjectType(string projectType)
+        {
+            string name = string.Empty;
+            if (projectType == "1")
+            {
+                name = "(建筑)";
+            }
+            else if (projectType == "2")
+            {
+                name = "(安装)";
+            }
+            return name;
         }
         /// <summary>
         /// 获取单位工程名称项
@@ -192,36 +255,15 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_UnitWork> GetUnitWorkLists(string projectId)
         {
-            List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
-            foreach (var unitWorkCode in a)
-            {
-                var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);
-                if (u != null)
-                {
-                    q.Add(u);
-                }
-            }
-            return q;
+            return (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x).ToList();
         }
         public static ListItem[] GetUnitWork(string projectId)
         {
-            List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
-            foreach (var unitWorkCode in a)
-            {
-                var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);
-                if (u != null)
-                {
-                    q.Add(u);
-                }
-            }
+            List<Model.WBS_UnitWork> q = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x).ToList();
             ListItem[] item = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {
-                item[i] = new ListItem(q[i].UnitWorkName, q[i].UnitWorkId.ToString());
+                item[i] = new ListItem((q[i].UnitWorkCode + "-" + q[i].UnitWorkName + GetProjectType(q[i].ProjectType)) ?? "", q[i].UnitWorkId.ToString());
             }
             return item;
         }
@@ -236,7 +278,7 @@ namespace BLL
             var UnitWork = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkId == id);
             if (UnitWork != null)
             {
-                name = UnitWork.UnitWorkName;
+                name = UnitWork.UnitWorkName + GetProjectType(UnitWork.ProjectType);
             }
             return name;
         }
@@ -298,18 +340,7 @@ namespace BLL
         public static List<Model.WBS_UnitWork> GetUnitWorkListByPid(string projectId)
         {
             Model.SGGLDB db = Funs.DB;
-            List<Model.WBS_UnitWork> q = new List<Model.WBS_UnitWork>();
-            var unitWorks = from x in db.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x;
-            var a = (from x in db.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x.UnitWorkCode).Distinct().ToList();
-            foreach (var unitWorkCode in a)
-            {
-                var u = unitWorks.FirstOrDefault(x => x.UnitWorkCode == unitWorkCode);
-                if (u != null)
-                {
-                    q.Add(u);
-                }
-            }
-
+            List<Model.WBS_UnitWork> q = (from x in db.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null orderby x.UnitWorkCode select x).ToList();
             return q;
         }
         public static Model.WBS_UnitWork getUnitWorkByUnitWorkId(string UnitWorkId)
@@ -335,7 +366,7 @@ namespace BLL
             ListItem[] item = new ListItem[q.Count()];
             for (int i = 0; i < q.Count(); i++)
             {
-                item[i] = new ListItem((q[i].UnitWorkCode + "-" + q[i].UnitWorkName) ?? "", q[i].UnitWorkId.ToString());
+                item[i] = new ListItem((q[i].UnitWorkCode + "-" + q[i].UnitWorkName + GetProjectType(q[i].ProjectType)) ?? "", q[i].UnitWorkId.ToString());
             }
             return item;
         }
@@ -396,7 +427,7 @@ namespace BLL
                     var un = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(item);
                     if (un != null)
                     {
-                        unitWorkName += un.UnitWorkName + ",";
+                        unitWorkName += un.UnitWorkName + GetProjectType(un.ProjectType) + ",";
                     }
                 }
                 if (!string.IsNullOrEmpty(unitWorkName))

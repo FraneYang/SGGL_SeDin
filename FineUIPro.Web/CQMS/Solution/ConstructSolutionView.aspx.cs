@@ -58,7 +58,7 @@ namespace FineUIPro.Web.CQMS.Solution
                     txtSolutionName.Text = constructSolution.SolutionName;
                     if (!string.IsNullOrWhiteSpace(constructSolution.UnitWorkIds))
                     {
-                        txtUnitWork.Text = CQMSConstructSolutionService.GetUnitWorkName(constructSolution.UnitWorkIds);
+                        txtUnitWork.Text = UnitWorkService.GetUnitWorkName(constructSolution.UnitWorkIds);
 
                     }
                     if (!string.IsNullOrWhiteSpace(constructSolution.CNProfessionalCodes))

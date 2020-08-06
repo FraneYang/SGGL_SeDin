@@ -78,11 +78,11 @@ namespace FineUIPro.Web.HSSE.Meeting
                 {
                     this.drpCompileMan.SelectedValue = this.CurrUser.UserId;
                     this.txtAttendMeetingDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                    //var codeTemplateRule = ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectAttendMeetingMenuId, this.ProjectId);
-                    //if (codeTemplateRule != null)
-                    //{
-                    //    this.txtAttendMeetingContents.Text = HttpUtility.HtmlDecode(codeTemplateRule.Template);
-                    //}
+                    var codeTemplateRule = BLL.SysConstSetService.GetCodeTemplateRuleByMenuId(BLL.Const.ProjectWeekMeetingMenuId);
+                    if (codeTemplateRule != null)
+                    {
+                        this.txtAttendMeetingContents.Text = HttpUtility.HtmlDecode(codeTemplateRule.Template);
+                    }
 
                     ////自动生成编码
                     this.txtAttendMeetingCode.Text = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectAttendMeetingMenuId, this.ProjectId, this.CurrUser.UnitId);

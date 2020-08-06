@@ -123,7 +123,7 @@ namespace FineUIPro.Web.CQMS.Check
                     var unitWork = unitWorks.FirstOrDefault(x => x.UnitWorkId == jointCheckDetails[i].UnitWorkId);
                     if (unitWork != null)
                     {
-                        jointCheckDetails[i].UnitWorkId = unitWork.UnitWorkName;
+                        jointCheckDetails[i].UnitWorkId = unitWork.UnitWorkName + BLL.UnitWorkService.GetProjectType(unitWork.ProjectType);
                     }
                     var questionType = questionTypes.FirstOrDefault(x => x.Value == jointCheckDetails[i].QuestionType);
                     if (questionType != null)

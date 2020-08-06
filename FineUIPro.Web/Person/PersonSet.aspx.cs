@@ -70,6 +70,11 @@ namespace FineUIPro.Web.Person
                 strSql += " AND Roles.RoleName LIKE @RoleName";
                 listStr.Add(new SqlParameter("@RoleName", "%" + this.txtRoleName.Text.Trim() + "%"));
             }
+            if (!string.IsNullOrEmpty(this.txtProjectName.Text.Trim()))
+            {
+                strSql += " AND project.ProjectName LIKE @ProjectName";
+                listStr.Add(new SqlParameter("@ProjectName", "%" + this.txtProjectName.Text.Trim() + "%"));
+            }
             if (this.ckbAll.Checked == false)
             {
                 strSql += " AND Users.IsPost =1 ";
@@ -249,7 +254,7 @@ namespace FineUIPro.Web.Person
             string content = string.Empty;
             if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
             {
-                content += "已在【项目用户】中使用，不能删除！";
+                content += "已在【项目员工】中使用，不能删除！";
             }
 
             return content;

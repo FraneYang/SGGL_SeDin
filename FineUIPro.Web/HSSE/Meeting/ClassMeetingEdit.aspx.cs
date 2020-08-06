@@ -88,7 +88,7 @@ namespace FineUIPro.Web.HSSE.Meeting
                     this.drpCompileMan.SelectedValue = this.CurrUser.UserId;
                     this.txtClassMeetingDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtAttentPersonNum.Text = "1";
-                    var codeTemplateRule = BLL.SysConstSetService.GetCodeTemplateRuleByMenuId(BLL.Const.ProjectClassMeetingMenuId);
+                    var codeTemplateRule = BLL.SysConstSetService.GetCodeTemplateRuleByMenuId(BLL.Const.ProjectWeekMeetingMenuId);
                     if (codeTemplateRule != null)
                     {
                         this.txtClassMeetingContents.Text = HttpUtility.HtmlDecode(codeTemplateRule.Template);

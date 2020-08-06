@@ -19,17 +19,21 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow>
+            <f:FormRow ColumnWidths="35% 10% 30% 30%">
                 <Items>
                      <f:TextBox ID="txtCheckSpecialCode" runat="server" Label="检查编号" Readonly="true">
                     </f:TextBox>
+                        <f:RadioButtonList runat="server" ID="rbType" Width="180px" Readonly="true">                               
+                        <f:RadioItem Text="专项" Value="0" Selected="true" />
+                        <f:RadioItem Text="联合" Value="1" />
+                    </f:RadioButtonList>
                     <f:TextBox ID="txtSupCheckItemSet" runat="server" Label="检查类别" Readonly="true" >
                     </f:TextBox>
                       <f:TextBox ID="txtCheckDate" runat="server" Label="检查日期" Readonly="true" >
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow>
+            <f:FormRow ColumnWidths="35% 35% 30%">
                 <Items>
                      <f:TextBox ID="txtPartInPersons" runat="server" Label="参检人员" Readonly="true" MaxLength="200">
                     </f:TextBox>
@@ -46,7 +50,7 @@
                         <Columns>      
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                   TextAlign="Center" />
-                            <f:RenderField Width="110px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
+                            <f:RenderField Width="110px" ColumnID="CheckAreaName" DataField="CheckAreaName" SortField="CheckAreaName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位工程">
                             </f:RenderField>
                             <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"

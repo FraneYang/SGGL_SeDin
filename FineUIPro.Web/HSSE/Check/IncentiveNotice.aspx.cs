@@ -85,7 +85,7 @@ namespace FineUIPro.Web.HSSE.Check
                           + @"IncentiveNotice.States,"
                           + @"Unit.UnitName,"
                           +@"Person.PersonName,"
-                          + @"(CASE WHEN IncentiveNotice.States = '0' THEN '待[' + Users.UserName + ']提交' WHEN IncentiveNotice.States = '1' THEN '待[' + Sign.UserName + ']签发'  WHEN IncentiveNotice.States = '2' THEN '待[' + Approve.UserName + ']批准' WHEN IncentiveNotice.States = '3' THEN '待[' + Duty.UserName + ']回执' WHEN IncentiveNotice.States = '4' THEN '已闭合' END) AS  FlowOperateName"
+                          + @"(CASE WHEN IncentiveNotice.States = '0' THEN '待[' + Users.UserName + ']提交' WHEN IncentiveNotice.States = '1' THEN '待[' + Sign.UserName + ']签发'  WHEN IncentiveNotice.States = '2' THEN '待[' + Approve.UserName + ']批准'  WHEN IncentiveNotice.States = '3' THEN '已闭合' END) AS  FlowOperateName"
                           + @" FROM Check_IncentiveNotice AS IncentiveNotice "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON IncentiveNotice.IncentiveNoticeId = CodeRecords.DataId "
                           + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON IncentiveNotice.IncentiveNoticeId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
@@ -257,10 +257,6 @@ namespace FineUIPro.Web.HSSE.Check
                     url = "IncentiveNoticeEdit.aspx?IncentiveNoticeId={0}";
                 }
                 else if (incentiveNotice.States == BLL.Const.State_2 && incentiveNotice.ApproveMan == this.CurrUser.UserId)
-                {
-                    url = "IncentiveNoticeEdit.aspx?IncentiveNoticeId={0}";
-                }
-                else if (incentiveNotice.States == BLL.Const.State_3 && incentiveNotice.DutyPersonId == this.CurrUser.UserId)
                 {
                     url = "IncentiveNoticeEdit.aspx?IncentiveNoticeId={0}";
                 }

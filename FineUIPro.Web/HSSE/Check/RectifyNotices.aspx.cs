@@ -439,16 +439,25 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 if (getRectify != null)
                 {
+                    string UnitWorkNames = string.Empty;
                     if (!string.IsNullOrEmpty(getRectify.WorkAreaId))
                     {
-                        var UnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(getRectify.WorkAreaId);
-                        if (UnitWork != null)
+                        string[] Ids = getRectify.WorkAreaId.ToString().Split(',');
+                        foreach (string t in Ids)
                         {
-                            bookmarkUnitWorkName.Text = UnitWork.UnitWorkName;
+                            var UnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(t);
+                            if (UnitWork != null)
+                            {
+                                UnitWorkNames += UnitWork.UnitWorkName+",";
+                            }
+                        }
+                        if (UnitWorkNames != string.Empty)
+                        {
+
+                            bookmarkUnitWorkName.Text = UnitWorkNames.Substring(0, UnitWorkNames.Length - 1);
                         }
 
                     }
-
                 }
             }
             Bookmark bookmarkCheckManNames = doc.Range.Bookmarks["CheckManNames"];
@@ -493,15 +502,15 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     if (getRectify.HiddenHazardType == "1")
                     {
-                        bookmarkHiddenHazardTypeName.Text = "√一般   ☐较大   ☐重大";
+                        bookmarkHiddenHazardTypeName.Text = "√一般   □较大   □重大";
                     }
                     else if (getRectify.HiddenHazardType == "2")
                     {
-                        bookmarkHiddenHazardTypeName.Text = "☐一般   √较大   ☐重大";
+                        bookmarkHiddenHazardTypeName.Text = "□一般   √较大   □重大";
                     }
                     else if (getRectify.HiddenHazardType == "3")
                     {
-                        bookmarkHiddenHazardTypeName.Text = "☐一般    ☐较大   √重大";
+                        bookmarkHiddenHazardTypeName.Text = "□一般    □较大   √重大";
                     }
                 }
             }
@@ -513,7 +522,21 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     for (int i = 1; i <= ItemList.Count; i++)
                     {
-                        bookmarktab.Text += i + "." + ItemList[i - 1].WrongContent + "(详见附图" + i + "),整改要求：" + ItemList[i - 1].Requirement + ",整改期限：" + string.Format("{0:yyyy-MM-dd}", ItemList[i - 1].LimitTime) + "\r\n";
+                        string imgStr = string.Empty;
+                        var att = AttachFileService.GetAttachFile(ItemList[i-1].RectifyNoticesItemId.ToString() + "#1", BLL.Const.ProjectRectifyNoticesMenuId);
+                        if (att != null)
+                        {
+                            
+                            List<string> listStr = Funs.GetStrListByStr(att.AttachUrl, ',');
+                            if (listStr.Count > 0)
+                            {
+                                if (File.Exists(rootPath + listStr[0]))
+                                {
+                                    imgStr = "(详见附图)";
+                                }
+                            }
+                        }
+                        bookmarktab.Text += i + "." + ItemList[i - 1].WrongContent + ",整改要求：" + ItemList[i - 1].Requirement +imgStr +",整改期限：" + string.Format("{0:yyyy-MM-dd}", ItemList[i - 1].LimitTime) + "\r\n";
                     }
                 }
             }
@@ -694,31 +717,33 @@ namespace FineUIPro.Web.HSSE.Check
                 }
             }
             //附图
-            Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
-            builder.MoveToBookmark("PhotoUrl");
+            
            
 
             var getItem = from x in Funs.DB.Check_RectifyNoticesItem
                           where x.RectifyNoticesId == Id
                           orderby x.RectifyNoticesItemId
                           select x;
+            Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
+            builder.MoveToBookmark("PhotoUrl");
+            builder.MoveToBookmark("PhotoUrl");
+            builder.StartTable();
+            builder.RowFormat.Alignment = Aspose.Words.Tables.RowAlignment.Center;
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.RowFormat.LeftIndent = 5;
+            builder.Bold = false;
+            builder.RowFormat.Height = 20;
+            builder.Bold = false;
+            builder.InsertCell();
+            builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+            builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+            builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+            builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居中对齐
+            builder.CellFormat.Width = 450;
+            bool flag = false;
             if (getItem.ToList().Count > 0)
             {
-                builder.MoveToBookmark("PhotoUrl");
-                builder.StartTable();
-                builder.RowFormat.Alignment = Aspose.Words.Tables.RowAlignment.Center;
-                builder.CellFormat.Borders.LineStyle = LineStyle.Single;
-                builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
-                builder.RowFormat.LeftIndent = 5;
-                builder.Bold = false;
-                builder.RowFormat.Height = 20;
-                builder.Bold = false;
-                builder.InsertCell();
-                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                builder.CellFormat.Width = 450;
                 int j = 1;
                 foreach (var item in getItem)
                 {
@@ -730,20 +755,30 @@ namespace FineUIPro.Web.HSSE.Check
                         List<string> listStr = Funs.GetStrListByStr(att.AttachUrl, ',');
                         foreach (var urlItem in listStr)
                         {
+
                             string url = rootPath + urlItem;
                             if (File.Exists(url))
                             {
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builder.InsertImage(url, 150, 150);
+                                builder.InsertImage(url, 205, 205);
+                                builder.Font.Size = 8;
+                                builder.Write("图" + j);
                                 builder.Write("   ");
+                                j++;
+                                flag = true;
                             }
+
                         }
+
+
                     }
-                    builder.Font.Size = 8;
-                    builder.Write("图" + j);
-                    builder.Write("   ");
-                    j++;
+
                 }
+
+            }
+            if (!flag)
+            {
+                builder.Write("无");
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
             }
             doc.Save(newUrl);
             //生成PDF文件
@@ -840,16 +875,25 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 if (getRectify != null)
                 {
+                    string UnitWorkNames = string.Empty;
                     if (!string.IsNullOrEmpty(getRectify.WorkAreaId))
                     {
-                        var UnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(getRectify.WorkAreaId);
-                        if (UnitWork != null)
+                        string[] Ids = getRectify.WorkAreaId.ToString().Split(',');
+                        foreach (string t in Ids)
                         {
-                            bookmarkUnitWorkName.Text = UnitWork.UnitWorkName;
+                            var UnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(t);
+                            if (UnitWork != null)
+                            {
+                                UnitWorkNames += UnitWork.UnitWorkName + ",";
+                            }
+                        }
+                        if (UnitWorkNames != string.Empty)
+                        {
+
+                            bookmarkUnitWorkName.Text = UnitWorkNames.Substring(0, UnitWorkNames.Length - 1);
                         }
 
                     }
-
                 }
             }
             Bookmark bookmarkCheckManNames = doc.Range.Bookmarks["CheckManNames"];
@@ -914,10 +958,24 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     for (int i = 1; i <= ItemList.Count; i++)
                     {
+                        string imgStr = string.Empty;
+                        var att = AttachFileService.GetAttachFile(ItemList[i - 1].RectifyNoticesItemId.ToString() + "#2", BLL.Const.ProjectRectifyNoticesMenuId);
+                        if (att != null)
+                        {
+
+                            List<string> listStr = Funs.GetStrListByStr(att.AttachUrl, ',');
+                            if (listStr.Count > 0)
+                            {
+                                if (File.Exists(rootPath + listStr[0]))
+                                {
+                                    imgStr = "(详见附图),";
+                                }
+                            }
+                        }
                         if (ItemList[i - 1].IsRectify?.ToString() == "True")
-                            bookmarktab.Text += i + "." + ItemList[i - 1].RectifyResults + "(详见附图),是否合格：合格" + "\r\n";
+                            bookmarktab.Text += i + "." + ItemList[i - 1].RectifyResults + imgStr+"是否合格：合格" + "\r\n";
                         else
-                            bookmarktab.Text += i + "." + ItemList[i - 1].RectifyResults + "(详见附图),是否合格：不合格" + "\r\n";
+                            bookmarktab.Text += i + "." + ItemList[i - 1].RectifyResults + imgStr + "是否合格：不合格" + "\r\n";
                     }
                 }
             }
@@ -1152,35 +1210,35 @@ namespace FineUIPro.Web.HSSE.Check
                 }
             }
             //附图
-            Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
-            builder.MoveToBookmark("PhotoUrl");
+            
 
             var getItem = from x in Funs.DB.Check_RectifyNoticesItem
                           where x.RectifyNoticesId == Id
                           orderby x.RectifyNoticesItemId
                           select x;
-
+            Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
+            builder.MoveToBookmark("PhotoUrl");
+            builder.StartTable();
+            builder.RowFormat.Alignment = Aspose.Words.Tables.RowAlignment.Center;
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.RowFormat.LeftIndent = 5;
+            builder.Bold = false;
+            builder.RowFormat.Height = 20;
+            builder.Bold = false;
+            builder.InsertCell();
+            builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+            builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+            builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+            builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居中对齐
+            builder.CellFormat.Width = 450;
+            bool flag = false;
             if (getItem.ToList().Count > 0)
             {
-                builder.MoveToBookmark("PhotoUrl");
-                builder.StartTable();
-                builder.RowFormat.Alignment = Aspose.Words.Tables.RowAlignment.Center;
-                builder.CellFormat.Borders.LineStyle = LineStyle.Single;
-                builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
-                builder.RowFormat.LeftIndent = 5;
-                builder.Bold = false;
-                builder.RowFormat.Height = 20;
-                builder.Bold = false;
-                builder.InsertCell();
-                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                builder.CellFormat.Width = 450;
                 int j = 1;
                 foreach (var item in getItem)
                 {
-                    var att = AttachFileService.GetAttachFile(item.RectifyNoticesItemId.ToString() + "#1", BLL.Const.ProjectRectifyNoticesMenuId);
+                    var att = AttachFileService.GetAttachFile(item.RectifyNoticesItemId.ToString() + "#2", BLL.Const.ProjectRectifyNoticesMenuId);
                     if (att != null && !string.IsNullOrEmpty(att.AttachUrl))
                     {
 
@@ -1190,19 +1248,27 @@ namespace FineUIPro.Web.HSSE.Check
                         {
 
                             string url = rootPath + urlItem;
-                            DocumentBuilder builders = new DocumentBuilder(doc);
-                            builder.InsertImage(url, 150, 150);
-                            builder.Write("   ");
-
+                            if (File.Exists(url)) {
+                                builder.InsertImage(url, 205, 205);
+                                builder.Font.Size = 8;
+                                builder.Write("图" + j);
+                                builder.Write("   ");
+                                j++;
+                                flag = true;
+                            }
+                            
                         }
 
 
                     }
-                    builder.Font.Size = 8;
-                    builder.Write("图" + j);
-                    builder.Write("   ");
-                    j++;
+                    
                 }
+
+            }
+            if (!flag)
+            {
+                builder.Write("无");
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
             }
 
             doc.Save(newUrl);

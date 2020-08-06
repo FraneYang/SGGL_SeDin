@@ -734,25 +734,28 @@ namespace FineUIPro.Web.CQMS.WBS
             string workPackageCode1 = string.Empty;
             string workPackageCode2 = string.Empty;
             Model.WBS_WorkPackageProject workPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(this.hdSelectId.Text, this.CurrUser.LoginProjectId);
-            if (workPackageProject.SuperWorkPack == null)   //选中第一级分部分项
+            if (workPackageProject != null)
             {
-                projectType = workPackageProject.ProjectType;
-            }
-            else
-            {
-                Model.WBS_WorkPackageProject pWorkPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(workPackageProject.SuperWorkPack, this.CurrUser.LoginProjectId);
+                if (workPackageProject.SuperWorkPack == null)   //选中第一级分部分项
                 {
-                    if (pWorkPackageProject.SuperWorkPack == null)    //选中第二级分部分项
+                    projectType = workPackageProject.ProjectType;
+                }
+                else
+                {
+                    Model.WBS_WorkPackageProject pWorkPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(workPackageProject.SuperWorkPack, this.CurrUser.LoginProjectId);
                     {
-                        projectType = pWorkPackageProject.ProjectType;
-                        workPackageCode1 = pWorkPackageProject.WorkPackageCode;
-                    }
-                    else
-                    {
-                        Model.WBS_WorkPackageProject ppWorkPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(pWorkPackageProject.SuperWorkPack, this.CurrUser.LoginProjectId);
-                        projectType = ppWorkPackageProject.ProjectType;
-                        workPackageCode1 = ppWorkPackageProject.WorkPackageCode;
-                        workPackageCode2 = pWorkPackageProject.WorkPackageCode;
+                        if (pWorkPackageProject.SuperWorkPack == null)    //选中第二级分部分项
+                        {
+                            projectType = pWorkPackageProject.ProjectType;
+                            workPackageCode1 = pWorkPackageProject.WorkPackageCode;
+                        }
+                        else
+                        {
+                            Model.WBS_WorkPackageProject ppWorkPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(pWorkPackageProject.SuperWorkPack, this.CurrUser.LoginProjectId);
+                            projectType = ppWorkPackageProject.ProjectType;
+                            workPackageCode1 = ppWorkPackageProject.WorkPackageCode;
+                            workPackageCode2 = pWorkPackageProject.WorkPackageCode;
+                        }
                     }
                 }
             }
