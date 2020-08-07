@@ -93,8 +93,6 @@ namespace FineUIPro.Web.HSSE.Check
                         {
                             this.txtApproveMan.Text = user2.UserName;
                         }
-                        this.txtIncentiveReason.Text = punishNotice.IncentiveReason;
-                        this.txtBasicItem.Text = punishNotice.BasicItem;
                         if (punishNotice.PunishMoney != null)
                         {
                             this.txtPunishMoney.Text = Convert.ToString(punishNotice.PunishMoney);
@@ -114,7 +112,7 @@ namespace FineUIPro.Web.HSSE.Check
         //处罚明细
         public void BindGrid1()
         {
-            string strSql = @"select PunishNoticeItemId, PunishNoticeId, PunishContent, PunishMoney, SortIndex from Check_PunishNoticeItem ";
+            string strSql = @"select PunishNoticeItemId, PunishNoticeId, PunishContent, PunishBasicItem,PunishMoney, SortIndex from Check_PunishNoticeItem ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += "where PunishNoticeId= @PunishNoticeId";
             listStr.Add(new SqlParameter("@PunishNoticeId", PunishNoticeId));

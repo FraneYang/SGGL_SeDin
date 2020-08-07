@@ -3,7 +3,7 @@
   <TreeNode id="C48343FA-ADC6-4551-86AD-7B68C27A6170" Text="个人信息" NavigateUrl="Personal/PersonalInfo.aspx">
   </TreeNode>
 <TreeNode id="BAB254FA-C879-4463-B9DE-387C241A8623" Text="密码修改" NavigateUrl="SysManage/UpdatePassword.aspx"></TreeNode>
-<TreeNode id="C6EF06E5-9019-4583-8122-EA94FCC545C6" Text="员工总结" NavigateUrl=""></TreeNode>
-<TreeNode id="AAF841AA-2EE8-4FEC-B1FB-B978736C6E1F" Text="员工责任书" NavigateUrl=""></TreeNode>
+<TreeNode id="C6EF06E5-9019-4583-8122-EA94FCC545C6" Text="员工总结" NavigateUrl="Personal/PersonTotal.aspx"></TreeNode>
+<TreeNode id="AAF841AA-2EE8-4FEC-B1FB-B978736C6E1F" Text="员工责任书" NavigateUrl="Personal/PersonDuty.aspx"></TreeNode>
 <TreeNode id="CB373458-30B0-4850-ABFF-B38D40A04D43" Text="员工绩效考核结果" NavigateUrl=""></TreeNode>
 </Tree>

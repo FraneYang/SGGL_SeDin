@@ -138,9 +138,9 @@
                         <div class="bw-b-bottom-up">
                             <div class="tab-wrap">
                                 <div class="tab" data-value="2">
-                                    <div class="t-item active">施工分包商</div>
+                                    <div class="t-item ">施工分包商</div>
                                     <div class="spline"></div>
-                                    <div class="t-item ">单位工程</div>
+                                    <div class="t-item active">单位工程</div>
                                     <div class="spline"></div>
                                     <div class="t-item">专业</div>
                                 </div>
@@ -540,16 +540,16 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var two =<%=Two %>;
+  var two2 =<%=Two2 %>;
     //var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6", "分包7", "分包8", "分包9"]
-    var xArr = two.categories
+    var xArr = two2.categories
     var data = [
         {
             name: '未整改',
             type: 'bar',
             stack: '总量',
             //data: [3, 5, 8, 10, 6, 4, 5, 9, 12],
-            data: two.series[0].data,
+            data: two2.series[0].data,
             itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
         },
         {
@@ -557,7 +557,7 @@
             type: 'bar',
             stack: '总量',
             //data: [2, 7, 5, 9, 12, 9, 2, 8, 10],
-            data: two.series[1].data,
+            data: two2.series[1].data,
             itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
         }
     ]

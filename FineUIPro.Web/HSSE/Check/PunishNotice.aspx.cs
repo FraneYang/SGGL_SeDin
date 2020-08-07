@@ -417,13 +417,19 @@ namespace FineUIPro.Web.HSSE.Check
 
                 }
             }
-            Bookmark bookmarkIncentiveReason = doc.Range.Bookmarks["IncentiveReason"];
+            Bookmark bookmarkIncentiveReason = doc.Range.Bookmarks["IncentiveReason"];//处罚原因
             if (bookmarkIncentiveReason != null)
             {
                 if (getPunishNotice != null)
                 {
-                    bookmarkIncentiveReason.Text = getPunishNotice.IncentiveReason;
-
+                    var ItemList = (from x in Funs.DB.Check_PunishNoticeItem where x.PunishNoticeId == getPunishNotice.PunishNoticeId orderby x.SortIndex select x).ToList();
+                    if (ItemList.Count > 0)
+                    {
+                        for (int i = 1; i <= ItemList.Count; i++)
+                        {
+                            bookmarkIncentiveReason.Text += i + "." + ItemList[i - 1].PunishContent + "\r\n";
+                        }
+                    }
                 }
             }
             Bookmark bookmarkBasicItem = doc.Range.Bookmarks["BasicItem"];
@@ -431,7 +437,14 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 if (getPunishNotice != null)
                 {
-                    bookmarkBasicItem.Text = getPunishNotice.BasicItem; ;
+                    var ItemList = (from x in Funs.DB.Check_PunishNoticeItem where x.PunishNoticeId == getPunishNotice.PunishNoticeId orderby x.SortIndex select x).ToList();
+                    if (ItemList.Count > 0)
+                    {
+                        for (int i = 1; i <= ItemList.Count; i++)
+                        {
+                            bookmarkBasicItem.Text += i + "." + ItemList[i - 1].PunishBasicItem + "\r\n";
+                        }
+                    }
                 }
             }
             Bookmark bookmarkPunishMoney = doc.Range.Bookmarks["PunishMoney"];

@@ -43,7 +43,7 @@
                         AutoPostBack="true" OnSelectedIndexChanged="drpSupCheckItemSet_SelectedIndexChanged"
                         EnableEdit="true">
                     </f:DropDownList>
-                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="txtCheckDate">
+                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="txtCheckDate" EnableEdit="false">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
@@ -62,9 +62,9 @@
             </f:FormRow>      
             <f:FormRow>
                 <Items>
-                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckSpecialDetailId"
+                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server"   DataIDField="CheckSpecialDetailId"
                         DataKeyNames="CheckSpecialDetailId" ShowGridHeader="true"  SortField="SortIndex" SortDirection="ASC" 
-                        Height="350px" AllowCellEditing="true" AllowSorting="true"  EnableColumnLines="true"  OnPreDataBound="Grid1_PreDataBound" 
+                        Height="350px" AllowCellEditing="true" ClicksToEdit="1" AllowSorting="true"  EnableColumnLines="true"  OnPreDataBound="Grid1_PreDataBound" 
                         EnableTextSelection="True" >   
                         <Columns>                       
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
@@ -186,7 +186,7 @@
                 } else {
                     drpHandleStep.setEmptyText('');
                     drpHandleStep.disable();
-                    drpHiddenHazardType.setEmptyText('');
+                    drpHiddenHazardType.setEmptyText('1');
                     drpHiddenHazardType.disable();
                 }
             }

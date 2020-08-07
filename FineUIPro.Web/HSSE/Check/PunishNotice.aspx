@@ -77,7 +77,7 @@
                             HeaderText="处罚时间" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="220px" ColumnID="BasicItem" DataField="BasicItem" SortField="BasicItem"
-                            FieldType="String" HeaderText="处罚依据" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="String" HeaderText="处罚依据" HeaderTextAlign="Center" TextAlign="Left" Hidden="true">
                         </f:RenderField>
                         <f:RenderField Width="90px" ColumnID="PunishMoney" DataField="PunishMoney" SortField="PunishMoney"
                             FieldType="Float" HeaderText="处罚金额" HeaderTextAlign="Center" TextAlign="Left">

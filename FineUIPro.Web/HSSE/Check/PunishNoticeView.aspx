@@ -30,24 +30,7 @@
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
-                <f:FormRow>
-                    <Items>
-                        <f:TextBox ID="txtIncentiveReason" runat="server" Label="处罚原因" LabelAlign="Right" Readonly="true" LabelWidth="90px">
-                        </f:TextBox>
-                        <f:TextBox ID="txtBasicItem" runat="server" Label="处罚根据" LabelAlign="Right" Readonly="true" LabelWidth="90px">
-                        </f:TextBox>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow ColumnWidths="50% 20% 30%">
-                    <Items>
-                        <f:NumberBox runat="server" ID="txtPunishMoney" Label="处罚金额" Readonly="true" LabelWidth="90px">
-                        </f:NumberBox>
-                        <f:TextBox runat="server" ID="txtCurrency" Label="币种" Readonly="true" LabelWidth="60px">
-                        </f:TextBox>
-                        <f:TextBox runat="server" ID="txtBig" Label="大写" Readonly="true" LabelWidth="60px">
-                        </f:TextBox>
-                    </Items>
-                </f:FormRow>
+                
                 <f:FormRow>
                     <Items>
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" AllowCellEditing="true" ForceFit="true" EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true" runat="server" BoxFlex="1" DataKeyNames="PunishNoticeItemId" DataIDField="PunishNoticeItemId" AllowSorting="true" SortField="PunishNoticeItemId" SortDirection="ASC" EnableTextSelection="True"
@@ -62,6 +45,9 @@
                                 <f:RenderField Width="300px" ColumnID="PunishContent" DataField="PunishContent" FieldType="string"
                                     HeaderText="处罚原因">
                                 </f:RenderField>
+                                <f:RenderField Width="300px" ColumnID="PunishBasicItem" DataField="PunishBasicItem" FieldType="string"
+                                    HeaderText="处罚依据">
+                                </f:RenderField>
                                 <f:RenderField Width="100px" ColumnID="PunishMoney" DataField="PunishMoney" FieldType="string"
                                     HeaderText="金额">
                                     <Editor>
@@ -69,6 +55,16 @@
                                 </f:RenderField>
                             </Columns>
                         </f:Grid>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow ColumnWidths="50% 20% 30%" CssStyle="margin-top:10px">
+                    <Items>
+                        <f:NumberBox runat="server" ID="txtPunishMoney" Label="处罚金额" Readonly="true" LabelWidth="90px">
+                        </f:NumberBox>
+                        <f:TextBox runat="server" ID="txtCurrency" Label="币种" Readonly="true" LabelWidth="60px">
+                        </f:TextBox>
+                        <f:TextBox runat="server" ID="txtBig" Label="大写" Readonly="true" LabelWidth="60px">
+                        </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow CssStyle="padding-top:20px">

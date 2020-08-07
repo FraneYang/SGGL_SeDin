@@ -70,7 +70,10 @@
                     <Rows>                      
                         <f:FormRow>
                             <Items>
-                                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" AllowCellEditing="true" ForceFit="true" EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true" runat="server" BoxFlex="1" DataKeyNames="RectifyNoticesItemId,IsRectify" DataIDField="RectifyNoticesItemId" AllowSorting="true" SortField="RectifyNoticesItemId" SortDirection="ASC" EnableTextSelection="True" Height="240px"
+                                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" AllowCellEditing="true" ClicksToEdit="1" 
+                                    ForceFit="true" EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true" runat="server" BoxFlex="1"
+                                    DataKeyNames="RectifyNoticesItemId,IsRectify" DataIDField="RectifyNoticesItemId" AllowSorting="true" SortField="RectifyNoticesItemId"
+                                    SortDirection="ASC" EnableTextSelection="True" Height="240px"
                                     EnableRowDoubleClickEvent="true" OnRowCommand="Grid1_RowCommand" OnRowDataBound="Grid1_RowDataBound">
                                     <Toolbars>
                                         <f:Toolbar ID="toolAdd" Position="Top" ToolbarAlign="Right" runat="server">

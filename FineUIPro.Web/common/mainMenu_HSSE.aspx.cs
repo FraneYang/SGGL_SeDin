@@ -15,6 +15,32 @@ namespace FineUIPro.Web
                 getHazardRegisterLists= HSSE_Hazard_HazardRegisterService.GetHazardRegisterListByProjectId(this.CurrUser.LoginProjectId);
             }
         }
+        
+        #region 项目安全人工时
+        /// <summary>
+        ///  项目安全人工时
+        /// </summary>
+        protected string One
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "当前现场人数";
+                Model.SingleSerie s = new Model.SingleSerie();
+                List<double> listdata = new List<double>
+                {
+                    APIPageDataService.getPersonNum(this.CurrUser.LoginProjectId)
+                };
+                s.data = listdata;
+                series.Add(s);
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
 
         #region 项目安全人工时
         /// <summary>
@@ -30,11 +56,11 @@ namespace FineUIPro.Web
                 businessColumn.title = "项目安全人工时";
                 Model.SingleSerie s = new Model.SingleSerie();
                 List<double> listdata = new List<double>();           
-                var getMonts= SitePerson_MonthReportService.getMonthReports(CurrUser.LoginProjectId, null);            
+                var getMonts= SitePerson_MonthReportService.getTotalMonthReports(CurrUser.LoginProjectId);            
                 foreach (var month in getMonts.OrderBy(x=>x.CompileDate))
                 {
                     listCategories.Add(string.Format("{0:yyyy-MM}", month.CompileDate));                    
-                    listdata.Add(double.Parse((month.DayWorkTime ?? 0).ToString()));
+                    listdata.Add(double.Parse((month.TotalPersonWorkTime ?? 0).ToString()));
                 }
                 s.data = listdata;
                 series.Add(s);
@@ -122,5 +148,7 @@ namespace FineUIPro.Web
             }
         }
         #endregion
+
+
     }
 }

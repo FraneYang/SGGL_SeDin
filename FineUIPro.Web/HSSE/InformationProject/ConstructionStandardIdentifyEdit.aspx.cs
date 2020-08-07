@@ -94,7 +94,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 BLL.ConstValue.InitConstValueDropDownList(this.drpCNProfessional,ConstValue.Group_CNProfessional,true);
-                
+                Funs.DropDownPageSize(this.ddlPageSize);
                 this.ItemSelectedList = new List<string>();
                 this.ItemSelectedList2 = new List<string>();
                 this.ConstructionStandardIdentifyId = Request.Params["ConstructionStandardIdentifyId"];               

@@ -198,7 +198,7 @@ namespace FineUIPro.Web.HSSE.ActionPlan
             {
                 SaveData(BLL.Const.BtnSave);
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ActionPlanListAttachUrl&menuId={1}", this.ActionPlanListId, BLL.Const.ProjectActionPlanListMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ActionPlanListAttachUrl&menuId={1}", this.ActionPlanListId, BLL.Const.ProjectActionPlanListMenuId)));
         }
         #endregion
     }

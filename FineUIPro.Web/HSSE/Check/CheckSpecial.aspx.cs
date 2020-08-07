@@ -358,6 +358,9 @@ namespace FineUIPro.Web.HSSE.Check
             uploadfilepath = rootPath + initTemplatePath;
             newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".doc");
             filePath = initTemplatePath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
+            if (File.Exists(newUrl)) {
+                File.Delete(newUrl);
+            }
             File.Copy(uploadfilepath, newUrl);
             ///更新书签
             Document doc = new Aspose.Words.Document(newUrl);
@@ -392,7 +395,10 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 if (checkSpecial != null)
                 {
-                    bookmarkSupCheckItemSet.Text = Technique_CheckItemSetService.GetCheckItemSetNameById(checkSpecial.CheckItemSetId);
+                    if (!string.IsNullOrEmpty(checkSpecial.CheckItemSetId)) {
+                        bookmarkSupCheckItemSet.Text = Technique_CheckItemSetService.GetCheckItemSetNameById(checkSpecial.CheckItemSetId);
+                    }
+                    
                 }
 
             }
@@ -401,7 +407,10 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 if (checkSpecial != null)
                 {
-                    bookmarkSupCheckItemSet.Text = string.Format("{0:yyyy-MM-dd}", checkSpecial.CheckTime);
+                    if (checkSpecial.CheckTime.HasValue) {
+                        bookmarkCheckDate.Text = string.Format("{0:yyyy-MM-dd}", checkSpecial.CheckTime);
+                    }
+                    
                 }
 
             }

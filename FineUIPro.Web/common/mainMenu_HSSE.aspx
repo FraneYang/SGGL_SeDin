@@ -9,64 +9,77 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
-        *{
-            box-sizing:border-box;
+        * {
+            box-sizing: border-box;
         }
-        .flexV{
-         flex-direction:column;
+
+        .flexV {
+            flex-direction: column;
         }
-        .wrap{
-            height:100%;
-            padding:15px;
+
+        .wrap {
+            height: 100%;
+            padding: 15px;
         }
-        .bottom-wrap{
-           padding:0;
-           margin-bottom: 5px;
+
+        .bottom-wrap {
+            padding: 0;
+            margin-bottom: 5px;
         }
-        .bottom-wrap:last-child{
-            margin-bottom: 0;
+
+            .bottom-wrap:last-child {
+                margin-bottom: 0;
+            }
+
+        .bw-item-content {
+            padding: 5px;
         }
-        .bw-item-content{
-           padding:5px;
-        }
+
         .top {
             display: flex;
             display: -webkit-flex;
             overflow: hidden;
             width: 100%;
         }
-        .bw-b-bottom{
-            width:100%;
-            height:100%;
+
+        .bw-b-bottom {
+            width: 100%;
+            height: 100%;
         }
-        .itemlr{
+
+        .itemlr {
             margin: 0 5px;
         }
+
         .bw-b-bottom-up {
-            border-radius:0;
+            border-radius: 0;
             height: 100%;
-            margin:0;
-            box-shadow:none;
+            margin: 0;
+            box-shadow: none;
         }
-        .yj-info{
-           align-items: center;
-           justify-content: center;
-           width:100%;
-           height:100%;
-           color:red;
-           font-size:20px;
+
+        .yj-info {
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            color: red;
+            font-size: 20px;
         }
-        .yj-info .tit{
-            font-weight:700;
-            margin-bottom:20px;
-        }
-        .yj-info .tel{
-            font-weight:700;
-        }
+
+            .yj-info .tit {
+                font-weight: 700;
+                margin-bottom: 20px;
+            }
+
+            .yj-info .tel {
+                font-weight: 700;
+            }
+
         .tab-wrap {
             left: auto;
             right: 15px;
-             top: 5px;
+            top: 5px;
         }
 
         .tab .t-item {
@@ -82,81 +95,89 @@
             margin: 0 10px;
         }
 
-        .bottom-list .bl-left {
-            float: left;
-            margin-right: 30px;
-            margin-left: 50px;
-        }
+            .bottom-list .bl-left {
+                float: left;
+                margin-right: 30px;
+                margin-left: 50px;
+            }
 
-        .bottom-list .bl-right {
-            float: right;
-            margin-right: 50px;
-        }
+            .bottom-list .bl-right {
+                float: right;
+                margin-right: 50px;
+            }
 
         .tab .t-item {
             font-size: 12px;
         }
 
         .content-body {
-            display:flex;
-            flex-direction:column;
-            flex:3;
+            display: flex;
+            flex-direction: column;
+            flex: 3;
         }
-        .content-body .content-item {
 
-        }
+            .content-body .content-item {
+            }
+
         .part-item {
-            display:flex;
-            align-items:center;
+            display: flex;
+            align-items: center;
         }
+
         .part-tag {
-            display:flex;
-            flex-direction:column;
-            background-color:#107ca2;
+            display: flex;
+            flex-direction: column;
+            background-color: #107ca2;
             opacity: 0.8;
-            flex:1;
-            border-radius:10px;
+            flex: 1;
+            border-radius: 10px;
         }
-        .part-tag +.part-tag {
-            margin-left:20px;
-        }
+
+            .part-tag + .part-tag {
+                margin-left: 20px;
+            }
+
         .item-top {
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-size:20px;
-            color:#fff;
-            border-bottom:1px solid #f2f2f2;
-            padding:10px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #fff;
+            border-bottom: 1px solid #f2f2f2;
+            padding: 10px 0px;
         }
+
         .unit {
-            display:flex;
-            justify-content:flex-end;
-            text-align:right;
-            font-size:16px;
-            padding-right:30px;
+            display: flex;
+            justify-content: flex-end;
+            text-align: right;
+            font-size: 16px;
+            padding-right: 30px;
         }
+
         .num {
-            display:flex;
-            justify-content:center;
-            flex:1;
+            display: flex;
+            justify-content: center;
+            flex: 1;
         }
+
         .unit-btn {
-            display:flex;
-            justify-content:center;
-            padding:10px 0px;
-            font-size:16px;
-            color:#fff;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0px;
+            font-size: 16px;
+            color: #fff;
         }
+
         .do-btn {
-            display:flex;
-            justify-content:center;
-            background-color:#107ca2;
+            display: flex;
+            justify-content: center;
+            background-color: #107ca2;
             opacity: 0.8;
-            flex:1;
-            border-radius:10px;
-            padding:20px 0px;
-            color:#fff;
+            flex: 1;
+            border-radius: 10px;
+            padding: 20px 0px;
+            color: #fff;
         }
     </style>
 </head>
@@ -174,7 +195,7 @@
                     </div>
                 </div>
                 <div class="item flex3 itemlr">
-                     <div class="bw-b-bottom">
+                    <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content">
                                 <div id='two' style="width: 100%; height: 100%;"></div>
@@ -260,12 +281,12 @@
             //    formatter: '{a} <br/>{b} : {c}%'
             //},
             title: {
-                left:'center',
+                left: 'center',
                 text: '当前现场人数',
                 textStyle: {
                     color: '#fff',
                     fontSize: 12,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: true
             },
@@ -278,10 +299,10 @@
                     pointer: {
                         show: true,
                         length: '70%',
-                        width : 3
+                        width: 3
                     },
-                    axisTick : { //刻度线样式（及短线样式）
-                      length : 0
+                    axisTick: { //刻度线样式（及短线样式）
+                        length: 0
                     },
                     splitLine: {
                         length: 10,
@@ -291,18 +312,18 @@
                     },
                     axisLine: {
                         lineStyle: {
-                            width : 10//表盘宽度
+                            width: 10//表盘宽度
                         }
                     },
                     min: 0,
-                    max: 100,
+                    max: 1000,
                     detail: {
                         show: false,
                         formatter: '{value}%'
                     },
                     data: [{
                         value: dataNum,
-                        name: ''
+                        name: '人数'
                     }]
                 }
             ]
@@ -310,21 +331,22 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option, true)
     }
-    category_One('one', 80)
+    var one =<%=One %>;
+    category_One('one', one.series[0].data)
 </script>
 <script type="text/javascript">
-    function category_Two(id, xArr, data)  {
+    function category_Two(id, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
             title: {
-                left:'center',
+                left: 'center',
                 text: '项目安全人工时',
                 textStyle: {
                     color: '#fff',
                     fontSize: 12,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: true
             },
@@ -343,7 +365,7 @@
                 },
                 axisLabel: {
                     show: true,
-                     interval: 0,
+                    interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -392,8 +414,8 @@
     }
 
     var two =<%=Two %>;
-    var xArr = two.categories    
-    var data = [ {
+    var xArr = two.categories
+    var data = [{
         name: '当月人工时',
         type: 'line',
         data: two.series[0].data
@@ -401,18 +423,18 @@
     category_Two('two', xArr, data)
 </script>
 <script type="text/javascript">
-    function category_Three(id, xArr, data)  {
+    function category_Three(id, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
             title: {
-                left:'center',
+                left: 'center',
                 text: '作业许可数量统计',
                 textStyle: {
                     color: '#fff',
-                     fontSize: 12,
-                    fontWeight:'300'
+                    fontSize: 12,
+                    fontWeight: '300'
                 },
                 show: true
             },
@@ -478,7 +500,7 @@
         myChart.setOption(option)
     }
     var xArr = ["待提交", "审核中", "作业中", "已关闭", "已取消", "作废"]
-    var data = [ {
+    var data = [{
         name: '作业许可数量统计',
         type: 'bar',
         data: [13, 15, 23, 13, 22, 12],
@@ -497,7 +519,7 @@
                 text: '安全检查问题统计',
                 textStyle: {
                     color: '#fff',
-                     fontSize: 12,
+                    fontSize: 12,
                     fontWeight: '300',
                 },
                 show: true
@@ -531,7 +553,7 @@
                     show: false
                 },
                 axisLine: {
-                     show: false,
+                    show: false,
                     lineStyle: {
                         color: 'rgba(255, 255, 255, 0.3)'
                     }
@@ -580,18 +602,18 @@
     category_Four('four', xArr, series)
 </script>
 <script type="text/javascript">
-    function category_Five(id, xArr, data)  {
+    function category_Five(id, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
             title: {
-                left:'center',
+                left: 'center',
                 text: '人场安全培训',
                 textStyle: {
                     color: '#fff',
-                   fontSize: 12,
-                    fontWeight:'300'
+                    fontSize: 12,
+                    fontWeight: '300'
                 },
                 show: true
             },
@@ -610,7 +632,7 @@
                 },
                 axisLabel: {
                     show: true,
-                     interval: 0,
+                    interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -658,26 +680,26 @@
         myChart.setOption(option)
     }
     var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7"]
-    var data = [ {
+    var data = [{
         name: '',
         type: 'line',
         smooth: true,
         data: [23, 25, 22, 13, 4, 12, 9],
         itemStyle: { normal: { color: 'rgba(30,81,134, 1)' } }
     }, {
-            name: '',
-            type: 'bar',
-            stack: '总量',
-            data: [20, 2, 1, 34, 39, 30, 20],
-            itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
-        },
-        {
-            name: '',
-            type: 'bar',
-            stack: '总量',
-            data: [12, 32, 10, 14, 9, 30, 21],
-            itemStyle: { normal: { color: 'rgba(28,110,173, 1)' } }
-        }]
+        name: '',
+        type: 'bar',
+        stack: '总量',
+        data: [20, 2, 1, 34, 39, 30, 20],
+        itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
+    },
+    {
+        name: '',
+        type: 'bar',
+        stack: '总量',
+        data: [12, 32, 10, 14, 9, 30, 21],
+        itemStyle: { normal: { color: 'rgba(28,110,173, 1)' } }
+    }]
     category_Five('five', xArr, data)
 </script>
 <script type="text/javascript">
@@ -686,16 +708,16 @@
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
-                title: [{
-	            text: '事故统计',
-	            top:'0',
-	            left:'12%',
-	            textStyle:{
-	                color: '#fff',
+            title: [{
+                text: '事故统计',
+                top: '0',
+                left: '12%',
+                textStyle: {
+                    color: '#fff',
                     fontSize: 12,
-                    fontWeight:300
-	            }
-	        }],
+                    fontWeight: 300
+                }
+            }],
             tooltip: {
                 trigger: 'item',
                 formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -704,13 +726,13 @@
                 orient: 'vertical',
                 left: 'right',
                 top: 'center',
-                align :'left',
-                data: ['人身伤害', '未遂事故', '火灾','机械设备','重大','其他'],
-                textStyle:{//图例文字的样式
-                    color:'#f2f2f2'
+                align: 'left',
+                data: ['人身伤害', '未遂事故', '火灾', '机械设备', '重大', '其他'],
+                textStyle: {//图例文字的样式
+                    color: '#f2f2f2'
                 }
             },
-            color: ['#CFE5B7','#BBD4A4','#A3C78A','#88B53D','#7CA63B','#698E30'],
+            color: ['#CFE5B7', '#BBD4A4', '#A3C78A', '#88B53D', '#7CA63B', '#698E30'],
             series: [
                 {
                     name: '事故统计',
@@ -721,7 +743,7 @@
                     label: {
                         show: true,
                         position: 'inside',
-                        formatter: function(data){ return data.percent.toFixed(2)+"%";} 
+                        formatter: function (data) { return data.percent.toFixed(2) + "%"; }
                     },
                     //emphasis: {
                     //    label: {
@@ -772,7 +794,7 @@
     ]
     category_six('six', xArr, data)
 </script>
-<script>
+<script type="text/javascript">
     $(".tab .t-item").click(function () {
         var $this = $(this)
         var index = $this.index()
@@ -787,7 +809,7 @@
         var four1 =<%=Four1 %>;
         var four2 =<%=Four2 %>;
         if (value == 4) {
-            var xArr = four1.categories         
+            var xArr = four1.categories
             var data = [{
                 name: '待整改',
                 type: 'bar',
@@ -799,19 +821,19 @@
                 itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
             }];
             if (index == 2) {
-                var xArr = four2.categories         
-            var data = [{
-                name: '待整改',
-                type: 'bar',
-                data: four2.series[0].data
-            }, {
-                name: '全部',
-                type: 'bar',
-                data: four2.series[0].data,
-                itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
-            }];
+                var xArr = four2.categories
+                var data = [{
+                    name: '待整改',
+                    type: 'bar',
+                    data: four2.series[0].data
+                }, {
+                    name: '全部',
+                    type: 'bar',
+                    data: four2.series[0].data,
+                    itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
+                }];
             }
-           category_Four('four', xArr, data)
+            category_Four('four', xArr, data)
         }
     })
 </script>

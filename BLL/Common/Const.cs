@@ -612,6 +612,10 @@ namespace BLL
         #endregion
 
         #region 菜单id
+        #region 我的
+        public const string PersonalTotalMenuId = "C6EF06E5-9019-4583-8122-EA94FCC545C6";
+        #endregion
+
         #region 系统设置
         /// <summary>
         /// 单位设置

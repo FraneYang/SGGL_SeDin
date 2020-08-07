@@ -76,22 +76,31 @@ namespace FineUIPro.Web.HSSE.Check {
         protected global::FineUIPro.DropDownList drpPunishPersonId;
         
         /// <summary>
-        /// txtIncentiveReason 控件。
+        /// txtFileContents 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtIncentiveReason;
+        protected global::FineUIPro.HtmlEditor txtFileContents;
         
         /// <summary>
-        /// txtBasicItem 控件。
+        /// Grid1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtBasicItem;
+        protected global::FineUIPro.Grid Grid1;
+        
+        /// <summary>
+        /// lblNumber 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNumber;
         
         /// <summary>
         /// txtPunishMoney 控件。
@@ -119,33 +128,6 @@ namespace FineUIPro.Web.HSSE.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtBig;
-        
-        /// <summary>
-        /// txtFileContents 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.HtmlEditor txtFileContents;
-        
-        /// <summary>
-        /// Grid1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Grid Grid1;
-        
-        /// <summary>
-        /// lblNumber 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNumber;
         
         /// <summary>
         /// IsAgree 控件。

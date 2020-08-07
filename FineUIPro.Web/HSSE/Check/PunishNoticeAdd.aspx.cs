@@ -84,8 +84,6 @@ namespace FineUIPro.Web.HSSE.Check
                         {
                             this.drpPunishPersonId.SelectedValue = punishNotice.PunishPersonId;
                         }
-                        this.txtIncentiveReason.Text = punishNotice.IncentiveReason;
-                        this.txtBasicItem.Text = punishNotice.BasicItem;
                         if (punishNotice.PunishMoney.HasValue)
                         {
                             this.txtPunishMoney.Text = Convert.ToString(punishNotice.PunishMoney);
@@ -118,7 +116,7 @@ namespace FineUIPro.Web.HSSE.Check
         }
         public void BindGrid()
         {
-            string strSql = @"select PunishNoticeItemId, PunishNoticeId, PunishContent, PunishMoney, SortIndex from Check_PunishNoticeItem ";
+            string strSql = @"select PunishNoticeItemId, PunishNoticeId, PunishContent,PunishBasicItem, PunishMoney, SortIndex from Check_PunishNoticeItem ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += "where PunishNoticeId= @PunishNoticeId";
             listStr.Add(new SqlParameter("@PunishNoticeId", PunishNoticeId));
@@ -273,8 +271,6 @@ namespace FineUIPro.Web.HSSE.Check
                 punishNotice.PunishPersonId = this.drpPunishPersonId.SelectedValue;
             }
             punishNotice.PunishNoticeDate = Funs.GetNewDateTime(this.txtPunishNoticeDate.Text.Trim());
-            punishNotice.IncentiveReason = this.txtIncentiveReason.Text.Trim();
-            punishNotice.BasicItem = this.txtBasicItem.Text.Trim();
             punishNotice.PunishMoney = Funs.GetNewDecimalOrZero(this.txtPunishMoney.Text.Trim());
             punishNotice.FileContents = HttpUtility.HtmlEncode(this.txtFileContents.Text);
             punishNotice.CompileMan = this.CurrUser.UserId;
@@ -326,8 +322,6 @@ namespace FineUIPro.Web.HSSE.Check
                     getUpdate.UnitId = this.drpUnitId.SelectedValue;
                 }
                 getUpdate.PunishNoticeDate = Funs.GetNewDateTime(this.txtPunishNoticeDate.Text.Trim());
-                getUpdate.IncentiveReason = this.txtIncentiveReason.Text.Trim();
-                getUpdate.BasicItem = this.txtBasicItem.Text.Trim();
                 getUpdate.PunishMoney = Funs.GetNewDecimalOrZero(this.txtPunishMoney.Text.Trim());
                 getUpdate.FileContents = HttpUtility.HtmlEncode(this.txtFileContents.Text);
                 getUpdate.CompileMan = this.CurrUser.UserId;
@@ -417,11 +411,13 @@ namespace FineUIPro.Web.HSSE.Check
                     string PunishNoticeItemId = values.Value<string>("PunishNoticeItemId");
                     string PunishContent = values.Value<string>("PunishContent");
                     string PunishMoney = values.Value<string>("PunishMoney");
+                    string PunishBasicItem = values.Value<string>("PunishBasicItem");
                     var item = new Model.Check_PunishNoticeItem();
                     item.PunishNoticeItemId = PunishNoticeItemId;
                     item.PunishNoticeId = PunishNoticeId;
                     item.PunishContent = PunishContent;
                     item.PunishMoney = Funs.GetNewDecimal(PunishMoney);
+                    item.PunishBasicItem = PunishBasicItem;
                     viewPunishNoticeList.Add(item);
                 }
                 //item.RectifyResults = Grid1.Rows[i].Values[3].ToString()
@@ -446,6 +442,7 @@ namespace FineUIPro.Web.HSSE.Check
                     string PunishNoticeItemId = values.Value<string>("PunishNoticeItemId");
                     string PunishContent = values.Value<string>("PunishContent");
                     string PunishMoney = values.Value<string>("PunishMoney");
+                    string PunishBasicItem = values.Value<string>("PunishBasicItem");
                     AspNet.Label lblNumber = (AspNet.Label)Grid1.Rows[i].FindControl("lblNumber");
                     string SortIndex = lblNumber.Text.Trim();
                     Model.Check_PunishNoticeItem PunishNoticeItem = Funs.DB.Check_PunishNoticeItem.FirstOrDefault(e => e.PunishNoticeItemId == PunishNoticeItemId);
@@ -456,6 +453,7 @@ namespace FineUIPro.Web.HSSE.Check
                         PunishNoticeItem.PunishContent = PunishContent;
                         PunishNoticeItem.PunishMoney = decimal.Round(Funs.GetNewDecimalOrZero(PunishMoney), 2);
                         PunishNoticeItem.SortIndex = Funs.GetNewInt(SortIndex);
+                        PunishNoticeItem.PunishBasicItem = PunishBasicItem;
                         Funs.DB.SubmitChanges();
                     }
                     else
@@ -467,6 +465,7 @@ namespace FineUIPro.Web.HSSE.Check
                         item.PunishContent = PunishContent;
                         item.PunishMoney = decimal.Round(Funs.GetNewDecimalOrZero(PunishMoney), 2);
                         item.SortIndex = Funs.GetNewInt(SortIndex);
+                        item.PunishBasicItem = PunishBasicItem;
                         Funs.DB.Check_PunishNoticeItem.InsertOnSubmit(item);
                         Funs.DB.SubmitChanges();
                     }

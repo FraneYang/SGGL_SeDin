@@ -48,7 +48,7 @@ namespace FineUIPro.Web.Person
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
-                strSql += " AND Users.UserName LIKE @UserName";
+                strSql += " Where Users.UserName LIKE @UserName";
                 listStr.Add(new SqlParameter("@UserName", "%" + this.txtUserName.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();

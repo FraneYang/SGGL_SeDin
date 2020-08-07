@@ -67,7 +67,8 @@ namespace BLL
                                           CheckSpecialId = x.CheckSpecialId,
                                           ProjectId = x.ProjectId,
                                           CheckSpecialCode = db.Sys_CodeRecords.First(y => y.DataId == x.CheckSpecialId).Code ?? x.CheckSpecialCode,
-                                          CheckType = (x.CheckType == "1" ? "联合" : "专项"),
+                                          CheckTypeName = (x.CheckType == "1" ? "联合" : "专项"),
+                                          CheckType = x.CheckType,
                                           CheckItemSetId = x.CheckItemSetId,
                                           CheckItemSetName = db.Technique_CheckItemSet.First(y => y.CheckItemSetId == x.CheckItemSetId).CheckItemName,
                                           CheckPersonId = x.CheckPerson,
@@ -300,7 +301,6 @@ namespace BLL
                     Model.Check_CheckSpecialDetail newCheckSpecialDetail = new Model.Check_CheckSpecialDetail
                     {
                         CheckSpecialId = newDetail.CheckSpecialId,
-                        CheckItem = newDetail.CheckItemSetId,
                         SortIndex = newDetail.SortIndex,
                         CheckItemType = newDetail.CheckItemSetName,
                         Unqualified = newDetail.Unqualified,
@@ -324,6 +324,11 @@ namespace BLL
                     if (getUnit != null)
                     {
                         newCheckSpecialDetail.UnitId = newDetail.UnitId;
+                    }
+                    var getCheckItem = db.Technique_CheckItemSet.FirstOrDefault(x => x.CheckItemSetId == newDetail.CheckItemSetId);
+                    if (getCheckItem != null)
+                    {
+                        newCheckSpecialDetail.CheckItem = newDetail.CheckItemSetId;
                     }
 
                     var updateDetail = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == newDetail.CheckSpecialDetailId);

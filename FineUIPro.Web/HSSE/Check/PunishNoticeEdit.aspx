@@ -31,25 +31,7 @@
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>
-                <f:FormRow>
-                    <Items>
-                        <f:TextBox ID="txtIncentiveReason" runat="server" Label="处罚原因" LabelAlign="Right" MaxLength="300" Readonly="true" LabelWidth="90px">
-                        </f:TextBox>
-                        <f:TextBox ID="txtBasicItem" runat="server" Label="处罚根据" LabelAlign="Right" MaxLength="300" Readonly="true" LabelWidth="90px">
-                        </f:TextBox>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow ColumnWidths="50% 20% 30%">
-                    <Items>
-                        <f:NumberBox runat="server" ID="txtPunishMoney" Label="处罚金额"
-                            EnableBlurEvent="true" NoNegative="true" LabelWidth="90px" Readonly="true">
-                        </f:NumberBox>
-                        <f:TextBox runat="server" ID="txtCurrency" Label="币种" MaxLength="50" LabelWidth="60px" Readonly="true">
-                        </f:TextBox>
-                        <f:TextBox runat="server" ID="txtBig" Label="大写" Readonly="true" LabelWidth="60px">
-                        </f:TextBox>
-                    </Items>
-                </f:FormRow>
+                
                 <f:FormRow Hidden="true">
                     <Items>
                         <f:HtmlEditor runat="server" Label="处罚原因/决定" ID="txtFileContents" ShowLabel="false"
@@ -72,6 +54,9 @@
                                 <f:RenderField Width="300px" ColumnID="PunishContent" DataField="PunishContent" FieldType="string"
                                     HeaderText="处罚原因">
                                 </f:RenderField>
+                                <f:RenderField Width="300px" ColumnID="PunishBasicItem" DataField="PunishBasicItem" FieldType="string"
+                                    HeaderText="处罚依据">
+                                </f:RenderField>
                                 <f:RenderField Width="100px" ColumnID="PunishMoney" DataField="PunishMoney" FieldType="string"
                                     HeaderText="金额">
                                     <Editor>
@@ -79,6 +64,17 @@
                                 </f:RenderField>
                             </Columns>
                         </f:Grid>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow ColumnWidths="50% 20% 30%" CssStyle="margin-top:10px">
+                    <Items>
+                        <f:NumberBox runat="server" ID="txtPunishMoney" Label="处罚金额"
+                            EnableBlurEvent="true" NoNegative="true" LabelWidth="90px" Readonly="true">
+                        </f:NumberBox>
+                        <f:TextBox runat="server" ID="txtCurrency" Label="币种" MaxLength="50" LabelWidth="60px" Readonly="true">
+                        </f:TextBox>
+                        <f:TextBox runat="server" ID="txtBig" Label="大写" Readonly="true" LabelWidth="60px">
+                        </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ID="IsAgree" Hidden="true">

@@ -44,6 +44,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 检查类型0-周检；1-月检；2-其他
+        /// </summary>
+        public string CheckTypeName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 检查项目
         /// </summary>
         public string CheckItemSetId

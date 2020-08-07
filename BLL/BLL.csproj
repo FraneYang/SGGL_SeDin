@@ -98,6 +98,7 @@
     <Compile Include="API\HJGL\APIPreWeldingDailyService.cs" />
     <Compile Include="API\HJGL\APIReportQueryService.cs" />
     <Compile Include="API\HJGL\APITestPackageService.cs" />
+    <Compile Include="API\HSSE\APIPageDataService.cs" />
     <Compile Include="API\HSSE\APIChartAnalysisService.cs" />
     <Compile Include="API\HSSE\APICheckSpecialService.cs" />
     <Compile Include="API\HSSE\APIConstructSolutionService.cs" />

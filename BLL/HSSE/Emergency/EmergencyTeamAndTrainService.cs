@@ -123,5 +123,23 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+
+        /// <summary>
+        /// 下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="projectId">项目id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitTeamDropDownList(FineUIPro.DropDownList dropName, string ProjectId, bool isShowPlease)
+        {
+            dropName.DataValueField = "FileId";
+            dropName.DataTextField = "FileName";
+            dropName.DataSource = (from x in Funs.DB.Emergency_EmergencyTeamAndTrain where x.ProjectId == ProjectId select x).ToList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
     }
 }

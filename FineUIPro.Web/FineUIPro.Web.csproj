@@ -802,6 +802,9 @@
     <Content Include="Person\PersonCheckingView.aspx" />
     <Content Include="Person\PersonSet.aspx" />
     <Content Include="Person\PersonSetEdit.aspx" />
+    <Content Include="Personal\PersonTotal.aspx" />
+    <Content Include="Personal\PersonTotalEdit.aspx" />
+    <Content Include="Personal\PersonTotalView.aspx" />
     <Content Include="Person\PersonTotal.aspx" />
     <Content Include="Person\PersonTotalEdit.aspx" />
     <Content Include="Person\PersonTotalView.aspx" />
@@ -8947,6 +8950,27 @@
     </Compile>
     <Compile Include="Person\PersonSetEdit.aspx.designer.cs">
       <DependentUpon>PersonSetEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Personal\PersonTotal.aspx.cs">
+      <DependentUpon>PersonTotal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Personal\PersonTotal.aspx.designer.cs">
+      <DependentUpon>PersonTotal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Personal\PersonTotalEdit.aspx.cs">
+      <DependentUpon>PersonTotalEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Personal\PersonTotalEdit.aspx.designer.cs">
+      <DependentUpon>PersonTotalEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Personal\PersonTotalView.aspx.cs">
+      <DependentUpon>PersonTotalView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Personal\PersonTotalView.aspx.designer.cs">
+      <DependentUpon>PersonTotalView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Person\PersonTotal.aspx.cs">
       <DependentUpon>PersonTotal.aspx</DependentUpon>
