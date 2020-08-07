@@ -17,7 +17,7 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 int SitePersonNum = 0;
-                var getDayAll = from x in new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOut
+                var getDayAll = from x in db.SitePerson_PersonInOut
                                 where x.ProjectId == projectId && x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month
                                 && x.ChangeTime.Value.Day == DateTime.Now.Day
                                 select x;

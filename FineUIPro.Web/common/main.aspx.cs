@@ -19,11 +19,12 @@ namespace FineUIPro.Web.common
                 int pcount3 = 0;
                 if (acount > 0)
                 {
-                    pcount1 = getAllProject.Where(x => x.ProjectState == "0" || x.ProjectState == null).Count();
-                    pcount2 = getAllProject.Where(x => x.ProjectState == "1" ).Count();
-                    pcount3 = getAllProject.Where(x => x.ProjectState == "2").Count();
+                    pcount1 = getAllProject.Where(x => x.ProjectState == "1" || x.ProjectState == null).Count();
+                    pcount2 = getAllProject.Where(x => x.ProjectState == "2" ).Count();
+                    pcount3 = getAllProject.Where(x => x.ProjectState == "3").Count();
                 }
                 this.numProjetcA.InnerHtml = acount.ToString();
+                ///在建
                 this.numProjetc1.InnerHtml = pcount1.ToString();
                 this.numProjetc2.InnerHtml = pcount2.ToString();
                 this.numProjetc3.InnerHtml = pcount3.ToString();

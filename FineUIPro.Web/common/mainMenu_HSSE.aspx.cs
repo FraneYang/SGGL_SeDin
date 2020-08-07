@@ -15,10 +15,10 @@ namespace FineUIPro.Web
                 getHazardRegisterLists= HSSE_Hazard_HazardRegisterService.GetHazardRegisterListByProjectId(this.CurrUser.LoginProjectId);
             }
         }
-        
-        #region 项目安全人工时
+
+        #region 当前现场人数
         /// <summary>
-        ///  项目安全人工时
+        ///  当前现场人数
         /// </summary>
         protected string One
         {
@@ -55,12 +55,48 @@ namespace FineUIPro.Web
                 List<string> listCategories = new List<string>();
                 businessColumn.title = "项目安全人工时";
                 Model.SingleSerie s = new Model.SingleSerie();
-                List<double> listdata = new List<double>();           
-                var getMonts= SitePerson_MonthReportService.getTotalMonthReports(CurrUser.LoginProjectId);            
+                List<double> listdata = new List<double>();
+
+                Model.SingleSerie s2 = new Model.SingleSerie();
+                List<double> listdata2= new List<double>();
+                var getMonts= SitePerson_MonthReportService.getMonthReports(CurrUser.LoginProjectId,null);            
                 foreach (var month in getMonts.OrderBy(x=>x.CompileDate))
                 {
                     listCategories.Add(string.Format("{0:yyyy-MM}", month.CompileDate));                    
                     listdata.Add(double.Parse((month.TotalPersonWorkTime ?? 0).ToString()));
+                    listdata2.Add(double.Parse((month.DayWorkTime ?? 0).ToString()));
+                }
+                s.data = listdata;
+                series.Add(s);
+                s2.data = listdata2;
+                series.Add(s2);
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
+
+        #region 作业许可数量统计
+        /// <summary>
+        ///  作业许可数量统计
+        /// </summary>
+        protected string Three
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "作业许可数量统计";
+                Model.SingleSerie s = new Model.SingleSerie();
+                List<double> listdata = new List<double>();
+                var getStates = LicensePublicService.drpStatesItem().Where(x=>x.Value != Const._Null);
+                var getLicense = APILicenseDataService.getLicenseDataListByStates(this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, null);
+                foreach (var itemStates in getStates)
+                {
+                    listCategories.Add(itemStates.Text);                   
+                    listdata.Add(getLicense.Where(x => x.States == itemStates.Value).Count());
                 }
                 s.data = listdata;
                 series.Add(s);
@@ -149,6 +185,39 @@ namespace FineUIPro.Web
         }
         #endregion
 
+        #region 入场安全培训
+        /// <summary>
+        ///  入场安全培训
+        /// </summary>
+        protected string Five
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "作业许可数量统计";
+                Model.SingleSerie s = new Model.SingleSerie();
+                List<double> listdata = new List<double>();
+                //var getProject = ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                //if (getProject != null)
+                //{
 
+                //}
+
+                //var getLicense = APILicenseDataService.getLicenseDataListByStates(this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, null);
+                //foreach (var itemStates in getStates)
+                //{
+                //    listCategories.Add(itemStates.Text);
+                //    listdata.Add(getLicense.Where(x => x.States == itemStates.Value).Count());
+                //}
+                s.data = listdata;
+                series.Add(s);
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
     }
 }

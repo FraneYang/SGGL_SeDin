@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FirstPassRate.aspx.cs" Inherits="FineUIPro.Web.HJGL.WeldingReport.FirstPassRate" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NDTWeeklyReport.aspx.cs" Inherits="FineUIPro.Web.HJGL.WeldingReport.NDTWeeklyReport" %>
 
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>焊工一次合格率</title>
+    <title>无损检测周统计报表</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -13,7 +13,7 @@
     <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
-            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊工一次合格率"
+            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="无损检测周统计报表"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="WelderCode"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="WelderCode" AllowSorting="true"
                 SortField="WelderCode" SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true"
@@ -23,9 +23,6 @@
                     <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称"
-                                LabelAlign="Right" Width="280px" >
-                            </f:DropDownList>
-                            <f:DropDownList ID="drpDetectionType" runat="server" Label="探伤类型"
                                 LabelAlign="Right" Width="280px" >
                             </f:DropDownList>
                            <f:DatePicker runat="server" Label="日期" ID="txtStarTime" LabelAlign="Right"
@@ -50,43 +47,47 @@
                 </Toolbars>
                 <Columns>
                     
-                    <f:RenderField HeaderText="焊工号" ColumnID="WelderCode"
+                    <f:RenderField HeaderText="焊工代号" ColumnID="WelderCode"
                         DataField="WelderCode" SortField="WelderCode" FieldType="String" HeaderTextAlign="Center"
                         Width="100px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="焊工姓名" ColumnID="PersonName"
-                        DataField="PersonName" SortField="PersonName" FieldType="String" HeaderTextAlign="Center"
-                        Width="100px">
-                    </f:RenderField>
-                    <f:RenderField HeaderText="总焊口" ColumnID="nowtotal_jot"
+                    <f:RenderField HeaderText="施焊焊口数" ColumnID="nowtotal_jot"
                         DataField="nowtotal_jot"  FieldType="String" HeaderTextAlign="Center"
                         Width="90px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="总达因" ColumnID="nowtotal_din"
-                        DataField="nowtotal_din"  FieldType="String" HeaderTextAlign="Center"
+                    <f:RenderField HeaderText="检验焊口数" ColumnID="OneCheckJotNum"
+                        DataField="OneCheckJotNum"  FieldType="String" HeaderTextAlign="Center"
                         Width="90px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="一次检测焊口数" ColumnID="OneCheckJotNum"
-                        DataField="OneCheckJotNum"  FieldType="String" HeaderTextAlign="Center"
+                    <f:RenderField HeaderText="一次合格焊口数" ColumnID="OneCheckPassJotNum"
+                        DataField="OneCheckPassJotNum"  FieldType="String" HeaderTextAlign="Center"
                         Width="120px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="一次检测合格焊口数" ColumnID="OneCheckPassJotNum"
-                        DataField="OneCheckPassJotNum"  FieldType="String"
-                        HeaderTextAlign="Center" TextAlign="Right" Width="120px">
-                    </f:RenderField>
-                    <f:RenderField HeaderText="焊口一次合格率" ColumnID="passRate"
+                    <f:RenderField HeaderText="一次合格率" ColumnID="passRate"
                         DataField="passRate" FieldType="String" HeaderTextAlign="Center"
                         Width="120px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="一次检测总片子数" ColumnID="OneCheckTotalFilm"
+                    <f:RenderField HeaderText="拍片张数" ColumnID="OneCheckTotalFilm"
                         DataField="OneCheckTotalFilm" FieldType="String" HeaderTextAlign="Center"
                         Width="120px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="一次检测合格片子数" ColumnID="OneCheckPassFilm"
+                    <f:RenderField HeaderText="合格张数" ColumnID="OneCheckPassFilm"
                         DataField="OneCheckPassFilm"  FieldType="String" HeaderTextAlign="Center"
                         Width="120px">
                     </f:RenderField>
-                    <f:RenderField HeaderText="拍片一次合格率" ColumnID="passfilmrate"
+                    <f:RenderField HeaderText="拍片合格率" ColumnID="passfilmrate"
+                        DataField="passfilmrate"  FieldType="String" HeaderTextAlign="Center"
+                        Width="120px">
+                    </f:RenderField>
+                    <f:RenderField HeaderText="累计焊口合格率" ColumnID="passfilmrate"
+                        DataField="passfilmrate"  FieldType="String" HeaderTextAlign="Center"
+                        Width="120px">
+                    </f:RenderField>
+                    <f:RenderField HeaderText="累计拍片合格率" ColumnID="passfilmrate"
+                        DataField="passfilmrate"  FieldType="String" HeaderTextAlign="Center"
+                        Width="120px">
+                    </f:RenderField>
+                    <f:RenderField HeaderText="备注" ColumnID="passfilmrate"
                         DataField="passfilmrate"  FieldType="String" HeaderTextAlign="Center"
                         Width="120px">
                     </f:RenderField>

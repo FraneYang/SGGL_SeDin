@@ -307,7 +307,7 @@
                     splitLine: {
                         length: 10,
                         lineStyle: {
-                            color: 'rgba(255,255,255,.1)'
+                            color: 'rgba(0,102,255,.1)'
                         }
                     },
                     axisLine: {
@@ -416,9 +416,13 @@
     var two =<%=Two %>;
     var xArr = two.categories
     var data = [{
-        name: '当月人工时',
+        name: '累计人工时',
         type: 'line',
         data: two.series[0].data
+    },{
+        name: '当月人工时',
+        type: 'bar',
+        data: two.series[1].data
     }]
     category_Two('two', xArr, data)
 </script>
@@ -499,11 +503,13 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["待提交", "审核中", "作业中", "已关闭", "已取消", "作废"]
+
+    var three =<%=Three %>;
+    var xArr = three.categories
     var data = [{
         name: '作业许可数量统计',
         type: 'bar',
-        data: [13, 15, 23, 13, 22, 12],
+        data: three.series[0].data,
         itemStyle: { normal: { color: 'rgba(135,191,90,.9)' } }
     }]
     category_Three('three', xArr, data)
@@ -609,7 +615,7 @@
         var option = {
             title: {
                 left: 'center',
-                text: '人场安全培训',
+                text: '入场安全培训',
                 textStyle: {
                     color: '#fff',
                     fontSize: 12,
@@ -681,20 +687,20 @@
     }
     var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7"]
     var data = [{
-        name: '',
+        name: '总数',
         type: 'line',
         smooth: true,
         data: [23, 25, 22, 13, 4, 12, 9],
         itemStyle: { normal: { color: 'rgba(30,81,134, 1)' } }
     }, {
-        name: '',
+        name: '已培训',
         type: 'bar',
         stack: '总量',
         data: [20, 2, 1, 34, 39, 30, 20],
         itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
     },
     {
-        name: '',
+        name: '未培训',
         type: 'bar',
         stack: '总量',
         data: [12, 32, 10, 14, 9, 30, 21],
