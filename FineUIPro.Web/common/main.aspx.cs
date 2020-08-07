@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using BLL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FineUIPro.Web.common
 {
@@ -10,6 +12,22 @@ namespace FineUIPro.Web.common
         {
             if (!IsPostBack)
             {
+                var getAllProject = ProjectService.GetAllProjectDropDownList();
+                int acount = getAllProject.Count();
+                int pcount1 = 0;
+                int pcount2 = 0;
+                int pcount3 = 0;
+                if (acount > 0)
+                {
+                    pcount1 = getAllProject.Where(x => x.ProjectState == "0" || x.ProjectState == null).Count();
+                    pcount2 = getAllProject.Where(x => x.ProjectState == "1" ).Count();
+                    pcount3 = getAllProject.Where(x => x.ProjectState == "2").Count();
+                }
+                this.numProjetcA.InnerHtml = acount.ToString();
+                this.numProjetc1.InnerHtml = pcount1.ToString();
+                this.numProjetc2.InnerHtml = pcount2.ToString();
+                this.numProjetc3.InnerHtml = pcount3.ToString();
+
                 string str = CQMSData;
             }
         }

@@ -343,6 +343,7 @@
                 },
                 axisLabel: {
                     show: true,
+                     interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -389,12 +390,13 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+
+    var two =<%=Two %>;
+    var xArr = two.categories    
     var data = [ {
-        name: '项目安全人工时',
+        name: '当月人工时',
         type: 'line',
-        //smooth: true,
-        data:  [3, 5, 2, 3, 4, 2, 9, 8, 4, 7, 6, 1]
+        data: two.series[0].data
     }]
     category_Two('two', xArr, data)
 </script>
@@ -516,6 +518,7 @@
                 },
                 axisLabel: {
                     show: true,
+                    interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -562,17 +565,16 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6", "分包7", "分包8", "分包9"]
-    var data = [12, 5, 28, 43, 22, 11, 23, 50, 8]
-    var data1 = [23, 35, 12, 33, 20, 31, 40, 45, 24]
+    var four1 =<%=Four1 %>;
+    var xArr = four1.categories
     var series = [{
-        name: '数量',
+        name: '待整改',
         type: 'bar',
-        data: data
+        data: four1.series[0].data
     }, {
-        name: '数量',
+        name: '全部',
         type: 'bar',
-        data: data1,
+        data: four1.series[1].data,
         itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
     }];
     category_Four('four', xArr, series)
@@ -608,6 +610,7 @@
                 },
                 axisLabel: {
                     show: true,
+                     interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -781,32 +784,30 @@
         $tab.find(".t-item").removeClass('active');
         $this.addClass('active')
 
+        var four1 =<%=Four1 %>;
+        var four2 =<%=Four2 %>;
         if (value == 4) {
-            var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6", "分包7", "分包8", "分包9"]
-            var data = [12, 5, 28, 43, 22, 11, 23, 50, 8]
-            var data1 = [23, 35, 12, 33, 20, 31, 40, 45, 24]
-            var series = [{
-                name: '数量',
+            var xArr = four1.categories         
+            var data = [{
+                name: '待整改',
                 type: 'bar',
-                data: data
+                data: four1.series[0].data
             }, {
-                name: '数量',
+                name: '全部',
                 type: 'bar',
-                data: data1,
+                data: four1.series[1].data,
                 itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
             }];
             if (index == 2) {
-                 var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7", "类别8", "类别9"]
-            var data = [12, 25, 28, 43, 22, 21, 23, 50, 28]
-            var data1 = [23, 35, 12, 33, 20, 31, 40, 5, 14]
-            var series = [{
-                name: '数量',
+                var xArr = four2.categories         
+            var data = [{
+                name: '待整改',
                 type: 'bar',
-                data: data
+                data: four2.series[0].data
             }, {
-                name: '数量',
+                name: '全部',
                 type: 'bar',
-                data: data1,
+                data: four2.series[0].data,
                 itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
             }];
             }

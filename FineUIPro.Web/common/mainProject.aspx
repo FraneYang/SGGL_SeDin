@@ -94,7 +94,7 @@
             background-size: 100% 100%;
         }
         .bg-img-jk-1{
-            background: url(../res/images/enable_gzip_iis6_5.png) center center no-repeat;
+            background: url(../res/images/china.gif) center center no-repeat;
             background-size: 100% 100%;
         }
         .wrap{
@@ -221,7 +221,7 @@
                             <div class="tit-new">安全数据统计</div>
                             <div class="content-wrap flex1 flex flexV" style="padding:0 10px;">
                                 <div class="row1 flex">
-                                    <div>安全人工时：</div><span class="num">1432345</span><div>小时</div>
+                                    <div>安全人工时：</div><span class="num" runat="server" id="allPersonWorkTime"></span><div>小时</div>
                                 </div>
                                 <div class="row2 flex1 flex">
                                     <div class="item flex1">
@@ -281,11 +281,11 @@
                             <div class="row" style="margin-top:50px;">
                                 <div class="item">
                                     <div class="tit">项目名称：</div>
-                                    <div class="val">测试项目</div>
+                                    <div class="val" runat="server" id="divProjectName"></div>                                  
                                 </div>
                                 <div class="item">
                                     <div class="tit">项目地址：</div>
-                                    <div class="val">盘原地XXX弄XX号</div>
+                                    <div class="val" runat="server" id="divProjectAddress"></div>
                                 </div>                          
                                 <div class="item">
                                     <div class="tit">监理单位：</div>
@@ -455,31 +455,31 @@
                  <div class="flex1 itemflex">
                  <div class="bg-item" >
                     <div class="bw-item-content flex flexV">
-                        <div class="tit-new">劳务数据统计</div>
+                        <div class="tit-new">劳务统计</div>
                         <%--总人数--%>
                         <div class="content-wrap flex1 flex txt-board">
                             <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">当前现场人数</div>
                                 <div class="num flex flex1">
-                                    <div class="flex1">5</div>
-                                    <div class="flex1">1</div>
-                                    <div class="flex1">9</div>
+                                    <div class="flex1" runat="server" id="person00">0</div>
+                                    <div class="flex1" runat="server" id="person01">0</div>
+                                    <div class="flex1" runat="server" id="person02">0</div>
                                 </div>
                             </div>
                              <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">作业人员总数</div>
                                 <div class="num flex flex1 color1">
-                                    <div class="flex1">3</div>
-                                    <div class="flex1">0</div>
-                                    <div class="flex1">1</div>
+                                    <div class="flex1" runat="server" id="person10">0</div>
+                                    <div class="flex1" runat="server" id="person11">0</div>
+                                    <div class="flex1" runat="server" id="person12">0</div>
                                 </div>
                             </div>
                             <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">管理人员总数</div>
                                 <div class="num flex flex1 color2">
-                                    <div class="flex1">2</div>
-                                    <div class="flex1">7</div>
-                                    <div class="flex1">2</div>
+                                    <div class="flex1" runat="server" id="person20">0</div>
+                                    <div class="flex1" runat="server" id="person21">0</div>
+                                    <div class="flex1" runat="server" id="person22">0</div>
                                 </div>
                             </div>
                         </div>

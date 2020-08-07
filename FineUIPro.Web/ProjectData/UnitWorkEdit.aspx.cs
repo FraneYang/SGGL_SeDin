@@ -51,7 +51,8 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.txtCosts.Text = UnitWork.Costs.ToString();
                         }
-                        if (!string.IsNullOrEmpty(UnitWork.UnitId)) {
+                        if (!string.IsNullOrEmpty(UnitWork.UnitId))
+                        {
                             this.drpUnit.SelectedValue = UnitWork.UnitId;
                         }
                         if (!string.IsNullOrEmpty(UnitWork.SupervisorUnitId))
@@ -61,6 +62,11 @@ namespace FineUIPro.Web.ProjectData
                         if (!string.IsNullOrEmpty(UnitWork.NDEUnit))
                         {
                             this.drpNDEUnit.SelectedValue = UnitWork.NDEUnit;
+                        }
+                        if (!string.IsNullOrEmpty(UnitWork.MainItemAndDesignProfessionalIds))
+                        {
+                            this.hdMainItemAndDesignProfessionalIds.Text = UnitWork.MainItemAndDesignProfessionalIds;
+                            this.txtMainItemAndDesignProfessional.Text = UnitWorkService.GetMainItemAndDesignProfessionalName(UnitWork.MainItemAndDesignProfessionalIds,CurrUser.LoginProjectId);
                         }
                     }
                 }
@@ -89,7 +95,8 @@ namespace FineUIPro.Web.ProjectData
             {
                 UnitWork.UnitId = this.drpUnit.SelectedValue;
             }
-            else {
+            else
+            {
                 Alert.ShowInTop("请选择施工单位！");
                 return;
             }
@@ -109,6 +116,10 @@ namespace FineUIPro.Web.ProjectData
             {
                 UnitWork.Costs = Convert.ToDecimal(this.txtCosts.Text.Trim());
             }
+            if (!string.IsNullOrEmpty(hdMainItemAndDesignProfessionalIds.Text))
+            {
+                UnitWork.MainItemAndDesignProfessionalIds = hdMainItemAndDesignProfessionalIds.Text;
+            }
             if (!string.IsNullOrEmpty(UnitWorkId))
             {
                 UnitWork.UnitWorkId = UnitWorkId;
@@ -123,5 +134,26 @@ namespace FineUIPro.Web.ProjectData
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
+
+        protected void btnSelect_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window1.GetSaveStateReference(hdMainItemAndDesignProfessionalIds.ClientID)
+                          + Window1.GetShowReference(String.Format("ShowMainItem.aspx?id=" + hdMainItemAndDesignProfessionalIds.Text + "&unitWorkId=" + Request.Params["UnitWorkId"])));
+        }
+
+        #region  关闭窗口
+        /// <summary>
+        /// 关闭窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Window1_Close(object sender, WindowCloseEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(hdMainItemAndDesignProfessionalIds.Text))
+            {
+                this.txtMainItemAndDesignProfessional.Text = UnitWorkService.GetMainItemAndDesignProfessionalName(hdMainItemAndDesignProfessionalIds.Text, CurrUser.LoginProjectId);
+            }
+        }
+        #endregion
     }
 }

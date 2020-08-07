@@ -265,7 +265,7 @@ namespace BLL
                               x.CNProfessionalCode,
 
                               CNProfessionalName = (from y in db.Base_CNProfessional where y.CNProfessionalId == x.CNProfessionalCode select y.ProfessionalName).First(),
-                              UnitWork = (from y in db.WBS_UnitWork where y.UnitWorkId == x.UnitWorkId select y.UnitWorkCode + "-" + y.UnitWorkName+BLL.UnitWorkService.GetProjectType(y.ProjectType)).First(),
+                              UnitWork = (from y in db.WBS_UnitWork where y.UnitWorkId == x.UnitWorkId select y.UnitWorkCode + "-" + y.UnitWorkName + (y.ProjectType == "1" ? "(建筑)" : "(安装)")).First(),
                               CheckMan = (from y in db.Sys_User where y.UserId == x.CheckMan select y.UserName).First()
 
                           };
@@ -389,7 +389,7 @@ namespace BLL
                               x.CNProfessionalCode,
 
                               CNProfessionalName = (from y in db.Base_CNProfessional where y.CNProfessionalId == x.CNProfessionalCode select y.ProfessionalName).First(),
-                              UnitWork = (from y in db.WBS_UnitWork where y.UnitWorkId == x.UnitWorkId select y.UnitWorkCode + "-" + y.UnitWorkName+BLL.UnitWorkService.GetProjectType(y.ProjectType)).First(),
+                              UnitWork = (from y in db.WBS_UnitWork where y.UnitWorkId == x.UnitWorkId select y.UnitWorkCode + "-" + y.UnitWorkName + (y.ProjectType == "1" ? "(建筑)" : "(安装)")).First(),
                               CheckMan = (from y in db.Sys_User where y.UserId == x.CheckMan select y.UserName).First()
 
                           };

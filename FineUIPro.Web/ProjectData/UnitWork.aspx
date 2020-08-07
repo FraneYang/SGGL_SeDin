@@ -52,12 +52,11 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField Width="150px" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
+                        <f:RenderField Width="120px" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
                             SortField="UnitWorkCode" FieldType="String" HeaderText="单位工程编号" TextAlign="center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-
-                        <f:RenderField Width="180px" ColumnID="UnitWorkName" DataField="UnitWorkName"
+                        <f:RenderField Width="120px" ColumnID="UnitWorkName" DataField="UnitWorkName"
                             SortField="UnitWorkName" FieldType="String" HeaderText="单位工程名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
@@ -84,6 +83,12 @@
                             SortField="NDEUnit" HeaderTextAlign="Center" TextAlign="Center" Width="120px"
                             FieldType="String">
                         </f:RenderField>
+                        <f:TemplateField ColumnID="MainItemAndDesignProfessionalIds" Width="150px" HeaderText="对应主项及设计专业" HeaderTextAlign="Center" TextAlign="Center"
+                                    >
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertDesignProfessionalName(Eval("MainItemAndDesignProfessionalIds")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
                     </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -109,7 +114,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="单位工程" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="650px" Height="500px">
+            Width="850px" Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>

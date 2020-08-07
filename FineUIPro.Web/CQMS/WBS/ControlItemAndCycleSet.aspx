@@ -40,7 +40,10 @@
                                         <f:ToolbarFill runat="server"></f:ToolbarFill>
                                         <f:Label runat="server" ID="lbWeights" Label="累计权重"></f:Label>
                                         <f:Label runat="server" Width="90px"></f:Label>
-                                        <f:Button ID="btnSave" ToolTip="保存" Icon="SystemSave" runat="server" Text=""
+                                        <f:Button ID="btnSet" ToolTip="保存" Icon="SystemSave" runat="server" Text=""
+                                            OnClick="btnSet_Click">
+                                        </f:Button>
+                                        <f:Button ID="btnSave" ToolTip="提交" Icon="SystemSaveNew" runat="server" Text=""
                                             OnClick="btnSave_Click">
                                         </f:Button>
                                         <f:Button runat="server" ID="btnDel" OnClick="btnDel_Click" Hidden="true"></f:Button>

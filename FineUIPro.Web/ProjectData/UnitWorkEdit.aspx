@@ -55,6 +55,13 @@
                         <f:DropDownList runat="server" ID="drpNDEUnit" Label="检测单位" LabelWidth="150px"></f:DropDownList>
                    </Items>
                 </f:FormRow>
+                <f:FormRow ColumnWidths="95% 4% 1%">
+                    <Items>
+                        <f:Label runat="server" ID="txtMainItemAndDesignProfessional" Label="对应主项及设计专业" LabelWidth="150px"></f:Label>
+                        <f:Button runat="server" ID="btnSelect" OnClick="btnSelect_Click" Text="选择"></f:Button>
+                        <f:HiddenField runat="server" ID="hdMainItemAndDesignProfessionalIds"></f:HiddenField>
+                   </Items>
+                </f:FormRow>
             </Rows>
             <Toolbars>
                 <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
@@ -70,6 +77,10 @@
                 </f:Toolbar>
             </Toolbars>
         </f:Form>
+        <f:Window ID="Window1" Title="选择主项及设计专业" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Width="600px" Height="560px">
+        </f:Window>
     </form>
 </body>
 </html>

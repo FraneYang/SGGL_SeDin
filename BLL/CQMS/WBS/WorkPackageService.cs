@@ -122,7 +122,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.WBS_WorkPackage> GetAllWorkPackagesBySuperWorkPackageId(string workPackageId)
         {
-            return (from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackageId select x).ToList();
+            return (from x in Funs.DB.WBS_WorkPackage where x.SuperWorkPackageId == workPackageId orderby x.WorkPackageCode select x).ToList();
         }
 
         /// <summary>

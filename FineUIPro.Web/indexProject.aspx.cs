@@ -287,8 +287,9 @@ namespace FineUIPro.Web
                ProjectService.InitAllProjectShortNameDropDownList(this.drpProject,this.CurrUser.UserId, false);
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]))
                 {
-                    this.drpProject.SelectedValue = Request.Params["projectId"];
+                    this.drpProject.SelectedValue = Request.Params["projectId"];                    
                 }
+
                 this.MenuSwitchMethod(Request.Params["menuType"]);           
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
@@ -374,16 +375,14 @@ namespace FineUIPro.Web
         /// <param name="type"></param>
         protected void MenuSwitchMethod(string type)
         {
-            this.CurrUser.LoginProjectId = null;
+            this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;
             this.XmlDataSource1.DataFile = "common/Menu_Personal.xml";
             this.leftPanel.Hidden = true;
             this.Tab1.IFrameUrl = "~/common/mainProject.aspx";
+            this.CurrUser.LastProjectId = null;
             if (!string.IsNullOrEmpty(type))
             {
-                if (!string.IsNullOrEmpty(this.drpProject.SelectedValue))
-                {
-                    this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;
-                }
+                this.CurrUser.LastProjectId = this.CurrUser.LoginProjectId;
                 if (CommonService.IsHaveSystemPower(this.CurrUser.UserId, type, this.CurrUser.LoginProjectId) || type == Const.Menu_Personal)
                 {
                     this.XmlDataSource1.DataFile = "common/" + type + ".xml";
@@ -406,15 +405,17 @@ namespace FineUIPro.Web
             }
         
             this.CurrUser.LastMenuType = type;
-            UserService.UpdateLastUserInfo(this.CurrUser.UserId, type, false, this.drpProject.SelectedValue);            
+            UserService.UpdateLastUserInfo(this.CurrUser.UserId, type, false, this.CurrUser.LoginProjectId);            
             InitTreeMenu();
         }
 
         protected void btnHome_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.CurrUser.LoginProjectId)
+            if (string.IsNullOrEmpty(this.CurrUser.LastProjectId)
                 && ((this.CurrUser.UnitId == Const.UnitId_SEDIN && this.CurrUser.IsOffice ==true) || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId))
             {
+                UserService.UpdateLastUserInfo(this.CurrUser.UserId, this.CurrUser.LastMenuType, false, this.CurrUser.LoginProjectId);
+                this.CurrUser.LastProjectId = this.CurrUser.LoginProjectId;
                 PageContext.Redirect("~/index.aspx", "_top");
             }
             else

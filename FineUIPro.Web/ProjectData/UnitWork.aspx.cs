@@ -31,7 +31,7 @@ namespace FineUIPro.Web.ProjectData
             if (!IsPostBack)
             {
                 this.ProjectId = this.CurrUser.LoginProjectId;
-                GetButtonPower();               
+                GetButtonPower();
                 Funs.FineUIPleaseSelect(this.drpProjectType);
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
 
@@ -60,7 +60,7 @@ namespace FineUIPro.Web.ProjectData
 
         protected DataTable ChecklistData()
         {
-            string strSql = @"select UnitWorkId,UnitWorkCode,UnitWorkName,Costs,Weights,SuperUnitWork,(case IsChild when '1' then 'true' else 'false' end) isChild,(case ProjectType when '1' then '建筑工程' when '2' then '安装工程' else '' end ) ProjectType ,Unit.UnitName AS UnitId,SupervisorUnit.UnitName AS SupervisorUnitId,NDEUnit.UnitName AS NDEUnit from  [dbo].[WBS_UnitWork] AS UnitWork 
+            string strSql = @"select UnitWorkId,UnitWorkCode,UnitWorkName,Costs,Weights,MainItemAndDesignProfessionalIds,SuperUnitWork,(case IsChild when '1' then 'true' else 'false' end) isChild,(case ProjectType when '1' then '建筑工程' when '2' then '安装工程' else '' end ) ProjectType ,Unit.UnitName AS UnitId,SupervisorUnit.UnitName AS SupervisorUnitId,NDEUnit.UnitName AS NDEUnit from  [dbo].[WBS_UnitWork] AS UnitWork 
               Left join Base_Unit AS Unit on UnitWork.UnitId=Unit.UnitId
               Left join Base_Unit AS SupervisorUnit on UnitWork.SupervisorUnitId=SupervisorUnit.UnitId
               Left join Base_Unit AS NDEUnit on UnitWork.NDEUnit=NDEUnit.UnitId where ProjectId=@ProjectId ";
@@ -163,7 +163,20 @@ namespace FineUIPro.Web.ProjectData
         }
         #endregion
 
-
+        /// <summary>
+        /// 获取对应主项及设计专业
+        /// </summary>
+        /// <param name="UnitWorks"></param>
+        /// <returns></returns>
+        protected string ConvertDesignProfessionalName(object MainItemAndDesignProfessionalIds)
+        {
+            string ProfessionalName = string.Empty;
+            if (MainItemAndDesignProfessionalIds != null)
+            {
+                ProfessionalName= UnitWorkService.GetMainItemAndDesignProfessionalName(MainItemAndDesignProfessionalIds.ToString(), CurrUser.LoginProjectId);
+            }
+            return ProfessionalName;
+        }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             BindGrid();

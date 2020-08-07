@@ -31,6 +31,7 @@ namespace BLL
             newUnitWork.SupervisorUnitId = UnitWork.SupervisorUnitId;
             newUnitWork.NDEUnit = UnitWork.NDEUnit;
             newUnitWork.Costs = UnitWork.Costs;
+            newUnitWork.MainItemAndDesignProfessionalIds = UnitWork.MainItemAndDesignProfessionalIds;
             db.WBS_UnitWork.InsertOnSubmit(newUnitWork);
             db.SubmitChanges();
             GetWeights(UnitWork.ProjectId);
@@ -57,6 +58,7 @@ namespace BLL
                 newUnitWork.SupervisorUnitId = UnitWork.SupervisorUnitId;
                 newUnitWork.NDEUnit = UnitWork.NDEUnit;
                 newUnitWork.Costs = UnitWork.Costs;
+                newUnitWork.MainItemAndDesignProfessionalIds = UnitWork.MainItemAndDesignProfessionalIds;
                 db.SubmitChanges();
             }
             GetWeights(UnitWork.ProjectId);
@@ -510,6 +512,59 @@ namespace BLL
                 else
                 {
                     name = getu.UnitWorkName;
+                }
+            }
+            return name;
+        }
+
+        /// <summary>
+        /// 获取主项及设计专业名称
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <returns></returns>
+        public static string GetMainItemAndDesignProfessionalName(string str, string projectId)
+        {
+            string name = string.Empty;
+            Model.SGGLDB db = Funs.DB;
+            var mainItems = from x in db.ProjectData_MainItem where x.ProjectId == projectId select x;
+            var designProfessionals = from x in db.Base_DesignProfessional select x;
+            if (!string.IsNullOrEmpty(str))
+            {
+                string[] ids = str.Split(',');
+                string mainItemId = string.Empty;
+                foreach (var id in ids)
+                {
+                    string[] strs = id.Split('|');
+                    if (mainItemId != strs[0])   //新的主项内容
+                    {
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            name = name.Substring(0, name.Length - 1) + "),";
+                        }
+                        var mainItem = mainItems.FirstOrDefault(x => x.MainItemId == strs[0]);
+                        if (mainItem != null)
+                        {
+                            name += mainItem.MainItemName + "(";
+                        }
+                        var designProfessional = designProfessionals.FirstOrDefault(x => x.DesignProfessionalId == strs[1]);
+                        if (designProfessional != null)
+                        {
+                            name += designProfessional.ProfessionalName + ",";
+                        }
+                    }
+                    else
+                    {
+                        var designProfessional = designProfessionals.FirstOrDefault(x => x.DesignProfessionalId == strs[1]);
+                        if (designProfessional != null)
+                        {
+                            name += designProfessional.ProfessionalName + ",";
+                        }
+                    }
+                    mainItemId = strs[0];
+                }
+                if (!string.IsNullOrEmpty(name))
+                {
+                    name = name.Substring(0, name.Length - 1) + ")";
                 }
             }
             return name;

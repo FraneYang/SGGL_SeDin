@@ -15,11 +15,10 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:DropDownList runat="server" EnableSimulateTree="True" Label="检查项" ID="drpRegisterTypes"
-                        >
+                    <f:DropDownList runat="server" EnableSimulateTree="True" Label="检查项" ID="drpRegisterTypes" >
                     </f:DropDownList>
                     <f:RadioButtonList ID="ckType" runat="server" Label="巡检周期"
-                                Width="330px">
+                                Width="330px" Hidden="true">
                                 <f:RadioItem Value="D" Selected="True" Text="日检" />
                                 <f:RadioItem Value="W" Text="周检" />
                                 <f:RadioItem Value="M" Text="月检" />

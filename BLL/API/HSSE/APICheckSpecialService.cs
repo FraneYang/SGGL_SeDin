@@ -60,7 +60,7 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getCheckSpecial = from x in db.Check_CheckSpecial
-                                      where x.ProjectId == projectId && (states == null ||  x.States ==states)
+                                      where x.ProjectId == projectId &&  x.States ==states
                                       orderby x.CheckSpecialCode descending
                                       select new Model.CheckSpecialItem
                                       {

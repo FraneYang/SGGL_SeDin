@@ -252,7 +252,7 @@
                 </div>
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
-                        <div class="tit-new">焊接数据统计</div>
+                        <div class="tit-new">焊接一次合格率统计</div>
                         <div id='three' style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
@@ -270,37 +270,35 @@
                         </div>
                         <div id='map' style="width: 100%; height: 100%;"></div>
                         <div class="project-wrap">
-                            <div class="project">
-                                <div>
+                          <%--    <div class="project">                                
+                              <div>
                                     <input autocomplete="off" class="project-tit" type="text" name="name" value="" />
                                 </div>
                                 <div class="project-list">
                                     <div>项目1</div>
                                     <div>项目2</div>
                                     <div>项目3</div>
-                                </div>
-                            </div>
-                            <%--<f:DropDownList runat="server" Width="200px" ID="drpProject" OnSelectedIndexChanged="drpProject_SelectedIndexChanged"
-                                AutoPostBack="true" EnableEdit="true">
-                            </f:DropDownList>--%>
+                                </div>                    
+                            </div>--%>            
+                            
                         </div>
                         <div class="map-desc">
                             <div class="desc">
                                 <div class="d-item">
                                     <div class="tit">工地总数</div>
-                                    <div class="num">1，231</div>
+                                    <div class="num" runat="server" id="numProjetcA"></div>
                                 </div>
                                 <div  class="d-item d-item-1">
                                     <div class="tit">在建</div>
-                                    <div class="num">35</div>
+                                    <div class="num" runat="server" id="numProjetc1"></div>
                                 </div>
                                 <div  class="d-item d-item-1">
                                     <div class="tit">停工</div>
-                                    <div class="num">12</div>
+                                    <div class="num" runat="server" id="numProjetc2"></div>
                                 </div>
                                 <div  class="d-item">
                                     <div class="tit">竣工</div>
-                                    <div class="num">59</div>
+                                   <div class="num" runat="server" id="numProjetc3"></div>
                                 </div>
                                 <div  class="d-item">
                                     <div class="tit">单位：(个)</div>

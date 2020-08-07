@@ -45,17 +45,7 @@ namespace FineUIPro.Web.ProjectData
                           + @" FROM Base_Project AS Project LEFT JOIN Base_Unit as unit on unit.UnitId=Project.UnitId " 
                           + @" LEFT JOIN Base_ProjectType AS ProjectType ON Project.ProjectType =ProjectType.ProjectTypeId"
                           + @" WHERE 1=1 ";
-            List<SqlParameter> listStr = new List<SqlParameter>();            
-            //if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
-            //{
-            //    strSql += " AND ProjectId = @ProjectId";
-            //    listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));               
-            //}
-            //else if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
-            //{
-            //    strSql += " AND ProjectId = @ProjectId";
-            //    listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            //}
+            List<SqlParameter> listStr = new List<SqlParameter>();          
             if (!string.IsNullOrEmpty(this.txtProjectName.Text.Trim()))
             {
                 strSql += " AND ProjectName LIKE @ProjectName";

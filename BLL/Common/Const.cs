@@ -273,10 +273,10 @@ namespace BLL
         /// 一般作业岗位
         /// </summary>
         public const string PostType_3 = "3";
-        /// <summary>
-        /// 特种管理人员
-        /// </summary>
-        public const string PostType_4 = "4";
+        ///// <summary>
+        ///// 特种管理人员
+        ///// </summary>
+        //public const string PostType_4 = "4";
         /// <summary>
         /// 特种设备作业人员
         /// </summary>

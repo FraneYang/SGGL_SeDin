@@ -825,6 +825,7 @@
     <Content Include="ProjectData\ProjectUserSave.aspx" />
     <Content Include="ProjectData\ProjectUserSelect.aspx" />
     <Content Include="ProjectData\ProjectUserView.aspx" />
+    <Content Include="ProjectData\ShowMainItem.aspx" />
     <Content Include="ProjectData\TeamGroup.aspx" />
     <Content Include="ProjectData\TeamGroupEdit.aspx" />
     <Content Include="ProjectData\TeamGroupView.aspx" />
@@ -9107,6 +9108,13 @@
     </Compile>
     <Compile Include="ProjectData\ProjectUserView.aspx.designer.cs">
       <DependentUpon>ProjectUserView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ShowMainItem.aspx.cs">
+      <DependentUpon>ShowMainItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ShowMainItem.aspx.designer.cs">
+      <DependentUpon>ShowMainItem.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\TeamGroup.aspx.cs">
       <DependentUpon>TeamGroup.aspx</DependentUpon>

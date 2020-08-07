@@ -45,7 +45,7 @@ namespace FineUIPro.Web.CQMS.WBS
         /// <summary>
         /// 明细集合
         /// </summary>
-        private static List<Model.WBS_ControlItemAndCycle> controlItemAndCycles = new List<Model.WBS_ControlItemAndCycle>();
+        private List<Model.WBS_ControlItemAndCycle> controlItemAndCycles = new List<Model.WBS_ControlItemAndCycle>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -346,6 +346,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     }
                 }
             }
+            controlItemAndCycles = GetDetails();
             if (e.CommandName == "add")//增加
             {
                 Model.WBS_ControlItemProject controlItemProject = BLL.ControlItemProjectService.GetControlItemProjectByCode(code, this.CurrUser.LoginProjectId);
@@ -394,6 +395,45 @@ namespace FineUIPro.Web.CQMS.WBS
             GetTotalWeights();
         }
         #endregion
+
+        private List<Model.WBS_ControlItemAndCycle> GetDetails()
+        {
+            controlItemAndCycles.Clear();
+            foreach (JObject mergedRow in Grid1.GetMergedData())
+            {
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                string controlItemContent = values.Value<string>("ControlItemContent");
+                string planCompleteDate = values.Value<string>("PlanCompleteDate");
+                string txtName = values.Value<string>("AttachUrl");
+                string txtWeights = values.Value<string>("Weights");
+                string txtCosts = values.Value<string>("Costs");
+                AspNet.CheckBox ckbWorkPackageCode = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
+                Model.WBS_ControlItemAndCycle newControlItemAndCycle = new Model.WBS_ControlItemAndCycle();
+                newControlItemAndCycle.ControlItemAndCycleCode = Grid1.Rows[i].DataKeys[1].ToString();
+                newControlItemAndCycle.ControlItemAndCycleId = Grid1.Rows[i].DataKeys[0].ToString();
+                newControlItemAndCycle.AttachUrl = txtName;
+                newControlItemAndCycle.ControlItemContent = controlItemContent;
+                if (!string.IsNullOrEmpty(txtWeights))
+                {
+                    newControlItemAndCycle.Weights = Convert.ToDecimal(txtWeights);
+                }
+                if (!string.IsNullOrEmpty(txtCosts))
+                {
+                    newControlItemAndCycle.Costs = Convert.ToDecimal(txtCosts);
+                }
+                if (!string.IsNullOrEmpty(planCompleteDate))
+                {
+                    newControlItemAndCycle.PlanCompleteDate = Convert.ToDateTime(planCompleteDate);
+                }
+                if (ckbWorkPackageCode.Checked)
+                {
+                    newControlItemAndCycle.IsApprove = true;
+                }
+                controlItemAndCycles.Add(newControlItemAndCycle);
+            }
+            return controlItemAndCycles;
+        }
 
         #region 选择事件
         /// <summary>
@@ -495,6 +535,153 @@ namespace FineUIPro.Web.CQMS.WBS
         #endregion
 
         #region 保存事件
+        /// <summary>
+        /// 临时保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSet_Click(object sender, EventArgs e)
+        {
+            string controlItemCode = string.Empty;
+            int num = 1;
+            string code = string.Empty;
+            string name = string.Empty;
+            Model.WBS_WorkPackage parentWorkPackage = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(WorkPackageId);
+            foreach (JObject mergedRow in Grid1.GetMergedData())
+            {
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                string controlItemAndCycleId = this.Grid1.Rows[i].DataKeys[0].ToString();
+                Model.WBS_ControlItemAndCycle oldControlItemAndCycle = BLL.ControlItemAndCycleService.GetControlItemAndCycleById(controlItemAndCycleId);
+                AspNet.CheckBox ckbWorkPackageCode = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
+                string planCompleteDate = values.Value<string>("PlanCompleteDate");
+                string controlItemAndCycleCode = this.Grid1.Rows[i].DataKeys[1].ToString();
+                string txtName = values.Value<string>("AttachUrl");
+                string txtWeights = values.Value<string>("Weights");
+                string txtCosts = values.Value<string>("Costs");
+                name = string.Empty;
+                if (!string.IsNullOrEmpty(txtName.Trim()))
+                {
+                    name = "-" + txtName.Trim();
+                }
+                if (!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(txtWeights) || !string.IsNullOrEmpty(planCompleteDate))
+                {
+                    Model.WBS_ControlItemProject controlItemProject = BLL.ControlItemProjectService.GetControlItemProjectByCode(controlItemAndCycleCode, this.CurrUser.LoginProjectId);
+
+                    if (oldControlItemAndCycle == null)   //新增内容
+                    {
+                        Model.WBS_ControlItemAndCycle newControlItemAndCycle = new Model.WBS_ControlItemAndCycle();
+                        if (controlItemCode != controlItemProject.ControlItemCode)  //循环至新的工作包
+                        {
+                            controlItemCode = controlItemProject.ControlItemCode;
+                            var oldControlItemAndCycles = BLL.ControlItemAndCycleService.GetControlItemAndCyclesByInitControlItemCodeAndWorkPackageId(controlItemCode, WorkPackageId);
+                            if (oldControlItemAndCycles.Count > 0)  //该工作包已存在内容
+                            {
+                                var old = oldControlItemAndCycles.First();
+                                string oldStr = old.ControlItemAndCycleCode.Substring(old.ControlItemAndCycleCode.Length - 2);
+                                num = Convert.ToInt32(oldStr) + 1;
+                                if (num < 10)
+                                {
+                                    code = "0" + num.ToString();
+                                }
+                                else
+                                {
+                                    code = num.ToString();
+                                }
+                            }
+                            else
+                            {
+                                num = 1;
+                                code = "01";
+                            }
+                        }
+                        else
+                        {
+                            if (num < 10)
+                            {
+                                code = "0" + num.ToString();
+                            }
+                            else
+                            {
+                                code = num.ToString();
+                            }
+                        }
+                        newControlItemAndCycle.ControlItemAndCycleId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage));
+                        newControlItemAndCycle.ControlItemAndCycleCode = parentWorkPackage.WorkPackageCode + controlItemCode.Substring(controlItemCode.IndexOf(parentWorkPackage.InitWorkPackageCode) + parentWorkPackage.InitWorkPackageCode.Length).Replace("00", "0000") + code;
+                        newControlItemAndCycle.ProjectId = this.CurrUser.LoginProjectId;
+                        newControlItemAndCycle.WorkPackageId = WorkPackageId;
+                        newControlItemAndCycle.ControlItemContent = controlItemProject.ControlItemContent + name;
+                        newControlItemAndCycle.ControlPoint = controlItemProject.ControlPoint;
+                        newControlItemAndCycle.ControlItemDef = controlItemProject.ControlItemDef;
+                        newControlItemAndCycle.HGForms = controlItemProject.HGForms;
+                        newControlItemAndCycle.SHForms = controlItemProject.SHForms;
+                        newControlItemAndCycle.Standard = controlItemProject.Standard;
+                        newControlItemAndCycle.ClauseNo = controlItemProject.ClauseNo;
+                        newControlItemAndCycle.CheckNum = controlItemProject.CheckNum;
+                        newControlItemAndCycle.InitControlItemCode = controlItemProject.ControlItemCode;
+                        if (!string.IsNullOrEmpty(planCompleteDate))
+                        {
+                            newControlItemAndCycle.PlanCompleteDate = Convert.ToDateTime(planCompleteDate);
+                        }
+                        else
+                        {
+                            newControlItemAndCycle.PlanCompleteDate = null;
+                        }
+                        try
+                        {
+                            newControlItemAndCycle.Weights = Convert.ToDecimal(txtWeights.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            newControlItemAndCycle.Weights = null;
+                        }
+                        try
+                        {
+                            newControlItemAndCycle.Costs = Convert.ToDecimal(txtCosts.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            newControlItemAndCycle.Costs = null;
+                        }
+                        BLL.ControlItemAndCycleService.AddControlItemAndCycle(newControlItemAndCycle);
+                        num++;
+                    }
+                    else
+                    {
+                        oldControlItemAndCycle.ControlItemContent = controlItemProject.ControlItemContent + name;
+                        try
+                        {
+                            oldControlItemAndCycle.Weights = Convert.ToDecimal(txtWeights.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            oldControlItemAndCycle.Weights = null;
+                        }
+                        try
+                        {
+                            oldControlItemAndCycle.Costs = Convert.ToDecimal(txtCosts.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            oldControlItemAndCycle.Costs = null;
+                        }
+                        if (!string.IsNullOrEmpty(planCompleteDate))
+                        {
+                            oldControlItemAndCycle.PlanCompleteDate = Convert.ToDateTime(planCompleteDate);
+                        }
+                        else
+                        {
+                            oldControlItemAndCycle.PlanCompleteDate = null;
+                        }
+                        BLL.ControlItemAndCycleService.UpdateControlItemAndCycle(oldControlItemAndCycle);
+                    }
+                }
+
+            }
+            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(WorkPackageId) + ActiveWindow.GetHidePostBackReference());
+            //ShowNotify("保存成功！", MessageBoxIcon.Success);
+        }
+
         /// <summary>
         /// 保存
         /// </summary>

@@ -45,7 +45,7 @@ namespace FineUIPro.Web.CQMS.WBS
         /// <summary>
         /// 明细集合
         /// </summary>
-        private static List<Model.WBS_WorkPackage> workPackages = new List<Model.WBS_WorkPackage>();
+        private List<Model.WBS_WorkPackage> workPackages = new List<Model.WBS_WorkPackage>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -322,6 +322,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     }
                 }
             }
+            workPackages = GetDetails();
             if (e.CommandName == "add")//增加
             {
                 Model.WBS_WorkPackageProject workPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(code, this.CurrUser.LoginProjectId);
@@ -389,6 +390,40 @@ namespace FineUIPro.Web.CQMS.WBS
             GetTotalWeights();
         }
         #endregion
+
+        private List<Model.WBS_WorkPackage> GetDetails()
+        {
+            workPackages.Clear();
+            foreach (JObject mergedRow in Grid1.GetMergedData())
+            {
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                string txtPackageContent = values.Value<string>("PackageContent");
+                string txtName = values.Value<string>("SuperWorkPack");
+                string txtWeights = values.Value<string>("Weights");
+                string txtCosts = values.Value<string>("Costs");
+                AspNet.CheckBox ckbWorkPackageCode = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
+                Model.WBS_WorkPackage newAddWorkPackage = new Model.WBS_WorkPackage();
+                newAddWorkPackage.WorkPackageCode = Grid1.Rows[i].DataKeys[1].ToString();
+                newAddWorkPackage.WorkPackageId = Grid1.Rows[i].DataKeys[0].ToString();
+                newAddWorkPackage.SuperWorkPack = txtName;
+                newAddWorkPackage.PackageContent = txtPackageContent;
+                if (!string.IsNullOrEmpty(txtWeights))
+                {
+                    newAddWorkPackage.Weights = Convert.ToDecimal(txtWeights);
+                }
+                if (!string.IsNullOrEmpty(txtCosts))
+                {
+                    newAddWorkPackage.Costs = Convert.ToDecimal(txtCosts);
+                }
+                if (ckbWorkPackageCode.Checked)
+                {
+                    newAddWorkPackage.IsCopy = true;
+                }
+                workPackages.Add(newAddWorkPackage);
+            }
+            return workPackages;
+        }
 
         #region 选择事件
         /// <summary>
@@ -509,6 +544,142 @@ namespace FineUIPro.Web.CQMS.WBS
         #endregion
 
         #region 保存事件
+        /// <summary>
+        /// 临时保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSet_Click(object sender, EventArgs e)
+        {
+            string workPackageCode = string.Empty;
+            int num = 1;
+            string code = string.Empty;
+            string name = string.Empty;
+            foreach (JObject mergedRow in Grid1.GetMergedData())
+            {
+                JObject values = mergedRow.Value<JObject>("values");
+                string controlItemCode = values.Value<string>("ControlItemCode");
+                int i = mergedRow.Value<int>("index");
+                AspNet.CheckBox ckbWorkPackageCode = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
+                string workPackageId = this.Grid1.Rows[i].DataKeys[0].ToString();
+                Model.WBS_WorkPackage oldWorkPackage = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(workPackageId);
+                //if (ckbWorkPackageCode.Checked)
+                //{
+                string workPackageCode2 = this.Grid1.Rows[i].DataKeys[1].ToString();
+                string txtName = values.Value<string>("SuperWorkPack");
+                string txtWeights = values.Value<string>("Weights");
+                string txtCosts = values.Value<string>("Costs");
+                name = string.Empty;
+                if (!string.IsNullOrEmpty(txtName.Trim()))
+                {
+                    name = "-" + txtName.Trim();
+                }
+                if (!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(txtWeights))
+                {
+                    Model.WBS_WorkPackageProject workPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(workPackageCode2, this.CurrUser.LoginProjectId);
+                    if (oldWorkPackage == null)   //新增内容
+                    {
+                        Model.WBS_WorkPackage newWorkPackage = new Model.WBS_WorkPackage();
+                        if (workPackageCode != workPackageProject.WorkPackageCode)  //循环至新的分部
+                        {
+                            workPackageCode = workPackageProject.WorkPackageCode;
+                            var oldWorkPackages = BLL.WorkPackageService.GetWorkPackagesByInitWorkPackageCodeAndUnitWorkId(workPackageCode, UnitWorkId);
+                            if (oldWorkPackages.Count > 0)  //该工作包已存在内容
+                            {
+                                var old = oldWorkPackages.First();
+                                string oldStr = old.WorkPackageCode.Substring(old.WorkPackageCode.Length - 2);
+                                num = Convert.ToInt32(oldStr) + 1;
+                                if (num < 10)
+                                {
+                                    code = "0" + num.ToString();
+                                }
+                                else
+                                {
+                                    code = num.ToString();
+                                }
+                            }
+                            else
+                            {
+                                num = 1;
+                                code = "01";
+                            }
+                        }
+                        else
+                        {
+                            if (num < 10)
+                            {
+                                code = "0" + num.ToString();
+                            }
+                            else
+                            {
+                                code = num.ToString();
+                            }
+                        }
+                        newWorkPackage.WorkPackageId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage));
+                        newWorkPackage.WorkPackageCode = workPackageCode + code;
+                        newWorkPackage.ProjectId = this.CurrUser.LoginProjectId;
+                        newWorkPackage.UnitWorkId = UnitWorkId;
+                        newWorkPackage.PackageContent = workPackageProject.PackageContent + name;
+                        newWorkPackage.SuperWorkPack = workPackageProject.SuperWorkPack;
+                        newWorkPackage.IsChild = workPackageProject.IsChild;
+                        newWorkPackage.PackageCode = code;
+                        newWorkPackage.ProjectType = workPackageProject.ProjectType;
+                        newWorkPackage.InitWorkPackageCode = workPackageProject.WorkPackageCode;
+                        try
+                        {
+                            newWorkPackage.Weights = Convert.ToDecimal(txtWeights.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            newWorkPackage.Weights = null;
+                        }
+                        try
+                        {
+                            newWorkPackage.Costs = Convert.ToDecimal(txtCosts.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            newWorkPackage.Costs = null;
+                        }
+                        BLL.WorkPackageService.AddWorkPackage(newWorkPackage);
+                        num++;
+                    }
+                    else
+                    {
+                        oldWorkPackage.PackageContent = workPackageProject.PackageContent + name;
+                        try
+                        {
+                            oldWorkPackage.Weights = Convert.ToDecimal(txtWeights.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            oldWorkPackage.Weights = null;
+                        }
+                        try
+                        {
+                            oldWorkPackage.Costs = Convert.ToDecimal(txtCosts.Trim());
+                        }
+                        catch (Exception)
+                        {
+                            oldWorkPackage.Costs = null;
+                        }
+                        BLL.WorkPackageService.UpdateWorkPackage(oldWorkPackage);
+                    }
+                }
+                //}
+                //else   //未选中项
+                //{
+                //    if (oldWorkPackage != null)   //已存在内容
+                //    {
+                //        oldWorkPackage.IsApprove = null;
+                //        BLL.WorkPackageService.UpdateWorkPackage(oldWorkPackage);
+                //    }
+                //}
+            }
+            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(UnitWorkId) + ActiveWindow.GetHidePostBackReference());
+            //ShowNotify("保存成功！", MessageBoxIcon.Success);
+        }
+
         /// <summary>
         /// 保存
         /// </summary>
