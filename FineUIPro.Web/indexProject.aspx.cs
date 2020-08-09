@@ -284,19 +284,27 @@ namespace FineUIPro.Web
         {
             if (!IsPostBack)
             {
-               ProjectService.InitAllProjectShortNameDropDownList(this.drpProject,this.CurrUser.UserId, false);
+                ProjectService.InitAllProjectShortNameDropDownList(this.drpProject, this.CurrUser.UserId, false);
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]))
                 {
-                    this.drpProject.SelectedValue = Request.Params["projectId"];                    
+                    this.drpProject.SelectedValue = Request.Params["projectId"];
                 }
 
-                this.MenuSwitchMethod(Request.Params["menuType"]);           
+                if (!string.IsNullOrEmpty(Request.Params["projectName"]))
+                {
+                    var getproject = ProjectService.GetProjectByProjectShortName(Request.Params["projectName"]);
+                    if (getproject != null)
+                    {
+                        this.drpProject.SelectedValue = getproject.ProjectId;
+                    }
+                }
+
+                this.MenuSwitchMethod(Request.Params["menuType"]);
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
-                this.InitLangMenuButton();             
+                this.InitLangMenuButton();
             }
-        }
-        
+        }        
     
         /// <summary>
         /// 菜单树样式
@@ -363,6 +371,7 @@ namespace FineUIPro.Web
         
         protected void drpProject_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.Tab1.RefreshIFrame();
             //this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;            
             PageContext.RegisterStartupScript("parent.removeActiveTab();");
             MenuSwitchMethod(this.CurrUser.LastMenuType);
@@ -378,7 +387,7 @@ namespace FineUIPro.Web
             this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;
             this.XmlDataSource1.DataFile = "common/Menu_Personal.xml";
             this.leftPanel.Hidden = true;
-            this.Tab1.IFrameUrl = "~/common/mainProject.aspx";
+            this.Tab1.IFrameUrl = "~/common/mainProject.aspx";        
             this.CurrUser.LastProjectId = null;
             if (!string.IsNullOrEmpty(type))
             {
@@ -406,7 +415,7 @@ namespace FineUIPro.Web
         
             this.CurrUser.LastMenuType = type;
             UserService.UpdateLastUserInfo(this.CurrUser.UserId, type, false, this.CurrUser.LoginProjectId);            
-            InitTreeMenu();
+            InitTreeMenu();            
         }
 
         protected void btnHome_Click(object sender, EventArgs e)

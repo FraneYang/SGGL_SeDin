@@ -884,6 +884,7 @@ namespace FineUIPro.Web.CQMS.WBS
 
         protected void cbAll_CheckedChanged(object sender, CheckedEventArgs e)
         {
+            controlItemAndCycles = GetDetails();
             //保存页面数据
             foreach (JObject mergedRow in Grid1.GetMergedData())
             {

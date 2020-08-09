@@ -31,6 +31,7 @@
 <TreeNode id="7ACB0CB1-15D8-4E8E-A54D-0CDC5F69B39A" Text="发卡管理" NavigateUrl="HSSE/SitePerson/SendCard.aspx"></TreeNode>
 <TreeNode id="12F7123B-C2ED-4011-9859-83260AC91F09" Text="现场人员考勤管理" NavigateUrl="HSSE/SitePerson/PersonInfo.aspx"></TreeNode>
 <TreeNode id="7D36E853-CC79-48B9-9E7F-E34797B4E87E" Text="现场人员考勤统计" NavigateUrl="HSSE/SitePerson/PersonStatistic.aspx"></TreeNode>
+<TreeNode id="F291CAE4-2E53-48FC-BF44-382D42EA4DEC" Text="现场岗位人工时统计" NavigateUrl="HSSE/SitePerson/WorkPostStatistic.aspx"></TreeNode>
 <TreeNode id="EBEA762D-1F46-47C5-9EAD-759E13D9B41C" Text="特种作业人员资质" NavigateUrl="HSSE/QualityAudit/PersonQuality.aspx"></TreeNode>
 <TreeNode id="96FB96FF-20D8-4CE9-AF57-C19717BB5D3E" Text="特种设备作业人员资质" NavigateUrl="HSSE/QualityAudit/EquipmentPersonQuality.aspx"></TreeNode>
 <TreeNode id="750F5074-45B9-470E-AE1E-6204957421E6" Text="安管人员资质" NavigateUrl="HSSE/QualityAudit/SafePersonQuality.aspx"></TreeNode>
@@ -49,6 +50,7 @@
 <TreeNode id="C198EBA8-9E23-4654-92E1-09C61105C522" Text="综合检查" NavigateUrl="HSSE/Check/CheckColligation.aspx"></TreeNode>
 <TreeNode id="C3B6B222-44DC-46F3-B783-B1FC0F743C48" Text="隐患整改单" NavigateUrl="HSSE/Check/RectifyNotices.aspx"></TreeNode>
 <TreeNode id="C81DB7ED-165E-4C69-86B0-A3AAE37059FE" Text="工程暂停令" NavigateUrl="HSSE/Check/PauseNotice.aspx"></TreeNode>
+<TreeNode id="7B272C3F-39D2-496D-A87C-E2C89A20E4EF" Text="安全分析" NavigateUrl="HSSE/Check/SafetyAnalysis.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="5309E7E0-395E-4F11-8F5E-D52E11526A2A" Text="安全会议" NavigateUrl=""><TreeNode id="5236B1D9-8B57-495E-8644-231DF5D066CE" Text="安全周例会" NavigateUrl="HSSE/Meeting/WeekMeeting.aspx"></TreeNode>
 <TreeNode id="D5DD5EBD-A5F2-4A43-BA4C-E9A242B43684" Text="安全月例会" NavigateUrl="HSSE/Meeting/MonthMeeting.aspx"></TreeNode>
@@ -85,7 +87,7 @@
 </TreeNode>
 <TreeNode id="B6FBD6B6-F9A0-49B1-87F9-160748162131" Text="应急信息" NavigateUrl=""><TreeNode id="ABD84F93-A84E-448C-8A67-AB0FE4E8D10C" Text="应急预案管理清单" NavigateUrl="HSSE/Emergency/EmergencyList.aspx"></TreeNode>
 <TreeNode id="39244F05-0D9E-4750-B12E-CEA5E11338A8" Text="应急物资管理" NavigateUrl="HSSE/Emergency/EmergencySupply.aspx"></TreeNode>
-<TreeNode id="6FDF9DAE-2161-4F67-931F-85DEAFC3842A" Text="应急队伍与培训" NavigateUrl="HSSE/Emergency/EmergencyTeamAndTrain.aspx"></TreeNode>
+<TreeNode id="6FDF9DAE-2161-4F67-931F-85DEAFC3842A" Text="应急组织" NavigateUrl="HSSE/Emergency/EmergencyTeamAndTrain.aspx"></TreeNode>
 <TreeNode id="A5D0287B-2410-4DB1-8BD4-E0534EBAE308" Text="应急流程" NavigateUrl="HSSE/Emergency/EmergencyProcess.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="03235B30-960D-4FCF-99F7-97773A2EE108" Text="工作报告" NavigateUrl=""><TreeNode id="88AE0EF8-D29E-409F-A154-CCA3999B00AE" Text="安全完工报告" NavigateUrl="HSSE/Manager/CompletionReport.aspx"></TreeNode>

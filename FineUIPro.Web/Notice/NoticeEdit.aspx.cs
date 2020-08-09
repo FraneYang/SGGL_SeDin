@@ -166,7 +166,7 @@ namespace FineUIPro.Web.Notice
         protected void btnSave_Click(object sender, EventArgs e)
         {           
             this.SaveData(BLL.Const.BtnSave);
-            Alert.ShowInParent("保存成功！", MessageBoxIcon.Success);
+            ShowNotify("保存成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
 
@@ -183,7 +183,7 @@ namespace FineUIPro.Web.Notice
                return;
            }
             this.SaveData(BLL.Const.BtnSubmit);
-            Alert.ShowInParent("提交成功！", MessageBoxIcon.Success);
+            ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
             
         }

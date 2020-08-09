@@ -62,7 +62,7 @@
                                 <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField Width="100px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
+                        <f:RenderField Width="110px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
                             HeaderText="考试名称" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName" FieldType="String"

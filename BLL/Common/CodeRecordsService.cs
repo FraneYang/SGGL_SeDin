@@ -54,89 +54,92 @@ namespace BLL
         /// <returns></returns>
         public static string ReturnCodeByMenuIdProjectId(string menuId, string projectId, string unitId)
         {
-            string code = string.Empty;
-            string ruleCodes = string.Empty;
-            int digit = 4;
-            string symbol = "-"; ///间隔符 
-            var codeRecords = (from x in Funs.DB.Sys_CodeRecords where x.MenuId == menuId && x.ProjectId == projectId orderby x.CompileDate descending select x).FirstOrDefault();
-            if (codeRecords != null && !string.IsNullOrEmpty(codeRecords.RuleCodes))
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                ruleCodes = codeRecords.RuleCodes;
-                if (codeRecords.Digit.HasValue)
+                string code = string.Empty;
+                string ruleCodes = string.Empty;
+                int digit = 4;
+                string symbol = "-"; ///间隔符 
+                var codeRecords = (from x in db.Sys_CodeRecords where x.MenuId == menuId && x.ProjectId == projectId orderby x.CompileDate descending select x).FirstOrDefault();
+                if (codeRecords != null && !string.IsNullOrEmpty(codeRecords.RuleCodes))
                 {
-                    digit = codeRecords.Digit.Value;
-                }
-            }
-            else
-            {
-                ////项目
-                string ruleCode = string.Empty;
-                var project = ProjectService.GetProjectByProjectId(projectId);
-                if (project != null)
-                {
-                    string projectCode = project.ProjectCode; ///项目编号                               
-                    ////编码规则表
-                    var sysCodeTemplateRule = ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(menuId, project.ProjectId);
-                    if (sysCodeTemplateRule != null)
+                    ruleCodes = codeRecords.RuleCodes;
+                    if (codeRecords.Digit.HasValue)
                     {
-                        symbol = sysCodeTemplateRule.Symbol;
-                        if (sysCodeTemplateRule.Digit.HasValue)
-                        {
-                            digit = sysCodeTemplateRule.Digit.Value;
-                        }
-                        if (sysCodeTemplateRule.IsProjectCode == true)
-                        {
-                            ruleCode = projectCode + symbol;
-                        }
-                        if (!string.IsNullOrEmpty(sysCodeTemplateRule.Prefix))
-                        {
-                            ruleCode += sysCodeTemplateRule.Prefix + symbol;
-                        }
-                        if (sysCodeTemplateRule.IsUnitCode == true)
-                        {
-                            var unit = UnitService.GetUnitByUnitId(unitId);
-                            if (unit != null)
-                            {
-                                ruleCode += unit.UnitCode + symbol;
-                            }
-                        }
-                        ruleCodes = ruleCode;
+                        digit = codeRecords.Digit.Value;
                     }
                 }
                 else
                 {
-                    var codeTempRule = Funs.DB.Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId);
-                    if (codeTempRule != null && !string.IsNullOrEmpty(codeTempRule.Prefix))
+                    ////项目
+                    string ruleCode = string.Empty;
+                    var project = ProjectService.GetProjectByProjectId(projectId);
+                    if (project != null)
                     {
-                        if (!string.IsNullOrEmpty(codeTempRule.Symbol))
+                        string projectCode = project.ProjectCode; ///项目编号                               
+                        ////编码规则表
+                        var sysCodeTemplateRule = db.ProjectData_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId && x.ProjectId == projectId);
+                        if (sysCodeTemplateRule != null)
                         {
-                            symbol = codeTempRule.Symbol;
+                            symbol = sysCodeTemplateRule.Symbol;
+                            if (sysCodeTemplateRule.Digit.HasValue)
+                            {
+                                digit = sysCodeTemplateRule.Digit.Value;
+                            }
+                            if (sysCodeTemplateRule.IsProjectCode == true)
+                            {
+                                ruleCode = projectCode + symbol;
+                            }
+                            if (!string.IsNullOrEmpty(sysCodeTemplateRule.Prefix))
+                            {
+                                ruleCode += sysCodeTemplateRule.Prefix + symbol;
+                            }
+                            if (sysCodeTemplateRule.IsUnitCode == true)
+                            {
+                                var unit = UnitService.GetUnitByUnitId(unitId);
+                                if (unit != null)
+                                {
+                                    ruleCode += unit.UnitCode + symbol;
+                                }
+                            }
+                            ruleCodes = ruleCode;
                         }
-                        ruleCodes = codeTempRule.Prefix + symbol;
-                        if (codeTempRule.Digit.HasValue)
+                    }
+                    else
+                    {
+                        var codeTempRule = db.Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == menuId);
+                        if (codeTempRule != null && !string.IsNullOrEmpty(codeTempRule.Prefix))
                         {
-                            digit = codeTempRule.Digit.Value;
+                            if (!string.IsNullOrEmpty(codeTempRule.Symbol))
+                            {
+                                symbol = codeTempRule.Symbol;
+                            }
+                            ruleCodes = codeTempRule.Prefix + symbol;
+                            if (codeTempRule.Digit.HasValue)
+                            {
+                                digit = codeTempRule.Digit.Value;
+                            }
                         }
                     }
                 }
-            }
 
-            ////获取编码记录表最大排列序号              
-            int maxNewSortIndex = 0;
-            var maxSortIndex = Funs.DB.Sys_CodeRecords.Where(x => (x.ProjectId == projectId || projectId == null) && x.MenuId == menuId).Select(x => x.SortIndex).Max();
+                ////获取编码记录表最大排列序号              
+                int maxNewSortIndex = 0;
+                var maxSortIndex = db.Sys_CodeRecords.Where(x => (x.ProjectId == projectId || projectId == null) && x.MenuId == menuId).Select(x => x.SortIndex).Max();
 
-            if (maxSortIndex.HasValue)
-            {
-                maxNewSortIndex = maxSortIndex.Value;
-            }
-            maxNewSortIndex = maxNewSortIndex + 1;
-            code = (maxNewSortIndex.ToString().PadLeft(digit, '0'));   ///字符自动补零
-            if (!string.IsNullOrEmpty(ruleCodes))
-            {
-                code = ruleCodes + code;
-            }
+                if (maxSortIndex.HasValue)
+                {
+                    maxNewSortIndex = maxSortIndex.Value;
+                }
+                maxNewSortIndex = maxNewSortIndex + 1;
+                code = (maxNewSortIndex.ToString().PadLeft(digit, '0'));   ///字符自动补零
+                if (!string.IsNullOrEmpty(ruleCodes))
+                {
+                    code = ruleCodes + code;
+                }
 
-            return code;
+                return code;
+            }
         }
         #endregion
 

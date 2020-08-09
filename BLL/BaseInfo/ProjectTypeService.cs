@@ -118,5 +118,21 @@ namespace BLL
             }
         }
         #endregion
+
+        /// <summary>
+        /// 根据主键获取信息
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        public static string GetProjectTypeNameById(string ProjectTypeId)
+        {
+            string name = string.Empty;
+            var getType= Funs.DB.Base_ProjectType.FirstOrDefault(e => e.ProjectTypeId == ProjectTypeId);
+            if (getType != null)
+            {
+                name = getType.ProjectTypeName;
+            }
+            return name;
+        }
     }
 }

@@ -370,6 +370,7 @@
     <Compile Include="DynamicTHeaderHepler.cs" />
     <Compile Include="OpenService\GetDataService.cs" />
     <Compile Include="Person\PersonTotalService.cs" />
+    <Compile Include="Person\Person_DutyService.cs" />
     <Compile Include="Person\Person_QuarterCheckApproveService.cs" />
     <Compile Include="Person\Person_QuarterCheckItemService.cs" />
     <Compile Include="Person\Person_QuarterCheckService.cs" />

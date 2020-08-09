@@ -482,17 +482,10 @@ namespace FineUIPro.Web.CQMS.Check
                                     float Hpx;
                                     UploadAttachmentService.getJpgSize(rootPath + url, out JpgSize, out Wpx, out Hpx);
                                     double i = 1;
-                                    if (JpgSize.Width >= JpgSize.Height)
-                                    {
-                                        i = JpgSize.Width / 320;
-                                    }
-                                    else
-                                    {
-                                        i = JpgSize.Height / 320;
-                                    }
+                                    i = JpgSize.Width / 50.0;
                                     if (File.Exists(url))
                                     {
-                                        builder.InsertImage(url, 50, 50);
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                     }
                                     else
                                     {
@@ -533,17 +526,10 @@ namespace FineUIPro.Web.CQMS.Check
                                     float Hpx;
                                     UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
                                     double i = 1;
-                                    if (JpgSize.Width >= JpgSize.Height)
-                                    {
-                                        i = JpgSize.Width / 320;
-                                    }
-                                    else
-                                    {
-                                        i = JpgSize.Height / 320;
-                                    }
+                                    i = JpgSize.Width / 50.0;
                                     if (File.Exists(url))
                                     {
-                                        builder.InsertImage(url, 50, 50);
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                     }
                                     else
                                     {
@@ -640,17 +626,10 @@ namespace FineUIPro.Web.CQMS.Check
                                     float Hpx;
                                     UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
                                     double i = 1;
-                                    if (JpgSize.Width >= JpgSize.Height)
-                                    {
-                                        i = JpgSize.Width / 320;
-                                    }
-                                    else
-                                    {
-                                        i = JpgSize.Height / 320;
-                                    }
+                                    i = JpgSize.Width / 50.0;
                                     if (File.Exists(url))
                                     {
-                                        builder.InsertImage(url, 50, 50);
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                     }
                                     else
                                     {
@@ -739,18 +718,10 @@ namespace FineUIPro.Web.CQMS.Check
                                     float Hpx;
                                     UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
                                     double i = 1;
-                                    if (JpgSize.Width >= JpgSize.Height)
-                                    {
-                                        i = JpgSize.Width / 320;
-                                    }
-                                    else
-                                    {
-                                        i = JpgSize.Height / 320;
-                                    }
+                                    i = JpgSize.Width / 50.0;
                                     if (File.Exists(url))
                                     {
-                                        builder.InsertImage(url, 50, 50);
-                                        //builder.InsertImage( url, JpgSize.Width / i, JpgSize.Height / i);
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                     }
                                     else
                                     {
@@ -798,18 +769,10 @@ namespace FineUIPro.Web.CQMS.Check
                                     float Hpx;
                                     UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
                                     double i = 1;
-                                    if (JpgSize.Width >= JpgSize.Height)
-                                    {
-                                        i = JpgSize.Width / 320;
-                                    }
-                                    else
-                                    {
-                                        i = JpgSize.Height / 320;
-                                    }
+                                    i = JpgSize.Width / 50.0;
                                     if (File.Exists(url))
                                     {
-                                        builder.InsertImage(url, 50, 50);
-                                        //builder.InsertImage( url, JpgSize.Width / i, JpgSize.Height / i);
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                     }
                                     else
                                     {
@@ -851,20 +814,12 @@ namespace FineUIPro.Web.CQMS.Check
                                     System.Drawing.Size JpgSize;
                                     float Wpx;
                                     float Hpx;
-                                    //UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
-                                    //double i = 1;
-                                    //if (JpgSize.Width >= JpgSize.Height)
-                                    //{
-                                    //    i = JpgSize.Width / 320;
-                                    //}
-                                    //else
-                                    //{
-                                    //    i = JpgSize.Height / 320;
-                                    //}
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
                                     if (File.Exists(url))
                                     {
-                                        //builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i
-                                        builder.InsertImage(url);
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                     }
                                     else
                                     {

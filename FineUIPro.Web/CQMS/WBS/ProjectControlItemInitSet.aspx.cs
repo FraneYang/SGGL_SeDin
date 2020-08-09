@@ -522,6 +522,22 @@ namespace FineUIPro.Web.CQMS.WBS
                 }
                 controlItemProject.SHForms = sHForms;
                 BLL.ControlItemProjectService.UpdateControlItemProject(controlItemProject);
+                //更新项目定制内容
+                var controlItemAndCycles = from x in Funs.DB.WBS_ControlItemAndCycle where x.ProjectId == CurrUser.LoginProjectId && x.InitControlItemCode == controlItemProject.ControlItemCode select x;
+                if (controlItemAndCycles.Count() > 0)
+                {
+                    foreach (var item in controlItemAndCycles)
+                    {
+                        item.ControlPoint = controlItemProject.ControlPoint;
+                        item.Weights = controlItemProject.Weights;
+                        item.ControlItemDef = controlItemProject.ControlItemDef;
+                        item.Standard = controlItemProject.Standard;
+                        item.ClauseNo = controlItemProject.ClauseNo;
+                        item.CheckNum = controlItemProject.CheckNum;
+                        item.HGForms = controlItemProject.HGForms;
+                        item.SHForms = controlItemProject.SHForms;
+                    }
+                }
             }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
         }

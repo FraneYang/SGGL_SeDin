@@ -317,7 +317,24 @@ namespace FineUIPro.Web.CQMS.Check
                                 string url = rootPath + file;
                                 DocumentBuilder builders = new DocumentBuilder(doc);
                                 builders.MoveToBookmark("CreateMan");
-                                builders.InsertImage(url);
+                                if (!string.IsNullOrEmpty(url))
+                                {
+                                    System.Drawing.Size JpgSize;
+                                    float Wpx;
+                                    float Hpx;
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
+                                    if (File.Exists(url))
+                                    {
+                                        builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    }
+                                    else
+                                    {
+                                        bookmarkCreateMan.Text = user.UserName;
+                                    }
+
+                                }
                             }
                         }
                         else

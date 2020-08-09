@@ -36,7 +36,7 @@ namespace BLL
         /// 数据库连接字符串
         /// </summary>
         private static string connString;
-
+        
         /// <summary>
         /// 数据库连结字符串。
         /// </summary>

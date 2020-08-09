@@ -207,12 +207,12 @@
     <Content Include="BaseInfo\WorkPost.aspx" />
     <Content Include="BaseInfo\WorkStage.aspx" />
     <Content Include="common\mainMenu_DigitalSite.aspx" />
+    <Content Include="common\mainMenu_HJGL.aspx" />
     <Content Include="common\mainMenu_PDigData.aspx" />
     <Content Include="common\mainMenu_PZHGL.aspx" />
     <Content Include="common\mainMenu_TestRun.aspx" />
     <Content Include="common\mainMenu_PHTGL.aspx" />
     <Content Include="common\mainMenu_JDGL.aspx" />
-    <Content Include="common\mainMenu_HJGL.aspx" />
     <Content Include="common\mainMenu_CQMS.aspx" />
     <Content Include="common\mainMenu_HSSE.aspx" />
     <Content Include="common\mainProject.aspx" />
@@ -398,6 +398,8 @@
     <Content Include="HJGL\WeldingReport\FirstPassRate.aspx" />
     <Content Include="HJGL\WeldingReport\IsoCmprehensive.aspx" />
     <Content Include="HJGL\WeldingReport\IsoCompreInfo.aspx" />
+    <Content Include="HJGL\WeldingReport\NDTMonthlyReport.aspx" />
+    <Content Include="HJGL\WeldingReport\NDTWeeklyReport.aspx" />
     <Content Include="HJGL\WeldingReport\UnitWorkareaAnalyze.aspx" />
     <Content Include="HJGL\WeldingReport\UnitWorkAreaQuality.aspx" />
     <Content Include="HJGL\WeldingReport\UnitWorkAreaShowColumn.aspx" />
@@ -701,6 +703,7 @@
     <Content Include="HSSE\SitePerson\PersonList.aspx" />
     <Content Include="HSSE\SitePerson\PersonListEdit.aspx" />
     <Content Include="HSSE\SitePerson\PersonOut.aspx" />
+    <Content Include="HSSE\SitePerson\WorkPostStatistic.aspx" />
     <Content Include="HSSE\SitePerson\PersonStatistic.aspx" />
     <Content Include="HSSE\SitePerson\PersonUnitRefresh.aspx" />
     <Content Include="HSSE\SitePerson\ReadWriteCard.aspx" />
@@ -797,9 +800,16 @@
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluation.aspx" />
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluationEdit.aspx" />
     <Content Include="Personal\FileSearch.aspx" />
+    <Content Include="Personal\PersonCheckInfo.aspx" />
+    <Content Include="Personal\PersonDuty.aspx" />
     <Content Include="Person\PersonCheck.aspx" />
     <Content Include="Person\PersonChecking.aspx" />
     <Content Include="Person\PersonCheckingView.aspx" />
+    <Content Include="Person\PersonDuty.aspx" />
+    <Content Include="Person\PersonDutyAdd.aspx" />
+    <Content Include="Person\PersonDutyEdit.aspx" />
+    <Content Include="Person\PersonDutyTemplate.aspx" />
+    <Content Include="Person\PersonDutyView.aspx" />
     <Content Include="Person\PersonSet.aspx" />
     <Content Include="Person\PersonSetEdit.aspx" />
     <Content Include="Personal\PersonTotal.aspx" />
@@ -3828,6 +3838,7 @@
     <Content Include="res\index\images\logo.png" />
     <Content Include="res\index\images\logo1.png" />
     <Content Include="res\index\images\s02.png" />
+    <Content Include="res\index\images\tel.png" />
     <Content Include="res\index\images\xgglpt.png" />
     <Content Include="res\index\js\china-contour.js" />
     <Content Include="res\index\js\china.js" />
@@ -4785,6 +4796,7 @@
     <Content Include="res\index\css\font\iconfont.ttf" />
     <Content Include="res\index\css\font\iconfont.woff" />
     <Content Include="res\index\css\font\iconfont.woff2" />
+    <Content Include="res\index\css\font\digifacewide.ttf" />
     <None Include="res\umeditor\third-party\mathquill\font\stixgeneral-bundle\stixgeneral-webfont.eot" />
     <None Include="res\umeditor\third-party\mathquill\font\stixgeneral-bundle\stixgeneral-webfont.ttf" />
     <None Include="res\umeditor\third-party\mathquill\font\stixgeneral-bundle\stixgeneral-webfont.woff" />
@@ -5210,6 +5222,13 @@
     <Compile Include="common\mainMenu_DigitalSite.aspx.designer.cs">
       <DependentUpon>mainMenu_DigitalSite.aspx</DependentUpon>
     </Compile>
+    <Compile Include="common\mainMenu_HJGL.aspx.cs">
+      <DependentUpon>mainMenu_HJGL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\mainMenu_HJGL.aspx.designer.cs">
+      <DependentUpon>mainMenu_HJGL.aspx</DependentUpon>
+    </Compile>
     <Compile Include="common\mainMenu_PDigData.aspx.cs">
       <DependentUpon>mainMenu_PDigData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5244,13 +5263,6 @@
     </Compile>
     <Compile Include="common\mainMenu_JDGL.aspx.designer.cs">
       <DependentUpon>mainMenu_JDGL.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="common\mainMenu_HJGL.aspx.cs">
-      <DependentUpon>mainMenu_HJGL.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="common\mainMenu_HJGL.aspx.designer.cs">
-      <DependentUpon>mainMenu_HJGL.aspx</DependentUpon>
     </Compile>
     <Compile Include="common\mainMenu_CQMS.aspx.cs">
       <DependentUpon>mainMenu_CQMS.aspx</DependentUpon>
@@ -6416,6 +6428,20 @@
     </Compile>
     <Compile Include="HJGL\WeldingReport\IsoCompreInfo.aspx.designer.cs">
       <DependentUpon>IsoCompreInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\WeldingReport\NDTMonthlyReport.aspx.cs">
+      <DependentUpon>NDTMonthlyReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingReport\NDTMonthlyReport.aspx.designer.cs">
+      <DependentUpon>NDTMonthlyReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\WeldingReport\NDTWeeklyReport.aspx.cs">
+      <DependentUpon>NDTWeeklyReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingReport\NDTWeeklyReport.aspx.designer.cs">
+      <DependentUpon>NDTWeeklyReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\WeldingReport\UnitWorkareaAnalyze.aspx.cs">
       <DependentUpon>UnitWorkareaAnalyze.aspx</DependentUpon>
@@ -8538,6 +8564,13 @@
     <Compile Include="HSSE\SitePerson\PersonOut.aspx.designer.cs">
       <DependentUpon>PersonOut.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\SitePerson\WorkPostStatistic.aspx.cs">
+      <DependentUpon>WorkPostStatistic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\SitePerson\WorkPostStatistic.aspx.designer.cs">
+      <DependentUpon>WorkPostStatistic.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\SitePerson\PersonStatistic.aspx.cs">
       <DependentUpon>PersonStatistic.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8916,6 +8949,20 @@
     <Compile Include="Personal\FileSearch.aspx.designer.cs">
       <DependentUpon>FileSearch.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Personal\PersonCheckInfo.aspx.cs">
+      <DependentUpon>PersonCheckInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Personal\PersonCheckInfo.aspx.designer.cs">
+      <DependentUpon>PersonCheckInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Personal\PersonDuty.aspx.cs">
+      <DependentUpon>PersonDuty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Personal\PersonDuty.aspx.designer.cs">
+      <DependentUpon>PersonDuty.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Person\PersonCheck.aspx.cs">
       <DependentUpon>PersonCheck.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8936,6 +8983,41 @@
     </Compile>
     <Compile Include="Person\PersonCheckingView.aspx.designer.cs">
       <DependentUpon>PersonCheckingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonDuty.aspx.cs">
+      <DependentUpon>PersonDuty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonDuty.aspx.designer.cs">
+      <DependentUpon>PersonDuty.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonDutyAdd.aspx.cs">
+      <DependentUpon>PersonDutyAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonDutyAdd.aspx.designer.cs">
+      <DependentUpon>PersonDutyAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonDutyEdit.aspx.cs">
+      <DependentUpon>PersonDutyEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonDutyEdit.aspx.designer.cs">
+      <DependentUpon>PersonDutyEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonDutyTemplate.aspx.cs">
+      <DependentUpon>PersonDutyTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonDutyTemplate.aspx.designer.cs">
+      <DependentUpon>PersonDutyTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonDutyView.aspx.cs">
+      <DependentUpon>PersonDutyView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonDutyView.aspx.designer.cs">
+      <DependentUpon>PersonDutyView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Person\PersonSet.aspx.cs">
       <DependentUpon>PersonSet.aspx</DependentUpon>

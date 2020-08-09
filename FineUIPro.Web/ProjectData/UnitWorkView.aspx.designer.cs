@@ -76,6 +76,42 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.TextBox txtCosts;
         
         /// <summary>
+        /// txtUnit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtUnit;
+        
+        /// <summary>
+        /// txtSupervisorUnit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtSupervisorUnit;
+        
+        /// <summary>
+        /// txtNDEUnit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtNDEUnit;
+        
+        /// <summary>
+        /// txtMainItemAndDesignProfessional 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtMainItemAndDesignProfessional;
+        
+        /// <summary>
         /// Toolbar1 控件。
         /// </summary>
         /// <remarks>

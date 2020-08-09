@@ -612,9 +612,15 @@ namespace BLL
         #endregion
 
         #region 菜单id
-        #region 我的
+        /// <summary>
+        /// 个人总结
+        /// </summary>
         public const string PersonalTotalMenuId = "C6EF06E5-9019-4583-8122-EA94FCC545C6";
-        #endregion
+
+        /// <summary>
+        /// 员工责任书
+        /// </summary>
+        public const string PersonDutyMenuId = "A913653D-1EBB-4F55-97C9-81CC5B5913C4";
 
         #region 系统设置
         /// <summary>

@@ -29,6 +29,7 @@
         color:#fff;
         font-size:14px;
         letter-spacing:2px;
+        margin-bottom:10px;
        }
        .info .item .tit{
 
@@ -208,6 +209,7 @@
             width:100%;
             height:100%;
         }
+        
     </style>
 </head>
 <body >
@@ -219,35 +221,41 @@
                     <div class="bg-item">
                         <div class="bw-item-content flex flexV">
                             <div class="tit-new">安全数据统计</div>
-                            <div class="content-wrap flex1 flex flexV" style="padding:0 10px;">
-                                <div class="row1 flex">
-                                    <div>安全人工时：</div><span class="num" runat="server" id="allPersonWorkTime"></span><div>小时</div>
-                                </div>
-                                <div class="row2 flex1 flex">
-                                    <div class="item flex1">
-                                        <div id="one2" style="width: 100%; height: 100%;"></div>
-                                    </div>
-                                    <div class="item flex1 flex flexV" style="align-items:center;justify-content:center;">
-                                      <div class="item-txt-list flex">
-                                        <div class="txt-tit">总数量：</div>
-                                        <div>43</div>
-                                      </div>
-                                      <div class="item-txt-list flex">
-                                        <div class="txt-tit fixtt">待整改：</div>
-                                        <div>10</div>
-                                      </div>
-                                      <div class="item-txt-list flex">
-                                        <div class="txt-tit fixtt">已整改：</div>
-                                        <div>33</div>
-                                      </div>
+                            <div class="content-wrap-1 flex flexV">
+                                <div class="item flex1 flex flexV">
+                                    <div class="tit">安全人工时</div>
+                                    <div class="content-1 flex flex1">
+                                        <div class="cc-num-wrap flex1 flex">
+                                            <div class="specialNum cc-num" runat="server" id="divPNum8">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum7">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum6">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum5">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum4">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum3">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum2">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum1">0</div>
+                                        </div>
+                                        <%--<div class="unit">小时</div>--%>
                                     </div>
                                 </div>
-                            </div>
-                            <%--<div class="content-wrap flex1 flex">
-                                <div class="flex1" id='one1' style="width: 100%; height: 100%;"></div>
-                                <div class="spline-mid"></div>
-                                <div class="flex1" id='one2' style="width: 100%; height: 100%;"></div>
-                            </div>--%>
+                                <div class="item flex1 flex flexV">
+                                    <div class="tit">安全隐患整改单</div>
+                                    <div class="content flex flex1">
+                                        <div class="t-item">
+                                            <div class="specialNum c-num" runat="server" id="divAllRectify">0</div>
+                                            <div class="c-txt" >总数（个）</div>
+                                        </div>
+                                        <div class="t-item">
+                                            <div class="specialNum c-num" runat="server" id="divCRectify">0</div>
+                                            <div class="c-txt" >已完成（个）</div>
+                                        </div>
+                                        <div class="t-item">
+                                            <div class="specialNum c-num"  runat="server" id="divUCRectify">0</div>
+                                            <div class="c-txt">未完成（个）</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                         
                         </div>
                     </div>
                 </div>
@@ -278,54 +286,74 @@
                 <div class="flex2 ">
                     <div class="bw-b-bottom-up">
                         <div class="info js-item-1" style="display:none">
-                            <div class="row" style="margin-top:50px;">
-                                <div class="item">
-                                    <div class="tit">项目名称：</div>
-                                    <div class="val" runat="server" id="divProjectName"></div>                                  
+                            <div class="row " style="margin-top:50px;">
+                                <div class="flex">
+                                    <div class="flex1">
+                                        <div class="item">
+                                            <div class="tit">项目名称：</div>
+                                            <div class="val" runat="server" id="divProjectName"></div>                                  
+                                        </div>
+                                         <div class="item">
+                                            <div class="tit">项目类型：</div>
+                                            <div class="val" runat="server" id="divProjectType"></div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="tit">项目状态：</div>
+                                            <div class="val" runat="server" id="divProjectstate"></div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="tit">开工日期：</div>
+                                            <div class="val" runat="server" id="divStartDate"></div>
+                                        </div>
+                                         <div class="item">
+                                            <div class="tit">竣工日期：</div>
+                                            <div class="val" runat="server" id="divEndDate"></div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="tit">项目建设工期（月）：</div>
+                                            <div class="val" runat="server" id="divDuration"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex1">
+                                        <div class="item">
+                                            <div class="tit">建设单位：</div>
+                                            <div class="val" runat="server" id="divOwnUnit"></div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="tit">监理单位：</div>
+                                            <div class="val"  runat="server" id="divJLUnit"></div>
+                                        </div>
+                                         <div class="item">
+                                            <div class="tit">施工单位：</div>
+                                            <div class="val" runat="server" id="divSGUnit" ></div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="tit">项目经理：</div>
+                                            <div class="val" runat="server" id="divProjectManager"></div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="tit">施工经理：</div>
+                                            <div class="val" runat="server" id="divConstructionManager"></div>
+                                        </div>
+                                          <div class="item">
+                                            <div class="tit">安全经理：</div>
+                                            <div class="val" runat="server" id="divHSSEManager"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="item">
-                                    <div class="tit">项目地址：</div>
-                                    <div class="val" runat="server" id="divProjectAddress"></div>
-                                </div>                          
-                                <div class="item">
-                                    <div class="tit">监理单位：</div>
-                                    <div class="val">单位二</div>
-                                </div>
-                                 <div class="item">
-                                    <div class="tit">总承包单位：</div>
-                                    <div class="val">单位三</div>
-                                </div>
-                                <div class="item">
-                                    <div class="tit">施工分包单位：</div>
-                                    <div class="val">单位四</div>
-                                </div>
-                                <div class="item">
-                                    <div class="tit">总承包单位：</div>
-                                    <div class="val">单位五</div>
-                                </div>
-                                  <div class="item">
-                                    <div class="tit">总承包单位：</div>
-                                    <div class="val">单位六</div>
-                                </div>
-                                 <div class="item">
-                                    <div class="tit">项目合同额：</div>
-                                    <div class="val">1.28亿</div>
-                                </div>
-                                <div class="item">
-                                    <div class="tit">合同开工时间：</div>
-                                    <div class="val">2020-01-02</div>
-                                </div>
-                                <div class="item">
-                                    <div class="tit">合同竣工时间：</div>
-                                    <div class="val">2022-01-02</div>
-                                </div>
-                                <div class="item">
-                                    <div class="tit">项目类型：</div>
-                                    <div class="val">EPC</div>
-                                </div>
-                                 <div class="item">
-                                    <div class="tit">项目状态：</div>
-                                    <div class="val">在建</div>
+                                <div>
+                                    <div class="item">
+                                        <div class="tit">合同额（万元）：</div>
+                                        <div class="val" runat="server" id="divProjectMoney"></div>
+                                    </div>
+                                        <div class="item">
+                                        <div class="tit">施工合同额（万元）：</div>
+                                        <div class="val" runat="server" id="divConstructionMoney"></div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="tit">项目地址：</div>
+                                        <div class="val" runat="server" id="divProjectAddress"></div>
+                                    </div>  
                                 </div>
                             </div>
                         </div>
@@ -632,87 +660,6 @@
     category_One('three1', '项目焊接一次合格率', 80)
     category_One('three2', '项目焊接进度完成率', 80)
 </script>
-<script>
-    function pie(id, data, title, text) {
-        var myChartPie = echarts.init(document.getElementById(id));
-        var optionPie = {
-            //tooltip: {
-            //    trigger: 'item',
-            //    show: false
-            //},
-            legend: {
-                show: false,
-                selectedMode: false,
-                left: 'right',
-                orient: 'horizontal',
-                textStyle: {//图例文字的样式
-                    color: '#ffffff'
-                }
-            },
-            title: {
-                left: 'center',
-                bottom: '0',
-                text: title,
-                textStyle: {
-                    color: '#fff',
-                    fontSize: 10,
-                    fontWeight:'300'
-                },
-                show: false
-            },
-            graphic: {
-                type: "text",
-                left: "center",
-                top: "center",
-                style: {
-                    text: text,
-                    textAlign: "center",
-                    fill: "#fff",
-                    fontSize: 18,
-                    fontWeight: 700
-                }
-            },
-            color: ['#2566CF', '#289CB3'],
-            series: [
-                {
-                    name: ' ',
-                    hoverOffset: 0,
-                    type: 'pie',
-                    clickable:false,
-                    radius: ['55%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        show: false
-                    },
-                    itemStyle: {
-                        normal: {
-                            //opacity: 0.7,
-                            borderWidth: 3,
-                            borderColor: 'rgba(137,214,243, 1)'
-                        }
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            fontSize: '12',
-                            fontWeight: 'bold'
-                        }
-                    },
-                    labelLine: {
-                        show: false
-                    },
-                    data: data
-                }
-            ]
-        };
-        //为echarts对象加载数据
-        myChartPie.setOption(optionPie);
-    }
-    var data = [{ value: 33, name: '' },
-    { value: 10, name: '' }];
-    //pie('one2', data, "安全隐患整改统计", "43")
-    pie('one2', data, "", "43")
-</script>
 <script type="text/javascript">
     function category(id, xArr, series) {
         // 基于准备好的dom，初始化echarts实例
@@ -792,13 +739,14 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
+     var two =<%=Two %>;
+    var xArr = two.categories
     var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
     var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
     var series = [{
         name: '质量一次性合格率',
         type: 'bar',
-        data: data,
+        data: two.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     }];
     category('two', xArr, series)

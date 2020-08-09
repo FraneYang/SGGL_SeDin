@@ -4,7 +4,7 @@
   </TreeNode>
 <TreeNode id="3BF62723-9448-4A29-A239-0A17566F50E8" Text="员工总结" NavigateUrl="Person/PersonTotal.aspx"></TreeNode>
 <TreeNode id="1D8B35D2-5C8F-4FF4-96E4-8EB61BDBAE51" Text="员工培训" NavigateUrl=""></TreeNode>
-<TreeNode id="A913653D-1EBB-4F55-97C9-81CC5B5913C4" Text="员工责任书" NavigateUrl=""></TreeNode>
+<TreeNode id="A913653D-1EBB-4F55-97C9-81CC5B5913C4" Text="员工责任书" NavigateUrl="Person/PersonDuty.aspx"></TreeNode>
 <TreeNode id="DD111492-E5F1-4E6F-BCAD-BA26EA184761" Text="员工考核" NavigateUrl="Person/PersonCheck.aspx"></TreeNode>
 <TreeNode id="DC31E45E-0EE9-4601-825D-8F388B6D9B71" Text="分流管理" NavigateUrl=""></TreeNode>
 <TreeNode id="F9E911AB-2B5A-489D-B9AF-3EA97C2826A2" Text="知识竞赛" NavigateUrl=""><TreeNode id="A048350B-25E6-4DE1-A701-73638656D15F" Text="制定计划" NavigateUrl="PersonManage/Test/TestPlan.aspx"></TreeNode>

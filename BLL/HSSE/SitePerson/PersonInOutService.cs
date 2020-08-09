@@ -41,6 +41,19 @@ namespace BLL
         public static void AddPersonInOut(Model.SitePerson_PersonInOut PersonInOut)
         {
             Model.SGGLDB db = Funs.DB;
+            string postType = null;
+            string workpostId = null;
+            var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == PersonInOut.PersonId);
+            if (getPerson != null)
+            {
+                workpostId = getPerson.WorkPostId;
+                var getWokPost = db.Base_WorkPost.FirstOrDefault(x => x.PostType == getPerson.WorkPostId);
+                if (getWokPost != null)
+                {
+                    postType = getWokPost.PostType;
+                }
+            }
+
             Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
             {
                 PersonInOutId = SQLHelper.GetNewID(typeof(Model.SitePerson_PersonInOut)),
@@ -48,8 +61,11 @@ namespace BLL
                 UnitId = PersonInOut.UnitId,
                 PersonId = PersonInOut.PersonId,
                 IsIn = PersonInOut.IsIn,
-                ChangeTime = PersonInOut.ChangeTime
+                ChangeTime = PersonInOut.ChangeTime,
+                WorkPostId = workpostId,
+                PostType = postType,
             };
+
             db.SitePerson_PersonInOut.InsertOnSubmit(newPersonInOut);
             db.SubmitChanges();
         }
@@ -61,12 +77,72 @@ namespace BLL
         public static void DeletePersonInOutByPersonId(string personId)
         {
             Model.SGGLDB db = Funs.DB;
-            var personInOut =from x in db.SitePerson_PersonInOut where x.PersonId == personId select x;
-            if (personInOut.Count()> 0)
+            var personInOut = from x in db.SitePerson_PersonInOut where x.PersonId == personId select x;
+            if (personInOut.Count() > 0)
             {
                 db.SitePerson_PersonInOut.DeleteAllOnSubmit(personInOut);
                 db.SubmitChanges();
             }
+        }
+        
+        /// <summary>
+        ///  获取出入记录人工时
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.WorkPostStatisticItem> getWorkPostStatistic(List<Model.SitePerson_PersonInOut> getAllPersonInOutList)
+        {
+            Model.SGGLDB db = Funs.DB;
+            List<Model.WorkPostStatisticItem> reports = new List<Model.WorkPostStatisticItem>();           
+          
+            var getUnitIdList = getAllPersonInOutList.Select(x => x.UnitId).Distinct();
+            foreach (var uitem in getUnitIdList)
+            {
+                var getU = getAllPersonInOutList.Where(x => x.UnitId == uitem);
+                var getWorkPostIdList = getU.Select(x => x.WorkPostId).Distinct();
+                foreach (var witem in getWorkPostIdList)
+                {
+                    var getW = getU.Where(x => x.WorkPostId == witem);
+                    Model.WorkPostStatisticItem newWItem = new Model.WorkPostStatisticItem
+                    {
+                        ID = SQLHelper.GetNewID(),
+                        UnitId = uitem,
+                        UnitName = UnitService.GetUnitNameByUnitId(uitem),
+                        WorkPostId = witem,
+                        WorkPostName = WorkPostService.getWorkPostNameById(witem),
+                        PersonCount = getW.Select(x => x.PersonId).Distinct().Count(),
+                        UnitWorkPostID = uitem + "|" + witem,
+                    };
+
+                    ////// 出场记录 集合
+                    //var getUnitOutList = getW.Where(x => x.IsIn == false);
+                    ////// 进场记录 集合
+                    //var getUnitInList = getW.Where(x => x.IsIn == true);
+                    //int personWorkTime = 0;
+                    //List<string> personIdList = new List<string>();
+                    //foreach (var itemOut in getUnitOutList)
+                    //{
+                    //    var getMaxInTime = getUnitInList.Where(x => x.ChangeTime < itemOut.ChangeTime
+                    //                && x.PersonId == itemOut.PersonId && x.ChangeTime.Value.AddDays(1) > itemOut.ChangeTime).Max(x => x.ChangeTime);
+                    //    if (getMaxInTime.HasValue)
+                    //    {
+                    //        personWorkTime += Convert.ToInt32((itemOut.ChangeTime - getMaxInTime).Value.TotalMinutes);
+                    //    }
+                    //    else
+                    //    {
+                    //        personIdList.Add(itemOut.PersonId);
+                    //    }
+                    //}
+                    //if (personIdList.Count() > 0)
+                    //{
+                    //    personWorkTime += (personIdList.Distinct().Count() * 8 * 60);
+                    //}
+
+                    //newWItem.WorkHous = Convert.ToInt32(personWorkTime * 1.0 / 60);
+
+                    reports.Add(newWItem);
+                }
+            }
+            return reports;
         }
     }
 }

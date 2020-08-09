@@ -179,6 +179,66 @@
             padding: 20px 0px;
             color: #fff;
         }
+        .base-wrap{
+           padding:15px 10px;
+            height:100%;
+        }
+         .base-wrap .base-tit{
+             font-size:12px;
+             color:#fff;
+        }
+        .base-wrap .base-txt-wrap{
+            margin-top:5px;
+            background-color:#0B508B;
+            border-radius:5px;
+            color:#FFAE72;
+            height:100%;
+            align-items:center;
+            justify-content:space-around;
+        }
+        .base-wrap .base-txt-wrap .num-1{
+            background-color:#2A759C;
+            padding:5px;
+            font-size:40px;
+        }
+        .yj-info-1{
+            height:100%;
+        }
+        .yj-info-1-list{
+            color:#fff;
+        }
+        .yj-info-1 .telbg{
+            height:100%;
+            width:85px;
+            background: url(../res/index/images/tel.png) center center no-repeat;
+            background-size: contain;
+        }
+        .yj-info-1-list-item{
+            padding:0 5px;
+            background-color:#2A759C;
+            margin-bottom:5px;
+            font-size:12px;
+            align-items:center;
+            justify-content:center;
+        }
+         .yj-info-1-list-item:last-child{
+              margin-bottom:0;
+         }
+         .yj-info-1-list-item .telnum{
+             text-align:center;
+             align-items:center;
+             justify-content:center;
+             display:flex;
+         }
+        .yj-info-1-info{
+            color:#fff;
+            background-color:#2A759C;
+            text-align:center;
+            font-size:16px;
+            height:40px;
+            line-height:40px;
+            margin-top:5px;
+        }
     </style>
 </head>
 <body>
@@ -188,8 +248,15 @@
                 <div class="item flex1">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
-                            <div class="bw-item-content">
-                                <div id='one' style="width: 100%; height: 100%;"></div>
+                            <div class="bw-item-content pd0">
+                                <div class="base-wrap flex flexV">
+                                     <div class="base-tit">当前现场总人数</div>
+                                     <div class="base-txt-wrap  flex flex1">
+                                        <div class="num-1 specialNum" runat="server"  id="person00">0</div>
+                                        <div class="num-1 specialNum" runat="server"  id="person01">0</div>
+                                        <div class="num-1 specialNum" runat="server"  id="person02">0</div>
+                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -207,9 +274,38 @@
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content">
-                                <div class="yj-info flex flexV">
+                                <%--<div class="yj-info flex flexV">
                                     <div class="tit">应急信息</div>
                                     <div class="tel">应急电话：123456</div>
+                                </div>--%>
+                                <div class="yj-info-1 flex flexV">
+                                    <div class="flex flex1">
+                                        <div style="height:100%;">
+                                            <div class="telbg"></div> 
+                                            <%--<img style="height:100%;" src="../res/index/images/tel.png" />--%>
+                                        </div>
+                                        <div class="flex1 flex flexV yj-info-1-list">
+                                            <div class="flex flex1 yj-info-1-list-item">
+                                                <div class="flex1 telnum">110</div>
+                                                <div>报警</div>
+                                            </div>
+                                            <div class="flex flex1 yj-info-1-list-item">
+                                                <div class="flex1 telnum">119</div>
+                                                <div>消防</div>
+                                            </div>
+                                            <div class="flex flex1 yj-info-1-list-item">
+                                                <div class="flex1 telnum">120</div>
+                                                <div>急救</div>
+                                            </div>
+                                            <div class="flex flex1 yj-info-1-list-item">
+                                                <div class="flex1 telnum"></div>
+                                                <div>项目部</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="yj-info-1-info">
+                                        <div>应急信息</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -271,69 +367,6 @@
 <script type="text/javascript" src="../res/index/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
-<script type="text/javascript">
-    function category_One(id, dataNum) {
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById(id))
-        // 指定图表的配置项和数据
-        var option = {
-            //tooltip: {
-            //    formatter: '{a} <br/>{b} : {c}%'
-            //},
-            title: {
-                left: 'center',
-                text: '当前现场人数',
-                textStyle: {
-                    color: '#fff',
-                    fontSize: 12,
-                    fontWeight: '300'
-                },
-                show: true
-            },
-            series: [
-                {
-                    name: ' ',
-                    center: ["50%", "65%"],
-                    type: 'gauge',
-                    radius: "100%",
-                    pointer: {
-                        show: true,
-                        length: '70%',
-                        width: 3
-                    },
-                    axisTick: { //刻度线样式（及短线样式）
-                        length: 0
-                    },
-                    splitLine: {
-                        length: 10,
-                        lineStyle: {
-                            color: 'rgba(0,102,255,.1)'
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            width: 10//表盘宽度
-                        }
-                    },
-                    min: 0,
-                    max: 1000,
-                    detail: {
-                        show: false,
-                        formatter: '{value}%'
-                    },
-                    data: [{
-                        value: dataNum,
-                        name: '人数'
-                    }]
-                }
-            ]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option, true)
-    }
-    var one =<%=One %>;
-    category_One('one', one.series[0].data)
-</script>
 <script type="text/javascript">
     function category_Two(id, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
@@ -418,7 +451,8 @@
     var data = [{
         name: '累计人工时',
         type: 'line',
-        data: two.series[0].data
+        data: two.series[0].data,
+        itemStyle: { normal: { color: '#AACC08' } }
     },{
         name: '当月人工时',
         type: 'bar',
@@ -510,7 +544,7 @@
         name: '作业许可数量统计',
         type: 'bar',
         data: three.series[0].data,
-        itemStyle: { normal: { color: 'rgba(135,191,90,.9)' } }
+        itemStyle: { normal: { color: '#7BB259' } }
     }]
     category_Three('three', xArr, data)
 </script>
@@ -598,12 +632,13 @@
     var series = [{
         name: '待整改',
         type: 'bar',
-        data: four1.series[0].data
+        data: four1.series[0].data,
+        itemStyle: { normal: { color: '#C2CB0A' } }
     }, {
         name: '全部',
         type: 'bar',
         data: four1.series[1].data,
-        itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
+        itemStyle: { normal: { color: '#AE4B23' } }
     }];
     category_Four('four', xArr, series)
 </script>

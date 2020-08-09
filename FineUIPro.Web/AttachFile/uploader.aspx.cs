@@ -191,14 +191,36 @@ namespace FineUIPro.Web.AttachFile
                     {
                         try
                         {
+                            //string savedName = item.Value<string>("savedName");
+                            //string url = BLL.Funs.RootPath + AttachPath + "\\" + savedName;
+                            //FileInfo info = new FileInfo(url);
+                            //if (!info.Exists || string.IsNullOrEmpty(savedName))
+                            //{
+                            //    url = BLL.Funs.RootPath + "Images//Null.jpg";
+                            //    info = new FileInfo(url);
+                            //}
+
                             string savedName = item.Value<string>("savedName");
-                            string url = BLL.Funs.RootPath + AttachPath + "\\" + savedName;
+                            string folder = item.Value<string>("folder");
+                            string xnUrl = AttachPath + "\\" + savedName;
+                            if (!string.IsNullOrEmpty(folder))
+                            {
+                                xnUrl = folder + savedName;
+                            }
+
+                            string url = Funs.RootPath + xnUrl;
+                            if (savedName.Contains("FileUpLoad"))
+                            {
+                                url = Funs.RootPath + savedName.Replace('/', '\\');
+                            }
                             FileInfo info = new FileInfo(url);
                             if (!info.Exists || string.IsNullOrEmpty(savedName))
                             {
-                                url = BLL.Funs.RootPath + "Images//Null.jpg";
+                                url = Funs.RootPath + "Images//Null.jpg";
                                 info = new FileInfo(url);
                             }
+
+
 
                             string fileName = Path.GetFileName(url);
                             long fileSize = info.Length;
@@ -388,7 +410,18 @@ namespace FineUIPro.Web.AttachFile
                 for (int i = 0, count = source.Count; i < count; i++)
                 {
                     JObject item = source[i] as JObject;
-                    attachUrl += AttachPath + "\\" + item.Value<string>("savedName") + ",";
+                    if (!string.IsNullOrEmpty(item.Value<string>("folder")))
+                    {
+                        attachUrl += item.Value<string>("folder") + item.Value<string>("savedName") + ",";
+                    }
+                    else
+                    {
+                        attachUrl += AttachPath + "/" + DateTime.Now.ToString("yyyy-MM") + "/" + item.Value<string>("savedName") + ",";
+                    }
+                }
+                if (!string.IsNullOrEmpty(attachUrl))
+                {
+                    attachUrl = attachUrl.Substring(0, attachUrl.LastIndexOf(",")).Replace('\\', '/');
                 }
                 ///保存方法
                 this.SaveData(source.ToString(), attachUrl);
@@ -405,42 +438,7 @@ namespace FineUIPro.Web.AttachFile
         /// <param name="attachUrl"></param>
         private void SaveData(string source, string attachUrl)
         {
-            Model.SGGLDB db = Funs.DB;
-            List<Model.AttachFile> sour = new List<Model.AttachFile>();
-            if (!string.IsNullOrEmpty(this.MenuId))
-            {
-                sour = (from x in db.AttachFile where x.ToKeyId == ToKeyId && x.MenuId == this.MenuId select x).ToList();
-            }
-            else
-            {
-                sour = (from x in db.AttachFile where x.ToKeyId == ToKeyId select x).ToList();
-            }
-
-            if (sour.Count() == 0)
-            {
-                Model.AttachFile att = new Model.AttachFile
-                {
-                    AttachFileId = BLL.SQLHelper.GetNewID(typeof(Model.AttachFile)),
-                    ToKeyId = ToKeyId,
-                    AttachSource = source.ToString(),
-                    AttachUrl = attachUrl,
-                    MenuId = MenuId
-                };
-                db.AttachFile.InsertOnSubmit(att);
-                db.SubmitChanges();
-            }
-            else
-            {
-                Model.AttachFile att = db.AttachFile.FirstOrDefault(x => x.AttachFileId == sour.First().AttachFileId);
-                if (att != null)
-                {
-                    att.ToKeyId = ToKeyId;
-                    att.AttachSource = source.ToString();
-                    att.AttachUrl = attachUrl;
-                    att.MenuId = MenuId;
-                    db.SubmitChanges();
-                }
-            }
+            UploadFileService.SaveAttachUrl(source, attachUrl, MenuId, ToKeyId);
         }
 
         /// <summary>

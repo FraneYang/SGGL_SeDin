@@ -30,9 +30,8 @@
                         <f:Form ID="Form2" ShowBorder="true" ShowHeader="true" Title="内容" AutoScroll="true"
                             runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                             <Rows>
-                                <f:FormRow ColumnWidths="30% 30% 30% 5%">
+                                <f:FormRow >
                                     <Items>
-                                        <f:HiddenField runat="server" ID="hdEmergencyProcessId"></f:HiddenField>
                                         <f:TextBox ID="txtSortId" runat="server" Label="序号" LabelAlign="Right" MaxLength="50">
                                         </f:TextBox>
                                         <f:TextBox ID="txtContent" runat="server" Label="内容" LabelAlign="Right" MaxLength="50">
@@ -40,6 +39,7 @@
                                         <f:Button ID="btnSure" Icon="Accept" runat="server" ValidateForms="SimpleForm1"
                                             OnClick="btnSure_Click" ToolTip="确认">
                                         </f:Button>
+                                          <f:HiddenField runat="server" ID="hdEmergencyProcessId"></f:HiddenField>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>

@@ -13,8 +13,6 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-
-
                 <f:Grid ID="Grid1" ShowBorder="true" EnableAjax="false" ShowHeader="false" Title="员工绩效考核"
                     EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataIDField="QuarterCheckId"
                      DataKeyNames="QuarterCheckId" AllowCellEditing="true" ClicksToEdit="2" SortDirection="DESC"
@@ -22,15 +20,15 @@
                     <Toolbars>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
-                                <f:DropDownList ID="drpCheckType" runat="server" Label="考核类型" LabelAlign="Right" EnableEdit="true" LabelWidth="80px" > 
+                                <f:DropDownList ID="drpCheckType" runat="server" Label="类型" LabelAlign="Right" EnableEdit="true" LabelWidth="50px" > 
                                 </f:DropDownList>
-                                <f:DropDownList ID="drpProject" runat="server" Label="项目" LabelAlign="Right" EnableEdit="true" LabelWidth="80px">
+                                <f:DropDownList ID="drpProject" runat="server" Label="项目" LabelAlign="Right" EnableEdit="true" LabelWidth="50px">
                                 </f:DropDownList>
-                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime"
-                                      LabelAlign="right" >
+                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime" Width="250px" LabelWidth="80px"
+                                      LabelAlign="right"  EnableEdit="false">
                                 </f:DatePicker>
-                                  <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime"
-                                      LabelAlign="right"  >
+                                  <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime" Width="250px" LabelWidth="80px"
+                                      LabelAlign="right"  EnableEdit="false">
                                 </f:DatePicker>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                 </f:ToolbarFill>

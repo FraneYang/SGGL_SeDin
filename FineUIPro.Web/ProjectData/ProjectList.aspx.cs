@@ -179,31 +179,19 @@ namespace FineUIPro.Web.ProjectData
             string unitName = string.Empty;
             if (projectId != null)
             {
-                var getUnitName = from x in Funs.DB.Project_ProjectUnit
-                                  join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
-                                  where x.ProjectId == projectId.ToString() && x.UnitType == Const.ProjectUnitType_2
-                                  select y.UnitName;
-                if (getUnitName.Count() > 0)
-                {
-                    unitName = Funs.GetStringByArray(getUnitName.ToArray());
-                }
+                unitName =ProjectService.getProjectUnitNameByUnitType(projectId.ToString(), Const.ProjectUnitType_2);
             }
             return unitName;
         }
 
         protected string ConvertOwn(object projectId)
         {
-            string name = string.Empty;
+            string unitName = string.Empty;
             if (projectId != null)
             {
-                var getUnitt = Funs.DB.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == projectId.ToString() && x.UnitType == Const.ProjectUnitType_4);
-                if (getUnitt != null)
-                {
-                    name = UnitService.GetUnitNameByUnitId(getUnitt.UnitId);
-                }
-
+                unitName = ProjectService.getProjectUnitNameByUnitType(projectId.ToString(), Const.ProjectUnitType_4);
             }
-            return name;
+            return unitName;
         }
         #endregion
 

@@ -170,16 +170,23 @@
             position:relative;
             min-width:100px;
         }
-        .project-wrap .project:before{
+        .project-tit-wrap{
+             position:relative;
+        }
+        .project-wrap .project-tit-wrap:before{
             content: '';
             position:absolute;
-            right: 0px;
-            top: 4px;
+            right: 8px;
+            top: 50%;
             width: 8px;
             height:8px;
             border-top:1px solid #fff;
             border-right:1px solid #fff;
-            transform:rotate(135deg);
+            transform:translateY(-50%) rotate(135deg);
+            z-index:999;
+        }
+        .project-wrap:hover .project-tit-wrap:before {
+            transform:translateY(-50%) rotate(-45deg);
         }
         .project-list{
             display:none;
@@ -188,9 +195,11 @@
         }
          .project-list>div{
              padding: 5px 10px;
+             cursor:pointer;
          }
          .project-list>div:hover{
             background-color:rgba(1,82,138, 0.9);
+            color:#00a2e9;
          }
           .tab-content .line-item{
             background-color:#0B5EA5;
@@ -213,35 +222,42 @@
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">安全数据统计</div>
-                        <div class="content-wrap flex1 flex flexV" style="padding-bottom:0;">
-                            <div class="row1 flex">
-                                <div>安全人工时：</div><span class="num">1432345</span><div>小时</div>
-                            </div>
-                            <div class="row2 flex1 flex">
-                                <div class="item flex1">
-                                    <div id="one2" style="width: 100%; height: 100%;"></div>
+                         <div class="content-wrap-1 flex flexV">
+                                <div class="item flex1 flex flexV">
+                                    <div class="tit">安全人工时</div>
+                                    <div class="content-1 flex flex1">
+                                        <div class="cc-num-wrap flex1 flex">
+                                            <div class="specialNum cc-num" runat="server" id="divPNum8">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum7">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum6">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum5">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum4">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum3">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum2">0</div>
+                                            <div class="specialNum cc-num" runat="server" id="divPNum1">0</div>
+                                        </div>
+                                      <%--  <div class="unit">小时</div>--%>
+                                    </div>
+
                                 </div>
-                                <div class="item flex1 flex flexV" style="align-items:center;justify-content:center;">
-                                  <div class="item-txt-list flex">
-                                    <div class="txt-tit">总数量：</div>
-                                    <div>43</div>
-                                  </div>
-                                  <div class="item-txt-list flex">
-                                    <div class="txt-tit fixtt">待整改：</div>
-                                    <div>10</div>
-                                  </div>
-                                  <div class="item-txt-list flex">
-                                    <div class="txt-tit fixtt">已整改：</div>
-                                    <div>33</div>
-                                  </div>
+                                <div class="item flex1 flex flexV">
+                                    <div class="tit">安全隐患整改单</div>
+                                    <div class="content flex flex1">
+                                        <div class="t-item">
+                                           <div class="specialNum c-num" runat="server" id="divAllRectify">0</div>
+                                            <div class="c-txt">总数（个）</div>
+                                        </div>
+                                        <div class="t-item">
+                                            <div class="specialNum c-num" runat="server" id="divCRectify">0</div>
+                                            <div class="c-txt">已完成（个）</div>
+                                        </div>
+                                        <div class="t-item">
+                                            <div class="specialNum c-num"  runat="server" id="divUCRectify">0</div>
+                                            <div class="c-txt">未完成（个）</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <%--<div class="content-wrap flex1 flex">
-                            <div class="flex1" id='one1' style="width: 100%; height: 100%;"></div>
-                            <div class="spline-mid"></div>
-                            <div class="flex1" id='one2' style="width: 100%; height: 100%;"></div>
-                        </div>--%>
                     </div>
                 </div>
                 <div class="bg-item flex1">
@@ -270,16 +286,17 @@
                         </div>
                         <div id='map' style="width: 100%; height: 100%;"></div>
                         <div class="project-wrap">
-                          <%--    <div class="project">                                
-                              <div>
-                                    <input autocomplete="off" class="project-tit" type="text" name="name" value="" />
+                            <div class="project">                                
+                               <div class="project-tit-wrap">
+                                    <input id="project-tit" autocomplete="off" class="project-tit" type="text" name="name" value="" />
                                 </div>
                                 <div class="project-list">
-                                    <div>项目1</div>
-                                    <div>项目2</div>
-                                    <div>项目3</div>
+                                    <div>宁夏瑞泰集中供热项目</div>
+                                    <div>兖矿双氧水项目</div>
+                                    <div>金晖煤焦6.78米捣鼓焦化项目</div>
+                                    <div>测试项目</div>
                                 </div>                    
-                            </div>--%>            
+                            </div>            
                             
                         </div>
                         <div class="map-desc">
@@ -314,7 +331,7 @@
                             <%--<div class=" flex1">
                                 <div id='Accumulation' style="width: 100%; height: 100%;"></div>
                             </div>--%>
-                            <div class="content-wrap tab-content flex1 flex" style="overflow:auto;">
+                            <div class="content-wrap tab-content flex1 flex" style="overflow:visible;">
                                 <div class="Accumulation-next">
                                     <div class="flex tab-h">
                                         <div class="txt">工程名</div>
@@ -394,12 +411,6 @@
             <!--右侧-->
             <div class="bw-s flex1 flexV flex" style="">
                 <div class="bg-item flex1">
-                    <%--<div class="bw-item-content flex flexV">
-                        <div class="tit-new">进度统计</div>
-                        <div class="content-wrap flex1">
-                            <div id='echartsBar' style="width: 100%; height: 100%;"></div>
-                        </div>
-                    </div>--%>
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">进度统计</div>
                         <div class="content-wrap tab-content flex1" style="overflow:auto;">
@@ -435,16 +446,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <%--<div class="flex tab-i">
-                                <div class="txt">合同4</div>
-                                <div class="txt">分包商</div>
-                                <div class="flex1 flex line-wrap">
-                                    <div class="line-item">
-                                        <div style="width:90%"></div>
-                                    </div>
-                                    <div class="per">90%</div>
-                                </div>
-                            </div>--%>
                         </div>
                     </div>
                 </div>
@@ -457,12 +458,6 @@
                     </div>
                 </div>
                 <div class="bg-item flex1">
-                   <%--<div class="bw-item-content flex flexV">
-                        <div class="tit-new">劳务统计</div>
-                        <div class="content-wrap flex1">
-                            <div id='Accumulation' style="width: 100%; height: 100%;"></div>
-                        </div>
-                    </div>--%>
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">站点链接</div>
                         <div class="content-wrap tab-content flex1" style="overflow:auto;">
@@ -479,238 +474,7 @@
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
 <script type="text/javascript" src="../res/index/js/china.js"></script>
-<script type="text/javascript" src="../res/index/js/world.js"></script>
-    <script type="text/javascript">
-    function category_One(id, dataNum) {
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById(id))
-        // 指定图表的配置项和数据
-        var option = {
-            //tooltip: {
-            //    formatter: '{a} <br/>{b} : {c}%'
-            //},
-            title: {
-                bottom: '0',
-                left:'center',
-                text: '安全人工时统计',
-                textStyle: {
-                    color: '#fff',
-                    fontSize: 10,
-                    fontWeight:'300'
-                },
-                show: true
-            },
-            series: [
-                {
-                    name: ' ',
-                    center: ["50%", "50%"],
-                    type: 'gauge',
-                    radius: "80%",
-                    pointer: {
-                        show: true,
-                        length: '70%',
-                        width : 3
-                    },
-                    axisTick : { //刻度线样式（及短线样式）
-                      length : 0
-                    },
-                    splitLine: {
-                        length: 10,
-                        lineStyle: {
-                            color: 'rgba(255,255,255,.1)'
-                        }
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color : [ //表盘颜色
-                                [ 0.5, "#91C7AE" ],//0-50%处的颜色
-                                [ 0.7, "#63869E" ],//51%-70%处的颜色
-                                [ 1, "#88C8E2" ],//70%-100%处的颜色
-                            ],
-                            width : 10//表盘宽度
-                        }
-                    },
-                    min: 0,
-                    max: 100,
-                    detail: {
-                        show: false,
-                        formatter: '{value}%'
-                    },
-                    data: [{
-                        value: dataNum,
-                        name: ''
-                    }]
-                }
-            ]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option, true)
-    }
-    //category_One('one1', 80)
-</script>
-    <script>
-    function pie(id, data, title, text) {
-        var myChartPie = echarts.init(document.getElementById(id));
-        var optionPie = {
-            //tooltip: {
-            //    trigger: 'item',
-            //    show: false
-            //},
-            legend: {
-                show: false,
-                selectedMode: false,
-                left: 'right',
-                orient: 'horizontal',
-                textStyle: {//图例文字的样式
-                    color: '#ffffff'
-                }
-            },
-            title: {
-                left: 'center',
-                bottom: '0',
-                text: title,
-                textStyle: {
-                    color: '#fff',
-                    fontSize: 10,
-                    fontWeight:'300'
-                },
-                show: false
-            },
-            graphic: {
-                type: "text",
-                left: "center",
-                top: "center",
-                style: {
-                    text: text,
-                    textAlign: "center",
-                    fill: "#fff",
-                    fontSize: 18,
-                    fontWeight: 700
-                }
-            },
-            color: ['#2566CF', '#289CB3'],
-            series: [
-                {
-                    name: ' ',
-                    hoverOffset: 0,
-                    type: 'pie',
-                    clickable:false,
-                    radius: ['55%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        show: false
-                    },
-                    itemStyle: {
-                        normal: {
-                            //opacity: 0.7,
-                            borderWidth: 3,
-                            borderColor: 'rgba(137,214,243, 1)'
-                        }
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            fontSize: '12',
-                            fontWeight: 'bold'
-                        }
-                    },
-                    labelLine: {
-                        show: false
-                    },
-                    data: data
-                }
-            ]
-        };
-        //为echarts对象加载数据
-        myChartPie.setOption(optionPie);
-    }
-    var data = [{ value: 33, name: '' },
-    { value: 10, name: '' }];
-        //pie('one2', data, "安全隐患整改统计", "43")
-        pie('one2', data, "", "43")
-</script>
-<script type="text/javascript">
-    function category(id) {
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById(id))
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                // left:'center',
-                text: '安全统计',
-                textStyle: {
-                    color: '#fff'
-                },
-                show: false
-            },
-            tooltip: {},
-            legend: {
-                data: ['数量'],
-                show: false
-            },
-            xAxis: {
-                axisTick: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    }
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    }
-                },
-                type: 'category',
-                data: ["已整改", "待整改", "巡检数", "专项检查", "综合检查", "隐患"]
-            },
-            yAxis: {
-                axisTick: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    }
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    }
-                }
-            },
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 66, 10, 10, 20]
-            }],
-            grid: {
-                top: '15',
-                left: '0%',
-                right: '0%',
-                bottom: '0%',
-                containLabel: true,
-                backgroundColor: 'rgba(0,162,233, 0.01)',
-                // borderColor: 'rgba(0,162,233, 1)'
-            },
-            itemStyle: {
-                color: 'rgba(200,201,10, 1)'
-            },
-            backgroundColor: 'rgba(0,162,233, 0.01)',
-            textStyle: {
-                color: 'rgba(255, 255, 255, 0.3)'
-            }
-        }
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option)
-    }
-
-    //category('main')
-</script>
+<script type="text/javascript" src="../res/index/js/world.js"></script> 
     <script type="text/javascript">
     function category(id, xArr, series) {
         // 基于准备好的dom，初始化echarts实例
@@ -789,15 +553,16 @@
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
-    }
-    //var xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
+    }    
+        var two =<%=Two %>;
+        var xArr2 = two.categories
     var xArr = ["项目1", "项目2", "项目3", "项目4", "项目5", "项目6", "项目7", "项目8", "项目9"]
     var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
     var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
     var series = [{
         name: '质量一次性合格率',
         type: 'bar',
-        data: data,
+        data: two.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     }];
     var series1 = [
@@ -807,7 +572,7 @@
         data: data1,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }];
-    category('two', xArr, series)
+    category('two', xArr2, series)
     category('three', xArr, series1)
 </script>
     <script type="text/javascript">
@@ -1318,7 +1083,7 @@
     function mapEchart(id, mapType) {
         myChart = echarts.init(document.getElementById(id));
         var mapType = mapType || 'china'
-        var mapZoom = mapType == 'china' ? 1.2 : 1
+        var mapZoom = mapType == 'china' ? 1.2 : 0.8
         optionMap = {
             title: {
                 // x:"center",
@@ -1874,14 +1639,17 @@
             loop: true,
             slidesPerView: 3
         })
-    })
-    //var mySwiper = new Swiper('#swiper1', {
-    //    autoplay: 3000,//可选选项，自动滑动
-    //    direction: 'vertical',
-    //    loop: true,
-    //    slidesPerView: 3
-    //})
 
-   
+        $(".project").hover(function () {
+            $(".project-list").show();
+        }, function () {
+            $(".project-list").hide();
+        });
+
+        $(".project-list>div").click(function () {
+            var $this = $(this)
+             top.window.location.href = "../indexProject.aspx?projectName=" +$this.html();
+        });
+    })   
 </script>
 </html>

@@ -42,6 +42,32 @@
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
+                <f:FormRow runat="server">
+                    <Items>
+                       <f:TextBox ID="txtUnit" runat="server" Label="施工单位" Readonly="true"
+                             MaxLength="50" ShowRedStar="true" LabelWidth="150px">
+                        </f:TextBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow runat="server">
+                    <Items>
+                       <f:TextBox ID="txtSupervisorUnit" runat="server" Label="监理单位" Readonly="true"
+                             MaxLength="50" LabelWidth="150px">
+                        </f:TextBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow runat="server">
+                    <Items>
+                       <f:TextBox ID="txtNDEUnit" runat="server" Label="检测单位" Readonly="true"
+                             MaxLength="50" LabelWidth="150px">
+                        </f:TextBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:Label runat="server" ID="txtMainItemAndDesignProfessional" Label="对应主项及设计专业" LabelWidth="150px"></f:Label>
+                   </Items>
+                </f:FormRow>
             </Rows>
             <Toolbars>
                 

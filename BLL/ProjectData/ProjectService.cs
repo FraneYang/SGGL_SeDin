@@ -33,6 +33,11 @@
             return name;
         }
 
+        public static Model.Base_Project GetProjectByProjectShortName(string name)
+        {
+            return Funs.DB.Base_Project.FirstOrDefault(e => e.ShortName == name);
+        }
+
         /// <summary>
         ///获取项目简称
         /// </summary>
@@ -384,5 +389,28 @@
             }
         }
         #endregion
+
+        /// <summary>
+        ///  获取项目各单位类型单位名称
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitType"></param>
+        /// <returns></returns>
+        public static string getProjectUnitNameByUnitType(string projectId,string unitType)
+        {
+            string unitName = string.Empty;
+            if (!string.IsNullOrEmpty(projectId))
+            {
+                var getUnitName = from x in Funs.DB.Project_ProjectUnit
+                                  join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
+                                  where x.ProjectId == projectId.ToString() && x.UnitType == unitType
+                                  select y.UnitName;
+                if (getUnitName.Count() > 0)
+                {
+                    unitName = Funs.GetStringByArray(getUnitName.ToArray());
+                }
+            }
+            return unitName;
+        }
     }
 }

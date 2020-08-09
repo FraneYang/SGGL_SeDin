@@ -97,7 +97,7 @@
         <div class="bottom-wrap flex1">
             <div class="top flex">
                 <div class="item flex1 flex flexV">
-                    <div class="bw-b-bottom">
+                    <div class="bw-b-bottom" style="margin-bottom:5px;">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content flex">
                                 <div id='one1' class="flex1" style="width: 100%; height: 100%;"></div>
@@ -109,7 +109,7 @@
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content flex flexV" style="padding: 0; position: relative;">
-                                <div class="flex " style="position: absolute; width: 100%; font-size: 14px;">
+                                <div class="flex " style="position: absolute; width: 100%;">
                                     <div class="flex flex1  tit-item">
                                         <div class="tit">质量控制点统计</div>
                                         <div class="flex">
@@ -166,7 +166,7 @@
                                 </div>
                             </div>
                             <div class="bw-item-content">
-                                <div id='three' style="width: 100%; height: 100%;"></div>
+                                <div id='three' style="width: 100%; height: 95%;"></div>
                             </div>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
                 textStyle: {
                     color: '#fff',
                     fontSize: 10,
-                    fontWeight: '300'
+                   
                 },
                 show: true
             },
@@ -213,6 +213,10 @@
                     center: ["50%", "50%"],
                     type: 'gauge',
                     radius: "100%",
+                    axisLabel : { //文字样式（及“10”、“20”等文字样式）
+                        fontSize: 10,
+                        distance : 5 //文字离表盘的距离
+                    },
                     pointer: {
                         show: true,
                         length: '70%',
@@ -229,6 +233,11 @@
                     },
                     axisLine: {
                         lineStyle: {
+                            color : [ //表盘颜色
+                                [ 0.5, "#91C7AE" ],//0-50%处的颜色
+                                [ 0.7, "#63869E" ],//51%-70%处的颜色
+                                [ 1, "#88C8E2" ],//70%-100%处的颜色
+                            ],
                             width: 10//表盘宽度
                         }
                     },
@@ -396,7 +405,7 @@
                 text: title,
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: 10,
                     fontWeight: '300'
                 },
                 show: true
@@ -482,7 +491,8 @@
                 left: '15%',
                 show: true,
                 textStyle: {//图例文字的样式
-                    color: '#ffffff'
+                    color: '#ffffff',
+                    fontSize: 10
                 }
             },
             xAxis: {
@@ -628,7 +638,7 @@
             },
             series: series,
             grid: {
-                top: '20%',
+                top: '25%',
                 left: '10',
                 right: '10',
                 bottom: '0%',

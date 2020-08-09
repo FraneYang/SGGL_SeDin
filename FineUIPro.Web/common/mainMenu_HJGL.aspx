@@ -27,7 +27,7 @@
         }
         .bottom-wrap{
            padding:0;
-           margin-bottom:5px;
+           margin-bottom:0;
         }
          .bottom-wrap:last-child{
              margin-bottom:0;
@@ -53,74 +53,159 @@
         .tab-wrap {
             left: auto;
             right: 15px;
-            top: 10px;
+            top: 8px;
         }
-        .tab{
-            border: none;
-            box-shadow: none;
+       .tab-wrap .tab{
+            border-radius:0 !important;
+            border: none!important;
+            box-shadow: none !important;
         }
-        .tab .active {
-            color: #fff;
-            background-color: transparent;
+        .tab-wrap .tab .active {
+            color: rgba(0,162,233, 1);
+            background-color: transparent !important;
         }
-        .tab .t-item {
+       .tab-wrap .tab .t-item {
             width: auto;
             font-size: 13px;
             padding: 2px;
         }
         .itemlr{
-            margin: 0 5px;
+            margin: 0 5px 5px 0;
+        }
+        .mgb{
+            margin-bottom: 5px;
+        }
+        .flex4 {
+            -webkit-flex: 4;
+            /* Chrome */
+            -ms-flex: 4; /* IE 10 */
+            flex: 4;
+            /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            /*-webkit-box-flex: 3; /* OLD - iOS 6-, Safari 3.1-6 */
+            -moz-box-flex: 4;
+            /* OLD - Firefox 19- */
+        }
+        .flex6 {
+            -webkit-flex: 6;
+            /* Chrome */
+            -ms-flex: 6; /* IE 10 */
+            flex: 6;
+            /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            /*-webkit-box-flex: 3; /* OLD - iOS 6-, Safari 3.1-6 */
+            -moz-box-flex: 6;
+            /* OLD - Firefox 19- */
+        }
+        .flex9 {
+            -webkit-flex: 9;
+            /* Chrome */
+            -ms-flex: 9; /* IE 10 */
+            flex: 9;
+            /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            /*-webkit-box-flex: 3; /* OLD - iOS 6-, Safari 3.1-6 */
+            -moz-box-flex: 9;
+            /* OLD - Firefox 19- */
+        }
+        .info-wrap{
+            width:100%;
+            height:100%;
+            padding:5px 10px;
+        }
+        .info-wrap .info-item{
+            align-items:center;
+            margin:0 20px;
+        }
+        .info-wrap .info-item .title {
+            margin-bottom:5px;
+             font-size:14px;
+        }
+        .info-wrap .info-item .item {
+            width:100%;
+            height:100%;
+            background-color:#267AA4;
+            border-radius:15px;
+            align-items:center;
+            justify-content:space-around;
+        }
+        .info-wrap .info-item .item .i-num{
+            color:#F48A5C;
+            font-size:28px;
+        }
+        .info-wrap .info-item .item .i-num-c{
+             color:#C1DF8E;
         }
     </style>
 </head>
 <body>
-    <div class="wrap flex flexV">
+    <div class="wrap flex">
         <div class="bottom-wrap flex1">
-            <div class="top">
-                <div class="item flex3">
+            <div class="top flexV">
+                <div class="item flex4 itemlr">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
-                            <div class="bw-item-content flex">
+                            <div class="info-wrap flex">
+                                <div class="info-item flex flexV flex1">
+                                    <div class="title">一次合格率</div>
+                                    <div class="item flex1 flex flexV">
+                                        <div class="specialNum i-num">87</div>
+                                        <div>单位：%</div>
+                                    </div>
+                                </div>
+                                <div class="info-item flex flexV flex1">
+                                    <div class="title">焊工总人数</div>
+                                    <div class="item flex1 flex flexV">
+                                        <div class="specialNum i-num i-num-c">176</div>
+                                        <div>单位：人</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%--<div class="bw-item-content flex">
                                 <div class="flex1 pd" >
                                      <div id='one'  style="width: 100%; height: 100%;"></div>
                                 </div>
                                <div class="flex1 pd" >
                                      <div id='one1'   style="width: 100%; height: 100%;"></div>
                                 </div>
-                            </div>
+                            </div>--%>
                         </div>
                     </div>
                 </div>
-                <div class="item flex2 itemlr">
+                <div class="item flex6 itemlr">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
+                            <div class="tab-wrap" style="right:5px;">
+                                <div class="tab" data-value="4">
+                                    <div class="t-item active">按达因量</div>
+                                    <div class="t-item ">按焊口数</div>
+                                </div>
+                            </div>
                             <div class="bw-item-content">
                                 <div id='two' style="width: 100%; height: 100%;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="item flex3">
+                
+                <div class="item flex9 itemlr">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
-                            <div class="tab-wrap">
-                                <div class="tab" data-value="2">
+                            <div class="tab-wrap" style="right:5px;">
+                                <div class="tab" data-value="4">
                                     <div class="t-item active">按分包商</div>
                                     <div class="t-item ">按单位工程</div>
                                     <div class="t-item">按材质类别</div>
                                 </div>
                             </div>
-                            <div class="bw-item-content pd10">
-                                <div id='three' style="width: 100%; height: 100%;"></div>
+                            <div class="bw-item-content">
+                                <div id='five' style="width: 100%; height: 100%;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="bottom-wrap flex1">
-            <div class="top">
-                <div class="item flex3">
+        <div class="bottom-wrap flex3">
+            <div class="top flexV">
+                <div class="item flex1 mgb">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="tab-wrap">
@@ -136,23 +221,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="item flex2 itemlr">
-                    <div class="bw-b-bottom">
-                        <div class="bw-b-bottom-up">
-                            <div class="tab-wrap">
-                                <div class="tab" data-value="4">
-                                    <div class="t-item active">按分包商</div>
-                                    <div class="t-item ">按单位工程</div>
-                                    <div class="t-item">按材质类别</div>
-                                </div>
-                            </div>
-                            <div class="bw-item-content">
-                                <div id='five' style="width: 100%; height: 100%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item flex3">
+                <div class="item flex1 mgb">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="tab-wrap">
@@ -164,6 +233,22 @@
                             </div>
                             <div class="bw-item-content pd10">
                                 <div id='six' style="width: 100%; height: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item flex1 mgb">
+                    <div class="bw-b-bottom">
+                        <div class="bw-b-bottom-up">
+                            <div class="tab-wrap">
+                                <div class="tab" data-value="2">
+                                    <div class="t-item active">按分包商</div>
+                                    <div class="t-item ">按单位工程</div>
+                                    <div class="t-item">按材质类别</div>
+                                </div>
+                            </div>
+                            <div class="bw-item-content pd10">
+                                <div id='three' style="width: 100%; height: 100%;"></div>
                             </div>
                         </div>
                     </div>
@@ -235,8 +320,8 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option, true)
     }
-    category_One('one', 80, '项目焊接一次合格率', '{value}%');
-    category_One('one1', 76, '项目焊工总人数', '{value}人');
+    //category_One('one', 80, '项目焊接一次合格率', '{value}%');
+    //category_One('one1', 76, '项目焊工总人数', '{value}人');
 </script>
 <script type="text/javascript">
     function category_two(id, xArr, data) {
@@ -246,12 +331,12 @@
         var option = {
                 title: [{
 	            text: '项目焊接工程量统计',
-	            top:'7%',
-	            left:'center',
+	            top:'10',
+	            //left:'center',
 	            textStyle:{
 	                color: '#278AC8',
-                    fontSize: 14,
-                    fontWeight:300
+                    fontSize: 12,
+                    //fontWeight:300
 	            }
 	        }],
             //tooltip: {
@@ -260,7 +345,7 @@
             //},
             legend: {
                 show: true,
-                bottom: 5,
+                bottom: 0,
                 align: 'left',
                 textStyle:{//图例文字的样式
                     color:'#fff'
@@ -334,7 +419,7 @@
                 // left:'center',
                 text: title,
                 textStyle: {
-                    fontSize: 14,
+                    fontSize: 12,
                     color: '#fff',
                     fontWeight:'300'
                 },
@@ -429,12 +514,12 @@
         var option = {
             title: {
                 top: 10,
-                left: 10,
+                //left: 10,
                 text: '焊接缺陷分析',
                 textStyle: {
-                    color: '#fff',
-                    fontWeight: '300',
-                    fontSize: 14
+                    color: '#278AC8',
+                    //fontWeight: '300',
+                    fontSize: 12
                 },
             },
             tooltip: {
@@ -502,11 +587,11 @@
         // 指定图表的配置项和数据
         var option = {
             title: {
-                left:'10',
+                //left:'0',
                 text: '人场安全培训',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight:'300'
                 },
                 show: true
@@ -552,9 +637,9 @@
             },
             series: data,
             grid: {
-                top: '15%',
-                left: '10',
-                right: '10',
+                top: '25%',
+                left: '0',
+                right: '0',
                 bottom: '0%',
                 containLabel: true,
                 backgroundColor: 'rgba(0,162,233, 0.01)',
@@ -577,7 +662,7 @@
         name: '',
         type: 'line',
         data: [23, 25, 22, 13, 4, 12, 9],
-        itemStyle: { normal: { color: 'rgba(110,164,133, 1)' } }
+        itemStyle: { normal: { color: '#83B848' } }
     }, {
             name: '',
             type: 'bar',
@@ -648,7 +733,7 @@
                     }
                 ]
             }
-            category_One('one', xArr, data)
+            //category_One('one', xArr, data)
         }
         else if (value == 2) {
             var xArr = ["分包一", "分包二", "分包三"]

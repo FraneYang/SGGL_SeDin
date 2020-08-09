@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BLL;
 
 namespace FineUIPro.Web.ProjectData
 {
@@ -33,6 +34,22 @@ namespace FineUIPro.Web.ProjectData
                         if (UnitWork.Costs != null)
                         {
                             this.txtCosts.Text = UnitWork.Costs.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(UnitWork.UnitId))
+                        {
+                            this.txtUnit.Text = UnitService.GetUnitNameByUnitId(UnitWork.UnitId);
+                        }
+                        if (!string.IsNullOrEmpty(UnitWork.SupervisorUnitId))
+                        {
+                            this.txtSupervisorUnit.Text = UnitService.GetUnitNameByUnitId(UnitWork.SupervisorUnitId);
+                        }
+                        if (!string.IsNullOrEmpty(UnitWork.SupervisorUnitId))
+                        {
+                            this.txtNDEUnit.Text = UnitService.GetUnitNameByUnitId(UnitWork.NDEUnit);
+                        }
+                        if (!string.IsNullOrEmpty(UnitWork.MainItemAndDesignProfessionalIds))
+                        {
+                            this.txtMainItemAndDesignProfessional.Text = UnitWorkService.GetMainItemAndDesignProfessionalName(UnitWork.MainItemAndDesignProfessionalIds, CurrUser.LoginProjectId);
                         }
                     }
                 }

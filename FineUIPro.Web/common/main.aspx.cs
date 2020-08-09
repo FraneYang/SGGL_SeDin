@@ -12,6 +12,10 @@ namespace FineUIPro.Web.common
         {
             if (!IsPostBack)
             {
+                /// 获取安全人工时
+                getPersonWorkTime();
+
+                #region 项目数据
                 var getAllProject = ProjectService.GetAllProjectDropDownList();
                 int acount = getAllProject.Count();
                 int pcount1 = 0;
@@ -28,11 +32,94 @@ namespace FineUIPro.Web.common
                 this.numProjetc1.InnerHtml = pcount1.ToString();
                 this.numProjetc2.InnerHtml = pcount2.ToString();
                 this.numProjetc3.InnerHtml = pcount3.ToString();
-
+                #endregion
                 string str = CQMSData;
             }
         }
 
+        #region 安全人工时
+        /// <summary>
+        /// 获取安全人工时
+        /// </summary>
+        private void getPersonWorkTime()
+        {
+            var getMax = from x in Funs.DB.SitePerson_PersonInOutNumber
+                         group x by x.ProjectId into g
+                         select new { g.First().ProjectId, WorkHours = g.Max(x => x.WorkHours) };
+            int wHours = getMax.Sum(x => x.WorkHours) ?? 0;
+            if (wHours > 0)
+            {
+                this.divPNum1.InnerHtml = (wHours % 10).ToString();
+                this.divPNum2.InnerHtml = ((wHours % 100) / 10).ToString();
+                this.divPNum3.InnerHtml = ((wHours % 1000) / 100).ToString();
+                this.divPNum4.InnerHtml = ((wHours % 10000) / 1000).ToString();
+                this.divPNum5.InnerHtml = ((wHours % 100000) / 10000).ToString();
+                this.divPNum6.InnerHtml = ((wHours % 1000000) / 100000).ToString();
+                this.divPNum7.InnerHtml = ((wHours % 10000000) / 1000000).ToString();
+                this.divPNum8.InnerHtml = ((wHours % 100000000) / 10000000).ToString();
+            }
+
+            ///整改单          
+            var getRectify = Funs.DB.Check_RectifyNotices;
+            int allcout = getRectify.Count();
+            if (allcout > 0)
+            {
+                this.divAllRectify.InnerHtml = allcout.ToString();
+                int ccount = getRectify.Where(x => x.States == "5").Count();
+                this.divCRectify.InnerHtml = ccount.ToString();
+                this.divUCRectify.InnerHtml = (allcout - ccount).ToString();
+            }
+        }
+        #endregion
+
+        #region  质量一次验收合格率
+        protected string Two
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "质量一次验收合格率";
+                var projects = BLL.ProjectService.GetAllProjectDropDownList();
+                Model.SingleSerie s = new Model.SingleSerie();
+                //Model.SingleSerie s2 = new Model.SingleSerie();
+                List<double> listdata = new List<double>();
+                //List<double> listdata2 = new List<double>();
+                double result = 0, result2 = 0;
+                foreach (var project in projects)
+                {
+                    listCategories.Add(project.ProjectCode);
+                    List<Model.View_Check_SoptCheckDetail> TotalCheckDetailOKLists = SpotCheckDetailService.GetTotalOKSpotCheckDetailListByTime1(project.ProjectId, DateTime.Now);
+                    List<Model.View_Check_SoptCheckDetail> TotalCheckDetailLists = SpotCheckDetailService.GetTotalAllSpotCheckDetailListByTime(project.ProjectId, DateTime.Now);
+                    //List<Model.View_Check_SoptCheckDetail> totalCheckDetailDataOKLists = SpotCheckDetailService.GetAllDataOkSpotCheckDetailListByTime(project.ProjectId, DateTime.Now);
+                    if (TotalCheckDetailOKLists.Count > 0 && TotalCheckDetailLists.Count > 0)
+                    {
+                        var a = Convert.ToDouble(TotalCheckDetailOKLists.Count);
+                        var b = Convert.ToDouble(TotalCheckDetailLists.Count);
+                        result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                    }
+                    //if (totalCheckDetailDataOKLists.Count > 0 && TotalCheckDetailOKLists.Count > 0)
+                    //{
+                    //    var a = Convert.ToDouble(totalCheckDetailDataOKLists.Count);
+                    //    var b = Convert.ToDouble(TotalCheckDetailOKLists.Count);
+                    //    result2 = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                    //}
+                    listdata.Add(result);
+                    //listdata2.Add(result2);
+                    result = 0;
+                    result2 = 0;
+                }
+                s.data = listdata;
+                //s2.data = listdata2;
+                series.Add(s);
+                //series.Add(s2);
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
         protected string CQMSData
         {
             get

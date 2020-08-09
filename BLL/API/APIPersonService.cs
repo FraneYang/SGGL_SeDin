@@ -709,6 +709,12 @@ namespace BLL
                     var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.ProjectId == projectId && x.IdentityCard == idCard);
                     if (getPerson != null)
                     {
+                        string postType = null;
+                        var getWokPost = db.Base_WorkPost.FirstOrDefault(x => x.PostType == getPerson.WorkPostId);
+                        if (getWokPost != null)
+                        {
+                            postType = getWokPost.PostType;
+                        }
                         var getPersonInOut = db.SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == getPerson.PersonId && x.ProjectId == projectId && x.ChangeTime == changeTime);
                         if (getPersonInOut == null)
                         {
@@ -720,6 +726,8 @@ namespace BLL
                                 PersonId = getPerson.PersonId,
                                 IsIn = isIn == 1 ? true : false,
                                 ChangeTime = changeTime,
+                                WorkPostId = getPerson.WorkPostId,
+                                PostType = postType,
                             };
 
                             db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);

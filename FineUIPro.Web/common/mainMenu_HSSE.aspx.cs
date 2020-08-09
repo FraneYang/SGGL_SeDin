@@ -13,35 +13,37 @@ namespace FineUIPro.Web
             if (!IsPostBack)
             {
                 getHazardRegisterLists= HSSE_Hazard_HazardRegisterService.GetHazardRegisterListByProjectId(this.CurrUser.LoginProjectId);
+                ///当前现场总人数
+                getSitePerson();
             }
         }
-
-        #region 当前现场人数
+        #region 当前现场总人数
         /// <summary>
-        ///  当前现场人数
+        ///  当前现场总人数
         /// </summary>
-        protected string One
+        private void getSitePerson()
         {
-            get
+            int AllCount = 0;
+            var getDayAll = from x in Funs.DB.SitePerson_PersonInOut
+                            where x.ProjectId == this.CurrUser.LoginProjectId && x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month
+                            && x.ChangeTime.Value.Day == DateTime.Now.Day
+                            select x;
+            if (getDayAll.Count() > 0)
             {
-                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
-                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
-                List<string> listCategories = new List<string>();
-                businessColumn.title = "当前现场人数";
-                Model.SingleSerie s = new Model.SingleSerie();
-                List<double> listdata = new List<double>
-                {
-                    APIPageDataService.getPersonNum(this.CurrUser.LoginProjectId)
-                };
-                s.data = listdata;
-                series.Add(s);
-                businessColumn.categories = listCategories;
-                businessColumn.series = series;
-                return JsonConvert.SerializeObject(businessColumn);
+                var getInMaxs = from x in getDayAll
+                                group x by x.PersonId into g
+                                select new { g.First().PersonId, ChangeTime = g.Max(x => x.ChangeTime), g.First().IsIn, g.First().PostType };            
+            };
+            if (AllCount > 0)
+            {
+                ////总人数
+                this.person00.InnerHtml = ((AllCount % 1000) / 100).ToString();
+                this.person01.InnerHtml = ((AllCount % 100) / 10).ToString();
+                this.person02.InnerHtml = (AllCount % 10).ToString();
             }
         }
         #endregion
-
+        
         #region 项目安全人工时
         /// <summary>
         ///  项目安全人工时

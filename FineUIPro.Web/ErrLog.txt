@@ -1,63 +1,48 @@
 ﻿
 错误信息开始=====>
 错误类型:SqlException
-错误信息:对象名 'sd_tpk.dbo.preson' 无效。
+错误信息:执行超时已过期。完成操作之前已超时或服务器未响应。 
 错误堆栈:
    在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
    在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
    在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
    在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
    在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
    在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
    在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
    在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
-   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicUpdate(TrackedObject item)
-   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Update(TrackedObject item)
-   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
-   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
-   在 System.Data.Linq.DataContext.SubmitChanges()
-   在 BLL.GetDataService.CreateQRCode() 位置 D:\DepCode\SEDIN\SGGL\SGGL\BLL\OpenService\GetDataService.cs:行号 258
-   在 BLL.MonitorService.DoSynchData() 位置 D:\DepCode\SEDIN\SGGL\SGGL\BLL\OpenService\MonitorService.cs:行号 2251
-   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e) 位置 D:\DepCode\SEDIN\SGGL\SGGL\BLL\OpenService\MonitorService.cs:行号 112
-出错时间:08/07/2020 10:21:04
-出错时间:08/07/2020 10:21:04
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 FineUIPro.Web.common.mainProject.getSitePerson() 位置 D:\DepCode\SEDIN\SGGL\SGGL\FineUIPro.Web\common\mainProject.aspx.cs:行号 45
+   在 FineUIPro.Web.common.mainProject.Page_Load(Object sender, EventArgs e) 位置 D:\DepCode\SEDIN\SGGL\SGGL\FineUIPro.Web\common\mainProject.aspx.cs:行号 30
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+----错误类型:Win32Exception
+----错误信息:
+----等待的操作过时。
+----错误堆栈:
+    出错时间:08/09/2020 09:41:23
+出错文件:http://localhost:8118/common/mainProject.aspx
+IP地址:::1
+操作人员:JT
 
-
-错误信息开始=====>
-错误类型:SqlException
-错误信息:对象名 'sd_tpk.dbo.preson' 无效。
-错误堆栈:
-   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
-   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
-   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
-   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
-   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
-   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
-   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
-   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
-   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicUpdate(TrackedObject item)
-   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Update(TrackedObject item)
-   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
-   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
-   在 System.Data.Linq.DataContext.SubmitChanges()
-   在 BLL.GetDataService.CreateQRCode() 位置 D:\DepCode\SEDIN\SGGL\SGGL\BLL\OpenService\GetDataService.cs:行号 258
-   在 BLL.MonitorService.DoSynchData() 位置 D:\DepCode\SEDIN\SGGL\SGGL\BLL\OpenService\MonitorService.cs:行号 2251
-   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e) 位置 D:\DepCode\SEDIN\SGGL\SGGL\BLL\OpenService\MonitorService.cs:行号 112
-出错时间:08/07/2020 10:55:49
-出错时间:08/07/2020 10:55:49
+出错时间:08/09/2020 09:41:38
 
 
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/HSSE/AttachFile/webuploader.aspx”不存在。
+错误信息:文件“/common/indexProject.aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -69,16 +54,16 @@
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:08/07/2020 10:58:53
-出错文件:http://localhost:8118/HSSE/AttachFile/webuploader.aspx?toKeyId=173d5ae9-476c-4d42-88d0-280271b08519&path=FileUpload/ActionPlanListAttachUrl&menuId=CBC47C8B-141C-446B-90D9-CE8F5AE66CE4
+出错时间:08/09/2020 16:24:29
+出错文件:http://localhost:8118/common/indexProject.aspx?projectName=%E5%AE%81%E5%A4%8F%E7%91%9E%E6%B3%B0%E9%9B%86%E4%B8%AD%E4%BE%9B%E7%83%AD%E9%A1%B9%E7%9B%AE
 IP地址:::1
 
-出错时间:08/07/2020 10:58:54
+出错时间:08/09/2020 16:24:30
 
 
 错误信息开始=====>
 错误类型:HttpException
-错误信息:文件“/Personal/PersonTotal.aspx”不存在。
+错误信息:文件“/common/~/indexProject.aspx”不存在。
 错误堆栈:
    在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
    在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
@@ -90,9 +75,9 @@ IP地址:::1
    在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:08/07/2020 14:43:45
-出错文件:http://localhost:8118/Personal/PersonTotal.aspx
+出错时间:08/09/2020 16:25:07
+出错文件:http://localhost:8118/common/~/indexProject.aspx?projectName=%E5%AE%81%E5%A4%8F%E7%91%9E%E6%B3%B0%E9%9B%86%E4%B8%AD%E4%BE%9B%E7%83%AD%E9%A1%B9%E7%9B%AE
 IP地址:::1
 
-出错时间:08/07/2020 14:43:45
+出错时间:08/09/2020 16:25:07
 

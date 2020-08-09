@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web
 {
-    public partial class mainMenu_HJGL : System.Web.UI.Page
+    public partial class mainMenu_HJGL : PageBase
     {
         protected void Page_Load(object sender, EventArgs e)
         {

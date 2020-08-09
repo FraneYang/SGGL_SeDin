@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>编辑应急队伍/培训</title>
+    <title>编辑应急组织</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
-    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" Title="应急队伍/培训" AutoScroll="true"
+    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" Title="应急组织" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
             <f:FormRow ColumnWidths="25% 18% 20% 17% 20%">

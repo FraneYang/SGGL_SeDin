@@ -362,17 +362,10 @@ namespace FineUIPro.Web.CQMS.Check
                                 float Hpx;
                                 UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
                                 double i = 1;
-                                if (JpgSize.Width >= JpgSize.Height)
-                                {
-                                    i = JpgSize.Width / 320;
-                                }
-                                else
-                                {
-                                    i = JpgSize.Height / 320;
-                                }
+                                i = JpgSize.Width / 50.0;
                                 if (File.Exists(url))
                                 {
-                                    builders.InsertImage(url);
+                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                 }
                                 else
                                 {
@@ -408,17 +401,10 @@ namespace FineUIPro.Web.CQMS.Check
                                 float Hpx;
                                 UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
                                 double i = 1;
-                                if (JpgSize.Width >= JpgSize.Height)
-                                {
-                                    i = JpgSize.Width / 320;
-                                }
-                                else
-                                {
-                                    i = JpgSize.Height / 320;
-                                }
+                                i = JpgSize.Width / 50.0;
                                 if (File.Exists(url))
                                 {
-                                    builders.InsertImage(url);
+                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                 }
                                 else
                                 {
@@ -456,17 +442,10 @@ namespace FineUIPro.Web.CQMS.Check
                                 float Hpx;
                                 UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
                                 double i = 1;
-                                if (JpgSize.Width >= JpgSize.Height)
-                                {
-                                    i = JpgSize.Width / 320;
-                                }
-                                else
-                                {
-                                    i = JpgSize.Height / 320;
-                                }
+                                i = JpgSize.Width / 50.0;
                                 if (File.Exists(url))
                                 {
-                                    builders.InsertImage(url);
+                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                 }
                                 else
                                 {
@@ -523,17 +502,10 @@ namespace FineUIPro.Web.CQMS.Check
                                 float Hpx;
                                 UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
                                 double i = 1;
-                                if (JpgSize.Width >= JpgSize.Height)
-                                {
-                                    i = JpgSize.Width / 320;
-                                }
-                                else
-                                {
-                                    i = JpgSize.Height / 320;
-                                }
+                                i = JpgSize.Width / 50.0;
                                 if (File.Exists(url))
                                 {
-                                    builders.InsertImage(url);
+                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
                                 }
                                 else
                                 {

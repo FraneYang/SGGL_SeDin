@@ -1355,5 +1355,42 @@ namespace BLL
             }
             return userName;
         }
+
+
+
+        /// <summary>
+        /// 根据单位Id部门获取赛鼎施工部用户下拉选项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetUserListByUnitIdDepartId(string unitId, string DepartId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.Sys_User> list = new List<Model.Sys_User>();
+                list = (from x in db.Sys_User
+                        where x.UnitId == unitId && x.DepartId == DepartId
+                        orderby x.UserName
+                        select x).ToList();
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 用户下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUserUnitIdDepartIdDropDownList(FineUIPro.DropDownList dropName, string unitId, string DepartId, bool isShowPlease)
+        {
+            dropName.DataValueField = "UserId";
+            dropName.DataTextField = "UserName";
+            dropName.DataSource = BLL.UserService.GetUserListByUnitIdDepartId(unitId, DepartId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
     }
 }

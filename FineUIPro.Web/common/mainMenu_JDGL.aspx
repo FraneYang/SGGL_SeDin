@@ -159,7 +159,7 @@
                         <div class="tit-one pdl">形象进度照片</div>
                         <div class="bw-item-content flex1 pdtb0">
                             <div style="width:100%;height:100%;">
-                                <img  src="../Images/SUBimages/sedinlogo.png" alt="Alternate Text"  class="bg-img"/>
+                                <img  src="../Images/siteProject.jpg" alt="Alternate Text"  class="bg-img"/>
                             </div>
                         </div>
                         <div class="more">更多</div>
@@ -266,7 +266,7 @@
     }]
     line('two', xArr1, data1)
 </script>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     function category(id, xArr, series) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
@@ -362,7 +362,7 @@
     }];
     category('three', xArr, series)
     category('five', xArr, series)
-</script>
+</script>--%>
 <script type="text/javascript">
     function pie(id, title, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
