@@ -95,7 +95,7 @@
             background-size: 100% 100%;
         }
         .bg-img-jk-1{
-            background: url(../res/images/china.gif) center center no-repeat;
+            background: url(../images/sedinsite.jpg) center center no-repeat;
             background-size: 100% 100%;
         }
         .wrap{

@@ -274,15 +274,10 @@
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content">
-                                <%--<div class="yj-info flex flexV">
-                                    <div class="tit">应急信息</div>
-                                    <div class="tel">应急电话：123456</div>
-                                </div>--%>
                                 <div class="yj-info-1 flex flexV">
                                     <div class="flex flex1">
                                         <div style="height:100%;">
                                             <div class="telbg"></div> 
-                                            <%--<img style="height:100%;" src="../res/index/images/tel.png" />--%>
                                         </div>
                                         <div class="flex1 flex flexV yj-info-1-list">
                                             <div class="flex flex1 yj-info-1-list-item">
@@ -303,7 +298,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="yj-info-1-info">
+                                    <div class="yj-info-1-info">                                      
                                         <div>应急信息</div>
                                     </div>
                                 </div>
@@ -441,7 +436,6 @@
                 color: 'rgba(255, 255, 255, 0.3)'
             }
         }
-
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
@@ -674,6 +668,7 @@
                 axisLabel: {
                     show: true,
                     interval: 0,
+                    rotate: 15,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -720,27 +715,16 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7"]
+    var five =<%=Five %>;
+    var xArr = five.categories
     var data = [{
         name: '总数',
         type: 'line',
         smooth: true,
-        data: [23, 25, 22, 13, 4, 12, 9],
+        data: five.series[0].data,
         itemStyle: { normal: { color: 'rgba(30,81,134, 1)' } }
-    }, {
-        name: '已培训',
-        type: 'bar',
-        stack: '总量',
-        data: [20, 2, 1, 34, 39, 30, 20],
-        itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
-    },
-    {
-        name: '未培训',
-        type: 'bar',
-        stack: '总量',
-        data: [12, 32, 10, 14, 9, 30, 21],
-        itemStyle: { normal: { color: 'rgba(28,110,173, 1)' } }
     }]
+
     category_Five('five', xArr, data)
 </script>
 <script type="text/javascript">
@@ -755,7 +739,7 @@
                 left: '12%',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 12,
+                    fontSize: 10,
                     fontWeight: 300
                 }
             }],
@@ -768,7 +752,7 @@
                 left: 'right',
                 top: 'center',
                 align: 'left',
-                data: ['人身伤害', '未遂事故', '火灾', '机械设备', '重大', '其他'],
+                data: ['人身伤害', '未遂事故', '火灾', '机械设备',  '环境影响', '其他'],
                 textStyle: {//图例文字的样式
                     color: '#f2f2f2'
                 }
@@ -797,12 +781,12 @@
                         show: false
                     },
                     data: [
-                        { value: 335, name: '人身伤害' },
-                        { value: 310, name: '未' },
-                        { value: 335, name: '火灾' },
-                        { value: 310, name: '机械设备' },
-                        { value: 335, name: '重大' },
-                        { value: 310, name: '其他' }
+                        { value: data[0], name: '人身伤害' },
+                        { value:  data[1], name: '未遂事故' },
+                        { value:  data[2], name: '火灾' },
+                        { value:  data[3], name: '机械设备' },
+                        { value:  data[4], name: '环境影响' },
+                        { value:  data[5], name: '其他' }
                     ],
                     itemStyle: {
                         normal: {
@@ -818,21 +802,9 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
+    var six=<%=Six %>;
     var xArr = ["分包一", "分包二"]
-    var data = [
-        {
-            name: '质量一次性合格率',
-            type: 'bar',
-            data: [0.85, 0.82],
-            //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
-        },
-        {
-            name: '施工资料同步率',
-            type: 'bar',
-            data: [0.69, 0.65],
-            //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-        }
-    ]
+    var data = six.series[0].data
     category_six('six', xArr, data)
 </script>
 <script type="text/javascript">

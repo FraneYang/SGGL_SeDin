@@ -17,6 +17,7 @@ namespace FineUIPro.Web
                 getSitePerson();
             }
         }
+
         #region 当前现场总人数
         /// <summary>
         ///  当前现场总人数
@@ -198,24 +199,76 @@ namespace FineUIPro.Web
                 List<Model.SingleSerie> series = new List<Model.SingleSerie>();
                 Model.BusinessColumn businessColumn = new Model.BusinessColumn();
                 List<string> listCategories = new List<string>();
-                businessColumn.title = "作业许可数量统计";
+                businessColumn.title = "入场培训";
                 Model.SingleSerie s = new Model.SingleSerie();
-                List<double> listdata = new List<double>();
-                //var getProject = ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
-                //if (getProject != null)
-                //{
+                //// 每月培训数量
+                List<double> listdata = new List<double>();                
+                var getTrainRecord = from x in Funs.DB.EduTrain_TrainRecord
+                                     where x.ProjectId == this.CurrUser.LoginProjectId && x.TrainTypeId == Const.EntryTrainTypeId
+                                     select x;
+                var getTrainRecordDetail = from x in Funs.DB.EduTrain_TrainRecordDetail
+                                           join y in getTrainRecord on x.TrainingId equals y.TrainingId
+                                           select x;
+                DateTime startTime = DateTime.Now;
+                DateTime endTime = DateTime.Now;
+                var getProject = ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (getProject != null && getProject.StartDate.HasValue)
+                {
+                    startTime = getProject.StartDate.Value;
+                    if (getProject.EndDate.HasValue && getProject.EndDate < DateTime.Now)
+                    {
+                        endTime = getProject.EndDate.Value;
+                    }
+                }
+                string dataString = string.Empty;
 
-                //}
+                for (int i = 0; startTime.AddMonths(i) <= endTime; i++)
+                {
+                    listCategories.Add(string.Format("{0:yyyy-MM}", startTime.AddMonths(i)));
+                    
+                    var getMontDetail = from x in getTrainRecordDetail
+                                        join y in getTrainRecord on x.TrainingId equals y.TrainingId
+                                        where y.TrainStartDate.Value.Year == startTime.AddMonths(i).Year && y.TrainStartDate.Value.Month == startTime.AddMonths(i).Month
+                                        select x;
+                    listdata.Add(getMontDetail.Count());
+                }
 
-                //var getLicense = APILicenseDataService.getLicenseDataListByStates(this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, null);
-                //foreach (var itemStates in getStates)
-                //{
-                //    listCategories.Add(itemStates.Text);
-                //    listdata.Add(getLicense.Where(x => x.States == itemStates.Value).Count());
-                //}
                 s.data = listdata;
                 series.Add(s);
                 businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
+
+        # region 事故统计
+        /// <summary>
+        ///  事故统计
+        /// </summary>
+        protected string Six
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+             
+                Model.SingleSerie s = new Model.SingleSerie();
+                List<double> listdata = new List<double>();
+
+                businessColumn.title = "事故统计";
+                var getAccident = from x in Funs.DB.Accident_AccidentReport
+                                  where x.ProjectId == this.CurrUser.LoginProjectId
+                                  select x;
+                listdata.Add(getAccident.Where(x => x.AccidentTypeId == "1" || x.AccidentTypeId == "2" || x.AccidentTypeId == "3" || x.AccidentTypeId == "4").Count());
+                listdata.Add(getAccident.Where(x => x.AccidentTypeId == "5").Count());
+                listdata.Add(getAccident.Where(x => x.AccidentTypeId == "6" || x.AccidentTypeId == "7").Count());
+                listdata.Add(getAccident.Where(x => x.AccidentTypeId == "8" || x.AccidentTypeId == "9").Count());
+                listdata.Add(getAccident.Where(x => x.AccidentTypeId == "10").Count());
+                listdata.Add(getAccident.Where(x => x.AccidentTypeId == "11").Count());
+
+                s.data = listdata;
+                series.Add(s);
                 businessColumn.series = series;
                 return JsonConvert.SerializeObject(businessColumn);
             }

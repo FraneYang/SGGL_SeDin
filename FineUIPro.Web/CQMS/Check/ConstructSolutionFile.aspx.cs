@@ -198,8 +198,8 @@ namespace FineUIPro.Web.CQMS.Check
                 Model.Solution_CQMSConstructSolution constructSolution = CQMSConstructSolutionService.GetConstructSolutionByConstructSolutionId(fileId);
                 initTemplatePath = Const.ConstructSolutionTemplateUrl;
                 uploadfilepath = rootPath + initTemplatePath;
-                newUrl = uploadfilepath.Replace(".doc", constructSolution.Code + ".doc");
-                filePath = initTemplatePath.Replace(".doc", constructSolution.Code + ".pdf");
+                newUrl = uploadfilepath.Replace(".doc", constructSolution.Code.Replace("/", "-") + ".doc");
+                filePath = initTemplatePath.Replace(".doc", constructSolution.Code.Replace("/", "-") + ".pdf");
                 File.Copy(uploadfilepath, newUrl);
                 //更新书签内容
                 Document doc = new Aspose.Words.Document(newUrl);

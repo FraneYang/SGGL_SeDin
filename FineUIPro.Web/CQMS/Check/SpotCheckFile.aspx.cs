@@ -219,8 +219,8 @@ namespace FineUIPro.Web.CQMS.Check
                 Model.Check_SpotCheck spCheck = SpotCheckService.GetSpotCheckBySpotCheckCode(fileId);
                 initTemplatePath = Const.SpotCheckTemplateUrl;
                 uploadfilepath = rootPath + initTemplatePath;
-                newUrl = uploadfilepath.Replace(".doc", spCheck.DocCode + ".doc");
-                filePath = initTemplatePath.Replace(".doc", spCheck.DocCode + ".pdf");
+                newUrl = uploadfilepath.Replace(".doc", spCheck.DocCode.Replace("/", "-") + ".doc");
+                filePath = initTemplatePath.Replace(".doc", spCheck.DocCode.Replace("/", "-") + ".pdf");
                 File.Copy(uploadfilepath, newUrl);
                 //更新书签内容
                 Document doc = new Aspose.Words.Document(newUrl);

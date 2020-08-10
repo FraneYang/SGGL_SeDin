@@ -329,8 +329,8 @@ namespace FineUIPro.Web.CQMS.Check
                 Model.Check_JointCheck jointCheck = JointCheckService.GetJointCheck(fileId);
                 initTemplatePath = Const.JointCheckTemplateUrl;
                 uploadfilepath = rootPath + initTemplatePath;
-                newUrl = uploadfilepath.Replace(".doc", jointCheck.JointCheckCode + ".doc");
-                filePath = initTemplatePath.Replace(".doc", jointCheck.JointCheckCode + ".pdf");
+                newUrl = uploadfilepath.Replace(".doc", jointCheck.JointCheckCode.Replace("/", "-") + ".doc");
+                filePath = initTemplatePath.Replace(".doc", jointCheck.JointCheckCode.Replace("/", "-") + ".pdf");
                 File.Copy(uploadfilepath, newUrl);
                 Document doc = new Aspose.Words.Document(newUrl);
                 Bookmark bookmarkProjectName = doc.Range.Bookmarks["ProjectName"];

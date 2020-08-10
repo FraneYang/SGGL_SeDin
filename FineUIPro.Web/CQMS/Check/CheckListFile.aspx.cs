@@ -348,15 +348,15 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     initTemplatePath = Const.CheckListTemplateUrl;
                     uploadfilepath = rootPath + initTemplatePath;
-                    newUrl = uploadfilepath.Replace(".doc", checkControl.DocCode + ".doc");
-                    filePath = initTemplatePath.Replace(".doc", checkControl.DocCode + ".pdf");
+                    newUrl = uploadfilepath.Replace(".doc", checkControl.DocCode.Replace("/", "-") + ".doc");
+                    filePath = initTemplatePath.Replace(".doc", checkControl.DocCode.Replace("/", "-") + ".pdf");
                 }
                 else
                 {
                     initTemplatePath = Const.CheckListTemplateUrl2;
                     uploadfilepath = rootPath + initTemplatePath;
-                    newUrl = uploadfilepath.Replace("2.doc", checkControl.DocCode + ".doc");
-                    filePath = initTemplatePath.Replace("2.doc", checkControl.DocCode + ".pdf");
+                    newUrl = uploadfilepath.Replace("2.doc", checkControl.DocCode.Replace("/", "-") + ".doc");
+                    filePath = initTemplatePath.Replace("2.doc", checkControl.DocCode.Replace("/", "-") + ".pdf");
                 }
                 File.Copy(uploadfilepath, newUrl);
                 Document doc = new Aspose.Words.Document(newUrl);
@@ -480,7 +480,7 @@ namespace FineUIPro.Web.CQMS.Check
                                     System.Drawing.Size JpgSize;
                                     float Wpx;
                                     float Hpx;
-                                    UploadAttachmentService.getJpgSize(rootPath + url, out JpgSize, out Wpx, out Hpx);
+                                    UploadAttachmentService.getJpgSize(rootPath + file, out JpgSize, out Wpx, out Hpx);
                                     double i = 1;
                                     i = JpgSize.Width / 50.0;
                                     if (File.Exists(url))

@@ -167,7 +167,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Check_TechnicalContactListApprove GetApprove3(string TechnicalContactListId)
         {
-            return db.Check_TechnicalContactListApprove.OrderByDescending(x => x.ApproveDate).FirstOrDefault(x => x.TechnicalContactListId == TechnicalContactListId && x.ApproveType == BLL.Const.TechnicalContactList_Audit2);
+            return db.Check_TechnicalContactListApprove.OrderByDescending(x => x.ApproveDate).FirstOrDefault(x => x.TechnicalContactListId == TechnicalContactListId && (x.ApproveType == BLL.Const.TechnicalContactList_Audit2 || x.ApproveType == BLL.Const.TechnicalContactList_Audit2H));
         }
 
         /// <summary>

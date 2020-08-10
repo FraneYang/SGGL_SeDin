@@ -230,15 +230,15 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     initTemplatePath = Const.WorkContactTemplateUrl;
                     uploadfilepath = rootPath + initTemplatePath;
-                    newUrl = uploadfilepath.Replace(".doc", workContact.Code + ".doc");
-                    filePath = initTemplatePath.Replace(".doc", workContact.Code + ".pdf");
+                    newUrl = uploadfilepath.Replace(".doc", workContact.Code.Replace("/", "-") + ".doc");
+                    filePath = initTemplatePath.Replace(".doc", workContact.Code.Replace("/", "-") + ".pdf");
                 }
                 else   //不需回复
                 {
                     initTemplatePath = Const.WorkContactTemplateUrl2;
                     uploadfilepath = rootPath + initTemplatePath;
-                    newUrl = uploadfilepath.Replace("2.doc", workContact.Code + ".doc");
-                    filePath = initTemplatePath.Replace("2.doc", workContact.Code + ".pdf");
+                    newUrl = uploadfilepath.Replace("2.doc", workContact.Code.Replace("/", "-") + ".doc");
+                    filePath = initTemplatePath.Replace("2.doc", workContact.Code.Replace("/", "-") + ".pdf");
                 }
                 File.Copy(uploadfilepath, newUrl);
                 //更新书签内容
