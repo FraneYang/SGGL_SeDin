@@ -445,6 +445,10 @@ namespace FineUIPro.Web.CQMS.Check
                         approve.ApproveMan = this.drpHandleMan.SelectedValue;
                     }
                     approve.ApproveType = this.drpHandleType.SelectedValue;
+                    if (this.drpHandleType.SelectedValue == BLL.Const.CheckEquipment_Complete)
+                    {
+                        approve.ApproveDate = DateTime.Now.AddMinutes(1);
+                    }
                     BLL.CheckEquipmentApproveService.AddCheckEquipmentApprove(approve);
                 }
                 if (saveType == "save")

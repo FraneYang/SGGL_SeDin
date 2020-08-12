@@ -41,7 +41,7 @@
         min-width:0;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
+        /*white-space: nowrap;*/
        }
        .height260{
            height:260px;
@@ -313,6 +313,18 @@
                                             <div class="tit">项目建设工期（月）：</div>
                                             <div class="val" runat="server" id="divDuration"></div>
                                         </div>
+                                        <div class="item">
+                                        <div class="tit">合同额（万元）：</div>
+                                        <div class="val" runat="server" id="divProjectMoney"></div>
+                                    </div>
+                                        <div class="item">
+                                            <div class="tit">施工合同额（万元）：</div>
+                                            <div class="val" runat="server" id="divConstructionMoney"></div>
+                                          </div>
+                                           <div class="item">
+                                        <div class="tit">项目地址：</div>
+                                        <div class="val" runat="server" id="divProjectAddress"></div>
+                                    </div>  
                                     </div>
                                     <div class="flex1">
                                         <div class="item">
@@ -340,20 +352,6 @@
                                             <div class="val" runat="server" id="divHSSEManager"></div>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="item">
-                                        <div class="tit">合同额（万元）：</div>
-                                        <div class="val" runat="server" id="divProjectMoney"></div>
-                                    </div>
-                                        <div class="item">
-                                        <div class="tit">施工合同额（万元）：</div>
-                                        <div class="val" runat="server" id="divConstructionMoney"></div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="tit">项目地址：</div>
-                                        <div class="val" runat="server" id="divProjectAddress"></div>
-                                    </div>  
                                 </div>
                             </div>
                         </div>
@@ -483,12 +481,13 @@
                  <div class="flex1 itemflex">
                  <div class="bg-item" >
                     <div class="bw-item-content flex flexV">
-                        <div class="tit-new">劳务统计</div>
+                        <div class="tit-new">劳务人数统计</div>
                         <%--总人数--%>
                         <div class="content-wrap flex1 flex txt-board">
                             <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">当前现场人数</div>
                                 <div class="num flex flex1">
+                                     <div class="flex1" runat="server" id="Div1">0</div>
                                     <div class="flex1" runat="server" id="person00">0</div>
                                     <div class="flex1" runat="server" id="person01">0</div>
                                     <div class="flex1" runat="server" id="person02">0</div>
@@ -497,6 +496,7 @@
                              <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">作业人员总数</div>
                                 <div class="num flex flex1 color1">
+                                     <div class="flex1" runat="server" id="Div2">0</div>
                                     <div class="flex1" runat="server" id="person10">0</div>
                                     <div class="flex1" runat="server" id="person11">0</div>
                                     <div class="flex1" runat="server" id="person12">0</div>
@@ -505,6 +505,7 @@
                             <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">管理人员总数</div>
                                 <div class="num flex flex1 color2">
+                                     <div class="flex1" runat="server" id="Div3">0</div>
                                     <div class="flex1" runat="server" id="person20">0</div>
                                     <div class="flex1" runat="server" id="person21">0</div>
                                     <div class="flex1" runat="server" id="person22">0</div>
@@ -587,7 +588,7 @@
 <script type="text/javascript"  src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript"  src="../res/index/js/echarts.min.js"></script>
 <script type="text/javascript">
-    function category_One(id, title, dataNum) {
+    function category_One(id, title, dataNum,color1,color2,color3) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
@@ -633,9 +634,9 @@
                     axisLine: {
                         lineStyle: {
                              color : [ //表盘颜色
-                                [ 0.5, "#91C7AE" ],//0-50%处的颜色
-                                [ 0.7, "#63869E" ],//51%-70%处的颜色
-                                [ 1, "#88C8E2" ],//70%-100%处的颜色
+                                [ 0.5, color1 ],//0-50%处的颜色
+                                [ 0.7, color2 ],//51%-70%处的颜色
+                                [ 1, color3],//70%-100%处的颜色
                             ],
                             width : 10//表盘宽度
                         }
@@ -657,8 +658,8 @@
         myChart.setOption(option, true)
     }
     //category_One('one1', '安全人工时统计', 80)
-    category_One('three1', '项目焊接一次合格率', 80)
-    category_One('three2', '项目焊接进度完成率', 80)
+    category_One('three1', '项目焊接一次合格率', 80,"#91C7AE","#63869E","#88C8E2")
+    category_One('three2', '项目焊接进度完成率', 80,"#97baa4"," #63869E","#339966")
 </script>
 <script type="text/javascript">
     function category(id, xArr, series) {

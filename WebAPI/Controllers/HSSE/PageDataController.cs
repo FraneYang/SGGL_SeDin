@@ -173,8 +173,8 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {
-                int SitePersonNum = APIPageDataService.getPersonNum(projectId);
+            {                
+                int SitePersonNum = APIPageDataService.getPersonNum(projectId, DateTime.Now).Count();
                 responeData.data = new { SitePersonNum };
             }
             catch (Exception ex)

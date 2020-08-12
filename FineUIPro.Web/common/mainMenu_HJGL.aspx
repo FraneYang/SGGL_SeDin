@@ -66,7 +66,7 @@
         }
        .tab-wrap .tab .t-item {
             width: auto;
-            font-size: 13px;
+            font-size: 10px;
             padding: 2px;
         }
         .itemlr{
@@ -147,14 +147,14 @@
                                     <div class="title">一次合格率</div>
                                     <div class="item flex1 flex flexV">
                                         <div class="specialNum i-num">87</div>
-                                        <div>单位：%</div>
+                                        <div style="font-size:10px">单位：%</div>
                                     </div>
                                 </div>
                                 <div class="info-item flex flexV flex1">
                                     <div class="title">焊工总人数</div>
                                     <div class="item flex1 flex flexV">
                                         <div class="specialNum i-num i-num-c">176</div>
-                                        <div>单位：人</div>
+                                        <div style="font-size:10px">单位：人</div>
                                     </div>
                                 </div>
                             </div>
@@ -541,7 +541,7 @@
                         return res;
                     })(),
                     center: ['50%', '55%'],
-                    radius: 90
+                    radius: 70
                 }
             ],
             series: [

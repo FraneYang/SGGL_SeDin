@@ -818,6 +818,14 @@
     <Content Include="Person\PersonTotal.aspx" />
     <Content Include="Person\PersonTotalEdit.aspx" />
     <Content Include="Person\PersonTotalView.aspx" />
+    <Content Include="Person\PersonTraining.aspx" />
+    <Content Include="Person\PersonTrainingAdd.aspx" />
+    <Content Include="Person\PersonTrainingEdit.aspx" />
+    <Content Include="Person\PersonTrainingTaskItem.aspx" />
+    <Content Include="Person\PersonTrainingView.aspx" />
+    <Content Include="Person\Shunt.aspx" />
+    <Content Include="Person\ShuntEdit.aspx" />
+    <Content Include="Person\ShuntView.aspx" />
     <Content Include="ProjectData\MainItem.aspx" />
     <Content Include="ProjectData\MainItemEdit.aspx" />
     <Content Include="ProjectData\MainItemView.aspx" />
@@ -9074,6 +9082,62 @@
     </Compile>
     <Compile Include="Person\PersonTotalView.aspx.designer.cs">
       <DependentUpon>PersonTotalView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonTraining.aspx.cs">
+      <DependentUpon>PersonTraining.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonTraining.aspx.designer.cs">
+      <DependentUpon>PersonTraining.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonTrainingAdd.aspx.cs">
+      <DependentUpon>PersonTrainingAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonTrainingAdd.aspx.designer.cs">
+      <DependentUpon>PersonTrainingAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonTrainingEdit.aspx.cs">
+      <DependentUpon>PersonTrainingEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonTrainingEdit.aspx.designer.cs">
+      <DependentUpon>PersonTrainingEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonTrainingTaskItem.aspx.cs">
+      <DependentUpon>PersonTrainingTaskItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonTrainingTaskItem.aspx.designer.cs">
+      <DependentUpon>PersonTrainingTaskItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\PersonTrainingView.aspx.cs">
+      <DependentUpon>PersonTrainingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\PersonTrainingView.aspx.designer.cs">
+      <DependentUpon>PersonTrainingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\Shunt.aspx.cs">
+      <DependentUpon>Shunt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\Shunt.aspx.designer.cs">
+      <DependentUpon>Shunt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\ShuntEdit.aspx.cs">
+      <DependentUpon>ShuntEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\ShuntEdit.aspx.designer.cs">
+      <DependentUpon>ShuntEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\ShuntView.aspx.cs">
+      <DependentUpon>ShuntView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\ShuntView.aspx.designer.cs">
+      <DependentUpon>ShuntView.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\MainItem.aspx.cs">
       <DependentUpon>MainItem.aspx</DependentUpon>

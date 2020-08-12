@@ -32,8 +32,27 @@ namespace FineUIPro.Web.common
                 this.numProjetc1.InnerHtml = pcount1.ToString();
                 this.numProjetc2.InnerHtml = pcount2.ToString();
                 this.numProjetc3.InnerHtml = pcount3.ToString();
+
+                string projectHtml = string.Empty;
+                foreach (var item in getAllProject)
+                {
+                    projectHtml += "<div>" + item.ProjectName + " </div>";
+                }
+                this.divProjectList.InnerHtml = projectHtml;
                 #endregion
-                string str = CQMSData;
+                //string str = CQMSData; 
+                #region 通知
+                var getNotice = (from x in Funs.DB.InformationProject_Notice
+                                where x.IsRelease == true
+                                orderby x.ReleaseDate
+                                select x).Take(20);
+                string strNoticeHtml = string.Empty;
+                foreach (var item in getNotice)
+                {
+                    strNoticeHtml+= "<li class=\"c-item swiper-slide\"><div class=\"tit\">" + item.NoticeTitle + "</div></li>";
+                }
+                this.swiper2.InnerHtml= "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
+                #endregion
             }
         }
 

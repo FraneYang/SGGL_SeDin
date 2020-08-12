@@ -9,20 +9,22 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
-        .row2 .item{
-           height:100%;
-       }
+        .row2 .item {
+            height: 100%;
+        }
+
         .bw-item-content {
             padding: 0;
         }
-       
+
         .bw-item {
             height: auto;
             margin: 0 0 10px 0;
         }
-        .bw-item:last-child {
-            margin-bottom: 0;
-        }
+
+            .bw-item:last-child {
+                margin-bottom: 0;
+            }
 
         .wrap {
             padding: 10px 0;
@@ -38,9 +40,11 @@
         .bw-b-bottom-up {
             height: 100%;
         }
+
         .bw-b-bottom {
             height: 120px;
         }
+
         .bw-b, .bw-b-bottom {
             box-sizing: border-box;
         }
@@ -64,9 +68,11 @@
         .swiperHeight {
             height: 90px;
         }
-        .content-wrap{
-            padding:0  20px 20px;
+
+        .content-wrap {
+            padding: 0 20px 20px;
         }
+
         @media screen and (max-height: 625px) {
             .swiperHeightWrap {
                 height: 170px;
@@ -75,8 +81,9 @@
             .swiperHeight {
                 height: 90px;
             }
-            .content-wrap{
-                padding:0  10px 10px;
+
+            .content-wrap {
+                padding: 0 10px 10px;
             }
         }
 
@@ -89,129 +96,152 @@
                 height: 200px;
             }
         }
-       
-        .link{
-            color:#fff;
+
+        .link {
+            color: #fff;
         }
-        .map-desc{
-            position:absolute;
-            right:10px;
-            top:50%;
-            transform:translateY(-50%);
+
+        .map-desc {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
         }
-  
-        .map-desc .desc{
-           
-            color:#00a2e9;
-            /*text-shadow: 0 0 10px #7a7cd0,0 0 20px #7a7cd0,0 0 30px #7a7cd0,0 0 40px #7a7cd0;*/	/*设置发光效果*/
-           text-shadow: 0 0 10px #00a2e9;
-        }
-         .map-desc .desc .d-item{
-            /*border-top: 1px solid #00a2e9;
+
+            .map-desc .desc {
+                color: #00a2e9;
+                /*text-shadow: 0 0 10px #7a7cd0,0 0 20px #7a7cd0,0 0 30px #7a7cd0,0 0 40px #7a7cd0;*/ /*设置发光效果*/
+                text-shadow: 0 0 10px #00a2e9;
+            }
+
+                .map-desc .desc .d-item {
+                    /*border-top: 1px solid #00a2e9;
             border-bottom: 1px solid #00a2e9;*/
-            padding: 3px 10px;
-             /*background-color: rgba(1, 30, 50 ,0.3);*/
-             display:flex;
-             flex-direction:column;
-             align-items:center;
-             margin-bottom:5px;
-             position:relative;
-         }
-         .map-desc .desc .d-item:last-child{
-              margin-bottom:0;
-         }
-          .map-desc .desc .d-item:before, .map-desc .desc .d-item:after{
-              content: '';
-              display:inline-block;
-              width:12px;
-              height:12px;
-              position:absolute;
-          }
-           .map-desc .desc .d-item:before{
-               width:100%;
-                top:0;
-                left:0;
-              border-top: 1px solid #00a2e9;
-              border-left: 1px solid #00a2e9;
-           }
-           .map-desc .desc .d-item:after{
-                width:100%;
-               bottom:0;
-               right:0;
-              border-bottom: 1px solid #00a2e9;
-              border-right: 1px solid #00a2e9;
-           }
-         .map-desc .desc .d-item-1{
-            /*background-color: rgba(0,53,97 ,0.3) !important;*/
-        }
-        .map-desc .desc .d-item .tit{
-            font-size:10px;
-        }
-         .map-desc .desc .d-item .num{
-             font-size:18px;
-        }
+                    padding: 3px 10px;
+                    /*background-color: rgba(1, 30, 50 ,0.3);*/
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-bottom: 5px;
+                    position: relative;
+                }
+
+                    .map-desc .desc .d-item:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    .map-desc .desc .d-item:before, .map-desc .desc .d-item:after {
+                        content: '';
+                        display: inline-block;
+                        width: 12px;
+                        height: 12px;
+                        position: absolute;
+                    }
+
+                    .map-desc .desc .d-item:before {
+                        width: 100%;
+                        top: 0;
+                        left: 0;
+                        border-top: 1px solid #00a2e9;
+                        border-left: 1px solid #00a2e9;
+                    }
+
+                    .map-desc .desc .d-item:after {
+                        width: 100%;
+                        bottom: 0;
+                        right: 0;
+                        border-bottom: 1px solid #00a2e9;
+                        border-right: 1px solid #00a2e9;
+                    }
+
+                .map-desc .desc .d-item-1 {
+                    /*background-color: rgba(0,53,97 ,0.3) !important;*/
+                }
+
+                .map-desc .desc .d-item .tit {
+                    font-size: 10px;
+                }
+
+                .map-desc .desc .d-item .num {
+                    font-size: 18px;
+                }
+
         .project-wrap {
-            position:absolute;
-            left:50%;
-            top:0px;
-            transform:translateX(-50%);
-            color:#fff;
+            position: absolute;
+            left: 50%;
+            top: 0px;
+            transform: translateX(-50%);
+            color: #fff;
         }
-        .project-wrap .project{
-            border: 1px solid #004F88;
-            position:relative;
-            min-width:100px;
-        } 
-        .project-wrap .project-tit{
-            padding: 5px 10px;
-            color:#fff;
-            border: 1px solid #004F88;
-            background-color: #004F88;
-            position:relative;
-            min-width:100px;
+
+            .project-wrap .project {
+                border: 1px solid #004F88;
+                position: relative;
+                min-width: 100px;
+            }
+
+            .project-wrap .project-tit {
+                padding: 5px 10px;
+                color: #00a2e9;
+                font-size:12px;
+                border: 1px solid #004F88;
+                background-color: #004F88;
+                position: relative;
+                min-width: 100px;
+            }
+
+        .project-tit-wrap {
+            position: relative;
         }
-        .project-tit-wrap{
-             position:relative;
-        }
-        .project-wrap .project-tit-wrap:before{
+
+        .project-wrap .project-tit-wrap:before {
             content: '';
-            position:absolute;
+            position: absolute;
             right: 8px;
             top: 50%;
             width: 8px;
-            height:8px;
-            border-top:1px solid #fff;
-            border-right:1px solid #fff;
-            transform:translateY(-50%) rotate(135deg);
-            z-index:999;
+            height: 8px;
+            border-top: 1px solid #fff;
+            border-right: 1px solid #fff;
+            transform: translateY(-50%) rotate(135deg);
+            z-index: 999;
         }
+
         .project-wrap:hover .project-tit-wrap:before {
-            transform:translateY(-50%) rotate(-45deg);
+            transform: translateY(-50%) rotate(-45deg);
         }
-        .project-list{
-            display:none;
-            background-color:rgba(1,82,138, 0.8);
-            color:#fff;
-        }
-         .project-list>div{
-             padding: 5px 10px;
-             cursor:pointer;
-         }
-         .project-list>div:hover{
-            background-color:rgba(1,82,138, 0.9);
+
+        .project-list {
+            display: none;
+            background-color: rgba(1,82,138, 0.8);
+            color: #fff;
+            font-size:12px;
             color:#00a2e9;
-         }
-          .tab-content .line-item{
-            background-color:#0B5EA5;
-            border-radius: 10px;
-            height:10px;
         }
-         .tab-content .line-item>div{
-            background-color:#29D8DD;
-         }
-         .Accumulation-next .tab-h .txt,.Accumulation-next .tab-i .txt{
-             width:45px;
-         }
+
+            .project-list > div {
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+
+                .project-list > div:hover {
+                    background-color: rgba(1,82,138, 0.9);
+                    color: #00a2e9;
+                }
+
+        .tab-content .line-item {
+            background-color: #0B5EA5;
+            border-radius: 10px;
+            height: 10px;
+        }
+
+            .tab-content .line-item > div {
+                background-color: #29D8DD;
+            }
+
+        .Accumulation-next .tab-h .txt, .Accumulation-next .tab-i .txt {
+            width: 45px;
+        }
     </style>
 </head>
 <body>
@@ -222,42 +252,42 @@
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">安全数据统计</div>
-                         <div class="content-wrap-1 flex flexV">
-                                <div class="item flex1 flex flexV">
-                                    <div class="tit">安全人工时</div>
-                                    <div class="content-1 flex flex1">
-                                        <div class="cc-num-wrap flex1 flex">
-                                            <div class="specialNum cc-num" runat="server" id="divPNum8">0</div>
-                                            <div class="specialNum cc-num" runat="server" id="divPNum7">0</div>
-                                            <div class="specialNum cc-num" runat="server" id="divPNum6">0</div>
-                                            <div class="specialNum cc-num" runat="server" id="divPNum5">0</div>
-                                            <div class="specialNum cc-num" runat="server" id="divPNum4">0</div>
-                                            <div class="specialNum cc-num" runat="server" id="divPNum3">0</div>
-                                            <div class="specialNum cc-num" runat="server" id="divPNum2">0</div>
-                                            <div class="specialNum cc-num" runat="server" id="divPNum1">0</div>
-                                        </div>
-                                      <%--  <div class="unit">小时</div>--%>
+                        <div class="content-wrap-1 flex flexV">
+                            <div class="item flex1 flex flexV">
+                                <div class="tit">安全人工时</div>
+                                <div class="content-1 flex flex1">
+                                    <div class="cc-num-wrap flex1 flex">
+                                        <div class="specialNum cc-num" runat="server" id="divPNum8">0</div>
+                                        <div class="specialNum cc-num" runat="server" id="divPNum7">0</div>
+                                        <div class="specialNum cc-num" runat="server" id="divPNum6">0</div>
+                                        <div class="specialNum cc-num" runat="server" id="divPNum5">0</div>
+                                        <div class="specialNum cc-num" runat="server" id="divPNum4">0</div>
+                                        <div class="specialNum cc-num" runat="server" id="divPNum3">0</div>
+                                        <div class="specialNum cc-num" runat="server" id="divPNum2">0</div>
+                                        <div class="specialNum cc-num" runat="server" id="divPNum1">0</div>
                                     </div>
-
+                                    <%--  <div class="unit">小时</div>--%>
                                 </div>
-                                <div class="item flex1 flex flexV">
-                                    <div class="tit">安全隐患整改单</div>
-                                    <div class="content flex flex1">
-                                        <div class="t-item">
-                                           <div class="specialNum c-num" runat="server" id="divAllRectify">0</div>
-                                            <div class="c-txt">总数（个）</div>
-                                        </div>
-                                        <div class="t-item">
-                                            <div class="specialNum c-num" runat="server" id="divCRectify">0</div>
-                                            <div class="c-txt">已完成（个）</div>
-                                        </div>
-                                        <div class="t-item">
-                                            <div class="specialNum c-num"  runat="server" id="divUCRectify">0</div>
-                                            <div class="c-txt">未完成（个）</div>
-                                        </div>
+
+                            </div>
+                            <div class="item flex1 flex flexV">
+                                <div class="tit">安全隐患整改单</div>
+                                <div class="content flex flex1">
+                                    <div class="t-item">
+                                        <div class="specialNum c-num" runat="server" id="divAllRectify">0</div>
+                                        <div class="c-txt">总数（个）</div>
+                                    </div>
+                                    <div class="t-item">
+                                        <div class="specialNum c-num" runat="server" id="divCRectify">0</div>
+                                        <div class="c-txt">已完成（个）</div>
+                                    </div>
+                                    <div class="t-item">
+                                        <div class="specialNum c-num" runat="server" id="divUCRectify">0</div>
+                                        <div class="c-txt">未完成（个）</div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
                 <div class="bg-item flex1">
@@ -286,18 +316,13 @@
                         </div>
                         <div id='map' style="width: 100%; height: 100%;"></div>
                         <div class="project-wrap">
-                            <div class="project">                                
-                               <div class="project-tit-wrap">
-                                    <input id="project-tit" autocomplete="off" class="project-tit" type="text" name="name" value="" />
+                            <div class="project">
+                                <div class="project-tit-wrap">
+                                    <input id="project-tit" autocomplete="off" class="project-tit" type="text" name="name" value="— 项目 —" />
                                 </div>
-                                <div class="project-list">
-                                    <div>宁夏瑞泰集中供热项目</div>
-                                    <div>兖矿双氧水项目</div>
-                                    <div>金晖煤焦6.78米捣鼓焦化项目</div>
-                                    <div>测试项目</div>
-                                </div>                    
-                            </div>            
-                            
+                                <div class="project-list" id="divProjectList" runat="server">
+                                </div>
+                            </div>
                         </div>
                         <div class="map-desc">
                             <div class="desc">
@@ -305,33 +330,33 @@
                                     <div class="tit">工地总数</div>
                                     <div class="num" runat="server" id="numProjetcA"></div>
                                 </div>
-                                <div  class="d-item d-item-1">
+                                <div class="d-item d-item-1">
                                     <div class="tit">在建</div>
                                     <div class="num" runat="server" id="numProjetc1"></div>
                                 </div>
-                                <div  class="d-item d-item-1">
+                                <div class="d-item d-item-1">
                                     <div class="tit">停工</div>
                                     <div class="num" runat="server" id="numProjetc2"></div>
                                 </div>
-                                <div  class="d-item">
+                                <div class="d-item">
                                     <div class="tit">竣工</div>
-                                   <div class="num" runat="server" id="numProjetc3"></div>
+                                    <div class="num" runat="server" id="numProjetc3"></div>
                                 </div>
-                                <div  class="d-item">
+                                <div class="d-item">
                                     <div class="tit">单位：(个)</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex1" style="margin-top:10px;">
+                <div class="flex flex1" style="margin-top: 10px;">
                     <div id="swiper-pre" class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
                         <div class="bw-item-content flex flexV">
                             <div class="tit-new">劳务统计</div>
                             <%--<div class=" flex1">
                                 <div id='Accumulation' style="width: 100%; height: 100%;"></div>
                             </div>--%>
-                            <div class="content-wrap tab-content flex1 flex" style="overflow:visible;">
+                            <div class="content-wrap tab-content flex1 flex" style="overflow: visible;">
                                 <div class="Accumulation-next">
                                     <div class="flex tab-h">
                                         <div class="txt">工程名</div>
@@ -341,7 +366,7 @@
                                     <div class="flex tab-i">
                                         <div class="txt">工程1</div>
                                         <div class="txt">12</div>
-                                       <%-- <div class="flex1 flex line-wrap">
+                                        <%-- <div class="flex1 flex line-wrap">
                                             <div class="line-item">
                                                 <div style="width:50%"></div>
                                             </div>
@@ -359,15 +384,15 @@
                                         </div>--%>
                                     </div>
                                     <div class="flex tab-i">
-                                    <div class="txt">工程3</div>
-                                    <div class="txt">34</div>
-                                   <%-- <div class="flex1 flex line-wrap">
+                                        <div class="txt">工程3</div>
+                                        <div class="txt">34</div>
+                                        <%-- <div class="flex1 flex line-wrap">
                                         <div class="line-item">
                                             <div style="width:90%"></div>
                                         </div>
                                         <div class="per">90%</div>
                                     </div>--%>
-                                </div>
+                                    </div>
                                 </div>
                                 <div class=" flex1">
                                     <div id='Accumulation' style="width: 100%; height: 100%;"></div>
@@ -387,21 +412,21 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="" style="padding:10px 10px 0;">
-                                <div class="swiper-container " id='swiper2'>
-                                     <ul class="content-ul swiper-wrapper">
+                            <div class="" style="padding: 10px 10px 0;">
+                                <div class="swiper-container " id='swiper2' runat="server">
+                                 <%--   <ul class="content-ul swiper-wrapper">
                                         <li class="c-item swiper-slide">
                                             <div class="tit">关于加强全国两会期间安全防范工作</div>
                                         </li>
-                                         <li class="c-item swiper-slide">
-                                        <div class="tit">关于组织开展全国“两会”期间安全质量环保专项督导检查</div>
-                                        <!-- <div class="time">2020-02-09</div> swiperHeight-->
+                                        <li class="c-item swiper-slide">
+                                            <div class="tit">关于组织开展全国“两会”期间安全质量环保专项督导检查</div>
+                                            <!-- <div class="time">2020-02-09</div> swiperHeight-->
                                         </li>
                                         <li class="c-item swiper-slide">
                                             <div class="tit">赛鼎公司2020年第一次安全生产委员会会议纪要</div>
                                             <!-- <div class="time">2020-02-09</div> -->
                                         </li>
-                                    </ul>
+                                    </ul>--%>
                                 </div>
                             </div>
                         </div>
@@ -413,36 +438,36 @@
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">进度统计</div>
-                        <div class="content-wrap tab-content flex1" style="overflow:auto;">
+                        <div class="content-wrap tab-content flex1" style="overflow: auto;">
                             <div class="flex tab-h">
                                 <div class="txt">工地名称</div>
                                 <div class="txt">状态</div>
-                                <div class="flex1" style="text-align:center">进度</div>
+                                <div class="flex1" style="text-align: center">进度</div>
                             </div>
                             <div class="flex tab-i">
                                 <div class="txt">工地1</div>
-                                <div class="txt">正常</div>
+                                <div class="txt">在建</div>
                                 <div class="flex1 flex line-wrap">
                                     <div class="line-item">
-                                        <div class="normal" style="width:80%"></div>
+                                        <div class="normal" style="width: 80%"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex tab-i">
                                 <div class="txt">工地2</div>
-                                <div class="txt">正常</div>
+                                <div class="txt">在建</div>
                                 <div class="flex1 flex line-wrap">
                                     <div class="line-item">
-                                        <div class="normal" style="width:50%"></div>
+                                        <div class="normal" style="width: 50%"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex tab-i">
                                 <div class="txt">工地3</div>
-                                <div class="txt">超期</div>
+                                <div class="txt">在建</div>
                                 <div class="flex1 flex line-wrap">
                                     <div class="line-item">
-                                        <div class="warn" style="width:100%"></div>
+                                        <div class="warn" style="width: 100%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -450,7 +475,7 @@
                     </div>
                 </div>
                 <div class="bg-item flex1">
-                   <div class="bw-item-content flex flexV">
+                    <div class="bw-item-content flex flexV">
                         <div class="tit-new">产值/合同统计</div>
                         <div class="content-wrap flex1">
                             <div id='five' style="width: 100%; height: 100%;"></div>
@@ -460,13 +485,12 @@
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">站点链接</div>
-                        <div class="content-wrap tab-content flex1" style="overflow:auto;">
+                        <div class="content-wrap tab-content flex1" style="overflow: auto;">
                             <a class="link">公司网站</a>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </body>
@@ -474,8 +498,15 @@
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
 <script type="text/javascript" src="../res/index/js/china.js"></script>
-<script type="text/javascript" src="../res/index/js/world.js"></script> 
-    <script type="text/javascript">
+<script type="text/javascript" src="../res/index/js/world.js"></script>
+<script type="text/javascript">
+    //function getProjectList() {
+    //    var $divProjectList = document.getElementById("divProjectList");
+    //    $divProjectList.innerHTML="<div>宁夏瑞泰集中供热项目</div><div>测试项目</div>";
+    //}
+    //getProjectList();
+</script>
+<script type="text/javascript">
     function category(id, xArr, series) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
@@ -487,7 +518,7 @@
                 textStyle: {
                     color: '#fff',
                     fontWeight: 'normal',
-                    fontSize:16
+                    fontSize: 16
                 },
                 show: false
             },
@@ -496,8 +527,8 @@
                 left: '3%',
                 show: false,
                 selectedMode: false,
-                textStyle:{//图例文字的样式
-                    color:'#ffffff'
+                textStyle: {//图例文字的样式
+                    color: '#ffffff'
                 }
             },
             xAxis: {
@@ -553,9 +584,9 @@
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
-    }    
-        var two =<%=Two %>;
-        var xArr2 = two.categories
+    }
+    var two =<%=Two %>;
+    var xArr2 = two.categories
     var xArr = ["项目1", "项目2", "项目3", "项目4", "项目5", "项目6", "项目7", "项目8", "项目9"]
     var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
     var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
@@ -566,28 +597,28 @@
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     }];
     var series1 = [
-    {
-        name: '施工资料同步率',
-        type: 'bar',
-        data: data1,
-        itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
-    }];
+        {
+            name: '施工资料同步率',
+            type: 'bar',
+            data: data1,
+            itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
+        }];
     category('two', xArr2, series)
     category('three', xArr, series1)
 </script>
-    <script type="text/javascript">
-    function category_Five(id, xArr, data)  {
+<script type="text/javascript">
+    function category_Five(id, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
             title: {
-                left:'center',
+                left: 'center',
                 text: '',
                 textStyle: {
                     color: '#fff',
                     fontSize: 14,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: false
             },
@@ -654,34 +685,34 @@
     }
     var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7"]
     var data = [{
-            name: '',
-            type: 'bar',
-            stack: '总量',
-            data: [20, 2, 1, 34, 39, 30, 20],
-            itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
-        },
-        {
-            name: '',
-            type: 'bar',
-            stack: '总量',
-            data: [12, 32, 10, 14, 9, 30, 21],
-            itemStyle: { normal: { color: 'rgba(28,110,173, 1)' } }
-        }]
+        name: '',
+        type: 'bar',
+        stack: '总量',
+        data: [20, 2, 1, 34, 39, 30, 20],
+        itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
+    },
+    {
+        name: '',
+        type: 'bar',
+        stack: '总量',
+        data: [12, 32, 10, 14, 9, 30, 21],
+        itemStyle: { normal: { color: 'rgba(28,110,173, 1)' } }
+    }]
     category_Five('five', xArr, data)
 </script>
-    <script type="text/javascript">
-    function line(id, xArr, data)  {
+<script type="text/javascript">
+    function line(id, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
         var option = {
             title: {
-                left:'center',
+                left: 'center',
                 text: ' ',
                 textStyle: {
                     color: '#fff',
                     fontSize: 14,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: false
             },
@@ -747,7 +778,7 @@
         myChart.setOption(option)
     }
     var xArr = ["11.07", "11.08", "11.09", "11.10", "11.11", "11.12", "11.13", "11.14", "11.15", "11.16", "11.17", "11.18"]
-    var data = [ {
+    var data = [{
         name: '项目安全人工时',
         type: 'line',
         //smooth: true,
@@ -755,16 +786,16 @@
         lineStyle: {
             //color: 'rgba(200,201,10, 1)'
         }
-    },{
+    }, {
         name: '项目安全人工时1',
         type: 'line',
         //smooth: true,
-        data:  [6, 5, 3, 3, 4, 1, 3, 2, 4, 7, 6, 1]
-    },{
+        data: [6, 5, 3, 3, 4, 1, 3, 2, 4, 7, 6, 1]
+    }, {
         name: '项目安全人工时2',
         type: 'line',
         //smooth: true,
-        data:  [5, 4, 2, 3, 8, 2, 9, 2, 4, 1, 6, 4]
+        data: [5, 4, 2, 3, 8, 2, 9, 2, 4, 1, 6, 4]
     }]
     //line('three', xArr, data)
 </script>
@@ -1117,27 +1148,6 @@
                     color: '#fff'
                 }
             },
-            // geo: {
-            //     map: mapType,
-            //     roam: true,
-            //     label: {
-            //         show: true,
-            //         color: 'rgba(0,0,0,1)'
-            //     },
-            //     itemStyle: {
-            //         borderColor: 'rgba(0, 0, 0,1)'
-            //     },
-            //     emphasis:{
-            //         itemStyle: {
-            //             areaColor: null,
-            //             shadowOffsetX: 0,
-            //             shadowOffsetY: 0,
-            //             shadowBlur: 20,
-            //             borderWidth: 0,
-            //             shadowColor: 'rgba(0, 0, 0, 1)'
-            //         }
-            //     }
-            // },
             series: [
                 {
                     type: 'map',
@@ -1632,7 +1642,7 @@
 <script>
     $(document).ready(function () {
         var height = $("#swiper-pre").height()
-        $("#swiper2").css("height", (height -38) + 'px')
+        $("#swiper2").css("height", (height - 38) + 'px')
         var mySwiper = new Swiper('#swiper2', {
             autoplay: 4000,//可选选项，自动滑动
             direction: 'vertical',
@@ -1648,7 +1658,7 @@
 
         $(".project-list>div").click(function () {
             var $this = $(this)
-             top.window.location.href = "../indexProject.aspx?projectName=" +$this.html();
+            top.window.location.href = "../indexProject.aspx?projectName=" + $this.html();
         });
     })   
 </script>

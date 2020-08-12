@@ -68,6 +68,43 @@ namespace BLL
 
             db.SitePerson_PersonInOut.InsertOnSubmit(newPersonInOut);
             db.SubmitChanges();
+            //// 插入当日记录表
+            InsertPersonInOutNowNow(newPersonInOut);
+        }
+
+        /// <summary>
+        ///  插入当日出入记录表
+        /// </summary>
+        /// <param name="PersonInOut"></param>
+        public static void InsertPersonInOutNowNow(Model.SitePerson_PersonInOut PersonInOut)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var getLastList = from x in db.SitePerson_PersonInOutNow
+                              where x.ChangeTime <= PersonInOut.ChangeTime.Value.AddDays(-1)
+                              select x;
+            if (getLastList.Count() > 0)
+            {
+                db.SitePerson_PersonInOutNow.DeleteAllOnSubmit(getLastList);
+                db.SubmitChanges();
+            }
+            var getNow = db.SitePerson_PersonInOutNow.FirstOrDefault(x => x.PersonInOutId == PersonInOut.PersonInOutId);
+            if (getNow == null)
+            {
+                Model.SitePerson_PersonInOutNow newPersonInOut = new Model.SitePerson_PersonInOutNow
+                {
+                    PersonInOutId = PersonInOut.PersonInOutId,
+                    ProjectId = PersonInOut.ProjectId,
+                    UnitId = PersonInOut.UnitId,
+                    PersonId = PersonInOut.PersonId,
+                    IsIn = PersonInOut.IsIn,
+                    ChangeTime = PersonInOut.ChangeTime,
+                    WorkPostId = PersonInOut.WorkPostId,
+                    PostType = PersonInOut.PostType,
+                };
+
+                db.SitePerson_PersonInOutNow.InsertOnSubmit(newPersonInOut);
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>
@@ -112,32 +149,6 @@ namespace BLL
                         PersonCount = getW.Select(x => x.PersonId).Distinct().Count(),
                         UnitWorkPostID = uitem + "|" + witem,
                     };
-
-                    ////// 出场记录 集合
-                    //var getUnitOutList = getW.Where(x => x.IsIn == false);
-                    ////// 进场记录 集合
-                    //var getUnitInList = getW.Where(x => x.IsIn == true);
-                    //int personWorkTime = 0;
-                    //List<string> personIdList = new List<string>();
-                    //foreach (var itemOut in getUnitOutList)
-                    //{
-                    //    var getMaxInTime = getUnitInList.Where(x => x.ChangeTime < itemOut.ChangeTime
-                    //                && x.PersonId == itemOut.PersonId && x.ChangeTime.Value.AddDays(1) > itemOut.ChangeTime).Max(x => x.ChangeTime);
-                    //    if (getMaxInTime.HasValue)
-                    //    {
-                    //        personWorkTime += Convert.ToInt32((itemOut.ChangeTime - getMaxInTime).Value.TotalMinutes);
-                    //    }
-                    //    else
-                    //    {
-                    //        personIdList.Add(itemOut.PersonId);
-                    //    }
-                    //}
-                    //if (personIdList.Count() > 0)
-                    //{
-                    //    personWorkTime += (personIdList.Distinct().Count() * 8 * 60);
-                    //}
-
-                    //newWItem.WorkHous = Convert.ToInt32(personWorkTime * 1.0 / 60);
 
                     reports.Add(newWItem);
                 }

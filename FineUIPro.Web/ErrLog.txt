@@ -1,17 +1,1 @@
 ﻿
-错误信息开始=====>
-错误类型:NullReferenceException
-错误信息:未将对象引用设置到对象的实例。
-错误堆栈:
-   在 FineUIPro.Web.indexProject.Page_Load(Object sender, EventArgs e) 位置 D:\DepCode\SEDIN\SGGL\SGGL\FineUIPro.Web\indexProject.aspx.cs:行号 287
-   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
-   在 System.EventHandler.Invoke(Object sender, EventArgs e)
-   在 System.Web.UI.Control.OnLoad(EventArgs e)
-   在 System.Web.UI.Control.LoadRecursive()
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:08/10/2020 11:16:23
-出错文件:http://localhost:8118/indexProject.aspx?projectId=989e31ad-3ee4-45ff-9b4b-8d5231951b19
-IP地址:::1
-
-出错时间:08/10/2020 11:16:23
-

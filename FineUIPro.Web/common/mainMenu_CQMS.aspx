@@ -202,8 +202,7 @@
                 text: title,
                 textStyle: {
                     color: '#fff',
-                    fontSize: 10,
-                   
+                    fontSize: 10,                    
                 },
                 show: true
             },
@@ -212,10 +211,10 @@
                     name: ' ',
                     center: ["50%", "50%"],
                     type: 'gauge',
-                    radius: "100%",
+                    radius: "90%",
                     axisLabel : { //文字样式（及“10”、“20”等文字样式）
-                        fontSize: 10,
-                        distance : 5 //文字离表盘的距离
+                        fontSize: 8,
+                        distance : 2 //文字离表盘的距离
                     },
                     pointer: {
                         show: true,
@@ -238,7 +237,7 @@
                                 [ 0.7, "#63869E" ],//51%-70%处的颜色
                                 [ 1, "#88C8E2" ],//70%-100%处的颜色
                             ],
-                            width: 10//表盘宽度
+                            width: 8//表盘宽度
                         }
                     },
                     min: 0,
@@ -276,7 +275,7 @@
                 text: '统计',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: '300'
                 },
                 show: true
@@ -304,7 +303,7 @@
                     text: "text",
                     textAlign: "center",
                     fill: "#fff",
-                    fontSize: 18,
+                    fontSize: 12,
                     fontWeight: 700
                 }
             },
@@ -418,7 +417,7 @@
                     text: text,
                     textAlign: "center",
                     fill: "#fff",
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: 700
                 }
             },
@@ -444,7 +443,7 @@
                     emphasis: {
                         label: {
                             show: true,
-                            fontSize: '12',
+                            fontSize: '10',
                             fontWeight: 'bold'
                         }
                     },
@@ -492,7 +491,7 @@
                 show: true,
                 textStyle: {//图例文字的样式
                     color: '#ffffff',
-                    fontSize: 10
+                    fontSize: 10,
                 }
             },
             xAxis: {
@@ -501,7 +500,7 @@
                 },
                 axisLine: {
                     lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
+                        color: 'rgba(255, 255, 255, 0.3)',
                     }
                 },
                 axisLabel: {
@@ -584,7 +583,7 @@
                 text: '作业许可数量统计',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: '300'
                 },
                 show: false
@@ -595,10 +594,10 @@
                 orient: 'vertical',
                 top: '0',
                 show: true,
-                selectedMode: false,
+                selectedMode: false,               
                 textStyle: {//图例文字的样式
                     color: '#ffffff',
-                    fontSize: '12'
+                    fontSize: '10'
                 }
             },
             yAxis: {
@@ -607,7 +606,7 @@
                 },
                 axisLine: {
                     lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
+                        color: 'rgba(255, 255, 255, 0.3)',
                     }
                 },
                 axisLabel: {
@@ -661,7 +660,7 @@
     //var data = [12, 5, 28, 43, 22, 11]
     //var data1 = [21, 9, 12, 15, 8, 43]
     var series = [{
-        name: '质量一次性合格率',
+        name: '质量验收一次合格率',
         type: 'bar',
         data: three.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
@@ -686,7 +685,7 @@
                 textStyle: {
                     color: '#fff',
                     fontWeight: 'normal',
-                    fontSize: 16
+                    fontSize: 12
                 },
                 show: false
             },
@@ -759,7 +758,7 @@
     //var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
     //var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
     var series = [{
-        name: '质量一次性合格率',
+        name: '质量验收一次合格率',
         type: 'bar',
         data: four.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
@@ -862,7 +861,7 @@
             //var data = [12, 5, 28, 43, 22, 11]
             //var data1 = [21, 9, 12, 15, 8, 43]
             var series = [{
-                name: '质量一次性合格率',
+                name: '质量验收一次合格率',
                 type: 'bar',
                 data: three.series[0].data,
                 itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
@@ -877,7 +876,7 @@
                 //xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6"]
                 xArr = three2.categories
                 series = [{
-                name: '质量一次性合格率',
+                name: '质量验收一次合格率',
                 type: 'bar',
                 data: three2.series[0].data,
                 itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }

@@ -252,6 +252,7 @@
                                 <div class="base-wrap flex flexV">
                                      <div class="base-tit">当前现场总人数</div>
                                      <div class="base-txt-wrap  flex flex1">
+                                          <div class="num-1 specialNum" runat="server"  id="divperson">0</div>
                                         <div class="num-1 specialNum" runat="server"  id="person00">0</div>
                                         <div class="num-1 specialNum" runat="server"  id="person01">0</div>
                                         <div class="num-1 specialNum" runat="server"  id="person02">0</div>
@@ -299,7 +300,7 @@
                                         </div>
                                     </div>
                                     <div class="yj-info-1-info">                                      
-                                        <div>应急信息</div>
+                                        <div>应 急 信 息</div>
                                     </div>
                                 </div>
                             </div>
@@ -486,7 +487,8 @@
                 axisLabel: {
                     show: true,
                     textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
+                        color: 'rgba(255, 255, 255, 0.8)',
+                         fontSize: 10,
                     }
                 },
                 type: 'category',
@@ -721,8 +723,12 @@
         name: '总数',
         type: 'line',
         smooth: true,
-        data: five.series[0].data,
-        itemStyle: { normal: { color: 'rgba(30,81,134, 1)' } }
+        data: five.series[1].data,
+        itemStyle: { normal: { color: 'rgba(0, 255, 0, 1)' } }
+    },{
+        name: '当月',
+        type: 'bar',
+        data: five.series[0].data
     }]
 
     category_Five('five', xArr, data)
@@ -739,7 +745,7 @@
                 left: '12%',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 10,
+                    fontSize: 12,
                     fontWeight: 300
                 }
             }],
@@ -751,10 +757,11 @@
                 orient: 'vertical',
                 left: 'right',
                 top: 'center',
-                align: 'left',
+                align: 'left',                
                 data: ['人身伤害', '未遂事故', '火灾', '机械设备',  '环境影响', '其他'],
                 textStyle: {//图例文字的样式
-                    color: '#f2f2f2'
+                    color: '#f2f2f2',
+                      fontSize: 10,
                 }
             },
             color: ['#CFE5B7', '#BBD4A4', '#A3C78A', '#88B53D', '#7CA63B', '#698E30'],
@@ -766,9 +773,9 @@
                     radius: ['40%', '80%'],
                     avoidLabelOverlap: false,
                     label: {
-                        show: true,
+                        show: false,
                         position: 'inside',
-                        formatter: function (data) { return data.percent.toFixed(2) + "%"; }
+                        formatter: function (data) { return data.percent.toFixed(2); }
                     },
                     //emphasis: {
                     //    label: {

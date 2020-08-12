@@ -374,6 +374,10 @@
     <Compile Include="Person\Person_QuarterCheckApproveService.cs" />
     <Compile Include="Person\Person_QuarterCheckItemService.cs" />
     <Compile Include="Person\Person_QuarterCheckService.cs" />
+    <Compile Include="Person\Person_ShuntApproveService.cs" />
+    <Compile Include="Person\Person_ShuntDetailService.cs" />
+    <Compile Include="Person\Person_ShuntService.cs" />
+    <Compile Include="Person\Person_TrainingPlanService.cs" />
     <Compile Include="ProjectData\MainItemService.cs" />
     <Compile Include="ProjectData\ProjectData_CodeTemplateRuleService.cs" />
     <Compile Include="ProjectData\ProjectSateService.cs" />

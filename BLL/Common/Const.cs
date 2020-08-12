@@ -26,7 +26,7 @@ namespace BLL
         /// <summary>
         /// 部室
         /// </summary>
-        public const string SGGLB = "685988ad-3711-4b32-a1a7-7eb36228aea5";
+        public const string SGGLB = "9a965cdd-5e66-448b-a5af-66f9e04fd69b";
 
         /// <summary>
         /// null 字符串
@@ -1341,9 +1341,19 @@ namespace BLL
         public const string PersonSetMenuId = "20AB6116-A8D3-4D72-8800-79F80AE66D85";
 
         /// <summary>
+        /// 员工培训
+        /// </summary>
+        public const string PersonTrainingMenuId = "1D8B35D2-5C8F-4FF4-96E4-8EB61BDBAE51";
+
+        /// <summary>
         /// 人员总结
         /// </summary>
         public const string PersonTotalMenuId = "3BF62723-9448-4A29-A239-0A17566F50E8";
+
+        /// <summary>
+        /// 分流管理
+        /// </summary>
+        public const string PersonShuntMenuId = "DC31E45E-0EE9-4601-825D-8F388B6D9B71";
 
         /// <summary>
         /// 绩效考核
@@ -2694,7 +2704,29 @@ namespace BLL
         /// </summary>
         public const string State_C = "-2";
         #endregion
-        
+
+        #region 分流管理流程定义
+        /// <summary>
+        /// 重新整理
+        /// </summary>
+        public const string Shunt_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public const string Shunt_Compile = "1";
+
+        /// <summary>
+        /// 审核
+        /// </summary>
+        public const string Shunt_Audit = "2";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public const string Shunt_Complete = "3";
+        #endregion
+
         #region 报表类型
         /// <summary>
         /// 百万工时安全统计月报

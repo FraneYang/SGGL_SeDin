@@ -486,7 +486,14 @@ namespace FineUIPro.Web.CQMS.Check
                     Model.Check_TechnicalContactListApprove approve = null;
                     if (unitType == BLL.Const.ProjectUnitType_2)   //施工分包发起
                     {
-                        approve = TechnicalContactListApproveService.GetApprove3(technicalContactList.TechnicalContactListId);
+                        if (technicalContactList.IsReply == "1" && technicalContactList.ContactListType == "1")
+                        {
+                            approve = TechnicalContactListApproveService.GetApprove5(technicalContactList.TechnicalContactListId);
+                        }
+                        else {
+                            approve = TechnicalContactListApproveService.GetApprove3(technicalContactList.TechnicalContactListId);
+                        }
+                        
                     }
                     else
                     {
@@ -546,6 +553,10 @@ namespace FineUIPro.Web.CQMS.Check
                     if (unitType == BLL.Const.ProjectUnitType_2)   //施工分包发起
                     {
                         approve = TechnicalContactListApproveService.GetApprove2(technicalContactList.TechnicalContactListId);
+                        if (approve == null)
+                        {
+                            approve = TechnicalContactListApproveService.GetApprove5(technicalContactList.TechnicalContactListId);
+                        }
                     }
                     else
                     {

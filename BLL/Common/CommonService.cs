@@ -30,6 +30,11 @@ namespace BLL
                         if (!string.IsNullOrEmpty(getUser.RoleId))
                         {
                             rolesStr = getUser.RoleId;
+                            var getOffice = db.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == true);
+                            if (getOffice != null)
+                            {
+                                returnList.Add(Const.Menu_Server);
+                            }
                         }
                         ////获取项目角色的集合
                         var getPRoles = (from x in db.Project_ProjectUser

@@ -6,32 +6,38 @@ namespace BLL
 {
     public static class APIPageDataService
     {
-        #region 根据类型获取图型数据
+        #region 获取当前人数
         /// <summary>
-        /// 根据类型获取图型数据
+        /// 获取当前人数
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="projectId">项目ID</param>
         /// <returns></returns>
-        public static int getPersonNum(string projectId)
+        public static List<Model.PageDataPersonInOutItem> getPersonNum(string projectId, DateTime dateValue)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                int SitePersonNum = 0;
-                var getDayAll = from x in db.SitePerson_PersonInOut
-                                where x.ProjectId == projectId && x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month
-                                && x.ChangeTime.Value.Day == DateTime.Now.Day
+                List<Model.PageDataPersonInOutItem> getSiteInOutList = new List<Model.PageDataPersonInOutItem>();
+                var getDayAll = from x in db.SitePerson_PersonInOutNow
+                                where x.ProjectId == projectId && x.ChangeTime.Value.Year == dateValue.Year && x.ChangeTime.Value.Month == dateValue.Month
+                                && x.ChangeTime.Value.Day == dateValue.Day
                                 select x;
                 if (getDayAll.Count() > 0)
                 {
                     var getInMaxs = from x in getDayAll
                                     group x by x.PersonId into g
-                                    select new { g.First().PersonId, ChangeTime = g.Max(x => x.ChangeTime), g.First().IsIn };
+                                    select new Model.PageDataPersonInOutItem
+                                    {
+                                        PersonId = g.First().PersonId,
+                                        ChangeTime = g.Max(x => x.ChangeTime),
+                                        IsIn = g.First().IsIn,
+                                        PostType = g.First().PostType
+                                    };
                     if (getInMaxs.Count() > 0)
                     {
-                        SitePersonNum = getInMaxs.Where(x => x.IsIn == true).Count();
+                        getSiteInOutList = getInMaxs.Where(x => x.IsIn == true).ToList();
                     }
                 }
-                return SitePersonNum;
+                return getSiteInOutList;
             }
         }
         #endregion

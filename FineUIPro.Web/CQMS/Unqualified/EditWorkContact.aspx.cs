@@ -550,6 +550,10 @@ namespace FineUIPro.Web.CQMS.Unqualified
                         approve.ApproveMan = drpHandleMan.SelectedValue;
                     }
                     approve.ApproveType = drpHandleType.SelectedValue;
+                    if (this.drpHandleType.SelectedValue == BLL.Const.WorkContact_Complete)
+                    {
+                        approve.ApproveDate = DateTime.Now.AddMinutes(1);
+                    }
                     WorkContactApproveService.AddWorkContactApprove(approve);
                     APICommonService.SendSubscribeMessage(approve.ApproveMan, "工作联系单待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     if (workContact.IsReply == "2" && drpHandleType.SelectedValue == Const.WorkContact_Complete)

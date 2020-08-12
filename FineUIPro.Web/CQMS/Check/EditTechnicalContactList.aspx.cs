@@ -75,9 +75,13 @@ namespace FineUIPro.Web.CQMS.Check
 
                 UnitService.GetUnit(drpProposeUnit, CurrUser.LoginProjectId, false);
                 var unitWork = UnitWorkService.GetUnitWorkLists(CurrUser.LoginProjectId);
-                var unitWorks = from x in unitWork select 
-                           new { UnitWorkId = x.UnitWorkId,
-                               UnitWorkName = x.UnitWorkCode + "-" + x.UnitWorkName + BLL.UnitWorkService.GetProjectType(x.ProjectType) };
+                var unitWorks = from x in unitWork
+                                select
+        new
+        {
+            UnitWorkId = x.UnitWorkId,
+            UnitWorkName = x.UnitWorkCode + "-" + x.UnitWorkName + BLL.UnitWorkService.GetProjectType(x.ProjectType)
+        };
                 gvUnitWork.DataSource = unitWorks;
                 gvUnitWork.DataBind();
                 var gvCNProfessional = CNProfessionalService.GetList();
@@ -398,7 +402,14 @@ namespace FineUIPro.Web.CQMS.Check
                     string newUrl = uploadfilepath.Replace(".doc", txtCode.Text.Trim() + ".doc");
                     File.Copy(uploadfilepath, newUrl);
                     //更新书签内容
+                    string unitType = string.Empty;
                     Model.Check_TechnicalContactList technicalContactList = TechnicalContactListService.GetTechnicalContactListByTechnicalContactListId(TechnicalContactListId);
+                    var unit = UnitService.GetUnitByUnitId(technicalContactList.ProposedUnitId);
+                    var projectUnit = ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, technicalContactList.ProposedUnitId);
+                    if (unit != null)
+                    {
+                        unitType = projectUnit.UnitType;
+                    }
                     Document doc = new Aspose.Words.Document(newUrl);
                     Bookmark bookmarkProjectName = doc.Range.Bookmarks["ProjectName"];
                     if (bookmarkProjectName != null)
@@ -477,7 +488,7 @@ namespace FineUIPro.Web.CQMS.Check
                     Bookmark bookmarkAttachUrl = doc.Range.Bookmarks["AttachUrl"];
                     if (bookmarkAttachUrl != null)
                     {
-                        if (!string.IsNullOrEmpty(technicalContactList.AttachUrl))
+                        if (AttachFileService.Getfile(technicalContactList.TechnicalContactListId, Const.TechnicalContactListMenuId))
                         {
                             bookmarkAttachUrl.Text = "见附页";
                         }
@@ -489,22 +500,80 @@ namespace FineUIPro.Web.CQMS.Check
                     Bookmark bookmarkCompileMan = doc.Range.Bookmarks["CompileMan"];
                     if (bookmarkCompileMan != null)
                     {
-                        var user = UserService.GetUserByUserId(technicalContactList.CompileMan);
-                        if (user != null)
+                        Model.Sys_User user = UserService.GetUserByUserId(technicalContactList.CompileMan);
+                        var file = user.SignatureUrl;
+                        if (!string.IsNullOrWhiteSpace(file))
                         {
-                            bookmarkCompileMan.Text = user.UserName;
+                            string url = rootPath + file;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("CompileMan");
+                            if (!string.IsNullOrEmpty(url))
+                            {
+                                System.Drawing.Size JpgSize;
+                                float Wpx;
+                                float Hpx;
+                                UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                double i = 1;
+                                i = JpgSize.Width / 50.0;
+                                if (File.Exists(url))
+                                {
+                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                }
+                                else
+                                {
+                                    bookmarkCompileMan.Text = user.UserName;
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            bookmarkCompileMan.Text = UserService.GetUserNameByUserId(technicalContactList.CompileMan);
                         }
                     }
                     Bookmark bookmarkAuditMan1 = doc.Range.Bookmarks["AuditMan1"];
                     if (bookmarkAuditMan1 != null)
                     {
-                        var approve = TechnicalContactListApproveService.GetApprove(TechnicalContactListId);
+                        Model.Check_TechnicalContactListApprove approve = null;
+                        if (unitType == BLL.Const.ProjectUnitType_2)   //施工分包发起
+                        {
+                            approve = TechnicalContactListApproveService.GetApprove(technicalContactList.TechnicalContactListId);
+                        }
+                        else
+                        {
+                            approve = TechnicalContactListApproveService.GetApprove2(technicalContactList.TechnicalContactListId);
+                        }
                         if (approve != null)
                         {
-                            var user = UserService.GetUserByUserId(approve.ApproveMan);
-                            if (user != null)
+                            Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                            var file = user.SignatureUrl;
+                            if (!string.IsNullOrWhiteSpace(file))
                             {
-                                bookmarkAuditMan1.Text = user.UserName;
+                                string url = rootPath + file;
+                                DocumentBuilder builders = new DocumentBuilder(doc);
+                                builders.MoveToBookmark("AuditMan1");
+                                if (!string.IsNullOrEmpty(url))
+                                {
+                                    System.Drawing.Size JpgSize;
+                                    float Wpx;
+                                    float Hpx;
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
+                                    if (File.Exists(url))
+                                    {
+                                        builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    }
+                                    else
+                                    {
+                                        bookmarkAuditMan1.Text = user.UserName;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                bookmarkAuditMan1.Text = UserService.GetUserNameByUserId(approve.ApproveMan);
                             }
                         }
                     }
@@ -750,6 +819,11 @@ namespace FineUIPro.Web.CQMS.Check
                 drpHandleMan.Enabled = false;
                 drpHandleMan.Required = false;
             }
+            else
+            {
+                drpHandleMan.Enabled = true;
+                drpHandleMan.Required = true;
+            }
             //Funs.FineUIPleaseSelect(drpHandleMan);
             //if (State.Equals(Const.TechnicalContactList_Compile))
             //{
@@ -887,6 +961,10 @@ namespace FineUIPro.Web.CQMS.Check
                     if (drpHandleMan.SelectedValue != "0")
                     {
                         approve.ApproveMan = drpHandleMan.SelectedValue;
+                    }
+                    if (this.drpHandleType.SelectedValue == BLL.Const.TechnicalContactList_Complete)
+                    {
+                        approve.ApproveDate = DateTime.Now.AddMinutes(1);
                     }
                     approve.ApproveType = drpHandleType.SelectedValue;
                     TechnicalContactListApproveService.AddTechnicalContactListApprove(approve);
@@ -1108,7 +1186,17 @@ namespace FineUIPro.Web.CQMS.Check
                     {
                         foreach (var item in lst)
                         {
-                            drpHandleType.Items.Remove(item);
+                            if (State == BLL.Const.TechnicalContactList_Audit4 || State == BLL.Const.TechnicalContactList_Audit4R)
+                            {
+                                if (item.Value != BLL.Const.TechnicalContactList_Complete)
+                                {
+                                    drpHandleType.Items.Remove(item);
+                                }
+                            }
+                            else
+                            {
+                                drpHandleType.Items.Remove(item);
+                            }
                         }
                     }
 
@@ -1144,6 +1232,11 @@ namespace FineUIPro.Web.CQMS.Check
                 if (drpHandleType.Items.Count > 0)
                 {
                     drpHandleType.Items.RemoveAt(0);
+                }
+                if (State == BLL.Const.TechnicalContactList_Audit4 || State == BLL.Const.TechnicalContactList_Audit4R)
+                {
+                    drpHandleType.Items.RemoveAt(0);
+                    drpHandleType.SelectedIndex = 0;
                 }
                 if (drpHandleType.SelectedValue == Const.TechnicalContactList_ReCompile)
                 {

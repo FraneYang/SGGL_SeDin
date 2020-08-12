@@ -264,7 +264,7 @@ body {
         display: flex;
         overflow: hidden;
         max-width: 100%;
-        font-size:11px;
+        font-size:12px;
         /* margin-bottom: 8px; */
     }
 
@@ -277,7 +277,7 @@ body {
             min-width: 0;
             float: left;
             overflow: hidden;
-            white-space: nowrap;
+            /*white-space: nowrap;*/
             text-overflow: ellipsis;
             word-break: keep-all;
         }
@@ -533,7 +533,7 @@ body {
 .tab-content {
     color: #fff;
     margin-top: 10px;
-    font-size:10px;
+    font-size:12px;
 }
 
 .tab-content .tab-i {
@@ -543,7 +543,7 @@ body {
     .tab-content .txt {
         width: 90px;
         text-align: center;
-        font-size: 11px;
+        font-size: 12px;
     }
 
 .tab-content .line-wrap {
@@ -582,7 +582,7 @@ body {
     background-color: #C71D26 !important;
 }
 .row1 {
-    font-size: 11px;
+    font-size: 12px;
     color: #fff;
     border-radius: 4px;
     height: 36px;
@@ -596,7 +596,7 @@ body {
     }
 .row2 {
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
     align-items: center;
 }
  .row2 .txt {

@@ -34,7 +34,6 @@
 <TreeNode id="0E6E6022-356E-42A1-9D16-C75BF69EBFB5" Text="施工质量检查记录" NavigateUrl="CQMS/Check/JointCheckFile.aspx"></TreeNode>
 <TreeNode id="3354E9AA-8D71-401B-9CFC-03D69DA86B05" Text="工程联络单" NavigateUrl="CQMS/Check/TechnicalContactListFile.aspx"></TreeNode>
 <TreeNode id="A68445D0-78BB-4E67-93FC-606DECA0B585" Text="设计变更统计表" NavigateUrl="CQMS/Check/DesignFile.aspx"></TreeNode>
-<TreeNode id="F274F84A-B648-4ABA-99D4-993AA6D1143A" Text="工作联系单" NavigateUrl="CQMS/Check/WorkContactFile.aspx"></TreeNode>
 <TreeNode id="F32B7E91-693F-4892-93EE-7AEAC1309291" Text="施工组织设计(施工方案)内部审批流转单" NavigateUrl="CQMS/Check/ConstructSolutionFile.aspx"></TreeNode>
 <TreeNode id="0A54D274-547C-4555-9D00-D8D5034E8849" Text="质量月报" NavigateUrl="CQMS/Check/CheckMonthFile.aspx"></TreeNode>
 <TreeNode id="03CEB246-0CE5-48CB-9D6B-1B84AC2E27B3" Text="重要文件" NavigateUrl="CQMS/Check/FileCabinet.aspx"></TreeNode>

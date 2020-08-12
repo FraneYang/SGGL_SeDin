@@ -128,6 +128,16 @@ namespace FineUIPro.Web.ProjectData
                 }
                 newProjectUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
                 BLL.ProjectUserService.UpdateProjectUser(newProjectUser);
+                Model.Sys_RoleItem roleItem = BLL.RoleItemService.GeRoleItemByUserIdAndProjectId(newProjectUser.UserId,newProjectUser.ProjectId);
+                if (roleItem != null)
+                {
+                    if (newProjectUser.IsPost == false) //离岗
+                    {
+                        roleItem.OutDate = DateTime.Now;
+                    }
+                    roleItem.RoleId = newProjectUser.RoleId;
+                    BLL.RoleItemService.UpdateRoleItem(roleItem);
+                }
                 this.SetWorkPost(newProjectUser);
                 BLL.LogService.AddSys_Log(this.CurrUser, this.lbUserCode.Text, newProjectUser.UserId, BLL.Const.ProjectUserMenuId, BLL.Const.BtnModify);
                 ShowNotify("保存数据成功!", MessageBoxIcon.Success);

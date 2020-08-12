@@ -35,12 +35,14 @@
         }
         .tit-center{
             text-align:center;
+            font-size:12px;
         }
         .tit-one{
             
         }
         .pdl{
             padding-left:15px;
+            font-size:12px;
         }
         .more{
             text-align:right;
@@ -52,6 +54,7 @@
         }
         .item{
             margin-bottom: 5px;
+            font-size:10px;
         }
         .item:last-child{
             margin-bottom: 0;
@@ -62,6 +65,7 @@
         .jd-list{
             height:100%;
             background-color:#1A5A92;
+            font-size:10px;
         }
         .jd-list .jd-title{
             color:#333;
@@ -183,7 +187,7 @@
                 text: ' ',
                 textStyle: {
                     color: '#fff',
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight:'300'
                 },
                 show: false
@@ -266,7 +270,7 @@
     }]
     line('two', xArr1, data1)
 </script>
-<%--<script type="text/javascript">
+<script type="text/javascript">
     function category(id, xArr, series) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
@@ -278,7 +282,7 @@
                 textStyle: {
                     color: '#fff',
                     fontWeight: 'normal',
-                    fontSize:16
+                    fontSize:12
                 },
                 show: false
             },
@@ -361,8 +365,8 @@
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }];
     category('three', xArr, series)
-    category('five', xArr, series)
-</script>--%>
+    //category('five', xArr, series)
+</script>
 <script type="text/javascript">
     function pie(id, title, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
@@ -375,7 +379,7 @@
 	            left:'center',
 	            textStyle:{
 	                color: '#fff',
-                    fontSize: 12,
+                    fontSize: 10,
                     fontWeight:300
 	            }
 	        }],
@@ -453,7 +457,7 @@
                     text: title,
                     textStyle: {
                         color: '#fff',
-                        fontSize:16,
+                        fontSize:12,
                         fontWeight:'normal',
                     },
                     show: false
@@ -503,7 +507,7 @@
                             offset: [0, -20],  //标签文字的偏移，此处表示向上偏移40
                             formatter: '{c}{a}',//标签内容格式器 {a}-系列名,{b}-数据名,{c}-数据值
                             color: '#fff',//标签字体颜色
-                            fontSize: 12  //标签字号
+                            fontSize: 10  //标签字号
                         },
                         itemStyle: {//图形样式
                             normal: {  //normal 图形在默认状态下的样式;

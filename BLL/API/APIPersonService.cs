@@ -710,7 +710,7 @@ namespace BLL
                     if (getPerson != null)
                     {
                         string postType = null;
-                        var getWokPost = db.Base_WorkPost.FirstOrDefault(x => x.PostType == getPerson.WorkPostId);
+                        var getWokPost = db.Base_WorkPost.FirstOrDefault(x => x.WorkPostId == getPerson.WorkPostId);
                         if (getWokPost != null)
                         {
                             postType = getWokPost.PostType;
@@ -732,8 +732,9 @@ namespace BLL
 
                             db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
                             db.SubmitChanges();
-
-                           // GetDataService.CorrectingPersonInOutNumber(projectId);
+                            //// 插入当日记录表
+                           PersonInOutService. InsertPersonInOutNowNow(newInOut);
+                            // GetDataService.CorrectingPersonInOutNumber(projectId);
                         }
                     }
                 }

@@ -191,7 +191,12 @@ namespace FineUIPro.Web.ProjectData
                         IsPost = true
                     };
                     BLL.ProjectUserService.AddProjectUser(newProjectUser);
-
+                    Model.Sys_RoleItem roleItem = new Model.Sys_RoleItem();
+                    roleItem.ProjectId = this.ProjectId;
+                    roleItem.UserId = userId;
+                    roleItem.RoleId = user.RoleId;
+                    roleItem.IntoDate = DateTime.Now;
+                    BLL.RoleItemService.AddRoleItem(roleItem);
                     if (!string.IsNullOrEmpty(user.IdentityCard))
                     {
                         ///当前用户是否已经添加到项目现场人员中

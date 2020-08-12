@@ -1392,5 +1392,43 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        /// 加载施工管理部用户下拉框
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitSGBUser(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = GetSGBUserList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 获取施工部用户
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static ListItem[] GetSGBUserList()
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var user = (from x in db.Sys_User
+                            where x.IsPost == true && x.UnitId == Const.UnitId_SEDIN && x.DepartId == Const.Depart_constructionId
+                            orderby x.UserId
+                            select x).ToList();
+                ListItem[] lis = new ListItem[user.Count()];
+                for (int i = 0; i < user.Count(); i++)
+                {
+                    lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                }
+                return lis;
+            }
+        }
     }
 }

@@ -107,5 +107,53 @@ namespace BLL
         {
             return (from x in Funs.DB.Training_CompanyTraining where x.SupCompanyTrainingId == supItem select x).ToList();
         }
+
+        /// <summary>
+        /// 根据上级Id查询所有公司培训
+        /// </summary>
+        /// <param name="supItem">上级Id</param>
+        /// <returns>公司培训的集合</returns>
+        public static List<Model.Training_CompanyTraining> GetCompanyTrainingIsEnd()
+        {
+            return (from x in Funs.DB.Training_CompanyTraining
+                    where x.IsEndLever == true
+                    select x).ToList();
+        }
+
+        /// <summary>
+        /// 教材类型下拉框
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="projectId"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitCompanyTrainingDropDownList(FineUIPro.DropDownList dropName,string supItem, bool isShowPlease)
+        {
+            dropName.DataValueField = "CompanyTrainingId";
+            dropName.DataTextField = "CompanyTrainingName";
+            dropName.DataSource = GetCompanyTrainingBySupItem(supItem);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 教材类型下拉框（末级）
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="projectId"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitCompanyTrainingIsEndDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "CompanyTrainingId";
+            dropName.DataTextField = "CompanyTrainingName";
+            dropName.DataSource = GetCompanyTrainingIsEnd();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
     }
 }

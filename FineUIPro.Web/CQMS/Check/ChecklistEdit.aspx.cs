@@ -464,6 +464,10 @@ namespace FineUIPro.Web.CQMS.Check
                         approve.ApproveMan = this.drpHandleMan.SelectedValue;
                     }
                     approve.ApproveType = this.drpHandleType.SelectedValue;
+                    if (this.drpHandleType.SelectedValue == BLL.Const.CheckControl_Complete)
+                    {
+                        approve.ApproveDate = DateTime.Now.AddMinutes(1);
+                    }
                     BLL.CheckControlApproveService.AddCheckControlApprove(approve);
                     APICommonService.SendSubscribeMessage(approve.ApproveMan, "质量巡检问题待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }

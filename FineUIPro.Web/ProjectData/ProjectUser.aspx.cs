@@ -18,15 +18,15 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
             if (!IsPostBack)
             {
                 Funs.DropDownPageSize(this.ddlPageSize);
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
-                } 
-                this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString(); 
+                }
+                this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 BLL.ProjectService.InitAllProjectDropDownList(this.drpProject, false);
                 if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
                 {
@@ -43,7 +43,7 @@ namespace FineUIPro.Web.ProjectData
                 // 绑定表格
                 this.BindGrid();
                 ////权限按钮方法
-                this.GetButtonPower(); 
+                this.GetButtonPower();
             }
         }
         #endregion
@@ -110,12 +110,21 @@ namespace FineUIPro.Web.ProjectData
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
-                    BLL.LogService.AddSys_Log(this.CurrUser, "删除项目用户！", null, BLL.Const.ProjectUserMenuId,BLL.Const.BtnDelete);
+                    BLL.LogService.AddSys_Log(this.CurrUser, "删除项目用户！", null, BLL.Const.ProjectUserMenuId, BLL.Const.BtnDelete);
+                    var projectUser = BLL.ProjectUserService.GetProjectUserById(Grid1.DataKeys[rowIndex][0].ToString());
+                    if (projectUser != null)
+                    {
+                        Model.Sys_RoleItem roleItem = BLL.RoleItemService.GeRoleItemByUserIdAndProjectId(projectUser.UserId, projectUser.ProjectId);
+                        if (roleItem != null)
+                        {
+                            BLL.RoleItemService.DeleteRoleItem(roleItem.RoleItemId);
+                        }
+                    }
                     BLL.ProjectUserService.DeleteProjectUserById(Grid1.DataKeys[rowIndex][0].ToString());
-                    
+
                 }
 
                 BindGrid();
@@ -283,7 +292,7 @@ namespace FineUIPro.Web.ProjectData
             }
         }
         #endregion
-        
+
         #region 查询
         /// <summary>
         /// 查询
@@ -293,7 +302,7 @@ namespace FineUIPro.Web.ProjectData
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             if (sender.GetType().Name == "DropDownList" && ((FineUIPro.DropDownList)(sender)).DataTextField == "ProjectName")
-            {               
+            {
                 BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.drpProject.SelectedValue, true);
             }
             this.BindGrid();
@@ -411,7 +420,7 @@ namespace FineUIPro.Web.ProjectData
                 var users = UserService.GetUserByUserId(pu.UserId);
                 if (users != null && CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId) && users.UnitId != Const.UnitId_SEDIN)
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../SysManage/UserListEdit.aspx?userId={0}&type=-1", users.UserId, "编辑 - ")));                    
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../SysManage/UserListEdit.aspx?userId={0}&type=-1", users.UserId, "编辑 - ")));
                 }
                 else
                 {
@@ -451,7 +460,7 @@ namespace FineUIPro.Web.ProjectData
                     }
                     else
                     {
-                        Alert.ShowInParent( "用户：" + users.UserName + cont,MessageBoxIcon.Warning);
+                        Alert.ShowInParent("用户：" + users.UserName + cont, MessageBoxIcon.Warning);
                     }
                 }
                 else
@@ -469,7 +478,7 @@ namespace FineUIPro.Web.ProjectData
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id && x.ProjectId !=this.CurrUser.LoginProjectId) != null)
+            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id && x.ProjectId != this.CurrUser.LoginProjectId) != null)
             {
                 content += "已在【项目用户】中使用，不能删除！";
             }

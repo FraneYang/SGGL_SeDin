@@ -29,6 +29,36 @@ namespace BLL
         {
             return Funs.DB.Sys_RoleItem.FirstOrDefault(e => e.UserId == userId);
         }
+
+        /// <summary>
+        /// 获取当前角色明细信息
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <returns>用户信息</returns>
+        public static Model.Sys_RoleItem GeCurrRoleItemByUserId(string userId)
+        {
+            return Funs.DB.Sys_RoleItem.OrderByDescending(x=>x.IntoDate).FirstOrDefault(e => e.UserId == userId);
+        }
+
+        /// <summary>
+        /// 获取当前角色明细信息
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <returns>用户信息</returns>
+        public static List<Model.Sys_RoleItem> GeOldRoleItemsByUserId(string userId)
+        {
+            return (from x in Funs.DB.Sys_RoleItem where x.UserId == userId orderby x.IntoDate descending select x).ToList();
+        }
+
+        /// <summary>
+        /// 获取角色明细信息
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <returns>用户信息</returns>
+        public static Model.Sys_RoleItem GeRoleItemByUserIdAndProjectId(string userId, string projectId)
+        {
+            return Funs.DB.Sys_RoleItem.FirstOrDefault(e => e.UserId == userId && e.ProjectId == projectId);
+        }
         /// <summary>
         /// 增加
         /// </summary>
@@ -43,7 +73,7 @@ namespace BLL
                 RoleId = newitem.RoleId,
                 ProjectId = newitem.ProjectId,
                 UserId = newitem.UserId,
-                ProjectName=newitem.ProjectName,
+                ProjectName = newitem.ProjectName,
                 IntoDate = newitem.IntoDate,
                 OutDate = newitem.OutDate
             };

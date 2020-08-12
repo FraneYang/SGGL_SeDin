@@ -519,7 +519,10 @@ namespace FineUIPro.Web.CQMS.Check
                         approve.ApproveMan = this.drpHandleMan.SelectedValue;
                     }
                     approve.ApproveType = this.drpHandleType.SelectedValue;
-
+                    if (this.drpHandleType.SelectedValue == BLL.Const.Design_Complete)
+                    {
+                        approve.ApproveDate = DateTime.Now.AddMinutes(1);
+                    }
                     BLL.DesignApproveService.AddDesignApprove(approve);
                     APICommonService.SendSubscribeMessage(approve.ApproveMan, "设计变更待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }

@@ -175,6 +175,33 @@ namespace FineUIPro.Web.common {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDuration;
         
         /// <summary>
+        /// divProjectMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProjectMoney;
+        
+        /// <summary>
+        /// divConstructionMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConstructionMoney;
+        
+        /// <summary>
+        /// divProjectAddress 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProjectAddress;
+        
+        /// <summary>
         /// divOwnUnit 控件。
         /// </summary>
         /// <remarks>
@@ -229,31 +256,13 @@ namespace FineUIPro.Web.common {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHSSEManager;
         
         /// <summary>
-        /// divProjectMoney 控件。
+        /// Div1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProjectMoney;
-        
-        /// <summary>
-        /// divConstructionMoney 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConstructionMoney;
-        
-        /// <summary>
-        /// divProjectAddress 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProjectAddress;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
         
         /// <summary>
         /// person00 控件。
@@ -283,6 +292,15 @@ namespace FineUIPro.Web.common {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl person02;
         
         /// <summary>
+        /// Div2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
+        
+        /// <summary>
         /// person10 控件。
         /// </summary>
         /// <remarks>
@@ -308,6 +326,15 @@ namespace FineUIPro.Web.common {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl person12;
+        
+        /// <summary>
+        /// Div3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div3;
         
         /// <summary>
         /// person20 控件。

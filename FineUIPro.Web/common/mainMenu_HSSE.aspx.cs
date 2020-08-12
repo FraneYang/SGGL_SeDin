@@ -24,20 +24,13 @@ namespace FineUIPro.Web
         /// </summary>
         private void getSitePerson()
         {
-            int AllCount = 0;
-            var getDayAll = from x in Funs.DB.SitePerson_PersonInOut
-                            where x.ProjectId == this.CurrUser.LoginProjectId && x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month
-                            && x.ChangeTime.Value.Day == DateTime.Now.Day
-                            select x;
-            if (getDayAll.Count() > 0)
-            {
-                var getInMaxs = from x in getDayAll
-                                group x by x.PersonId into g
-                                select new { g.First().PersonId, ChangeTime = g.Max(x => x.ChangeTime), g.First().IsIn, g.First().PostType };            
-            };
+           
+            var getallin = APIPageDataService.getPersonNum(this.CurrUser.LoginProjectId, DateTime.Now);
+            int AllCount = getallin.Count();
             if (AllCount > 0)
             {
                 ////总人数
+                this.divperson.InnerHtml= ((AllCount % 10000) / 1000).ToString();
                 this.person00.InnerHtml = ((AllCount % 1000) / 100).ToString();
                 this.person01.InnerHtml = ((AllCount % 100) / 10).ToString();
                 this.person02.InnerHtml = (AllCount % 10).ToString();
@@ -201,8 +194,10 @@ namespace FineUIPro.Web
                 List<string> listCategories = new List<string>();
                 businessColumn.title = "入场培训";
                 Model.SingleSerie s = new Model.SingleSerie();
+                Model.SingleSerie s2 = new Model.SingleSerie();
                 //// 每月培训数量
-                List<double> listdata = new List<double>();                
+                List<double> listdata = new List<double>();
+                List<double> listdata2 = new List<double>();
                 var getTrainRecord = from x in Funs.DB.EduTrain_TrainRecord
                                      where x.ProjectId == this.CurrUser.LoginProjectId && x.TrainTypeId == Const.EntryTrainTypeId
                                      select x;
@@ -220,8 +215,7 @@ namespace FineUIPro.Web
                         endTime = getProject.EndDate.Value;
                     }
                 }
-                string dataString = string.Empty;
-
+                int totalCout = 0;
                 for (int i = 0; startTime.AddMonths(i) <= endTime; i++)
                 {
                     listCategories.Add(string.Format("{0:yyyy-MM}", startTime.AddMonths(i)));
@@ -231,10 +225,14 @@ namespace FineUIPro.Web
                                         where y.TrainStartDate.Value.Year == startTime.AddMonths(i).Year && y.TrainStartDate.Value.Month == startTime.AddMonths(i).Month
                                         select x;
                     listdata.Add(getMontDetail.Count());
+                    totalCout = totalCout + getMontDetail.Count();
+                    listdata2.Add(totalCout);
                 }
 
                 s.data = listdata;
+                s2.data = listdata2;
                 series.Add(s);
+                series.Add(s2);
                 businessColumn.categories = listCategories;
                 businessColumn.series = series;
                 return JsonConvert.SerializeObject(businessColumn);

@@ -171,6 +171,16 @@ namespace BLL
         }
 
         /// <summary>
+        /// 总包设计回复信息
+        /// </summary>
+        /// <param name="TechnicalContactListId"></param>
+        /// <returns></returns>
+        public static Model.Check_TechnicalContactListApprove GetApprove5(string TechnicalContactListId)
+        {
+            return db.Check_TechnicalContactListApprove.OrderByDescending(x => x.ApproveDate).FirstOrDefault(x => x.TechnicalContactListId == TechnicalContactListId && (x.ApproveType == BLL.Const.TechnicalContactList_Audit4 || x.ApproveType == BLL.Const.TechnicalContactList_Audit4R));
+        }
+
+        /// <summary>
         /// 分包专工回复信息
         /// </summary>
         /// <param name="TechnicalContactListId"></param>

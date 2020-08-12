@@ -37,7 +37,12 @@ namespace FineUIPro.Web.common
                     this.divDuration.InnerHtml = project.Duration.ToString();
                     this.divOwnUnit.InnerHtml = ProjectService.getProjectUnitNameByUnitType(project.ProjectId, Const.ProjectUnitType_4);
                     this.divJLUnit.InnerHtml = ProjectService.getProjectUnitNameByUnitType(project.ProjectId, Const.ProjectUnitType_3);
-                    this.divSGUnit.InnerHtml = ProjectService.getProjectUnitNameByUnitType(project.ProjectId, Const.ProjectUnitType_2);
+                    var getName = ProjectService.getProjectUnitNameByUnitType(project.ProjectId, Const.ProjectUnitType_2);
+                    if (!string.IsNullOrEmpty(getName))
+                    {
+                        this.divSGUnit.InnerHtml = getName.Replace(",","</br>");
+                    }
+                    
                     this.divProjectManager.InnerHtml = ProjectService.GetProjectManagerName(project.ProjectId);
                     this.divConstructionManager.InnerHtml = ProjectService.GetConstructionManagerName(project.ProjectId);
                     this.divHSSEManager.InnerHtml = ProjectService.GetHSSEManagerName(project.ProjectId);
@@ -92,22 +97,13 @@ namespace FineUIPro.Web.common
         {
             int AllCount = 0;
             int MCount = 0;
-            var getDayAll = from x in Funs.DB.SitePerson_PersonInOut
-                                               where x.ProjectId == this.CurrUser.LoginProjectId && x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month
-                                               && x.ChangeTime.Value.Day == DateTime.Now.Day
-                                               select x;
-            if (getDayAll.Count() > 0)
+            var getallin = APIPageDataService.getPersonNum(this.CurrUser.LoginProjectId, DateTime.Now);
+            AllCount = getallin.Count();
+            if (AllCount > 0)
             {
-                var getInMaxs = from x in getDayAll
-                                group x by x.PersonId into g
-                                select new { g.First().PersonId, ChangeTime = g.Max(x => x.ChangeTime), g.First().IsIn,g.First().PostType };
-                if (getInMaxs.Count() > 0)
-                {
-                    var getallin = getInMaxs.Where(x => x.IsIn == true);
-                    AllCount = getallin.Count();
-                    MCount = getallin.Where(x => x.PostType == Const.PostType_1).Count();
-                }
-            };
+                MCount = getallin.Where(x => x.PostType == Const.PostType_1).Count();
+            }
+
             if (AllCount > 0)
             {
                 ////总人数

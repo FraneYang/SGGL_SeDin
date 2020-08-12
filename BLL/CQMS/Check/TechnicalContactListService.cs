@@ -343,10 +343,11 @@ namespace BLL
                 {
                     if (contactListType == "1")  //图纸类
                     {
-                        ListItem[] lis = new ListItem[2];
+                        ListItem[] lis = new ListItem[3];
                         lis[0] = new ListItem("总包负责人审批", Const.TechnicalContactList_Audit3);
+                        lis[1] = new ListItem("审批完成", Const.TechnicalContactList_Complete);
                         //lis[1] = new ListItem("审批完成", Const.TechnicalContactList_Complete);
-                        lis[1] = new ListItem("重新编制", Const.TechnicalContactList_ReCompile);
+                        lis[2] = new ListItem("重新编制", Const.TechnicalContactList_ReCompile);
                         return lis;
                     }
                     else  //非图纸类
