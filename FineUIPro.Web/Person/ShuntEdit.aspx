@@ -25,9 +25,9 @@
                 <f:FormRow>
                     <Items>
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="拟聘人员" EnableCollapse="true"
-                            runat="server" BoxFlex="1" DataKeyNames="ShuntDetailId" AllowCellEditing="true" EnableColumnLines="true"
+                            runat="server" BoxFlex="1" DataKeyNames="ShuntDetailId,UserId,WorkPostId" AllowCellEditing="true" EnableColumnLines="true"
                             ClicksToEdit="2" DataIDField="ShuntDetailId" AllowSorting="true" SortField="ShuntDetailId"
-                            SortDirection="ASC" PageSize="100" ForceFit="true" EnableTextSelection="True">
+                            SortDirection="ASC" PageSize="100" ForceFit="true" EnableTextSelection="True" OnRowCommand="Grid1_RowCommand">
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                                     <Items>
@@ -41,24 +41,23 @@
                             </Toolbars>
                             <Columns>
                                 <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
-                                <f:RenderField Width="80px" ColumnID="UserName" DataField="UserName" EnableFilter="true"
-                                    SortField="UserName" FieldType="String" HeaderText="姓名" HeaderTextAlign="Center"
-                                    TextAlign="Left">
-                                </f:RenderField>
-                                <f:RenderField Width="100px" ColumnID="PostTitle" DataField="PostTitle" EnableFilter="true"
-                                    SortField="PostTitle" FieldType="String" HeaderText="职称" HeaderTextAlign="Center"
-                                    TextAlign="Left">
-                                </f:RenderField>
-                                <f:TemplateField ColumnID="Certificate" Width="100px" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Center"
+                                <f:TemplateField ColumnID="UserName" Width="80px" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertCertificateName(Eval("UserId")) %>'></asp:Label>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# ConvertUserName(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:TemplateField ColumnID="CurrProject" Width="100px" HeaderText="当前项目" HeaderTextAlign="Center" TextAlign="Center"
+                                <f:TemplateField ColumnID="UserWorkPost" Width="100px" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:Label ID="Label1" runat="server" Text='<%# ConvertCurrProject(Eval("UserId")) %>'></asp:Label>
+                                        <asp:Label ID="Label6" runat="server" Text='<%# ConvertUserWorkPost(Eval("UserId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                
+                                <f:TemplateField ColumnID="OldWorkPost" Width="100px" HeaderText="历史岗位" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label4" runat="server" Text='<%# ConvertOldWorkPost(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
                                 <f:TemplateField ColumnID="CurrWorkPost" Width="100px" HeaderText="当前岗位" HeaderTextAlign="Center" TextAlign="Center"
@@ -67,10 +66,16 @@
                                         <asp:Label ID="Label3" runat="server" Text='<%# ConvertCurrWorkPost(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:TemplateField ColumnID="OldWorkPost" Width="100px" HeaderText="历史岗位" HeaderTextAlign="Center" TextAlign="Center"
+                                <f:TemplateField ColumnID="PostTitle" Width="100px" HeaderText="职称" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:Label ID="Label4" runat="server" Text='<%# ConvertOldWorkPost(Eval("UserId")) %>'></asp:Label>
+                                        <asp:Label ID="Label7" runat="server" Text='<%# ConvertPostTitleName(Eval("UserId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                <f:TemplateField ColumnID="Certificate" Width="100px" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertCertificateName(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
                                 <f:TemplateField ColumnID="WorkPost" Width="100px" HeaderText="拟聘岗位" HeaderTextAlign="Center" TextAlign="Center"
@@ -79,10 +84,9 @@
                                         <asp:Label ID="Label5" runat="server" Text='<%# ConvertWorkPost(Eval("WorkPostId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
+                                <f:LinkButtonField Width="60px" TextAlign="Center" HeaderText="删除" ToolTip="删除" CommandName="del"
+                                    Icon="Delete" />
                             </Columns>
-                            <Listeners>
-                                <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
-                            </Listeners>
                         </f:Grid>
                     </Items>
                 </f:FormRow>
@@ -149,6 +153,7 @@
             <Toolbars>
                 <f:Toolbar ID="Toolbar2" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
+                        <f:HiddenField runat="server" ID="hdIds"></f:HiddenField>
                         <f:ToolbarFill ID="ToolbarFill2" runat="server">
                         </f:ToolbarFill>
                         <f:Button ID="btnSave" OnClick="btnSave_Click" Icon="SystemSave" runat="server" ToolTip="保存" >
@@ -161,31 +166,10 @@
                 </f:Toolbar>
             </Toolbars>
         </f:Form>
-        <f:Window ID="Window1" Title="编辑历史记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
-            Height="420px">
+        <f:Window ID="Window1" Title="选择拟聘人员" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px" OnClose="Window1_Close"
+            Height="500px">
         </f:Window>
-        <f:Menu ID="Menu1" runat="server">
-            <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
-                runat="server" Text="编辑" Icon="Pencil">
-            </f:MenuButton>
-            <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-                ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除"
-                Icon="Delete">
-            </f:MenuButton>
-        </f:Menu>
     </form>
 </body>
-<script type="text/jscript">
-    var menuID = '<%= Menu1.ClientID %>';
-    // 返回false，来阻止浏览器右键菜单
-    function onRowContextMenu(event, rowId) {
-        F(menuID).show();  //showAt(event.pageX, event.pageY);
-        return false;
-    }
-
-    function reloadGrid() {
-        __doPostBack(null, 'reloadGrid');
-    }
-</script>
 </html>

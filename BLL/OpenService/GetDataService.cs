@@ -140,7 +140,7 @@ namespace BLL
                     {
                         #region 现场当前人员数
                         int SitePersonNum = 0;
-                        var getDayAll = from x in getAllPersonInOutList
+                        var getDayAll = from x in db.SitePerson_PersonInOutNow
                                         where x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month
                                         && x.ChangeTime.Value.Day == DateTime.Now.Day
                                         select x;

@@ -62,7 +62,7 @@ namespace WebAPI.Controllers
                         //当前周的范围
                         DateTime retStartDay = DateTime.Now.AddDays(-(weekDay - 1)).AddDays(-1);
                         DateTime retEndDay = DateTime.Now.AddDays(6 - weekDay).AddDays(1);
-                     
+
                         var getHazardItems = from x in db.Hazard_HazardSelectedItem
                                              join y in db.Hazard_HazardList on x.HazardListId equals y.HazardListId
                                              where y.ProjectId == projectId && y.CompileDate > retStartDay && y.CompileDate < retEndDay
@@ -76,52 +76,41 @@ namespace WebAPI.Controllers
                             RiskV = getHazardItems.Where(x => x.HazardLevel == "5").Count();
                         }
                         //// 隐患整改
-                        var getRectifyNotices = from x in new Model.SGGLDB(Funs.ConnString).Check_RectifyNotices
+                        var getRectifyNotices = from x in db.Check_RectifyNotices
                                                 where x.ProjectId == projectId && x.SignDate.HasValue
                                                 select x;
                         if (getRectifyNotices.Count() > 0)
                         {
                             HiddenDangerNum = getRectifyNotices.Count();
-                            var getC = getRectifyNotices.Where(x => x.CompleteDate.HasValue);
-                            RectificationNum = getC.Count();
+                            RectificationNum = getRectifyNotices.Where(x => x.States == "5").Count();
                         }
 
                         //// 大型及特种设备
-                        var getEquipments = from x in db.QualityAudit_EquipmentQuality
-                                            join y in db.Base_SpecialEquipment on x.SpecialEquipmentId equals y.SpecialEquipmentId
-                                            where x.ProjectId == projectId && (y.SpecialEquipmentType == "1" || y.SpecialEquipmentType == "2" || y.SpecialEquipmentType == "3")
-                                            && (!x.OutDate.HasValue || x.OutDate > DateTime.Now)
-                                            select x;
-                        if (getEquipments.Count() > 0)
-                        {
-                            SpecialEquipmentNum = getEquipments.Count();
-                        }
+                        SpecialEquipmentNum = (from x in db.QualityAudit_EquipmentQuality
+                                               join y in db.Base_SpecialEquipment on x.SpecialEquipmentId equals y.SpecialEquipmentId
+                                               where x.ProjectId == projectId && (y.SpecialEquipmentType == "1" || y.SpecialEquipmentType == "2" || y.SpecialEquipmentType == "3")
+                                               && (!x.OutDate.HasValue || x.OutDate > DateTime.Now)
+                                               select x).Count();
 
                         //// 入场培训累计数量
-                        var getTrainRecords = from x in db.EduTrain_TrainRecord
-                                              where x.ProjectId == projectId && x.TrainTypeId == Const.EntryTrainTypeId
-                                              select x;
-                        if (getTrainRecords.Count() > 0)
+                        EntryTrainingNum = (from x in db.EduTrain_TrainRecord
+                                            where x.ProjectId == projectId && x.TrainTypeId == Const.EntryTrainTypeId
+                                            select x).Count();
+                        var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectId && x.InOutDate.Year == DateTime.Now.Year
+                          && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
+                        if (getPersonInOutNumber != null)
                         {
-                            EntryTrainingNum = getTrainRecords.Sum(x => x.TrainPersonNum ?? 0);
+                            //// 现场人员数
+                            SitePersonNum = getPersonInOutNumber.PersonNum ?? 0;
+                            //// 获取工时                        
+                            SafeHours = getPersonInOutNumber.WorkHours ?? 0;
+                        }
+                        else
+                        {
+                            SafeHours = APIPageDataService.getSafeHours(projectId);
+                            //  GetDataService.CorrectingPersonInOutNumber(projectId);
                         }
                     }
-
-                    var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectId && x.InOutDate.Year == DateTime.Now.Year
-                      && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
-                    if (getPersonInOutNumber != null)
-                    {
-                        //// 现场人员数
-                        SitePersonNum = getPersonInOutNumber.PersonNum ?? 0;
-                        //// 获取工时                        
-                        SafeHours = getPersonInOutNumber.WorkHours ?? 0;
-                    }
-                    else
-                    {
-                        GetDataService.CorrectingPersonInOutNumber(projectId);
-                    }
-
-                    //SitePersonNum = getPersonNum(projectId);
                     string hiddenStr = RectificationNum.ToString() + "/" + HiddenDangerNum.ToString();
                     responeData.data = new { ProjectData, SafeDayCount, SafeHours, SitePersonNum, SpecialEquipmentNum, EntryTrainingNum, hiddenStr, RiskI, RiskII, RiskIII, RiskIV, RiskV };
                 }
@@ -147,10 +136,10 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                int personCout = new Model.SGGLDB(Funs.ConnString).SitePerson_PersonInOut.Where(x => x.ProjectId == projectId && x.IsIn == true
-                                           && x.ChangeTime.Value.Year == DateTime.Now.Year
-                                                                            && x.ChangeTime.Value.Month == DateTime.Now.Month
-                                                                            && x.ChangeTime.Value.Day == DateTime.Now.Day).Select(x => x.PersonId).Distinct().Count();
+                var getPrsonLists = Funs.DB.SitePerson_PersonInOutNow.Where(x => x.ProjectId == projectId && x.IsIn == true
+                                            && x.ChangeTime.Value.Year == DateTime.Now.Year  && x.ChangeTime.Value.Month == DateTime.Now.Month
+                                             && x.ChangeTime.Value.Day == DateTime.Now.Day);
+                int personCout = getPrsonLists.Select(x => x.PersonId).Distinct().Count();
                 responeData.data = new { personCout };
             }
             catch (Exception ex)
@@ -176,6 +165,30 @@ namespace WebAPI.Controllers
             {                
                 int SitePersonNum = APIPageDataService.getPersonNum(projectId, DateTime.Now).Count();
                 responeData.data = new { SitePersonNum };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion   
+
+        #region 根据projectId获取首页数据-人工时
+        /// <summary>
+        /// 根据projectId获取首页数据-当日入场人数
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getSafeHours(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                int safeHours = APIPageDataService.getSafeHours(projectId);
+                responeData.data = new { safeHours };
             }
             catch (Exception ex)
             {

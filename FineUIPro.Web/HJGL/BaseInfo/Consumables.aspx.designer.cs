@@ -67,13 +67,13 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         protected global::FineUIPro.TextBox txtConsumablesCode;
         
         /// <summary>
-        /// drpSteType 控件。
+        /// txtSteType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpSteType;
+        protected global::FineUIPro.TextBox txtSteType;
         
         /// <summary>
         /// btnQuery 控件。
@@ -101,15 +101,6 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnNew;
-        
-        /// <summary>
-        /// Label1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// Label8 控件。

@@ -132,7 +132,7 @@
     </f:Window>
     <f:Window ID="Window2" Title="弹出窗体" Hidden="true" EnableIFrame="true"
         EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
-        IsModal="true" Width="1000px" Height="550px">
+        IsModal="true" Width="1200px" Height="600px">
     </f:Window>
     <f:Window ID="Window3" Title="弹出窗体" Hidden="true" EnableIFrame="true"
         EnableMaximize="true" Target="Top" EnableResize="true" runat="server" IsModal="true"

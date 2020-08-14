@@ -77,22 +77,29 @@
                                     FieldType="String" HeaderText="焊接方法" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="120px" ColumnID="MinImpactDia" DataField="MinImpactDia" FieldType="String"
-                                    HeaderText="外径最小值" HeaderTextAlign="Center" TextAlign="Center">
+                                    HeaderText="管径覆盖最小值(对接焊缝)" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="120px" ColumnID="MaxImpactDia" DataField="MaxImpactDia" FieldType="String"
-                                    HeaderText="外径最大值" HeaderTextAlign="Center" TextAlign="Center">
+                                    HeaderText="管径覆盖最大值(对接焊缝)" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="170px" ColumnID="MinImpactThickness" DataField="MinImpactThickness"
-                                    FieldType="String" HeaderText="冲击时覆盖厚度最小值" HeaderTextAlign="Center" TextAlign="Center">
+                                    FieldType="String" HeaderText="壁厚覆盖最小值(对接焊缝)" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="170px" ColumnID="MaxImpactThickness" DataField="MaxImpactThickness"
-                                    FieldType="String" HeaderText="冲击时覆盖厚度最大值" HeaderTextAlign="Center" TextAlign="Center">
+                                    FieldType="String" HeaderText="壁厚覆盖最大值(对接焊缝)" HeaderTextAlign="Center" TextAlign="Center">
+                                </f:RenderField>
+
+                                <f:RenderField Width="120px" ColumnID="MinCImpactDia" DataField="MinImpactDia" FieldType="String"
+                                    HeaderText="管径覆盖最小值(角焊缝)" HeaderTextAlign="Center" TextAlign="Center">
+                                </f:RenderField>
+                                <f:RenderField Width="120px" ColumnID="MaxCImpactDia" DataField="MaxImpactDia" FieldType="String"
+                                    HeaderText="管径覆盖最大值(角焊缝)" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="170px" ColumnID="NoMinImpactThickness" DataField="NoMinImpactThickness"
-                                    FieldType="String" HeaderText="不冲击时覆盖厚度最小值" HeaderTextAlign="Center" TextAlign="Center">
+                                    FieldType="String" HeaderText="壁厚覆盖最小值(角焊缝)" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="170px" ColumnID="NoMaxImpactThickness" DataField="NoMaxImpactThickness"
-                                    FieldType="String" HeaderText="不冲击时覆盖厚度最大值" HeaderTextAlign="Center" TextAlign="Center">
+                                    FieldType="String" HeaderText="壁厚覆盖最大值(角焊缝)" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="100px" ColumnID="IsHotTreatment" DataField="IsHotProess"
                                     FieldType="String" HeaderText="是否热处理" HeaderTextAlign="Center" TextAlign="Center"

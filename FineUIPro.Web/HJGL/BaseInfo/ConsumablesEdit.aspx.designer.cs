@@ -58,13 +58,13 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         protected global::FineUIPro.TextBox txtConsumablesName;
         
         /// <summary>
-        /// drpSteelType 控件。
+        /// txtSteelType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpSteelType;
+        protected global::FineUIPro.TextBox txtSteelType;
         
         /// <summary>
         /// txtStandard 控件。

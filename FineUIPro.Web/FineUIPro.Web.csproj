@@ -824,6 +824,7 @@
     <Content Include="Person\PersonTrainingTaskItem.aspx" />
     <Content Include="Person\PersonTrainingView.aspx" />
     <Content Include="Person\Shunt.aspx" />
+    <Content Include="Person\ShuntDetailEdit.aspx" />
     <Content Include="Person\ShuntEdit.aspx" />
     <Content Include="Person\ShuntView.aspx" />
     <Content Include="ProjectData\MainItem.aspx" />
@@ -9124,6 +9125,13 @@
     </Compile>
     <Compile Include="Person\Shunt.aspx.designer.cs">
       <DependentUpon>Shunt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\ShuntDetailEdit.aspx.cs">
+      <DependentUpon>ShuntDetailEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\ShuntDetailEdit.aspx.designer.cs">
+      <DependentUpon>ShuntDetailEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Person\ShuntEdit.aspx.cs">
       <DependentUpon>ShuntEdit.aspx</DependentUpon>

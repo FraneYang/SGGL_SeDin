@@ -36,10 +36,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT WelderQualifyId, WelderId, 
-                                     QualificationItem, LimitDate, CheckDate,
-                                     ThicknessMax,SizesMin,Remark,WelderCode,PersonName,
-                                     WeldingMethod,WeldingLocation,MaterialType,IsPrintShow
+            string strSql = @"SELECT WelderQualifyId, WelderId, QualificationItem, LimitDate, CheckDate,
+                                     ThicknessMax,SizesMin,Remark,WelderCode,PersonName,WeldingMethod,
+                                     WeldingLocation,MaterialType,IsPrintShow,WeldType,IsCanWeldG
                            FROM View_Welder_WelderQualify
                            WHERE WelderId=@WelderId";
 

@@ -48,6 +48,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
                         {
                             this.txtSizesMin.Text = welderQualify.SizesMin.ToString();
                         }
+
+                        this.txtWeldType.Text = welderQualify.WeldType;
+                        this.ckbIsCanWeldG.Checked = welderQualify.IsCanWeldG.Value;
                         this.txtRemark.Text = welderQualify.Remark;
                         
                     }
@@ -80,8 +83,10 @@ namespace FineUIPro.Web.HJGL.PersonManage
             welderQualify.MaterialType = txtMaterialType.Text.Trim();
             welderQualify.WeldingLocation = txtWeldingLocation.Text.Trim();
             welderQualify.ThicknessMax = Funs.GetNewDecimal(this.txtThicknessMax.Text.Trim());
-           
             welderQualify.SizesMin = Funs.GetNewDecimal(this.txtSizesMin.Text.Trim());
+            welderQualify.WeldType = txtWeldType.Text.Trim();
+            welderQualify.IsCanWeldG = ckbIsCanWeldG.Checked;
+
             if (!string.IsNullOrEmpty(welderQualifyId))
             {
                 welderQualify.WelderQualifyId = welderQualifyId;
@@ -101,6 +106,8 @@ namespace FineUIPro.Web.HJGL.PersonManage
             string weldMethod = string.Empty;
             string materialType = string.Empty;
             string location = string.Empty;
+            string weldType = string.Empty;
+            bool isCanWeldG = true;
             int thicknessMax = 0;  // 0表示不限
             int sizesMin = 0;      // 0表示不限
 
@@ -109,55 +116,31 @@ namespace FineUIPro.Web.HJGL.PersonManage
             {
                 // 焊接方法和钢材类型
                 weldMethod = queProject[0];
-                if (weldMethod.Contains("GTAW"))
+                if (queProject.Count() > 1)
                 {
-                    if (queProject[1] == "FeⅡ" || queProject[1] == "FeII")
-                    {
-                        materialType = "FeⅡ,FeⅠ";
-                    }
-                    else if (queProject[1] == "FeⅢ" || queProject[1] == "FeIII")
-                    {
-                        materialType = "FeⅢ";
-                    }
-                    else if (queProject[1] == "FeⅣ" || queProject[1] == "FeIV")
-                    {
-                        materialType = "FeⅣ";
-                    }
-                    else if (queProject[1] == "FeⅠ" || queProject[1] == "FeI")
+                    if (queProject[1].Trim() == ("FeI") || queProject[1].Trim() == ("FeⅠ"))
                     {
                         materialType = "FeⅠ";
                     }
-                    else
-                    {
-                        materialType = queProject[1];
-                    }
-                }
-                else if (weldMethod.Contains("SMAW"))
-                {
-                    if (queProject[1] == "FeⅡ" || queProject[1] == "FeII")
+
+                    else if (queProject[1].Trim() == ("FeII") || queProject[1].Trim() == ("FeⅡ"))
                     {
                         materialType = "FeⅡ,FeⅠ";
+                       
                     }
-                    else if (queProject[1] == "FeⅢ" || queProject[1] == "FeIII")
+                    else if (queProject[1].Trim() == ("FeIII") || queProject[1].Trim() == ("FeⅢ"))
                     {
                         materialType = "FeⅢ,FeⅡ,FeⅠ";
+                       
                     }
-                    else if (queProject[1] == "FeⅣ" || queProject[1] == "FeIV")
+                    else if (queProject[1].Trim() == ("FeIV") || queProject[1].Trim() == ("FeⅣ"))
                     {
                         materialType = "FeⅣ";
                     }
-                    else if (queProject[1] == "FeⅠ" || queProject[1] == "FeI")
-                    {
-                        materialType = "FeⅠ";
-                    }
                     else
                     {
-                        materialType = queProject[1];
+                        materialType = queProject[1].Trim();
                     }
-                }
-                else
-                {
-                    materialType = queProject[1];
                 }
 
                 if (queProject.Count() > 2)
@@ -200,47 +183,70 @@ namespace FineUIPro.Web.HJGL.PersonManage
                     {
                         location = queProject[2];
                     }
+
+                    if (queProject[2].Contains("1G") || queProject[2].Contains("1F") || queProject[2].Contains("2FR") || queProject[2].Contains("2FRG"))
+                    {
+                        isCanWeldG = false;
+                    }
+
+                    // 1-对接，2-角焊缝，3-支管连接焊缝
+                    if (queProject[2].Contains("FG"))
+                    {
+                        weldType = "角焊缝,支管连接焊缝";
+                    }
+                    else
+                    {
+                        weldType = "对接焊缝,角焊缝";
+                    }
                 }
                 if (queProject.Count() > 3)
                 {
                     // 壁厚和外径
                     string[] thickSize = queProject[3].Split('/');
-                    if (thickSize.Count() == 2)
+                    if (weldMethod != "OFW")
                     {
-                        int thick = Convert.ToInt32(thickSize[0]);
-                        if (thick < 12)
+                        if (thickSize.Count() == 2)
                         {
-                            //thicknessMax = "≤" + thick * 2;
-                            thicknessMax = thick * 2;
+                            int thick = Convert.ToInt32(thickSize[0]);
+                            if (thick < 12)
+                            {
+                                //thicknessMax = "≤" + thick * 2;
+                                thicknessMax = thick * 2;
+                            }
+                            else
+                            {
+                                thicknessMax = 0;
+                            }
+
+                            int size = Convert.ToInt32(thickSize[1]);
+                            if (size < 25)
+                            {
+                                //sizesMin = "≥" + size;
+                                sizesMin = size;
+                            }
+                            else if (size >= 25 && size < 76)
+                            {
+                                //sizesMin = "≥25";
+                                sizesMin = 25;
+                            }
+                            else
+                            {
+                                //sizesMin = "≥76";
+                                sizesMin = 76;
+                            }
                         }
-                        else
+                        else if (thickSize.Count() == 1)
                         {
                             thicknessMax = 0;
-                        }
-
-
-                        int size = Convert.ToInt32(thickSize[1]);
-                        if (size < 25)
-                        {
-                            //sizesMin = "≥" + size;
-                            sizesMin = size;
-                        }
-                        else if (size >= 25 && size < 76)
-                        {
-                            //sizesMin = "≥25";
-                            sizesMin = 25;
-                        }
-                        else
-                        {
                             //sizesMin = "≥76";
                             sizesMin = 76;
                         }
                     }
-                    else if (thickSize.Count() == 1)
+                    else
                     {
-                        thicknessMax = 0;
-                        //sizesMin = "≥76";
-                        sizesMin = 76;
+                        int thick = Convert.ToInt32(thickSize[0]);
+                        thicknessMax = thick;
+                        sizesMin = 0;
                     }
                 }
 
@@ -249,7 +255,8 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 txtWeldingLocation.Text = location;
                 txtThicknessMax.Text = thicknessMax.ToString();
                 txtSizesMin.Text = sizesMin.ToString();
-
+                txtWeldType.Text = weldType;
+                ckbIsCanWeldG.Checked = isCanWeldG;
             }
             catch
             {

@@ -32,7 +32,8 @@
         margin-bottom:10px;
        }
        .info .item .tit{
-
+           font-size:16px;
+           font-weight: 600;
        }
        .info .item .val{
         -webkit-flex: 1;
@@ -188,7 +189,7 @@
             color:#FFB84D;
             padding: 2px;
             font-size:24px;
-            margin:5px;
+            /*margin:5px;*/
         }
         .num-wrap .color1>div{
              color:#19c719;
@@ -209,7 +210,9 @@
             width:100%;
             height:100%;
         }
-        
+        .pdlr10{
+            padding: 0 10px;
+        }
     </style>
 </head>
 <body >
@@ -287,7 +290,7 @@
                     <div class="bw-b-bottom-up">
                         <div class="info js-item-1" style="display:none">
                             <div class="row " style="margin-top:50px;">
-                                <div class="flex">
+                                <div class="flex pdlr10">
                                     <div class="flex1">
                                         <div class="item">
                                             <div class="tit">项目名称：</div>
@@ -487,28 +490,28 @@
                             <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">当前现场人数</div>
                                 <div class="num flex flex1">
-                                     <div class="flex1" runat="server" id="Div1">0</div>
-                                    <div class="flex1" runat="server" id="person00">0</div>
-                                    <div class="flex1" runat="server" id="person01">0</div>
-                                    <div class="flex1" runat="server" id="person02">0</div>
+                                    <div class="" runat="server" id="Div1">0</div>
+                                    <div class="" runat="server" id="person00">0</div>
+                                    <div class="" runat="server" id="person01">0</div>
+                                    <div class="" runat="server" id="person02">0</div>
                                 </div>
                             </div>
                              <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">作业人员总数</div>
                                 <div class="num flex flex1 color1">
-                                     <div class="flex1" runat="server" id="Div2">0</div>
-                                    <div class="flex1" runat="server" id="person10">0</div>
-                                    <div class="flex1" runat="server" id="person11">0</div>
-                                    <div class="flex1" runat="server" id="person12">0</div>
+                                     <div class="" runat="server" id="Div2">0</div>
+                                    <div class="" runat="server" id="person10">0</div>
+                                    <div class="" runat="server" id="person11">0</div>
+                                    <div class="" runat="server" id="person12">0</div>
                                 </div>
                             </div>
                             <div class="num-wrap flex1 flex flexV">
                                 <div class="tit">管理人员总数</div>
                                 <div class="num flex flex1 color2">
-                                     <div class="flex1" runat="server" id="Div3">0</div>
-                                    <div class="flex1" runat="server" id="person20">0</div>
-                                    <div class="flex1" runat="server" id="person21">0</div>
-                                    <div class="flex1" runat="server" id="person22">0</div>
+                                     <div class="" runat="server" id="Div3">0</div>
+                                    <div class="" runat="server" id="person20">0</div>
+                                    <div class="" runat="server" id="person21">0</div>
+                                    <div class="" runat="server" id="person22">0</div>
                                 </div>
                             </div>
                         </div>
@@ -747,6 +750,7 @@
     var series = [{
         name: '质量一次性合格率',
         type: 'bar',
+        barWidth: 40,
         data: two.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     }];

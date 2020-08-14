@@ -20,12 +20,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             if (!IsPostBack)
             {               
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
-              
-                this.drpSteType.DataTextField = "Text";
-                this.drpSteType.DataValueField = "Value";
-                this.drpSteType.DataSource = BLL.DropListService.HJGL_GetSteTypeList();
-                this.drpSteType.DataBind();
-                Funs.FineUIPleaseSelect(this.drpSteType);
+             
                 // 绑定表格
                 this.BindGrid();
             }
@@ -45,10 +40,10 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 strSql += " AND ConsumablesCode LIKE @ConsumablesCode";
                 listStr.Add(new SqlParameter("@ConsumablesCode", "%" + this.txtConsumablesCode.Text.Trim() + "%"));
             }
-            if (this.drpSteType.SelectedValue != BLL.Const._Null)
+            if (!string.IsNullOrEmpty(this.txtSteType.Text.Trim()))
             {
-                strSql += " AND SteelType = @SteelType";
-                listStr.Add(new SqlParameter("@SteelType", this.drpSteType.SelectedValue));
+                strSql += " AND SteelType LIKE @SteelType";
+                listStr.Add(new SqlParameter("@SteelType", "%" + this.txtSteType.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -288,20 +283,20 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// </summary>
         /// <param name="bigType"></param>
         /// <returns></returns>
-        protected string ConvertSteelType(object SteelType)
-        {
-            string name = string.Empty;
-            if (SteelType != null)
-            {
-                var dropValue = BLL.DropListService.HJGL_GetSteTypeList().FirstOrDefault(x => x.Value == SteelType.ToString());
-                if (dropValue != null)
-                {
-                    name = dropValue.Text;
-                }
-            }
+        //protected string ConvertSteelType(object SteelType)
+        //{
+        //    string name = string.Empty;
+        //    if (SteelType != null)
+        //    {
+        //        var dropValue = BLL.DropListService.HJGL_GetSteTypeList().FirstOrDefault(x => x.Value == SteelType.ToString());
+        //        if (dropValue != null)
+        //        {
+        //            name = dropValue.Text;
+        //        }
+        //    }
 
-            return name;
-        }
+        //    return name;
+        //}
         #endregion
 
         #region 获取按钮权限

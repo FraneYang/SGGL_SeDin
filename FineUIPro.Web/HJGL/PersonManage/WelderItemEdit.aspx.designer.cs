@@ -121,6 +121,24 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         protected global::FineUIPro.NumberBox txtSizesMin;
         
         /// <summary>
+        /// txtWeldType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtWeldType;
+        
+        /// <summary>
+        /// ckbIsCanWeldG 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckbIsCanWeldG;
+        
+        /// <summary>
         /// txtRemark 控件。
         /// </summary>
         /// <remarks>

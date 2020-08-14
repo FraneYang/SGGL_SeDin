@@ -9,84 +9,99 @@
     <link href="../res/index/css/home.css" rel="stylesheet" />
     <link href="../res/index/css/swiper-3.4.2.min.css" rel="stylesheet" />
     <style type="text/css">
-         *{
-            box-sizing:border-box;
+        * {
+            box-sizing: border-box;
         }
-        .flexV{
-            flex-direction:column;
+
+        .flexV {
+            flex-direction: column;
         }
-        .wrap{
-            height:100%;
-            padding:15px;
+
+        .wrap {
+            height: 100%;
+            padding: 15px;
         }
-         .iteml{
+
+        .iteml {
             margin-left: 5px;
         }
-         .itemb{
-            margin-bottom:5px;
-         }
-        .bottom-wrap{
-           padding:0;
-           margin-bottom:5px;
+
+        .itemb {
+            margin-bottom: 5px;
         }
-         .bottom-wrap:last-child{
-              margin-bottom:0;
-         }
-        .bw-b-bottom{
-            width:100%;
-            height:100%;
+
+        .bottom-wrap {
+            padding: 0;
+            margin-bottom: 5px;
         }
-        .bw-b-bottom-up {
-            border-radius:0;
+
+            .bottom-wrap:last-child {
+                margin-bottom: 0;
+            }
+
+        .bw-b-bottom {
+            width: 100%;
             height: 100%;
-            margin:0;
-            box-shadow:none;
         }
-         .bw-item-content{
-           padding:5px;
+
+        .bw-b-bottom-up {
+            border-radius: 0;
+            height: 100%;
+            margin: 0;
+            box-shadow: none;
         }
+
+        .bw-item-content {
+            padding: 5px;
+        }
+
         .top {
             width: 100%;
         }
 
-        .top .item {
-        }
+            .top .item {
+            }
+
         .bw-b {
             width: 50%;
         }
 
         .bw-b-bottom-up {
-            
         }
-         .tab-wrap {
+
+        .tab-wrap {
             left: auto;
             right: 15px;
             top: 5px;
-            font-size:12px;
+            font-size: 12px;
         }
 
         .tab .t-item {
             width: auto;
             padding: 5px 10px;
         }
-        .tit-item{
+
+        .tit-item {
             padding: 0 10px;
-            color:#fff;
+            color: #fff;
             justify-content: space-between;
-            font-size:12px;
+            font-size: 12px;
         }
-        .tip-item{
+
+        .tip-item {
             margin-left: 10px;
-            align-items:center;
-            font-size:10px;
+            align-items: center;
+            font-size: 10px;
         }
-        .tip{
-            width:25px;
-            height:13px;
+
+        .tip {
+            width: 25px;
+            height: 13px;
             background-color: #258F76;
             border-radius: 2px;
-            margin-right:5px;
+            margin-right: 5px;
         }
+
         .tip-next {
             background-color: #92BF55;
         }
@@ -97,7 +112,7 @@
         <div class="bottom-wrap flex1">
             <div class="top flex">
                 <div class="item flex1 flex flexV">
-                    <div class="bw-b-bottom" style="margin-bottom:5px;">
+                    <div class="bw-b-bottom" style="margin-bottom: 5px;">
                         <div class="bw-b-bottom-up">
                             <div class="bw-item-content flex">
                                 <div id='one1' class="flex1" style="width: 100%; height: 100%;"></div>
@@ -133,14 +148,16 @@
                         </div>
                     </div>
                 </div>
-               <div class="item flex2 iteml">
+                <div class="item flex2 iteml">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
                             <div class="tab-wrap">
                                 <div class="tab" data-value="2">
                                     <div class="t-item ">施工分包商</div>
                                     <div class="spline"></div>
-                                    <div class="t-item active">单位工程</div>
+                                    <div class="t-item active">安装单位工程</div>
+                                    <div class="spline"></div>
+                                    <div class="t-item">建筑单位工程</div>
                                     <div class="spline"></div>
                                     <div class="t-item">专业</div>
                                 </div>
@@ -171,9 +188,16 @@
                         </div>
                     </div>
                 </div>
-                 <div class="item flex2 iteml">
+                <div class="item flex2 iteml">
                     <div class="bw-b-bottom">
                         <div class="bw-b-bottom-up">
+                            <div class="tab-wrap">
+                                <div class="tab" data-value="4">
+                                    <div class="t-item active">安装单位工程</div>
+                                    <div class="spline"></div>
+                                    <div class="t-item">建筑单位工程</div>
+                                </div>
+                            </div>
                             <div class="bw-item-content">
                                 <div id='four' style="width: 100%; height: 100%;"></div>
                             </div>
@@ -202,7 +226,7 @@
                 text: title,
                 textStyle: {
                     color: '#fff',
-                    fontSize: 10,                    
+                    fontSize: 10,
                 },
                 show: true
             },
@@ -212,9 +236,9 @@
                     center: ["50%", "50%"],
                     type: 'gauge',
                     radius: "90%",
-                    axisLabel : { //文字样式（及“10”、“20”等文字样式）
+                    axisLabel: { //文字样式（及“10”、“20”等文字样式）
                         fontSize: 8,
-                        distance : 2 //文字离表盘的距离
+                        distance: 2 //文字离表盘的距离
                     },
                     pointer: {
                         show: true,
@@ -232,10 +256,10 @@
                     },
                     axisLine: {
                         lineStyle: {
-                            color : [ //表盘颜色
-                                [ 0.5, "#91C7AE" ],//0-50%处的颜色
-                                [ 0.7, "#63869E" ],//51%-70%处的颜色
-                                [ 1, "#88C8E2" ],//70%-100%处的颜色
+                            color: [ //表盘颜色
+                                [0.5, "#91C7AE"],//0-50%处的颜色
+                                [0.7, "#63869E"],//51%-70%处的颜色
+                                [1, "#88C8E2"],//70%-100%处的颜色
                             ],
                             width: 8//表盘宽度
                         }
@@ -259,7 +283,7 @@
     var one1 =<%=One1 %>
     var one2 =<%=One2 %>
     var one3 =<%=One3 %>
-    category_One('one1', "质量验收一次合格率", one1)
+        category_One('one1', "质量验收一次合格率", one1)
     category_One('one2', "施工资料同步率", one2)
     category_One('one3', "质量问题整改完成率", one3)
 </script>
@@ -461,9 +485,9 @@
     var data4 = [{ value: one4.num2, name: '已完成' },
     { value: one4.num1, name: '未完成' }];
     var data5 = [{ value: one4.num5, name: '已完成' },
-        { value: one4.num4, name: '未完成' }];
+    { value: one4.num4, name: '未完成' }];
     var data6 = [{ value: one4.num8, name: '已完成' },
-        { value: one4.num7, name: '未完成' }];
+    { value: one4.num7, name: '未完成' }];
     pie('one4', data4, "A类", one4.num3)
     pie('one5', data5, "B类", one4.num6)
     pie('one6', data6, "C类", one4.num9)
@@ -549,7 +573,7 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-  var two2 =<%=Two2 %>;
+    var two2 =<%=Two2 %>;
     //var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6", "分包7", "分包8", "分包9"]
     var xArr = two2.categories
     var data = [
@@ -594,7 +618,7 @@
                 orient: 'vertical',
                 top: '0',
                 show: true,
-                selectedMode: false,               
+                selectedMode: false,
                 textStyle: {//图例文字的样式
                     color: '#ffffff',
                     fontSize: '10'
@@ -656,7 +680,7 @@
     }
     var three =<%=Three %>;
     //var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6"]
-    var xArr =three.categories
+    var xArr = three.categories
     //var data = [12, 5, 28, 43, 22, 11]
     //var data1 = [21, 9, 12, 15, 8, 43]
     var series = [{
@@ -754,7 +778,7 @@
     }
     var four =<%=Four %>;
     //var xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
-     var xArr =four.categories
+    var xArr = four.categories
     //var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
     //var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
     var series = [{
@@ -787,8 +811,11 @@
         var two =<%=Two %>;
         var two2 =<%=Two2 %>;
         var two3 =<%=Two3 %>;
+        var two4 =<%=Two4 %>;
         var three =<%=Three %>;
         var three2 =<%=Three2 %>;
+        var four =<%=Four %>;
+        var four2 =<%=Four2 %>;
         if (value == 2) {
             var xArr = two.categories
             var data = [
@@ -833,6 +860,28 @@
             }
             else if (index == 4) {
                 //xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6", "专业7", "专业8", "专业9"]
+                xArr = two4.categories
+                data = [
+                    {
+                        name: '未整改',
+                        type: 'bar',
+                        stack: '总量',
+                        //data: [23, 25, 18, 10, 16, 4, 5, 29, 2],
+                        data: two4.series[0].data,
+                        itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
+                    },
+                    {
+                        name: '已整改',
+                        type: 'bar',
+                        stack: '总量',
+                        //data: [2, 27, 15, 9, 12, 29, 32, 18, 1],
+                        data: two4.series[1].data,
+                        itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
+                    }
+                ];
+            }
+            else if (index == 6) {
+                //xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6", "专业7", "专业8", "专业9"]
                 xArr = two3.categories
                 data = [
                     {
@@ -857,7 +906,7 @@
         }
         else if (value == 3) {
             //var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6"]
-            var xArr =three.categories
+            var xArr = three.categories
             //var data = [12, 5, 28, 43, 22, 11]
             //var data1 = [21, 9, 12, 15, 8, 43]
             var series = [{
@@ -876,19 +925,50 @@
                 //xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6"]
                 xArr = three2.categories
                 series = [{
+                    name: '质量验收一次合格率',
+                    type: 'bar',
+                    data: three2.series[0].data,
+                    itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
+                },
+                {
+                    name: '施工资料同步率',
+                    type: 'bar',
+                    data: three2.series[1].data,
+                    itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
+                }];
+            }
+            category_Three('three', xArr, series)
+        }
+        else if (value == 4) {
+            var xArr = four.categories
+            var series = [{
                 name: '质量验收一次合格率',
                 type: 'bar',
-                data: three2.series[0].data,
+                data: four.series[0].data,
                 itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
             },
             {
                 name: '施工资料同步率',
                 type: 'bar',
-                data: three2.series[1].data,
+                data: four.series[1].data,
+                itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
+            }];
+            if (index == 2) {
+                xArr = four2.categories
+                series = [{
+                name: '质量验收一次合格率',
+                type: 'bar',
+                data: four2.series[0].data,
+                itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
+            },
+            {
+                name: '施工资料同步率',
+                type: 'bar',
+                data: four2.series[1].data,
                 itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
             }];
             }
-            category_Three('three', xArr, series)
+            category('four', xArr, series)
         }
     })
 </script>

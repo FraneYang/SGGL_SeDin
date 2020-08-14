@@ -42,6 +42,9 @@ namespace BLL
             newWPQ.WeldingMethodId = WPQ.WeldingMethodId;
             newWPQ.MinImpactDia = WPQ.MinImpactDia;
             newWPQ.MaxImpactDia = WPQ.MaxImpactDia;
+
+            newWPQ.MinCImpactDia = WPQ.MinCImpactDia;
+            newWPQ.MaxCImpactDia = WPQ.MaxCImpactDia;
             newWPQ.MinImpactThickness = WPQ.MinImpactThickness;
             newWPQ.MaxImpactThickness = WPQ.MaxImpactThickness;
             newWPQ.NoMinImpactThickness = WPQ.NoMinImpactThickness;

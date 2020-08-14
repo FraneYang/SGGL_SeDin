@@ -89,7 +89,7 @@ namespace FineUIPro.Web.CQMS.Check
                         this.HideReplyFile.Hidden = true;
                     }
                     this.plReFile.Hidden = true;
-                    if (unitType == "3")  //分包发起
+                    if (unitType == BLL.Const.ProjectUnitType_2)  //分包发起
                     {
                         var file = from x in Funs.DB.AttachFile where x.ToKeyId == technicalContactListId + "re" select x;
                         if (file.Count() > 0)

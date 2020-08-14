@@ -658,6 +658,7 @@
             $(".item-pbig").click(function () {
                 var $item = $('.f-tabstrip-header')
                 $item.attr('style', ";display:none !important;")
+                $(".bgbtn,.bgbtntop").removeClass("activeClick")
             });
             $(".bgbtn,.bgbtntop").click(function () {
                  // 切换下tab样式

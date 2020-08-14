@@ -90,6 +90,40 @@ namespace FineUIPro.Web.Person
             Grid1.DataBind();
         }
 
+        //<summary>
+        //获取职业资格证书名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertCertificateName(object UserId)
+        {
+            string CertificateName = string.Empty;
+            if (UserId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null && !string.IsNullOrEmpty(user.CertificateId))
+                {
+                    string[] Ids = user.CertificateId.Split(',');
+                    foreach (string t in Ids)
+                    {
+                        var type = BLL.PracticeCertificateService.GetPracticeCertificateById(t);
+                        if (type != null)
+                        {
+                            CertificateName += type.PracticeCertificateName + ",";
+                        }
+                    }
+                }
+            }
+            if (CertificateName != string.Empty)
+            {
+                return CertificateName.Substring(0, CertificateName.Length - 1);
+            }
+            else
+            {
+                return "";
+            }
+        }
+
         #region 查询
         /// <summary>
         /// 查询

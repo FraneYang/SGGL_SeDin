@@ -26,9 +26,8 @@
             </f:FormRow>
             <f:FormRow>
                 <Items> 
-                    <f:DropDownList ID="drpSteelType" Label="焊材类别"
-                        runat="server" LabelAlign="right" LabelWidth="120px">
-                    </f:DropDownList>
+                    <f:TextBox ID="txtSteelType" Label="焊材类别" Required="true"  ShowRedStar="true"
+                        runat="server" LabelAlign="right" LabelWidth="120px"></f:TextBox>
                      <f:TextBox ID="txtStandard" runat="server" Label="焊材标准"
                         MaxLength="50" LabelWidth="120px">
                     </f:TextBox>

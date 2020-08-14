@@ -99,6 +99,14 @@ namespace FineUIPro.Web.HJGL.WPQ
                         {
                             this.txtMaxImpactDia.Text = Convert.ToString(wpq.MaxImpactDia);
                         }
+                        if (wpq.MinCImpactDia != null)
+                        {
+                            this.txtMinCImpactDia.Text = Convert.ToString(wpq.MinCImpactDia);
+                        }
+                        if (wpq.MaxImpactDia != null)
+                        {
+                            this.txtMaxCImpactDia.Text = Convert.ToString(wpq.MaxCImpactDia);
+                        }
                         if (wpq.MinImpactThickness != null)
                         {
                             this.txtMinImpactThickness.Text = Convert.ToString(wpq.MinImpactThickness);
@@ -218,6 +226,8 @@ namespace FineUIPro.Web.HJGL.WPQ
             }
             wpq.MinImpactDia = Funs.GetNewDecimal(this.txtMinImpactDia.Text.Trim());
             wpq.MaxImpactDia = Funs.GetNewDecimal(this.txtMaxImpactDia.Text.Trim());
+            wpq.MinCImpactDia = Funs.GetNewDecimal(this.txtMinCImpactDia.Text.Trim());
+            wpq.MaxCImpactDia = Funs.GetNewDecimal(this.txtMaxCImpactDia.Text.Trim());
             wpq.WPQStandard = this.txtWPQStandard.Text.Trim();
             wpq.JointType = this.drpWeldType.SelectedValue;
            
@@ -302,11 +312,11 @@ namespace FineUIPro.Web.HJGL.WPQ
                 {
                     if (!string.IsNullOrEmpty(mat2.MaterialClass))
                     {
-                        this.txtMaterialClass1.Text = mat2.MaterialClass;
+                        this.txtMaterialClass2.Text = mat2.MaterialClass;
                     }
                     if (!string.IsNullOrEmpty(mat2.MaterialGroup))
                     {
-                        this.txtMaterialGroup1.Text = mat2.MaterialGroup;
+                        this.txtMaterialGroup2.Text = mat2.MaterialGroup;
                     }
                 }
             }

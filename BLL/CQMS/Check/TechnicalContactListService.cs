@@ -493,7 +493,8 @@ namespace BLL
                 res.MainSendUnitId = res.MainSendUnitId + "$" + UnitService.getUnitNamesUnitIds(res.MainSendUnitId);
                 res.CCUnitIds = res.CCUnitIds + "$" + UnitService.getUnitNamesUnitIds(res.CCUnitIds);
                 res.AttachUrl = AttachFileService.getFileUrl(res.TechnicalContactListId);
-                res.ReturnAttachUrl = AttachFileService.getFileUrl(res.TechnicalContactListId + "r");
+                res.ReAttachUrl = AttachFileService.getFileUrl(res.TechnicalContactListId + "r");
+                res.ReturnAttachUrl = AttachFileService.getFileUrl(res.TechnicalContactListId + "re");
                 return res;
             }
         }
@@ -692,7 +693,8 @@ namespace BLL
                     tc.IsReply = item.IsReply;
                     tc.Cause = item.Cause;
                     tc.AttachUrl = AttachFileService.getFileUrl(item.TechnicalContactListId);
-                    tc.ReturnAttachUrl = AttachFileService.getFileUrl(item.TechnicalContactListId + "r");
+                    tc.ReAttachUrl = AttachFileService.getFileUrl(item.TechnicalContactListId + "r");
+                    tc.ReturnAttachUrl = AttachFileService.getFileUrl(item.TechnicalContactListId + "re");
                     tc.CompileMan = item.CompileMan + "$" + ConvertManAndId(item.TechnicalContactListId);
                     tc.CompileDate = item.CompileDate;
                     tc.State = item.State;
@@ -820,7 +822,8 @@ namespace BLL
                     tc.State = item.State;
                     tc.UnitWorkId = item.UnitWorkId + "$" + item.UnitWorkName;
                     tc.AttachUrl = AttachFileService.getFileUrl(item.TechnicalContactListId);
-                    tc.ReturnAttachUrl = AttachFileService.getFileUrl(item.TechnicalContactListId + "r");
+                    tc.ReAttachUrl = AttachFileService.getFileUrl(item.TechnicalContactListId + "r");
+                    tc.ReturnAttachUrl = AttachFileService.getFileUrl(item.TechnicalContactListId + "re");
                     res.Add(tc);
                 }
                 return res;

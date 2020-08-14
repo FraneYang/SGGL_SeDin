@@ -63,7 +63,7 @@ namespace BLL
             }
         }
         /// <summary>
-        /// 根据分流管理明细主键删除一个分流管理明细信息
+        /// 根据分流管理明细主键删除所有分流管理明细信息
         /// </summary>
         /// <param name="pauseNoticeCode">分流管理明细主键</param>
         public static void DeleteShuntDetailByShuntId(string ShuntId)

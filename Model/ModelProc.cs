@@ -33,5 +33,18 @@ namespace Model
             IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), planId, workPostId);
             return (ISingleResult<TrainingTaskItemItem>)result.ReturnValue;
         }
+
+        /// <summary>
+        /// 获取隐患整改单
+        /// </summary>
+        /// <param name="unitcode"></param>
+        /// <param name="isono"></param>
+        /// <returns></returns>
+        [Function(Name = "[dbo].[SP_RectifyNoticesListByProjectStates]")]
+        public IEnumerable<RectifyNoticesItem> SP_RectifyNoticesListByProjectStates([Parameter(DbType = "nvarchar(50)")] string projectId, [Parameter(DbType = "nvarchar(50)")] string states)
+        {
+            IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), projectId, states);
+            return (ISingleResult<RectifyNoticesItem>)result.ReturnValue;
+        }
     }
 }

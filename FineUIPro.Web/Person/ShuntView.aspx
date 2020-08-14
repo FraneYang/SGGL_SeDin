@@ -28,24 +28,23 @@
                             SortDirection="ASC" PageSize="100" ForceFit="true" EnableTextSelection="True">
                             <Columns>
                                 <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
-                                <f:RenderField Width="80px" ColumnID="UserName" DataField="UserName" EnableFilter="true"
-                                    SortField="UserName" FieldType="String" HeaderText="姓名" HeaderTextAlign="Center"
-                                    TextAlign="Left">
-                                </f:RenderField>
-                                <f:RenderField Width="100px" ColumnID="PostTitle" DataField="PostTitle" EnableFilter="true"
-                                    SortField="PostTitle" FieldType="String" HeaderText="职称" HeaderTextAlign="Center"
-                                    TextAlign="Left">
-                                </f:RenderField>
-                                <f:TemplateField ColumnID="Certificate" Width="100px" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Center"
+                                <f:TemplateField ColumnID="UserName" Width="80px" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertCertificateName(Eval("UserId")) %>'></asp:Label>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# ConvertUserName(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:TemplateField ColumnID="CurrProject" Width="100px" HeaderText="当前项目" HeaderTextAlign="Center" TextAlign="Center"
+                                <f:TemplateField ColumnID="UserWorkPost" Width="100px" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:Label ID="Label1" runat="server" Text='<%# ConvertCurrProject(Eval("UserId")) %>'></asp:Label>
+                                        <asp:Label ID="Label6" runat="server" Text='<%# ConvertUserWorkPost(Eval("UserId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                
+                                <f:TemplateField ColumnID="OldWorkPost" Width="100px" HeaderText="历史岗位" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label4" runat="server" Text='<%# ConvertOldWorkPost(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
                                 <f:TemplateField ColumnID="CurrWorkPost" Width="100px" HeaderText="当前岗位" HeaderTextAlign="Center" TextAlign="Center"
@@ -54,10 +53,16 @@
                                         <asp:Label ID="Label3" runat="server" Text='<%# ConvertCurrWorkPost(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:TemplateField ColumnID="OldWorkPost" Width="100px" HeaderText="历史岗位" HeaderTextAlign="Center" TextAlign="Center"
+                                <f:TemplateField ColumnID="PostTitle" Width="100px" HeaderText="职称" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:Label ID="Label4" runat="server" Text='<%# ConvertOldWorkPost(Eval("UserId")) %>'></asp:Label>
+                                        <asp:Label ID="Label7" runat="server" Text='<%# ConvertPostTitleName(Eval("UserId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                <f:TemplateField ColumnID="Certificate" Width="100px" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertCertificateName(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
                                 <f:TemplateField ColumnID="WorkPost" Width="100px" HeaderText="拟聘岗位" HeaderTextAlign="Center" TextAlign="Center"

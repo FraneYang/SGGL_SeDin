@@ -475,7 +475,7 @@ namespace BLL
                     ProjectId = person.ProjectId,
                     CardNo = person.CardNo,
                     PersonName = person.PersonName,
-                    IdentityCard = person.IdentityCard,
+                    IdentityCard = person.IdentityCard.Trim(),
                     Address = person.Address,
                     UnitId = person.UnitId,
                     OutResult = person.OutResult,

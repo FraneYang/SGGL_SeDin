@@ -175,7 +175,7 @@
         }
 
             .project-wrap .project {
-                border: 1px solid #004F88;
+                border: none;
                 position: relative;
                 min-width: 100px;
             }
@@ -183,9 +183,9 @@
             .project-wrap .project-tit {
                 padding: 5px 10px;
                 color: #00a2e9;
-                font-size:12px;
-                border: 1px solid #004F88;
-                background-color: #004F88;
+                font-size: 12px;
+                border: none;
+                background-color: transparent;
                 position: relative;
                 min-width: 100px;
             }
@@ -215,8 +215,8 @@
             display: none;
             background-color: rgba(1,82,138, 0.8);
             color: #fff;
-            font-size:12px;
-            color:#00a2e9;
+            font-size: 12px;
+            color: #00a2e9;
         }
 
             .project-list > div {
@@ -318,7 +318,8 @@
                         <div class="project-wrap">
                             <div class="project">
                                 <div class="project-tit-wrap">
-                                    <input id="project-tit" autocomplete="off" class="project-tit" type="text" name="name" value="— 项目 —" />
+                                    <input id="project-tit" autocomplete="off" class="project-tit" type="text" name="name"
+                                        value="      — 项目快捷入口 —" />
                                 </div>
                                 <div class="project-list" id="divProjectList" runat="server">
                                 </div>
@@ -414,19 +415,6 @@
                             </div>
                             <div class="" style="padding: 10px 10px 0;">
                                 <div class="swiper-container " id='swiper2' runat="server">
-                                 <%--   <ul class="content-ul swiper-wrapper">
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于加强全国两会期间安全防范工作</div>
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于组织开展全国“两会”期间安全质量环保专项督导检查</div>
-                                            <!-- <div class="time">2020-02-09</div> swiperHeight-->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">赛鼎公司2020年第一次安全生产委员会会议纪要</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                    </ul>--%>
                                 </div>
                             </div>
                         </div>

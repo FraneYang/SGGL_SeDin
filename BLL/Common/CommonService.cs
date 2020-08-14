@@ -101,41 +101,22 @@ namespace BLL
                                && (x.MenuType == Const.Menu_Server || x.MenuType == Const.Menu_Person ||
                                x.MenuType == Const.Menu_HSSE || x.MenuType==Const.Menu_CQMS || x.MenuType == Const.Menu_HJGL 
                                || x.MenuType == Const.Menu_PZHGL)
-                               select x;
-                if (!string.IsNullOrEmpty(projectId))
-                {
-                    getMenus = getMenus.Where(x => x.IsOffice == false);
-                }
-                else
-                {
-                    getMenus = getMenus.Where(x => x.IsOffice == true);
-                }
-
+                               select x;            
                 List<Model.Sys_Menu> menus = new List<Model.Sys_Menu>();
                 if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
                 {
                     menus = getMenus.ToList();
-                }
+                }              
                 else
                 {
                     var getUser = UserService.GetUserByUserId(userId); ////用户            
                     if (getUser != null)
                     {
-                        if (string.IsNullOrEmpty(projectId))
-                        {
-                            menus = (from x in getMenus
-                                     join y in db.Sys_RolePower on x.MenuId equals y.MenuId
-                                     where y.RoleId == getUser.RoleId
-                                     select x).ToList();
-                        }
-                        else
-                        {
-                            List<string> roleIdList = UserService.GetRoleListByProjectIdUserId(projectId, userId);
-                            menus = (from x in db.Sys_RolePower
-                                     join y in getMenus on x.MenuId equals y.MenuId
-                                     where roleIdList.Contains(x.RoleId)
-                                     select y).ToList();
-                        }
+                        List<string> roleIdList = UserService.GetRoleListByProjectIdUserId(projectId, userId);
+                        menus = (from x in db.Sys_RolePower
+                                 join y in getMenus on x.MenuId equals y.MenuId
+                                 where roleIdList.Contains(x.RoleId)
+                                 select y).ToList();
                     }
                 }
 
@@ -143,7 +124,7 @@ namespace BLL
             }
         }
         #endregion
-
+        
         #region 根据登陆id菜单id判断是否有权限
         /// <summary>
         /// 根据登陆id菜单id判断是否有权限

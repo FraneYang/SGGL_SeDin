@@ -85,24 +85,19 @@
                     <f:RenderField Width="120px" ColumnID="WeldingMethodCode" DataField="WeldingMethodCode"
                         FieldType="String" HeaderText="焊接方法" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="MinImpactDia" DataField="MinImpactDia" FieldType="String"
-                        HeaderText="外径最小值" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="150px" ColumnID="DiaRange" DataField="DiaRange" FieldType="String"
+                        HeaderText="管径覆盖范围（对接焊缝）" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="MaxImpactDia" DataField="MaxImpactDia" FieldType="String"
-                        HeaderText="外径最大值" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="150px" ColumnID="ThicknessRange" DataField="ThicknessRange" FieldType="String"
+                        HeaderText="壁厚覆盖范围（对接焊缝）" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="170px" ColumnID="MinImpactThickness" DataField="MinImpactThickness"
-                        FieldType="String" HeaderText="冲击时覆盖厚度最小值" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="150px" ColumnID="CDiaRange" DataField="CDiaRange"
+                        FieldType="String" HeaderText="管径覆盖范围（角焊缝）" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="170px" ColumnID="MaxImpactThickness" DataField="MaxImpactThickness"
-                        FieldType="String" HeaderText="冲击时覆盖厚度最大值" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="150px" ColumnID="CThicknessRange" DataField="CThicknessRange"
+                        FieldType="String" HeaderText="壁厚覆盖范围（角焊缝）" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="170px" ColumnID="NoMinImpactThickness" DataField="NoMinImpactThickness"
-                        FieldType="String" HeaderText="不冲击时覆盖厚度最小值" HeaderTextAlign="Center" TextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="170px" ColumnID="NoMaxImpactThickness" DataField="NoMaxImpactThickness"
-                        FieldType="String" HeaderText="不冲击时覆盖厚度最大值" HeaderTextAlign="Center" TextAlign="Center">
-                    </f:RenderField>
+                   
                     <f:RenderField Width="90px" ColumnID="WeldingPosition" DataField="WeldingPosition"
                         FieldType="String" HeaderText="焊接位置" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

@@ -24,9 +24,9 @@
                             <f:TextBox ID="txtConsumablesCode" runat="server" Label="耗材代号"
                                 EmptyText="输入查询条件" Width="350px" LabelWidth="170px" LabelAlign="Right">
                             </f:TextBox>
-                            <f:DropDownList ID="drpSteType" runat="server" Label="钢材类型"
-                                EnableEdit="true" Width="350px" LabelWidth="140px" LabelAlign="Right">
-                            </f:DropDownList>
+                             <f:TextBox ID="txtSteType" runat="server" Label="焊材类别"
+                                EmptyText="输入查询条件" Width="350px" LabelWidth="170px" LabelAlign="Right">
+                             </f:TextBox>
                             <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch"
                                 EnablePostBack="true" OnClick="btnQuery_Click" runat="server">
                             </f:Button>
@@ -47,12 +47,12 @@
                         FieldType="String" HeaderText="焊材牌号" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="ConsumablesName">
                     </f:RenderField> 
-                    <f:TemplateField Width="180px" HeaderText="焊材类别"
-                        HeaderTextAlign="Center" TextAlign="Center" SortField="SteelType">
-                        <ItemTemplate>
-                            <asp:Label ID="Label1" runat="server" Text='<%# ConvertSteelType(Eval("SteelType")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
+                  
+                     <f:RenderField Width="180px" ColumnID="SteelType" DataField="SteelType" FieldType="String"
+                        HeaderText="焊材类别" HeaderTextAlign="Center"
+                        TextAlign="Left" SortField="SteelType">
+                    </f:RenderField>
+
                      <f:RenderField Width="180px" ColumnID="Standard" DataField="Standard" FieldType="String"
                         HeaderText="焊材标准" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="Standard">

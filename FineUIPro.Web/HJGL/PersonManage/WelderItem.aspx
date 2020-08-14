@@ -71,6 +71,12 @@
                     <f:RenderField Width="90px" ColumnID="SizesMin" DataField="SizesMin" FieldType="String" HeaderText="壁厚覆盖范围（最小值）"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
+                    <f:RenderField Width="150px" ColumnID="WeldType" DataField="WeldType" FieldType="String"
+                        HeaderText="可焊焊缝类型" HeaderTextAlign="Center"
+                        TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderCheckField Width="120px" ColumnID="IsCanWeldG" DataField="IsCanWeldG" HeaderText="是否可焊固定口" 
+                         HeaderTextAlign="Center" TextAlign="Center"></f:RenderCheckField>
                     <f:RenderField Width="110px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
@@ -96,7 +102,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
         EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
-        IsModal="true" Width="900px" Height="460px">
+        IsModal="true" Width="1080px" Height="460px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"

@@ -1,4 +1,5 @@
 ﻿using BLL;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -40,10 +41,15 @@ namespace FineUIPro.Web.Person
                 ViewState["State"] = value;
             }
         }
+        /// <summary>
+        /// 明细集合
+        /// </summary>
+        private List<Model.Person_ShuntDetail> details = new List<Model.Person_ShuntDetail>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                details.Clear();
                 BLL.ProjectService.InitAllProjectDropDownList(this.drpProject, true);
                 ShuntId = Request.Params["ShuntId"];
                 plApprove1.Hidden = true;
@@ -65,7 +71,7 @@ namespace FineUIPro.Web.Person
                     }
                     if (shunt.CompileDate != null)
                     {
-                        this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}",shunt.CompileDate);
+                        this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", shunt.CompileDate);
                     }
                     if (!string.IsNullOrEmpty(shunt.State))
                     {
@@ -90,6 +96,9 @@ namespace FineUIPro.Web.Person
                         this.rblIsAgree.Hidden = false;
                     }
                     HandleMan();
+                    details = BLL.Person_ShuntDetailService.GetLists(ShuntId);
+                    this.Grid1.DataSource = details;
+                    this.Grid1.DataBind();
                 }
                 else
                 {
@@ -104,14 +113,76 @@ namespace FineUIPro.Web.Person
                 {
                     this.drpHandleMan.SelectedValue = shunt1.SaveHandleMan;
                 }
-                BindGrid();
             }
         }
 
-        private void BindGrid()
+        /// <summary>
+        /// 关闭弹出窗
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
-
+            details = GetDetails();
+            if (!string.IsNullOrEmpty(this.hdIds.Text))
+            {
+                string[] ids = this.hdIds.Text.Split(',');
+                foreach (var id in ids)
+                {
+                    string[] strs = id.Split('|');
+                    var d = details.FirstOrDefault(x=>x.UserId== strs[0]);
+                    if (d == null)
+                    {
+                        Model.Person_ShuntDetail detail = new Model.Person_ShuntDetail();
+                        detail.ShuntDetailId = SQLHelper.GetNewID();
+                        detail.UserId = strs[0];
+                        detail.WorkPostId = strs[1];
+                        details.Add(detail);
+                    }
+                }
+            }
+            this.Grid1.DataSource = details;
+            this.Grid1.DataBind();
         }
+
+        private List<Model.Person_ShuntDetail> GetDetails()
+        {
+            details.Clear();
+            foreach (JObject mergedRow in Grid1.GetMergedData())
+            {
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                Model.Person_ShuntDetail detail = new Model.Person_ShuntDetail();
+                detail.ShuntDetailId = Grid1.Rows[i].DataKeys[0].ToString();
+                detail.UserId = Grid1.Rows[i].DataKeys[1].ToString();
+                detail.WorkPostId = Grid1.Rows[i].DataKeys[2].ToString();
+                details.Add(detail);
+            }
+            return details;
+        }
+
+        #region Grid行点击事件
+        /// <summary>
+        /// Grid行点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            details = GetDetails();
+            string id = this.Grid1.SelectedRow.RowID;
+            if (e.CommandName == "del")//删除
+            {
+                var d = details.FirstOrDefault(x => x.ShuntDetailId == id);
+                if (d != null)
+                {
+                    details.Remove(d);
+                }
+                this.Grid1.DataSource = details;
+                this.Grid1.DataBind();
+            }
+        }
+        #endregion
 
         #region 增加历史记录
         /// <summary>
@@ -121,7 +192,10 @@ namespace FineUIPro.Web.Person
         /// <param name="e"></param>
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RoleItemEdit.aspx?userId={0}", Request.Params["userId"], "编辑 - ")));
+            string openUrl = String.Format("ShuntDetailEdit.aspx?ids={0}", this.hdIds.Text, "编辑 - ");
+            PageContext.RegisterStartupScript(Window1.GetSaveStateReference(hdIds.ClientID)
+                    + Window1.GetShowReference(openUrl));
+            //PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ShuntDetailEdit.aspx", "编辑 - ")));
         }
         #endregion
 
@@ -301,6 +375,58 @@ namespace FineUIPro.Web.Person
                     BLL.Person_ShuntApproveService.AddShuntApprove(approve1);
                 }
             }
+            BLL.Person_ShuntDetailService.DeleteShuntDetailByShuntId(shunt.ShuntId);
+            details = GetDetails();
+            foreach (var d in details)
+            {
+                d.ShuntId = shunt.ShuntId;
+                BLL.Person_ShuntDetailService.AddShuntDetail(d);
+                if (this.drpHandleType.SelectedValue == BLL.Const.Shunt_Complete)   //审批完成，生成项目用户
+                {
+                    var projectUser = BLL.ProjectUserService.GetProjectUserByUserIdProjectId(shunt.ProjectId, d.UserId);
+                    if (projectUser == null)
+                    {
+                        var user = BLL.UserService.GetUserByUserId(d.UserId);
+                        if (user != null)
+                        {
+                            Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
+                            {
+                                ProjectId = shunt.ProjectId,
+                                UserId = d.UserId,
+                                UnitId = user.UnitId,
+                                RoleId = user.RoleId,
+                                IsPost = true
+                            };
+                            BLL.ProjectUserService.AddProjectUser(newProjectUser);
+                            Model.Sys_RoleItem roleItem = new Model.Sys_RoleItem();
+                            roleItem.ProjectId = shunt.ProjectId;
+                            roleItem.UserId = d.UserId;
+                            roleItem.RoleId = user.RoleId;
+                            roleItem.IntoDate = DateTime.Now;
+                            BLL.RoleItemService.AddRoleItem(roleItem);
+                            if (!string.IsNullOrEmpty(user.IdentityCard))
+                            {
+                                ///当前用户是否已经添加到项目现场人员中
+                                var sitePerson = BLL.PersonService.GetPersonByIdentityCard(shunt.ProjectId, user.IdentityCard);
+                                if (sitePerson == null)
+                                {
+                                    Model.SitePerson_Person newPerson = new Model.SitePerson_Person
+                                    {
+                                        PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person)),
+                                        PersonName = user.UserName,
+                                        Sex = user.Sex,
+                                        IdentityCard = user.IdentityCard,
+                                        ProjectId = shunt.ProjectId,
+                                        UnitId = user.UnitId,
+                                        IsUsed = true
+                                    };
+                                    BLL.PersonService.AddPerson(newPerson);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             BLL.LogService.AddSys_Log(this.CurrUser, shunt.Code, shunt.ShuntId, BLL.Const.PersonShuntMenuId, "编辑分流管理");
         }
         #endregion
@@ -409,45 +535,26 @@ namespace FineUIPro.Web.Person
             }
         }
 
-        #region  删除数据
-        /// <summary>
-        /// 右键删除事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuDelete_Click(object sender, EventArgs e)
+        #region 转换字符串
+        //<summary>
+        //获取姓名
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertUserName(object UserId)
         {
-            this.DeleteData();
-        }
-
-        /// <summary>
-        /// 删除方法
-        /// </summary>
-        private void DeleteData()
-        {
-            if (Grid1.SelectedRowIndexArray.Length > 0)
+            string UserName = string.Empty;
+            if (UserId != null)
             {
-                string strShowNotify = string.Empty;
-                foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null)
                 {
-                    string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.RoleItemService.DeleteRoleItem(rowID);
-                }
-
-                BindGrid();
-                if (!string.IsNullOrEmpty(strShowNotify))
-                {
-                    Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    ShowNotify("删除数据成功!", MessageBoxIcon.Success);
+                    UserName = user.UserName;
                 }
             }
+            return UserName;
         }
-        #endregion
 
-        #region 转换字符串
         //<summary>
         //获取职业资格证书名称
         //</summary>
@@ -464,10 +571,10 @@ namespace FineUIPro.Web.Person
                     string[] Ids = user.CertificateId.Split(',');
                     foreach (string t in Ids)
                     {
-                        var type = BLL.CertificateService.GetCertificateById(t);
+                        var type = BLL.PracticeCertificateService.GetPracticeCertificateById(t);
                         if (type != null)
                         {
-                            CertificateName += type.CertificateName + ",";
+                            CertificateName += type.PracticeCertificateName + ",";
                         }
                     }
                 }
@@ -506,6 +613,33 @@ namespace FineUIPro.Web.Person
                 }
             }
             return ProjectName;
+        }
+
+        //<summary>
+        //获取岗位名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertUserWorkPost(object UserId)
+        {
+            string WorkPostName = string.Empty;
+            if (UserId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null && !string.IsNullOrEmpty(user.WorkPostId))
+                {
+                    string[] Ids = user.WorkPostId.Split(',');
+                    foreach (string t in Ids)
+                    {
+                        var type = BLL.WorkPostService.GetWorkPostById(t);
+                        if (type != null)
+                        {
+                            WorkPostName += type.WorkPostName + ",";
+                        }
+                    }
+                }
+            }
+            return WorkPostName;
         }
 
         //<summary>
@@ -581,6 +715,29 @@ namespace FineUIPro.Web.Person
                 WorkPostName = WorkPostName.Substring(0, WorkPostName.Length - 1);
             }
             return WorkPostName;
+        }
+
+        //<summary>
+        //获取职称名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertPostTitleName(object UserId)
+        {
+            string PostTitleName = string.Empty;
+            if (UserId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null && !string.IsNullOrEmpty(user.PostTitleId))
+                {
+                    var postTitle = BLL.PostTitleService.GetPostTitleById(user.PostTitleId);
+                    if (postTitle != null)
+                    {
+                        PostTitleName = postTitle.PostTitleName;
+                    }
+                }
+            }
+            return PostTitleName;
         }
 
         //<summary>

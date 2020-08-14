@@ -385,7 +385,7 @@ namespace WebAPI.Controllers
                 {
                     if (person != null && !string.IsNullOrEmpty(person.IdentityCard))
                     {
-                        var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard && x.ProjectId == person.ProjectId);
+                        var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard.Trim() && x.ProjectId == person.ProjectId);
                         if (getPerson != null && getPerson.PersonId != person.PersonId)
                         {
                             responeData.code = 2;

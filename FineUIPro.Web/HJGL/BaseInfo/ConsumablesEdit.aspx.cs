@@ -42,12 +42,6 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 this.drpConsumablesType.DataBind();
                 Funs.FineUIPleaseSelect(this.drpConsumablesType, "请选择");
 
-                this.drpSteelType.DataTextField = "Text";
-                this.drpSteelType.DataValueField = "Value";
-                this.drpSteelType.DataSource = BLL.DropListService.HJGL_GetSteTypeList();
-                this.drpSteelType.DataBind();
-                Funs.FineUIPleaseSelect(this.drpSteelType, "请选择");
-
                 this.ConsumablesId = Request.Params["ConsumablesId"];
                 if (!string.IsNullOrEmpty(this.ConsumablesId))
                 {
@@ -58,7 +52,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         this.txtConsumablesName.Text = Consumables.ConsumablesName;
                         this.txtSteelFormat.Text = Consumables.SteelFormat;
                         this.drpConsumablesType.SelectedValue = Consumables.ConsumablesType;
-                        this.drpSteelType.SelectedValue = Consumables.SteelType;
+                        txtSteelType.Text = Consumables.SteelType;
                         txtStandard.Text = Consumables.Standard;
                         this.txtRemark.Text = Consumables.Remark;
                     }
@@ -95,15 +89,12 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 ConsumablesName = this.txtConsumablesName.Text.Trim(),
                 SteelFormat = this.txtSteelFormat.Text.Trim(),
                 Standard = txtStandard.Text.Trim(),
+                SteelType = txtSteelType.Text.Trim(),
                 Remark = this.txtRemark.Text.Trim()
             };
             if (this.drpConsumablesType.SelectedValue != BLL.Const._Null)
             {
                 newConsumables.ConsumablesType = this.drpConsumablesType.SelectedValue;
-            }
-            if (this.drpSteelType.SelectedValue != BLL.Const._Null)
-            {
-                newConsumables.SteelType = this.drpSteelType.SelectedValue;
             }
 
             if (!string.IsNullOrEmpty(this.ConsumablesId))
@@ -118,10 +109,10 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 newConsumables.ConsumablesId = this.ConsumablesId;
                 BLL.Base_ConsumablesService.AddConsumables(newConsumables);
                 //BLL.Sys_LogService.AddLog(Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_ConsumablesMenuId, Const.BtnAdd, this.ConsumablesId);
-
-                ShowNotify("保存成功！", MessageBoxIcon.Success);
-                PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
             }
+
+            ShowNotify("保存成功！", MessageBoxIcon.Success);
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
             #endregion
         }
     }

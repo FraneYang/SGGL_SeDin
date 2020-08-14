@@ -29,7 +29,7 @@
                             ShowRedStar="true" LabelWidth="180px" AutoPostBack="true" OnSelectedIndexChanged="drpSteel1_SelectedIndexChanged">
                         </f:DropDownList>
                         <f:DropDownList ID="drpSteel2" runat="server" Label="材质2" LabelAlign="Right" LabelWidth="180px"
-                            AutoPostBack="true" OnSelectedIndexChanged="drpSteel2_SelectedIndexChanged">
+                           Required="true" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpSteel2_SelectedIndexChanged">
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>
@@ -91,30 +91,40 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:NumberBox ID="txtMinImpactDia" runat="server" Label="外径覆盖最小值" LabelAlign="Right"
+                        <f:NumberBox ID="txtMinImpactDia" runat="server" Label="管径覆盖最小值(对接焊缝)" LabelAlign="Right"
                             NoNegative="false" LabelWidth="180px">
                         </f:NumberBox>
-                        <f:NumberBox ID="txtMaxImpactDia" runat="server" Label="外径覆盖最大值" LabelAlign="Right"
-                            NoNegative="false" LabelWidth="180px">
-                        </f:NumberBox>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow>
-                    <Items>
-                        <f:NumberBox ID="txtMinImpactThickness" runat="server" Label="冲击时覆盖厚度最小值" LabelAlign="Right"
-                            NoNegative="false" LabelWidth="180px">
-                        </f:NumberBox>
-                        <f:NumberBox ID="txtMaxImpactThickness" runat="server" Label="冲击时覆盖厚度最大值" LabelAlign="Right"
+                        <f:NumberBox ID="txtMaxImpactDia" runat="server" Label="管径覆盖最大值(对接焊缝)" LabelAlign="Right"
                             NoNegative="false" LabelWidth="180px">
                         </f:NumberBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:NumberBox ID="txtNoMinImpactThickness" runat="server" Label="不冲击时覆盖厚度最小值" LabelAlign="Right"
+                        <f:NumberBox ID="txtMinImpactThickness" runat="server" Label="壁厚覆盖最小值(对接焊缝)" LabelAlign="Right"
                             NoNegative="false" LabelWidth="180px">
                         </f:NumberBox>
-                        <f:NumberBox ID="txtNoMaxImpactThickness" runat="server" Label="不冲击时覆盖厚度最大值" LabelAlign="Right"
+                        <f:NumberBox ID="txtMaxImpactThickness" runat="server" Label="壁厚覆盖最大值(对接焊缝)" LabelAlign="Right"
+                            NoNegative="false" LabelWidth="180px">
+                        </f:NumberBox>
+                    </Items>
+                </f:FormRow>
+                 <f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtMinCImpactDia" runat="server" Label="管径覆盖最小值(角焊缝)" LabelAlign="Right"
+                            NoNegative="false" LabelWidth="180px">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtMaxCImpactDia" runat="server" Label="管径覆盖最大值(角焊缝)" LabelAlign="Right"
+                            NoNegative="false" LabelWidth="180px">
+                        </f:NumberBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtNoMinImpactThickness" runat="server" Label="壁厚覆盖最小值(角焊缝)" LabelAlign="Right"
+                            NoNegative="false" LabelWidth="180px">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtNoMaxImpactThickness" runat="server" Label="壁厚覆盖最大值(角焊缝)" LabelAlign="Right"
                             NoNegative="false" LabelWidth="180px">
                         </f:NumberBox>
                     </Items>

@@ -82,9 +82,12 @@
                             <f:RenderField Width="100px" ColumnID="PostTitleName" DataField="PostTitleName" 
                             FieldType="String" HeaderText="职称" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                         <f:RenderField Width="130px" ColumnID="PracticeCertificateName" DataField="PracticeCertificateName"
-                            FieldType="String" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Left">
-                        </f:RenderField>
+                        <f:TemplateField ColumnID="Certificate" Width="130px" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertCertificateName(Eval("UserId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
                         <f:RenderField Width="150px" ColumnID="ProjectName" DataField="ProjectName" SortField="ProjectName"
                             FieldType="String" HeaderText="当前所在项目" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>

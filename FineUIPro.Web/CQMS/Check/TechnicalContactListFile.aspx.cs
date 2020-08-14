@@ -553,10 +553,10 @@ namespace FineUIPro.Web.CQMS.Check
                     if (unitType == BLL.Const.ProjectUnitType_2)   //施工分包发起
                     {
                         approve = TechnicalContactListApproveService.GetApprove2(technicalContactList.TechnicalContactListId);
-                        if (approve == null)
-                        {
-                            approve = TechnicalContactListApproveService.GetApprove5(technicalContactList.TechnicalContactListId);
-                        }
+                        //if (approve == null)
+                        //{
+                        //    approve = TechnicalContactListApproveService.GetApprove5(technicalContactList.TechnicalContactListId);
+                        //}
                     }
                     else
                     {

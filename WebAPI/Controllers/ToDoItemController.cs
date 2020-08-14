@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = new Model.SGGLDB(Funs.ConnString).Sp_APP_GetToDoItems(projectId, userId).ToList();
+                var getDataList = Funs.DB.Sp_APP_GetToDoItems(projectId, userId).ToList();
                 responeData.data = new { getDataList.Count, getDataList };
             }
             catch (Exception ex)

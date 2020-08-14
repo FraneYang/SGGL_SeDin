@@ -69,17 +69,33 @@ namespace FineUIPro.Web.Person
                     {
                         State = BLL.Const.Shunt_Compile;
                     }
+                    var details = BLL.Person_ShuntDetailService.GetLists(ShuntId);
+                    this.Grid1.DataSource = details;
+                    this.Grid1.DataBind();
                 }
-                BindGrid();
             }
         }
 
-        private void BindGrid()
+        #region 转换字符串
+        //<summary>
+        //获取姓名
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertUserName(object UserId)
         {
-
+            string UserName = string.Empty;
+            if (UserId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null)
+                {
+                    UserName = user.UserName;
+                }
+            }
+            return UserName;
         }
 
-        #region 转换字符串
         //<summary>
         //获取职业资格证书名称
         //</summary>
@@ -96,10 +112,10 @@ namespace FineUIPro.Web.Person
                     string[] Ids = user.CertificateId.Split(',');
                     foreach (string t in Ids)
                     {
-                        var type = BLL.CertificateService.GetCertificateById(t);
+                        var type = BLL.PracticeCertificateService.GetPracticeCertificateById(t);
                         if (type != null)
                         {
-                            CertificateName += type.CertificateName + ",";
+                            CertificateName += type.PracticeCertificateName + ",";
                         }
                     }
                 }
@@ -112,6 +128,29 @@ namespace FineUIPro.Web.Person
             {
                 return "";
             }
+        }
+
+        //<summary>
+        //获取职称名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertPostTitleName(object UserId)
+        {
+            string PostTitleName = string.Empty;
+            if (UserId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null && !string.IsNullOrEmpty(user.PostTitleId))
+                {
+                    var postTitle = BLL.PostTitleService.GetPostTitleById(user.PostTitleId);
+                    if (postTitle != null)
+                    {
+                        PostTitleName = postTitle.PostTitleName;
+                    }
+                }
+            }
+            return PostTitleName;
         }
 
         //<summary>
@@ -214,7 +253,32 @@ namespace FineUIPro.Web.Person
             }
             return WorkPostName;
         }
-
+        //<summary>
+        //获取岗位名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertUserWorkPost(object UserId)
+        {
+            string WorkPostName = string.Empty;
+            if (UserId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null && !string.IsNullOrEmpty(user.WorkPostId))
+                {
+                    string[] Ids = user.WorkPostId.Split(',');
+                    foreach (string t in Ids)
+                    {
+                        var type = BLL.WorkPostService.GetWorkPostById(t);
+                        if (type != null)
+                        {
+                            WorkPostName += type.WorkPostName + ",";
+                        }
+                    }
+                }
+            }
+            return WorkPostName;
+        }
         //<summary>
         //获取拟聘岗位名称
         //</summary>

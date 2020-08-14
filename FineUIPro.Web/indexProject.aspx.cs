@@ -292,7 +292,7 @@ namespace FineUIPro.Web
 
                 if (!string.IsNullOrEmpty(Request.Params["projectName"]))
                 {
-                    var getproject = ProjectService.GetProjectByProjectShortName(Request.Params["projectName"]);
+                    var getproject = ProjectService.GetProjectByProjectName(Request.Params["projectName"]);
                     if (getproject != null)
                     {
                         this.drpProject.SelectedValue = getproject.ProjectId;

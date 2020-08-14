@@ -17,43 +17,49 @@
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtWelderCode" runat="server" Label="焊工号"
-                        Readonly="true" LabelWidth="140px">
+                        Readonly="true" LabelWidth="160px">
                     </f:TextBox>
-                    <f:TextBox ID="txtQualificationItem" runat="server" Label="合格项目"  LabelWidth="140px"
+                    <f:TextBox ID="txtQualificationItem" runat="server" Label="合格项目"  LabelWidth="160px"
                         Required="true" ShowRedStar="true"  EnableBlurEvent="true"  OnBlur="txtQualificationItem_OnBlur" ></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                      <f:DatePicker ID="txtCheckDate" runat="server" Label="批准日期"
-                        LabelWidth="140px" Required="true" ShowRedStar="true">
+                        LabelWidth="160px" Required="true" ShowRedStar="true">
                     </f:DatePicker>
                     <f:DatePicker ID="txtLimitDate" runat="server" Label="有效日期"
-                        LabelWidth="140px" Required="true" ShowRedStar="true">
+                        LabelWidth="160px" Required="true" ShowRedStar="true">
                     </f:DatePicker>
                   
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>  
-                    <f:TextBox ID="txtWeldingMethod" runat="server"  Label="焊接方法"  LabelWidth="140px"></f:TextBox>
-                    <f:TextBox ID="txtMaterialType" runat="server" Label="型号、牌号、级别" LabelWidth="140px"></f:TextBox>
+                    <f:TextBox ID="txtWeldingMethod" runat="server"  Label="焊接方法"  LabelWidth="160px"></f:TextBox>
+                    <f:TextBox ID="txtMaterialType" runat="server" Label="型号、牌号、级别" LabelWidth="160px"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items> 
-                    <f:TextBox ID="txtWeldingLocation" runat="server" Label="焊接位置" LabelWidth="140px"></f:TextBox>
+                    <f:TextBox ID="txtWeldingLocation" runat="server" Label="焊接位置" LabelWidth="160px"></f:TextBox>
                     <f:NumberBox ID="txtThicknessMax" runat="server" Label="管径覆盖范围（最大值）"
-                        NoNegative="true" LabelAlign="Right" LabelWidth="140px">
+                        NoNegative="true" LabelAlign="Right" LabelWidth="200px">
                     </f:NumberBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:NumberBox ID="txtSizesMin" runat="server" Label="壁厚覆盖范围（最小值）" NoNegative="true" LabelAlign="Right" LabelWidth="140px">
+                    <f:NumberBox ID="txtSizesMin" runat="server" Label="壁厚覆盖范围（最小值）" NoNegative="true" LabelAlign="Right" LabelWidth="200px">
                     </f:NumberBox> 
+                    <f:TextBox ID="txtWeldType" runat="server" Label="可焊焊缝类型" LabelWidth="160px"></f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:CheckBox ID="ckbIsCanWeldG" runat="server" Label="是否可焊固定口" LabelWidth="160px"></f:CheckBox> 
                     <f:TextBox ID="txtRemark" runat="server" Label="备注" 
-                        LabelWidth="140px">
+                        LabelWidth="160px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>

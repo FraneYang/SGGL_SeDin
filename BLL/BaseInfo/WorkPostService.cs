@@ -102,6 +102,23 @@ namespace BLL
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
+
+        /// <summary>
+        ///  表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitWorkPostNameDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "WorkPostName";
+            dropName.DataTextField = "WorkPostName";
+            dropName.DataSource = BLL.WorkPostService.GetWorkPostList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
         #endregion
 
         #region 根据岗位ID得到岗位名称

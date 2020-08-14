@@ -175,6 +175,7 @@ namespace BLL
             dropName.DataSource = from x in Funs.DB.SitePerson_Person
                                   join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId
                                   where y.ProjectId == projectId && x.UnitId == unitId
+                                  && x.WorkPostId == Const.WorkPost_Welder && (x.WelderCode != null || x.WelderCode != "")
                                   select x; ;
             dropName.DataBind();
             if (isShowPlease)

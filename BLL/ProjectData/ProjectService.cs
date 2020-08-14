@@ -38,6 +38,11 @@
             return Funs.DB.Base_Project.FirstOrDefault(e => e.ShortName == name);
         }
 
+        public static Model.Base_Project GetProjectByProjectName(string name)
+        {
+            return Funs.DB.Base_Project.FirstOrDefault(e => e.ProjectName == name);
+        }
+
         /// <summary>
         ///获取项目简称
         /// </summary>
@@ -209,12 +214,19 @@
         /// <returns></returns>
         public static List<Model.Base_Project> GetProjectByUserIdDropDownList(string userId)
         {
+            if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
+            {
+                return (from x in Funs.DB.Base_Project
+                        where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
+                        orderby x.ProjectCode descending
+                        select x).ToList();
+            }
             var getUser = UserService.GetUserByUserId(userId);
             if (getUser != null)
             {
-                var getRoleP = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == false);
                 /// 获取角色类型
-                if (getRoleP != null || userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
+                var getRoleP = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == false);              
+                if (getRoleP != null)
                 {
                     return (from x in Funs.DB.Base_Project
                             where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1

@@ -64,6 +64,8 @@ namespace BLL
             newWelderQualify.ThicknessMax = welderQualify.ThicknessMax;
             newWelderQualify.SizesMin = welderQualify.SizesMin;
             newWelderQualify.SizesMax = welderQualify.SizesMax;
+            newWelderQualify.WeldType = welderQualify.WeldType;
+            newWelderQualify.IsCanWeldG = welderQualify.IsCanWeldG;
             newWelderQualify.Remark = welderQualify.Remark;
             newWelderQualify.IsPrintShow = welderQualify.IsPrintShow;
             Funs.DB.Welder_WelderQualify.InsertOnSubmit(newWelderQualify);
@@ -89,6 +91,8 @@ namespace BLL
                 newWelderQualify.ThicknessMax = welderQualify.ThicknessMax;
                 newWelderQualify.SizesMin = welderQualify.SizesMin;
                 newWelderQualify.SizesMax = welderQualify.SizesMax;
+                newWelderQualify.WeldType = welderQualify.WeldType;
+                newWelderQualify.IsCanWeldG = welderQualify.IsCanWeldG;
                 newWelderQualify.Remark = welderQualify.Remark;
                 newWelderQualify.IsPrintShow = welderQualify.IsPrintShow;
                 Funs.DB.SubmitChanges();
