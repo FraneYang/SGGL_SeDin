@@ -2561,6 +2561,10 @@ namespace BLL
         /// 用户信息导入模板
         /// </summary>
         public const string UserTemplateUrl = "File\\Excel\\DataIn\\用户信息模版.xls";
+        /// <summary>
+        /// WBS定制导入模板
+        /// </summary>
+        public const string WBSWorkPackageTemplateUrl = "File\\Excel\\DataIn\\WBS定制导入模板.xls";
         #endregion
 
         #region 初始化上传路径

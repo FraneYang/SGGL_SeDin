@@ -7,10 +7,10 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace FineUIPro.Web.HSSE.Manager {
+namespace FineUIPro.Web.CQMS.WBS {
     
     
-    public partial class HSEDiary {
+    public partial class WorkPackageSet2In {
         
         /// <summary>
         /// form1 控件。
@@ -31,22 +31,13 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::FineUIPro.PageManager PageManager1;
         
         /// <summary>
-        /// Panel1 控件。
+        /// SimpleForm1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel Panel1;
-        
-        /// <summary>
-        /// Grid1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Grid Grid1;
+        protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
         /// Toolbar2 控件。
@@ -58,120 +49,102 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
-        /// drpUser 控件。
+        /// btnAudit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpUser;
+        protected global::FineUIPro.Button btnAudit;
         
         /// <summary>
-        /// txtDiaryDate 控件。
+        /// btnSave 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtDiaryDate;
+        protected global::FineUIPro.Button btnSave;
         
         /// <summary>
-        /// ToolbarFill1 控件。
+        /// btnDownLoad 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ToolbarFill ToolbarFill1;
+        protected global::FineUIPro.Button btnDownLoad;
         
         /// <summary>
-        /// btnOut 控件。
+        /// fuAttachUrl 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnOut;
+        protected global::FineUIPro.FileUpload fuAttachUrl;
         
         /// <summary>
-        /// lblNumber 控件。
+        /// Grid1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNumber;
+        protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
-        /// ToolbarSeparator1 控件。
+        /// txtName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ToolbarSeparator ToolbarSeparator1;
+        protected global::FineUIPro.TextBox txtName;
         
         /// <summary>
-        /// ToolbarText1 控件。
+        /// txtWeights 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ToolbarText ToolbarText1;
+        protected global::FineUIPro.NumberBox txtWeights;
         
         /// <summary>
-        /// ddlPageSize 控件。
+        /// hdFileName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList ddlPageSize;
+        protected global::FineUIPro.HiddenField hdFileName;
         
         /// <summary>
-        /// Window1 控件。
+        /// hdCheckResult 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Window Window1;
+        protected global::FineUIPro.HiddenField hdCheckResult;
         
         /// <summary>
-        /// Menu1 控件。
+        /// hdTotalValue 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Menu Menu1;
+        protected global::FineUIPro.HiddenField hdTotalValue;
         
         /// <summary>
-        /// btnMenuView 控件。
+        /// lblBottom 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuView;
-        
-        /// <summary>
-        /// btnPrinter 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnPrinter;
-        
-        /// <summary>
-        /// btnMenuDelete 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuDelete;
+        protected global::FineUIPro.Label lblBottom;
     }
 }

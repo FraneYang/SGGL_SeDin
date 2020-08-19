@@ -44,9 +44,10 @@
             padding-left:15px;
             font-size:12px;
         }
-        .more{
-            text-align:right;
+        .more {
+            text-align: right;
             padding: 10px;
+            font-size: 10px;
         }
         .bg-img{
             width:100%;

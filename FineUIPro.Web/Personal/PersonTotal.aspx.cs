@@ -48,7 +48,7 @@ namespace FineUIPro.Web.Personal
                 listStr.Add(new SqlParameter("@CompiledManId",this.CurrUser.UserId));
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
-                strSql += " AND Users.UserName LIKE @UserName";
+                strSql += " AND U.UserName LIKE @UserName";
                 listStr.Add(new SqlParameter("@UserName", "%" + this.txtUserName.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();

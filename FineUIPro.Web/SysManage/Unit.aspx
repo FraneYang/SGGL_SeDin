@@ -68,7 +68,7 @@
                     </f:RenderField>--%>
                     <f:WindowField ColumnID="SubUnit" Width="70px" WindowID="WindowSubUnit" HeaderText="资质"
                                 Text="详细" ToolTip="资质详细信息" DataTextFormatString="{0}" DataIFrameUrlFields="UnitId"
-                                DataIFrameUrlFormatString="../QualityAudit/SubUnitQualityEdit.aspx?UnitId={0}"/>             
+                                DataIFrameUrlFormatString="../../QualityAudit/SubUnitQualityEdit.aspx?UnitId={0}"/>             
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

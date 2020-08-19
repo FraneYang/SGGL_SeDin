@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WorkPackageSet2.aspx.cs" Inherits="FineUIPro.Web.CQMS.WBS.WorkPackageSet2" 
-    EnableEventValidation="false" ViewStateEncryptionMode="Never"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WorkPackageSet2.aspx.cs" Inherits="FineUIPro.Web.CQMS.WBS.WorkPackageSet2"
+    EnableEventValidation="false" ViewStateEncryptionMode="Never" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
@@ -30,6 +30,9 @@
                                         <f:ToolbarFill runat="server"></f:ToolbarFill>
                                         <f:Label runat="server" ID="lbWeights" Label="累计权重"></f:Label>
                                         <f:Label runat="server" Width="90px"></f:Label>
+                                        <f:Button ID="btnImport" ToolTip="导入" Icon="PageExcel" runat="server" ValidateForms="SimpleForm1"
+                                            OnClick="btnImport_Click">
+                                        </f:Button>
                                         <f:Button ID="btnSet" ToolTip="保存" Icon="SystemSave" runat="server" Text=""
                                             OnClick="btnSet_Click">
                                         </f:Button>
@@ -54,7 +57,7 @@
                                     HeaderText="第2级" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="定制" ColumnID="SuperWorkPack" DataField="SuperWorkPack" SortField="SuperWorkPack"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="200px" FieldType="String" >
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="200px" FieldType="String">
                                     <Editor>
                                         <f:TextBox runat="server" ID="txtName">
                                         </f:TextBox>
@@ -115,13 +118,17 @@
                 </f:Region>
             </Regions>
         </f:RegionPanel>
+        <f:Window ID="Window1" Title="导入" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" 
+            Width="800px" Height="460px" OnClose="Window1_Close">
+        </f:Window>
     </form>
     <script type="text/javascript">
         var treeID = '<%= trWBS.ClientID %>';
         var btnDelID = '<%= btnDel.ClientID %>';
         var btnReCheckID = '<%= btnReCheck.ClientID %>';
         var hdId = '<%= hdId.ClientID %>';
-        var hdTotalValue='<%= hdTotalValue.ClientID %>';
+        var hdTotalValue ='<%= hdTotalValue.ClientID %>';
         // 保存当前菜单对应的树节点ID
         var currentNodeId;
 
@@ -134,17 +141,17 @@
         }
 
         function onGridAfterEdit(event, value, params) {
-              var me = this, columnId = params.columnId, rowId = params.rowId;
+            var me = this, columnId = params.columnId, rowId = params.rowId;
             if (columnId === 'Weights') {
                 var Weights = me.getCellValue(rowId, 'Weights');
                 if (Weights.toString() != "") {
                     var totalValue = F(hdTotalValue).value;
                     me.updateCellValue(rowId, 'Weights', parseFloat(Weights).toFixed(2));
-                       if (totalValue != "0") {
-                         me.updateCellValue(rowId, 'Costs', (totalValue/100*parseFloat(Weights)).toFixed(4));
+                    if (totalValue != "0") {
+                        me.updateCellValue(rowId, 'Costs', (totalValue / 100 * parseFloat(Weights)).toFixed(4));
                     }
                 }
-                else{
+                else {
                     me.updateCellValue(rowId, 'Costs', "");
                 }
             }
@@ -175,7 +182,7 @@
                 document.getElementById(btnDelID).click();
             }
             else {
-                 document.getElementById(btnReCheckID).click();
+                document.getElementById(btnReCheckID).click();
             }
         }
     </script>

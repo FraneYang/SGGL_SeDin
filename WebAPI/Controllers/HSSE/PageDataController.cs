@@ -93,9 +93,14 @@ namespace WebAPI.Controllers
                                                select x).Count();
 
                         //// 入场培训累计数量
-                        EntryTrainingNum = (from x in db.EduTrain_TrainRecord
-                                            where x.ProjectId == projectId && x.TrainTypeId == Const.EntryTrainTypeId
-                                            select x).Count();
+                        //// 入场培训累计数量
+                        var getTrainRecords = from x in db.EduTrain_TrainRecord
+                                              where x.ProjectId == projectId && x.TrainTypeId == Const.EntryTrainTypeId
+                                              select x;
+                        if (getTrainRecords.Count() > 0)
+                        {
+                            EntryTrainingNum = getTrainRecords.Sum(x => x.TrainPersonNum ?? 0);
+                        }
                         var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectId && x.InOutDate.Year == DateTime.Now.Year
                           && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
                         if (getPersonInOutNumber != null)

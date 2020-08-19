@@ -89,56 +89,7 @@ namespace FineUIPro.Web.CQMS.WBS
                 }
                 UnitWorkId = workPackage.UnitWorkId;
                 InitTreeMenu();
-                var workPackageProjects = BLL.WorkPackageProjectService.GetWorkPackageProjects2ByWorkPackageCode(workPackage.InitWorkPackageCode, this.CurrUser.LoginProjectId);
-                var addWorkPackages = BLL.WorkPackageService.GetAllWorkPackagesBySuperWorkPackageId(WorkPackageId);
-                foreach (var workPackageProject in workPackageProjects)
-                {
-                    Model.WBS_WorkPackage newWorkPackageProject = new Model.WBS_WorkPackage();
-                    newWorkPackageProject.WorkPackageCode = workPackageProject.WorkPackageCode;
-                    newWorkPackageProject.WorkPackageId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage));
-                    newWorkPackageProject.PackageContent = workPackageProject.PackageContent;
-                    newWorkPackageProject.Weights = null;
-                    workPackages.Add(newWorkPackageProject);
-                }
-                foreach (var addWorkPackage in addWorkPackages)
-                {
-                    Model.WBS_WorkPackage newAddWorkPackage = new Model.WBS_WorkPackage();
-                    newAddWorkPackage.WorkPackageCode = addWorkPackage.InitWorkPackageCode;
-                    newAddWorkPackage.WorkPackageId = addWorkPackage.WorkPackageId;
-                    Model.WBS_WorkPackageProject workPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(addWorkPackage.InitWorkPackageCode, this.CurrUser.LoginProjectId);
-                    if (workPackageProject != null)
-                    {
-                        newAddWorkPackage.PackageContent = workPackageProject.PackageContent;
-                        if (addWorkPackage.PackageContent.Contains("-"))
-                        {
-                            newAddWorkPackage.SuperWorkPack = addWorkPackage.PackageContent.Substring(addWorkPackage.PackageContent.IndexOf("-") + 1);
-                        }
-                    }
-                    newAddWorkPackage.Weights = addWorkPackage.Weights;
-                    newAddWorkPackage.Costs = addWorkPackage.Costs;
-                    workPackages.Add(newAddWorkPackage);
-                }
-                workPackages = workPackages.OrderBy(x => x.WorkPackageCode).ToList();
-                this.Grid1.DataSource = workPackages;
-                this.Grid1.DataBind();
-                for (int i = 0; i < this.Grid1.Rows.Count; i++)
-                {
-                    Model.WBS_WorkPackage w = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(this.Grid1.Rows[i].RowID.ToString());
-                    AspNet.CheckBox cb = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
-                    if (w != null && w.IsApprove == true)   //已生成的分部分项内容
-                    {
-                        cb.Checked = true;
-                    }
-                    else
-                    {
-                        var w2 = workPackages.FirstOrDefault(x => x.WorkPackageId == this.Grid1.Rows[i].RowID.ToString());
-                        if (w2 != null && w2.IsCopy == true)
-                        {
-                            cb.Checked = true;
-                        }
-                    }
-                }
-                GetTotalWeights();
+                BindGrid();
             }
             else
             {
@@ -148,7 +99,60 @@ namespace FineUIPro.Web.CQMS.WBS
                 }
             }
         }
-
+        private void BindGrid()
+        {
+            Model.WBS_WorkPackage workPackage = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(WorkPackageId);
+            var workPackageProjects = BLL.WorkPackageProjectService.GetWorkPackageProjects2ByWorkPackageCode(workPackage.InitWorkPackageCode, this.CurrUser.LoginProjectId);
+            var addWorkPackages = BLL.WorkPackageService.GetAllWorkPackagesBySuperWorkPackageId(WorkPackageId);
+            foreach (var workPackageProject in workPackageProjects)
+            {
+                Model.WBS_WorkPackage newWorkPackageProject = new Model.WBS_WorkPackage();
+                newWorkPackageProject.WorkPackageCode = workPackageProject.WorkPackageCode;
+                newWorkPackageProject.WorkPackageId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage));
+                newWorkPackageProject.PackageContent = workPackageProject.PackageContent;
+                newWorkPackageProject.Weights = null;
+                workPackages.Add(newWorkPackageProject);
+            }
+            foreach (var addWorkPackage in addWorkPackages)
+            {
+                Model.WBS_WorkPackage newAddWorkPackage = new Model.WBS_WorkPackage();
+                newAddWorkPackage.WorkPackageCode = addWorkPackage.InitWorkPackageCode;
+                newAddWorkPackage.WorkPackageId = addWorkPackage.WorkPackageId;
+                Model.WBS_WorkPackageProject workPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(addWorkPackage.InitWorkPackageCode, this.CurrUser.LoginProjectId);
+                if (workPackageProject != null)
+                {
+                    newAddWorkPackage.PackageContent = workPackageProject.PackageContent;
+                    if (addWorkPackage.PackageContent.Contains("-"))
+                    {
+                        newAddWorkPackage.SuperWorkPack = addWorkPackage.PackageContent.Substring(addWorkPackage.PackageContent.IndexOf("-") + 1);
+                    }
+                }
+                newAddWorkPackage.Weights = addWorkPackage.Weights;
+                newAddWorkPackage.Costs = addWorkPackage.Costs;
+                workPackages.Add(newAddWorkPackage);
+            }
+            workPackages = workPackages.OrderBy(x => x.WorkPackageCode).ToList();
+            this.Grid1.DataSource = workPackages;
+            this.Grid1.DataBind();
+            for (int i = 0; i < this.Grid1.Rows.Count; i++)
+            {
+                Model.WBS_WorkPackage w = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(this.Grid1.Rows[i].RowID.ToString());
+                AspNet.CheckBox cb = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
+                if (w != null && w.IsApprove == true)   //已生成的分部分项内容
+                {
+                    cb.Checked = true;
+                }
+                else
+                {
+                    var w2 = workPackages.FirstOrDefault(x => x.WorkPackageId == this.Grid1.Rows[i].RowID.ToString());
+                    if (w2 != null && w2.IsCopy == true)
+                    {
+                        cb.Checked = true;
+                    }
+                }
+            }
+            GetTotalWeights();
+        }
         #region 获取总权重
         private void GetTotalWeights()
         {
@@ -460,6 +464,8 @@ namespace FineUIPro.Web.CQMS.WBS
         }
         #endregion
 
+
+
         #region 删除事件
         /// <summary>
         /// 删除
@@ -563,6 +569,12 @@ namespace FineUIPro.Web.CQMS.WBS
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnSet_Click(object sender, EventArgs e)
+        {
+            SaveData();
+            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(WorkPackageId) + ActiveWindow.GetHidePostBackReference());
+            //ShowNotify("保存成功！", MessageBoxIcon.Success);
+        }
+        private void SaveData()
         {
             string workPackageCode = string.Empty;
             int num = 1;
@@ -687,10 +699,7 @@ namespace FineUIPro.Web.CQMS.WBS
                 //    }
                 //}
             }
-            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(WorkPackageId) + ActiveWindow.GetHidePostBackReference());
-            //ShowNotify("保存成功！", MessageBoxIcon.Success);
         }
-
         /// <summary>
         /// 保存
         /// </summary>
@@ -890,6 +899,17 @@ namespace FineUIPro.Web.CQMS.WBS
                 ckbWorkPackageCode.Checked = e.Checked;
             }
             GetTotalWeights();
+        }
+
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            SaveData();
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WorkPackageSet2In.aspx?WorkPackageId={0}", WorkPackageId, "导入 - ")));
+        }
+
+        protected void Window1_Close(object sender, WindowCloseEventArgs e)
+        {
+            BindGrid();
         }
     }
 }

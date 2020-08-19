@@ -189,10 +189,11 @@ namespace BLL
             }
             else if (state == Const.SpotCheck_Audit2)
             {
-                ListItem[] lis = new ListItem[3];
+                ListItem[] lis = new ListItem[4];
                 lis[0] = new ListItem("监理专业工程师确认", Const.SpotCheck_Audit3);
                 lis[1] = new ListItem("建设单位确认", Const.SpotCheck_Audit4);
-                lis[2] = new ListItem("重新编制", Const.SpotCheck_ReCompile);
+                lis[2] = new ListItem("总包专业工程师确认", Const.SpotCheck_Audit2);
+                lis[3] = new ListItem("重新编制", Const.SpotCheck_ReCompile);
                 return lis;
             }
             else if (state == Const.SpotCheck_Audit3 || state == Const.SpotCheck_Audit4)

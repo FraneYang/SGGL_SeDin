@@ -141,6 +141,57 @@ namespace FineUIPro.Web.common
                 List<string> listCategories = new List<string>();
                 businessColumn.title = "质量一次验收合格率";
                 var unitWorks = BLL.UnitWorkService.GetUnitWorkLists(CurrUser.LoginProjectId);
+                unitWorks = unitWorks.Where(x => x.ProjectType == "1").ToList();
+                List<Model.View_Check_SoptCheckDetail> TotalCheckDetailOKLists = SpotCheckDetailService.GetTotalOKSpotCheckDetailListByTime1(CurrUser.LoginProjectId, DateTime.Now);
+                List<Model.View_Check_SoptCheckDetail> TotalCheckDetailLists = SpotCheckDetailService.GetTotalAllSpotCheckDetailListByTime(CurrUser.LoginProjectId, DateTime.Now);
+                Model.SingleSerie s = new Model.SingleSerie();
+                //Model.SingleSerie s2 = new Model.SingleSerie();
+                List<double> listdata = new List<double>();
+                //List<double> listdata2 = new List<double>();
+                double result = 0, result2 = 0;
+                foreach (var unitWork in unitWorks)
+                {
+                    listCategories.Add(unitWork.UnitWorkName);
+                    var okChecks = TotalCheckDetailOKLists.Where(x => x.UnitWorkId == unitWork.UnitWorkId).ToList();
+                    var totalChecks = TotalCheckDetailLists.Where(x => x.UnitWorkId == unitWork.UnitWorkId).ToList();
+                    if (okChecks.Count > 0 && totalChecks.Count > 0)
+                    {
+                        var a = Convert.ToDouble(okChecks.Count);
+                        var b = Convert.ToDouble(totalChecks.Count);
+                        result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                    }
+                    //var dataOkChecks = totalCheckDetailDataOKLists.Where(x => x.UnitWorkId == unitWork.UnitWorkId).ToList();
+                    //if (dataOkChecks.Count > 0 && okChecks.Count > 0)
+                    //{
+                    //    var a = Convert.ToDouble(dataOkChecks.Count);
+                    //    var b = Convert.ToDouble(okChecks.Count);
+                    //    result2 = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                    //}
+                    listdata.Add(result);
+                    //listdata2.Add(result2);
+                    result = 0;
+                    //result2 = 0;
+                }
+                s.data = listdata;
+                //s2.data = listdata2;
+                series.Add(s);
+                //series.Add(s2);
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+
+        protected string Two2
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "质量一次验收合格率";
+                var unitWorks = BLL.UnitWorkService.GetUnitWorkLists(CurrUser.LoginProjectId);
+                unitWorks = unitWorks.Where(x => x.ProjectType == "2").ToList();
                 List<Model.View_Check_SoptCheckDetail> TotalCheckDetailOKLists = SpotCheckDetailService.GetTotalOKSpotCheckDetailListByTime1(CurrUser.LoginProjectId, DateTime.Now);
                 List<Model.View_Check_SoptCheckDetail> TotalCheckDetailLists = SpotCheckDetailService.GetTotalAllSpotCheckDetailListByTime(CurrUser.LoginProjectId, DateTime.Now);
                 Model.SingleSerie s = new Model.SingleSerie();

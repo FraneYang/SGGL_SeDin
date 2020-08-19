@@ -85,6 +85,15 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.Label lbWeights;
         
         /// <summary>
+        /// btnImport 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnImport;
+        
+        /// <summary>
         /// btnSet 控件。
         /// </summary>
         /// <remarks>
@@ -236,5 +245,14 @@ namespace FineUIPro.Web.CQMS.WBS {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnLevel3;
+        
+        /// <summary>
+        /// Window1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window Window1;
     }
 }

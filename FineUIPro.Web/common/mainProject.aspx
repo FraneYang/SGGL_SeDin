@@ -32,7 +32,7 @@
         margin-bottom:10px;
        }
        .info .item .tit{
-           font-size:16px;
+           font-size:12px;
            font-weight: 600;
        }
        .info .item .val{
@@ -42,6 +42,7 @@
         min-width:0;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-weight:100;
         /*white-space: nowrap;*/
        }
        .height260{
@@ -171,7 +172,7 @@
             margin:5px;
         }
         .num-wrap .tit{
-            color:#fff;
+            color:#88C8E2;
             margin: 10px 0 0;
             font-size: 11px;
             width:100%;
@@ -212,6 +213,11 @@
         }
         .pdlr10{
             padding: 0 10px;
+        }
+        .tab-wrap-tit-positon{
+            position:absolute;
+            right: 10px;
+            top: 0;
         }
     </style>
 </head>
@@ -265,7 +271,16 @@
                 <div class="flex1 itemflex">
                     <div class="bg-item ">
                         <div class="bw-item-content flex flexV">
-                            <div class="tit-new">质量一次验收合格率</div>
+                            <div class="tit-new">
+                                <div>质量一次验收合格率</div>
+                                <div class="tab-wrap-tit tab-wrap-tit-positon">
+                                    <div class="tab" data-value="2">
+                                        <div class="t-item active">建筑</div>
+                                        <div class="spline"></div>
+                                        <div class="t-item">安装</div>
+                                    </div>
+                                </div>
+                            </div>
                             <div id='two' style="width: 100%; height: 100%;"></div>
                         </div>
                     </div>
@@ -591,7 +606,7 @@
 <script type="text/javascript"  src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript"  src="../res/index/js/echarts.min.js"></script>
 <script type="text/javascript">
-    function category_One(id, title, dataNum,color1,color2,color3) {
+    function category_One(id, title, dataNum,text) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
@@ -604,11 +619,23 @@
                 left:'center',
                 text: title,
                 textStyle: {
-                    color: '#fff',
-                    fontSize: 10,
+                    color: '#88C8E2',
+                    fontSize: 12,
                     fontWeight:'300'
                 },
                 show: true
+            },
+               graphic: {
+                type: "text",
+                left: "center",
+                bottom: "18%",
+                style: {
+                    text: text,
+                    textAlign: "center",
+                    fill: "#88C8E2",
+                    fontSize: 16,
+                    fontWeight: 600
+                }
             },
             series: [
                 {
@@ -637,9 +664,9 @@
                     axisLine: {
                         lineStyle: {
                              color : [ //表盘颜色
-                                [ 0.5, color1 ],//0-50%处的颜色
-                                [ 0.7, color2 ],//51%-70%处的颜色
-                                [ 1, color3],//70%-100%处的颜色
+                                [ 0.5, "#91C7AE" ],//0-50%处的颜色
+                                [ 0.7, "#63869E" ],//51%-70%处的颜色
+                                [ 1, "#88C8E2"],//70%-100%处的颜色
                             ],
                             width : 10//表盘宽度
                         }
@@ -661,8 +688,8 @@
         myChart.setOption(option, true)
     }
     //category_One('one1', '安全人工时统计', 80)
-    category_One('three1', '项目焊接一次合格率', 80,"#91C7AE","#63869E","#88C8E2")
-    category_One('three2', '项目焊接进度完成率', 80,"#97baa4"," #63869E","#339966")
+    category_One('three1', '项目焊接一次合格率', 93,"93%")
+    category_One('three2', '项目焊接进度完成率', 78,"78%")
 </script>
 <script type="text/javascript">
     function category(id, xArr, series) {
@@ -700,9 +727,27 @@
                 },
                 axisLabel: {
                     show: true,
+                     interval: 0,
+                     rotate: 45,
                     textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    }
+                        color: 'rgba(255, 255, 255, 0.8)',
+                        fontSize:'8'
+                    },
+                     formatter: function(params) {
+                        var newParamsName = ''
+                        var paramsNameNumber = params.length
+                        var provideNumber = 4
+                        var rowNumber = Math.ceil(paramsNameNumber / provideNumber)
+                        for (let row = 0; row < rowNumber; row++) {
+                          newParamsName +=
+                            params.substring(
+                              row * provideNumber,
+                              (row + 1) * provideNumber
+                            ) + '\n'
+                        }
+                        return newParamsName
+                      }
+
                 },
                 type: 'category',
                 data: xArr
@@ -729,7 +774,7 @@
                 top: '12%',
                 left: '10',
                 right: '10',
-                bottom: '10',
+                bottom: '0',
                 containLabel: true,
                 backgroundColor: 'rgba(0,162,233, 0.01)',
                 // borderColor: 'rgba(0,162,233, 1)'
@@ -743,7 +788,7 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-     var two =<%=Two %>;
+    var two =<%=Two %>;
     var xArr = two.categories
     var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
     var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
@@ -969,9 +1014,6 @@
     ]
     //category_Two('two1', xArr, data)
 </script>
-
-
-
 <script type="text/javascript">
     $(".tab .t-item").click(function () {
         var $this = $(this)
@@ -996,98 +1038,28 @@
             
         }
         else if (value == 2) {
-            var xArr = ["分包一", "分包二", "分包三"]
-            var data = [
-                {
-                    name: '计划值',
-                    type: 'bar',
-                    data: [0.23, 0.35, 0.42],
-                    //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                },
-                {
-                    name: '实际值',
-                    type: 'bar',
-                    data: [0.2, 0.28, 0.35],
-                    //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
-                },
-                {
-                    name: '累计计划值',
-                    type: 'line',
-                    smooth: true,
-                    data: [0.23, 0.58, 1],
-                    //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                },
-                {
-                    name: '累计实际值',
-                    type: 'line',
-                    smooth: true,
-                    data: [0.2, 0.48, 0.83],
-                    //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                }
-            ]
+            var two =<%=Two %>;
+            var two2 =<%=Two2 %>;
+            var xArr = two.categories
+            var series = [{
+                name: '质量一次性合格率',
+                type: 'bar',
+                barWidth: 40,
+                data: two.series[0].data,
+                itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
+            }];
             if (index == 2) {
-                xArr = ["单位工程一", "单位工程二", "单位工程三"]
-                data = [
-                    {
-                        name: '计划值',
-                        type: 'bar',
-                        data: [0.20, 0.33, 0.47],
-                        //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                    },
-                    {
-                        name: '实际值',
-                        type: 'bar',
-                        data: [0.15, 0.25, 0.33],
-                        //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
-                    },
-                    {
-                        name: '累计计划值',
-                        type: 'line',
-                        smooth: true,
-                        data: [0.20, 0.53, 1],
-                        //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                    },
-                    {
-                        name: '累计实际值',
-                        type: 'line',
-                        smooth: true,
-                        data: [0.15, 0.4, 0.73],
-                        //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                    }
-                ]
+                xArr = two2.categories
+                data = [10, 80]
+                series = [{
+                    name: '质量一次性合格率',
+                    type: 'bar',
+                    barWidth: 40,
+                    data: two2.series[0].data,
+                    itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
+                }];
             }
-            else if (index == 4) {
-                xArr = ["建筑", "安装"]
-                data = [
-                    {
-                        name: '计划值',
-                        type: 'bar',
-                        data: [0.45, 0.55],
-                        //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                    },
-                    {
-                        name: '实际值',
-                        type: 'bar',
-                        data: [0.36, 0.43],
-                        //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
-                    },
-                    {
-                        name: '累计计划值',
-                        type: 'line',
-                        smooth: true,
-                        data: [0.45, 1],
-                        //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                    },
-                    {
-                        name: '累计实际值',
-                        type: 'line',
-                        smooth: true,
-                        data: [0.36, 0.79],
-                        //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
-                    }
-                ]
-            }
-            category_Two('two', xArr, data)
+            category('two', xArr, series)
         }
         else if (value == 3) {
             if (index == 0) {
@@ -1099,27 +1071,7 @@
                 data = [{ value: 35, name: '质量不合格' },
                     { value: 65, name: '质量缺陷' }];
                 //pie('three', data, "质量问题")
-            }
-            //var data = [{ value: 10, name: '分包一' },
-            //{ value: 5, name: '分包二' },
-            //{ value: 15, name: '分包三' },
-            //{ value: 25, name: '分包四' },
-            //{ value: 20, name: '分包五' },
-            //{ value: 35, name: '分包六' }];
-            //if (index == 2) {
-            //    data = [{ value: 25, name: '单位工程一' },
-            //    { value: 35, name: '单位工程二' },
-            //    { value: 30, name: '单位工程三' }];
-            //}
-            //else if (index == 4) {
-            //    data = [{ value: 45, name: '建筑' },
-            //    { value: 55, name: '安装' }];
-            //}
-            //else if (index == 6) {
-            //    data = [{ value: 35, name: '质量不合格' },
-            //    { value: 65, name: '质量缺陷' }];
-            //}
-            
+            }            
         }
         else if (value == 4) {
             if (index == 0) {
@@ -1244,8 +1196,6 @@
         )
     }
 </script>
-
-
 <script>    
     $(document).ready(function () {
         var height = $("#swiper-pre").height()

@@ -78,15 +78,7 @@ namespace BLL
         /// <param name="PersonInOut"></param>
         public static void InsertPersonInOutNowNow(Model.SitePerson_PersonInOut PersonInOut)
         {
-            Model.SGGLDB db = Funs.DB;
-            var getLastList = from x in db.SitePerson_PersonInOutNow
-                              where x.ChangeTime <= PersonInOut.ChangeTime.Value.AddDays(-1)
-                              select x;
-            if (getLastList.Count() > 0)
-            {
-                db.SitePerson_PersonInOutNow.DeleteAllOnSubmit(getLastList);
-                db.SubmitChanges();
-            }
+            Model.SGGLDB db = Funs.DB;        
             var getNow = db.SitePerson_PersonInOutNow.FirstOrDefault(x => x.PersonInOutId == PersonInOut.PersonInOutId);
             if (getNow == null)
             {
@@ -101,8 +93,16 @@ namespace BLL
                     WorkPostId = PersonInOut.WorkPostId,
                     PostType = PersonInOut.PostType,
                 };
-
                 db.SitePerson_PersonInOutNow.InsertOnSubmit(newPersonInOut);
+                db.SubmitChanges();
+            }
+
+            var getLastList = from x in db.SitePerson_PersonInOutNow
+                              where x.ChangeTime <= PersonInOut.ChangeTime.Value.AddDays(-1)
+                              select x;
+            if (getLastList.Count() > 0)
+            {
+                db.SitePerson_PersonInOutNow.DeleteAllOnSubmit(getLastList);
                 db.SubmitChanges();
             }
         }

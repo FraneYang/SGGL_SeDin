@@ -1262,7 +1262,7 @@ namespace BLL
                             where y.ProjectId == projectId && z.ProjectId == projectId
                             where unitType == "" || unitTypes.Contains(z.UnitType)
                             where unitId == "" || unitIds.Contains(z.UnitId)
-                            orderby x.UserName
+                            orderby z.UnitType descending, x.UserName
                             select x).ToList();
                 }
                 return list;

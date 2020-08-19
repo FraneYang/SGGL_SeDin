@@ -258,6 +258,7 @@ namespace FineUIPro.Web
                 var getAccident = from x in Funs.DB.Accident_AccidentReport
                                   where x.ProjectId == this.CurrUser.LoginProjectId
                                   select x;
+           
                 listdata.Add(getAccident.Where(x => x.AccidentTypeId == "1" || x.AccidentTypeId == "2" || x.AccidentTypeId == "3" || x.AccidentTypeId == "4").Count());
                 listdata.Add(getAccident.Where(x => x.AccidentTypeId == "5").Count());
                 listdata.Add(getAccident.Where(x => x.AccidentTypeId == "6" || x.AccidentTypeId == "7").Count());

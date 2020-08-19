@@ -212,7 +212,7 @@
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
 <script type="text/javascript">
-    function category_One(id, title, dataNum) {
+     function category_One(id, title, dataNum, text) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
@@ -229,6 +229,18 @@
                     fontSize: 10,
                 },
                 show: true
+            },
+             graphic: {
+                type: "text",
+                left: "center",
+                bottom: "18%",
+                style: {
+                    text: text,
+                    textAlign: "center",
+                    fill: "#fff",
+                    fontSize: 10,
+                    fontWeight: 100
+                }
             },
             series: [
                 {
@@ -283,9 +295,9 @@
     var one1 =<%=One1 %>
     var one2 =<%=One2 %>
     var one3 =<%=One3 %>
-        category_One('one1', "质量验收一次合格率", one1)
-    category_One('one2', "施工资料同步率", one2)
-    category_One('one3', "质量问题整改完成率", one3)
+        category_One('one1', "质量验收一次合格率", one1, one1+"%")
+    category_One('one2', "施工资料同步率", one2, one2+"%")
+    category_One('one3', "质量问题整改完成率", one3, one3+"%")
 </script>
 <script type="text/javascript">
     function category_six(id, title, xArr, data) {
@@ -400,7 +412,7 @@
     var xArr = ["已整改", "未整改"]
     var series = [
         { value: 335, name: '人身伤害' },
-        { value: 310, name: '未' }
+        { value: 310, name: '未遂事故' }
     ]
         //category_six('one4', "A类", xArr, );
 </script>
@@ -556,7 +568,7 @@
             },
             series: data,
             grid: {
-                top: '15%',
+                top: '20%',
                 left: '0%',
                 right: '0%',
                 bottom: '0%',
@@ -581,6 +593,7 @@
             name: '未整改',
             type: 'bar',
             stack: '总量',
+            barWidth: 40,
             //data: [3, 5, 8, 10, 6, 4, 5, 9, 12],
             data: two2.series[0].data,
             itemStyle: { normal: { color: 'rgba(162,63,21, 1)' } }
@@ -589,6 +602,7 @@
             name: '已整改',
             type: 'bar',
             stack: '总量',
+            barWidth: 40,
             //data: [2, 7, 5, 9, 12, 9, 2, 8, 10],
             data: two2.series[1].data,
             itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
@@ -686,13 +700,14 @@
     var series = [{
         name: '质量验收一次合格率',
         type: 'bar',
+        barGap:0,
         data: three.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     },
     {
         name: '施工资料同步率',
         type: 'bar',
-        data: three.series[1].data,
+        data: three.series[0].data,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }]
     category_Three('three', xArr, series)
@@ -759,7 +774,7 @@
             },
             series: series,
             grid: {
-                top: '12%',
+                top: '15%',
                 left: '0%',
                 right: '0%',
                 bottom: '0%',
@@ -784,12 +799,15 @@
     var series = [{
         name: '质量验收一次合格率',
         type: 'bar',
+        barWidth: 40,
+        barGap:0,
         data: four.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     },
     {
         name: '施工资料同步率',
         type: 'bar',
+        barWidth: 40,
         data: four.series[1].data,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }];

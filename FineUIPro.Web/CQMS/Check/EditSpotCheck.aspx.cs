@@ -1074,18 +1074,50 @@ namespace FineUIPro.Web.CQMS.Check
             drpHandleMan.Items.Clear();
             if (!string.IsNullOrEmpty(drpHandleType.SelectedText))
             {
-                
+                Model.SGGLDB db = Funs.DB;
                 if (drpHandleType.SelectedText.Contains("总包"))
                 {
                     UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
                 }
                 else if (drpHandleType.SelectedText.Contains("监理"))
                 {
-                    UserService.InitJLUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false);
+                    var user = (from x in db.Sys_User
+                                join y in db.Project_ProjectUser
+                                on x.UserId equals y.UserId
+                                join z in db.Project_ProjectUnit
+                                on y.UnitId equals z.UnitId
+                                where x.IsPost == true && y.ProjectId == CurrUser.LoginProjectId && z.ProjectId== CurrUser.LoginProjectId && (z.UnitType == BLL.Const.ProjectUnitType_3 || z.UnitType == BLL.Const.ProjectUnitType_1)
+                                orderby z.UnitType descending
+                                select x).ToList();
+                    ListItem[] lis = new ListItem[user.Count()];
+                    for (int i = 0; i < user.Count(); i++)
+                    {
+                        lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                    }
+                    drpHandleMan.DataValueField = "Value";
+                    drpHandleMan.DataTextField = "Text";
+                    drpHandleMan.DataSource = lis;
+                    drpHandleMan.DataBind();
                 }
                 else
                 {
-                    UserService.InitYZUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false);
+                    var user = (from x in db.Sys_User
+                                join y in db.Project_ProjectUser
+                                on x.UserId equals y.UserId
+                                join z in db.Project_ProjectUnit
+                                on y.UnitId equals z.UnitId
+                                where x.IsPost == true && y.ProjectId == CurrUser.LoginProjectId && z.ProjectId == CurrUser.LoginProjectId && (z.UnitType == BLL.Const.ProjectUnitType_4 || z.UnitType == BLL.Const.ProjectUnitType_1)
+                                orderby z.UnitType descending
+                                select x).ToList();
+                    ListItem[] lis = new ListItem[user.Count()];
+                    for (int i = 0; i < user.Count(); i++)
+                    {
+                        lis[i] = new ListItem(user[i].UserName ?? "", user[i].UserId.ToString());
+                    }
+                    drpHandleMan.DataValueField = "Value";
+                    drpHandleMan.DataTextField = "Text";
+                    drpHandleMan.DataSource = lis;
+                    drpHandleMan.DataBind();
                 }
                 if (drpHandleMan.Items.Count > 0)
                 {

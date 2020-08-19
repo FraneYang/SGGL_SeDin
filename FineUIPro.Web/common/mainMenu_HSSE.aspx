@@ -430,7 +430,7 @@
                 // borderColor: 'rgba(0,162,233, 1)'
             },
             itemStyle: {
-                color: 'rgba(200,201,10, 1)'
+                color: 'rgba(9,199,113, 1)'
             },
             backgroundColor: 'rgba(0,162,233, 0.01)',
             textStyle: {
@@ -447,10 +447,11 @@
         name: '累计人工时',
         type: 'line',
         data: two.series[0].data,
-        itemStyle: { normal: { color: '#AACC08' } }
+        itemStyle: { normal: { color: '#00c771' } }
     },{
         name: '当月人工时',
-        type: 'bar',
+            type: 'bar',
+          barWidth: 40,
         data: two.series[1].data
     }]
     category_Two('two', xArr, data)
@@ -608,7 +609,7 @@
                 right: '0%',
                 bottom: '0%',
                 containLabel: true,
-                backgroundColor: 'rgba(0,162,233, 0.01)',
+                backgroundColor: 'rgba(0,162,233, 0.01)',                
                 // borderColor: 'rgba(0,162,233, 1)'
             },
             itemStyle: {
@@ -628,11 +629,14 @@
     var series = [{
         name: '待整改',
         type: 'bar',
+         barWidth: 20,
+         barGap:0.05,
         data: four1.series[0].data,
-        itemStyle: { normal: { color: '#C2CB0A' } }
+        itemStyle: { normal: { color: '#88cc00' } }
     }, {
         name: '全部',
-        type: 'bar',
+            type: 'bar',    
+         barWidth: 20,
         data: four1.series[1].data,
         itemStyle: { normal: { color: '#AE4B23' } }
     }];
@@ -727,14 +731,15 @@
         itemStyle: { normal: { color: 'rgba(0, 255, 0, 1)' } }
     },{
         name: '当月',
-        type: 'bar',
+           type: 'bar',
+          barWidth: 40,
         data: five.series[0].data
     }]
 
     category_Five('five', xArr, data)
 </script>
 <script type="text/javascript">
-    function category_six(id, xArr, data) {
+    function category_six(id, xArr, data,data2) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
@@ -764,26 +769,31 @@
                       fontSize: 10,
                 }
             },
+            graphic: {
+                type: "text",
+                left: "23%",
+                top: "55%",
+                style: {
+                    text: data2,
+                    textAlign: "center",
+                    fill: "#fff",
+                    fontSize: 18,
+                    fontWeight: 600
+                }
+            },
             color: ['#CFE5B7', '#BBD4A4', '#A3C78A', '#88B53D', '#7CA63B', '#698E30'],
             series: [
                 {
                     name: '事故统计',
                     type: 'pie',
                     center: ['25%', '60%'],
-                    radius: ['40%', '80%'],
+                    radius: ['40%', '78%'],
                     avoidLabelOverlap: false,
                     label: {
                         show: false,
                         position: 'inside',
                         formatter: function (data) { return data.percent.toFixed(2); }
                     },
-                    //emphasis: {
-                    //    label: {
-                    //        show: true,
-                    //        fontSize: '20',
-                    //        fontWeight: 'bold'
-                    //    }
-                    //},
                     labelLine: {
                         show: false
                     },
@@ -797,7 +807,6 @@
                     ],
                     itemStyle: {
                         normal: {
-                            //opacity: 0.7,
                             borderWidth: 3,
                             borderColor: 'rgba(218,235,234, 1)'
                         }
@@ -812,7 +821,8 @@
     var six=<%=Six %>;
     var xArr = ["分包一", "分包二"]
     var data = six.series[0].data
-    category_six('six', xArr, data)
+    var data2 = data[0]+data[1]+data[2]+data[3]+data[4]+data[5]
+    category_six('six', xArr, data,data2)
 </script>
 <script type="text/javascript">
     $(".tab .t-item").click(function () {
@@ -836,7 +846,7 @@
                 data: four1.series[0].data
             }, {
                 name: '全部',
-                type: 'bar',
+                    type: 'bar',
                 data: four1.series[1].data,
                 itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
             }];
@@ -844,11 +854,9 @@
                 var xArr = four2.categories
                 var data = [{
                     name: '待整改',
-                    type: 'bar',
                     data: four2.series[0].data
                 }, {
                     name: '全部',
-                    type: 'bar',
                     data: four2.series[0].data,
                     itemStyle: { normal: { color: 'rgba(174,75,37, 1)' } }
                 }];
