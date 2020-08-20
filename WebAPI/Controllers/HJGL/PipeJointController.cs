@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIPipeJointService.getWeldJointList(pipeLineId);
+                responeData.data = APIPipeJointService.GetWeldJointList(pipeLineId);
             }
             catch (Exception ex)
             {

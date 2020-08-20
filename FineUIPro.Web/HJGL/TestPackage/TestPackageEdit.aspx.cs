@@ -253,58 +253,12 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 //        this.drpUnit.Text = unit.UnitName;
                 //    }
                 //}
-                if (!string.IsNullOrEmpty(testPackageManage.UnitWorkId))
-                {
-                    var install = BLL.UnitWorkService.getUnitWorkByUnitWorkId(testPackageManage.UnitWorkId);
-                    if (install != null)
-                    {
-                        this.drpUnitWork.Text = install.UnitWorkName;
-                    }
-                }
-
+               
                 this.txtTestPackageName.Text = testPackageManage.TestPackageName;
                 //this.txtTestPackageCode.Text = testPackageManage.TestPackageCode;
-                if (!string.IsNullOrEmpty(testPackageManage.TestType))
-                {
-                    var testType = BLL.Base_PressureService.GetPressureByPressureId(testPackageManage.TestType);
-                    if (testType != null)
-                    {
-                        this.drpTestType.Text = testType.PressureName;
-                    }
-                }
-                this.txtTestService.Text = testPackageManage.TestService;
-                this.txtTestHeat.Text = testPackageManage.TestHeat;
-                this.txtTestAmbientTemp.Text = testPackageManage.TestAmbientTemp;
+               
 
-                this.txtTestMediumTemp.Text = testPackageManage.TestMediumTemp;
-                this.txtVacuumTestService.Text = testPackageManage.VacuumTestService;
-                this.txtVacuumTestPressure.Text = testPackageManage.VacuumTestPressure;
-
-                this.txtTightnessTestTime.Text = testPackageManage.TightnessTestTime;
-                this.txtTightnessTestTemp.Text = testPackageManage.TightnessTestTemp;
-                this.txtTightnessTest.Text = testPackageManage.TightnessTest;
-
-                this.txtTestPressure.Text = testPackageManage.TestPressure;
-                this.txtTestPressureTemp.Text = testPackageManage.TestPressureTemp;
-                this.txtTestPressureTime.Text = testPackageManage.TestPressureTime;
-
-                this.txtOperationMedium.Text = testPackageManage.OperationMedium;
-                this.txtPurgingMedium.Text = testPackageManage.PurgingMedium;
-                this.txtCleaningMedium.Text = testPackageManage.CleaningMedium;
-
-                this.txtLeakageTestService.Text = testPackageManage.LeakageTestService;
-                this.txtLeakageTestPressure.Text = testPackageManage.LeakageTestPressure;
-                this.txtAllowSeepage.Text = testPackageManage.AllowSeepage;
-                this.txtFactSeepage.Text = testPackageManage.FactSeepage;
-                this.txtModifyDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.ModifyDate);
-                if (!string.IsNullOrEmpty(testPackageManage.Modifier))
-                {
-                    var users = BLL.UserService.GetUserByUserId(testPackageManage.Modifier);
-                    if (users != null)
-                    {
-                        this.drpModifier.Text = users.UserName;
-                    }
-                }
+               
                 this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.TableDate);
                 if (!string.IsNullOrEmpty(testPackageManage.Tabler))
                 {
@@ -343,32 +297,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         private void SetTextTemp()
         {
             this.txtTestPackageNo.Text = string.Empty;
-            //this.drpUnit.Text = string.Empty;
-            this.drpUnitWork.Text = string.Empty;
             this.txtTestPackageName.Text = string.Empty;
-            //this.txtTestPackageCode.Text = string.Empty;
-            this.drpTestType.Text = string.Empty;
-            this.txtTestService.Text = string.Empty;
-            this.txtTestHeat.Text = string.Empty;
-            this.txtTestAmbientTemp.Text = string.Empty;
-            this.txtTestMediumTemp.Text = string.Empty;
-            this.txtVacuumTestService.Text = string.Empty;
-            this.txtVacuumTestPressure.Text = string.Empty;
-            this.txtTightnessTestTime.Text = string.Empty;
-            this.txtTightnessTestTemp.Text = string.Empty;
-            this.txtTightnessTest.Text = string.Empty;
-            this.txtTestPressure.Text = string.Empty;
-            this.txtTestPressureTemp.Text = string.Empty;
-            this.txtTestPressureTime.Text = string.Empty;
-            this.txtOperationMedium.Text = string.Empty;
-            this.txtPurgingMedium.Text = string.Empty;
-            this.txtCleaningMedium.Text = string.Empty;
-            this.txtLeakageTestService.Text = string.Empty;
-            this.txtLeakageTestPressure.Text = string.Empty;
-            this.txtAllowSeepage.Text = string.Empty;
-            this.txtFactSeepage.Text = string.Empty;
-            this.drpModifier.Text = string.Empty;
-            this.txtModifyDate.Text = string.Empty;
             this.drpTabler.Text = string.Empty;
             this.txtTableDate.Text = string.Empty;
             this.txtRemark.Text = string.Empty;

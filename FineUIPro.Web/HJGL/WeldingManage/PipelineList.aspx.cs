@@ -129,7 +129,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         private void BindGrid()
         {
             string strSql = @"SELECT ProjectId,UnitWorkId,PipelineId,PipelineCode,UnitName,MediumCode,PipingClassCode,UnitWorkCode,
-                                     TestPressure,SingleNumber,DetectionRateCode,DetectionType,Remark,TestMediumCode,TotalDin,JointCount
+                                     TestPressure,SingleNumber,DetectionRateCode,DetectionType,Remark,TestMediumCode,TotalDin,
+                                     JointCount,PressurePipingClassCode,PipeLenth,DesignPress,DesignTemperature
                               FROM dbo.View_HJGL_Pipeline WHERE ProjectId= @ProjectId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));

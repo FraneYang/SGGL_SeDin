@@ -171,6 +171,7 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
             BindGrid();
         }
 
@@ -766,14 +767,9 @@ namespace FineUIPro.Web.HSSE.Check
                                 j++;
                                 flag = true;
                             }
-
                         }
-
-
                     }
-
                 }
-
             }
             if (!flag)
             {

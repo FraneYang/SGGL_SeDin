@@ -83,12 +83,19 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             {
                 DetectionTypeId = String.Join("|", drpDetectionType.SelectedValueArray);
             }
+
+            decimal? thicness = null;
+            if (this.txtThickness.Text.Trim() != "")
+            {
+                thicness = Convert.ToDecimal(this.txtThickness.Text.Trim());
+            }
+
             Model.Base_WeldType newWeldType = new Model.Base_WeldType
             {
                 WeldTypeCode = this.txtWeldTypeCode.Text.Trim(),
                 WeldTypeName = this.txtWeldTypeName.Text.Trim(),
                 DetectionType = DetectionTypeId,
-                Thickness =Convert.ToDecimal(this.txtThickness.Text.Trim()),
+                Thickness = thicness,
                 Remark = this.txtRemark.Text.Trim()
             };
 

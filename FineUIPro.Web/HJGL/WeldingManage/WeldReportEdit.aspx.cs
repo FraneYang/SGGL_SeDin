@@ -27,17 +27,17 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         }
 
         /// <summary>
-        /// 项目主键
+        /// 单位工程
         /// </summary>
-        public string WorkAreaId
+        public string UnitWorkId
         {
             get
             {
-                return (string)ViewState["WorkAreaId"];
+                return (string)ViewState["UnitWorkId"];
             }
             set
             {
-                ViewState["WorkAreaId"] = value;
+                ViewState["UnitWorkId"] = value;
             }
         }
         #endregion
@@ -155,7 +155,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                     this.drpUnitWork.SelectedValue = report.UnitWorkId;
                 }
 
-                this.WorkAreaId = report.UnitWorkId;
+                this.UnitWorkId = report.UnitWorkId;
                 this.txtWeldingDate.Text = string.Format("{0:yyyy-MM-dd}", report.WeldingDate);
                 this.hdTablerId.Text = report.Tabler;
                 Model.Sys_User tabler = BLL.UserService.GetUserByUserId(report.Tabler);
@@ -168,10 +168,10 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             }
             else
             {
-                this.WorkAreaId = Request.Params["workAreaId"];
-                if (!string.IsNullOrEmpty(WorkAreaId))
+                this.UnitWorkId = Request.Params["unitWorkId"];
+                if (!string.IsNullOrEmpty(UnitWorkId))
                 {
-                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(WorkAreaId);
+                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(UnitWorkId);
                     drpUnit.SelectedValue = w.UnitId;
                     this.drpUnitWork.SelectedValue = w.UnitWorkId;
                 }
@@ -267,12 +267,13 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 Model.HJGL_WeldingDaily newWeldingDaily = new Model.HJGL_WeldingDaily();
                 newWeldingDaily.WeldingDailyCode = this.txtWeldingDailyCode.Text.Trim();
                 newWeldingDaily.ProjectId = CurrUser.LoginProjectId;
+                newWeldingDaily.UnitWorkId = this.UnitWorkId;
                 if (this.drpUnitWork.SelectedValue != BLL.Const._Null)
                 {
                     newWeldingDaily.UnitWorkId = this.drpUnitWork.SelectedValue;
                 }
                 newWeldingDaily.UnitId = this.drpUnit.SelectedValue;
-                newWeldingDaily.UnitWorkId = this.WorkAreaId;
+               
                 DateTime? weldDate = Funs.GetNewDateTime(this.txtWeldingDate.Text);
                 if (weldDate.HasValue)
                 {
@@ -298,11 +299,11 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                     string weldType = string.Empty;
                     if (joty != null && joty.WeldTypeCode.Contains("B"))
                     {
-                        weldType = "1";
+                        weldType = "对接焊缝";
                     }
                     else
                     {
-                        weldType = "2";
+                        weldType = "角焊缝";
                     }
                     string floorWelder = item.BackingWelderId;
                     string cellWelder = item.CoverWelderId;

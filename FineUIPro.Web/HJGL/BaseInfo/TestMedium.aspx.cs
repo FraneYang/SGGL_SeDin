@@ -34,11 +34,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT MediumId,MediumCode,MediumName,MediumAbbreviation,Remark
-                              FROM dbo.Base_Medium WHERE IsTestMedium='true'";
+            string strSql = @"SELECT TestMediumId,MediumCode,MediumName,Remark,
+                               (CASE WHEN TestType='1' THEN '试压介质' WHEN TestType='2' THEN '泄漏性试验介质'
+					                 WHEN TestType='3' THEN '真空试验介质' WHEN TestType='4' THEN '吹扫介质'
+					                 WHEN TestType='5' THEN '清洗介质'
+					           END) AS TestType
+                              FROM dbo.Base_TestMedium WHERE 1=1";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " AND ProjectId = @ProjectId";
-            listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+           
             if (!string.IsNullOrEmpty(this.txtMediumCode.Text.Trim()))
             {
                 strSql += " AND MediumCode LIKE @MediumCode";
@@ -49,11 +52,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 strSql += " AND MediumName LIKE @MediumName";
                 listStr.Add(new SqlParameter("@MediumName", "%" + this.txtMediumName.Text.Trim() + "%"));
             }
-            if (!string.IsNullOrEmpty(this.txtMediumAbbreviation.Text.Trim()))
-            {
-                strSql += " AND MediumAbbreviation LIKE @MediumAbbreviation";
-                listStr.Add(new SqlParameter("@MediumAbbreviation", "%" + this.txtMediumAbbreviation.Text.Trim() + "%"));
-            }
+           
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 

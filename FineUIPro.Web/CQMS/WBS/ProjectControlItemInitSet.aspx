@@ -84,7 +84,7 @@
                                 </f:Toolbar>
                             </Toolbars>
                             <Columns>
-                                <f:RenderField Width="80px" ColumnID="ControlItemContent" DataField="ControlItemContent" FieldType="String"
+                                <f:RenderField Width="70px" ColumnID="ControlItemContent" DataField="ControlItemContent" FieldType="String"
                                     HeaderText="工作包" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="控制点等级" ColumnID="ControlPoint" DataField="ControlPoint"
@@ -110,40 +110,40 @@
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="控制点内容描述" ColumnID="ControlItemDef" DataField="ControlItemDef" SortField="ControlItemDef"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="250px" FieldType="String" >
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="300px" FieldType="String" >
                                     <Editor>
                                         <f:TextArea runat="server" ID="txtControlItemDef" AutoGrowHeight="true" Height="70px">
                                         </f:TextArea>
                                     </Editor>
                                 </f:RenderField>
-                                <f:TemplateField ColumnID="HGForms" Width="100px" HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:TemplateField ColumnID="HGForms" Width="200px" HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Center">
                                     <ItemTemplate>
                                         <asp:CheckBoxList runat="server" ID="cblHGForms" RepeatDirection="Vertical" >
                                         </asp:CheckBoxList>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:TemplateField ColumnID="SHForms" Width="100px" HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:TemplateField ColumnID="SHForms" Width="200px" HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Center">
                                     <ItemTemplate>
                                         <asp:CheckBoxList runat="server" ID="cblSHForms" RepeatDirection="Vertical" >
                                         </asp:CheckBoxList>
                                     </ItemTemplate>
                                 </f:TemplateField>
                                 <f:RenderField HeaderText="质量验收规范" ColumnID="Standard" DataField="Standard" SortField="Standard"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="100px" FieldType="String">
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="60px" FieldType="String">
                                     <Editor>
                                         <f:TextArea runat="server" ID="txtStandard" AutoGrowHeight="true" Height="70px">
                                         </f:TextArea>
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="条款号" ColumnID="ClauseNo" DataField="ClauseNo" SortField="ClauseNo"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="80px" FieldType="String">
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="60px" FieldType="String">
                                     <Editor>
                                         <f:TextArea runat="server" ID="txtClauseNo" AutoGrowHeight="true" Height="70px">
                                         </f:TextArea>
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="检查次数" ColumnID="CheckNum" DataField="CheckNum"
-                                    SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="50px"
+                                    SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="30px"
                                     FieldType="String">
                                     <Editor>
                                         <f:NumberBox ID="txtCheckNum" runat="server" NoNegative="true" NoDecimal="true">

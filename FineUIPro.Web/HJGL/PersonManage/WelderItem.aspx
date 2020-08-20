@@ -61,17 +61,17 @@
                         HeaderText="型号、牌号、级别" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="130px" ColumnID="WeldingLocation" DataField="WeldingLocation"
+                    <f:RenderField Width="90px" ColumnID="WeldingLocation" DataField="WeldingLocation"
                         FieldType="String" HeaderText="焊接位置" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="ThicknessMax" DataField="ThicknessMax" FieldType="String"
-                        HeaderText="管径覆盖范围（最大值）" HeaderTextAlign="Center" TextAlign="Left">
+                        HeaderText="管径覆盖范围" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="SizesMin" DataField="SizesMin" FieldType="String" HeaderText="壁厚覆盖范围（最小值）"
+                    <f:RenderField Width="120px" ColumnID="SizesMin" DataField="SizesMin" FieldType="String" HeaderText="壁厚覆盖范围"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="WeldType" DataField="WeldType" FieldType="String"
+                    <f:RenderField Width="160px" ColumnID="WeldType" DataField="WeldType" FieldType="String"
                         HeaderText="可焊焊缝类型" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>

@@ -37,10 +37,16 @@ namespace FineUIPro.Web.HJGL.PersonManage
         private void BindGrid()
         {
             string strSql = @"SELECT WelderQualifyId, WelderId, QualificationItem, LimitDate, CheckDate,
-                                     ThicknessMax,SizesMin,Remark,WelderCode,PersonName,WeldingMethod,
+									  (CASE WHEN ThicknessMax >0 THEN '不限 ~ '+ CONVERT(VARCHAR(5),CAST(ThicknessMax AS REAL))
+									       WHEN ThicknessMax=0 THEN '不限'
+										   WHEN ThicknessMax IS NULL THEN '' END) AS ThicknessMax,
+								     (CASE WHEN SizesMin >0 THEN  CONVERT(VARCHAR(5),CAST(SizesMin AS REAL))+' ~ 不限'
+									       WHEN SizesMin=0 THEN '不限'
+										   WHEN SizesMin IS NULL THEN '' END) AS SizesMin,
+									 Remark,WelderCode,PersonName,WeldingMethod,
                                      WeldingLocation,MaterialType,IsPrintShow,WeldType,IsCanWeldG
-                           FROM View_Welder_WelderQualify
-                           WHERE WelderId=@WelderId";
+                              FROM View_Welder_WelderQualify
+                              WHERE WelderId=@WelderId";
 
             List<SqlParameter> parms = new List<SqlParameter>();
             parms.Add(new SqlParameter("@WelderId", Request.Params["PersonId"]));

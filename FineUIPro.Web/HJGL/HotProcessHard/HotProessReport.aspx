@@ -24,7 +24,11 @@
                         <Items>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:CheckBox ID="ckbIsCompleted" runat="server" Label="是否完成" LabelWidth="80px"></f:CheckBox>
+                            <f:DropDownList ID="drpIsCompleted" runat="server" Label="是否完成" LabelWidth="80px">
+                                <f:ListItem  Value="True" Text="完成" Selected="true"/>
+                                <f:ListItem  Value="False" Text="未完成" />
+                            </f:DropDownList>
+                            
                              <f:Button ID="btnSave" ToolTip="保存该焊口热处理是否完成" Text="保存" Icon="SystemSave" EnablePostBack="true"
                                 runat="server" OnClick="btnSave_Click" >
                             </f:Button>
@@ -36,7 +40,7 @@
                 </Toolbars>
                 <Columns>
                     <f:RenderField Width="120px" ColumnID="WeldJointCode" DataField="WeldJointCode" FieldType="String"
-                        HeaderText="总焊口量" HeaderTextAlign="Center"
+                        HeaderText="焊口号" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="WeldJointCode">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="PointCount" DataField="PointCount" FieldType="Int"

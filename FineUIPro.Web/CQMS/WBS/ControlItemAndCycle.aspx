@@ -24,37 +24,38 @@
       <f:PageManager ID="PageManager1" AutoSizePanelID="RegionPanel1" runat="server" />
         <f:RegionPanel ID="RegionPanel1" ShowBorder="false" runat="server" Margin="5px">
             <Regions>
-                <f:Region ID="Region1" ShowBorder="false" ShowHeader="false" RegionPosition="Left"
-                    Title="项目施工WBS定制" BodyPadding="0 5 0 0" Width="300px" Layout="Fit" runat="server"
+                <f:Region ID="Region1" ShowBorder="false" ShowHeader="true" RegionPosition="Left"
+                    Title="项目施工WBS定制" BodyPadding="0 5 0 0" Width="420px" Layout="Fit" runat="server"
                     EnableCollapse="true">
-                    <Items>
-                        <f:Panel runat="server" ID="panel2" RegionPosition="Left" RegionSplit="true" EnableCollapse="true"
-                            Width="400" Title="项目施工WBS定制" TitleToolTip="项目施工WBS定制" ShowBorder="true" ShowHeader="true"
+                   <%-- <Items>
+                        <f:Panel runat="server" ID="panel2" RegionPosition="Left" RegionSplit="true" EnableCollapse="true" AutoScroll="true"
+                            Width="" Title="项目施工WBS定制" TitleToolTip="项目施工WBS定制" ShowBorder="true" ShowHeader="true"
                             BodyPadding="5px" IconFont="ArrowCircleLeft">
-                            <Items>
-                                <f:Tree ID="trWBS" Width="290" Height="600px" EnableCollapse="true" ShowHeader="true"
-                                    OnNodeCommand="trWBS_NodeCommand" OnNodeExpand="trWBS_NodeExpand" AutoLeafIdentification="true"
-                                    runat="server">
-                                    <%--<Toolbars>
-                                        <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
-                                            <Items>
-                                                <f:Button ID="btnLevel1" ToolTip="显示第一级" Text="1级" runat="server" OnClick="btnLevel1_Click">
-                                                </f:Button>
-                                                <f:Button ID="btnLevel2" ToolTip="显示第二级" Text="2级" runat="server" OnClick="btnLevel2_Click">
-                                                </f:Button>
-                                                <f:Button ID="btnLevel3" ToolTip="显示第三级" Text="3级" runat="server" OnClick="btnLevel3_Click">
-                                                </f:Button>
-                                            </Items>
-                                        </f:Toolbar>
-                                    </Toolbars>--%>
-                                    <Listeners>
-                                        <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
-                                    </Listeners>
-                                </f:Tree>
-                                <f:HiddenField runat="server" ID="hdSelectId">
-                                </f:HiddenField>
-                            </Items>
+                           
                         </f:Panel>
+                    </Items>--%>
+                     <Items>
+                        <f:Tree ID="trWBS"  EnableCollapse="true" ShowHeader="true" 
+                            OnNodeCommand="trWBS_NodeCommand" OnNodeExpand="trWBS_NodeExpand" AutoLeafIdentification="true"
+                            runat="server">
+                            <%--<Toolbars>
+                                <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
+                                    <Items>
+                                        <f:Button ID="btnLevel1" ToolTip="显示第一级" Text="1级" runat="server" OnClick="btnLevel1_Click">
+                                        </f:Button>
+                                        <f:Button ID="btnLevel2" ToolTip="显示第二级" Text="2级" runat="server" OnClick="btnLevel2_Click">
+                                        </f:Button>
+                                        <f:Button ID="btnLevel3" ToolTip="显示第三级" Text="3级" runat="server" OnClick="btnLevel3_Click">
+                                        </f:Button>
+                                    </Items>
+                                </f:Toolbar>
+                            </Toolbars>--%>
+                            <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                            </Listeners>
+                        </f:Tree>
+                        <f:HiddenField runat="server" ID="hdSelectId">
+                        </f:HiddenField>
                     </Items>
                 </f:Region>
                 <f:Region ID="Region2" ShowBorder="false" ShowHeader="false" Position="Center" Layout="VBox"
@@ -114,19 +115,19 @@
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="控制点内容描述" ColumnID="ControlItemDef" DataField="ControlItemDef" SortField="ControlItemDef"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="200px" FieldType="String" >
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="300px" FieldType="String" >
                                     <Editor>
                                         <f:TextArea runat="server" ID="txtControlItemDef" AutoGrowHeight="true" Height="70px">
                                         </f:TextArea>
                                     </Editor>
                                 </f:RenderField>
-                                <f:TemplateField ColumnID="HGForms" Width="100px" HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:TemplateField ColumnID="HGForms" Width="200px" HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Center">
                                     <ItemTemplate>
                                         <asp:CheckBoxList runat="server" ID="cblHGForms" RepeatDirection="Vertical" >
                                         </asp:CheckBoxList>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:TemplateField ColumnID="SHForms" Width="100px" HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:TemplateField ColumnID="SHForms" Width="200px" HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Center">
                                     <ItemTemplate>
                                         <asp:CheckBoxList runat="server" ID="cblSHForms" RepeatDirection="Vertical" >
                                         </asp:CheckBoxList>
@@ -154,7 +155,7 @@
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="检查次数" ColumnID="CheckNum" DataField="CheckNum"
-                                    SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="50px"
+                                    SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="30px"
                                     FieldType="String">
                                     <Editor>
                                         <f:NumberBox ID="txtCheckNum" runat="server" NoNegative="true" NoDecimal="false">

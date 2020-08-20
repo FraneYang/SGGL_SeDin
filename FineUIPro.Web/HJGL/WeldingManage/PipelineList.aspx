@@ -120,12 +120,28 @@
                                 FieldType="String" HeaderText="单线图号" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
+                             <f:RenderField Width="130px" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
+                                FieldType="Double"  HeaderText="设计压力 MPa(g)" HeaderTextAlign="Center"
+                                TextAlign="Left">
+                            </f:RenderField>
+                             <f:RenderField Width="130px" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
+                                FieldType="Double"  HeaderText="设计温度℃" HeaderTextAlign="Center"
+                                TextAlign="Left">
+                            </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="TestMediumCode" DataField="TestMediumCode" SortField="TestMediumCode"
                                 FieldType="String" HeaderText="试验介质" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
                              <f:RenderField Width="130px" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
                                 FieldType="Double"  HeaderText="试验压力 MPa(g)" HeaderTextAlign="Center"
+                                TextAlign="Left">
+                            </f:RenderField>
+                             <f:RenderField Width="120px" ColumnID="PressurePipingClassCode" DataField="PressurePipingClassCode" SortField="PressurePipingClassCode"
+                                FieldType="String" HeaderText="压力管道级别" HeaderTextAlign="Center"
+                                TextAlign="Left">
+                            </f:RenderField>
+                             <f:RenderField Width="90px" ColumnID="PipeLenth" DataField="PipeLenth" SortField="PipeLenth"
+                                FieldType="Double"  HeaderText="管线长度" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" SortField="Remark"
@@ -157,7 +173,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
         EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
-        IsModal="true" Width="800px" Height="360px">
+        IsModal="true" Width="800px" Height="480px">
     </f:Window>
     <f:Window ID="Window2" Title="选择显示列" Hidden="true"
         EnableIFrame="true" EnableMaximize="false" Target="Top" EnableResize="true" runat="server"

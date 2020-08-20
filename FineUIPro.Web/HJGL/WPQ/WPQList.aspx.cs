@@ -31,31 +31,11 @@ namespace FineUIPro.Web.HJGL.WPQ
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT wpq.WPQId,u.UnitName,wpq.WPQCode,wpq.CompileDate,wpq.Specifications,
-                                      c.ConsumablesName WeldingRod,c1.ConsumablesName WeldingWire, g.GrooveTypeName,
-                                     wpq.WeldingPosition,wpq.WeldingMethodId,
-									 CAST(wpq.MinImpactDia AS VARCHAR(10))+'~'+CAST(wpq.MaxImpactDia AS VARCHAR(10)) AS DiaRange,
-									 CAST(wpq.MinCImpactDia AS VARCHAR(10))+'~'+CAST(wpq.MaxCImpactDia AS VARCHAR(10)) AS CDiaRange,
-                                     CAST(wpq.MinImpactThickness AS VARCHAR(10))+'~'+ CAST(wpq.MaxImpactThickness AS VARCHAR(10)) AS ThicknessRange,
-									 CAST(wpq.NoMinImpactThickness AS VARCHAR(10))+'~'+ CAST(wpq.NoMaxImpactThickness AS VARCHAR(10)) AS CThicknessRange,
-									 (CASE wpq.IsHotProess WHEN 1 THEN '是' ELSE '否' END) AS IsHotProess, 
-                                     wpq.WPQStandard,wpq.PreTemperature,wpq.Remark,wpq.JointType,wpq.Motorization,wpq.ProtectiveGas,
-                                     wpq.Stretching,wpq.Bend,wpq.ToAttack,wpq.Others,wmt.WeldingMethodCode,
-                                     mat1.MaterialCode as MaterialCode1,mat1.MaterialClass as MaterialClass2,mat1.MaterialGroup as MaterialGroup1,
-                                     mat2.MaterialCode as MaterialCode2,mat2.MaterialClass as MaterialClass2,mat2.MaterialGroup as MaterialGroup2
-                              FROM WPQ_WPQList AS wpq
-                                   LEFT JOIN Base_Material AS mat1 ON mat1.MaterialId = wpq.MaterialId1
-                                   LEFT JOIN Base_Material AS mat2 ON mat2.MaterialId = wpq.MaterialId2
-                                   LEFT JOIN Base_WeldingMethod AS wmt ON wmt.WeldingMethodId = wpq.WeldingMethodId
-								   LEFT JOIN dbo.Base_Unit u ON u.UnitId=wpq.UnitId
-                                   LEFT JOIN dbo.Base_Consumables c ON c.ConsumablesId=wpq.WeldingRod 
-								   LEFT JOIN dbo.Base_Consumables c1 ON c1.ConsumablesId=wpq.WeldingWire 
-                                   LEFT JOIN dbo.Base_GrooveType g ON g.GrooveTypeId=wpq.GrooveType
-                             WHERE 1 = 1 ";
+            string strSql = @"SELECT * FROM View_HJGL_WPQ  WHERE 1 = 1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtWeldingProcedureCode.Text.Trim()))
             {
-                strSql += " AND wpq.WPQCode LIKE @WPQCode";
+                strSql += " AND WPQCode LIKE @WPQCode";
                 listStr.Add(new SqlParameter("@WPQCode", "%" + this.txtWeldingProcedureCode.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();

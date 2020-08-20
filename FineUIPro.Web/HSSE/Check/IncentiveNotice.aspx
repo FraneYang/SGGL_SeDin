@@ -18,6 +18,18 @@
                     OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                     EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                     <Toolbars>
+                           <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
+                            <Items>
+                                <f:RadioButtonList runat="server" ID="rbStates" Width="450px" LabelWidth="60px"
+                                    AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                                    <f:RadioItem Text="全部" Value="-1" Selected="true" />
+                                    <f:RadioItem Text="待提交" Value="0" />
+                                    <f:RadioItem Text="待签发" Value="1" />
+                                    <f:RadioItem Text="待批准" Value="2" />
+                                    <f:RadioItem Text="已完成" Value="3" />
+                                </f:RadioButtonList>
+                            </Items>
+                        </f:Toolbar>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
                                 <f:TextBox runat="server" Label="编号" ID="txtIncentiveNoticeCode" EmptyText="输入查询条件"
@@ -94,7 +106,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="奖励通知单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1100px"
-            Height="600px">
+            Height="620px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"

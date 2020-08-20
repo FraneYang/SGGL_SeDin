@@ -223,7 +223,8 @@ namespace BLL
                     var getUnitList = getDetail1.Select(x => x.UnitId).Distinct();
                     foreach (var unitItem in getUnitList)
                     {
-                        var getTypeIds = getDetail1.Select(x => x.HiddenHazardType).Distinct();
+                        var getUnitItemList = getDetail1.Where(x => x.UnitId == unitItem);
+                        var getTypeIds = getUnitItemList.Select(x => x.HiddenHazardType).Distinct();
                         foreach (var itemTypeId in getTypeIds)
                         {
                             Model.RectifyNoticesItem rectifyNotices = new Model.RectifyNoticesItem
@@ -238,7 +239,7 @@ namespace BLL
                             };
 
                             rectifyNotices.RectifyNoticesItemItem = new List<Model.RectifyNoticesItemItem>();
-                            var getUnitDItem = getDetail1.Where(x => x.UnitId == unitItem && x.HiddenHazardType == itemTypeId);
+                            var getUnitDItem = getUnitItemList.Where(x => x.HiddenHazardType == itemTypeId);
                             foreach (var item in getUnitDItem)
                             {
                                 Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem

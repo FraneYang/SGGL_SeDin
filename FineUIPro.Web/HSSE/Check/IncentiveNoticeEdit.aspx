@@ -21,22 +21,22 @@
                         <f:TextBox ID="txtIncentiveNoticeCode" runat="server" Label="编号" LabelAlign="Right"
                             MaxLength="50" Readonly="true" LabelWidth="90px">
                         </f:TextBox>
-                        <f:DropDownList ID="drpUnit" runat="server" Label="受奖单位" LabelAlign="Right" EnableEdit="true" LabelWidth="90px"
-                            Required="true" ShowRedStar="true" AutoPostBack="true" Readonly="true">
-                        </f:DropDownList>
-                        <f:DropDownList ID="drpTeamGroup" runat="server" Label="受奖班组" LabelAlign="Right" EnableEdit="true" LabelWidth="90px" Readonly="true">
-                        </f:DropDownList>
-                        <f:DropDownList ID="drpPerson" runat="server" Label="受奖个人" LabelAlign="Right" EnableEdit="true" LabelWidth="90px" Readonly="true">
+                         <f:DatePicker ID="txtIncentiveDate" runat="server" Label="奖励时间" LabelAlign="Right"
+                            EnableEdit="true" LabelWidth="90px" Readonly="true">
+                        </f:DatePicker>
+                        <f:DropDownList ID="drpRewardType" runat="server" Label="奖励类型" LabelAlign="Right" LabelWidth="90px"
+                            Required="true" ShowRedStar="true" Readonly="true">
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DatePicker ID="txtIncentiveDate" runat="server" Label="奖励时间" LabelAlign="Right"
-                            EnableEdit="true" LabelWidth="90px" Readonly="true">
-                        </f:DatePicker>
-                        <f:DropDownList ID="drpRewardType" runat="server" Label="奖励类型" LabelAlign="Right" LabelWidth="90px"
-                            Required="true" ShowRedStar="true" Readonly="true">
+                          <f:DropDownList ID="drpUnit" runat="server" Label="受奖单位" LabelAlign="Right" EnableEdit="true" LabelWidth="90px"
+                            Required="true" ShowRedStar="true" AutoPostBack="true" Readonly="true">
+                        </f:DropDownList>
+                        <f:DropDownList ID="drpTeamGroup" runat="server" Label="受奖班组" LabelAlign="Right" EnableEdit="true" LabelWidth="90px" Readonly="true">
+                        </f:DropDownList>
+                        <f:DropDownList ID="drpPerson" runat="server" Label="受奖个人" LabelAlign="Right" EnableEdit="true" LabelWidth="90px" Readonly="true">
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>
@@ -185,18 +185,16 @@
                             EnableCollapse="True" Collapsed="false" EnableCollapseEvent="true"
                             EnableExpandEvent="true" Hidden="true">
                             <Items>
-                                <f:DropDownList ID="drpProfessionalEngineer" runat="server" Label="总包专业工程师" LabelAlign="Right" EnableEdit="true">
+                                <f:DropDownList ID="drpProfessionalEngineer" runat="server" Label="总包专业工程师" LabelAlign="Right" EnableEdit="true" LabelWidth="150px">
                                 </f:DropDownList>
-                                <f:DropDownList ID="drpConstructionManager" runat="server" Label="总包施工经理" LabelAlign="Right" EnableEdit="true">
+                                <f:DropDownList ID="drpConstructionManager" runat="server" Label="总包施工经理" LabelAlign="Right" EnableEdit="true" LabelWidth="150px">
                                 </f:DropDownList>
-                                <f:DropDownList ID="drpUnitHeadMan" runat="server" Label="相关施工分包单位" LabelAlign="Right" EnableEdit="true">
+                                <f:DropDownList ID="drpUnitHeadMan" runat="server" Label="相关施工分包单位" LabelAlign="Right" EnableEdit="true" LabelWidth="150px">
                                 </f:DropDownList>
                             </Items>
                         </f:GroupPanel>
                     </Items>
                 </f:FormRow>
-
-
                 <f:FormRow>
                     <Items>
                         <f:GroupPanel runat="server" Title="审批步骤" BodyPadding="1px" ID="GroupPanel3"

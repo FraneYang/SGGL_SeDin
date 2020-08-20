@@ -332,7 +332,13 @@
     <Content Include="HJGL\BaseInfo\PipingClassView.aspx" />
     <Content Include="HJGL\BaseInfo\Pressure.aspx" />
     <Content Include="HJGL\BaseInfo\PressureEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\PressurePipingClass.aspx" />
+    <Content Include="HJGL\BaseInfo\PressurePipingClassEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\PressurePipingClassView.aspx" />
     <Content Include="HJGL\BaseInfo\PressureView.aspx" />
+    <Content Include="HJGL\BaseInfo\PurgeMethod.aspx" />
+    <Content Include="HJGL\BaseInfo\PurgeMethodEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\PurgeMethodView.aspx" />
     <Content Include="HJGL\BaseInfo\Testing.aspx" />
     <Content Include="HJGL\BaseInfo\TestingEdit.aspx" />
     <Content Include="HJGL\BaseInfo\TestingView.aspx" />
@@ -5976,12 +5982,54 @@
     <Compile Include="HJGL\BaseInfo\PressureEdit.aspx.designer.cs">
       <DependentUpon>PressureEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\BaseInfo\PressurePipingClass.aspx.cs">
+      <DependentUpon>PressurePipingClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PressurePipingClass.aspx.designer.cs">
+      <DependentUpon>PressurePipingClass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PressurePipingClassEdit.aspx.cs">
+      <DependentUpon>PressurePipingClassEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PressurePipingClassEdit.aspx.designer.cs">
+      <DependentUpon>PressurePipingClassEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PressurePipingClassView.aspx.cs">
+      <DependentUpon>PressurePipingClassView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PressurePipingClassView.aspx.designer.cs">
+      <DependentUpon>PressurePipingClassView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\BaseInfo\PressureView.aspx.cs">
       <DependentUpon>PressureView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="HJGL\BaseInfo\PressureView.aspx.designer.cs">
       <DependentUpon>PressureView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PurgeMethod.aspx.cs">
+      <DependentUpon>PurgeMethod.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PurgeMethod.aspx.designer.cs">
+      <DependentUpon>PurgeMethod.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PurgeMethodEdit.aspx.cs">
+      <DependentUpon>PurgeMethodEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PurgeMethodEdit.aspx.designer.cs">
+      <DependentUpon>PurgeMethodEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PurgeMethodView.aspx.cs">
+      <DependentUpon>PurgeMethodView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PurgeMethodView.aspx.designer.cs">
+      <DependentUpon>PurgeMethodView.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\BaseInfo\Testing.aspx.cs">
       <DependentUpon>Testing.aspx</DependentUpon>

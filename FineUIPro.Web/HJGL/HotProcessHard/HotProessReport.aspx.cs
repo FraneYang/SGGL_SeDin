@@ -21,14 +21,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 string hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
                 var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
-                if (hotProessFeedback.IsCompleted == true)
-                {
-                    ckbIsCompleted.Checked = true;
-                }
-                else
-                {
-                    ckbIsCompleted.Checked = false;
-                }
+                drpIsCompleted.SelectedValue = hotProessFeedback.IsCompleted.Value.ToString();
+                
                 // 绑定表格
                 this.BindGrid();
             }
@@ -134,16 +128,10 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         {
             string hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
             var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
-            if (ckbIsCompleted.Checked)
-            {
-                hotProessFeedback.IsCompleted = true;
-                hotProessFeedback.IsHardness = true;
-            }
-            else
-            {
-                hotProessFeedback.IsCompleted = false;
-                hotProessFeedback.IsHardness = false;
-            }
+
+            hotProessFeedback.IsCompleted = Convert.ToBoolean(drpIsCompleted.SelectedValue);
+            hotProessFeedback.IsHardness = Convert.ToBoolean(drpIsCompleted.SelectedValue);
+            
             BLL.HotProessTrustItemService.UpdateHotProessFeedback(hotProessFeedback);
             Alert.ShowInTop("保存成功", MessageBoxIcon.Success);
         }

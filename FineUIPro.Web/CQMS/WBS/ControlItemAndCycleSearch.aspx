@@ -63,7 +63,7 @@
                         <f:RenderField Width="120px" ColumnID="UnitWorkName" DataField="UnitWorkName" FieldType="String"
                             HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="120px" ColumnID="ControlItemContent" DataField="ControlItemContent" FieldType="String"
+                        <f:RenderField Width="100px" ColumnID="ControlItemContent" DataField="ControlItemContent" FieldType="String"
                             HeaderText="工作包" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="95px" ColumnID="ControlPoint" DataField="ControlPoint" FieldType="String"
@@ -73,7 +73,7 @@
                             HeaderText="权重%" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField HeaderText="控制点内容描述" ColumnID="ControlItemDef" DataField="ControlItemDef" SortField="ControlItemDef"
-                            HeaderTextAlign="Center" TextAlign="Center" Width="250px" FieldType="String" >
+                            HeaderTextAlign="Center" TextAlign="Center" Width="300px" FieldType="String" >
                         </f:RenderField>
                         <f:RenderField Width="160px" ColumnID="HGFormsJZ" DataField="HGFormsJZ" FieldType="String"
                             HeaderText="对应的建筑资料表格" HeaderTextAlign="Center" TextAlign="Center">
@@ -91,7 +91,7 @@
                             HeaderTextAlign="Center" TextAlign="Center" Width="100px" FieldType="String">
                         </f:RenderField>
                         <f:RenderField HeaderText="检查次数" ColumnID="CheckNum" DataField="CheckNum"
-                            SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="100px"
+                            SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="60px"
                             FieldType="String">
                         </f:RenderField>
                     </Columns>

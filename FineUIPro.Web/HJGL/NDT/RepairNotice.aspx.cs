@@ -52,13 +52,13 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             string ndeItemId = Request.Params["NDEItemID"];
             var q = BLL.Batch_NDEItemService.GetNDEItemViewById(ndeItemId);
+            
             var repair = BLL.RepairRecordService.GetRepairRecordByNdeItemId(ndeItemId);
             Model.HJGL_RepairRecord newItem = new Model.HJGL_RepairRecord();
 
             if (repair == null)
             {
                 newItem.RepairRecordId = SQLHelper.GetNewID(typeof(Model.HJGL_RepairRecord));
-
                 string code = q.TrustBatchCode;
                 if (code.Substring(code.Length - 2, 1) == "R")
                 {
@@ -69,7 +69,22 @@ namespace FineUIPro.Web.HJGL.NDT
                 }
                 else
                 {
-                    newItem.RepairRecordCode = q.TrustBatchCode + "R1";
+                    string repairCode = code + "R1";
+                    // 当一个委托单有多个返修时会暂时解决返修单重复问题
+                    if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
+                    {
+                        repairCode = code + "-01R1";
+                        if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
+                        {
+                            repairCode = code + "-02R1";
+                            if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
+                            {
+                                repairCode = code + "-03R1";
+                            }
+                        }
+                       
+                    }
+                    newItem.RepairRecordCode = repairCode;
                 }
                 newItem.ProjectId = q.ProjectId;
                 newItem.UnitId = q.UnitId;

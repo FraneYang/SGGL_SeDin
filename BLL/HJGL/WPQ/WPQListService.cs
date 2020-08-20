@@ -34,6 +34,11 @@ namespace BLL
             newWPQ.CompileDate = WPQ.CompileDate;
             newWPQ.MaterialId1 = WPQ.MaterialId1;
             newWPQ.MaterialId2 = WPQ.MaterialId2;
+            newWPQ.Material1Class = WPQ.Material1Class;
+            newWPQ.Material2Class = WPQ.Material2Class;
+            newWPQ.Material1Group = WPQ.Material1Group;
+            newWPQ.Material2Group = WPQ.Material2Group;
+
             newWPQ.Specifications = WPQ.Specifications;
             newWPQ.WeldingRod = WPQ.WeldingRod;
             newWPQ.WeldingWire = WPQ.WeldingWire;
@@ -79,6 +84,10 @@ namespace BLL
                 newWPQ.CompileDate = WPQ.CompileDate;
                 newWPQ.MaterialId1 = WPQ.MaterialId1;
                 newWPQ.MaterialId2 = WPQ.MaterialId2;
+                newWPQ.Material1Class = WPQ.Material1Class;
+                newWPQ.Material2Class = WPQ.Material2Class;
+                newWPQ.Material1Group = WPQ.Material1Group;
+                newWPQ.Material2Group = WPQ.Material2Group;
                 newWPQ.Specifications = WPQ.Specifications;
                 newWPQ.WeldingRod = WPQ.WeldingRod;
                 newWPQ.WeldingWire = WPQ.WeldingWire;

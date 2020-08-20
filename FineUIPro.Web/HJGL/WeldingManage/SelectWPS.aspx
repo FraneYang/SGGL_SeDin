@@ -37,6 +37,9 @@
                                     DataField="GrooveTypeName" SortField="GrooveTypeName" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="90px">
                                 </f:RenderField>
+                                <f:RenderField Width="100px" ColumnID="JointType" DataField="JointType"
+                                    FieldType="String" HeaderText="接头形式" HeaderTextAlign="Center" TextAlign="Center">
+                                </f:RenderField>
                                 <f:RenderField HeaderText="焊接方法" ColumnID="WeldingMethodCode"
                                     DataField="WeldingMethodCode" SortField="WeldingMethodCode" FieldType="String"
                                     HeaderTextAlign="Center" TextAlign="Left" Width="90px">
@@ -57,20 +60,20 @@
                                     DataField="MaterialCode2" SortField="MaterialCode2" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="MinImpactDia" DataField="MinImpactDia" FieldType="String"
-                                    HeaderText="外径最小值" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:RenderField Width="150px" ColumnID="DiaRange" DataField="DiaRange" FieldType="String"
+                                    HeaderText="管径覆盖范围（对接焊缝）" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="MaxImpactDia" DataField="MaxImpactDia" FieldType="String"
-                                    HeaderText="外径最大值" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:RenderField Width="150px" ColumnID="ThicknessRange" DataField="ThicknessRange" FieldType="String"
+                                    HeaderText="壁厚覆盖范围（对接焊缝）" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="170px" ColumnID="MinImpactThickness" DataField="MinImpactThickness"
-                                    FieldType="String" HeaderText="冲击时覆盖厚度最小值" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:RenderField Width="150px" ColumnID="CDiaRange" DataField="CDiaRange"
+                                    FieldType="String" HeaderText="管径覆盖范围（角焊缝）" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="170px" ColumnID="MaxImpactThickness" DataField="MaxImpactThickness"
-                                    FieldType="String" HeaderText="冲击时覆盖厚度最大值" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:RenderField Width="150px" ColumnID="CThicknessRange" DataField="CThicknessRange"
+                                    FieldType="String" HeaderText="壁厚覆盖范围（角焊缝）" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                
-                                <f:RenderField HeaderText="是否加热" ColumnID="IsHotProess"
+
+                                <f:RenderField HeaderText="是否热处理" ColumnID="IsHotProess"
                                     DataField="IsHotProess" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="110px">
                                 </f:RenderField>

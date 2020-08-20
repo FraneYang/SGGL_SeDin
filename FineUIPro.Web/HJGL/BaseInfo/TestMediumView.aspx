@@ -29,9 +29,13 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtMediumAbbreviation" runat="server" Label="介质相态"
-                       Readonly="true" LabelWidth="160px">
-                    </f:TextBox>
+                    <f:DropDownList ID="drpTestType" runat="server" Label="试验介质类型" LabelWidth="180px">
+                         <f:ListItem  Value="1" Text="试压介质"/>
+                         <f:ListItem  Value="2" Text="泄漏性试验介质"/>
+                         <f:ListItem  Value="3" Text="真空试验介质"/>
+                         <f:ListItem  Value="4" Text="吹扫介质"/>
+                         <f:ListItem  Value="5" Text="清洗介质"/>
+                    </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow>

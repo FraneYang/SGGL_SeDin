@@ -6,8 +6,8 @@
 <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0014" Text="管道介质" NavigateUrl="HJGL/BaseInfo/Medium.aspx"></TreeNode>
 <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0009" Text="安装组件" NavigateUrl="HJGL/BaseInfo/Components.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="3EFCE9C3-1983-4AEC-8FA1-D7A90F08CBCB" Text="焊工管理" NavigateUrl=""><TreeNode id="1908E4C9-4A63-4A6C-6666-DA4910C2A8C7" Text="焊工信息" NavigateUrl="HJGL/PersonManage/WelderManage.aspx"></TreeNode>
-<TreeNode id="13F11D51-1B54-400F-BDBB-36685BC94819" Text="无损检测工信息" NavigateUrl="HJGL/PersonManage/CheckerManage.aspx"></TreeNode>
+<TreeNode id="3EFCE9C3-1983-4AEC-8FA1-D7A90F08CBCB" Text="焊工管理" NavigateUrl=""><TreeNode id="1908E4C9-4A63-4A6C-6666-DA4910C2A8C7" Text="焊工管理" NavigateUrl="HJGL/PersonManage/WelderManage.aspx"></TreeNode>
+<TreeNode id="13F11D51-1B54-400F-BDBB-36685BC94819" Text="无损检测工管理" NavigateUrl="HJGL/PersonManage/CheckerManage.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="1D009522-D2C6-4256-B4FB-3E5E061A23D7" Text="焊接工艺评定" NavigateUrl=""><TreeNode id="63CD1C52-1A87-4946-9CA7-8C3C2CB0CA2E" Text="焊接工艺规程编制" NavigateUrl="HJGL/WPQ/WPQList.aspx"></TreeNode>
 </TreeNode>

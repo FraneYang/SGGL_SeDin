@@ -270,7 +270,7 @@ namespace BLL
                 }
                 else
                 {
-                        newPunishNotice.PunishNoticeId = getUpdate.PunishNoticeId;
+                    newPunishNotice.PunishNoticeId = getUpdate.PunishNoticeId;
                     getUpdate.PunishStates = newItem.PunishStates;
                     if (newPunishNotice.PunishStates == "0" || newPunishNotice.PunishStates == "1")  ////编制人 修改或提交
                     {

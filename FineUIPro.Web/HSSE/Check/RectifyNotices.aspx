@@ -83,7 +83,7 @@
                         <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
                             SortField="UnitName" FieldType="String" HeaderText="受检单位名称" TextAlign="Left" HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:TemplateField ColumnID="CheckManNames" Width="180px" HeaderText="检查人" HeaderTextAlign="Center" TextAlign="Left"
+                        <f:TemplateField ColumnID="CheckManNames" Width="200px" HeaderText="检查人" HeaderTextAlign="Center" TextAlign="Left"
                             EnableLock="true" Locked="False">
                             <ItemTemplate>
                                 <asp:Label ID="Label2" runat="server" Text='<%# ConvertCheckPerson(Eval("CheckManIds")) %>'></asp:Label>

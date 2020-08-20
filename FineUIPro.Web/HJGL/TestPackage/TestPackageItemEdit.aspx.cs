@@ -79,16 +79,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);//单位
                 BLL.UnitWorkService.InitUnitWorkDropDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);
 
-                // 修改人
-                BLL.UserService.InitUserDropDownList(drpModifier, this.CurrUser.LoginProjectId, true);
                 // 建档人
                 BLL.UserService.InitUserDropDownList(drpTabler, this.CurrUser.LoginProjectId, true);
 
-                // 试压类型
-                BLL.Base_PressureService.InitPressureDropDownList(drpTestType, true);
-
                 // 试验介质
-                BLL.Base_MediumService.InitMediumDropDownList(drpTestMedium,this.CurrUser.LoginProjectId, true, true);
+                Base_TestMediumService.InitMediumDropDownList(this.drpTestMedium, "1", true);
                 // 管线等级
                 BLL.Base_PipingClassService.InitPipingClassDropDownList(drpPipingClass, this.CurrUser.LoginProjectId, true, "请选择");
 
@@ -131,34 +126,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 }
                 this.txtTestPackageName.Text = testPackageManage.TestPackageName;
                 //this.txtTestPackageCode.Text = testPackageManage.TestPackageCode;
-                if (!string.IsNullOrEmpty(testPackageManage.TestType))
-                {
-                    this.drpTestType.SelectedValue = testPackageManage.TestType;
-                }
-                this.txtTestService.Text = testPackageManage.TestService;
-                this.txtTestHeat.Text = testPackageManage.TestHeat;
-                this.txtTestAmbientTemp.Text = testPackageManage.TestAmbientTemp;
-                this.txtTestMediumTemp.Text = testPackageManage.TestMediumTemp;
-                this.txtVacuumTestService.Text = testPackageManage.VacuumTestService;
-                this.txtVacuumTestPressure.Text = testPackageManage.VacuumTestPressure;
-                this.txtTightnessTestTime.Text = testPackageManage.TightnessTestTime;
-                this.txtTightnessTestTemp.Text = testPackageManage.TightnessTestTemp;
-                this.txtTightnessTest.Text = testPackageManage.TightnessTest;
-                this.txtTestPressure.Text = testPackageManage.TestPressure;
-                this.txtTestPressureTemp.Text = testPackageManage.TestPressureTemp;
-                this.txtTestPressureTime.Text = testPackageManage.TestPressureTime;
-                this.txtOperationMedium.Text = testPackageManage.OperationMedium;
-                this.txtPurgingMedium.Text = testPackageManage.PurgingMedium;
-                this.txtCleaningMedium.Text = testPackageManage.CleaningMedium;
-                this.txtLeakageTestService.Text = testPackageManage.LeakageTestService;
-                this.txtLeakageTestPressure.Text = testPackageManage.LeakageTestPressure;
-                this.txtAllowSeepage.Text = testPackageManage.AllowSeepage;
-                this.txtFactSeepage.Text = testPackageManage.FactSeepage;
-                this.txtModifyDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.ModifyDate);
-                if (!string.IsNullOrEmpty(testPackageManage.Modifier))
-                {
-                    this.drpModifier.SelectedValue = testPackageManage.Modifier;
-                }
+              
                 this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.TableDate);
                 if (!string.IsNullOrEmpty(testPackageManage.Tabler))
                 {
@@ -171,7 +139,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             }
             else
             {
-                this.txtModifyDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
+               
                 this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
 
                 string unitWorkId = Request.Params["unitWorkId"];
@@ -185,7 +153,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 if (this.CurrUser.UserId != BLL.Const.sysglyId)
                 {
                     this.drpTabler.SelectedValue = this.CurrUser.UserId;
-                    this.drpModifier.SelectedValue = this.CurrUser.UserId;
                 }
             }
         }
@@ -433,41 +400,16 @@ namespace FineUIPro.Web.HJGL.TestPackage
 
                 testPackage.TestPackageNo = this.txtTestPackageNo.Text.Trim();
                 testPackage.TestPackageName = this.txtTestPackageName.Text.Trim();
-                testPackage.TestHeat = this.txtTestHeat.Text.Trim();
-                testPackage.TestService = this.txtTestService.Text.Trim();
-                if (this.drpTestType.SelectedValue != BLL.Const._Null)
-                {
-                    testPackage.TestType = this.drpTestType.SelectedValue;
-                }
+               
                 if (this.drpTabler.SelectedValue != BLL.Const._Null)
                 {
                     testPackage.Tabler = this.drpTabler.SelectedValue;
                 }
                 testPackage.TableDate = Funs.GetNewDateTime(this.txtTableDate.Text);
-                if (this.drpModifier.SelectedValue != BLL.Const._Null)
-                {
-                    testPackage.Modifier = this.drpModifier.SelectedValue;
-                }
-                testPackage.ModifyDate = Funs.GetNewDateTime(this.txtModifyDate.Text);
+               
+                
                 testPackage.Remark = this.txtRemark.Text.Trim();
-                //testPackage.TestPackageCode = this.txtTestPackageCode.Text.Trim();
-                testPackage.TestAmbientTemp = this.txtTestAmbientTemp.Text.Trim();
-                testPackage.TestMediumTemp = this.txtTestMediumTemp.Text.Trim();
-                testPackage.TestPressure = this.txtTestPressure.Text.Trim();
-                testPackage.TestPressureTemp = this.txtTestPressureTemp.Text.Trim();
-                testPackage.TestPressureTime = this.txtTestPressureTime.Text.Trim();
-                testPackage.TightnessTest = this.txtTightnessTest.Text.Trim();
-                testPackage.TightnessTestTemp = this.txtTightnessTestTemp.Text.Trim();
-                testPackage.TightnessTestTime = this.txtTightnessTestTime.Text.Trim();
-                testPackage.LeakageTestService = this.txtLeakageTestService.Text.Trim();
-                testPackage.LeakageTestPressure = this.txtLeakageTestPressure.Text.Trim();
-                testPackage.VacuumTestService = this.txtVacuumTestService.Text.Trim();
-                testPackage.VacuumTestPressure = this.txtVacuumTestPressure.Text.Trim();
-                testPackage.OperationMedium = this.txtOperationMedium.Text.Trim();
-                testPackage.PurgingMedium = this.txtPurgingMedium.Text.Trim();
-                testPackage.CleaningMedium = this.txtCleaningMedium.Text.Trim();
-                testPackage.AllowSeepage = this.txtAllowSeepage.Text.Trim();
-                testPackage.FactSeepage = this.txtFactSeepage.Text.Trim();               
+               
                 if (!string.IsNullOrEmpty(this.PTP_ID))
                 {
                     testPackage.PTP_ID = this.PTP_ID;

@@ -14,8 +14,8 @@
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="介质定义"
-                EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="MediumId"
-                AllowCellEditing="true" ClicksToEdit="2" DataIDField="MediumId" AllowSorting="true"
+                EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="TestMediumId"
+                AllowCellEditing="true" ClicksToEdit="2" DataIDField="TestMediumId" AllowSorting="true"
                 SortField="MediumCode" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
@@ -51,9 +51,9 @@
                         HeaderText="介质名称" HeaderTextAlign="Center"
                         TextAlign="Left" SortField="MediumName">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="MediumAbbreviation" DataField="MediumAbbreviation"
-                        FieldType="String" HeaderText="介质相态" HeaderTextAlign="Center"
-                        TextAlign="Left" SortField="MediumAbbreviation">
+                    <f:RenderField Width="200px" ColumnID="TestType" DataField="TestType"
+                        FieldType="String" HeaderText="试验介质类型" HeaderTextAlign="Center"
+                        TextAlign="Left" SortField="TestType">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left"

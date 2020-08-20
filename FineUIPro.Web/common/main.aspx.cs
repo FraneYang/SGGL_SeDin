@@ -45,11 +45,11 @@ namespace FineUIPro.Web.common
                 var getNotice = (from x in Funs.DB.InformationProject_Notice
                                 where x.IsRelease == true
                                 orderby x.ReleaseDate
-                                select x).Take(20);
+                                select x.NoticeTitle).Distinct().Take(20);
                 string strNoticeHtml = string.Empty;
                 foreach (var item in getNotice)
                 {
-                    strNoticeHtml+= "<li class=\"c-item swiper-slide\"><div class=\"tit\">" + item.NoticeTitle + "</div></li>";
+                    strNoticeHtml+= "<li class=\"c-item swiper-slide\"><div class=\"tit\">" + item + "</div></li>";
                 }
                 this.swiper2.InnerHtml= "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
                 #endregion

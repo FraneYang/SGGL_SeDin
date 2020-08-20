@@ -202,42 +202,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.TextBox txtSpecification;
         
         /// <summary>
-        /// Panel3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Panel Panel3;
-        
-        /// <summary>
-        /// txtWPQId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtWPQId;
-        
-        /// <summary>
-        /// search 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button search;
-        
-        /// <summary>
-        /// drpJointAttribute 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpJointAttribute;
-        
-        /// <summary>
         /// drpJointArea 控件。
         /// </summary>
         /// <remarks>
@@ -263,6 +227,42 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList drpWeldingMethodId;
+        
+        /// <summary>
+        /// drpGrooveType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpGrooveType;
+        
+        /// <summary>
+        /// Panel3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Panel Panel3;
+        
+        /// <summary>
+        /// txtWPQCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtWPQCode;
+        
+        /// <summary>
+        /// search 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button search;
         
         /// <summary>
         /// drpComponent1 控件。
@@ -301,15 +301,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.TextBox txtHeartNo2;
         
         /// <summary>
-        /// drpGrooveType 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpGrooveType;
-        
-        /// <summary>
         /// drpWeldingRod 控件。
         /// </summary>
         /// <remarks>
@@ -337,31 +328,31 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.TextBox txtPreTemperature;
         
         /// <summary>
-        /// cbkIsHotTreatment 控件。
+        /// drpIsHotProess 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.CheckBox cbkIsHotTreatment;
+        protected global::FineUIPro.DropDownList drpIsHotProess;
         
         /// <summary>
-        /// txtGetQpqId 控件。
+        /// txtWPQId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtGetQpqId;
+        protected global::FineUIPro.TextBox txtWPQId;
         
         /// <summary>
-        /// txtGetAllStr 控件。
+        /// drpJointAttribute 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtGetAllStr;
+        protected global::FineUIPro.DropDownList drpJointAttribute;
         
         /// <summary>
         /// Window1 控件。

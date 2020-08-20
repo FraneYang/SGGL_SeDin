@@ -73,7 +73,7 @@
                         HeaderText="焊工号" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="WelderCode">
                     </f:RenderField>
-                    <f:RenderField Width="110px" ColumnID="PersonName" DataField="PersonName" FieldType="String"
+                    <f:RenderField Width="100px" ColumnID="PersonName" DataField="PersonName" FieldType="String"
                         HeaderText="焊工姓名" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="WelderName">
                     </f:RenderField>
@@ -84,18 +84,18 @@
                         HeaderText="出生日期" HeaderTextAlign="Center" TextAlign="Left"
                         Renderer="Date">
                     </f:RenderField>
-                    <f:RenderField Width="140px" ColumnID="CertificateCode" DataField="CertificateCode"
+                    <f:RenderField Width="180px" ColumnID="CertificateCode" DataField="CertificateCode"
                         FieldType="String" HeaderText="证书编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="110px" ColumnID="CertificateLimitTime" DataField="CertificateLimitTime"
+                    <f:RenderField Width="100px" ColumnID="CertificateLimitTime" DataField="CertificateLimitTime"
                         FieldType="Date" HeaderText="有效期" HeaderTextAlign="Center"
                         TextAlign="Left" Renderer="Date">
                     </f:RenderField>
                     <f:RenderField Width="110px" ColumnID="WelderLevel" DataField="WelderLevel" FieldType="String"
                         HeaderText="焊工等级" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                     <f:RenderField Width="110px" ColumnID="IsUsed" DataField="IsUsed" FieldType="String"
+                     <f:RenderField Width="90px" ColumnID="IsUsed" DataField="IsUsed" FieldType="String"
                         HeaderText="是否在岗" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:WindowField HeaderTextAlign="Center" TextAlign="Center" Width="150px" WindowID="Window2"

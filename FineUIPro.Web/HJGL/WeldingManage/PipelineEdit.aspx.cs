@@ -83,11 +83,12 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 this.PipelineId = Request.Params["PipelineId"];
 
-                Base_MediumService.InitMediumDropDownList(this.drpMedium, this.CurrUser.LoginProjectId, null, true);
-                Base_MediumService.InitMediumDropDownList(this.drpTestMedium, this.CurrUser.LoginProjectId, true, true);
-                Base_PipingClassService.InitPipingClassDropDownList(this.drpPipingClass, this.CurrUser.LoginProjectId, true,"请选择");
+                Base_MediumService.InitMediumDropDownList(this.drpMedium, this.CurrUser.LoginProjectId, true);
+                Base_TestMediumService.InitMediumDropDownList(this.drpTestMedium, "1", true);
+                Base_PipingClassService.InitPipingClassDropDownList(this.drpPipingClass, this.CurrUser.LoginProjectId, true,"-请选择-");
                 Base_DetectionRateService.InitDetectionRateDropDownList(drpDetectionRate, true);
                 Base_DetectionTypeService.InitDetectionTypeDropDownList(drpDetectionType, false, string.Empty);
+                Base_PressurePipingClassService.InitPressurePipingClassDropDownList(drpPressurePipingClass, true, "-请选择-");
 
                 if (!string.IsNullOrEmpty(this.PipelineId))
                 {
@@ -122,11 +123,30 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     }
 
                     this.txtSingleNumber.Text = pipeline.SingleNumber;
+                    if (pipeline.DesignPress != null)
+                    {
+                        numDesignPress.Text = pipeline.DesignPress.Value.ToString();
+                    }
+
+                    if (pipeline.DesignTemperature != null)
+                    {
+                        numDesignTemperature.Text = pipeline.DesignTemperature.Value.ToString();
+                    }
+
                     if (pipeline.TestPressure!=null)
                     {
                         numTestPressure.Text = pipeline.TestPressure.Value.ToString();
                     }
-                    
+
+                    if (pipeline.PressurePipingClassId != null)
+                    {
+                        drpPressurePipingClass.SelectedValue = pipeline.PressurePipingClassId;
+                    }
+
+                    if (pipeline.PipeLenth != null)
+                    {
+                        numPipeLenth.Text = pipeline.PipeLenth.Value.ToString();
+                    }
                     this.txtRemark.Text = pipeline.Remark;
 
                     this.UnitWorkId = pipeline.UnitWorkId;
@@ -222,6 +242,16 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
 
             pipeline.SingleNumber = this.txtSingleNumber.Text.Trim();
+
+            if (!string.IsNullOrEmpty(numDesignPress.Text))
+            {
+                pipeline.DesignPress = Convert.ToDecimal(numDesignPress.Text);
+            }
+            if (!string.IsNullOrEmpty(numDesignTemperature.Text))
+            {
+                pipeline.DesignTemperature = Convert.ToDecimal(numDesignTemperature.Text);
+            }
+
             if (!string.IsNullOrEmpty(numTestPressure.Text))
             {
                 pipeline.TestPressure = Convert.ToDecimal(numTestPressure.Text);
@@ -230,6 +260,16 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 pipeline.DetectionType = String.Join("|", drpDetectionType.SelectedValueArray);
             }
+            if (this.drpPressurePipingClass.SelectedValue != BLL.Const._Null)
+            {
+                pipeline.PressurePipingClassId = drpPressurePipingClass.SelectedValue;
+            }
+
+            if (numPipeLenth.Text != string.Empty)
+            {
+                pipeline.PipeLenth = Convert.ToDecimal(numPipeLenth.Text.Trim());
+            }
+
             pipeline.Remark = this.txtRemark.Text.Trim();
             if (!string.IsNullOrEmpty(this.PipelineId))
             {

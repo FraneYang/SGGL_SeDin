@@ -25,7 +25,11 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// 绑定数据
         /// </summary>
         private void BindGrid() {
-            string sql = "select P.PersonId,P.WelderCode,P.PersonName,(case when P.Sex=1 then '男' else '女' end)As Sex,P.Birthday,P.IdentityCard,(case when P.IsUsed = 1 then '是' else '否' end)As IsUsed, B.UnitName from SitePerson_Person As P left join Base_Unit As B on P.UnitId = B.UnitId where 1=1";
+            string sql = @"select P.PersonId,P.WelderCode,P.PersonName,(case when P.Sex=1 then '男' else '女' end)As Sex,
+                                  P.Birthday,P.IdentityCard,(case when P.IsUsed = 1 then '是' else '否' end)As IsUsed, 
+                                  B.UnitName 
+                           from SitePerson_Person As P left join Base_Unit As B on P.UnitId = B.UnitId 
+                           where 1=1";
             List<SqlParameter> parms = new List<SqlParameter>();
             sql += " and P.WorkPostId = @WorkPostId";
             parms.Add(new SqlParameter("@WorkPostId", Const.WorkPost_Checker));

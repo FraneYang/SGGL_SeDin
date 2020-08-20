@@ -84,6 +84,7 @@ namespace FineUIPro.Web.HSSE.License
                     this.txtHSETechnicalDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     ////自动生成编码
                     this.txtHSETechnicalCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectHSETechnicalMenuId, this.ProjectId, this.CurrUser.UnitId);
+                    this.drpUnitId.SelectedValue=this.CurrUser.UnitId;
                 }
 
                 ///初始化审核菜单

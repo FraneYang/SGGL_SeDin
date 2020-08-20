@@ -28,10 +28,13 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Center">
                         <Items>
-                            <f:RadioButtonList ID="IsAudit" runat="server">
+                            <f:RadioButtonList ID="IsAudit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="IsAudit_SelectedIndexChanged">
                                 <f:RadioItem Value="0"  Text="未提交" Selected="true"/>
                                 <f:RadioItem Value="1"  Text="已提交"/>
                             </f:RadioButtonList>
+                             <f:DatePicker runat="server" Label="焊接日期" ID="txtWeldingDate" LabelAlign="Right"
+                                LabelWidth="100px" Width="260px">
+                            </f:DatePicker>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
                             <f:Button ID="btnAudit" Text="审核提交" ToolTip="审核" Icon="ApplicationEdit" runat="server"
@@ -42,11 +45,11 @@
                 </Toolbars>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊接记录预提交" EnableCollapse="true"
-                        runat="server" BoxFlex="1" DataKeyNames="PreWeldingDailyId" AllowCellEditing="true"
+                        runat="server" BoxFlex="1" DataKeyNames="PreWeldingDailyId,WeldJointId" AllowCellEditing="true"
                         AllowColumnLocking="true" EnableColumnLines="true" ClicksToEdit="2" DataIDField="PreWeldingDailyId"
                         AllowSorting="true" SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort"
                         AllowPaging="true" IsDatabasePaging="true" PageSize="30" OnPageIndexChange="Grid1_PageIndexChange"
-                        EnableTextSelection="True"  EnableCheckBoxSelect="true">
+                        EnableTextSelection="True"  EnableCheckBoxSelect="true" KeepCurrentSelection="true">
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="60px" HeaderTextAlign="Center"
                                 TextAlign="Center" />

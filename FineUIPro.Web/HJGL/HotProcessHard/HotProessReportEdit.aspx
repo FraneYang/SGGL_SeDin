@@ -16,7 +16,7 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtWeldJointCode" runat="server" Label="总焊口量"
+                    <f:TextBox ID="txtWeldJointCode" runat="server" Label="焊口号"
                         LabelWidth="150px" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
                     <f:NumberBox ID="txtPointCount" runat="server" Label="测温点编号"

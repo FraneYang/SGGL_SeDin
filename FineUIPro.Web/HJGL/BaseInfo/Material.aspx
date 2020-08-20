@@ -86,7 +86,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="700px" Height="350px">
+        Width="700px" Height="420px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"

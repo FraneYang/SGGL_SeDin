@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
         ///  <param name="strParam">查询条件</param>
-        ///  <param name="states">查询条件</param>
+        ///  <param name="states">状态0 待提交1 待签发2 待批准3 已完成</param>
         /// <param name="pageIndex"></param>  
         /// <returns></returns>
         public Model.ResponeData getIncentiveNoticeList(string projectId, string unitId, string strParam, string states, int pageIndex)
@@ -64,6 +64,46 @@ namespace WebAPI.Controllers
                 responeData.code = 0;
                 responeData.message = ex.Message;
             }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据projectId获取各状奖励通知单数量
+        /// <summary>
+        /// 根据projectId获取各状奖励通知单数量
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="strParam"></param>
+        /// <returns></returns>
+        public Model.ResponeData getIncentiveNoticeCount(string projectId, string unitId, string strParam)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                //总数  0待提交；1待签发；2待批准；3已完成
+                var getDataList = Funs.DB.Check_IncentiveNotice.Where(x => x.ProjectId == projectId && (x.UnitId == unitId || unitId == null));
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    getDataList = getDataList.Where(x => x.IncentiveNoticeCode.Contains(strParam) || x.BasicItem.Contains(strParam));
+                }
+                int tatalCount = getDataList.Count();
+                //待提交 0
+                int count0 = getDataList.Where(x => x.States == "0").Count();
+                //待签发 1
+                int count1 = getDataList.Where(x => x.States == "1").Count();
+                //待批准 2
+                int count2 = getDataList.Where(x => x.States == "2").Count();
+                //已完成 3
+                int count3 = getDataList.Where(x => x.States == "3").Count();
+                responeData.data = new { tatalCount, count0, count1, count2, count3 };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
             return responeData;
         }
         #endregion

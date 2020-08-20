@@ -85,7 +85,7 @@ namespace FineUIPro.Web.HSSE.Check
                           + @"IncentiveNotice.States,"
                           + @"Unit.UnitName,"
                           +@"Person.PersonName,"
-                          + @"(CASE WHEN IncentiveNotice.States = '0' THEN '待[' + Users.UserName + ']提交' WHEN IncentiveNotice.States = '1' THEN '待[' + Sign.UserName + ']签发'  WHEN IncentiveNotice.States = '2' THEN '待[' + Approve.UserName + ']批准'  WHEN IncentiveNotice.States = '3' THEN '已闭合' END) AS  FlowOperateName"
+                          + @"(CASE WHEN IncentiveNotice.States = '0' THEN '待[' + Users.UserName + ']提交' WHEN IncentiveNotice.States = '1' THEN '待[' + Sign.UserName + ']签发'  WHEN IncentiveNotice.States = '2' THEN '待[' + Approve.UserName + ']批准'  WHEN IncentiveNotice.States = '3' THEN '已完成' END) AS  FlowOperateName"
                           + @" FROM Check_IncentiveNotice AS IncentiveNotice "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON IncentiveNotice.IncentiveNoticeId = CodeRecords.DataId "
                           + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON IncentiveNotice.IncentiveNoticeId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
@@ -104,11 +104,16 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
                 strSql += " AND IncentiveNotice.States = @States";  ///状态为已完成
-                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+                listStr.Add(new SqlParameter("@States", BLL.Const.State_3));
             }
             else
             {
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+            }
+            if (this.rbStates.SelectedValue != "-1")
+            {
+                strSql += " AND IncentiveNotice.States =@States";
+                listStr.Add(new SqlParameter("@States", this.rbStates.SelectedValue));
             }
             /// 施工分包 只看到自己已完成的奖励单
             //if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
@@ -340,8 +345,7 @@ namespace FineUIPro.Web.HSSE.Check
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
         }
-        #endregion
 
-        
+        #endregion
     }
 }

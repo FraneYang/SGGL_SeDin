@@ -65,9 +65,9 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 根据projectId获取各状态风险数
+        #region 根据projectId获取各状处罚通知单数量
         /// <summary>
-        /// 根据projectId获取各状态风险数
+        /// 根据projectId获取各状处罚通知单数量
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
@@ -79,7 +79,7 @@ namespace WebAPI.Controllers
             try
             {
                 //总数  0待提交；1待签发；2待批准；3待回执；4已闭环
-                var getDataList = new Model.SGGLDB(Funs.ConnString).Check_PunishNotice.Where(x => x.ProjectId == projectId && (x.UnitId == unitId || unitId == null));
+                var getDataList = Funs.DB.Check_PunishNotice.Where(x => x.ProjectId == projectId && (x.UnitId == unitId || unitId == null));
                 if (!string.IsNullOrEmpty(strParam))
                 {
                     getDataList = getDataList.Where(x => x.PunishNoticeCode.Contains(strParam) || x.IncentiveReason.Contains(strParam));

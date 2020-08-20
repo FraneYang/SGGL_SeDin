@@ -707,7 +707,7 @@
     {
         name: '施工资料同步率',
         type: 'bar',
-        data: three.series[0].data,
+        data: three.series[1].data,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }]
     category_Three('three', xArr, series)

@@ -15,11 +15,11 @@ namespace FineUIPro.Web.HJGL.WPQ
         {
             if (!IsPostBack)
             {
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit,this.CurrUser.LoginProjectId,Const.ProjectUnitType_2,true);
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, true);
                 BLL.Base_MaterialService.InitMaterialDropDownList(this.drpSteel1, true, "请选择");//材质1
                 BLL.Base_MaterialService.InitMaterialDropDownList(this.drpSteel2, true, "请选择");//材质2
-                BLL.Base_WeldingMethodService.InitWeldingMethodDropDownList(this.drpWeldingMethodId, true,"请选择");//焊接方法
-                BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingRod, true,"2", "请选择");//焊材类型
+                BLL.Base_WeldingMethodService.InitWeldingMethodDropDownList(this.drpWeldingMethodId, true, "请选择");//焊接方法
+                BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingRod, true, "2", "请选择");//焊材类型
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingWire, true, "1", "请选择");//焊材类型
                 BLL.Base_GrooveTypeService.InitGrooveTypeDropDownList(this.drpGrooveType, true, "请选择");//焊材类型
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
@@ -34,37 +34,23 @@ namespace FineUIPro.Web.HJGL.WPQ
                         {
                             this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", wpq.CompileDate);
                         }
-                        if (!string.IsNullOrEmpty(wpq.MaterialId1))
+
+                        if (!string.IsNullOrEmpty(wpq.Material1Class))
                         {
-                            this.drpSteel1.SelectedValue = wpq.MaterialId1;
-                            var mat1 = BLL.Base_MaterialService.GetMaterialByMaterialId(wpq.MaterialId1);
-                            if (mat1 != null)
-                            {
-                                if (!string.IsNullOrEmpty(mat1.MaterialClass))
-                                {
-                                    this.txtMaterialClass1.Text = mat1.MaterialClass;
-                                }
-                                if (!string.IsNullOrEmpty(mat1.MaterialGroup))
-                                {
-                                    this.txtMaterialGroup1.Text = mat1.MaterialGroup;
-                                }
-                            }
+                            this.txtMaterialClass1.Text = wpq.Material1Class;
                         }
-                        if (!string.IsNullOrEmpty(wpq.MaterialId2))
+                        if (!string.IsNullOrEmpty(wpq.Material1Group))
                         {
-                            this.drpSteel2.SelectedValue = wpq.MaterialId2;
-                            var mat2 = BLL.Base_MaterialService.GetMaterialByMaterialId(wpq.MaterialId2);
-                            if (mat2 != null)
-                            {
-                                if (!string.IsNullOrEmpty(mat2.MaterialClass))
-                                {
-                                    this.txtMaterialClass2.Text = mat2.MaterialClass;
-                                }
-                                if (!string.IsNullOrEmpty(mat2.MaterialGroup))
-                                {
-                                    this.txtMaterialGroup2.Text = mat2.MaterialGroup;
-                                }
-                            }
+                            this.txtMaterialGroup1.Text = wpq.Material1Group;
+                        }
+
+                        if (!string.IsNullOrEmpty(wpq.Material2Class))
+                        {
+                            this.txtMaterialClass2.Text = wpq.Material2Class;
+                        }
+                        if (!string.IsNullOrEmpty(wpq.Material2Group))
+                        {
+                            this.txtMaterialGroup2.Text = wpq.Material2Group;
                         }
 
                         if (!string.IsNullOrEmpty(wpq.UnitId))
@@ -72,7 +58,8 @@ namespace FineUIPro.Web.HJGL.WPQ
                             drpUnit.SelectedValue = wpq.UnitId;
                         }
                         this.txtSpecifications.Text = wpq.Specifications;
-                        if (!string.IsNullOrEmpty(wpq.WeldingRod)) {
+                        if (!string.IsNullOrEmpty(wpq.WeldingRod))
+                        {
                             drpWeldingRod.SelectedValue = wpq.WeldingRod;
                         }
                         if (!string.IsNullOrEmpty(wpq.WeldingWire))
@@ -83,9 +70,7 @@ namespace FineUIPro.Web.HJGL.WPQ
                         {
                             drpGrooveType.SelectedValue = wpq.GrooveType;
                         }
-                        //this.txtWeldingModel.Text = wpq.WeldingRod;
-                        //this.txtWeldingGrade.Text = wpq.WeldingWire;
-                        //this.txtWeldingSpecifications.Text = wpq.GrooveType;
+                       
                         this.txtWeldingPosition.Text = wpq.WeldingPosition;
                         if (!string.IsNullOrEmpty(wpq.WeldingMethodId))
                         {
@@ -189,7 +174,13 @@ namespace FineUIPro.Web.HJGL.WPQ
             {
                 wpq.MaterialId2 = this.drpSteel2.SelectedValue;
             }
+
+            wpq.Material1Class = this.txtMaterialClass1.Text.Trim();
+            wpq.Material1Group = this.txtMaterialGroup1.Text.Trim();
+            wpq.Material2Class = this.txtMaterialClass2.Text.Trim();
+            wpq.Material2Group = this.txtMaterialGroup2.Text.Trim();
             wpq.Specifications = this.txtSpecifications.Text.Trim();
+
             if (this.drpWeldingRod.SelectedValue != BLL.Const._Null)
             {
                 wpq.WeldingRod = this.drpWeldingRod.SelectedValue;

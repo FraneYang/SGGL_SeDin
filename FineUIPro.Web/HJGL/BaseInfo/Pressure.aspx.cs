@@ -229,10 +229,10 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         {
             string content = string.Empty;
             var q= BLL.TestPackageEditService.GetTestPackageByID(id);
-            if (q!=null && Funs.DB.Base_Pressure.FirstOrDefault(x => x.PressureId == q.TestType) != null)
-            {
-                content += "已在【试压包】中使用，不能删除！";
-            }
+            //if (q!=null && Funs.DB.Base_Pressure.FirstOrDefault(x => x.PressureId == q.TestType) != null)
+            //{
+            //    content += "已在【试压包】中使用，不能删除！";
+            //}
 
             return content;
         }

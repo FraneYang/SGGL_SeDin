@@ -49,6 +49,24 @@ namespace FineUIPro.Web.HSSE.Check {
         protected global::FineUIPro.TextBox txtIncentiveNoticeCode;
         
         /// <summary>
+        /// txtIncentiveDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtIncentiveDate;
+        
+        /// <summary>
+        /// drpRewardType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpRewardType;
+        
+        /// <summary>
         /// drpUnit 控件。
         /// </summary>
         /// <remarks>
@@ -74,24 +92,6 @@ namespace FineUIPro.Web.HSSE.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList drpPerson;
-        
-        /// <summary>
-        /// txtIncentiveDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtIncentiveDate;
-        
-        /// <summary>
-        /// drpRewardType 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpRewardType;
         
         /// <summary>
         /// txtBasicItem 控件。

@@ -97,6 +97,9 @@ namespace FineUIPro.Web.HSSE.Check
                         this.drpSupCheckItemSet.Readonly = true;
                         this.rbType.Readonly = true;
                     }
+
+                    Grid1.DataSource = checkSpecialDetails;
+                    Grid1.DataBind();
                 }
                 else
                 {
@@ -122,9 +125,7 @@ namespace FineUIPro.Web.HSSE.Check
                     { "Delete", String.Format("<a href=\"javascript:;\" onclick=\"{0}\"><img src=\"{1}\"/></a>", deleteScript, IconHelper.GetResolvedIconUrl(Icon.Delete)) }
                 };
                 // 在第一行新增一条数据
-                btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, true);
-                //Grid1.DataSource = checkSpecialDetails;
-                //Grid1.DataBind();
+                btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, true);            
             }
         }
         #endregion
@@ -195,13 +196,13 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.drpSupCheckItemSet.SelectedValue) || this.drpSupCheckItemSet.SelectedValue == Const._Null)
+            if (this.rbType.SelectedValue == "0" && (string.IsNullOrEmpty(this.drpSupCheckItemSet.SelectedValue) || this.drpSupCheckItemSet.SelectedValue == Const._Null))
             {
                 ShowNotify("请选择检查类别！", MessageBoxIcon.Warning);
                 return;
             }
 
-            this.SaveData(Const.BtnSubmit);            
+            this.SaveData(Const.BtnSubmit);
         }
         #endregion
 
@@ -213,12 +214,12 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.drpSupCheckItemSet.SelectedValue) || this.drpSupCheckItemSet.SelectedValue == Const._Null)
+            if (this.rbType.SelectedValue == "0" && (string.IsNullOrEmpty(this.drpSupCheckItemSet.SelectedValue) || this.drpSupCheckItemSet.SelectedValue == Const._Null))
             {
                 ShowNotify("请选择检查类别！", MessageBoxIcon.Warning);
                 return;
             }
-            this.SaveData(Const.BtnSave);          
+            this.SaveData(Const.BtnSave);
         }
         #endregion
 

@@ -76,23 +76,13 @@ namespace BLL
         /// </summary>
         /// <param name="MediumType"></param>
         /// <returns></returns>
-        public static List<Model.Base_Medium> GetMediumList(bool? isTestMedium, string ProjectId)
+        public static List<Model.Base_Medium> GetMediumList(string ProjectId)
         {
             List<Model.Base_Medium> list = null;
-            if (isTestMedium == null)
-            {
-                list = (from x in Funs.DB.Base_Medium
-                        where x.ProjectId==ProjectId
-                        orderby x.MediumCode
-                        select x).ToList();
-            }
-            else
-            {
-                list = (from x in Funs.DB.Base_Medium
-                        where x.IsTestMedium == isTestMedium
-                        orderby x.MediumCode
-                        select x).ToList();
-            }
+            list = (from x in Funs.DB.Base_Medium
+                    where x.ProjectId == ProjectId
+                    orderby x.MediumCode
+                    select x).ToList();
 
             return list;
         }
@@ -104,11 +94,11 @@ namespace BLL
         /// <param name="dropName">下拉框名称</param>
         /// <param name="isShowPlease">是否显示请选择</param>
         /// <param name="MediumType">耗材类型</param>
-        public static void InitMediumDropDownList(FineUIPro.DropDownList dropName,string ProjectId, bool? isTestMedium, bool isShowPlease)
+        public static void InitMediumDropDownList(FineUIPro.DropDownList dropName,string ProjectId, bool isShowPlease)
         {
             dropName.DataValueField = "MediumId";
             dropName.DataTextField = "MediumName";
-            dropName.DataSource = GetMediumList(isTestMedium, ProjectId);
+            dropName.DataSource = GetMediumList(ProjectId);
             dropName.DataBind();
             if (isShowPlease)
             {

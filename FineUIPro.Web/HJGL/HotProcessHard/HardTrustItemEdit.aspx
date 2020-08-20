@@ -64,7 +64,7 @@
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                            <f:RenderField HeaderText="总焊口量" ColumnID="WeldJointCode"
+                            <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode"
                                 DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="100px">
                             </f:RenderField>

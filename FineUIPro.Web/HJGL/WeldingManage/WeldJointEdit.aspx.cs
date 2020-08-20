@@ -58,12 +58,14 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 {
                     Model.HJGL_WeldJoint joint = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
                     Model.WPQ_WPQList list = BLL.WPQListServiceService.GetWPQById(joint.WPQId);
+                    this.txtWpqId.Text = joint.WPQId;
+
                     if (joint != null)
                     {
                         this.PipelineId = joint.PipelineId;
                         if (list != null)
                         {
-                            this.txtWPQId.Text = list.WPQCode;
+                            this.txtWPQCode.Text = list.WPQCode;
                         }
 
                         this.txtWeldJointCode.Text = joint.WeldJointCode;
@@ -128,14 +130,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         this.txtPreTemperature.Text = joint.PreTemperature;
                         this.txtSpecification.Text = joint.Specification;
 
-                        if (joint.IsHotProess == true)
-                        {
-                            this.cbkIsHotTreatment.Checked = true;
-                        }
-                        else
-                        {
-                            this.cbkIsHotTreatment.Checked = false;
-                        }
+                        drpIsHotProess.SelectedValue = joint.IsHotProess.Value.ToString();
+                       
                         txtRemark.Text= joint.Remark;
                     }
                 }
@@ -185,8 +181,9 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldJointMenuId, BLL.Const.BtnModify))
             {
-                Model.View_HJGL_Pipeline pipeline = BLL.PipelineService.GetViewPipelineByPipelineId(this.PipelineId);
-                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtGetAllStr.ClientID, txtGetWpqId.ClientID, txtWPQId.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID,drpMaterial2.ClientID) + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text,pipeline.UnitId, "维护 - ")));
+                Model.HJGL_Pipeline pipeline = BLL.PipelineService.GetPipelineByPipelineId(this.PipelineId);
+                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID,drpMaterial2.ClientID)
+                    + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text,pipeline.UnitId,this.drpWeldingMethodId.SelectedText,this.drpWeldTypeCode.SelectedText, "维护 - ")));
             }
             else
             {
@@ -320,41 +317,24 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             joint.Specification = this.txtSpecification.Text;
             var DetectionType = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode(this.txtDetectionTypeId.Text.Trim());
             joint.DetectionTypeId = DetectionType.DetectionTypeId;
-            if (this.cbkIsHotTreatment.Checked == true)
-            {
-                joint.IsHotProess = true;
-            }
-            else
-            {
-                joint.IsHotProess = false;
-            }
+            joint.IsHotProess = Convert.ToBoolean(drpIsHotProess.SelectedValue);
             joint.Remark = txtRemark.Text.Trim();
 
             if (!string.IsNullOrEmpty(weldJointId))
             {
-
-                if (this.txtGetWpqId.Text != "")
+                if (this.txtWpqId.Text != "")
                 {
-                    joint.WPQId = this.txtGetWpqId.Text;
+                    joint.WPQId = this.txtWpqId.Text;
                 }
-                else
-                {
-                    string wpq = this.txtWPQId.Text;
-                    Model.WPQ_WPQList list = Funs.DB.WPQ_WPQList.FirstOrDefault(e => e.WPQCode == wpq);
-                    if (list != null)
-                    {
-                        joint.WPQId = list.WPQId;
-                    }
-
-                }
+               
                 joint.WeldJointId = weldJointId;
                 BLL.WeldJointService.UpdateWeldJoint(joint);
             }
             else
             {
-                if (this.txtGetWpqId.Text != "")
+                if (this.txtWpqId.Text != "")
                 {
-                    joint.WPQId = this.txtGetWpqId.Text;
+                    joint.WPQId = this.txtWpqId.Text;
                 }
                 string newId = SQLHelper.GetNewID(typeof(Model.HJGL_WeldJoint));
                 joint.WeldJointId = newId;
@@ -409,6 +389,112 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
             }
         }
+
+        /// <summary>
+        /// 焊丝
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void drpWeldingRod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtWpqId.Text))
+            {
+                var wps = BLL.WPQListServiceService.GetWPQById(txtWpqId.Text.Trim());
+
+                if (drpMaterial1.SelectedValue != Const._Null)
+                {
+                    var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(drpMaterial1.SelectedValue);
+                    string matClass = mat.MaterialClass;
+                    if (matClass == "Fe-1" || matClass == "Fe-3")
+                    {
+                        var wpsRod = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(wps.WeldingRod);
+                        var matRod = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(drpWeldingRod.SelectedValue);
+                        if (IsCoverClass(wpsRod.SteelType, matRod.SteelType))
+                        {
+
+                        }
+                        else
+                        {
+                            Alert.ShowInTop("焊口焊材强度需大于等于WPS焊材强度！", MessageBoxIcon.Warning);
+                            drpWeldingWire.SelectedValue = wps.WeldingRod;
+                        }
+                    }
+
+
+                }
+                else
+                {
+                    drpWeldingWire.SelectedValue = wps.WeldingRod;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 焊条
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void drpWeldingWire_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtWpqId.Text))
+            {
+                var wps = BLL.WPQListServiceService.GetWPQById(txtWpqId.Text.Trim());
+
+                if (drpMaterial1.SelectedValue != Const._Null)
+                {
+                    var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(drpMaterial1.SelectedValue);
+                    string matClass = mat.MaterialClass;
+                    if (matClass == "Fe-1" || matClass == "Fe-3")
+                    {
+                        var wpsWire = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(wps.WeldingWire);
+                        var matWire= BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(drpWeldingWire.SelectedValue);
+                        if (IsCoverClass(wpsWire.SteelType, matWire.SteelType))
+                        {
+
+                        }
+                        else
+                        {
+                            Alert.ShowInTop("焊口焊材强度需大于等于WPS焊材强度！", MessageBoxIcon.Warning);
+                            drpWeldingWire.SelectedValue = wps.WeldingWire;
+                        }
+                    }
+
+
+                }
+                else
+                {
+                    drpWeldingWire.SelectedValue = wps.WeldingWire;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 判断耗材强度是否大于WPS耗材强度，如是为true,否则为false
+        /// </summary>
+        /// <param name="wpsClass"></param>
+        /// <param name="matClass"></param>
+        /// <returns></returns>
+        private bool IsCoverClass(string wpsClass, string matClass)
+        {
+            bool isCover = false;
+            int wpsSn = 0;
+            int matSn = 0;
+            string wpsPre = wpsClass.Substring(0, wpsClass.Length - 2);
+            string matPre = matClass.Substring(0, matClass.Length - 2);
+
+            string wps = wpsClass.Substring(wpsClass.Length - 1, 1);
+            wpsSn = Funs.GetNewInt(wps).HasValue ? Funs.GetNewInt(wps).Value : 0;
+
+            string mat = matClass.Substring(matClass.Length - 1, 1);
+            matSn = Funs.GetNewInt(mat).HasValue ? Funs.GetNewInt(mat).Value : 0;
+
+            if (wpsPre == matPre && matSn >= wpsSn)
+            {
+                return true;
+            }
+            return isCover;
+        }
+
         #region 外径、壁厚输入框事件
         /// <summary>
         /// 选择外径和壁厚自动获取规格

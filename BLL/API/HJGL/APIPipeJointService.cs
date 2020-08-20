@@ -40,23 +40,29 @@ namespace BLL
         /// </summary>
         /// <param name="pipeLineId"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getWeldJointList(string pipeLineId)
+        public static List<Model.BaseInfoItem> GetWeldJointList(string pipeLineId)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getDataLists = (from x in db.HJGL_WeldJoint
-                                    join y in db.HJGL_PreWeldingDaily on x.WeldJointId equals y.WeldJointId
-                                    where x.PipelineId == pipeLineId && x.WeldingDailyId == null
-                                    && y.PreWeldingDailyId == null
-                                    orderby x.WeldJointCode
+                var getData1 = (from x in db.HJGL_WeldJoint
+                                    where x.PipelineId == pipeLineId 
+                                    && x.WeldingDailyId == null 
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.WeldJointId,
                                         BaseInfoCode = x.WeldJointCode
-
                                     }
                                 ).ToList();
-                return getDataLists;
+                var getData2 = (from x in db.HJGL_PreWeldingDaily
+                                join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                    where y.PipelineId == pipeLineId && !x.AuditDate.HasValue
+                                    select new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = x.WeldJointId,
+                                        BaseInfoCode = y.WeldJointCode
+                                    }
+                               ).ToList();
+                return getData1.Except(getData2).ToList();
             }
         }
         #endregion

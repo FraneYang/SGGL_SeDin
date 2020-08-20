@@ -315,9 +315,9 @@ namespace FineUIPro.Web.HSSE.License
                     var getUser = UserService.GetUserByUserId(getFireWork.ApplyManId);
                     if (getUser != null)
                     {
-                       bookmarkApplyManName.Text = getUser.UserName;
+                        bookmarkApplyManName.Text = getUser.UserName;
                     }
-                    
+
                 }
             }
             Bookmark bookmarkUnitName = doc.Range.Bookmarks["UnitName"];//申请单位
@@ -381,7 +381,6 @@ namespace FineUIPro.Web.HSSE.License
             }
 
             var GetLicenseItemList = LicensePublicService.GetLicenseItemListByDataId(Id);
-            
             if (GetLicenseItemList.Count > 0)
             {
                 var item1 = GetLicenseItemList.FirstOrDefault(x => x.SortIndex == 1);
@@ -395,7 +394,8 @@ namespace FineUIPro.Web.HSSE.License
                             bookmarkUser1.Text = "√";
                         }
                     }
-                    else {
+                    else
+                    {
                         Bookmark bookmarkIsFit1 = doc.Range.Bookmarks["IsFit1"];
                         if (bookmarkIsFit1 != null)
                         {
@@ -406,8 +406,6 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                    
-                
 
                 var item2 = GetLicenseItemList.FirstOrDefault(x => x.SortIndex == 2);
                 if (item2 != null)
@@ -455,7 +453,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                
+
                 var item4 = GetLicenseItemList.FirstOrDefault(x => x.SortIndex == 4);
                 if (item4 != null)
                 {
@@ -502,7 +500,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                
+
                 var item6 = GetLicenseItemList.FirstOrDefault(x => x.SortIndex == 6);
                 if (item6 != null)
                 {
@@ -549,7 +547,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                
+
                 var item8 = GetLicenseItemList.FirstOrDefault(x => x.SortIndex == 8);
                 if (item8 != null)
                 {
@@ -573,7 +571,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                
+
                 var item9 = GetLicenseItemList.FirstOrDefault(x => x.SortIndex == 9);
                 if (item9 != null)
                 {
@@ -597,7 +595,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                
+
                 var item10 = GetLicenseItemList.FirstOrDefault(x => x.SortIndex == 10);
                 if (item10 != null)
                 {
@@ -644,7 +642,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                
+
                 var item12 = GetLicenseItemList.FirstOrDefault(x => x.SortIndex == 12);
                 if (item12 != null)
                 {
@@ -683,12 +681,12 @@ namespace FineUIPro.Web.HSSE.License
                     if (bookmarkOpinion1 != null)
                     {
 
-                        
+
                         if (getUser != null)
                         {
                             if (getF1.IsAgree == true)
                             {
-                                bookmarkOpinion1.Text =getF1.Opinion;
+                                bookmarkOpinion1.Text = getF1.Opinion;
                             }
                             else
                             {
@@ -712,8 +710,9 @@ namespace FineUIPro.Web.HSSE.License
                                     builders.MoveToBookmark("OperaterMan1");
                                     builders.InsertImage(file, 80, 20);
                                 }
-                                else {
-                                    bookmarkOperaterMan1.Text = getUser.UserName ;
+                                else
+                                {
+                                    bookmarkOperaterMan1.Text = getUser.UserName;
                                 }
                             }
                         }
@@ -734,21 +733,17 @@ namespace FineUIPro.Web.HSSE.License
                     Bookmark bookmarkOpinion2 = doc.Range.Bookmarks["Opinion2"];
                     if (bookmarkOpinion2 != null)
                     {
-
-
                         if (getUser != null)
                         {
                             if (getF2.IsAgree == true)
                             {
-                                bookmarkOpinion2.Text =getF2.Opinion;
+                                bookmarkOpinion2.Text = getF2.Opinion;
                             }
                             else
                             {
                                 bookmarkOpinion2.Text = "不同意:   " + getF2.Opinion;
                             }
                         }
-
-
                     }
                     Bookmark bookmarkOperaterMan2 = doc.Range.Bookmarks["OperaterMan2"];
                     if (bookmarkOperaterMan2 != null)
@@ -766,7 +761,7 @@ namespace FineUIPro.Web.HSSE.License
                                 }
                                 else
                                 {
-                                    bookmarkOperaterMan2.Text = getUser.UserName ;
+                                    bookmarkOperaterMan2.Text = getUser.UserName;
                                 }
                             }
                         }
@@ -787,21 +782,17 @@ namespace FineUIPro.Web.HSSE.License
                     Bookmark bookmarkOpinion3 = doc.Range.Bookmarks["Opinion3"];
                     if (bookmarkOpinion3 != null)
                     {
-
-
                         if (getUser != null)
                         {
                             if (getF3.IsAgree == true)
                             {
-                                bookmarkOpinion3.Text =getF3.Opinion;
+                                bookmarkOpinion3.Text = getF3.Opinion;
                             }
                             else
                             {
                                 bookmarkOpinion3.Text = "不同意:   " + getF3.Opinion;
                             }
                         }
-
-
                     }
                     Bookmark bookmarkOperaterMan3 = doc.Range.Bookmarks["OperaterMan3"];
                     if (bookmarkOperaterMan3 != null)
@@ -840,8 +831,6 @@ namespace FineUIPro.Web.HSSE.License
                     Bookmark bookmarkOpinion4 = doc.Range.Bookmarks["Opinion4"];
                     if (bookmarkOpinion4 != null)
                     {
-
-
                         if (getUser != null)
                         {
                             if (getF4.IsAgree == true)
@@ -853,8 +842,6 @@ namespace FineUIPro.Web.HSSE.License
                                 bookmarkOpinion4.Text = "不同意:   " + getF4.Opinion;
                             }
                         }
-
-
                     }
                     Bookmark bookmarkOperaterMan4 = doc.Range.Bookmarks["OperaterMan4"];
                     if (bookmarkOperaterMan4 != null)
@@ -872,7 +859,7 @@ namespace FineUIPro.Web.HSSE.License
                                 }
                                 else
                                 {
-                                    bookmarkOperaterMan4.Text = getUser.UserName ;
+                                    bookmarkOperaterMan4.Text = getUser.UserName;
                                 }
                             }
                         }
@@ -893,21 +880,17 @@ namespace FineUIPro.Web.HSSE.License
                     Bookmark bookmarkOpinion5 = doc.Range.Bookmarks["Opinion5"];
                     if (bookmarkOpinion5 != null)
                     {
-
-
                         if (getUser != null)
                         {
                             if (getF5.IsAgree == true)
                             {
-                                bookmarkOpinion5.Text =getF5.Opinion;
+                                bookmarkOpinion5.Text = getF5.Opinion;
                             }
                             else
                             {
                                 bookmarkOpinion5.Text = "不同意:   " + getF5.Opinion;
                             }
                         }
-
-
                     }
                     Bookmark bookmarkOperaterMan5 = doc.Range.Bookmarks["OperaterMan5"];
                     if (bookmarkOperaterMan5 != null)
@@ -925,7 +908,7 @@ namespace FineUIPro.Web.HSSE.License
                                 }
                                 else
                                 {
-                                    bookmarkOperaterMan5.Text = getUser.UserName ;
+                                    bookmarkOperaterMan5.Text = getUser.UserName;
                                 }
                             }
                         }
@@ -946,8 +929,6 @@ namespace FineUIPro.Web.HSSE.License
                     Bookmark bookmarkOpinion6 = doc.Range.Bookmarks["Opinion6"];
                     if (bookmarkOpinion6 != null)
                     {
-
-
                         if (getUser != null)
                         {
                             if (getF6.IsAgree == true)
@@ -959,8 +940,6 @@ namespace FineUIPro.Web.HSSE.License
                                 bookmarkOpinion6.Text = "不同意:   " + getF6.Opinion;
                             }
                         }
-
-
                     }
                     Bookmark bookmarkOperaterMan6 = doc.Range.Bookmarks["OperaterMan6"];
                     if (bookmarkOperaterMan6 != null)
@@ -978,7 +957,7 @@ namespace FineUIPro.Web.HSSE.License
                                 }
                                 else
                                 {
-                                    bookmarkOperaterMan6.Text = getUser.UserName ;
+                                    bookmarkOperaterMan6.Text = getUser.UserName;
                                 }
                             }
                         }

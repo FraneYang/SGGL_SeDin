@@ -283,9 +283,10 @@ namespace BLL
                 }
                 else
                 {
+                    var oldStates = isUpdate.States;
                     newRectifyNotices.RectifyNoticesId = isUpdate.RectifyNoticesId;
                     isUpdate.States = rectifyNotices.States;
-                    if (newRectifyNotices.States == "0" || newRectifyNotices.States == "1")  ////编制人 修改或提交
+                    if (oldStates =="0" && ( newRectifyNotices.States == "0" || newRectifyNotices.States == "1") ) ////编制人 修改或提交
                     {
                         isUpdate.UnitId = rectifyNotices.UnitId;
                         isUpdate.WorkAreaId = rectifyNotices.WorkAreaId;
@@ -315,7 +316,7 @@ namespace BLL
 
                         insertRectifyNoticesItemItem = true;
                     }
-                    else if (newRectifyNotices.States == "2") ////总包单位项目安全经理 审核
+                    else if (oldStates == "1" && newRectifyNotices.States == "2") ////总包单位项目安全经理 审核
                     {
                         /// 不同意 打回 同意抄送专业工程师、施工经理、项目经理 并下发分包接收人（也就是施工单位项目安全经理）
                         if (rectifyNotices.IsAgree == false)
@@ -349,7 +350,7 @@ namespace BLL
                         }
                         db.SubmitChanges();                       
                     }
-                    else if (newRectifyNotices.States == "3") /// 施工单位项目安全经理 整改 提交施工单位项目负责人
+                    else if (oldStates == "2" && newRectifyNotices.States == "3") /// 施工单位项目安全经理 整改 提交施工单位项目负责人
                     {
                         //// 整改明细反馈
                         if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
@@ -384,8 +385,9 @@ namespace BLL
                         }
                         db.SubmitChanges();
                     }
-                    else if (newRectifyNotices.States == "4")
-                    { /// 施工单位项目负责人不同意 打回施工单位项目安全经理,同意提交安全经理/安全工程师复查
+                    else if (oldStates == "3" && newRectifyNotices.States == "4")
+                    {
+                        /// 施工单位项目负责人不同意 打回施工单位项目安全经理,同意提交安全经理/安全工程师复查
                         if (rectifyNotices.IsAgree == false)
                         {
                             newRectifyNotices.States = isUpdate.States = "2";
@@ -405,7 +407,7 @@ namespace BLL
                         }
                         db.SubmitChanges();
                     }
-                    else if (newRectifyNotices.States == "5")
+                    else if (oldStates == "4" && newRectifyNotices.States == "5")
                     {
                         //// 整改明细反馈 复查 是否合格
                         if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)

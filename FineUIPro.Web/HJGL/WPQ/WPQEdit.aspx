@@ -36,20 +36,20 @@
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtMaterialClass1" runat="server" Label="材质1类别" LabelAlign="Right"
-                            LabelWidth="180px" Readonly="true">
+                            LabelWidth="180px" >
                         </f:TextBox>
                         <f:TextBox ID="txtMaterialClass2" runat="server" Label="材质2类别" LabelAlign="Right"
-                            LabelWidth="180px" Readonly="true">
+                            LabelWidth="180px" >
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtMaterialGroup1" runat="server" Label="材质1组别" LabelAlign="Right"
-                            LabelWidth="180px" Readonly="true">
+                            LabelWidth="180px" >
                         </f:TextBox>
                         <f:TextBox ID="txtMaterialGroup2" runat="server" Label="材质2组别" LabelAlign="Right"
-                            LabelWidth="180px" Readonly="true">
+                            LabelWidth="180px" >
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -58,9 +58,6 @@
                         <f:TextBox ID="txtSpecifications" runat="server" Label="规格" LabelAlign="Right" MaxLength="100"
                             LabelWidth="180px">
                         </f:TextBox>
-                        <%--<f:TextBox ID="txtWeldingModel" runat="server" Label="焊丝" LabelAlign="Right"
-                            MaxLength="100" LabelWidth="180px">
-                        </f:TextBox>--%>
                         <f:DropDownList ID="drpWeldingWire" runat="server" Label="焊丝" LabelAlign="Right" Required="true"
                             ShowRedStar="true" LabelWidth="180px" AutoPostBack="true" OnSelectedIndexChanged="drpWeldingWire_SelectedIndexChanged">
                         </f:DropDownList>

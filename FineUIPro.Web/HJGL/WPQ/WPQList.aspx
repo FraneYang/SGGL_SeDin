@@ -52,19 +52,19 @@
                     <f:RenderField Width="120px" ColumnID="MaterialCode1" DataField="MaterialCode1" FieldType="String"
                         HeaderText="材质1" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="MaterialClass1" DataField="MaterialClass1" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="Material1Class" DataField="Material1Class" FieldType="String"
                         HeaderText="材质1类别" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="MaterialGroup1" DataField="MaterialGroup1" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="Material1Group" DataField="Material1Group" FieldType="String"
                         HeaderText="材质1组别" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="MaterialCode2" DataField="MaterialCode2" FieldType="String"
                         HeaderText="材质2" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="MaterialClass2" DataField="MaterialClass2" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="Material2Class" DataField="Material2Class" FieldType="String"
                         HeaderText="材质2类别" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="MaterialGroup2" DataField="MaterialGroup2" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="Material2Group" DataField="Material2Group" FieldType="String"
                         HeaderText="材质2组别" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="Specifications" DataField="Specifications"

@@ -204,7 +204,10 @@
     <Compile Include="HJGL\BaseInfo\Base_MaterialService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_MediumService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_PipingClassService.cs" />
+    <Compile Include="HJGL\BaseInfo\Base_PressurePipingClassService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_PressureService.cs" />
+    <Compile Include="HJGL\BaseInfo\Base_PurgeMethodService.cs" />
+    <Compile Include="HJGL\BaseInfo\Base_TestMediumService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_WeldingLocationServie.cs" />
     <Compile Include="HJGL\BaseInfo\Base_WeldingMethodService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_WeldTypeService.cs" />

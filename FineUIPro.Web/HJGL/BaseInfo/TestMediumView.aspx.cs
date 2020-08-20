@@ -9,23 +9,6 @@ namespace FineUIPro.Web.HJGL.BaseInfo
 {
     public partial class TestMediumView : System.Web.UI.Page
     {
-        #region 定义项
-        /// <summary>
-        /// 主键
-        /// </summary>
-        public string MediumId
-        {
-            get
-            {
-                return (string)ViewState["MediumId"];
-            }
-            set
-            {
-                ViewState["MediumId"] = value;
-            }
-        }
-        #endregion
-
         #region 加载
         /// <summary>
         /// 加载页面
@@ -39,15 +22,15 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 this.txtMediumCode.Focus();
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
 
-                this.MediumId = Request.Params["MediumId"];
-                if (!string.IsNullOrEmpty(this.MediumId))
+               string testMediumId = Request.Params["MediumId"];
+                if (!string.IsNullOrEmpty(testMediumId))
                 {
-                    Model.Base_Medium Medium = BLL.Base_MediumService.GetMediumByMediumId(this.MediumId);
+                    Model.Base_TestMedium Medium = BLL.Base_TestMediumService.GetTestMediumById(testMediumId);
                     if (Medium != null)
                     {
                         this.txtMediumCode.Text = Medium.MediumCode;
                         this.txtMediumName.Text = Medium.MediumName;
-                        this.txtMediumAbbreviation.Text = Medium.MediumAbbreviation;
+                        drpTestType.SelectedValue = Medium.TestType;
                         this.txtRemark.Text = Medium.Remark;
                     }
                 }

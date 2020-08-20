@@ -19,7 +19,7 @@
                     <f:Label runat="server" ID="txtPipelineCode" Label="管线号"
                         LabelWidth="110px">
                     </f:Label>
-                    <f:Label runat="server" ID="txtWeldJointCode" Label="总焊口量">
+                    <f:Label runat="server" ID="txtWeldJointCode" Label="焊口号">
                     </f:Label>
                 </Items>
             </f:FormRow>

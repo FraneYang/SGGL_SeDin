@@ -221,10 +221,100 @@ namespace Model
             get;
             set;
         }
+
+        /// <summary>
+        /// 专业工程师ID
+        /// </summary>
+        public string ProfessionalEngineerId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 专业工程师姓名
+        /// </summary>
+        public string ProfessionalEngineerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 专业工程师抄送日期
+        /// </summary>
+        public string ProfessionalEngineerTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理ID
+        /// </summary>
+        public string ConstructionManagerId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理姓名
+        /// </summary>
+        public string ConstructionManagerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理抄送日期
+        /// </summary>
+        public string ConstructionManagerTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人ID
+        /// </summary>
+        public string UnitHeadManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人姓名
+        /// </summary>
+        public string UnitHeadManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人 接收日期
+        /// </summary>
+        public string UnitHeadManTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 是否同意
+        /// </summary>
+        public bool? IsAgree
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 状态
         /// </summary>
         public string States
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        ///   审核记录
+        /// </summary>
+        public List<FlowOperateItem> FlowOperateItem
         {
             get;
             set;

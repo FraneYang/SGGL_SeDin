@@ -210,6 +210,26 @@ namespace FineUIPro.Web.HSSE.Check
                 this.drpPerson.SelectedValue = BLL.Const._Null;
             }
         }
+
+        /// <summary>
+        /// 班组
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void drpTeamGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpPerson.Items.Clear();
+            if (this.drpTeamGroup.SelectedValue != BLL.Const._Null)
+            {                
+                PersonService.InitPersonByProjectUnitTeamGroupDropDownList(this.drpPerson, this.ProjectId, this.drpUnit.SelectedValue, this.drpTeamGroup.SelectedValue,true);                
+                this.drpPerson.SelectedValue = BLL.Const._Null;
+            }
+            else
+            {
+                PersonService.InitPersonByProjectUnitDropDownList(this.drpPerson, this.ProjectId, this.drpUnit.SelectedValue, true);                
+                this.drpPerson.SelectedValue = BLL.Const._Null;
+            }
+        }
         #endregion
 
         #region   奖励方式选择
@@ -444,6 +464,9 @@ namespace FineUIPro.Web.HSSE.Check
 
         }
         #endregion
+
         #endregion
+
+      
     }
 }

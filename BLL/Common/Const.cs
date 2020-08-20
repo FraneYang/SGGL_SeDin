@@ -2122,22 +2122,7 @@ namespace BLL
         /// </summary>
         public const string ProjectHSEDiaryMenuId = "8E5B4A8E-B06E-4C8A-A2C8-1091A9BCAF72";
         #endregion
-
-        #region E项目安全管理资料
-        /// <summary>
-        /// 安全管理资料
-        /// </summary>
-        public const string ProjectSafetyDataESuperMenuId = "5BB670AD-CCAA-4004-B931-70C5879A968B";
-        /// <summary>
-        /// 安全管理资料
-        /// </summary>
-        public const string ProjectSafetyDataEMenuId = "BC3B7C4A-D69C-45CA-A951-98F4F64191BB";
-        /// <summary>
-        /// 安全管理资料考核
-        /// </summary>
-        public const string ProjectSafetyDataECheckMenuId = "8F2E3B63-8B98-44FC-8353-7F09DA86A463";
-        #endregion
-
+        
         #region HSSE绩效评价管理
         /// <summary>
         /// HSSE分包方绩效评价
@@ -2368,6 +2353,18 @@ namespace BLL
         /// 试验介质
         /// </summary>
         public const string HJGL_TestMediumMenuId = "2db166e1-9648-42a9-8567-f63b1846a841";
+        /// <summary>
+        /// 压力管道级别
+        /// </summary>
+        public const string Base_PressurePipingClassMenuId = "C587E930-4FBC-48CE-8BF9-7CB8164C207C";
+        /// <summary>
+        /// 管道吹洗方法
+        /// </summary>
+        public const string Base_PurgeMethodMenuId = "49852102-F148-44FB-95F6-EFBE32708276";
+        /// <summary>
+        /// 试验介质
+        /// </summary>
+        public const string Base_TestMediumMenuId = "F480545B-371A-4949-85F8-92B2CA75A044";
         #endregion
 
         #region 人员管理

@@ -29,6 +29,22 @@ namespace BLL
         }
 
         /// <summary>
+        /// 判断返修单号是否重复
+        /// </summary>
+        /// <param name="repairRecordCode"></param>
+        /// <returns></returns>
+        public static bool IsCoverRecordCode(string repairRecordCode)
+        {
+            bool isCover = false;
+            var q= Funs.DB.HJGL_RepairRecord.FirstOrDefault(e => e.RepairRecordCode == repairRecordCode);
+            if (q != null)
+            {
+                isCover = true;
+            }
+            return isCover;
+        }
+
+        /// <summary>
         /// 添加检测单明细
         /// </summary>
         /// <param name="NDEItem"></param>

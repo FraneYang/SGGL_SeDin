@@ -187,7 +187,7 @@ body {
     cursor: pointer;
     width: 48px;
     text-align: center;
-    color: #fff;
+    /*color: #fff;*/
 }
 
 .tab-wrap-tit .tab .t-item:first-child {
@@ -206,8 +206,8 @@ body {
 }
 
 .tab-wrap-tit .tab .active {
-    color: #333;
-    background-color: #fff;
+    color: #fff;
+    background-color: rgba(0,162,233, 1);
 }
 
 .tab-wrap {

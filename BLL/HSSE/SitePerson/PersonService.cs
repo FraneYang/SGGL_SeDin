@@ -108,6 +108,22 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据项目单位获取人员信息
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <returns></returns>
+        public static List<Model.SitePerson_Person> GetPersonLitsByprojectIdUnitIdTeamGroupId(string projectId, string unitId,string teamGroupId)
+        {
+            var getPersons = GetPersonLitsByprojectIdUnitId(projectId, unitId);
+            if (!string.IsNullOrEmpty(teamGroupId))
+            {
+                getPersons = getPersons.Where(x => x.TeamGroupId == teamGroupId).OrderBy(x => x.PersonName).ToList();
+            }
+
+            return getPersons;
+        }
+
+        /// <summary>
         /// 获取最大的人员位置
         /// </summary>
         /// <returns>最大的人员位置</returns>
@@ -390,6 +406,23 @@ namespace BLL
             dropName.DataValueField = "PersonId";
             dropName.DataTextField = "PersonName";
             dropName.DataSource = GetPersonLitsByprojectIdUnitId(projectId, unitId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitPersonByProjectUnitTeamGroupDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitId,string teamGroupId, bool isShowPlease)
+        {
+            dropName.DataValueField = "PersonId";
+            dropName.DataTextField = "PersonName";
+            dropName.DataSource = GetPersonLitsByprojectIdUnitIdTeamGroupId(projectId, unitId, teamGroupId);
             dropName.DataBind();
             if (isShowPlease)
             {

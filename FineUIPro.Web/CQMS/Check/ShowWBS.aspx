@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>项目施工WBS</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
     <style>
@@ -13,11 +13,11 @@
             word-break: break-all;
         }
 
-          .Yellow  {
+        .Yellow {
             background-color: #FFFF93;
         }
 
-           .f-grid-colheader-text {
+        .f-grid-colheader-text {
             white-space: normal;
             word-break: break-all;
         }
@@ -25,21 +25,24 @@
 </head>
 <body>
     <form id="form1" runat="server">
-       <f:PageManager ID="PageManager1" AutoSizePanelID="RegionPanel1" runat="server" />
+        <f:PageManager ID="PageManager1" AutoSizePanelID="RegionPanel1" runat="server" />
         <f:RegionPanel ID="RegionPanel1" ShowBorder="false" runat="server" Margin="5px">
             <Regions>
-                <f:Region ID="Region1" ShowBorder="false" ShowHeader="false" RegionPosition="Left"
-                    Title="项目施工WBS定制" BodyPadding="0 5 0 0" Width="300px" Layout="Fit" runat="server"
+                <f:Region ID="Region1" ShowBorder="false" ShowHeader="true" RegionPosition="Left"
+                    Title="项目施工WBS" BodyPadding="0 5 0 0" Width="350px" Layout="Fit" runat="server"
                     EnableCollapse="true">
-                    <Items>
+                    <%--<Items>
                         <f:Panel runat="server" ID="panel2" RegionPosition="Left" RegionSplit="true" EnableCollapse="true"
                             Width="400" Title="项目施工WBS定制" TitleToolTip="项目施工WBS定制" ShowBorder="true" ShowHeader="true"
                             BodyPadding="5px" IconFont="ArrowCircleLeft">
-                            <Items>
-                                <f:Tree ID="trWBS" Width="290" Height="580px" EnableCollapse="true" ShowHeader="true"
-                                    OnNodeCommand="trWBS_NodeCommand" OnNodeExpand="trWBS_NodeExpand" AutoLeafIdentification="true"
-                                    runat="server">
-                                    <%--<Toolbars>
+                            
+                        </f:Panel>
+                    </Items>--%>
+                    <Items>
+                        <f:Tree ID="trWBS" EnableCollapse="true" ShowHeader="true"
+                            OnNodeCommand="trWBS_NodeCommand" OnNodeExpand="trWBS_NodeExpand" AutoLeafIdentification="true"
+                            runat="server">
+                            <%--<Toolbars>
                                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                             <Items>
                                                 <f:Button ID="btnLevel1" ToolTip="显示第一级" Text="1级" runat="server" OnClick="btnLevel1_Click">
@@ -51,14 +54,12 @@
                                             </Items>
                                         </f:Toolbar>
                                     </Toolbars>--%>
-                                    <Listeners>
-                                        <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
-                                    </Listeners>
-                                </f:Tree>
-                                <f:HiddenField runat="server" ID="hdSelectId">
-                                </f:HiddenField>
-                            </Items>
-                        </f:Panel>
+                            <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                            </Listeners>
+                        </f:Tree>
+                        <f:HiddenField runat="server" ID="hdSelectId">
+                        </f:HiddenField>
                     </Items>
                 </f:Region>
                 <f:Region ID="Region2" ShowBorder="false" ShowHeader="false" Position="Center" Layout="VBox"
@@ -89,35 +90,35 @@
                                         <asp:CheckBox runat="server" ID="cbSelect" />
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:RenderField Width="120px" ColumnID="ControlItemContent" DataField="ControlItemContent" FieldType="String"
+                                <f:RenderField Width="70px" ColumnID="ControlItemContent" DataField="ControlItemContent" FieldType="String"
                                     HeaderText="工作包" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="95px" ColumnID="ControlPoint" DataField="ControlPoint" FieldType="String"
+                                <f:RenderField Width="60px" ColumnID="ControlPoint" DataField="ControlPoint" FieldType="String"
                                     HeaderText="控制点等级" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="65px" ColumnID="Weights" DataField="Weights" FieldType="String"
+                                <f:RenderField Width="70px" ColumnID="Weights" DataField="Weights" FieldType="String"
                                     HeaderText="权重%" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="控制点内容描述" ColumnID="ControlItemDef" DataField="ControlItemDef" SortField="ControlItemDef"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="250px" FieldType="String" >
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="300px" FieldType="String">
                                 </f:RenderField>
-                                <f:RenderField Width="160px" ColumnID="HGForms" DataField="HGForms" FieldType="String"
+                                <f:RenderField Width="200px" ColumnID="HGForms" DataField="HGForms" FieldType="String"
                                     HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="160px" ColumnID="SHForms" DataField="SHForms" FieldType="String"
+                                <f:RenderField Width="200px" ColumnID="SHForms" DataField="SHForms" FieldType="String"
                                     HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="PlanCompleteDate" DataField="PlanCompleteDate" FieldType="Date"
-                                Renderer="Date" RendererArgument="yyyy-MM-dd" TextAlign="Center" HeaderText="计划完成时间" HeaderTextAlign="Center">
-                            </f:RenderField>
+                                <f:RenderField Width="90px" ColumnID="PlanCompleteDate" DataField="PlanCompleteDate" FieldType="Date"
+                                    Renderer="Date" RendererArgument="yyyy-MM-dd" TextAlign="Center" HeaderText="计划完成时间" HeaderTextAlign="Center">
+                                </f:RenderField>
                                 <f:RenderField HeaderText="质量验收规范" ColumnID="Standard" DataField="Standard" SortField="Standard"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="110px" FieldType="String">
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="60px" FieldType="String">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="条款号" ColumnID="ClauseNo" DataField="ClauseNo" SortField="ClauseNo"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="80px" FieldType="String">
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="60px" FieldType="String">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="检查次数" ColumnID="CheckNum" DataField="CheckNum"
-                                    SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="80px"
+                                    SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="30px"
                                     FieldType="String">
                                 </f:RenderField>
                                 <f:RenderField Width="20px" ColumnID="ControlItemAndCycleId" DataField="ControlItemAndCycleId" FieldType="String"

@@ -94,7 +94,7 @@ namespace BLL
                                         Specification = x.Specification,
                                         Material = x.MaterialCode,
                                         TrustDate = x.ProessDate,
-                                        IsCompleted = x.IsCompleted == true ? "是" : "否",
+                                        IsCompleted = x.IsCompleted,
                                         IsPass = x.IsPass == true ? "是" : "否"
                                     }
                                 ).ToList();

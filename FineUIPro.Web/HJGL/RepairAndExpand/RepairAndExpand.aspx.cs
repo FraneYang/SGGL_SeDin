@@ -275,7 +275,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             PageInit();
             this.BindGrid();
 
-            if (BLL.RepairRecordService.GetExportNum(repairRecordId) == 0)
+            if (!repairRecord.AuditDate.HasValue)
             {
                 RandomExport();
             }
@@ -363,29 +363,21 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
 
             // 更新返修记录
             var repair = db.HJGL_RepairRecord.FirstOrDefault(x => x.RepairRecordId == repairRecordId);
-            if (!repair.AuditDate.HasValue)
+            if (BLL.RepairRecordService.GetExportNum(repairRecordId) > 0)
             {
-                repair.AuditDate = DateTime.Now;
-                db.SubmitChanges();
-
-                //string[] selectRowId = Grid1.SelectedRowIDArray;
-                //if (selectRowId.Count() > 0)
-                //{
-                //    foreach (var item in selectRowId)
-                //    {
-                //        BLL.PointBatchDetailService.PointAudit(item, true);
-                //    }
-                //    this.BindGrid();
-                //    Alert.ShowInTop("已审核！");
-                //}
-                //else
-                //{
-                //    Alert.ShowInTop("请勾选要审核的焊口！", MessageBoxIcon.Warning);
-                //}
+                if (!repair.AuditDate.HasValue)
+                {
+                    repair.AuditDate = DateTime.Now;
+                    db.SubmitChanges();
+                }
+                else
+                {
+                    Alert.ShowInTop("已审核！");
+                }
             }
             else
             {
-                Alert.ShowInTop("已审核！");
+                Alert.ShowInTop("请先保存已点的扩透口再审核！");
             }
         }
 
@@ -500,7 +492,8 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         {
             BindGrid();
             string repairRecordId = tvControlItem.SelectedNodeID;
-            if (BLL.RepairRecordService.GetExportNum(repairRecordId) == 0)
+            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            if (!repairRecord.AuditDate.HasValue)
             {
                 RandomExport();
             }
@@ -510,7 +503,8 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         {
             BindGrid();
             string repairRecordId = tvControlItem.SelectedNodeID;
-            if (BLL.RepairRecordService.GetExportNum(repairRecordId) == 0)
+            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            if (!repairRecord.AuditDate.HasValue)
             {
                 RandomExport();
             }
@@ -520,7 +514,8 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         {
             BindGrid();
             string repairRecordId = tvControlItem.SelectedNodeID;
-            if (BLL.RepairRecordService.GetExportNum(repairRecordId) == 0)
+            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            if (!repairRecord.AuditDate.HasValue)
             {
                 RandomExport();
             }
@@ -530,7 +525,8 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         {
             BindGrid();
             string repairRecordId = tvControlItem.SelectedNodeID;
-            if (BLL.RepairRecordService.GetExportNum(repairRecordId) == 0)
+            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            if (!repairRecord.AuditDate.HasValue)
             {
                 RandomExport();
             }
@@ -540,7 +536,8 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         {
             BindGrid();
             string repairRecordId = tvControlItem.SelectedNodeID;
-            if (BLL.RepairRecordService.GetExportNum(repairRecordId) == 0)
+            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            if (!repairRecord.AuditDate.HasValue)
             {
                 RandomExport();
             }
@@ -550,7 +547,8 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         {
             BindGrid();
             string repairRecordId = tvControlItem.SelectedNodeID;
-            if (BLL.RepairRecordService.GetExportNum(repairRecordId) == 0)
+            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            if (!repairRecord.AuditDate.HasValue)
             {
                 RandomExport();
             }

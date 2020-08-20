@@ -30,7 +30,7 @@
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtMediumAbbreviation" runat="server" Label="介质相态"
-                        MaxLength="50" LabelWidth="180px">
+                        Required="true" MaxLength="50" ShowRedStar="true" LabelWidth="180px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>

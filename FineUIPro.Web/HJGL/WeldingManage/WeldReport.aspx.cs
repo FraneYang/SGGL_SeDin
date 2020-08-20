@@ -261,11 +261,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID))
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?workAreaId={0}", tvControlItem.SelectedNodeID, "新增 - ")));
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?unitWorkId={0}", tvControlItem.SelectedNodeID, "新增 - ")));
                 }
                 else
                 {
-                    ShowNotify("请选择区域", MessageBoxIcon.Warning);
+                    ShowNotify("请选择单位工程", MessageBoxIcon.Warning);
                 }
             }
             else

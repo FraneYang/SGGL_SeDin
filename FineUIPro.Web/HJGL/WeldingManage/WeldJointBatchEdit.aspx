@@ -91,41 +91,40 @@
                         <f:TextBox ID="txtSpecification" Label="规格" runat="server"
                             LabelWidth="100px" ShowRedStar="true" Required="true">
                         </f:TextBox>
-                        <f:Panel ID="Panel3" Width="300px" ShowHeader="false" ShowBorder="false" Layout="Column" CssClass="" runat="server">
-                            <Items>
-                                <f:TextBox ID="txtWPQId" Label="WPS编号" runat="server"
-                                    LabelWidth="100px" Width="250px">
-                                </f:TextBox>
-                                <f:Button ID="search" OnClick="search_Click" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" runat="server">
-                                </f:Button>
-                            </Items>
-                        </f:Panel>
-
+                        <f:DropDownList ID="drpJointArea" Label="焊接区域"
+                            runat="server" EnableEdit="true" LabelWidth="100px">
+                        </f:DropDownList>
                     </Items>
                 </f:FormRow>
 
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList ID="drpJointAttribute" Label="焊口属性" runat="server"
-                            EnableEdit="true" LabelWidth="100px" ShowRedStar="true" Required="true">
-                        </f:DropDownList>
-                        <f:DropDownList ID="drpJointArea" Label="焊接区域"
-                            runat="server" EnableEdit="true" LabelWidth="100px">
-                        </f:DropDownList>
+                        
                         <f:TextBox ID="txtDetectionTypeId" Label="检测类型" Readonly="true"
                             runat="server" LabelWidth="100px"  Required="true" ShowRedStar="true">
                         </f:TextBox>
                         <f:DropDownList ID="drpWeldingMethodId" Label="焊接方法"
                             runat="server" ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="100px">
                         </f:DropDownList>
-                        
+                       <f:DropDownList ID="drpGrooveType" Label="坡口类型" runat="server"
+                            EnableEdit="true" LabelWidth="100px">
+                        </f:DropDownList>
+                          <f:Panel ID="Panel3" Width="300px" ShowHeader="false" ShowBorder="false" Layout="Column" CssClass="" runat="server">
+                            <Items>
+                                <f:TextBox ID="txtWPQCode" Label="WPS编号" runat="server"
+                                    LabelWidth="100px" Width="250px">
+                                </f:TextBox>
+                                <f:Button ID="search" OnClick="search_Click" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" runat="server">
+                                </f:Button>
+                            </Items>
+                        </f:Panel>
                         
                         <%----%>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-
+                      
                         <f:DropDownList ID="drpComponent1" Label="组件1号" runat="server"
                             LabelWidth="100px" >
                         </f:DropDownList>
@@ -135,39 +134,38 @@
                         <f:TextBox ID="txtHeartNo1" Label="炉批1号" runat="server"
                             LabelWidth="100px">
                         </f:TextBox>
-                        <f:TextBox ID="txtHeartNo2" Label="炉批2号" runat="server"
+                       <f:TextBox ID="txtHeartNo2" Label="炉批2号" runat="server"
                             LabelWidth="100px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList ID="drpGrooveType" Label="坡口类型" runat="server"
-                            EnableEdit="true" LabelWidth="100px">
-                        </f:DropDownList>
+                       
                         <f:DropDownList ID="drpWeldingRod" Label="焊条" runat="server"
-                            EnableEdit="true" LabelWidth="100px">
+                            EnableEdit="true" LabelWidth="100px" AutoPostBack="true" OnSelectedIndexChanged="drpWeldingRod_SelectedIndexChanged">
                         </f:DropDownList>
                         <f:DropDownList ID="drpWeldingWire" Label="焊丝" runat="server"
-                            EnableEdit="true" LabelWidth="100px">
+                            EnableEdit="true" LabelWidth="100px" AutoPostBack="true" OnSelectedIndexChanged="drpWeldingWire_SelectedIndexChanged">
                         </f:DropDownList>
                         <f:TextBox ID="txtPreTemperature" runat="server" Label="预热温度" MaxLength="500" LabelAlign="Right"
                             LabelWidth="100px">
                         </f:TextBox>
-                        
+                        <f:DropDownList ID="drpIsHotProess" runat="server" Label="是否热处理" LabelAlign="Right"
+                            LabelWidth="100px">
+                             <f:ListItem Value="False" Text="否" Selected="true"/>
+                             <f:ListItem Value="True" Text="是"/>
+                        </f:DropDownList>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:CheckBox ID="cbkIsHotTreatment" runat="server" Label="是否热处理" LabelAlign="Right"
-                            LabelWidth="100px">
-                        </f:CheckBox>
-                        <f:TextBox ID="txtGetQpqId" Label="" runat="server"
+                        <f:TextBox ID="txtWPQId" Label="" runat="server"
                             LabelWidth="100px" ShowRedStar="true" Required="true" Hidden="true">
                         </f:TextBox>
-                        <f:TextBox ID="txtGetAllStr" Label="" runat="server"
-                            LabelWidth="100px " Hidden="true">
-                        </f:TextBox>
+                         <f:DropDownList ID="drpJointAttribute" Label="焊口属性" runat="server"
+                            EnableEdit="true" LabelWidth="100px"  Hidden="true">
+                        </f:DropDownList>
                     </Items>
                 </f:FormRow>
             </Rows>

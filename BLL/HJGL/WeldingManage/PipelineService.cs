@@ -76,8 +76,12 @@ namespace BLL
             newPipeline.MediumId = pipeline.MediumId;
             newPipeline.DetectionRateId = pipeline.DetectionRateId;
             newPipeline.DetectionType = pipeline.DetectionType;
+            newPipeline.DesignPress = pipeline.DesignPress;
+            newPipeline.DesignTemperature = pipeline.DesignTemperature;
             newPipeline.TestPressure = pipeline.TestPressure;
             newPipeline.TestMedium = pipeline.TestMedium;
+            newPipeline.PipeLenth = pipeline.PipeLenth;
+            newPipeline.PressurePipingClassId = pipeline.PressurePipingClassId;
             newPipeline.Remark = pipeline.Remark;
          
             db.HJGL_Pipeline.InsertOnSubmit(newPipeline);
@@ -103,8 +107,12 @@ namespace BLL
                 newPipeline.MediumId = pipeline.MediumId;
                 newPipeline.DetectionRateId = pipeline.DetectionRateId;
                 newPipeline.DetectionType = pipeline.DetectionType;
+                newPipeline.DesignPress = pipeline.DesignPress;
+                newPipeline.DesignTemperature = pipeline.DesignTemperature;
                 newPipeline.TestPressure = pipeline.TestPressure;
                 newPipeline.TestMedium = pipeline.TestMedium;
+                newPipeline.PipeLenth = pipeline.PipeLenth;
+                newPipeline.PressurePipingClassId = pipeline.PressurePipingClassId;
                 newPipeline.Remark = pipeline.Remark;
                 try
                 {

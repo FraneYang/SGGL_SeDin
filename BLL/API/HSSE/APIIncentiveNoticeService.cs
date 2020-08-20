@@ -74,7 +74,7 @@ namespace BLL
                 var getIncentiveNotice = from x in db.Check_IncentiveNotice
                                          where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
                                         //&& (strParam == null || x.IncentiveNoticeName.Contains(strParam)) 
-                                        && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
+                                        &&  x.States == states
                                          orderby x.IncentiveNoticeCode descending
                                          select new Model.IncentiveNoticeItem
                                          {
@@ -126,45 +126,140 @@ namespace BLL
                 IncentiveNoticeCode = newItem.IncentiveNoticeCode,
                 ProjectId = newItem.ProjectId,
                 IncentiveDate = Funs.GetNewDateTime(newItem.IncentiveDate),
-                UnitId = newItem.UnitId,
-                PersonId = newItem.PersonId,                
+                UnitId = newItem.UnitId,               
                 RewardType = newItem.RewardTypeId,
                 BasicItem = newItem.BasicItem,
                 IncentiveMoney = newItem.IncentiveMoney,
                 Currency = newItem.Currency,
                 TitleReward = newItem.TitleReward,
                 MattleReward = newItem.MattleReward,
-                SignMan = newItem.SignManId,
-                ApproveMan = newItem.ApproveManId,
                 FileContents = System.Web.HttpUtility.HtmlEncode(newItem.FileContents),
                 CompileMan = newItem.CompileManId,
                 AttachUrl = newItem.AttachUrl,
-                States = Const.State_2,
+                States = newItem.States,
             };
 
             if (!string.IsNullOrEmpty(newItem.TeamGroupId))
             {
                 newIncentiveNotice.TeamGroupId = newItem.TeamGroupId;
             }
-
-            if (newItem.States != "1")
+            if (!string.IsNullOrEmpty(newItem.CompileManId))
+            {
+                newIncentiveNotice.CompileMan = newItem.CompileManId;
+            }
+            if (!string.IsNullOrEmpty(newItem.PersonId))
+            {
+                newIncentiveNotice.PersonId = newItem.PersonId;
+            }
+            if (newIncentiveNotice.States == Const.State_1)
+            {
+                newIncentiveNotice.SignMan = newItem.SignManId;
+            }
+            var getUpdate = db.Check_IncentiveNotice.FirstOrDefault(x => x.IncentiveNoticeId == newItem.IncentiveNoticeId);
+            if (getUpdate == null)
             {
                 newIncentiveNotice.States = Const.State_0;
-            }
-
-            var updateIncentiveNotice = db.Check_IncentiveNotice.FirstOrDefault(x => x.IncentiveNoticeId == newItem.IncentiveNoticeId);
-            if (updateIncentiveNotice == null)
-            {
                 newIncentiveNotice.CompileDate = DateTime.Now;
                 newIncentiveNotice.IncentiveNoticeId = SQLHelper.GetNewID();
                 newIncentiveNotice.IncentiveNoticeCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectIncentiveNoticeMenuId, newIncentiveNotice.ProjectId, newIncentiveNotice.UnitId);
                 IncentiveNoticeService.AddIncentiveNotice(newIncentiveNotice);
             }
-            else
-            {
-                IncentiveNoticeService.UpdateIncentiveNotice(newIncentiveNotice);
+               else
+                {
+                newIncentiveNotice.IncentiveNoticeId = getUpdate.IncentiveNoticeId;
+                getUpdate.States = newItem.States;
+                if (newIncentiveNotice.States == "0" || newIncentiveNotice.States == "1")  ////编制人 修改或提交
+                {
+                    getUpdate.IncentiveDate = newIncentiveNotice.IncentiveDate;
+                    getUpdate.UnitId = newIncentiveNotice.UnitId;
+                    getUpdate.TeamGroupId = newIncentiveNotice.TeamGroupId;
+                    getUpdate.PersonId = newIncentiveNotice.PersonId;
+                    getUpdate.RewardType = newIncentiveNotice.RewardType;
+                    getUpdate.BasicItem = newIncentiveNotice.BasicItem;
+                    getUpdate.IncentiveMoney = newIncentiveNotice.IncentiveMoney;
+                    getUpdate.Currency = newIncentiveNotice.Currency;
+                    getUpdate.TitleReward = newIncentiveNotice.TitleReward;
+                    getUpdate.MattleReward = newIncentiveNotice.MattleReward;
+                    getUpdate.FileContents = newIncentiveNotice.FileContents;
+
+                    if (newIncentiveNotice.States == "1" && !string.IsNullOrEmpty(newItem.SignManId))
+                    {
+                        getUpdate.SignMan = newItem.SignManId;
+                    }
+                    else
+                    {
+                        newIncentiveNotice.States = getUpdate.States = "0";
+                    }
+                    db.SubmitChanges();
+                }
+                else if (newIncentiveNotice.States == "2") ////【签发】总包安全经理
+                {
+                    /// 不同意 打回 同意抄送专业工程师、施工经理、相关施工分包单位并提交【批准】总包项目经理
+                    if (newItem.IsAgree == false)
+                    {
+                        newIncentiveNotice.States = getUpdate.States = "0";
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(newItem.ProfessionalEngineerId))
+                        {
+                            getUpdate.ProfessionalEngineerId = newItem.ProfessionalEngineerId;
+                        }
+                        if (!string.IsNullOrEmpty(newItem.ConstructionManagerId))
+                        {
+                            getUpdate.ConstructionManagerId = newItem.ConstructionManagerId;
+                        }
+                        if (!string.IsNullOrEmpty(newItem.UnitHeadManId))
+                        {
+                            getUpdate.UnitHeadManId = newItem.UnitHeadManId;
+                        }
+                        if (!string.IsNullOrEmpty(newItem.ApproveManId))
+                        {
+                            getUpdate.ApproveMan = newItem.ApproveManId;
+                            getUpdate.SignDate = DateTime.Now;
+                        }
+                        else
+                        {
+                            newIncentiveNotice.States = getUpdate.States = "1";
+                        }
+                    }
+                    db.SubmitChanges();
+                }
+                else if (newIncentiveNotice.States == "3") ////【批准】总包项目经理
+                {
+                    /// 不同意 打回 同意下发【回执】施工分包单位
+                    if (newItem.IsAgree == false)
+                    {
+                        newIncentiveNotice.States = getUpdate.States = "1";
+                    }
+                    else
+                    {
+                        getUpdate.ApproveDate = DateTime.Now;
+                    }
+                    db.SubmitChanges();
+                }
             }
-            if (newIncentiveNotice.States == "1")
+            //// 增加审核记录
+            if (newItem.FlowOperateItem != null && newItem.FlowOperateItem.Count() > 0)
+            {
+                var getOperate = newItem.FlowOperateItem.FirstOrDefault();
+                if (getOperate != null && !string.IsNullOrEmpty(getOperate.OperaterId))
+                {
+                    Model.Check_IncentiveNoticeFlowOperate newOItem = new Model.Check_IncentiveNoticeFlowOperate
+                    {
+                        FlowOperateId = SQLHelper.GetNewID(),
+                       IncentiveNoticeId = newIncentiveNotice.IncentiveNoticeId,
+                        OperateName = getOperate.AuditFlowName,
+                        OperateManId = getOperate.OperaterId,
+                        OperateTime = DateTime.Now,
+                        IsAgree = getOperate.IsAgree,
+                        Opinion = getOperate.Opinion,
+                    };
+                    db.Check_IncentiveNoticeFlowOperate.InsertOnSubmit(newOItem);
+                    db.SubmitChanges();
+                }
+            }
+            if (newIncentiveNotice.States == "1" || newIncentiveNotice.States == "0")
             {
                 CommonService.btnSaveData(newIncentiveNotice.ProjectId, Const.ProjectIncentiveNoticeMenuId, newIncentiveNotice.IncentiveNoticeId, newIncentiveNotice.CompileMan, true, newIncentiveNotice.IncentiveNoticeCode, "../Check/IncentiveNoticeView.aspx?IncentiveNoticeId={0}");
             }            

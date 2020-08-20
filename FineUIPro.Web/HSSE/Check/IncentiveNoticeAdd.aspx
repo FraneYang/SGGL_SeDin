@@ -19,22 +19,23 @@
                         <f:TextBox ID="txtIncentiveNoticeCode" runat="server" Label="编号" LabelAlign="Right"
                             MaxLength="50" Readonly="true" LabelWidth="90px">
                         </f:TextBox>
-                        <f:DropDownList ID="drpUnit" runat="server" Label="受奖单位" LabelAlign="Right" EnableEdit="true" LabelWidth="90px"
-                            Required="true" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
-                        </f:DropDownList>
-                        <f:DropDownList ID="drpTeamGroup" runat="server" Label="受奖班组" LabelAlign="Right" EnableEdit="true" LabelWidth="90px">
-                        </f:DropDownList>
-                        <f:DropDownList ID="drpPerson" runat="server" Label="受奖个人" LabelAlign="Right" EnableEdit="true" LabelWidth="90px">
-                        </f:DropDownList>
+                         <f:DatePicker ID="txtIncentiveDate" runat="server" Label="奖励时间" LabelAlign="Right"
+                            EnableEdit="false" LabelWidth="90px">
+                        </f:DatePicker>
+                        <f:DropDownList ID="drpRewardType" runat="server" Label="奖励类型" LabelAlign="Right" LabelWidth="90px"
+                            Required="true" ShowRedStar="true">
+                        </f:DropDownList>                    
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DatePicker ID="txtIncentiveDate" runat="server" Label="奖励时间" LabelAlign="Right"
-                            EnableEdit="true" LabelWidth="90px">
-                        </f:DatePicker>
-                        <f:DropDownList ID="drpRewardType" runat="server" Label="奖励类型" LabelAlign="Right" LabelWidth="90px"
-                            Required="true" ShowRedStar="true">
+                        <f:DropDownList ID="drpUnit" runat="server" Label="受奖单位" LabelAlign="Right" EnableEdit="true" LabelWidth="90px"
+                            Required="true" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
+                        </f:DropDownList>
+                        <f:DropDownList ID="drpTeamGroup" runat="server" Label="受奖班组" LabelAlign="Right" EnableEdit="true" 
+                            LabelWidth="90px" AutoPostBack="true" OnSelectedIndexChanged="drpTeamGroup_SelectedIndexChanged">
+                        </f:DropDownList>
+                        <f:DropDownList ID="drpPerson" runat="server" Label="受奖个人" LabelAlign="Right" EnableEdit="true" LabelWidth="90px">
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>

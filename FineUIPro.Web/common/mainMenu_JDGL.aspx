@@ -164,7 +164,7 @@
                         <div class="tit-one pdl">形象进度照片</div>
                         <div class="bw-item-content flex1 pdtb0">
                             <div style="width:100%;height:100%;">
-                                <img  src="../Images/siteProject.jpg" alt="Alternate Text"  class="bg-img"/>
+                                <img  src="../Images/siteProject.jpg" alt="Alternate Text"  class="bg-img" />
                             </div>
                         </div>
                         <div class="more">更多</div>

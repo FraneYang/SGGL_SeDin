@@ -320,48 +320,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 }
 
                 this.txtTestPackageName.Text = testPackageManage.TestPackageName;
-                //this.txtTestPackageCode.Text = testPackageManage.TestPackageCode;
-                if (!string.IsNullOrEmpty(testPackageManage.TestType))
-                {
-                    var testType = BLL.Base_PressureService.GetPressureByPressureId(testPackageManage.TestType);
-                    if (testType != null)
-                    {
-                        this.drpTestType.Text = testType.PressureName;
-                    }
-                }
-                this.txtTestService.Text = testPackageManage.TestService;
-                this.txtTestHeat.Text = testPackageManage.TestHeat;
-                this.txtTestAmbientTemp.Text = testPackageManage.TestAmbientTemp;
-
-                this.txtTestMediumTemp.Text = testPackageManage.TestMediumTemp;
-                this.txtVacuumTestService.Text = testPackageManage.VacuumTestService;
-                this.txtVacuumTestPressure.Text = testPackageManage.VacuumTestPressure;
-
-                this.txtTightnessTestTime.Text = testPackageManage.TightnessTestTime;
-                this.txtTightnessTestTemp.Text = testPackageManage.TightnessTestTemp;
-                this.txtTightnessTest.Text = testPackageManage.TightnessTest;
-
-                this.txtTestPressure.Text = testPackageManage.TestPressure;
-                this.txtTestPressureTemp.Text = testPackageManage.TestPressureTemp;
-                this.txtTestPressureTime.Text = testPackageManage.TestPressureTime;
-
-                this.txtOperationMedium.Text = testPackageManage.OperationMedium;
-                this.txtPurgingMedium.Text = testPackageManage.PurgingMedium;
-                this.txtCleaningMedium.Text = testPackageManage.CleaningMedium;
-
-                this.txtLeakageTestService.Text = testPackageManage.LeakageTestService;
-                this.txtLeakageTestPressure.Text = testPackageManage.LeakageTestPressure;
-                this.txtAllowSeepage.Text = testPackageManage.AllowSeepage;
-                this.txtFactSeepage.Text = testPackageManage.FactSeepage;
-                this.txtModifyDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.ModifyDate);
-                if (!string.IsNullOrEmpty(testPackageManage.Modifier))
-                {
-                    var users = BLL.UserService.GetUserByUserId(testPackageManage.Modifier);
-                    if (users != null)
-                    {
-                        this.drpModifier.Text = users.UserName;
-                    }
-                }
+                
                 this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.TableDate);
                 if (!string.IsNullOrEmpty(testPackageManage.Tabler))
                 {

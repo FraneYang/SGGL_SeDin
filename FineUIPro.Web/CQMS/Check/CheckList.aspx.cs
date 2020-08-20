@@ -211,20 +211,20 @@ namespace FineUIPro.Web.CQMS.Check
                     Model.Check_CheckControl checkControl = BLL.CheckControlService.GetCheckControl(rowID);
                     if (checkControl.State.Equals("5") || checkControl.State.Equals("6"))
                     {
-                        Grid1.Rows[i].RowCssClass = "LightGreen";//未确认      
+                        Grid1.Rows[i].CellCssClasses[11] = "LightGreen";//未确认      
                     }
                     else if (checkControl.State == Const.CheckControl_Complete)
                     { //闭环
-                        Grid1.Rows[i].RowCssClass = "Green";
+                        Grid1.Rows[i].CellCssClasses[11] = "Green";
 
                     }
                     else if (Convert.ToDateTime(checkControl.LimitDate).AddDays(1) < DateTime.Now)  //延期未整改
                     {
-                        Grid1.Rows[i].RowCssClass = "HotPink";
+                        Grid1.Rows[i].CellCssClasses[11] = "HotPink";
                     }
                     else  //期内未整改
                     {
-                        Grid1.Rows[i].RowCssClass = " Yellow ";
+                        Grid1.Rows[i].CellCssClasses[11] = " Yellow ";
                     }
                 }
             }
