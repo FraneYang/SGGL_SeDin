@@ -430,6 +430,10 @@ namespace BLL
         /// </summary>
         public static string TechnicalPrincipalRole = "BGFBHRRE-0813-6666-828E-FDSAFDSFVDDF";
         /// <summary>
+        /// 专业工程师（总包）
+        /// </summary>
+        public const string ZBCNEngineer = "6574633f-4a55-4ce4-bd48-58d7d03b2eb4";
+        /// <summary>
         /// 费控工程师
         /// </summary>
         public static string KZEngineer = "CADC4D2C-E101-44E0-978A-9AD86C3B5F48";
@@ -2352,7 +2356,7 @@ namespace BLL
         /// <summary>
         /// 试验介质
         /// </summary>
-        public const string HJGL_TestMediumMenuId = "2db166e1-9648-42a9-8567-f63b1846a841";
+        public const string HJGL_TestMediumMenuId = "F480545B-371A-4949-85F8-92B2CA75A044";
         /// <summary>
         /// 压力管道级别
         /// </summary>
@@ -2465,6 +2469,49 @@ namespace BLL
         public const string TestPackageCompleteMenuId = "82951D78-9029-4F69-A032-00C47551B3E6";
         #endregion
 
+        #region 泄露性/真空
+        /// <summary>
+        /// 泄露性/真空录入
+        /// </summary>
+        public const string LeakVacuumEditMenuId = "4b1c7e7d-dc3e-46f6-b1e9-fab4457e7684";
+
+        /// <summary>
+        /// 泄露性/真空尾项检查
+        /// </summary>
+        public const string LV_ItemEndCheckMenuId = "578bff7d-c944-48df-8dfa-dd5526337a81";
+
+        /// <summary>
+        /// 泄露性/真空审核
+        /// </summary>
+        public const string LeakVacuumAuditMenuId = "9f5136ec-fc9a-47b0-b085-41a1a46b77d6";
+
+        /// <summary>
+        /// 泄露性/真空完成
+        /// </summary>
+        public const string LeakVacuumCompleteMenuId = "4c980bd6-b57d-4a28-b337-83603e81e116";
+        #endregion
+
+        #region 吹扫/清洗
+        /// <summary>
+        /// 吹扫/清洗录入
+        /// </summary>
+        public const string PurgingCleaningEditMenuId = "e6da5ef9-aa42-49dd-b6a6-b54a3b922d68";
+
+        /// <summary>
+        /// 吹扫/清洗尾项检查
+        /// </summary>
+        public const string PC_ItemEndCheckMenuId = "af47c6ea-755e-409e-ae69-04479952755a";
+
+        /// <summary>
+        /// 吹扫/清洗审核
+        /// </summary>
+        public const string PurgingCleaningAuditMenuId = "67f3aee2-2a02-4b02-aaef-a9d8fbfd2f01";
+
+        /// <summary>
+        /// 吹扫/清洗完成
+        /// </summary>
+        public const string PurgingCleaningCompleteMenuId = "5f343a44-15ae-4c6a-9cbe-e8322a548ce5";
+        #endregion
         #endregion
 
         #endregion
@@ -3309,6 +3356,38 @@ namespace BLL
         #endregion
 
         #region  焊接管理
+        #region 试压尾项检查流程定义
+        /// <summary>
+        /// 总包专业工程师编制
+        /// </summary>
+        public const string TestPackage_Compile = "1";//总包
+
+        /// <summary>
+        /// 施工分包商整改
+        /// </summary>
+        public static string TestPackage_Audit1 = "2";//总包
+
+        /// <summary>
+        /// 总包确认
+        /// </summary>
+        public static string TestPackage_Audit2 = "3";//总包
+
+        /// <summary>
+        /// 监理确认
+        /// </summary>
+        public static string TestPackage_Audit3 = "4";//分包
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string TestPackage_Complete = "5";//总包
+
+        /// <summary>
+        /// 施工分包商重新整改
+        /// </summary>
+        public static string TestPackage_ReAudit2 = "6";//分包
+        #endregion
+
         /// <summary>
         /// 焊工照片上传路径
         /// </summary>

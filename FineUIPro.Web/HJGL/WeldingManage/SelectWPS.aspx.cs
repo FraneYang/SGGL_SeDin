@@ -50,7 +50,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                       where x.UnitId == unitId
                       && (x.JointType == "对接焊缝" || (x.JointType != "对接焊缝" && weldType != "B"))
                             && ((x.MaterialId1 == material1 && x.MaterialId2 == material2)
-                            || (x.MaterialId1 == material2 || x.MaterialId2 == material1))
+                            || (x.MaterialId1 == material2 && x.MaterialId2 == material1))
                       select x;
 
             // 根据接头形式判断外径和壁厚的覆盖

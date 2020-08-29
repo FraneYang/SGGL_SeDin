@@ -64,8 +64,8 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server"   DataIDField="CheckSpecialDetailId"
                         DataKeyNames="CheckSpecialDetailId" ShowGridHeader="true"  SortField="SortIndex" SortDirection="ASC" 
-                        Height="350px" AllowCellEditing="true" ClicksToEdit="1" AllowSorting="true"  EnableColumnLines="true"  OnPreDataBound="Grid1_PreDataBound" 
-                        EnableTextSelection="True" >   
+                        MinHeight="350px" AllowCellEditing="true" ClicksToEdit="1" AllowSorting="true"  EnableColumnLines="true"  OnPreDataBound="Grid1_PreDataBound" 
+                        EnableTextSelection="True"  OnSort="Grid1_Sort">   
                         <Columns>                       
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                 TextAlign="Center" />

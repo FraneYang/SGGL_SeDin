@@ -92,10 +92,6 @@
                                 FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="WorkAreaCode" DataField="WorkAreaCode" SortField="WorkAreaCode"
-                                FieldType="String" HeaderText="区域" HeaderTextAlign="Center"
-                                TextAlign="Left">
-                            </f:RenderField>
                           <f:TemplateField Width="100px" HeaderText="无损检测类型" HeaderTextAlign="Center"
                                 TextAlign="Center" SortField="DetectionType">
                                 <ItemTemplate>
@@ -129,11 +125,11 @@
                                 TextAlign="Left">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="TestMediumCode" DataField="TestMediumCode" SortField="TestMediumCode"
-                                FieldType="String" HeaderText="试验介质" HeaderTextAlign="Center"
+                                FieldType="String" HeaderText="压力试验介质" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
                              <f:RenderField Width="130px" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
-                                FieldType="Double"  HeaderText="试验压力 MPa(g)" HeaderTextAlign="Center"
+                                FieldType="Double"  HeaderText="压力试验压力 MPa(g)" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
                              <f:RenderField Width="120px" ColumnID="PressurePipingClassCode" DataField="PressurePipingClassCode" SortField="PressurePipingClassCode"
@@ -141,7 +137,7 @@
                                 TextAlign="Left">
                             </f:RenderField>
                              <f:RenderField Width="90px" ColumnID="PipeLenth" DataField="PipeLenth" SortField="PipeLenth"
-                                FieldType="Double"  HeaderText="管线长度" HeaderTextAlign="Center"
+                                FieldType="Double"  HeaderText="管线长度(m)" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" SortField="Remark"
@@ -173,7 +169,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
         EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
-        IsModal="true" Width="800px" Height="480px">
+        IsModal="true" Width="800px" Height="560px">
     </f:Window>
     <f:Window ID="Window2" Title="选择显示列" Hidden="true"
         EnableIFrame="true" EnableMaximize="false" Target="Top" EnableResize="true" runat="server"

@@ -1763,7 +1763,7 @@ namespace BLL
                     List<string> getUserIds = Funs.GetStrListByStr(newItem.NextManId, ',');
                     foreach (var item in getUserIds)
                     {
-                        APICommonService.SendSubscribeMessage(item, "作业票"+newItem.LicenseCode + "待您审核", newItem.ApplyManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                        APICommonService.SendSubscribeMessage(item, "作业票待审核", newItem.ApplyManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                 }
 

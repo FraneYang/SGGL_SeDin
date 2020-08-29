@@ -44,25 +44,19 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getData1 = (from x in db.HJGL_WeldJoint
-                                    where x.PipelineId == pipeLineId 
+                var getData = (from x in db.View_HJGL_NoWeldJointFind
+                               where x.PipelineId == pipeLineId 
                                     && x.WeldingDailyId == null 
+                                    orderby x.WeldJointCode
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.WeldJointId,
                                         BaseInfoCode = x.WeldJointCode
                                     }
                                 ).ToList();
-                var getData2 = (from x in db.HJGL_PreWeldingDaily
-                                join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                    where y.PipelineId == pipeLineId && !x.AuditDate.HasValue
-                                    select new Model.BaseInfoItem
-                                    {
-                                        BaseInfoId = x.WeldJointId,
-                                        BaseInfoCode = y.WeldJointCode
-                                    }
-                               ).ToList();
-                return getData1.Except(getData2).ToList();
+
+
+                return getData;
             }
         }
         #endregion

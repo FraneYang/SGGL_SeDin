@@ -1,6 +1,7 @@
 ﻿using Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace BLL
 {
@@ -102,5 +103,44 @@ namespace BLL
             }
         }
         #endregion
+
+
+        public static ListItem[] GetTestMediumListItem(string testType)
+        {
+            List<Model.Base_TestMedium> list = (from x in Funs.DB.Base_TestMedium where x.TestType == testType orderby x.MediumCode select x).ToList();
+            ListItem[] item = new ListItem[list.Count()];
+            for (int i = 0; i < list.Count(); i++)
+            {
+                item[i] = new ListItem(list[i].MediumName ?? "", list[i].TestMediumId);
+            }
+            return item;
+        }
+        
+        /// <summary>
+        /// 介质下拉项 加载吹扫和清洗
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitPCMediumDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "TestMediumId";
+            dropName.DataTextField = "MediumName";
+            dropName.DataSource = GetPCTestMediumList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        public static List<Model.Base_TestMedium> GetPCTestMediumList()
+        {
+            List<Model.Base_TestMedium> list = null;
+            list = (from x in Funs.DB.Base_TestMedium
+                    where x.TestType == "4" || x.TestType == "5"
+                    orderby x.MediumCode
+                    select x).ToList();
+
+            return list;
+        }
     }
 }

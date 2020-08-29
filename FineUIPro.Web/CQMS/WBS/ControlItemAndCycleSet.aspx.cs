@@ -745,19 +745,18 @@ namespace FineUIPro.Web.CQMS.WBS
                 Model.WBS_ControlItemAndCycle oldControlItemAndCycle = BLL.ControlItemAndCycleService.GetControlItemAndCycleById(controlItemAndCycleId);
                 AspNet.CheckBox ckbWorkPackageCode = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
                 string planCompleteDate = values.Value<string>("PlanCompleteDate");
+                string controlItemAndCycleCode = this.Grid1.Rows[i].DataKeys[1].ToString();
+                string txtName = values.Value<string>("AttachUrl");
+                string txtWeights = values.Value<string>("Weights");
+                string txtCosts = values.Value<string>("Costs");
+                name = string.Empty;
+                if (!string.IsNullOrEmpty(txtName.Trim()))
+                {
+                    name = "-" + txtName.Trim();
+                }
+                Model.WBS_ControlItemProject controlItemProject = BLL.ControlItemProjectService.GetControlItemProjectByCode(controlItemAndCycleCode, this.CurrUser.LoginProjectId);
                 if (ckbWorkPackageCode.Checked)
                 {
-                    string controlItemAndCycleCode = this.Grid1.Rows[i].DataKeys[1].ToString();
-                    string txtName = values.Value<string>("AttachUrl");
-                    string txtWeights = values.Value<string>("Weights");
-                    string txtCosts = values.Value<string>("Costs");
-                    name = string.Empty;
-                    if (!string.IsNullOrEmpty(txtName.Trim()))
-                    {
-                        name = "-" + txtName.Trim();
-                    }
-                    Model.WBS_ControlItemProject controlItemProject = BLL.ControlItemProjectService.GetControlItemProjectByCode(controlItemAndCycleCode, this.CurrUser.LoginProjectId);
-
                     if (oldControlItemAndCycle == null)   //新增内容
                     {
                         Model.WBS_ControlItemAndCycle newControlItemAndCycle = new Model.WBS_ControlItemAndCycle();
@@ -874,6 +873,87 @@ namespace FineUIPro.Web.CQMS.WBS
                     {
                         oldControlItemAndCycle.IsApprove = null;
                         BLL.ControlItemAndCycleService.UpdateControlItemAndCycle(oldControlItemAndCycle);
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(txtWeights) || !string.IsNullOrEmpty(planCompleteDate))
+                        {
+                            Model.WBS_ControlItemAndCycle newControlItemAndCycle = new Model.WBS_ControlItemAndCycle();
+                            if (controlItemCode != controlItemProject.ControlItemCode)  //循环至新的工作包
+                            {
+                                controlItemCode = controlItemProject.ControlItemCode;
+                                var oldControlItemAndCycles = BLL.ControlItemAndCycleService.GetControlItemAndCyclesByInitControlItemCodeAndWorkPackageId(controlItemCode, WorkPackageId);
+                                if (oldControlItemAndCycles.Count > 0)  //该工作包已存在内容
+                                {
+                                    var old = oldControlItemAndCycles.First();
+                                    string oldStr = old.ControlItemAndCycleCode.Substring(old.ControlItemAndCycleCode.Length - 2);
+                                    num = Convert.ToInt32(oldStr) + 1;
+                                    if (num < 10)
+                                    {
+                                        code = "0" + num.ToString();
+                                    }
+                                    else
+                                    {
+                                        code = num.ToString();
+                                    }
+                                }
+                                else
+                                {
+                                    num = 1;
+                                    code = "01";
+                                }
+                            }
+                            else
+                            {
+                                if (num < 10)
+                                {
+                                    code = "0" + num.ToString();
+                                }
+                                else
+                                {
+                                    code = num.ToString();
+                                }
+                            }
+                            newControlItemAndCycle.ControlItemAndCycleId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage));
+                            newControlItemAndCycle.ControlItemAndCycleCode = parentWorkPackage.WorkPackageCode + controlItemCode.Substring(controlItemCode.IndexOf(parentWorkPackage.InitWorkPackageCode) + parentWorkPackage.InitWorkPackageCode.Length).Replace("00", "0000") + code;
+                            newControlItemAndCycle.ProjectId = this.CurrUser.LoginProjectId;
+                            newControlItemAndCycle.WorkPackageId = WorkPackageId;
+                            newControlItemAndCycle.ControlItemContent = controlItemProject.ControlItemContent + name;
+                            newControlItemAndCycle.ControlPoint = controlItemProject.ControlPoint;
+                            newControlItemAndCycle.ControlItemDef = controlItemProject.ControlItemDef;
+                            newControlItemAndCycle.HGForms = controlItemProject.HGForms;
+                            newControlItemAndCycle.SHForms = controlItemProject.SHForms;
+                            newControlItemAndCycle.Standard = controlItemProject.Standard;
+                            newControlItemAndCycle.ClauseNo = controlItemProject.ClauseNo;
+                            newControlItemAndCycle.CheckNum = controlItemProject.CheckNum;
+                            newControlItemAndCycle.InitControlItemCode = controlItemProject.ControlItemCode;
+                            if (!string.IsNullOrEmpty(planCompleteDate))
+                            {
+                                newControlItemAndCycle.PlanCompleteDate = Convert.ToDateTime(planCompleteDate);
+                            }
+                            else
+                            {
+                                newControlItemAndCycle.PlanCompleteDate = null;
+                            }
+                            try
+                            {
+                                newControlItemAndCycle.Weights = Convert.ToDecimal(txtWeights.Trim());
+                            }
+                            catch (Exception)
+                            {
+                                newControlItemAndCycle.Weights = null;
+                            }
+                            try
+                            {
+                                newControlItemAndCycle.Costs = Convert.ToDecimal(txtCosts.Trim());
+                            }
+                            catch (Exception)
+                            {
+                                newControlItemAndCycle.Costs = null;
+                            }
+                            BLL.ControlItemAndCycleService.AddControlItemAndCycle(newControlItemAndCycle);
+                            num++;
+                        }
                     }
                 }
             }

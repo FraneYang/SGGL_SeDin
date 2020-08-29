@@ -12,12 +12,21 @@ namespace Mvc.Controllers
         // 质量巡检
         // GET: /Draw/
         [HttpGet]
-        public ResponseData<List<Check_CheckControl>> Index(string projectId, int index, int page, string name = null )
+        public ResponseData<List<Check_CheckControl>> Index(string projectId, int index, int page, string state, string name = null)
         {
             ResponseData<List<Check_CheckControl>> res = new ResponseData<List<Check_CheckControl>>();
 
             res.successful = true;
-            res.resultValue = BLL.CheckControlService.GetListDataForApi(name, projectId, index, page);
+            res.resultValue = BLL.CheckControlService.GetListDataForApi(state, name, projectId, index, page);
+            return res;
+        }
+
+        [HttpGet]
+        public ResponseData<string> Conut(string projectId)
+        {
+            ResponseData<string> res = new ResponseData<string>();
+            res.successful = true;
+            res.resultValue = BLL.CheckControlService.GetListCountStr(projectId);
             return res;
         }
         [HttpGet]

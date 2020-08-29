@@ -59,8 +59,8 @@
                         <f:FormRow>
                             <Items>
                                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="安全隐患及整改要求" runat="server"
-                                    DataKeyNames="RectifyNoticesItemId" DataIDField="RectifyNoticesItemId" EnableColumnLines="true"
-                                    AllowSorting="true" SortField="RectifyNoticesItemId" SortDirection="ASC" EnableTextSelection="True" Height="240px">
+                                    DataKeyNames="RectifyNoticesItemId" DataIDField="RectifyNoticesItemId" EnableColumnLines="true" PageSize="500"
+                                    AllowSorting="true" SortField="RectifyNoticesItemId" SortDirection="ASC" EnableTextSelection="True" MinHeight="240px">
                                     <Columns>
                                         <f:RenderField Width="300px" ColumnID="WrongContent" DataField="WrongContent" FieldType="string"
                                             HeaderText="具体位置及隐患内容" ExpandUnusedSpace="true" HeaderTextAlign="Center" TextAlign="Left">

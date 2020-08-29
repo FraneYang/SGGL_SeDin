@@ -36,10 +36,9 @@ namespace FineUIPro.Web.HJGL.TestPackage
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {               
+            {
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
                 this.PTP_ID = string.Empty;
-                this.txtSearchDate.Text = string.Format("{0:yyyy-MM}", System.DateTime.Now);             
                 this.InitTreeMenu();//加载树
             }
         }
@@ -65,8 +64,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
             rootNode2.CommandName = "安装工程";
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
-            DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
-            DateTime endTime = startTime.AddMonths(1);
             var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
@@ -76,8 +73,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
             List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
-                                                            where x.ProjectId == this.CurrUser.LoginProjectId && x.TableDate >= startTime && x.TableDate < endTime
-                                                            select x).ToList();
+                                                            where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             List<Model.WBS_UnitWork> unitWork1 = null;
             List<Model.WBS_UnitWork> unitWork2 = null;
 
@@ -139,27 +135,10 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// <param name="node"></param>
         private void BindNodes(TreeNode node, List<Model.PTP_TestPackage> testPackageUnitList)
         {
-            DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
-            DateTime endTime = startTime.AddMonths(1);
-            
             if (node.CommandName == "单位工程")
             {
-                var pointListMonth = (from x in testPackageUnitList
-                                      select string.Format("{0:yyyy-MM}", x.TableDate)).Distinct();
-                foreach (var item in pointListMonth)
-                {
-                    TreeNode newNode = new TreeNode();
-                    newNode.Text = item;
-                    newNode.NodeID = item + "|" + node.NodeID;
-                    newNode.CommandName = "月份";
-                    node.Nodes.Add(newNode);
-                    this.BindNodes(newNode, testPackageUnitList);
-                }
-            }
-            else if (node.CommandName == "月份") {
                 var dReports = from x in testPackageUnitList
-                               where x.UnitWorkId == node.ParentNode.NodeID
-                               && x.TableDate >= startTime && x.TableDate < endTime
+                               where x.UnitWorkId == node.NodeID
                                orderby x.TestPackageNo descending
                                select x;
                 foreach (var item in dReports)
@@ -177,15 +156,15 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         newNode.Text = "<font color='#FF7575'>" + newNode.Text + "</font>";
                         node.Text = "<font color='#FF7575'>" + node.Text + "</font>";
-                        node.ParentNode.Text = "<font color='#FF7575'>" + node.ParentNode.Text + "</font>";
                     }
                     newNode.NodeID = item.PTP_ID;
                     newNode.EnableClickEvent = true;
+                    newNode.CommandName = "TestPackage";
                     node.Nodes.Add(newNode);
                 }
             }
         }
-        
+
         #endregion
 
         #region 点击TreeView
@@ -209,16 +188,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             this.SetTextTemp();
             this.PageInfoLoad(); ///页面输入保存信息
-            string strSql = @"SELECT ptp.ProjectId, ptp.PTP_ID,ptpPipe.PT_PipeId, UnitWork.UnitWorkCode,IsoInfo.PipelineCode,
-                                   class.PipingClassCode, IsoInfo.TestPressure,testM.MediumName AS TestMedium,ser.MediumName
-                               FROM dbo.PTP_TestPackage AS ptp
-                               LEFT JOIN dbo.PTP_PipelineList AS ptpPipe ON ptp.PTP_ID=ptpPipe.PTP_ID
-                               LEFT JOIN dbo.HJGL_Pipeline AS IsoInfo ON  IsoInfo.PipelineId = ptpPipe.PipelineId
-                               LEFT JOIN WBS_UnitWork AS UnitWork ON IsoInfo.UnitWorkId=UnitWork.UnitWorkId
-                               LEFT JOIN dbo.Base_Medium AS ser ON  ser.MediumId = IsoInfo.MediumId
-							   LEFT JOIN dbo.Base_Medium AS testM ON  testM.MediumId = IsoInfo.TestMedium
-							   LEFT JOIN dbo.Base_PipingClass class ON class.PipingClassId = IsoInfo.PipingClassId
-                               WHERE ptp.ProjectId= @ProjectId AND ptp.PTP_ID=@PTP_ID";
+            string strSql = @" SELECT ptpPipe.PT_PipeId, ptpPipe.PTP_ID, ptpPipe.PipelineId, ptpPipe.DesignPress, 
+                               ptpPipe.DesignTemperature, ptpPipe.AmbientTemperature, ptpPipe.TestMedium, 
+                               ptpPipe.TestMediumTemperature, ptpPipe.TestPressure, ptpPipe.HoldingTime,IsoInfo.PipelineCode,testMedium.MediumName
+                               FROM dbo.PTP_PipelineList AS ptpPipe 
+                               LEFT JOIN dbo.HJGL_Pipeline AS IsoInfo ON  ptpPipe.PipelineId = IsoInfo.PipelineId
+							   LEFT JOIN dbo.Base_TestMedium  AS testMedium ON testMedium.TestMediumId = IsoInfo.TestMedium
+                               WHERE  ptpPipe.PTP_ID=@PTP_ID";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
             listStr.Add(new SqlParameter("@PTP_ID", this.PTP_ID));
@@ -238,54 +214,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// </summary>
         private void PageInfoLoad()
         {
-            this.btnEdit.Hidden = true;
-            this.btnDelete.Hidden = true;
-            this.btnPrint.Hidden = true;
             var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
             if (testPackageManage != null)
             {
                 this.txtTestPackageNo.Text = testPackageManage.TestPackageNo;
-                //if (!string.IsNullOrEmpty(testPackageManage.UnitId))
-                //{
-                //    var unit = BLL.Base_UnitService.GetUnit(testPackageManage.UnitId);
-                //    if (unit != null)
-                //    {
-                //        this.drpUnit.Text = unit.UnitName;
-                //    }
-                //}
-               
                 this.txtTestPackageName.Text = testPackageManage.TestPackageName;
-                //this.txtTestPackageCode.Text = testPackageManage.TestPackageCode;
-               
-
-               
-                this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.TableDate);
-                if (!string.IsNullOrEmpty(testPackageManage.Tabler))
-                {
-                    var users = BLL.UserService.GetUserByUserId(testPackageManage.Tabler);
-                    if (users != null)
-                    {
-                        this.drpTabler.Text = users.UserName;
-                    }
-                }
                 this.txtRemark.Text = testPackageManage.Remark;
-
-                this.txtAduditDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.AduditDate);
-                if (!string.IsNullOrEmpty(testPackageManage.Auditer))
-                {
-                    var users = BLL.UserService.GetUserByUserId(testPackageManage.Auditer);
-                    if (users != null)
-                    {
-                        this.drpAuditer.Text = users.UserName;
-                    }
-                }
-
-                if (string.IsNullOrEmpty(testPackageManage.Auditer) || !testPackageManage.AduditDate.HasValue)
-                {
-                    this.btnEdit.Hidden = false;
-                    this.btnDelete.Hidden = false;
-                    this.btnPrint.Hidden = false;
-                }
+                this.txtadjustTestPressure.Text = testPackageManage.AdjustTestPressure;
             }
         }
         #endregion
@@ -298,11 +233,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             this.txtTestPackageNo.Text = string.Empty;
             this.txtTestPackageName.Text = string.Empty;
-            this.drpTabler.Text = string.Empty;
-            this.txtTableDate.Text = string.Empty;
-            this.txtRemark.Text = string.Empty;
-            this.drpAuditer.Text = string.Empty;
-            this.txtAduditDate.Text = string.Empty;
         }
         #endregion
         #endregion
@@ -352,55 +282,68 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnNew_Click(object sender, EventArgs e)
+        protected void btnMenuNew_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnAdd))
+            if (this.tvControlItem.SelectedNode.CommandName == "单位工程")
             {
-                if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
+                if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnAdd))
                 {
-                    this.SetTextTemp();
-                    string window = String.Format("TestPackageItemEdit.aspx?unitWorkId={0}", this.tvControlItem.SelectedNodeID, "新增 - ");
-                    PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)
-                      + Window1.GetShowReference(window));
+                    if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
+                    {
+                        this.SetTextTemp();
+                        string window = String.Format("TestPackageItemEdit.aspx?unitWorkId={0}", this.tvControlItem.SelectedNodeID, "新增 - ");
+                        PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)
+                          + Window1.GetShowReference(window));
+                    }
+                }
+                else
+                {
+                    ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                ShowNotify("非单位工程类型无法新增！", MessageBoxIcon.Warning);
             }
         }
-
         #region 编辑试压包
         /// <summary>
         /// 编辑试压包
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnEdit_Click(object sender, EventArgs e)
+        protected void btnMenuModify_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnModify))
+            if (this.tvControlItem.SelectedNode.CommandName == "TestPackage")
             {
-                var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
-                if (testPackageManage != null)
+                if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnModify))
                 {
-                    if (testPackageManage.AduditDate.HasValue)
+                    var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
+                    if (testPackageManage != null)
                     {
-                        Alert.ShowInTop("此试压单已审核！", MessageBoxIcon.Warning);
-                        return;
-                    }
+                        if (testPackageManage.AduditDate.HasValue)
+                        {
+                            Alert.ShowInTop("此试压单已审核！", MessageBoxIcon.Warning);
+                            return;
+                        }
 
-                    string window = String.Format("TestPackageItemEdit.aspx?PTP_ID={0}", this.PTP_ID, "编辑 - ");
-                    PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)
-                      + Window1.GetShowReference(window));
+                        string window = String.Format("TestPackageItemEdit.aspx?PTP_ID={0}", this.PTP_ID, "编辑 - ");
+                        PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)
+                          + Window1.GetShowReference(window));
+                    }
+                    else
+                    {
+                        ShowNotify("请选择要修改的试压包记录！", MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    ShowNotify("请选择要修改的试压包记录！", MessageBoxIcon.Warning);
+                    ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                ShowNotify("非试压包类型无法编辑！", MessageBoxIcon.Warning);
             }
         }
         #endregion
@@ -411,35 +354,41 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void btnMenuDel_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnDelete))
+            if (this.tvControlItem.SelectedNode.CommandName == "TestPackage")
             {
-                var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
-                if (testPackageManage != null)
+                if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnDelete))
                 {
-                    if (testPackageManage.AduditDate.HasValue)
+                    var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
+                    if (testPackageManage != null)
                     {
-                        Alert.ShowInTop("此试压单已审核！", MessageBoxIcon.Warning);
-                        return;
+                        if (testPackageManage.AduditDate.HasValue)
+                        {
+                            Alert.ShowInTop("此试压单已审核！", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        BLL.TestPackageEditService.DeletePipelineListByPTP_ID(this.PTP_ID);
+                        BLL.TestPackageEditService.DeleteTestPackage(this.PTP_ID);
+                        //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnDelete, this.PTP_ID);
+                        Alert.ShowInTop("删除成功！", MessageBoxIcon.Success);
+                        this.InitTreeMenu();
+                        this.BindGrid();
                     }
-
-                    BLL.TestPackageEditService.DeletePipelineListByPTP_ID(this.PTP_ID);
-                    BLL.TestPackageEditService.DeleteTestPackage(this.PTP_ID);
-                    //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnDelete, this.PTP_ID);
-                    Alert.ShowInTop("删除成功！", MessageBoxIcon.Success);
-                    this.InitTreeMenu();
-                    this.BindGrid();                    
+                    else
+                    {
+                        ShowNotify("请选择要删除的试压包记录！", MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    ShowNotify("请选择要删除的试压包记录！", MessageBoxIcon.Warning);
+                    ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                    return;
                 }
             }
             else
             {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
+                ShowNotify("非试压包类型无法删除！", MessageBoxIcon.Warning);
             }
         }
         #endregion
@@ -458,7 +407,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.InitTreeMenu();
             this.hdPTP_ID.Text = string.Empty;
         }
-        
+
         /// <summary>
         /// 查询
         /// </summary>
@@ -469,34 +418,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.InitTreeMenu();
             this.BindGrid();
         }
-        #endregion        
+        #endregion
 
-        protected void btnPrint_Click(object sender, EventArgs e)
-        {
-            //if (!string.IsNullOrEmpty(this.PTP_ID))
-            //{
-            //    List<SqlParameter> listStr = new List<SqlParameter>();
-            //    listStr.Add(new SqlParameter("@PTP_ID", this.PTP_ID));
-            //    SqlParameter[] parameter = listStr.ToArray();
-            //    DataTable tb = BLL.SQLHelper.GetDataTableRunProc("HJGL_spPressureTestItemReport", parameter);
-            //    string varValue = Funs.GetPagesCountByPageSize(4, 24, tb.Rows.Count).ToString();
-            //    if (tb.Rows.Count <= 4)
-            //    {
-            //        PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../Common/ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_TestPackageReport1Id, this.PTP_ID, varValue, this.CurrUser.LoginProjectId, "打印 - ")));
-            //    }
-            //    else
-            //    {
-            //        PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../Common/ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_TestPackageReport2Id, this.PTP_ID, string.Empty, this.CurrUser.LoginProjectId, "打印 - ")));
-            //        PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../Common/ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_TestPackageReport1Id, this.PTP_ID, varValue, this.CurrUser.LoginProjectId, "打印 - ")));
-            //    }
-            //}
-            //else
-            //{
-            //    ShowNotify("请选择试压包记录！", MessageBoxIcon.Warning);
-            //    return;
-            //}
-        }
-
-       
     }
 }

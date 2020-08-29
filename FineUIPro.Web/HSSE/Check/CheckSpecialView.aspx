@@ -19,7 +19,7 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow ColumnWidths="35% 10% 30% 30%">
+            <f:FormRow ColumnWidths="35% 15% 30% 25%">
                 <Items>
                      <f:TextBox ID="txtCheckSpecialCode" runat="server" Label="检查编号" Readonly="true">
                     </f:TextBox>
@@ -33,7 +33,7 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="35% 35% 30%">
+            <f:FormRow>
                 <Items>
                      <f:TextBox ID="txtPartInPersons" runat="server" Label="参检人员" Readonly="true" MaxLength="200">
                     </f:TextBox>
@@ -44,8 +44,8 @@
             <f:FormRow>
                 <Items>
                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckSpecialDetailId"
-                        DataKeyNames="CheckSpecialDetailId" ShowGridHeader="true" Height="350px"       
-                        AllowSorting="true" SortField="SortIndex" SortDirection="ASC" 
+                        DataKeyNames="CheckSpecialDetailId" ShowGridHeader="true" MinHeight="350px"       
+                        AllowSorting="true" SortField="SortIndex" SortDirection="ASC"  OnSort="Grid1_Sort"
                         EnableColumnLines="true"  EnableTextSelection="True" OnRowCommand="Grid1_RowCommand">                           
                         <Columns>      
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"

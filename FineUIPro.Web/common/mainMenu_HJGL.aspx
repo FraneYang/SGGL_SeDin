@@ -397,12 +397,14 @@
         {
             name: '质量一次性合格率',
             type: 'bar',
+            barWidth: 40,
             data: [0.85, 0.82],
             //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
         },
         {
             name: '施工资料同步率',
             type: 'bar',
+             barWidth: 40,
             data: [0.69, 0.65],
             //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
         }
@@ -492,15 +494,17 @@
     var series = [{
         name: '数量',
         type: 'bar',
+         barWidth: 40,
         data: data,
         itemStyle: { normal: { color: 'rgba(236,157,27, 1)' } }
     }];
    
-    category_Three('three', xArr, series, '安全检查问题统计')
+    category_Three('three', xArr, series, '焊工业绩分析')
 
      var series1 = [{
         name: '数量',
-        type: 'bar',
+         type: 'bar',
+         barWidth: 40,
         data: data,
         itemStyle: { normal: { color: 'rgba(57,178,210, 1)' } }
     }];
@@ -575,6 +579,7 @@
     }, {
             name: '',
             type: 'bar',
+             barWidth: 40,
             data: [20, 2, 1, 34, 39, 30, 20],
             itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
         }]
@@ -588,7 +593,7 @@
         var option = {
             title: {
                 //left:'0',
-                text: '人场安全培训',
+                text: '焊接进度分析',
                 textStyle: {
                     color: '#fff',
                     fontSize: 12,
@@ -666,6 +671,7 @@
     }, {
             name: '',
             type: 'bar',
+             barWidth: 40,
             data: [20, 2, 1, 34, 39, 30, 20],
             itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
         }]
@@ -690,12 +696,14 @@
                 {
                     name: '质量一次性合格率',
                     type: 'bar',
+                     barWidth: 40,
                     data: [0.9, 0.85],
                     //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
                 },
                 {
                     name: '施工资料同步率',
                     type: 'bar',
+                     barWidth: 40,
                     data: [0.75, 0.65],
                     //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
                 }
@@ -706,12 +714,14 @@
                     {
                         name: '质量一次性合格率',
                         type: 'bar',
+                         barWidth: 40,
                         data: [0.85, 0.82],
                         //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
                     },
                     {
                         name: '施工资料同步率',
                         type: 'bar',
+                         barWidth: 40,
                         data: [0.69, 0.65],
                         //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
                     }
@@ -722,12 +732,14 @@
                     {
                         name: '质量一次性合格率',
                         type: 'bar',
+                         barWidth: 40,
                         data: [0.83, 0.78],
                         //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
                     },
                     {
                         name: '施工资料同步率',
                         type: 'bar',
+                         barWidth: 40,
                         data: [0.64, 0.61],
                         //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
                     }
@@ -741,12 +753,14 @@
                 {
                     name: '计划值',
                     type: 'bar',
+                     barWidth: 40,
                     data: [0.23, 0.35, 0.42],
                     //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
                 },
                 {
                     name: '实际值',
                     type: 'bar',
+                     barWidth: 40,
                     data: [0.2, 0.28, 0.35],
                     //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
                 },
@@ -771,12 +785,14 @@
                     {
                         name: '计划值',
                         type: 'bar',
+                         barWidth: 40,
                         data: [0.20, 0.33, 0.47],
                         //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
                     },
                     {
                         name: '实际值',
                         type: 'bar',
+                         barWidth: 40,
                         data: [0.15, 0.25, 0.33],
                         //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
                     },
@@ -802,12 +818,14 @@
                     {
                         name: '计划值',
                         type: 'bar',
+                         barWidth: 40,
                         data: [0.45, 0.55],
                         //itemStyle: { normal: {  color: 'rgba(200,201,10, 1)' } }
                     },
                     {
                         name: '实际值',
                         type: 'bar',
+                         barWidth: 40,
                         data: [0.36, 0.43],
                         //itemStyle: { normal: { color: 'rgba(231,236,114,.9)' } }
                     },

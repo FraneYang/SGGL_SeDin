@@ -135,6 +135,7 @@
                                 <f:CheckBox ID="ckbRepairBefore" runat="server" Label="返修前所焊" LabelAlign="Right" LabelWidth="100px"  AutoPostBack="true" OnCheckedChanged="ckbRepairBefore_CheckedChanged"></f:CheckBox>
                                 <f:CheckBox ID="ckbMat" runat="server" Label="同材质" LabelAlign="Right" AutoPostBack="true" LabelWidth="70px" OnCheckedChanged="ckbMat_CheckedChanged"></f:CheckBox>
                                 <f:CheckBox ID="ckbSpec" runat="server" Label="同规格" LabelAlign="Right" AutoPostBack="true"  LabelWidth="70px" OnCheckedChanged="ckbSpec_CheckedChanged"></f:CheckBox>
+                                <f:Label ID="lbdef" runat="server" Text="同焊工，同批次"></f:Label>
                               </Items>
                            </f:Toolbar>
                         </Toolbars>
@@ -191,10 +192,10 @@
                             </f:ToolbarText>
                             <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
                                 OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                                <f:ListItem Text="10" Value="10" />
-                                <f:ListItem Text="15" Value="15" />
-                                <f:ListItem Text="20" Value="20" />
-                                <f:ListItem Text="25" Value="25" />
+                                <f:ListItem Text="100" Value="100" />
+                                <f:ListItem Text="150" Value="150" />
+                                <f:ListItem Text="200" Value="200" />
+                                <f:ListItem Text="300" Value="300" />
                                 <f:ListItem Text="所有行" Value="10000" />
                             </f:DropDownList>
                         </PageItems>

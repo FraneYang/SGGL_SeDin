@@ -506,19 +506,19 @@ namespace BLL
 
                 if (newRectifyNotices.States == Const.State_1)
                 {
-                    APICommonService.SendSubscribeMessage(newRectifyNotices.SignPerson, "隐患整改单" + newRectifyNotices.RectifyNoticesCode + "待您签发", rectifyNotices.CheckManNames, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                    APICommonService.SendSubscribeMessage(newRectifyNotices.SignPerson, "整改单待签发", rectifyNotices.CheckManNames, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 else if (newRectifyNotices.States == Const.State_2)
                 {
-                    APICommonService.SendSubscribeMessage(newRectifyNotices.DutyPersonId, "隐患整改单" + newRectifyNotices.RectifyNoticesCode + "待您整改", rectifyNotices.SignPersonName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                    APICommonService.SendSubscribeMessage(newRectifyNotices.DutyPersonId, "整改单待整改", rectifyNotices.SignPersonName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 else if (newRectifyNotices.States == Const.State_3)
                 {
-                    APICommonService.SendSubscribeMessage(newRectifyNotices.UnitHeadManId, "隐患整改单" + newRectifyNotices.RectifyNoticesCode + "待您审核", rectifyNotices.DutyPersonName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                    APICommonService.SendSubscribeMessage(newRectifyNotices.UnitHeadManId, "整改单待审核", rectifyNotices.DutyPersonName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
                 else if (newRectifyNotices.States == Const.State_4)
                 {
-                    APICommonService.SendSubscribeMessage(newRectifyNotices.CheckPerson, "隐患整改单" + newRectifyNotices.RectifyNoticesCode + "待您复查", rectifyNotices.UnitHeadManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                    APICommonService.SendSubscribeMessage(newRectifyNotices.CheckPerson, "整改单待复查", rectifyNotices.UnitHeadManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
             }
         }

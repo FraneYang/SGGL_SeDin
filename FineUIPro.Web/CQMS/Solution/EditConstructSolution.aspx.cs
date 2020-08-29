@@ -833,8 +833,7 @@ namespace FineUIPro.Web.CQMS.Solution
                                on x.UnitId equals y.UnitId
                                join p in db.Project_ProjectUser
                                on x.UserId equals p.UserId
-                               where (p.RoleId.Contains(Const.CVEngineer) || p.RoleId.Contains(Const.FEEngineer) || p.RoleId.Contains(Const.PDEngineer)
-                               || p.RoleId.Contains(Const.EHEngineer) || p.RoleId.Contains(Const.EAEngineer) || p.RoleId.Contains(Const.HJEngineer))
+                               where p.RoleId.Contains(Const.ZBCNEngineer)
                                && y.UnitType == Const.ProjectUnitType_1 && p.ProjectId == CurrUser.LoginProjectId && y.ProjectId == CurrUser.LoginProjectId
                                select x;
                 //var ss = LINQToDataTable(userList);

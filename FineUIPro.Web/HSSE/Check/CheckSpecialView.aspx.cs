@@ -64,7 +64,7 @@ namespace FineUIPro.Web.HSSE.Check
                     this.txtPartInPersons.Text = checkSpecial.PartInPersons;
                     checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
                                            where x.CheckSpecialId == this.CheckSpecialId
-                                           orderby x.SortIndex select x).ToList();
+                                           select x).ToList();
                 }
                 Grid1.DataSource = checkSpecialDetails;
                 Grid1.DataBind();
@@ -149,6 +149,15 @@ namespace FineUIPro.Web.HSSE.Check
                     }
                 }
             }
+        }
+
+        protected void Grid1_Sort(object sender, GridSortEventArgs e)
+        {
+          var  details = (from x in Funs.DB.View_CheckSpecialDetail
+                                   where x.CheckSpecialId == this.CheckSpecialId
+                                   select x).ToList();
+            Grid1.DataSource = details;
+            Grid1.DataBind();
         }
     }
 }

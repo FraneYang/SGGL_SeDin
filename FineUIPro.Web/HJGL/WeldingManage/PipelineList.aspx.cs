@@ -481,7 +481,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     var type = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(t);
                     if (type != null)
                     {
-                        detectionName += type.DetectionTypeName + ",";
+                        detectionName += type.DetectionTypeCode + ",";
                     }
                 }
             }

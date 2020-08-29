@@ -77,95 +77,99 @@ namespace BLL
         /// </summary>
         /// <param name="hdItemsString"></param>
         /// <returns></returns>
-        public static List<Model.SpWeldingDailyItem> GetWeldReportAddItem(string hdItemsString)
+        public static List<Model.SpWeldingDailyItem> GetWeldReportAddItem(string hdString)
         {
             List<Model.SpWeldingDailyItem> returnViewMatch = new List<Model.SpWeldingDailyItem>(); //= getWeldReportItem;
-            if (!string.IsNullOrEmpty(hdItemsString))
+            if (!string.IsNullOrEmpty(hdString))
             {
-                List<string> list = Funs.GetStrListByStr(hdItemsString, '#');
-                if (list.Count() == 4)
+                List<string> totallist = Funs.GetStrListByStr(hdString, '@');
+                foreach (var hdItemsString in totallist)
                 {
-                    string CoverWelderCode = string.Empty;  //盖面焊工号
-                    string BackingWelderCode = string.Empty;   //打底焊工号
-
-                    string welderLists = list[0];
-                    List<string> welderIds = Funs.GetStrListByStr(welderLists, '|');
-                    if (welderIds.Count() == 2)
+                    List<string> list = Funs.GetStrListByStr(hdItemsString, '#');
+                    if (list.Count() == 4)
                     {
-                        var welderCell = BLL.WelderService.GetWelderById(welderIds[0]);
-                        if (welderCell != null)
-                        {
-                            CoverWelderCode = welderCell.WelderCode;
-                        }
-                        var welderFloor = BLL.WelderService.GetWelderById(welderIds[1]);
-                        if (welderFloor != null)
-                        {
-                            BackingWelderCode = welderFloor.WelderCode;
-                        }
-                    }
+                        string CoverWelderCode = string.Empty;  //盖面焊工号
+                        string BackingWelderCode = string.Empty;   //打底焊工号
 
-                    string weldingLocationCode = string.Empty;
-                    string weldingLocationId = list[1];
-                    var loc = BLL.Base_WeldingLocationServie.GetWeldingLocationById(weldingLocationId);
-                    if (loc != null)
-                    {
-                        weldingLocationCode = loc.WeldingLocationCode;
-                    }
-                    string jointAttribute = list[2];
-
-                    string weldlineIdLists = list[3];
-                    List<string> weldlineIds = Funs.GetStrListByStr(weldlineIdLists, '|');
-                    foreach (var weldlineItem in weldlineIds)
-                    {
-                        //if (returnViewMatch.FirstOrDefault(x => x.JOT_ID == jotItem) == null)
-                        //{
-                        var jot= Funs.DB.View_HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldlineItem);
-                        //var weldline = BLL.Pipeline_WeldJointService.GetViewWeldJointById(weldlineItem);
-                        if (jot != null)
+                        string welderLists = list[0];
+                        List<string> welderIds = Funs.GetStrListByStr(welderLists, '|');
+                        if (welderIds.Count() == 2)
                         {
-                            Model.SpWeldingDailyItem newWeldReportItem = new Model.SpWeldingDailyItem();
-                            newWeldReportItem.WeldJointId = jot.WeldJointId;
-                            newWeldReportItem.WeldJointCode = jot.WeldJointCode;
-                            newWeldReportItem.PipelineCode = jot.PipelineCode;
-                            newWeldReportItem.CoverWelderCode = CoverWelderCode;
-                            newWeldReportItem.CoverWelderId = welderIds[0];
-                            newWeldReportItem.BackingWelderCode = BackingWelderCode;
-                            newWeldReportItem.BackingWelderId = welderIds[1];
-                            newWeldReportItem.WeldTypeCode = jot.WeldTypeCode;
-                            newWeldReportItem.JointArea = jot.JointArea;
-                            newWeldReportItem.WeldingLocationId = weldingLocationId;
-                            newWeldReportItem.WeldingLocationCode = weldingLocationCode;
-                            newWeldReportItem.JointAttribute = jointAttribute;
-                            newWeldReportItem.Size = jot.Size;
-                            newWeldReportItem.Dia = jot.Dia;
-                            newWeldReportItem.Thickness = jot.Thickness;
-                            newWeldReportItem.WeldingMethodCode = jot.WeldingMethodCode;
-                            // 如存在日报，默认还是原日报焊工
-                            if (!string.IsNullOrEmpty(jot.WeldingDailyId))
+                            var welderCell = BLL.WelderService.GetWelderById(welderIds[0]);
+                            if (welderCell != null)
                             {
-                                newWeldReportItem.CoverWelderId = jot.CoverWelderId;
-                                newWeldReportItem.BackingWelderId = jot.BackingWelderId;
-                                var welderCover = BLL.WelderService.GetWelderById(jot.CoverWelderId);
-                                if (welderCover != null)
-                                {
-                                    newWeldReportItem.CoverWelderCode = welderCover.WelderCode;
-                                }
-                                var welderBacking = BLL.WelderService.GetWelderById(jot.BackingWelderId);
-                                if (welderBacking != null)
-                                {
-                                    newWeldReportItem.BackingWelderCode = welderBacking.WelderCode;
-                                }
-                                newWeldReportItem.JointAttribute = jot.JointAttribute;
-
-                                newWeldReportItem.WeldingLocationId = jot.WeldingLocationId;
-                                var location = BLL.Base_WeldingLocationServie.GetWeldingLocationById(jot.WeldingLocationId);
-                                if (location != null)
-                                {
-                                    newWeldReportItem.WeldingLocationCode = location.WeldingLocationCode;
-                                }
-
+                                CoverWelderCode = welderCell.WelderCode;
                             }
-                            returnViewMatch.Add(newWeldReportItem);
+                            var welderFloor = BLL.WelderService.GetWelderById(welderIds[1]);
+                            if (welderFloor != null)
+                            {
+                                BackingWelderCode = welderFloor.WelderCode;
+                            }
+                        }
+
+                        string weldingLocationCode = string.Empty;
+                        string weldingLocationId = list[1];
+                        var loc = BLL.Base_WeldingLocationServie.GetWeldingLocationById(weldingLocationId);
+                        if (loc != null)
+                        {
+                            weldingLocationCode = loc.WeldingLocationCode;
+                        }
+                        string jointAttribute = list[2];
+
+                        string weldlineIdLists = list[3];
+                        List<string> weldlineIds = Funs.GetStrListByStr(weldlineIdLists, '|');
+                        foreach (var weldlineItem in weldlineIds)
+                        {
+                            //if (returnViewMatch.FirstOrDefault(x => x.JOT_ID == jotItem) == null)
+                            //{
+                            var jot = Funs.DB.View_HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldlineItem);
+                            //var weldline = BLL.Pipeline_WeldJointService.GetViewWeldJointById(weldlineItem);
+                            if (jot != null)
+                            {
+                                Model.SpWeldingDailyItem newWeldReportItem = new Model.SpWeldingDailyItem();
+                                newWeldReportItem.WeldJointId = jot.WeldJointId;
+                                newWeldReportItem.WeldJointCode = jot.WeldJointCode;
+                                newWeldReportItem.PipelineCode = jot.PipelineCode;
+                                newWeldReportItem.CoverWelderCode = CoverWelderCode;
+                                newWeldReportItem.CoverWelderId = welderIds[0];
+                                newWeldReportItem.BackingWelderCode = BackingWelderCode;
+                                newWeldReportItem.BackingWelderId = welderIds[1];
+                                newWeldReportItem.WeldTypeCode = jot.WeldTypeCode;
+                                newWeldReportItem.JointArea = jot.JointArea;
+                                newWeldReportItem.WeldingLocationId = weldingLocationId;
+                                newWeldReportItem.WeldingLocationCode = weldingLocationCode;
+                                newWeldReportItem.JointAttribute = jointAttribute;
+                                newWeldReportItem.Size = jot.Size;
+                                newWeldReportItem.Dia = jot.Dia;
+                                newWeldReportItem.Thickness = jot.Thickness;
+                                newWeldReportItem.WeldingMethodCode = jot.WeldingMethodCode;
+                                // 如存在日报，默认还是原日报焊工
+                                if (!string.IsNullOrEmpty(jot.WeldingDailyId))
+                                {
+                                    newWeldReportItem.CoverWelderId = jot.CoverWelderId;
+                                    newWeldReportItem.BackingWelderId = jot.BackingWelderId;
+                                    var welderCover = BLL.WelderService.GetWelderById(jot.CoverWelderId);
+                                    if (welderCover != null)
+                                    {
+                                        newWeldReportItem.CoverWelderCode = welderCover.WelderCode;
+                                    }
+                                    var welderBacking = BLL.WelderService.GetWelderById(jot.BackingWelderId);
+                                    if (welderBacking != null)
+                                    {
+                                        newWeldReportItem.BackingWelderCode = welderBacking.WelderCode;
+                                    }
+                                    newWeldReportItem.JointAttribute = jot.JointAttribute;
+
+                                    newWeldReportItem.WeldingLocationId = jot.WeldingLocationId;
+                                    var location = BLL.Base_WeldingLocationServie.GetWeldingLocationById(jot.WeldingLocationId);
+                                    if (location != null)
+                                    {
+                                        newWeldReportItem.WeldingLocationCode = location.WeldingLocationCode;
+                                    }
+
+                                }
+                                returnViewMatch.Add(newWeldReportItem);
+                            }
                         }
                     }
                 }
@@ -179,24 +183,10 @@ namespace BLL
         /// </summary>
         /// <param name="ManagerTotalId"></param>
         /// <returns></returns>
-        public static List<Model.SpWeldingDailyItem> GetWeldReportItemFind(string projectId, string weldingDailyId, string pipelineId)
+        public static List<Model.SpWeldingDailyItem> GetWeldReportItemFind(string weldingDailyId, string pipelineId)
         {
             List<Model.SpWeldingDailyItem> returnViewMatch = new List<Model.SpWeldingDailyItem>();
-            // 组批条件的字段不能为空
-            //var jotLists = from x in Funs.DB.HJGL_PW_JointInfo
-            //               join y in Funs.DB.HJGL_PW_IsoInfo on x.ISO_ID equals y.ISO_ID
-            //               where x.InstallationId != null && x.JOTY_ID != null && x.NDTR_ID != null && x.IsSpecial != null
-            //                  && y.ISC_ID != null && y.SER_ID != null && y.STE_ID != null && y.ISO_Executive != null
-            //                  && x.ProjectId == projectId && x.ISO_ID == pipelineId
-            //                  && (x.DReportID == null || x.DReportID == weldingDailyId)
-            //               select x;
-
-            //// 预提交焊口
-            //var pre_JotId = from x in Funs.DB.HJGL_BO_PreWeldReportMain
-            //                join y in Funs.DB.HJGL_PW_JointInfo on x.JOT_ID equals y.JOT_ID
-            //                where x.ProjectId == projectId && y.ISO_ID == pipelineId
-            //                select x.JOT_ID;
-            var weldlineLists = from x in Funs.DB.View_HJGL_WeldJoint
+            var weldlineLists = from x in Funs.DB.View_HJGL_NoWeldJointFind
                                 where x.PipelineId == pipelineId &&
                                       (x.WeldingDailyId == null || x.WeldingDailyId == weldingDailyId)
                                 select x;
@@ -211,7 +201,7 @@ namespace BLL
                     newWeldReportItem.Thickness = item.Thickness;
                     newWeldReportItem.WeldingMethodCode = item.WeldingMethodCode;
                     newWeldReportItem.WeldTypeCode = item.WeldTypeCode;
-                    newWeldReportItem.IsHotProessStr = item.IsHotProessStr;
+                    newWeldReportItem.IsHotProessStr = item.IsHotProess;
                     returnViewMatch.Add(newWeldReportItem);
                 }
             }

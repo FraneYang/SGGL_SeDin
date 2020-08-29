@@ -35,6 +35,15 @@ namespace FineUIPro.Web.HJGL.WPQ
                             this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", wpq.CompileDate);
                         }
 
+                        if (!string.IsNullOrEmpty(wpq.MaterialId1))
+                        {
+                            this.drpSteel1.SelectedValue = wpq.MaterialId1;
+                        }
+                        if (!string.IsNullOrEmpty(wpq.MaterialId2))
+                        {
+                            this.drpSteel2.SelectedValue = wpq.MaterialId2;
+                        }
+
                         if (!string.IsNullOrEmpty(wpq.Material1Class))
                         {
                             this.txtMaterialClass1.Text = wpq.Material1Class;

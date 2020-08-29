@@ -63,6 +63,28 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 {
                     lbIsAudit.Text = "未审核";
                 }
+
+                if (repairRecord.RepairMark == "R2")
+                {
+                    ckbdaily.Hidden = true;
+                    ckbMat.Hidden = true;
+                    ckbPipe.Hidden = true;
+                    ckbRepairBefore.Hidden = true;
+                    ckbSpec.Hidden = true;
+                    ckbWelder.Hidden = true;
+                    lbdef.Hidden = false;
+
+                }
+                else
+                {
+                    ckbdaily.Hidden = false;
+                    ckbMat.Hidden = false;
+                    ckbPipe.Hidden = false;
+                    ckbRepairBefore.Hidden = false;
+                    ckbSpec.Hidden = false;
+                    ckbWelder.Hidden = false;
+                    lbdef.Hidden = true;
+                }
             }
         }
 
@@ -190,57 +212,80 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 var jot = BLL.WeldJointService.GetViewWeldJointById(repairRecord.WeldJointId);
                 var day = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(jot.WeldingDailyId);
 
-                string strSql = @"SELECT PointBatchItemId,PointBatchId,PointBatchCode,WeldJointId,PointState,PointDate,WeldJointCode,
+                string strSql = string.Empty;
+                DataTable dt = null;
+                if (repairRecord.RepairMark == "R1")
+                {
+                    strSql = @"SELECT PointBatchItemId,PointBatchId,PointBatchCode,WeldJointId,PointState,PointDate,WeldJointCode,
                                      JointArea,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit
                               FROM dbo.View_HJGL_Batch_PointBatchItem
                               WHERE ProjectId=@ProjectId AND DetectionTypeId=@DetectionTypeId AND
                                     (PointDate IS NULL OR (PointDate IS NOT NULL AND RepairRecordId=@RepairRecordId))";
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-                listStr.Add(new SqlParameter("@DetectionTypeId", repairRecord.DetectionTypeId));
-                listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
-                if (ckbWelder.Checked)
+                    List<SqlParameter> listStr = new List<SqlParameter>();
+                    listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+                    listStr.Add(new SqlParameter("@DetectionTypeId", repairRecord.DetectionTypeId));
+                    listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
+                    if (ckbWelder.Checked)
+                    {
+                        strSql += " AND WelderId =@WelderId";
+                        listStr.Add(new SqlParameter("@WelderId", jot.BackingWelderId));
+                    }
+
+                    if (ckbPipe.Checked)
+                    {
+                        strSql += " AND PipelineId =@PipelineId";
+                        listStr.Add(new SqlParameter("@PipelineId", jot.PipelineId));
+                    }
+
+                    if (ckbdaily.Checked)
+                    {
+                        strSql += " AND WeldingDate = @WeldingDate";
+                        listStr.Add(new SqlParameter("@WeldingDate", day.WeldingDate));
+                    }
+
+                    if (ckbRepairBefore.Checked)
+                    {
+                        strSql += " AND WeldingDate <=@WeldingDate1";
+                        listStr.Add(new SqlParameter("@WeldingDate1", day.WeldingDate));
+                    }
+
+                    if (ckbMat.Checked)
+                    {
+                        strSql += " AND Mat =@Mat";
+                        listStr.Add(new SqlParameter("@Mat", jot.Material1Id));
+                    }
+
+                    if (ckbSpec.Checked)
+                    {
+                        strSql += " AND Specification =@Specification";
+                        listStr.Add(new SqlParameter("@Specification", jot.Specification));
+                    }
+
+                    SqlParameter[] parameter = listStr.ToArray();
+                    dt = SQLHelper.GetDataTableRunText(strSql, parameter);
+                }
+                else
                 {
-                    strSql += " AND WelderId =@WelderId";
+                    strSql = @"SELECT PointBatchItemId,PointBatchId,PointBatchCode,WeldJointId,PointState,PointDate,WeldJointCode,
+                                     JointArea,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit
+                              FROM dbo.View_HJGL_Batch_PointBatchItem
+                              WHERE ProjectId=@ProjectId AND DetectionTypeId=@DetectionTypeId AND
+                                    (PointDate IS NULL OR (PointDate IS NOT NULL AND RepairRecordId=@RepairRecordId))
+                                      AND WelderId =@WelderId AND PointBatchId=@PointBatchId";
+                    List<SqlParameter> listStr = new List<SqlParameter>();
+                    listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+                    listStr.Add(new SqlParameter("@DetectionTypeId", repairRecord.DetectionTypeId));
+                    listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
                     listStr.Add(new SqlParameter("@WelderId", jot.BackingWelderId));
+                    listStr.Add(new SqlParameter("@PointBatchId", jot.PointBatchId));
+
+                    SqlParameter[] parameter = listStr.ToArray();
+                    dt = SQLHelper.GetDataTableRunText(strSql, parameter);
                 }
 
-                if (ckbPipe.Checked)
-                {
-                    strSql += " AND PipelineId =@PipelineId";
-                    listStr.Add(new SqlParameter("@PipelineId", jot.PipelineId));
-                }
-
-                if (ckbdaily.Checked)
-                {
-                    strSql += " AND WeldingDate = @WeldingDate";
-                    listStr.Add(new SqlParameter("@WeldingDate", day.WeldingDate));
-                }
-
-                if (ckbRepairBefore.Checked)
-                {
-                    strSql += " AND WeldingDate <=@WeldingDate1";
-                    listStr.Add(new SqlParameter("@WeldingDate1", day.WeldingDate));
-                }
-
-                if (ckbMat.Checked)
-                {
-                    strSql += " AND Mat =@Mat";
-                    listStr.Add(new SqlParameter("@Mat", jot.Material1Id));
-                }
-
-                if (ckbSpec.Checked)
-                {
-                    strSql += " AND Specification =@Specification";
-                    listStr.Add(new SqlParameter("@Specification", jot.Specification));
-                }
-
-                SqlParameter[] parameter = listStr.ToArray();
-                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-
-                Grid1.RecordCount = tb.Rows.Count;
+                Grid1.RecordCount = dt.Rows.Count;
                 // tb = GetFilteredTable(Grid1.FilteredData, tb);
-                var table = this.GetPagedDataTable(Grid1, tb);
+                var table = this.GetPagedDataTable(Grid1, dt);
                 Grid1.DataSource = table;
                 Grid1.DataBind();
 
@@ -277,7 +322,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
 
             if (!repairRecord.AuditDate.HasValue)
             {
-                RandomExport();
+                RandomExport(repairRecord.RepairMark);
             }
         }
 
@@ -495,7 +540,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
             if (!repairRecord.AuditDate.HasValue)
             {
-                RandomExport();
+                RandomExport(repairRecord.RepairMark);
             }
         }
 
@@ -506,7 +551,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
             if (!repairRecord.AuditDate.HasValue)
             {
-                RandomExport();
+                RandomExport(repairRecord.RepairMark);
             }
         }
 
@@ -517,7 +562,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
             if (!repairRecord.AuditDate.HasValue)
             {
-                RandomExport();
+                RandomExport(repairRecord.RepairMark);
             }
         }
 
@@ -528,7 +573,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
             if (!repairRecord.AuditDate.HasValue)
             {
-                RandomExport();
+                RandomExport(repairRecord.RepairMark);
             }
         }
 
@@ -539,7 +584,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
             if (!repairRecord.AuditDate.HasValue)
             {
-                RandomExport();
+                RandomExport(repairRecord.RepairMark);
             }
         }
 
@@ -550,28 +595,41 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
             if (!repairRecord.AuditDate.HasValue)
             {
-                RandomExport();
+                RandomExport(repairRecord.RepairMark);
             }
         }
 
-        private void RandomExport()
+        private void RandomExport(string mark)
         {
             int num = Grid1.Rows.Count;
-            if (num > 0 && num <= 2)
+            if (mark == "R1")
             {
-                if (num == 1)
+                if (num > 0 && num <= 2)
                 {
-                    Grid1.SelectedRowIndexArray = new int[] { 0 };
+                    if (num == 1)
+                    {
+                        Grid1.SelectedRowIndexArray = new int[] { 0 };
+                    }
+                    else
+                    {
+                        Grid1.SelectedRowIndexArray = new int[] { 0, 1 };
+                    }
                 }
                 else
                 {
-                    Grid1.SelectedRowIndexArray = new int[] { 0, 1 };
+                    int[] r = Funs.GetRandomNum(2, 0, num - 1);
+                    Grid1.SelectedRowIndexArray = r;
                 }
             }
             else
             {
-                int[] r = Funs.GetRandomNum(2, 0, num - 1);
-                Grid1.SelectedRowIndexArray = r;
+                int[] groupNum = new int[num];
+                for(int i=0;i<num; i++)
+                {
+                    groupNum[i] = i;
+                }
+
+                Grid1.SelectedRowIndexArray = groupNum;
             }
         }
     }

@@ -43,8 +43,8 @@
             background-color: #FFFF93;
         }
 
-        .HotPink {
-            background-color: HotPink;
+        .Red {
+            background-color: red;
         }
 
         .LightGreen {

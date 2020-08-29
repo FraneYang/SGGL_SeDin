@@ -996,23 +996,23 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         /// <param name="e"></param>
         protected void ckSelect_Click(object sender, EventArgs e)
         {
-            string weldJointIds = string.Empty;
+            //string weldJointIds = string.Empty;
 
-            for (int i = 0; i < Grid1.Rows.Count; i++)
-            {
-                string weldJointId = Grid1.DataKeys[i][0].ToString();
-                weldJointIds = weldJointIds + weldJointId + "|";
-            }
+            //for (int i = 0; i < Grid1.Rows.Count; i++)
+            //{
+            //    string weldJointId = Grid1.DataKeys[i][0].ToString();
+            //    weldJointIds = weldJointIds + weldJointId + "|";
+            //}
 
-            if (weldJointIds != string.Empty)
-            {
-                weldJointIds = weldJointIds.Substring(0, weldJointIds.Length - 1);
-            }
-
+            //if (weldJointIds != string.Empty)
+            //{
+            //    weldJointIds = weldJointIds.Substring(0, weldJointIds.Length - 1);
+            //}
+            string weldJointIds = hdItemsString.Text.Trim();
             if (!string.IsNullOrEmpty(this.drpUnit.SelectedValue) && this.drpUnit.SelectedValue != BLL.Const._Null && !string.IsNullOrEmpty(this.drpUnitWork.SelectedValue) && this.drpUnitWork.SelectedValue != BLL.Const._Null)
             {
                 string strList = this.drpUnitWork.SelectedValue + "|" + this.drpUnit.SelectedValue + "|" + this.WeldingDailyId;
-                string window = String.Format("SelectDailyWeldJoint.aspx?strList={0}&weldJointIds={1}", strList, weldJointIds, "编辑 - ");
+                string window = String.Format("SelectDailyWeldJoint.aspx?strList={0}&weldJointIds={1}", strList, Server.UrlEncode(weldJointIds), "编辑 - ");
                 PageContext.RegisterStartupScript(Window1.GetSaveStateReference(hdItemsString.ClientID) + Window1.GetShowReference(window));
             }
             else

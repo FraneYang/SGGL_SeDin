@@ -50,13 +50,9 @@ namespace FineUIPro.Web.HJGL.TestPackage
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {               
+            {
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
                 this.PTP_ID = string.Empty;
-                this.txtSearchDate.Text = string.Format("{0:yyyy-MM}", System.DateTime.Now);
-                
-                // 审核人
-                BLL.UserService.InitUserDropDownList(drpAuditMan, this.CurrUser.LoginProjectId, true);
                 this.InitTreeMenu();//加载树
             }
         }
@@ -82,8 +78,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
             rootNode2.CommandName = "安装工程";
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
-            DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
-            DateTime endTime = startTime.AddMonths(1);
             var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
             var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
@@ -93,8 +87,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
             List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
-                                                            where x.ProjectId == this.CurrUser.LoginProjectId && x.TableDate >= startTime && x.TableDate < endTime
-                                                            select x).ToList();
+                                                            where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             List<Model.WBS_UnitWork> unitWork1 = null;
             List<Model.WBS_UnitWork> unitWork2 = null;
 
@@ -156,28 +149,10 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// <param name="node"></param>
         private void BindNodes(TreeNode node, List<Model.PTP_TestPackage> testPackageUnitList)
         {
-            DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
-            DateTime endTime = startTime.AddMonths(1);
             if (node.CommandName == "单位工程")
             {
-                var pointListMonth = (from x in testPackageUnitList
-                                      where x.UnitWorkId == node.NodeID
-                                      select string.Format("{0:yyyy-MM}", x.TableDate)).Distinct();
-                foreach (var item in pointListMonth)
-                {
-                    TreeNode newNode = new TreeNode();
-                    newNode.Text = item;
-                    newNode.NodeID = item + "|" + node.NodeID;
-                    newNode.CommandName = "月份";
-                    node.Nodes.Add(newNode);
-                    this.BindNodes(newNode, testPackageUnitList);
-                }
-            }
-            else if (node.CommandName == "月份")
-            {
                 var dReports = from x in testPackageUnitList
-                               where x.UnitWorkId == node.ParentNode.NodeID
-                               && x.TableDate >= startTime && x.TableDate < endTime
+                               where x.UnitWorkId == node.NodeID
                                orderby x.TestPackageNo descending
                                select x;
                 foreach (var item in dReports)
@@ -195,7 +170,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         newNode.Text = "<font color='#FF7575'>" + newNode.Text + "</font>";
                         node.Text = "<font color='#FF7575'>" + node.Text + "</font>";
-                        node.ParentNode.Text = "<font color='#FF7575'>" + node.ParentNode.Text + "</font>";
                     }
                     newNode.NodeID = item.PTP_ID;
                     newNode.EnableClickEvent = true;
@@ -215,6 +189,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             this.PTP_ID = tvControlItem.SelectedNodeID;
             this.BindGrid();
+            btnAudit.Hidden = false;
         }
         #endregion
 
@@ -254,8 +229,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 int IsoInfoCount = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[3].ToString()); //总焊口
                 int IsoInfoCountT = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[4].ToString()); //完成总焊口
-                int CountS = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[5].ToString()); ; //合格数
-                int CountU = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[6].ToString()); ; //不合格数
+                int CountS = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[5].ToString()); //合格数
+                int CountU = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[6].ToString());  //不合格数
                 decimal Rate = 0;
                 bool convertible = decimal.TryParse(this.Grid1.Rows[i].Values[9].ToString(), out Rate); //应检测比例
                 decimal Ratio = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[10].ToString()); //实际检测比例
@@ -294,61 +269,52 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// </summary>
         private void PageInfoLoad()
         {
-            this.btnAudit.Hidden = true;
-            this.btnCancelAudit.Hidden = true;
             var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
             if (testPackageManage != null)
             {
                 this.txtTestPackageNo.Text = testPackageManage.TestPackageNo;
-                //if (!string.IsNullOrEmpty(testPackageManage.UnitId))
-                //{
-                //    var unit = BLL.Base_UnitService.GetUnit(testPackageManage.UnitId);
-                //    if (unit != null)
-                //    {
-                //        this.drpUnit.Text = unit.UnitName;
-                //    }
-                //}
-                if (!string.IsNullOrEmpty(testPackageManage.UnitWorkId))
-                {
-                    var install = BLL.UnitWorkService.getUnitWorkByUnitWorkId(testPackageManage.UnitWorkId);
-                    if (install != null)
-                    {
-                        this.drpUnitWork.Text = install.UnitWorkName;
-                    }
-                }
-
                 this.txtTestPackageName.Text = testPackageManage.TestPackageName;
-               
-                this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.TableDate);
-                if (!string.IsNullOrEmpty(testPackageManage.Tabler))
-                {
-                    var users = BLL.UserService.GetUserByUserId(testPackageManage.Tabler);
-                    if (users != null)
-                    {
-                        this.drpTabler.Text = users.UserName;
-                    }
-                }
                 this.txtRemark.Text = testPackageManage.Remark;
-
-                this.txtAuditDate.Text = string.Format("{0:yyyy-MM-dd}", testPackageManage.AduditDate);
-                if (!string.IsNullOrEmpty(testPackageManage.Auditer))
+                this.txtadjustTestPressure.Text = testPackageManage.AdjustTestPressure;
+                if (!string.IsNullOrEmpty(testPackageManage.Check1))
                 {
-                    this.drpAuditMan.SelectedValue = testPackageManage.Auditer;
+                    drpInstallationSpecification.SelectedValue = testPackageManage.Check1;
                 }
-
-                if (string.IsNullOrEmpty(testPackageManage.Auditer) || !testPackageManage.AduditDate.HasValue)
+                if (!string.IsNullOrEmpty(testPackageManage.Check2))
                 {
-                    this.btnAudit.Hidden = false;
-                    this.drpAuditMan.Enabled = true;
-                    this.txtAuditDate.Enabled = true;
-                }
-                else
+                    drpPressureTest.SelectedValue = testPackageManage.Check2;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check3))
                 {
-                    this.btnCancelAudit.Hidden = false;
-                    this.drpAuditMan.Enabled = false;
-                    this.txtAuditDate.Enabled = false;
+                    drpWorkRecord.SelectedValue = testPackageManage.Check3;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check4))
+                {
+                    drpNDTConform.SelectedValue = testPackageManage.Check4;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check5))
+                {
+                    drpHotConform.SelectedValue = testPackageManage.Check5;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check6))
+                {
+                    drpInstallationCorrectness.SelectedValue = testPackageManage.Check6;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check7))
+                {
+                    drpMarkClearly.SelectedValue = testPackageManage.Check7;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check8))
+                {
+                    drpIsolationOpening.SelectedValue = testPackageManage.Check8;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check9))
+                {
+                    drpConstructionPlanAsk.SelectedValue = testPackageManage.Check9;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check10))
+                {
+                    drpCover.SelectedValue = testPackageManage.Check10;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check11))
+                {
+                    drpMeetRequirements.SelectedValue = testPackageManage.Check11;
+                }                if (!string.IsNullOrEmpty(testPackageManage.Check12))
+                {
+                    drpStainlessTestWater.SelectedValue = testPackageManage.Check12;
                 }
-            }            
+            }
         }
         #endregion
 
@@ -360,37 +326,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         private void SetTextTemp()
         {
             this.txtTestPackageNo.Text = string.Empty;
-            //this.drpUnit.Text = string.Empty;
-            this.drpUnitWork.Text = string.Empty;
-            this.txtTestPackageName.Text = string.Empty;
-            //this.txtTestPackageCode.Text = string.Empty;
-            this.drpTestType.Text = string.Empty;
-            this.txtTestService.Text = string.Empty;
-            this.txtTestHeat.Text = string.Empty;
-            this.txtTestAmbientTemp.Text = string.Empty;
-            this.txtTestMediumTemp.Text = string.Empty;
-            this.txtVacuumTestService.Text = string.Empty;
-            this.txtVacuumTestPressure.Text = string.Empty;
-            this.txtTightnessTestTime.Text = string.Empty;
-            this.txtTightnessTestTemp.Text = string.Empty;
-            this.txtTightnessTest.Text = string.Empty;
-            this.txtTestPressure.Text = string.Empty;
-            this.txtTestPressureTemp.Text = string.Empty;
-            this.txtTestPressureTime.Text = string.Empty;
-            this.txtOperationMedium.Text = string.Empty;
-            this.txtPurgingMedium.Text = string.Empty;
-            this.txtCleaningMedium.Text = string.Empty;
-            this.txtLeakageTestService.Text = string.Empty;
-            this.txtLeakageTestPressure.Text = string.Empty;
-            this.txtAllowSeepage.Text = string.Empty;
-            this.txtFactSeepage.Text = string.Empty;
-            this.drpModifier.Text = string.Empty;
-            this.txtModifyDate.Text = string.Empty;
-            this.drpTabler.Text = string.Empty;
-            this.txtTableDate.Text = string.Empty;
             this.txtRemark.Text = string.Empty;
-            this.drpAuditMan.SelectedValue = BLL.Const._Null;
-            this.txtAuditDate.Text = string.Empty;
         }
         #endregion
         #endregion
@@ -434,7 +370,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         #endregion
         #endregion
 
-        #region 试压包 审核事件
+        #region 试压前条件确认
         #region 审核检测单
         /// <summary>
         /// 审核检测单
@@ -450,25 +386,30 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 {
                     if (Count == 0)
                     {
-                        string isnoHot=  BLL.TestPackageEditService.IsExistNoHotHardItem(this.PTP_ID);
+                        string isnoHot = BLL.TestPackageEditService.IsExistNoHotHardItem(this.PTP_ID);
                         if (string.IsNullOrEmpty(isnoHot))
                         {
                             string inspectionIsoRate = BLL.TestPackageEditService.InspectionIsoRate(this.PTP_ID);
                             if (string.IsNullOrEmpty(inspectionIsoRate))
                             {
-                                if (!String.IsNullOrEmpty(this.txtAuditDate.Text) && this.drpAuditMan.SelectedValue != BLL.Const._Null)
-                                {
-                                    updateTestPackage.AduditDate = Funs.GetNewDateTime(this.txtAuditDate.Text);
-                                    updateTestPackage.Auditer = this.drpAuditMan.SelectedValue;
-                                    BLL.TestPackageAuditService.AuditTestPackage(updateTestPackage);
-                                    this.InitTreeMenu();
-                                    this.BindGrid();
-                                    ShowNotify("审核完成！", MessageBoxIcon.Success);
-                                }
-                                else
-                                {
-                                    Alert.ShowInTop("请填写审核人和审核日期！", MessageBoxIcon.Warning);
-                                }
+                                updateTestPackage.Check1 = drpInstallationSpecification.SelectedValue;
+                                updateTestPackage.Check2 = drpPressureTest.SelectedValue;
+                                updateTestPackage.Check3 = drpWorkRecord.SelectedValue;
+                                updateTestPackage.Check4 = drpNDTConform.SelectedValue;
+                                updateTestPackage.Check5 = drpHotConform.SelectedValue;
+                                updateTestPackage.Check6 = drpInstallationCorrectness.SelectedValue;
+                                updateTestPackage.Check7 = drpMarkClearly.SelectedValue;
+                                updateTestPackage.Check8 = drpIsolationOpening.SelectedValue;
+                                updateTestPackage.Check9 = drpConstructionPlanAsk.SelectedValue;
+                                updateTestPackage.Check10 = drpCover.SelectedValue;
+                                updateTestPackage.Check11 = drpMeetRequirements.SelectedValue;
+                                updateTestPackage.Check12 = drpStainlessTestWater.SelectedValue;
+                                updateTestPackage.AduditDate = DateTime.Now;
+                                updateTestPackage.Auditer = this.CurrUser.UserId;
+                                BLL.TestPackageEditService.UpdateTestPackage(updateTestPackage);
+                                this.InitTreeMenu();
+                                this.BindGrid();
+                                ShowNotify("保存成功！", MessageBoxIcon.Success);
                             }
                             else
                             {
@@ -490,7 +431,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 }
                 else
                 {
-                    Alert.ShowInTop("请选择要审核的单据！", MessageBoxIcon.Warning);
+                    Alert.ShowInTop("请选择要确认的单据！", MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -498,38 +439,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
                 return;
-            }
-        }
-        #endregion
-
-        #region 取消审核检测单
-        /// <summary>
-        /// 取消审核检测单
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnCancelAudit_Click(object sender, EventArgs e)
-        {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageAuditMenuId, Const.BtnCancelAuditing))
-            {
-                var updateTestPackage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
-                if (updateTestPackage != null)
-                {
-                    updateTestPackage.Auditer = null;
-                    updateTestPackage.AduditDate = null;
-                    BLL.TestPackageAuditService.AuditTestPackage(updateTestPackage);
-                    this.InitTreeMenu();
-                    this.BindGrid();
-                    ShowNotify("取消审核完成！", MessageBoxIcon.Success);
-                }
-                else
-                {
-                    ShowNotify("请确认单据！", MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
             }
         }
         #endregion
@@ -548,7 +457,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.InitTreeMenu();
             this.hdPTP_ID.Text = string.Empty;
         }
-        
+
         /// <summary>
         /// 查询
         /// </summary>

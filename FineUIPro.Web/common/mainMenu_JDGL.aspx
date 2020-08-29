@@ -84,6 +84,11 @@
          .pd10{
              padding:10px !important;
          }
+         .bg-img-1{
+             height:100%;
+             background: url(../Images/siteProject.jpg) center center no-repeat;
+             background-size: 100% 100%;
+         }
     </style>
 </head>
 <body>
@@ -162,9 +167,10 @@
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
                         <div class="tit-one pdl">形象进度照片</div>
-                        <div class="bw-item-content flex1 pdtb0">
+                        <div class="bw-item-content flex1 pdtb0" style="margin-top:10px;">
                             <div style="width:100%;height:100%;">
-                                <img  src="../Images/siteProject.jpg" alt="Alternate Text"  class="bg-img" />
+                                <div class="bg-img-1"></div>
+                                <%--<img  src="../Images/siteProject.jpg" alt="Alternate Text"  class="bg-img" />--%>
                             </div>
                         </div>
                         <div class="more">更多</div>
@@ -554,4 +560,9 @@
         )
     }
 </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".bg-img-1").css("background", "url(../Images/siteProject.jpg) center center no-repeat").css("background-size", "100% 100%")
+        })
+    </script>
 </html>

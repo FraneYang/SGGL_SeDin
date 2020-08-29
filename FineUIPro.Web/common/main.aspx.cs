@@ -39,20 +39,7 @@ namespace FineUIPro.Web.common
                     projectHtml += "<div>" + item.ProjectName + " </div>";
                 }
                 this.divProjectList.InnerHtml = projectHtml;
-                #endregion
-                //string str = CQMSData; 
-                #region 通知
-                var getNotice = (from x in Funs.DB.InformationProject_Notice
-                                where x.IsRelease == true
-                                orderby x.ReleaseDate
-                                select x.NoticeTitle).Distinct().Take(20);
-                string strNoticeHtml = string.Empty;
-                foreach (var item in getNotice)
-                {
-                    strNoticeHtml+= "<li class=\"c-item swiper-slide\"><div class=\"tit\">" + item + "</div></li>";
-                }
-                this.swiper2.InnerHtml= "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
-                #endregion
+                #endregion            
             }
         }
 
@@ -91,6 +78,38 @@ namespace FineUIPro.Web.common
         }
         #endregion
 
+        protected string swiper_One
+        {
+            get
+            {
+                var getNotice = (from x in Funs.DB.InformationProject_Notice
+                                 where x.IsRelease == true
+                                 orderby x.ReleaseDate
+                                 select x.NoticeTitle).Distinct().Take(20);
+                string strNoticeHtml = string.Empty;
+                foreach (var item in getNotice)
+                {
+                    strNoticeHtml += "<li data-id=\"http://www.baidu.com\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item + "\">" + item + "</div></li>";
+                }
+                return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
+            }
+        }
+
+        protected string swiper_Two
+        {
+            get
+            {
+                var getNotice = (from x in Funs.DB.InformationProject_ReceiveFileManager
+                                 orderby x.GetFileDate
+                                 select x.ReceiveFileName).Distinct().Take(20);
+                string strNoticeHtml = string.Empty;
+                foreach (var item in getNotice)
+                {
+                    strNoticeHtml += "<li class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item + "\">" + item + "</div></li>";
+                }
+                return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
+            }
+        }
         #region  质量一次验收合格率
         protected string Two
         {

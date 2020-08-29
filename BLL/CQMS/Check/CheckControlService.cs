@@ -223,7 +223,7 @@ namespace BLL
 
             db.SubmitChanges();
         }
-        public static List<Model.Check_CheckControl> GetListDataForApi(string name, string projectId, int index, int page)
+        public static List<Model.Check_CheckControl> GetListDataForApi(string state, string name, string projectId, int index, int page)
         {
             using (var db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -243,7 +243,27 @@ namespace BLL
                 {
                     q = q.Where(e => e.ProjectId == projectId);
                 }
-
+                switch (state)
+                {
+                    case "1": // 未整改
+                        q = q.Where(e => e.State != BLL.Const.CheckControl_Audit4
+                                        && e.State != BLL.Const.CheckControl_Audit5
+                                        && e.State != BLL.Const.CheckControl_Complete
+                                        && e.LimitDate > DateTime.Now);
+                        break;
+                    case "2": // 待确认 5/6
+                        q = q.Where(e => e.State == BLL.Const.CheckControl_Audit4 || e.State == BLL.Const.CheckControl_Audit5);
+                        break;
+                    case "3": // 已闭环 7
+                        q = q.Where(e => e.State == BLL.Const.CheckControl_Complete);
+                        break;
+                    case "4":  // 超期未整改
+                        q = q.Where(e => e.State != BLL.Const.CheckControl_Audit4
+                                        && e.State != BLL.Const.CheckControl_Audit5
+                                        && e.State != BLL.Const.CheckControl_Complete
+                                        && e.LimitDate < DateTime.Now);
+                        break;
+                }
                 var qq1 = from x in q
                           orderby x.DocCode descending
                           select new
@@ -307,7 +327,30 @@ namespace BLL
                 return listRes;
             }
         }
+        public static string GetListCountStr(string projectId)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                IQueryable<Model.Check_CheckControl> q = db.Check_CheckControl;
 
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    q = q.Where(e => e.ProjectId == projectId);
+                }
+
+                var i = q.Where(e => e.State != BLL.Const.CheckControl_Audit4
+                                        && e.State != BLL.Const.CheckControl_Audit5
+                                        && e.State != BLL.Const.CheckControl_Complete
+                                        && e.LimitDate > DateTime.Now).ToList();
+                string weiZhengLeng = i.Count.ToString(); // 未整改
+
+                var j = q.Where(e => e.State == BLL.Const.CheckControl_Audit4 || e.State == BLL.Const.CheckControl_Audit5).ToList();
+                string weiRengLeng = j.Count.ToString(); // 未确认
+
+                string len = weiZhengLeng + "$" + weiRengLeng;
+                return len;
+            }
+        }
         public static List<Model.Check_CheckControl> GetListDataForApi(string unitId, string unitWork, string problemType, string professional, string state, string dateA, string dateZ, string projectId, int index, int page)
         {
             using (var db = new Model.SGGLDB(Funs.ConnString))

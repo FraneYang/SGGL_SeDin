@@ -302,7 +302,7 @@ namespace BLL
                 return (from x in db.Check_SpotCheckDetail
                         join y in db.Check_SpotCheck
                         on x.SpotCheckCode equals y.SpotCheckCode
-                        where y.ProjectId == projectId && x.ConfirmDate >= startTime && x.ConfirmDate < endTime && x.IsOK == true
+                        where y.ProjectId == projectId && y.SpotCheckDate >= startTime && y.SpotCheckDate < endTime && x.IsOK == true
                         select x).ToList();
             }
         }
@@ -320,7 +320,7 @@ namespace BLL
                 return (from x in db.Check_SpotCheckDetail
                         join y in db.Check_SpotCheck
                         on x.SpotCheckCode equals y.SpotCheckCode
-                        where y.ProjectId == projectId && x.ConfirmDate < endTime && x.IsOK == true
+                        where y.ProjectId == projectId && y.SpotCheckDate < endTime && x.IsOK == true
                         select x).ToList();
             }
         }

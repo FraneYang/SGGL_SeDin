@@ -111,8 +111,6 @@
             padding-left: 3px;
             padding-right: 3px;
         }
-    </style>
-    <style type="text/css">
         .titler {
             font-size: smaller;
         }
@@ -131,8 +129,6 @@
             /*width:auto;*/
             border: none !important;
         }
-    </style>
-    <style type="text/css">
         .header {
             position: relative;
         }
@@ -147,6 +143,9 @@
         .item-pbig img {
             height: 48px;
             width: auto;
+        }
+        .up-wrap-ul li>div{
+            width:100%;
         }
     </style>
 </head>

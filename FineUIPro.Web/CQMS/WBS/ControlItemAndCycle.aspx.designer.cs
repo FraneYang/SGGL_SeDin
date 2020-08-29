@@ -31,22 +31,22 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.PageManager PageManager1;
         
         /// <summary>
-        /// RegionPanel1 控件。
+        /// Panel1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.RegionPanel RegionPanel1;
+        protected global::FineUIPro.Panel Panel1;
         
         /// <summary>
-        /// Region1 控件。
+        /// panelLeftRegion 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Region Region1;
+        protected global::FineUIPro.Panel panelLeftRegion;
         
         /// <summary>
         /// trWBS 控件。
@@ -67,13 +67,13 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.HiddenField hdSelectId;
         
         /// <summary>
-        /// Region2 控件。
+        /// panelCenterRegion 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Region Region2;
+        protected global::FineUIPro.Panel panelCenterRegion;
         
         /// <summary>
         /// Grid1 控件。

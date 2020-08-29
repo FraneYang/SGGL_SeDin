@@ -70,8 +70,8 @@
                             <Items>
                                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" AllowCellEditing="true" Title="安全隐患及整改要求"                                    
                                     runat="server" BoxFlex="1" DataKeyNames="RectifyNoticesItemId" DataIDField="RectifyNoticesItemId" EnableColumnLines="true" 
-                                     AllowSorting="true" SortField="RectifyNoticesItemId"  SortDirection="ASC" EnableTextSelection="True" Height="240px"                                    
-                                    EnableRowDoubleClickEvent="true" OnRowCommand="Grid1_RowCommand" >
+                                     AllowSorting="true" SortField="RectifyNoticesItemId"  SortDirection="ASC" EnableTextSelection="True" MinHeight="240px"                                    
+                                    EnableRowDoubleClickEvent="true" OnRowCommand="Grid1_RowCommand" PageSize="500" >
                                     <Toolbars>
                                         <f:Toolbar ID="toolAdd" Position="Top" ToolbarAlign="Right" runat="server">
                                             <Items>

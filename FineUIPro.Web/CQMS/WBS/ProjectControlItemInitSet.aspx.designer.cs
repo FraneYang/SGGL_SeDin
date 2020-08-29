@@ -31,31 +31,22 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.PageManager PageManager1;
         
         /// <summary>
-        /// RegionPanel1 控件。
+        /// Panel1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.RegionPanel RegionPanel1;
+        protected global::FineUIPro.Panel Panel1;
         
         /// <summary>
-        /// Region1 控件。
+        /// panelLeftRegion 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Region Region1;
-        
-        /// <summary>
-        /// panel2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Panel panel2;
+        protected global::FineUIPro.Panel panelLeftRegion;
         
         /// <summary>
         /// trWBS 控件。
@@ -67,40 +58,40 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.Tree trWBS;
         
         /// <summary>
-        /// Toolbar2 控件。
+        /// Toolbar3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar2;
+        protected global::FineUIPro.Toolbar Toolbar3;
         
         /// <summary>
-        /// btnLevel1 控件。
+        /// Button1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnLevel1;
+        protected global::FineUIPro.Button Button1;
         
         /// <summary>
-        /// btnLevel2 控件。
+        /// Button2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnLevel2;
+        protected global::FineUIPro.Button Button2;
         
         /// <summary>
-        /// btnLevel3 控件。
+        /// Button3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnLevel3;
+        protected global::FineUIPro.Button Button3;
         
         /// <summary>
         /// hdSelectId 控件。
@@ -112,13 +103,13 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.HiddenField hdSelectId;
         
         /// <summary>
-        /// Region2 控件。
+        /// panelCenterRegion 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Region Region2;
+        protected global::FineUIPro.Panel panelCenterRegion;
         
         /// <summary>
         /// Grid1 控件。
@@ -130,13 +121,13 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
-        /// Toolbar1 控件。
+        /// Toolbar4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar1;
+        protected global::FineUIPro.Toolbar Toolbar4;
         
         /// <summary>
         /// lbHd 控件。
@@ -265,22 +256,22 @@ namespace FineUIPro.Web.CQMS.WBS {
         protected global::FineUIPro.NumberBox txtCheckNum;
         
         /// <summary>
-        /// ToolbarSeparator1 控件。
+        /// ToolbarSeparator2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ToolbarSeparator ToolbarSeparator1;
+        protected global::FineUIPro.ToolbarSeparator ToolbarSeparator2;
         
         /// <summary>
-        /// ToolbarText1 控件。
+        /// ToolbarText2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ToolbarText ToolbarText1;
+        protected global::FineUIPro.ToolbarText ToolbarText2;
         
         /// <summary>
         /// ddlPageSize 控件。

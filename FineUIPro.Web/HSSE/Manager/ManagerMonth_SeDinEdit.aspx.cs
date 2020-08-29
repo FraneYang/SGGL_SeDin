@@ -52,19 +52,18 @@ namespace FineUIPro.Web.HSSE.Manager
         {
             if (!IsPostBack)
             {
-                btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                ////权限按钮方法
-                this.GetButtonPower();
+                btnClose.OnClientClick = ActiveWindow.GetHideReference();               
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
                 {
                     this.ProjectId = Request.Params["projectId"];
                 }
+                ////权限按钮方法
+                this.GetButtonPower();
                 if (!string.IsNullOrEmpty(Request.Params["MonthReportId"]))
                 {
                     MonthReportId = Request.Params["MonthReportId"];
-                }
-
+                }            
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.CompileManId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, false);
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.AuditManId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, false);
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.ApprovalManId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, false);

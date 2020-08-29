@@ -478,5 +478,21 @@ namespace FineUIPro.Web.HSSE.Check
         {
             this.drpCheckItem.SelectedValueArray = Funs.RemoveDropDownListNull(this.drpCheckItem.SelectedValueArray);
         }
+
+        protected void Grid1_Sort(object sender, GridSortEventArgs e)
+        {
+            var checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
+                                       where x.CheckSpecialId == this.CheckSpecialId
+                                       orderby x.SortIndex
+                                       select x).ToList();
+            if (checkSpecialDetails.Count() > 0)
+            {
+                this.drpSupCheckItemSet.Readonly = true;
+                this.rbType.Readonly = true;
+            }
+
+            Grid1.DataSource = checkSpecialDetails;
+            Grid1.DataBind();
+        }
     }
 }

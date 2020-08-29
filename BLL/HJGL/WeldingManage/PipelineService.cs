@@ -83,7 +83,11 @@ namespace BLL
             newPipeline.PipeLenth = pipeline.PipeLenth;
             newPipeline.PressurePipingClassId = pipeline.PressurePipingClassId;
             newPipeline.Remark = pipeline.Remark;
-         
+            newPipeline.LeakPressure = pipeline.LeakPressure;
+            newPipeline.LeakMedium = pipeline.LeakMedium;
+            newPipeline.VacuumPressure = pipeline.VacuumPressure;
+            newPipeline.PCMedium = pipeline.PCMedium;
+            newPipeline.PCtype = pipeline.PCtype;
             db.HJGL_Pipeline.InsertOnSubmit(newPipeline);
             db.SubmitChanges();
         }
@@ -113,6 +117,11 @@ namespace BLL
                 newPipeline.TestMedium = pipeline.TestMedium;
                 newPipeline.PipeLenth = pipeline.PipeLenth;
                 newPipeline.PressurePipingClassId = pipeline.PressurePipingClassId;
+                newPipeline.LeakPressure = pipeline.LeakPressure;
+                newPipeline.LeakMedium = pipeline.LeakMedium;
+                newPipeline.VacuumPressure = pipeline.VacuumPressure;
+                newPipeline.PCMedium = pipeline.PCMedium;
+                newPipeline.PCtype = pipeline.PCtype;
                 newPipeline.Remark = pipeline.Remark;
                 try
                 {

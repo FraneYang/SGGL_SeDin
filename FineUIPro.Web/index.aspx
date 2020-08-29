@@ -126,6 +126,9 @@
             /*width:auto;*/
             border: none !important;
         }
+        .item-s li>div{
+            width:100%;
+        }
     </style>
 </head>
 <body class="wrap">

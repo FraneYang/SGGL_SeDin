@@ -442,5 +442,28 @@ namespace FineUIPro.Web.CQMS.WBS
             //}
         }
         #endregion
+
+        //<summary>
+        //获取文本
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        public static string ConvertText(object Str)
+        {
+            string s = string.Empty;
+            if (Str != null)
+            {
+                string[] strs = Str.ToString().Split(',');
+                foreach (var item in strs)
+                {
+                    s += item + "<br/>";
+                }
+                if (!string.IsNullOrEmpty(s))
+                {
+                    s = s.Substring(0, s.Length - 5);
+                }
+            }
+            return s;
+        }
     }
 }

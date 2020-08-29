@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <style type="text/css">
         .f-grid-row .f-grid-cell-inner {
@@ -12,7 +12,7 @@
             word-break: break-all;
         }
 
-         .f-grid-colheader-text {
+        .f-grid-colheader-text {
             white-space: normal;
             word-break: break-all;
         }
@@ -38,7 +38,7 @@
                                 <f:DropDownList ID="drpControlPoint" runat="server" Label="控制点等级" EnableMultiSelect="true" LabelAlign="Right" EnableEdit="true" LabelWidth="110px">
                                     <f:ListItem Text="A" Value="A" />
                                     <f:ListItem Text="AR" Value="AR" />
-                                    <f:ListItem Text="B" Value="B" />  
+                                    <f:ListItem Text="B" Value="B" />
                                     <f:ListItem Text="BR" Value="BR" />
                                     <f:ListItem Text="C" Value="C" />
                                     <f:ListItem Text="CR" Value="CR" />
@@ -66,28 +66,36 @@
                         <f:RenderField Width="100px" ColumnID="ControlItemContent" DataField="ControlItemContent" FieldType="String"
                             HeaderText="工作包" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="95px" ColumnID="ControlPoint" DataField="ControlPoint" FieldType="String"
+                        <f:RenderField Width="85px" ColumnID="ControlPoint" DataField="ControlPoint" FieldType="String"
                             HeaderText="控制点等级" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="65px" ColumnID="Weights" DataField="Weights" FieldType="String"
+                        <f:RenderField Width="80px" ColumnID="Weights" DataField="Weights" FieldType="String"
                             HeaderText="权重%" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField HeaderText="控制点内容描述" ColumnID="ControlItemDef" DataField="ControlItemDef" SortField="ControlItemDef"
-                            HeaderTextAlign="Center" TextAlign="Center" Width="300px" FieldType="String" >
+                            HeaderTextAlign="Center" TextAlign="Center" Width="300px" FieldType="String">
                         </f:RenderField>
-                        <f:RenderField Width="160px" ColumnID="HGFormsJZ" DataField="HGFormsJZ" FieldType="String"
-                            HeaderText="对应的建筑资料表格" HeaderTextAlign="Center" TextAlign="Center">
-                        </f:RenderField>
-                        <f:RenderField Width="160px" ColumnID="HGFormsAZ" DataField="HGFormsAZ" FieldType="String"
-                            HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Center">
-                        </f:RenderField>
-                        <f:RenderField Width="160px" ColumnID="SHForms" DataField="SHForms" FieldType="String"
-                            HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Center">
-                        </f:RenderField>
-                        <f:RenderField HeaderText="质量验收规范" ColumnID="Standard" DataField="Standard" SortField="Standard"
-                            HeaderTextAlign="Center" TextAlign="Center" Width="120px" FieldType="String">
-                        </f:RenderField>
-                        <f:RenderField HeaderText="条款号" ColumnID="ClauseNo" DataField="ClauseNo" SortField="ClauseNo"
+                        <f:TemplateField ColumnID="HGFormsJZ" Width="160px" HeaderText="对应的建筑资料表格" HeaderTextAlign="Center" TextAlign="Left">
+                            <ItemTemplate>
+                                <asp:Label ID="Label4" runat="server" Text='<%# ConvertText(Eval("HGFormsJZ")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField ColumnID="HGFormsAZ" Width="160px" HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Left">
+                            <ItemTemplate>
+                                <asp:Label ID="Label3" runat="server" Text='<%# ConvertText(Eval("HGFormsAZ")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField ColumnID="SHForms" Width="160px" HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Left">
+                            <ItemTemplate>
+                                <asp:Label ID="Label2" runat="server" Text='<%# ConvertText(Eval("SHForms")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField ColumnID="Standard" Width="170px" HeaderText="质量验收规范" HeaderTextAlign="Center" TextAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# ConvertText(Eval("Standard")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:RenderField HeaderText="条款号" ColumnID="ClauseNo" DataField="ClauseNo" SortField="ClauseNo" Hidden="true"
                             HeaderTextAlign="Center" TextAlign="Center" Width="100px" FieldType="String">
                         </f:RenderField>
                         <f:RenderField HeaderText="检查次数" ColumnID="CheckNum" DataField="CheckNum"

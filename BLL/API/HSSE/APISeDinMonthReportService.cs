@@ -670,7 +670,7 @@ namespace BLL
                     MonthlyYear = getCheckColligationYear.Count(),
                     MonthlyTotal = getCheckColligationAll.Count(),
                     SeDinMonthReport9ItemRectification = getSeDinMonthReport9ItemRectificationNull(projectId, month, startDate, endDate),
-                    SeDinMonthReport9ItemSpecial = getSeDinMonthReport9ItemSpecialNull(projectId, month, startDate, endDate),
+                    SeDinMonthReport9ItemSpecial = getSeDinMonthReport9ItemSpecialNull(getCheckSpecialAll.ToList(), getCheckSpecialYear.ToList(), getCheckSpecialMon.ToList()),
                     SeDinMonthReport9ItemStoppage = getSeDinMonthReport9ItemStoppageNull(projectId, month, startDate, endDate),
                 };
                 return newItem;
@@ -718,31 +718,17 @@ namespace BLL
         ///  获取专项检查
         /// </summary>
         /// <returns></returns>
-        public static List<Model.SeDinMonthReport9ItemSpecial> getSeDinMonthReport9ItemSpecialNull(string projectId, string month, string startDate, string endDate)
+        public static List<Model.SeDinMonthReport9ItemSpecial> getSeDinMonthReport9ItemSpecialNull(List<Model.Check_CheckSpecial> getCheckSpecialAll, List<Model.Check_CheckSpecial> getCheckSpecialYear, List<Model.Check_CheckSpecial> getCheckSpecialMon)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var startDateD = Funs.GetNewDateTime(startDate);
-                var endDateD = Funs.GetNewDateTime(endDate);
                 List<Model.SeDinMonthReport9ItemSpecial> getLists = new List<Model.SeDinMonthReport9ItemSpecial>();
-                var getUnits = APIResourcesService.getCheckItemSetListBySupCheckItemId("2", "0");
-                var getCheckSpecialAll = from x in db.Check_CheckSpecialDetail
-                                         join y in db.Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
-                                         where y.ProjectId == projectId
-                                         select x;
-                var getCheckSpecialYear = from x in getCheckSpecialAll
-                                          join y in db.Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
-                                          where y.CheckTime.Value.Year == endDateD.Value.Year
-                                          select x;
-                var getCheckSpecialMon = from x in getCheckSpecialYear
-                                         join y in db.Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
-                                         where startDateD <= y.CheckTime && endDateD > y.CheckTime
-                                         select x;
+                var getUnits = APIResourcesService.getCheckItemSetListBySupCheckItemId("0", "2");                
                 foreach (var item in getUnits)
                 {
-                    var getUAll = getCheckSpecialAll.Where(x => x.CheckItemType == item.ResourcesId);
-                    var getUYear = getCheckSpecialYear.Where(x => x.CheckItemType == item.ResourcesId);
-                    var getUMon = getCheckSpecialMon.Where(x => x.CheckItemType == item.ResourcesId);
+                    var getUAll = getCheckSpecialAll.Where(x => x.CheckItemSetId == item.ResourcesId);
+                    var getUYear = getCheckSpecialYear.Where(x => x.CheckItemSetId == item.ResourcesId);
+                    var getUMon = getCheckSpecialMon.Where(x => x.CheckItemSetId == item.ResourcesId);
                     Model.SeDinMonthReport9ItemSpecial newItem = new Model.SeDinMonthReport9ItemSpecial
                     {
                         TypeName = item.ResourcesName,
@@ -1617,8 +1603,7 @@ namespace BLL
         /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
         public static string SaveSeDinMonthReport0(Model.SeDinMonthReportItem newItem)
-        {
-           
+        {           
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 Model.SeDin_MonthReport newReport = new Model.SeDin_MonthReport
@@ -1660,6 +1645,7 @@ namespace BLL
                     updateReport.CompileManId = newReport.CompileManId;
                     updateReport.AuditManId = newReport.AuditManId;
                     updateReport.ApprovalManId = newReport.ApprovalManId;
+                    updateReport.States = newReport.States;
                     //updateReport.ThisSummary = newReport.ThisSummary;
                     //updateReport.NextPlan = newReport.NextPlan;                  
                 }

@@ -728,7 +728,7 @@
                 axisLabel: {
                     show: true,
                      interval: 0,
-                     rotate: 45,
+                     rotate: 50,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)',
                         fontSize:'8'
@@ -774,7 +774,7 @@
                 top: '12%',
                 left: '10',
                 right: '10',
-                bottom: '0',
+                bottom: '-15',
                 containLabel: true,
                 backgroundColor: 'rgba(0,162,233, 0.01)',
                 // borderColor: 'rgba(0,162,233, 1)'
@@ -795,7 +795,7 @@
     var series = [{
         name: '质量一次性合格率',
         type: 'bar',
-        barWidth: 40,
+        barWidth: 15,
         data: two.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     }];
@@ -1044,7 +1044,7 @@
             var series = [{
                 name: '质量一次性合格率',
                 type: 'bar',
-                barWidth: 40,
+                barWidth: 15,
                 data: two.series[0].data,
                 itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
             }];
@@ -1054,7 +1054,7 @@
                 series = [{
                     name: '质量一次性合格率',
                     type: 'bar',
-                    barWidth: 40,
+                   barWidth: 15,
                     data: two2.series[0].data,
                     itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
                 }];

@@ -211,6 +211,42 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.NumberBox numPipeLenth;
         
         /// <summary>
+        /// drpLeakMedium 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpLeakMedium;
+        
+        /// <summary>
+        /// numLeakPressure 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox numLeakPressure;
+        
+        /// <summary>
+        /// drpPCMedium 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpPCMedium;
+        
+        /// <summary>
+        /// numVacuumPressure 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox numVacuumPressure;
+        
+        /// <summary>
         /// txtRemark 控件。
         /// </summary>
         /// <remarks>

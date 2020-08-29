@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.CQMS.Check
 {
@@ -274,5 +276,75 @@ namespace FineUIPro.Web.CQMS.Check
         {
             BindGrid();
         }
+
+        #region 导出按钮
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("质量问题统计" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            //this.Grid1.PageSize = this.;
+            this.Grid1.PageSize = 10000;
+            BindGrid();
+            Response.Write(GetGridTableHtml(Grid1));
+            Response.End();
+        }
+
+#pragma warning disable CS0108 // “PersonList.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
+        /// <summary>
+        /// 导出方法
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        private string GetGridTableHtml(Grid grid)
+#pragma warning restore CS0108 // “PersonList.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+            sb.Append("<tr>");
+            foreach (GridColumn column in grid.Columns)
+            {
+                if (column.ColumnID != "AttchUrl" && column.ColumnID != "ReAttachUrl")
+                {
+                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
+                }
+            }
+            sb.Append("</tr>");
+            foreach (GridRow row in grid.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (GridColumn column in grid.Columns)
+                {
+                    if (column.ColumnID != "AttchUrl" && column.ColumnID != "ReAttachUrl")
+                    {
+                        string html = row.Values[column.ColumnIndex].ToString();
+                        if (column.ColumnID == "tfPageIndex")
+                        {
+                            html = (row.FindControl("lblPageIndex") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "lbState")
+                        {
+                            html = (row.FindControl("lbState") as AspNet.Label).Text;
+                        }
+                        //sb.AppendFormat("<td>{0}</td>", html);
+                        sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html);
+                    }
+                }
+
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</table>");
+
+            return sb.ToString();
+        }
+        #endregion
     }
 }

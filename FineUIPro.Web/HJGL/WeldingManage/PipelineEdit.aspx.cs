@@ -89,7 +89,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 Base_DetectionRateService.InitDetectionRateDropDownList(drpDetectionRate, true);
                 Base_DetectionTypeService.InitDetectionTypeDropDownList(drpDetectionType, false, string.Empty);
                 Base_PressurePipingClassService.InitPressurePipingClassDropDownList(drpPressurePipingClass, true, "-请选择-");
-
+                Base_TestMediumService.InitMediumDropDownList(this.drpLeakMedium, "2", true);
+                Base_TestMediumService.InitPCMediumDropDownList(this.drpPCMedium, true);
                 if (!string.IsNullOrEmpty(this.PipelineId))
                 {
                     Model.View_HJGL_Pipeline pipeline = BLL.PipelineService.GetViewPipelineByPipelineId(this.PipelineId);
@@ -148,8 +149,23 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         numPipeLenth.Text = pipeline.PipeLenth.Value.ToString();
                     }
                     this.txtRemark.Text = pipeline.Remark;
-
                     this.UnitWorkId = pipeline.UnitWorkId;
+                    if (!string.IsNullOrEmpty(pipeline.LeakPressure.ToString()))
+                    {
+                        this.numLeakPressure.Text = pipeline.LeakPressure.Value.ToString();
+                    }
+                    if (!string.IsNullOrEmpty(pipeline.LeakMedium))
+                    {
+                        drpLeakMedium.SelectedValue = pipeline.LeakMedium;
+                    }
+                    if (!string.IsNullOrEmpty(pipeline.VacuumPressure.ToString()))
+                    {
+                        this.numVacuumPressure.Text = pipeline.VacuumPressure.Value.ToString();
+                    }
+                    if (!string.IsNullOrEmpty(pipeline.PCMedium))
+                    {
+                        drpPCMedium.SelectedValue = pipeline.PCMedium;
+                    }
                 }
                 else
                 {
@@ -269,7 +285,32 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 pipeline.PipeLenth = Convert.ToDecimal(numPipeLenth.Text.Trim());
             }
-
+            if (!string.IsNullOrEmpty(numLeakPressure.Text))
+            {
+                pipeline.LeakPressure = Convert.ToDecimal(numLeakPressure.Text);
+            }
+            if (this.drpLeakMedium.SelectedValue != BLL.Const._Null)
+            {
+                pipeline.LeakMedium = drpLeakMedium.SelectedValue;
+            }
+            if (!string.IsNullOrEmpty(numVacuumPressure.Text))
+            {
+                pipeline.VacuumPressure = Convert.ToDecimal(numVacuumPressure.Text);
+            }
+            if (this.drpPCMedium.SelectedValue != BLL.Const._Null)
+            {
+                pipeline.PCMedium = drpPCMedium.SelectedValue;
+                var getTestMediun = Base_TestMediumService.GetTestMediumById(drpPCMedium.SelectedValue);
+                if (getTestMediun != null) {
+                    if (getTestMediun.TestType == "4")//判断当前吹洗要求是吹扫还是清洗
+                    {
+                        pipeline.PCtype = "1";
+                    }
+                    else if (getTestMediun.TestType == "5") {
+                        pipeline.PCtype = "2";
+                    }
+                }
+            }
             pipeline.Remark = this.txtRemark.Text.Trim();
             if (!string.IsNullOrEmpty(this.PipelineId))
             {

@@ -140,7 +140,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             rootNode.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode);
 
-            var iso = (from x in Funs.DB.HJGL_Pipeline where  x.UnitId == this.UnitId orderby x.PipelineCode select x).ToList();
+            var iso = (from x in Funs.DB.HJGL_Pipeline where x.UnitId == this.UnitId orderby x.PipelineCode select x).ToList();
             if (!string.IsNullOrEmpty(this.txtPipelineCode.Text))
             {
                 iso = (from x in iso where x.PipelineCode.Contains(this.txtPipelineCode.Text.Trim()) orderby x.PipelineCode select x).ToList();
@@ -166,17 +166,23 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             string pipelineId = this.tvControlItem.SelectedNodeID;
 
-            List<Model.SpWeldingDailyItem> toDoMatterList = BLL.WeldingDailyService.GetWeldReportItemFind(this.UnitWorkId, this.WeldingDailyId, pipelineId);
+            List<Model.SpWeldingDailyItem> toDoMatterList = BLL.WeldingDailyService.GetWeldReportItemFind(this.WeldingDailyId, pipelineId);
             string weldJointIds = Request.Params["weldJointIds"];
             if (!string.IsNullOrEmpty(weldJointIds))
             {
-                string[] weldJoints = weldJointIds.Split('|');
-                foreach (string weldJointId in weldJoints)
+                List<string> totallist = Funs.GetStrListByStr(weldJointIds, '@');
+                foreach (var hdItemsString in totallist)
                 {
-                    Model.SpWeldingDailyItem item = toDoMatterList.FirstOrDefault(e => e.WeldJointId == weldJointId);
-                    if (item != null)
+                    List<string> list = Funs.GetStrListByStr(hdItemsString, '#');
+                    string weldlineIdLists = list[3];
+                    string[] weldJoints = weldlineIdLists.Split('|');
+                    foreach (string weldJointId in weldJoints)
                     {
-                        toDoMatterList.Remove(item);
+                        Model.SpWeldingDailyItem item = toDoMatterList.FirstOrDefault(e => e.WeldJointId == weldJointId);
+                        if (item != null)
+                        {
+                            toDoMatterList.Remove(item);
+                        }
                     }
                 }
             }
@@ -277,7 +283,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            if (this.drpCoverWelderId.SelectedValue != Const._Null 
+            if (this.drpCoverWelderId.SelectedValue != Const._Null
                 && this.drpBackingWelderId.SelectedValue != Const._Null
                 && drpJointAttribute.SelectedValue != Const._Null)
             {
@@ -290,22 +296,26 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     {
                         SelectedList.Add(rowId);
                     }
-
                 }
                 string weldJointIds = Request.Params["weldJointIds"];
                 if (!string.IsNullOrEmpty(weldJointIds))
                 {
-                    string[] jots = weldJointIds.Split('|');
-                    foreach (string jotId in jots)
-                    {
-                        SelectedList.Add(jotId);
-                    }
+                    itemsString += weldJointIds + "@";
                 }
+                //string weldJointIds = Request.Params["weldJointIds"];
+                //if (!string.IsNullOrEmpty(weldJointIds))
+                //{
+                //    string[] jots = weldJointIds.Split('|');
+                //    foreach (string jotId in jots)
+                //    {
+                //        SelectedList.Add(jotId);
+                //    }
+                //}
 
-                itemsString = this.drpCoverWelderId.SelectedValue + "|" + this.drpBackingWelderId.SelectedValue + "#";
+                itemsString += this.drpCoverWelderId.SelectedValue + "|" + this.drpBackingWelderId.SelectedValue + "#";
                 itemsString += drpWeldingLocation.SelectedValue + "#";
                 itemsString += drpJointAttribute.SelectedValue + "#";
-                
+
                 foreach (var item in SelectedList)
                 {
                     if (!itemsString.Contains(item))

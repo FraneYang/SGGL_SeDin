@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>项目WBS基础数据库</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
     <style>
@@ -12,6 +12,7 @@
             white-space: normal;
             word-break: break-all;
         }
+
         .f-grid-colheader-text {
             white-space: normal;
             word-break: break-all;
@@ -20,44 +21,38 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <f:PageManager ID="PageManager1" AutoSizePanelID="RegionPanel1" runat="server" />
-        <f:RegionPanel ID="RegionPanel1" ShowBorder="false" runat="server" Margin="5px">
-            <Regions>
-                <f:Region ID="Region1" ShowBorder="false" ShowHeader="false" RegionPosition="Left"
-                    Title="项目WBS基础数据库" BodyPadding="0 5 0 0" Width="300px" Layout="Fit" runat="server"
-                    EnableCollapse="true">
+        <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
+        <f:Panel ID="Panel1" CssClass="blockpanel" Margin="5px" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
+            <Items>
+                <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true" EnableCollapse="true" Layout="Fit"
+                    RegionPercent="20%" Title="项目WBS基础数据库" TitleToolTip="项目WBS基础数据库" ShowBorder="true" ShowHeader="true"
+                    BodyPadding="10px">
                     <Items>
-                        <f:Panel runat="server" ID="panel2" RegionPosition="Left" RegionSplit="true" EnableCollapse="true"
-                            Width="400" Title="项目WBS基础数据库" TitleToolTip="项目WBS基础数据库" ShowBorder="true" ShowHeader="true"
-                            BodyPadding="5px" IconFont="ArrowCircleLeft">
-                            <Items>
-                                <f:Tree ID="trWBS" Width="290" Height="600px" EnableCollapse="true" ShowHeader="true"
-                                    OnNodeCommand="trWBS_NodeCommand" OnNodeExpand="trWBS_NodeExpand" AutoLeafIdentification="true"
-                                    runat="server">
-                                    <Toolbars>
-                                        <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
-                                            <Items>
-                                                <f:Button ID="btnLevel1" ToolTip="显示第一级" Text="1级" runat="server" OnClick="btnLevel1_Click">
-                                                </f:Button>
-                                                <f:Button ID="btnLevel2" ToolTip="显示第二级" Text="2级" runat="server" OnClick="btnLevel2_Click">
-                                                </f:Button>
-                                                <f:Button ID="btnLevel3" ToolTip="显示第三级" Text="3级" runat="server" OnClick="btnLevel3_Click">
-                                                </f:Button>
-                                            </Items>
-                                        </f:Toolbar>
-                                    </Toolbars>
-                                    <Listeners>
-                                        <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
-                                    </Listeners>
-                                </f:Tree>
-                                <f:HiddenField runat="server" ID="hdSelectId">
-                                </f:HiddenField>
-                            </Items>
-                        </f:Panel>
+                        <f:Tree ID="trWBS" EnableCollapse="true" ShowHeader="true" 
+                            OnNodeCommand="trWBS_NodeCommand" OnNodeExpand="trWBS_NodeExpand" AutoLeafIdentification="true"
+                            runat="server">
+                            <Toolbars>
+                                <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
+                                    <Items>
+                                        <f:Button ID="Button1" ToolTip="显示第一级" Text="1级" runat="server" OnClick="btnLevel1_Click">
+                                        </f:Button>
+                                        <f:Button ID="Button2" ToolTip="显示第二级" Text="2级" runat="server" OnClick="btnLevel2_Click">
+                                        </f:Button>
+                                        <f:Button ID="Button3" ToolTip="显示第三级" Text="3级" runat="server" OnClick="btnLevel3_Click">
+                                        </f:Button>
+                                    </Items>
+                                </f:Toolbar>
+                            </Toolbars>
+                            <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                            </Listeners>
+                        </f:Tree>
+                        <f:HiddenField runat="server" ID="hdSelectId">
+                        </f:HiddenField>
                     </Items>
-                </f:Region>
-                <f:Region ID="Region2" ShowBorder="false" ShowHeader="false" Position="Center" Layout="VBox"
-                    BoxConfigAlign="Stretch" BoxConfigPosition="Left" runat="server">
+                </f:Panel>
+                <f:Panel runat="server" ID="panelCenterRegion" RegionPosition="Center" Layout="Fit"
+                    Title="中间面板" ShowBorder="true" ShowHeader="false" BodyPadding="10px">
                     <Items>
                         <f:Grid ID="Grid1" Width="870px" ShowBorder="true" ShowHeader="false" EnableCollapse="true"
                             runat="server" BoxFlex="1" DataKeyNames="ControlItemCode" AllowSorting="true" EnableColumnLines="true"
@@ -66,7 +61,7 @@
                             ShowSelectedCell="true" DataIDField="ControlItemCode" AllowPaging="true" IsDatabasePaging="true"
                             PageSize="100" OnPageIndexChange="Grid1_PageIndexChange" AllowFilters="true" OnFilterChange="Grid1_FilterChange">
                             <Toolbars>
-                                <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Right">
+                                <f:Toolbar ID="Toolbar4" Position="Top" runat="server" ToolbarAlign="Right">
                                     <Items>
                                         <f:Label runat="server" Width="380px" ID="lbHd"></f:Label>
                                         <f:CheckBox runat="server" ID="cbAllHGForms" Label="全选对应的化工资料表格" LabelWidth="175px" AutoPostBack="true" OnCheckedChanged="cbAllHGForms_CheckedChanged"></f:CheckBox>
@@ -78,8 +73,8 @@
                                         <f:Button ID="btnSave" ToolTip="保存" Icon="SystemSave" runat="server" Text="" Hidden="true"
                                             OnClick="btnSave_Click">
                                         </f:Button>
-                                         <f:Button ID="btnRset"  OnClick="btnRset_Click" ToolTip="恢复默认" Hidden="true" Icon="ArrowUndo" runat="server" >
-                                </f:Button>
+                                        <f:Button ID="btnRset" OnClick="btnRset_Click" ToolTip="恢复默认" Hidden="true" Icon="ArrowUndo" runat="server">
+                                        </f:Button>
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>
@@ -91,7 +86,7 @@
                                     SortField="ControlPoint" HeaderTextAlign="Center" TextAlign="Center" Width="60px"
                                     FieldType="String">
                                     <Editor>
-                                        <f:DropDownList ID="drpControlPoint" TopSpaceFirst="true" runat="server" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true"  Required="true"  >
+                                        <f:DropDownList ID="drpControlPoint" TopSpaceFirst="true" runat="server" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" Required="true">
                                             <f:ListItem Text="A" Value="A" />
                                             <f:ListItem Text="AR" Value="AR" />
                                             <f:ListItem Text="B" Value="B" />
@@ -102,7 +97,7 @@
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="权重%" ColumnID="Weights" DataField="Weights"
-                                    SortField="Weights" HeaderTextAlign="Center" TextAlign="Center" Width="65px"
+                                    SortField="Weights" HeaderTextAlign="Center" TextAlign="Center" Width="85px"
                                     FieldType="String">
                                     <Editor>
                                         <f:NumberBox ID="txtWeights" runat="server" NoNegative="true" NoDecimal="false">
@@ -110,32 +105,32 @@
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="控制点内容描述" ColumnID="ControlItemDef" DataField="ControlItemDef" SortField="ControlItemDef"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="300px" FieldType="String" >
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="300px" FieldType="String">
                                     <Editor>
                                         <f:TextArea runat="server" ID="txtControlItemDef" AutoGrowHeight="true" Height="70px">
                                         </f:TextArea>
                                     </Editor>
                                 </f:RenderField>
-                                <f:TemplateField ColumnID="HGForms" Width="200px" HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:TemplateField ColumnID="HGForms" Width="190px" HeaderText="对应的化工资料表格" HeaderTextAlign="Center" TextAlign="Left">
                                     <ItemTemplate>
-                                        <asp:CheckBoxList runat="server" ID="cblHGForms" RepeatDirection="Vertical" >
+                                        <asp:CheckBoxList runat="server" ID="cblHGForms" RepeatDirection="Vertical">
                                         </asp:CheckBoxList>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:TemplateField ColumnID="SHForms" Width="200px" HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Center">
+                                <f:TemplateField ColumnID="SHForms" Width="190px" HeaderText="对应的石化资料表格" HeaderTextAlign="Center" TextAlign="Left">
                                     <ItemTemplate>
-                                        <asp:CheckBoxList runat="server" ID="cblSHForms" RepeatDirection="Vertical" >
+                                        <asp:CheckBoxList runat="server" ID="cblSHForms" RepeatDirection="Vertical">
                                         </asp:CheckBoxList>
                                     </ItemTemplate>
                                 </f:TemplateField>
                                 <f:RenderField HeaderText="质量验收规范" ColumnID="Standard" DataField="Standard" SortField="Standard"
-                                    HeaderTextAlign="Center" TextAlign="Center" Width="60px" FieldType="String">
+                                    HeaderTextAlign="Center" TextAlign="Center" Width="130px" FieldType="String">
                                     <Editor>
                                         <f:TextArea runat="server" ID="txtStandard" AutoGrowHeight="true" Height="70px">
                                         </f:TextArea>
                                     </Editor>
                                 </f:RenderField>
-                                <f:RenderField HeaderText="条款号" ColumnID="ClauseNo" DataField="ClauseNo" SortField="ClauseNo"
+                                <f:RenderField HeaderText="条款号" ColumnID="ClauseNo" DataField="ClauseNo" SortField="ClauseNo" Hidden="true"
                                     HeaderTextAlign="Center" TextAlign="Center" Width="60px" FieldType="String">
                                     <Editor>
                                         <f:TextArea runat="server" ID="txtClauseNo" AutoGrowHeight="true" Height="70px">
@@ -143,7 +138,7 @@
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="检查次数" ColumnID="CheckNum" DataField="CheckNum"
-                                    SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="30px"
+                                    SortField="CheckNum" HeaderTextAlign="Center" TextAlign="Center" Width="42px"
                                     FieldType="String">
                                     <Editor>
                                         <f:NumberBox ID="txtCheckNum" runat="server" NoNegative="true" NoDecimal="true">
@@ -158,9 +153,9 @@
                                 <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
                             </Listeners>
                             <PageItems>
-                                <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
+                                <f:ToolbarSeparator ID="ToolbarSeparator2" runat="server">
                                 </f:ToolbarSeparator>
-                                <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
+                                <f:ToolbarText ID="ToolbarText2" runat="server" Text="每页记录数：">
                                 </f:ToolbarText>
                                 <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
@@ -170,9 +165,9 @@
                             </PageItems>
                         </f:Grid>
                     </Items>
-                </f:Region>
-            </Regions>
-        </f:RegionPanel>
+                </f:Panel>
+            </Items>
+        </f:Panel>
         <f:Window ID="Window1" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="800px" Height="300px">

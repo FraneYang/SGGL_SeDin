@@ -178,7 +178,7 @@ body {
 }
 
 .tab-wrap-tit .tab {
-    font-size: 10px;
+    font-size: 12px;
     display: flex;
     display: -webkit-flex;
 }
@@ -261,6 +261,7 @@ body {
 }
 
     .content-ul .c-item {
+        cursor:pointer;
         display: flex;
         overflow: hidden;
         max-width: 100%;
@@ -277,9 +278,11 @@ body {
             min-width: 0;
             float: left;
             overflow: hidden;
-            /*white-space: nowrap;*/
+            white-space: nowrap;
             text-overflow: ellipsis;
             word-break: keep-all;
+            display:flex;
+            align-items:center;
         }
 
         .content-ul .c-item .time {
@@ -504,7 +507,7 @@ body {
     background-image: linear-gradient(to right, rgb(36, 112, 167), rgb(23, 68, 122));
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    height: 24px;
+    /*height: 24px;*/
     line-height: 24px;
     font-size: 12px;
 }

@@ -16,6 +16,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             if (!IsPostBack)
             {
                 InitTreeMenu();
+                txtWeldingDate.Text = DateTime.Now.Date.ToString();
             }
         }
 
@@ -153,7 +154,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
             if (!string.IsNullOrEmpty(txtWeldingDate.Text.Trim()))
             {
-                strSql += " AND preWeld.WeldingDate =@WeldingDate";
+                strSql += " AND CONVERT(VARCHAR(100), preWeld.WeldingDate,23) =@WeldingDate";
                 listStr.Add(new SqlParameter("@WeldingDate", Convert.ToDateTime(txtWeldingDate.Text.Trim())));
             }
 
@@ -178,6 +179,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         #endregion
 
         protected void IsAudit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindGrid();
+        }
+
+        protected void WeldingDate_OnTextChanged(object sender, EventArgs e)
         {
             BindGrid();
         }
@@ -253,7 +259,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 }
                 else
                 {
-                    newWeldingDaily.WeldingDate = System.DateTime.Now;
+                    newWeldingDaily.WeldingDate = Convert.ToDateTime(txtWeldingDate.Text);
                 }
                 newWeldingDaily.Tabler = this.CurrUser.UserId;
                 newWeldingDaily.TableDate = Funs.GetNewDateTime(this.txtWeldingDate.Text);
@@ -275,12 +281,13 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
                     string weldType = string.Empty;
                     if (joty != null && joty.WeldTypeCode.Contains("B"))
+
                     {
-                        weldType = "1";
+                        weldType = "对接焊缝";
                     }
                     else
                     {
-                        weldType = "2";
+                        weldType = "角焊缝";
                     }
                     string floorWelder = preWeldingDaily.BackingWelderId;
                     string cellWelder = preWeldingDaily.CoverWelderId;

@@ -56,7 +56,7 @@ namespace BLL
             newTestPackage.AduditDate = testPackage.AduditDate;
             newTestPackage.Remark = testPackage.Remark;
             newTestPackage.ProjectId = testPackage.ProjectId;
-
+            newTestPackage.AdjustTestPressure = testPackage.AdjustTestPressure;
             newTestPackage.Check1 = testPackage.Check1;
             newTestPackage.Check2 = testPackage.Check2;
             newTestPackage.Check3 = testPackage.Check3;
@@ -92,8 +92,8 @@ namespace BLL
             newTestPackage.Auditer = testPackage.Auditer;
             newTestPackage.AduditDate = testPackage.AduditDate;
             newTestPackage.Remark = testPackage.Remark;
+            newTestPackage.AdjustTestPressure = testPackage.AdjustTestPressure;
             newTestPackage.ProjectId = testPackage.ProjectId;
-
             newTestPackage.Check1 = testPackage.Check1;
             newTestPackage.Check2 = testPackage.Check2;
             newTestPackage.Check3 = testPackage.Check3;
@@ -106,7 +106,9 @@ namespace BLL
             newTestPackage.Check10 = testPackage.Check10;
             newTestPackage.Check11 = testPackage.Check11;
             newTestPackage.Check12 = testPackage.Check12;
-            
+            newTestPackage.TestMediumTemperature = testPackage.TestMediumTemperature;
+            newTestPackage.AmbientTemperature = testPackage.AmbientTemperature;
+            newTestPackage.HoldingTime = testPackage.HoldingTime;
             db.SubmitChanges();
         }
 
@@ -118,6 +120,18 @@ namespace BLL
         {
             Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage testPackage = db.PTP_TestPackage.First(e => e.PTP_ID == testPackageID);
+            var ItemCheck = from x in db.PTP_ItemEndCheck where x.PTP_ID == testPackageID select x;
+            if (ItemCheck != null)
+            {
+                db.PTP_ItemEndCheck.DeleteAllOnSubmit(ItemCheck);
+                db.SubmitChanges();
+            }
+            var Approve = from x in db.PTP_TestPackageApprove where x.PTP_ID == testPackageID select x;
+            if (Approve != null)
+            {
+                db.PTP_TestPackageApprove.DeleteAllOnSubmit(Approve);
+                db.SubmitChanges();
+            }
             db.PTP_TestPackage.DeleteOnSubmit(testPackage);
             db.SubmitChanges();
         }
@@ -145,12 +159,38 @@ namespace BLL
         {
             Model.SGGLDB db = Funs.DB;
             Model.PTP_PipelineList newPipelineList = new Model.PTP_PipelineList();
-
             newPipelineList.PT_PipeId = SQLHelper.GetNewID(typeof(Model.PTP_PipelineList));
             newPipelineList.PTP_ID = IsoList.PTP_ID;
             newPipelineList.PipelineId = IsoList.PipelineId;
             newPipelineList.PT_DataType = IsoList.PT_DataType;
+            newPipelineList.DesignPress = IsoList.DesignPress;
+            newPipelineList.DesignTemperature = IsoList.DesignTemperature;
+            newPipelineList.AmbientTemperature = IsoList.AmbientTemperature;
+            newPipelineList.TestMedium = IsoList.TestMedium;
+            newPipelineList.TestMediumTemperature = IsoList.TestMediumTemperature;
+            newPipelineList.TestPressure = IsoList.TestPressure;
+            newPipelineList.HoldingTime = IsoList.HoldingTime;
             db.PTP_PipelineList.InsertOnSubmit(newPipelineList);
+            db.SubmitChanges();
+        }
+        /// <summary>
+        /// 修改试压信息明细
+        /// </summary>
+        /// <param name="IsoList">试压明细实体</param>
+        public static void UpdatePipelineList(Model.PTP_PipelineList IsoList)
+        {
+            Model.SGGLDB db = Funs.DB;
+            Model.PTP_PipelineList newPipelineList = db.PTP_PipelineList.FirstOrDefault(e => e.PT_PipeId == IsoList.PT_PipeId);
+            newPipelineList.PTP_ID = IsoList.PTP_ID;
+            newPipelineList.PipelineId = IsoList.PipelineId;
+            newPipelineList.PT_DataType = IsoList.PT_DataType;
+            newPipelineList.DesignPress = IsoList.DesignPress;
+            newPipelineList.DesignTemperature = IsoList.DesignTemperature;
+            newPipelineList.AmbientTemperature = IsoList.AmbientTemperature;
+            newPipelineList.TestMedium = IsoList.TestMedium;
+            newPipelineList.TestMediumTemperature = IsoList.TestMediumTemperature;
+            newPipelineList.TestPressure = IsoList.TestPressure;
+            newPipelineList.HoldingTime = IsoList.HoldingTime;
             db.SubmitChanges();
         }
 
@@ -291,7 +331,58 @@ namespace BLL
             }
             return isoRate;
         }
-
+        public static void Init(FineUIPro.DropDownList dropName, string state, bool isShowPlease)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = GetHandleTypeByState(state);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        /// <summary>
+        /// 根据状态选择下一步办理类型
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public static ListItem[] GetHandleTypeByState(string state)
+        {
+            if (state == BLL.Const.TestPackage_Compile )
+            {
+                ListItem[] lis = new ListItem[1];
+                lis[0] = new ListItem("施工分包商整改", Const.TestPackage_Audit1);
+                return lis;
+            }
+            else if (state == Const.TestPackage_Audit1||state==Const.TestPackage_ReAudit2)
+            {
+                ListItem[] lis = new ListItem[1];
+                lis[0] = new ListItem("总包确认", Const.TestPackage_Audit2);
+                return lis;
+            }
+            else if (state == Const.TestPackage_Audit2)//有是否同意
+            {
+                ListItem[] lis = new ListItem[2];
+                lis[0] = new ListItem("监理确认", Const.TestPackage_Audit3);//是 加载
+                lis[1] = new ListItem("审批完成", Const.TestPackage_Complete);//是加载
+                return lis;
+            }
+            else if (state ==Const.TestPackage_Audit3)
+            {
+                ListItem[] lis = new ListItem[1];
+                lis[0] = new ListItem("审批完成", "5");
+                return lis;
+            }
+            else if (state == "F")//选否
+            {
+                ListItem[] lis = new ListItem[1];
+                lis[0] = new ListItem("施工分包商重新整改", Const.TestPackage_ReAudit2);//否加载
+                return lis;
+            }
+            else
+                return null;
+        }
 
     }
 }

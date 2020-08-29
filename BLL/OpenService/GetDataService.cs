@@ -312,7 +312,8 @@ namespace BLL
                             {
                                 foreach (var itemP in getPItems)
                                 {
-                                    APICommonService.SendSubscribeMessage(itemP.UserId, "项目【" + item.ProjectCode + "】上有" + itemP.Counts.ToString() + "条待办事件，需要您处理！", "赛鼎施工管理系统", string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                                    //"项目【" + item.ProjectCode + "】上有" + itemP.Counts.ToString() + "条待办事件，需要您处理！"
+                                    APICommonService.SendSubscribeMessage(itemP.UserId, "项目" + item.ProjectCode + "有待办", "施工信息管理", string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                                 }
                             }
                         }

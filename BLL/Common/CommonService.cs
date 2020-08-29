@@ -411,19 +411,16 @@ namespace BLL
         /// <param name="lawRegulationId"></param>
         public static void DeleteAttachFileById(string id)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            Model.AttachFile attachFile = Funs.DB.AttachFile.FirstOrDefault(e => e.ToKeyId == id);
+            if (attachFile != null)
             {
-                Model.AttachFile attachFile = db.AttachFile.FirstOrDefault(e => e.ToKeyId == id);
-                if (attachFile != null)
+                if (!string.IsNullOrEmpty(attachFile.AttachUrl))
                 {
-                    if (!string.IsNullOrEmpty(attachFile.AttachUrl))
-                    {
-                        UploadFileService.DeleteFile(Funs.RootPath, attachFile.AttachUrl);
-                    }
-
-                    db.AttachFile.DeleteOnSubmit(attachFile);
-                    db.SubmitChanges();
+                    UploadFileService.DeleteFile(Funs.RootPath, attachFile.AttachUrl);
                 }
+
+                Funs.DB.AttachFile.DeleteOnSubmit(attachFile);
+                Funs.DB.SubmitChanges();
             }
         }
 

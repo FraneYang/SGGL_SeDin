@@ -723,18 +723,18 @@ namespace FineUIPro.Web.CQMS.WBS
                 AspNet.CheckBox ckbWorkPackageCode = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
                 string workPackageId = this.Grid1.Rows[i].DataKeys[0].ToString();
                 Model.WBS_WorkPackage oldWorkPackage = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(workPackageId);
+                string workPackageCode2 = this.Grid1.Rows[i].DataKeys[1].ToString();
+                string txtName = values.Value<string>("SuperWorkPack");
+                string txtWeights = values.Value<string>("Weights");
+                string txtCosts = values.Value<string>("Costs");
+                name = string.Empty;
+                if (!string.IsNullOrEmpty(txtName.Trim()))
+                {
+                    name = "-" + txtName.Trim();
+                }
+                Model.WBS_WorkPackageProject workPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(workPackageCode2, this.CurrUser.LoginProjectId);
                 if (ckbWorkPackageCode.Checked)
                 {
-                    string workPackageCode2 = this.Grid1.Rows[i].DataKeys[1].ToString();
-                    string txtName = values.Value<string>("SuperWorkPack");
-                    string txtWeights = values.Value<string>("Weights");
-                    string txtCosts = values.Value<string>("Costs");
-                    name = string.Empty;
-                    if (!string.IsNullOrEmpty(txtName.Trim()))
-                    {
-                        name = "-" + txtName.Trim();
-                    }
-                    Model.WBS_WorkPackageProject workPackageProject = BLL.WorkPackageProjectService.GetWorkPackageProjectByWorkPackageCode(workPackageCode2, this.CurrUser.LoginProjectId);
                     if (oldWorkPackage == null)   //新增内容
                     {
                         Model.WBS_WorkPackage newWorkPackage = new Model.WBS_WorkPackage();
@@ -832,6 +832,76 @@ namespace FineUIPro.Web.CQMS.WBS
                     {
                         oldWorkPackage.IsApprove = null;
                         BLL.WorkPackageService.UpdateWorkPackage(oldWorkPackage);
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(txtWeights))
+                        {
+                            Model.WBS_WorkPackage newWorkPackage = new Model.WBS_WorkPackage();
+                            if (workPackageCode != workPackageProject.WorkPackageCode)  //循环至新的分部
+                            {
+                                workPackageCode = workPackageProject.WorkPackageCode;
+                                var oldWorkPackages = BLL.WorkPackageService.GetWorkPackagesByInitWorkPackageCodeAndUnitWorkId(workPackageCode, UnitWorkId);
+                                if (oldWorkPackages.Count > 0)  //该工作包已存在内容
+                                {
+                                    var old = oldWorkPackages.First();
+                                    string oldStr = old.WorkPackageCode.Substring(old.WorkPackageCode.Length - 2);
+                                    num = Convert.ToInt32(oldStr) + 1;
+                                    if (num < 10)
+                                    {
+                                        code = "0" + num.ToString();
+                                    }
+                                    else
+                                    {
+                                        code = num.ToString();
+                                    }
+                                }
+                                else
+                                {
+                                    num = 1;
+                                    code = "01";
+                                }
+                            }
+                            else
+                            {
+                                if (num < 10)
+                                {
+                                    code = "0" + num.ToString();
+                                }
+                                else
+                                {
+                                    code = num.ToString();
+                                }
+                            }
+                            newWorkPackage.WorkPackageId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage));
+                            newWorkPackage.WorkPackageCode = workPackageCode + code;
+                            newWorkPackage.ProjectId = this.CurrUser.LoginProjectId;
+                            newWorkPackage.UnitWorkId = UnitWorkId;
+                            newWorkPackage.PackageContent = workPackageProject.PackageContent + name;
+                            newWorkPackage.SuperWorkPack = workPackageProject.SuperWorkPack;
+                            newWorkPackage.IsChild = workPackageProject.IsChild;
+                            newWorkPackage.PackageCode = code;
+                            newWorkPackage.ProjectType = workPackageProject.ProjectType;
+                            newWorkPackage.InitWorkPackageCode = workPackageProject.WorkPackageCode;
+                            try
+                            {
+                                newWorkPackage.Weights = Convert.ToDecimal(txtWeights.Trim());
+                            }
+                            catch (Exception)
+                            {
+                                newWorkPackage.Weights = null;
+                            }
+                            try
+                            {
+                                newWorkPackage.Costs = Convert.ToDecimal(txtCosts.Trim());
+                            }
+                            catch (Exception)
+                            {
+                                newWorkPackage.Costs = null;
+                            }
+                            BLL.WorkPackageService.AddWorkPackage(newWorkPackage);
+                            num++;
+                        }
                     }
                 }
             }

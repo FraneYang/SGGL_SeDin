@@ -177,7 +177,7 @@
             .project-wrap .project {
                 border: none;
                 position: relative;
-                min-width: 100px;
+                /*min-width: 100px;*/
             }
 
             .project-wrap .project-tit {
@@ -187,14 +187,14 @@
                 border: none;
                 background-color: transparent;
                 position: relative;
-                min-width: 100px;
+                /*min-width: 100px;*/
             }
 
         .project-tit-wrap {
             position: relative;
         }
 
-        .project-wrap .project-tit-wrap:before {
+        /*.project-wrap .project-tit-wrap:before {
             content: '';
             position: absolute;
             right: 8px;
@@ -209,7 +209,7 @@
 
         .project-wrap:hover .project-tit-wrap:before {
             transform: translateY(-50%) rotate(-45deg);
-        }
+        }*/
 
         .project-list {
             display: none;
@@ -318,8 +318,7 @@
                         <div class="project-wrap">
                             <div class="project">
                                 <div class="project-tit-wrap">
-                                    <input id="project-tit" autocomplete="off" class="project-tit" type="text" name="name"
-                                        value="      — 项目快捷入口 —" />
+                                    <div class="project-tit">— 项目快捷入口 —</div>
                                 </div>
                                 <div class="project-list" id="divProjectList" runat="server">
                                 </div>
@@ -413,7 +412,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="" style="padding: 10px 10px 0;">
+                            <div class="" style="padding: 0 10px 0;overflow:hidden;">
                                 <div class="swiper-container " id='swiper2' runat="server">
                                 </div>
                             </div>
@@ -530,6 +529,7 @@
                 },
                 axisLabel: {
                     show: true,
+                       interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -542,13 +542,13 @@
                     show: false
                 },
                 axisLine: {
-                    show: false,
+                    show: false,                 
                     lineStyle: {
                         color: 'rgba(255, 255, 255, 0.3)'
                     }
                 },
                 axisLabel: {
-                    show: true,
+                    show: true,                    
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -575,12 +575,13 @@
     }
     var two =<%=Two %>;
     var xArr2 = two.categories
-    var xArr = ["项目1", "项目2", "项目3", "项目4", "项目5", "项目6", "项目7", "项目8", "项目9"]
-    var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
-    var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
+    var xArr = ["项目1", "项目2", "项目3", "项目4", "项目5"]
+    var data = [12, 5, 28, 43, 22]
+    var data1 = [21, 9, 12, 15, 8]
     var series = [{
         name: '质量一次性合格率',
         type: 'bar',
+        barWidth: 20,
         data: two.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     }];
@@ -588,6 +589,7 @@
         {
             name: '施工资料同步率',
             type: 'bar',
+            barWidth: 20,
             data: data1,
             itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
         }];
@@ -625,6 +627,7 @@
                 },
                 axisLabel: {
                     show: true,
+                      interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -671,19 +674,20 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5", "类别6", "类别7"]
+    var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5"]
     var data = [{
         name: '',
         type: 'bar',
+        barWidth: 20,
         stack: '总量',
-        data: [20, 2, 1, 34, 39, 30, 20],
+        data: [20, 2, 1, 34, 39],
         itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
     },
     {
         name: '',
         type: 'bar',
         stack: '总量',
-        data: [12, 32, 10, 14, 9, 30, 21],
+        data: [12, 32, 10, 14, 9],
         itemStyle: { normal: { color: 'rgba(28,110,173, 1)' } }
     }]
     category_Five('five', xArr, data)
@@ -719,6 +723,7 @@
                 },
                 axisLabel: {
                     show: true,
+                      interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -842,6 +847,7 @@
                 },
                 axisLabel: {
                     show: true,
+                      interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -1331,6 +1337,8 @@
 
 </script>
 <script>
+    var swiper_One = '<%=swiper_One %>'
+    var swiper_Two = '<%=swiper_Two %>'
     $(".tab .t-item").click(function () {
         var $this = $(this)
         var index = $this.index()
@@ -1345,8 +1353,30 @@
             var maptype = index == 0 ? 'world' : 'china'
             mapEchart('map', maptype)
         } else if (value == 1) {
-
+            if (index == 0) {
+                $("#swiper2").html(swiper_One)
+                 mySwiper = new Swiper('#swiper2', {
+                    autoplay: 4000,//可选选项，自动滑动
+                    direction: 'vertical',
+                    loop: true,
+                    slidesPerView: slidesNum
+                })
+            } else if (index == 2) {
+                $("#swiper2").html(swiper_Two)
+                  mySwiper = new Swiper('#swiper2', {
+                    autoplay: 4000,//可选选项，自动滑动
+                    direction: 'vertical',
+                    loop: true,
+                    slidesPerView: slidesNum
+                })
+            }
         }
+    })
+
+    $("#swiper2").on('click', 'li', function () {
+        var $this = $(this)
+        var data = $this.attr("data-id")
+        window.open(data)
     })
 </script>
 <script>
@@ -1627,15 +1657,20 @@
     }
     //radar('radar')
 </script>
-<script>
+<script type="text/javascript">
+    var slidesNum = 5
+    var mySwiper = null
     $(document).ready(function () {
-        var height = $("#swiper-pre").height()
-        $("#swiper2").css("height", (height - 38) + 'px')
-        var mySwiper = new Swiper('#swiper2', {
+        
+        var height = $("#swiper-pre").height() - 29
+        $("#swiper2").css("height", (height ) + 'px')
+        slidesNum = Math.floor((height) / 24)
+        $("#swiper2").html(swiper_One)
+        mySwiper = new Swiper('#swiper2', {
             autoplay: 4000,//可选选项，自动滑动
             direction: 'vertical',
             loop: true,
-            slidesPerView: 3
+            slidesPerView: slidesNum
         })
 
         $(".project").hover(function () {

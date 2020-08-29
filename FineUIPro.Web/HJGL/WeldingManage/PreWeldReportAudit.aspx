@@ -33,7 +33,7 @@
                                 <f:RadioItem Value="1"  Text="已提交"/>
                             </f:RadioButtonList>
                              <f:DatePicker runat="server" Label="焊接日期" ID="txtWeldingDate" LabelAlign="Right"
-                                LabelWidth="100px" Width="260px">
+                                LabelWidth="100px" Width="260px" AutoPostBack="true" OnTextChanged="WeldingDate_OnTextChanged">
                             </f:DatePicker>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>

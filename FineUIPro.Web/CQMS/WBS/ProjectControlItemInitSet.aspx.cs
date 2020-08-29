@@ -346,7 +346,16 @@ namespace FineUIPro.Web.CQMS.WBS
                 {
                     if (this.trWBS.SelectedNode.CommandName != "ProjectType")   //非工程类型节点可以删除
                     {
-                        DeleteData();
+                        string id = this.trWBS.SelectedNodeID;
+                        var workPackage = Funs.DB.WBS_WorkPackage.FirstOrDefault(x=>x.ProjectId==this.CurrUser.LoginProjectId && x.InitWorkPackageCode==this.trWBS.SelectedNodeID);
+                        if (workPackage != null)
+                        {
+                            ShowNotify("WBS定制中已使用该数据，无法删除！", MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            DeleteData();
+                        }
                     }
                     else
                     {
@@ -583,11 +592,19 @@ namespace FineUIPro.Web.CQMS.WBS
                 Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            BLL.ControlItemProjectService.DeleteControlItemProject(Grid1.SelectedRowID, this.CurrUser.LoginProjectId);
-            BLL.LogService.AddSys_Log(this.CurrUser, Grid1.SelectedRowID, Grid1.SelectedRowID, BLL.Const.ControlItemProjectSetMenuId, "删除工作包");
-            Grid1.DataBind();
-            BindGrid();
-            Alert.ShowInTop("删除数据成功！", MessageBoxIcon.Success);
+            var controlItemAndCycle = Funs.DB.WBS_ControlItemAndCycle.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.InitControlItemCode == Grid1.SelectedRowID);
+            if (controlItemAndCycle != null)
+            {
+                ShowNotify("WBS定制中已使用该数据，无法删除！", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                BLL.ControlItemProjectService.DeleteControlItemProject(Grid1.SelectedRowID, this.CurrUser.LoginProjectId);
+                BLL.LogService.AddSys_Log(this.CurrUser, Grid1.SelectedRowID, Grid1.SelectedRowID, BLL.Const.ControlItemProjectSetMenuId, "删除工作包");
+                Grid1.DataBind();
+                BindGrid();
+                Alert.ShowInTop("删除数据成功！", MessageBoxIcon.Success);
+            }
         }
         #endregion
 

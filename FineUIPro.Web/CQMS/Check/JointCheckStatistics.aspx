@@ -65,6 +65,9 @@
                                 </f:Button>
                                 <f:Button ID="btnRset" ToolTip="重置" Icon="ArrowUndo" EnablePostBack="true" runat="server" OnClick="btnRset_Click">
                                 </f:Button>
+                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                            EnableAjax="false" DisableControlBeforePostBack="false">
+                                    </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
@@ -100,18 +103,18 @@
                         <f:RenderField Width="110px" ColumnID="QuestionDef" DataField="QuestionDef"
                             FieldType="String" HeaderText="问题描述" TextAlign="Center" HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:LinkButtonField HeaderText="问题图片" ConfirmTarget="Top" Width="80" CommandName="attchUrl"
+                        <f:LinkButtonField HeaderText="问题图片" ConfirmTarget="Top" Width="80" CommandName="attchUrl" ColumnID="AttchUrl"
                             TextAlign="Center" ToolTip="问题图片" Text="问题图片" />
 
                         <f:RenderField Width="110px" ColumnID="HandleWay" DataField="HandleWay"
                             FieldType="String" HeaderText="整改方案" TextAlign="Center" HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:LinkButtonField HeaderText="整改照片" ConfirmTarget="Top" Width="80" CommandName="ReAttachUrl"
+                        <f:LinkButtonField HeaderText="整改照片" ConfirmTarget="Top" Width="80" CommandName="ReAttachUrl" ColumnID="ReAttachUrl"
                             TextAlign="Center" ToolTip="整改照片" Text="整改照片" />
-                        <f:TemplateField Width="110px" HeaderText="审批状态" HeaderTextAlign="Center"
+                        <f:TemplateField Width="110px" HeaderText="审批状态" HeaderTextAlign="Center" ColumnID="lbState"
                             TextAlign="Center" SortField="DetectionType">
                             <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# ConvertState(Eval("JointCheckDetailId")) %>'></asp:Label>
+                                <asp:Label ID="lbState" runat="server" Text='<%# ConvertState(Eval("JointCheckDetailId")) %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
                     </Columns>

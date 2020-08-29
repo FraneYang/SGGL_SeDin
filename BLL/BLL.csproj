@@ -217,6 +217,9 @@
     <Compile Include="HJGL\HotProcessHard\HotProessReportService.cs" />
     <Compile Include="HJGL\HotProcessHard\HotProessTrustItemService.cs" />
     <Compile Include="HJGL\HotProcessHard\HotProess_TrustService.cs" />
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumAuditService.cs" />
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumEditService.cs" />
+    <Compile Include="HJGL\LeakVacuum\LV_ItemEndCheckService.cs" />
     <Compile Include="HJGL\NDT\Batch_NDEItemService.cs" />
     <Compile Include="HJGL\NDT\Batch_NDEService.cs" />
     <Compile Include="HJGL\PersonManage\CheckerService.cs" />
@@ -226,9 +229,13 @@
     <Compile Include="HJGL\PointTrust\Batch_BatchTrustService.cs" />
     <Compile Include="HJGL\PointTrust\PointBatchDetailService.cs" />
     <Compile Include="HJGL\PointTrust\PointBatchService.cs" />
+    <Compile Include="HJGL\PurgingCleaning\PC_ItemEndCheckService.cs" />
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningAuditService.cs" />
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningEditService.cs" />
     <Compile Include="HJGL\RepairAndExpand\RepairRecordService.cs" />
     <Compile Include="HJGL\TestPackage\AItemEndCheckService.cs" />
     <Compile Include="HJGL\TestPackage\BItemEndCheckService.cs" />
+    <Compile Include="HJGL\TestPackage\TestPackageApproveService.cs" />
     <Compile Include="HJGL\TestPackage\TestPackageAuditService.cs" />
     <Compile Include="HJGL\TestPackage\TestPackageEditService.cs" />
     <Compile Include="HJGL\WeldingManage\PipelineService.cs" />

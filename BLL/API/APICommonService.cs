@@ -89,7 +89,7 @@ namespace BLL
                     access_token,
                     touser = getUser.OpenId,
                     template_id = Const.WX_TemplateID,
-                    page = "pages/home/main",
+                    page = "pages/index/main",
                     data = new
                     {
                         thing2 = new { value = thing2 },

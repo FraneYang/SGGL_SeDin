@@ -162,6 +162,10 @@ namespace FineUIPro.Web.CQMS.Check
                     decimal result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
                     this.MonthDataOk.Text = result.ToString() + "%";
                 }
+                else
+                {
+                    this.MonthDataOk.Text = "0%";
+                }
                 //质量记录累计同步率
                 List<Model.View_Check_SoptCheckDetail> TotalCheckDetailDataOKLists = SpotCheckDetailService.GetAllDataOkSpotCheckDetailListByTime(CurrUser.LoginProjectId, endTime);
                 if (TotalCheckDetailDataOKLists.Count > 0 && TotalCheckDetailOKLists.Count > 0)
@@ -171,7 +175,10 @@ namespace FineUIPro.Web.CQMS.Check
                     decimal result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
                     this.AllDataOk.Text = result.ToString() + "%";
                 }
-
+                else
+                {
+                    this.AllDataOk.Text = "0%";
+                }
             }
 
         }
@@ -228,7 +235,7 @@ namespace FineUIPro.Web.CQMS.Check
         private void BindNDTCheck()
         {
             List<Model.NDTCheckItem> nDTCheckItems = new List<Model.NDTCheckItem>();
-            List<Model.Base_Unit> units = UnitService.GetUnitByProjectIdUnitTypeList(CurrUser.LoginProjectId, "3");
+            List<Model.Base_Unit> units = UnitService.GetUnitByProjectIdUnitTypeList(CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2);
             foreach (var unit in units)
             {
                 Model.NDTCheckItem nDTCheckItem = new Model.NDTCheckItem();
@@ -248,7 +255,7 @@ namespace FineUIPro.Web.CQMS.Check
         private void BindWelder()
         {
             List<Model.WelderItem> welderItems = new List<Model.WelderItem>();
-            List<Model.Base_Unit> units = UnitService.GetUnitByProjectIdUnitTypeList(CurrUser.LoginProjectId, "3");
+            List<Model.Base_Unit> units = UnitService.GetUnitByProjectIdUnitTypeList(CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2);
             foreach (var unit in units)
             {
                 Model.WelderItem welderItem = new Model.WelderItem();

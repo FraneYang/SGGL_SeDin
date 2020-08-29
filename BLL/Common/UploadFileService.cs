@@ -304,61 +304,36 @@ namespace BLL
         /// <param name="toKeyId"></param>
         public static void SaveAttachUrl(string source, string attachUrl,string menuId,string toKeyId)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
-            {
-                List<Model.AttachFile> sour = (from x in db.AttachFile where x.MenuId ==menuId &&
-                                               x.ToKeyId == toKeyId select x).ToList();                
-                if (sour.Count() == 0)
-                {
-                    Model.AttachFile att = new Model.AttachFile
-                    {
-                        AttachFileId = SQLHelper.GetNewID(),
-                        ToKeyId = toKeyId,
-                        AttachSource = source.ToString(),
-                        AttachUrl = attachUrl,
-                        MenuId = menuId,
-                        //AttachPath= attachPath,
-                    };
-                    db.AttachFile.InsertOnSubmit(att);
-                    db.SubmitChanges();
-                }
-                else
-                {
-                    Model.AttachFile att = db.AttachFile.FirstOrDefault(x => x.MenuId == menuId && x.AttachFileId == sour.First().AttachFileId);
-                    if (att != null)
-                    {
-                        att.ToKeyId = toKeyId;
-                        att.AttachSource = source.ToString();
-                        att.AttachUrl = attachUrl;
-                        att.MenuId = menuId;
-                        db.SubmitChanges();
-                    }
-                }
-                //if (!string.IsNullOrEmpty(toKeyId))
-                //{
-                //    List<string> getattachUrlItems = Funs.GetStrListByStr(attachUrl, ',');
-                //    foreach (var item in getattachUrlItems)
-                //    {
-                //        Model.AttachFileItem newItem = new Model.AttachFileItem
-                //        {
-                //            AttachFileItemId = SQLHelper.GetNewID(),
-                //            ToKeyId = toKeyId,
-                //            AttachUrl = item,                           
-                //        };
 
-                //        db.AttachFileItem.InsertOnSubmit(newItem);
-                //        db.SubmitChanges();
-                //    }
-                //}
-                //else
-                //{
-                //    var getItems = from x in db.AttachFileItem where x.ToKeyId == toKeyId select x;
-                //    if (getItems.Count() > 0)
-                //    {
-                //        db.AttachFileItem.DeleteAllOnSubmit(getItems);
-                //        db.SubmitChanges();
-                //    }
-                //}
+            List<Model.AttachFile> sour = (from x in Funs.DB.AttachFile
+                                           where x.MenuId == menuId &&
+                      x.ToKeyId == toKeyId
+                                           select x).ToList();
+            if (sour.Count() == 0)
+            {
+                Model.AttachFile att = new Model.AttachFile
+                {
+                    AttachFileId = SQLHelper.GetNewID(),
+                    ToKeyId = toKeyId,
+                    AttachSource = source.ToString(),
+                    AttachUrl = attachUrl,
+                    MenuId = menuId,
+                    //AttachPath= attachPath,
+                };
+                Funs.DB.AttachFile.InsertOnSubmit(att);
+                Funs.DB.SubmitChanges();
+            }
+            else
+            {
+                Model.AttachFile att = Funs.DB.AttachFile.FirstOrDefault(x => x.MenuId == menuId && x.AttachFileId == sour.First().AttachFileId);
+                if (att != null)
+                {
+                    att.ToKeyId = toKeyId;
+                    att.AttachSource = source.ToString();
+                    att.AttachUrl = attachUrl;
+                    att.MenuId = menuId;
+                    Funs.DB.SubmitChanges();
+                }
             }
         }
 

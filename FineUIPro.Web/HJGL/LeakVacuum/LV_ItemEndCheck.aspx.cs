@@ -6,23 +6,23 @@ using System.Linq;
 using BLL;
 using Newtonsoft.Json.Linq;
 
-namespace FineUIPro.Web.HJGL.TestPackage
+namespace FineUIPro.Web.HJGL.LeakVacuum
 {
-    public partial class AItemEndCheck : PageBase
+    public partial class LV_ItemEndCheck : PageBase
     {
         #region 定义项
         /// <summary>
         /// 管线主键
         /// </summary>
-        public string PipelineId
+        public string LV_PipeId
         {
             get
             {
-                return (string)ViewState["PipelineId"];
+                return (string)ViewState["LV_PipeId"];
             }
             set
             {
-                ViewState["PipelineId"] = value;
+                ViewState["LV_PipeId"] = value;
             }
         }
 
@@ -39,7 +39,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             if (!IsPostBack)
             {
-                this.PipelineId = string.Empty;
+                this.LV_PipeId = string.Empty;
                 this.txtSearchDate.Text = string.Format("{0:yyyy-MM}", System.DateTime.Now);
                 this.InitTreeMenu();//加载树
                 // 删除选中单元格的客户端脚本
@@ -53,7 +53,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 defaultObj.Add("DealDate", "");
                 defaultObj.Add("Delete", String.Format("<a href=\"javascript:;\" onclick=\"{0}\"><img src=\"{1}\"/></a>", deleteScript, IconHelper.GetResolvedIconUrl(Icon.Delete)));
                 // 在第一行新增一条数据
-                btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, AppendToEnd);
+
+                // Grid1.GetAddNewRecordReference(defaultObj, AppendToEnd);
                 // 删除选中行按钮
                 //btnDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！") + deleteScript;
                 // 绑定表格
@@ -92,9 +93,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                                 where x.ProjectId == this.CurrUser.LoginProjectId
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
-            List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
-                                                            where x.ProjectId == this.CurrUser.LoginProjectId && x.TableDate >= startTime && x.TableDate < endTime
-                                                            select x).ToList();
+            List<Model.HJGL_LV_LeakVacuum> LeakVacuumLists = (from x in Funs.DB.HJGL_LV_LeakVacuum where x.ProjectId == this.CurrUser.LoginProjectId && x.TableDate >= startTime && x.TableDate < endTime select x).ToList();
             List<Model.WBS_UnitWork> unitWork1 = null;
             List<Model.WBS_UnitWork> unitWork2 = null;
 
@@ -126,8 +125,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     tn1.ToolTip = "施工单位：" + u.UnitName;
                     tn1.CommandName = "单位工程";
                     rootNode1.Nodes.Add(tn1);
-                    var testPackageUnitList = testPackageLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
-                    BindNodes(tn1, testPackageUnitList);
+                    var LeakVacuumUnitList = LeakVacuumLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
+                    BindNodes(tn1, LeakVacuumUnitList);
                 }
             }
             if (unitWork2.Count() > 0)
@@ -142,8 +141,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     tn2.ToolTip = "施工单位：" + u.UnitName;
                     tn2.CommandName = "单位工程";
                     rootNode2.Nodes.Add(tn2);
-                    var testPackageUnitList = testPackageLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
-                    BindNodes(tn2, testPackageUnitList);
+                    var LeakVacuumUnitList = LeakVacuumLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
+                    BindNodes(tn2, LeakVacuumUnitList);
                 }
             }
         }
@@ -154,13 +153,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
         ///  绑定树节点
         /// </summary>
         /// <param name="node"></param>
-        private void BindNodes(TreeNode node, List<Model.PTP_TestPackage> testPackageUnitList)
+        private void BindNodes(TreeNode node, List<Model.HJGL_LV_LeakVacuum> LeakVacuumUnitList)
         {
             DateTime startTime = Convert.ToDateTime(this.txtSearchDate.Text.Trim() + "-01");
             DateTime endTime = startTime.AddMonths(1);
             if (node.CommandName == "单位工程")
             {
-                var pointListMonth = (from x in testPackageUnitList
+                var pointListMonth = (from x in LeakVacuumUnitList
                                       where x.UnitWorkId == node.NodeID
                                       select string.Format("{0:yyyy-MM}", x.TableDate)).Distinct();
                 foreach (var item in pointListMonth)
@@ -170,39 +169,44 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     newNode.NodeID = item + "|" + node.NodeID;
                     newNode.CommandName = "月份";
                     node.Nodes.Add(newNode);
-                    this.BindNodes(newNode, testPackageUnitList);
+                    this.BindNodes(newNode, LeakVacuumUnitList);
                 }
             }
             else if (node.CommandName == "月份")
             {
-                var dReports = from x in testPackageUnitList
+                var dReports = from x in LeakVacuumUnitList
                                where x.UnitWorkId == node.ParentNode.NodeID
                                && x.TableDate >= startTime && x.TableDate < endTime
-                               orderby x.TestPackageNo descending
+                               orderby x.SysNo descending
                                select x;
                 foreach (var item in dReports)
                 {
                     TreeNode newNode = new TreeNode();
-                    if (!string.IsNullOrEmpty(item.TestPackageNo))
+                    if (!string.IsNullOrEmpty(item.SysNo))
                     {
-                        newNode.Text = item.TestPackageNo;
+                        newNode.Text = item.SysNo;
                     }
                     else
                     {
                         newNode.Text = "未知";
                     }
                     newNode.CommandName = "试压包";
-                    newNode.NodeID = item.PTP_ID;
+                    newNode.NodeID = item.LeakVacuumId;
                     node.Nodes.Add(newNode);
-                    this.BindNodes(newNode, testPackageUnitList);
+                    this.BindNodes(newNode, LeakVacuumUnitList);
                 }
             }
             else if (node.CommandName == "试压包")
             {
-                var isoIdList = from x in Funs.DB.PTP_PipelineList
-                                where x.PTP_ID == node.NodeID
+                var isoIdList = from x in Funs.DB.HJGL_LV_Pipeline
+                                where x.LeakVacuumId == node.NodeID
                                 select x.PipelineId;
-                var isoInfos = from x in Funs.DB.HJGL_Pipeline where isoIdList.Contains(x.PipelineId) select x;
+                var isoInfos = from x in Funs.DB.HJGL_Pipeline join y in Funs.DB.HJGL_LV_Pipeline on x.PipelineId  equals y.PipelineId where isoIdList.Contains(x.PipelineId) select new{
+                    x.PipelineId,
+                    x.PipelineCode,
+                    y.LV_PipeId
+                }
+                ;
                 foreach (var item in isoInfos)
                 {
                     TreeNode newNode = new TreeNode();
@@ -215,12 +219,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         newNode.Text = "未知";
                     }
                     newNode.CommandName = "管线";
-                    newNode.NodeID = item.PipelineId;
+                    newNode.NodeID = item.LV_PipeId;
                     newNode.EnableClickEvent = true;
                     node.Nodes.Add(newNode);
                 }
             }
         }
+
         #endregion
 
         #region 点击TreeView
@@ -231,7 +236,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
-            this.PipelineId = tvControlItem.SelectedNodeID;
+            this.LV_PipeId = tvControlItem.SelectedNodeID;
             this.BindGrid();
         }
         #endregion
@@ -243,14 +248,17 @@ namespace FineUIPro.Web.HJGL.TestPackage
         private void BindGrid()
         {
             this.Toolbar5.Hidden = true;
-            if (!string.IsNullOrEmpty(this.PipelineId))
+            if (!string.IsNullOrEmpty(this.LV_PipeId))
             {
                 this.Toolbar5.Hidden = false;
             }
-            string strSql = @"SELECT * FROM dbo.PTP_AItemEndCheck WHERE PipelineId=@PipelineId";
+            string strSql = @" SELECT LVItemEndCheckId, LV_PipeId, CheckMan, CheckDate, DealMan, DealDate, Remark, (case ItemType when '1' then 'A项检查' when '2' then 'B项检查' else '' end) ItemType, Remark,
+                               che.UserName as CheckName,deal.UserName as DealName FROM dbo.HJGL_LV_ItemEndCheck  lv 
+                               left join Sys_User che on lv.CheckMan=che.UserId left join Sys_User deal on lv.DealMan=deal.UserId 
+                               WHERE LV_PipeId=@LV_PipeId";
             SqlParameter[] parameter = new SqlParameter[]
                     {
-                        new SqlParameter("@PipelineId",this.PipelineId),
+                        new SqlParameter("@LV_PipeId",this.LV_PipeId),
                     };
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.DataSource = tb;
@@ -275,7 +283,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// <returns></returns>
         private string GetDeleteScript()
         {
-            if (!CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.AItemEndCheckMenuId, Const.BtnDelete))
+            if (!CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.LV_ItemEndCheckMenuId, Const.BtnDelete))
             {
                 ShowNotify("您没有这个权限，请与管理员联系！");
                 return null;
@@ -316,51 +324,24 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            if (!CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.AItemEndCheckMenuId, Const.BtnSave))
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！");
-                return;
-            }
-            if (string.IsNullOrEmpty(this.PipelineId))
-            {
-                ShowNotify("请先选择一条试压包下管线！");
-                return;
-            }
-            if (Grid1.GetModifiedData().Count > 0)
-            {
-                JArray teamGroupData = Grid1.GetMergedData();
-                foreach (JObject teamGroupRow in teamGroupData)
-                {
-                    string status = teamGroupRow.Value<string>("status");
-                    JObject values = teamGroupRow.Value<JObject>("values");
-                    Model.PTP_AItemEndCheck newAItemEndCheck = new Model.PTP_AItemEndCheck();
-                    newAItemEndCheck.PipelineId = this.PipelineId;
-                    newAItemEndCheck.Remark = values.Value<string>("Remark");
-                    newAItemEndCheck.CheckMan = values.Value<string>("CheckMan");
-                    newAItemEndCheck.CheckDate = Funs.GetNewDateTime(values.Value<string>("CheckDate"));
-                    newAItemEndCheck.DealMan = values.Value<string>("DealMan");
-                    newAItemEndCheck.DealDate = Funs.GetNewDateTime(values.Value<string>("DealDate"));
-                    if (status == "newadded")
-                    {
-                        BLL.AItemEndCheckService.AddAItemEndCheck(newAItemEndCheck);
-                    }
-                    else
-                    {
-                        newAItemEndCheck.AItemCheckId = teamGroupRow.Value<string>("id");
-                        BLL.AItemEndCheckService.UpdateAItemEndCheck(newAItemEndCheck);
-                    }
-                }
-                this.BindGrid();
-            }
+        //protected void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    if (!CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.LV_ItemEndCheckMenuId, Const.BtnSave))
+        //    {
+        //        ShowNotify("您没有这个权限，请与管理员联系！");
+        //        return;
+        //    }
+        //    if (string.IsNullOrEmpty(this.PipelineId))
+        //    {
+        //        ShowNotify("请先选择一条试压包下管线！");
+        //        return;
+        //    }
 
-            ShowNotify("数据保存成功！（表格数据已重新绑定）");
-        }
+        //}
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.AItemEndCheckMenuId, Const.BtnDelete))
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.LV_ItemEndCheckMenuId, Const.BtnDelete))
             {
                 string rowID = Grid1.SelectedRowID;
                 if (!string.IsNullOrEmpty(rowID))
@@ -373,6 +354,40 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     ShowNotify("请选中删除行！");
                 }
 
+            }
+            else
+            {
+                ShowNotify("您没有这个权限，请与管理员联系！");
+            }
+        }
+
+        protected void Window1_Close(object sender, WindowCloseEventArgs e)
+        {
+            BindGrid();
+        }
+        protected void btnNew_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.LV_ItemEndCheckMenuId, Const.BtnAdd))
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("LV_ItemEndCheckEdit.aspx?LV_PipeId={0}", this.LV_PipeId, "新增 - ")));
+            }
+        }
+
+        protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
+        {
+            btnMenuModify_Click(null, null);
+        }
+
+        protected void btnMenuModify_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.LV_ItemEndCheckMenuId, Const.BtnModify))
+            {
+                if (Grid1.SelectedRowIndexArray.Length == 0)
+                {
+                    Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                    return;
+                }
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("LV_ItemEndCheckEdit.aspx?LVItemEndCheckId={0}", Grid1.SelectedRowID, "编辑 - ")));
             }
             else
             {

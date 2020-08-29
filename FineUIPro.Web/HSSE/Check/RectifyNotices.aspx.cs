@@ -230,7 +230,7 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 url = "RectifyNoticesAdd.aspx?RectifyNoticesId={0}";
             }
-           else if (RectifyNotices.States == "1" && this.CurrUser.UserId == RectifyNotices.SignPerson)
+            else if (RectifyNotices.States == "1" && this.CurrUser.UserId == RectifyNotices.SignPerson)
             {
                 url = "RectifyNoticesAudit.aspx?RectifyNoticesId={0}";
             }
@@ -343,7 +343,7 @@ namespace FineUIPro.Web.HSSE.Check
             Response.End();
         }
         #endregion
-        
+
         protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.BindGrid();
@@ -391,7 +391,12 @@ namespace FineUIPro.Web.HSSE.Check
                 Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            string Id = Grid1.SelectedRowID;
+            var getRectify = BLL.RectifyNoticesService.GetRectifyNoticesById(Grid1.SelectedRowID);
+            if (getRectify == null)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
 
             string rootPath = Server.MapPath("~/");
             string initTemplatePath = string.Empty;
@@ -404,8 +409,7 @@ namespace FineUIPro.Web.HSSE.Check
             newUrl = uploadfilepath.Replace(".doc", filename + ".doc");
             filePath = initTemplatePath.Replace(".doc", filename + ".pdf");
             File.Copy(uploadfilepath, newUrl);
-            ///更新书签内容
-            var getRectify = BLL.RectifyNoticesService.GetRectifyNoticesById(Id);
+            ///更新书签内容           
             Document doc = new Aspose.Words.Document(newUrl);
             Bookmark bookmarkProjectName = doc.Range.Bookmarks["ProjectName"];
             if (bookmarkProjectName != null)
@@ -426,108 +430,61 @@ namespace FineUIPro.Web.HSSE.Check
             Bookmark bookmarkUnitName = doc.Range.Bookmarks["UnitName"];
             if (bookmarkUnitName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.UnitId))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.UnitId))
-                    {
-                        bookmarkUnitName.Text = BLL.UnitService.GetUnitByUnitId(getRectify.UnitId).UnitName;
-                    }
-
+                    bookmarkUnitName.Text = BLL.UnitService.GetUnitNameByUnitId(getRectify.UnitId);
                 }
             }
             Bookmark bookmarkUnitWorkName = doc.Range.Bookmarks["UnitWorkName"];
             if (bookmarkUnitWorkName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.WorkAreaId))
                 {
-                    string UnitWorkNames = string.Empty;
-                    if (!string.IsNullOrEmpty(getRectify.WorkAreaId))
-                    {
-                        string[] Ids = getRectify.WorkAreaId.ToString().Split(',');
-                        foreach (string t in Ids)
-                        {
-                            var UnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(t);
-                            if (UnitWork != null)
-                            {
-                                UnitWorkNames += UnitWork.UnitWorkName+",";
-                            }
-                        }
-                        if (UnitWorkNames != string.Empty)
-                        {
-
-                            bookmarkUnitWorkName.Text = UnitWorkNames.Substring(0, UnitWorkNames.Length - 1);
-                        }
-
-                    }
+                    bookmarkUnitWorkName.Text = UnitWorkService.GetUnitWorkName(getRectify.WorkAreaId);
                 }
             }
             Bookmark bookmarkCheckManNames = doc.Range.Bookmarks["CheckManNames"];
             if (bookmarkCheckManNames != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.CheckManIds))
                 {
-                    string CheckNames = string.Empty;
-                    if (!string.IsNullOrEmpty(getRectify.CheckManIds))
-                    {
-
-                        string[] Ids = getRectify.CheckManIds.ToString().Split(',');
-                        foreach (string t in Ids)
-                        {
-                            var User = BLL.UserService.GetUserByUserId(t);
-                            if (User != null)
-                            {
-                                CheckNames += User.UserName + ",";
-                            }
-                        }
-                        if (CheckNames != string.Empty)
-                        {
-
-                            bookmarkCheckManNames.Text = CheckNames.Substring(0, CheckNames.Length - 1);
-                        }
-                    }
-
+                    bookmarkCheckManNames.Text = UserService.getUserNamesUserIds(getRectify.CheckManIds);
                 }
             }
             Bookmark bookmarkCheckedDate = doc.Range.Bookmarks["CheckedDate"];
             if (bookmarkCheckedDate != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkCheckedDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.CheckedDate);
-                }
+                bookmarkCheckedDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.CheckedDate);
             }
             Bookmark bookmarkHiddenHazardTypeName = doc.Range.Bookmarks["HiddenHazardTypeName"];
             if (bookmarkHiddenHazardTypeName != null)
             {
-                if (getRectify != null)
+                if (getRectify.HiddenHazardType == "2")
                 {
-                    if (getRectify.HiddenHazardType == "1")
-                    {
-                        bookmarkHiddenHazardTypeName.Text = "√一般   □较大   □重大";
-                    }
-                    else if (getRectify.HiddenHazardType == "2")
-                    {
-                        bookmarkHiddenHazardTypeName.Text = "□一般   √较大   □重大";
-                    }
-                    else if (getRectify.HiddenHazardType == "3")
-                    {
-                        bookmarkHiddenHazardTypeName.Text = "□一般    □较大   √重大";
-                    }
+                    bookmarkHiddenHazardTypeName.Text = "□一般   √较大   □重大";
+                }
+                else if (getRectify.HiddenHazardType == "3")
+                {
+                    bookmarkHiddenHazardTypeName.Text = "□一般    □较大   √重大";
+                }
+                else
+                {
+                    bookmarkHiddenHazardTypeName.Text = "√一般   □较大   □重大";
                 }
             }
+
             Bookmark bookmarktab = doc.Range.Bookmarks["tab"];
             if (bookmarktab != null)
             {
-                var ItemList = (from x in Funs.DB.Check_RectifyNoticesItem where x.RectifyNoticesId == Id select x).ToList();
+                var ItemList = (from x in Funs.DB.Check_RectifyNoticesItem where x.RectifyNoticesId == getRectify.RectifyNoticesId select x).ToList();
                 if (ItemList.Count > 0)
                 {
                     for (int i = 1; i <= ItemList.Count; i++)
                     {
                         string imgStr = string.Empty;
-                        var att = AttachFileService.GetAttachFile(ItemList[i-1].RectifyNoticesItemId.ToString() + "#1", BLL.Const.ProjectRectifyNoticesMenuId);
+                        var att = AttachFileService.GetAttachFile(ItemList[i - 1].RectifyNoticesItemId.ToString() + "#1", BLL.Const.ProjectRectifyNoticesMenuId);
                         if (att != null)
                         {
-                            
                             List<string> listStr = Funs.GetStrListByStr(att.AttachUrl, ',');
                             if (listStr.Count > 0)
                             {
@@ -537,192 +494,150 @@ namespace FineUIPro.Web.HSSE.Check
                                 }
                             }
                         }
-                        bookmarktab.Text += i + "." + ItemList[i - 1].WrongContent + ",整改要求：" + ItemList[i - 1].Requirement +imgStr +",整改期限：" + string.Format("{0:yyyy-MM-dd}", ItemList[i - 1].LimitTime) + "\r\n";
+                        bookmarktab.Text += i + "." + ItemList[i - 1].WrongContent + ",整改要求：" + ItemList[i - 1].Requirement + imgStr + ",整改期限：" + string.Format("{0:yyyy-MM-dd}", ItemList[i - 1].LimitTime) + "\r\n";
                     }
                 }
             }
             Bookmark bookmarkSignPersonName = doc.Range.Bookmarks["SignPersonName"];
             if (bookmarkSignPersonName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.SignPerson))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.SignPerson))
+                    var getUser = UserService.GetUserByUserId(getRectify.SignPerson);
+                    if (getUser != null)
                     {
-                        var getUser = UserService.GetUserByUserId(getRectify.SignPerson);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("SignPersonName");
-                                builders.InsertImage(file, 80, 20);
-                            }
-                            else
-                            {
-                                bookmarkSignPersonName.Text = getUser.UserName;
-                            }
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("SignPersonName");
+                            builders.InsertImage(file, 80, 20);
                         }
-
-
+                        else
+                        {
+                            bookmarkSignPersonName.Text = getUser.UserName;
+                        }
                     }
-
                 }
             }
             Bookmark bookmarkSignDate = doc.Range.Bookmarks["SignDate"];
             if (bookmarkSignDate != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkSignDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.SignDate);
-                }
+                bookmarkSignDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.SignDate);
             }
             Bookmark bookmarkProfessionalEngineerName = doc.Range.Bookmarks["ProfessionalEngineerName"];
             if (bookmarkProfessionalEngineerName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.ProfessionalEngineerId))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.ProfessionalEngineerId))
+                    var getUser = UserService.GetUserByUserId(getRectify.ProfessionalEngineerId);
+                    if (getUser != null)
                     {
-                        
-                        var getUser = UserService.GetUserByUserId(getRectify.ProfessionalEngineerId);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("ProfessionalEngineerName");
-                                builders.InsertImage(file, 80, 20);
-                            }
-                            else
-                            {
-                                bookmarkProfessionalEngineerName.Text = getUser.UserName;
-                            }
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("ProfessionalEngineerName");
+                            builders.InsertImage(file, 80, 20);
+                        }
+                        else
+                        {
+                            bookmarkProfessionalEngineerName.Text = getUser.UserName;
                         }
                     }
-
                 }
             }
             Bookmark bookmarkProfessionalEngineerTime = doc.Range.Bookmarks["ProfessionalEngineerTime"];
             if (bookmarkProfessionalEngineerTime != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkProfessionalEngineerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ProfessionalEngineerTime2);
-                }
+                bookmarkProfessionalEngineerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ProfessionalEngineerTime2);
             }
             Bookmark bookmarkConstructionManagerName = doc.Range.Bookmarks["ConstructionManagerName"];
             if (bookmarkConstructionManagerName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.ConstructionManagerId))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.ConstructionManagerId))
+                    var getUser = UserService.GetUserByUserId(getRectify.ConstructionManagerId);
+                    if (getUser != null)
                     {
-                        
-                        var getUser = UserService.GetUserByUserId(getRectify.ConstructionManagerId);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("ConstructionManagerName");
-                                builders.InsertImage(file, 80, 20);
-                            }
-                            else
-                            {
-                                bookmarkConstructionManagerName.Text = getUser.UserName;
-                            }
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("ConstructionManagerName");
+                            builders.InsertImage(file, 80, 20);
+                        }
+                        else
+                        {
+                            bookmarkConstructionManagerName.Text = getUser.UserName;
                         }
                     }
-
                 }
             }
             Bookmark bookmarkConstructionManagerTime = doc.Range.Bookmarks["ConstructionManagerTime"];
             if (bookmarkConstructionManagerTime != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkConstructionManagerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ConstructionManagerTime2);
-                }
+                bookmarkConstructionManagerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ConstructionManagerTime2);
             }
             Bookmark bookmarkProjectManagerName = doc.Range.Bookmarks["ProjectManagerName"];
             if (bookmarkProjectManagerName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.ProjectManagerId))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.ProjectManagerId))
+                    var getUser = UserService.GetUserByUserId(getRectify.ProjectManagerId);
+                    if (getUser != null)
                     {
-                        var getUser = UserService.GetUserByUserId(getRectify.ProjectManagerId);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("ProjectManagerName");
-                                builders.InsertImage(file, 80, 20);
-                            }
-                            else
-                            {
-                                bookmarkProjectManagerName.Text = getUser.UserName;
-                            }
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("ProjectManagerName");
+                            builders.InsertImage(file, 80, 20);
+                        }
+                        else
+                        {
+                            bookmarkProjectManagerName.Text = getUser.UserName;
                         }
                     }
-
                 }
             }
             Bookmark bookmarkProjectManagerTime = doc.Range.Bookmarks["ProjectManagerTime"];
             if (bookmarkProjectManagerTime != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkProjectManagerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ProjectManagerTime2);
-                }
+                bookmarkProjectManagerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ProjectManagerTime2);
             }
             Bookmark bookmarkDutyPersonName = doc.Range.Bookmarks["DutyPersonName"];
             if (bookmarkDutyPersonName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.DutyPersonId))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.DutyPersonId))
+                    var getUser = UserService.GetUserByUserId(getRectify.DutyPersonId);
+                    if (getUser != null)
                     {
-                        var getUser = UserService.GetUserByUserId(getRectify.DutyPersonId);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-                                
-                                var file = rootPath + getUser.SignatureUrl;
-                                    DocumentBuilder builders = new DocumentBuilder(doc);
-                                    builders.MoveToBookmark("DutyPersonName");
-                                    builders.InsertImage(file, 80, 20);
-                               
-                            }
-                            else
-                            {
-                                bookmarkDutyPersonName.Text = getUser.UserName;
-                            }
+
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("DutyPersonName");
+                            builders.InsertImage(file, 80, 20);
+
+                        }
+                        else
+                        {
+                            bookmarkDutyPersonName.Text = getUser.UserName;
                         }
                     }
-
                 }
             }
             Bookmark bookmarkDutyPersonTime = doc.Range.Bookmarks["DutyPersonTime"];
             if (bookmarkDutyPersonTime != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkDutyPersonTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.DutyPersonTime);
-                }
+                bookmarkDutyPersonTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.DutyPersonTime);
             }
             //附图
-            
-           
-
             var getItem = from x in Funs.DB.Check_RectifyNoticesItem
-                          where x.RectifyNoticesId == Id
+                          where x.RectifyNoticesId == getRectify.RectifyNoticesId
                           orderby x.RectifyNoticesItemId
                           select x;
             Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
@@ -812,7 +727,12 @@ namespace FineUIPro.Web.HSSE.Check
                 Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            string Id = Grid1.SelectedRowID;
+            var getRectify = BLL.RectifyNoticesService.GetRectifyNoticesById(Grid1.SelectedRowID);
+            if (getRectify == null)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
 
             string rootPath = Server.MapPath("~/");
             string initTemplatePath = string.Empty;
@@ -825,131 +745,71 @@ namespace FineUIPro.Web.HSSE.Check
             filePath = initTemplatePath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
             File.Copy(uploadfilepath, newUrl);
             ///更新书签内容
-            var getRectify = BLL.RectifyNoticesService.GetRectifyNoticesById(Id);
             Document doc = new Aspose.Words.Document(newUrl);
             Bookmark bookmarkProjectName = doc.Range.Bookmarks["ProjectName"];
             if (bookmarkProjectName != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkProjectName.Text = BLL.ProjectService.GetProjectByProjectId(getRectify.ProjectId).ProjectName;
-                }
+                bookmarkProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(getRectify.ProjectId);
             }
             Bookmark IsRectify = doc.Range.Bookmarks["IsRectify"];
             if (IsRectify != null)
             {
-                if (getRectify != null)
-                {
-                    if (getRectify.IsRectify?.ToString() == "True")
-                        IsRectify.Text = "合格";
-                    else
-                        IsRectify.Text = "不合格";
-                }
+                if (getRectify.IsRectify?.ToString() == "True")
+                    IsRectify.Text = "合格";
+                else
+                    IsRectify.Text = "不合格";
             }
             Bookmark bookmarkRectifyNoticesCode = doc.Range.Bookmarks["RectifyNoticesCode"];
             if (bookmarkRectifyNoticesCode != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkRectifyNoticesCode.Text = getRectify.RectifyNoticesCode;
-                }
+                bookmarkRectifyNoticesCode.Text = getRectify.RectifyNoticesCode;
             }
             Bookmark UnitName = doc.Range.Bookmarks["UnitName"];
             if (UnitName != null)
             {
-                if (getRectify != null)
-                {
-                    if (!string.IsNullOrEmpty(getRectify.UnitId))
-                    {
-                        UnitName.Text = BLL.UnitService.GetUnitByUnitId(getRectify.UnitId).UnitName;
-                    }
-
-                }
+                UnitName.Text = BLL.UnitService.GetUnitNameByUnitId(getRectify.UnitId);
             }
             Bookmark bookmarkUnitWorkName = doc.Range.Bookmarks["UnitWorkName"];
             if (bookmarkUnitWorkName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.WorkAreaId))
                 {
-                    string UnitWorkNames = string.Empty;
-                    if (!string.IsNullOrEmpty(getRectify.WorkAreaId))
-                    {
-                        string[] Ids = getRectify.WorkAreaId.ToString().Split(',');
-                        foreach (string t in Ids)
-                        {
-                            var UnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(t);
-                            if (UnitWork != null)
-                            {
-                                UnitWorkNames += UnitWork.UnitWorkName + ",";
-                            }
-                        }
-                        if (UnitWorkNames != string.Empty)
-                        {
-
-                            bookmarkUnitWorkName.Text = UnitWorkNames.Substring(0, UnitWorkNames.Length - 1);
-                        }
-
-                    }
+                    bookmarkUnitWorkName.Text = UnitWorkService.GetUnitWorkName(getRectify.WorkAreaId);
                 }
             }
             Bookmark bookmarkCheckManNames = doc.Range.Bookmarks["CheckManNames"];
             if (bookmarkCheckManNames != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.CheckManIds))
                 {
-                    string CheckNames = string.Empty;
-                    if (!string.IsNullOrEmpty(getRectify.CheckManIds))
-                    {
-
-                        string[] Ids = getRectify.CheckManIds.ToString().Split(',');
-                        foreach (string t in Ids)
-                        {
-                            var User = BLL.UserService.GetUserByUserId(t);
-                            if (User != null)
-                            {
-                                CheckNames += User.UserName + ",";
-                            }
-                        }
-                        if (CheckNames != string.Empty)
-                        {
-
-                            bookmarkCheckManNames.Text = CheckNames.Substring(0, CheckNames.Length - 1);
-                        }
-                    }
-
+                    bookmarkCheckManNames.Text = BLL.UserService.getUserNamesUserIds(getRectify.CheckManIds);
                 }
             }
             Bookmark bookmarkCheckedDate = doc.Range.Bookmarks["CheckedDate"];
             if (bookmarkCheckedDate != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkCheckedDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.CheckedDate);
-                }
+                bookmarkCheckedDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.CheckedDate);
             }
             Bookmark bookmarkHiddenHazardTypeName = doc.Range.Bookmarks["HiddenHazardTypeName"];
             if (bookmarkHiddenHazardTypeName != null)
             {
-                if (getRectify != null)
+                if (getRectify.HiddenHazardType == "2")
                 {
-                    if (getRectify.HiddenHazardType == "1")
-                    {
-                        bookmarkHiddenHazardTypeName.Text = "√一般   ☐较大   ☐重大";
-                    }
-                    else if (getRectify.HiddenHazardType == "2")
-                    {
-                        bookmarkHiddenHazardTypeName.Text = "☐一般   √较大   ☐重大";
-                    }
-                    else if (getRectify.HiddenHazardType == "3")
-                    {
-                        bookmarkHiddenHazardTypeName.Text = "☐一般    ☐较大   √重大";
-                    }
+                    bookmarkHiddenHazardTypeName.Text = "☐一般   √较大   ☐重大";
+                }
+                else if (getRectify.HiddenHazardType == "3")
+                {
+                    bookmarkHiddenHazardTypeName.Text = "☐一般    ☐较大   √重大";
+                }
+                else
+                {
+                    bookmarkHiddenHazardTypeName.Text = "√一般   ☐较大   ☐重大";
                 }
             }
             Bookmark bookmarktab = doc.Range.Bookmarks["tab"];
             if (bookmarktab != null)
             {
-                var ItemList = (from x in Funs.DB.Check_RectifyNoticesItem where x.RectifyNoticesId == Id select x).ToList();
+                var ItemList = (from x in Funs.DB.Check_RectifyNoticesItem where x.RectifyNoticesId == getRectify.RectifyNoticesId select x).ToList();
                 if (ItemList.Count > 0)
                 {
                     for (int i = 1; i <= ItemList.Count; i++)
@@ -958,20 +818,19 @@ namespace FineUIPro.Web.HSSE.Check
                         var att = AttachFileService.GetAttachFile(ItemList[i - 1].RectifyNoticesItemId.ToString() + "#2", BLL.Const.ProjectRectifyNoticesMenuId);
                         if (att != null)
                         {
-
                             List<string> listStr = Funs.GetStrListByStr(att.AttachUrl, ',');
                             if (listStr.Count > 0)
                             {
                                 if (File.Exists(rootPath + listStr[0]))
                                 {
-                                    imgStr = "(详见附图),";
+                                    imgStr = "(详见附图)";
                                 }
                             }
                         }
                         if (ItemList[i - 1].IsRectify?.ToString() == "True")
-                            bookmarktab.Text += i + "." + ItemList[i - 1].RectifyResults + imgStr+"是否合格：合格" + "\r\n";
+                            bookmarktab.Text += i + "." + ItemList[i - 1].RectifyResults + imgStr + "，整改结果：合格。" + "\r\n";
                         else
-                            bookmarktab.Text += i + "." + ItemList[i - 1].RectifyResults + imgStr + "是否合格：不合格" + "\r\n";
+                            bookmarktab.Text += i + "." + ItemList[i - 1].RectifyResults + imgStr + "，整改结果：不合格。" + "\r\n";
                     }
                 }
             }
@@ -979,195 +838,146 @@ namespace FineUIPro.Web.HSSE.Check
             Bookmark bookmarkDutyPersonName = doc.Range.Bookmarks["DutyPersonName"];
             if (bookmarkDutyPersonName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.DutyPersonId))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.DutyPersonId))
+                    var getUser = UserService.GetUserByUserId(getRectify.DutyPersonId);
+                    if (getUser != null)
                     {
-                        var getUser = UserService.GetUserByUserId(getRectify.DutyPersonId);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("DutyPersonName");
-                                builders.InsertImage(file, 80, 20);
-
-                            }
-                            else
-                            {
-                                bookmarkDutyPersonName.Text = getUser.UserName;
-                            }
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("DutyPersonName");
+                            builders.InsertImage(file, 80, 20);
+                        }
+                        else
+                        {
+                            bookmarkDutyPersonName.Text = getUser.UserName;
                         }
                     }
-
                 }
             }
             Bookmark bookmarkDutyPersonTime = doc.Range.Bookmarks["DutyPersonTime"];
             if (bookmarkDutyPersonTime != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkDutyPersonTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.DutyPersonTime);
-                }
+                bookmarkDutyPersonTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.DutyPersonTime);
             }
             Bookmark bookmarkUnitHeadManName = doc.Range.Bookmarks["UnitHeadManName"];
             if (bookmarkUnitHeadManName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.UnitHeadManId))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.UnitHeadManId))
+                    var getUser = UserService.GetUserByUserId(getRectify.UnitHeadManId);
+                    if (getUser != null)
                     {
-                        var getUser = UserService.GetUserByUserId(getRectify.UnitHeadManId);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("UnitHeadManName");
-                                builders.InsertImage(file, 80, 20);
-
-                            }
-                            else
-                            {
-                                bookmarkUnitHeadManName.Text = getUser.UserName;
-                            }
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("UnitHeadManName");
+                            builders.InsertImage(file, 80, 20);
+                        }
+                        else
+                        {
+                            bookmarkUnitHeadManName.Text = getUser.UserName;
                         }
                     }
-
                 }
             }
             Bookmark bookmarkUnitHeadManDate = doc.Range.Bookmarks["UnitHeadManDate"];
             if (bookmarkUnitHeadManDate != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkUnitHeadManDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.UnitHeadManDate);
-                }
+                bookmarkUnitHeadManDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.UnitHeadManDate);
             }
             Bookmark bookmarkReCheckOpinion = doc.Range.Bookmarks["ReCheckOpinion"];
             if (bookmarkReCheckOpinion != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.ReCheckOpinion))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.ReCheckOpinion)) {
-                        bookmarkReCheckOpinion.Text = getRectify.ReCheckOpinion;
-                    }
-                    
+                    bookmarkReCheckOpinion.Text = getRectify.ReCheckOpinion;
                 }
             }
             Bookmark bookmarkCheckPersonName = doc.Range.Bookmarks["CheckPersonName"];
             if (bookmarkCheckPersonName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.CheckPerson))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.CheckPerson))
+                    var getUser = UserService.GetUserByUserId(getRectify.CheckPerson);
+                    if (getUser != null)
                     {
-                        var getUser = UserService.GetUserByUserId(getRectify.CheckPerson);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("CheckPersonName");
-                                builders.InsertImage(file, 80, 20);
-
-                            }
-                            else
-                            {
-                                bookmarkCheckPersonName.Text = getUser.UserName;
-                            }
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("CheckPersonName");
+                            builders.InsertImage(file, 80, 20);
+                        }
+                        else
+                        {
+                            bookmarkCheckPersonName.Text = getUser.UserName;
                         }
                     }
-
                 }
             }
             Bookmark bookmarkReCheckDate = doc.Range.Bookmarks["ReCheckDate"];
             if (bookmarkReCheckDate != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkReCheckDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ReCheckDate);
-                }
+                bookmarkReCheckDate.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ReCheckDate);
             }
             Bookmark bookmarkProfessionalEngineerName = doc.Range.Bookmarks["ProfessionalEngineerName"];
             if (bookmarkProfessionalEngineerName != null)
             {
-                if (getRectify != null)
+                var getUser = UserService.GetUserByUserId(getRectify.ProfessionalEngineerId);
+                if (getUser != null)
                 {
-                    if (!string.IsNullOrEmpty(getRectify.ProfessionalEngineerId))
+                    if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                     {
 
-                        var getUser = UserService.GetUserByUserId(getRectify.ProfessionalEngineerId);
-                        if (getUser != null)
-                        {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
-
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("ProfessionalEngineerName");
-                                builders.InsertImage(file, 80, 20);
-
-                            }
-                            else
-                            {
-                                bookmarkProfessionalEngineerName.Text = getUser.UserName;
-                            }
-                        }
+                        var file = rootPath + getUser.SignatureUrl;
+                        DocumentBuilder builders = new DocumentBuilder(doc);
+                        builders.MoveToBookmark("ProfessionalEngineerName");
+                        builders.InsertImage(file, 80, 20);
                     }
-
+                    else
+                    {
+                        bookmarkProfessionalEngineerName.Text = getUser.UserName;
+                    }
                 }
             }
             Bookmark bookmarkProfessionalEngineerTime = doc.Range.Bookmarks["ProfessionalEngineerTime"];
             if (bookmarkProfessionalEngineerTime != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkProfessionalEngineerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ProfessionalEngineerTime2);
-                }
+                bookmarkProfessionalEngineerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ProfessionalEngineerTime2);
             }
             Bookmark bookmarkConstructionManagerName = doc.Range.Bookmarks["ConstructionManagerName"];
             if (bookmarkConstructionManagerName != null)
             {
-                if (getRectify != null)
+                if (!string.IsNullOrEmpty(getRectify.ConstructionManagerId))
                 {
-                    if (!string.IsNullOrEmpty(getRectify.ConstructionManagerId))
+
+                    var getUser = UserService.GetUserByUserId(getRectify.ConstructionManagerId);
+                    if (getUser != null)
                     {
-
-                        var getUser = UserService.GetUserByUserId(getRectify.ConstructionManagerId);
-                        if (getUser != null)
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
-                            {
 
-                                var file = rootPath + getUser.SignatureUrl;
-                                DocumentBuilder builders = new DocumentBuilder(doc);
-                                builders.MoveToBookmark("ConstructionManagerName");
-                                builders.InsertImage(file, 80, 20);
+                            var file = rootPath + getUser.SignatureUrl;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark("ConstructionManagerName");
+                            builders.InsertImage(file, 80, 20);
 
-                            }
-                            else
-                            {
-                                bookmarkConstructionManagerName.Text = getUser.UserName;
-                            }
+                        }
+                        else
+                        {
+                            bookmarkConstructionManagerName.Text = getUser.UserName;
                         }
                     }
-
                 }
             }
             Bookmark bookmarkConstructionManagerTime = doc.Range.Bookmarks["ConstructionManagerTime"];
             if (bookmarkConstructionManagerTime != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkConstructionManagerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ConstructionManagerTime2);
-                }
+                bookmarkConstructionManagerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ConstructionManagerTime2);
             }
             Bookmark bookmarkProjectManagerName = doc.Range.Bookmarks["ProjectManagerName"];
             if (bookmarkProjectManagerName != null)
@@ -1181,7 +991,6 @@ namespace FineUIPro.Web.HSSE.Check
                         {
                             if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
-
                                 var file = rootPath + getUser.SignatureUrl;
                                 DocumentBuilder builders = new DocumentBuilder(doc);
                                 builders.MoveToBookmark("ProjectManagerName");
@@ -1200,16 +1009,11 @@ namespace FineUIPro.Web.HSSE.Check
             Bookmark bookmarkProjectManagerTime = doc.Range.Bookmarks["ProjectManagerTime"];
             if (bookmarkProjectManagerTime != null)
             {
-                if (getRectify != null)
-                {
-                    bookmarkProjectManagerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ProjectManagerTime2);
-                }
+                bookmarkProjectManagerTime.Text = string.Format("{0:yyyy-MM-dd}", getRectify.ProjectManagerTime2);
             }
             //附图
-            
-
             var getItem = from x in Funs.DB.Check_RectifyNoticesItem
-                          where x.RectifyNoticesId == Id
+                          where x.RectifyNoticesId == getRectify.RectifyNoticesId
                           orderby x.RectifyNoticesItemId
                           select x;
             Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
@@ -1244,7 +1048,8 @@ namespace FineUIPro.Web.HSSE.Check
                         {
 
                             string url = rootPath + urlItem;
-                            if (File.Exists(url)) {
+                            if (File.Exists(url))
+                            {
                                 builder.InsertImage(url, 205, 205);
                                 builder.Font.Size = 8;
                                 builder.Write("图" + j);
@@ -1252,14 +1057,9 @@ namespace FineUIPro.Web.HSSE.Check
                                 j++;
                                 flag = true;
                             }
-                            
                         }
-
-
                     }
-                    
                 }
-
             }
             if (!flag)
             {

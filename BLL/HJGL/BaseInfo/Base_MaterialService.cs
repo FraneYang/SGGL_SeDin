@@ -1,6 +1,7 @@
 ﻿using Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace BLL
 {
@@ -106,5 +107,17 @@ namespace BLL
             }
         }
         #endregion
+
+
+        public static ListItem[] GetMaterialListItem()
+        {
+            var list = (from x in Funs.DB.Base_Material orderby x.MaterialCode select x).ToList();
+            ListItem[] item = new ListItem[list.Count()];
+            for (int i = 0; i < list.Count(); i++)
+            {
+                item[i] = new ListItem(list[i].MaterialCode ?? "", list[i].MaterialId);
+            }
+            return item;
+        }
     }
 }

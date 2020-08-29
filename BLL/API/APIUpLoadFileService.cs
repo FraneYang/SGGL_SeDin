@@ -133,25 +133,22 @@ namespace BLL
 
         public static void SaveAttachUrl(string menuId, string dataId, string url, string isInsert)
         {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            ////保存附件
+            if (!string.IsNullOrEmpty(url))
             {
-                ////保存附件
-                if (!string.IsNullOrEmpty(url))
+                if (isInsert == "1")
                 {
-                    if (isInsert == "1")
+                    var att = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == dataId);
+                    if (att != null)
                     {
-                        var att = db.AttachFile.FirstOrDefault(x => x.ToKeyId == dataId);
-                        if (att != null)
-                        {
-                            url = att.AttachUrl + "," + url;
-                        }
+                        url = att.AttachUrl + "," + url;
                     }
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(url, 10, null), url, menuId, dataId);
                 }
-                else
-                {
-                    CommonService.DeleteAttachFileById(dataId);
-                }
+                UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(url, 10, null), url, menuId, dataId);
+            }
+            else
+            {
+                CommonService.DeleteAttachFileById(dataId);
             }
         }
 

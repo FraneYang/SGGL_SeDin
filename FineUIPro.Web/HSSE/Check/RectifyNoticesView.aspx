@@ -54,9 +54,9 @@
                         <f:FormRow>
                             <Items>
                                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" EnableColumnLines="true"
-                                    runat="server" BoxFlex="1" DataKeyNames="RectifyNoticesItemId" DataIDField="RectifyNoticesItemId"
+                                    runat="server" BoxFlex="1" DataKeyNames="RectifyNoticesItemId" DataIDField="RectifyNoticesItemId"  PageSize="500"
                                     AllowSorting="true" SortField="RectifyNoticesItemId" SortDirection="ASC" EnableTextSelection="True"
-                                    Height="300px" >
+                                    MinHeight="300px" >
                                     <Columns>
                                         <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
                                             <ItemTemplate>

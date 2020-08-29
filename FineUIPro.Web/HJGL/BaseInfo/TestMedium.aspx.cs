@@ -191,13 +191,13 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                     foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                     {
                         string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                        var getMedium = BLL.Base_MediumService.GetMediumByMediumId(rowID);
+                        var getMedium = BLL.Base_TestMediumService.GetTestMediumById(rowID);
                         if (getMedium != null)
                         {
                             string cont = judgementDelete(rowID);
                             if (string.IsNullOrEmpty(cont))
                             {
-                                BLL.Base_MediumService.DeleteMediumByMediumId(rowID);
+                                BLL.Base_TestMediumService.DeleteTestMediumByMediumId(rowID);
                                 //BLL.Sys_LogService.AddLog(Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_MediumMenuId, Const.BtnDelete, rowID);
                             }
                             else

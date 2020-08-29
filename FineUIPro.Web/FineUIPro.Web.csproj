@@ -366,6 +366,13 @@
     <Content Include="HJGL\HotProcessHard\HotProessTrust.aspx" />
     <Content Include="HJGL\HotProcessHard\HotProessTrustEdit.aspx" />
     <Content Include="HJGL\HotProcessHard\HotProessTrustItemEdit.aspx" />
+    <Content Include="HJGL\LeakVacuum\LeakVacuumAudit.aspx" />
+    <Content Include="HJGL\LeakVacuum\LeakVacuumComplete.aspx" />
+    <Content Include="HJGL\LeakVacuum\LeakVacuumEdit.aspx" />
+    <Content Include="HJGL\LeakVacuum\LeakVacuumItemEdit.aspx" />
+    <Content Include="HJGL\LeakVacuum\LV_ItemEndCheck.aspx" />
+    <Content Include="HJGL\LeakVacuum\LV_ItemEndCheckEdit.aspx" />
+    <Content Include="HJGL\LeakVacuum\SelectPipeline.aspx" />
     <Content Include="HJGL\NDT\NDTBatch.aspx" />
     <Content Include="HJGL\NDT\NDTBatchEdit.aspx" />
     <Content Include="HJGL\NDT\RepairNotice.aspx" />
@@ -383,12 +390,24 @@
     <Content Include="HJGL\PointTrust\PointAudit.aspx" />
     <Content Include="HJGL\PointTrust\PointBatch.aspx" />
     <Content Include="HJGL\PointTrust\TrustBatch.aspx" />
+    <Content Include="HJGL\PurgingCleaning\PC_ItemEndCheck.aspx" />
+    <Content Include="HJGL\PurgingCleaning\PC_ItemEndCheckEdit.aspx" />
+    <Content Include="HJGL\PurgingCleaning\PurgingCleaningAudit.aspx" />
+    <Content Include="HJGL\PurgingCleaning\PurgingCleaningComplete.aspx" />
+    <Content Include="HJGL\PurgingCleaning\PurgingCleaningEdit.aspx" />
+    <Content Include="HJGL\PurgingCleaning\PurgingCleaningItemEdit.aspx" />
+    <Content Include="HJGL\PurgingCleaning\SelectPipeline.aspx" />
     <Content Include="HJGL\RepairAndExpand\RepairAndExpand.aspx" />
     <Content Include="HJGL\RepairAndExpand\SeeFilm.aspx" />
-    <Content Include="HJGL\TestPackage\AItemEndCheck.aspx" />
     <Content Include="HJGL\TestPackage\BItemEndCheck.aspx" />
+    <Content Include="HJGL\TestPackage\ItemEndCheck.aspx" />
+    <Content Include="HJGL\TestPackage\ItemEndCheckEdit.aspx" />
+    <Content Include="HJGL\TestPackage\ItemEndCheckEdit2.aspx" />
+    <Content Include="HJGL\TestPackage\ItemEndCheckView.aspx" />
+    <Content Include="HJGL\TestPackage\SelectPipeline.aspx" />
     <Content Include="HJGL\TestPackage\TestPackageAudit.aspx" />
     <Content Include="HJGL\TestPackage\TestPackageComplete.aspx" />
+    <Content Include="HJGL\TestPackage\TestPackageCompleteEdit.aspx" />
     <Content Include="HJGL\TestPackage\TestPackageEdit.aspx" />
     <Content Include="HJGL\TestPackage\TestPackageItemEdit.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineEdit.aspx" />
@@ -6220,6 +6239,55 @@
     <Compile Include="HJGL\HotProcessHard\HotProessTrustItemEdit.aspx.designer.cs">
       <DependentUpon>HotProessTrustItemEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumAudit.aspx.cs">
+      <DependentUpon>LeakVacuumAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumAudit.aspx.designer.cs">
+      <DependentUpon>LeakVacuumAudit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumComplete.aspx.cs">
+      <DependentUpon>LeakVacuumComplete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumComplete.aspx.designer.cs">
+      <DependentUpon>LeakVacuumComplete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumEdit.aspx.cs">
+      <DependentUpon>LeakVacuumEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumEdit.aspx.designer.cs">
+      <DependentUpon>LeakVacuumEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumItemEdit.aspx.cs">
+      <DependentUpon>LeakVacuumItemEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LeakVacuumItemEdit.aspx.designer.cs">
+      <DependentUpon>LeakVacuumItemEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LV_ItemEndCheck.aspx.cs">
+      <DependentUpon>LV_ItemEndCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LV_ItemEndCheck.aspx.designer.cs">
+      <DependentUpon>LV_ItemEndCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LV_ItemEndCheckEdit.aspx.cs">
+      <DependentUpon>LV_ItemEndCheckEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\LV_ItemEndCheckEdit.aspx.designer.cs">
+      <DependentUpon>LV_ItemEndCheckEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\SelectPipeline.aspx.cs">
+      <DependentUpon>SelectPipeline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\LeakVacuum\SelectPipeline.aspx.designer.cs">
+      <DependentUpon>SelectPipeline.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\NDT\NDTBatch.aspx.cs">
       <DependentUpon>NDTBatch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6339,6 +6407,55 @@
     <Compile Include="HJGL\PointTrust\TrustBatch.aspx.designer.cs">
       <DependentUpon>TrustBatch.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PC_ItemEndCheck.aspx.cs">
+      <DependentUpon>PC_ItemEndCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PC_ItemEndCheck.aspx.designer.cs">
+      <DependentUpon>PC_ItemEndCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PC_ItemEndCheckEdit.aspx.cs">
+      <DependentUpon>PC_ItemEndCheckEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PC_ItemEndCheckEdit.aspx.designer.cs">
+      <DependentUpon>PC_ItemEndCheckEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningAudit.aspx.cs">
+      <DependentUpon>PurgingCleaningAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningAudit.aspx.designer.cs">
+      <DependentUpon>PurgingCleaningAudit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningComplete.aspx.cs">
+      <DependentUpon>PurgingCleaningComplete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningComplete.aspx.designer.cs">
+      <DependentUpon>PurgingCleaningComplete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningEdit.aspx.cs">
+      <DependentUpon>PurgingCleaningEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningEdit.aspx.designer.cs">
+      <DependentUpon>PurgingCleaningEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningItemEdit.aspx.cs">
+      <DependentUpon>PurgingCleaningItemEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\PurgingCleaningItemEdit.aspx.designer.cs">
+      <DependentUpon>PurgingCleaningItemEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\SelectPipeline.aspx.cs">
+      <DependentUpon>SelectPipeline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\PurgingCleaning\SelectPipeline.aspx.designer.cs">
+      <DependentUpon>SelectPipeline.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\RepairAndExpand\RepairAndExpand.aspx.cs">
       <DependentUpon>RepairAndExpand.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6353,19 +6470,47 @@
     <Compile Include="HJGL\RepairAndExpand\SeeFilm.aspx.designer.cs">
       <DependentUpon>SeeFilm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HJGL\TestPackage\AItemEndCheck.aspx.cs">
-      <DependentUpon>AItemEndCheck.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HJGL\TestPackage\AItemEndCheck.aspx.designer.cs">
-      <DependentUpon>AItemEndCheck.aspx</DependentUpon>
-    </Compile>
     <Compile Include="HJGL\TestPackage\BItemEndCheck.aspx.cs">
       <DependentUpon>BItemEndCheck.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="HJGL\TestPackage\BItemEndCheck.aspx.designer.cs">
       <DependentUpon>BItemEndCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\ItemEndCheck.aspx.cs">
+      <DependentUpon>ItemEndCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\ItemEndCheck.aspx.designer.cs">
+      <DependentUpon>ItemEndCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\ItemEndCheckEdit.aspx.cs">
+      <DependentUpon>ItemEndCheckEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\ItemEndCheckEdit.aspx.designer.cs">
+      <DependentUpon>ItemEndCheckEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\ItemEndCheckEdit2.aspx.cs">
+      <DependentUpon>ItemEndCheckEdit2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\ItemEndCheckEdit2.aspx.designer.cs">
+      <DependentUpon>ItemEndCheckEdit2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\ItemEndCheckView.aspx.cs">
+      <DependentUpon>ItemEndCheckView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\ItemEndCheckView.aspx.designer.cs">
+      <DependentUpon>ItemEndCheckView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\SelectPipeline.aspx.cs">
+      <DependentUpon>SelectPipeline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\SelectPipeline.aspx.designer.cs">
+      <DependentUpon>SelectPipeline.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\TestPackage\TestPackageAudit.aspx.cs">
       <DependentUpon>TestPackageAudit.aspx</DependentUpon>
@@ -6380,6 +6525,13 @@
     </Compile>
     <Compile Include="HJGL\TestPackage\TestPackageComplete.aspx.designer.cs">
       <DependentUpon>TestPackageComplete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\TestPackageCompleteEdit.aspx.cs">
+      <DependentUpon>TestPackageCompleteEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\TestPackage\TestPackageCompleteEdit.aspx.designer.cs">
+      <DependentUpon>TestPackageCompleteEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\TestPackage\TestPackageEdit.aspx.cs">
       <DependentUpon>TestPackageEdit.aspx</DependentUpon>

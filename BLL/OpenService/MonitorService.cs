@@ -42,7 +42,7 @@ namespace BLL
                 AutoReset = true
             };
             messageTimer.Elapsed += new ElapsedEventHandler(AdUserInProcess);
-            messageTimer.Interval = 1000 * 60 * 90;// 60分钟 60000 * adTimeJ;
+            messageTimer.Interval = 1000 * 60 * 120;// 60分钟 60000 * adTimeJ;
             messageTimer.Start();
         }
 

@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <link href="~/res/css/common.css" rel="stylesheet" type="text/css" />    
+    <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />    
     <script type="text/javascript" src="../../Controls/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
@@ -73,7 +73,7 @@
                                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" AllowCellEditing="true" ClicksToEdit="1" 
                                     ForceFit="true" EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true" runat="server" BoxFlex="1"
                                     DataKeyNames="RectifyNoticesItemId,IsRectify" DataIDField="RectifyNoticesItemId" AllowSorting="true" SortField="RectifyNoticesItemId"
-                                    SortDirection="ASC" EnableTextSelection="True" Height="240px"
+                                    SortDirection="ASC" EnableTextSelection="True" MinHeight="240px" PageSize="500"
                                     EnableRowDoubleClickEvent="true" OnRowCommand="Grid1_RowCommand" OnRowDataBound="Grid1_RowDataBound">
                                     <Toolbars>
                                         <f:Toolbar ID="toolAdd" Position="Top" ToolbarAlign="Right" runat="server">

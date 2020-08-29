@@ -10,16 +10,7 @@
 namespace FineUIPro.Web.HJGL.TestPackage {
     
     
-    public partial class AItemEndCheck {
-        
-        /// <summary>
-        /// Head1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
+    public partial class ItemEndCheckEdit {
         
         /// <summary>
         /// form1 控件。
@@ -49,13 +40,13 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.Panel Panel1;
         
         /// <summary>
-        /// panelLeftRegion 控件。
+        /// Grid1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel panelLeftRegion;
+        protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -67,67 +58,22 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.Toolbar Toolbar1;
         
         /// <summary>
-        /// txtSearchDate 控件。
+        /// txtTestPackageNo 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtSearchDate;
+        protected global::FineUIPro.Label txtTestPackageNo;
         
         /// <summary>
-        /// tvControlItem 控件。
+        /// txtTestPackageName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Tree tvControlItem;
-        
-        /// <summary>
-        /// panelCenterRegion 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Panel panelCenterRegion;
-        
-        /// <summary>
-        /// Grid1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Grid Grid1;
-        
-        /// <summary>
-        /// Toolbar5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar5;
-        
-        /// <summary>
-        /// btnNew 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnNew;
-        
-        /// <summary>
-        /// btnDelete 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnDelete;
+        protected global::FineUIPro.Label txtTestPackageName;
         
         /// <summary>
         /// btnSave 控件。
@@ -139,6 +85,24 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.Button btnSave;
         
         /// <summary>
+        /// btnSubmit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnSubmit;
+        
+        /// <summary>
+        /// Label2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// txtRemark 控件。
         /// </summary>
         /// <remarks>
@@ -148,39 +112,84 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.TextBox txtRemark;
         
         /// <summary>
-        /// txtCheckMan 控件。
+        /// drpItemType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckMan;
+        protected global::System.Web.UI.WebControls.DropDownList drpItemType;
         
         /// <summary>
-        /// txtCheckDate 控件。
+        /// hdItemType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtCheckDate;
+        protected global::System.Web.UI.WebControls.HiddenField hdItemType;
         
         /// <summary>
-        /// txtDealMan 控件。
+        /// ContentPanel5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtDealMan;
+        protected global::FineUIPro.ContentPanel ContentPanel5;
         
         /// <summary>
-        /// txtDealDate 控件。
+        /// Form5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtDealDate;
+        protected global::FineUIPro.Form Form5;
+        
+        /// <summary>
+        /// drpHandleType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpHandleType;
+        
+        /// <summary>
+        /// drpHandleMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpHandleMan;
+        
+        /// <summary>
+        /// gvFlowOperate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid gvFlowOperate;
+        
+        /// <summary>
+        /// Label1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// Label3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
     }
 }

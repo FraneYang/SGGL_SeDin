@@ -544,7 +544,7 @@ namespace BLL
 
                 if (!string.IsNullOrEmpty(personQuality.AuditDate) && string.IsNullOrEmpty(personQuality.AuditorId))
                 {
-                    APICommonService.SendSubscribeMessage(personQuality.AuditorId, "人员资质" + personQuality.PersonName + "待您审核", personQuality.CompileManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                    APICommonService.SendSubscribeMessage(personQuality.AuditorId, "人员资质待您审核", personQuality.CompileManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
             }
         }

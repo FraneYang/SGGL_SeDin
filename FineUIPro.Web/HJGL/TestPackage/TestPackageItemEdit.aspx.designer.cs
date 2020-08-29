@@ -103,24 +103,6 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.DropDownList drpUnitWork;
         
         /// <summary>
-        /// drpTabler 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpTabler;
-        
-        /// <summary>
-        /// txtTableDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtTableDate;
-        
-        /// <summary>
         /// txtRemark 控件。
         /// </summary>
         /// <remarks>
@@ -130,130 +112,13 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.TextBox txtRemark;
         
         /// <summary>
-        /// panel4 控件。
+        /// txtadjustTestPressure 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel panel4;
-        
-        /// <summary>
-        /// Form2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form2;
-        
-        /// <summary>
-        /// drpInstallationSpecification 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpInstallationSpecification;
-        
-        /// <summary>
-        /// drpPressureTest 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpPressureTest;
-        
-        /// <summary>
-        /// drpWorkRecord 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpWorkRecord;
-        
-        /// <summary>
-        /// drpNDTConform 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpNDTConform;
-        
-        /// <summary>
-        /// drpHotConform 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpHotConform;
-        
-        /// <summary>
-        /// drpInstallationCorrectness 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpInstallationCorrectness;
-        
-        /// <summary>
-        /// drpMarkClearly 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpMarkClearly;
-        
-        /// <summary>
-        /// drpIsolationOpening 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpIsolationOpening;
-        
-        /// <summary>
-        /// drpConstructionPlanAsk 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpConstructionPlanAsk;
-        
-        /// <summary>
-        /// drpCover 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpCover;
-        
-        /// <summary>
-        /// drpMeetRequirements 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpMeetRequirements;
-        
-        /// <summary>
-        /// drpStainlessTestWater 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpStainlessTestWater;
+        protected global::FineUIPro.TextBox txtadjustTestPressure;
         
         /// <summary>
         /// panel3 控件。
@@ -274,40 +139,22 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.Toolbar Toolbar1;
         
         /// <summary>
-        /// drpPipingClass 控件。
+        /// ToolbarFill1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpPipingClass;
+        protected global::FineUIPro.ToolbarFill ToolbarFill1;
         
         /// <summary>
-        /// drpTestMedium 控件。
+        /// hdPipelinesId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpTestMedium;
-        
-        /// <summary>
-        /// numTestPressure 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.NumberBox numTestPressure;
-        
-        /// <summary>
-        /// numTo 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.NumberBox numTo;
+        protected global::FineUIPro.HiddenField hdPipelinesId;
         
         /// <summary>
         /// btnFind 控件。
@@ -346,6 +193,60 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
+        /// txtAmbientTemperature 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtAmbientTemperature;
+        
+        /// <summary>
+        /// drpTestMedium 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpTestMedium;
+        
+        /// <summary>
+        /// hdTestMedium 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdTestMedium;
+        
+        /// <summary>
+        /// txtTestMediumTemperature 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTestMediumTemperature;
+        
+        /// <summary>
+        /// NumberBox1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox NumberBox1;
+        
+        /// <summary>
+        /// txtHoldingTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtHoldingTime;
+        
+        /// <summary>
         /// ToolbarSeparator1 控件。
         /// </summary>
         /// <remarks>
@@ -373,6 +274,15 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.DropDownList ddlPageSize;
         
         /// <summary>
+        /// Window1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window Window1;
+        
+        /// <summary>
         /// Menu1 控件。
         /// </summary>
         /// <remarks>
@@ -382,21 +292,12 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.Menu Menu1;
         
         /// <summary>
-        /// btnAllSelect 控件。
+        /// btnMenuDelete 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnAllSelect;
-        
-        /// <summary>
-        /// btnNoSelect 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnNoSelect;
+        protected global::FineUIPro.MenuButton btnMenuDelete;
     }
 }

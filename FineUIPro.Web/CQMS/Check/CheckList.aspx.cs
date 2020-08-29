@@ -220,7 +220,7 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     else if (Convert.ToDateTime(checkControl.LimitDate).AddDays(1) < DateTime.Now)  //延期未整改
                     {
-                        Grid1.Rows[i].CellCssClasses[11] = "HotPink";
+                        Grid1.Rows[i].CellCssClasses[11] = "Red";
                     }
                     else  //期内未整改
                     {
