@@ -51,11 +51,36 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIMeetingService.getMeetingByProjectIdStates(projectId, meetingType, states);
-                int pageCount = getDataList.Count();
+                List<Model.MeetingItem> getDataList = new List<Model.MeetingItem>();
+                int pageCount = 0;
+                if (meetingType == "C")
+                {
+                    pageCount = Funs.DB.Meeting_ClassMeeting.Count(x => x.ProjectId == projectId
+                                   && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2"))));
+                }
+                else if (meetingType == "W")
+                {
+                    pageCount = Funs.DB.Meeting_WeekMeeting.Count(x => x.ProjectId == projectId
+                                    && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2"))));
+                }
+                else if (meetingType == "M")
+                {
+                    pageCount = Funs.DB.Meeting_MonthMeeting.Count(x => x.ProjectId == projectId
+                                       && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2"))));
+                }
+                else if (meetingType == "S")
+                {
+                    pageCount = Funs.DB.Meeting_SpecialMeeting.Count(x => x.ProjectId == projectId
+                                         && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2"))));
+                }
+                else
+                {
+                    pageCount = Funs.DB.Meeting_AttendMeeting.Count(x => x.ProjectId == projectId
+                                            && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2"))));
+                }
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                    getDataList = APIMeetingService.getMeetingByProjectIdStates(projectId, meetingType, states, pageIndex);
                 }
                 responeData.data = new { pageCount, getDataList };
             }

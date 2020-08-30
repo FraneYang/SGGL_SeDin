@@ -29,14 +29,14 @@ namespace BLL
         /// <param name="projectId"></param>
         /// <param name="states"></param>
         /// <returns></returns>
-        public static List<Model.HazardRegisterItem> getHazardRegisterByProjectIdStates(string projectId, string states)
+        public static List<Model.HazardRegisterItem> getHazardRegisterByProjectIdStates(string projectId, string states, int pageIndex)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var hazardRegisters = (from x in db.View_Hazard_HazardRegister
                                        where x.ProjectId == projectId && (x.States == states || states == null)
-                                       orderby x.RegisterDate descending
-                                       select x).ToList();
+                                       orderby x.CheckTime descending
+                                       select x).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_Hazard_HazardRegister>, List<Model.HazardRegisterItem>>().Map(hazardRegisters.ToList());
             }
         }

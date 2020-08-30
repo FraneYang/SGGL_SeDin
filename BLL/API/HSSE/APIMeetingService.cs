@@ -196,7 +196,7 @@ namespace BLL
         /// <param name="meetingType">会议类型(C-班前会；W-周例会；M-例会；S-专题例会；A-其他会议)</param>
         /// <param name="states">状态（0-待提交；1-已提交）</param>
         /// <returns></returns>
-        public static List<Model.MeetingItem> getMeetingByProjectIdStates(string projectId, string meetingType, string states)
+        public static List<Model.MeetingItem> getMeetingByProjectIdStates(string projectId, string meetingType, string states,int pageIndex)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -229,7 +229,7 @@ namespace BLL
                                        CompileManName = db.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                        AttentPersonNum = x.AttentPersonNum ?? 0,
                                        AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.ClassMeetingId).AttachUrl.Replace('\\', '/'),
-                                   }).ToList();
+                                   }).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 else if (meetingType == "W")
                 {
@@ -259,7 +259,7 @@ namespace BLL
                                        MeetingHostManId = x.MeetingHostManId,
                                        MeetingHostManName = db.Sys_User.First(z => z.UserId == x.MeetingHostManId).UserName,
                                        AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.WeekMeetingId).AttachUrl.Replace('\\', '/'),
-                                   }).ToList();
+                                   }).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 else if (meetingType == "M")
                 {
@@ -289,7 +289,7 @@ namespace BLL
                                        MeetingHostManId = x.MeetingHostManId,
                                        MeetingHostManName = db.Sys_User.First(z => z.UserId == x.MeetingHostManId).UserName,
                                        AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.MonthMeetingId).AttachUrl.Replace('\\', '/'),
-                                   }).ToList();
+                                   }).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 else if (meetingType == "S")
                 {
@@ -319,7 +319,7 @@ namespace BLL
                                        MeetingHostManId = x.MeetingHostManId,
                                        MeetingHostManName = db.Sys_User.First(z => z.UserId == x.MeetingHostManId).UserName,
                                        AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.SpecialMeetingId).AttachUrl.Replace('\\', '/'),
-                                   }).ToList();
+                                   }).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 else
                 {
@@ -349,7 +349,7 @@ namespace BLL
                                        MeetingHostManId = x.MeetingHostManId,
                                        MeetingHostManName = db.Sys_User.First(z => z.UserId == x.MeetingHostManId).UserName,
                                        AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.AttendMeetingId).AttachUrl.Replace('\\', '/'),
-                                   }).ToList();
+                                   }).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 return getMeetItem;
             }

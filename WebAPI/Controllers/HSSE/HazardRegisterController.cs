@@ -1,5 +1,6 @@
 ﻿using BLL;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -46,12 +47,11 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = BLL.APIHazardRegisterService.getHazardRegisterByProjectIdStates(projectId, states);
-                int pageCount = getDataList.Count();
+                List<Model.HazardRegisterItem> getDataList = new List<Model.HazardRegisterItem>();
+                int pageCount = Funs.DB.HSSE_Hazard_HazardRegister.Count(x => x.ProjectId == projectId && (x.States == states || states == null));
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    getDataList = getDataList.OrderByDescending(u => u.CheckTime).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize).ToList();
-                   
+                    getDataList = APIHazardRegisterService.getHazardRegisterByProjectIdStates(projectId, states, pageIndex);
                 }
                 responeData.data = new { pageCount, getDataList };
             }
@@ -77,7 +77,7 @@ namespace WebAPI.Controllers
             try
             {
                 //总数
-                var getDataList = new Model.SGGLDB(Funs.ConnString).HSSE_Hazard_HazardRegister.Where(x => x.ProjectId == projectId);
+                var getDataList = Funs.DB.HSSE_Hazard_HazardRegister.Where(x => x.ProjectId == projectId);
                 int tatalCount = getDataList.Count();
                 //待整改
                 int count1 = getDataList.Where(x => x.States == "1").Count();

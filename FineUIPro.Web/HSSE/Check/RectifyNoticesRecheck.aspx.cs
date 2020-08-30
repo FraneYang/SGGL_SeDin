@@ -255,14 +255,17 @@ namespace FineUIPro.Web.HSSE.Check
                         getRectifyNotices.States = Const.State_5;
                         getRectifyNotices.ReCheckDate = DateTime.Now;                        
                         //// 回写专项检查明细表                            
-                        var getcheck = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(getRectifyNotices.RectifyNoticesId));
-                        if (getcheck != null)
+                        var getcheck = Funs.DB.Check_CheckSpecialDetail.Where(x => x.DataId.Contains(getRectifyNotices.RectifyNoticesId));
+                        if (getcheck.Count() > 0)
                         {
-                            getcheck.CompleteStatus = true;
-                            getcheck.CompletedDate = DateTime.Now;
-                            Funs.DB.SubmitChanges();
+                            foreach (var item in getcheck)
+                            {
+                                item.CompleteStatus = true;
+                                item.CompletedDate = DateTime.Now;
+                                Funs.DB.SubmitChanges();
+                            }
                             //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
-                            Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
+                            Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.FirstOrDefault().CheckSpecialId);
                         }
                     }
                     else

@@ -166,9 +166,9 @@ namespace BLL
         /// <param name="projectId"></param>
         /// <param name="states"></param>
         /// <returns></returns>
-        public static List<Model.RectifyNoticesItem> getRectifyNoticesByProjectIdStates(string projectId, string states)
+        public static List<Model.RectifyNoticesItem> getRectifyNoticesByProjectIdStates(string projectId, string states, int pageIndex)
         {
-            var getDataLists =Funs.DB.SP_RectifyNoticesListByProjectStates(projectId, states);
+            var getDataLists =Funs.DB.SP_RectifyNoticesListByProjectStates(projectId, states,pageIndex,Funs.PageSize);
              return getDataLists.ToList();
         }
         #endregion
@@ -211,7 +211,7 @@ namespace BLL
                 //// 新增整改单
                 var isUpdate = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == newRectifyNotices.RectifyNoticesId);
                 if (isUpdate == null)
-                {                   
+                {
                     newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();
                     newRectifyNotices.Isprint = "0";
                     newRectifyNotices.Isprintf = "0";
@@ -235,7 +235,7 @@ namespace BLL
                         APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticesMenuId, newRectifyNotices.RectifyNoticesId, rectifyNotices.AttachUrl, "0");
                     }
                     insertRectifyNoticesItemItem = true;
-                   
+
                     //// 回写巡检记录表
                     if (!string.IsNullOrEmpty(rectifyNotices.HazardRegisterId))
                     {
@@ -286,7 +286,7 @@ namespace BLL
                     var oldStates = isUpdate.States;
                     newRectifyNotices.RectifyNoticesId = isUpdate.RectifyNoticesId;
                     isUpdate.States = rectifyNotices.States;
-                    if (oldStates =="0" && ( newRectifyNotices.States == "0" || newRectifyNotices.States == "1") ) ////编制人 修改或提交
+                    if (oldStates == "0" && (newRectifyNotices.States == "0" || newRectifyNotices.States == "1")) ////编制人 修改或提交
                     {
                         isUpdate.UnitId = rectifyNotices.UnitId;
                         isUpdate.WorkAreaId = rectifyNotices.WorkAreaId;
@@ -300,7 +300,7 @@ namespace BLL
                         }
                         else
                         {
-                            newRectifyNotices.States= isUpdate.States = "0";
+                            newRectifyNotices.States = isUpdate.States = "0";
                         }
                         db.SubmitChanges();
                         //// 删除明细表
@@ -325,7 +325,7 @@ namespace BLL
                         }
                         else
                         {
-                       
+
                             if (!string.IsNullOrEmpty(rectifyNotices.ProfessionalEngineerId))
                             {
                                 isUpdate.ProfessionalEngineerId = rectifyNotices.ProfessionalEngineerId;
@@ -348,7 +348,7 @@ namespace BLL
                                 newRectifyNotices.States = isUpdate.States = "1";
                             }
                         }
-                        db.SubmitChanges();                       
+                        db.SubmitChanges();
                     }
                     else if (oldStates == "2" && newRectifyNotices.States == "3") /// 施工单位项目安全经理 整改 提交施工单位项目负责人
                     {
@@ -440,20 +440,23 @@ namespace BLL
                             isUpdate.ProjectManagerTime2 = null;
                         }
                         else
-                        {                         
+                        {
                             isUpdate.ReCheckDate = DateTime.Now;
                             //// 回写专项检查明细表                            
-                            var getcheck = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.DataId.Contains(isUpdate.RectifyNoticesId));
-                            if (getcheck != null)
+                            var getcheck = db.Check_CheckSpecialDetail.Where(x => x.DataId.Contains(isUpdate.RectifyNoticesId));
+                            if (getcheck.Count() > 0)
                             {
-                                getcheck.CompleteStatus = true;
-                                getcheck.CompletedDate = DateTime.Now;
-                                db.SubmitChanges();
+                                foreach (var item in getcheck)
+                                {
+                                    item.CompleteStatus = true;
+                                    item.CompletedDate = DateTime.Now;
+                                    db.SubmitChanges();
+                                }
                                 //// 根据明细ID判断是否全部整改完成 并更新专项检查状态
-                                Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.CheckSpecialId);
+                                Check_CheckSpecialService.UpdateCheckSpecialStates(getcheck.FirstOrDefault().CheckSpecialId);
                             }
                         }
-                        db.SubmitChanges();                        
+                        db.SubmitChanges();
                     }
                 }
                 if (insertRectifyNoticesItemItem)

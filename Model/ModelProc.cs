@@ -41,9 +41,9 @@ namespace Model
         /// <param name="isono"></param>
         /// <returns></returns>
         [Function(Name = "[dbo].[SP_RectifyNoticesListByProjectStates]")]
-        public IEnumerable<RectifyNoticesItem> SP_RectifyNoticesListByProjectStates([Parameter(DbType = "nvarchar(50)")] string projectId, [Parameter(DbType = "nvarchar(50)")] string states)
+        public IEnumerable<RectifyNoticesItem> SP_RectifyNoticesListByProjectStates([Parameter(DbType = "nvarchar(50)")] string projectId, [Parameter(DbType = "nvarchar(50)")] string states, [Parameter(DbType = "INT")] int pageIndex, [Parameter(DbType = "INT")] int pageSize)
         {
-            IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), projectId, states);
+            IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), projectId, states, pageIndex, pageSize);
             return (ISingleResult<RectifyNoticesItem>)result.ReturnValue;
         }
     }

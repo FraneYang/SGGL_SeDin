@@ -1,5 +1,6 @@
 ﻿using BLL;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -46,12 +47,11 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = BLL.APIRectifyNoticesService.getRectifyNoticesByProjectIdStates(projectId, states);
-                int pageCount = getDataList.Count();
+                List<Model.RectifyNoticesItem> getDataList = new List<Model.RectifyNoticesItem>();                   
+                int pageCount = Funs.DB.Check_RectifyNotices.Count(x => x.ProjectId == projectId && (x.States == states || states == null));
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    getDataList = getDataList.Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize).ToList();
-
+                    getDataList = BLL.APIRectifyNoticesService.getRectifyNoticesByProjectIdStates(projectId, states, pageIndex);
                 }
                 responeData.data = new { pageCount, getDataList };
             }
@@ -77,7 +77,7 @@ namespace WebAPI.Controllers
             try
             {
                 //总数  0待提交；1待签发；2待整改；3待审核；4待复查；5已完成
-                var getDataList = new Model.SGGLDB(Funs.ConnString).Check_RectifyNotices.Where(x => x.ProjectId == projectId);
+                var getDataList = Funs.DB.Check_RectifyNotices.Where(x => x.ProjectId == projectId);
                 int tatalCount = getDataList.Count();
                 //待提交 0
                 int count0 = getDataList.Where(x => x.States == "0").Count();
