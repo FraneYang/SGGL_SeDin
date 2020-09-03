@@ -15,193 +15,117 @@ namespace FineUIPro.Web.HJGL.PersonManage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) {
-                this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, true);
-                BindGrid();
+            if (!IsPostBack)
+            {
+                InitTreeMenu();
             }
         }
         /// <summary>
         /// 绑定数据
         /// </summary>
-        private void BindGrid() {
-            string sql = @"select P.PersonId,P.WelderCode,P.PersonName,(case when P.Sex=1 then '男' else '女' end)As Sex,
-                                  P.Birthday,P.IdentityCard,(case when P.IsUsed = 1 then '是' else '否' end)As IsUsed, 
-                                  B.UnitName 
-                           from SitePerson_Person As P left join Base_Unit As B on P.UnitId = B.UnitId 
-                           where 1=1";
-            List<SqlParameter> parms = new List<SqlParameter>();
-            sql += " and P.WorkPostId = @WorkPostId";
-            parms.Add(new SqlParameter("@WorkPostId", Const.WorkPost_Checker));
-            sql += " and P.ProjectId = @ProjectId";
-            parms.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            if (drpUnit.SelectedValue != BLL.Const._Null)
-            {
-                sql += " and P.UnitId = @UnitId";
-                parms.Add(new SqlParameter("@UnitId", drpUnit.SelectedValue));
-            }
-            if (!string.IsNullOrEmpty(this.txtCheckerCode.Text))
-            {
-                sql += " and P.WelderCode LIKE  @WelderCode";
-                parms.Add(new SqlParameter("@WelderCode", "%" + this.txtCheckerCode.Text.Trim() + "%"));
-            }
-            if (!string.IsNullOrEmpty(this.txtCHeckerName.Text))
-            {
-                sql += " and P.PersonName LIKE  @PersonName";
-                parms.Add(new SqlParameter("@PersonName", "%" + this.txtCHeckerName.Text.Trim() + "%"));
-            }
-            SqlParameter[] parameter = parms.ToArray();
-            DataTable dt = SQLHelper.GetDataTableRunText(sql, parameter);
-            Grid1.RecordCount = dt.Rows.Count;
-            var table = this.GetPagedDataTable(Grid1, dt);
-            this.Grid1.DataSource = table;
-            this.Grid1.DataBind();
-        }
-        /// <summary>
-        /// 排序
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_Sort(object sender, FineUIPro.GridSortEventArgs e)
+        private void BindGrid()
         {
-            BindGrid();
-        }
-        /// <summary>
-        /// 右键编辑
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuEdit_Click(object sender, EventArgs e)
-        {
-            EditData();
-        }
-        /// <summary>
-        /// 右键删除
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuDelete_Click(object sender, EventArgs e)
-        {
-            if (GetButtonPower(Const.BtnDelete))
+            if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
             {
-                if (Grid1.SelectedRowIndexArray.Length > 0)
+                Model.SitePerson_Person Checker = BLL.CheckerService.GetCheckerById(this.tvControlItem.SelectedNodeID);
+                if (Checker != null)
                 {
-                    string strShowNotify = string.Empty;
-                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
-                    {
-                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                        var Checker = BLL.CheckerService.GetCheckerById(rowID);
-                        if (Checker != null)
-                        {
-                            BLL.CheckerService.DeleteCheckerById(rowID);
-                                //BLL.Sys_LogService.AddLog(Const.System_1, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnDelete, rowID);
-                           
-                        }
-                    }
+                    this.btnEdit.Hidden = false;
+                    this.btnNew.Hidden = false;
+                    this.btnDelete.Hidden = false;
+                    this.txtCheckerCode.Text = Checker.WelderCode;
+                    this.txtCheckerName.Text = Checker.PersonName;
 
-                    if (!string.IsNullOrEmpty(strShowNotify))
+                    if (!string.IsNullOrEmpty(Checker.UnitId))
                     {
-                        Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
+                        this.drpUnitId.Text =UnitService.GetUnitNameByUnitId(Checker.UnitId);
+                    }
+                    this.txtSex.Text = Checker.Sex=="1"?"男":"女";
+                    if (Checker.Birthday.HasValue)
+                    {
+                        this.txtBirthday.Text = string.Format("{0:yyyy-MM-dd}", Checker.Birthday);
+                    }
+                    this.txtIdentityCard.Text = Checker.IdentityCard;
+                    if (Checker.IsUsed == true)
+                    {
+                        cbIsOnDuty.Checked = true;
                     }
                     else
                     {
-                        BindGrid();
-                        ShowNotify("删除成功！", MessageBoxIcon.Success);
+                        cbIsOnDuty.Checked = false;
                     }
                 }
             }
-            else
+        }
+        private void BindGvItem() {
+            if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
             {
-                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
+                string strSql = @"SELECT WelderQualifyId, WelderId, 
+                                     QualificationItem, LimitDate, CheckDate 
+                           FROM Welder_WelderQualify
+                           LEFT JOIN SitePerson_Person AS Welder ON Welder.PersonId=Welder_WelderQualify.WelderId
+                           WHERE WelderId=@WelderId";
+
+            List<SqlParameter> parms = new List<SqlParameter>();
+            parms.Add(new SqlParameter("@WelderId", this.tvControlItem.SelectedNodeID));
+            if (!string.IsNullOrEmpty(this.txtQualificationItem.Text))
+            {
+                strSql += " and QualificationItem LIKE  @QualificationItem";
+                parms.Add(new SqlParameter("@QualificationItem", "%" + this.txtQualificationItem.Text.Trim() + "%"));
+            }
+            SqlParameter[] parameter = parms.ToArray();
+            DataTable dt = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+            Grid1.RecordCount = dt.Rows.Count;
+            var table = this.GetPagedDataTable(Grid1, dt);
+
+            Grid1.DataSource = table;
+            Grid1.DataBind();
             }
         }
+        #region 加载树
+        /// <summary>
+        /// 加载树
+        /// </summary>
+        private void InitTreeMenu()
+        {
+            this.tvControlItem.Nodes.Clear();
+            var getUnits = UnitService.GetUnitByProjectIdUnitTypeList(this.CurrUser.LoginProjectId, Const.ProjectUnitType_2);
+            foreach (var item in getUnits)
+            {
+                TreeNode rootNode = new TreeNode();
+                rootNode.NodeID = item.UnitId;
+                rootNode.Text = item.UnitName;
+                this.tvControlItem.Nodes.Add(rootNode);
+                var getCheckers = (from x in Funs.DB.SitePerson_Person where x.ProjectId == this.CurrUser.LoginProjectId && x.WorkPostId == Const.WorkPost_Checker && x.UnitId == item.UnitId select x).ToList();
+                foreach (var sitem in getCheckers)
+                {
+                    TreeNode tn = new TreeNode();
+                    tn.NodeID = sitem.PersonId;
+                    tn.Text = sitem.PersonName;
+                    tn.EnableClickEvent = true;
+                    rootNode.Nodes.Add(tn);
+                }
+            }
+
+
+
+        }
+        #endregion
+
+        #region 点击TreeView
+        /// <summary>
+        /// 点击TreeView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
+        {
+            this.BindGrid();
+            this.BindGvItem();
+        }
+        #endregion
         
-        /// <summary>
-        /// 查看
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnView_Click(object sender, EventArgs e)
-        {
-            if (GetButtonPower(Const.BtnSee))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerManageView.aspx?CheckerId={0}", Grid1.SelectedRowID, "查看 - ")));
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
-        /// <summary>
-        /// 更改索引
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
-        {
-            BindGrid();
-        }
-        /// <summary>
-        /// 双击表单编辑行数据
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
-        {
-            EditData();
-        }
-        /// <summary>
-        /// 编辑数据方法
-        /// </summary>
-        private void EditData()
-        {
-
-            if (Grid1.SelectedRowIndexArray.Length == 0)
-            {
-                Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
-                return;
-            }
-
-            ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
-            if (GetButtonPower(Const.BtnModify))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerManageEdit.aspx?CheckerId={0}", Grid1.SelectedRowID, "编辑 - ")));
-            }
-            else if (GetButtonPower(Const.BtnSee))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerManageView.aspx?CheckerId={0}", Grid1.SelectedRowID, "查看 - ")));
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
-        protected void btnNew_Click(object sender, EventArgs e)
-        {
-            if (GetButtonPower(Const.BtnAdd))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerManageEdit.aspx", "新增 - ")));
-            }
-            else
-            {
-                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
-        /// <summary>
-        /// 选择分页数
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
-            BindGrid();
-        }
-
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
             BindGrid();
@@ -214,70 +138,169 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// <returns></returns>
         private bool GetButtonPower(string button)
         {
-            return BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.WelderManageMenuId, button);
+            return BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.CheckerManageMenuId, button);
         }
         #endregion
 
-        protected void btnSearch_Click(object sender, EventArgs e)
+        #region 检测工资质Grid操作
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnNew_Click(object sender, EventArgs e)
         {
-            BindGrid();
-        }
-
-        protected void btnOut_Click(object sender, EventArgs e)
-        {
-            Response.ClearContent();
-            string filename = Funs.GetNewFileName();
-            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("无损检测工信息" + filename, System.Text.Encoding.UTF8) + ".xls");
-            Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.Write(GetGridTableHtml(Grid1));
-            Response.End();
+            if (GetButtonPower(Const.BtnModify))
+            {
+                if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerItemEdit.aspx?PersonId={0}", this.tvControlItem.SelectedNodeID, "新增 - ")));
+                }
+            }
         }
         /// <summary>
-        /// 导出excel表格
+        /// 右键编辑事件
         /// </summary>
-        /// <param name="grid"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuEdit_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            grid.PageSize = 10000;
-            BindGrid();
-            this.Grid1.Columns[5].Hidden = true;
-            this.Grid1.Columns[6].Hidden = true;
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
+            Grid1_RowDoubleClick(null, null);
+        }
+        protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerItemEdit.aspx?WelderQualifyId={0}", Grid1.SelectedRowID, "编辑 - ")));
+        }
+        /// <summary>
+        /// 查看按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerItemView.aspx?WelderQualifyId={0}", Grid1.SelectedRowID, "查看 - ")));
+        }
+        /// <summary>
+        /// 删除检测工资质
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuDelete_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnAdd))
             {
-                sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-
-                sb.Append("<tr>");
-                foreach (GridColumn column in grid.Columns)
+                if (Grid1.SelectedRowIndexArray.Length > 0)
                 {
-                    string html = row.Values[column.ColumnIndex].ToString();
+                    string strShowNotify = string.Empty;
+                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                    {
+                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                        var welder = BLL.WelderQualifyService.GetWelderQualifyById(rowID);
+                        if (welder != null)
+                        {
+                                BLL.WelderQualifyService.DeleteWelderQualifyById(rowID);
+                        }
+                    }
 
-                    sb.AppendFormat("<td>{0}</td>", html);
-
+                    BindGrid();
+                    if (!string.IsNullOrEmpty(strShowNotify))
+                    {
+                        Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        ShowNotify("删除成功！", MessageBoxIcon.Success);
+                    }
                 }
-                sb.Append("</tr>");
             }
-
-            sb.Append("</table>");
-
-            return sb.ToString();
-        }
-
-        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            if (e.CommandName == "CheckerQualification")
+            else
             {
-                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("CheckerItem.aspx?PersonId={0}", Grid1.SelectedRowID, "资质 - ")));
+                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
             }
         }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void txtQualificationItem_TextChanged(object sender, EventArgs e)
+        {
+            this.BindGvItem();
+        }
+        protected void Grid2_Sort(object sender, GridSortEventArgs e)
+        {
+            BindGvItem();
+        }
+        /// <summary>
+        /// 分页下拉选择事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
+            BindGvItem();
+        }
+        protected void Grid1_Sort(object sender, GridSortEventArgs e)
+        {
+            BindGrid();
+        }
+        #endregion
+
+        #region 检测工信息维护事件
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
+            {
+                Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                return;
+            }
+            if (GetButtonPower(Const.BtnModify))
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerManageEdit.aspx?CheckerId={0}", this.tvControlItem.SelectedNodeID, "编辑 - ")));
+            }
+            else if (GetButtonPower(Const.BtnSee))
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckerManageView.aspx?CheckerId={0}", Grid1.SelectedRowID, "查看 - ")));
+            }
+            else
+            {
+                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (GetButtonPower(Const.BtnDelete))
+            {
+                if (string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
+                {
+                    Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                    return;
+                }
+                var Checker = BLL.CheckerService.GetCheckerById(this.tvControlItem.SelectedNodeID);
+                if (Checker != null)
+                {
+                    var ItemCheck = from x in Funs.DB.Welder_WelderQualify where x.WelderId == this.tvControlItem.SelectedNodeID select x;
+                    if (ItemCheck != null)
+                    {
+                        Funs.DB.Welder_WelderQualify.DeleteAllOnSubmit(ItemCheck);
+                        Funs.DB.SubmitChanges();
+                    }
+                    BLL.CheckerService.DeleteCheckerById(this.tvControlItem.SelectedNodeID);
+                }
+            }
+            else
+            {
+                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        #endregion
+
+        
     }
 }

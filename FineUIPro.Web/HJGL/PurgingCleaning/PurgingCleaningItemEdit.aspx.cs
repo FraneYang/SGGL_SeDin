@@ -348,10 +348,22 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                     Model.HJGL_PC_Pipeline newitem = new Model.HJGL_PC_Pipeline();
                     newitem.PurgingCleaningId = this.PurgingCleaningId;
                     newitem.PipelineId = item.PipelineId;
-                    newitem.MaterialId = item.MaterialId;
-                    newitem.MediumId = item.MediumId;
-                    newitem.PurgingMedium = item.PurgingMedium;
-                    newitem.CleaningMedium = item.CleaningMedium;
+                    if (item.MaterialId != "0")
+                    {
+                        newitem.MaterialId = item.MaterialId;
+                    }
+                    if (item.MediumId != "0")
+                    {
+                        newitem.MediumId = item.MediumId;
+                    }
+                    if (item.PurgingMedium != "0")
+                    {
+                        newitem.PurgingMedium = item.PurgingMedium;
+                    }
+                    if (item.CleaningMedium != "0")
+                    {
+                        newitem.CleaningMedium = item.CleaningMedium;
+                    }
                     var PipelineList = Funs.DB.HJGL_PC_Pipeline.FirstOrDefault(x => x.PurgingCleaningId == item.PurgingCleaningId && x.PipelineId == item.PipelineId);
                     if (PipelineList != null)
                     {

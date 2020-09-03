@@ -176,7 +176,7 @@
                 <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                     OnClick="btnMenuDel_Click">
                 </f:MenuButton>
-                <f:MenuButton ID="btnMenuPrint" EnablePostBack="true" runat="server" Text="编辑" Icon="Pencil" OnClick="btnMenuPrint_Click">
+                <f:MenuButton ID="btnMenuPrint" EnablePostBack="true" runat="server" Text="打印" Icon="Pencil" OnClick="btnMenuPrint_Click">
                 </f:MenuButton>
             </Items>
         </f:Menu>

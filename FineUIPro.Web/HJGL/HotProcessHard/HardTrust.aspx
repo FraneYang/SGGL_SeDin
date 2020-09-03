@@ -63,58 +63,30 @@
                 </Toolbars>
                 <Items>
                     <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="false"  AutoScroll="true" BodyPadding="10px" 
-                        runat="server" RedStarPosition="BeforeText" LabelAlign="Left">
+                        runat="server" RedStarPosition="BeforeText" >
                         <Rows>
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtHardTrustNo" Label="委托单号" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
-                                    <f:Label ID="txtCheckUnit" Label="检测单位" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
-                                    <f:Label ID="txtHardTrustMan" Label="委托人" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
+                                    <f:Label ID="txtHardTrustNo" Label="委托单号" runat="server" LabelWidth="180px" LabelAlign="Right"></f:Label>
+                                    <f:Label ID="txtHardTrustUnit" Label="委托单位" runat="server" LabelAlign="Right"></f:Label>                                    
+                                    <f:Label ID="txtCheckUnit" Label="检测单位" runat="server" LabelWidth="180px" LabelAlign="Right"></f:Label>
+                                    <f:Label ID="txtHardTrustDate" Label="委托日期" runat="server" LabelWidth="180px" LabelAlign="Right"></f:Label> 
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtHardTrustDate" Label="委托日期" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label> 
-                                    <f:Label ID="txtHardnessMethod" Label="检测方法" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
-                                    <f:Label ID="txtHardnessRate" Label="检测比例" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
+                                    <f:Label runat="server" ID="txtCheckName" Label="检件名称" LabelWidth="180px" LabelAlign="Right"></f:Label>
+                                    <f:Label ID="txtStandards" Label="检测标准" runat="server" LabelAlign="Right"> </f:Label> 
+                                    <f:Label runat="server" ID="txtAcceptStandard" Label="验收标准" LabelWidth="180px" LabelAlign="Right"></f:Label>
+                                    <f:Label ID="txtHardnessRate" Label="检测比例" runat="server" LabelWidth="180px" LabelAlign="Right"></f:Label>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtStandards" Label="执行标准" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label> 
-                                    <f:Label ID="txtInspectionNum" Label="报检/检查记录编号" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
-                                    <f:Label ID="txtCheckNum" Label="外观检查合格焊口数" runat="server" 
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow>
-                                <Items>
-                                    <f:Label ID="txtTestWeldNum" Label="委托检测焊口数" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
-                                    <f:Label ID="txtDetectionTime" Label="检测时机" runat="server"
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
-                                    <f:Label ID="txtSendee" Label="接收人" runat="server" 
-                                        LabelWidth="180px" LabelAlign="Right">
-                                    </f:Label>
+                                     <f:Label runat="server" Label="热处理状态" Text="完成" LabelWidth="180px" LabelAlign="Right"></f:Label>
+                                    <f:Label runat="server"></f:Label>
+                                    <f:Label runat="server"></f:Label>
+                                    <f:Label runat="server"></f:Label>
                                 </Items>
                             </f:FormRow>
                         </Rows>
@@ -126,7 +98,7 @@
                         AllowColumnLocking="true" EnableColumnLines="true" ClicksToEdit="2" DataIDField="HardTrustItemID"
                         AllowSorting="true" SortField="WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort"
                         AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
-                        EnableTextSelection="True">
+                        EnableTextSelection="True" ForceFit="true">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
@@ -166,14 +138,6 @@
                                 DataField="MaterialCode" SortField="MaterialCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="90px">
                             </f:RenderField>
-                           
-                             <f:RenderField HeaderText="检测结果" ColumnID="checkResult" DataField="checkResult" 
-                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="80px">
-                            </f:RenderField>
-                            <f:WindowField HeaderTextAlign="Center" TextAlign="Center" Width="90px" WindowID="WindowHardReport"
-                                DataIFrameUrlFields="HardTrustItemID" DataIFrameUrlFormatString="HardReport.aspx?HardTrustItemID={0}"
-                                Text="硬度报告" HeaderText="硬度报告">
-                            </f:WindowField>
                             <f:RenderField HeaderText="备注" ColumnID="Remark" DataField="Remark"
                                 SortField="Remark" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="90px" ExpandUnusedSpace="true">

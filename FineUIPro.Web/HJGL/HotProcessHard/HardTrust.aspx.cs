@@ -224,20 +224,22 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             if (trust != null)
             {
                 this.txtHardTrustNo.Text = trust.HardTrustNo;
-                this.txtCheckUnit.Text = trust.CheckUnitName;
-                this.txtHardTrustMan.Text = trust.HardTrustManName;
                 if (trust.HardTrustDate != null)
                 {
                     this.txtHardTrustDate.Text = string.Format("{0:yyyy-MM-dd}", trust.HardTrustDate);
                 }
-                this.txtHardnessMethod.Text = trust.HardnessMethod;
                 this.txtHardnessRate.Text = trust.HardnessRate;
                 this.txtStandards.Text = trust.Standards;
-                this.txtInspectionNum.Text = trust.InspectionNum;
-                this.txtCheckNum.Text = trust.CheckNum;
-                this.txtTestWeldNum.Text = trust.TestWeldNum;
-                this.txtSendee.Text = trust.Sendee;
-                this.txtDetectionTime.Text = trust.DetectionTimeStr;
+                this.txtCheckName.Text = trust.CheckName;
+                this.txtAcceptStandard.Text = trust.AcceptStandard;
+                //this.txtInspectionNum.Text = trust.InspectionNum;
+                //this.txtCheckNum.Text = trust.CheckNum;
+                //this.txtTestWeldNum.Text = trust.TestWeldNum;
+                //this.txtSendee.Text = trust.Sendee;
+                //this.txtDetectionTime.Text = trust.DetectionTimeStr;
+                //this.txtHardnessMethod.Text = trust.HardnessMethod;
+                //this.txtCheckUnit.Text = trust.CheckUnitName;
+                //this.txtHardTrustMan.Text = trust.HardTrustManName;
             }
         }
         #endregion
@@ -248,17 +250,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         private void SetTextTemp()
         {
             this.txtHardTrustNo.Text = string.Empty;
-            this.txtCheckUnit.Text = string.Empty;
-            this.txtHardTrustMan.Text = string.Empty;
             this.txtHardTrustDate.Text = string.Empty;
-            this.txtHardnessMethod.Text = string.Empty;
             this.txtHardnessRate.Text = string.Empty;
             this.txtStandards.Text = string.Empty;
-            this.txtInspectionNum.Text = string.Empty;
-            this.txtCheckNum.Text = string.Empty;
-            this.txtTestWeldNum.Text = string.Empty;
-            this.txtSendee.Text = string.Empty;
-            this.txtDetectionTime.Text = string.Empty;
+            this.txtCheckName.Text = string.Empty;
+            this.txtAcceptStandard.Text = string.Empty;
         }
         #endregion
 

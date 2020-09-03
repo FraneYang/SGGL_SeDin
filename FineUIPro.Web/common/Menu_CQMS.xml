@@ -7,15 +7,13 @@
 <TreeNode id="94217974-201A-4D4F-A832-D9477ACD63A5" Text="项目施工WBS展示" NavigateUrl="CQMS/WBS/ControlItemAndCycleShow.aspx"></TreeNode>
 <TreeNode id="A8E0BC5C-3242-48B1-90AD-7A25E84DDC41" Text="项目施工WBS查询" NavigateUrl="CQMS/WBS/ControlItemAndCycleSearch.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="B8500D87-407E-458C-9915-FD54F0E81F36" Text="工序验收" NavigateUrl=""><TreeNode id="CC43E208-335D-4AE3-A1CE-B2D8510AE854" Text="实体验收" NavigateUrl="CQMS/Check/SpotCheck.aspx"></TreeNode>
+<TreeNode id="B8500D87-407E-458C-9915-FD54F0E81F36" Text="质量验收" NavigateUrl=""><TreeNode id="CC43E208-335D-4AE3-A1CE-B2D8510AE854" Text="实体验收" NavigateUrl="CQMS/Check/SpotCheck.aspx"></TreeNode>
 <TreeNode id="8317C0F7-3A69-48AB-87E5-03E96C543B1C" Text="资料验收" NavigateUrl="CQMS/Check/SpotDataCheck.aspx"></TreeNode>
-<TreeNode id="1433BE70-13C0-4AC7-BC3D-34C9471CE2A8" Text="工序验收统计" NavigateUrl="CQMS/Check/SpotCheckStatistics.aspx"></TreeNode>
+<TreeNode id="1433BE70-13C0-4AC7-BC3D-34C9471CE2A8" Text="质量验收统计" NavigateUrl="CQMS/Check/SpotCheckStatistics.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="A54EC449-5F77-4068-83B9-AA305B721A0B" Text="质量巡检" NavigateUrl=""><TreeNode id="B3E99BD9-FDC7-4F15-8C3C-A7821AC9E306" Text="质量巡检记录" NavigateUrl="CQMS/Check/CheckList.aspx"></TreeNode>
-</TreeNode>
-<TreeNode id="0A275FC1-E698-4936-9BEC-F76DC1BC786A" Text="质量共检" NavigateUrl=""><TreeNode id="E6703F32-4E42-4D03-84B3-5EC0E8E48E0F" Text="质量共检记录" NavigateUrl="CQMS/Check/JointCheck.aspx"></TreeNode>
-</TreeNode>
-<TreeNode id="57188840-3F05-4A72-939B-09CD7D2AA64A" Text="质量问题统计" NavigateUrl=""><TreeNode id="D3B1433E-00DE-432B-A30A-0EFB513480A8" Text="质量问题统计" NavigateUrl="CQMS/Check/JointCheckStatistics.aspx"></TreeNode>
+<TreeNode id="A54EC449-5F77-4068-83B9-AA305B721A0B" Text="质量检查" NavigateUrl=""><TreeNode id="B3E99BD9-FDC7-4F15-8C3C-A7821AC9E306" Text="质量巡检" NavigateUrl="CQMS/Check/CheckList.aspx"></TreeNode>
+<TreeNode id="E6703F32-4E42-4D03-84B3-5EC0E8E48E0F" Text="质量共检" NavigateUrl="CQMS/Check/JointCheck.aspx"></TreeNode>
+<TreeNode id="D3B1433E-00DE-432B-A30A-0EFB513480A8" Text="问题统计" NavigateUrl="CQMS/Check/JointCheckStatistics.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="0416D750-6AB4-4E7E-AAE1-19919F7EB538" Text="工程联络单管理" NavigateUrl=""><TreeNode id="87867EA8-576A-4166-AE7A-7416115DF30B" Text="工程联络单" NavigateUrl="CQMS/Check/TechnicalContactList.aspx"></TreeNode>
 </TreeNode>
@@ -29,7 +27,7 @@
 </TreeNode>
 <TreeNode id="C91C8319-0BFC-4585-BE14-ED41D45A160D" Text="质量月报" NavigateUrl=""><TreeNode id="786864C0-2875-49CD-B55E-0B5C8253295D" Text="质量月报" NavigateUrl="CQMS/Check/CheckMonth.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="390A78F0-43B2-4AF1-81B9-7C216FA7E0A4" Text="文件柜" NavigateUrl=""><TreeNode id="CF33572A-E875-4492-92BF-6EA265909A6C" Text="质量验收记录" NavigateUrl="CQMS/Check/SpotCheckFile.aspx"></TreeNode>
+<TreeNode id="390A78F0-43B2-4AF1-81B9-7C216FA7E0A4" Text="文件柜" NavigateUrl=""><TreeNode id="CF33572A-E875-4492-92BF-6EA265909A6C" Text="质量共检通知单" NavigateUrl="CQMS/Check/SpotCheckFile.aspx"></TreeNode>
 <TreeNode id="8D5A7D48-21C0-4668-9E70-813AE9C523FA" Text="施工质量问题整改单" NavigateUrl="CQMS/Check/CheckListFile.aspx"></TreeNode>
 <TreeNode id="0E6E6022-356E-42A1-9D16-C75BF69EBFB5" Text="施工质量检查记录" NavigateUrl="CQMS/Check/JointCheckFile.aspx"></TreeNode>
 <TreeNode id="3354E9AA-8D71-401B-9CFC-03D69DA86B05" Text="工程联络单" NavigateUrl="CQMS/Check/TechnicalContactListFile.aspx"></TreeNode>

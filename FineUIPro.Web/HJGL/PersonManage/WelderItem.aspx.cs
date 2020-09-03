@@ -116,7 +116,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// <param name="e"></param>
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnAdd))
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnModify))
             {
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderItemEdit.aspx?PersonId={0}", Request.Params["PersonId"], "新增 - ")));
             }

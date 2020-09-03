@@ -112,6 +112,17 @@
             return list;
         }
 
+        /// <summary>
+        /// 机动化程度
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] HJGL_WeldingMode()
+        {
+            ListItem[] list = new ListItem[2];
+            list[0] = new ListItem("手动", "手动");
+            list[1] = new ListItem("机动/自动", "机动/自动");
+            return list;
+        }
         #endregion
     }
 }

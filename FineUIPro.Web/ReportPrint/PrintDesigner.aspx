@@ -13,12 +13,18 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow>
+            <f:FormRow ColumnWidths="20% 10% 40% 10% 20%">
                 <Items>
-                    <f:DropDownList ID="drpPrintReport" runat="server" Label="报表" EnableEdit="true" ForceSelection="false"
-                        Required="true" ShowRedStar="true" OnSelectedIndexChanged="drpPrintReport_SelectedIndexChanged" AutoPostBack="true">
+                     <f:Label runat="server" ></f:Label>
+                    <f:DropDownList ID="drpReportModule" runat="server"  AutoPostBack="true" OnSelectedIndexChanged="drpReportModule_SelectedIndexChanged">
+                        <f:ListItem  Text="焊接报表" Value="1" />
+                    </f:DropDownList>
+                    <f:DropDownList ID="drpPrintReport" runat="server"  Label="报表" EnableEdit="true" LabelAlign="Left" >
                     </f:DropDownList> 
-                    <f:Label runat="server"></f:Label>
+                    <f:Button ID="btnDesigner" Text="模板设计" ToolTip="报表模板设计" Icon="ApplicationEdit" runat="server"
+                       OnClick="btnDesigner_Click">
+                            </f:Button>
+                    <f:Label runat="server" ></f:Label>
                 </Items>
             </f:FormRow>           
         </Rows>        

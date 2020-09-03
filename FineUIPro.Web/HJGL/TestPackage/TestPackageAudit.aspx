@@ -70,7 +70,7 @@
                                 <f:HiddenField runat="server" ID="hdPTP_ID"></f:HiddenField>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                                 <f:Button ID="btnAudit" Text="保存" ToolTip="保存" AjaxLoadingType="Mask" ShowAjaxLoadingMaskText="true"
-                                    AjaxLoadingMaskText="检测单审核中，请稍候" Icon="TableKey" runat="server" OnClick="btnAudit_Click" Hidden="true" ValidateForms="SimpleForm1">
+                                    AjaxLoadingMaskText="试压审核中，请稍候" Icon="TableKey" runat="server" OnClick="btnAudit_Click" Hidden="true" ValidateForms="SimpleForm1">
                                 </f:Button>
                                 <f:Button ID="btnPrint" Text="打印" Icon="Printer" runat="server" OnClick="btnPrint_Click" Hidden="true">
                                 </f:Button>
@@ -163,7 +163,7 @@
                                                     <f:ListItem Value="未完成" Text="未完成" />
                                                     <f:ListItem Value="/" Text="/" />
                                                 </f:DropDownList>
-                                                <f:DropDownList ID="drpPressureTest" runat="server" Label="2.管道耐压试验合格" LabelAlign="Right"
+                                                <f:DropDownList ID="drpPressureTest" runat="server" Label="2.管道组成件复验合格" LabelAlign="Right"
                                                     LabelWidth="350px">
                                                     <f:ListItem Value="完成" Text="完成" Selected="true" />
                                                     <f:ListItem Value="未完成" Text="未完成" />

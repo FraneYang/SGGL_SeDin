@@ -37,7 +37,7 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                               LEFT JOIN dbo.Base_TestMedium  AS lea ON lea.TestMediumId = IsoInfo.LeakMedium
                               LEFT JOIN dbo.PTP_PipelineList  AS IsoList ON  IsoList.PipelineId = IsoInfo.PipelineId
                               LEFT JOIN PTP_TestPackage As Test  ON Test.PTP_ID =IsoList.PTP_ID
-                              WHERE IsoInfo.ProjectId= @ProjectId  And Test.FinishDef is not null
+                              WHERE IsoInfo.ProjectId= @ProjectId  
 				              AND UnitWork.UnitWorkId= @UnitWorkId and (select count(*) from HJGL_LV_Pipeline p where p.PipelineId=IsoInfo.PipelineId)=0";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));

@@ -109,6 +109,7 @@ namespace BLL
             newTestPackage.TestMediumTemperature = testPackage.TestMediumTemperature;
             newTestPackage.AmbientTemperature = testPackage.AmbientTemperature;
             newTestPackage.HoldingTime = testPackage.HoldingTime;
+            newTestPackage.State = testPackage.State;
             db.SubmitChanges();
         }
 
@@ -300,7 +301,7 @@ namespace BLL
                     var isoinfo = BLL.PipelineService.GetPipelineByPipelineId(isoInfo.PipelineId);
                     if (isoinfo != null)
                     {
-                        int jotCouts = (from x in db.HJGL_WeldJoint where x.PipelineId == isoinfo.PipelineId select x).Count(); //焊口总数                     
+                        decimal jotCouts = (from x in db.HJGL_WeldJoint where x.PipelineId == isoinfo.PipelineId select x).Count(); //焊口总数                     
                         if (jotCouts > 0)
                         {
                             int? raleValue = null;
@@ -317,9 +318,10 @@ namespace BLL
                                                     join z in db.HJGL_Batch_BatchTrust on y.TrustBatchId equals z.TrustBatchId
                                                     join d in db.Base_DetectionType on z.DetectionTypeId equals d.DetectionTypeId
                                                     join e in db.HJGL_WeldJoint on y.WeldJointId equals e.WeldJointId
-                                                    where e.PipelineId == isoInfo.PipelineId && d.SysType == "射线检测"
+                                                    where e.PipelineId == isoInfo.PipelineId 
+                                                    //&& d.SysType == "射线检测"
                                                     select y.WeldJointId).Distinct().Count();
-                                decimal? realRaleValue = Convert.ToDecimal(checkJotCout / jotCouts) * 100;
+                                decimal? realRaleValue = Convert.ToDecimal(Convert.ToDecimal(checkJotCout) / jotCouts) * 100;
                                 if (realRaleValue < raleValue)
                                 {
                                     isoRate += "管线：" + isoinfo.PipelineCode + "的RT实际检测比例小于应检测比例值。";

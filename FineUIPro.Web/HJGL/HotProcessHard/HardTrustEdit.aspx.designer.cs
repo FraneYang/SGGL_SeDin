@@ -211,13 +211,40 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         protected global::FineUIPro.RadioButtonList rblDetectionTime;
         
         /// <summary>
-        /// txtSendee 控件。
+        /// drpSendee 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtSendee;
+        protected global::FineUIPro.DropDownList drpSendee;
+        
+        /// <summary>
+        /// txtCheckName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtCheckName;
+        
+        /// <summary>
+        /// txtAcceptStandard 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtAcceptStandard;
+        
+        /// <summary>
+        /// txtEquipmentModel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtEquipmentModel;
         
         /// <summary>
         /// Grid1 控件。

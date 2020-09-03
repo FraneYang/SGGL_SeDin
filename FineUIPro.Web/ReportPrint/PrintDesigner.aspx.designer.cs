@@ -40,6 +40,15 @@ namespace Web.ReportPrint {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
+        /// drpReportModule 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpReportModule;
+        
+        /// <summary>
         /// drpPrintReport 控件。
         /// </summary>
         /// <remarks>
@@ -47,5 +56,14 @@ namespace Web.ReportPrint {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList drpPrintReport;
+        
+        /// <summary>
+        /// btnDesigner 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnDesigner;
     }
 }

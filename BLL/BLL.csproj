@@ -241,6 +241,7 @@
     <Compile Include="HJGL\WeldingManage\PipelineService.cs" />
     <Compile Include="HJGL\WeldingManage\WeldingDailyService.cs" />
     <Compile Include="HJGL\WeldingManage\WeldJointService.cs" />
+    <Compile Include="HJGL\WeldingManage\WeldTaskService.cs" />
     <Compile Include="HJGL\WPQ\WPQListService.cs" />
     <Compile Include="HSSE\Accident\AccidentHandleService.cs" />
     <Compile Include="HSSE\Accident\AccidentPersonRecordService.cs" />

@@ -60,7 +60,7 @@
                             <f:FormRow>
                                 <Items>
                                     <f:DropDownList ID="drpCheckUnit" Label="检测单位" runat="server"
-                                        ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="190px">
+                                        ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="190px" OnSelectedIndexChanged="drpCheckUnit_SelectedIndexChanged" AutoPostBack="true">
                                     </f:DropDownList>
                                     <f:DropDownList ID="drpHardTrustMan" Label="委托人" runat="server"
                                         ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="190px">
@@ -78,14 +78,14 @@
                                     <f:TextBox ID="txtHardnessRate" Label="检测比例" runat="server"
                                         LabelWidth="190px">
                                     </f:TextBox>
-                                    <f:TextBox ID="txtStandards" Label="执行标准" runat="server"
+                                    <f:TextBox ID="txtStandards" Label="检测标准" runat="server"
                                         LabelWidth="190px">
                                     </f:TextBox>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtInspectionNum" Label="报检/检查记录编号" runat="server"
+                                    <f:TextBox ID="txtInspectionNum" Label="报告号" runat="server"
                                         LabelWidth="190px">
                                     </f:TextBox>
                                     <f:TextBox ID="txtCheckNum" Label="外观检查合格焊口数" runat="server"
@@ -103,7 +103,20 @@
                                         <f:RadioItem Value="0" Text="工厂化预制焊口" Selected="true" />
                                         <f:RadioItem Value="1" Text="安装施工焊口" />
                                     </f:RadioButtonList>
-                                    <f:TextBox ID="txtSendee" Label="接收人" runat="server"
+                                    <f:DropDownList ID="drpSendee" Label="接收人" runat="server"  EnableEdit="true" 
+                                        LabelWidth="190px">
+                                    </f:DropDownList>
+                                </Items>
+                            </f:FormRow>
+                            <f:FormRow>
+                                <Items>
+                                    <f:TextBox ID="txtCheckName" Label="检件名称" runat="server"
+                                        LabelWidth="190px">
+                                    </f:TextBox>
+                                    <f:TextBox ID="txtAcceptStandard" Label="验收标准" runat="server"
+                                        LabelWidth="190px">
+                                    </f:TextBox>
+                                    <f:TextBox ID="txtEquipmentModel" Label="设备型号" runat="server"
                                         LabelWidth="190px">
                                     </f:TextBox>
                                 </Items>

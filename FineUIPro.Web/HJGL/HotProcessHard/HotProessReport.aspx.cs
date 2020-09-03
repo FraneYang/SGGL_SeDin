@@ -1,14 +1,35 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using BLL;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.HJGL.HotProcessHard
 {
     public partial class HotProessReport : PageBase
     {
-        #region 加载
+        #region 定义项
+        /// <summary>
+        /// 热处理委托主键
+        /// </summary>
+        public string HotProessTrustId
+        {
+            get
+            {
+                return (string)ViewState["HotProessTrustId"];
+            }
+            set
+            {
+                ViewState["HotProessTrustId"] = value;
+            }
+        }
+        #endregion
+
+        #region 加载页面
         /// <summary>
         /// 加载页面
         /// </summary>
@@ -18,51 +39,264 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         {
             if (!IsPostBack)
             {
-                this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
-                string hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
-                var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
-                drpIsCompleted.SelectedValue = hotProessFeedback.IsCompleted.Value.ToString();
-                
-                // 绑定表格
-                this.BindGrid();
+                this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
+
+                this.HotProessTrustId = string.Empty;
+                this.InitTreeMenu();//加载树
+            }
+        }
+        #endregion
+
+        #region 加载树
+        /// <summary>
+        /// 加载树
+        /// </summary>
+        private void InitTreeMenu()
+        {
+            this.tvControlItem.Nodes.Clear();
+
+            TreeNode rootNode1 = new TreeNode();
+            rootNode1.NodeID = "1";
+            rootNode1.Text = "建筑工程";
+            rootNode1.CommandName = "建筑工程";
+            this.tvControlItem.Nodes.Add(rootNode1);
+
+            TreeNode rootNode2 = new TreeNode();
+            rootNode2.NodeID = "2";
+            rootNode2.Text = "安装工程";
+            rootNode2.CommandName = "安装工程";
+            rootNode2.Expanded = true;
+            this.tvControlItem.Nodes.Add(rootNode2);
+
+            var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+            // 获取当前用户所在单位
+            var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
+
+            var unitWorkList = (from x in Funs.DB.WBS_UnitWork
+                                where x.ProjectId == this.CurrUser.LoginProjectId
+                                      && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
+                                select x).ToList();
+
+            List<Model.WBS_UnitWork> unitWork1 = null;
+            List<Model.WBS_UnitWork> unitWork2 = null;
+
+            // 当前为施工单位，只能操作本单位的数据
+            if (currUnit != null && currUnit.UnitType == Const.ProjectUnitType_2)
+            {
+                unitWork1 = (from x in unitWorkList
+                             where x.UnitId == this.CurrUser.UnitId && x.ProjectType == "1"
+                             select x).ToList();
+                unitWork2 = (from x in unitWorkList
+                             where x.UnitId == this.CurrUser.UnitId && x.ProjectType == "2"
+                             select x).ToList();
+            }
+            else
+            {
+                unitWork1 = (from x in unitWorkList where x.ProjectType == "1" select x).ToList();
+                unitWork2 = (from x in unitWorkList where x.ProjectType == "2" select x).ToList();
+            }
+            var WeldJointList = (from x in Funs.DB.HJGL_WeldJoint
+                             join y in Funs.DB.HJGL_Pipeline on x.PipelineId equals y.PipelineId
+                             where x.ProjectId == this.CurrUser.LoginProjectId && x.WeldingDailyId != null && x.IsHotProess == true
+                             select new { x.WeldJointId, y.UnitWorkId }).ToList();
+            if (unitWork1.Count() > 0)
+            {
+                foreach (var q in unitWork1)
+                {
+                    var HotProessItem = (from y in Funs.DB.HJGL_HotProess_TrustItem
+                                      join z in Funs.DB.HJGL_HotProess_Trust on y.HotProessTrustId equals z.HotProessTrustId
+                                      where z.ProjectId == this.CurrUser.LoginProjectId && z.UnitWorkId == q.UnitWorkId
+                                      select y);
+                    var WeldJoint = from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x;
+                    var resultCount = WeldJoint.Where(w => HotProessItem.Count(p => p.WeldJointId == w.WeldJointId)==0).ToList().Count;
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId); 
+                    TreeNode tn1 = new TreeNode();
+                    tn1.NodeID = q.UnitWorkId;
+                    tn1.Text = q.UnitWorkName;
+                    tn1.ToolTip = "施工单位：" + u.UnitName+ "(未热处理焊口总数:"+resultCount+")";
+                    tn1.CommandName = "单位工程";
+                    rootNode1.Nodes.Add(tn1);
+                    BindNodes(tn1);
+                }
+            }
+            if (unitWork2.Count() > 0)
+            {
+                foreach (var q in unitWork2)
+                {
+                    var HotProessItem = (from y in Funs.DB.HJGL_HotProess_TrustItem
+                                      join z in Funs.DB.HJGL_HotProess_Trust on y.HotProessTrustId equals z.HotProessTrustId
+                                      where z.ProjectId == this.CurrUser.LoginProjectId && z.UnitWorkId == q.UnitWorkId
+                                      select y);
+                    var WeldJoint = from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x;
+                    var resultCount = WeldJoint.Where(w => HotProessItem.Count(p => p.WeldJointId == w.WeldJointId) == 0).ToList().Count;
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
+                    TreeNode tn2 = new TreeNode();
+                    tn2.NodeID = q.UnitWorkId;
+                    tn2.Text = q.UnitWorkName;
+                    tn2.ToolTip = "施工单位：" + u.UnitName + "(未热处理焊口总数:" + resultCount + ")"; 
+                    tn2.CommandName = "单位工程";
+                    rootNode2.Nodes.Add(tn2);
+                    BindNodes(tn2);
+                }
             }
         }
 
-        #region 绑定数据
         /// <summary>
-        /// 绑定数据
+        ///  绑定树节点
+        /// </summary>
+        /// <param name="node"></param>
+        private void BindNodes(TreeNode node)
+        {
+            List<Model.HJGL_HotProess_Trust> trustLists = new List<Model.HJGL_HotProess_Trust>();
+
+            if (!string.IsNullOrEmpty(this.txtSearchNo.Text.Trim()))
+            {
+                trustLists = (from x in Funs.DB.HJGL_HotProess_Trust where x.HotProessTrustNo.Contains(this.txtSearchNo.Text.Trim()) orderby x.HotProessTrustNo select x).ToList();
+            }
+            else
+            {
+                trustLists = (from x in Funs.DB.HJGL_HotProess_Trust orderby x.HotProessTrustNo select x).ToList();
+            }
+            var trustList = from x in trustLists
+                            where x.ProjectId == this.CurrUser.LoginProjectId
+                                  && x.UnitWorkId == node.NodeID
+                            select x;
+            foreach (var item in trustList)
+            {
+                TreeNode newNode = new TreeNode();
+                newNode.Text = item.HotProessTrustNo;
+                newNode.NodeID = item.HotProessTrustId;
+                newNode.ToolTip = item.HotProessTrustNo;
+                newNode.CommandName = "委托单号";
+                newNode.EnableClickEvent = true;
+                node.Nodes.Add(newNode);
+            }
+
+        }
+        #endregion
+
+        #region 点击TreeView
+        /// <summary>
+        /// 点击TreeView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
+        {
+            this.BindGrid();
+        }
+        #endregion
+
+        #region DropDownList下拉选择事件
+        /// <summary>
+        /// 项目下拉选择事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void drpProjectId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.InitTreeMenu();
+        }
+        #endregion
+
+        #region 数据绑定
+        /// <summary>
+        /// 数据绑定
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Report.HotProessReportId, 
-                                     report.HotProessTrustItemId, 
-                                     report.WeldJointId, 
-                                     report.PointCount, 
-                                     report.RequiredT,
-                                     report.ActualT, 
-                                     report.RequestTime, 
-                                     report.ActualTime, 
-                                     report.RecordChartNo,
-                                     weldJoint.WeldJointCode
-                         FROM HJGL_HotProess_Report AS report
-                         LEFT JOIN HJGL_WeldJoint AS weldJoint ON weldJoint.WeldJointId=report.WeldJointId
-                        WHERE report.HotProessTrustItemId=@HotProessTrustItemId";
+            string strSql = string.Empty;
             List<SqlParameter> listStr = new List<SqlParameter>();
+            this.SetTextTemp();
+            this.PageInfoLoad(); ///页面输入提交信息
 
-            listStr.Add(new SqlParameter("@HotProessTrustItemId", Request.Params["HotProessTrustItemId"]));
+            if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "委托单号")
+            {
+                var hotProessTrust = BLL.HotProess_TrustService.GetHotProessTrustById(this.tvControlItem.SelectedNodeID);
+                if (hotProessTrust != null)
+                {
+                    this.HotProessTrustId = hotProessTrust.HotProessTrustId;
+                    strSql = @"SELECT * "
+                    + @" FROM dbo.View_HJGL_HotProess_TrustItem AS Trust"
+                    + @" WHERE Trust.ProjectId= @ProjectId AND Trust.HotProessTrustId=@HotProessTrustId ";
 
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                    listStr.Add(new SqlParameter("@ProjectId", hotProessTrust != null ? hotProessTrust.ProjectId : this.CurrUser.LoginProjectId));
+                    listStr.Add(new SqlParameter("@HotProessTrustId", this.HotProessTrustId));
 
-            Grid1.RecordCount = tb.Rows.Count;
-            //tb = GetFilteredTable(Grid1.FilteredData, tb);
-            var table = this.GetPagedDataTable(Grid1, tb);
-            Grid1.DataSource = table;
-            Grid1.DataBind();
+                    if (!string.IsNullOrEmpty(this.txtIsoNo.Text.Trim()))
+                    {
+                        strSql += @" and Trust.PipelineCode like '%'+@PipelineCode+'%' ";
+                        listStr.Add(new SqlParameter("@PipelineCode", this.txtIsoNo.Text.Trim()));
+                    }
+
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                    // 2.获取当前分页数据
+                    //var table = this.GetPagedDataTable(Grid1, tb1);
+                    Grid1.RecordCount = tb.Rows.Count;
+                    //tb = GetFilteredTable(Grid1.FilteredData, tb);
+                    var table = this.GetPagedDataTable(Grid1, tb);
+                    Grid1.DataSource = table;
+                    Grid1.DataBind();
+                }
+            }
         }
 
         /// <summary>
-        /// 改变索引事件
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
+
+        #region 加载页面输入提交信息
+        /// <summary>
+        /// 加载页面输入提交信息
+        /// </summary>
+        private void PageInfoLoad()
+        {
+            var trust = BLL.HotProess_TrustService.GetHotProessTrustById(this.HotProessTrustId);
+            if (trust != null)
+            {
+                this.txtHotProessTrustNo.Text = trust.HotProessTrustNo;
+                if (trust.ProessDate.HasValue)
+                {
+                    this.txtProessDate.Text = string.Format("{0:yyyy-MM-dd}", trust.ProessDate);
+                }
+                this.txtProessMethod.Text = trust.ProessMethod;
+                this.txtProessEquipment.Text = trust.ProessEquipment;
+                if (!string.IsNullOrEmpty(trust.Tabler))
+                {
+                    this.txtTabler.Text = BLL.UserService.GetUserNameByUserId(trust.Tabler);
+                }
+                this.txtRemark.Text = trust.Remark;
+            }
+        }
+        #endregion
+
+        #region 清空文本
+        /// <summary>
+        /// 清空文本
+        /// </summary>
+        private void SetTextTemp()
+        {
+            this.txtHotProessTrustNo.Text = string.Empty;
+            this.txtProessDate.Text = string.Empty;
+            this.txtProessMethod.Text = string.Empty;
+            this.txtProessEquipment.Text = string.Empty;
+            this.txtTabler.Text = string.Empty;
+            this.txtRemark.Text = string.Empty;
+        }
+        #endregion
+        #endregion
+
+        #region 分页排序
+        #region 页索引改变事件
+        /// <summary>
+        /// 页索引改变事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -70,9 +304,23 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         {
             BindGrid();
         }
+        #endregion
 
+        #region 排序
         /// <summary>
-        /// 分页下拉选择事件
+        /// 排序
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_Sort(object sender, GridSortEventArgs e)
+        {
+            BindGrid();
+        }
+        #endregion
+
+        #region 分页选择下拉改变事件
+        /// <summary>
+        /// 分页选择下拉改变事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -81,178 +329,52 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
             BindGrid();
         }
+        #endregion
+        #endregion
 
-        /// <summary>
-        /// 排序
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_Sort(object sender, FineUIPro.GridSortEventArgs e)
-        {
-            BindGrid();
-        }
-
+        #region 关闭弹出窗口及刷新页面
         /// <summary>
         /// 关闭弹出窗口
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void Window1_Close(object sender, EventArgs e)
+        protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
-            BindGrid();
+            this.InitTreeMenu();
+            this.HotProessTrustId = this.hdHotProessTrustId.Text;
+            this.tvControlItem.SelectedNodeID = this.HotProessTrustId;
+            this.BindGrid();
+            this.hdHotProessTrustId.Text = string.Empty;
+        }
+
+        #region 查询
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Tree_TextChanged(object sender, EventArgs e)
+        {
+            this.InitTreeMenu();
         }
         #endregion
         #endregion
 
-        #region 增加按钮事件
+        #region 右键编辑热处理报告
         /// <summary>
-        /// 增加按钮事件
+        /// 热处理报告
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnNew_Click(object sender, EventArgs e)
+        protected void btnMenuHotProessReport_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_HotProessTrustMenuId, Const.BtnAdd))
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_HotProessReportMenuId, Const.BtnSave))
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("HotProessReportEdit.aspx?HotProessTrustItemId={0}", Request.Params["HotProessTrustItemId"], "新增 - ")));
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("HotProessReport.aspx?HotProessTrustItemId={0}", this.Grid1.SelectedRowID, "编辑热处理报告 - ")));
             }
             else
             {
                 Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
-        #endregion
-
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            string hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
-            var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
-
-            hotProessFeedback.IsCompleted = Convert.ToBoolean(drpIsCompleted.SelectedValue);
-            hotProessFeedback.IsHardness = Convert.ToBoolean(drpIsCompleted.SelectedValue);
-            
-            BLL.HotProessTrustItemService.UpdateHotProessFeedback(hotProessFeedback);
-            Alert.ShowInTop("保存成功", MessageBoxIcon.Success);
-        }
-
-        #region 编辑
-        /// <summary>
-        /// 双击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
-        {
-            this.EditData();
-        }
-
-        /// <summary>
-        /// 右键编辑事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuEdit_Click(object sender, EventArgs e)
-        {
-            this.EditData();
-        }
-
-        /// <summary>
-        /// 编辑数据方法
-        /// </summary>
-        private void EditData()
-        {
-
-            if (Grid1.SelectedRowIndexArray.Length == 0)
-            {
-                Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
-                return;
-            }
-
-            ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_HotProessTrustMenuId, Const.BtnModify))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("HotProessReportEdit.aspx?HotProessReportId={0}", Grid1.SelectedRowID, "编辑 - ")));
-            }
-        }
-        #endregion
-
-        #region 删除
-        /// <summary>
-        /// 右键删除事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuDelete_Click(object sender, EventArgs e)
-        {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_HotProessTrustMenuId, Const.BtnDelete))
-            {
-                if (Grid1.SelectedRowIndexArray.Length > 0)
-                {
-                    string strShowNotify = string.Empty;
-                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
-                    {
-                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                        var hotProessReport = BLL.HotProessReportService.GetHotProessReportById(rowID);
-                        if (hotProessReport != null)
-                        {
-                            string cont = judgementDelete(rowID);
-                            if (string.IsNullOrEmpty(cont))
-                            {
-                                BLL.AttachFileService.DeleteAttachFile(Funs.RootPath, rowID, Const.HJGL_HotProessTrustMenuId);//删除附件
-                                BLL.HotProessReportService.DeleteHotProessReportById(rowID);
-                            }
-                        }
-                    }
-
-                    BindGrid();
-                    if (!string.IsNullOrEmpty(strShowNotify))
-                    {
-                        Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        ShowNotify("删除成功！", MessageBoxIcon.Success);
-                    }
-                }
-            }
-            else
-            {
-                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
-
-        #region 判断是否可删除
-        /// <summary>
-        /// 判断是否可以删除
-        /// </summary>
-        /// <returns></returns>
-        private string judgementDelete(string id)
-        {
-            string content = string.Empty;
-            //if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
-            //{
-            //    content += "已在【项目用户】中使用，不能删除！";
-            //}            
-
-            return content;
-        }
-        #endregion
-        #endregion
-
-        #region 行点击事件
-        /// <summary>
-        /// Grid行点击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            string hotProessReportId = Grid1.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "attchUrl")
-            {
-                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HJGL/HotProcessHard&menuId={1}&edit=0", hotProessReportId, BLL.Const.HJGL_HotProessTrustMenuId)));
             }
         }
         #endregion

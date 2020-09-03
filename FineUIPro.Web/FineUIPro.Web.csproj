@@ -357,12 +357,14 @@
     <Content Include="HJGL\HotProcessHard\HardFeedback.aspx" />
     <Content Include="HJGL\HotProcessHard\HardReport.aspx" />
     <Content Include="HJGL\HotProcessHard\HardReportEdit.aspx" />
+    <Content Include="HJGL\HotProcessHard\HardReportItem.aspx" />
     <Content Include="HJGL\HotProcessHard\HardTrust.aspx" />
     <Content Include="HJGL\HotProcessHard\HardTrustEdit.aspx" />
     <Content Include="HJGL\HotProcessHard\HardTrustItemEdit.aspx" />
     <Content Include="HJGL\HotProcessHard\HotProessFeedback.aspx" />
     <Content Include="HJGL\HotProcessHard\HotProessReport.aspx" />
     <Content Include="HJGL\HotProcessHard\HotProessReportEdit.aspx" />
+    <Content Include="HJGL\HotProcessHard\HotProessReportItem.aspx" />
     <Content Include="HJGL\HotProcessHard\HotProessTrust.aspx" />
     <Content Include="HJGL\HotProcessHard\HotProessTrustEdit.aspx" />
     <Content Include="HJGL\HotProcessHard\HotProessTrustItemEdit.aspx" />
@@ -414,12 +416,14 @@
     <Content Include="HJGL\WeldingManage\PipelineList.aspx" />
     <Content Include="HJGL\WeldingManage\PreWeldReportAudit.aspx" />
     <Content Include="HJGL\WeldingManage\SelectDailyWeldJoint.aspx" />
+    <Content Include="HJGL\WeldingManage\SelectTaskWeldJoint.aspx" />
     <Content Include="HJGL\WeldingManage\SelectWPS.aspx" />
     <Content Include="HJGL\WeldingManage\WeldJointBatchEdit.aspx" />
     <Content Include="HJGL\WeldingManage\WeldJointEdit.aspx" />
     <Content Include="HJGL\WeldingManage\WeldJointList.aspx" />
     <Content Include="HJGL\WeldingManage\WeldReport.aspx" />
     <Content Include="HJGL\WeldingManage\WeldReportEdit.aspx" />
+    <Content Include="HJGL\WeldingManage\WeldTask.aspx" />
     <Content Include="HJGL\WeldingReport\DefectStatistics.aspx" />
     <Content Include="HJGL\WeldingReport\FirstPassRate.aspx" />
     <Content Include="HJGL\WeldingReport\IsoCmprehensive.aspx" />
@@ -6176,6 +6180,13 @@
     <Compile Include="HJGL\HotProcessHard\HardReportEdit.aspx.designer.cs">
       <DependentUpon>HardReportEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\HotProcessHard\HardReportItem.aspx.cs">
+      <DependentUpon>HardReportItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\HotProcessHard\HardReportItem.aspx.designer.cs">
+      <DependentUpon>HardReportItem.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\HotProcessHard\HardTrust.aspx.cs">
       <DependentUpon>HardTrust.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6217,6 +6228,13 @@
     </Compile>
     <Compile Include="HJGL\HotProcessHard\HotProessReportEdit.aspx.designer.cs">
       <DependentUpon>HotProessReportEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\HotProcessHard\HotProessReportItem.aspx.cs">
+      <DependentUpon>HotProessReportItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\HotProcessHard\HotProessReportItem.aspx.designer.cs">
+      <DependentUpon>HotProessReportItem.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\HotProcessHard\HotProessTrust.aspx.cs">
       <DependentUpon>HotProessTrust.aspx</DependentUpon>
@@ -6578,6 +6596,13 @@
     <Compile Include="HJGL\WeldingManage\SelectDailyWeldJoint.aspx.designer.cs">
       <DependentUpon>SelectDailyWeldJoint.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\WeldingManage\SelectTaskWeldJoint.aspx.cs">
+      <DependentUpon>SelectTaskWeldJoint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\SelectTaskWeldJoint.aspx.designer.cs">
+      <DependentUpon>SelectTaskWeldJoint.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\WeldingManage\SelectWPS.aspx.cs">
       <DependentUpon>SelectWPS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6619,6 +6644,13 @@
     </Compile>
     <Compile Include="HJGL\WeldingManage\WeldReportEdit.aspx.designer.cs">
       <DependentUpon>WeldReportEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\WeldTask.aspx.cs">
+      <DependentUpon>WeldTask.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\WeldTask.aspx.designer.cs">
+      <DependentUpon>WeldTask.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\WeldingReport\DefectStatistics.aspx.cs">
       <DependentUpon>DefectStatistics.aspx</DependentUpon>

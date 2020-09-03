@@ -125,14 +125,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         {
                             joint.JointAttribute = drpJointAttribute.SelectedValue;
                         }
-                        this.txtHeartNo1.Text = joint.HeartNo1;
-                        this.txtHeartNo2.Text = joint.HeartNo2;
                         this.txtPreTemperature.Text = joint.PreTemperature;
                         this.txtSpecification.Text = joint.Specification;
-
-                        drpIsHotProess.SelectedValue = joint.IsHotProess.Value.ToString();
-                       
                         txtRemark.Text= joint.Remark;
+                        drpIsHotProess.SelectedValue = joint.IsHotProess.Value.ToString();
+                        if (!string.IsNullOrEmpty(joint.DesignIsHotProess.ToString()))
+                        {
+                            drpDesignIsHotProess.SelectedValue = joint.DesignIsHotProess.Value.ToString();
+                        }
+                        
                     }
                 }
 
@@ -182,7 +183,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldJointMenuId, BLL.Const.BtnModify))
             {
                 Model.HJGL_Pipeline pipeline = BLL.PipelineService.GetPipelineByPipelineId(this.PipelineId);
-                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID,drpMaterial2.ClientID)
+                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID,drpMaterial2.ClientID,txtIsHotProess.ClientID)
                     + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text,pipeline.UnitId,this.drpWeldingMethodId.SelectedText,this.drpWeldTypeCode.SelectedText, "维护 - ")));
             }
             else
@@ -275,8 +276,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             joint.Size = Funs.GetNewDecimal(this.txtSize.Text.Trim());
             joint.Dia = Funs.GetNewDecimal(this.txtDia.Text.Trim());
             joint.Thickness = Funs.GetNewDecimal(this.txtThickness.Text.Trim());
-            joint.HeartNo1 = this.txtHeartNo1.Text;
-            joint.HeartNo2 = this.txtHeartNo2.Text;
             if (this.drpComponent1.SelectedValue != BLL.Const._Null)
             {
                 joint.Components1Id = this.drpComponent1.SelectedValue;
@@ -317,9 +316,20 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             joint.Specification = this.txtSpecification.Text;
             var DetectionType = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode(this.txtDetectionTypeId.Text.Trim());
             joint.DetectionTypeId = DetectionType.DetectionTypeId;
+            bool flag = false;
+            if (Convert.ToBoolean(drpDesignIsHotProess.SelectedValue)) {
+                flag = true;
+            }
+            if (flag)
+            {
+                joint.IsHotProess = true;
+            }
+            else {
+                joint.IsHotProess = false;
+            }
             joint.IsHotProess = Convert.ToBoolean(drpIsHotProess.SelectedValue);
+            joint.DesignIsHotProess = Convert.ToBoolean(drpDesignIsHotProess.SelectedValue);
             joint.Remark = txtRemark.Text.Trim();
-
             if (!string.IsNullOrEmpty(weldJointId))
             {
                 if (this.txtWpqId.Text != "")
@@ -523,5 +533,34 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
         }
         #endregion
+
+        protected void Window1_Close(object sender, WindowCloseEventArgs e)
+        {
+            var IsHotProess = this.txtIsHotProess.Text;
+            if (IsHotProess == "True")
+            {
+                this.drpIsHotProess.SelectedValue = "True";
+            }
+            else {
+                if (!Convert.ToBoolean(drpDesignIsHotProess.SelectedValue )) {
+                    this.drpIsHotProess.SelectedValue = "False";
+                }
+            }
+        }
+
+        protected void drpDesignIsHotProess_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (drpDesignIsHotProess.SelectedValue != BLL.Const._Null) {
+                if (Convert.ToBoolean(drpDesignIsHotProess.SelectedValue))
+                {
+                    this.drpIsHotProess.SelectedValue = "True";
+                }
+                else {
+                    if (this.txtIsHotProess.Text == "False") {
+                        this.drpIsHotProess.SelectedValue = "False";
+                    }
+                }
+            }
+        }
     }
 }

@@ -182,5 +182,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 机动化程度
+        /// </summary>
+        public string WeldingMode
+        {
+            get;
+            set;
+        }
     }
 }

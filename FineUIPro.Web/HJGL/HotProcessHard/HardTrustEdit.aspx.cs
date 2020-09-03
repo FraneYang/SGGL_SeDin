@@ -79,6 +79,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpHardTrustUnit, this.ProjectId, BLL.Const.ProjectUnitType_2, true);
             BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpCheckUnit, this.ProjectId, BLL.Const.ProjectUnitType_5, true);
             BLL.UnitWorkService.InitUnitWorkDownList(this.drpUnitWork, this.ProjectId,true);
+            BLL.UserService.InitUserProjectIdUnitTypeDropDownList(drpSendee, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_5, true);
             if (trust != null)
             {
                 this.txtHardTrustNo.Text = trust.HardTrustNo;
@@ -109,8 +110,12 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 this.txtCheckNum.Text = trust.CheckNum;
                 this.txtTestWeldNum.Text = trust.TestWeldNum;
                 this.rblDetectionTime.SelectedValue = trust.DetectionTime;
-
-                this.txtSendee.Text = trust.Sendee;
+                if (!string.IsNullOrEmpty(trust.Sendee)) {
+                    drpSendee.SelectedValue = trust.Sendee;
+                }
+                this.txtCheckName.Text = trust.CheckName;
+                this.txtAcceptStandard.Text = trust.AcceptStandard;
+                this.txtEquipmentModel.Text = trust.EquipmentModel;
             }
             else
             {
@@ -189,7 +194,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     return;
                 }
 
-                string unitWorkId = Request.Params["unitWorkId"];
+                string unitWorkId =drpUnitWork.SelectedValue;
                 Model.HJGL_Hard_Trust newHardTrust = new Model.HJGL_Hard_Trust();
                 newHardTrust.HardTrustNo = this.txtHardTrustNo.Text.Trim();
                 newHardTrust.ProjectId = this.ProjectId;
@@ -216,7 +221,13 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 newHardTrust.CheckNum = this.txtCheckNum.Text.Trim();
                 newHardTrust.TestWeldNum = this.txtTestWeldNum.Text.Trim();
                 newHardTrust.DetectionTime = this.rblDetectionTime.SelectedValue;
-                newHardTrust.Sendee = this.txtSendee.Text.Trim();
+                if (drpSendee.SelectedValue != BLL.Const._Null)
+                {
+                    newHardTrust.Sendee = drpSendee.SelectedValue;
+                }
+                newHardTrust.CheckName = this.txtCheckName.Text.Trim();
+                newHardTrust.AcceptStandard = this.txtAcceptStandard.Text.Trim();
+                newHardTrust.EquipmentModel = this.txtEquipmentModel.Text.Trim();
                 if (!string.IsNullOrEmpty(this.HardTrustID))
                 {
                     newHardTrust.HardTrustID = this.HardTrustID;
@@ -233,6 +244,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
 
                 List<Model.View_HJGL_Hard_TrustItem> GetHardTrustItem = this.CollectGridJointInfo();
                 string errlog = string.Empty;
+                BLL.Hard_TrustItemService.DeleteHardTrustItemById(this.HardTrustID);
                 foreach (var item in GetHardTrustItem)
                 {
                     Model.HJGL_Hard_TrustItem trustItem = new Model.HJGL_Hard_TrustItem();
@@ -364,5 +376,13 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             }
         }
         #endregion
+
+        protected void drpCheckUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (drpCheckUnit.SelectedValue != BLL.Const._Null) {
+                this.drpSendee.Items.Clear();
+                BLL.UserService.InitUserProjectIdUnitIdDropDownList(drpSendee, this.CurrUser.LoginProjectId, drpCheckUnit.SelectedValue, true);
+            }
+        }
     }
 }

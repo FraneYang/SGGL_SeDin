@@ -40,6 +40,141 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         protected global::FineUIPro.Panel Panel1;
         
         /// <summary>
+        /// panelLeftRegion 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Panel panelLeftRegion;
+        
+        /// <summary>
+        /// tvControlItem 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Tree tvControlItem;
+        
+        /// <summary>
+        /// panelCenterRegion 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Panel panelCenterRegion;
+        
+        /// <summary>
+        /// Toolbar1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar Toolbar1;
+        
+        /// <summary>
+        /// ToolbarFill2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ToolbarFill ToolbarFill2;
+        
+        /// <summary>
+        /// btnEdit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnEdit;
+        
+        /// <summary>
+        /// btnDelete 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnDelete;
+        
+        /// <summary>
+        /// SimpleForm1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Form SimpleForm1;
+        
+        /// <summary>
+        /// drpUnitId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label drpUnitId;
+        
+        /// <summary>
+        /// txtCheckerCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtCheckerCode;
+        
+        /// <summary>
+        /// txtCheckerName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtCheckerName;
+        
+        /// <summary>
+        /// txtSex 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtSex;
+        
+        /// <summary>
+        /// txtBirthday 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtBirthday;
+        
+        /// <summary>
+        /// txtIdentityCard 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtIdentityCard;
+        
+        /// <summary>
+        /// cbIsOnDuty 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox cbIsOnDuty;
+        
+        /// <summary>
         /// Grid1 控件。
         /// </summary>
         /// <remarks>
@@ -49,40 +184,31 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
-        /// drpUnit 控件。
+        /// Toolbar2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpUnit;
+        protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
-        /// txtCheckerCode 控件。
+        /// txtQualificationItem 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckerCode;
+        protected global::FineUIPro.TextBox txtQualificationItem;
         
         /// <summary>
-        /// txtCHeckerName 控件。
+        /// ToolbarFill1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCHeckerName;
-        
-        /// <summary>
-        /// btnSearch 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnSearch;
+        protected global::FineUIPro.ToolbarFill ToolbarFill1;
         
         /// <summary>
         /// btnNew 控件。
@@ -94,40 +220,22 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         protected global::FineUIPro.Button btnNew;
         
         /// <summary>
-        /// btnOut 控件。
+        /// ToolbarSeparator2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnOut;
+        protected global::FineUIPro.ToolbarSeparator ToolbarSeparator2;
         
         /// <summary>
-        /// btnCheckerQualification 控件。
+        /// ToolbarText2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.LinkButtonField btnCheckerQualification;
-        
-        /// <summary>
-        /// ToolbarSeparator1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.ToolbarSeparator ToolbarSeparator1;
-        
-        /// <summary>
-        /// ToolbarText1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.ToolbarText ToolbarText1;
+        protected global::FineUIPro.ToolbarText ToolbarText2;
         
         /// <summary>
         /// ddlPageSize 控件。
@@ -166,22 +274,22 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         protected global::FineUIPro.Menu Menu1;
         
         /// <summary>
-        /// btnMenuEdit 控件。
+        /// btnMenuEdit1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuEdit;
+        protected global::FineUIPro.MenuButton btnMenuEdit1;
         
         /// <summary>
-        /// btnMenuDelete 控件。
+        /// btnMenuDelete1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuDelete;
+        protected global::FineUIPro.MenuButton btnMenuDelete1;
         
         /// <summary>
         /// btnView 控件。

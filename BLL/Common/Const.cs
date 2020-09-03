@@ -2274,11 +2274,23 @@ namespace BLL
         /// 危险因素分析
         /// </summary>
         public const string ProjectCheckAnalysisMenuId = "14C42C8E-8D3D-4D30-AA56-4F96828610AD";
+
+
+
+
+
+
         #endregion
 
         #endregion
 
         #region 焊接管理
+
+        /// <summary>        /// 无损检测工信息        /// </summary>        public const string CheckerManageMenuId = "13F11D51-1B54-400F-BDBB-36685BC94819";
+        /// <summary>        /// 焊接任务单        /// </summary>        public const string HJGL_WeldTaskMenuId = "6ce0b6bc-aa4d-4f0d-9f1f-75a553810793";
+        /// <summary>        /// 热处理报告及数据录入        /// </summary>        public const string HJGL_HotProessReportMenuId = "71a7de4f-5216-41cb-bcc9-8a5e43d5d168";
+        /// <summary>        /// 硬度报告录入        /// </summary>        public const string HJGL_HotHardReportMenuId = "c5ba5ef6-2112-4fe2-9ada-b8762cb629f6";
+
         #region 基础信息
         /// <summary>
         /// 焊接耗材

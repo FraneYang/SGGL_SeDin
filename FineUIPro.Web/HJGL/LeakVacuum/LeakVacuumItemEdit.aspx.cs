@@ -340,9 +340,15 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                     newitem.DesignTemperature = item.DesignTemperature;
                     newitem.AmbientTemperature = item.AmbientTemperature;
                     newitem.LeakPressure = item.LeakPressure;
-                    newitem.LeakMedium = item.LeakMedium;
+                    if (item.LeakMedium != "0")
+                    {
+                        newitem.LeakMedium = item.LeakMedium;
+                    }
                     newitem.VacuumPressure = item.VacuumPressure;
-                    newitem.VacuumMedium = item.VacuumMedium;
+                    if (item.VacuumMedium != "0")
+                    {
+                        newitem.VacuumMedium = item.VacuumMedium;
+                    }
                     newitem.TestMediumTemperature = item.TestMediumTemperature;
                     var PipelineList = Funs.DB.HJGL_LV_Pipeline.FirstOrDefault(x => x.LeakVacuumId == item.LeakVacuumId && x.PipelineId == item.PipelineId);
                     if (PipelineList != null)

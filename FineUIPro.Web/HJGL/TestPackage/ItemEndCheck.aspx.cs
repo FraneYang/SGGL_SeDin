@@ -262,6 +262,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
                             {
                                 url = "ItemEndCheckEdit2.aspx?PTP_ID={0}";
                             }
+                            else
+                            {
+                                Alert.ShowInTop("您不是办理人，无法办理！", MessageBoxIcon.Warning);
+                                return;
+                            }
                         }
                     }
                 }
@@ -358,6 +363,12 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 {
                     BLL.TestPackageApproveService.DeleteAllTestPackageApproveByID(rowID);
                     BLL.AItemEndCheckService.DeleteAllItemEndCheckByID(rowID);
+                    Model.PTP_TestPackage testPackage= BLL.TestPackageEditService.GetTestPackageByID(rowID);
+                    if (testPackage != null)
+                    {
+                        testPackage.State = null;
+                        BLL.TestPackageEditService.UpdateTestPackage(testPackage);
+                    }
                     BindGrid();
                 }
                 else

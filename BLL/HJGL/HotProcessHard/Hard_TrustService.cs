@@ -46,6 +46,9 @@ namespace BLL
             newHardTrust.CheckNum = hardTrust.CheckNum;
             newHardTrust.TestWeldNum = hardTrust.TestWeldNum;
             newHardTrust.HardTrustMan = hardTrust.HardTrustMan;
+            newHardTrust.CheckName = hardTrust.CheckName;
+            newHardTrust.AcceptStandard = hardTrust.AcceptStandard;
+            newHardTrust.EquipmentModel = hardTrust.EquipmentModel;
             db.HJGL_Hard_Trust.InsertOnSubmit(newHardTrust);
             db.SubmitChanges();
         }
@@ -77,6 +80,9 @@ namespace BLL
                 newHardTrust.CheckNum = hardTrust.CheckNum;
                 newHardTrust.TestWeldNum = hardTrust.TestWeldNum;
                 newHardTrust.HardTrustMan = hardTrust.HardTrustMan;
+                newHardTrust.CheckName = hardTrust.CheckName;
+                newHardTrust.AcceptStandard = hardTrust.AcceptStandard;
+                newHardTrust.EquipmentModel = hardTrust.EquipmentModel;
                 db.SubmitChanges();
             }
         }

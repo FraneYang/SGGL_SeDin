@@ -125,7 +125,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         select x).ToList();
             foreach (var item in pipeline)
             {
-                var jotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == item.PipelineId select x).Count();
+                var jotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == item.PipelineId  select x).Count();
                 TreeNode newNode = new TreeNode();
                 newNode.Text = item.PipelineCode;
                 newNode.Text += "【" + jotCount.ToString() + " " + "焊口" + "】";

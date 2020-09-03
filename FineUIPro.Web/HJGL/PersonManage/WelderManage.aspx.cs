@@ -23,72 +23,95 @@ namespace FineUIPro.Web.HJGL.PersonManage
             if (!IsPostBack)
             {
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, true);
                 // 绑定表格
-                this.BindGrid();
+                this.InitTreeMenu();
             }
         }
 
-        #region 绑定数据
+        #region 绑定数据-焊工信息
         /// <summary>
         /// 绑定数据
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Welder.PersonId, Welder.WelderCode, Welder.PersonName, Welder.UnitId,Welder.Birthday, 
-                                      (CASE WHEN Welder.Sex=1 THEN '男' ELSE '女' END) AS Sex,
-                                      Welder.IdentityCard, Welder.CertificateCode, Welder.CertificateLimitTime, 
-                                      Welder.WelderLevel, Welder.Remark,Unit.UnitName,
-                                      (CASE WHEN Welder.IsUsed=1 THEN '是' ELSE '否' END) AS IsUsed
-                               FROM SitePerson_Person AS Welder
-                               LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = Welder.UnitId WHERE 1=1";
-
-            List<SqlParameter> parms = new List<SqlParameter>();
-            strSql += " and Welder.WorkPostId = @WorkPostId";
-            parms.Add(new SqlParameter("@WorkPostId", Const.WorkPost_Welder));
-            strSql += " and Welder.ProjectId = @ProjectId";
-            parms.Add(new SqlParameter("@ProjectId",this.CurrUser.LoginProjectId));
-            if (drpUnit.SelectedValue != BLL.Const._Null)
+            if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
             {
-                strSql += " and Welder.UnitId = @UnitId";
-                parms.Add(new SqlParameter("@UnitId", drpUnit.SelectedValue));
-            }
-            if (!string.IsNullOrEmpty(this.txtWelderCode.Text))
-            {
-                strSql += " and Welder.WelderCode LIKE  @WelderCode";
-                parms.Add(new SqlParameter("@WelderCode", "%" + this.txtWelderCode.Text.Trim() + "%"));
-            }
-            if (!string.IsNullOrEmpty(this.txtWelderName.Text))
-            {
-                strSql += " and Welder.PersonName LIKE  @PersonName";
-                parms.Add(new SqlParameter("@PersonName", "%" + this.txtWelderName.Text.Trim() + "%"));
-            }
-            SqlParameter[] parameter = parms.ToArray();
-            DataTable dt = SQLHelper.GetDataTableRunText(strSql, parameter);
+                Model.SitePerson_Person welder = BLL.WelderService.GetWelderById(this.tvControlItem.SelectedNodeID);
+                if (welder != null)
+                {
+                    this.btnEdit.Hidden = false;
+                    this.btnNew.Hidden = false;
+                    this.btnDelete.Hidden = false;
+                    this.txtWelderCode.Text = welder.WelderCode;
+                    this.txtWelderName.Text = welder.PersonName;
 
-            Grid1.RecordCount = dt.Rows.Count;
-            var table = this.GetPagedDataTable(Grid1, dt);
-
-            Grid1.DataSource = table;
-            Grid1.DataBind();
+                    if (!string.IsNullOrEmpty(welder.UnitId))
+                    {
+                        this.drpUnitId.Text = UnitService.GetUnitNameByUnitId(welder.UnitId);
+                    }
+                    this.rblSex.Text = welder.Sex=="1"?"男":"女";
+                    if (welder.Birthday.HasValue)
+                    {
+                        this.txtBirthday.Text = string.Format("{0:yyyy-MM-dd}", welder.Birthday);
+                    }
+                    this.txtCertificateCode.Text = welder.CertificateCode;
+                    if (string.IsNullOrEmpty(welder.CertificateCode))
+                    {
+                        this.txtCertificateCode.Text = welder.IdentityCard;
+                    }
+                    if (welder.CertificateLimitTime.HasValue)
+                    {
+                        this.txtCertificateLimitTime.Text = string.Format("{0:yyyy-MM-dd}", welder.CertificateLimitTime);
+                    }
+                    this.txtWelderLevel.Text = welder.WelderLevel;
+                    if (welder.IsUsed == true)
+                    {
+                        cbIsOnDuty.Checked = true;
+                    }
+                    else
+                    {
+                        cbIsOnDuty.Checked = false;
+                    }
+                }
+            }
         }
-
-        protected void Grid1_RowDataBound(object sender, GridRowEventArgs e)
+        
+        #endregion
+        #region 绑定数据-资质信息
+        /// <summary>
+        /// 绑定数据
+        /// </summary>
+        private void BindGvItem()
         {
-            DataRowView row = e.DataItem as DataRowView;
-            if (row["CertificateLimitTime"].ToString() != string.Empty)
+            if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
             {
-                DateTime validity = Convert.ToDateTime(row["CertificateLimitTime"]);
-                DateTime nowDate = DateTime.Now;
+                string strSql = @"SELECT WelderQualifyId, WelderId, QualificationItem, LimitDate, CheckDate,
+									  (CASE WHEN ThicknessMax >0 THEN '不限 ~ '+ CONVERT(VARCHAR(5),CAST(ThicknessMax AS REAL))
+									       WHEN ThicknessMax=0 THEN '不限'
+										   WHEN ThicknessMax IS NULL THEN '' END) AS ThicknessMax,
+								     (CASE WHEN SizesMin >0 THEN  CONVERT(VARCHAR(5),CAST(SizesMin AS REAL))+' ~ 不限'
+									       WHEN SizesMin=0 THEN '不限'
+										   WHEN SizesMin IS NULL THEN '' END) AS SizesMin,
+									 Remark,WelderCode,PersonName,WeldingMethod,
+                                     WeldingLocation,MaterialType,IsPrintShow,WeldType,IsCanWeldG
+                              FROM View_Welder_WelderQualify
+                              WHERE WelderId=@WelderId";
 
-                if (validity.AddMonths(-1)<nowDate && validity>=nowDate)
+                List<SqlParameter> parms = new List<SqlParameter>();
+                parms.Add(new SqlParameter("@WelderId", this.tvControlItem.SelectedNodeID));
+                if (!string.IsNullOrEmpty(this.txtQualificationItem.Text))
                 {
-                    e.RowCssClass = "color1";
+                    strSql += " and QualificationItem LIKE  @QualificationItem";
+                    parms.Add(new SqlParameter("@QualificationItem", "%" + this.txtQualificationItem.Text.Trim() + "%"));
                 }
-                else if (validity < nowDate)
-                {
-                    e.RowCssClass = "color3";
-                }
+                SqlParameter[] parameter = parms.ToArray();
+                DataTable dt = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                Grid1.RecordCount = dt.Rows.Count;
+                var table = this.GetPagedDataTable(Grid1, dt);
+
+                Grid1.DataSource = table;
+                Grid1.DataBind();
             }
         }
 
@@ -99,7 +122,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// <param name="e"></param>
         protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
         {
-            BindGrid();
+            BindGvItem();
         }
 
         /// <summary>
@@ -110,7 +133,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
-            BindGrid();
+            BindGvItem();
         }
 
         /// <summary>
@@ -120,7 +143,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// <param name="e"></param>
         protected void Grid1_Sort(object sender, FineUIPro.GridSortEventArgs e)
         {
-            BindGrid();
+            BindGvItem();
         }
 
         /// <summary>
@@ -130,249 +153,51 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// <param name="e"></param>
         protected void Window1_Close(object sender, EventArgs e)
         {
-            BindGrid();
+            BindGvItem();
         }
         #endregion
-        #endregion
-
-        #region 增加按钮事件
+        #region 加载树
         /// <summary>
-        /// 增加按钮事件
+        /// 加载树
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNew_Click(object sender, EventArgs e)
+        private void InitTreeMenu()
         {
-            if (GetButtonPower(Const.BtnAdd))
+            this.tvControlItem.Nodes.Clear();
+            var getUnits = UnitService.GetUnitByProjectIdUnitTypeList(this.CurrUser.LoginProjectId, Const.ProjectUnitType_2);
+            foreach (var item in getUnits)
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderManageEdit.aspx", "新增 - ")));
-            }
-            else
-            {
-                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
-        #endregion
-
-        #region 编辑
-        /// <summary>
-        /// 双击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
-        {
-            this.EditData();
-        }
-
-        /// <summary>
-        /// 右键编辑事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuEdit_Click(object sender, EventArgs e)
-        {
-            this.EditData();
-        }
-
-        /// <summary>
-        /// 编辑数据方法
-        /// </summary>
-        private void EditData()
-        {
-
-            if (Grid1.SelectedRowIndexArray.Length == 0)
-            {
-                Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
-                return;
-            }
-
-            ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
-            if (GetButtonPower(Const.BtnModify))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderManageEdit.aspx?PersonId={0}", Grid1.SelectedRowID, "编辑 - ")));
-            }
-            else if (GetButtonPower(Const.BtnSee))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderManageView.aspx?PersonId={0}", Grid1.SelectedRowID, "查看 - ")));
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
-        #endregion
-
-        #region 删除
-        /// <summary>
-        /// 右键删除事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuDelete_Click(object sender, EventArgs e)
-        {
-            if (GetButtonPower(Const.BtnDelete))
-            {
-                if (Grid1.SelectedRowIndexArray.Length > 0)
+                TreeNode rootNode = new TreeNode();
+                rootNode.NodeID = item.UnitId;
+                rootNode.Text = item.UnitName;
+                this.tvControlItem.Nodes.Add(rootNode);
+                var getWelders = (from x in Funs.DB.SitePerson_Person where x.ProjectId == this.CurrUser.LoginProjectId && x.WorkPostId == Const.WorkPost_Welder && x.UnitId == item.UnitId select x).ToList();
+                foreach (var sitem in getWelders)
                 {
-                    string strShowNotify = string.Empty;
-                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
-                    {
-                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                        var welder = BLL.WelderService.GetWelderById(rowID);
-                        if (welder != null)
-                        {
-                            string cont = judgementDelete(rowID);
-                            if (string.IsNullOrEmpty(cont))
-                            {
-                                BLL.WelderService.DeleteWelderById(rowID);
-                                //BLL.Sys_LogService.AddLog(Const.System_1, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnDelete, rowID);
-                            }
-                            else
-                            {
-                                strShowNotify += "焊工管理" + "：" + welder.WelderCode + cont;
-                            }
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(strShowNotify))
-                    {
-                        Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        BindGrid();
-                        ShowNotify("删除成功！", MessageBoxIcon.Success);
-                    }
+                    TreeNode tn = new TreeNode();
+                    tn.NodeID = sitem.PersonId;
+                    tn.Text = sitem.PersonName;
+                    tn.EnableClickEvent = true;
+                    rootNode.Nodes.Add(tn);
                 }
             }
-            else
-            {
-                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
 
-        #region 判断是否可删除
-        /// <summary>
-        /// 判断是否可以删除
-        /// </summary>
-        /// <returns></returns>
-        private string judgementDelete(string id)
-        {
-            string content = string.Empty;
-            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectUserId == id) != null)
-            {
-                content += "已在【项目焊工】中使用，不能删除！";
-            }
 
-            //if (Funs.DB.Pipeline_WeldJoint.FirstOrDefault(x => x.BackingWelderId == id) != null)
-            //{
-            //    content += "已在【焊接信息】中使用，不能删除！";
-            //}
 
-            return content;
         }
         #endregion
 
-        #endregion
-
-        #region 查询
+        #region 点击TreeView
         /// <summary>
-        /// 查询
+        /// 点击TreeView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnQuery_Click(object sender, EventArgs e)
+        protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
             this.BindGrid();
+            this.BindGvItem();
         }
         #endregion
-
-        #region 查看按钮
-        /// <summary>
-        /// 查看按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnView_Click(object sender, EventArgs e)
-        {
-            if (GetButtonPower(Const.BtnSee))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderManageView.aspx?PersonId={0}", Grid1.SelectedRowID, "查看 - ")));
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
-        #endregion
-
-        #region 格式化字符串
-        /// <summary>
-        /// 获取性别
-        /// </summary>
-        /// <param name="sex"></param>
-        /// <returns></returns>
-        protected string ConvertSex(object sex)
-        {
-            if (sex != null)
-            {
-                if (sex.ToString() == "1")
-                {
-                    return "男";
-                }
-                else if (sex.ToString() == "2")
-                {
-                    return "女";
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 获取是否在岗
-        /// </summary>
-        /// <param name="isOnduty"></param>
-        /// <returns></returns>
-        protected string ConvertIsOnDuty(object isOnduty)
-        {
-            if (isOnduty!=null)
-            {
-                if (Convert.ToBoolean(isOnduty) == true)
-                {
-                    return "是";
-                }
-                else if (Convert.ToBoolean(isOnduty) == false)
-                {
-                    return "否";
-                }
-            }
-            return null;
-        }
-        #endregion
-
-        #region 打印按钮
-        /// <summary>
-        /// 打印按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnPrint_Click(object sender, EventArgs e)
-        {
-            if (GetButtonPower(Const.BtnPrint))
-            {
-                PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("WelderPrint.aspx?PersonId={0}", Grid1.SelectedRowID, "打印 - ")));
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
         #endregion
 
         #region 导出按钮
@@ -441,6 +266,243 @@ namespace FineUIPro.Web.HJGL.PersonManage
         {
             return BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.WelderManageMenuId, button);
         }
+        #endregion
+
+        #region 焊工信息维护事件
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
+            {
+                Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                return;
+            }
+            if (GetButtonPower(Const.BtnModify))
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderManageEdit.aspx?PersonId={0}", this.tvControlItem.SelectedNodeID, "编辑 - ")));
+            }
+            else if (GetButtonPower(Const.BtnSee))
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderManageView.aspx?PersonId={0}", this.tvControlItem.SelectedNodeID, "查看 - ")));
+            }
+            else
+            {
+                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (GetButtonPower(Const.BtnDelete))
+            {
+                if (string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
+                {
+                    Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                    return;
+                }
+                string strShowNotify = string.Empty;
+                var welder = BLL.WelderService.GetWelderById(this.tvControlItem.SelectedNodeID);
+                if (welder != null)
+                {
+                    string cont = judgementDelete(this.tvControlItem.SelectedNodeID);
+                    if (string.IsNullOrEmpty(cont))
+                    {
+                        var ItemCheck = from x in Funs.DB.Welder_WelderQualify where x.WelderId == this.tvControlItem.SelectedNodeID select x;
+                        if (ItemCheck != null)
+                        {
+                            Funs.DB.Welder_WelderQualify.DeleteAllOnSubmit(ItemCheck);
+                            Funs.DB.SubmitChanges();
+                        }
+                        BLL.WelderService.DeleteWelderById(this.tvControlItem.SelectedNodeID);
+                    }
+                    else
+                    {
+                        strShowNotify += "焊工管理" + "：" + welder.WelderCode + cont;
+                    }
+                }
+                if (!string.IsNullOrEmpty(strShowNotify))
+                {
+                    Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    BindGrid();
+                    ShowNotify("删除成功！", MessageBoxIcon.Success);
+                }
+            }
+            else
+            {
+                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        #region 判断是否可删除
+        /// <summary>
+        /// 判断是否可以删除
+        /// </summary>
+        /// <returns></returns>
+        private string judgementDelete(string id)
+        {
+            string content = string.Empty;
+            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectUserId == id) != null)
+            {
+                content += "已在【项目焊工】中使用，不能删除！";
+            }
+
+            //if (Funs.DB.Pipeline_WeldJoint.FirstOrDefault(x => x.BackingWelderId == id) != null)
+            //{
+            //    content += "已在【焊接信息】中使用，不能删除！";
+            //}
+
+            return content;
+        }
+        #endregion
+        #endregion
+
+        #region 焊工资质信息维护事件
+        #region 增加按钮事件
+        /// <summary>
+        /// 增加按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnNew_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnModify))
+            {
+                if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderItemEdit.aspx?PersonId={0}", this.tvControlItem.SelectedNodeID, "新增 - ")));
+                }
+            }
+            else
+            {
+                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+        #endregion
+
+        #region 编辑
+        /// <summary>
+        /// 双击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
+        {
+            this.EditData();
+        }
+
+        /// <summary>
+        /// 右键编辑事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuEdit_Click(object sender, EventArgs e)
+        {
+            this.EditData();
+        }
+
+        /// <summary>
+        /// 编辑数据方法
+        /// </summary>
+        private void EditData()
+        {
+
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                return;
+            }
+
+            ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnModify))
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderItemEdit.aspx?WelderQualifyId={0}", Grid1.SelectedRowID, "编辑 - ")));
+            }
+            else
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderItemView.aspx?WelderQualifyId={0}", Grid1.SelectedRowID, "查看 - ")));
+            }
+        }
+        #endregion
+
+        #region 删除
+        /// <summary>
+        /// 右键删除事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuDelete_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnDelete))
+            {
+                if (Grid1.SelectedRowIndexArray.Length > 0)
+                {
+                    string strShowNotify = string.Empty;
+                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                    {
+                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                        var welder = BLL.WelderQualifyService.GetWelderQualifyById(rowID);
+                        if (welder != null)
+                        {
+                            string cont = judgementDelete(rowID);
+                            if (string.IsNullOrEmpty(cont))
+                            {
+                                BLL.WelderQualifyService.DeleteWelderQualifyById(rowID);
+                                //BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安装组件信息");
+                            }
+                            //else
+                            //{
+                            //    strShowNotify += Resources.Lan.WelderQualification + "：" + welder.QualificationItem + cont;
+                            //}
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(strShowNotify))
+                    {
+                        Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        BindGvItem();
+                        ShowNotify("删除成功！", MessageBoxIcon.Success);
+                    }
+                }
+            }
+            else
+            {
+                Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+        
+        #endregion
+
+        #region 查询
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnQuery_Click(object sender, EventArgs e)
+        {
+            this.BindGvItem();
+        }
+        #endregion
+
+        #region 查看按钮
+        /// <summary>
+        /// 查看按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderItemView.aspx?WelderQualifyId={0}", Grid1.SelectedRowID, "查看 - ")));
+        }
+        #endregion      
         #endregion
     }
 }

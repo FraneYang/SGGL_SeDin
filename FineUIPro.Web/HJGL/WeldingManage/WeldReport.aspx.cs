@@ -232,6 +232,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         #endregion
         #endregion
 
+
+
         #region 焊接日报 维护事件
         /// <summary>
         /// Grid双击事件

@@ -251,7 +251,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnSave))
+            if (CommonService.GetAllButtonPowerList(CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldTaskMenuId, Const.BtnSave))
             {
                 if (BLL.WeldingDailyService.IsExistWeldingDailyCode(this.txtWeldingDailyCode.Text, !string.IsNullOrEmpty(this.WeldingDailyId) ? this.WeldingDailyId : "", CurrUser.LoginProjectId))
                 {

@@ -131,13 +131,6 @@
                                 DataField="ProessDate" SortField="ProessDate" FieldType="Date" Renderer="Date"
                                 HeaderTextAlign="Center" TextAlign="Left" Width="120px">
                             </f:RenderField>
-                            <f:RenderField ColumnID="IsCompleted" Width="100px"  DataField="IsCompleted" 
-                                HeaderText="是否完成" HeaderTextAlign="Center" TextAlign="Center" FieldType="String"/>
-
-                              <f:WindowField HeaderTextAlign="Center" TextAlign="Center" Width="120px" WindowID="Window1"
-                                DataIFrameUrlFields="HotProessTrustItemId" DataIFrameUrlFormatString="HotProessReport.aspx?HotProessTrustItemId={0}"
-                                Text="热处理报告" HeaderText="热处理报告">
-                            </f:WindowField>
                         </Columns>
                         <Listeners>
                             <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

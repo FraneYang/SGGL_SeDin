@@ -171,7 +171,7 @@
                                                 <f:Label ID="txtInstallationSpecification" runat="server" Label="1.管道安装符合设计文件和规范要求"
                                                     LabelAlign="Right" LabelWidth="350px">
                                                 </f:Label>
-                                                <f:Label ID="txtPressureTest" runat="server" Label="2.管道耐压试验合格" LabelAlign="Right"
+                                                <f:Label ID="txtPressureTest" runat="server" Label="2.管道组成件复验合格" LabelAlign="Right"
                                                     LabelWidth="350px">
                                                 </f:Label>
                                             </Items>

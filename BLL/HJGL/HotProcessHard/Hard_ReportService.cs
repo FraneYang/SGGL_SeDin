@@ -23,7 +23,10 @@ namespace BLL
         {
             return Funs.DB.View_HJGL_Hard_Report.FirstOrDefault(e => e.HardReportId == strHardReportId);
         }
-
+        public static List<Model.HJGL_Hard_Report> GetHardReportListById(string HardTrustItemID)
+        {
+            return (from x in Funs.DB.HJGL_Hard_Report where x.HardTrustItemID == HardTrustItemID select x).ToList();
+        }
         /// <summary>
         /// 增加硬度报告信息
         /// </summary>

@@ -31,15 +31,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.PageManager PageManager1;
         
         /// <summary>
-        /// Form2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form2;
-        
-        /// <summary>
         /// Toolbar1 控件。
         /// </summary>
         /// <remarks>
@@ -56,6 +47,24 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnSave;
+        
+        /// <summary>
+        /// GroupPanel3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.GroupPanel GroupPanel3;
+        
+        /// <summary>
+        /// Form2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Form Form2;
         
         /// <summary>
         /// txtPipelineCode 控件。
@@ -94,13 +103,13 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.TextBox txtDetectionType;
         
         /// <summary>
-        /// SimpleForm1 控件。
+        /// GroupPanel1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form SimpleForm1;
+        protected global::FineUIPro.GroupPanel GroupPanel1;
         
         /// <summary>
         /// txtWeldJointCode 控件。
@@ -166,15 +175,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.TextBox txtSpecification;
         
         /// <summary>
-        /// drpJointArea 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpJointArea;
-        
-        /// <summary>
         /// drpWeldTypeCode 控件。
         /// </summary>
         /// <remarks>
@@ -184,15 +184,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.DropDownList drpWeldTypeCode;
         
         /// <summary>
-        /// drpWeldingMethodId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpWeldingMethodId;
-        
-        /// <summary>
         /// txtDetectionTypeId 控件。
         /// </summary>
         /// <remarks>
@@ -200,6 +191,51 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtDetectionTypeId;
+        
+        /// <summary>
+        /// drpComponent1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpComponent1;
+        
+        /// <summary>
+        /// drpComponent2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpComponent2;
+        
+        /// <summary>
+        /// drpDesignIsHotProess 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpDesignIsHotProess;
+        
+        /// <summary>
+        /// GroupPanel2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.GroupPanel GroupPanel2;
+        
+        /// <summary>
+        /// drpWeldingMethodId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpWeldingMethodId;
         
         /// <summary>
         /// Panel3 控件。
@@ -238,42 +274,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.DropDownList drpGrooveType;
         
         /// <summary>
-        /// drpComponent1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpComponent1;
-        
-        /// <summary>
-        /// drpComponent2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpComponent2;
-        
-        /// <summary>
-        /// txtHeartNo1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtHeartNo1;
-        
-        /// <summary>
-        /// txtHeartNo2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtHeartNo2;
-        
-        /// <summary>
         /// drpWeldingRod 控件。
         /// </summary>
         /// <remarks>
@@ -299,6 +299,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtPreTemperature;
+        
+        /// <summary>
+        /// drpJointArea 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpJointArea;
         
         /// <summary>
         /// drpIsHotProess 控件。
@@ -335,6 +344,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtWpqId;
+        
+        /// <summary>
+        /// txtIsHotProess 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtIsHotProess;
         
         /// <summary>
         /// Window1 控件。

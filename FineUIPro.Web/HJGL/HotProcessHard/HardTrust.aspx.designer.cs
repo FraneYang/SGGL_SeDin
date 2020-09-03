@@ -157,6 +157,15 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         protected global::FineUIPro.Label txtHardTrustNo;
         
         /// <summary>
+        /// txtHardTrustUnit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtHardTrustUnit;
+        
+        /// <summary>
         /// txtCheckUnit 控件。
         /// </summary>
         /// <remarks>
@@ -164,15 +173,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label txtCheckUnit;
-        
-        /// <summary>
-        /// txtHardTrustMan 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtHardTrustMan;
         
         /// <summary>
         /// txtHardTrustDate 控件。
@@ -184,22 +184,13 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         protected global::FineUIPro.Label txtHardTrustDate;
         
         /// <summary>
-        /// txtHardnessMethod 控件。
+        /// txtCheckName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label txtHardnessMethod;
-        
-        /// <summary>
-        /// txtHardnessRate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtHardnessRate;
+        protected global::FineUIPro.Label txtCheckName;
         
         /// <summary>
         /// txtStandards 控件。
@@ -211,49 +202,22 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         protected global::FineUIPro.Label txtStandards;
         
         /// <summary>
-        /// txtInspectionNum 控件。
+        /// txtAcceptStandard 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label txtInspectionNum;
+        protected global::FineUIPro.Label txtAcceptStandard;
         
         /// <summary>
-        /// txtCheckNum 控件。
+        /// txtHardnessRate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label txtCheckNum;
-        
-        /// <summary>
-        /// txtTestWeldNum 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtTestWeldNum;
-        
-        /// <summary>
-        /// txtDetectionTime 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtDetectionTime;
-        
-        /// <summary>
-        /// txtSendee 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtSendee;
+        protected global::FineUIPro.Label txtHardnessRate;
         
         /// <summary>
         /// Grid1 控件。

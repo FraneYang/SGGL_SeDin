@@ -10,4 +10,6 @@
 <TreeNode id="F266456A-991F-45A3-BCD6-CF2515D71E39" Text="项目施工平面布置图" NavigateUrl="PZHGL/ProjectData/ProjectMap.aspx"></TreeNode>
 <TreeNode id="B58179BE-FE6E-4E91-84FC-D211E4692354" Text="项目亮点" NavigateUrl="PZHGL/InformationProject/Picture.aspx"></TreeNode>
 <TreeNode id="43E96F2A-9497-4C37-998F-0EB324000609" Text="工作联系单" NavigateUrl="CQMS/Unqualified/ContactList.aspx"></TreeNode>
+<TreeNode id="25AC041E-0B27-4D7C-860B-1A06518B6673" Text="文件柜" NavigateUrl=""><TreeNode id="F274F84A-B648-4ABA-99D4-993AA6D1143A" Text="工作联系单" NavigateUrl="CQMS/Check/WorkContactFile.aspx"></TreeNode>
+</TreeNode>
 </Tree>
