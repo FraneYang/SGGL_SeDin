@@ -97,7 +97,27 @@
                                             <f:Label runat="server" Hidden="true"></f:Label>
                                         </Items>
                                     </f:FormRow>
-
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:Label runat="server" Label="参与共检人" LabelWidth="110px"></f:Label>
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:TextBox ID="txtJointCheckMans1" runat="server" LabelWidth="110px" Enabled="false" Readonly="true" Label="总承包商" LabelAlign="Right"
+                                               >
+                                            </f:TextBox>
+                                            <f:TextBox ID="txtJointCheckMans2" runat="server" Readonly="true" Enabled="false" Label="施工单位" LabelAlign="Right"
+                                               >
+                                            </f:TextBox>
+                                            <f:TextBox ID="txtJointCheckMans3" runat="server" Readonly="true" Enabled="false" Label="监理单位" LabelAlign="Right"
+                                               >
+                                            </f:TextBox>
+                                            <f:TextBox ID="txtJointCheckMans4" runat="server" Readonly="true" Enabled="false" Label="建设单位" LabelAlign="Right"
+                                                >
+                                            </f:TextBox>
+                                        </Items>
+                                    </f:FormRow>
                                 </Rows>
                             </f:Form>
                         </f:ContentPanel>

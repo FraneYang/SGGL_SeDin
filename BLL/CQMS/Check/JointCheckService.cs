@@ -103,6 +103,10 @@ namespace BLL
             newJointCheck.CheckDate = JointCheck.CheckDate;
             newJointCheck.CheckMan = JointCheck.CheckMan;
             newJointCheck.State = JointCheck.State;
+            newJointCheck.JointCheckMans1 = JointCheck.JointCheckMans1;
+            newJointCheck.JointCheckMans2 = JointCheck.JointCheckMans2;
+            newJointCheck.JointCheckMans3 = JointCheck.JointCheckMans3;
+            newJointCheck.JointCheckMans4 = JointCheck.JointCheckMans4;
 
             db.Check_JointCheck.InsertOnSubmit(newJointCheck);
             db.SubmitChanges();
@@ -128,6 +132,10 @@ namespace BLL
                 newJointCheck.CheckDate = JointCheck.CheckDate;
                 newJointCheck.CheckMan = JointCheck.CheckMan;
                 newJointCheck.State = JointCheck.State;
+                newJointCheck.JointCheckMans1 = JointCheck.JointCheckMans1;
+                newJointCheck.JointCheckMans2 = JointCheck.JointCheckMans2;
+                newJointCheck.JointCheckMans3 = JointCheck.JointCheckMans3;
+                newJointCheck.JointCheckMans4 = JointCheck.JointCheckMans4;
 
                 db.Check_JointCheck.InsertOnSubmit(newJointCheck);
                 db.SubmitChanges();
@@ -149,6 +157,10 @@ namespace BLL
             newJointCheck.UnitId = JointCheck.UnitId;
             newJointCheck.CheckDate = JointCheck.CheckDate;
             newJointCheck.State = JointCheck.State;
+            newJointCheck.JointCheckMans1 = JointCheck.JointCheckMans1;
+            newJointCheck.JointCheckMans2 = JointCheck.JointCheckMans2;
+            newJointCheck.JointCheckMans3 = JointCheck.JointCheckMans3;
+            newJointCheck.JointCheckMans4 = JointCheck.JointCheckMans4;
 
             db.SubmitChanges();
         }
@@ -478,6 +490,14 @@ namespace BLL
                     newJointCheck.CheckDate = JointCheck.CheckDate;
                 if (!string.IsNullOrEmpty(JointCheck.State))
                     newJointCheck.State = JointCheck.State;
+                if (!string.IsNullOrEmpty(JointCheck.JointCheckMans1))
+                    newJointCheck.JointCheckMans1 = JointCheck.JointCheckMans1;
+                if (!string.IsNullOrEmpty(JointCheck.JointCheckMans2))
+                    newJointCheck.JointCheckMans2 = JointCheck.JointCheckMans2;
+                if (!string.IsNullOrEmpty(JointCheck.JointCheckMans3))
+                    newJointCheck.JointCheckMans3 = JointCheck.JointCheckMans3;
+                if (!string.IsNullOrEmpty(JointCheck.JointCheckMans4))
+                    newJointCheck.JointCheckMans4 = JointCheck.JointCheckMans4;
 
                 db.SubmitChanges();
             }

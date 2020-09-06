@@ -30,9 +30,9 @@ namespace FineUIPro.Web.CQMS.Check
         {
             if (!IsPostBack)
             {
+                this.ProjectId = this.CurrUser.LoginProjectId;
                 GetButtonPower();
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList1(drpUserUnit, this.CurrUser.LoginProjectId, true);
-                this.ProjectId = this.CurrUser.LoginProjectId;
                 BindGrid();
             }
         }

@@ -92,7 +92,7 @@
                 <f:FormRow >
                     <Items>
                         <f:Panel ID="pan" Layout="Block" CssClass="blockpanel myblockform" BlockMD="12"
-                            BlockConfigSpace="10px" BodyPadding="5px" Title="项目信息" EnableCollapse="true" runat="server">
+                            BlockConfigSpace="10px" BodyPadding="5px" Title="1、项目信息" EnableCollapse="true" runat="server">
                             <Items>
 
                                 <f:TextBox ID="projectCode" runat="server" Label="项目编号" BlockMD="4" Readonly="true" MaxLength="50">
@@ -125,7 +125,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:ContentPanel ID="ContentPanel1" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="项目安全工时统计" runat="server">
+                        <f:ContentPanel ID="ContentPanel1" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="2、项目安全工时统计" runat="server">
                             <table style="width: 100%" id="SeDinMonthReport3Item" runat="server">
                                 <tr>
                                     <td>
@@ -189,7 +189,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:ContentPanel ID="ContentPanel2" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="项目HSE事故、事件统计" runat="server">
+                        <f:ContentPanel ID="ContentPanel2" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="3、项目HSE事故、事件统计" runat="server">
                             <table class="table">
                                 <tr>
                                     <th colspan="2">事故类型
@@ -460,7 +460,7 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel3" BodyPadding="10" ShowBorder="true" EnableCollapse="true" 
-                            CssClass="blockpanel myblockform" ShowHeader="true" Title="本月人员投入情况" runat="server">
+                            CssClass="blockpanel myblockform" ShowHeader="true" Title="4、本月人员投入情况" runat="server">
                             <f:Grid ID="GvSeDinMonthReport4Item" CssClass="blockpanel" AllowCellEditing="true" EnableColumnLines="true" 
                                     ShowBorder="true" ShowHeader="false" EnableCollapse="false" runat="server"
                                     EnableSummary="true" SummaryPosition="Bottom">
@@ -520,7 +520,7 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel4" BodyPadding="10" ShowBorder="true" EnableCollapse="true" 
-                            CssClass="blockpanel myblockform" ShowHeader="true" Title="本月大型、特种设备投入情况" runat="server">
+                            CssClass="blockpanel myblockform" ShowHeader="true" Title="5、本月大型、特种设备投入情况" runat="server">
                             <f:Grid ID="GvSeDinMonthReport5Item"  CssClass="table" ShowBorder="true" AllowCellEditing="true" 
                                 EnableColumnLines="true" ShowHeader="false"  EnableCollapse="false" runat="server"
                                 EnableSummary="true" SummaryPosition="Bottom">
@@ -636,7 +636,7 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel5" BodyPadding="10" ShowBorder="true"
-                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="安全生产费用投入情况" runat="server">
+                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="6、安全生产费用投入情况" runat="server">
                             <table class="table">
                                 <tr>
                                     <td></td>
@@ -652,43 +652,43 @@
                                     <td>
                                         <input type="text" runat="server" class="input" id="SafetyMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SafetyYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
-                                    <td>
-                                        <input type="text" runat="server" class="input" id="SafetyTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
-                                    <td>
                                         <input type="text" runat="server" class="input" id="LaborMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="LaborYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="ProgressMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="LaborTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="EducationMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                    <td>
+                                        <input type="text" runat="server" class="input" id="SumMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                    <td>
+                                        <input type="text" runat="server" class="input" id="ContractMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td>年度累计</td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="ProgressMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SafetyYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                    <td>
+                                        <input type="text" runat="server" class="input" id="LaborYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
                                         <input type="text" runat="server" class="input" id="ProgressYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="ProgressTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
-                                    <td>
-                                        <input type="text" runat="server" class="input" id="EducationMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
-                                    <td>
                                         <input type="text" runat="server" class="input" id="EducationYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="EducationTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SumYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                    <td>
+                                        <input type="text" runat="server" class="input" id="ContractYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td>项目累计</td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SumMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SafetyTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SumYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="LaborTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                    <td>
+                                        <input type="text" runat="server" class="input" id="ProgressTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                    <td>
+                                        <input type="text" runat="server" class="input" id="EducationTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
                                         <input type="text" runat="server" class="input" id="SumTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
-                                    <td>
-                                        <input type="text" runat="server" class="input" id="ContractMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
-                                    <td>
-                                        <input type="text" runat="server" class="input" id="ContractYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
                                         <input type="text" runat="server" class="input" id="ContractTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
@@ -704,7 +704,7 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel6" BodyPadding="10" ShowBorder="true"
-                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="项目HSE培训统计" runat="server">
+                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="7、项目HSE培训统计" runat="server">
                             <table class="table">
                                 <tr>
                                     <td rowspan="2">培训课程类型</td>
@@ -756,7 +756,7 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="CpReport8" BodyPadding="10" ShowBorder="true"
-                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="项目HSE会议统计" runat="server">
+                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="8、项目HSE会议统计" runat="server">
                             <table class="table">
                                 <tr>
                                     <td>会议类型</td>
@@ -813,16 +813,14 @@
                                                 </Editor>
                                        </f:RenderField>
                                 </Columns>
-
                             </f:Grid>
-
                         </f:ContentPanel>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="CpSeDinMonthReport9Item" BodyPadding="10" ShowBorder="true"
-                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="项目HSE检查统计" runat="server">
+                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="9、项目HSE检查统计" runat="server">
                             <table class="table">
                                 <tr>
                                     <td colspan="2">检查类型</td>
@@ -866,11 +864,8 @@
                                     <td>
                                         <input type="text" runat="server" class="input" id="MonthlyTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
-
-
                             </table>
-                            <f:Grid ID="GvSeDinMonthReport9ItemSpecial" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="专项检查" ForceFit="true" EnableCollapse="false" runat="server">
-                             
+                            <f:Grid ID="GvSeDinMonthReport9ItemSpecial" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="专项检查" ForceFit="true" EnableCollapse="false" runat="server">                             
                                 <Columns>
                                     <f:BoundField ColumnID="TypeName" DataField="TypeName" Width="80px" HeaderText="类型" />
                                      <f:RenderField Width="100px" ColumnID="CheckMonth" DataField="CheckMonth" FieldType="Int"
@@ -990,7 +985,7 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel9" BodyPadding="10" ShowBorder="true"
-                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="项目奖惩情况统计" runat="server">
+                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="10、项目奖惩情况统计" runat="server">
                             <table class="table">
                                 <tr>
                                     <td>类型</td>
@@ -1075,7 +1070,7 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel10" BodyPadding="10" ShowBorder="true"
-                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="项目危大工程施工情况" runat="server">
+                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="11、项目危大工程施工情况" runat="server">
                             <table class="table">
                                 <tr>
                                     <td>类别</td>
@@ -1108,7 +1103,7 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel11" BodyPadding="10" ShowBorder="true"
-                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="项目应急演练情况" runat="server">
+                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="12、项目应急演练情况" runat="server">
                             <table class="table">
                                 <tr>
                                     <th colspan="2">类别</th>
@@ -1185,9 +1180,9 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel12" BodyPadding="10" ShowBorder="true"
-                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="本月HSE活动综述及下月HSE工作计划" runat="server">
-                            <f:TextArea Label="本月HSE活动综述" ID="ThisSummary"  runat="server" LabelWidth="140px"></f:TextArea>
-                            <f:TextArea Label="下月HSE工作计划" ID="NextPlan" runat="server" LabelWidth="140px"></f:TextArea>
+                            EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="13、本月HSE活动综述及下月HSE工作计划" runat="server">
+                            <f:TextArea Label="13、本月HSE活动综述" ID="ThisSummary"  runat="server" LabelWidth="140px"></f:TextArea>
+                            <f:TextArea Label="14、下月HSE工作计划" ID="NextPlan" runat="server" LabelWidth="140px"></f:TextArea>
                         </f:ContentPanel>
                     </Items>
                 </f:FormRow>

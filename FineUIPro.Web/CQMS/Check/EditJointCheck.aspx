@@ -56,7 +56,7 @@
                                     <f:FormRow>
                                         <Items>
                                             <f:DropDownList ID="drpUnit" LabelWidth="110px" EmptyText="--请选择--" AutoSelectFirstItem="false"
-                                                ShowRedStar="true" runat="server" Required="true" Label="受检施工单位"
+                                                ShowRedStar="true" runat="server" Required="true" Label="受检施工单位" AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged" 
                                                 LabelAlign="Right" EnableEdit="true">
                                             </f:DropDownList>
                                             <f:DropDownList ID="drpCheckType" LabelWidth="110px" EmptyText="--请选择--" AutoSelectFirstItem="false"
@@ -83,7 +83,23 @@
                                             <f:Label runat="server" Hidden="true"></f:Label>
                                         </Items>
                                     </f:FormRow>
-
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:Label runat="server" Label="参与共检人" LabelWidth="110px"></f:Label>
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
+                                            <f:DropDownList ID="drpJointCheckMans1" runat="server" Label="总承包商" EmptyText="--请选择--" AutoSelectFirstItem="false" EnableMultiSelect="true" LabelWidth="110px" LabelAlign="Right" EnableEdit="true"  AutoPostBack="true" OnSelectedIndexChanged="drpJointCheckMans1_SelectedIndexChanged">
+                                            </f:DropDownList>
+                                            <f:DropDownList ID="drpJointCheckMans2" runat="server" Label="施工单位" EmptyText="--请选择--" AutoSelectFirstItem="false" EnableMultiSelect="true" LabelAlign="Right" EnableEdit="true"  AutoPostBack="true" OnSelectedIndexChanged="drpJointCheckMans2_SelectedIndexChanged">
+                                            </f:DropDownList>
+                                            <f:DropDownList ID="drpJointCheckMans3" runat="server" Label="监理单位" EmptyText="--请选择--" AutoSelectFirstItem="false" EnableMultiSelect="true" LabelAlign="Right" EnableEdit="true"  AutoPostBack="true" OnSelectedIndexChanged="drpJointCheckMans3_SelectedIndexChanged">
+                                            </f:DropDownList>
+                                            <f:DropDownList ID="drpJointCheckMans4" runat="server" Label="建设单位" EmptyText="--请选择--" AutoSelectFirstItem="false" EnableMultiSelect="true" LabelAlign="Right" EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="drpJointCheckMans4_SelectedIndexChanged">
+                                            </f:DropDownList>
+                                        </Items>
+                                    </f:FormRow>
                                 </Rows>
                             </f:Form>
                         </f:ContentPanel>

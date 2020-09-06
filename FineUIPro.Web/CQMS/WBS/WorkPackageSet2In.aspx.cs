@@ -223,10 +223,11 @@ namespace FineUIPro.Web.CQMS.WBS
                                 Model.WBS_WorkPackage newWorkPackage = new Model.WBS_WorkPackage
                                 {
                                     WorkPackageId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage)),
-                                    
+
 
                                 };
-                                if (!string.IsNullOrEmpty(col1) && !string.IsNullOrEmpty(col2)) {
+                                if (!string.IsNullOrEmpty(col1) && !string.IsNullOrEmpty(col2))
+                                {
                                     newWorkPackage.SuperWorkPack = col1 + "-" + col2;
                                 }
                                 foreach (var item in workPackageProjects)
@@ -290,7 +291,6 @@ namespace FineUIPro.Web.CQMS.WBS
         #endregion
         #endregion
 
-
         #region 下载模板
         /// <summary>
         /// 下载模板按钮
@@ -334,7 +334,160 @@ namespace FineUIPro.Web.CQMS.WBS
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (this.fuAttachUrl.HasFile == false)
+                {
+                    Alert.ShowInTop("请您选择Excel文件！", MessageBoxIcon.Warning);
+                    return;
+                }
+                string IsXls = Path.GetExtension(this.fuAttachUrl.FileName).ToString().Trim().ToLower();
+                if (IsXls != ".xls")
+                {
+                    Alert.ShowInTop("只可以选择Excel文件！", MessageBoxIcon.Warning);
+                    return;
+                }
+                if (ViewWorkPackages != null)
+                {
+                    ViewWorkPackages.Clear();
+                }
+                if (!string.IsNullOrEmpty(errorInfos))
+                {
+                    errorInfos = string.Empty;
+                }
+                string rootPath = Server.MapPath("~/");
+                string initFullPath = rootPath + initPath;
+                if (!Directory.Exists(initFullPath))
+                {
+                    Directory.CreateDirectory(initFullPath);
+                }
 
+                this.hdFileName.Text = BLL.Funs.GetNewFileName() + IsXls;
+                string filePath = initFullPath + this.hdFileName.Text;
+                this.fuAttachUrl.PostedFile.SaveAs(filePath);
+
+                ViewWorkPackages.Clear();
+                string oleDBConnString = String.Empty;
+                oleDBConnString = "Provider=Microsoft.Jet.OLEDB.4.0;";
+                oleDBConnString += "Data Source=";
+                oleDBConnString += rootPath + initPath + this.hdFileName.Text;
+                oleDBConnString += ";Extended Properties=Excel 8.0;";
+                OleDbConnection oleDBConn = null;
+                OleDbDataAdapter oleAdMaster = null;
+                DataTable m_tableName = new DataTable();
+                DataSet ds = new DataSet();
+
+                oleDBConn = new OleDbConnection(oleDBConnString);
+                oleDBConn.Open();
+                m_tableName = oleDBConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                if (m_tableName != null && m_tableName.Rows.Count > 0)
+                {
+                    m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
+                }
+                string sqlMaster;
+                sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
+                oleAdMaster = new OleDbDataAdapter(sqlMaster, oleDBConn);
+                oleAdMaster.Fill(ds, "m_tableName");
+                oleAdMaster.Dispose();
+                oleDBConn.Close();
+                oleDBConn.Dispose();
+
+                DataTable pds = ds.Tables[0];
+                string results = string.Empty;
+                int ir = pds.Rows.Count;
+                if (pds != null && ir > 0)
+                {
+                    Model.WBS_WorkPackage workPackage = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(WorkPackageId);
+                    var workPackageProjects = BLL.WorkPackageProjectService.GetWorkPackageProjects2ByWorkPackageCode(workPackage.InitWorkPackageCode, this.CurrUser.LoginProjectId);
+                    if (workPackage != null)
+                    {
+                        for (int i = 0; i < ir; i++)
+                        {
+                            string result = string.Empty;
+                            string col0 = pds.Rows[i][0].ToString().Trim();
+                            string col1 = pds.Rows[i][1].ToString().Trim();
+                            string col2 = pds.Rows[i][2].ToString().Trim();
+                            string col3 = pds.Rows[i][3].ToString().Trim();
+                            if (!string.IsNullOrEmpty(col0))
+                            {
+                                if (string.IsNullOrEmpty(col0))
+                                {
+                                    result += "第" + (i + 2).ToString() + "行," + "导入项" + "," + "分项为必填项！" + "|";
+                                }
+                                else
+                                {
+                                    Model.WBS_WorkPackage newWorkPackage = new Model.WBS_WorkPackage
+                                    {
+                                        WorkPackageId = SQLHelper.GetNewID(typeof(Model.WBS_WorkPackage)),
+
+
+                                    };
+                                    if (!string.IsNullOrEmpty(col1) && !string.IsNullOrEmpty(col2))
+                                    {
+                                        newWorkPackage.SuperWorkPack = col1 + "-" + col2;
+                                    }
+                                    foreach (var item in workPackageProjects)
+                                    {
+                                        if (col0 == item.PackageContent)
+                                        {
+                                            newWorkPackage.PackageContent = col0;
+                                            newWorkPackage.WorkPackageCode = item.WorkPackageCode;
+                                        }
+
+                                    }
+                                    if (string.IsNullOrEmpty(newWorkPackage.PackageContent))
+                                    {
+                                        result += "第" + (i + 2).ToString() + "行," + "分项输入值有误！" + "|";
+                                    }
+                                    if (!string.IsNullOrEmpty(col3))
+                                    {
+                                        try
+                                        {
+                                            newWorkPackage.Weights = Convert.ToDecimal(col3);
+                                        }
+                                        catch (Exception)
+                                        {
+                                            result += "第" + (i + 2).ToString() + "行," + "权重输入值有误！" + "|";
+                                        }
+                                    }
+
+                                    ViewWorkPackages.Add(newWorkPackage);
+                                    if (!string.IsNullOrEmpty(result))
+                                    {
+                                        results += result;
+                                    }
+                                }
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(results))
+                        {
+                            results = "数据导入失败，未成功数据：" + results.Substring(0, results.LastIndexOf("|"));
+                            errorInfos = results;
+                            Alert.ShowInParent(results, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        else
+                        {
+                            ViewWorkPackages = ViewWorkPackages.Distinct().ToList();
+                            this.Grid1.Hidden = false;
+                            this.Grid1.DataSource = ViewWorkPackages;
+                            this.Grid1.DataBind();
+                            errorInfos = string.Empty;
+                        }
+                    }
+                }
+                else
+                {
+                    Alert.ShowInTop("导入数据为空！", MessageBoxIcon.Warning);
+                }
+                BLL.UploadFileService.DeleteFile(Funs.RootPath, initPath + this.hdFileName.Text);
+            }
+            catch (Exception ex)
+            {
+                ShowNotify("'" + ex.Message + "'", MessageBoxIcon.Warning);
+                return;
+            }
             string workPackageCode = string.Empty;
             int num = 1;
             string code = string.Empty;
@@ -402,7 +555,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         newWorkPackage.Weights = Convert.ToDecimal(txtWeights.Trim());
                         if (hdTotalValue.Text != "0" && newWorkPackage.Weights != null)
                         {
-                            newWorkPackage.Costs = newWorkPackage.Weights * Convert.ToDecimal(hdTotalValue.Text);
+                            newWorkPackage.Costs = newWorkPackage.Weights * Convert.ToDecimal(hdTotalValue.Text) / 100;
                         }
                     }
                     catch (Exception)
@@ -410,7 +563,7 @@ namespace FineUIPro.Web.CQMS.WBS
                         newWorkPackage.Weights = null;
                         newWorkPackage.Costs = null;
                     }
-
+                    newWorkPackage.IsApprove = true;
                     BLL.WorkPackageService.AddWorkPackage(newWorkPackage);
                     num++;
                 }

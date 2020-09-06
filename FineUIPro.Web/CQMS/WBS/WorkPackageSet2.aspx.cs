@@ -151,6 +151,15 @@ namespace FineUIPro.Web.CQMS.WBS
                     }
                 }
             }
+            var equipment = workPackages.FirstOrDefault(x=>x.PackageContent=="机泵" || x.PackageContent=="静止设备");
+            if (equipment != null)
+            {
+                this.btnImport.Hidden = false;
+            }
+            else
+            {
+                this.btnImport.Hidden = true;
+            }
             GetTotalWeights();
         }
         #region 获取总权重

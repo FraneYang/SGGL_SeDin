@@ -408,6 +408,10 @@ namespace FineUIPro.Web.HSSE.Check
             string filename = Funs.GetNewFileName();
             newUrl = uploadfilepath.Replace(".doc", filename + ".doc");
             filePath = initTemplatePath.Replace(".doc", filename + ".pdf");
+            if (File.Exists(newUrl))
+            {
+                File.Delete(newUrl);
+            }
             File.Copy(uploadfilepath, newUrl);
             ///更新书签内容           
             Document doc = new Aspose.Words.Document(newUrl);
@@ -743,6 +747,9 @@ namespace FineUIPro.Web.HSSE.Check
             uploadfilepath = rootPath + initTemplatePath;
             newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".doc");
             filePath = initTemplatePath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
+            if (File.Exists(newUrl)) {
+                File.Delete(newUrl);
+            }
             File.Copy(uploadfilepath, newUrl);
             ///更新书签内容
             Document doc = new Aspose.Words.Document(newUrl);

@@ -1,12 +1,16 @@
 ﻿using BLL;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO.Compression;
 
 namespace FineUIPro.Web.CQMS.Check
 {
@@ -264,6 +268,60 @@ namespace FineUIPro.Web.CQMS.Check
             return name;
         }
         /// <summary>
+        /// 获取共检内容
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        protected string ConvertDetailName2(object ControlItemAndCycleId)
+        {
+            string name = string.Empty;
+            if (ControlItemAndCycleId != null)
+            {
+                Model.WBS_ControlItemAndCycle c = BLL.ControlItemAndCycleService.GetControlItemAndCycleById(ControlItemAndCycleId.ToString());
+                if (c != null)
+                {
+                    name = c.ControlItemContent.Replace("/", "-");   //将WBS内容中的/替换成-，避免生成的文件夹目录不对
+                    Model.WBS_WorkPackage w = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(c.WorkPackageId);
+                    if (w != null)
+                    {
+                        name = w.PackageContent.Replace("/", "-") + "/" + name;
+                        Model.WBS_WorkPackage pw = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(w.SuperWorkPackageId);
+                        if (pw != null)
+                        {
+                            name = pw.PackageContent.Replace("/", "-") + "/" + name;
+                            Model.WBS_WorkPackage ppw = BLL.WorkPackageService.GetWorkPackageByWorkPackageId(pw.SuperWorkPackageId);
+                            if (ppw != null)
+                            {
+                                name = ppw.PackageContent.Replace("/", "-") + "/" + name;
+                                Model.WBS_UnitWork u = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(ppw.UnitWorkId);
+                                if (u != null)
+                                {
+                                    name = u.UnitWorkName.Replace("/", "-") + BLL.UnitWorkService.GetProjectType(u.ProjectType) + "/" + name;
+                                }
+                            }
+                            else
+                            {
+                                Model.WBS_UnitWork u = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(pw.UnitWorkId);
+                                if (u != null)
+                                {
+                                    name = u.UnitWorkName.Replace("/", "-") + BLL.UnitWorkService.GetProjectType(u.ProjectType) + "/" + name;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Model.WBS_UnitWork u = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(w.UnitWorkId);
+                            if (u != null)
+                            {
+                                name = u.UnitWorkName.Replace("/", "-") + BLL.UnitWorkService.GetProjectType(u.ProjectType) + "/" + name;
+                            }
+                        }
+                    }
+                }
+            }
+            return name;
+        }
+        /// <summary>
         /// 获取共检结果
         /// </summary>
         /// <param name="IsOK"></param>
@@ -357,5 +415,80 @@ namespace FineUIPro.Web.CQMS.Check
         {
             BindGrid();
         }
+
+        #region 导出按钮
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            if (this.drpUnitWork.SelectedValue != BLL.Const._Null)
+            {
+                string s = "";
+                string t = s.Replace('\\', '/');
+                string filePath = string.Empty;
+                string rootPath = Server.MapPath("~/");
+                var details = from x in Funs.DB.View_Check_SoptCheckDetail where x.UnitWorkId == this.drpUnitWork.SelectedValue && x.IsDataOK == "1" select x;
+                string projectCode = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId).ProjectCode;
+                string unitWorkName = string.Empty;
+                Model.WBS_UnitWork u = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(this.drpUnitWork.SelectedValue);
+                if (u != null)
+                {
+                    unitWorkName = u.UnitWorkName.Replace("/", "-") + BLL.UnitWorkService.GetProjectType(u.ProjectType);
+                }
+                if (details.Count() > 0)
+                {
+                    foreach (var detail in details)
+                    {
+                        string name = ConvertDetailName2(detail.ControlItemAndCycleId);
+                        string unitWorkFilePath = rootPath + "FileUpload\\WBSFile\\" + projectCode + "\\" + name;
+                        if (!Directory.Exists(unitWorkFilePath))
+                        {
+                            Directory.CreateDirectory(unitWorkFilePath);
+                        }
+                        string attachFileUrls = BLL.AttachFileService.getFileUrl(detail.SpotCheckDetailId);
+                        string[] urls = attachFileUrls.Split(',');
+                        foreach (var url in urls)
+                        {
+                            string atturl = Funs.RootPath + url;
+                            if (File.Exists(atturl))
+                            {
+                                //File.Copy(atturl, unitWorkFilePath + url.Substring(url.LastIndexOf("/")));
+                                string newUrlPath = url.Substring(url.LastIndexOf("/"));
+                                string newUrl = unitWorkFilePath + "/" + newUrlPath.Substring(newUrlPath.IndexOf("_") + 1);
+                                if (!File.Exists(newUrl))
+                                {
+                                    File.Copy(atturl, newUrl);
+                                }
+                            }
+                        }
+                    }
+                    string startPath = rootPath + "FileUpload\\WBSFile\\" + projectCode + "\\" + unitWorkName;
+                    string zipPath = rootPath + "FileUpload\\WBSFile\\" + projectCode + "\\" + unitWorkName + ".zip";
+                    ZipFile.CreateFromDirectory(startPath, zipPath);
+                    string fileName = Path.GetFileName(zipPath);
+                    FileInfo info = new FileInfo(zipPath);
+                    long fileSize = info.Length;
+                    Response.ClearContent();
+                    Response.ContentType = "application/x-zip-compressed";
+                    Response.AddHeader("content-disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                    Response.AddHeader("Content-Length", fileSize.ToString());
+                    Response.TransmitFile(zipPath, 0, fileSize);
+                    Response.Flush();
+                    Response.Close();
+                    File.Delete(zipPath);
+                }
+                else
+                {
+                    ShowNotify("该单位工程尚无资料可以导出！", MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                ShowNotify("请选择单位工程进行导出！", MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
     }
 }

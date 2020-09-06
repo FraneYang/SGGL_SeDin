@@ -65,6 +65,11 @@
                                     <f:ListItem Text="C" Value="C" />
                                     <f:ListItem Text="CR" Value="CR" />
                                 </f:DropDownList>
+                                <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="TableGo" 
+                            AjaxLoadingType="Mask" ShowAjaxLoadingMaskText="true" AjaxLoadingMaskText="正在导出数据到服务器，请稍候"
+                                    EnableAjax="false" DisableControlBeforePostBack="false">
+                                    </f:Button>
                             </Items>
                         </f:Toolbar>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
@@ -88,6 +93,7 @@
                                 </f:Button>
                                 <f:Button ID="btnRset" ToolTip="重置" Icon="ArrowUndo" EnablePostBack="true" runat="server" OnClick="btnRset_Click">
                                 </f:Button>
+                                
                             </Items>
                         </f:Toolbar>
                     </Toolbars>

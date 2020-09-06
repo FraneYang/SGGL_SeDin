@@ -50,6 +50,22 @@ namespace FineUIPro.Web.CQMS.Check
                 txtCheckDate.Text = Convert.ToDateTime(jointCheck.CheckDate).ToString("yyyy-MM-dd");
             }
             drpProposeUnit.Text = UnitService.GetUnitNameByUnitId(jointCheck.ProposeUnitId);
+            if (!string.IsNullOrEmpty(jointCheck.JointCheckMans1))
+            {
+                this.txtJointCheckMans1.Text = BLL.UserService.getUserNamesUserIds(jointCheck.JointCheckMans1);
+            }
+            if (!string.IsNullOrEmpty(jointCheck.JointCheckMans2))
+            {
+                this.txtJointCheckMans2.Text = BLL.UserService.getUserNamesUserIds(jointCheck.JointCheckMans2);
+            }
+            if (!string.IsNullOrEmpty(jointCheck.JointCheckMans3))
+            {
+                this.txtJointCheckMans3.Text = BLL.UserService.getUserNamesUserIds(jointCheck.JointCheckMans3);
+            }
+            if (!string.IsNullOrEmpty(jointCheck.JointCheckMans4))
+            {
+                this.txtJointCheckMans4.Text = BLL.UserService.getUserNamesUserIds(jointCheck.JointCheckMans4);
+            }
             Model.Check_JointCheckApprove approve = BLL.JointCheckApproveService.GetJointCheckApproveByJointCheckId(JointCheckId, CurrUser.UserId);
             var list = JointCheckDetailService.GetViewLists(JointCheckId);
             gvJoinCheckDetail.DataSource = list;

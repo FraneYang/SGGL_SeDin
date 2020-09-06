@@ -17,7 +17,7 @@
                     <Items>
                         <f:ToolbarFill runat="server"></f:ToolbarFill>
                         <f:Button ID="btnAudit" Icon="ApplicationEdit" runat="server" ToolTip="数据导入" ValidateForms="SimpleForm1"
-                            OnClick="btnAudit_Click">
+                            OnClick="btnAudit_Click" Hidden="true">
                         </f:Button>
                         <f:Button ID="btnSave" ToolTip="保存" Icon="SystemSaveNew" runat="server" Text=""
                             OnClick="btnSave_Click">
@@ -45,7 +45,7 @@
 
                             <Columns>
                                 <f:RenderField Width="200px" ColumnID="PackageContent" DataField="PackageContent" FieldType="String"
-                                    HeaderText="第2级" HeaderTextAlign="Center" TextAlign="Center">
+                                    HeaderText="第3级" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="定制" ColumnID="SuperWorkPack" DataField="SuperWorkPack" SortField="SuperWorkPack"
                                     HeaderTextAlign="Center" TextAlign="Center" Width="200px" FieldType="String">

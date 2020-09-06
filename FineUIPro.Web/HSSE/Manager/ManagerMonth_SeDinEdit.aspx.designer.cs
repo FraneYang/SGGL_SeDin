@@ -1336,24 +1336,6 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::System.Web.UI.HtmlControls.HtmlInputText SafetyMonth;
         
         /// <summary>
-        /// SafetyYear 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText SafetyYear;
-        
-        /// <summary>
-        /// SafetyTotal 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText SafetyTotal;
-        
-        /// <summary>
         /// LaborMonth 控件。
         /// </summary>
         /// <remarks>
@@ -1361,24 +1343,6 @@ namespace FineUIPro.Web.HSSE.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText LaborMonth;
-        
-        /// <summary>
-        /// LaborYear 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText LaborYear;
-        
-        /// <summary>
-        /// LaborTotal 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText LaborTotal;
         
         /// <summary>
         /// ProgressMonth 控件。
@@ -1390,24 +1354,6 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::System.Web.UI.HtmlControls.HtmlInputText ProgressMonth;
         
         /// <summary>
-        /// ProgressYear 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText ProgressYear;
-        
-        /// <summary>
-        /// ProgressTotal 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText ProgressTotal;
-        
-        /// <summary>
         /// EducationMonth 控件。
         /// </summary>
         /// <remarks>
@@ -1415,24 +1361,6 @@ namespace FineUIPro.Web.HSSE.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText EducationMonth;
-        
-        /// <summary>
-        /// EducationYear 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText EducationYear;
-        
-        /// <summary>
-        /// EducationTotal 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText EducationTotal;
         
         /// <summary>
         /// SumMonth 控件。
@@ -1444,24 +1372,6 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::System.Web.UI.HtmlControls.HtmlInputText SumMonth;
         
         /// <summary>
-        /// SumYear 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText SumYear;
-        
-        /// <summary>
-        /// SumTotal 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText SumTotal;
-        
-        /// <summary>
         /// ContractMonth 控件。
         /// </summary>
         /// <remarks>
@@ -1471,6 +1381,51 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::System.Web.UI.HtmlControls.HtmlInputText ContractMonth;
         
         /// <summary>
+        /// SafetyYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafetyYear;
+        
+        /// <summary>
+        /// LaborYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LaborYear;
+        
+        /// <summary>
+        /// ProgressYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProgressYear;
+        
+        /// <summary>
+        /// EducationYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EducationYear;
+        
+        /// <summary>
+        /// SumYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SumYear;
+        
+        /// <summary>
         /// ContractYear 控件。
         /// </summary>
         /// <remarks>
@@ -1478,6 +1433,51 @@ namespace FineUIPro.Web.HSSE.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText ContractYear;
+        
+        /// <summary>
+        /// SafetyTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafetyTotal;
+        
+        /// <summary>
+        /// LaborTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LaborTotal;
+        
+        /// <summary>
+        /// ProgressTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProgressTotal;
+        
+        /// <summary>
+        /// EducationTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EducationTotal;
+        
+        /// <summary>
+        /// SumTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SumTotal;
         
         /// <summary>
         /// ContractTotal 控件。

@@ -50,6 +50,9 @@ namespace FineUIPro.Web.CQMS.Check
             if (!IsPostBack)
             {
                 UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
+                UserService.InitUserProjectIdUnitTypeDropDownList(drpJointCheckMans1, this.CurrUser.LoginProjectId, Const.ProjectUnitType_1, false);
+                UserService.InitUserProjectIdUnitTypeDropDownList(drpJointCheckMans3, this.CurrUser.LoginProjectId, Const.ProjectUnitType_3, false);
+                UserService.InitUserProjectIdUnitTypeDropDownList(drpJointCheckMans4, this.CurrUser.LoginProjectId, Const.ProjectUnitType_4, false);
                 UnitService.InitUnitNotsub(drpProposeUnit, CurrUser.LoginProjectId, false);
                 JointCheckService.Init(drpCheckType, false);
                 txtProjectName.Text = ProjectService.GetProjectByProjectId(CurrUser.LoginProjectId).ProjectName;
@@ -86,10 +89,27 @@ namespace FineUIPro.Web.CQMS.Check
                     if (!string.IsNullOrEmpty(jointCheck.UnitId))
                     {
                         drpUnit.SelectedValue = jointCheck.UnitId;
+                        UserService.InitUserProjectIdUnitIdDropDownList(drpJointCheckMans2, this.CurrUser.LoginProjectId, jointCheck.UnitId, false);
                     }
                     if (!string.IsNullOrEmpty(jointCheck.ProposeUnitId))
                     {
                         drpProposeUnit.SelectedValue = jointCheck.ProposeUnitId;
+                    }
+                    if (!string.IsNullOrEmpty(jointCheck.JointCheckMans1))
+                    {
+                        this.drpJointCheckMans1.SelectedValueArray = jointCheck.JointCheckMans1.Split(',');
+                    }
+                    if (!string.IsNullOrEmpty(jointCheck.JointCheckMans2))
+                    {
+                        this.drpJointCheckMans2.SelectedValueArray = jointCheck.JointCheckMans2.Split(',');
+                    }
+                    if (!string.IsNullOrEmpty(jointCheck.JointCheckMans3))
+                    {
+                        this.drpJointCheckMans3.SelectedValueArray = jointCheck.JointCheckMans3.Split(',');
+                    }
+                    if (!string.IsNullOrEmpty(jointCheck.JointCheckMans4))
+                    {
+                        this.drpJointCheckMans4.SelectedValueArray = jointCheck.JointCheckMans4.Split(',');
                     }
                     if (!string.IsNullOrEmpty(jointCheck.CheckType))
                     {
@@ -411,13 +431,7 @@ namespace FineUIPro.Web.CQMS.Check
                 SaveJointCheck("save");
 
             }
-
         }
-
-
-
-
-
 
         /// <summary>
         /// 保存质量不合格整改通知单
@@ -450,6 +464,14 @@ namespace FineUIPro.Web.CQMS.Check
                 jointCheck.CheckDate = Convert.ToDateTime(txtCheckDate.Text.Trim());
             }
             jointCheck.CheckName = this.txtCheckName.Text.Trim();
+            string jointCheckMans1 = GetStringByArray(this.drpJointCheckMans1.SelectedValueArray);
+            jointCheck.JointCheckMans1 = jointCheckMans1;
+            string jointCheckMans2 = GetStringByArray(this.drpJointCheckMans2.SelectedValueArray);
+            jointCheck.JointCheckMans2 = jointCheckMans2;
+            string jointCheckMans3 = GetStringByArray(this.drpJointCheckMans3.SelectedValueArray);
+            jointCheck.JointCheckMans3 = jointCheckMans3;
+            string jointCheckMans4 = GetStringByArray(this.drpJointCheckMans4.SelectedValueArray);
+            jointCheck.JointCheckMans4 = jointCheckMans4;
             jointCheck.State = "1";  //整改中
 
             if (saveType == "submit")
@@ -716,6 +738,92 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                 }
             }
+        }
+
+        protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpJointCheckMans2.Items.Clear();
+            if (this.drpUnit.SelectedValue != string.Empty)
+            {
+                UserService.InitUserProjectIdUnitIdDropDownList(drpJointCheckMans2, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, false);
+            }
+        }
+
+        protected void drpJointCheckMans1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] array = this.drpJointCheckMans1.SelectedValueArray;
+            List<string> str = new List<string>();
+            foreach (var item in array)
+            {
+                if (item != BLL.Const._Null)
+                {
+                    str.Add(item);
+                }
+
+            }
+            this.drpJointCheckMans1.SelectedValueArray = str.ToArray();
+        }
+
+        protected void drpJointCheckMans2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] array = this.drpJointCheckMans2.SelectedValueArray;
+            List<string> str = new List<string>();
+            foreach (var item in array)
+            {
+                if (item != BLL.Const._Null)
+                {
+                    str.Add(item);
+                }
+
+            }
+            this.drpJointCheckMans2.SelectedValueArray = str.ToArray();
+        }
+
+        protected void drpJointCheckMans3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] array = this.drpJointCheckMans3.SelectedValueArray;
+            List<string> str = new List<string>();
+            foreach (var item in array)
+            {
+                if (item != BLL.Const._Null)
+                {
+                    str.Add(item);
+                }
+
+            }
+            this.drpJointCheckMans3.SelectedValueArray = str.ToArray();
+        }
+
+        protected void drpJointCheckMans4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] array = this.drpJointCheckMans4.SelectedValueArray;
+            List<string> str = new List<string>();
+            foreach (var item in array)
+            {
+                if (item != BLL.Const._Null)
+                {
+                    str.Add(item);
+                }
+
+            }
+            this.drpJointCheckMans4.SelectedValueArray = str.ToArray();
+        }
+
+        private string GetStringByArray(string[] array)
+        {
+            string str = string.Empty;
+            foreach (var item in array)
+            {
+                if (item != BLL.Const._Null)
+                {
+                    str += item + ",";
+                }
+            }
+            if (!string.IsNullOrEmpty(str))
+            {
+                str = str.Substring(0, str.LastIndexOf(","));
+            }
+            return str;
         }
     }
 }

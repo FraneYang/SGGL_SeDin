@@ -841,27 +841,29 @@ namespace FineUIPro.Web.HSSE.Manager
         {
             if (APISeDinMonthReportService.count(MonthReportId) == 1)
             {
-                SeDinMonthReport6Item monthReport6Item = new SeDinMonthReport6Item();
-                monthReport6Item.MonthReportId = MonthReportId;
-                monthReport6Item.SafetyMonth = Funs.GetNewDecimalOrZero(SafetyMonth.Value);
-                monthReport6Item.SafetyYear = Funs.GetNewDecimalOrZero(SafetyYear.Value);
-                monthReport6Item.SafetyTotal = Funs.GetNewDecimalOrZero(SafetyTotal.Value);
-                monthReport6Item.LaborMonth = Funs.GetNewDecimalOrZero(LaborMonth.Value);
-                monthReport6Item.LaborYear = Funs.GetNewDecimalOrZero(LaborYear.Value);
-                monthReport6Item.LaborTotal = Funs.GetNewDecimalOrZero(LaborTotal.Value);
-                monthReport6Item.ProgressMonth = Funs.GetNewDecimalOrZero(ProgressMonth.Value);
-                monthReport6Item.ProgressYear = Funs.GetNewDecimalOrZero(ProgressYear.Value);
-                monthReport6Item.ProgressTotal = Funs.GetNewDecimalOrZero(ProgressTotal.Value);
-                monthReport6Item.EducationMonth = Funs.GetNewDecimalOrZero(EducationMonth.Value);
-                monthReport6Item.EducationYear = Funs.GetNewDecimalOrZero(EducationYear.Value);
-                monthReport6Item.EducationTotal = Funs.GetNewDecimalOrZero(SafetyMonth.Value);
-                monthReport6Item.SumMonth = Funs.GetNewDecimalOrZero(SumMonth.Value);
-                monthReport6Item.SumYear = Funs.GetNewDecimalOrZero(SumYear.Value);
-                monthReport6Item.SumTotal = Funs.GetNewDecimalOrZero(SumTotal.Value);
-                monthReport6Item.ContractMonth = Funs.GetNewDecimalOrZero(ContractMonth.Value);
-                monthReport6Item.ContractYear = Funs.GetNewDecimalOrZero(ContractYear.Value);
-                monthReport6Item.ContractTotal = Funs.GetNewDecimalOrZero(ContractTotal.Value);
-                monthReport6Item.ConstructionCost = Funs.GetNewDecimalOrZero(ConstructionCost.Value);
+                SeDinMonthReport6Item monthReport6Item = new SeDinMonthReport6Item
+                {
+                    MonthReportId = MonthReportId,
+                    SafetyMonth = Funs.GetNewDecimalOrZero(SafetyMonth.Value),
+                    SafetyYear = Funs.GetNewDecimalOrZero(SafetyYear.Value),
+                    SafetyTotal = Funs.GetNewDecimalOrZero(SafetyTotal.Value),
+                    LaborMonth = Funs.GetNewDecimalOrZero(LaborMonth.Value),
+                    LaborYear = Funs.GetNewDecimalOrZero(LaborYear.Value),
+                    LaborTotal = Funs.GetNewDecimalOrZero(LaborTotal.Value),
+                    ProgressMonth = Funs.GetNewDecimalOrZero(ProgressMonth.Value),
+                    ProgressYear = Funs.GetNewDecimalOrZero(ProgressYear.Value),
+                    ProgressTotal = Funs.GetNewDecimalOrZero(ProgressTotal.Value),
+                    EducationMonth = Funs.GetNewDecimalOrZero(EducationMonth.Value),
+                    EducationYear = Funs.GetNewDecimalOrZero(EducationYear.Value),
+                    EducationTotal = Funs.GetNewDecimalOrZero(EducationTotal.Value),
+                    SumMonth = Funs.GetNewDecimalOrZero(SumMonth.Value),
+                    SumYear = Funs.GetNewDecimalOrZero(SumYear.Value),
+                    SumTotal = Funs.GetNewDecimalOrZero(SumTotal.Value),
+                    ContractMonth = Funs.GetNewDecimalOrZero(ContractMonth.Value),
+                    ContractYear = Funs.GetNewDecimalOrZero(ContractYear.Value),
+                    ContractTotal = Funs.GetNewDecimalOrZero(ContractTotal.Value),
+                    ConstructionCost = Funs.GetNewDecimalOrZero(ConstructionCost.Value)
+                };
                 APISeDinMonthReportService.SaveSeDinMonthReport6(monthReport6Item);
             }
             else

@@ -886,10 +886,19 @@
                     , "7、项目HSE培训统计：");
                 sb.Append("</tr>");
                 sb.Append("<tr style=\"height: 20px\">");
-                sb.AppendFormat("<td align=\"center\" style=\"width: 16%;\">{0}</td> ", "培训课程类型");
+                sb.AppendFormat("<td align=\"center\" style=\"width: 16%;\" rowspan=\"2\">{0}</td> ", "培训课程类型");
                 sb.AppendFormat("<td align=\"center\" colspan=\"3\">{0}</td> ", "次数");
                 sb.AppendFormat("<td align=\"center\" colspan=\"3\">{0}</td> ", "参加人次");
                 sb.Append("</tr>");
+                sb.Append("<tr style=\"height: 20px\">");
+                sb.AppendFormat("<td align=\"center\" >{0}</td> ", "本月");
+                sb.AppendFormat("<td align=\"center\" >{0}</td> ", "本年度");
+                sb.AppendFormat("<td align=\"center\" >{0}</td> ", "项目累计");
+                sb.AppendFormat("<td align=\"center\" >{0}</td> ", "本月");
+                sb.AppendFormat("<td align=\"center\" >{0}</td> ", "本年度");
+                sb.AppendFormat("<td align=\"center\" >{0}</td> ", "项目累计");
+                sb.Append("</tr>");
+
                 var getMonthReport7 = Funs.DB.SeDin_MonthReport7.FirstOrDefault(x => x.MonthReportId == monthReportId);
                 if (getMonthReport7 != null)
                 {
