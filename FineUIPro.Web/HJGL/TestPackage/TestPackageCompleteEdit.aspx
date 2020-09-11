@@ -57,91 +57,54 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Items>
-                        <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="true" Title="试压包" AutoScroll="true" EnableCollapse="true" Collapsed="false"
+                        <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" Title="试压包" AutoScroll="true" EnableCollapse="true" Collapsed="false"
                             BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                             <Rows>
                                 <f:FormRow>
                                     <Items>
-                                        <f:Label ID="txtTestPackageNo" Label="系统号" runat="server" LabelWidth="140px">
-                                        </f:Label>
-                                        <f:Label ID="txtTestPackageName" Label="系统名称" runat="server" LabelWidth="140px">
-                                        </f:Label>
-                                        <f:Label ID="txtRemark" Label="备注" runat="server" LabelWidth="140px">
-                                        </f:Label>
-                                        <f:Label ID="txtadjustTestPressure" Label="调整试验压力" runat="server" LabelWidth="140px">
-                                        </f:Label>
+                                        <f:DatePicker ID="txtTestDate" Label="试验日期" runat="server" DateFormatString="yyyy-MM-dd"  LabelWidth="150px">
+                                        </f:DatePicker>
+                                        <f:TextBox ID="txtadjustTestPressure" Label="调整试验压力" runat="server" LabelWidth="150px">
+                                        </f:TextBox>
+                                        <f:NumberBox ID="txtAmbientTemperature" Label="实验环境温度"  runat="server" LabelWidth="150px">
+                                        </f:NumberBox>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:NumberBox ID="txtAmbientTemperature" Label="实验环境温度"  runat="server" LabelWidth="140px">
+                                        <f:NumberBox ID="txtTestMediumTemperature" Label="试验介质温度"  runat="server" LabelWidth="150px">
                                         </f:NumberBox>
-                                        <f:NumberBox ID="txtTestMediumTemperature" Label="试验介质温度"  runat="server" LabelWidth="140px">
+                                        <f:NumberBox ID="txtHoldingTime" Label="稳压时间"  runat="server" LabelWidth="150px">
                                         </f:NumberBox>
-                                        <f:NumberBox ID="txtHoldingTime" Label="稳压时间"  runat="server" LabelWidth="140px">
-                                        </f:NumberBox>
-                                        <f:TextBox runat="server" ID="txtFinishDef" Label="实验结论" LabelWidth="140px"></f:TextBox>
+                                        <f:TextBox runat="server" ID="txtFinishDef" Label="试验结论" LabelWidth="150px"></f:TextBox>
                                     </Items>
                                 </f:FormRow>
                             </Rows>
                         </f:Form>
                     </Items>
-
                     <Items>
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="试压包明细" EnableCollapse="true" Collapsed="false"
                             runat="server" BoxFlex="1" DataKeyNames="PT_PipeId" AllowCellEditing="true"
                             EnableColumnLines="true" ClicksToEdit="2" DataIDField="PT_PipeId" AllowSorting="true"
-                            SortField="UnitWorkCode,PipelineCode" SortDirection="ASC" OnSort="Grid1_Sort" EnableTextSelection="True"  IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" ForceFit="true">
-                            <Toolbars>
-                                <f:Toolbar ID="Toolbar3" Position="Bottom" runat="server">
-                                    <Items>
-                                        <f:Label CssClass="Cyan" runat="server" ID="lbCyan" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
-                                        <f:Label runat="server" ID="lab1" Label="未焊完" LabelWidth="70px" Width="120px" LabelAlign="Right"></f:Label>
-                                        <f:Label CssClass="Yellow" runat="server" ID="Label1" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
-                                        <f:Label runat="server" ID="lab2" Label="已焊完，未达检测比例" LabelWidth="170px" Width="220px" LabelAlign="Right"></f:Label>
-                                        <f:Label CssClass="Green" runat="server" ID="Label2" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
-                                        <f:Label runat="server" ID="lab3" Label="已焊完，已达检测比例，但有不合格" LabelWidth="260px" Width="310px" LabelAlign="Right"></f:Label>
-                                        <f:Label CssClass="Purple" runat="server" ID="Label4" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
-                                        <f:Label runat="server" ID="lab4" Label="已通过" LabelWidth="70px" Width="120px" LabelAlign="Right"></f:Label>
-                                    </Items>
-                                </f:Toolbar>
-                            </Toolbars>
+                            SortField="PipelineCode" SortDirection="ASC" OnSort="Grid1_Sort" EnableTextSelection="True"
+                            AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" ForceFit="true">
                             <Columns>
-                                <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
-                                <f:RenderField HeaderText="工作区" ColumnID="UnitWorkCode" DataField="UnitWorkCode" SortField="UnitWorkCode"
+                                <f:RenderField HeaderText="管线编号" ColumnID="PipelineCode" DataField="PipelineCode" SortField="PipelineCode"
+                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="160px">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="设计压力Mpa(g)" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                 <f:RenderField HeaderText="管线编号" ColumnID="PipelineCode" DataField="PipelineCode" SortField="PipelineCode"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="70px">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="总焊口" ColumnID="WeldJointCount" DataField="WeldJointCount" SortField="WeldJointCount"
-                                    FieldType="Int" HeaderTextAlign="Center" TextAlign="Left" Width="70px">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="完成总焊口" ColumnID="WeldJointCountT" DataField="WeldJointCountT" SortField="WeldJointCountT"
-                                    FieldType="Int" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="合格数" ColumnID="CountS" DataField="CountS" SortField="CountS"
-                                    FieldType="Int" HeaderTextAlign="Center" TextAlign="Left" Width="70px">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="不合格数" ColumnID="CountU" DataField="CountU" SortField="CountU"
-                                    FieldType="Int" HeaderTextAlign="Center" TextAlign="Left" Width="80px">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="应检测比例" ColumnID="NDTR_Name" DataField="NDTR_Name" SortField="NDTR_Name"
+                                <f:RenderField HeaderText="设计温度℃" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="实际检测比例" ColumnID="Ratio" DataField="Ratio" SortField="Ratio"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="100px">
+                                <f:RenderField HeaderText="压力试验介质" ColumnID="MediumName" DataField="MediumName" SortField="MediumName"
+                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="应检测比例值" ColumnID="NDTR_Rate" DataField="NDTR_Rate"
-                                    FieldType="String" Hidden="true">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="实际检测比例值" ColumnID="RatioC" DataField="RatioC"
-                                    FieldType="String" Hidden="true">
+                                <f:RenderField HeaderText="压力试验压力Mpa(g)" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
+                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
                             </Columns>
-                            <Listeners>
-                                <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
-                            </Listeners>
                             <PageItems>
                                 <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                                 </f:ToolbarSeparator>
@@ -156,81 +119,6 @@
                                 </f:DropDownList>
                             </PageItems>
                         </f:Grid>
-                    </Items>
-                    <Items>
-                        <f:Panel runat="server" ID="panel2" RegionPosition="Center" ShowBorder="true" Layout="VBox"
-                            BodyPadding="2px" IconFont="PlusCircle" Title="试压前条件确认"
-                            ShowHeader="true" AutoScroll="true" EnableCollapse="true" Collapsed="false" Height="200px">
-                            <Items>
-                                <f:Form ID="Form2" ShowBorder="false" ShowHeader="false" Title="试压包" AutoScroll="true"
-                                    EnableCollapse="true" Collapsed="false" BodyPadding="10px" runat="server" RedStarPosition="BeforeText"
-                                    LabelAlign="Left">
-                                    <Rows>
-                                        <f:FormRow>
-                                            <Items>
-                                                <f:Label ID="txtInstallationSpecification" runat="server" Label="1.管道安装符合设计文件和规范要求"
-                                                    LabelAlign="Right" LabelWidth="350px">
-                                                </f:Label>
-                                                <f:Label ID="txtPressureTest" runat="server" Label="2.管道组成件复验合格" LabelAlign="Right"
-                                                    LabelWidth="350px">
-                                                </f:Label>
-                                            </Items>
-                                        </f:FormRow>
-                                        <f:FormRow>
-                                            <Items>
-                                                <f:Label ID="txtWorkRecord" runat="server" Label="3.焊接工作记录齐全" LabelAlign="Right"
-                                                    LabelWidth="350px">
-                                                </f:Label>
-                                                <f:Label ID="txtNDTConform" runat="server" Label="4.无损检测结果符合设计文件和规范要求"
-                                                    LabelAlign="Right" LabelWidth="350px">
-                                                </f:Label>
-                                            </Items>
-                                        </f:FormRow>
-
-                                        <f:FormRow>
-                                            <Items>
-                                                <f:Label ID="txtHotConform" runat="server" Label="5.热处理结果符合设计文件和规范要求"
-                                                    LabelAlign="Right" LabelWidth="350px">
-                                                </f:Label>
-                                                <f:Label ID="txtInstallationCorrectness" runat="server" Label="6.支、吊架安装正确" LabelAlign="Right"
-                                                    LabelWidth="350px">
-                                                </f:Label>
-                                            </Items>
-                                        </f:FormRow>
-                                        <f:FormRow>
-                                            <Items>
-                                                <f:Label ID="txtMarkClearly" runat="server" Label="7.合金钢管道材质标记清楚"
-                                                    LabelAlign="Right" LabelWidth="350px">
-                                                </f:Label>
-                                                <f:Label ID="txtIsolationOpening" runat="server" Label="8.不参与管道系统试验的安全附件、仪表已按规定拆除或隔离，参与试压的系统内的阀门全部开启"
-                                                    LabelAlign="Right" LabelWidth="350px">
-                                                </f:Label>
-                                            </Items>
-                                        </f:FormRow>
-                                        <f:FormRow>
-                                            <Items>
-                                                <f:Label ID="txtConstructionPlanAsk" runat="server" Label="9.临时加固措施、盲板位置与标识符合施工方案要求"
-                                                    LabelAlign="Right" LabelWidth="350px">
-                                                </f:Label>
-                                                <f:Label ID="txtCover" runat="server" Label="10.焊接接头及需要检验的部位未被覆盖" LabelAlign="Right"
-                                                    LabelWidth="350px">
-                                                </f:Label>
-                                            </Items>
-                                        </f:FormRow>
-                                        <f:FormRow>
-                                            <Items>
-                                                <f:Label ID="txtMeetRequirements" runat="server" Label="11.试压用压力表量程、精度等级、检定状态符合规范要求"
-                                                    LabelAlign="Right" LabelWidth="350px">
-                                                </f:Label>
-                                                <f:Label ID="txtStainlessTestWater" runat="server" Label="12.不锈钢管道试验用水符合规范要求"
-                                                    LabelAlign="Right" LabelWidth="350px">
-                                                </f:Label>
-                                            </Items>
-                                        </f:FormRow>
-                                    </Rows>
-                                </f:Form>
-                            </Items>
-                        </f:Panel>
                     </Items>
                 </f:Panel>
             </Items>

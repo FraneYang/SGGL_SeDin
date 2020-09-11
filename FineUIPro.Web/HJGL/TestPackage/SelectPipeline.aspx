@@ -56,16 +56,16 @@
                                 <f:RenderField HeaderText="管道等级" ColumnID="PipingClassCode" DataField="PipingClassCode" SortField="PipingClassCode"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="160px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="设计压力" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
+                                <f:RenderField HeaderText="设计压力Mpa(g)" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="设计温度" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
+                                <f:RenderField HeaderText="设计温度℃" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="试验介质" ColumnID="TestMediumName" DataField="TestMediumName" SortField="TestMediumName"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="试验压力" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
+                                <f:RenderField HeaderText="试验压力Mpa(g)" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
                             </Columns>

@@ -72,7 +72,7 @@
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtHardnessMethod" Label="检测方法" runat="server"
+                                    <f:TextBox ID="txtCheckName" Label="检件名称" runat="server"
                                         LabelWidth="190px">
                                     </f:TextBox>
                                     <f:TextBox ID="txtHardnessRate" Label="检测比例" runat="server"
@@ -85,7 +85,7 @@
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtInspectionNum" Label="报告号" runat="server"
+                                    <f:TextBox ID="txtAcceptStandard" Label="验收标准" runat="server"
                                         LabelWidth="190px">
                                     </f:TextBox>
                                     <f:TextBox ID="txtCheckNum" Label="外观检查合格焊口数" runat="server"
@@ -110,15 +110,11 @@
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtCheckName" Label="检件名称" runat="server"
-                                        LabelWidth="190px">
+                                    <f:TextBox ID="TextBox1" Label="热处理状态" runat="server" Text="完成"
+                                        LabelWidth="190px" Readonly="true">
                                     </f:TextBox>
-                                    <f:TextBox ID="txtAcceptStandard" Label="验收标准" runat="server"
-                                        LabelWidth="190px">
-                                    </f:TextBox>
-                                    <f:TextBox ID="txtEquipmentModel" Label="设备型号" runat="server"
-                                        LabelWidth="190px">
-                                    </f:TextBox>
+                                    <f:Label runat="server"></f:Label>
+                                    <f:Label runat="server"></f:Label>
                                 </Items>
                             </f:FormRow>
                         </Rows>

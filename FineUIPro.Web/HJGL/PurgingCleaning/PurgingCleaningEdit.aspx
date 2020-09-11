@@ -137,7 +137,7 @@
         </f:Window>
         <f:Window ID="Window2" Title="吹扫/清洗包打印" Hidden="true" EnableIFrame="true"
             EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
-            IsModal="true" Width="1024px" Height="640px">
+            IsModal="true" Width="1024px" Height="900px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>

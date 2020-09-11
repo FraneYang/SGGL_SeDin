@@ -45,11 +45,10 @@
                                     <f:TextBox ID="txtWeldingDailyCode" Label="焊接日报编号"
                                         ShowRedStar="true" Required="true" runat="server" LabelWidth="120px" LabelAlign="Right" FocusOnPageLoad="true">
                                     </f:TextBox>
-                                    <f:DropDownList ID="drpUnit" Label="单位名称" runat="server"
-                                        ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="120px" AutoPostBack="true"
-                                        OnSelectedIndexChanged="drpUnit_SelectedIndexChanged" LabelAlign="Right">
+                                    <f:DropDownList ID="drpUnit" Label="单位名称" runat="server" Readonly="true"
+                                        ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="120px"  LabelAlign="Right">
                                     </f:DropDownList>
-                                    <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程编号"
+                                    <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程编号" Readonly="true"
                                         LabelAlign="Right" EnableEdit="true" ShowRedStar="true" Required="true" LabelWidth="140px">
                                     </f:DropDownList>
                                 </Items>
@@ -81,9 +80,9 @@
                 </Items>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊接日报"
-                        EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="WeldJointId" EnableColumnLines="true"
-                        AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldJointId" AllowSorting="true"
-                        SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort"
+                        EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="WeldTaskId" EnableColumnLines="true"
+                        AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldTaskId" AllowSorting="true"
+                        SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort" EnableCheckBoxSelect="true"
                         AllowPaging="false" IsDatabasePaging="true" PageSize="10000" EnableTextSelection="True">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Right">
@@ -104,42 +103,18 @@
                                 DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="70px">
                             </f:RenderField>
-                           
-                            <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderId"
-                                DataField="CoverWelderCode" SortField="CoverWelderCode" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="110px">
-                                <Editor>
-                                    <f:DropDownList ID="drpCoverWelderId" EnableEdit="true" Required="true" runat="server"
-                                        ShowRedStar="true">
-                                    </f:DropDownList>
-                                </Editor>
-                            </f:RenderField>
-                            <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderId"
-                                DataField="BackingWelderCode" SortField="BackingWelderCode" FieldType="String"
-                                HeaderTextAlign="Center" TextAlign="Left" Width="110px">
-                                <Editor>
-                                    <f:DropDownList ID="drpBackingWelderId" EnableEdit="true" Required="true" runat="server"
-                                        ShowRedStar="true">
-                                    </f:DropDownList>
-                                </Editor>
-                            </f:RenderField>
-                             <f:RenderField HeaderText="焊接位置" ColumnID="WeldingLocationId"
-                                DataField="WeldingLocationCode" SortField="WeldingLocationCode" FieldType="String"
-                                HeaderTextAlign="Center" TextAlign="Left" Width="100px" Hidden="true">
-                                <Editor>
-                                    <f:DropDownList ID="drpWeldingLocationId" Required="true" runat="server" ShowRedStar="true">
-                                    </f:DropDownList>
-                                </Editor>
-                            </f:RenderField>
+                             <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderCode"
+                                    DataField="CoverWelderCode" FieldType="String" HeaderTextAlign="Center"
+                                    TextAlign="Left" Width="110px">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderCode"
+                                    DataField="BackingWelderCode"  FieldType="String"
+                                     HeaderTextAlign="Center" TextAlign="Left" Width="110px">
+                                </f:RenderField>
                             <f:RenderField HeaderText="焊口属性" ColumnID="JointAttribute"
                                 DataField="JointAttribute" SortField="JointAttribute" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="100px">
-                                <Editor>
-                                    <f:DropDownList ID="drpJointAttribute" Required="true" runat="server" ShowRedStar="true">
-                                    </f:DropDownList>
-                                </Editor>
                             </f:RenderField>
-                         
                              <f:RenderField HeaderText="焊接类型" ColumnID="WeldTypeCode"
                                 DataField="WeldTypeCode" SortField="WeldTypeCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="70px">
@@ -160,19 +135,30 @@
                                 DataField="WeldingMethodCode" SortField="WeldingMethodCode" FieldType="String"
                                 HeaderTextAlign="Center" TextAlign="Left" Width="120px">
                             </f:RenderField>
+                             <f:RenderField HeaderText="焊丝" ColumnID="WeldingWireCode"
+                                    DataField="WeldingWireCode"  FieldType="String"
+                                    HeaderTextAlign="Center" TextAlign="Left" Width="120px" ExpandUnusedSpace="true">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="焊条" ColumnID="WeldingRodCode"
+                                    DataField="WeldingRodCode"  FieldType="String"
+                                    HeaderTextAlign="Center" TextAlign="Left" Width="120px" ExpandUnusedSpace="true">
+                                </f:RenderField>
                             <f:RenderField HeaderText="WeldJointId" ColumnID="WeldJointId" DataField="WeldJointId"
                                 FieldType="String" Hidden="true">
                             </f:RenderField>
+                             <f:RenderField HeaderText="盖面焊工ID" ColumnID="CoverWelderId" DataField="CoverWelderId"
+                                FieldType="String" Hidden="true">
+                            </f:RenderField>
+                             <f:RenderField HeaderText="打底焊工ID" ColumnID="BackingWelderId" DataField="BackingWelderId"
+                                FieldType="String" Hidden="true">
+                            </f:RenderField>
                         </Columns>
-                        <Listeners>
-                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
-                        </Listeners>
                     </f:Grid>
                 </Items>
             </f:Panel>
         </Items>
     </f:Panel>
-    <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
+   <%-- <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
         EnableMaximize="true" Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close"
         IsModal="true" Width="1160px" Height="560px">
     </f:Window>
@@ -181,10 +167,10 @@
             Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top"
             runat="server" Text="删除">
         </f:MenuButton>
-    </f:Menu>
+    </f:Menu>--%>
     </form>
     <script type="text/javascript">
-        var menuID = '<%= Menu1.ClientID %>';
+       
         // 返回false，来阻止浏览器右键菜单
         function onRowContextMenu(event, rowId) {
             F(menuID).show();  //showAt(event.pageX, event.pageY);

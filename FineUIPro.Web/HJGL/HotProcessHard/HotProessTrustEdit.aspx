@@ -57,16 +57,6 @@
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtProessMethod" Label="热处理方法" runat="server"
-                                        LabelAlign="Right" MaxLength="50" LabelWidth="180px">
-                                    </f:TextBox>
-                                    <f:TextBox ID="txtProessEquipment" Label="热处理设备" runat="server"
-                                        LabelAlign="Right" MaxLength="50" LabelWidth="140px">
-                                    </f:TextBox>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow>
-                                <Items>
                                     <f:TextBox ID="txtTabler" Label="制表人" runat="server" LabelAlign="Right"
                                         MaxLength="50" LabelWidth="180px">
                                     </f:TextBox>

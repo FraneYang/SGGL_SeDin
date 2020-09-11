@@ -327,15 +327,54 @@ namespace BLL
                 return listRes;
             }
         }
-        public static string GetListCountStr(string projectId)
+        // 查询数量
+        public static string GetListCountStr(string projectId, string searchWord, string unitId, string unitWork, string problemType, string professional, string dateA, string dateZ)
         {
             using (var db = new Model.SGGLDB(Funs.ConnString))
             {
                 IQueryable<Model.Check_CheckControl> q = db.Check_CheckControl;
 
+                List<string> ids = new List<string>();
+                if (!string.IsNullOrEmpty(searchWord))
+                {
+                    var qunit = from u in Funs.DB.Base_Unit
+                                where u.UnitName.Contains(searchWord)
+                                select u.UnitId;
+                    ids = qunit.ToList();
+                    q = q.Where(e => ids.Contains(e.UnitId));
+                }
+
                 if (!string.IsNullOrEmpty(projectId))
                 {
                     q = q.Where(e => e.ProjectId == projectId);
+                }
+
+                if (!string.IsNullOrEmpty(unitWork) && "undefined" != unitWork)
+                {
+                    q = q.Where(e => e.UnitWorkId == unitWork);
+                }
+                if (!string.IsNullOrEmpty(problemType) && "undefined" != problemType)
+                {
+                    q = q.Where(e => e.QuestionType == problemType);
+                }
+
+                if (!string.IsNullOrEmpty(professional) && "undefined" != professional)
+                {
+                    q = q.Where(e => e.CNProfessionalCode == professional);
+                }
+                if (!string.IsNullOrEmpty(dateA) && "undefined" != dateA)
+                {
+                    DateTime date = DateTime.ParseExact(dateA, "yyyy-MM-dd", new CultureInfo("zh-CN", true));
+                    q = q.Where(e => e.CheckDate >= date);
+                }
+                if (!string.IsNullOrEmpty(dateZ) && "undefined" != dateZ)
+                {
+                    DateTime date = DateTime.ParseExact(dateZ + "23:59:59", "yyyy-MM-ddHH:mm:ss", new CultureInfo("zh-CN", true));
+                    q = q.Where(e => e.CheckDate <= date);
+                }
+                if (!string.IsNullOrEmpty(unitId) && "undefined" != unitId)
+                {
+                    q = q.Where(e => e.UnitId == unitId);
                 }
 
                 var i = q.Where(e => e.State != BLL.Const.CheckControl_Audit4
@@ -351,7 +390,7 @@ namespace BLL
                 return len;
             }
         }
-        public static List<Model.Check_CheckControl> GetListDataForApi(string unitId, string unitWork, string problemType, string professional, string state, string dateA, string dateZ, string projectId, int index, int page)
+        public static List<Model.Check_CheckControl> GetListDataForApi(string state, string unitId, string unitWork, string problemType, string professional, string dateA, string dateZ, string projectId, int index, int page)
         {
             using (var db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -361,23 +400,49 @@ namespace BLL
                 {
                     switch (state)
                     {
-                        case "未确认":
-                            q = q.Where(e => "5,6".Split(',').Contains(e.State));
+                        case "1": // 未整改
+                            q = q.Where(e => e.State != BLL.Const.CheckControl_Audit4
+                                            && e.State != BLL.Const.CheckControl_Audit5
+                                            && e.State != BLL.Const.CheckControl_Complete
+                                            && e.LimitDate > DateTime.Now);
                             break;
-                        case "已闭环":
-                            q = q.Where(e => "7" == e.State);
+                        case "2": // 待确认 5/6
+                            q = q.Where(e => e.State == BLL.Const.CheckControl_Audit4 || e.State == BLL.Const.CheckControl_Audit5);
                             break;
-                        case "未整改":
-                            q = q.Where(e => "0,1,2,3,4,8".Split(',').Contains(e.State));
-                            q = q.Where(e => e.LimitDate >= DateTime.Now);
+                        case "3": // 已闭环 7
+                            q = q.Where(e => e.State == BLL.Const.CheckControl_Complete);
                             break;
-                        case "超期未整改":
-                            q = q.Where(e => e.LimitDate < DateTime.Now);
-                            q = q.Where(e => "0,1,2,3,4,8".Split(',').Contains(e.State));
+                        case "4":  // 超期未整改
+                            q = q.Where(e => e.State != BLL.Const.CheckControl_Audit4
+                                            && e.State != BLL.Const.CheckControl_Audit5
+                                            && e.State != BLL.Const.CheckControl_Complete
+                                            && e.LimitDate < DateTime.Now);
                             break;
                     }
 
                 }
+
+                //if (!string.IsNullOrEmpty(state) && "undefined" != state)
+                //{
+                //    switch (state)
+                //    {
+                //        case "未确认":
+                //            q = q.Where(e => "5,6".Split(',').Contains(e.State));
+                //            break;
+                //        case "已闭环":
+                //            q = q.Where(e => "7" == e.State);
+                //            break;
+                //        case "未整改":
+                //            q = q.Where(e => "0,1,2,3,4,8".Split(',').Contains(e.State));
+                //            q = q.Where(e => e.LimitDate >= DateTime.Now);
+                //            break;
+                //        case "超期未整改":
+                //            q = q.Where(e => e.LimitDate < DateTime.Now);
+                //            q = q.Where(e => "0,1,2,3,4,8".Split(',').Contains(e.State));
+                //            break;
+                //    }
+
+                //}
 
                 if (!string.IsNullOrEmpty(unitWork) && "undefined" != unitWork)
                 {

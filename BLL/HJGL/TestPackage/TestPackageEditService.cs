@@ -110,6 +110,7 @@ namespace BLL
             newTestPackage.AmbientTemperature = testPackage.AmbientTemperature;
             newTestPackage.HoldingTime = testPackage.HoldingTime;
             newTestPackage.State = testPackage.State;
+            newTestPackage.TestDate = testPackage.TestDate;
             db.SubmitChanges();
         }
 

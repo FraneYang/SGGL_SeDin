@@ -50,6 +50,7 @@ namespace FineUIPro.Web.CQMS.Check
                             this.drprecover.SelectedIndex = -1;
                             this.drprecover.Enabled = false;
                         }
+                        BLL.DrawApproveService.See(DrawId, this.CurrUser.UserId);
                     }
                 }
             }

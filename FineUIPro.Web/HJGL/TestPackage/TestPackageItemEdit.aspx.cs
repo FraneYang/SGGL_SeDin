@@ -133,7 +133,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             string strSql = @"SELECT IsoInfo.ProjectId,IsoInfo.UnitWorkId,UnitWork.UnitWorkCode,IsoInfo.PipelineId,IsoInfo.PipelineCode,
                                      IsoInfo.UnitId,IsoInfo.DesignPress,IsoInfo.DesignTemperature,IsoInfo.TestPressure,IsoInfo.TestMedium,
 		                             testMedium.MediumName ,IsoInfo.SingleNumber,IsoInfo.PipingClassId,IsoList.PT_PipeId,
-		                             IsoList.PTP_ID,IsoList.AmbientTemperature,IsoList.TestMediumTemperature,IsoList.HoldingTime
+		                             IsoList.PTP_ID
                                      FROM dbo.HJGL_Pipeline AS IsoInfo
                                      LEFT JOIN WBS_UnitWork AS UnitWork ON IsoInfo.UnitWorkId=UnitWork.UnitWorkId
 								     LEFT JOIN dbo.Base_TestMedium  AS testMedium ON testMedium.TestMediumId = IsoInfo.TestMedium
@@ -169,22 +169,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
-            if (Grid1.Rows.Count > 0)
-            {
-                foreach (JObject mergedRow in Grid1.GetMergedData())
-                {
-                    int i = mergedRow.Value<int>("index");
-                    GridRow row = Grid1.Rows[i];
-                    AspNet.DropDownList drpTestMedium = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpTestMedium");
-                    AspNet.HiddenField TestMedium = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdTestMedium");
-                    drpTestMedium.Items.AddRange(BLL.Base_TestMediumService.GetTestMediumListItem("1"));
-                    Funs.PleaseSelect(drpTestMedium);
-                    if (!string.IsNullOrEmpty(TestMedium.Value))
-                    {
-                        drpTestMedium.SelectedValue = TestMedium.Value;
-                    }
-                }
-            }
         }
         #endregion
 
@@ -322,11 +306,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     newitem.PipelineId = item.PipelineId;
                     newitem.DesignPress = item.DesignPress;
                     newitem.DesignTemperature = item.DesignTemperature;
-                    newitem.AmbientTemperature = item.AmbientTemperature;
                     newitem.TestMedium = item.TestMedium;
-                    newitem.TestMediumTemperature = item.TestMediumTemperature;
                     newitem.TestPressure = item.TestPressure;
-                    newitem.HoldingTime = item.HoldingTime;
                     var PipelineList = Funs.DB.PTP_PipelineList.FirstOrDefault(x => x.PTP_ID == item.PTP_ID && x.PipelineId == item.PipelineId);
                     if (PipelineList != null)
                     {
@@ -359,6 +340,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 Model.PTP_PipelineList newView = new Model.PTP_PipelineList();
                 newView.PTP_ID = this.PTP_ID;
                 newView.PipelineId = Grid1.DataKeys[i][0].ToString();
+                newView.TestMedium = Grid1.DataKeys[i][1].ToString();
                 if (!string.IsNullOrEmpty(values.Value<string>("DesignPress").ToString()))
                 {
                     newView.DesignPress = Funs.GetNewDecimal(values.Value<string>("DesignPress").ToString());
@@ -367,26 +349,9 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 {
                     newView.DesignTemperature = Funs.GetNewDecimal(values.Value<string>("DesignTemperature").ToString());
                 }
-                if (!string.IsNullOrEmpty((values.Value<string>("AmbientTemperature").ToString())))
-                {
-                    newView.AmbientTemperature = Funs.GetNewDecimal(values.Value<string>("AmbientTemperature").ToString());
-                }
-                System.Web.UI.WebControls.DropDownList drpTestMedium = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpTestMedium"));
-                if (drpTestMedium.SelectedValue != BLL.Const._Null)
-                {
-                    newView.TestMedium = drpTestMedium.SelectedValue;
-                }
-                if (!string.IsNullOrEmpty(values.Value<string>("TestMediumTemperature")))
-                {
-                    newView.TestMediumTemperature = Funs.GetNewDecimal(values.Value<string>("TestMediumTemperature"));
-                }
                 if (!string.IsNullOrEmpty(values.Value<string>("TestPressure").ToString()))
                 {
                     newView.TestPressure = Funs.GetNewDecimal(values.Value<string>("TestPressure").ToString());
-                }
-                if (!string.IsNullOrEmpty(values.Value<string>("HoldingTime")))
-                {
-                    newView.HoldingTime = Funs.GetNewDecimal(values.Value<string>("HoldingTime"));
                 }
                 getViewList.Add(newView);
             }

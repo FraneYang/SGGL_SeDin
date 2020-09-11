@@ -10,6 +10,11 @@ namespace Model
     /// </summary>
     public class SpWeldingDailyItem
     {
+        public string WeldTaskId
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 焊口id
         /// </summary>
@@ -75,14 +80,25 @@ namespace Model
             get;
             set;
         }
+
         /// <summary>
-        /// 可焊焊工字符串
+        /// 可焊焊工号
         /// </summary>
-        public string WelderCodeStr
+        public string CanWelderCode
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// 可焊焊工ID
+        /// </summary>
+        public string CanWelderId
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 焊缝类型
         /// </summary>
@@ -186,6 +202,32 @@ namespace Model
         /// 机动化程度
         /// </summary>
         public string WeldingMode
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 是否已焊
+        /// </summary>
+        public string IsWelding {
+            get;
+            set;
+        }
+        /// <summary>
+        ///任务日期
+        /// </summary>
+        public DateTime TaskDate
+        {
+            get;
+            set;
+        }
+
+        public string WeldingWireCode
+        {
+            get;
+            set;
+        }
+        public string WeldingRodCode
         {
             get;
             set;

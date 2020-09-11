@@ -93,8 +93,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 {
                     this.drpUnitId.SelectedValue = trust.UnitId;
                 }
-                this.txtProessMethod.Text = trust.ProessMethod;
-                this.txtProessEquipment.Text = trust.ProessEquipment;
                 if (!string.IsNullOrEmpty(trust.Tabler))
                 {
                     this.txtTabler.Text = BLL.UserService.GetUserNameByUserId(trust.Tabler);
@@ -218,8 +216,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 }
                 newHotProessTrust.Tabler = this.CurrUser.UserId;
                 newHotProessTrust.Remark = this.txtRemark.Text.Trim();
-                newHotProessTrust.ProessMethod = this.txtProessMethod.Text.Trim();
-                newHotProessTrust.ProessEquipment = this.txtProessEquipment.Text.Trim();
                 if (!string.IsNullOrEmpty(this.HotProessTrustId))
                 {
                     newHotProessTrust.HotProessTrustId = this.HotProessTrustId;

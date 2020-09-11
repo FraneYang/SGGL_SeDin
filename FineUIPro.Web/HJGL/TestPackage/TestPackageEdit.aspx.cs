@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Web;
 using BLL;
 using Newtonsoft.Json.Linq;
 
@@ -420,5 +421,42 @@ namespace FineUIPro.Web.HJGL.TestPackage
         }
         #endregion
 
+        protected void btnPrinter_Click(object sender, EventArgs e)
+        {
+            string PTP_ID = this.tvControlItem.SelectedNodeID;
+            var p = BLL.TestPackageEditService.GetTestPackageByID(PTP_ID);
+            if (p != null) {
+                string varValue = string.Empty;
+                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (project != null)
+                {
+                    varValue = project.ProjectName;
+                    var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(p.UnitWorkId);
+                    if (unitWork != null)
+                    {
+                        varValue = varValue + "|" + unitWork.UnitWorkName;
+                    }
+                    if (!string.IsNullOrEmpty(p.TestPackageName)) {
+                        varValue = varValue + "|" + p.TestPackageName;
+                    }
+                    if (!string.IsNullOrEmpty(p.TestPackageNo))
+                    {
+                        varValue = varValue + "|" + p.TestPackageNo;
+                    }
+                }
+                if (!string.IsNullOrEmpty(varValue))
+                {
+                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                }
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_TestPackageRecordReportId, PTP_ID, varValue, this.CurrUser.LoginProjectId)));
+            }
+            else
+            {
+                ShowNotify("请选择试压包！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+            
     }
 }

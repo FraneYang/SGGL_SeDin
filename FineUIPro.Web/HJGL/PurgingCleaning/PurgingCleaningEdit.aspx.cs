@@ -136,7 +136,7 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
         /// <param name="node"></param>
         private void BindNodes(TreeNode node, List<Model.HJGL_PC_PurgingCleaning> PurgingCleaningUnitList)
         {
-             if (node.CommandName == "单位工程")
+            if (node.CommandName == "单位工程")
             {
                 var dReports = from x in PurgingCleaningUnitList
                                where x.UnitWorkId == node.NodeID
@@ -316,19 +316,19 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
             if (this.tvControlItem.SelectedNode.CommandName == "单位工程")
             {
                 if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.PurgingCleaningEditMenuId, Const.BtnAdd))
-            {
-                if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
                 {
-                    this.SetTextTemp();
-                    string window = String.Format("PurgingCleaningItemEdit.aspx?unitWorkId={0}", this.tvControlItem.SelectedNodeID, "新增 - ");
-                    PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPurgingCleaningId.ClientID)
-                      + Window1.GetShowReference(window));
+                    if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "单位工程")
+                    {
+                        this.SetTextTemp();
+                        string window = String.Format("PurgingCleaningItemEdit.aspx?unitWorkId={0}", this.tvControlItem.SelectedNodeID, "新增 - ");
+                        PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPurgingCleaningId.ClientID)
+                          + Window1.GetShowReference(window));
+                    }
                 }
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-            }
+                else
+                {
+                    ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                }
             }
             else
             {
@@ -347,28 +347,28 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
             if (this.tvControlItem.SelectedNode.CommandName == "PurgingCleaning")
             {
                 if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.PurgingCleaningEditMenuId, Const.BtnModify))
-            {
-                var PurgingCleaningManage = BLL.PurgingCleaningEditService.GetPurgingCleaningByID(this.PurgingCleaningId);
-                if (PurgingCleaningManage != null)
                 {
-                    if (!string.IsNullOrEmpty(PurgingCleaningManage.AduditDate))
+                    var PurgingCleaningManage = BLL.PurgingCleaningEditService.GetPurgingCleaningByID(this.PurgingCleaningId);
+                    if (PurgingCleaningManage != null)
                     {
-                        Alert.ShowInTop("此吹扫/清洗试验单已审核！", MessageBoxIcon.Warning);
-                        return;
-                    }
+                        if (!string.IsNullOrEmpty(PurgingCleaningManage.AduditDate))
+                        {
+                            Alert.ShowInTop("此吹扫/清洗试验单已审核！", MessageBoxIcon.Warning);
+                            return;
+                        }
 
-                    string window = String.Format("PurgingCleaningItemEdit.aspx?PurgingCleaningId={0}", this.PurgingCleaningId, "编辑 - ");
-                    PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPurgingCleaningId.ClientID)
-                      + Window1.GetShowReference(window));
+                        string window = String.Format("PurgingCleaningItemEdit.aspx?PurgingCleaningId={0}", this.PurgingCleaningId, "编辑 - ");
+                        PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPurgingCleaningId.ClientID)
+                          + Window1.GetShowReference(window));
+                    }
+                    else
+                    {
+                        ShowNotify("请选择要修改的试压包记录！", MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    ShowNotify("请选择要修改的试压包记录！", MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                    ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
                 }
             }
             else
@@ -389,32 +389,32 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
             if (this.tvControlItem.SelectedNode.CommandName == "PurgingCleaning")
             {
                 if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.PurgingCleaningEditMenuId, Const.BtnDelete))
-            {
-                var PurgingCleaninManage = BLL.PurgingCleaningEditService.GetPurgingCleaningByID(this.PurgingCleaningId);
-                if (PurgingCleaninManage != null)
                 {
-                    if (!string.IsNullOrEmpty(PurgingCleaninManage.AduditDate))
+                    var PurgingCleaninManage = BLL.PurgingCleaningEditService.GetPurgingCleaningByID(this.PurgingCleaningId);
+                    if (PurgingCleaninManage != null)
                     {
-                        Alert.ShowInTop("此试压单已审核！", MessageBoxIcon.Warning);
-                        return;
-                    }
+                        if (!string.IsNullOrEmpty(PurgingCleaninManage.AduditDate))
+                        {
+                            Alert.ShowInTop("此试压单已审核！", MessageBoxIcon.Warning);
+                            return;
+                        }
 
-                    BLL.PurgingCleaningEditService.DeletePipelineListByPurgingCleaningId(this.PurgingCleaningId);
-                    BLL.PurgingCleaningEditService.DeletePurgingCleaning(this.PurgingCleaningId);
-                    Alert.ShowInTop("删除成功！", MessageBoxIcon.Success);
-                    this.InitTreeMenu();
-                    this.BindGrid();
+                        BLL.PurgingCleaningEditService.DeletePipelineListByPurgingCleaningId(this.PurgingCleaningId);
+                        BLL.PurgingCleaningEditService.DeletePurgingCleaning(this.PurgingCleaningId);
+                        Alert.ShowInTop("删除成功！", MessageBoxIcon.Success);
+                        this.InitTreeMenu();
+                        this.BindGrid();
+                    }
+                    else
+                    {
+                        ShowNotify("请选择要删除的试压包记录！", MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    ShowNotify("请选择要删除的试压包记录！", MessageBoxIcon.Warning);
+                    ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                    return;
                 }
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                return;
-            }
             }
             else
             {
@@ -452,6 +452,38 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
 
         protected void btnMenuPrint_Click(object sender, EventArgs e)
         {
+            string PurgingCleaningId = this.tvControlItem.SelectedNodeID;
+            var p = BLL.PurgingCleaningEditService.GetPurgingCleaningByID(PurgingCleaningId);
+            if (p != null)
+            {
+                string varValue = string.Empty;
+                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (project != null)
+                {
+                    varValue = project.ProjectName;
+                    var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(p.UnitWorkId);
+                    if (unitWork != null)
+                    {
+                        varValue = varValue + "|" + unitWork.UnitWorkName;
+                    }
+                    varValue = varValue + "|" + p.SysNo;
+                    varValue = varValue + "|" + p.SysName;
+                    varValue = varValue + "|" + p.Check1;
+                    varValue = varValue + "|" + p.Check2;
+                    varValue = varValue + "|" + p.Check3;
+                    varValue = varValue + "|" + p.Check4;
+                }
+                if (!string.IsNullOrEmpty(varValue))
+                {
+                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                }
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_PurgingCleaningReportId, PurgingCleaningId, varValue, this.CurrUser.LoginProjectId)));
+            }
+            else
+            {
+                ShowNotify("请选择吹扫/清洗试验！", MessageBoxIcon.Warning);
+                return;
+            }
         }
     }
 }

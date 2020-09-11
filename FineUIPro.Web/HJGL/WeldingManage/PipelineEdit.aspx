@@ -112,7 +112,7 @@
                                      <f:DropDownList ID="drpPCMedium" Label="吹洗要求" runat="server"
                                         EnableEdit="true" LabelWidth="120px">
                                     </f:DropDownList>
-                                    <f:NumberBox ID="numVacuumPressure" Label="真空试验压力 MPa(g)" runat="server" LabelWidth="140px"></f:NumberBox>
+                                    <f:NumberBox ID="numVacuumPressure" Label="真空试验压力 KPa(a)" runat="server" LabelWidth="140px"></f:NumberBox>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>

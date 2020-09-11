@@ -65,6 +65,8 @@ namespace BLL
                     newWeldReportItem.Dia = item.Dia;
                     newWeldReportItem.Thickness = item.Thickness;
                     newWeldReportItem.WeldingMethodCode = item.WeldingMethodCode;
+                    newWeldReportItem.WeldingWireCode = item.WeldingWireCode;
+                    newWeldReportItem.WeldingRodCode = item.WeldingRodCode;
                     returnViewMatch.Add(newWeldReportItem);
                 }
             }
@@ -201,7 +203,6 @@ namespace BLL
                     newWeldReportItem.Thickness = item.Thickness;
                     newWeldReportItem.WeldingMethodCode = item.WeldingMethodCode;
                     newWeldReportItem.WeldTypeCode = item.WeldTypeCode;
-                    newWeldReportItem.IsHotProessStr = item.IsHotProess;
                     returnViewMatch.Add(newWeldReportItem);
                 }
             }

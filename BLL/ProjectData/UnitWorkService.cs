@@ -82,6 +82,12 @@ namespace BLL
                 unitWork.Weights = unitWork.Costs / totalCosts * 100;
                 db.SubmitChanges();
             }
+            var noCostUnitWorks = from x in db.WBS_UnitWork where x.ProjectId == projectId && x.Costs == null select x;
+            foreach (var noCostUnitWork in noCostUnitWorks)
+            {
+                noCostUnitWork.Weights = null;
+                db.SubmitChanges();
+            }
         }
         #region 更新计算单位工程WBS项的建安工程费
         /// <summary>
@@ -159,6 +165,16 @@ namespace BLL
         public static Model.WBS_UnitWork GetUnitWorkByUnitWorkId(string UnitWorkId)
         {
             return Funs.DB.WBS_UnitWork.FirstOrDefault(e => e.UnitWorkId == UnitWorkId);
+        }
+
+        /// <summary>
+        /// 获取单位工程信息
+        /// </summary>
+        /// <param name="UnitWorkId"></param>
+        /// <returns></returns>
+        public static Model.WBS_UnitWork GetUnitWorkByMainItemAndDesignProfessionalIds(string mainItemAndDesignProfessionalIds)
+        {
+            return Funs.DB.WBS_UnitWork.FirstOrDefault(e => e.MainItemAndDesignProfessionalIds.Contains(mainItemAndDesignProfessionalIds));
         }
 
         /// <summary>

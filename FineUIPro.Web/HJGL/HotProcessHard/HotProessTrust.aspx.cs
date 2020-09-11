@@ -190,8 +190,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             string strSql = string.Empty;
             List<SqlParameter> listStr = new List<SqlParameter>();
             this.SetTextTemp();
-            this.PageInfoLoad(); ///页面输入提交信息
-
             if (this.tvControlItem.SelectedNode!=null && this.tvControlItem.SelectedNode.CommandName== "委托单号")
             {
                 var hotProessTrust = BLL.HotProess_TrustService.GetHotProessTrustById(this.tvControlItem.SelectedNodeID);
@@ -236,6 +234,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     //}
                 }
             }
+            this.PageInfoLoad(); ///页面输入提交信息
         }
 
         /// <summary>
@@ -262,8 +261,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 {
                     this.txtProessDate.Text = string.Format("{0:yyyy-MM-dd}", trust.ProessDate);
                 }
-                this.txtProessMethod.Text = trust.ProessMethod;
-                this.txtProessEquipment.Text = trust.ProessEquipment;
                 if (!string.IsNullOrEmpty(trust.Tabler))
                 {
                     this.txtTabler.Text = BLL.UserService.GetUserNameByUserId(trust.Tabler);
@@ -281,8 +278,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         {
             this.txtHotProessTrustNo.Text = string.Empty;
             this.txtProessDate.Text = string.Empty;
-            this.txtProessMethod.Text = string.Empty;
-            this.txtProessEquipment.Text = string.Empty;
             this.txtTabler.Text = string.Empty;
             this.txtRemark.Text = string.Empty;
         }

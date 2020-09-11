@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using BLL;
 using System.Text;
+using System.Web;
 
 namespace FineUIPro.Web.HJGL.WeldingManage
 {
@@ -342,34 +343,52 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnPrint_Click(object sender, EventArgs e)
         {
-            //string pipelineId = this.tvControlItem.SelectedNodeID;
-            //var q = BLL.Pipeline_PipelineService.GetPipelineByPipelineId(pipelineId);
+            string pipelineId = this.tvControlItem.SelectedNodeID;
+            var q = BLL.PipelineService.GetPipelineByPipelineId(pipelineId);
 
-            //if (q != null)
-            //{
-            //    string varValue = string.Empty;
+            if (q != null)
+            {
+                string varValue = string.Empty;
+                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (project != null)
+                {
+                    varValue = project.ProjectName;
+                    var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(q.UnitWorkId);
+                    if (unitWork != null)
+                    {
+                        varValue = varValue + "|" + unitWork.UnitWorkName;
+                    }
+                }
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                listStr.Add(new SqlParameter("@IsoId", pipelineId));
+                listStr.Add(new SqlParameter("@Flag", "0"));
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = BLL.SQLHelper.GetDataTableRunProc("HJGL_spJointWorkRecordNew", parameter);
+                string page = Funs.GetPagesCountByPageSize(11, 16, tb.Rows.Count).ToString();
 
-            //    var project = BLL.Base_ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
-            //    var area = BLL.Project_WorkAreaService.GetProject_WorkAreaByWorkAreaId(q.WorkAreaId);
-            //    if (area != null)
-            //    {
-            //        var ins = BLL.Project_InstallationService.GetProject_InstallationByInstallationId(area.InstallationId);
-            //        varValue = project.ProjectName + "|" + ins.InstallationName;
-            //    }
 
-            //    if (!string.IsNullOrEmpty(varValue))
-            //    {
-            //        varValue = Microsoft.JScript.GlobalObject.escape(varValue.Replace("/", ","));
-            //    }
+                varValue = varValue + "|" + page;
 
-            //    //PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../Common/ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReportId, pipelineId, varValue, this.CurrUser.LoginProjectId)));
-            //}
+                if (!string.IsNullOrEmpty(varValue))
+                {
+                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                }
+                if (tb.Rows.Count <= 11)
+                {
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport1Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
+                }
+                else
+                {
+                    PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport2Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport1Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
+                }
+            }
 
-            //else
-            //{
-            //    ShowNotify("请选择"Pipeline, MessageBoxIcon.Warning);
-            //    return;
-            //}
+            else
+            {
+                ShowNotify("请选择管线！", MessageBoxIcon.Warning);
+                return;
+            }
         }
         #endregion
 

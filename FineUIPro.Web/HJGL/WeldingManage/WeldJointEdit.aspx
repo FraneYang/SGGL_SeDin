@@ -139,24 +139,18 @@
                                         <f:TextBox ID="txtPreTemperature" runat="server" Label="预热温度" MaxLength="50" LabelAlign="Right"
                                             LabelWidth="100px">
                                         </f:TextBox>
-                                        <f:DropDownList ID="drpJointArea" Label="焊接区域"
-                                            runat="server" EnableEdit="true" LabelWidth="100px"  LabelAlign="Right">
-                                        </f:DropDownList>
                                         <f:DropDownList ID="drpIsHotProess" runat="server" Label="是否热处理" LabelAlign="Right"
                                             LabelWidth="100px" >
                                             <f:ListItem Value="False" Text="否" Selected="true" />
                                             <f:ListItem Value="True" Text="是" />
                                         </f:DropDownList>
+                                        <f:TextBox ID="txtRemark" runat="server" Label="备注" MaxLength="200" LabelAlign="Right"
+                                            LabelWidth="100px">
+                                        </f:TextBox>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtRemark" runat="server" Label="备注" MaxLength="200" LabelAlign="Right"
-                                            LabelWidth="100px">
-                                        </f:TextBox>
-                                        <f:DropDownList ID="drpJointAttribute" Label="焊口属性" runat="server"
-                                            EnableEdit="true" LabelWidth="100px"  LabelAlign="Right">
-                                        </f:DropDownList>
                                         <f:TextBox ID="txtWpqId" Label="" runat="server"
                                             LabelWidth="100px" ShowRedStar="true" Required="true" Hidden="true">
                                         </f:TextBox>

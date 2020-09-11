@@ -432,7 +432,7 @@ namespace Mvc.Controllers
                     break;
                 case "jointCheck":
                     {
-                        string prefix = "T18006-JC-";
+                        string prefix = BLL.ProjectService.GetProjectByProjectId(projectId).ProjectCode + "-GJ-";
                         res.resultValue = BLL.SQLHelper.RunProcNewId("SpGetNewCode3", "dbo.Check_JointCheck", "JointCheckCode", prefix);
                     }
                     break;

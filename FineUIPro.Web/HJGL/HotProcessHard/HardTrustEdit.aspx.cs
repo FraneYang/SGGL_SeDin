@@ -103,10 +103,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 {
                     this.txtHardTrustDate.Text = string.Format("{0:yyyy-MM-dd}", trust.HardTrustDate);
                 }
-                this.txtHardnessMethod.Text = trust.HardnessMethod;
                 this.txtHardnessRate.Text = trust.HardnessRate;
                 this.txtStandards.Text = trust.Standards;
-                this.txtInspectionNum.Text = trust.InspectionNum;
                 this.txtCheckNum.Text = trust.CheckNum;
                 this.txtTestWeldNum.Text = trust.TestWeldNum;
                 this.rblDetectionTime.SelectedValue = trust.DetectionTime;
@@ -115,7 +113,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 }
                 this.txtCheckName.Text = trust.CheckName;
                 this.txtAcceptStandard.Text = trust.AcceptStandard;
-                this.txtEquipmentModel.Text = trust.EquipmentModel;
             }
             else
             {
@@ -214,10 +211,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     newHardTrust.HardTrustMan = this.drpHardTrustMan.SelectedValue;
                 }
                 newHardTrust.HardTrustDate = Funs.GetNewDateTime(this.txtHardTrustDate.Text);
-                newHardTrust.HardnessMethod = this.txtHardnessMethod.Text.Trim();
                 newHardTrust.HardnessRate = this.txtHardnessRate.Text.Trim();
                 newHardTrust.Standards = this.txtStandards.Text.Trim();
-                newHardTrust.InspectionNum = this.txtInspectionNum.Text.Trim();
                 newHardTrust.CheckNum = this.txtCheckNum.Text.Trim();
                 newHardTrust.TestWeldNum = this.txtTestWeldNum.Text.Trim();
                 newHardTrust.DetectionTime = this.rblDetectionTime.SelectedValue;
@@ -227,7 +222,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 }
                 newHardTrust.CheckName = this.txtCheckName.Text.Trim();
                 newHardTrust.AcceptStandard = this.txtAcceptStandard.Text.Trim();
-                newHardTrust.EquipmentModel = this.txtEquipmentModel.Text.Trim();
                 if (!string.IsNullOrEmpty(this.HardTrustID))
                 {
                     newHardTrust.HardTrustID = this.HardTrustID;

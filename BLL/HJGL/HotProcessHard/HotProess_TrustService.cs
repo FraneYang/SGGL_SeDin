@@ -61,6 +61,7 @@ namespace BLL
                 newHotProessTrust.Remark = hotProessTrust.Remark;
                 newHotProessTrust.ProessMethod = hotProessTrust.ProessMethod;
                 newHotProessTrust.ProessEquipment = hotProessTrust.ProessEquipment;
+                newHotProessTrust.ReportNo = hotProessTrust.ReportNo;
                 db.SubmitChanges();
             }
         }

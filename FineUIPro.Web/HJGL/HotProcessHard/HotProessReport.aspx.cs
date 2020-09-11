@@ -208,8 +208,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             string strSql = string.Empty;
             List<SqlParameter> listStr = new List<SqlParameter>();
             this.SetTextTemp();
-            this.PageInfoLoad(); ///页面输入提交信息
-
             if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "委托单号")
             {
                 var hotProessTrust = BLL.HotProess_TrustService.GetHotProessTrustById(this.tvControlItem.SelectedNodeID);
@@ -240,6 +238,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     Grid1.DataBind();
                 }
             }
+            this.PageInfoLoad(); ///页面输入提交信息
         }
 
         /// <summary>
@@ -272,7 +271,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 {
                     this.txtTabler.Text = BLL.UserService.GetUserNameByUserId(trust.Tabler);
                 }
-                this.txtRemark.Text = trust.Remark;
+                this.txtReport.Text = trust.ReportNo;
             }
         }
         #endregion
@@ -288,7 +287,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             this.txtProessMethod.Text = string.Empty;
             this.txtProessEquipment.Text = string.Empty;
             this.txtTabler.Text = string.Empty;
-            this.txtRemark.Text = string.Empty;
+            this.txtReport.Text = string.Empty;
         }
         #endregion
         #endregion
@@ -378,5 +377,26 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             }
         }
         #endregion
+
+        protected void btnMenuModify_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_HotProessReportMenuId, Const.BtnSave))
+            {
+                var trustManage = BLL.HotProess_TrustService.GetHotProessTrustById(this.tvControlItem.SelectedNodeID);
+                if (trustManage != null)
+                {
+                    string window = String.Format("HotProessReportEdit.aspx?HotProessTrustId={0}", trustManage.HotProessTrustId, "编辑 - ");
+                    PageContext.RegisterStartupScript( Window1.GetShowReference(window));
+                }
+                else
+                {
+                    ShowNotify("请选择要修改的热处理委托记录！", MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+            }
+        }
     }
 }

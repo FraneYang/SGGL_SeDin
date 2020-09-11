@@ -29,89 +29,102 @@
                         OnNodeCommand="tvControlItem_NodeCommand" runat="server" ShowBorder="false" EnableCollapse="true"
                         EnableSingleClickExpand="true" AutoLeafIdentification="true" EnableSingleExpand="true"
                         EnableTextSelection="true">
+                         <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                         </Listeners>
                     </f:Tree>
-
                 </Items>
             </f:Panel>
             <f:Panel runat="server" ID="panelCenterRegion" RegionPosition="Center" ShowBorder="true"
                 Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="焊接日报"
-                TitleToolTip="焊接日报" AutoScroll="true">
-                <Toolbars>
-                    <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
-                        <Items>
-                            <f:ToolbarFill ID="ToolbarFill1" runat="server">
-                            </f:ToolbarFill>
-                            <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
-                                runat="server" OnClick="btnNew_Click">
-                            </f:Button>
-                        </Items>
-                    </f:Toolbar>
-                    <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
-                        <Items>
-                            <f:DatePicker ID="txtWeldingDate" Label="焊接日期" runat="server"
-                                DateFormatString="yyyy-MM-dd" LabelWidth="90px" Width="210px" LabelAlign="Right">
-                            </f:DatePicker>
-                             <f:TextBox ID="txtWeldingDailyCode" runat="server" Label="日报编号"
-                                EmptyText="日报编号查询" Width="220px" LabelWidth="100px" LabelAlign="Right">
-                            </f:TextBox>
-                            <f:TextBox ID="txtPipelineCode" runat="server" Label="管线号"
-                                EmptyText="输入查询条件" Width="220px" LabelWidth="80px" LabelAlign="Right">
-                            </f:TextBox>
-                            <f:TextBox ID="txtWeldJointCode" runat="server" Label="焊口号"
-                                EmptyText="输入查询条件" Width="180px" LabelWidth="80px" LabelAlign="Right">
-                            </f:TextBox>
-                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch"
-                                EnablePostBack="true" OnClick="btnQuery_Click" runat="server">
-                            </f:Button>
-                            <f:ToolbarFill ID="ToolbarFill2" runat="server">
-                            </f:ToolbarFill>
-                        </Items>
-                    </f:Toolbar>
-                </Toolbars>
+                TitleToolTip="焊接日报" AutoScroll="true" >
                 <Items>
-                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊接日报"
-                        EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="WeldingDailyId"
-                        AllowCellEditing="true" AllowColumnLocking="true" EnableColumnLines="true" ClicksToEdit="2"
-                        DataIDField="WeldingDailyId" AllowSorting="true" SortField="WeldingDailyCode"
-                        SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
-                        PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" EnableTextSelection="True"
-                        EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">
+                    <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="false"  AutoScroll="true" BodyPadding="10px" 
+                        runat="server" RedStarPosition="BeforeText" LabelAlign="Left">
+                        <Rows>
+                            <f:FormRow ColumnWidths="25% 15% 18% 18% 24% ">
+                                <Items>
+                                    <f:Label ID="txtUnitName" Label="单位名称" runat="server"
+                                        LabelWidth="90px" LabelAlign="Right">
+                                    </f:Label>
+                                     <f:Label ID="txtTabler" Label="填报人" runat="server"
+                                        LabelWidth="90px" LabelAlign="Right">
+                                    </f:Label>
+                                    <f:Label ID="txtTableDate" Label="填报日期" runat="server"
+                                        LabelWidth="90px" LabelAlign="Right">
+                                    </f:Label>
+                                    <f:Label ID="txtWeldingDate" Label="焊接日期" runat="server" 
+                                        LabelWidth="90px" LabelAlign="Right">
+                                    </f:Label>
+                                     <f:Label ID="txtRemark" Label="备注" runat="server" 
+                                        LabelWidth="90px" LabelAlign="Right">
+                                    </f:Label>
+                                </Items>
+                            </f:FormRow>
+                        </Rows>
+                    </f:Form>
+                </Items>
+                <Items>
+                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊接日报明细" EnableCollapse="true"
+                        runat="server" BoxFlex="1" DataKeyNames="WeldJointId" AllowCellEditing="true"
+                        AllowColumnLocking="true" EnableColumnLines="true" ClicksToEdit="2" DataIDField="WeldJointId"
+                        AllowSorting="true" SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort"
+                        AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
+                        >
                         <Columns>
-                            <f:RenderField Width="120px" ColumnID="WeldingDailyCode" DataField="WeldingDailyCode"
-                                FieldType="String" HeaderText="焊接日报编号" HeaderTextAlign="Center"
-                                TextAlign="Left" SortField="WeldingDailyCode">
+                            <f:RowNumberField EnablePagingNumber="true" HeaderText="序号"
+                                Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
+                            <f:RenderField HeaderText="管线号" ColumnID="PipelineCode"
+                                DataField="PipelineCode"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Left" Width="180px">
                             </f:RenderField>
-                             <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
-                                HeaderText="单位名称" HeaderTextAlign="Center" TextAlign="Left" SortField="UnitName">
+                            <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode"
+                                DataField="WeldJointCode"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="100px">
                             </f:RenderField>
-                             <f:RenderField Width="150px" ColumnID="InstallationCode" DataField="InstallationCode" FieldType="String"
-                                HeaderText="装置号" HeaderTextAlign="Center" TextAlign="Left" SortField="InstallationCode">
+                            <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderCode"
+                                DataField="CoverWelderCode"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="90px">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="WeldingDate" DataField="WeldingDate" SortField="WeldingDate"
-                                FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="焊接日期"
-                                HeaderTextAlign="Center" TextAlign="Center">
+                             <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderCode"
+                                DataField="BackingWelderCode"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="90px">
+                            </f:RenderField> 
+                            <f:RenderField HeaderText="材质1" ColumnID="Material1Code"
+                                DataField="Material1Code"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="120px">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="UserName" DataField="UserName" FieldType="String"
-                                HeaderText="填报人" HeaderTextAlign="Center" TextAlign="Left" SortField="UserName">
+                            <f:RenderField HeaderText="材质2" ColumnID="Material2Code"
+                                DataField="Material2Code"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="120px">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="TableDate" DataField="TableDate" SortField="TableDate"
-                                FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="填报日期"
-                                HeaderTextAlign="Center" TextAlign="Center">
+                             <f:RenderField HeaderText="外径" ColumnID="Dia"
+                                DataField="Dia"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="80px">
                             </f:RenderField>
-                            <f:RenderField Width="150px" ColumnID="Remark" DataField="Remark" FieldType="String"
-                                HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left"
-                                ExpandUnusedSpace="true">
+                            <f:RenderField HeaderText="壁厚" ColumnID="Thickness"
+                                DataField="Thickness"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="80px">
                             </f:RenderField>
-                            <f:TemplateField ColumnID="expander" RenderAsRowExpander="true">
-                                <ItemTemplate>
-                                </ItemTemplate>
-                            </f:TemplateField>
+
+                             <f:RenderField HeaderText="焊缝类型" ColumnID="WeldTypeCode"
+                                DataField="WeldTypeCode"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="80px">
+                            </f:RenderField>
+                            <f:RenderField HeaderText="焊接方法" ColumnID="WeldingMethodCode"
+                                DataField="WeldingMethodCode"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="160px">
+                            </f:RenderField>
+
+                            <f:RenderField HeaderText="焊丝" ColumnID="WeldingWireCode"
+                                DataField="WeldingWireCode"  FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Center" Width="150px">
+                            </f:RenderField>
+                             <f:RenderField HeaderText="焊条" ColumnID="WeldingRodCode" DataField="WeldingRodCode" 
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center" Width="150px">
+                            </f:RenderField>
+                           
                         </Columns>
-                        <Listeners>
-                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
-                            <f:Listener Event="rowexpanderexpand" Handler="onRowExpanderExpand" />
-                            <f:Listener Event="rowexpandercollapse" Handler="onRowExpanderCollapse" />
-                        </Listeners>
                         <PageItems>
                             <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                             </f:ToolbarSeparator>
@@ -119,11 +132,10 @@
                             </f:ToolbarText>
                             <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
                                 OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                                <f:ListItem Text="10" Value="10" />
-                                <f:ListItem Text="15" Value="15" />
-                                <f:ListItem Text="20" Value="20" />
-                                <f:ListItem Text="25" Value="25" />
-                                <f:ListItem Text="所有行" Value="10000" />
+                                <f:ListItem Text="15" Value="10" />
+                                <f:ListItem Text="25" Value="15" />
+                                <f:ListItem Text="50" Value="20" />
+                                <f:ListItem Text="100" Value="25" />
                             </f:DropDownList>
                         </PageItems>
                     </f:Grid>
@@ -136,11 +148,13 @@
         IsModal="true" Width="1200px" Height="650px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
+         <f:MenuButton ID="btnMenuAdd" EnablePostBack="true" runat="server" Text="新增" Icon="Add" OnClick="btnMenuAdd_Click">
+          </f:MenuButton>
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"
-            runat="server" Text="编辑">
+            runat="server" Text="编辑" Hidden="true">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top"
+            Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top"  Hidden="true"
             runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
@@ -148,80 +162,13 @@
     <script type="text/javascript">
         var menuID = '<%= Menu1.ClientID %>';
         // 返回false，来阻止浏览器右键菜单
-        function onRowContextMenu(event, rowId) {
+          function onTreeNodeContextMenu(event, rowId) {
             F(menuID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
 
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
-        }
-
-        var grid1 = '<%= Grid1.ClientID %>';
-        function onRowExpanderExpand(event, rowId) {
-
-            var grid = this, rowEl = grid.getRowEl(rowId), rowData = grid.getRowData(rowId);
-
-            var tplEl = rowEl.find('.f-grid-rowexpander-details .f-grid-tpl');
-            if (!tplEl.text()) {
-
-                F.create({
-                    type: 'grid',
-                    renderTo: tplEl,
-                    header: false,
-                    columnMenu: false,
-                    columnResizing: false,
-                    cls: 'gridinrowexpander',
-                    fields: ['Num', 'PipelineCode', 'WeldJointCode', 'CoverWelderCode', 'BackingWelderCode', 'WeldTypeCode', 'WeldingLocationCode', 'JointAttribute', 'Size', 'Dia', 'Thickness', 'WeldingMethodCode'],
-                    columns: [{
-                        text: '序号', field: 'Num', width: 50
-                    }, {
-                        text: '管线编号', field: 'PipelineCode', width: 240
-                    }, {
-                        text: '焊口号', field: 'WeldJointCode', width: 70
-                    }, {
-                        text: '盖面焊工', field: 'CoverWelderCode', width: 80
-                    }, {
-                        text: '打底焊工', field: 'BackingWelderCode', width: 80
-                    }, {
-                        text: '焊缝类型', field: 'WeldTypeCode', width: 80
-                    },{
-                        text: '焊接位置', field: 'WeldingLocationCode', width: 80
-                    }, {
-                        text: '焊口属性', field: 'JointAttribute', width: 80
-                    }, {
-                        text: '达因', field: 'Size', width: 60
-                    }, {
-                        text: '外径', field: 'Dia', width: 60
-                    }, {
-                        text: '壁厚', field: 'Thickness', width: 60
-                    }, {
-                        text: '焊接方法', field: 'WeldingMethodCode', width: 120
-                    }],
-                    dataUrl: 'GetWdldingDailyItem.ashx?WeldingDailyId=' + rowId, // 这里可传递行中任意数据（rowData）
-                    listeners: {
-                        dataload: function () {
-                            rowExpandersDoLayout();
-                        }
-                    }
-                });
-            }
-        }
-
-        function onRowExpanderCollapse(event, rowId) {
-            rowExpandersDoLayout();
-        }
-
-        // 重新布局表格和行扩展列中的表格（解决出现纵向滚动条时的布局问题）
-        function rowExpandersDoLayout() {
-            var grid1Cmp = F(grid1);
-
-            grid1Cmp.doLayout();
-
-            $('.f-grid-row:not(.f-grid-rowexpander-collapsed) .gridinrowexpander').each(function () {
-                var gridInside = F($(this).attr('id'));
-                gridInside.doLayout();
-            });
         }
     </script>
 </body>

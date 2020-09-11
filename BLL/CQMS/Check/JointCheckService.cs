@@ -243,6 +243,10 @@ namespace BLL
                 res.ProposeUnitId = res.ProposeUnitId + "$" + UnitService.getUnitNamesUnitIds(res.ProposeUnitId);
                 var user = UserService.GetUserByUserId(res.CheckMan);
                 res.CheckMan = res.CheckMan + "$" + (user == null ? "" : user.UserName);
+                res.JointCheckMans1= res.JointCheckMans1 + "$" + BLL.UserService.getUserNamesUserIds(res.JointCheckMans1);
+                res.JointCheckMans2 = res.JointCheckMans2 + "$" + BLL.UserService.getUserNamesUserIds(res.JointCheckMans2);
+                res.JointCheckMans3 = res.JointCheckMans3 + "$" + BLL.UserService.getUserNamesUserIds(res.JointCheckMans3);
+                res.JointCheckMans4 = res.JointCheckMans4 + "$" + BLL.UserService.getUserNamesUserIds(res.JointCheckMans4);
                 return res;
             }
         }
@@ -310,6 +314,14 @@ namespace BLL
                                x.CheckType,
                                x.CheckName,
                                x.State,
+                               x.JointCheckMans1,
+                               x.JointCheckMans2,
+                               x.JointCheckMans3,
+                               x.JointCheckMans4,
+                               JointCheckMans1_Name = BLL.UserService.getUserNamesUserIds(x.JointCheckMans1),
+                               JointCheckMans2_Name = BLL.UserService.getUserNamesUserIds(x.JointCheckMans2),
+                               JointCheckMans3_Name = BLL.UserService.getUserNamesUserIds(x.JointCheckMans3),
+                               JointCheckMans4_Name = BLL.UserService.getUserNamesUserIds(x.JointCheckMans4),
                                CheckManName = (from y in db.Sys_User where y.UserId == x.CheckMan select y.UserName).First(),
                                UnitName = UnitService.getUnitNamesUnitIds(x.UnitId),
                                ProposeUnitName = UnitService.getUnitNamesUnitIds(x.ProposeUnitId)
@@ -326,6 +338,10 @@ namespace BLL
                     jc.CheckType = item.CheckType;
                     jc.CheckName = item.CheckName;
                     jc.State = item.State;
+                    jc.JointCheckMans1 = item.JointCheckMans1 + "$" + item.JointCheckMans1_Name;
+                    jc.JointCheckMans2 = item.JointCheckMans2 + "$" + item.JointCheckMans2_Name;
+                    jc.JointCheckMans3 = item.JointCheckMans3 + "$" + item.JointCheckMans3_Name;
+                    jc.JointCheckMans4 = item.JointCheckMans4 + "$" + item.JointCheckMans4_Name;
                     jc.CheckMan = item.CheckMan + "$" + item.CheckManName + "$" + ConvertManAndID(jc.JointCheckId);
                     jc.ProposeUnitId = item.ProposeUnitId + "$" + item.ProposeUnitName;
 

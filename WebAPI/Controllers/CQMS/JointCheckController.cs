@@ -161,6 +161,7 @@ namespace Mvc.Controllers
         }
 
         [HttpPost]
+        // 共检--添加
         public ResponseData<string> AddJointCheck([FromBody]Model.Check_JointCheck CheckControl)
         {
             ResponseData<string> res = new ResponseData<string>();
@@ -175,7 +176,7 @@ namespace Mvc.Controllers
                     {
                         projectCode = project.ProjectCode;
                     }
-                    prefix = projectCode + "-JC-";
+                    prefix = projectCode + "-GJ-";
                     CheckControl.JointCheckCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode3", "dbo.Check_JointCheck", "JointCheckCode", prefix);
                     CheckControl.JointCheckId = Guid.NewGuid().ToString();
                     BLL.JointCheckService.AddJointCheckForApi(CheckControl);
@@ -212,20 +213,21 @@ namespace Mvc.Controllers
                 joinCheckDetail.SaveHandleMan = "";
                 joinCheckDetail.JointCheckDetailId = approve.JointCheckDetailId;
                 BLL.JointCheckDetailService.UpdateJointCheckDetailForApi(joinCheckDetail);
+
+                var joinCheckDetailList = BLL.JointCheckDetailService.GetListsForApi(approve.JointCheckId);
+                bool isFinished = true;
+                bool isEditing = true;
+                foreach (var item in joinCheckDetailList)
+                {
+                    if ("6" != item.State) isFinished = false;
+                    if ("1" != item.State) isEditing = false;
+                }
+
+                var joinCheck = BLL.JointCheckService.GetJointCheckForApi(approve.JointCheckId);
+                Check_JointCheck cj = new Check_JointCheck();
+                cj.JointCheckId = joinCheck.JointCheckId;
                 if (approve.ApproveType != "1")
                 {
-                    var joinCheckDetailList = BLL.JointCheckDetailService.GetListsForApi(approve.JointCheckId);
-                    bool isFinished = true;
-                    bool isEditing = true;
-                    foreach (var item in joinCheckDetailList)
-                    {
-                        if ("6" != item.State) isFinished = false;
-                        if ("1" != item.State) isEditing = false;
-                    }
-
-                    var joinCheck = BLL.JointCheckService.GetJointCheckForApi(approve.JointCheckId);
-                    Check_JointCheck cj = new Check_JointCheck();
-                    cj.JointCheckId = joinCheck.JointCheckId;
                     if (isFinished)
                     {
                         cj.State = "6";
@@ -239,6 +241,10 @@ namespace Mvc.Controllers
                         cj.State = "Z";
 
                     }
+                    BLL.JointCheckService.UpdateJointCheckForApi(cj);
+                } else
+                {
+                    cj.State = "1";
                     BLL.JointCheckService.UpdateJointCheckForApi(cj);
                 }
                 res.resultValue = BLL.JointCheckApproveService.AddJointCheckApproveForApi(approve);

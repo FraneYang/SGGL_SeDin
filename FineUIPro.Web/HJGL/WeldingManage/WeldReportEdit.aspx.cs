@@ -53,23 +53,17 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             if (!IsPostBack)
             {
                 this.WeldingDailyId = Request.Params["WeldingDailyId"];
-
-                ///焊接位置
-                this.drpWeldingLocationId.DataTextField = "WeldingLocationCode";
-                this.drpWeldingLocationId.DataValueField = "WeldingLocationCode";
-                this.drpWeldingLocationId.DataSource = from x in Funs.DB.Base_WeldingLocation orderby x.WeldingLocationCode select x;
-                this.drpWeldingLocationId.DataBind();
-                this.drpWeldingLocationId.SelectedIndex = 0;
-
-                ///焊接属性
-                this.drpJointAttribute.DataTextField = "Text";
-                this.drpJointAttribute.DataValueField = "Value";
-                this.drpJointAttribute.DataSource = BLL.DropListService.HJGL_JointAttribute();
-                this.drpJointAttribute.DataBind();
-
-                List<Model.SpWeldingDailyItem> GetWeldingDailyItem = BLL.WeldingDailyService.GetWeldingDailyItem(this.WeldingDailyId);
-                this.BindGrid(GetWeldingDailyItem);  // 初始化页面 
                 this.PageInfoLoad(); // 加载页面 
+
+                if (!string.IsNullOrEmpty(this.WeldingDailyId))
+                {
+                    List<Model.SpWeldingDailyItem> GetWeldingDailyItem = BLL.WeldingDailyService.GetWeldingDailyItem(this.WeldingDailyId);
+                    this.BindGrid(GetWeldingDailyItem);  // 初始化页面
+                }
+                else
+                {
+                    this.BindGrid(null);
+                }
                 this.CalculationAmount();
             }
         }
@@ -184,44 +178,35 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 string perfix = string.Format("{0:yyyyMMdd}", System.DateTime.Now) + "-";
                 this.txtWeldingDailyCode.Text = BLL.SQLHelper.RunProcNewId("SpGetThreeNumber", "dbo.HJGL_WeldingDaily", "WeldingDailyCode", this.CurrUser.LoginProjectId, perfix);
             }
-
-            this.drpCoverWelderId.Items.Clear();
-            this.drpBackingWelderId.Items.Clear();
-            BLL.WelderService.InitProjectWelderCodeDropDownList(this.drpCoverWelderId, false, CurrUser.LoginProjectId, this.drpUnit.SelectedValue);
-            BLL.WelderService.InitProjectWelderCodeDropDownList(this.drpBackingWelderId, false, CurrUser.LoginProjectId, this.drpUnit.SelectedValue);
         }
         #endregion
 
-        #region 单位下拉框变化加载对应的焊工信息
-        /// <summary>
-        /// 单位下拉框变化加载对应的焊工信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.drpCoverWelderId.Items.Clear();
-            this.drpBackingWelderId.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null)
-            {
-                BLL.WelderService.InitProjectWelderCodeDropDownList(this.drpCoverWelderId, false, CurrUser.LoginProjectId, this.drpUnit.SelectedValue);
-                BLL.WelderService.InitProjectWelderCodeDropDownList(this.drpBackingWelderId, false, CurrUser.LoginProjectId, this.drpUnit.SelectedValue);
-            }
-        }
-        #endregion
+       
 
         #region 数据绑定
         /// <summary>
         /// 数据绑定
         /// </summary>
-        private void BindGrid(List<Model.SpWeldingDailyItem> GetWeldingDailyItem)
+        private void BindGrid(List<Model.SpWeldingDailyItem> weldingDailyItem)
         {
-            DataTable tb = this.LINQToDataTable(GetWeldingDailyItem);
+            DataTable dt = null;
+            if (weldingDailyItem != null)
+            {
+                dt = this.LINQToDataTable(weldingDailyItem);
+            }
+            else
+            {
+                var task = from x in Funs.DB.View_HJGL_WeldingTask
+                           where x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == DateTime.Now.Date
+                           where x.WeldingDailyId ==null
+                           select x;
+                dt = this.LINQToDataTable(task);
+            }
             // 2.获取当前分页数据
             //var table = this.GetPagedDataTable(GridNewDynamic, tb1);
-            Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
-            var table = this.GetPagedDataTable(Grid1, tb);
+            Grid1.RecordCount = dt.Rows.Count;
+           // tb = GetFilteredTable(Grid1.FilteredData, tb);
+            var table = this.GetPagedDataTable(Grid1, dt);
 
             Grid1.DataSource = table;
             Grid1.DataBind();
@@ -236,12 +221,12 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         /// <param name="e"></param>
         protected void Grid1_Sort(object sender, GridSortEventArgs e)
         {
-            List<Model.SpWeldingDailyItem> GetWeldingDailyItem = this.CollectGridJointInfo();
-            this.BindGrid(GetWeldingDailyItem);
+            //List<Model.SpWeldingDailyItem> GetWeldingDailyItem = this.CollectGridJointInfo();
+            this.BindGrid(null);
         }
         #endregion
 
-        private static bool canSave;  //是否可以保存
+        //private static bool canSave;  //是否可以保存
 
         #region 焊接日报 提交事件
         /// <summary>
@@ -286,99 +271,102 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 newWeldingDaily.Tabler = this.hdTablerId.Text;
                 newWeldingDaily.TableDate = Funs.GetNewDateTime(this.txtTableDate.Text);
                 newWeldingDaily.Remark = this.txtRemark.Text.Trim();
-                List<Model.SpWeldingDailyItem> GetWeldingDailyItem = this.CollectGridJointInfo();
+                //List<Model.SpWeldingDailyItem> GetWeldingDailyItem = this.CollectGridJointInfo();
                 string errlog = string.Empty;
                 var weldJointView = (from x in BLL.Funs.DB.View_HJGL_WeldJoint where x.WeldingDailyId == this.WeldingDailyId orderby x.PipelineCode, x.WeldJointCode select x).ToList();
 
                 string eventArg = string.Empty;
-                foreach (var item in GetWeldingDailyItem)
-                {
-                    bool canSave = false;
-                    var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
-                    var joty = BLL.Base_WeldTypeService.GetWeldTypeByWeldTypeId(jot.WeldTypeId);
-                    string weldType = string.Empty;
-                    if (joty != null && joty.WeldTypeCode.Contains("B"))
-                    {
-                        weldType = "对接焊缝";
-                    }
-                    else
-                    {
-                        weldType = "角焊缝";
-                    }
-                    string floorWelder = item.BackingWelderId;
-                    string cellWelder = item.CoverWelderId;
-                    decimal? dia = item.Dia;
-                    decimal? sch = Funs.GetNewDecimal(item.Thickness.HasValue ? item.Thickness.Value.ToString() : "");
-                    string wmeCode = string.Empty;
-                    var wm = BLL.Base_WeldingMethodService.GetWeldingMethodByWeldingMethodId(jot.WeldingMethodId);
-                    if (wm != null)
-                    {
-                        wmeCode = wm.WeldingMethodCode;
-                    }
-                    string[] wmeCodes = wmeCode.Split('+');
-                    //string location = item.JOT_Location;
-                    string ste = jot.Material1Id;
-                    string jointAttribute = jot.JointAttribute;
 
-                    List<Model.Welder_WelderQualify> floorWelderQualifys = (from x in Funs.DB.Welder_WelderQualify
-                                                                            where x.WelderId == floorWelder && x.WeldingMethod != null
-                                                                                           && x.MaterialType != null && x.WeldType != null
-                                                                                           && x.ThicknessMax != null && x.SizesMin != null
-                                                                            select x).ToList();
+                #region 焊工资质判断这里取消
+                //foreach (var item in GetWeldingDailyItem)
+                //{
+                //    bool canSave = false;
+                //    var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
+                //    var joty = BLL.Base_WeldTypeService.GetWeldTypeByWeldTypeId(jot.WeldTypeId);
+                //    string weldType = string.Empty;
+                //    if (joty != null && joty.WeldTypeCode.Contains("B"))
+                //    {
+                //        weldType = "对接焊缝";
+                //    }
+                //    else
+                //    {
+                //        weldType = "角焊缝";
+                //    }
+                //    string floorWelder = item.BackingWelderId;
+                //    string cellWelder = item.CoverWelderId;
+                //    decimal? dia = item.Dia;
+                //    decimal? sch = Funs.GetNewDecimal(item.Thickness.HasValue ? item.Thickness.Value.ToString() : "");
+                //    string wmeCode = string.Empty;
+                //    var wm = BLL.Base_WeldingMethodService.GetWeldingMethodByWeldingMethodId(jot.WeldingMethodId);
+                //    if (wm != null)
+                //    {
+                //        wmeCode = wm.WeldingMethodCode;
+                //    }
+                //    string[] wmeCodes = wmeCode.Split('+');
+                //    //string location = item.JOT_Location;
+                //    string ste = jot.Material1Id;
+                //    string jointAttribute = jot.JointAttribute;
 
-                    List<Model.Welder_WelderQualify> cellWelderQualifys = (from x in Funs.DB.Welder_WelderQualify
-                                                                           where x.WelderId == cellWelder && x.WeldingMethod != null
-                                                                                 && x.MaterialType != null && x.WeldType != null
-                                                                                       && x.ThicknessMax != null && x.SizesMin != null
-                                                                           select x).ToList();
-                    // 打底和盖面同一焊工
-                    if (floorWelder == cellWelder)
-                    {
-                        if (floorWelderQualifys != null && floorWelderQualifys.Count() > 0)
-                        {
-                            if (wmeCodes.Count() <= 1) // 一种焊接方法
-                            {
-                                canSave = OneWmeIsOK(floorWelderQualifys, wmeCode, jointAttribute, weldType, ste, dia, sch);
-                            }
-                            else  // 大于一种焊接方法，如氩电联焊
-                            {
-                                canSave = TwoWmeIsOK(floorWelderQualifys, cellWelderQualifys, wmeCodes[0], wmeCodes[1], jointAttribute, weldType, ste, dia, sch);
-                            }
-                        }
-                    }
-                    // 打底和盖面焊工不同
-                    else
-                    {
-                        bool isok1 = false;
-                        bool isok2 = false;
+                //    List<Model.Welder_WelderQualify> floorWelderQualifys = (from x in Funs.DB.Welder_WelderQualify
+                //                                                            where x.WelderId == floorWelder && x.WeldingMethod != null
+                //                                                                           && x.MaterialType != null && x.WeldType != null
+                //                                                                           && x.ThicknessMax != null && x.SizesMin != null
+                //                                                            select x).ToList();
 
-                        if (wmeCodes.Count() <= 1) // 一种焊接方法
-                        {
-                            if (floorWelderQualifys != null && floorWelderQualifys.Count() > 0)
-                            {
-                                isok1 = OneWmeIsOK(floorWelderQualifys, wmeCode, jointAttribute, weldType, ste, dia, sch);
-                            }
-                            if (cellWelderQualifys != null && cellWelderQualifys.Count() > 0)
-                            {
-                                isok2 = OneWmeIsOK(cellWelderQualifys, wmeCode, jointAttribute, weldType, ste, dia, sch);
-                            }
-                            if (isok1 && isok2)
-                            {
-                                canSave = true;
-                            }
-                        }
-                        else
-                        {
+                //    List<Model.Welder_WelderQualify> cellWelderQualifys = (from x in Funs.DB.Welder_WelderQualify
+                //                                                           where x.WelderId == cellWelder && x.WeldingMethod != null
+                //                                                                 && x.MaterialType != null && x.WeldType != null
+                //                                                                       && x.ThicknessMax != null && x.SizesMin != null
+                //                                                           select x).ToList();
+                //    // 打底和盖面同一焊工
+                //    if (floorWelder == cellWelder)
+                //    {
+                //        if (floorWelderQualifys != null && floorWelderQualifys.Count() > 0)
+                //        {
+                //            if (wmeCodes.Count() <= 1) // 一种焊接方法
+                //            {
+                //                canSave = OneWmeIsOK(floorWelderQualifys, wmeCode, jointAttribute, weldType, ste, dia, sch);
+                //            }
+                //            else  // 大于一种焊接方法，如氩电联焊
+                //            {
+                //                canSave = TwoWmeIsOK(floorWelderQualifys, cellWelderQualifys, wmeCodes[0], wmeCodes[1], jointAttribute, weldType, ste, dia, sch);
+                //            }
+                //        }
+                //    }
+                //    // 打底和盖面焊工不同
+                //    else
+                //    {
+                //        bool isok1 = false;
+                //        bool isok2 = false;
 
-                            canSave = TwoWmeIsOK(floorWelderQualifys, cellWelderQualifys, wmeCodes[0], wmeCodes[1], jointAttribute, weldType, ste, dia, sch);
-                        }
-                    }
+                //        if (wmeCodes.Count() <= 1) // 一种焊接方法
+                //        {
+                //            if (floorWelderQualifys != null && floorWelderQualifys.Count() > 0)
+                //            {
+                //                isok1 = OneWmeIsOK(floorWelderQualifys, wmeCode, jointAttribute, weldType, ste, dia, sch);
+                //            }
+                //            if (cellWelderQualifys != null && cellWelderQualifys.Count() > 0)
+                //            {
+                //                isok2 = OneWmeIsOK(cellWelderQualifys, wmeCode, jointAttribute, weldType, ste, dia, sch);
+                //            }
+                //            if (isok1 && isok2)
+                //            {
+                //                canSave = true;
+                //            }
+                //        }
+                //        else
+                //        {
 
-                    if (canSave == false)
-                    {
-                        eventArg = eventArg + jot.WeldJointCode + ",";
-                    }
-                }
+                //            canSave = TwoWmeIsOK(floorWelderQualifys, cellWelderQualifys, wmeCodes[0], wmeCodes[1], jointAttribute, weldType, ste, dia, sch);
+                //        }
+                //    }
+
+                //    if (canSave == false)
+                //    {
+                //        eventArg = eventArg + jot.WeldJointCode + ",";
+                //    }
+                //}
+                #endregion
 
                 if (eventArg == string.Empty)  //焊工焊接的所有焊口资质都符合要求）
                 {
@@ -404,44 +392,46 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                         // 新建日报
                         if (weldJointView.Count() == 0)
                         {
-                            foreach (var item in GetWeldingDailyItem)
+                            foreach (string row in Grid1.SelectedRowIDArray)
                             {
-                                errlog += InsertWeldingDailyItem(item, newWeldingDaily.WeldingDate, batchCondition, true);
+
+                                var t = BLL.WeldTaskService.GetWeldTaskById(row);
+                                errlog += InsertWeldingDailyItem(t.WeldJointId,t.CoverWelderId,t.BackingWelderId,t.JointAttribute, newWeldingDaily.WeldingDate, batchCondition, true);
                             }
                         }
 
-                        // 日报已存在的情况
-                        else
-                        {
-                            var weldJoints = from x in weldJointView select x.WeldJointId;
-                            foreach (var item in GetWeldingDailyItem)
-                            {
-                                // 如日报明细存在则只更新焊口信息，如进批条件改变，则只有删除后再重新增加
-                                if (weldJoints.Contains(item.WeldJointId))
-                                {
-                                    var newWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
-                                    newWeldJoint.WeldingDailyId = this.WeldingDailyId;
-                                    newWeldJoint.WeldingDailyCode = this.txtWeldingDailyCode.Text.Trim();
-                                    newWeldJoint.CoverWelderId = item.CoverWelderId;
-                                    newWeldJoint.BackingWelderId = item.BackingWelderId;
+                        // 日报已存在的情况  暂时
+                        //else
+                        //{
+                        //    var weldJoints = from x in weldJointView select x.WeldJointId;
+                        //    foreach (var item in GetWeldingDailyItem)
+                        //    {
+                        //        // 如日报明细存在则只更新焊口信息，如进批条件改变，则只有删除后再重新增加
+                        //        if (weldJoints.Contains(item.WeldJointId))
+                        //        {
+                        //            var newWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
+                        //            newWeldJoint.WeldingDailyId = this.WeldingDailyId;
+                        //            newWeldJoint.WeldingDailyCode = this.txtWeldingDailyCode.Text.Trim();
+                        //            newWeldJoint.CoverWelderId = item.CoverWelderId;
+                        //            newWeldJoint.BackingWelderId = item.BackingWelderId;
 
-                                    if (!string.IsNullOrEmpty(item.JointAttribute))
-                                    {
-                                        newWeldJoint.JointAttribute = item.JointAttribute;
+                        //            if (!string.IsNullOrEmpty(item.JointAttribute))
+                        //            {
+                        //                newWeldJoint.JointAttribute = item.JointAttribute;
 
-                                    }
-                                    BLL.WeldJointService.UpdateWeldJoint(newWeldJoint);
+                        //            }
+                        //            BLL.WeldJointService.UpdateWeldJoint(newWeldJoint);
 
-                                    //更新焊口号 修改固定焊口号后 +G
-                                    BLL.WeldJointService.UpdateWeldJointAddG(newWeldJoint.WeldJointId, newWeldJoint.JointAttribute, Const.BtnAdd);
+                        //            //更新焊口号 修改固定焊口号后 +G
+                        //            BLL.WeldJointService.UpdateWeldJointAddG(newWeldJoint.WeldJointId, newWeldJoint.JointAttribute, Const.BtnAdd);
 
-                                }
-                                else
-                                {
-                                    errlog += InsertWeldingDailyItem(item, newWeldingDaily.WeldingDate, batchCondition, true);
-                                }
-                            }
-                        }
+                        //        }
+                        //        else
+                        //        {
+                        //            errlog += InsertWeldingDailyItem(item, newWeldingDaily.WeldingDate, batchCondition, true);
+                        //        }
+                        //    }
+                        //}
                     }
                     else
                     {
@@ -664,11 +654,11 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         /// <param name="item"></param>
         /// <param name="weldingDailyId"></param>
         /// <returns></returns>
-        private string InsertWeldingDailyItem(Model.SpWeldingDailyItem item, DateTime? weldingDate, string batchCondition, bool isSave)
+        private string InsertWeldingDailyItem(string weldJointId, string coverWelderId,string backingWelderId,string jointAttribute, DateTime? weldingDate, string batchCondition, bool isSave)
         {
             string errlog = string.Empty;
             string[] condition = batchCondition.Split('|');
-            var newWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
+            var newWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
             var pipeline = BLL.PipelineService.GetPipelineByPipelineId(newWeldJoint.PipelineId);
             var unit = BLL.UnitService.GetUnitByUnitId(pipeline.UnitId);
             var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(newWeldJoint.DetectionTypeId);
@@ -676,19 +666,19 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
 
             if (newWeldJoint != null && string.IsNullOrEmpty(newWeldJoint.WeldingDailyId))
             {
-                if (!string.IsNullOrEmpty(item.CoverWelderId) && !string.IsNullOrEmpty(item.BackingWelderId))
+                if (!string.IsNullOrEmpty(coverWelderId) && !string.IsNullOrEmpty(backingWelderId))
                 {
                     if (isSave)
                     {
                         newWeldJoint.WeldingDailyId = this.WeldingDailyId;
                         newWeldJoint.WeldingDailyCode = this.txtWeldingDailyCode.Text.Trim();
-                        newWeldJoint.CoverWelderId = item.CoverWelderId;
-                        newWeldJoint.BackingWelderId = item.BackingWelderId;
-                        if (item.WeldingLocationId != Const._Null)
-                        {
-                            newWeldJoint.WeldingLocationId = item.WeldingLocationId;
-                        }
-                        newWeldJoint.JointAttribute = item.JointAttribute;
+                        newWeldJoint.CoverWelderId = coverWelderId;
+                        newWeldJoint.BackingWelderId = backingWelderId;
+                        //if (item.WeldingLocationId != Const._Null)
+                        //{
+                        //    newWeldJoint.WeldingLocationId = item.WeldingLocationId;
+                        //}
+                        newWeldJoint.JointAttribute = jointAttribute;
                         BLL.WeldJointService.UpdateWeldJoint(newWeldJoint);
 
                         // 更新焊口号 修改固定焊口号后 +G
@@ -814,7 +804,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                                 batchId = batchInfo.Rows[0][0].ToString();
                             }
 
-                            var b = BLL.PointBatchDetailService.GetBatchDetailByJotId(item.WeldJointId);
+                            var b = BLL.PointBatchDetailService.GetBatchDetailByJotId(weldJointId);
                             if (b == null)
                             {
                                 try
@@ -823,7 +813,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                                     string pointBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_PointBatchItem));
                                     batchDetail.PointBatchItemId = pointBatchItemId;
                                     batchDetail.PointBatchId = batchId;
-                                    batchDetail.WeldJointId = item.WeldJointId;
+                                    batchDetail.WeldJointId = weldJointId;
                                     batchDetail.WeldingDate = weldingDate;
                                     batchDetail.CreatDate = DateTime.Now;
                                     BLL.Funs.DB.HJGL_Batch_PointBatchItem.InsertOnSubmit(batchDetail);
@@ -1013,7 +1003,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             {
                 string strList = this.drpUnitWork.SelectedValue + "|" + this.drpUnit.SelectedValue + "|" + this.WeldingDailyId;
                 string window = String.Format("SelectDailyWeldJoint.aspx?strList={0}&weldJointIds={1}", strList, Server.UrlEncode(weldJointIds), "编辑 - ");
-                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(hdItemsString.ClientID) + Window1.GetShowReference(window));
+                //PageContext.RegisterStartupScript(Window1.GetSaveStateReference(hdItemsString.ClientID) + Window1.GetShowReference(window));
             }
             else
             {

@@ -42,17 +42,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingWire, true, "1", "请选择");//焊条类型
                 BLL.Base_ComponentsService.InitComponentsDropDownList(this.drpComponent1, this.CurrUser.LoginProjectId, true, "请选择");//组件1
                 BLL.Base_ComponentsService.InitComponentsDropDownList(this.drpComponent2, this.CurrUser.LoginProjectId, true, "请选择");//组件2
-
-                ///焊接属性
-                this.drpJointArea.DataTextField = "Text";
-                this.drpJointArea.DataValueField = "Value";
-                this.drpJointArea.DataSource = BLL.DropListService.HJGL_JointArea();
-                this.drpJointArea.DataBind();
-                ///焊口属性
-                this.drpJointAttribute.DataTextField = "Text";
-                this.drpJointAttribute.DataValueField = "Value";
-                this.drpJointAttribute.DataSource = BLL.DropListService.HJGL_JointAttribute();
-                this.drpJointAttribute.DataBind();
                 string weldJointId = Request.Params["WeldJointId"];
                 if (!string.IsNullOrEmpty(weldJointId))
                 {
@@ -69,10 +58,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         }
 
                         this.txtWeldJointCode.Text = joint.WeldJointCode;
-                        if (!string.IsNullOrEmpty(joint.JointArea))
-                        {
-                            this.drpJointArea.SelectedValue = joint.JointArea;
-                        }
                         if (!string.IsNullOrEmpty(joint.Material1Id))
                         {
                             this.drpMaterial1.SelectedValue = joint.Material1Id;
@@ -100,10 +85,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         {
                             drpGrooveType.SelectedValue = joint.GrooveTypeId;
                         }
-                        if (!string.IsNullOrEmpty(joint.JointArea))
-                        {
-                            drpJointArea.SelectedValue = joint.JointArea;
-                        }
                         if (!string.IsNullOrEmpty(joint.WeldTypeId))
                         {
                             drpWeldTypeCode.SelectedValue = joint.WeldTypeId;
@@ -120,10 +101,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         if (!string.IsNullOrEmpty(joint.Components2Id))
                         {
                             drpComponent2.SelectedValue = joint.Components2Id;
-                        }
-                        if (this.drpJointAttribute.SelectedValue != BLL.Const._Null)
-                        {
-                            joint.JointAttribute = drpJointAttribute.SelectedValue;
                         }
                         this.txtPreTemperature.Text = joint.PreTemperature;
                         this.txtSpecification.Text = joint.Specification;
@@ -236,7 +213,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// </summary>
         private void SaveData()
         {
-            if (string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()) || this.drpPipingClass.SelectedValue == BLL.Const._Null || this.drpMaterial1.SelectedValue == BLL.Const._Null || this.drpWeldTypeCode.SelectedValue == BLL.Const._Null || this.drpJointArea.SelectedValue == BLL.Const._Null || this.drpJointAttribute.SelectedValue == BLL.Const._Null)
+            if (string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()) || this.drpPipingClass.SelectedValue == BLL.Const._Null || this.drpMaterial1.SelectedValue == BLL.Const._Null || this.drpWeldTypeCode.SelectedValue == BLL.Const._Null)
             {
                 Alert.ShowInTop("页面必填项不能为空", MessageBoxIcon.Warning);
                 Alert.ShowInTop("请完善必填项！", MessageBoxIcon.Warning);
@@ -262,6 +239,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             else
             {
+                if (this.txtWeldJointCode.Text.Contains("G")) {
+                    Alert.ShowInTop("焊口编号不能包含G！", MessageBoxIcon.Warning);
+                    return;
+                }
                 joint.WeldJointCode = this.txtWeldJointCode.Text;
             }
 
@@ -300,17 +281,9 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 joint.GrooveTypeId = drpGrooveType.SelectedValue;
             }
-            if (this.drpJointArea.SelectedValue != BLL.Const._Null)
-            {
-                joint.JointArea = drpJointArea.SelectedValue;
-            }
             if (this.drpWeldTypeCode.SelectedValue != BLL.Const._Null)
             {
                 joint.WeldTypeId = drpWeldTypeCode.SelectedValue;
-            }
-            if (this.drpJointAttribute.SelectedValue != BLL.Const._Null)
-            {
-                joint.JointAttribute = drpJointAttribute.SelectedValue;
             }
             joint.PreTemperature = this.txtPreTemperature.Text;
             joint.Specification = this.txtSpecification.Text;

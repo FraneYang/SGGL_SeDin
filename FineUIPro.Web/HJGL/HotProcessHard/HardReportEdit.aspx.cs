@@ -1,5 +1,8 @@
 ﻿using BLL;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace FineUIPro.Web.HJGL.HotProcessHard
 {
@@ -9,47 +12,18 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         /// <summary>
         /// 主键
         /// </summary>
-        public string HardReportId
+        public string HardTrustID
         {
             get
             {
-                return (string)ViewState["HardReportId"];
+                return (string)ViewState["HardTrustID"];
             }
             set
             {
-                ViewState["HardReportId"] = value;
+                ViewState["HardTrustID"] = value;
             }
         }
 
-        /// <summary>
-        /// 硬度委托明细主键
-        /// </summary>
-        public string HardTrustItemID
-        {
-            get
-            {
-                return (string)ViewState["HardTrustItemID"];
-            }
-            set
-            {
-                ViewState["HardTrustItemID"] = value;
-            }
-        }
-
-        /// <summary>
-        /// 焊口主键
-        /// </summary>
-        public string WeldJointId
-        {
-            get
-            {
-                return (string)ViewState["WeldJointId"];
-            }
-            set
-            {
-                ViewState["WeldJointId"] = value;
-            }
-        }
         #endregion
 
         #region 加载
@@ -62,115 +36,151 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         {
             if (!IsPostBack)
             {
-                this.txtHardReportNo.Focus();
-                btnClose.OnClientClick = ActiveWindow.GetHideReference();
-
-                this.HardReportId = Request.Params["HardReportId"];
-                this.HardTrustItemID = Request.Params["HardTrustItemID"];
-                if (!string.IsNullOrEmpty(this.HardReportId))
+                this.HardTrustID = Request.Params["HardTrustID"];
+                var trust = BLL.Hard_TrustService.GetHardTrustById(this.HardTrustID);
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpHardTrustUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpCheckUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_5, true);
+                BLL.UnitWorkService.InitUnitWorkDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);
+                BLL.UserService.InitUserProjectIdUnitTypeDropDownList(drpSendee, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_5, true);
+                if (trust != null)
                 {
-                    Model.View_HJGL_Hard_Report getHardReport = BLL.Hard_ReportService.GetViewHardReportByHardReportId(this.HardReportId);
-                    if (getHardReport != null)
+                    this.txtHardTrustNo.Text = trust.HardTrustNo;
+                    if (!string.IsNullOrEmpty(trust.HardTrustUnit))
                     {
-                        this.txtPipelineCode.Text = getHardReport.PipelineCode;
-                        this.txtWeldJointCode.Text = getHardReport.WeldJointCode;
-                        this.txtHardReportNo.Text = getHardReport.HardReportNo;
-                        this.txtTestingPointNo.Text = getHardReport.TestingPointNo;
-                        if (getHardReport.HardNessValue1 != null)
-                        {
-                            this.nbHardNessValue1.Text = getHardReport.HardNessValue1.ToString();
-                        }
-                        if (getHardReport.HardNessValue2 != null)
-                        {
-                            this.nbHardNessValue2.Text = getHardReport.HardNessValue2.ToString();
-                        }
-                        if (getHardReport.HardNessValue3 != null)
-                        {
-                            this.nbHardNessValue3.Text = getHardReport.HardNessValue3.ToString();
-                        }
-                        this.txtRemark.Text = getHardReport.Remark;
-                        this.HardTrustItemID = getHardReport.HardTrustItemID;
-                        this.WeldJointId = getHardReport.WeldJointId;
+                        this.drpHardTrustUnit.SelectedValue = trust.HardTrustUnit;
                     }
-                }
-                else
-                {
-                    Model.HJGL_Hard_TrustItem trustItem = BLL.Hard_TrustItemService.GetHardTrustItemById(this.HardTrustItemID);
-                    if (trustItem != null)
+                    if (!string.IsNullOrEmpty(trust.UnitWorkId))
                     {
-                        Model.View_HJGL_WeldJoint weldJoint = BLL.WeldJointService.GetViewWeldJointById(trustItem.WeldJointId);
-                        if (weldJoint != null)
-                        {
-                            this.txtPipelineCode.Text = weldJoint.PipelineCode;
-                            this.txtWeldJointCode.Text = weldJoint.WeldJointCode;
-                            this.WeldJointId = weldJoint.WeldJointId;
-                        }
+                        this.drpUnitWork.SelectedValue = trust.UnitWorkId;
                     }
+                    if (!string.IsNullOrEmpty(trust.CheckUnit))
+                    {
+                        this.drpCheckUnit.SelectedValue = trust.CheckUnit;
+                    }
+                    if (!string.IsNullOrEmpty(trust.HardTrustMan))
+                    {
+                        this.drpHardTrustMan.SelectedValue = trust.HardTrustMan;
+                    }
+                    if (trust.HardTrustDate != null)
+                    {
+                        this.txtHardTrustDate.Text = string.Format("{0:yyyy-MM-dd}", trust.HardTrustDate);
+                    }
+                    this.txtHardnessMethod.Text = trust.HardnessMethod;
+                    this.txtHardnessRate.Text = trust.HardnessRate;
+                    this.txtStandards.Text = trust.Standards;
+                    this.txtInspectionNum.Text = trust.InspectionNum;
+                    this.txtCheckNum.Text = trust.CheckNum;
+                    this.txtTestWeldNum.Text = trust.TestWeldNum;
+                    this.rblDetectionTime.SelectedValue = trust.DetectionTime;
+                    if (!string.IsNullOrEmpty(trust.Sendee))
+                    {
+                        drpSendee.SelectedValue = trust.Sendee;
+                    }
+                    this.txtCheckName.Text = trust.CheckName;
+                    this.txtAcceptStandard.Text = trust.AcceptStandard;
+                    this.txtEquipmentModel.Text = trust.EquipmentModel;
+                    BindGrid();
                 }
             }
         }
+
+        #region 数据绑定
+        protected void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
+
+        /// <summary>
+        /// 数据绑定
+        /// </summary>
+        private void BindGrid()
+        {
+            string strSql = string.Empty;
+            List<SqlParameter> listStr = new List<SqlParameter>();
+                strSql = @"SELECT * ,(CASE WHEN IsPass=1 THEN '合格' WHEN IsPass=0 THEN '不合格' WHEN IsPass IS NULL THEN '待检测' END) AS checkResult
+                           FROM dbo.View_HJGL_Hard_TrustItem
+                           WHERE HardTrustID=@HardTrustID";
+                listStr.Add(new SqlParameter("@HardTrustID", this.HardTrustID));
+            if (!string.IsNullOrEmpty(this.txtPipelineCode.Text.Trim()))
+            {
+                strSql += @" and PipelineCode like @PipelineCode ";
+                listStr.Add(new SqlParameter("@PipelineCode", "%" + this.txtPipelineCode.Text.Trim() + "%"));
+            }
+            if (!string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()))
+            {
+                strSql += @" and WeldJointCode like @WeldJointCode ";
+                listStr.Add(new SqlParameter("@WeldJointCode", "%" + this.txtWeldJointCode.Text.Trim() + "%"));
+            }
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            // 2.获取当前分页数据
+            //var table = this.GetPagedDataTable(Grid1, tb1);
+            Grid1.RecordCount = tb.Rows.Count;
+            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            var table = this.GetPagedDataTable(Grid1, tb);
+            Grid1.DataSource = table;
+            Grid1.DataBind();
+        }
+        #endregion
         #endregion
 
-        #region 保存
+        #region 分页排序
+        #region 页索引改变事件
         /// <summary>
-        /// 保存按钮
+        /// 页索引改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
+        {
+            BindGrid();
+        }
+        #endregion
+
+        #region 排序
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_Sort(object sender, GridSortEventArgs e)
+        {
+            BindGrid();
+        }
+        #endregion
+
+        #region 分页选择下拉改变事件
+        /// <summary>
+        /// 分页选择下拉改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
+            BindGrid();
+        }
+        #endregion
+        #endregion
+
+        #region 硬度委托 提交事件
+        /// <summary>
+        /// 编辑硬度委托
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            SaveData();
+            var trust = BLL.Hard_TrustService.GetHardTrustById(this.HardTrustID);
+            if (trust != null)
+            {
+                trust.InspectionNum = this.txtInspectionNum.Text;
+                trust.HardnessMethod = this.txtHardnessMethod.Text;
+                trust.EquipmentModel = this.txtEquipmentModel.Text;
+                BLL.Hard_TrustService.UpdateHardTrust(trust);
+            }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
-        }
-
-         /// <summary>
-        /// 提交数据
-        /// </summary>
-        private void SaveData()
-        {
-            Model.HJGL_Hard_Report newHardReport = new Model.HJGL_Hard_Report
-            {
-                HardTrustItemID = this.HardTrustItemID,
-                WeldJointId = this.WeldJointId,
-                HardReportNo = this.txtHardReportNo.Text.Trim(),
-                TestingPointNo = this.txtTestingPointNo.Text.Trim(),
-                HardNessValue1 = Funs.GetNewInt(this.nbHardNessValue1.Text.Trim()),
-                HardNessValue2 = Funs.GetNewInt(this.nbHardNessValue2.Text.Trim()),
-                HardNessValue3 = Funs.GetNewInt(this.nbHardNessValue3.Text.Trim()),
-                Remark = this.txtRemark.Text.Trim()
-            };
-            if (!string.IsNullOrEmpty(this.HardReportId))
-            {
-                newHardReport.HardReportId = this.HardReportId;
-                BLL.Hard_ReportService.UpdateHard_Report(newHardReport);
-                //BLL.Sys_LogService.AddLog(BLL.Const.System_1, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Resources.Lan.ModifyHardness);
-            }
-            else
-            {
-                this.HardReportId = SQLHelper.GetNewID(typeof(Model.HJGL_Hard_Report));
-                newHardReport.HardReportId = this.HardReportId;
-                BLL.Hard_ReportService.AddHard_Report(newHardReport);
-                //BLL.Sys_LogService.AddLog(BLL.Const.System_1, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Resources.Lan.AddHardness);
-            }
-        }
-        #endregion
-
-        #region 附件上传
-        /// <summary>
-        /// 上传附件资源
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnAttachUrl_Click(object sender, EventArgs e)
-        {
-            string edit = "0"; // 表示能打开附件上传窗口，但不能上传附件
-            if (string.IsNullOrEmpty(HardReportId))
-            {
-                SaveData();
-            }
-            edit = "1";
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HJGL/HotProcessHard&menuId={1}&edit={2}", HardReportId, Const.HJGL_HotHardManageEditMenuId, edit)));
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
         #endregion
     }

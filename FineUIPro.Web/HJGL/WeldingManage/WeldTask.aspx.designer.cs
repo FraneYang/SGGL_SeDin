@@ -49,22 +49,22 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.Panel panelLeftRegion;
         
         /// <summary>
-        /// Toolbar1 控件。
+        /// Toolbar2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar1;
+        protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
-        /// txtMonth 控件。
+        /// txtTaskDateMonth 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtMonth;
+        protected global::FineUIPro.DatePicker txtTaskDateMonth;
         
         /// <summary>
         /// tvControlItem 控件。
@@ -83,24 +83,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Panel panelCenterRegion;
-        
-        /// <summary>
-        /// Toolbar2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar2;
-        
-        /// <summary>
-        /// txtTaskDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtTaskDate;
         
         /// <summary>
         /// Grid1 控件。
@@ -130,13 +112,40 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.HiddenField hdItemsString;
         
         /// <summary>
-        /// CreatWeldableWeldJoint 控件。
+        /// hdTaskWeldJoint 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button CreatWeldableWeldJoint;
+        protected global::FineUIPro.HiddenField hdTaskWeldJoint;
+        
+        /// <summary>
+        /// drpCanWelder 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpCanWelder;
+        
+        /// <summary>
+        /// btnSaveWelder 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnSaveWelder;
+        
+        /// <summary>
+        /// txtTaskDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtTaskDate;
         
         /// <summary>
         /// ckSelect 控件。
@@ -157,13 +166,13 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.Button btnSave;
         
         /// <summary>
-        /// txtWeldableWeldJoint 控件。
+        /// CreatWeldableWeldJoint 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtWeldableWeldJoint;
+        protected global::FineUIPro.Button CreatWeldableWeldJoint;
         
         /// <summary>
         /// drpCoverWelderId 控件。

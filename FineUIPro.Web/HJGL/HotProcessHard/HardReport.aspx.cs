@@ -326,5 +326,25 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             //this.BindGrid();
         }
         #endregion
+        protected void btnMenuModify_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_HotHardReportMenuId, Const.BtnSave))
+            {
+                var trust = Funs.DB.View_HJGL_Hard_Trust.FirstOrDefault(x => x.HardTrustID == tvControlItem.SelectedNodeID);
+                if (trust != null)
+                {
+                    string window = String.Format("HardReportEdit.aspx?HardTrustID={0}", trust.HardTrustID, "编辑 - ");
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(window));
+                }
+                else
+                {
+                    ShowNotify("请选择要修改的硬度委托记录！", MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+            }
+        }
     }
 }

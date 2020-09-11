@@ -3409,6 +3409,81 @@ namespace BLL
         /// </summary>
         public const string WPQTemplateUrl = "File\\Excel\\焊接工艺评定导入模版.xls";
 
+        #region 焊接报表
+        /// <summary>
+        /// 管道焊接工作记录
+        /// </summary>
+        public const string HJGL_JointInfoReport1Id = "100";
+        /// <summary>
+        /// 管道焊接工作记录（续）
+        /// </summary>
+        public const string HJGL_JointInfoReport2Id = "101";
+
+        /// <summary>
+        /// 管道焊接接头热处理报告
+        /// </summary>
+        public const string HJGL_HotProessReportId1 = "102";
+
+        /// <summary>
+        /// 管道焊接接头热处理报告（续）
+        /// </summary>
+        public const string HJGL_HotProessReportId2 = "103";
+
+        /// <summary>
+        /// 焊接系统_硬度检测报告
+        /// </summary>
+        public const string HJGL_HardTestReportId = "104";
+
+        /// <summary>
+        /// 焊接系统_硬度检测报告（续）
+        /// </summary>
+        public const string HJGL_HardTestReportId2 = "105";
+
+        /// <summary>
+        /// 管道无损检测结果汇总表
+        /// </summary>
+        public const string HJGL_NDTSummaryReportId1 = "106";
+
+        /// <summary>
+        /// 管道无损检测结果汇总表（续）
+        /// </summary>
+        public const string HJGL_NDTSummaryReportId2 = "107";
+
+        /// <summary>
+        /// 管道无损检测数量统计表
+        /// </summary>
+        public const string HJGL_NDTQuantityStatisticsReportId1 = "108";
+
+        /// <summary>
+        /// 管道无损检测数量统计表(续)
+        /// </summary>
+        public const string HJGL_NDTQuantityStatisticsReportId2 = "109";
+
+        /// <summary>
+        /// 焊接系统_管道系统压力试验条件确认记录
+        /// </summary>
+        public const string HJGL_TestPackageSureReportId = "110";
+
+        /// <summary>
+        /// 焊接系统_管道试压包一览表
+        /// </summary>
+        public const string HJGL_TestPackageListReportId = "111";
+
+        /// <summary>
+        /// 管道系统压力试验记录
+        /// </summary>
+        public const string HJGL_TestPackageRecordReportId = "112";
+
+        /// <summary>
+        /// 管道系统泄漏性/真空试验条件确认与试验记录
+        /// </summary>
+        public const string HJGL_LeakVacuumReportId = "113";
+
+        /// <summary>
+        /// 管道吹扫/清洗检验记录
+        /// </summary>
+        public const string HJGL_PurgingCleaningReportId = "114";
+        #endregion
         #endregion
     }
 }

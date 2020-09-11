@@ -449,6 +449,39 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
 
         protected void btnMenuPrint_Click(object sender, EventArgs e)
         {
+            string LeakVacuumId = this.tvControlItem.SelectedNodeID;
+            var p = BLL.LeakVacuumEditService.GetLeakVacuumByID(LeakVacuumId);
+            if (p != null)
+            {
+                string varValue = string.Empty;
+                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (project != null)
+                {
+                    varValue = project.ProjectName;
+                    var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(p.UnitWorkId);
+                    if (unitWork != null)
+                    {
+                        varValue = varValue + "|" + unitWork.UnitWorkName;
+                    }
+                    varValue = varValue + "|" + p.SysNo;
+                    varValue = varValue + "|" + p.SysName;
+                    varValue = varValue + "|" + p.Check1;
+                    varValue = varValue + "|" + p.Check2;
+                    varValue = varValue + "|" + p.Check3;
+                    varValue = varValue + "|" + p.Check4;
+                    varValue = varValue + "|" + p.Check5;
+                }
+                if (!string.IsNullOrEmpty(varValue))
+                {
+                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                }
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_LeakVacuumReportId, LeakVacuumId, varValue, this.CurrUser.LoginProjectId)));
+            }
+            else
+            {
+                ShowNotify("请选择吹扫/清洗试验！", MessageBoxIcon.Warning);
+                return;
+            }
         }
     }
 }

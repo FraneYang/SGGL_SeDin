@@ -18,6 +18,30 @@ namespace BLL
         {
             return Funs.DB.Check_Draw.FirstOrDefault(e => e.DrawId == DrawId);
         }
+        public static Model.Check_Draw GetDrawForApi(string drawId)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Check_Draw draw = db.Check_Draw.FirstOrDefault(x => x.DrawId == drawId);
+                string mainItemName = string.Empty;
+                Model.ProjectData_MainItem mainItem = BLL.MainItemService.GetMainItemByMainItemId(draw.MainItem);
+                if (mainItem != null)
+                {
+                    mainItemName = mainItem.MainItemName;
+                }
+                draw.MainItem = draw.MainItem + "$" + mainItemName;
+                string designCNName = string.Empty;
+                Model.Base_DesignProfessional dp = BLL.DesignProfessionalService.GetDesignProfessional(draw.DesignCN);
+                if (dp != null)
+                {
+                    designCNName = dp.ProfessionalName;
+                }
+                draw.DesignCN = draw.DesignCN + "$" + designCNName;
+                draw.CompileMan = draw.CompileMan + "$" + UserService.GetUserNameByUserId(draw.CompileMan);
+                return draw;
+            }
+
+        }
         /// <summary>
         /// 添加施工图纸信息
         /// </summary>

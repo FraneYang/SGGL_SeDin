@@ -166,7 +166,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             string pipelineId = this.tvControlItem.SelectedNodeID;
 
-            List<Model.SpWeldingDailyItem> toDoMatterList = BLL.WeldingDailyService.GetWeldReportItemFind(this.WeldingDailyId, pipelineId);
+            var toDoMatterList = (from x in Funs.DB.View_HJGL_NoWeldJointFind
+                                where x.PipelineId == pipelineId &&
+                                      (x.WeldingDailyId == null || x.WeldingDailyId == this.WeldingDailyId)
+                                select x).ToList();
+            //List<Model.SpWeldingDailyItem> toDoMatterList = BLL.WeldingDailyService.GetWeldReportItemFind(this.WeldingDailyId, pipelineId);
             string weldJointIds = Request.Params["weldJointIds"];
             if (!string.IsNullOrEmpty(weldJointIds))
             {
@@ -178,7 +182,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     string[] weldJoints = weldlineIdLists.Split('|');
                     foreach (string weldJointId in weldJoints)
                     {
-                        Model.SpWeldingDailyItem item = toDoMatterList.FirstOrDefault(e => e.WeldJointId == weldJointId);
+                        Model.View_HJGL_NoWeldJointFind item = toDoMatterList.FirstOrDefault(e => e.WeldJointId == weldJointId);
                         if (item != null)
                         {
                             toDoMatterList.Remove(item);
@@ -186,7 +190,19 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     }
                 }
             }
-
+            string TaskWeldJoints = Request.Params["TaskWeldJoints"];//任务表已存在的焊口
+            if (!string.IsNullOrEmpty(TaskWeldJoints))
+            {
+                string[] weldJoints = TaskWeldJoints.Split('|');
+                foreach (string weldJointId in weldJoints)
+                {
+                    Model.View_HJGL_NoWeldJointFind item = toDoMatterList.FirstOrDefault(e => e.WeldJointId == weldJointId);
+                    if (item != null)
+                    {
+                        toDoMatterList.Remove(item);
+                    }
+                }
+            }
             DataTable tb = this.LINQToDataTable(toDoMatterList);
             // 2.获取当前分页数据
             //var table = this.GetPagedDataTable(GridNewDynamic, tb1);
@@ -270,7 +286,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            if ( drpJointAttribute.SelectedValue != Const._Null)
+            if (drpJointAttribute.SelectedValue != Const._Null)
             {
                 string itemsString = string.Empty;
                 string[] selectRowId = Grid1.SelectedRowIDArray;
@@ -297,7 +313,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         itemsString += item + "|";
                     }
                 }
-                PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(itemsString)+ ActiveWindow.GetHidePostBackReference());
+                PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(itemsString) + ActiveWindow.GetHidePostBackReference());
             }
             else
             {

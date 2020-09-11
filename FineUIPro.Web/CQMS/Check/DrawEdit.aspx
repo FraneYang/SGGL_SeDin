@@ -22,7 +22,7 @@
                             Required="true" MaxLength="70" ShowRedStar="true" LabelWidth="110px">
                         </f:TextBox>
                     </Items>
-                </f:FormRow>
+                 </f:FormRow>
                 <f:FormRow runat="server">
                     <Items>
                         <f:DropDownList ID="drpMainItem" runat="server" Label="主项" LabelWidth="110px" LabelAlign="Right" Required="true" ShowRedStar="true" EmptyText="--请选择--" AutoSelectFirstItem="false" EnableEdit="true">

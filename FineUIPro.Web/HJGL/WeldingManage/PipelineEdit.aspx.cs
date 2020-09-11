@@ -90,7 +90,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 Base_DetectionTypeService.InitDetectionTypeDropDownList(drpDetectionType, false, string.Empty);
                 Base_PressurePipingClassService.InitPressurePipingClassDropDownList(drpPressurePipingClass, true, "-请选择-");
                 Base_TestMediumService.InitMediumDropDownList(this.drpLeakMedium, "2", true);
-                Base_TestMediumService.InitPCMediumDropDownList(this.drpPCMedium, true);
+                Base_PurgeMethodService.InitPurgeMethodDropDownList(this.drpPCMedium, true, "-请选择-");
                 if (!string.IsNullOrEmpty(this.PipelineId))
                 {
                     Model.View_HJGL_Pipeline pipeline = BLL.PipelineService.GetViewPipelineByPipelineId(this.PipelineId);

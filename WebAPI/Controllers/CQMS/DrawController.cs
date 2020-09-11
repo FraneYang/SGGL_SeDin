@@ -31,6 +31,20 @@ namespace Mvc.Controllers
             res.resultValue = BeanUtil.CopyOjbect<Check_Draw>(cd, true); 
             return res;
         }
+        /// <summary>
+        /// 根据code获取详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ResponseData<Check_Draw> GetDraw(string id)
+        {
+            ResponseData<Check_Draw> res = new ResponseData<Check_Draw>();
+            Check_Draw checkControl = BLL.DrawService.GetDrawForApi(id);
+            res.successful = true;
+            res.resultValue = BeanUtil.CopyOjbect<Check_Draw>(checkControl, true);
+            res.resultValue.Edition = checkControl.Edition;
+            return res;
+        }
         //
         // GET: /Draw/
         [HttpGet]
@@ -41,6 +55,15 @@ namespace Mvc.Controllers
 
             res.successful = true;
             res.resultValue = BeanUtil.CopyOjbect<Check_Draw>(cd, true);
+            return res;
+        }
+
+        [HttpGet]
+        public ResponseData<string> see(string dataId, string userId)
+        {
+            ResponseData<string> res = new ResponseData<string>();
+            res.successful = true;
+            BLL.DrawApproveService.See(dataId, userId);
             return res;
         }
     }

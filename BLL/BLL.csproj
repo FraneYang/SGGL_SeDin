@@ -170,6 +170,7 @@
     <Compile Include="CQMS\Check\CheckMonthService.cs" />
     <Compile Include="CQMS\Check\DesignApproveService.cs" />
     <Compile Include="CQMS\Check\DesignService.cs" />
+    <Compile Include="CQMS\Check\DrawApproveService.cs" />
     <Compile Include="CQMS\Check\DrawService.cs" />
     <Compile Include="CQMS\Check\FileCabinetService.cs" />
     <Compile Include="CQMS\Check\JointCheckApproveService.cs" />

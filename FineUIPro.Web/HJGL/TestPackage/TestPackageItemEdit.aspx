@@ -58,7 +58,7 @@
                     ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" AutoScroll="true">
                     <Items>
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="试压包明细" EnableCollapse="true" Collapsed="false"
-                            runat="server" BoxFlex="1" DataKeyNames="PipelineId" AllowCellEditing="true"
+                            runat="server" BoxFlex="1" DataKeyNames="PipelineId,TestMedium" AllowCellEditing="true"
                             EnableColumnLines="true" ClicksToEdit="1" DataIDField="PipelineId" AllowSorting="true"
                             SortField="PipelineCode" SortDirection="ASC" OnSort="Grid1_Sort"  IsDatabasePaging="true" PageSize="100" Height="360px"
                             OnPageIndexChange="Grid1_PageIndexChange" ForceFit="true">
@@ -66,45 +66,19 @@
                                 <f:RenderField HeaderText="管线编号" ColumnID="PipelineCode" DataField="PipelineCode" SortField="PipelineCode"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="160px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="设计压力" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
+                                <f:RenderField HeaderText="设计压力Mpa(g)" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="设计温度" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
+                                <f:RenderField HeaderText="设计温度℃" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="试验环境温度" ColumnID="AmbientTemperature" DataField="AmbientTemperature" SortField="AmbientTemperature"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">
-                                    <Editor>
-                                        <f:NumberBox ID="txtAmbientTemperature" Required="true" runat="server">
-                                        </f:NumberBox>
-                                    </Editor>
+                                <f:RenderField HeaderText="压力试验介质" ColumnID="MediumName" DataField="MediumName" SortField="MediumName"
+                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:TemplateField ColumnID="TestMedium" Width="130px" HeaderText="压力试验介质" HeaderTextAlign="Center" TextAlign="Center"
-                                    EnableLock="true" Locked="False">
-                                    <ItemTemplate>
-                                        <asp:DropDownList ID="drpTestMedium" runat="server" Height="22" Width="90%">
-                                        </asp:DropDownList>
-                                        <asp:HiddenField ID="hdTestMedium" runat="server" Value='<%# Bind("TestMedium") %>' />
-                                    </ItemTemplate>
-                                </f:TemplateField>
-                                <f:RenderField HeaderText="试验介质温度" ColumnID="TestMediumTemperature" DataField="TestMediumTemperature" SortField="TestMediumTemperature"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">
-                                    <Editor>
-                                        <f:NumberBox ID="txtTestMediumTemperature" Required="true" runat="server">
-                                        </f:NumberBox>
-                                    </Editor>
-                                </f:RenderField>
-                                <f:RenderField HeaderText="压力试验压力" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
+                                <f:RenderField HeaderText="压力试验压力Mpa(g)" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">
                                     <Editor>
                                         <f:NumberBox ID="NumberBox1" Required="true" runat="server">
-                                        </f:NumberBox>
-                                    </Editor>
-                                </f:RenderField>
-                                <f:RenderField HeaderText="稳压时间min" ColumnID="HoldingTime" DataField="HoldingTime" SortField="HoldingTime"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="100px">
-                                    <Editor>
-                                        <f:NumberBox ID="txtHoldingTime" Required="true" runat="server">
                                         </f:NumberBox>
                                     </Editor>
                                 </f:RenderField>

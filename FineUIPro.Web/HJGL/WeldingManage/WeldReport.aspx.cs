@@ -78,8 +78,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         tn1.NodeID = q.UnitWorkId;
                         tn1.Text = q.UnitWorkName ;
                         tn1.ToolTip = "施工单位：" + u.UnitName;
-                        tn1.EnableClickEvent = true;
                         rootNode1.Nodes.Add(tn1);
+                        BindNodes(tn1);
                     }
                 }
                 if (unitWork2.Count() > 0)
@@ -91,8 +91,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         tn2.NodeID = q.UnitWorkId;
                         tn2.Text = q.UnitWorkName;
                         tn2.ToolTip = "施工单位：" + u.UnitName;
-                        tn2.EnableClickEvent = true;
                         rootNode2.Nodes.Add(tn2);
+                        BindNodes(tn2);
                     }
                 }
             }
@@ -101,8 +101,31 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 Alert.ShowInTop("请选择月份！", MessageBoxIcon.Warning);
             }
         }
+
+        private void BindNodes(TreeNode node)
+        {
+            var p = from x in Funs.DB.HJGL_WeldingDaily
+                    where x.UnitWorkId == node.NodeID
+                         && x.WeldingDate < Convert.ToDateTime(this.txtMonth.Text.Trim() + "-01").AddMonths(1)
+                         && x.WeldingDate >= Convert.ToDateTime(this.txtMonth.Text.Trim() + "-01")
+                    orderby x.WeldingDailyCode descending
+                    select x;
+                     
+            if (p.Count() > 0)
+            {
+                foreach (var item in p)
+                {
+                    TreeNode newNode = new TreeNode();
+                    newNode.Text = item.WeldingDailyCode;
+                    newNode.NodeID = item.WeldingDailyId;
+                    newNode.EnableClickEvent = true;
+                    node.Nodes.Add(newNode);
+                }
+            }
+
+        }
         #endregion
-        
+
 
         #region 点击TreeView
         /// <summary>
@@ -112,7 +135,16 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
-            this.BindGrid();
+            if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID))
+            {
+                this.BindGrid();
+                var daily = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(tvControlItem.SelectedNodeID);
+                txtUnitName.Text = BLL.UnitService.GetUnitNameByUnitId(daily.UnitId);
+
+                txtTabler.Text = BLL.UserService.GetUserNameByUserId(daily.Tabler);
+                txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", daily.TableDate);
+                txtWeldingDate.Text= string.Format("{0:yyyy-MM-dd}", daily.WeldingDate);
+            }
         }
         #endregion
 
@@ -136,49 +168,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (this.tvControlItem.SelectedNode != null)
             {
-                DateTime startDate = Convert.ToDateTime(this.txtMonth.Text.Trim() + "-1");
-                DateTime endDate = startDate.AddMonths(1);
-                string startDateStr = string.Format("{0:yyyy-MM-dd}", startDate);
-                string endDateStr = string.Format("{0:yyyy-MM-dd}", endDate);
-                string strSql = @"SELECT distinct d.WeldingDailyId,d.WeldingDailyCode,d.ProjectId,d.UnitId,unit.UnitName,
-                                         d.WeldingDate,d.Tabler,u.UserName,d.TableDate,d.Remark
-                                   FROM dbo.HJGL_WeldingDaily d 
-                                   left join dbo.HJGL_WeldJoint w on w.WeldingDailyId=d.WeldingDailyId
-								   LEFT JOIN dbo.Base_Unit unit ON unit.UnitId = d.UnitId
-								   LEFT JOIN dbo.Sys_User u ON u.UserId = d.Tabler
-                                   WHERE 1=1";
-                List<SqlParameter> listStr = new List<SqlParameter>
-                {
-
-                };
-                strSql += " AND d.ProjectId =@ProjectId";
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-                strSql += " AND d.UnitWorkId =@UnitWorkId";
-                listStr.Add(new SqlParameter("@UnitWorkId", tvControlItem.SelectedNode.NodeID));
-                strSql += " AND d.WeldingDate >=@startDateStr";
-                listStr.Add(new SqlParameter("@startDateStr", startDateStr));
-                strSql += " AND d.WeldingDate <@endDateStr";
-                listStr.Add(new SqlParameter("@endDateStr", endDateStr));
-                if (!string.IsNullOrEmpty(this.txtWeldingDate.Text.Trim()))
-                {
-                    strSql += " AND d.WeldingDate = @WeldingDate";
-                    listStr.Add(new SqlParameter("@WeldingDate", this.txtWeldingDate.Text.Trim()));
-                }
-                if (!string.IsNullOrEmpty(this.txtWeldingDailyCode.Text.Trim()))
-                {
-                    strSql += " AND d.WeldingDailyCode LIKE @WeldingDailyCode";
-                    listStr.Add(new SqlParameter("@WeldingDailyCode", "%" + this.txtWeldingDailyCode.Text.Trim() + "%"));
-                }
-                if (!string.IsNullOrEmpty(this.txtPipelineCode.Text.Trim()))
-                {
-                    strSql += " AND w.PipelineCode LIKE @PipelineCode";
-                    listStr.Add(new SqlParameter("@PipelineCode", "%" + this.txtPipelineCode.Text.Trim() + "%"));
-                }
-                if (!string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()))
-                {
-                    strSql += " AND w.WeldJointCode LIKE @WeldJointCode";
-                    listStr.Add(new SqlParameter("@WeldJointCode", "%" + this.txtWeldJointCode.Text.Trim() + "%"));
-                }
+               
+                string strSql = @"SELECT WeldingDailyId,WeldJointId,PipelineCode,WeldJointCode,
+                                         BackingWelderCode,CoverWelderCode,Material1Code,Material2Code,
+                                         Dia,Thickness,WeldTypeCode,WeldingMethodCode,WeldingWireCode,
+	                                     WeldingRodCode
+                                  FROM dbo.View_HJGL_WeldJoint
+                                   WHERE WeldingDailyId=@WeldingDailyId";
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                listStr.Add(new SqlParameter("@WeldingDailyId", tvControlItem.SelectedNodeID));
                 SqlParameter[] parameter = listStr.ToArray();
                 DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
@@ -240,28 +238,29 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
-        {
-            if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldReportMenuId, BLL.Const.BtnModify))
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?WeldingDailyId={0}", Grid1.SelectedRowID, "编辑 - ")));
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-            }
-        }
+        //protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
+        //{
+        //    if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldReportMenuId, BLL.Const.BtnModify))
+        //    {
+        //        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?WeldingDailyId={0}", Grid1.SelectedRowID, "编辑 - ")));
+        //    }
+        //    else
+        //    {
+        //        ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+        //    }
+        //}
 
         /// <summary>
         /// 增加焊接日报
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnNew_Click(object sender, EventArgs e)
+        protected void btnMenuAdd_Click(object sender, EventArgs e)
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnAdd))
             {
-                if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID))
+                var unitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(tvControlItem.SelectedNodeID);
+                if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID) && unitWork != null)
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?unitWorkId={0}", tvControlItem.SelectedNodeID, "新增 - ")));
                 }
@@ -285,12 +284,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldReportMenuId, BLL.Const.BtnModify))
             {
-                if (Grid1.SelectedRowIndexArray.Length == 0)
+                var daily = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(tvControlItem.SelectedNodeID);
+                if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID) && daily != null)
                 {
-                    Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
-                    return;
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?WeldingDailyId={0}", Grid1.SelectedRowID, "维护 - ")));
                 }
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?WeldingDailyId={0}", Grid1.SelectedRowID, "维护 - ")));
+                else
+                {
+                    ShowNotify("请选择要编辑的日报！", MessageBoxIcon.Warning);
+                }
             }
             else
             {
@@ -307,14 +309,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnDelete))
             {
-                if (Grid1.SelectedRowIndexArray.Length == 0)
+                var daily = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(tvControlItem.SelectedNodeID);
+                if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID) && daily != null)
                 {
-                    Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                    Alert.ShowInTop("请选择要删除的日报", MessageBoxIcon.Warning);
                     return;
                 }
                 else
                 {
-                    string weldingDailyId = Grid1.SelectedRowID;
+                    string weldingDailyId = tvControlItem.SelectedNodeID;
                     var isTrust = from x in Funs.DB.HJGL_Batch_BatchTrustItem
                                   join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                   where y.WeldingDailyId == weldingDailyId

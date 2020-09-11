@@ -62,7 +62,7 @@ namespace FineUIPro.Web.CQMS.Check
                 //this.rblIsAgree.Visible = false;
                 if (string.IsNullOrEmpty(JointCheckId))
                 {
-                    string prefix = "T18006-JC-";
+                    string prefix = ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId).ProjectCode + "-GJ-";
                     txtJointCheckCode.Text = BLL.SQLHelper.RunProcNewId("SpGetNewCode3", "dbo.Check_JointCheck", "JointCheckCode", prefix);
                     State = Const.JointCheck_Compile;
 

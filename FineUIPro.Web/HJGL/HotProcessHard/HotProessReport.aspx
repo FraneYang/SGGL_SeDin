@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>热处理委托及数据录入</title>
+    <title>热处理报告及数据录入</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -32,6 +32,9 @@
                         <f:Tree ID="tvControlItem" ShowHeader="false" Title="热处理委托节点树" OnNodeCommand="tvControlItem_NodeCommand"
                             Height="470px" runat="server" ShowBorder="false" EnableCollapse="true" EnableSingleClickExpand="true"
                             AutoLeafIdentification="true" EnableSingleExpand="true" EnableTextSelection="true">
+                            <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                            </Listeners>
                         </f:Tree>
                     </Items>
                 </f:Panel>
@@ -50,21 +53,21 @@
                                         <f:Label ID="txtProessDate" Label="热处理日期" runat="server"
                                             LabelAlign="Right" LabelWidth="100px">
                                         </f:Label>
-                                        <f:Label ID="txtProessMethod" Label="热处理方法" runat="server"
-                                            LabelAlign="Right" LabelWidth="100px">
+                                        <f:Label ID="txtTabler" Label="制表人" runat="server" LabelAlign="Right"
+                                            LabelWidth="100px">
                                         </f:Label>
                                     </Items>
                                 </f:FormRow>
 
                                 <f:FormRow>
                                     <Items>
+                                        <f:Label ID="txtProessMethod" Label="热处理方法" runat="server"
+                                            LabelAlign="Right" LabelWidth="100px">
+                                        </f:Label>
                                         <f:Label ID="txtProessEquipment" Label="热处理设备" runat="server"
                                             LabelAlign="Right" LabelWidth="100px">
                                         </f:Label>
-                                        <f:Label ID="txtTabler" Label="制表人" runat="server" LabelAlign="Right"
-                                            LabelWidth="100px">
-                                        </f:Label>
-                                        <f:Label ID="txtRemark" Label="备注" runat="server" LabelAlign="Right"
+                                        <f:Label ID="txtReport" Label="报告编号" runat="server" LabelAlign="Right"
                                             LabelWidth="100px">
                                         </f:Label>
                                     </Items>
@@ -152,6 +155,10 @@
                 EnablePostBack="true" Icon="Pencil" ConfirmTarget="Top" runat="server" Text="热处理报告">
             </f:MenuButton>
         </f:Menu>
+        <f:Menu ID="Menu2" runat="server">
+            <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Text="编辑" Icon="Pencil" OnClick="btnMenuModify_Click">
+            </f:MenuButton>
+        </f:Menu>
     </form>
     <script type="text/javascript">
         var menuID = '<%= Menu1.ClientID %>';
@@ -166,6 +173,11 @@
         function onGridDataLoad(event) {
             this.mergeColumns(['PipelineCode']);
             this.mergeColumns(['WeldJointCode']);
+        }
+        var menuID2 = '<%= Menu2.ClientID %>';
+        function onTreeNodeContextMenu(event, rowId) {
+            F(menuID2).show();  //showAt(event.pageX, event.pageY);
+            return false;
         }
     </script>
 </body>

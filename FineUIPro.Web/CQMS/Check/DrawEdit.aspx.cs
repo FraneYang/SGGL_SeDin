@@ -111,7 +111,21 @@ namespace FineUIPro.Web.CQMS.Check
             {
                 Draw.DrawId = SQLHelper.GetNewID(typeof(Model.WBS_UnitWork));
                 BLL.DrawService.AddCheckDraw(Draw);
-
+                //推送给对应施工单位人员
+                string ids = Draw.MainItem + "|" + Draw.DesignCN;
+                var unitWork = BLL.UnitWorkService.GetUnitWorkByMainItemAndDesignProfessionalIds(ids);
+                if (unitWork != null)
+                {
+                    var seeUsers = BLL.UserService.GetUserListByProjectIdAndUnitId(this.CurrUser.LoginProjectId, unitWork.UnitId);
+                    foreach (var seeUser in seeUsers)
+                    {
+                        Model.Check_DrawApprove approveS = new Model.Check_DrawApprove();
+                        approveS.DrawId = Draw.DrawId;
+                        approveS.ApproveMan = seeUser.UserId;
+                        approveS.ApproveType = "S";
+                        BLL.DrawApproveService.AddDrawApprove(approveS);
+                    }
+                }
             }
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

@@ -72,12 +72,12 @@
                                     DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="140px" Locked="true">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="焊缝类型" ColumnID="WeldTypeCode"
-                                    DataField="WeldTypeCode" SortField="WeldTypeCode" FieldType="String"
+                                 <f:RenderField HeaderText="材质1" ColumnID="Material1Code"
+                                    DataField="Material1Code"  FieldType="String"
                                     HeaderTextAlign="Center" TextAlign="Left" Width="120px" ExpandUnusedSpace="true">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="焊接方法" ColumnID="WeldingMethodCode"
-                                    DataField="WeldingMethodCode" SortField="WeldingMethodCode" FieldType="String"
+                                <f:RenderField HeaderText="材质2" ColumnID="Material2Code"
+                                    DataField="Material2Code" FieldType="String"
                                     HeaderTextAlign="Center" TextAlign="Left" Width="140px" ExpandUnusedSpace="true">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="外径" ColumnID="Dia"
@@ -88,8 +88,20 @@
                                     DataField="Thickness" SortField="Thickness" FieldType="Double" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="120px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="是否热处理" ColumnID="IsHotProessStr"
-                                    DataField="IsHotProessStr" SortField="IsHotProessStr" FieldType="String"
+                                <f:RenderField HeaderText="焊缝类型" ColumnID="WeldTypeCode"
+                                    DataField="WeldTypeCode" SortField="WeldTypeCode" FieldType="String"
+                                    HeaderTextAlign="Center" TextAlign="Left" Width="120px" ExpandUnusedSpace="true">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="焊接方法" ColumnID="WeldingMethodCode"
+                                    DataField="WeldingMethodCode" SortField="WeldingMethodCode" FieldType="String"
+                                    HeaderTextAlign="Center" TextAlign="Left" Width="140px" ExpandUnusedSpace="true">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="焊丝" ColumnID="WeldingWireCode"
+                                    DataField="WeldingWireCode"  FieldType="String"
+                                    HeaderTextAlign="Center" TextAlign="Left" Width="120px" ExpandUnusedSpace="true">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="焊条" ColumnID="WeldingRodCode"
+                                    DataField="WeldingRodCode"  FieldType="String"
                                     HeaderTextAlign="Center" TextAlign="Left" Width="120px" ExpandUnusedSpace="true">
                                 </f:RenderField>
                             </Columns>

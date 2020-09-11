@@ -17,7 +17,7 @@
                         <f:Tree ID="tvControlItem" ShowHeader="false" Title="试压包节点树" OnNodeCommand="tvControlItem_NodeCommand"
                             runat="server" ShowBorder="false" EnableCollapse="true" EnableSingleClickExpand="true" AutoLeafIdentification="true"
                             EnableSingleExpand="true" EnableTextSelection="true">
-                             <Listeners>
+                            <Listeners>
                                 <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
                             </Listeners>
                         </f:Tree>
@@ -56,26 +56,17 @@
                                 <f:RenderField HeaderText="管线编号" ColumnID="PipelineCode" DataField="PipelineCode" SortField="PipelineCode"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="160px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="设计压力" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
+                                <f:RenderField HeaderText="设计压力Mpa(g)" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="设计温度" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
+                                <f:RenderField HeaderText="设计温度℃" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="试验环境温度" ColumnID="AmbientTemperature" DataField="AmbientTemperature" SortField="AmbientTemperature"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="试验介质" ColumnID="MediumName" DataField="MediumName" SortField="MediumName"
+                                <f:RenderField HeaderText="压力试验介质" ColumnID="MediumName" DataField="MediumName" SortField="MediumName"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="试验介质温度" ColumnID="TestMediumTemperature" DataField="TestMediumTemperature" SortField="TestMediumTemperature"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="试验压力" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
+                                <f:RenderField HeaderText="压力试验压力Mpa(g)" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="稳压时间min" ColumnID="HoldingTime" DataField="HoldingTime" SortField="HoldingTime"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="100px">
                                 </f:RenderField>
                             </Columns>
                             <PageItems>
@@ -102,7 +93,7 @@
         </f:Window>
         <f:Window ID="Window2" Title="试压包打印" Hidden="true" EnableIFrame="true"
             EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
-            IsModal="true" Width="1024px" Height="500px">
+            IsModal="true" Width="1024px" Height="900px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>
@@ -112,6 +103,8 @@
                 </f:MenuButton>
                 <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                     OnClick="btnMenuDel_Click">
+                </f:MenuButton>
+                <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server" Text="打印" Icon="Printer" OnClick="btnPrinter_Click">
                 </f:MenuButton>
             </Items>
         </f:Menu>

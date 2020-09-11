@@ -28,7 +28,7 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Items>
-                        <f:Tree ID="tvControlItem" ShowHeader="false" Height="560px" Title="装置区域"
+                        <f:Tree ID="tvControlItem" ShowHeader="false" Height="560px" Title="单位工程"
                             OnNodeCommand="tvControlItem_NodeCommand" runat="server" ShowBorder="false" EnableCollapse="true"
                             EnableSingleClickExpand="true" AutoLeafIdentification="true"
                             EnableTextSelection="true">
@@ -152,10 +152,6 @@
                                         </f:RenderField>
                                     </Columns>
                                 </f:GroupField>
-                                <f:RenderField HeaderText="焊口属性" ColumnID="JointAttribute"
-                                    DataField="JointAttribute" SortField="JointAttribute" FieldType="String" HeaderTextAlign="Center"
-                                    TextAlign="Left" Width="90px">
-                                </f:RenderField>
                                 <f:RenderField HeaderText="备注" ColumnID="Remark" DataField="Remark"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                     Width="90px">

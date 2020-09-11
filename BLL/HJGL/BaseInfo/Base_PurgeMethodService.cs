@@ -3,6 +3,7 @@
     using Model;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.UI.WebControls;
 
     public static class Base_PurgeMethodService
     {
@@ -65,18 +66,31 @@
                 db.SubmitChanges();
             }
         }
-
+        public static ListItem[] GetMediumListItem(string ProjectId)
+        {
+            var list = (from x in Funs.DB.Base_Medium where x.ProjectId == ProjectId orderby x.MediumCode select x).ToList();
+            ListItem[] item = new ListItem[list.Count()];
+            for (int i = 0; i < list.Count(); i++)
+            {
+                item[i] = new ListItem(list[i].MediumName ?? "", list[i].MediumId);
+            }
+            return item;
+        }
         /// <summary>
         /// 获取吹洗方法列表
         /// </summary>
         /// <returns></returns>
-        public static List<Model.Base_PurgeMethod> GetPurgeMethodList()
+        public static ListItem[] GetPurgeMethodList()
         {
             var list = (from x in Funs.DB.Base_PurgeMethod
                         orderby x.PurgeMethodCode
                         select x).ToList();
-
-            return list;
+            ListItem[] item = new ListItem[list.Count()];
+            for (int i = 0; i < list.Count(); i++)
+            {
+                item[i] = new ListItem(list[i].PurgeMethodName+(list[i].PurgeMethodCode) ?? "", list[i].PurgeMethodId);
+            }
+            return item;
         }
 
         #region 吹洗方法下拉项
@@ -88,8 +102,8 @@
         /// <param name="GrooveTypeType">耗材类型</param>
         public static void InitPurgeMethodDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease, string itemText)
         {
-            dropName.DataValueField = "PurgeMethodId";
-            dropName.DataTextField = "PurgeMethodName";
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
             dropName.DataSource = GetPurgeMethodList();
             dropName.DataBind();
             if (isShowPlease)

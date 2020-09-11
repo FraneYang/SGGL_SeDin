@@ -986,6 +986,43 @@ namespace BLL
             }
             return arrNum;
         }
+
+
+        /// <summary>
+        /// 根据第一页和第二页行数及总记录数，确定需要打印几页
+        /// </summary>
+        /// <param name="pageSize1">第一页行数</param>
+        /// <param name="pageSize2">第二页行数</param>
+        /// <param name="count">总记录数</param>
+        /// <returns></returns>
+        public static int GetPagesCountByPageSize(int pageSize1, int pageSize2, int count)
+        {
+            int pagesCount = 0;
+            if (pageSize1 >= count)    //总记录数小于等于第一页行数
+            {
+                pagesCount = 1;
+            }
+            else if (count > pageSize1 && count <= (pageSize1 + pageSize2))   //总记录数大于第一页行数且小于等于第一页加第二页总行数
+            {
+                pagesCount = 2;
+            }
+            else    //总记录数大于第一页加第二页总行数
+            {
+                int lastCount = count - pageSize1;
+                decimal c = Convert.ToDecimal(Math.Round(Convert.ToDecimal(lastCount) / Convert.ToDecimal(pageSize2), 2));
+                if (c.ToString().IndexOf(".") > 0 && c.ToString().Substring(c.ToString().IndexOf("."), c.ToString().Length - c.ToString().IndexOf(".")) != ".00")
+                {
+                    string c1 = c.ToString().Substring(0, c.ToString().IndexOf("."));
+                    pagesCount = Convert.ToInt32(c1) + 1;
+                }
+                else
+                {
+                    pagesCount = Convert.ToInt32(c);
+                }
+                pagesCount = pagesCount + 1;
+            }
+            return pagesCount;
+        }
     }
 }
 

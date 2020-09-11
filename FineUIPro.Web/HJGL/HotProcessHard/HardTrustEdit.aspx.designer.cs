@@ -148,13 +148,13 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         protected global::FineUIPro.DatePicker txtHardTrustDate;
         
         /// <summary>
-        /// txtHardnessMethod 控件。
+        /// txtCheckName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtHardnessMethod;
+        protected global::FineUIPro.TextBox txtCheckName;
         
         /// <summary>
         /// txtHardnessRate 控件。
@@ -175,13 +175,13 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         protected global::FineUIPro.TextBox txtStandards;
         
         /// <summary>
-        /// txtInspectionNum 控件。
+        /// txtAcceptStandard 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtInspectionNum;
+        protected global::FineUIPro.TextBox txtAcceptStandard;
         
         /// <summary>
         /// txtCheckNum 控件。
@@ -220,31 +220,13 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         protected global::FineUIPro.DropDownList drpSendee;
         
         /// <summary>
-        /// txtCheckName 控件。
+        /// TextBox1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckName;
-        
-        /// <summary>
-        /// txtAcceptStandard 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtAcceptStandard;
-        
-        /// <summary>
-        /// txtEquipmentModel 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtEquipmentModel;
+        protected global::FineUIPro.TextBox TextBox1;
         
         /// <summary>
         /// Grid1 控件。

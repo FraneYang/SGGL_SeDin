@@ -130,7 +130,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             string strSql = @"SELECT ProjectId,UnitWorkId,PipelineId,PipelineCode,UnitName,MediumCode,PipingClassCode,UnitWorkCode,
                                      TestPressure,SingleNumber,DetectionRateCode,DetectionType,Remark,TestMediumCode,TotalDin,
-                                     JointCount,PressurePipingClassCode,PipeLenth,DesignPress,DesignTemperature
+                                     JointCount,PressurePipingClassCode,PipeLenth,DesignPress,DesignTemperature,LeakPressure,VacuumPressure,
+                                     LeakMediumName,PCMediumName
                               FROM dbo.View_HJGL_Pipeline WHERE ProjectId= @ProjectId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));

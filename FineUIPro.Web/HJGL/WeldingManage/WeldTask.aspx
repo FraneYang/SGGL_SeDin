@@ -17,9 +17,11 @@
                     ShowBorder="true" Layout="VBox" ShowHeader="true" AutoScroll="true" BodyPadding="5px"
                     IconFont="ArrowCircleLeft">
                     <Toolbars>
-                        <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
+                        <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
-                                <f:DatePicker ID="txtMonth" runat="server" Label="月份" EmptyText="输入查询条件" AutoPostBack="true" Width="220px" LabelWidth="50px" DisplayType="Month" DateFormatString="yyyy-MM">
+                                <f:DatePicker ID="txtTaskDateMonth" runat="server" Label="月份"
+                                    EmptyText="输入查询条件" AutoPostBack="true" OnTextChanged="Tree_TextChanged"
+                                    Width="265px" LabelWidth="100px" DisplayType="Month" DateFormatString="yyyy-MM" LabelAlign="Right">
                                 </f:DatePicker>
                             </Items>
                         </f:Toolbar>
@@ -34,32 +36,30 @@
                 <f:Panel runat="server" ID="panelCenterRegion" RegionPosition="Center" ShowBorder="true"
                     Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="焊接任务单"
                     TitleToolTip="焊接任务单" AutoScroll="true">
-                    <Toolbars>
-                        <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
-                            <Items>
-                                <f:DatePicker ID="txtTaskDate" Label="任务日期" runat="server"
-                                    DateFormatString="yyyy-MM-dd" LabelAlign="Left">
-                                </f:DatePicker>
-                            </Items>
-                        </f:Toolbar>
-                    </Toolbars>
                     <Items>
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊接任务单"
-                            EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="WeldJointId" EnableColumnLines="true"
-                            AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldJointId" AllowSorting="true"
+                            EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="WeldTaskId,WeldJointId" EnableColumnLines="true"
+                            AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldTaskId" AllowSorting="true"
                             SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort"
                             AllowPaging="false" IsDatabasePaging="true" PageSize="10000" EnableTextSelection="True">
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar4" Position="Top" runat="server" ToolbarAlign="Right">
                                     <Items>
                                         <f:HiddenField runat="server" ID="hdItemsString"></f:HiddenField>
-                                        <f:DropDownList runat="server" EnableEdit="true" Label="可焊焊口"></f:DropDownList>
+                                        <f:HiddenField runat="server" ID="hdTaskWeldJoint"></f:HiddenField>
+                                        <f:DropDownList ID="drpCanWelder"  Label="选择焊工批量填充" EnableEdit="true" runat="server" LabelWidth="140px">
+                                        </f:DropDownList>
+                                         <f:Button ID="btnSaveWelder" Icon="Accept" runat="server" Text="确认" OnClick="btnSaveWelder_Click">
+                                        </f:Button>
                                         <f:ToolbarFill runat="server"></f:ToolbarFill>
-                                        <f:Button runat="server" ID="CreatWeldableWeldJoint" Icon="ChartPie" Text="生成可焊焊口"></f:Button>
+                                        <f:DatePicker ID="txtTaskDate" Label="计划焊接日期" runat="server"
+                                            DateFormatString="yyyy-MM-dd" LabelAlign="Left" LabelWidth="110px" >
+                                        </f:DatePicker>
                                         <f:Button runat="server" ID="ckSelect" Icon="Find" ToolTip="查找" Text="查找" OnClick="ckSelect_Click">
-                                        </f:Button>
+                                        </f:Button> 
                                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存" OnClick="btnSave_Click">
-                                        </f:Button>
+                                        </f:Button> 
+                                        <f:Button runat="server" ID="CreatWeldableWeldJoint" Icon="ChartPie" Text="生成可焊焊口" OnClick="CreatWeldableWeldJoint_Click"></f:Button>
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>
@@ -68,21 +68,24 @@
                                     Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
                                 <f:RenderField HeaderText="管线号" ColumnID="PipelineCode"
                                     DataField="PipelineCode" SortField="PipelineCode" FieldType="String" HeaderTextAlign="Center"
-                                    TextAlign="Left" Width="180px" ExpandUnusedSpace="true">
+                                    TextAlign="Left" Width="90px" >
                                 </f:RenderField>
                                 <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode"
                                     DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="70px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="可焊焊口" ColumnID="WeldableWeldJoint"
-                                    DataField="WeldableWeldJoint" SortField="WeldableWeldJoint" FieldType="String" HeaderTextAlign="Center"
-                                    TextAlign="Left" Width="70px">
-                                    <Editor>
-                                        <f:TextBox runat="server" ID="txtWeldableWeldJoint"></f:TextBox>
-                                    </Editor>
+                                <f:RenderField  ColumnID="WeldTaskId"
+                                    DataField="WeldTaskId" FieldType="String" Hidden="true">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderId"
-                                    DataField="CoverWelderCode" SortField="CoverWelderCode" FieldType="String" HeaderTextAlign="Center"
+                                 <f:RenderField HeaderText="可焊焊工号" ColumnID="CanWelderCode"
+                                    DataField="CanWelderCode" SortField="CanWelderCode" FieldType="String" HeaderTextAlign="Center"
+                                    TextAlign="Left" Width="300px">
+                                </f:RenderField>
+                                 <f:RenderField HeaderText="可焊焊工ID" ColumnID="CanWelderId"
+                                    DataField="CanWelderId"  FieldType="String" Hidden="true">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderCode"
+                                    DataField="CoverWelderCode" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="110px">
                                     <Editor>
                                         <f:DropDownList ID="drpCoverWelderId" EnableEdit="true" Required="true" runat="server"
@@ -90,9 +93,9 @@
                                         </f:DropDownList>
                                     </Editor>
                                 </f:RenderField>
-                                <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderId"
-                                    DataField="BackingWelderCode" SortField="BackingWelderCode" FieldType="String"
-                                    HeaderTextAlign="Center" TextAlign="Left" Width="110px">
+                                <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderCode"
+                                    DataField="BackingWelderCode"  FieldType="String"
+                                     HeaderTextAlign="Center" TextAlign="Left" Width="110px">
                                     <Editor>
                                         <f:DropDownList ID="drpBackingWelderId" EnableEdit="true" Required="true" runat="server"
                                             ShowRedStar="true">
@@ -141,6 +144,7 @@
                             </Columns>
                             <Listeners>
                                 <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
+                                <f:Listener Event="beforeedit" Handler="onGridBeforeEdit" />
                             </Listeners>
                             <PageItems>
                                 <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
@@ -181,6 +185,44 @@
 
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
+        }
+
+        var gridClientID = '<%= Grid1.ClientID %>';
+        var drpCoverWelderIdClientID = '<%= drpCoverWelderId.ClientID %>';
+        var drpBackingWelderIdClientID = '<%= drpBackingWelderId.ClientID %>';
+
+         function onGridBeforeEdit(event, value, params) {
+            var grid = F(gridClientID);
+             var canWelder = grid.getCellValue(params.rowId, 'CanWelderCode');
+             var coverWelderCode = grid.getCellValue(params.rowId, 'CoverWelderCode');
+             var backingWelderCode = grid.getCellValue(params.rowId, 'BackingWelderCode');
+             var canWelderList = canWelder.split(',');
+
+            if (params.columnId === 'CoverWelderCode') {
+                var drpCoverWelderId = F(drpCoverWelderIdClientID);
+                if (canWelder!='') {
+                    drpCoverWelderId.enable();
+                    drpCoverWelderId.setEmptyText('');
+                    drpCoverWelderId.loadData(canWelderList);
+                } else {
+                    drpCoverWelderId.setEmptyText('请先生成可焊焊工！');
+                    drpCoverWelderId.disable();
+                }
+                drpCoverWelderId.value = coverWelderCode;
+             }
+
+               if (params.columnId === 'BackingWelderCode') {
+                var drpBackingWelderId = F(drpBackingWelderIdClientID);
+                if (canWelder!='') {
+                    drpBackingWelderId.enable();
+                    drpBackingWelderId.setEmptyText('');
+                    drpBackingWelderId.loadData(canWelderList);
+                } else {
+                    drpBackingWelderId.setEmptyText('请先生成可焊焊工！');
+                    drpBackingWelderId.disable();
+                }
+                drpBackingWelderId.value = backingWelderCode;
+            }
         }
 
     </script>

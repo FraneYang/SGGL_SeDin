@@ -12,7 +12,7 @@ namespace Mvc.Controllers
         // 质量巡检
         // GET: /Draw/
         [HttpGet]
-        public ResponseData<List<Check_CheckControl>> Index(string projectId, int index, int page, string state, string name = null)
+        public ResponseData<List<Check_CheckControl>> Index(string projectId, int index, int page, string state, string name)
         {
             ResponseData<List<Check_CheckControl>> res = new ResponseData<List<Check_CheckControl>>();
 
@@ -22,20 +22,20 @@ namespace Mvc.Controllers
         }
 
         [HttpGet]
-        public ResponseData<string> Conut(string projectId)
+        public ResponseData<string> Conut(string projectId, string searchWord, string unitId = null, string unitWork = null, string problemType = null, string professional = null, string dateA = null, string dateZ = null)
         {
             ResponseData<string> res = new ResponseData<string>();
             res.successful = true;
-            res.resultValue = BLL.CheckControlService.GetListCountStr(projectId);
+            res.resultValue = BLL.CheckControlService.GetListCountStr(projectId, searchWord, unitId, unitWork, problemType, professional, dateA, dateZ);
             return res;
         }
         [HttpGet]
-        public ResponseData<List<Check_CheckControl>> Search(string projectId, int index, int page, string unitId = null, string unitWork = null, string problemType = null, string professional = null, string state = null, string dateA = null, string dateZ = null)
+        public ResponseData<List<Check_CheckControl>> Search(string state, string projectId, int index, int page, string unitId = null, string unitWork = null, string problemType = null, string professional = null, string dateA = null, string dateZ = null)
         {
             ResponseData<List<Check_CheckControl>> res = new ResponseData<List<Check_CheckControl>>();
 
             res.successful = true;
-            res.resultValue = BLL.CheckControlService.GetListDataForApi(unitId, unitWork, problemType, professional, state, dateA, dateZ, projectId, index, page);
+            res.resultValue = BLL.CheckControlService.GetListDataForApi(state, unitId, unitWork, problemType, professional,dateA, dateZ, projectId, index, page);
             return res;
         }
 

@@ -67,18 +67,12 @@
                                     </f:Label>
                                     <f:Label ID="txtProessDate" Label="热处理日期" runat="server"
                                         LabelAlign="Right" LabelWidth="100px">
-                                    </f:Label>  
-                                    <f:Label ID="txtProessMethod" Label="热处理方法" runat="server"
-                                        LabelAlign="Right" LabelWidth="100px">
-                                    </f:Label>
+                                    </f:Label> 
                                 </Items>
                             </f:FormRow>
                            
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtProessEquipment" Label="热处理设备" runat="server"
-                                        LabelAlign="Right" LabelWidth="100px">
-                                    </f:Label> 
                                     <f:Label ID="txtTabler" Label="制表人" runat="server" LabelAlign="Right"
                                         LabelWidth="100px">
                                     </f:Label>

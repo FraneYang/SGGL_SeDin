@@ -11,10 +11,10 @@ namespace FineUIPro.Web.HJGL.TestPackage
 {
     public partial class TestPackageCompleteEdit : PageBase
     {
-            #region 定义项
-            /// <summary>
-            /// 试压包主键
-            /// </summary>
+        #region 定义项
+        /// <summary>
+        /// 试压包主键
+        /// </summary>
         public string PTP_ID
         {
             get
@@ -55,7 +55,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
                 this.PTP_ID = Request.Params["PTP_ID"];
                 var getTestpackage = TestPackageEditService.GetTestPackageByID(PTP_ID);
-                if (getTestpackage != null) {
+                if (getTestpackage != null)
+                {
                     BindGrid();
                 }
             }
@@ -68,8 +69,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
         private void BindGrid()
         {
             this.PageInfoLoad(); ///页面输入保存信息
-            string strSql = @"SELECT * FROM dbo.View_PTP_TestPackageAudit
-                             WHERE ProjectId= @ProjectId AND PTP_ID=@PTP_ID";
+            string strSql = @" SELECT ptpPipe.PT_PipeId, ptpPipe.PTP_ID, ptpPipe.PipelineId, ptpPipe.DesignPress, 
+                               ptpPipe.DesignTemperature, ptpPipe.AmbientTemperature, ptpPipe.TestMedium, 
+                               ptpPipe.TestMediumTemperature, ptpPipe.TestPressure, ptpPipe.HoldingTime,IsoInfo.PipelineCode,testMedium.MediumName
+                               FROM dbo.PTP_PipelineList AS ptpPipe 
+                               LEFT JOIN dbo.HJGL_Pipeline AS IsoInfo ON  ptpPipe.PipelineId = IsoInfo.PipelineId
+							   LEFT JOIN dbo.Base_TestMedium  AS testMedium ON testMedium.TestMediumId = IsoInfo.TestMedium
+                               WHERE  ptpPipe.PTP_ID=@PTP_ID";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
             listStr.Add(new SqlParameter("@PTP_ID", this.PTP_ID));
@@ -81,54 +87,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
-            this.ShowGridItem();
-        }
-
-        /// <summary>
-        /// 行颜色设置
-        /// </summary>
-        private void ShowGridItem()
-        {
-            Count = 0;
-            int Count1 = 0, Count2 = 0, Count3 = 0, Count4 = 0;
-            int rowsCount = this.Grid1.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
-            {
-                int IsoInfoCount = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[3].ToString()); //总焊口
-                int IsoInfoCountT = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[4].ToString()); //完成总焊口
-                int CountS = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[5].ToString()); ; //合格数
-                int CountU = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[6].ToString()); ; //不合格数
-                decimal Rate = 0;
-                bool convertible = decimal.TryParse(this.Grid1.Rows[i].Values[9].ToString(), out Rate); //应检测比例
-                decimal Ratio = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[10].ToString()); //实际检测比例
-
-                if (IsoInfoCount > IsoInfoCountT) //未焊完
-                {
-                    Count1 += 1;
-                    this.Grid1.Rows[i].RowCssClass = "Cyan";
-                }
-                else if (Rate > Ratio) //已焊完，未达检测比例
-                {
-                    Count2 += 1;
-                    this.Grid1.Rows[i].RowCssClass = "Yellow";
-                }
-                else if (CountU > 0) //已焊完，已达检测比例，但有不合格
-                {
-                    Count3 += 1;
-                    this.Grid1.Rows[i].RowCssClass = "Green";
-                }
-                else
-                {
-                    Count4 += 1;
-                    this.Grid1.Rows[i].RowCssClass = "Purple";
-                }
-            }
-
-            Count = Count1 + Count2 + Count2;
-            this.lab1.Text = Count1.ToString();
-            this.lab2.Text = Count2.ToString();
-            this.lab3.Text = Count3.ToString();
-            this.lab4.Text = Count4.ToString();
         }
 
         #region 加载页面输入保存信息
@@ -140,30 +98,16 @@ namespace FineUIPro.Web.HJGL.TestPackage
             var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
             if (testPackageManage != null)
             {
-                this.txtTestPackageNo.Text = testPackageManage.TestPackageNo;
-                this.txtTestPackageName.Text = testPackageManage.TestPackageName;
-                this.txtRemark.Text = testPackageManage.Remark;
                 this.txtadjustTestPressure.Text = testPackageManage.AdjustTestPressure;
-                this.txtTestMediumTemperature.Text = testPackageManage.TestMediumTemperature.ToString();
                 this.txtAmbientTemperature.Text = testPackageManage.AmbientTemperature.ToString();
-                this.txtHoldingTime.Text = testPackageManage.HoldingTime.ToString();
                 this.txtFinishDef.Text = testPackageManage.FinishDef;
-                txtInstallationSpecification.Text = testPackageManage.Check1;
-                txtPressureTest.Text = testPackageManage.Check2;
-                txtWorkRecord.Text = testPackageManage.Check3;
-                txtNDTConform.Text = testPackageManage.Check4;
-                txtHotConform.Text = testPackageManage.Check5;
-                txtInstallationCorrectness.Text = testPackageManage.Check6;
-                txtMarkClearly.Text = testPackageManage.Check7;
-                txtIsolationOpening.Text = testPackageManage.Check8;
-                txtConstructionPlanAsk.Text = testPackageManage.Check9;
-                txtCover.Text = testPackageManage.Check10;
-                txtMeetRequirements.Text = testPackageManage.Check11;
-                txtStainlessTestWater.Text = testPackageManage.Check12;
+                this.txtHoldingTime.Text = testPackageManage.HoldingTime.ToString();
+                this.txtTestDate.Text = testPackageManage.TestDate?.ToString("yyyy-MM-dd");
+                this.txtTestMediumTemperature.Text = testPackageManage.TestMediumTemperature.ToString();
             }
         }
         #endregion
-        
+
         #endregion
 
         #region 分页排序
@@ -219,47 +163,18 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 var updateTestPackage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
                 if (updateTestPackage != null)
                 {
-                        updateTestPackage.FinishDate = DateTime.Now;
-                        updateTestPackage.Finisher = this.CurrUser.UserId;
-                        updateTestPackage.FinishDef = this.txtFinishDef.Text.Trim();
-                        updateTestPackage.TestMediumTemperature = Funs.GetNewDecimal(txtTestMediumTemperature.Text.Trim());
-                        updateTestPackage.HoldingTime = Funs.GetNewDecimal(txtHoldingTime.Text.Trim());
-                        updateTestPackage.AmbientTemperature =Funs.GetNewDecimal(this.txtAmbientTemperature.Text.Trim());
-                        BLL.TestPackageEditService.UpdateTestPackage(updateTestPackage);
-                        this.BindGrid();
-                        ShowNotify("保存成功！", MessageBoxIcon.Success);
-                }
-            }
-            else
-            {
-                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-            }
-        }
-        #endregion
-
-        #region 取消审核检测单
-        /// <summary>
-        /// 取消审核检测单
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnCancelAudit_Click(object sender, EventArgs e)
-        {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageCompleteMenuId, Const.BtnCancelAuditing))
-            {
-                var updateTestPackage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
-                if (updateTestPackage != null)
-                {
-                    updateTestPackage.Finisher = null;
-                    updateTestPackage.FinishDate = null;
-                    //updateTestPackage.FinishDef = this.txtFinishDef.Text.Trim();
-                    BLL.TestPackageAuditService.AuditFinishDef(updateTestPackage);
+                    updateTestPackage.FinishDate = DateTime.Now;
+                    updateTestPackage.Finisher = this.CurrUser.UserId;
+                    updateTestPackage.FinishDef = this.txtFinishDef.Text.Trim();
+                    updateTestPackage.TestMediumTemperature = Funs.GetNewDecimal(txtTestMediumTemperature.Text.Trim());
+                    updateTestPackage.HoldingTime = Funs.GetNewDecimal(txtHoldingTime.Text.Trim());
+                    updateTestPackage.AmbientTemperature = Funs.GetNewDecimal(this.txtAmbientTemperature.Text.Trim());
+                    updateTestPackage.TestDate =Funs.GetNewDateTime(txtTestDate.Text.Trim());
+                    BLL.TestPackageEditService.UpdateTestPackage(updateTestPackage);
                     this.BindGrid();
-                    ShowNotify("取消审核完成！", MessageBoxIcon.Success);
-                }
-                else
-                {
-                    ShowNotify("请确认单据！", MessageBoxIcon.Warning);
+                    ShowNotify("保存成功！", MessageBoxIcon.Success);
+                    PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(this.PTP_ID)
+                  + ActiveWindow.GetHidePostBackReference());
                 }
             }
             else

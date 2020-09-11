@@ -92,7 +92,7 @@
                                 FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
-                          <f:TemplateField Width="100px" HeaderText="无损检测类型" HeaderTextAlign="Center"
+                          <f:TemplateField Width="130px" HeaderText="无损检测类型" HeaderTextAlign="Center"
                                 TextAlign="Center" SortField="DetectionType">
                                 <ItemTemplate>
                                     <asp:Label ID="Label1" runat="server" Text='<%# ConvertDetectionType(Eval("DetectionType")) %>'></asp:Label>
@@ -124,20 +124,36 @@
                                 FieldType="Double"  HeaderText="设计温度℃" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="TestMediumCode" DataField="TestMediumCode" SortField="TestMediumCode"
+                            <f:RenderField Width="130px" ColumnID="TestMediumCode" DataField="TestMediumCode" SortField="TestMediumCode"
                                 FieldType="String" HeaderText="压力试验介质" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
-                             <f:RenderField Width="130px" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
+                             <f:RenderField Width="160px" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
                                 FieldType="Double"  HeaderText="压力试验压力 MPa(g)" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
-                             <f:RenderField Width="120px" ColumnID="PressurePipingClassCode" DataField="PressurePipingClassCode" SortField="PressurePipingClassCode"
+                             <f:RenderField Width="130px" ColumnID="PressurePipingClassCode" DataField="PressurePipingClassCode" SortField="PressurePipingClassCode"
                                 FieldType="String" HeaderText="压力管道级别" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
-                             <f:RenderField Width="90px" ColumnID="PipeLenth" DataField="PipeLenth" SortField="PipeLenth"
+                             <f:RenderField Width="100px" ColumnID="PipeLenth" DataField="PipeLenth" SortField="PipeLenth"
                                 FieldType="Double"  HeaderText="管线长度(m)" HeaderTextAlign="Center"
+                                TextAlign="Left">
+                            </f:RenderField>
+                            <f:RenderField Width="130px" ColumnID="LeakMediumName" DataField="LeakMediumName" SortField="LeakMediumName"
+                                FieldType="String" HeaderText="泄露试验介质" HeaderTextAlign="Center"
+                                TextAlign="Left">
+                            </f:RenderField>
+                            <f:RenderField Width="160px" ColumnID="LeakPressure" DataField="LeakPressure" SortField="LeakPressure"
+                                FieldType="Double"  HeaderText="泄露试验压力 MPa(g)" HeaderTextAlign="Center"
+                                TextAlign="Left">
+                            </f:RenderField>
+                            <f:RenderField Width="100px" ColumnID="PCMediumName" DataField="PCMediumName" SortField="PCMediumName"
+                                FieldType="String" HeaderText="吹洗要求" HeaderTextAlign="Center"
+                                TextAlign="Left">
+                            </f:RenderField>
+                            <f:RenderField Width="160px" ColumnID="VacuumPressure" DataField="VacuumPressure" SortField="VacuumPressure"
+                                FieldType="Double"  HeaderText="真空试验压力 KPa(a)" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" SortField="Remark"
