@@ -34,6 +34,18 @@ namespace FineUIPro.Web.HSSE.Hazard
                 ViewState["HazardListId"] = value;
             }
         }
+
+        public string WorkStage
+        {
+            get
+            {
+                return (string)ViewState["WorkStage"];
+            }
+            set
+            {
+                ViewState["WorkStage"] = value;
+            }
+        }
         #endregion
 
         #region 加载
@@ -46,10 +58,10 @@ namespace FineUIPro.Web.HSSE.Hazard
         {
             if (!IsPostBack)
             {
-                HazardId = Request.Params["HazardId"];
-                HazardListId = Request.Params["HazardListId"];
-                string workStage = Request.Params["workStage"];
-                var hazardSelectedItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(HazardId, HazardListId, workStage);
+                this.HazardId = Request.Params["HazardId"];
+                this.HazardListId = Request.Params["HazardListId"];
+                this.WorkStage = Request.Params["workStage"];
+                var hazardSelectedItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(HazardId, HazardListId, this.WorkStage);
                 if (hazardSelectedItem != null)
                 {
                     if (Convert.ToBoolean(hazardSelectedItem.IsResponse))
@@ -78,12 +90,13 @@ namespace FineUIPro.Web.HSSE.Hazard
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            string workStage = Request.Params["workStage"];
-            Model.Hazard_HazardSelectedItem hazardSelectedItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(HazardId, HazardListId, workStage);
-            hazardSelectedItem.IsResponse = Convert.ToBoolean(this.rbtnIsResponse.SelectedValue);
-            hazardSelectedItem.ResponseRecode = this.txtResponseRecode.Text.Trim();
-            BLL.Hazard_HazardSelectedItemService.UpdateHazardSelectedItem(hazardSelectedItem);
-
+            Model.Hazard_HazardSelectedItem hazardSelectedItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(HazardId, HazardListId, this.WorkStage);
+            if (hazardSelectedItem != null)
+            {
+                hazardSelectedItem.IsResponse = Convert.ToBoolean(this.rbtnIsResponse.SelectedValue);
+                hazardSelectedItem.ResponseRecode = this.txtResponseRecode.Text.Trim();
+                BLL.Hazard_HazardSelectedItemService.UpdateHazardSelectedItem(hazardSelectedItem);
+            }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
         #endregion

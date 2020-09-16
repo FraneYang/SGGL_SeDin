@@ -20,7 +20,7 @@
                             AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged" Required="true"
                             ShowRedStar="true" EnableEdit="true" Readonly="true" LabelWidth="150px">
                         </f:DropDownList>
-                        <f:TextBox ID="txtProjectPlace" runat="server" Label="工程部位" Required="true" ShowRedStar="true"
+                        <f:TextBox ID="txtProjectPlace" runat="server" Label="单位工程" Required="true" ShowRedStar="true"
                             MaxLength="200" Readonly="true">
                         </f:TextBox>
                         <f:TextBox ID="txtPauseNoticeCode" runat="server" Label="编号" Readonly="true" Required="true"
@@ -72,7 +72,6 @@
                                 </f:DropDownList>
                                 <f:DropDownList ID="drpUnitHeadMan" runat="server" Label="相关施工分包单位" LabelAlign="Right" EnableEdit="true" LabelWidth="150px">
                                 </f:DropDownList>
-
                             </Items>
                             <Items>
                                 <f:DropDownList ID="drpSupervisorMan" runat="server" Label="监理" LabelAlign="Right" EnableEdit="true" LabelWidth="150px">

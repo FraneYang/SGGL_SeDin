@@ -87,10 +87,10 @@ namespace FineUIPro.Web.HSSE.Hazard
                     for (int i = 0; i < this.Grid1.Rows.Count; i++)
                     {
 
-                        System.Web.UI.WebControls.HiddenField hdWorkStage = (System.Web.UI.WebControls.HiddenField)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
+                        System.Web.UI.WebControls.Label hdWorkStage = (System.Web.UI.WebControls.Label)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
                         System.Web.UI.WebControls.DropDownList drpPromptTime = (System.Web.UI.WebControls.DropDownList)(this.Grid1.Rows[i].FindControl("drpPromptTime"));
 
-                        var q = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(this.Grid1.Rows[i].DataKeys[0].ToString(), this.HazardListId, hdWorkStage.Value);
+                        var q = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(this.Grid1.Rows[i].DataKeys[0].ToString(), this.HazardListId, hdWorkStage.Text);
                         System.Web.UI.WebControls.LinkButton lbtnResponse = ((System.Web.UI.WebControls.LinkButton)(this.Grid1.Rows[i].FindControl("lbtnResponse")));
                         if (Convert.ToBoolean(q.IsResponse))
                         {
@@ -336,10 +336,10 @@ namespace FineUIPro.Web.HSSE.Hazard
             for (int i = 0; i < rowsCount; i++)
             {
                 System.Web.UI.WebControls.LinkButton l2 = ((System.Web.UI.WebControls.LinkButton)(this.Grid1.Rows[i].FindControl("lbtnResponse")));
-                System.Web.UI.WebControls.HiddenField hdWorkStage = (System.Web.UI.WebControls.HiddenField)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
+                System.Web.UI.WebControls.Label hdWorkStage = (System.Web.UI.WebControls.Label)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
                 if (l.ClientID == l2.ClientID)
                 {
-                    workStage = hdWorkStage.Value.Trim();
+                    workStage = hdWorkStage.Text;
                 }
             }
             if (l.CommandName == "response")
@@ -368,8 +368,8 @@ namespace FineUIPro.Web.HSSE.Hazard
             for (int i = 0; i < Grid1.Rows.Count; i++)
             {
                 System.Web.UI.WebControls.LinkButton lbtnResponse = ((System.Web.UI.WebControls.LinkButton)(this.Grid1.Rows[i].FindControl("lbtnResponse")));
-                System.Web.UI.WebControls.HiddenField hdWorkStage = (System.Web.UI.WebControls.HiddenField)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
-                Model.Hazard_HazardSelectedItem hazardSelectedItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(lbtnResponse.CommandArgument.ToString(), HazardListId, hdWorkStage.Value.Trim());
+                System.Web.UI.WebControls.Label hdWorkStage = (System.Web.UI.WebControls.Label)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
+                Model.Hazard_HazardSelectedItem hazardSelectedItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(lbtnResponse.CommandArgument.ToString(), HazardListId, hdWorkStage.Text);
 
                 if (Convert.ToBoolean(hazardSelectedItem.IsResponse))
                 {

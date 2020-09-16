@@ -54,7 +54,7 @@
                         SortField="ActionPlanListCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="ActionPlanListName" DataField="ActionPlanListName" ExpandUnusedSpace="True"
+                    <f:RenderField Width="200px" ColumnID="ActionPlanListName" DataField="ActionPlanListName" ExpandUnusedSpace="True"
                         SortField="ActionPlanListName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -68,7 +68,7 @@
                     <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
                         Text="详细" ToolTip="附件上传查看" DataIFrameUrlFields="ActionPlanListId" DataIFrameUrlFormatString="../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ActionPlanListAttachUrl&menuId=CBC47C8B-141C-446B-90D9-CE8F5AE66CE4"
                           HeaderTextAlign="Center" />
-                       <f:RenderField Width="140px" ColumnID="FlowOperateName" DataField="FlowOperateName"
+                       <f:RenderField Width="180px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>

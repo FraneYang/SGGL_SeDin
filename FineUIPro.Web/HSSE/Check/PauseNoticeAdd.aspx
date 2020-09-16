@@ -18,7 +18,7 @@
                             AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged" Required="true"
                             ShowRedStar="true" EnableEdit="true" LabelWidth="150px">
                         </f:DropDownList>
-                        <f:TextBox ID="txtProjectPlace" runat="server" Label="工程部位" Required="true" ShowRedStar="true"
+                        <f:TextBox ID="txtProjectPlace" runat="server" Label="单位工程" Required="true" ShowRedStar="true"
                             MaxLength="200">
                         </f:TextBox>
                         <f:TextBox ID="txtPauseNoticeCode" runat="server" Label="编号" Required="true"

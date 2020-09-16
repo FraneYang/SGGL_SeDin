@@ -21,7 +21,7 @@
                         </f:TextBox>
                         <f:TextBox ID="txtUnit" runat="server" Label="受检单位" Readonly="true">
                         </f:TextBox>
-                        <f:TextBox ID="txtProjectPlace" runat="server" Label="工程部位" Readonly="true" MaxLength="200"
+                        <f:TextBox ID="txtProjectPlace" runat="server" Label="单位工程" Readonly="true" MaxLength="200"
                             LabelWidth="100px">
                         </f:TextBox>
                     </Items>

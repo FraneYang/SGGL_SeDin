@@ -61,7 +61,7 @@
                         SortField="UnitName" FieldType="String" HeaderText="单位名称" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="ProjectPlace" DataField="ProjectPlace" ExpandUnusedSpace="true"
-                        SortField="ProjectPlace" FieldType="String" HeaderText="工程部位" TextAlign="Left" HeaderTextAlign="Center">
+                        SortField="ProjectPlace" FieldType="String" HeaderText="单位工程" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="PauseTime" DataField="PauseTime" SortField="PauseTime"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd HH:mm" HeaderText="停工日期"

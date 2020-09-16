@@ -37,14 +37,14 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtRemark" runat="server" Height="70px" Label="摘要" MaxLength="1000">
+                    <f:TextArea ID="txtRemark" runat="server" Height="65px" Label="摘要" MaxLength="1000">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:HtmlEditor runat="server" Label="管理规定内容" ID="txtSeeFile" ShowLabel="false" Editor="UMEditor"
-                        BasePath="~/res/umeditor/" ToolbarSet="Full" Height="220" LabelAlign="Right">
+                        BasePath="~/res/umeditor/" ToolbarSet="Full" Height="200" LabelAlign="Right">
                     </f:HtmlEditor>
                 </Items>
             </f:FormRow>

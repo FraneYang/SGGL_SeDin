@@ -90,10 +90,10 @@ namespace FineUIPro.Web.HSSE.Hazard
                     for (int i = 0; i < this.Grid1.Rows.Count; i++)
                     {
                         
-                        System.Web.UI.WebControls.HiddenField hdWorkStage = (System.Web.UI.WebControls.HiddenField)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
+                        System.Web.UI.WebControls.Label hdWorkStage = (System.Web.UI.WebControls.Label)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
                         System.Web.UI.WebControls.DropDownList drpPromptTime = (System.Web.UI.WebControls.DropDownList)(this.Grid1.Rows[i].FindControl("drpPromptTime"));
 
-                        var q = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(this.Grid1.Rows[i].DataKeys[0].ToString(), this.HazardListId, hdWorkStage.Value);
+                        var q = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(this.Grid1.Rows[i].DataKeys[0].ToString(), this.HazardListId, hdWorkStage.Text);
                         if (q != null)
                         {
                             if (q.PromptTime != null)
@@ -333,11 +333,11 @@ namespace FineUIPro.Web.HSSE.Hazard
             for (int i = 0; i < Grid1.Rows.Count; i++)
             {
                 System.Web.UI.WebControls.CheckBox ckbHazard = (System.Web.UI.WebControls.CheckBox)(this.Grid1.Rows[i].FindControl("ckbHazard"));
-                System.Web.UI.WebControls.HiddenField hdWorkStage = (System.Web.UI.WebControls.HiddenField)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
+                System.Web.UI.WebControls.Label hdWorkStage = (System.Web.UI.WebControls.Label)(this.Grid1.Rows[i].FindControl("hdWorkStage"));
                 System.Web.UI.WebControls.DropDownList drpPromptTime = (System.Web.UI.WebControls.DropDownList)(this.Grid1.Rows[i].FindControl("drpPromptTime"));
                 if (ckbHazard.Checked)
                 {
-                    var hazardSelectedItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(this.Grid1.Rows[i].DataKeys[0].ToString(), HazardListId, hdWorkStage.Value.Trim());
+                    var hazardSelectedItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(this.Grid1.Rows[i].DataKeys[0].ToString(), HazardListId, hdWorkStage.Text);
                     if (hazardSelectedItem != null)
                     {
                         hazardSelectedItem.PromptTime = Convert.ToInt32(drpPromptTime.SelectedValue.Trim());
@@ -345,7 +345,7 @@ namespace FineUIPro.Web.HSSE.Hazard
                     }
                 }
             }
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
         #endregion
     }

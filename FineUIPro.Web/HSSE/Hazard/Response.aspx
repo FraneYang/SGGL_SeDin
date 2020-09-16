@@ -47,7 +47,7 @@
                             </f:TemplateField>
                             <f:TemplateField Width="200px" HeaderText="工作阶段" HeaderTextAlign="Center" TextAlign="Left" Hidden="true">
                                 <ItemTemplate>
-                                    <asp:HiddenField ID="hdWorkStage" runat="server" Value='<%#Bind("WorkStage") %>' />
+                                    <asp:Label ID="hdWorkStage" runat="server" Text='<%#Bind("WorkStage") %>' />
                                 </ItemTemplate>
                             </f:TemplateField>
                             <f:RenderField Width="150px" ColumnID="HazardItems" DataField="HazardItems" SortField="HazardItems"

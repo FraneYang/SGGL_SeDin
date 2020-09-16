@@ -52,7 +52,7 @@
                         </ItemTemplate>
                     </f:TemplateField>
                     <f:RenderField Width="250px" ColumnID="HazardListCode" DataField="HazardListCode"
-                        SortField="HazardListCode" FieldType="String" HeaderText="清单编号" EnableFilter="true"
+                        SortField="HazardListCode" FieldType="String" HeaderText="编号" EnableFilter="true"
                         HeaderTextAlign="Center" TextAlign="Center">                        
                     </f:RenderField>
                     <f:TemplateField ColumnID="tfVersionNo" Width="100px" HeaderText="版本号" HeaderTextAlign="Center" TextAlign="Center">
