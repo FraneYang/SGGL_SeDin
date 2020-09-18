@@ -56,7 +56,8 @@
                             <f:FormRow>
                                 <Items>
                                     <f:DatePicker ID="txtWeldingDate" Label="焊接日期" runat="server"
-                                        DateFormatString="yyyy-MM-dd" ShowRedStar="true" Required="true" LabelWidth="120px" LabelAlign="Right">
+                                        DateFormatString="yyyy-MM-dd" ShowRedStar="true" Required="true" LabelWidth="120px" 
+                                        LabelAlign="Right" OnTextChanged="WeldingDateText_OnTextChanged" AutoPostBack="true">
                                     </f:DatePicker>
                                     <f:TextBox ID="txtTabler" Label="填报人" Readonly="true" runat="server"
                                         LabelWidth="120px" LabelAlign="Right">
@@ -84,14 +85,7 @@
                         AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldTaskId" AllowSorting="true"
                         SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort" EnableCheckBoxSelect="true"
                         AllowPaging="false" IsDatabasePaging="true" PageSize="10000" EnableTextSelection="True">
-                        <Toolbars>
-                            <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Right">
-                                <Items>
-                                    <f:Button runat="server" ID="ckSelect" Icon="Find" OnClick="ckSelect_Click" ToolTip="查找">
-                                    </f:Button>
-                                </Items>
-                            </f:Toolbar>
-                        </Toolbars>
+                       
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号"
                                 Width="50px" HeaderTextAlign="Center" TextAlign="Center" />

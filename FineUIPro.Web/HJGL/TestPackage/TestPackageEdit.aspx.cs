@@ -457,6 +457,30 @@ namespace FineUIPro.Web.HJGL.TestPackage
             }
         }
 
-            
+        protected void btnPrinterAll_Click(object sender, EventArgs e)
+        {
+            string unitWorkId = this.tvControlItem.SelectedNodeID;
+            var p = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(unitWorkId);
+            if (p != null)
+            {
+                string varValue = string.Empty;
+                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (project != null)
+                {
+                    varValue = project.ProjectName;
+                    varValue = varValue + "|" + p.UnitWorkName;
+                }
+                if (!string.IsNullOrEmpty(varValue))
+                {
+                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                }
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_TestPackageListReportId, unitWorkId, varValue, this.CurrUser.LoginProjectId)));
+            }
+            else
+            {
+                ShowNotify("请选择单位工程！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
     }
 }

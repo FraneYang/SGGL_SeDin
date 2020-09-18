@@ -108,10 +108,35 @@ namespace BLL
         {
             using (var db = new Model.SGGLDB(Funs.ConnString))
             {
-                Model.Check_CheckEquipment res = db.Check_CheckEquipment.FirstOrDefault(x => x.CheckEquipmentId == CheckEquipmentId);
+                Model.Check_CheckEquipment res = db.Check_CheckEquipment.FirstOrDefault(a => a.CheckEquipmentId == CheckEquipmentId);
                 //res.AttachUrl = AttachFileService.getFileUrl(res.CheckEquipmentId);
-                res.UserUnitId = res.UserUnitId + "$" + UnitService.getUnitNamesUnitIds(res.UserUnitId);
-                return res;
+                Model.Check_CheckEquipment x = new Model.Check_CheckEquipment();
+                x.CheckEquipmentId = res.CheckEquipmentId;
+                x.UserUnitId = res.UserUnitId + "$" + UnitService.getUnitNamesUnitIds(res.UserUnitId);
+                x.ProjectId = res.ProjectId;
+                x.EquipmentName = res.EquipmentName;
+                x.Format = res.Format;
+                x.SetAccuracyGrade = res.SetAccuracyGrade;
+                x.RealAccuracyGrade = res.RealAccuracyGrade;
+                x.CheckCycle = res.CheckCycle;
+                x.CheckDay = res.CheckDay;
+                x.IsIdentification = res.IsIdentification;
+                x.IsCheckCertificate = res.IsCheckCertificate;
+                x.CompileDate = res.CompileDate;
+                x.State = res.State;
+                x.Isdamage = res.Isdamage;
+                if (res.CheckCycle.HasValue && res.CheckDay.HasValue)
+                {
+                    x.CompileMan = ConvertMan(res.CheckEquipmentId) + "$" + ConvertIsBeOverdue(res.CheckCycle.Value, res.CheckDay.Value);
+                }
+                else
+                {
+                    x.CompileMan = ConvertMan(res.CheckEquipmentId) + "$";
+
+                }
+                x.AttachUrl = AttachFileService.getFileUrl(res.CheckEquipmentId);
+
+                return x;
             }
 
 
@@ -122,27 +147,32 @@ namespace BLL
         /// <param name="CheckEquipment">检试验设备及测量器具信息实体</param>
         public static void AddCheckEquipment(Model.Check_CheckEquipment CheckEquipment)
         {
-            Model.SGGLDB db = Funs.DB;
-            Model.Check_CheckEquipment newCheckEquipment = new Model.Check_CheckEquipment();
-            newCheckEquipment.CheckEquipmentId = CheckEquipment.CheckEquipmentId;
-            newCheckEquipment.ProjectId = CheckEquipment.ProjectId;
-            newCheckEquipment.UserUnitId = CheckEquipment.UserUnitId;
-            newCheckEquipment.EquipmentName = CheckEquipment.EquipmentName;
-            newCheckEquipment.Format = CheckEquipment.Format;
-            newCheckEquipment.SetAccuracyGrade = CheckEquipment.SetAccuracyGrade;
-            newCheckEquipment.RealAccuracyGrade = CheckEquipment.RealAccuracyGrade;
-            newCheckEquipment.CheckCycle = CheckEquipment.CheckCycle;
-            newCheckEquipment.CheckDay = CheckEquipment.CheckDay;
-            newCheckEquipment.IsIdentification = CheckEquipment.IsIdentification;
-            newCheckEquipment.IsCheckCertificate = CheckEquipment.IsCheckCertificate;
-            newCheckEquipment.AttachUrl = CheckEquipment.AttachUrl;
-            newCheckEquipment.CompileMan = CheckEquipment.CompileMan;
-            newCheckEquipment.CompileDate = CheckEquipment.CompileDate;
-            newCheckEquipment.State = CheckEquipment.State;
-            newCheckEquipment.Isdamage = CheckEquipment.Isdamage;
-            newCheckEquipment.SaveHandleMan = CheckEquipment.SaveHandleMan;
-            db.Check_CheckEquipment.InsertOnSubmit(newCheckEquipment);
-            db.SubmitChanges();
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Check_CheckEquipment newCheckEquipment = new Model.Check_CheckEquipment();
+                newCheckEquipment.CheckEquipmentId = CheckEquipment.CheckEquipmentId;
+                newCheckEquipment.ProjectId = CheckEquipment.ProjectId;
+                newCheckEquipment.UserUnitId = CheckEquipment.UserUnitId;
+                newCheckEquipment.EquipmentName = CheckEquipment.EquipmentName;
+                newCheckEquipment.Format = CheckEquipment.Format;
+                newCheckEquipment.SetAccuracyGrade = CheckEquipment.SetAccuracyGrade;
+                newCheckEquipment.RealAccuracyGrade = CheckEquipment.RealAccuracyGrade;
+                newCheckEquipment.CheckCycle = CheckEquipment.CheckCycle;
+                newCheckEquipment.CheckDay = CheckEquipment.CheckDay;
+                newCheckEquipment.IsIdentification = CheckEquipment.IsIdentification;
+                newCheckEquipment.IsCheckCertificate = CheckEquipment.IsCheckCertificate;
+                newCheckEquipment.AttachUrl = CheckEquipment.AttachUrl;
+                newCheckEquipment.CompileMan = CheckEquipment.CompileMan;
+                newCheckEquipment.CompileDate = CheckEquipment.CompileDate;
+                newCheckEquipment.State = CheckEquipment.State;
+                newCheckEquipment.Isdamage = CheckEquipment.Isdamage;
+                if (!string.IsNullOrEmpty(CheckEquipment.SaveHandleMan))
+                    newCheckEquipment.SaveHandleMan = CheckEquipment.SaveHandleMan;
+
+
+                db.Check_CheckEquipment.InsertOnSubmit(newCheckEquipment);
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>
@@ -151,22 +181,37 @@ namespace BLL
         /// <param name="CheckEquipment">检试验设备及测量器具信息实体</param>
         public static void UpdateCheckEquipment(Model.Check_CheckEquipment CheckEquipment)
         {
-            Model.SGGLDB db = Funs.DB;
-            Model.Check_CheckEquipment newCheckEquipment = db.Check_CheckEquipment.First(e => e.CheckEquipmentId == CheckEquipment.CheckEquipmentId);
-            newCheckEquipment.UserUnitId = CheckEquipment.UserUnitId;
-            newCheckEquipment.EquipmentName = CheckEquipment.EquipmentName;
-            newCheckEquipment.Format = CheckEquipment.Format;
-            newCheckEquipment.SetAccuracyGrade = CheckEquipment.SetAccuracyGrade;
-            newCheckEquipment.RealAccuracyGrade = CheckEquipment.RealAccuracyGrade;
-            newCheckEquipment.CheckCycle = CheckEquipment.CheckCycle;
-            newCheckEquipment.CheckDay = CheckEquipment.CheckDay;
-            newCheckEquipment.IsIdentification = CheckEquipment.IsIdentification;
-            newCheckEquipment.IsCheckCertificate = CheckEquipment.IsCheckCertificate;
-            newCheckEquipment.AttachUrl = CheckEquipment.AttachUrl;
-            newCheckEquipment.State = CheckEquipment.State;
-            newCheckEquipment.Isdamage = CheckEquipment.Isdamage;
-            newCheckEquipment.SaveHandleMan = CheckEquipment.SaveHandleMan;
-            db.SubmitChanges();
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Check_CheckEquipment newCheckEquipment = db.Check_CheckEquipment.First(e => e.CheckEquipmentId == CheckEquipment.CheckEquipmentId);
+                if (!string.IsNullOrEmpty(CheckEquipment.SaveHandleMan))
+                    newCheckEquipment.UserUnitId = CheckEquipment.SaveHandleMan;
+                if (!string.IsNullOrEmpty(CheckEquipment.EquipmentName))
+                    newCheckEquipment.EquipmentName = CheckEquipment.EquipmentName;
+                if (!string.IsNullOrEmpty(CheckEquipment.Format))
+                    newCheckEquipment.Format = CheckEquipment.Format;
+                if (!string.IsNullOrEmpty(CheckEquipment.SetAccuracyGrade))
+                    newCheckEquipment.SetAccuracyGrade = CheckEquipment.SetAccuracyGrade;
+                if (!string.IsNullOrEmpty(CheckEquipment.RealAccuracyGrade))
+                    newCheckEquipment.RealAccuracyGrade = CheckEquipment.RealAccuracyGrade;
+                if (!string.IsNullOrEmpty(CheckEquipment.CheckCycle.ToString()))
+                    newCheckEquipment.CheckCycle = CheckEquipment.CheckCycle;
+                if (CheckEquipment.CheckDay.HasValue)
+                    newCheckEquipment.CheckDay = CheckEquipment.CheckDay;
+                if (!string.IsNullOrEmpty(CheckEquipment.IsIdentification.ToString()))
+                    newCheckEquipment.IsIdentification = CheckEquipment.IsIdentification;
+                if (!string.IsNullOrEmpty(CheckEquipment.IsCheckCertificate.ToString()))
+                    newCheckEquipment.IsCheckCertificate = CheckEquipment.IsCheckCertificate;
+                if (!string.IsNullOrEmpty(CheckEquipment.AttachUrl))
+                    newCheckEquipment.AttachUrl = CheckEquipment.AttachUrl;
+                if (!string.IsNullOrEmpty(CheckEquipment.State))
+                    newCheckEquipment.State = CheckEquipment.State;
+                if (!string.IsNullOrEmpty(CheckEquipment.Isdamage))
+                    newCheckEquipment.Isdamage = CheckEquipment.Isdamage;
+                if (!string.IsNullOrEmpty(CheckEquipment.SaveHandleMan))
+                    newCheckEquipment.SaveHandleMan = CheckEquipment.SaveHandleMan;
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>
@@ -175,11 +220,14 @@ namespace BLL
         /// <param name="CheckEquipmentCode">检试验设备及测量器具信息Id</param>
         public static void DeleteCheckEquipment(string CheckEquipmentId)
         {
-            Model.SGGLDB db = Funs.DB;
-            Model.Check_CheckEquipment CheckEquipment = db.Check_CheckEquipment.First(e => e.CheckEquipmentId == CheckEquipmentId);
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Check_CheckEquipment CheckEquipment = db.Check_CheckEquipment.First(e => e.CheckEquipmentId == CheckEquipmentId);
 
-            db.Check_CheckEquipment.DeleteOnSubmit(CheckEquipment);
-            db.SubmitChanges();
+                db.Check_CheckEquipment.DeleteOnSubmit(CheckEquipment);
+                db.SubmitChanges();
+            }
+                
         }
 
         /// <summary>
@@ -262,6 +310,7 @@ namespace BLL
                             x.State,
                             x.Isdamage,
                             x.UserUnitId,
+                            x.CompileMan,
                             UserUnitName = (from y in db.Base_Unit where y.UnitId == x.UserUnitId select y.UnitName).FirstOrDefault(),
 
                         };
@@ -286,14 +335,14 @@ namespace BLL
                     x.Isdamage = list[i].Isdamage;
                     if (x.CheckCycle.HasValue && x.CheckDay.HasValue)
                     {
-                        x.CompileMan = ConvertMan(x.CheckEquipmentId) + "$" + ConvertIsBeOverdue(x.CheckCycle.Value, x.CheckDay.Value);
+                        x.CompileMan = list[i].CompileMan + "$" + ConvertMan(list[i].CheckEquipmentId) + "$" + ConvertIsBeOverdue(list[i].CheckCycle.Value, list[i].CheckDay.Value);
                     }
                     else
                     {
-                        x.CompileMan = ConvertMan(x.CheckEquipmentId) + "$";
+                        x.CompileMan = list[i].CompileMan + "$" + ConvertMan(list[i].CheckEquipmentId) + "$";
 
                     }
-                    x.AttachUrl = AttachFileService.getFileUrl(x.CheckEquipmentId);
+                    x.AttachUrl = AttachFileService.getFileUrl(list[i].CheckEquipmentId);
                     listRes.Add(x);
                 }
             }
@@ -342,5 +391,6 @@ namespace BLL
             }
             return "";
         }
+
     }
 }

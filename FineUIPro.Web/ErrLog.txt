@@ -1,5 +1,26 @@
 ﻿
 错误信息开始=====>
+错误类型:HttpException
+错误信息:文件“/HJGL/TestPackage/AItemEndCheck.aspx”不存在。
+错误堆栈:
+   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:09/09/2020 17:43:07
+出错文件:http://localhost:8118/HJGL/TestPackage/AItemEndCheck.aspx
+IP地址:::1
+
+出错时间:09/09/2020 17:43:08
+
+
+错误信息开始=====>
 错误类型:NullReferenceException
 错误信息:未将对象引用设置到对象的实例。
 错误堆栈:
@@ -9,113 +30,9 @@
    在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
    在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:09/14/2020 15:55:59
+出错时间:09/18/2020 10:59:29
 出错文件:http://localhost:8118/res.axd?font=lib.iconfont.iconfont.woff&t=636947851460000000
 IP地址:::1
 
-出错时间:09/14/2020 15:56:01
-
-
-错误信息开始=====>
-错误类型:HttpParseException
-错误信息:属性只支持双向绑定。“Value”不是“Label”的有效属性
-错误堆栈:
-   在 System.Web.UI.TemplateParser.ProcessException(Exception ex)
-   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
-   在 System.Web.UI.TemplateParser.ParseString(String text, VirtualPath virtualPath, Encoding fileEncoding)
-----错误类型:InvalidOperationException
-----错误信息:
-----属性只支持双向绑定。“Value”不是“Label”的有效属性
-----错误堆栈:
-       在 System.Web.UI.ControlBuilder.FillUpBoundPropertyEntry(BoundPropertyEntry entry, String name)
-       在 System.Web.UI.ControlBuilder.AddBoundProperty(String filter, String name, String expressionPrefix, String expression, ExpressionBuilder expressionBuilder, Object parsedExpressionData, Boolean generated, String fieldName, String formatString, Boolean twoWayBound, Boolean encode, Int32 line, Int32 column)
-       在 System.Web.UI.ControlBuilder.AddBoundProperty(String filter, String name, String expressionPrefix, String expression, ExpressionBuilder expressionBuilder, Object parsedExpressionData, String fieldName, String formatString, Boolean twoWayBound, Boolean encode, Int32 line, Int32 column)
-       在 System.Web.UI.ControlBuilder.PreprocessAttribute(String filter, String attribname, String attribvalue, Boolean mainDirectiveMode, Int32 line, Int32 column)
-       在 System.Web.UI.ControlBuilder.PreprocessAttributes(ParsedAttributeCollection attribs)
-       在 System.Web.UI.ControlBuilder.Init(TemplateParser parser, ControlBuilder parentBuilder, Type type, String tagName, String id, IDictionary attribs)
-       在 System.Web.UI.ControlBuilder.CreateBuilderFromType(TemplateParser parser, ControlBuilder parentBuilder, Type type, String tagName, String id, IDictionary attribs, Int32 line, String sourceFileName)
-       在 System.Web.UI.ControlBuilder.CreateChildBuilder(String filter, String tagName, IDictionary attribs, TemplateParser parser, ControlBuilder parentBuilder, String id, Int32 line, VirtualPath virtualPath, Type& childType, Boolean defaultProperty)
-       在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
-       在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
-出错时间:09/15/2020 09:33:33
-出错文件:http://localhost:8118/HSSE/Hazard/SetToolTipTime.aspx?HazardListId=49c118d3-f246-4ffc-b929-f8f1c1ec6763
-IP地址:::1
-
-出错时间:09/15/2020 09:33:33
-
-
-错误信息开始=====>
-错误类型:InvalidCastException
-错误信息:无法将类型为“System.Boolean”的对象强制转换为类型“System.String”。
-错误堆栈:
-   在 FineUIPro.GridRow.jSMuSbRrdzEhAFStRKXhgELEowIDB(Int32 , Object )
-   在 (GridRow , Int32 , Object )
-   在 FineUIPro.GridRow.mehApGFXNcaudZOBlvXQqmrYsPZ(Object[] )
-   在 (GridRow , Object[] )
-   在 FineUIPro.Grid.LoadPostData(String postDataKey, NameValueCollection postCollection)
-   在 System.Web.UI.Page.ProcessPostData(NameValueCollection postData, Boolean fBeforeLoad)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:09/15/2020 15:43:55
-出错文件:http://localhost:8118/HSSE/ActionPlan/EditManagerRuleTemplate.aspx
-IP地址:::1
-操作人员:系统管理员
-
-出错时间:09/15/2020 15:43:55
-
-
-错误信息开始=====>
-错误类型:InvalidCastException
-错误信息:无法将类型为“System.Boolean”的对象强制转换为类型“System.String”。
-错误堆栈:
-   在 FineUIPro.GridRow.jSMuSbRrdzEhAFStRKXhgELEowIDB(Int32 , Object )
-   在 (GridRow , Int32 , Object )
-   在 FineUIPro.GridRow.mehApGFXNcaudZOBlvXQqmrYsPZ(Object[] )
-   在 (GridRow , Object[] )
-   在 FineUIPro.Grid.LoadPostData(String postDataKey, NameValueCollection postCollection)
-   在 System.Web.UI.Page.ProcessPostData(NameValueCollection postData, Boolean fBeforeLoad)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:09/15/2020 15:43:56
-出错文件:http://localhost:8118/HSSE/ActionPlan/EditManagerRuleTemplate.aspx
-IP地址:::1
-操作人员:系统管理员
-
-出错时间:09/15/2020 15:43:56
-
-
-错误信息开始=====>
-错误类型:InvalidCastException
-错误信息:无法将类型为“System.Boolean”的对象强制转换为类型“System.String”。
-错误堆栈:
-   在 FineUIPro.GridRow.jSMuSbRrdzEhAFStRKXhgELEowIDB(Int32 , Object )
-   在 (GridRow , Int32 , Object )
-   在 FineUIPro.GridRow.mehApGFXNcaudZOBlvXQqmrYsPZ(Object[] )
-   在 (GridRow , Object[] )
-   在 FineUIPro.Grid.LoadPostData(String postDataKey, NameValueCollection postCollection)
-   在 System.Web.UI.Page.ProcessPostData(NameValueCollection postData, Boolean fBeforeLoad)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:09/15/2020 15:43:57
-出错文件:http://localhost:8118/HSSE/ActionPlan/EditManagerRuleTemplate.aspx
-IP地址:::1
-操作人员:系统管理员
-
-出错时间:09/15/2020 15:43:58
-
-
-错误信息开始=====>
-错误类型:InvalidCastException
-错误信息:无法将类型为“System.Boolean”的对象强制转换为类型“System.String”。
-错误堆栈:
-   在 FineUIPro.GridRow.jSMuSbRrdzEhAFStRKXhgELEowIDB(Int32 , Object )
-   在 (GridRow , Int32 , Object )
-   在 FineUIPro.GridRow.mehApGFXNcaudZOBlvXQqmrYsPZ(Object[] )
-   在 (GridRow , Object[] )
-   在 FineUIPro.Grid.LoadPostData(String postDataKey, NameValueCollection postCollection)
-   在 System.Web.UI.Page.ProcessPostData(NameValueCollection postData, Boolean fBeforeLoad)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:09/15/2020 15:44:04
-出错文件:http://localhost:8118/HSSE/ActionPlan/EditManagerRuleTemplate.aspx
-IP地址:::1
-操作人员:系统管理员
-
-出错时间:09/15/2020 15:44:04
+出错时间:09/18/2020 10:59:29
 

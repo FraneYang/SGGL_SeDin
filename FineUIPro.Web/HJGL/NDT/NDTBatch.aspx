@@ -84,23 +84,24 @@
                             <f:FormRow>
                                 <Items>
                                      <f:Label ID="txtTrustBatchCode" Label="委托单号" runat="server"
-                                        LabelWidth="130px" LabelAlign="Right">
+                                        LabelWidth="120px" LabelAlign="Right">
                                     </f:Label>
                                     <f:Label ID="txtUnitName" Label="单位名称" runat="server" LabelWidth="130px"
                                         LabelAlign="Right">
                                     </f:Label>
-                                    <f:Label ID="txtUnitWork" Label="单位工程编号" runat="server"
-                                        LabelWidth="130px" LabelAlign="Right">
+                                   
+                                    <f:Label ID="txtNDEDate" Label="检测日期" runat="server" LabelWidth="130px"
+                                        LabelAlign="Right">
                                     </f:Label>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtNDEDate" Label="检测日期" runat="server" LabelWidth="130px"
-                                        LabelAlign="Right">
-                                    </f:Label>
+                                    <f:Label ID="txtUnitWork" Label="单位工程编号" runat="server"
+                                        LabelWidth="130px" LabelAlign="Right" Hidden="true">
+                                    </f:Label> 
                                     <f:Label ID="txtCheckUnit" Label="检测单位" runat="server"
-                                        LabelWidth="130px" LabelAlign="Right">
+                                        LabelWidth="120px" LabelAlign="Right">
                                     </f:Label>
                                     <f:Label ID="txtDetectionTypeCode" Label="检测方法" runat="server"
                                         LabelWidth="130px" LabelAlign="Right">

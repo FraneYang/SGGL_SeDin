@@ -78,21 +78,70 @@ namespace BLL
         /// 增加设计变更审批信息
         /// </summary>
         /// <param name="managerRuleApprove">设计变更审批实体</param>
-        public static void AddCheckEquipmentApprove(Model.Check_CheckEquipmentApprove approve)
+        public static string AddCheckEquipmentApprove(Model.Check_CheckEquipmentApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
-            string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_CheckEquipmentApprove));
-            Model.Check_CheckEquipmentApprove newApprove = new Model.Check_CheckEquipmentApprove();
-            newApprove.CheckEquipmentApproveId = newKeyID;
-            newApprove.CheckEquipmentId = approve.CheckEquipmentId;
-            newApprove.ApproveMan = approve.ApproveMan;
-            newApprove.ApproveDate = approve.ApproveDate;
-            newApprove.ApproveIdea = approve.ApproveIdea;
-            newApprove.IsAgree = approve.IsAgree;
-            newApprove.ApproveType = approve.ApproveType;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_CheckEquipmentApprove));
+                Model.Check_CheckEquipmentApprove newApprove = new Model.Check_CheckEquipmentApprove();
+                newApprove.CheckEquipmentApproveId = newKeyID;
+                newApprove.CheckEquipmentId = approve.CheckEquipmentId;
+                newApprove.ApproveMan = approve.ApproveMan;
+                newApprove.ApproveDate = approve.ApproveDate;
+                newApprove.ApproveIdea = approve.ApproveIdea;
+                newApprove.IsAgree = approve.IsAgree;
+                newApprove.ApproveType = approve.ApproveType;
 
-            db.Check_CheckEquipmentApprove.InsertOnSubmit(newApprove);
-            db.SubmitChanges();
+                db.Check_CheckEquipmentApprove.InsertOnSubmit(newApprove);
+                db.SubmitChanges();
+                return newKeyID;
+            }
+                
+        }
+        /// <summary>
+        /// 增加检实验设备审批信息
+        /// </summary>
+        /// <param name="managerRuleApprove">检实验设备批实体</param>
+        public static string AddCheckEquipmentApproveApi(Model.Check_CheckEquipmentApprove approve)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                string newKeyID = SQLHelper.GetNewID(typeof(Model.Check_CheckEquipmentApprove));
+                Model.Check_CheckEquipmentApprove newApprove = new Model.Check_CheckEquipmentApprove();
+                newApprove.CheckEquipmentApproveId = newKeyID;
+                newApprove.CheckEquipmentId = approve.CheckEquipmentId;
+                newApprove.ApproveMan = approve.ApproveMan;
+                newApprove.ApproveDate = approve.ApproveDate;
+                newApprove.ApproveIdea = approve.ApproveIdea;
+                newApprove.IsAgree = approve.IsAgree;
+                newApprove.ApproveType = approve.ApproveType;
+
+                db.Check_CheckEquipmentApprove.InsertOnSubmit(newApprove);
+                db.SubmitChanges();
+                return newKeyID;
+            }
+        }
+
+        /// <summary>
+        /// 修改检实验设备信息
+        /// </summary>
+        /// <param name="managerRuleApprove">检实验设备实体</param>
+        public static void UpdateCheckEquipmentApproveApi(Model.Check_CheckEquipmentApprove approve)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Check_CheckEquipmentApprove newApprove = db.Check_CheckEquipmentApprove.FirstOrDefault(e => e.CheckEquipmentApproveId == approve.CheckEquipmentApproveId && e.ApproveDate == null);
+                //newApprove.CheckEquipmentId = approve.CheckEquipmentId;
+                if (!string.IsNullOrEmpty(approve.ApproveMan))
+                    newApprove.ApproveMan = approve.ApproveMan;
+                newApprove.ApproveDate = approve.ApproveDate;
+                newApprove.ApproveIdea = approve.ApproveIdea;
+                newApprove.IsAgree = approve.IsAgree;
+                newApprove.ApproveType = approve.ApproveType;
+
+                db.SubmitChanges();
+            }
+            
         }
 
         /// <summary>
@@ -101,16 +150,18 @@ namespace BLL
         /// <param name="managerRuleApprove">设计变更审批实体</param>
         public static void UpdateCheckEquipmentApprove(Model.Check_CheckEquipmentApprove approve)
         {
-            Model.SGGLDB db = Funs.DB;
-            Model.Check_CheckEquipmentApprove newApprove = db.Check_CheckEquipmentApprove.First(e => e.CheckEquipmentApproveId == approve.CheckEquipmentApproveId && e.ApproveDate == null);
-            newApprove.CheckEquipmentId = approve.CheckEquipmentId;
-            newApprove.ApproveMan = approve.ApproveMan;
-            newApprove.ApproveDate = approve.ApproveDate;
-            newApprove.ApproveIdea = approve.ApproveIdea;
-            newApprove.IsAgree = approve.IsAgree;
-            newApprove.ApproveType = approve.ApproveType;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Check_CheckEquipmentApprove newApprove = db.Check_CheckEquipmentApprove.First(e => e.CheckEquipmentApproveId == approve.CheckEquipmentApproveId && e.ApproveDate == null);
+                newApprove.CheckEquipmentId = approve.CheckEquipmentId;
+                newApprove.ApproveMan = approve.ApproveMan;
+                newApprove.ApproveDate = approve.ApproveDate;
+                newApprove.ApproveIdea = approve.ApproveIdea;
+                newApprove.IsAgree = approve.IsAgree;
+                newApprove.ApproveType = approve.ApproveType;
 
-            db.SubmitChanges();
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>
@@ -119,10 +170,12 @@ namespace BLL
         /// <param name="CheckEquipmentCode">设计变更编号</param>
         public static void DeleteCheckEquipmentApprovesByCheckEquipmentId(string CheckEquipmentId)
         {
-            Model.SGGLDB db = Funs.DB;
-            var q = (from x in db.Check_CheckEquipmentApprove where x.CheckEquipmentId == CheckEquipmentId select x).ToList();
-            db.Check_CheckEquipmentApprove.DeleteAllOnSubmit(q);
-            db.SubmitChanges();
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var q = (from x in db.Check_CheckEquipmentApprove where x.CheckEquipmentId == CheckEquipmentId select x).ToList();
+                db.Check_CheckEquipmentApprove.DeleteAllOnSubmit(q);
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>
@@ -165,6 +218,25 @@ namespace BLL
                 res.Add(x);
             }
             return res;
+        }
+
+        // 当前办理状态
+        public static Model.Check_CheckEquipmentApprove CurrentApproveType(string code)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Check_CheckEquipmentApprove newApprove = db.Check_CheckEquipmentApprove.FirstOrDefault(e => e.CheckEquipmentId == code 
+                && e.ApproveType != "S" && e.ApproveDate == null);
+                if (newApprove != null)
+                {
+                    Model.Sys_User user = BLL.UserService.GetUserByUserId(newApprove.ApproveMan);
+                    if (user != null)
+                    {
+                        newApprove.ApproveIdea = user.UserName;
+                    }
+                }
+                return newApprove;
+            }
         }
     }
 }

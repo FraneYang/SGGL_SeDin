@@ -428,11 +428,6 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     approve1.ApproveDate = DateTime.Now;
                     approve1.ApproveIdea = this.txtOpinions.Text.Trim();
-                    if (this.drpHandleMan.SelectedValue != BLL.Const._Null)
-                    {
-                        approve1.ApproveMan = this.drpHandleMan.SelectedValue;
-                    }
-                    approve1.ApproveType = this.drpHandleType.SelectedValue;
                     BLL.CheckEquipmentApproveService.UpdateCheckEquipmentApprove(approve1);
                 }
                 if (saveType == "submit")

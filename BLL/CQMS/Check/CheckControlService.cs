@@ -633,5 +633,94 @@ namespace BLL
             }
 
         }
+
+
+        // 项目质量验收一次合格率
+        public static string GetOneCount(string projectId)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.View_Check_SoptCheckDetail> TotalCheckDetailOKLists = SpotCheckDetailService.GetTotalOKSpotCheckDetailListByTime1(projectId, DateTime.Now);
+                List<Model.View_Check_SoptCheckDetail> TotalCheckDetailLists = SpotCheckDetailService.GetTotalAllSpotCheckDetailListByTime(projectId, DateTime.Now);
+                double result = 0;
+                if (TotalCheckDetailOKLists.Count > 0 && TotalCheckDetailLists.Count > 0)
+                {
+                    var a = Convert.ToDouble(TotalCheckDetailOKLists.Count);
+                    var b = Convert.ToDouble(TotalCheckDetailLists.Count);
+                    result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                }
+
+                return result.ToString();
+            }
+
+        }
+
+        // 项目施工资料同步率
+        public static string GetConstruction(string projectId)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.View_Check_SoptCheckDetail> totalCheckDetailDataOKLists = SpotCheckDetailService.GetAllDataOkSpotCheckDetailListByTime(projectId, DateTime.Now);
+                List<Model.View_Check_SoptCheckDetail> totalCheckDetailOKLists = SpotCheckDetailService.GetTotalOKSpotCheckDetailListByTime1(projectId, DateTime.Now);
+                double result = 0;
+                if (totalCheckDetailDataOKLists.Count > 0 && totalCheckDetailOKLists.Count > 0)
+                {
+                    var a = Convert.ToDouble(totalCheckDetailDataOKLists.Count);
+                    var b = Convert.ToDouble(totalCheckDetailOKLists.Count);
+                    result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                }
+
+                return result.ToString();
+            }
+
+        }
+
+        // 项目质量验收一次合格率
+        public static string GetQuSuccess(string projectId)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.View_Check_JointCheckDetail> totalCheckLists = JointCheckDetailService.GetTotalJointCheckDetailListByTime(projectId, DateTime.Now);
+                int a = totalCheckLists.Where(x => x.OK == 1).Count();
+                double result = 0;
+                if (a > 0 && totalCheckLists.Count > 0)
+                {
+                    var b = Convert.ToDouble(totalCheckLists.Count);
+                    result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                }
+
+                return result.ToString();
+            }
+
+        }
+
+        // 项目质量控制点统计完成率
+        public static string GetConSuccess(string projectId)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Num num = new Model.Num();
+                var controlItemAndCycles = (from x in db.WBS_ControlItemAndCycle
+                                            where x.ProjectId == projectId && x.IsApprove == true
+                                            orderby x.ControlItemAndCycleCode
+                                            select x).ToList();
+                var oKSpotCheckDetails = (from x in db.Check_SpotCheckDetail
+                                          join y in db.Check_SpotCheck
+                                          on x.SpotCheckCode equals y.SpotCheckCode
+                                          where x.IsOK == true && y.ProjectId == projectId
+                                          select x).ToList();
+                var a = Convert.ToDouble(oKSpotCheckDetails.Count);
+                var b = Convert.ToDouble(controlItemAndCycles.Count);
+                double result = 0;
+
+                if (a > 0 && b > 0)
+                {
+                    result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                }
+
+                return result.ToString();
+            }
+
+        }
     }
 }

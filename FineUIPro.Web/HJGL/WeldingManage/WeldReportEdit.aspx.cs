@@ -150,6 +150,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 }
 
                 this.UnitWorkId = report.UnitWorkId;
+
                 this.txtWeldingDate.Text = string.Format("{0:yyyy-MM-dd}", report.WeldingDate);
                 this.hdTablerId.Text = report.Tabler;
                 Model.Sys_User tabler = BLL.UserService.GetUserByUserId(report.Tabler);
@@ -173,6 +174,8 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 this.SimpleForm1.Reset(); ///重置所有字段
                 this.txtTabler.Text = this.CurrUser.UserName;
                 this.hdTablerId.Text = this.CurrUser.UserId;
+
+                txtWeldingDate.MaxDate = DateTime.Now;
                 this.txtWeldingDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
                 this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
                 string perfix = string.Format("{0:yyyyMMdd}", System.DateTime.Now) + "-";
@@ -180,8 +183,6 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             }
         }
         #endregion
-
-       
 
         #region 数据绑定
         /// <summary>
@@ -197,8 +198,8 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             else
             {
                 var task = from x in Funs.DB.View_HJGL_WeldingTask
-                           where x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == DateTime.Now.Date
-                           where x.WeldingDailyId ==null
+                           where x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == Convert.ToDateTime(txtWeldingDate.Text)
+                           where x.WeldingDailyId == null && x.CoverWelderId != null && x.BackingWelderId != null
                            select x;
                 dt = this.LINQToDataTable(task);
             }
@@ -979,6 +980,10 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         #endregion
 
         #region 查找
+        protected void WeldingDateText_OnTextChanged(object sender, EventArgs e)
+        {
+            BindGrid(null);
+        }
         /// <summary>
         /// 查找未焊接焊口
         /// </summary>

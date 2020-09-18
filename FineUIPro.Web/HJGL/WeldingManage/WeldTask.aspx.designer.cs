@@ -121,6 +121,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.HiddenField hdTaskWeldJoint;
         
         /// <summary>
+        /// btnSelectWelder 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnSelectWelder;
+        
+        /// <summary>
         /// drpCanWelder 控件。
         /// </summary>
         /// <remarks>
@@ -175,24 +184,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         protected global::FineUIPro.Button CreatWeldableWeldJoint;
         
         /// <summary>
-        /// drpCoverWelderId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpCoverWelderId;
-        
-        /// <summary>
-        /// drpBackingWelderId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpBackingWelderId;
-        
-        /// <summary>
         /// drpJointAttribute 控件。
         /// </summary>
         /// <remarks>
@@ -209,6 +200,24 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList drpWeldingMode;
+        
+        /// <summary>
+        /// drpCoverWelderId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpCoverWelderId;
+        
+        /// <summary>
+        /// drpBackingWelderId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpBackingWelderId;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -254,6 +263,33 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Menu Menu1;
+        
+        /// <summary>
+        /// btnMenuAdd 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnMenuAdd;
+        
+        /// <summary>
+        /// btnMotify 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnMotify;
+        
+        /// <summary>
+        /// Menu2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Menu Menu2;
         
         /// <summary>
         /// btnMenuDelete 控件。

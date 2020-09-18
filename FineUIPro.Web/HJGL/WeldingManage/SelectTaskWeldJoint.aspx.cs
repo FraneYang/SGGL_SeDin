@@ -39,20 +39,20 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 ViewState["UnitWorkId"] = value;
             }
         }
-        /// <summary>
-        /// 焊口主键
-        /// </summary>
-        public string WeldJointId
+
+        // 任务日期
+        public string TaskDate
         {
             get
             {
-                return (string)ViewState["WeldJointId"];
+                return (string)ViewState["TaskDate"];
             }
             set
             {
-                ViewState["WeldJointId"] = value;
+                ViewState["TaskDate"] = value;
             }
         }
+        
         /// <summary>
         /// 日报主键
         /// </summary>
@@ -95,6 +95,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (!IsPostBack)
             {
+                this.txtTaskDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now.AddDays(1));
+
                 BLL.Base_WeldingLocationServie.InitWeldingLocationDropDownList(drpWeldingLocation, true);
                 ///焊接属性
                 this.drpJointAttribute.DataTextField = "Text";
@@ -106,15 +108,21 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 this.drpWeldingMode.DataValueField = "Value";
                 this.drpWeldingMode.DataSource = BLL.DropListService.HJGL_WeldingMode();
                 this.drpWeldingMode.DataBind();
-                this.SelectedList = new List<string>();
+                //this.SelectedList = new List<string>();
                 //this.NoSelectedList = new List<string>();
 
                 string strList = Request.Params["strList"];
                 List<string> list = Funs.GetStrListByStr(strList, '|');
-                if (list.Count() == 2)
+                if (list.Count() == 3)
                 {
                     this.UnitWorkId = list[0];
                     this.UnitId = list[1];
+                    TaskDate = list[2];
+                    if (!string.IsNullOrEmpty(TaskDate))
+                    {
+                        txtTaskDate.Text = TaskDate;
+                        txtTaskDate.Enabled = false;
+                    }
                     string projectId = string.Empty;
                     Model.WBS_UnitWork UnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(this.UnitWorkId);
                     if (UnitWorkId != null)
@@ -167,52 +175,34 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             string pipelineId = this.tvControlItem.SelectedNodeID;
 
             var toDoMatterList = (from x in Funs.DB.View_HJGL_NoWeldJointFind
-                                where x.PipelineId == pipelineId &&
-                                      (x.WeldingDailyId == null || x.WeldingDailyId == this.WeldingDailyId)
-                                select x).ToList();
-            //List<Model.SpWeldingDailyItem> toDoMatterList = BLL.WeldingDailyService.GetWeldReportItemFind(this.WeldingDailyId, pipelineId);
-            string weldJointIds = Request.Params["weldJointIds"];
-            if (!string.IsNullOrEmpty(weldJointIds))
+                                  where x.PipelineId == pipelineId && x.WeldingDailyId == null
+                                  select x).ToList();
+           
+            //去除任务表已存在的焊口 
+            if (!string.IsNullOrEmpty(TaskDate))
             {
-                List<string> totallist = Funs.GetStrListByStr(weldJointIds, '@');
-                foreach (var hdItemsString in totallist)
+                var task = from x in Funs.DB.HJGL_WeldTask where x.UnitWorkId == UnitWorkId && x.TaskDate.Value.Date.ToString() == Convert.ToDateTime(txtTaskDate.Text.Trim()).ToString("yyyy-MM-dd") select x;
+                if (task.Count() > 0)
                 {
-                    List<string> list = Funs.GetStrListByStr(hdItemsString, '#');
-                    string weldlineIdLists = list[3];
-                    string[] weldJoints = weldlineIdLists.Split('|');
-                    foreach (string weldJointId in weldJoints)
+                    foreach (var item in task)
                     {
-                        Model.View_HJGL_NoWeldJointFind item = toDoMatterList.FirstOrDefault(e => e.WeldJointId == weldJointId);
-                        if (item != null)
+                        Model.View_HJGL_NoWeldJointFind jot = toDoMatterList.FirstOrDefault(e => e.WeldJointId == item.WeldJointId);
+                        if (jot != null)
                         {
-                            toDoMatterList.Remove(item);
+                            toDoMatterList.Remove(jot);
                         }
                     }
                 }
             }
-            string TaskWeldJoints = Request.Params["TaskWeldJoints"];//任务表已存在的焊口
-            if (!string.IsNullOrEmpty(TaskWeldJoints))
-            {
-                string[] weldJoints = TaskWeldJoints.Split('|');
-                foreach (string weldJointId in weldJoints)
-                {
-                    Model.View_HJGL_NoWeldJointFind item = toDoMatterList.FirstOrDefault(e => e.WeldJointId == weldJointId);
-                    if (item != null)
-                    {
-                        toDoMatterList.Remove(item);
-                    }
-                }
-            }
+          
             DataTable tb = this.LINQToDataTable(toDoMatterList);
             // 2.获取当前分页数据
-            //var table = this.GetPagedDataTable(GridNewDynamic, tb1);
             Grid1.RecordCount = tb.Rows.Count;
             tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
             Grid1.DataBind();
-
 
             //string[] arr = new string[this.Grid1.Rows.Count];
             //int a = 0;
@@ -250,19 +240,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
-            string[] selectRowId = Grid1.SelectedRowIDArray;
-            for (int i = 0; i < this.Grid1.Rows.Count; i++)
-            {
-                string rowId = this.Grid1.Rows[i].DataKeys[0].ToString();
-                if (selectRowId.Contains(rowId))
-                {
-                    SelectedList.Add(rowId);
-                }
-                //else
-                //{
-                //    NoSelectedList.Add(rowId);
-                //}
-            }
             this.BindGrid();
         }
         #endregion
@@ -286,40 +263,62 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            if (drpJointAttribute.SelectedValue != Const._Null)
+            if (!string.IsNullOrEmpty(txtTaskDate.Text))
             {
-                string itemsString = string.Empty;
-                string[] selectRowId = Grid1.SelectedRowIDArray;
-                for (int i = 0; i < this.Grid1.Rows.Count; i++)
+                if (!string.IsNullOrEmpty(TaskDate))
                 {
-                    string rowId = this.Grid1.Rows[i].DataKeys[0].ToString();
-                    if (selectRowId.Contains(rowId))
+                    SaveTask();
+                }
+                else
+                {
+                    var task = from x in Funs.DB.HJGL_WeldTask
+                               where x.UnitWorkId == UnitWorkId
+                               && x.TaskDate.Value.Date.ToString() == Convert.ToDateTime(txtTaskDate.Text.Trim()).ToString("yyyy-MM-dd")
+                               select x;
+                    if (task.Count() > 0)
                     {
-                        SelectedList.Add(rowId);
+                        ShowNotify("所选预计焊接日期已存在,请重新选择！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                    else
+                    {
+                        SaveTask();
                     }
                 }
-                string weldJointIds = Request.Params["weldJointIds"];
-                if (!string.IsNullOrEmpty(weldJointIds))
-                {
-                    itemsString += weldJointIds + "@";
-                }
-                itemsString += drpWeldingLocation.SelectedValue + "#";
-                itemsString += drpJointAttribute.SelectedValue + "#";
-                itemsString += drpWeldingMode.SelectedValue + "#";
-                foreach (var item in SelectedList)
-                {
-                    if (!itemsString.Contains(item))
-                    {
-                        itemsString += item + "|";
-                    }
-                }
-                PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(itemsString) + ActiveWindow.GetHidePostBackReference());
             }
+            
             else
             {
-                ShowNotify("请选择焊工", MessageBoxIcon.Warning);
+                ShowNotify("请选择预计焊接日期", MessageBoxIcon.Warning);
                 return;
             }
+        }
+
+
+        private void SaveTask()
+        {
+            string[] selectRowId = Grid1.SelectedRowIDArray;
+            for (int i = 0; i < selectRowId.Count(); i++)
+            {
+                Model.HJGL_WeldTask NewTask = new Model.HJGL_WeldTask();
+                NewTask.ProjectId = this.CurrUser.LoginProjectId;
+                NewTask.UnitWorkId = this.UnitWorkId;
+                NewTask.UnitId = this.UnitId;
+
+
+                NewTask.WeldTaskId = SQLHelper.GetNewID();
+                NewTask.WeldJointId = selectRowId[i];
+
+                NewTask.JointAttribute = drpJointAttribute.SelectedValue;
+                NewTask.WeldingMode = drpWeldingMode.SelectedValue;
+
+                NewTask.TaskDate = Convert.ToDateTime(txtTaskDate.Text);
+                NewTask.Tabler = this.CurrUser.UserId;
+                NewTask.TableDate = DateTime.Now;
+                BLL.WeldTaskService.AddWeldTask(NewTask);
+            }
+            ShowNotify("保存成功！", MessageBoxIcon.Success);
+            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(txtTaskDate.Text) + ActiveWindow.GetHidePostBackReference());
         }
         #endregion
     }

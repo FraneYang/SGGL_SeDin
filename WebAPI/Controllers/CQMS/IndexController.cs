@@ -14,6 +14,50 @@ namespace Mvc.Controllers
         // GET: /Index/
 
         [HttpGet]
+        // 质量验收一次合格率
+        public ResponseData<string> QuOnceNum(string projectId)
+        {
+            ResponseData<string> res = new ResponseData<string>();
+
+            res.successful = true;
+            res.resultValue = "" + BLL.CheckControlService.GetOneCount(projectId);
+            return res;
+        }
+
+        // 项目施工资料同步率
+        [HttpGet]
+        public ResponseData<string> ConstructionNum(string projectId)
+        {
+            ResponseData<string> res = new ResponseData<string>();
+
+            res.successful = true;
+            res.resultValue = "" + BLL.CheckControlService.GetConstruction(projectId);
+            return res;
+        }
+
+        // 项目质量问题整改完成率
+        [HttpGet]
+        public ResponseData<string> QuestionSuccess(string projectId)
+        {
+            ResponseData<string> res = new ResponseData<string>();
+
+            res.successful = true;
+            res.resultValue = "" + BLL.CheckControlService.GetQuSuccess(projectId);
+            return res;
+        }
+
+        // 项目质量控制点统计完成率
+        [HttpGet]
+        public ResponseData<string> ControlSuccess(string projectId)
+        {
+            ResponseData<string> res = new ResponseData<string>();
+
+            res.successful = true;
+            res.resultValue = "" + BLL.CheckControlService.GetConSuccess(projectId);
+            return res;
+        }
+
+        [HttpGet]
         public ResponseData<string> CheckControlCount(string projectId)
         {
             ResponseData<string> res = new ResponseData<string>();

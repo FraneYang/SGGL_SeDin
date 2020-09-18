@@ -229,6 +229,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 BLL.HotProessReportService.AddHotProessReport(NewReport);
             }
             Alert.ShowInTop("保存成功", MessageBoxIcon.Success);
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         #endregion

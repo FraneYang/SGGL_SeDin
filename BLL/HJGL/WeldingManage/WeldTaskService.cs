@@ -16,7 +16,15 @@ namespace BLL
         {
             return Funs.DB.HJGL_WeldTask.FirstOrDefault(e => e.WeldTaskId == WeldTaskId);
         }
-       
+
+        public static List<Model.View_HJGL_WeldingTask> GetWeldingTaskList(string ProjectId, string UnitWorkId, DateTime taskDate)
+        {
+            return (from x in Funs.DB.View_HJGL_WeldingTask
+                    where x.ProjectId == ProjectId && x.UnitWorkId == UnitWorkId
+                          && x.TaskDate.Value.Date == taskDate.Date
+                    select x).ToList();
+        }
+
         /// <summary>
         /// 增加焊接任务单信息
         /// </summary>
@@ -180,38 +188,40 @@ namespace BLL
 
             return returnViewMatch;
         }
-        public static List<Model.SpWeldingDailyItem> GetWeldingTaskList(string ProjectId, string UnitWorkId,DateTime taskDate) {
-            List<Model.SpWeldingDailyItem> returnViewMatch = new List<Model.SpWeldingDailyItem>();
-            var GetWeldingTask = (from x in Funs.DB.View_HJGL_WeldingTask
-                                  where x.ProjectId == ProjectId && x.UnitWorkId == UnitWorkId
-                                        && x.TaskDate.Value.Date == taskDate.Date
-                                  select x).ToList();
-            foreach (var item in GetWeldingTask)
-            {
-                Model.SpWeldingDailyItem newWeldReportItem = new Model.SpWeldingDailyItem();
-                newWeldReportItem.WeldTaskId = item.WeldTaskId;
-                newWeldReportItem.WeldJointId = item.WeldJointId;
-                newWeldReportItem.WeldJointCode = item.WeldJointCode;
-                newWeldReportItem.PipelineCode = item.PipelineCode;
-                newWeldReportItem.WeldTypeCode = item.WeldTypeCode;
-                newWeldReportItem.JointAttribute = item.JointAttribute;
-                newWeldReportItem.CanWelderId = item.CanWelderId;
-                newWeldReportItem.CanWelderCode = item.CanWelderCode;
-                newWeldReportItem.CoverWelderId = item.CoverWelderId;
-                newWeldReportItem.BackingWelderId = item.BackingWelderId;
-                newWeldReportItem.BackingWelderCode = item.BackingWelderCode;
-                newWeldReportItem.CoverWelderCode = item.CoverWelderCode;
-                newWeldReportItem.Size = item.Size;
-                newWeldReportItem.Dia = item.Dia;
-                newWeldReportItem.Thickness = item.Thickness;
-                newWeldReportItem.WeldingMethodCode = item.WeldingMethodCode;
-                newWeldReportItem.WeldingMode = item.WeldingMode;
-                newWeldReportItem.IsWelding = item.IsWelding;
-                newWeldReportItem.TaskDate =Convert.ToDateTime(item.TaskDate);
-                returnViewMatch.Add(newWeldReportItem);
-            }
-            return returnViewMatch;
-        }
+
+        //public static List<Model.SpWeldingDailyItem> GetWeldingTaskList(string ProjectId, string UnitWorkId,DateTime taskDate) {
+        //    List<Model.SpWeldingDailyItem> returnViewMatch = new List<Model.SpWeldingDailyItem>();
+        //    var GetWeldingTask = (from x in Funs.DB.View_HJGL_WeldingTask
+        //                          where x.ProjectId == ProjectId && x.UnitWorkId == UnitWorkId
+        //                                && x.TaskDate.Value.Date == taskDate.Date
+        //                          select x).ToList();
+        //    foreach (var item in GetWeldingTask)
+        //    {
+        //        Model.SpWeldingDailyItem newWeldReportItem = new Model.SpWeldingDailyItem();
+        //        newWeldReportItem.WeldTaskId = item.WeldTaskId;
+        //        newWeldReportItem.WeldJointId = item.WeldJointId;
+        //        newWeldReportItem.WeldJointCode = item.WeldJointCode;
+        //        newWeldReportItem.PipelineCode = item.PipelineCode;
+        //        newWeldReportItem.WeldTypeCode = item.WeldTypeCode;
+        //        newWeldReportItem.JointAttribute = item.JointAttribute;
+        //        newWeldReportItem.CanWelderId = item.CanWelderId;
+        //        newWeldReportItem.CanWelderCode = item.CanWelderCode;
+        //        newWeldReportItem.CoverWelderId = item.CoverWelderId;
+        //        newWeldReportItem.BackingWelderId = item.BackingWelderId;
+        //        newWeldReportItem.BackingWelderCode = item.BackingWelderCode;
+        //        newWeldReportItem.CoverWelderCode = item.CoverWelderCode;
+        //        newWeldReportItem.Size = item.Size;
+        //        newWeldReportItem.Dia = item.Dia;
+        //        newWeldReportItem.Thickness = item.Thickness;
+        //        newWeldReportItem.WeldingMethodCode = item.WeldingMethodCode;
+        //        newWeldReportItem.WeldingMode = item.WeldingMode;
+        //        newWeldReportItem.IsWelding = item.IsWelding;
+        //        newWeldReportItem.TaskDate =Convert.ToDateTime(item.TaskDate);
+        //        returnViewMatch.Add(newWeldReportItem);
+        //    }
+        //    return returnViewMatch;
+        //}
+
         /// <summary>
         /// 根据Id删除一个焊接任务单明细信息
         /// </summary>

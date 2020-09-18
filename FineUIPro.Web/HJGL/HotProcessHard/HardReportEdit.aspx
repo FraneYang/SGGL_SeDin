@@ -97,11 +97,11 @@
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtInspectionNum" Label="报告号" runat="server"
+                                        <f:TextBox ID="txtInspectionNum" Label="报告编号" runat="server"
                                             LabelWidth="190px">
                                         </f:TextBox>
                                         <f:TextBox ID="txtHardnessMethod" Label="检测方法" runat="server"
-                                            LabelWidth="190px" Readonly="true">
+                                            LabelWidth="190px">
                                         </f:TextBox>
                                         <f:TextBox ID="txtEquipmentModel" Label="设备型号" runat="server"
                                             LabelWidth="190px">
@@ -157,14 +157,6 @@
                                     DataField="MaterialCode" SortField="MaterialCode" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="90px">
                                 </f:RenderField>
-
-                                <f:RenderField HeaderText="检测结果" ColumnID="checkResult" DataField="checkResult"
-                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="80px">
-                                </f:RenderField>
-                                <f:WindowField HeaderTextAlign="Center" TextAlign="Center" Width="90px" WindowID="WindowHardReport"
-                                    DataIFrameUrlFields="HardTrustItemID" DataIFrameUrlFormatString="HardReportItem.aspx?HardTrustItemID={0}"
-                                    Text="硬度报告" HeaderText="硬度报告">
-                                </f:WindowField>
                                 <f:RenderField HeaderText="备注" ColumnID="Remark" DataField="Remark"
                                     SortField="Remark" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                     Width="90px" ExpandUnusedSpace="true">

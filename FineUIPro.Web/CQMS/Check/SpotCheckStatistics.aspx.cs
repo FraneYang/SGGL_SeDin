@@ -83,9 +83,11 @@ namespace FineUIPro.Web.CQMS.Check
             }
             if (drpUnitWork.SelectedValue != BLL.Const._Null && drpUnitWork.SelectedValue != null)
             {
-                string unitWorkIds = BLL.UnitWorkService.GetUnitWorkIdsByUnitWorkId(this.drpUnitWork.SelectedValue);
-                strSql += " AND CHARINDEX(UnitWorkId,@UnitWorkId)>0";
-                listStr.Add(new SqlParameter("@UnitWorkId", unitWorkIds));
+                //string unitWorkIds = BLL.UnitWorkService.GetUnitWorkIdsByUnitWorkId(this.drpUnitWork.SelectedValue);
+                //strSql += " AND CHARINDEX(UnitWorkId,@UnitWorkId)>0";
+                //listStr.Add(new SqlParameter("@UnitWorkId", unitWorkIds));
+                strSql += " AND UnitWorkId=@UnitWorkId";
+                listStr.Add(new SqlParameter("@UnitWorkId", drpUnitWork.SelectedValue));
             }
             if (drpCNProfessional.SelectedValue != BLL.Const._Null && drpCNProfessional.SelectedValue != null)
             {

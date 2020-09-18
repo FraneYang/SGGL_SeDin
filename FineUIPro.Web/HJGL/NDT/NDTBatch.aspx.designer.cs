@@ -211,15 +211,6 @@ namespace FineUIPro.Web.HJGL.NDT {
         protected global::FineUIPro.Label txtUnitName;
         
         /// <summary>
-        /// txtUnitWork 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtUnitWork;
-        
-        /// <summary>
         /// txtNDEDate 控件。
         /// </summary>
         /// <remarks>
@@ -227,6 +218,15 @@ namespace FineUIPro.Web.HJGL.NDT {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label txtNDEDate;
+        
+        /// <summary>
+        /// txtUnitWork 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtUnitWork;
         
         /// <summary>
         /// txtCheckUnit 控件。

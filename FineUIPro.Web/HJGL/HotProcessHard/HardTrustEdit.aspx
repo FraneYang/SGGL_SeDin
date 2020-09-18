@@ -50,10 +50,10 @@
                                         Required="true" runat="server" LabelWidth="190px" FocusOnPageLoad="true">
                                     </f:TextBox>
                                     <f:DropDownList ID="drpHardTrustUnit" Label="委托单位" runat="server"
-                                        ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="190px">
+                                        ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="190px" Readonly="true">
                                     </f:DropDownList>
                                     <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程名称"
-                                        LabelAlign="Right"  LabelWidth="190px" EnableEdit="true" ShowRedStar="true" Required="true">
+                                        LabelAlign="Right"  LabelWidth="190px" EnableEdit="true" ShowRedStar="true" Required="true" Readonly="true">
                                     </f:DropDownList>
                                 </Items>
                             </f:FormRow>

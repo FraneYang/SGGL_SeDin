@@ -91,7 +91,7 @@
                             AllowCellEditing="true" AllowColumnLocking="true" EnableColumnLines="true" ClicksToEdit="2"
                             DataIDField="HotProessTrustItemId" AllowSorting="true" SortField="PipelineCode,WeldJointCode"
                             SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
-                            PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" EnableTextSelection="True">
+                            PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" EnableTextSelection="True" ForceFit="true">
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar3" Position="Top" ToolbarAlign="Right" runat="server">
                                     <Items>
@@ -126,13 +126,6 @@
                                     DataField="ProessDate" SortField="ProessDate" FieldType="Date" Renderer="Date"
                                     HeaderTextAlign="Center" TextAlign="Left" Width="120px">
                                 </f:RenderField>
-                                <f:RenderField ColumnID="IsCompleted" Width="100px" DataField="IsCompleted"
-                                    HeaderText="是否完成" HeaderTextAlign="Center" TextAlign="Center" FieldType="String" />
-
-                                <f:WindowField HeaderTextAlign="Center" TextAlign="Center" Width="120px" WindowID="Window1"
-                                    DataIFrameUrlFields="HotProessTrustItemId" DataIFrameUrlFormatString="HotProessReportItem.aspx?HotProessTrustItemId={0}"
-                                    Text="热处理报告" HeaderText="热处理报告">
-                                </f:WindowField>
                             </Columns>
                             <Listeners>
                                 <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

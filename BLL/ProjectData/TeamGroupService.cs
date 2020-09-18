@@ -109,8 +109,7 @@ namespace BLL
         /// <returns></returns>
         public static object GetTeamGroupListByUnitId(string projectId, string unitId)
         {
-            return (from x in Funs.DB.ProjectData_TeamGroup where x.ProjectId == projectId && x.UnitId == unitId
-                    orderby x.TeamGroupCode select x).ToList();
+            return (from x in Funs.DB.ProjectData_TeamGroup where x.ProjectId == projectId && x.UnitId == unitId orderby x.TeamGroupCode select x).ToList();
         }
 
         #region 表下拉框

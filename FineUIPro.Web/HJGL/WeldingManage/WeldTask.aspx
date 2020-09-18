@@ -30,6 +30,9 @@
                         <f:Tree ID="tvControlItem" ShowHeader="false" Height="500px" Title="焊接任务单" runat="server" ShowBorder="false" EnableCollapse="true"
                             EnableSingleClickExpand="true" AutoLeafIdentification="true" EnableSingleExpand="true"
                             EnableTextSelection="true" OnNodeCommand="tvControlItem_NodeCommand" EnableExpandEvent="true">
+                             <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                         </Listeners>
                         </f:Tree>
                     </Items>
                 </f:Panel>
@@ -41,21 +44,24 @@
                             EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="WeldTaskId,WeldJointId" EnableColumnLines="true"
                             AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldTaskId" AllowSorting="true"
                             SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort"
-                            AllowPaging="false" IsDatabasePaging="true" PageSize="10000" EnableTextSelection="True">
+                            AllowPaging="false" IsDatabasePaging="true" PageSize="10000" EnableTextSelection="True"
+                             EnableCheckBoxSelect="true">
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar4" Position="Top" runat="server" ToolbarAlign="Right">
                                     <Items>
                                         <f:HiddenField runat="server" ID="hdItemsString"></f:HiddenField>
                                         <f:HiddenField runat="server" ID="hdTaskWeldJoint"></f:HiddenField>
-                                        <f:DropDownList ID="drpCanWelder"  Label="选择焊工批量填充" EnableEdit="true" runat="server" LabelWidth="140px">
+                                         <f:Button ID="btnSelectWelder"  runat="server" Text="选择焊工批量填充" OnClick="btnSelectWelder_Click">
+                                        </f:Button>
+                                        <f:DropDownList ID="drpCanWelder"  EnableEdit="true" runat="server" LabelWidth="140px">
                                         </f:DropDownList>
                                          <f:Button ID="btnSaveWelder" Icon="Accept" runat="server" Text="确认" OnClick="btnSaveWelder_Click">
                                         </f:Button>
                                         <f:ToolbarFill runat="server"></f:ToolbarFill>
                                         <f:DatePicker ID="txtTaskDate" Label="计划焊接日期" runat="server"
-                                            DateFormatString="yyyy-MM-dd" LabelAlign="Left" LabelWidth="110px" >
+                                            DateFormatString="yyyy-MM-dd" LabelAlign="Left" LabelWidth="110px"  Hidden="true">
                                         </f:DatePicker>
-                                        <f:Button runat="server" ID="ckSelect" Icon="Find" ToolTip="查找" Text="查找" OnClick="ckSelect_Click">
+                                        <f:Button runat="server" ID="ckSelect" Icon="Find" ToolTip="查找" Text="查找" OnClick="ckSelect_Click" Hidden="true">
                                         </f:Button> 
                                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存" OnClick="btnSave_Click">
                                         </f:Button> 
@@ -64,8 +70,6 @@
                                 </f:Toolbar>
                             </Toolbars>
                             <Columns>
-                                <f:RowNumberField EnablePagingNumber="true" HeaderText="序号"
-                                    Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
                                 <f:RenderField HeaderText="管线号" ColumnID="PipelineCode"
                                     DataField="PipelineCode" SortField="PipelineCode" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="90px" >
@@ -76,31 +80,6 @@
                                 </f:RenderField>
                                 <f:RenderField  ColumnID="WeldTaskId"
                                     DataField="WeldTaskId" FieldType="String" Hidden="true">
-                                </f:RenderField>
-                                 <f:RenderField HeaderText="可焊焊工号" ColumnID="CanWelderCode"
-                                    DataField="CanWelderCode" SortField="CanWelderCode" FieldType="String" HeaderTextAlign="Center"
-                                    TextAlign="Left" Width="300px">
-                                </f:RenderField>
-                                 <f:RenderField HeaderText="可焊焊工ID" ColumnID="CanWelderId"
-                                    DataField="CanWelderId"  FieldType="String" Hidden="true">
-                                </f:RenderField>
-                                <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderCode"
-                                    DataField="CoverWelderCode" FieldType="String" HeaderTextAlign="Center"
-                                    TextAlign="Left" Width="110px">
-                                    <Editor>
-                                        <f:DropDownList ID="drpCoverWelderId" EnableEdit="true" Required="true" runat="server"
-                                            ShowRedStar="true">
-                                        </f:DropDownList>
-                                    </Editor>
-                                </f:RenderField>
-                                <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderCode"
-                                    DataField="BackingWelderCode"  FieldType="String"
-                                     HeaderTextAlign="Center" TextAlign="Left" Width="110px">
-                                    <Editor>
-                                        <f:DropDownList ID="drpBackingWelderId" EnableEdit="true" Required="true" runat="server"
-                                            ShowRedStar="true">
-                                        </f:DropDownList>
-                                    </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="焊口属性" ColumnID="JointAttribute"
                                     DataField="JointAttribute" SortField="JointAttribute" FieldType="String" HeaderTextAlign="Center"
@@ -138,6 +117,31 @@
                                     DataField="WeldingMethodCode" SortField="WeldingMethodCode" FieldType="String"
                                     HeaderTextAlign="Center" TextAlign="Left" Width="120px">
                                 </f:RenderField>
+                                  <f:RenderField HeaderText="可焊焊工号" ColumnID="CanWelderCode"
+                                    DataField="CanWelderCode" SortField="CanWelderCode" FieldType="String" HeaderTextAlign="Center"
+                                    TextAlign="Left" Width="300px">
+                                </f:RenderField>
+                                 <f:RenderField HeaderText="可焊焊工ID" ColumnID="CanWelderId"
+                                    DataField="CanWelderId"  FieldType="String" Hidden="true">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderCode"
+                                    DataField="CoverWelderCode" FieldType="String" HeaderTextAlign="Center"
+                                    TextAlign="Left" Width="110px">
+                                    <Editor>
+                                        <f:DropDownList ID="drpCoverWelderId" EnableEdit="true" Required="true" runat="server"
+                                            ShowRedStar="true">
+                                        </f:DropDownList>
+                                    </Editor>
+                                </f:RenderField>
+                                <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderCode"
+                                    DataField="BackingWelderCode"  FieldType="String"
+                                     HeaderTextAlign="Center" TextAlign="Left" Width="110px">
+                                    <Editor>
+                                        <f:DropDownList ID="drpBackingWelderId" EnableEdit="true" Required="true" runat="server"
+                                            ShowRedStar="true">
+                                        </f:DropDownList>
+                                    </Editor>
+                                </f:RenderField>
                                 <f:RenderField HeaderText="WeldJointId" ColumnID="WeldJointId" DataField="WeldJointId"
                                     FieldType="String" Hidden="true">
                                 </f:RenderField>
@@ -170,16 +174,27 @@
             IsModal="true" Width="1200px" Height="650px" OnClose="Window1_Close">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
-            <f:MenuButton ID="btnMenuDelete"
-                EnablePostBack="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" OnClick="btnMenuDelete_Click">
+            <f:MenuButton ID="btnMenuAdd" EnablePostBack="true" runat="server" Text="新增" Icon="Add" OnClick="btnMenuAdd_Click">
+            </f:MenuButton>
+             <f:MenuButton ID="btnMotify" EnablePostBack="true" runat="server" Text="修改" Icon="ApplicationEdit"  OnClick="btnMotify_Click">
             </f:MenuButton>
         </f:Menu>
+        <f:Menu ID="Menu2" runat="server">
+             <f:MenuButton ID="btnMenuDelete"
+                EnablePostBack="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" OnClick="btnMenuDelete_Click">
+            </f:MenuButton>
+            </f:Menu>
     </form>
     <script type="text/javascript">
-        var menuID = '<%= Menu1.ClientID %>';
+        var menu1ID = '<%= Menu1.ClientID %>';
+        var menu2ID = '<%= Menu2.ClientID %>';
         // 返回false，来阻止浏览器右键菜单
         function onRowContextMenu(event, rowId) {
-            F(menuID).show();  //showAt(event.pageX, event.pageY);
+            F(menu2ID).show();  //showAt(event.pageX, event.pageY);
+            return false;
+        }
+         function onTreeNodeContextMenu(event, rowId) {
+            F(menu1ID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
 

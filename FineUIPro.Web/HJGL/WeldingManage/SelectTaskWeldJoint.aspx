@@ -51,7 +51,10 @@
                                         <f:DropDownList ID="drpWeldingLocation" Label="焊接位置"
                                             runat="server" LabelWidth="100px" Hidden="true"
                                             Width="180px" LabelAlign="Right">
-                                        </f:DropDownList>
+                                        </f:DropDownList> 
+                                        <f:DatePicker ID="txtTaskDate" Label="计划焊接日期" runat="server"
+                                            DateFormatString="yyyy-MM-dd" LabelAlign="Left" LabelWidth="110px" >
+                                        </f:DatePicker>
                                         <f:DropDownList ID="drpJointAttribute" Label="焊口属性"
                                             runat="server" ShowRedStar="true" Required="true" LabelWidth="100px"
                                             Width="180px" LabelAlign="Right">

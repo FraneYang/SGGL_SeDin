@@ -106,6 +106,8 @@
                 </f:MenuButton>
                 <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server" Text="打印" Icon="Printer" OnClick="btnPrinter_Click">
                 </f:MenuButton>
+                <f:MenuButton ID="btnPrinterAll" EnablePostBack="true" runat="server" Text="打印一览表" Icon="Printer" OnClick="btnPrinterAll_Click">
+                </f:MenuButton>
             </Items>
         </f:Menu>
     </form>

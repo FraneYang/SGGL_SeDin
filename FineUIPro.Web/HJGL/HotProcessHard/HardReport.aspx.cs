@@ -93,26 +93,24 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 unitWork1 = (from x in unitWorkList where x.ProjectType == "1" select x).ToList();
                 unitWork2 = (from x in unitWorkList where x.ProjectType == "2" select x).ToList();
             }
-            var WeldJointList = (from x in Funs.DB.HJGL_WeldJoint
-                                 join y in Funs.DB.HJGL_Pipeline on x.PipelineId equals y.PipelineId
-                                 where x.ProjectId == this.CurrUser.LoginProjectId
+            var WeldJointList = (from x in Funs.DB.HJGL_Hard_TrustItem
+                                 join y in Funs.DB.HJGL_Hard_Trust on x.HardTrustID equals y.HardTrustID
+                                 where y.ProjectId == this.CurrUser.LoginProjectId && y.InspectionNum==null
                                  select new { x.WeldJointId, y.UnitWorkId }).ToList();
             if (unitWork1.Count() > 0)
             {
                 foreach (var q in unitWork1)
                 {
-                    var HardTrustItem = (from y in Funs.DB.HJGL_Hard_TrustItem
-                                         join z in Funs.DB.HJGL_Hard_Trust on y.HardTrustID equals z.HardTrustID
-                                         where z.ProjectId == this.CurrUser.LoginProjectId && z.UnitWorkId == q.UnitWorkId
-                                         select y);
-                    var WeldJoint = from x in WeldJointList join y in Funs.DB.HJGL_HotProess_TrustItem on x.WeldJointId equals y.WeldJointId
-                                    where y.IsCompleted == true && x.UnitWorkId == q.UnitWorkId select x;
-                    var resultCount = WeldJoint.Where(w => HardTrustItem.Count(h => h.WeldJointId == w.WeldJointId) == 0).ToList().Count;
+                    var items = (from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x).ToList();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
                     tn1.Text = q.UnitWorkName;
-                    tn1.ToolTip = "施工单位：" + u.UnitName + "(未检测焊口总数:" + resultCount + ")"; 
+                    tn1.ToolTip = "施工单位：" + u.UnitName;
+                    if (items.Count > 0)
+                    {
+                        tn1.ToolTip += "(" + items.Count + ")";
+                    }
                     tn1.CommandName = "单位工程";
                     rootNode1.Nodes.Add(tn1);
                     BindNodes(tn1);
@@ -122,20 +120,16 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork2)
                 {
-                    var HardTrustItem = (from y in Funs.DB.HJGL_Hard_TrustItem
-                                         join z in Funs.DB.HJGL_Hard_Trust on y.HardTrustID equals z.HardTrustID
-                                         where z.ProjectId == this.CurrUser.LoginProjectId && z.UnitWorkId == q.UnitWorkId
-                                         select y);
-                    var WeldJoint = from x in WeldJointList
-                                    join y in Funs.DB.HJGL_HotProess_TrustItem on x.WeldJointId equals y.WeldJointId
-                                    where y.IsCompleted == true && x.UnitWorkId == q.UnitWorkId
-                                    select x;
-                    var resultCount = WeldJoint.Where(w => HardTrustItem.Count(h => h.WeldJointId == w.WeldJointId) == 0).ToList().Count;
+                    var items = (from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x).ToList();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
                     tn2.Text = q.UnitWorkName;
-                    tn2.ToolTip = "施工单位：" + u.UnitName + "(未检测焊口总数:" + resultCount + ")"; 
+                    tn2.ToolTip = "施工单位：" + u.UnitName ;
+                    if (items.Count > 0)
+                    {
+                        tn2.ToolTip += "(" + items.Count + ")";
+                    }
                     tn2.CommandName = "单位工程";
                     rootNode2.Nodes.Add(tn2);
                     BindNodes(tn2);
@@ -325,6 +319,15 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             this.InitTreeMenu();
             //this.BindGrid();
         }
+        /// <summary>
+        /// 检测报告窗口关闭事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void WindowHardReport_Close(object sender, WindowCloseEventArgs e)
+        {
+            BindGrid();
+        }
         #endregion
         protected void btnMenuModify_Click(object sender, EventArgs e)
         {
@@ -346,5 +349,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
             }
         }
+
+        
     }
 }

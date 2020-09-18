@@ -129,6 +129,9 @@ namespace BLL
                 string fileDir = "WebApi";
                 switch (menuId)
                 {
+                    case Const.CheckEquipmentMenuId:
+                        fileDir = "CheckEquipment";
+                        break;
                     case Const.CheckListMenuId:
                         fileDir = "CheckControl";
                         break;
