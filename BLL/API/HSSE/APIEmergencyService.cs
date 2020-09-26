@@ -520,5 +520,62 @@ namespace BLL
             }
         }
         #endregion        
+
+        #region 获取应急流程明细信息
+        /// <summary>
+        /// 获取应急队伍列表信息
+        /// </summary>
+        /// <param name="emergencyProcessId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getEmergencyProcessItem(string emergencyProcessId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.BaseInfoItem> getDataList = new List<Model.BaseInfoItem>();
+                var getEmergencyProcess = Funs.DB.Emergency_EmergencyProcess.FirstOrDefault(x => x.EmergencyProcessId == emergencyProcessId);
+                if (getEmergencyProcess != null)
+                {
+                    if (getEmergencyProcess.ProcessSteps == "0")
+                    {
+                        var getData = from x in Funs.DB.Emergency_EmergencyProcessItem
+                                      where x.EmergencyProcessId == emergencyProcessId
+                                      orderby x.SortId
+                                      select new Model.BaseInfoItem
+                                      { BaseInfoId = x.EmergencyProcessItemId, BaseInfoCode = x.SortId, BaseInfoName = x.Content, RemarkOther = "0" };
+                        if (getData.Count() > 0)
+                        {
+                            getDataList = getData.ToList();
+                        }
+                    }
+                    else
+                    {
+                        var getTeamList = Funs.GetStrListByStr(getEmergencyProcess.ProcessTeam, ',');
+                        if (getTeamList.Count() > 0)
+                        {
+                            foreach (var item in getTeamList)
+                            {
+                                var getTeamItem = from x in Funs.DB.Emergency_EmergencyTeamItem
+                                                  where x.FileId == item
+                                                  select x;
+                                foreach (var teamItem in getTeamItem)
+                                {
+                                    Model.BaseInfoItem newItem = new Model.BaseInfoItem
+                                    {
+                                        BaseInfoId = teamItem.PersonId,
+                                        BaseInfoName = BLL.PersonService.GetPersonNameById(teamItem.PersonId),
+                                        BaseInfoCode = teamItem.Tel,
+                                        Remark = teamItem.Job,
+                                        RemarkOther = "1",
+                                    };
+                                    getDataList.Add(newItem);
+                                }
+                            }
+                        }
+                    }
+                }
+                return getDataList;
+            }
+        }
+        #endregion        
     }
 }

@@ -64,6 +64,7 @@ namespace FineUIPro.Web.HSSE.Check
                     this.txtPartInPersons.Text = checkSpecial.PartInPersons;
                     checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
                                            where x.CheckSpecialId == this.CheckSpecialId
+                                           orderby x.UnitName, x.SortIndex
                                            select x).ToList();
                 }
                 Grid1.DataSource = checkSpecialDetails;

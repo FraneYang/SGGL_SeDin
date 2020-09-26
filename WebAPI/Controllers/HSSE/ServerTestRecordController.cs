@@ -71,11 +71,11 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getTestPlan = new Model.SGGLDB(Funs.ConnString).Test_TestPlan.FirstOrDefault(x => x.TestPlanId == testPlanId && x.States == Const.State_2
+                var getTestPlan = Funs.DB.Test_TestPlan.FirstOrDefault(x => x.TestPlanId == testPlanId && x.States == Const.State_2
                         && x.TestStartTime <= DateTime.Now && x.TestEndTime > DateTime.Now);
                 if (getTestPlan != null)
                 {
-                    var getTestRecord = new Model.SGGLDB(Funs.ConnString).Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecordId && !x.TestEndTime.HasValue);
+                    var getTestRecord = Funs.DB.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecordId && !x.TestEndTime.HasValue);
                     if (getTestRecord != null)
                     {
                         responeData.data = APIServerTestRecordService.CreateTestRecordItem(testPlanId, testRecordId);
@@ -161,9 +161,19 @@ namespace WebAPI.Controllers
                 int pageCount = getDataLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    getDataLists = getDataLists.OrderBy(x => x.TestType).ThenBy(x => x.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                    getDataLists = getDataLists.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 responeData.data = new { pageCount, getDataLists };
+
+                //List<Model.TestRecordItemItem> getDataLists = new List<Model.TestRecordItemItem>();
+                //int pageCount = Funs.DB.Test_TestRecordItem.Count(x => x.TestRecordId == testRecordId); ;
+                //if (pageCount > 0 && pageIndex >= 0)
+                //{
+                //    getDataLists = APIServerTestRecordService.geTestRecordItemListByTestRecordId(testRecordId, pageIndex);
+                //   // getDataLists.OrderBy(x => x.TestType).ThenBy(x => x.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                //}
+
+                //responeData.data = new { pageCount, getDataLists };
             }
             catch (Exception ex)
             {
@@ -226,7 +236,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getItem = new Model.SGGLDB(Funs.ConnString).Test_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == testRecordItemId);
+                var getItem = Funs.DB.Test_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == testRecordItemId);
                 if (getItem != null)
                 {
                     //更新没有结束时间且超时的考试记录

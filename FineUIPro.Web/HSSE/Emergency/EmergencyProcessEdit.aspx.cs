@@ -96,10 +96,7 @@ namespace FineUIPro.Web.HSSE.Emergency
                             }
                         }
                     }
-
-
                 }
-
             }
         }
 
@@ -144,7 +141,7 @@ namespace FineUIPro.Web.HSSE.Emergency
                 EmergencyProcess.StepOperator = this.txtStepOperator.Text.Trim();
                 //EmergencyProcess.Remark = this.txtRemark.Text.Trim();
                 //队伍
-                EmergencyProcess.ProcessTeam = GetStringByArray(this.drpTeam.SelectedValueArray);
+                EmergencyProcess.ProcessTeam = Funs.GetStringByArray(this.drpTeam.SelectedValueArray);
                 Funs.DB.SubmitChanges();
                 if (EmergencyProcess.ProcessSteps == "0")
                 {
@@ -176,22 +173,22 @@ namespace FineUIPro.Web.HSSE.Emergency
 
         }
 
-        private string GetStringByArray(string[] array)
-        {
-            string str = string.Empty;
-            foreach (var item in array)
-            {
-                if (item != BLL.Const._Null)
-                {
-                    str += item + ",";
-                }
-            }
-            if (!string.IsNullOrEmpty(str))
-            {
-                str = str.Substring(0, str.LastIndexOf(","));
-            }
-            return str;
-        }
+        //private string GetStringByArray(string[] array)
+        //{
+        //    string str = string.Empty;
+        //    foreach (var item in array)
+        //    {
+        //        if (item != BLL.Const._Null)
+        //        {
+        //            str += item + ",";
+        //        }
+        //    }
+        //    if (!string.IsNullOrEmpty(str))
+        //    {
+        //        str = str.Substring(0, str.LastIndexOf(","));
+        //    }
+        //    return str;
+        //}
         #endregion
 
         #region 获取按钮权限

@@ -210,7 +210,7 @@ namespace BLL
                     {
                         testRecord.TestStates = "2";
                     }
-                    else if (getTestPlan.States != Const.State_2 || getTestPlan.TestStartTime < DateTime.Now)
+                    else if (getTestPlan.States != Const.State_2 || getTestPlan.TestStartTime > DateTime.Now)
                     {
                         testRecord.TestStates = "1";
                     }
@@ -441,29 +441,29 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getDataLists = (from x in db.Test_TestRecordItem
-                                    where x.TestRecordId == testRecordId
-                                    orderby x.TestType, x.TrainingItemCode
-                                    select new Model.TestRecordItemItem
-                                    {
-                                        TestRecordItemId = x.TestRecordItemId,
-                                        TestRecordId = x.TestRecordId,
-                                        TrainingItemCode = x.TrainingItemCode,
-                                        Abstracts = x.Abstracts,
-                                        AttachUrl = x.AttachUrl.Replace("\\", "/") ?? "",
-                                        TestType = x.TestType,
-                                        TestTypeName = x.TestType == "1" ? "单选题" : (x.TestType == "2" ? "多选题" : "判断题"),
-                                        AItem = x.AItem ?? "",
-                                        BItem = x.BItem ?? "",
-                                        CItem = x.CItem ?? "",
-                                        DItem = x.DItem ?? "",
-                                        EItem = x.EItem ?? "",
-                                        AnswerItems = x.AnswerItems ?? "",
-                                        Score = x.Score ?? 0,
-                                        SubjectScore = x.SubjectScore ?? 0,
-                                        SelectedItem = x.SelectedItem ?? "",
-                                    }).ToList();
-                return getDataLists;
+                var getDataLists = from x in db.Test_TestRecordItem
+                                   where x.TestRecordId == testRecordId
+                                   orderby x.TestType, x.TrainingItemCode
+                                   select new Model.TestRecordItemItem
+                                   {
+                                       TestRecordItemId = x.TestRecordItemId,
+                                       TestRecordId = x.TestRecordId,
+                                       TrainingItemCode = x.TrainingItemCode,
+                                       Abstracts = x.Abstracts,
+                                       AttachUrl = x.AttachUrl.Replace("\\", "/") ?? "",
+                                       TestType = x.TestType,
+                                       TestTypeName = x.TestType == "1" ? "单选题" : (x.TestType == "2" ? "多选题" : "判断题"),
+                                       AItem = x.AItem ?? "",
+                                       BItem = x.BItem ?? "",
+                                       CItem = x.CItem ?? "",
+                                       DItem = x.DItem ?? "",
+                                       EItem = x.EItem ?? "",
+                                       AnswerItems = x.AnswerItems ?? "",
+                                       Score = x.Score ?? 0,
+                                       SubjectScore = x.SubjectScore ?? 0,
+                                       SelectedItem = x.SelectedItem ?? "",
+                                   };
+                return getDataLists.ToList();
             }
         }
         #endregion

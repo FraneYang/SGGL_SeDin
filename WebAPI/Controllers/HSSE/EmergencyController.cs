@@ -254,5 +254,28 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 获取应急流程详细
+        /// <summary>
+        /// 获取应急队伍信息列表-查询
+        /// </summary>
+        /// <param name="emergencyProcessId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getEmergencyProcessItem(string emergencyProcessId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIEmergencyService.getEmergencyProcessItem(emergencyProcessId);
+                responeData.data = new {  getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

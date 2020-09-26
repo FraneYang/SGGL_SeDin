@@ -30,7 +30,7 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true" 
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow ColumnWidths="35% 10% 30% 30%">
+            <f:FormRow ColumnWidths="30% 15% 30% 30%">
                 <Items>
                     <f:TextBox ID="txtCheckSpecialCode" runat="server" Label="检查编号" Readonly="true" MaxLength="50">
                     </f:TextBox>       
@@ -69,7 +69,7 @@
                         <Columns>                       
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                 TextAlign="Center" />
-                             <f:RenderField Width="110px" ColumnID="CheckAreaName" DataField="CheckAreaName" SortField="CheckAreaName"
+                             <f:RenderField Width="130px" ColumnID="CheckAreaName" DataField="CheckAreaName" SortField="CheckAreaName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位工程">
                                 <Editor>
                                     <f:DropDownList ID="drpCheckArea" Required="true" runat="server" EnableEdit="true" ShowRedStar="true">

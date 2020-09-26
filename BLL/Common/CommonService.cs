@@ -23,6 +23,10 @@ namespace BLL
                     {
                         return new List<string>() { Const.Menu_Server, Const.Menu_HSSE, Const.Menu_CQMS, Const.Menu_HJGL };
                     }
+                    else if (userId == Const.sedinId)
+                    {
+                        return new List<string>() { Const.Menu_CQMS };
+                    }
                     else
                     {
                         List<string> returnList = new List<string>();
@@ -40,7 +44,7 @@ namespace BLL
                         var getPRoles = (from x in db.Project_ProjectUser
                                          join y in db.Base_Project on x.ProjectId equals y.ProjectId
                                          where (y.ProjectState == Const.ProjectState_1 || y.ProjectState == null) && x.UserId == userId && x.RoleId != null
-                                         select x.RoleId).ToList();                 
+                                         select x.RoleId).ToList();
                         foreach (var item in getPRoles)
                         {
                             if (string.IsNullOrEmpty(rolesStr))
@@ -141,6 +145,10 @@ namespace BLL
                 ///1、当前用户是管理员 
                 ///2、当前菜单是个人设置 
                 if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
+                {
+                    returnValue = true;
+                }
+                else if (userId == Const.sedinId)
                 {
                     returnValue = true;
                 }

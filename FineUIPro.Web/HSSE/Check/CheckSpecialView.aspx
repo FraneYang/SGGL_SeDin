@@ -45,12 +45,12 @@
                 <Items>
                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckSpecialDetailId"
                         DataKeyNames="CheckSpecialDetailId" ShowGridHeader="true" MinHeight="350px"       
-                        AllowSorting="true" SortField="SortIndex" SortDirection="ASC"  OnSort="Grid1_Sort"
+                        AllowSorting="false" SortField="SortIndex" SortDirection="ASC"  OnSort="Grid1_Sort"
                         EnableColumnLines="true"  EnableTextSelection="True" OnRowCommand="Grid1_RowCommand">                           
                         <Columns>      
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                   TextAlign="Center" />
-                            <f:RenderField Width="110px" ColumnID="CheckAreaName" DataField="CheckAreaName" SortField="CheckAreaName"
+                            <f:RenderField Width="130px" ColumnID="CheckAreaName" DataField="CheckAreaName" SortField="CheckAreaName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位工程">
                             </f:RenderField>
                             <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
@@ -65,7 +65,7 @@
                             <f:RenderField Width="80px" ColumnID="CompleteStatusName" DataField="CompleteStatusName" SortField="CompleteStatusName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理结果">
                             </f:RenderField>   
-                            <f:LinkButtonField Width="160px" ColumnID="HandleStepLink" DataTextField="HandleStepLink" DataToolTipField="HandleStepLink" HeaderText="处理措施"
+                            <f:LinkButtonField Width="150px" ColumnID="HandleStepLink" DataTextField="HandleStepLink" DataToolTipField="HandleStepLink" HeaderText="处理措施"
                                  CommandName="click" EnableAjax="false"  />                            
                             <f:RenderField Width="80px" ColumnID="HiddenHazardTypeName" DataField="HiddenHazardTypeName" SortField="HiddenHazardTypeName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="隐患类别">

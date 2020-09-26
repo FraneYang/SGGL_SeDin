@@ -90,7 +90,7 @@ namespace FineUIPro.Web.HSSE.Check
 
                     var checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
                                                where x.CheckSpecialId == this.CheckSpecialId
-                                               orderby x.SortIndex
+                                               orderby x.UnitName, x.SortIndex
                                                select x).ToList();
                     if (checkSpecialDetails.Count() > 0)
                     {
@@ -289,6 +289,14 @@ namespace FineUIPro.Web.HSSE.Check
         private string SaveDetail(string type, Model.Check_CheckSpecial checkSpecial)
         {
             string info = string.Empty;
+            var unitWorks = from x in Funs.DB.WBS_UnitWork
+                            where x.ProjectId == this.ProjectId && x.SuperUnitWork == null
+                            orderby x.UnitWorkCode
+                            select new
+                            {
+                                x.UnitWorkId,
+                                UnitWorkName = BLL.UnitWorkService.GetUnitWorkALLName(x.UnitWorkId)
+                            };
             List<Model.Check_CheckSpecialDetail> detailLists = new List<Model.Check_CheckSpecialDetail>();
             JArray teamGroupData = Grid1.GetMergedData();
             foreach (JObject teamGroupRow in teamGroupData)
@@ -308,12 +316,19 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     newDetail.UnitId = getUnit.UnitId;
                 }
-
-                var getUnitWork = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkName == values.Value<string>("CheckAreaName") && x.ProjectId == this.ProjectId);
-                if (getUnitWork != null)
+                var getF = from x in unitWorks.ToList()
+                           where x.UnitWorkName == values.Value<string>("CheckAreaName")
+                           select x;
+                if (getF.FirstOrDefault() != null)
                 {
-                    newDetail.CheckArea = getUnitWork.UnitWorkId;                    
+                    newDetail.CheckArea = getF.FirstOrDefault().UnitWorkId;
                 }
+                //var getUnitWork = Funs.DB.WBS_UnitWork.FirstOrDefault(x => x.UnitWorkName == values.Value<string>("CheckAreaName")
+                //&& x.ProjectId == this.ProjectId);
+                //if (getUnitWork != null)
+                //{
+                //    newDetail.CheckArea = getUnitWork.UnitWorkId;
+                //}
                 string[] strs = values.Value<string>("HandleStepStr").Split(',');
                 string handleStep = string.Empty;
                 foreach (var item in strs)
