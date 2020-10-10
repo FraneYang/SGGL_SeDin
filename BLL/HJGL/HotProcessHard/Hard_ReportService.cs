@@ -42,9 +42,9 @@ namespace BLL
                 HardReportNo = setHardReport.HardReportNo,
                 TestingPointNo = setHardReport.TestingPointNo,
                 HardNessValue1 = setHardReport.HardNessValue1,
-                HardNessValue2 = setHardReport.HardNessValue2,
-                HardNessValue3 = setHardReport.HardNessValue3,
                 Remark = setHardReport.Remark,
+                IsShow = setHardReport.IsShow,
+                SortIndex = setHardReport.SortIndex,
             };
 
             db.HJGL_Hard_Report.InsertOnSubmit(newHardReport);
@@ -67,6 +67,8 @@ namespace BLL
                 newHardReport.HardNessValue2 = updateHardReport.HardNessValue2;
                 newHardReport.HardNessValue3 = updateHardReport.HardNessValue3;
                 newHardReport.Remark = updateHardReport.Remark;
+                newHardReport.IsShow = updateHardReport.IsShow;
+                newHardReport.SortIndex = updateHardReport.SortIndex;
                 db.SubmitChanges();
             }
         }

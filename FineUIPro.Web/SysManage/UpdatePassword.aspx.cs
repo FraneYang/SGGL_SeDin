@@ -39,9 +39,11 @@
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"                          
                           + @" WHERE  Users.Account !='hfnbd'";           
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " AND UserId = @UserId";
-            listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
-
+            if (this.CurrUser.UserId != BLL.Const.sysglyId && this.CurrUser.UserId != BLL.Const.hfnbdId)
+            {
+                strSql += " AND UserId = @UserId";
+                listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
+            }
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
                 strSql += " AND UserName LIKE @UserName";

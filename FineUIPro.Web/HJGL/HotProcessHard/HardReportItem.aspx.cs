@@ -39,7 +39,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         /// <summary>
         /// 报告集合
         /// </summary>
-        private List<Model.HJGL_Hard_Report> HardReportList = new List<Model.HJGL_Hard_Report>();
+        private List<Model.HJGL_View_HardReportItem> HardReportList = new List<Model.HJGL_View_HardReportItem>();
         #endregion
 
         #region 加载
@@ -99,21 +99,27 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         /// </summary>
         private void BindGrid()
         {
-            var getReports = Hard_ReportService.GetHardReportListById(HardTrustItemID);
-            foreach (var item in getReports)
-            {
-                Model.HJGL_Hard_Report NewReport = new Model.HJGL_Hard_Report();
-                NewReport.HardReportId = item.HardReportId;
-                NewReport.HardTrustItemID = item.HardTrustItemID;
-                NewReport.WeldJointId = item.WeldJointId;
-                NewReport.TestingPointNo = item.TestingPointNo;
-                NewReport.HardNessValue1 = item.HardNessValue1;
-                NewReport.HardNessValue2 = item.HardNessValue2;
-                NewReport.HardNessValue3 = item.HardNessValue3;
-                NewReport.Remark = item.Remark;
-                HardReportList.Add(NewReport);
-            }
-            Grid1.DataSource = HardReportList;
+            //var getReports = Hard_ReportService.GetHardReportListById(HardTrustItemID);
+            //foreach (var item in getReports)
+            //{
+            //    Model.HJGL_Hard_Report NewReport = new Model.HJGL_Hard_Report();
+            //    NewReport.HardReportId = item.HardReportId;
+            //    NewReport.HardTrustItemID = item.HardTrustItemID;
+            //    NewReport.WeldJointId = item.WeldJointId;
+            //    NewReport.TestingPointNo = item.TestingPointNo;
+            //    NewReport.HardNessValue1 = item.HardNessValue1;
+            //    NewReport.HardNessValue2 = item.HardNessValue2;
+            //    NewReport.HardNessValue3 = item.HardNessValue3;
+            //    NewReport.Remark = item.Remark;
+            //    HardReportList.Add(NewReport);
+            //}
+            string strSql = @"select * from HJGL_View_HardReportItem where HardTrustItemID=@HardTrustItemID order by SortIndex";
+
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            listStr.Add(new SqlParameter("@HardTrustItemID", HardTrustItemID));
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            Grid1.DataSource = tb;
             Grid1.DataBind();
         }
 
@@ -179,7 +185,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_HotHardReportMenuId, Const.BtnAdd))
             {
                 HardReportList = GetDetails();
-                Model.HJGL_Hard_Report NewReport = new Model.HJGL_Hard_Report();
+                Model.HJGL_View_HardReportItem NewReport = new Model.HJGL_View_HardReportItem();
                 NewReport.HardReportId = SQLHelper.GetNewID(typeof(Model.HJGL_Hard_Report));
                 NewReport.HardTrustItemID = HardTrustItemID;
                 NewReport.WeldJointId = WeldJointId;
@@ -193,7 +199,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 return;
             }
         }
-        private List<Model.HJGL_Hard_Report> GetDetails()
+        private List<Model.HJGL_View_HardReportItem> GetDetails()
         {
             HardReportList.Clear();
             foreach (JObject mergedRow in Grid1.GetMergedData())
@@ -205,7 +211,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 string HardNessValue2 = values.Value<string>("HardNessValue2");
                 string HardNessValue3 = values.Value<string>("HardNessValue3");
                 string Remark = values.Value<string>("Remark");
-                Model.HJGL_Hard_Report NewReport = new Model.HJGL_Hard_Report();
+                Model.HJGL_View_HardReportItem NewReport = new Model.HJGL_View_HardReportItem();
                 NewReport.HardReportId = Grid1.Rows[i].DataKeys[0].ToString();
                 NewReport.HardTrustItemID = HardTrustItemID;
                 NewReport.WeldJointId = Grid1.Rows[i].DataKeys[1].ToString();
@@ -264,18 +270,39 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 ///保存硬度检测报告
                 Hard_ReportService.DeleteHard_ReportsByHardTrustItemID(hardTrustItemId);
                 HardReportList = GetDetails();
+                var num = 1;
                 foreach (var item in HardReportList)
                 {
-                    Model.HJGL_Hard_Report NewReport = new Model.HJGL_Hard_Report();
-                    NewReport.HardReportId = item.HardReportId;
-                    NewReport.HardTrustItemID = item.HardTrustItemID;
-                    NewReport.WeldJointId = item.WeldJointId;
-                    NewReport.TestingPointNo = item.TestingPointNo;
-                    NewReport.HardNessValue1 = item.HardNessValue1;
-                    NewReport.HardNessValue2 = item.HardNessValue2;
-                    NewReport.HardNessValue3 = item.HardNessValue3;
-                    NewReport.Remark = item.Remark;
-                    BLL.Hard_ReportService.AddHard_Report(NewReport);
+                    Model.HJGL_Hard_Report NewReport1 = new Model.HJGL_Hard_Report();
+                    NewReport1.HardReportId = item.HardReportId;
+                    NewReport1.HardTrustItemID = item.HardTrustItemID;
+                    NewReport1.WeldJointId = item.WeldJointId;
+                    NewReport1.TestingPointNo = item.TestingPointNo;
+                    NewReport1.HardNessValue1 = item.HardNessValue1;
+                    NewReport1.Remark = item.Remark;
+                    NewReport1.SortIndex =num;
+                    NewReport1.IsShow = true;
+                    BLL.Hard_ReportService.AddHard_Report(NewReport1);
+                    Model.HJGL_Hard_Report NewReport2 = new Model.HJGL_Hard_Report();
+                    NewReport2.HardReportId = SQLHelper.GetNewID(typeof(Model.HJGL_Hard_Report));
+                    NewReport2.HardTrustItemID = item.HardTrustItemID;
+                    NewReport2.WeldJointId = item.WeldJointId;
+                    NewReport2.TestingPointNo = item.TestingPointNo;
+                    NewReport2.HardNessValue1 = item.HardNessValue2;
+                    NewReport2.Remark = item.Remark;
+                    NewReport2.SortIndex = num;
+                    NewReport2.IsShow = false;
+                    BLL.Hard_ReportService.AddHard_Report(NewReport2);
+                    Model.HJGL_Hard_Report NewReport3 = new Model.HJGL_Hard_Report();
+                    NewReport3.HardReportId = SQLHelper.GetNewID(typeof(Model.HJGL_Hard_Report));
+                    NewReport3.HardTrustItemID = item.HardTrustItemID;
+                    NewReport3.WeldJointId = item.WeldJointId;
+                    NewReport3.TestingPointNo = item.TestingPointNo;
+                    NewReport3.HardNessValue1 = item.HardNessValue3;
+                    NewReport3.Remark = item.Remark;
+                    NewReport3.SortIndex = num;
+                    BLL.Hard_ReportService.AddHard_Report(NewReport3);
+                    num++;
                 }
             }
             Alert.ShowInTop("保存成功", MessageBoxIcon.Success);

@@ -370,11 +370,11 @@ namespace BLL
         /// </summary>
         public const string ProjectAssistantManager = "A184835B-73AF-ERHM-9F83-20740CE2FAD7";
         /// <summary>
-        /// 质量经理
+        /// 质量经理（总包）
         /// </summary>
         public const string QAManager = "GCB64EF3-AB0A-40BC-824D-CC314598D5DC";
         /// <summary>
-        /// 施工经理
+        /// 施工经理（总包）
         /// </summary>
         public const string ConstructionManager = "22F78A47-F59C-4FE8-9C43-2DD304CB2108";
         /// <summary>
@@ -386,7 +386,7 @@ namespace BLL
         /// </summary>
         public const string ConstructionAssistantManager = "AAE579CF-A249-4336-BAFE-7FB4D5753451";
         /// <summary>
-        /// 项目HSSE经理
+        /// 安全经理（总包）
         /// </summary>
         public const string HSSEManager = "3314753D-E295-4D87-B938-E8C8EF5C17BC";
         /// <summary>
@@ -418,7 +418,7 @@ namespace BLL
         /// </summary>
         public const string DriveManager = "TA3737E4-3677-4B7C-B6F6-D546CC2D83E0";
         /// <summary>
-        /// HSSE工程师
+        /// 安全工程师（总包）
         /// </summary>
         public const string HSSEEngineer = "66D2ECB4-2946-4C6E-8E4B-1C4CD096B8A5";
         /// <summary>
@@ -438,7 +438,7 @@ namespace BLL
         /// </summary>
         public static string KZEngineer = "CADC4D2C-E101-44E0-978A-9AD86C3B5F48";
         /// <summary>
-        /// 质量工程师
+        /// 施工质量工程师
         /// </summary>
         public static string CQEngineer = "eb2646ae-36dd-4199-a75e-55a6f42935ad";
         /// <summary>

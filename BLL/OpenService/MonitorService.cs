@@ -180,7 +180,7 @@ namespace BLL
                 AutoReset = true
             };
             personQuarterCheckTimer.Elapsed += new ElapsedEventHandler(AddQuarterCheck);
-            personQuarterCheckTimer.Interval = 1000;
+            personQuarterCheckTimer.Interval = 1000 * 3600 * 20;
             personQuarterCheckTimer.Start();
         }
 
@@ -264,7 +264,7 @@ namespace BLL
                         foreach (var item in GetProjectList)
                         {
                             ///施工经理工作任务书
-                            Model.Project_ProjectUser ConstructUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.ConstructionManager);
+                            Model.Project_ProjectUser ConstructUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
                             if (ConstructUser != null)
                             {
 
@@ -284,7 +284,7 @@ namespace BLL
                                 SaveConstructItem(Check.ProjectId, Check.QuarterCheckId);
                             }
                             ///安全经理工作任务书
-                            Model.Project_ProjectUser HSSEUsers = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.HSSEManager);
+                            Model.Project_ProjectUser HSSEUsers = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.HSSEManager));
                             if (HSSEUsers != null)
                             {
                                 Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
@@ -303,7 +303,7 @@ namespace BLL
                                 SaveSecurityItem(Check.ProjectId, Check.QuarterCheckId);
                             }
                             ///质量经理工作任务书
-                            Model.Project_ProjectUser QAUsers = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.QAManager);
+                            Model.Project_ProjectUser QAUsers = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.QAManager));
                             if (QAUsers != null)
                             {
                                 Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
@@ -323,7 +323,7 @@ namespace BLL
 
                             }
                             ///试车经理工作任务书
-                            Model.Project_ProjectUser TestUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.TestManager);
+                            Model.Project_ProjectUser TestUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.TestManager));
                             if (TestUser != null)
                             {
                                 Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
@@ -341,17 +341,17 @@ namespace BLL
                                 BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
                                 SaveTestItem(Check.ProjectId, Check.QuarterCheckId);
                             }
-                            ///施工专业工程师工作任务书-土建
-                            Model.Project_ProjectUser CVEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.CVEngineer);
-                            if (CVEgUser != null)
+                            ///施工专业工程师工作任务书
+                            Model.Project_ProjectUser EgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.ZBCNEngineer));
+                            if (EgUser != null)
                             {
                                 Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
                                 {
                                     QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
                                     QuarterCheckName = "施工专业工程师工作任务书",
-                                    ProjectId = CVEgUser.ProjectId,
-                                    UserId = CVEgUser.UserId,
-                                    RoleId = BLL.Const.CVEngineer,
+                                    ProjectId = EgUser.ProjectId,
+                                    UserId = EgUser.UserId,
+                                    RoleId = BLL.Const.ZBCNEngineer,
                                     StartTime = startTime,
                                     EndTime = endTime,
                                     State = "0",
@@ -361,108 +361,128 @@ namespace BLL
                                 SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
 
                             }
-                            ///施工专业工程师工作任务书-设备
-                            Model.Project_ProjectUser FEEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.FEEngineer);
-                            if (FEEgUser != null)
-                            {
-                                Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
-                                {
-                                    QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
-                                    QuarterCheckName = "施工专业工程师工作任务书",
-                                    ProjectId = FEEgUser.ProjectId,
-                                    UserId = FEEgUser.UserId,
-                                    RoleId = BLL.Const.FEEngineer,
-                                    StartTime = startTime,
-                                    EndTime = endTime,
-                                    State = "0",
-                                    CheckType = "5"
-                                };
-                                BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
-                                SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
+                            /////施工专业工程师工作任务书-土建
+                            //Model.Project_ProjectUser CVEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.CVEngineer));
+                            //if (CVEgUser != null)
+                            //{
+                            //    Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
+                            //    {
+                            //        QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
+                            //        QuarterCheckName = "施工专业工程师工作任务书",
+                            //        ProjectId = CVEgUser.ProjectId,
+                            //        UserId = CVEgUser.UserId,
+                            //        RoleId = BLL.Const.CVEngineer,
+                            //        StartTime = startTime,
+                            //        EndTime = endTime,
+                            //        State = "0",
+                            //        CheckType = "5"
+                            //    };
+                            //    BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
+                            //    SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
 
-                            }
-                            ///施工专业工程师工作任务书-管道
-                            Model.Project_ProjectUser PDEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.PDEngineer);
-                            if (PDEgUser != null)
-                            {
-                                Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
-                                {
-                                    QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
-                                    QuarterCheckName = "施工专业工程师工作任务书",
-                                    ProjectId = PDEgUser.ProjectId,
-                                    UserId = PDEgUser.UserId,
-                                    RoleId = BLL.Const.PDEngineer,
-                                    StartTime = startTime,
-                                    EndTime = endTime,
-                                    State = "0",
-                                    CheckType = "5"
-                                };
-                                BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
-                                SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
+                            //}
+                            /////施工专业工程师工作任务书-设备
+                            //Model.Project_ProjectUser FEEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.FEEngineer));
+                            //if (FEEgUser != null)
+                            //{
+                            //    Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
+                            //    {
+                            //        QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
+                            //        QuarterCheckName = "施工专业工程师工作任务书",
+                            //        ProjectId = FEEgUser.ProjectId,
+                            //        UserId = FEEgUser.UserId,
+                            //        RoleId = BLL.Const.FEEngineer,
+                            //        StartTime = startTime,
+                            //        EndTime = endTime,
+                            //        State = "0",
+                            //        CheckType = "5"
+                            //    };
+                            //    BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
+                            //    SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
 
-                            }
-                            ///施工专业工程师工作任务书-电气
-                            Model.Project_ProjectUser EHEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.EHEngineer);
-                            if (EHEgUser != null)
-                            {
-                                Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
-                                {
-                                    QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
-                                    QuarterCheckName = "施工专业工程师工作任务书",
-                                    ProjectId = EHEgUser.ProjectId,
-                                    UserId = EHEgUser.UserId,
-                                    RoleId = BLL.Const.EHEngineer,
-                                    StartTime = startTime,
-                                    EndTime = endTime,
-                                    State = "0",
-                                    CheckType = "5"
-                                };
-                                BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
-                                SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
+                            //}
+                            /////施工专业工程师工作任务书-管道
+                            //Model.Project_ProjectUser PDEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.PDEngineer));
+                            //if (PDEgUser != null)
+                            //{
+                            //    Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
+                            //    {
+                            //        QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
+                            //        QuarterCheckName = "施工专业工程师工作任务书",
+                            //        ProjectId = PDEgUser.ProjectId,
+                            //        UserId = PDEgUser.UserId,
+                            //        RoleId = BLL.Const.PDEngineer,
+                            //        StartTime = startTime,
+                            //        EndTime = endTime,
+                            //        State = "0",
+                            //        CheckType = "5"
+                            //    };
+                            //    BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
+                            //    SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
 
-                            }
-                            ///施工专业工程师工作任务书-仪表
-                            Model.Project_ProjectUser EAEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.EAEngineer);
-                            if (EAEgUser != null)
-                            {
-                                Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
-                                {
-                                    QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
-                                    QuarterCheckName = "施工专业工程师工作任务书",
-                                    ProjectId = EAEgUser.ProjectId,
-                                    UserId = EAEgUser.UserId,
-                                    RoleId = BLL.Const.EAEngineer,
-                                    StartTime = startTime,
-                                    EndTime = endTime,
-                                    State = "0",
-                                    CheckType = "5"
-                                };
-                                BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
-                                SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
+                            //}
+                            /////施工专业工程师工作任务书-电气
+                            //Model.Project_ProjectUser EHEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.EHEngineer));
+                            //if (EHEgUser != null)
+                            //{
+                            //    Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
+                            //    {
+                            //        QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
+                            //        QuarterCheckName = "施工专业工程师工作任务书",
+                            //        ProjectId = EHEgUser.ProjectId,
+                            //        UserId = EHEgUser.UserId,
+                            //        RoleId = BLL.Const.EHEngineer,
+                            //        StartTime = startTime,
+                            //        EndTime = endTime,
+                            //        State = "0",
+                            //        CheckType = "5"
+                            //    };
+                            //    BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
+                            //    SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
 
-                            }
-                            ///施工专业工程师工作任务书-焊接
-                            Model.Project_ProjectUser HJEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.HJEngineer);
-                            if (HJEgUser != null)
-                            {
-                                Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
-                                {
-                                    QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
-                                    QuarterCheckName = "施工专业工程师工作任务书",
-                                    ProjectId = HJEgUser.ProjectId,
-                                    UserId = HJEgUser.UserId,
-                                    RoleId = BLL.Const.HJEngineer,
-                                    StartTime = startTime,
-                                    EndTime = endTime,
-                                    State = "0",
-                                    CheckType = "5"
-                                };
-                                BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
-                                SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
+                            //}
+                            /////施工专业工程师工作任务书-仪表
+                            //Model.Project_ProjectUser EAEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.EAEngineer));
+                            //if (EAEgUser != null)
+                            //{
+                            //    Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
+                            //    {
+                            //        QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
+                            //        QuarterCheckName = "施工专业工程师工作任务书",
+                            //        ProjectId = EAEgUser.ProjectId,
+                            //        UserId = EAEgUser.UserId,
+                            //        RoleId = BLL.Const.EAEngineer,
+                            //        StartTime = startTime,
+                            //        EndTime = endTime,
+                            //        State = "0",
+                            //        CheckType = "5"
+                            //    };
+                            //    BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
+                            //    SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
 
-                            }
+                            //}
+                            /////施工专业工程师工作任务书-焊接
+                            //Model.Project_ProjectUser HJEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.HJEngineer));
+                            //if (HJEgUser != null)
+                            //{
+                            //    Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
+                            //    {
+                            //        QuarterCheckId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheck)),
+                            //        QuarterCheckName = "施工专业工程师工作任务书",
+                            //        ProjectId = HJEgUser.ProjectId,
+                            //        UserId = HJEgUser.UserId,
+                            //        RoleId = BLL.Const.HJEngineer,
+                            //        StartTime = startTime,
+                            //        EndTime = endTime,
+                            //        State = "0",
+                            //        CheckType = "5"
+                            //    };
+                            //    BLL.Person_QuarterCheckService.AddPerson_QuarterCheck(Check);
+                            //    SaveConstructEgItem(Check.ProjectId, Check.QuarterCheckId);
+
+                            //}
                             ///安全专业工程师工作任务书
-                            Model.Project_ProjectUser SecurityEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.HSSEEngineer);
+                            Model.Project_ProjectUser SecurityEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.HSSEEngineer));
                             if (SecurityEgUser != null)
                             {
                                 Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
@@ -481,7 +501,7 @@ namespace BLL
                                 SaveSecurityEgItem(Check.ProjectId, Check.QuarterCheckId);
                             }
                             ///质量专业工程师工作任务书
-                            Model.Project_ProjectUser QAEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.CQEngineer);
+                            Model.Project_ProjectUser QAEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.CQEngineer));
                             if (QAEgUser != null)
                             {
                                 Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
@@ -500,7 +520,7 @@ namespace BLL
                                 SaveQAEgItem(Check.ProjectId, Check.QuarterCheckId);
                             }
                             ///试车专业工程师工作任务书
-                            Model.Project_ProjectUser TestEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId == BLL.Const.TestEngineer);
+                            Model.Project_ProjectUser TestEgUser = ProjectUsers.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.RoleId.Contains(BLL.Const.TestEngineer));
                             if (TestEgUser != null)
                             {
                                 Model.Person_QuarterCheck Check = new Model.Person_QuarterCheck
@@ -2244,7 +2264,7 @@ namespace BLL
         /// 
         /// </summary>
         public static void DoSynchData()
-        {            
+        {
             GetDataService.CreateTrainingTaskItemByTaskId(null);
             GetDataService.UpdateTestPlanStates();
             GetDataService.CorrectingPersonInOutNumber(null);

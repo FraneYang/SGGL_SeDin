@@ -122,7 +122,7 @@
         /// <returns></returns>
         public static Project_ProjectUser GetProjectUserByProjectId(string ProjectId, string RoleId)
         {
-            return Funs.DB.Project_ProjectUser.FirstOrDefault(e => e.ProjectId == ProjectId && e.RoleId == RoleId);
+            return Funs.DB.Project_ProjectUser.FirstOrDefault(e => e.ProjectId == ProjectId && e.RoleId.Contains(RoleId));
         }
     }
 }

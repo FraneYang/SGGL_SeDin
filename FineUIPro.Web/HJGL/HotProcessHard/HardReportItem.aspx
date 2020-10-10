@@ -16,7 +16,7 @@
                     EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="HardReportId,WeldJointId"
                     AllowCellEditing="true" ClicksToEdit="1" DataIDField="HardReportId" AllowSorting="true"
                     SortField="HardReportNo,TestingPointNo" SortDirection="DESC" OnSort="Grid1_Sort" OnRowCommand="Grid1_RowCommand"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange" EnableTextSelection="True">
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange" EnableTextSelection="True" ForceFit="true">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
@@ -75,8 +75,7 @@
                             </Columns>
                         </f:GroupField>
                         <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" FieldType="String"
-                            HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left"
-                            ExpandUnusedSpace="true">
+                            HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
                             <Editor>
                                 <f:TextBox runat="server" ID="txtRemark"></f:TextBox>
                             </Editor>

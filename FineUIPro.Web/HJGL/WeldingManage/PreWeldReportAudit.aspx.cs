@@ -398,6 +398,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                                 newWeldJoint.CoverWelderId = preWeldingDaily.CoverWelderId;
                                 newWeldJoint.BackingWelderId = preWeldingDaily.BackingWelderId;
                                 newWeldJoint.JointAttribute = preWeldingDaily.JointAttribute;
+                                newWeldJoint.AttachUrl = preWeldingDaily.AttachUrl;
                                 BLL.WeldJointService.UpdateWeldJoint(newWeldJoint);
 
                                 // 更新焊口号 修改固定焊口号后 +G

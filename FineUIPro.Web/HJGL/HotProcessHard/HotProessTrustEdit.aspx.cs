@@ -208,7 +208,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     newHotProessTrust.UnitWorkId = this.drpUnitWork.SelectedValue;
                 }
                 newHotProessTrust.ProjectId = this.CurrUser.LoginProjectId;
-                newHotProessTrust.UnitWorkId = unitWorkId;
 
                 if (this.drpUnitId.SelectedValue != BLL.Const._Null)
                 {

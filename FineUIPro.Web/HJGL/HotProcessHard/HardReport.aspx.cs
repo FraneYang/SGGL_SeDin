@@ -319,15 +319,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             this.InitTreeMenu();
             //this.BindGrid();
         }
-        /// <summary>
-        /// 检测报告窗口关闭事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void WindowHardReport_Close(object sender, WindowCloseEventArgs e)
-        {
-            BindGrid();
-        }
         #endregion
         protected void btnMenuModify_Click(object sender, EventArgs e)
         {
@@ -350,6 +341,70 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             }
         }
 
-        
+        protected void btnPrinter_Click(object sender, EventArgs e)
+        {
+            var trust = BLL.Hard_TrustService.GetHardTrustById(this.tvControlItem.SelectedNodeID);
+            if (trust != null) {
+                var hardReportItems = from x in Funs.DB.HJGL_Hard_Report 
+                                          join y in Funs.DB.HJGL_Hard_TrustItem on x.HardTrustItemID equals y.HardTrustItemID
+                                          where y.HardTrustID == this.tvControlItem.SelectedNodeID
+                                          select x;
+                var jotIdItems = (from x in hardReportItems
+                                      join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                      select new { x.WeldJointId }).Distinct();
+                int i = 1;
+                foreach (var jotIds in jotIdItems)
+                {
+                    var items = from x in hardReportItems where x.WeldJointId ==jotIds.WeldJointId  select x;
+                    foreach (var item in items)
+                    {
+                        item.Flag= i;
+                        BLL.Hard_ReportService.UpdateHard_Report(item);
+                    }
+                    if (i == 1 || i == 2)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        i = 1;
+                    }
+                }
+                if (string.IsNullOrEmpty(trust.InspectionNum))
+                {
+                    ShowNotify("请先完善硬度报告信息，保存报告编号", MessageBoxIcon.Warning);
+                    return;
+                }
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                listStr.Add(new SqlParameter("@HardTrustID", this.tvControlItem.SelectedNodeID));
+                listStr.Add(new SqlParameter("@Flag", "0"));
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = BLL.SQLHelper.GetDataTableRunProc("HJGL_SP_HardReportItem", parameter);
+                string varValue = Funs.GetPagesCountByPageSize(18, 24, tb.Rows.Count).ToString();
+                if (!string.IsNullOrEmpty(varValue))
+                {
+                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                }
+                if (tb.Rows.Count <= 18)
+                {
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId=0", BLL.Const.HJGL_HardTestReportId, this.tvControlItem.SelectedNodeID, varValue, "打印 - ")));
+                }
+                else
+                {
+                    PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId=0", Const.HJGL_HardTestReportId2, this.tvControlItem.SelectedNodeID, varValue, "打印 - ")));
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId=0", Const.HJGL_HardTestReportId, this.tvControlItem.SelectedNodeID, varValue, "打印 - ")));
+                }
+            }
+            else
+            {
+                ShowNotify("请选择委托单！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        protected void WindowHardReport_Close(object sender, WindowCloseEventArgs e)
+        {
+            BindGrid();
+        }
     }
 }

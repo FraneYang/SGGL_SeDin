@@ -49,6 +49,7 @@
             {                
                 BLL.MonitorService.StartMonitor();
                 BLL.MonitorService.StartMonitorEve();
+                BLL.MonitorService.StartPersonQuarterCheck();
             }
             catch (Exception ex)
             {

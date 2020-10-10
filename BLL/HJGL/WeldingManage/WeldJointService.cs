@@ -142,6 +142,7 @@ namespace BLL
                 newWeldJoint.Specification = weldJoint.Specification;
                 newWeldJoint.PreTemperature = weldJoint.PreTemperature;
                 newWeldJoint.Remark = weldJoint.Remark;
+                newWeldJoint.AttachUrl = weldJoint.AttachUrl;
                 db.SubmitChanges();
             }
         }

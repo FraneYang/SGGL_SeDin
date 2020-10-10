@@ -45,7 +45,7 @@
                             AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldTaskId" AllowSorting="true"
                             SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort"
                             AllowPaging="false" IsDatabasePaging="true" PageSize="10000" EnableTextSelection="True"
-                             EnableCheckBoxSelect="true">
+                             EnableCheckBoxSelect="true" KeepCurrentSelection="true">
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar4" Position="Top" runat="server" ToolbarAlign="Right">
                                     <Items>

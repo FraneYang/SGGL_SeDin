@@ -108,7 +108,7 @@ namespace Mvc.Controllers
             var dt = BLL.SQLHelper.GetDataTableRunProc("SpAuditingManageByProjectId", val).AsEnumerable().ToArray();
             foreach (var item in dt)
             {
-                if (!item.ItemArray[1].ToString().Contains("检试验设备及测量器具") && !item.ItemArray[1].ToString().Contains("工序资料验收"))
+                if (!item.ItemArray[1].ToString().Contains("工序资料验收"))
                 {
                     ToDoModel toDoModel = new ToDoModel();
                     toDoModel.ID = item.ItemArray[0].ToString();

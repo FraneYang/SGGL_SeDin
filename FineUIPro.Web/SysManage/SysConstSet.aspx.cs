@@ -174,12 +174,32 @@ namespace FineUIPro.Web.SysManage
             Model.Sys_Const sysSet5 = db.Sys_Const.FirstOrDefault(x =>x.ConstText == "员工绩效考核第一季度生成时间");
             if (sysSet5 != null)
             {
-                if (!string.IsNullOrEmpty(this.txtMarch.Text.Trim())) {
+                if (!string.IsNullOrEmpty(this.txtMarch.Text.Trim()))
+                {
                     sysSet5.ConstValue = this.txtMarch.Text.Trim();
                 }
-                if (!string.IsNullOrEmpty(this.txtMarchday.Text.Trim())) {
+                if (!string.IsNullOrEmpty(this.txtMarchday.Text.Trim()))
+                {
                     sysSet5.ConstValue += "|" + this.txtMarchday.Text.Trim();
                 }
+                Funs.DB.SubmitChanges();
+            }
+            else
+            {
+                Model.Sys_Const newSysSet5 = new Model.Sys_Const();
+                newSysSet5.ID = SQLHelper.GetNewID();
+                if (!string.IsNullOrEmpty(this.txtMarch.Text.Trim()))
+                {
+                    newSysSet5.ConstValue = this.txtMarch.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(this.txtMarchday.Text.Trim()))
+                {
+                    newSysSet5.ConstValue += "|" + this.txtMarchday.Text.Trim();
+                }
+                newSysSet5.ConstText = "员工绩效考核第一季度生成时间";
+                newSysSet5.SortIndex = 1;
+                newSysSet5.GroupId = "PersonQuarterCheck";
+                Funs.DB.Sys_Const.InsertOnSubmit(newSysSet5);
                 Funs.DB.SubmitChanges();
             }
             var sysSet6 = db.Sys_Const.FirstOrDefault(x => x.ConstText == "员工绩效考核第二季度生成时间");
@@ -195,6 +215,24 @@ namespace FineUIPro.Web.SysManage
                 }
                 db.SubmitChanges();
             }
+            else
+            {
+                Model.Sys_Const newSysSet6 = new Model.Sys_Const();
+                newSysSet6.ID = SQLHelper.GetNewID();
+                if (!string.IsNullOrEmpty(this.txtJune.Text.Trim()))
+                {
+                    newSysSet6.ConstValue = this.txtJune.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(this.txtJuneday.Text.Trim()))
+                {
+                    newSysSet6.ConstValue += "|" + this.txtJuneday.Text.Trim();
+                }
+                newSysSet6.ConstText = "员工绩效考核第二季度生成时间";
+                newSysSet6.SortIndex = 2;
+                newSysSet6.GroupId = "PersonQuarterCheck";
+                Funs.DB.Sys_Const.InsertOnSubmit(newSysSet6);
+                Funs.DB.SubmitChanges();
+            }
             var sysSet7 = db.Sys_Const.FirstOrDefault(x => x.ConstText == "员工绩效考核第三季度生成时间");
             if (sysSet7 != null)
             {
@@ -208,6 +246,24 @@ namespace FineUIPro.Web.SysManage
                 }
                 db.SubmitChanges();
             }
+            else
+            {
+                Model.Sys_Const newSysSet7 = new Model.Sys_Const();
+                newSysSet7.ID = SQLHelper.GetNewID();
+                if (!string.IsNullOrEmpty(this.txtSeptember.Text.Trim()))
+                {
+                    newSysSet7.ConstValue = this.txtSeptember.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(this.txtSeptemberday.Text.Trim()))
+                {
+                    newSysSet7.ConstValue += "|" + this.txtSeptemberday.Text.Trim();
+                }
+                newSysSet7.ConstText = "员工绩效考核第三季度生成时间";
+                newSysSet7.SortIndex = 3;
+                newSysSet7.GroupId = "PersonQuarterCheck";
+                Funs.DB.Sys_Const.InsertOnSubmit(newSysSet7);
+                Funs.DB.SubmitChanges();
+            }
             var sysSet8 = db.Sys_Const.FirstOrDefault(x => x.ConstText == "员工绩效考核第四季度生成时间");
             if (sysSet8 != null)
             {
@@ -220,6 +276,24 @@ namespace FineUIPro.Web.SysManage
                     sysSet8.ConstValue += "|" + this.txtDecemberday.Text.Trim();
                 }
                 db.SubmitChanges();
+            }
+            else
+            {
+                Model.Sys_Const newSysSet8 = new Model.Sys_Const();
+                newSysSet8.ID = SQLHelper.GetNewID();
+                if (!string.IsNullOrEmpty(this.txtDecember.Text.Trim()))
+                {
+                    newSysSet8.ConstValue = this.txtDecember.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(this.txtDecemberday.Text.Trim()))
+                {
+                    newSysSet8.ConstValue += "|" + this.txtDecemberday.Text.Trim();
+                }
+                newSysSet8.ConstText = "员工绩效考核第四季度生成时间";
+                newSysSet8.SortIndex = 4;
+                newSysSet8.GroupId = "PersonQuarterCheck";
+                Funs.DB.Sys_Const.InsertOnSubmit(newSysSet8);
+                Funs.DB.SubmitChanges();
             }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             BLL.LogService.AddSys_Log(this.CurrUser, "修改系统环境设置！", string.Empty, BLL.Const.SysConstSetMenuId, BLL.Const.BtnModify);

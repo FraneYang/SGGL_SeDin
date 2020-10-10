@@ -177,6 +177,7 @@
         EnableIFrame="true" EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
         IsModal="true" Width="1000px" Height="520px">
     </f:Window>
+       
     </form>
     <script type="text/javascript">
         // 返回false，来阻止浏览器右键菜单

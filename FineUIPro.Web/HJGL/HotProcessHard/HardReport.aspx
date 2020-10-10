@@ -158,8 +158,14 @@
             EnableIFrame="true" EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
             IsModal="true" Width="1000px" Height="520px" OnClose="WindowHardReport_Close">
         </f:Window>
+         <f:Window ID="Window3" Title="热处理打印" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Self" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+            Height="640px">
+        </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Text="编辑" Icon="Pencil" OnClick="btnMenuModify_Click">
+            </f:MenuButton>
+            <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server" Text="打印" Icon="Printer" OnClick="btnPrinter_Click">
             </f:MenuButton>
         </f:Menu>
     </form>

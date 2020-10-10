@@ -127,7 +127,6 @@
                             </f:RenderField>
                         </Columns>
                         <Listeners>
-                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
                             <f:Listener Event="dataload" Handler="onGridDataLoad" />
                         </Listeners>
                         <PageItems>
@@ -152,19 +151,8 @@
         EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
         IsModal="true" Width="1090px" Height="660px">
     </f:Window>
-    <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuHotProessReport" OnClick="btnMenuHotProessReport_Click"
-            EnablePostBack="true" Icon="Pencil" ConfirmTarget="Top" runat="server" Text="热处理报告">
-        </f:MenuButton>
-    </f:Menu>
     </form>
     <script type="text/javascript">
-        var menuID = '<%= Menu1.ClientID %>';
-        // 返回false，来阻止浏览器右键菜单
-        function onRowContextMenu(event, rowId) {
-            F(menuID).show();  //showAt(event.pageX, event.pageY);
-            return false;
-        }
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
         }

@@ -393,15 +393,24 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                         var hardTrustItems = BLL.Hard_TrustItemService.GetHardTrustItemByHardTrustId(this.HardTrustID);
                         foreach (var hardTrustItem in hardTrustItems)
                         {
-                            //更新热处理委托明细的口已做硬度委托
-                            Model.HJGL_HotProess_TrustItem hotProessTrustItem = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hardTrustItem.HotProessTrustItemId);
-                            if (hotProessTrustItem != null)
+                            ////更新热处理委托明细的口已做硬度委托
+                            //Model.HJGL_HotProess_TrustItem hotProessTrustItem = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hardTrustItem.HotProessTrustItemId);
+                            //if (hotProessTrustItem != null)
+                            //{
+                            //    hotProessTrustItem.IsTrust = null;
+                            //    BLL.HotProessTrustItemService.UpdateHotProessTrustItem(hotProessTrustItem);
+                            //}
+                            ////删除硬度报告记录
+                            //BLL.Hard_ReportService.DeleteHard_ReportsByHardTrustItemID(hardTrustItem.HardTrustItemID);
+                            if (!string.IsNullOrEmpty(hardTrustItem.HardTrustItemID))
                             {
-                                hotProessTrustItem.IsTrust = null;
-                                BLL.HotProessTrustItemService.UpdateHotProessTrustItem(hotProessTrustItem);
+                                var hardReort = (from x in Funs.DB.HJGL_Hard_Report where x.HardTrustItemID == hardTrustItem.HardTrustItemID select x).ToList();
+                                if (hardReort.Count() > 0)
+                                {
+                                    ShowNotify("已生成硬度检测报告，不能删除！", MessageBoxIcon.Warning);
+                                    return;
+                                }
                             }
-                            //删除硬度报告记录
-                            BLL.Hard_ReportService.DeleteHard_ReportsByHardTrustItemID(hardTrustItem.HardTrustItemID);
                         }
                         BLL.Hard_TrustItemService.DeleteHardTrustItemById(this.HardTrustID);
                         BLL.Hard_TrustService.DeleteHardTrustById(this.HardTrustID);

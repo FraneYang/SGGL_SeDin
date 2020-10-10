@@ -97,14 +97,14 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             }
             var WeldJointList = (from x in Funs.DB.HJGL_HotProess_TrustItem
                                  join y in Funs.DB.HJGL_HotProess_Trust on x.HotProessTrustId equals y.HotProessTrustId
-                                 where y.ProjectId == this.CurrUser.LoginProjectId && y.ReportNo ==null
+                                 where y.ProjectId == this.CurrUser.LoginProjectId && y.ReportNo == null
                                  select new { x.WeldJointId, y.UnitWorkId }).ToList();
             if (unitWork1.Count() > 0)
             {
                 foreach (var q in unitWork1)
                 {
                     var items = (from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x).ToList();
-                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId); 
+                    var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
                     tn1.Text = q.UnitWorkName;
@@ -338,7 +338,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
             this.InitTreeMenu();
-            if (!string.IsNullOrEmpty(this.hdHotProessTrustId.Text)) {
+            if (!string.IsNullOrEmpty(this.hdHotProessTrustId.Text))
+            {
                 this.HotProessTrustId = this.hdHotProessTrustId.Text;
             }
             this.tvControlItem.SelectedNodeID = this.HotProessTrustId;
@@ -386,7 +387,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 if (trustManage != null)
                 {
                     string window = String.Format("HotProessReportEdit.aspx?HotProessTrustId={0}", trustManage.HotProessTrustId, "编辑 - ");
-                    PageContext.RegisterStartupScript( Window1.GetShowReference(window));
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(window));
                 }
                 else
                 {
@@ -396,6 +397,55 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             else
             {
                 ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+            }
+        }
+
+        protected void btnPrinter_Click(object sender, EventArgs e)
+        {
+            var trust = BLL.HotProess_TrustService.GetHotProessTrustById(this.tvControlItem.SelectedNodeID);
+            if (trust != null)
+            {
+                if (string.IsNullOrEmpty(trust.ReportNo)) {
+                    ShowNotify("请先完善热处理报告信息，保存报告编号", MessageBoxIcon.Warning);
+                    return;
+                }
+                string varValue = string.Empty;
+                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (project != null)
+                {
+                    varValue = project.ProjectName;
+                    var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(trust.UnitWorkId);
+                    if (unitWork != null)
+                    {
+                        varValue = varValue + "|" + unitWork.UnitWorkName;
+                    }
+                    varValue = varValue + "|" + trust.ReportNo;
+                    varValue = varValue + "|" + trust.ProessMethod;
+                    varValue = varValue + "|" + trust.ProessEquipment;
+                }
+                if (!string.IsNullOrEmpty(varValue))
+                {
+                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                }
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                listStr.Add(new SqlParameter("@HotProessTrustId", this.tvControlItem.SelectedNodeID));
+                listStr.Add(new SqlParameter("@Flag", "0"));
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = BLL.SQLHelper.GetDataTableRunProc("SP_HJGL_HotProessReportItem", parameter);
+                if (tb.Rows.Count <= 7)
+                {
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId=0", BLL.Const.HJGL_HotProessReportId1, this.tvControlItem.SelectedNodeID, varValue, "打印 - ")));
+                }
+                else
+                {
+                    PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId=0", Const.HJGL_HotProessReportId2, this.tvControlItem.SelectedNodeID, varValue, "打印 - ")));
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId=0", Const.HJGL_HotProessReportId1, this.tvControlItem.SelectedNodeID, varValue, "打印 - ")));
+                }
+            }
+            else
+            {
+                ShowNotify("请选择委托单！", MessageBoxIcon.Warning);
+                return;
             }
         }
     }

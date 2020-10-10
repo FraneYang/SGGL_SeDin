@@ -127,11 +127,11 @@ namespace BLL
                 x.Isdamage = res.Isdamage;
                 if (res.CheckCycle.HasValue && res.CheckDay.HasValue)
                 {
-                    x.CompileMan = ConvertMan(res.CheckEquipmentId) + "$" + ConvertIsBeOverdue(res.CheckCycle.Value, res.CheckDay.Value);
+                    x.CompileMan = res.CompileMan + "$" + ConvertIsBeOverdue(res.CheckCycle.Value, res.CheckDay.Value);
                 }
                 else
                 {
-                    x.CompileMan = ConvertMan(res.CheckEquipmentId) + "$";
+                    x.CompileMan = res.CompileMan + "$";
 
                 }
                 x.AttachUrl = AttachFileService.getFileUrl(res.CheckEquipmentId);
@@ -184,8 +184,8 @@ namespace BLL
             using (var db = new Model.SGGLDB(Funs.ConnString))
             {
                 Model.Check_CheckEquipment newCheckEquipment = db.Check_CheckEquipment.First(e => e.CheckEquipmentId == CheckEquipment.CheckEquipmentId);
-                if (!string.IsNullOrEmpty(CheckEquipment.SaveHandleMan))
-                    newCheckEquipment.UserUnitId = CheckEquipment.SaveHandleMan;
+                if (!string.IsNullOrEmpty(CheckEquipment.UserUnitId))
+                    newCheckEquipment.UserUnitId = CheckEquipment.UserUnitId;
                 if (!string.IsNullOrEmpty(CheckEquipment.EquipmentName))
                     newCheckEquipment.EquipmentName = CheckEquipment.EquipmentName;
                 if (!string.IsNullOrEmpty(CheckEquipment.Format))
