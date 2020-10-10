@@ -99,7 +99,7 @@ namespace FineUIPro.Web.HSSE.Check
                         {
                             this.drpUnit.SelectedValue = pauseNotice.UnitId;
                         }
-                        this.txtProjectPlace.Text = pauseNotice.ProjectPlace;
+                        this.txtUnitWorkName.Text = UnitWorkService.GetNameById(pauseNotice.UnitWorkId);
                         this.txtWrongContent.Text = pauseNotice.WrongContent;
                         if (pauseNotice.PauseTime.HasValue)
                         {
@@ -124,8 +124,9 @@ namespace FineUIPro.Web.HSSE.Check
                                 this.drpHandleMan.SelectedValue = pauseNotice.ApproveManId;
                             }
                             this.GroupPanel2.Hidden = false;
-                            UserService.InitFlowOperateControlUserDropDownList(this.drpProfessionalEngineer, this.CurrUser.LoginProjectId,Const.UnitId_SEDIN, true);//专业工程师
-                            UserService.InitFlowOperateControlUserDropDownList(this.drpConstructionManager, this.CurrUser.LoginProjectId,Const.UnitId_SEDIN, true);//施工经理
+                            UserService.InitFlowOperateControlUserDropDownList(this.drpProfessionalEngineer, this.CurrUser.LoginProjectId,Const.UnitId_SEDIN, true);//专业工程师                            
+                            BLL.UserService.InitUserProjectIdUnitIdRoleIdDropDownList(this.drpConstructionManager, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, Const.ConstructionManager, true);
+                            //施工经理
                             UserService.InitUserProjectIdUnitIdDropDownList(this.drpUnitHeadMan, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, true);//分包单位
                             UserService.InitUserProjectIdUnitTypeDropDownList(this.drpSupervisorMan, this.CurrUser.LoginProjectId, Const.ProjectUnitType_3, true);//监理
                             UserService.InitUserProjectIdUnitTypeDropDownList(this.drpOwner, this.CurrUser.LoginProjectId, Const.ProjectUnitType_4, true);//业主

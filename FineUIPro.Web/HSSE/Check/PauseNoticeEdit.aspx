@@ -20,7 +20,7 @@
                             AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged" Required="true"
                             ShowRedStar="true" EnableEdit="true" Readonly="true" LabelWidth="150px">
                         </f:DropDownList>
-                        <f:TextBox ID="txtProjectPlace" runat="server" Label="单位工程" Required="true" ShowRedStar="true"
+                        <f:TextBox ID="txtUnitWorkName" runat="server" Label="单位工程" Required="true" ShowRedStar="true"
                             MaxLength="200" Readonly="true">
                         </f:TextBox>
                         <f:TextBox ID="txtPauseNoticeCode" runat="server" Label="编号" Readonly="true" Required="true"
@@ -30,7 +30,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtWrongContent" runat="server" Label="因" Required="true" ShowRedStar="true"
+                        <f:TextBox ID="txtWrongContent" runat="server" Label="原因" Required="true" ShowRedStar="true"
                             Width="250px" Readonly="true" LabelWidth="150px">
                         </f:TextBox>
                     </Items>

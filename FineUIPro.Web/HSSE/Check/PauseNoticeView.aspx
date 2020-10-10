@@ -17,19 +17,19 @@
             <Rows>
                 <f:FormRow ColumnWidths="25% 45% 30%">
                     <Items>
-                        <f:TextBox ID="txtPauseNoticeCode" runat="server" Label="编号" Readonly="true" LabelWidth="150px">
+                        <f:TextBox ID="txtPauseNoticeCode" runat="server" Label="编号" Readonly="true" LabelWidth="100px">
                         </f:TextBox>
-                        <f:TextBox ID="txtUnit" runat="server" Label="受检单位" Readonly="true">
+                        <f:TextBox ID="txtUnit" runat="server" Label="受检单位" Readonly="true"  LabelWidth="100px">
                         </f:TextBox>
-                        <f:TextBox ID="txtProjectPlace" runat="server" Label="单位工程" Readonly="true" MaxLength="200"
+                        <f:TextBox ID="txtUnitWorkName" runat="server" Label="单位工程" Readonly="true" MaxLength="200"
                             LabelWidth="100px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtWrongContent" runat="server" Label="因" Required="true" ShowRedStar="true"
-                            MaxLength="150" Width="250px" Readonly="true" LabelWidth="150px">
+                        <f:TextBox ID="txtWrongContent" runat="server" Label="原因" Required="true" ShowRedStar="true"
+                            MaxLength="150" Readonly="true" LabelWidth="100px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -43,13 +43,13 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtSignMan" runat="server" Label="签发人" Readonly="true" LabelWidth="150px">
+                        <f:TextBox ID="txtSignMan" runat="server" Label="签发人" Readonly="true" LabelWidth="100px">
                         </f:TextBox>
-                        <f:TextBox ID="txtApproveMan" runat="server" Label="批准人" Readonly="true">
+                        <f:TextBox ID="txtApproveMan" runat="server" Label="批准人" Readonly="true" LabelWidth="100px">
                         </f:TextBox>
-                        <f:TextBox ID="txtSignPerson" runat="server" Label="编制人" Readonly="true">
+                        <f:TextBox ID="txtSignPerson" runat="server" Label="编制人" Readonly="true" LabelWidth="100px">
                         </f:TextBox>
-                        <f:TextBox ID="txtComplieDate" runat="server" Label="编制时间" Readonly="true">
+                        <f:TextBox ID="txtComplieDate" runat="server" Label="编制时间" Readonly="true" LabelWidth="100px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -63,7 +63,7 @@
                                         <asp:Label ID="lblNumber" runat="server" Text='<%# gvFlowOperate.PageIndex * gvFlowOperate.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:RenderField Width="250px" ColumnID="OperateName" DataField="OperateName"
+                                <f:RenderField Width="250px" ColumnID="OperateName" DataField="OperateName" ExpandUnusedSpace="true"
                                     FieldType="String" HeaderText="步骤" HeaderTextAlign="Center" TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="200px" ColumnID="UserName" DataField="UserName"
@@ -78,8 +78,6 @@
                                 <f:RenderField Width="160px" ColumnID="OperateTime" DataField="OperateTime"
                                     FieldType="string" HeaderText="时间" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-
-
                             </Columns>
                         </f:Grid>
                     </Items>

@@ -79,7 +79,8 @@ namespace FineUIPro.Web.HSSE.Check
                     {
                         txtSignPerson.Text = BLL.UserService.getUserNamesUserIds(pauseNotice.CompileManId);
                     }
-                    this.txtProjectPlace.Text = pauseNotice.ProjectPlace;
+                    //this.txtProjectPlace.Text = pauseNotice.ProjectPlace;
+                    this.txtUnitWorkName.Text = UnitWorkService.GetNameById(pauseNotice.UnitWorkId);
                     if (pauseNotice.CompileDate != null)
                     {
                         this.txtComplieDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.CompileDate);

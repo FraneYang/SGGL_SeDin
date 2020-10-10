@@ -36,6 +36,19 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
+                       <f:TextBox ID="drpTechnicalMan" runat="server" Label="交底人" LabelAlign="Right" Readonly="true"></f:TextBox>
+                    <f:Label runat="server" ID="lbHid"></f:Label>
+                </Items>
+            </f:FormRow>
+             <f:FormRow>
+                <Items>
+                        <f:TextBox ID="drpPartTechnicalMans" runat="server" Label="参加人员" Readonly="true">
+                    </f:TextBox>
+                    <f:TextBox  runat="server" ID="txtPartTechnicalManNames" Readonly="true"></f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextArea ID="txtWorkContents" runat="server" Label="作业内容" LabelAlign="Right" Readonly="true" Height="50px">
                     </f:TextArea>
                 </Items>

@@ -35,6 +35,7 @@ namespace BLL
                 ProjectId = pauseNotice.ProjectId,
                 UnitId = pauseNotice.UnitId,
                 ProjectPlace = pauseNotice.ProjectPlace,
+                UnitWorkId=pauseNotice.UnitWorkId,
                 WrongContent = pauseNotice.WrongContent,
                 PauseTime = pauseNotice.PauseTime,
                 PauseContent = pauseNotice.PauseContent,
@@ -85,6 +86,7 @@ namespace BLL
                 newPauseNotice.CompileDate = pauseNotice.CompileDate;
                 newPauseNotice.UnitId = pauseNotice.UnitId;
                 newPauseNotice.ProjectPlace = pauseNotice.ProjectPlace;
+                newPauseNotice.UnitWorkId = pauseNotice.UnitWorkId;
                 newPauseNotice.WrongContent = pauseNotice.WrongContent;
                 newPauseNotice.PauseTime = pauseNotice.PauseTime;
                 newPauseNotice.PauseContent = pauseNotice.PauseContent;

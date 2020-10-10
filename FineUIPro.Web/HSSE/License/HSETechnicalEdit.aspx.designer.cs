@@ -76,6 +76,42 @@ namespace FineUIPro.Web.HSSE.License {
         protected global::FineUIPro.DropDownList drpTeamGroupId;
         
         /// <summary>
+        /// drpTechnicalMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpTechnicalMan;
+        
+        /// <summary>
+        /// lbHid 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbHid;
+        
+        /// <summary>
+        /// drpPartTechnicalMans 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpPartTechnicalMans;
+        
+        /// <summary>
+        /// txtPartTechnicalManNames 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtPartTechnicalManNames;
+        
+        /// <summary>
         /// txtWorkContents 控件。
         /// </summary>
         /// <remarks>

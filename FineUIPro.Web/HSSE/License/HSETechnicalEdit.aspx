@@ -37,6 +37,21 @@
                 </f:FormRow>
             <f:FormRow>
                 <Items>
+                    <f:DropDownList ID="drpTechnicalMan" runat="server" Label="交底人" LabelAlign="Right" EnableEdit="true"></f:DropDownList>
+                    <f:Label runat="server" ID="lbHid"></f:Label>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                        <f:DropDownList ID="drpPartTechnicalMans" runat="server" Label="参加人员" EnableEdit="true" EnableMultiSelect="true"
+                            ForceSelection="false" MaxLength="2000" EnableCheckBoxSelect="true"
+                            AutoPostBack="true"   OnSelectedIndexChanged="drpPartTechnicalMans_SelectedIndexChanged">
+                    </f:DropDownList>
+                    <f:TextBox  runat="server" ID="txtPartTechnicalManNames" MaxLength="2000" ></f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextArea ID="txtWorkContents" runat="server" Label="作业内容" LabelAlign="Right" MaxLength="150" Height="50px">
                     </f:TextArea>
                 </Items>

@@ -71,7 +71,8 @@ namespace FineUIPro.Web.HSSE.Check
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 this.PauseNoticeId = Request.Params["PauseNoticeId"];
                 this.InitDropDownList();
-                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpSignPerson, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
+                BLL.UserService.InitUserProjectIdUnitIdRoleIdDropDownList(this.drpSignPerson, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN,Const.ConstructionManager, true);
+
                 if (!string.IsNullOrEmpty(PauseNoticeId))
                 {
                     BindGrid();
@@ -88,7 +89,11 @@ namespace FineUIPro.Web.HSSE.Check
                         {
                             this.drpUnit.SelectedValue = pauseNotice.UnitId;
                         }
-                        this.txtProjectPlace.Text = pauseNotice.ProjectPlace;
+                        //this.txtProjectPlace.Text = pauseNotice.ProjectPlace;
+                        if (!string.IsNullOrEmpty(pauseNotice.UnitWorkId))
+                        {
+                            this.drpUnitWork.SelectedValue = pauseNotice.UnitWorkId;
+                        }
                         this.txtWrongContent.Text = pauseNotice.WrongContent;
                         if (pauseNotice.PauseTime.HasValue)
                         {
@@ -121,6 +126,7 @@ namespace FineUIPro.Web.HSSE.Check
         private void InitDropDownList()
         {
             UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.ProjectId, Const.ProjectUnitType_2, true);
+            UnitWorkService.InitUnitWorkDropDownList(this.drpUnitWork, this.ProjectId,  true);
         }
 
         #region  单位变化事件
@@ -150,11 +156,6 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (this.drpUnit.SelectedValue == BLL.Const._Null)
-            {
-                Alert.ShowInTop("请选择受检单位！", MessageBoxIcon.Warning);
-                return;
-            }
             this.SavePauseNotice(BLL.Const.BtnSubmit);
         }
         #endregion
@@ -166,12 +167,7 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
-        {
-            if (this.drpUnit.SelectedValue == BLL.Const._Null)
-            {
-                Alert.ShowInTop("请选择受检单位！", MessageBoxIcon.Warning);
-                return;
-            }
+        {           
             this.SavePauseNotice(BLL.Const.BtnSave);
         }
         #endregion
@@ -182,13 +178,24 @@ namespace FineUIPro.Web.HSSE.Check
         /// <param name="type"></param>
         private void SavePauseNotice(string type)
         {
+            if (this.drpUnit.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("请选择受检单位！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (this.drpUnitWork.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("请选择单位工程！", MessageBoxIcon.Warning);
+                return;
+            }
+
             Model.Check_PauseNotice pauseNotice = new Model.Check_PauseNotice
             {
                 PauseNoticeCode = this.txtPauseNoticeCode.Text.Trim(),
                 ProjectId = this.ProjectId,
 
                 UnitId = this.drpUnit.SelectedValue,
-                ProjectPlace = this.txtProjectPlace.Text.Trim(),
+                UnitWorkId = this.drpUnitWork.SelectedValue,
                 WrongContent = this.txtWrongContent.Text.Trim(),
                 PauseTime = Funs.GetNewDateTime(this.txtPauseTime.Text.Trim())
             };
@@ -215,7 +222,7 @@ namespace FineUIPro.Web.HSSE.Check
             if (isUpdate != null)
             {
                 isUpdate.UnitId = this.drpUnit.SelectedValue;
-                isUpdate.ProjectPlace = this.txtProjectPlace.Text.Trim();
+                isUpdate.UnitWorkId = this.drpUnitWork.SelectedValue;
                 isUpdate.WrongContent = this.txtWrongContent.Text.Trim();
                 if (!string.IsNullOrEmpty(this.txtPauseTime.Text.Trim()))
                 {
@@ -255,10 +262,6 @@ namespace FineUIPro.Web.HSSE.Check
                 {
                     SaveData("总包安全工程师/安全经理下发暂停令");
                 }
-
-
-
-
             }
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

@@ -65,16 +65,22 @@ namespace FineUIPro.Web.HSSE.License
                         if (!string.IsNullOrEmpty(hseTechnical.UnitId))
                         {
                             this.drpUnitId.SelectedValue = hseTechnical.UnitId;
-                            this.drpTeamGroupId.DataValueField = "TeamGroupId";
-                            this.drpTeamGroupId.DataTextField = "TeamGroupName";
-                            this.drpTeamGroupId.DataSource = BLL.TeamGroupService.GetTeamGroupListByUnitId(this.ProjectId, hseTechnical.UnitId);
-                            this.drpTeamGroupId.DataBind();
-                            Funs.FineUIPleaseSelect(this.drpTeamGroupId);
+                            UserService.InitUserProjectIdUnitIdDropDownList(this.drpTechnicalMan, this.ProjectId, this.drpUnitId.SelectedValue, true);
+                            TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroupId, this.ProjectId, this.drpUnitId.SelectedValue, true);
                         }
                         if (!string.IsNullOrEmpty(hseTechnical.TeamGroupId))
                         {
                             this.drpTeamGroupId.SelectedValue = hseTechnical.TeamGroupId;
                         }
+                        if (!string.IsNullOrEmpty(hseTechnical.TechnicalManId))
+                        {
+                            this.drpTechnicalMan.SelectedValue = hseTechnical.TechnicalManId;
+                        }
+                        if (!string.IsNullOrEmpty(hseTechnical.PartTechnicalManIds))
+                        {
+                            this.drpPartTechnicalMans.SelectedValueArray = hseTechnical.PartTechnicalManIds.Split(',');
+                        }
+                        this.txtPartTechnicalManNames.Text = hseTechnical.PartTechnicalManNames;
                         this.txtWorkContents.Text = hseTechnical.WorkContents;
                         this.txtAddress.Text = hseTechnical.Address;
                     }
@@ -100,7 +106,9 @@ namespace FineUIPro.Web.HSSE.License
         /// </summary>
         private void InitDropDownList()
         {
-            BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
+            UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
+            //参加人员
+            UserService.InitUserDropDownList(this.drpPartTechnicalMans, this.ProjectId, true);
         }
 
         #region 保存
@@ -152,6 +160,10 @@ namespace FineUIPro.Web.HSSE.License
             {
                 hSETechnical.TeamGroupId = this.drpTeamGroupId.SelectedValue;
             }
+            if (this.drpTechnicalMan.SelectedValue != BLL.Const._Null)
+            {
+                hSETechnical.TechnicalManId = this.drpTechnicalMan.SelectedValue;
+            }
             hSETechnical.WorkContents = this.txtWorkContents.Text.Trim();
             hSETechnical.Address = this.txtAddress.Text.Trim();
             hSETechnical.CompileMan = this.CurrUser.UserId;
@@ -161,6 +173,23 @@ namespace FineUIPro.Web.HSSE.License
             {
                 hSETechnical.States = this.ctlAuditFlow.NextStep;
             }
+
+            ///组成员
+            string partInManIds = string.Empty;
+            foreach (var item in this.drpPartTechnicalMans.SelectedValueArray)
+            {
+                var user = BLL.UserService.GetUserByUserId(item);
+                if (user != null)
+                {
+                    partInManIds += user.UserId + ",";
+                }
+            }
+            if (!string.IsNullOrEmpty(partInManIds))
+            {
+                hSETechnical.PartTechnicalManIds = partInManIds.Substring(0, partInManIds.LastIndexOf(","));
+            }
+            hSETechnical.PartTechnicalManNames = this.txtPartTechnicalManNames.Text.Trim();
+
             if (!string.IsNullOrEmpty(this.HSETechnicalId))
             {
                 hSETechnical.HSETechnicalId = this.HSETechnicalId;
@@ -202,18 +231,25 @@ namespace FineUIPro.Web.HSSE.License
         /// <param name="e"></param>
         protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.drpTeamGroupId.Items.Clear();
+            this.drpTechnicalMan.Items.Clear();
             if (this.drpUnitId.SelectedValue != BLL.Const._Null)
-            {
-                this.drpTeamGroupId.Items.Clear();
-                TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroupId, this.ProjectId, this.drpUnitId.SelectedValue, true);
-                this.drpTeamGroupId.SelectedIndex = 0;
+            {               
+                UserService.InitUserProjectIdUnitIdDropDownList(this.drpTechnicalMan, this.ProjectId, this.drpUnitId.SelectedValue, true);
+                TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroupId, this.ProjectId, this.drpUnitId.SelectedValue, true);                
             }
             else
             {
-                this.drpTeamGroupId.Items.Clear();
                 Funs.FineUIPleaseSelect(this.drpTeamGroupId);
-                this.drpTeamGroupId.SelectedIndex = 0;
+                Funs.FineUIPleaseSelect(this.drpTechnicalMan);              
             }
+            this.drpTeamGroupId.SelectedIndex = 0;
+            this.drpTechnicalMan.SelectedIndex = 0;
+        }
+
+        protected void drpPartTechnicalMans_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpPartTechnicalMans.SelectedValueArray = Funs.RemoveDropDownListNull(this.drpPartTechnicalMans.SelectedValueArray);
         }
     }
 }

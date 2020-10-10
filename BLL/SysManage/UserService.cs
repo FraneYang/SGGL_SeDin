@@ -511,6 +511,54 @@ namespace BLL
                 return list;
             }
         }
+        
+        /// <summary>
+        /// 根据项目号和角色Id获取用户下拉选项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetUserListByProjectIdUnitIdRoleId(string projectId,string unitId, string roleIds)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<string> listRoles = Funs.GetStrListByStr(roleIds, ',');
+                List<Model.Sys_User> list = new List<Model.Sys_User>();
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    if (listRoles.Count() > 0)
+                    {
+                        list = (from x in db.Sys_User
+                                join y in db.Project_ProjectUser
+                                on x.UserId equals y.UserId
+                                where y.ProjectId == projectId && x.UnitId == unitId && listRoles.Contains(y.RoleId) 
+                                orderby x.UserName
+                                select x).ToList();
+                    }
+                    else
+                    {
+                        list = (from x in db.Sys_User
+                                join y in db.Project_ProjectUser
+                                on x.UserId equals y.UserId
+                                where y.ProjectId == projectId && x.UnitId == unitId
+                                orderby x.UserName
+                                select x).ToList();
+                    }
+                }
+                else
+                {
+                    list = (from x in db.Sys_User
+                            where   x.UnitId == unitId && x.UserId != BLL.Const.hfnbdId && x.UserId != Const.sedinId
+                            orderby x.UserName
+                            select x).ToList();
+
+                    if (listRoles.Count() > 0)
+                    {
+                        list = list.Where(x => listRoles.Contains(x.RoleId)).ToList();
+                    }
+                }
+
+                return list;
+            }
+        }
 
         #region 用户下拉框
         /// <summary>
@@ -579,6 +627,25 @@ namespace BLL
             dropName.DataValueField = "UserId";
             dropName.DataTextField = "UserName";
             dropName.DataSource = BLL.UserService.GetUserListByProjectIdAndRoleId(projectId, roleIds);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 用户下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="projectId">项目id</param>
+        /// <param name="roleIds">角色id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUserProjectIdUnitIdRoleIdDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitId, string roleIds, bool isShowPlease)
+        {
+            dropName.DataValueField = "UserId";
+            dropName.DataTextField = "UserName";
+            dropName.DataSource = BLL.UserService.GetUserListByProjectIdUnitIdRoleId(projectId,unitId, roleIds);
             dropName.DataBind();
             if (isShowPlease)
             {

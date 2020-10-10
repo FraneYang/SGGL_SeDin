@@ -41,6 +41,9 @@ namespace BLL
                 Address = hseTechnical.Address,
                 CompileMan = hseTechnical.CompileMan,
                 CompileDate = hseTechnical.CompileDate,
+                TechnicalManId=hseTechnical.TechnicalManId,
+                PartTechnicalManIds=hseTechnical.PartTechnicalManIds,
+                PartTechnicalManNames=hseTechnical.PartTechnicalManNames,
                 States = hseTechnical.States
             };
             db.License_HSETechnical.InsertOnSubmit(newHSETechnical);
@@ -68,6 +71,9 @@ namespace BLL
                 newHSETechnical.Address = hseTechnical.Address;
                 newHSETechnical.CompileMan = hseTechnical.CompileMan;
                 newHSETechnical.CompileDate = hseTechnical.CompileDate;
+                newHSETechnical.TechnicalManId = hseTechnical.TechnicalManId;
+                newHSETechnical.PartTechnicalManIds = hseTechnical.PartTechnicalManIds;
+                newHSETechnical.PartTechnicalManNames = hseTechnical.PartTechnicalManNames;
                 newHSETechnical.States = hseTechnical.States;
                 db.SubmitChanges();
             }

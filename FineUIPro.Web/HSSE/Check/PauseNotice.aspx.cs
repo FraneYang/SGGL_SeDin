@@ -61,7 +61,7 @@ namespace FineUIPro.Web.HSSE.Check
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT PauseNotice.PauseNoticeId,PauseNotice.ProjectId,CodeRecords.Code AS PauseNoticeCode,Unit.UnitName,PauseNotice.ProjectPlace,PauseNotice.UnitId,PauseNotice.PauseTime,case PauseNotice.IsConfirm when 1 then '已确认' else '未确认' end as IsConfirmStr ,
+            string strSql = @"SELECT PauseNotice.PauseNoticeId,PauseNotice.ProjectId,CodeRecords.Code AS PauseNoticeCode,Unit.UnitName,UnitWork.UnitWorkName as ProjectPlace,PauseNotice.UnitId,PauseNotice.PauseTime,case PauseNotice.IsConfirm when 1 then '已确认' else '未确认' end as IsConfirmStr ,
                 (CASE WHEN PauseNotice.PauseStates = '0' OR PauseNotice.PauseStates IS NULL THEN '待['+CompileMan.UserName+']提交' WHEN PauseNotice.PauseStates = '1' THEN '待['+SignMan.UserName+']签发'  WHEN PauseNotice.PauseStates = '2' THEN '待['+ApproveMan.UserName+']批准' WHEN PauseNotice.PauseStates = '3' THEN '待['+DutyPerson.UserName+']接收' WHEN PauseNotice.PauseStates = '4' THEN '审批完成' END) AS  FlowOperateName 
              FROM Check_PauseNotice AS PauseNotice 
              LEFT JOIN Sys_User AS CompileMan ON CompileMan.UserId=PauseNotice.CompileManId 
@@ -69,6 +69,7 @@ namespace FineUIPro.Web.HSSE.Check
              LEFT JOIN Sys_User AS ApproveMan ON ApproveMan.UserId=PauseNotice.ApproveManId 
              LEFT JOIN Sys_User AS DutyPerson ON DutyPerson.UserId=PauseNotice.DutyPersonId
              LEFT JOIN Sys_CodeRecords AS CodeRecords ON PauseNotice.PauseNoticeId=CodeRecords.DataId 
+             LEFT JOIN WBS_UnitWork AS UnitWork ON PauseNotice.UnitWorkId=UnitWork.UnitWorkId 
              LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=PauseNotice.UnitId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND PauseNotice.ProjectId = @ProjectId";

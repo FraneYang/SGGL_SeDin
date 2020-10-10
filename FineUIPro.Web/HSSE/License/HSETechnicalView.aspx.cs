@@ -58,6 +58,10 @@ namespace FineUIPro.Web.HSSE.License
                         }
                         this.txtWorkContents.Text = hseTechnical.WorkContents;
                         this.txtAddress.Text = hseTechnical.Address;
+
+                        this.drpTechnicalMan.Text = BLL.UserService.GetUserNameByUserId(hseTechnical.TechnicalManId);
+                        this.drpPartTechnicalMans.Text = BLL.UserService.getUserNamesUserIds(hseTechnical.PartTechnicalManIds);
+                        this.txtPartTechnicalManNames.Text = hseTechnical.PartTechnicalManNames;
                     }
                 }
                 ///初始化审核菜单
