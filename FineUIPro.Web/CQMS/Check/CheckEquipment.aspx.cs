@@ -117,12 +117,13 @@ namespace FineUIPro.Web.CQMS.Check
                         if (checkEquipment.CompileMan == this.CurrUser.UserId || this.CurrUser.UserId == BLL.Const.sysglyId)
                         {
                             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EditCheckEquipmentTwo.aspx?CheckEquipmentId=" + Grid1.SelectedRowID, "编辑 - ")));
+                            return;
                         }
                         else
                         {
                             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EditCheckEquipment.aspx?see=see&CheckEquipmentId=" + Grid1.SelectedRowID, "查看 - ")));
+                            return;
                         }
-
                     }
 
                     if (approve != null)

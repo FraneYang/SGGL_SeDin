@@ -846,6 +846,7 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     DocumentBuilder builder = new DocumentBuilder(doc);
                     builder.MoveToBookmark("File");
+                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     var checkFile = AttachFileService.Getfiles(checkControl.CheckControlCode, Const.CheckListMenuId);
                     if (!string.IsNullOrEmpty(checkFile.AttachUrl))
                     {
@@ -885,6 +886,7 @@ namespace FineUIPro.Web.CQMS.Check
                                         if (File.Exists(rootPath + spliurl))
                                         {
                                             builder.InsertImage(rootPath + spliurl, Convert.ToDouble(JpgSize.Width / i), Convert.ToDouble(JpgSize.Height / i));
+                                            builder.Write("    ");
                                         }
                                     }
                                 }
@@ -900,6 +902,7 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     DocumentBuilder builder = new DocumentBuilder(doc);
                     builder.MoveToBookmark("ReFile");
+                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     var checkFile = AttachFileService.Getfiles(checkControl.CheckControlCode + "r", Const.CheckListMenuId);
                     if (!string.IsNullOrEmpty(checkFile.AttachUrl))
                     {
@@ -939,6 +942,7 @@ namespace FineUIPro.Web.CQMS.Check
                                         if (File.Exists(rootPath + spliurl))
                                         {
                                             builder.InsertImage(rootPath + spliurl, JpgSize.Width / i, JpgSize.Height / i);
+                                            builder.Write("    ");
                                         }
                                     }
                                 }

@@ -65,7 +65,7 @@
                                         </f:Button> 
                                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存" OnClick="btnSave_Click">
                                         </f:Button> 
-                                        <f:Button runat="server" ID="CreatWeldableWeldJoint" Icon="ChartPie" Text="生成可焊焊口" OnClick="CreatWeldableWeldJoint_Click"></f:Button>
+                                        <f:Button runat="server" ID="CreatWeldableWeldJoint" Icon="ChartPie" Text="生成可焊焊工" OnClick="CreatWeldableWeldJoint_Click"></f:Button>
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>

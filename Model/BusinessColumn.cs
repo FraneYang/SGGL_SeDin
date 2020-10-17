@@ -10,6 +10,7 @@ namespace Model
     public class BusinessColumn
     {
         public string title { get; set; }
+        public int xFontNum { get; set; }
         public List<string> legend { get; set; }
         public List<string> categories { get; set; }
         public List<SingleSerie> series { get; set; }

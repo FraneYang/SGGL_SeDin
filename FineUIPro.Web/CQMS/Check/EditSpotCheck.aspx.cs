@@ -741,6 +741,24 @@ namespace FineUIPro.Web.CQMS.Check
                     Alert.ShowInTop("请选择控制点级别！", MessageBoxIcon.Warning);
                     return;
                 }
+                if (this.drpHandleType.SelectedValue == BLL.Const.SpotCheck_Complete)
+                {
+                    var list= BLL.SpotCheckDetailService.GetSpotCheckDetails(SpotCheckCode);
+                    bool isAllHandle = true;   //所有明细是否已经确认合格或不合格
+                    foreach (var item in list)
+                    {
+                        if (item.IsOK == null)
+                        {
+                            isAllHandle = false;
+                            break;
+                        }
+                    }
+                    if (!isAllHandle)
+                    {
+                        Alert.ShowInTop("请确认所有共检内容合格状态后再提交审批完成！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
                 SavePauseNotice("submit");
                 PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
             }

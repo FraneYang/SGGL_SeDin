@@ -46,11 +46,17 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             string preGroup2 = PreGroup(mat2.MaterialGroup);
 
             // 单位、接头形式、材质的覆盖
+            //var wpq = from x in Funs.DB.View_HJGL_WPQ
+            //          where x.UnitId == unitId
+            //          && (x.JointType == "对接焊缝" || (x.JointType != "对接焊缝" && weldType != "B"))
+            //                && ((x.MaterialId1 == material1 && x.MaterialId2 == material2)
+            //                || (x.MaterialId1 == material2 && x.MaterialId2 == material1))
+            //          select x;
             var wpq = from x in Funs.DB.View_HJGL_WPQ
                       where x.UnitId == unitId
                       && (x.JointType == "对接焊缝" || (x.JointType != "对接焊缝" && weldType != "B"))
-                            && ((x.MaterialId1 == material1 && x.MaterialId2 == material2)
-                            || (x.MaterialId1 == material2 && x.MaterialId2 == material1))
+                            && ((x.Material1Group == mat1.MaterialGroup && x.Material2Group == mat2.MaterialGroup)
+                            || (x.Material1Group == mat2.MaterialGroup && x.Material2Group == mat1.MaterialGroup))
                       select x;
 
             // 根据接头形式判断外径和壁厚的覆盖

@@ -506,7 +506,7 @@
 </script>
 
 <script type="text/javascript">
-    function category_Two(id, xArr, data) {
+    function category_Two(id, xArr, data,num) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
         // 指定图表的配置项和数据
@@ -543,7 +543,31 @@
                     show: true,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
-                    }
+                    },
+                    interval: 0,
+                    formatter:function(value)  
+                     {  
+                      var ret = "";//拼接加\n返回的类目项  
+                      var maxLength = num;//每项显示文字个数  
+                      var valLength = value.length;//X轴类目项的文字个数  
+                      var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数  
+                      if (rowN > 1)//如果类目项的文字大于maxLength,  
+                      {  
+                       for (var i = 0; i < rowN; i++) {  
+                        var temp = "";//每次截取的字符串  
+                        var start = i * maxLength;//开始截取的位置  
+                        var end = start + maxLength;//结束截取的位置  
+                        //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧  
+                           //temp = value.substring(start, end) + "\n";  
+                           temp = value.substring(start, end) + (i == rowN -1 ? "" : "\n");  
+                        ret += temp; //凭借最终的字符串  
+                       }  
+                       return ret;  
+                      }  
+                      else {  
+                       return value;  
+                      }  
+                     }
                 },
                 type: 'category',
                 data: xArr,
@@ -608,7 +632,7 @@
             itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
         }
     ]
-    category_Two('two', xArr, data)
+    category_Two('two', xArr, data,two2.xFontNum)
 </script>
 <script type="text/javascript">
     function category_Three(id, xArr, series) {
@@ -708,6 +732,7 @@
         name: '施工资料同步率',
         type: 'bar',
         data: three.series[1].data,
+        barCategoryGap:10,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }]
     category_Three('three', xArr, series)
@@ -750,7 +775,31 @@
                     show: true,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
-                    }
+                    },
+                    interval: 0,
+                    formatter:function(value)  
+                     {  
+                      var ret = "";//拼接加\n返回的类目项  
+                      var maxLength = 5;//每项显示文字个数  
+                      var valLength = value.length;//X轴类目项的文字个数  
+                      var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数  
+                      if (rowN > 1)//如果类目项的文字大于maxLength,  
+                      {  
+                       for (var i = 0; i < rowN; i++) {  
+                        var temp = "";//每次截取的字符串  
+                        var start = i * maxLength;//开始截取的位置  
+                        var end = start + maxLength;//结束截取的位置  
+                        //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧  
+                           //temp = value.substring(start, end) + "\n";  
+                           temp = value.substring(start, end) + (i == rowN -1 ? "" : "\n");  
+                        ret += temp; //凭借最终的字符串  
+                       }  
+                       return ret;  
+                      }  
+                      else {  
+                       return value;  
+                      }  
+                     }
                 },
                 type: 'category',
                 data: xArr
@@ -799,7 +848,6 @@
     var series = [{
         name: '质量验收一次合格率',
         type: 'bar',
-        barWidth: 40,
         barGap:0,
         data: four.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
@@ -807,8 +855,8 @@
     {
         name: '施工资料同步率',
         type: 'bar',
-        barWidth: 40,
         data: four.series[1].data,
+        barCategoryGap:20,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }];
     category('four', xArr, series)
@@ -834,6 +882,7 @@
         var three2 =<%=Three2 %>;
         var four =<%=Four %>;
         var four2 =<%=Four2 %>;
+        var num = 5;
         if (value == 2) {
             var xArr = two.categories
             var data = [
@@ -854,6 +903,7 @@
                     itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
                 }
             ];
+            num = two.xFontNum;
             if (index == 2) {
                 //xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
                 xArr = two2.categories
@@ -875,6 +925,7 @@
                         itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
                     }
                 ];
+                num = two2.xFontNum;
             }
             else if (index == 4) {
                 //xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6", "专业7", "专业8", "专业9"]
@@ -897,6 +948,7 @@
                         itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
                     }
                 ];
+                num = two4.xFontNum;
             }
             else if (index == 6) {
                 //xArr = ["专业1", "专业2", "专业3", "专业4", "专业5", "专业6", "专业7", "专业8", "专业9"]
@@ -919,8 +971,9 @@
                         itemStyle: { normal: { color: 'rgba(206,143,135,1)' } }
                     }
                 ];
+                num = two3.xFontNum;
             }
-            category_Two('two', xArr, data)
+            category_Two('two', xArr, data,num)
         }
         else if (value == 3) {
             //var xArr = ["分包1", "分包2", "分包3", "分包4", "分包5", "分包6"]

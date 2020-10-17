@@ -15,7 +15,7 @@ namespace FineUIPro.Web
         {
             if (!IsPostBack)
             {
-              //  ClientScript.RegisterClientScriptBlock(typeof(Page), "", " category_One('one1', '项目质量验收一次合格率', " + new mainMenu_CQMS().One1 + ")", true);
+                //  ClientScript.RegisterClientScriptBlock(typeof(Page), "", " category_One('one1', '项目质量验收一次合格率', " + new mainMenu_CQMS().One1 + ")", true);
             }
         }
 
@@ -45,6 +45,7 @@ namespace FineUIPro.Web
             {
                 List<Model.View_Check_SoptCheckDetail> totalCheckDetailDataOKLists = SpotCheckDetailService.GetAllDataOkSpotCheckDetailListByTime(CurrUser.LoginProjectId, DateTime.Now);
                 List<Model.View_Check_SoptCheckDetail> totalCheckDetailOKLists = SpotCheckDetailService.GetTotalOKSpotCheckDetailListByTime1(CurrUser.LoginProjectId, DateTime.Now);
+                totalCheckDetailOKLists = totalCheckDetailOKLists.Where(x => x.IsShow == true).ToList();  //需要上传资料的IsShow为true
                 double result = 0;
                 if (totalCheckDetailDataOKLists.Count > 0 && totalCheckDetailOKLists.Count > 0)
                 {
@@ -156,6 +157,7 @@ namespace FineUIPro.Web
                 Model.BusinessColumn businessColumn = new Model.BusinessColumn();
                 List<string> listCategories = new List<string>();
                 businessColumn.title = "质量问题统计";
+                businessColumn.xFontNum = 8;
                 var units = BLL.ProjectUnitService.GetProjectUnitListByProjectIdUnitType(CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2);
                 var checks = JointCheckDetailService.GetTotalJointCheckDetailListByTime(CurrUser.LoginProjectId, DateTime.Now);
                 Model.SingleSerie s = new Model.SingleSerie();
@@ -189,6 +191,7 @@ namespace FineUIPro.Web
                 Model.BusinessColumn businessColumn = new Model.BusinessColumn();
                 List<string> listCategories = new List<string>();
                 businessColumn.title = "质量问题统计";
+                businessColumn.xFontNum = 5;
                 var unitWorks = BLL.UnitWorkService.GetUnitWorkLists(CurrUser.LoginProjectId);
                 unitWorks = unitWorks.Where(x => x.ProjectType == "2").ToList();
                 var checks = JointCheckDetailService.GetTotalJointCheckDetailListByTime(CurrUser.LoginProjectId, DateTime.Now);
@@ -223,6 +226,7 @@ namespace FineUIPro.Web
                 Model.BusinessColumn businessColumn = new Model.BusinessColumn();
                 List<string> listCategories = new List<string>();
                 businessColumn.title = "质量问题统计";
+                businessColumn.xFontNum = 5;
                 var cns = BLL.CNProfessionalService.GetList();
                 var checks = JointCheckDetailService.GetTotalJointCheckDetailListByTime(CurrUser.LoginProjectId, DateTime.Now);
                 Model.SingleSerie s = new Model.SingleSerie();
@@ -256,6 +260,7 @@ namespace FineUIPro.Web
                 Model.BusinessColumn businessColumn = new Model.BusinessColumn();
                 List<string> listCategories = new List<string>();
                 businessColumn.title = "质量问题统计";
+                businessColumn.xFontNum = 5;
                 var unitWorks = BLL.UnitWorkService.GetUnitWorkLists(CurrUser.LoginProjectId);
                 unitWorks = unitWorks.Where(x => x.ProjectType == "1").ToList();
                 var checks = JointCheckDetailService.GetTotalJointCheckDetailListByTime(CurrUser.LoginProjectId, DateTime.Now);
@@ -304,7 +309,7 @@ namespace FineUIPro.Web
                 foreach (var unit in units)
                 {
                     listCategories.Add(BLL.UnitService.GetUnitNameByUnitId(unit.UnitId));
-                    var okChecks= TotalCheckDetailOKLists.Where(x => x.UnitId == unit.UnitId).ToList();
+                    var okChecks = TotalCheckDetailOKLists.Where(x => x.UnitId == unit.UnitId).ToList();
                     var totalChecks = TotalCheckDetailLists.Where(x => x.UnitId == unit.UnitId).ToList();
                     if (okChecks.Count > 0 && totalChecks.Count > 0)
                     {
@@ -312,7 +317,8 @@ namespace FineUIPro.Web
                         var b = Convert.ToDouble(totalChecks.Count);
                         result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
                     }
-                    var dataOkChecks= totalCheckDetailDataOKLists.Where(x => x.UnitId == unit.UnitId).ToList();
+                    var dataOkChecks = totalCheckDetailDataOKLists.Where(x => x.UnitId == unit.UnitId).ToList();
+                    okChecks = okChecks.Where(x => x.IsShow == true).ToList();  //需要上传资料的IsShow为true
                     if (dataOkChecks.Count > 0 && okChecks.Count > 0)
                     {
                         var a = Convert.ToDouble(dataOkChecks.Count);
@@ -363,6 +369,7 @@ namespace FineUIPro.Web
                         result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
                     }
                     var dataOkChecks = totalCheckDetailDataOKLists.Where(x => x.CNProfessionalCode == cn.CNProfessionalId).ToList();
+                    okChecks = okChecks.Where(x => x.IsShow == true).ToList();  //需要上传资料的IsShow为true
                     if (dataOkChecks.Count > 0 && okChecks.Count > 0)
                     {
                         var a = Convert.ToDouble(dataOkChecks.Count);
@@ -414,6 +421,7 @@ namespace FineUIPro.Web
                         result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
                     }
                     var dataOkChecks = totalCheckDetailDataOKLists.Where(x => x.UnitWorkId == unitWork.UnitWorkId).ToList();
+                    okChecks = okChecks.Where(x => x.IsShow == true).ToList();  //需要上传资料的IsShow为true
                     if (dataOkChecks.Count > 0 && okChecks.Count > 0)
                     {
                         var a = Convert.ToDouble(dataOkChecks.Count);
@@ -465,6 +473,7 @@ namespace FineUIPro.Web
                         result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
                     }
                     var dataOkChecks = totalCheckDetailDataOKLists.Where(x => x.UnitWorkId == unitWork.UnitWorkId).ToList();
+                    okChecks = okChecks.Where(x => x.IsShow == true).ToList();  //需要上传资料的IsShow为true
                     if (dataOkChecks.Count > 0 && okChecks.Count > 0)
                     {
                         var a = Convert.ToDouble(dataOkChecks.Count);

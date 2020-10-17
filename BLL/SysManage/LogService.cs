@@ -63,7 +63,7 @@ namespace BLL
                         syslog.OperationLog = opLog + "£»" + code + "¡£";
                     }
 
-                    if (!string.IsNullOrEmpty(CurrUser.LoginProjectId))
+                    if (!string.IsNullOrEmpty(CurrUser.LoginProjectId) && CurrUser.LoginProjectId != "null")
                     {
                         syslog.ProjectId = CurrUser.LoginProjectId;
                     }
@@ -87,6 +87,6 @@ namespace BLL
                 db.Sys_Log.DeleteAllOnSubmit(q);
                 db.SubmitChanges();
             }
-        }        
+        }
     }
 }

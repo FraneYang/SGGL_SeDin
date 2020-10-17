@@ -75,7 +75,7 @@ namespace BLL
             {
                 foreach (var item in getTestPlans)
                 {
-                  //  APITestPlanService.SubmitTest(item);
+                    APITestPlanService.SubmitTest(item);
                     item.States = "3";
                     db.SubmitChanges();
                 }

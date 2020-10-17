@@ -113,7 +113,7 @@
         /// <returns></returns>
         public static List<Project_ProjectUser> GetProjectUsersByProjectIds(List<string> ProjectIds)
         {
-            return (from x in Funs.DB.Project_ProjectUser where ProjectIds.Contains(x.ProjectId) select x).ToList();
+            return (from x in Funs.DB.Project_ProjectUser where ProjectIds.Contains(x.ProjectId) && x.RoleId != null select x).ToList();
         }
 
         /// <summary>

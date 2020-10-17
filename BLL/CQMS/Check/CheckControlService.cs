@@ -662,6 +662,7 @@ namespace BLL
             {
                 List<Model.View_Check_SoptCheckDetail> totalCheckDetailDataOKLists = SpotCheckDetailService.GetAllDataOkSpotCheckDetailListByTime(projectId, DateTime.Now);
                 List<Model.View_Check_SoptCheckDetail> totalCheckDetailOKLists = SpotCheckDetailService.GetTotalOKSpotCheckDetailListByTime1(projectId, DateTime.Now);
+                totalCheckDetailOKLists = totalCheckDetailOKLists.Where(x => x.IsShow == true).ToList();  //需要上传资料的IsShow为true
                 double result = 0;
                 if (totalCheckDetailDataOKLists.Count > 0 && totalCheckDetailOKLists.Count > 0)
                 {

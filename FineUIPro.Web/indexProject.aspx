@@ -42,17 +42,19 @@
             vertical-align: baseline;
             background-color: transparent;
         }
-         .activeClick{
+
+        .activeClick {
             font-weight: 800;
             color: white !important;
         }
-            .bgbtn .x-frame-ml, .bgbtn .x-frame-mc, .bgbtn .x-frame-mr,
-            .bgbtn .x-frame-tl, .bgbtn .x-frame-tc, .bgbtn .x-frame-tr,
-            .bgbtn .x-frame-bl, .bgbtn .x-frame-bc, .bgbtn .x-frame-br,
-            .bgbtn a:visited, .bgbtn .f-state-focus {
-                background-image: none;
-                background-color: transparent;
-            }
+
+        .bgbtn .x-frame-ml, .bgbtn .x-frame-mc, .bgbtn .x-frame-mr,
+        .bgbtn .x-frame-tl, .bgbtn .x-frame-tc, .bgbtn .x-frame-tr,
+        .bgbtn .x-frame-bl, .bgbtn .x-frame-bc, .bgbtn .x-frame-br,
+        .bgbtn a:visited, .bgbtn .f-state-focus {
+            background-image: none;
+            background-color: transparent;
+        }
 
         .f-state-default, .f-widget-content .f-state-default, .f-widget-header .f-state-default {
             background-image: none;
@@ -67,14 +69,16 @@
         .bgbtntop.f-btn.f-state-default .f-icon, .bgbtntop.f-btn.f-state-hover .f-icon, .bgbtntop.f-btn.f-state-focus .f-icon, .bgbtntop.f-btn.f-state-active .f-icon {
             color: #37a6ff;
         }
-        .activeClick .f-icon{
+
+        .activeClick .f-icon {
             color: white !important;
         }
+
         .f-panel, .f-widget-header, .f-tree-headerstyle .f-panel-body {
             background-color: rgb(23, 68, 122);
             color: #fff;
-            border: none !important;   
-            font-size:14px !important;
+            border: none !important;
+            font-size: 14px !important;
         }
 
         .f-menu-item-text, .f-tree-cell-text, .f-widget-content a, .f-qtip-content {
@@ -111,6 +115,7 @@
             padding-left: 3px;
             padding-right: 3px;
         }
+
         .titler {
             font-size: smaller;
         }
@@ -129,6 +134,7 @@
             /*width:auto;*/
             border: none !important;
         }
+
         .header {
             position: relative;
         }
@@ -144,12 +150,13 @@
             height: 48px;
             width: auto;
         }
-        .up-wrap-ul li>div{
-            width:100%;
+
+        .up-wrap-ul li > div {
+            width: 100%;
         }
     </style>
 </head>
-<body class="wrap">
+<body class="wrap" onresize="myFunction()">
     <form id="form1" runat="server">
         <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server"></f:PageManager>
         <f:Panel ID="Panel1" Layout="Region" ShowBorder="false" ShowHeader="false" runat="server">
@@ -433,6 +440,10 @@
             }
         }
 
+        function myFunction() {
+            $('[id$="_toolRefresh"]').click();
+        }
+
         // 点击展开菜单
         function onExpandAllClick(event) {
             var leftPanel = F(leftPanelClientID);
@@ -660,15 +671,15 @@
                 $(".bgbtn,.bgbtntop").removeClass("activeClick")
             });
             $(".bgbtn,.bgbtntop").click(function () {
-                 // 切换下tab样式
-                 var $this = $(this)
-                 if (!$this.hasClass('activeClick')) {
-                     if ($this.hasClass('bgbtn')) {
-                         $(".bgbtn").removeClass('activeClick')
-                     } else {
-                         $(".bgbtntop").removeClass('activeClick')
-                     }
-                     $this.addClass('activeClick')
+                // 切换下tab样式
+                var $this = $(this)
+                if (!$this.hasClass('activeClick')) {
+                    if ($this.hasClass('bgbtn')) {
+                        $(".bgbtn").removeClass('activeClick')
+                    } else {
+                        $(".bgbtntop").removeClass('activeClick')
+                    }
+                    $this.addClass('activeClick')
                 }
             });
             var mainTabStrip = F(mainTabStripClientID);

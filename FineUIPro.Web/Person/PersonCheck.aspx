@@ -24,12 +24,16 @@
                                 </f:DropDownList>
                                 <f:DropDownList ID="drpProject" runat="server" Label="项目" LabelAlign="Right" EnableEdit="true" LabelWidth="50px">
                                 </f:DropDownList>
-                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime" Width="250px" LabelWidth="80px"
+                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime" Width="200px" LabelWidth="80px"
                                       LabelAlign="right"  EnableEdit="false">
                                 </f:DatePicker>
-                                  <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime" Width="250px" LabelWidth="80px"
+                                  <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime" Width="200px" LabelWidth="80px"
                                       LabelAlign="right"  EnableEdit="false">
                                 </f:DatePicker>
+                                <f:DropDownList ID="drpState" runat="server" Label="考核状态" LabelAlign="Right" EnableEdit="true" LabelWidth="80px" > 
+                                    <f:ListItem Value="0" Text="正在考核" />
+                                    <f:ListItem Value="1" Text="考核结束" />
+                                </f:DropDownList>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                 </f:ToolbarFill>
                                  <f:Button ID="btnQuery" OnClick="btnQuery_Click" ToolTip="查询"    Icon="SystemSearch" EnablePostBack="true" runat="server" >

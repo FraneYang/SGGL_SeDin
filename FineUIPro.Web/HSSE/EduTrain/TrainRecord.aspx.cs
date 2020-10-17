@@ -54,7 +54,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
-                if (this.CurrUser.UserId == Const.hfnbdId)
+                if (this.CurrUser.UserId == Const.hfnbdId || this.CurrUser.UserId == Const.sysglyId)
                 {
                     this.btnRefresh.Hidden = false;
                 }
@@ -592,6 +592,16 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     }
                 }
                 Alert.ShowInTop("刷新完成！", MessageBoxIcon.Success);
+            }
+
+            var getTestPlanStates = from x in Funs.DB.Training_TestPlan
+                              join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
+                              where x.States == Const.State_3 && y.States == Const.State_2
+                              select x;
+            foreach (var item in getTestPlanStates)
+            {
+                ////TODO 讲培训计划 考试记录 写入到培训记录
+               BLL. APITrainRecordService.InsertTrainRecord(item); 
             }
         }
     }
