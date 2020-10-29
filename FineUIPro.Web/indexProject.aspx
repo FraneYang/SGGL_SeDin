@@ -181,8 +181,8 @@
                                     <div class="baseInfo">
                                         <ul class="layui-nav navSelect">
                                             <li class="layui-nav-item">
-                                                <f:Button runat="server" CssClass="bgbtntop" Text="25℃" IconFont="Cloud" ToolTip="2020年6月26日 太原 晴 25℃ 至 28℃"
-                                                    EnablePostBack="false" EnableDefaultState="true" EnableDefaultCorner="false" ID="Button1">
+                                                <f:Button runat="server" CssClass="bgbtntop" Text="25℃" IconFont="Cloud" ToolTip="2020年6月26日 太原 晴 25℃ 至 28℃" 
+                                                    EnablePostBack="false" EnableDefaultState="true" EnableDefaultCorner="false" ID="btnWeather">
                                                 </f:Button>
                                             </li>
                                             <li class="layui-nav-item">
@@ -371,7 +371,7 @@
         </f:Panel>
         <f:Window ID="windowCustomQuery" Title="自定义查询" Hidden="true" EnableIFrame="true" IFrameUrl="./SysManage/CustomQuery.aspx" ClearIFrameAfterClose="false"
             runat="server" IsModal="true" Width="1200px" Height="620px" EnableClose="true"
-            EnableMaximize="true" EnableResize="true">
+            EnableMaximize="true" EnableResize="false">
         </f:Window>
         <asp:XmlDataSource ID="XmlDataSource1" runat="server" EnableCaching="false"></asp:XmlDataSource>
     </form>

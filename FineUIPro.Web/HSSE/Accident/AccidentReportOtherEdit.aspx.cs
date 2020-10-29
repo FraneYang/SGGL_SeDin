@@ -44,21 +44,26 @@ namespace FineUIPro.Web.HSSE.Accident
                 var unit = UnitService.GetUnitByUnitId(Const.UnitId_SEDIN);
                 if (unit != null && !string.IsNullOrEmpty(unit.UnitCode))
                 {
-                    string url = "../../Images/SUBimages/" + unit.UnitCode + ".gif";
+                    string url = "../../Images/SUBimages/" + unit.UnitCode + ".jpg";
                     if (url.Contains('*'))
                     {
                         url = url.Replace('*', '-');
                     }
                     this.Image1.ImageUrl = url;
                 }
-
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
                 {
                     this.lblProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(this.CurrUser.LoginProjectId);
                 }
+                int l = 18 - this.lblProjectName.Text.Length;
+                if (this.lblProjectName.Text.Contains("金晖煤焦"))
+                {
+                    l = -5;
+                }
+                this.lblProjectName.Margin = "5 0 0 " + (10 + 9 * l).ToString();
                 this.txtAccidentReportOtherName.Text = "管理体系文件-施工管理";
-                BLL.ConstValue.InitConstValueDropDownList(this.drpAccidentTypeId, BLL.ConstValue.Group_AccidentInvestigationProcessingReport, true);             
+                BLL.ConstValue.InitConstValueDropDownList(this.drpAccidentTypeId, BLL.ConstValue.Group_AccidentInvestigationProcessingReport, true);
                 this.drpUnitId.DataValueField = "UnitId";
                 this.drpUnitId.DataTextField = "UnitName";
                 BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
@@ -91,7 +96,7 @@ namespace FineUIPro.Web.HSSE.Accident
                         {
                             this.drpUnitId.SelectedValue = accidentReportOther.UnitId;
                         }
-                       
+
                         if (accidentReportOther.EconomicLoss != null)
                         {
                             this.txtEconomicLoss.Text = Convert.ToString(accidentReportOther.EconomicLoss);
@@ -240,7 +245,7 @@ namespace FineUIPro.Web.HSSE.Accident
             {
                 accidentReportOther.AccidentReportOtherId = this.AccidentReportOtherId;
                 BLL.AccidentReportOtherService.UpdateAccidentReportOther(accidentReportOther);
-                BLL.LogService.AddSys_Log(this.CurrUser, accidentReportOther.AccidentReportOtherCode, accidentReportOther.AccidentReportOtherId, BLL.Const.ProjectAccidentReportOtherMenuId, Const.BtnModify);                
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentReportOther.AccidentReportOtherCode, accidentReportOther.AccidentReportOtherId, BLL.Const.ProjectAccidentReportOtherMenuId, Const.BtnModify);
             }
             else
             {

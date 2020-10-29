@@ -666,15 +666,15 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     bookmarkAuditDate2.Text = auditDate2;
                 }
-                Bookmark bookmarkIdea = doc.Range.Bookmarks["Idea"];
-                if (bookmarkIdea != null)
-                {
-                    if (!string.IsNullOrWhiteSpace(approveIdea1))
-                    {
-                        bookmarkIdea.Text = approveIdea1;
-                    }
+                //Bookmark bookmarkIdea = doc.Range.Bookmarks["Idea"];
+                //if (bookmarkIdea != null)
+                //{
+                //    if (!string.IsNullOrWhiteSpace(approveIdea1))
+                //    {
+                //        bookmarkIdea.Text = approveIdea1;
+                //    }
 
-                }
+                //}
                 Bookmark bookmarkApproveIdea = doc.Range.Bookmarks["ApproveIdea"];
                 if (bookmarkApproveIdea != null)
                 {
@@ -870,16 +870,16 @@ namespace FineUIPro.Web.CQMS.Check
                                     {
                                         if (JpgSize.Width >= JpgSize.Height)
                                         {
-                                            if (JpgSize.Width > 320)
+                                            if (JpgSize.Width > 220)
                                             {
-                                                i = (float)JpgSize.Width / 320;
+                                                i = (float)JpgSize.Width / 220;
                                             }
                                         }
                                         else
                                         {
-                                            if (JpgSize.Height > 320)
+                                            if (JpgSize.Height > 220)
                                             {
-                                                i = (float)JpgSize.Height / 320;
+                                                i = (float)JpgSize.Height / 220;
                                             }
 
                                         }
@@ -926,16 +926,16 @@ namespace FineUIPro.Web.CQMS.Check
                                     {
                                         if (JpgSize.Width >= JpgSize.Height)
                                         {
-                                            if (JpgSize.Width > 320)
+                                            if (JpgSize.Width > 220)
                                             {
-                                                i = (float)JpgSize.Width / 320;
+                                                i = (float)JpgSize.Width / 220;
                                             }
                                         }
                                         else
                                         {
-                                            if (JpgSize.Height > 320)
+                                            if (JpgSize.Height > 220)
                                             {
-                                                i = (float)JpgSize.Height / 320;
+                                                i = (float)JpgSize.Height / 220;
                                             }
 
                                         }

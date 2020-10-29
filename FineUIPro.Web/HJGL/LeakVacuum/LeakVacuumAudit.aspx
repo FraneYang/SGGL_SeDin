@@ -233,15 +233,15 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="泄露性/真空试验包维护" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="1000px" Height="660px">
         </f:Window>
         <f:Window ID="Window2" Title="泄露性/真空试验包打印" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1024px" Height="640px">
         </f:Window>
         <f:Window ID="Window3" Title="管线对应焊口详细" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1000px" Height="520px">
         </f:Window>
     </form>

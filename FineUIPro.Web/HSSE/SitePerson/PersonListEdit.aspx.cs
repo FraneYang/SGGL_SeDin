@@ -111,7 +111,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         }
                         if (!string.IsNullOrEmpty(person.WorkAreaId))
                         {
-                            this.drpWorkArea.SelectedValue = person.WorkAreaId;
+                            txtWorkArea.Values = person.WorkAreaId.Split(',');
                         }
                         if (!string.IsNullOrEmpty(person.WorkPostId))
                         {
@@ -198,7 +198,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// </summary>
         private void InitDropDownList()
         {
-            UnitWorkService.InitUnitWorkDownList(this.drpWorkArea, this.ProjectId, true);
+            gvWorkArea.DataSource = BLL.UnitWorkService.GetUnitWorkLists(this.CurrUser.LoginProjectId);
+            gvWorkArea.DataBind();//单位工程 
             WorkPostService.InitWorkPostDropDownList(this.drpPost, true);
             PositionService.InitPositionDropDownList(this.drpPosition, true);
             PostTitleService.InitPostTitleDropDownList(this.drpTitle, true);
@@ -272,9 +273,9 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 person.TeamGroupId = this.drpTeamGroup.SelectedValue;
             }
-            if (this.drpWorkArea.SelectedValue != BLL.Const._Null)
+            if (!string.IsNullOrWhiteSpace(String.Join(",", this.txtWorkArea.Values)))
             {
-                person.WorkAreaId = this.drpWorkArea.SelectedValue;
+                person.WorkAreaId = string.Join(",", txtWorkArea.Values);
             }
             if (this.drpPost.SelectedValue != BLL.Const._Null)
             {

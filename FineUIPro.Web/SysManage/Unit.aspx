@@ -86,15 +86,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server"  IsModal="true" 
+        Target="Parent" EnableResize="false" runat="server"  IsModal="true" 
         Width="900px" Height="400px">
     </f:Window>
     <f:Window ID="Window2" Title="导入" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="false"
         CloseAction="HidePostBack" Width="1200px" Height="600px">
     </f:Window>
     <f:Window ID="WindowSubUnit" Title="资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true"
         Width="1024px" Height="520px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

@@ -18,7 +18,7 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:Label ID="txtMonths" runat="server" Label="月份" LabelWidth="200px">
+                    <f:Label ID="txtMonths" runat="server" Label="月份" LabelWidth="100px">
                     </f:Label>
                     <f:TextBox ID="txtExpenseCode" runat="server" Label="编号" LabelAlign="Right" MaxLength="50"
                         LabelWidth="230px" Readonly="true">
@@ -28,7 +28,7 @@
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="drpUnitId" runat="server" Label="填报单位" LabelAlign="Right" MaxLength="50"
-                        LabelWidth="200px" Readonly="true">
+                        LabelWidth="100px" Readonly="true">
                     </f:TextBox>
                     <f:TextBox ID="txtReportDate" runat="server" Label="填报日期" LabelAlign="Right" MaxLength="50"
                         LabelWidth="230px" Readonly="true">
@@ -70,45 +70,38 @@
                     <f:Panel ID="Panel2" runat="server" ShowBorder="false" Layout="Table" TableConfigColumns="5"
                         ShowHeader="false" BodyPadding="1px">
                         <Items>
-                            <f:Panel ID="Panel1" Title="Panel1" TableRowspan="2" MarginRight="0" Width="200px"
-                                MarginLeft="80px" runat="server" BodyPadding="1px" ShowBorder="false" ShowHeader="false">
+                            <f:Panel ID="Panel1" Title="Panel1" MarginRight="0" Width="100px"
+                                runat="server" BodyPadding="1px" ShowBorder="false" ShowHeader="false">
                                 <Items>
                                     <f:Label runat="server" ID="Label58" Text="编号">
                                     </f:Label>
                                 </Items>
                             </f:Panel>
                             <f:Panel ID="Panel3" Title="Panel1" runat="server" BodyPadding="1px" Width="200px"
-                                MarginLeft="80px" TableRowspan="2" ShowBorder="false" ShowHeader="false">
+                                ShowBorder="false" ShowHeader="false" MarginLeft="50">
                                 <Items>
                                     <f:Label runat="server" ID="lblAccidentType11" Text="类别">
                                     </f:Label>
                                 </Items>
                             </f:Panel>
-                            <f:Panel ID="Panel5" Title="Panel1" runat="server" BodyPadding="1px" MarginLeft="170px"
-                                ShowBorder="false" TableColspan="2" Width="400px" ShowHeader="false">
+                            <f:Panel ID="Panel5" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
+                                Width="200px" ShowHeader="false" MarginLeft="60px">
                                 <Items>
-                                    <f:Label runat="server" ID="Label1" Text="费用（元）">
-                                    </f:Label>
-                                </Items>
-                            </f:Panel>
-                            <f:Panel ID="Panel4" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                MarginLeft="200px" TableRowspan="2" Width="450px" ShowHeader="false">
-                                <Items>
-                                    <f:Label runat="server" ID="Label2" Text="备注">
+                                    <f:Label runat="server" ID="Label1" Text="当期费用（元）">
                                     </f:Label>
                                 </Items>
                             </f:Panel>
                             <f:Panel ID="Panel6" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                MarginLeft="80px" Width="200px" ShowHeader="false">
+                                Width="250px" ShowHeader="false" MarginLeft="115px">
                                 <Items>
-                                    <f:Label runat="server" ID="Label3" Text="当期">
+                                    <f:Label runat="server" ID="Label3" Text="项目累计费用（元）">
                                     </f:Label>
                                 </Items>
                             </f:Panel>
-                            <f:Panel ID="Panel7" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                MarginLeft="70px" Width="200px" ShowHeader="false">
+                            <f:Panel ID="Panel4" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
+                                Width="300px" ShowHeader="false" MarginLeft="180px">
                                 <Items>
-                                    <f:Label runat="server" ID="Label4" Text="项目累计">
+                                    <f:Label runat="server" ID="Label2" Text="备注">
                                     </f:Label>
                                 </Items>
                             </f:Panel>
@@ -116,11 +109,11 @@
                     </f:Panel>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label5" Text="A1">
                     </f:Label>
-                    <f:Label runat="server" ID="Label6" Text="基础管理">
+                    <f:Label runat="server" ID="Label6" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基础管理">
                     </f:Label>
                     <f:NumberBox ID="nbA1" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -132,11 +125,11 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label7" Text="A2">
                     </f:Label>
-                    <f:Label runat="server" ID="Label8" Text="安全技术">
+                    <f:Label runat="server" ID="Label8" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;安全技术">
                     </f:Label>
                     <f:NumberBox ID="nbA2" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -148,11 +141,11 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label9" Text="A3">
                     </f:Label>
-                    <f:Label runat="server" ID="Label10" Text="职业健康">
+                    <f:Label runat="server" ID="Label10" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职业健康">
                     </f:Label>
                     <f:NumberBox ID="nbA3" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -164,11 +157,11 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label11" Text="A4">
                     </f:Label>
-                    <f:Label runat="server" ID="Label12" Text="安全防护">
+                    <f:Label runat="server" ID="Label12" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;安全防护">
                     </f:Label>
                     <f:NumberBox ID="nbA4" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -180,11 +173,11 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label13" Text="A5">
                     </f:Label>
-                    <f:Label runat="server" ID="Label14" Text="化工试车">
+                    <f:Label runat="server" ID="Label14" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;化工试车">
                     </f:Label>
                     <f:NumberBox ID="nbA5" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -196,11 +189,11 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label15" Text="A6">
                     </f:Label>
-                    <f:Label runat="server" ID="Label16" Text="教育培训">
+                    <f:Label runat="server" ID="Label16" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;教育培训">
                     </f:Label>
                     <f:NumberBox ID="nbA6" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -212,9 +205,9 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="32% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
-                    <f:Label runat="server" ID="Label17" Text="A安全生产费用合计">
+                    <f:Label runat="server" ID="Label17" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A安全生产费用合计">
                     </f:Label>
                     <f:NumberBox ID="nbA" NoDecimal="false" NoNegative="false" MinValue="0" Readonly="true"
                         runat="server" Label="">
@@ -226,11 +219,11 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label19" Text="B1">
                     </f:Label>
-                    <f:Label runat="server" ID="Label20" Text="文明施工">
+                    <f:Label runat="server" ID="Label20" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文明施工">
                     </f:Label>
                     <f:NumberBox ID="nbB1" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -242,11 +235,11 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label21" Text="B2">
                     </f:Label>
-                    <f:Label runat="server" ID="Label22" Text="临时设施">
+                    <f:Label runat="server" ID="Label22" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;临时设施">
                     </f:Label>
                     <f:NumberBox ID="nbB2" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -258,11 +251,11 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="16% 16% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label23" Text="B3">
                     </f:Label>
-                    <f:Label runat="server" ID="Label24" Text="环境保护">
+                    <f:Label runat="server" ID="Label24" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;环境保护">
                     </f:Label>
                     <f:NumberBox ID="nbB3" NoDecimal="false" NoNegative="false" MinValue="0" runat="server"
                         Readonly="true" Label="">
@@ -274,9 +267,9 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="32% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
-                    <f:Label runat="server" ID="Label25" Text="B文明施工措施费合计">
+                    <f:Label runat="server" ID="Label25" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B文明施工措施费合计">
                     </f:Label>
                     <f:NumberBox ID="nbB" NoDecimal="false" NoNegative="false" MinValue="0" Readonly="true"
                         runat="server" Label="">
@@ -288,7 +281,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="32% 16% 16% 36%">
+            <f:FormRow ColumnWidths="5% 22% 25% 25% 23%">
                 <Items>
                     <f:Label runat="server" ID="Label27" Text="A+B安全生产及文明施工措施费总计">
                     </f:Label>
@@ -326,7 +319,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

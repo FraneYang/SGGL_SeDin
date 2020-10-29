@@ -51,7 +51,7 @@ namespace FineUIPro.Web.HSSE.Accident
                 var unit = UnitService.GetUnitByUnitId(Const.UnitId_SEDIN);
                 if (unit != null && !string.IsNullOrEmpty(unit.UnitCode))
                 {
-                    string url = "../../Images/SUBimages/" + unit.UnitCode + ".gif";
+                    string url = "../../Images/SUBimages/" + unit.UnitCode + ".jpg";
                     if (url.Contains('*'))
                     {
                         url = url.Replace('*', '-');
@@ -65,6 +65,8 @@ namespace FineUIPro.Web.HSSE.Accident
                 {
                     this.lblProjectName.Text = BLL.ProjectService.GetProjectByProjectId(this.ProjectId).ProjectName;
                 }
+                int l = 18 - this.lblProjectName.Text.Length;
+                this.lblProjectName.Margin = "5 0 0 " + (10 + 7 * l).ToString();
                 this.txtAccidentReportName.Text = "管理体系文件-施工管理";
                 this.InitDropDownList();
                 this.AccidentReportId = Request.Params["AccidentReportId"];

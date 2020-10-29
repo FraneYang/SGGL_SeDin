@@ -186,7 +186,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="设计变更" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="1300px" Height="620px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

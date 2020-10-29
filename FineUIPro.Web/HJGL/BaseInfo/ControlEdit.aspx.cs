@@ -99,6 +99,13 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtXXS.Text = DNCompare.XXS.ToString();
                         }
+                        if (DNCompare.Size.HasValue)
+                        {
+                            this.txtSize.Text = DNCompare.Size.ToString();
+                        }
+                        if (DNCompare.Thickness.HasValue) {
+                            this.txtthickness.Text = DNCompare.Thickness.ToString();
+                        }
                     }
                 }
             }
@@ -129,7 +136,9 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             newDNCompare.SCH120 = Funs.GetNewDecimal(this.txtSCH120.Text.Trim());
             newDNCompare.SCH140 = Funs.GetNewDecimal(this.txtSCH140.Text.Trim());
             newDNCompare.SCH160 = Funs.GetNewDecimal(this.txtSCH160.Text.Trim());
-            newDNCompare.XXS = Funs.GetNewDecimal(this.txtXXS.Text.Trim());            
+            newDNCompare.XXS = Funs.GetNewDecimal(this.txtXXS.Text.Trim());
+            newDNCompare.Size = Funs.GetNewDecimal(this.txtSize.Text.Trim());
+            newDNCompare.Thickness = Funs.GetNewDecimal(this.txtthickness.Text.Trim());
 
             if (!string.IsNullOrEmpty(this.DNCompareId))
             {

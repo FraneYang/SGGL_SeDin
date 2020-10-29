@@ -53,9 +53,9 @@
                             <Items>
                                 <f:DropDownList ID="drpUnit" runat="server" Label="施工单位" Width="350px" EnableEdit="true" LabelAlign="right" LabelWidth="110px">
                                 </f:DropDownList>
-                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime" LabelAlign="right" LabelWidth="110px">
+                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime" LabelAlign="right" LabelWidth="100px" Width="250px">
                                 </f:DatePicker>
-                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime" LabelAlign="right" LabelWidth="110px">
+                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime" LabelAlign="right" LabelWidth="110px" Width="250px">
                                 </f:DatePicker>
                                 <f:DropDownList ID="drpControlPoint" runat="server" Label="控制点等级" EnableMultiSelect="true" LabelAlign="Right" EnableEdit="true" LabelWidth="110px">
                                     <f:ListItem Text="A" Value="A" />
@@ -66,7 +66,7 @@
                                     <f:ListItem Text="CR" Value="CR" />
                                 </f:DropDownList>
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
-                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="TableGo" 
+                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="交工资料导出" Icon="TableGo" 
                             AjaxLoadingType="Mask" ShowAjaxLoadingMaskText="true" AjaxLoadingMaskText="正在导出数据到服务器，请稍候"
                                     EnableAjax="false" DisableControlBeforePostBack="false">
                                     </f:Button>
@@ -76,9 +76,9 @@
                             <Items>
                                 <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程" Width="350px" LabelAlign="Right" EnableEdit="true" LabelWidth="110px">
                                 </f:DropDownList>
-                                <f:DropDownList ID="drpCNProfessional" runat="server" Label="专业" LabelAlign="Right" EnableEdit="true" LabelWidth="110px">
+                                <f:DropDownList ID="drpCNProfessional" runat="server" Label="专业" LabelAlign="Right" EnableEdit="true" LabelWidth="100px" Width="250px">
                                 </f:DropDownList>
-                                <f:DropDownList ID="drpIsOK" runat="server" Label="实体验收结果" EnableEdit="true" LabelAlign="right" LabelWidth="110px">
+                                <f:DropDownList ID="drpIsOK" runat="server" Label="实体验收结果" EnableEdit="true" LabelAlign="right" LabelWidth="110px" Width="250px">
                                     <f:ListItem Text="合格" Value="1" />
                                     <f:ListItem Text="不合格" Value="0" />
                                 </f:DropDownList>
@@ -168,7 +168,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Self" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
     </form>

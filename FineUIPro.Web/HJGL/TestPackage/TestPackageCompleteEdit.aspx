@@ -66,7 +66,7 @@
                                         </f:DatePicker>
                                         <f:TextBox ID="txtadjustTestPressure" Label="调整试验压力" runat="server" LabelWidth="150px">
                                         </f:TextBox>
-                                        <f:NumberBox ID="txtAmbientTemperature" Label="实验环境温度"  runat="server" LabelWidth="150px">
+                                        <f:NumberBox ID="txtAmbientTemperature" Label="试验环境温度"  runat="server" LabelWidth="150px">
                                         </f:NumberBox>
                                     </Items>
                                 </f:FormRow>
@@ -124,15 +124,15 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="试压包维护" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="1000px" Height="660px">
         </f:Window>
         <f:Window ID="Window2" Title="试压包打印" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="900px" Height="600px">
         </f:Window>
         <f:Window ID="Window3" Title="管线对应焊口详细" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1000px" Height="520px">
         </f:Window>
     </form>

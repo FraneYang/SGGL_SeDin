@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>安全管理机构</title>
+    <title>安全组织机构</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -14,19 +14,19 @@
     <f:Panel ID="Panel1" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
         <Items>
             <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true"
-                Layout="HBox" EnableCollapse="true" Width="300" Title="安全管理机构" TitleToolTip="安全管理机构"
+                Layout="HBox" EnableCollapse="true" Width="300" Title="安全组织机构" TitleToolTip="安全组织机构"
                 ShowBorder="true" ShowHeader="true" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
                 <Items>
                     <f:Tree ID="trSafetyOrganization" EnableCollapse="true" ShowHeader="false" ShowBorder="false"
-                        EnableIcons="true" Title="安全管理机构" OnNodeCommand="trSafetyOrganization_NodeCommand"
+                        EnableIcons="true" Title="安全组织机构" OnNodeCommand="trSafetyOrganization_NodeCommand"
                         AutoLeafIdentification="true" AutoScroll="true" runat="server" EnableTextSelection="True"
                         EnableSingleClickExpand="true">
                     </f:Tree>
                 </Items>
             </f:Panel>
             <f:Panel runat="server" ID="panelCenterRegion" RegionPosition="Center" ShowBorder="true"
-                Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="安全管理机构"
-                TitleToolTip="安全管理机构" AutoScroll="true">
+                Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="安全组织机构"
+                TitleToolTip="安全组织机构" AutoScroll="true">
                 <Items>
                     <f:Grid ID="Grid1" Width="870px" ShowBorder="true" ShowHeader="false" EnableCollapse="true"
                         runat="server" BoxFlex="1" DataKeyNames="SafetyOrganizationId" AllowSorting="true" 

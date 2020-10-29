@@ -16,7 +16,7 @@
         <Rows>
             <f:FormRow>
                 <Items>   
-                    <f:TextBox ID="txtFileType" runat="server" Label="类型" LabelAlign="Right" Readonly="true">
+                    <f:TextBox ID="txtFileType" runat="server" Label="文件类型" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
                     <f:TextBox ID="txtReceiveFileCode" runat="server" Label="来文编号" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
@@ -85,7 +85,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

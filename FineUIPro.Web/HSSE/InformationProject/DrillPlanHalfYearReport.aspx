@@ -85,11 +85,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="应急演练工作计划半年报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1100px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1100px"
         Height="560px">
     </f:Window>
     <f:Window ID="Window2" Title="打印应急演练工作计划半年报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1100px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1100px"
         Height="560px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

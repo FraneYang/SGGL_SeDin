@@ -206,11 +206,11 @@
             </Rows>
         </f:Form>
         <f:Window ID="Window1" Title="编辑检查项明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1100px" Height="520px">
         </f:Window>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" OnClose="WindowAtt_Close" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" OnClose="WindowAtt_Close" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

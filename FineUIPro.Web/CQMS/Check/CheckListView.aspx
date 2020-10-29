@@ -110,7 +110,7 @@
                                         <Items>
                                             <f:Panel ID="Panel1" ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
                                                 <Items>
-                                                    <f:Label runat="server" Text="问题图片：" CssStyle="padding-left:25px" Width="100px" CssClass="marginr" ShowLabel="false"></f:Label>
+                                                    <f:Label runat="server" Text="问题图片：" CssStyle="padding-left:25px" Width="110px" CssClass="marginr" ShowLabel="false"></f:Label>
                                                     <f:Button ID="imgBtnFile" Text="问题图片" ToolTip="上传及查看" Icon="TableCell" runat="server"
                                                         OnClick="imgBtnFile_Click">
                                                     </f:Button>
@@ -202,11 +202,11 @@
 
         </f:Form>
         <f:Window ID="Window1" Title="编辑检查项明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1100px" Height="520px">
         </f:Window>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

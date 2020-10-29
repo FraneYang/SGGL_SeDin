@@ -211,6 +211,42 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.NumberBox txtConstructionMoney;
         
         /// <summary>
+        /// txtTelephone 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtTelephone;
+        
+        /// <summary>
+        /// txtCountry 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtCountry;
+        
+        /// <summary>
+        /// txtProvince 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtProvince;
+        
+        /// <summary>
+        /// txtCity 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtCity;
+        
+        /// <summary>
         /// ckIsUpTotalMonth 控件。
         /// </summary>
         /// <remarks>

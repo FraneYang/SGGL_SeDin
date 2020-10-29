@@ -151,7 +151,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="工序验收记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" OnClose="Window1_Close" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" OnClose="Window1_Close" runat="server" IsModal="true"
             Width="1300px" Height="660px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

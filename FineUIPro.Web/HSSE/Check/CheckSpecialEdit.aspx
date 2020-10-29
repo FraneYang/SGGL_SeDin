@@ -53,8 +53,8 @@
                         ForceSelection="false" MaxLength="2000" EnableCheckBoxSelect="true"
                       AutoPostBack="true"   OnSelectedIndexChanged="drpPartInPersons_SelectedIndexChanged">
                     </f:DropDownList>
-                    <f:TextBox  runat="server" ID="txtPartInPersonNames" MaxLength="1000" ></f:TextBox>
-                     <f:Button ID="btnNew" Text="新增" Icon="Add" EnablePostBack="false" runat="server" MarginLeft="50px">
+                    <f:TextBox  runat="server" ID="txtPartInPersonNames" MaxLength="1000" Label="补充人员" ></f:TextBox>
+                     <f:Button ID="btnNew" Text="新增检查" Icon="Add" EnablePostBack="false" runat="server" MarginLeft="50px">
                      </f:Button>
                     <%--    <f:Button ID="btnDelete" Text="删除" Icon="Delete" EnablePostBack="false" runat="server">
                         </f:Button>--%>
@@ -157,7 +157,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

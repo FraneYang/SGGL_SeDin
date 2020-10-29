@@ -88,11 +88,11 @@
         </Rows>
     </f:Form>
     <f:Window ID="Window1" Title="审核人工月报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="false"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="false"
         CloseAction="HidePostBack" Width="900px" Height="600px">
     </f:Window>
     <f:Window ID="Window2" Title="导入人工月报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="false"
         CloseAction="HidePostBack" Width="900px" Height="600px">
     </f:Window>
     </form>

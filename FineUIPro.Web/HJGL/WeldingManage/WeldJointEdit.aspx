@@ -84,9 +84,12 @@
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtDetectionTypeId" Label="检测类型" Readonly="true"
+                                        <%--<f:TextBox ID="txtDetectionTypeId" Label="检测类型" Readonly="true"
                                             runat="server" LabelWidth="100px" Required="true" ShowRedStar="true" LabelAlign="Right">
-                                        </f:TextBox>
+                                        </f:TextBox>--%>
+                                        <f:DropDownList ID="drpDetectionTypeId" Label="检测类型" runat="server"
+                                            LabelWidth="100px" LabelAlign="Right">
+                                        </f:DropDownList>
                                         <f:DropDownList ID="drpComponent1" Label="组件1号" runat="server"
                                             LabelWidth="100px" LabelAlign="Right">
                                         </f:DropDownList>
@@ -165,7 +168,7 @@
             </Items>
         </f:Form>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1200px" Height="620px" OnClose="Window1_Close">
         </f:Window>
     </form>

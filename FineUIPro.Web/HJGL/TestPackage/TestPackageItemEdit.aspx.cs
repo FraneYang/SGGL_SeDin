@@ -62,7 +62,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 //this.drpUnit.DataSource = units;
                 //this.drpUnit.DataBind();
                 //Funs.FineUIPleaseSelect(this.drpUnit);
-
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);//单位
                 BLL.UnitWorkService.InitUnitWorkDropDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);
 
@@ -81,6 +80,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     hdPipelinesId.Text = hdPipelinesId.Text.Substring(0, hdPipelinesId.Text.Length - 1);
                 }
                 this.PageInfoLoad(); ///加载页面 
+                if (!string.IsNullOrEmpty(Request.Params["type"]))
+                {
+                    this.btnFind.Hidden = true;
+                    this.btnSave.Hidden = true;
+                }
             }
         }
         #endregion

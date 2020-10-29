@@ -96,7 +96,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="发卡" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Self" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="500px" Height="380px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

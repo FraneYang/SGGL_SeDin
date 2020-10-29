@@ -72,7 +72,7 @@
         </Items>
     </f:Panel>
         <f:Window ID="Window1" Title="编辑历史记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="420px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

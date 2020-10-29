@@ -12,12 +12,18 @@
         .f-grid-row.Red {
             background-color: red;
         }
+
+        .LabelColor
+        {
+            color: Red;
+            font-size:small;
+        }   
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
-        <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
+        <f:Panel ID="Panel1" runat="server" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="考试记录" EnableCollapse="true"
@@ -49,6 +55,7 @@
                                 <f:CheckBox runat="server" Label="时间空" ID="ckIsNULL" AutoPostBack="true"
                                     OnCheckedChanged="IsTemp_CheckedChanged" LabelWidth="70px" Width="80px">
                                 </f:CheckBox>
+                                <f:Label runat="server" Text="红色表示分数低于80分。"  CssClass="LabelColor"></f:Label>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                                 <f:Button ID="btnOut" OnClick="btnMenuOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                     EnableAjax="false" DisableControlBeforePostBack="false">
@@ -109,7 +116,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="考试记录查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1200px" Height="560px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

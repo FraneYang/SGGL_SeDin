@@ -148,13 +148,22 @@ namespace FineUIPro.Web.HSSE.Check {
         protected global::FineUIPro.GroupPanel GroupPanel2;
         
         /// <summary>
-        /// drpProfessionalEngineer 控件。
+        /// txtCarryUser 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpProfessionalEngineer;
+        protected global::FineUIPro.DropDownBox txtCarryUser;
+        
+        /// <summary>
+        /// gvCarryUser 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid gvCarryUser;
         
         /// <summary>
         /// drpConstructionManager 控件。

@@ -151,7 +151,7 @@
 
                                                     <f:Panel ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
                                                         <Items>
-                                                            <f:Label runat="server" Text="附件：" ShowRedStar="true" CssStyle="padding-left:53px" Width="100px" CssClass="marginr" ShowLabel="false"></f:Label>
+                                                            <f:Label runat="server" Text="附件：" ShowRedStar="true" CssStyle="padding-left:53px" Width="110px" CssClass="marginr" ShowLabel="false"></f:Label>
                                                             <f:Button ID="imgBtnFile" Text="附件" ToolTip="上传及查看" Icon="TableCell" OnClick="imgBtnFile_Click" runat="server">
                                                             </f:Button>
                                                         </Items>
@@ -171,7 +171,7 @@
                         <f:Panel ID="Panel2" IsFluid="true" CssClass="mytable blockpanel" runat="server" ShowBorder="true"
                             Layout="Table" TableConfigColumns="3" ShowHeader="true" Title="总包会签">
                             <Items>
-                                <f:Panel ID="Panel1" Title="Panel1" Height="200px"
+                                <f:Panel ID="Panel1" Title="Panel1" Width="200px" Height="200px"
                                     TableRowspan="5" runat="server" BodyPadding="10px" AutoScroll="true" ShowBorder="false" ShowHeader="false">
                                     <Items>
                                         <f:Tree runat="server" ID="trOne" ShowHeader="false" ShowBorder="false" EnableArrows="true">
@@ -273,7 +273,7 @@
         </f:Form>
     </form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
 </body>

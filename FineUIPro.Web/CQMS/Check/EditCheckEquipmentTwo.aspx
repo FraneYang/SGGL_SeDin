@@ -42,7 +42,7 @@
                                         <Items>
                                             <f:TextBox ID="txtProjectName" runat="server" Readonly="true" Label="项目名称" LabelAlign="Right" LabelWidth="130px">
                                             </f:TextBox>
-                                            <f:DropDownList ID="drpUserUnitId" AutoPostBack="true" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" runat="server" Required="true" Label="使用单位" LabelAlign="Right" EnableEdit="true" LabelWidth="130px">
+                                            <f:DropDownList ID="drpUserUnitId" AutoPostBack="true" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" runat="server" Required="true" Label="使用单位" LabelAlign="Right" EnableEdit="true" LabelWidth="140px">
                                             </f:DropDownList>
 
                                         </Items>
@@ -51,7 +51,7 @@
                                         <Items>
                                             <f:TextBox ID="txtEquipmentName" runat="server" Label="设备器具名称"  LabelAlign="Right" LabelWidth="130px">
                                             </f:TextBox>
-                                            <f:TextBox ID="txtFormat" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50" LabelWidth="130px">
+                                            <f:TextBox ID="txtFormat" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50" LabelWidth="140px">
                                             </f:TextBox>
 
                                         </Items>
@@ -60,7 +60,7 @@
                                         <Items>
                                             <f:TextBox ID="txtSetAccuracyGrade" ShowRedStar="true" runat="server" Label="规定精度等级" Required="true" LabelAlign="Right" MaxLength="50" LabelWidth="130px">
                                             </f:TextBox>
-                                            <f:TextBox ID="txtRealAccuracyGrade" ShowRedStar="true" runat="server" Label="实际精度等级" Required="true" LabelAlign="Right" LabelWidth="130px"
+                                            <f:TextBox ID="txtRealAccuracyGrade" ShowRedStar="true" runat="server" Label="实际精度等级" Required="true" LabelAlign="Right" LabelWidth="140px"
                                                 MaxLength="50">
                                             </f:TextBox>
 
@@ -71,7 +71,7 @@
                                             <f:TextBox ID="txtCheckCycle" Label="检定周期" runat="server" 
                                                 LabelWidth="130px" >
                                             </f:TextBox>
-                                            <f:DatePicker ID="txtCheckDay" runat="server" Label="检定日"  LabelAlign="Right" EnableEdit="true" LabelWidth="130px">
+                                            <f:DatePicker ID="txtCheckDay" runat="server" Label="检定日"  LabelAlign="Right" EnableEdit="true" LabelWidth="140px">
                                             </f:DatePicker>
 
                                         </Items>
@@ -81,7 +81,7 @@
                                             <f:TextBox ID="cbIsIdentification" runat="server" Label="是否有标识"
                                                 LabelWidth="130px" >
                                             </f:TextBox>
-                                            <f:TextBox ID="cbIsCheckCertificate" runat="server" Label="是否有检定证书"  LabelWidth="130px" >
+                                            <f:TextBox ID="cbIsCheckCertificate" runat="server" Label="是否有检定证书"  LabelWidth="140px" >
                                             </f:TextBox>
                                         </Items>
                                     </f:FormRow>
@@ -96,7 +96,7 @@
                                                     </f:Button>
                                                 </Items>
                                             </f:Panel>
-                                            <f:DropDownList ID="drpIsdamage" AutoPostBack="true" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" runat="server" Required="true" Label="状态" LabelAlign="Right" EnableEdit="true" LabelWidth="130px" >
+                                            <f:DropDownList ID="drpIsdamage" AutoPostBack="true" EmptyText="--请选择--" AutoSelectFirstItem="false" ShowRedStar="true" runat="server" Required="true" Label="状态" LabelAlign="Right" EnableEdit="true" LabelWidth="140px" >
                                                 <f:ListItem Text="正常" Value="正常" />
                                                 <f:ListItem Text="损坏" Value="损坏" />
                                                 <f:ListItem Text="退场" Value="退场" />
@@ -161,7 +161,7 @@
 
         </f:Form>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
     </form>

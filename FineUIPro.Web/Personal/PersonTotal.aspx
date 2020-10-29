@@ -70,7 +70,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="人员总结" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="900px"
             Height="600px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

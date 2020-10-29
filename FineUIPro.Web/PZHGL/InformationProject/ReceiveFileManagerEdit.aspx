@@ -16,7 +16,7 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                      <f:RadioButtonList runat="server" ID="rbFileType" Width="150px" AutoPostBack="true" OnSelectedIndexChanged="rbFileType_SelectedIndexChanged">
+                      <f:RadioButtonList runat="server" ID="rbFileType" Label="文件类型" Width="150px" AutoPostBack="true" OnSelectedIndexChanged="rbFileType_SelectedIndexChanged">
                         <f:RadioItem Value="0" Text="项目发文" Selected="true"/>
                         <f:RadioItem Value="1" Text="公司来文"/>
                     </f:RadioButtonList>
@@ -106,7 +106,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

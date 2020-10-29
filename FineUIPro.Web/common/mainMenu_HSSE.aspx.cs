@@ -15,6 +15,11 @@ namespace FineUIPro.Web
                 getHazardRegisterLists= HSSE_Hazard_HazardRegisterService.GetHazardRegisterListByProjectId(this.CurrUser.LoginProjectId);
                 ///当前现场总人数
                 getSitePerson();
+                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (project != null && project.Telephone != null)
+                {
+                    this.xmb.InnerHtml = project.Telephone;
+                }
             }
         }
 

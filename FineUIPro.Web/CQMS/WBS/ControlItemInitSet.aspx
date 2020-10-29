@@ -109,15 +109,15 @@
         </Regions>
     </f:RegionPanel>
     <f:Window ID="Window1" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Self" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="800px" Height="300px">
     </f:Window>
     <f:Window ID="Window2" Title="增加" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Self" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="800px" Height="300px">
     </f:Window>
     <f:Window ID="Window3" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window3_Close" IsModal="true"
+        Target="Self" EnableResize="false" runat="server" OnClose="Window3_Close" IsModal="true"
         Width="1000px" Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

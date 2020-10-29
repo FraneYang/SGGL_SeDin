@@ -101,12 +101,12 @@
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:Label runat="server" Label="参与共检人" LabelWidth="110px"></f:Label>
+                                            <f:Label runat="server" Label="参与共检人" LabelWidth="120px"></f:Label>
                                         </Items>
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtJointCheckMans1" runat="server" LabelWidth="110px" Readonly="true" Label="总承包商" LabelAlign="Right"
+                                            <f:TextBox ID="txtJointCheckMans1" runat="server" LabelWidth="120px" Readonly="true" Label="总承包商" LabelAlign="Right"
                                                >
                                             </f:TextBox>
                                             <f:TextBox ID="txtJointCheckMans2" runat="server" Readonly="true" Label="施工单位" LabelAlign="Right"
@@ -281,11 +281,11 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="质量共检记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1100px" Height="520px">
         </f:Window>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
 

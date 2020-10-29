@@ -162,23 +162,23 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="安全巡检" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="900px" Height="580px">
     </f:Window>
     <f:Window ID="Window2" Title="违章处罚通知单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1024px" Height="600px">
     </f:Window>
     <f:Window ID="Window3" Title="检查小结" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window3_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window3_Close" IsModal="true"
         Width="600px" Height="300px">
     </f:Window>
    <%-- <f:Window ID="Window4" Title="检查打印" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true"
         Width="1200px" Height="600px">
     </f:Window>
     <f:Window ID="Window5" Title="检查打印" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true"
         Width="1200px" Height="600px">
     </f:Window>--%>
     <f:Menu ID="Menu1" runat="server">

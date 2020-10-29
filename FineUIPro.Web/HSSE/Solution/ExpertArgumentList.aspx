@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>专家论证清单</title>
+    <title>危大工程清单</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .labcenter
@@ -91,7 +91,7 @@
             </f:Grid>
         </Items>
     </f:Panel>
-    <f:Window ID="Window1" Title="查看专家论证清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+    <f:Window ID="Window1" Title="查看危大工程清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1000px" Height="500px">
     </f:Window>

@@ -137,11 +137,11 @@ namespace BLL
         /// <param name="satartRowIndex"></param>
         /// <param name="maximumRows"></param>
         /// <returns></returns>
-        public static int getListSolutionApproveCount(string constructSolutionId, string man)
+        public static int getListSolutionApproveCount(string constructSolutionId, string man, string signType)
         {
 
             var res = (from x in Funs.DB.Solution_CQMSConstructSolutionApprove
-                       where x.ConstructSolutionId == constructSolutionId && x.ApproveDate == null && x.ApproveType != "S" && x.ApproveMan.Equals(man)
+                       where x.ConstructSolutionId == constructSolutionId && x.ApproveDate == null && x.ApproveType != "S" && x.ApproveMan.Equals(man) && x.SignType == signType
                        orderby x.ApproveDate
                        select x).Count();
             return res;

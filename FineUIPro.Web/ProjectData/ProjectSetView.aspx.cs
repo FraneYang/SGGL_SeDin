@@ -90,6 +90,10 @@ namespace FineUIPro.Web.ProjectData
                         this.txtDuration.Text = project.Duration.ToString();
                         this.txtProjectMoney.Text = project.ProjectMoney.ToString();
                         this.txtConstructionMoney.Text = project.ConstructionMoney.ToString();
+                        this.txtTelephone.Text = project.Telephone;
+                        this.txtCountry.Text = project.Country;
+                        this.txtProvince.Text = project.Province;
+                        this.txtCity.Text = project.City;
                     }
                 }
             }

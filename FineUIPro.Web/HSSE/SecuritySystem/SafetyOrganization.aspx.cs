@@ -58,7 +58,7 @@ namespace FineUIPro.Web.HSSE.SecuritySystem
             this.trSafetyOrganization.Nodes.Clear();
             TreeNode rootNode = new TreeNode
             {
-                Text = "安全管理机构",
+                Text = "安全组织机构",
                 NodeID = "0",
                 Expanded = true
             };

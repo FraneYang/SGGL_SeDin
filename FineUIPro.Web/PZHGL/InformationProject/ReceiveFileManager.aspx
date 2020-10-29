@@ -94,10 +94,10 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="一般来文管理" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px" Height="600px">
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1024px" Height="600px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px" Height="500px" OnClose="WindowAtt_Close">
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px" Height="500px" OnClose="WindowAtt_Close">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"

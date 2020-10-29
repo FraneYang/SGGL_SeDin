@@ -112,7 +112,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="HSE事故(对人员)记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1200px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1200px"
         Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

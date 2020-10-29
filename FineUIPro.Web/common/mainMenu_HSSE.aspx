@@ -294,13 +294,13 @@
                                                 <div>急救</div>
                                             </div>
                                             <div class="flex flex1 yj-info-1-list-item">
-                                                <div class="flex1 telnum"></div>
+                                                <div id="xmb" runat="server" class="flex1 telnum"></div>
                                                 <div>项目部</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="yj-info-1-info">                                      
-                                        <div>应 急 信 息</div>
+                                        <button type="button" class="yj-info-1-info" onclick="ope();" style="width: 100%;vertical-align: middle;border: none;height: auto;line-height:1;">应 急 流 程</button>
                                     </div>
                                 </div>
                             </div>
@@ -364,6 +364,16 @@
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
 <script type="text/javascript">
+var basePath = '<%= ResolveUrl("~/") %>';
+    function ope() {
+            parent.addExampleTab({
+                id: 'hello_fineui_tab',
+                iframeUrl: basePath + 'HSSE/Emergency/EmergencyProcess.aspx',
+                title: '应急流程',
+                refreshWhenExist: true
+            });
+    }
+
     function category_Two(id, xArr, data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById(id))
@@ -562,9 +572,14 @@
                 show: true
             },
             tooltip: {},
+            color: ['#88cc00', '#AE4B23'],
             legend: {
-                //data: ['销量'],
-                show: false
+                left: '15%',
+                show: true,
+                textStyle: {//图例文字的样式
+                    color: '#ffffff',
+                    fontSize: 10,
+                }
             },
             xAxis: {
                 axisTick: {
@@ -612,9 +627,9 @@
                 backgroundColor: 'rgba(0,162,233, 0.01)',                
                 // borderColor: 'rgba(0,162,233, 1)'
             },
-            itemStyle: {
-                color: 'rgba(200,201,10, 1)'
-            },
+            //itemStyle: {
+            //    color: 'rgba(200,201,10, 1)'
+            //},
             backgroundColor: 'rgba(0,162,233, 0.01)',
             textStyle: {
                 color: 'rgba(255, 255, 255, 0.3)'

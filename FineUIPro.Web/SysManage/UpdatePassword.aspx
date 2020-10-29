@@ -69,7 +69,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="修改密码" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server"  IsModal="true"
+        Target="Self" EnableResize="false" runat="server"  IsModal="true"
         Width="550px" Height="300px">
     </f:Window>
     </form>

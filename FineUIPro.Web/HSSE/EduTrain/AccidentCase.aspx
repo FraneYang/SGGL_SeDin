@@ -118,15 +118,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="事故案例类型" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="400px" Height="200px">
     </f:Window>
     <f:Window ID="Window2" Title="安全事故案例" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="600px" Height="400px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window5_Close" IsModal="true"
         Width="450px" Height="250px" EnableAjax="false">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

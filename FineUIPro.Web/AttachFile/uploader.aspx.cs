@@ -221,18 +221,25 @@ namespace FineUIPro.Web.AttachFile
                             }
 
 
-
-                            string fileName = Path.GetFileName(url);
-                            long fileSize = info.Length;
-                            System.Web.HttpContext.Current.Response.Clear();
-                            //System.Web.HttpContext.Current.Response.ContentType = "application/x-zip-compressed";
-                            System.Web.HttpContext.Current.Response.ContentType = "application/octet-stream";
-                            System.Web.HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
-                            System.Web.HttpContext.Current.Response.AddHeader("Content-Length", fileSize.ToString());
-                            System.Web.HttpContext.Current.Response.TransmitFile(url, 0, fileSize);
-                            System.Web.HttpContext.Current.Response.Flush();
-                            System.Web.HttpContext.Current.Response.End();
-                            break;
+                            if (Path.GetExtension(savedName) == ".gif" || Path.GetExtension(savedName) == ".jpg" || Path.GetExtension(savedName) == ".jpeg" || Path.GetExtension(savedName) == ".bmp" || Path.GetExtension(savedName) == ".png")
+                            {
+                                string httpUrl = Funs.SGGLUrl + xnUrl;
+                                ClientScript.RegisterStartupScript(ClientScript.GetType(), "myscript", "<script type='text/javascript'>window.open('" + httpUrl + "');</script>");
+                            }
+                            else
+                            {
+                                string fileName = Path.GetFileName(url);
+                                long fileSize = info.Length;
+                                System.Web.HttpContext.Current.Response.Clear();
+                                //System.Web.HttpContext.Current.Response.ContentType = "application/x-zip-compressed";
+                                System.Web.HttpContext.Current.Response.ContentType = "application/octet-stream";
+                                System.Web.HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                                System.Web.HttpContext.Current.Response.AddHeader("Content-Length", fileSize.ToString());
+                                System.Web.HttpContext.Current.Response.TransmitFile(url, 0, fileSize);
+                                System.Web.HttpContext.Current.Response.Flush();
+                                System.Web.HttpContext.Current.Response.End();
+                                break;
+                            }
                         }
                         catch (Exception)
                         {

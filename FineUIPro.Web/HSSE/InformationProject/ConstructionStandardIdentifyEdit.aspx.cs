@@ -93,16 +93,16 @@ namespace FineUIPro.Web.HSSE.InformationProject
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.ProjectId = this.CurrUser.LoginProjectId;
-                BLL.ConstValue.InitConstValueDropDownList(this.drpCNProfessional,ConstValue.Group_CNProfessional,true);
+                BLL.ConstValue.InitConstValueDropDownList(this.drpCNProfessional, ConstValue.Group_CNProfessional, true);
                 Funs.DropDownPageSize(this.ddlPageSize);
                 this.ItemSelectedList = new List<string>();
                 this.ItemSelectedList2 = new List<string>();
-                this.ConstructionStandardIdentifyId = Request.Params["ConstructionStandardIdentifyId"];               
-               
+                this.ConstructionStandardIdentifyId = Request.Params["ConstructionStandardIdentifyId"];
+
                 if (!string.IsNullOrEmpty(this.ConstructionStandardIdentifyId))
                 {
                     Model.InformationProject_ConstructionStandardIdentify constructionStandardIdentify = BLL.ConstructionStandardIdentifyService.GetConstructionStandardIdentifyById(this.ConstructionStandardIdentifyId);
-                    if (constructionStandardIdentify!=null)
+                    if (constructionStandardIdentify != null)
                     {
                         this.ProjectId = constructionStandardIdentify.ProjectId;
                         this.txtConstructionStandardIdentifyCode.Text = CodeRecordsService.ReturnCodeByDataId(this.ConstructionStandardIdentifyId);
@@ -111,7 +111,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
                     BindGridById(this.ConstructionStandardIdentifyId);//显示选中的项            
                 }
                 else
-                { 
+                {
                     // 绑定显示所有项
                     BindGrid();
                     this.ckbAll.Checked = true;
@@ -281,23 +281,15 @@ namespace FineUIPro.Web.HSSE.InformationProject
             Grid1.DataBind();
 
             List<Model.InformationProject_ConstructionStandardSelectedItem> lists = BLL.ConstructionStandardSelectedItemService.GetConstructionStandardSelectedItemsByConstructionStandardIdentifyId(this.ConstructionStandardIdentifyId);
-            if (lists.Count() > 0)
+            if (lists!=null)
             {
                 foreach (var item in lists)
                 {
                     ItemSelectedList2.Add(item.StandardId.ToString());
                 }
+                var StandardIds = lists.Select(x => x.StandardId).ToArray();
+                this.Grid1.SelectedRowIDArray = StandardIds;
             }
-            if (ItemSelectedList2.Count > 0)
-            {
-                for (int j = 0; j < Grid1.Rows.Count; j++)
-                {
-                    if (ItemSelectedList2.Contains(Grid1.DataKeys[j][0].ToString()))
-                    {
-                        Grid1.Rows[j].Values[0] = "True";
-                    }
-                }
-            }            
         }
 
         /// <summary>
@@ -438,19 +430,10 @@ namespace FineUIPro.Web.HSSE.InformationProject
             List<Model.InformationProject_ConstructionStandardSelectedItem> lists = BLL.ConstructionStandardSelectedItemService.GetConstructionStandardSelectedItemsByConstructionStandardIdentifyId(this.ConstructionStandardIdentifyId);
             if (lists.Count() > 0)
             {
-                foreach (var item in lists)
+                if (lists != null)
                 {
-                    ItemSelectedList.Add(item.StandardId.ToString());
-                }
-            }
-            if (ItemSelectedList.Count > 0)
-            {
-                for (int j = 0; j < Grid1.Rows.Count; j++)
-                {
-                    if (ItemSelectedList.Contains(Grid1.DataKeys[j][0].ToString()))
-                    {
-                        Grid1.Rows[j].Values[0] = "True";
-                    }
+                    var StandardIds = lists.Select(x => x.StandardId).ToArray();
+                    this.Grid1.SelectedRowIDArray = StandardIds;
                 }
             }
         }
@@ -523,7 +506,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             {
                 this.BindGridById(this.ConstructionStandardIdentifyId);
             }
-        }       
+        }
         #endregion
 
         #region  保存
@@ -536,7 +519,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
         {
             if (this.ckbAll.Checked == true)
             {
-                if (ItemSelectedList.Count() == 0)
+                if (Grid1.SelectedRowIDArray.Length == 0)
                 {
                     Alert.ShowInParent("请至少选择一条记录！");
                     return;
@@ -563,7 +546,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
         {
             if (this.ckbAll.Checked == true)
             {
-                if (ItemSelectedList.Count() == 0)
+                if (Grid1.SelectedRowIDArray.Length == 0)
                 {
                     Alert.ShowInParent("请至少选择一条记录！");
                     return;
@@ -592,7 +575,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
         /// <param name="type"></param>
         private void SaveData(string type)
         {
-
+            ItemSelectedList.Clear();
             Model.InformationProject_ConstructionStandardIdentify constructionStandardIdentify = new Model.InformationProject_ConstructionStandardIdentify
             {
                 ConstructionStandardIdentifyCode = this.txtConstructionStandardIdentifyCode.Text.Trim(),
@@ -603,96 +586,51 @@ namespace FineUIPro.Web.HSSE.InformationProject
                 State = BLL.Const.State_0
             };
             if (type == BLL.Const.BtnSubmit)
-                {
-                    constructionStandardIdentify.State = this.ctlAuditFlow.NextStep;
-                    if (this.ctlAuditFlow.NextStep == BLL.Const.State_2)
-                    {
-                        constructionStandardIdentify.VersionNumber = BLL.SQLHelper.RunProcNewId2("SpGetVersionNumber", "InformationProject_ConstructionStandardIdentify", "VersionNumber", this.ProjectId);
-                    }
-                }
-                constructionStandardIdentify.Remark = this.txtRemark.Text.Trim();
-                if (string.IsNullOrEmpty(ConstructionStandardIdentifyId))  //新增
-                {
-                    this.ConstructionStandardIdentifyId = SQLHelper.GetNewID(typeof(Model.InformationProject_ConstructionStandardIdentify));
-                    constructionStandardIdentify.ConstructionStandardIdentifyId = this.ConstructionStandardIdentifyId;
-                    BLL.ConstructionStandardIdentifyService.AddConstructionStandardIdentify(constructionStandardIdentify);
-                    BLL.LogService.AddSys_Log(this.CurrUser, constructionStandardIdentify.ConstructionStandardIdentifyCode, constructionStandardIdentify.ConstructionStandardIdentifyId, BLL.Const.ConstructionStandardIdentifyMenuId, BLL.Const.BtnAdd);
-                }
-                else   //重新选择
-                {
-                    constructionStandardIdentify.ConstructionStandardIdentifyId = this.ConstructionStandardIdentifyId;
-                    BLL.ConstructionStandardIdentifyService.UpdateConstructionStandardIdentify(constructionStandardIdentify);
-                BLL.LogService.AddSys_Log(this.CurrUser, constructionStandardIdentify.ConstructionStandardIdentifyCode, constructionStandardIdentify.ConstructionStandardIdentifyId, BLL.Const.ConstructionStandardIdentifyMenuId, BLL.Const.BtnModify);
-                BLL.ConstructionStandardSelectedItemService.DeleteConstructionStandardSelectedItemByConstructionStandardIdentifyId(ConstructionStandardIdentifyId);
-                }
-                if (this.ckbAll.Checked == true)
-                {
-                    foreach (string item in ItemSelectedList)
-                    {
-                    Model.InformationProject_ConstructionStandardSelectedItem constructionStandardSelectedItem = new Model.InformationProject_ConstructionStandardSelectedItem
-                    {
-                        ConstructionStandardIdentifyId = ConstructionStandardIdentifyId,
-                        StandardId = item
-                    };
-                    BLL.ConstructionStandardSelectedItemService.AddConstructionStandardSelectedItem(constructionStandardSelectedItem);
-                    }
-                }
-                else
-                {
-                    foreach (string item in ItemSelectedList2)
-                    {
-                    Model.InformationProject_ConstructionStandardSelectedItem constructionStandardSelectedItem = new Model.InformationProject_ConstructionStandardSelectedItem
-                    {
-                        ConstructionStandardIdentifyId = ConstructionStandardIdentifyId,
-                        StandardId = item
-                    };
-                    BLL.ConstructionStandardSelectedItemService.AddConstructionStandardSelectedItem(constructionStandardSelectedItem);
-                    }
-                }
-                ////保存流程审核数据         
-                this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ConstructionStandardIdentifyMenuId, this.ConstructionStandardIdentifyId, (type == BLL.Const.BtnSubmit ? true : false), constructionStandardIdentify.ConstructionStandardIdentifyCode, "../InformationProject/ConstructionStandardIdentifyView.aspx?ConstructionStandardIdentifyId={0}");
-        }
-        #endregion        
-
-        #region Grid行点击事件
-        /// <summary>
-        /// Grid1行点击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            string rowID = Grid1.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "IsSelected")
             {
-                CheckBoxField checkField = (CheckBoxField)Grid1.FindColumn("ckbIsSelected");
-                if (checkField.GetCheckedState(e.RowIndex))
+                constructionStandardIdentify.State = this.ctlAuditFlow.NextStep;
+                if (this.ctlAuditFlow.NextStep == BLL.Const.State_2)
                 {
-                    if (!ItemSelectedList.Contains(rowID))
-                    {
-                        ItemSelectedList.Add(rowID);
-                    }
-                }
-                else
-                {
-                    if (this.ckbAll.Checked == true)
-                    {
-                        if (ItemSelectedList.Contains(rowID))
-                        {
-                            ItemSelectedList.Remove(rowID);
-                        }
-                    }
-                    else
-                    {
-                        if (ItemSelectedList2.Contains(rowID))
-                        {
-                            ItemSelectedList2.Remove(rowID);
-                        }
-                    }
+                    constructionStandardIdentify.VersionNumber = BLL.SQLHelper.RunProcNewId2("SpGetVersionNumber", "InformationProject_ConstructionStandardIdentify", "VersionNumber", this.ProjectId);
                 }
             }
+            constructionStandardIdentify.Remark = this.txtRemark.Text.Trim();
+            if (string.IsNullOrEmpty(ConstructionStandardIdentifyId))  //新增
+            {
+                this.ConstructionStandardIdentifyId = SQLHelper.GetNewID(typeof(Model.InformationProject_ConstructionStandardIdentify));
+                constructionStandardIdentify.ConstructionStandardIdentifyId = this.ConstructionStandardIdentifyId;
+                BLL.ConstructionStandardIdentifyService.AddConstructionStandardIdentify(constructionStandardIdentify);
+                BLL.LogService.AddSys_Log(this.CurrUser, constructionStandardIdentify.ConstructionStandardIdentifyCode, constructionStandardIdentify.ConstructionStandardIdentifyId, BLL.Const.ConstructionStandardIdentifyMenuId, BLL.Const.BtnAdd);
+            }
+            else   //重新选择
+            {
+                constructionStandardIdentify.ConstructionStandardIdentifyId = this.ConstructionStandardIdentifyId;
+                BLL.ConstructionStandardIdentifyService.UpdateConstructionStandardIdentify(constructionStandardIdentify);
+                BLL.LogService.AddSys_Log(this.CurrUser, constructionStandardIdentify.ConstructionStandardIdentifyCode, constructionStandardIdentify.ConstructionStandardIdentifyId, BLL.Const.ConstructionStandardIdentifyMenuId, BLL.Const.BtnModify);
+                BLL.ConstructionStandardSelectedItemService.DeleteConstructionStandardSelectedItemByConstructionStandardIdentifyId(ConstructionStandardIdentifyId);
+            }
+            ///获取Grid列表选中的行
+            int[] selections = Grid1.SelectedRowIndexArray;
+            foreach (int rowIndex in selections)
+            {
+                if (!ItemSelectedList.Contains(Grid1.DataKeys[rowIndex][0].ToString()))
+                {
+                    ItemSelectedList.Add(Grid1.DataKeys[rowIndex][0].ToString());
+                }
+            }
+            foreach (string item in ItemSelectedList)
+            {
+                Model.InformationProject_ConstructionStandardSelectedItem constructionStandardSelectedItem = new Model.InformationProject_ConstructionStandardSelectedItem
+                {
+                    ConstructionStandardIdentifyId = ConstructionStandardIdentifyId,
+                    StandardId = item
+                };
+                BLL.ConstructionStandardSelectedItemService.AddConstructionStandardSelectedItem(constructionStandardSelectedItem);
+            }
+            ////保存流程审核数据         
+            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ConstructionStandardIdentifyMenuId, this.ConstructionStandardIdentifyId, (type == BLL.Const.BtnSubmit ? true : false), constructionStandardIdentify.ConstructionStandardIdentifyCode, "../InformationProject/ConstructionStandardIdentifyView.aspx?ConstructionStandardIdentifyId={0}");
         }
         #endregion
+
 
         #region 附件上传
         /// <summary>

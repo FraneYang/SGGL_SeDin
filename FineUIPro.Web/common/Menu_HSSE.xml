@@ -1,14 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
   <TreeNode id="E38EE43D-C526-493F-A177-712BA9B22291" Text="项目策划" NavigateUrl="">
-    <TreeNode id="7CCA86F7-E43F-438F-AAB6-CA2661FBB362" Text="安全体系" NavigateUrl="">
-      <TreeNode id="1EDD072E-473A-4CDB-A2D3-E401C146B2B2" Text="安全组织机构" NavigateUrl="HSSE/SecuritySystem/SafetyOrganization.aspx">
-      </TreeNode>
-</TreeNode>
+    <TreeNode id="1EDD072E-473A-4CDB-A2D3-E401C146B2B2" Text="安全组织机构" NavigateUrl="HSSE/SecuritySystem/SafetyOrganization.aspx">
+    </TreeNode>
 <TreeNode id="A0D8A8F7-EF3A-4F81-B9C1-F9F2ECD63360" Text="法律法规/标准规范" NavigateUrl=""><TreeNode id="C85CCDFC-E721-4B9D-B73F-F83C7578EE9B" Text="法律法规辨识" NavigateUrl="HSSE/InformationProject/LawRegulationIdentify.aspx"></TreeNode>
 <TreeNode id="28B0235F-3DB5-4C15-A7E3-6F5DF52C8FDC" Text="标准规范清单" NavigateUrl="HSSE/InformationProject/ConstructionStandardIdentify.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="7944B1C6-636B-4AD8-980C-A2F6D44883D3" Text="安全管理规定" NavigateUrl=""><TreeNode id="775EFCF4-DE5C-46E9-8EA3-B16270E2F6A6" Text="安全管理规定" NavigateUrl="HSSE/ActionPlan/ManagerRule.aspx"></TreeNode>
+<TreeNode id="7944B1C6-636B-4AD8-980C-A2F6D44883D3" Text="安全管理规定" NavigateUrl=""><TreeNode id="775EFCF4-DE5C-46E9-8EA3-B16270E2F6A6" Text="集团安全管理制度" NavigateUrl="HSSE/ActionPlan/ManagerRule.aspx"></TreeNode>
 <TreeNode id="703D90A7-C40B-4753-943B-8A59AABDC043" Text="管理规定清单" NavigateUrl="HSSE/ActionPlan/ManagerRuleList.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="CBC47C8B-141C-446B-90D9-CE8F5AE66CE4" Text="安全实施计划" NavigateUrl="HSSE/ActionPlan/ActionPlanList.aspx"></TreeNode>
@@ -22,7 +20,7 @@
 <TreeNode id="5FF7BBD8-3E0A-4C90-8976-AFF5CE7E17A5" Text="施工方案" NavigateUrl=""><TreeNode id="D5F6DFAA-4051-4E0E-818B-2A45F985C5A4" Text="方案模板" NavigateUrl="HSSE/Solution/SolutionTemplate.aspx"></TreeNode>
 <TreeNode id="9B42977B-FA0B-48EF-8616-D53FC14E5127" Text="施工方案" NavigateUrl="HSSE/Solution/ConstructSolution.aspx"></TreeNode>
 <TreeNode id="5B3D3F7B-9B50-4927-B131-11D13D4D1C19" Text="危大工程施工方案" NavigateUrl="HSSE/Solution/LargerHazardList.aspx"></TreeNode>
-<TreeNode id="27DE7248-C4FF-4288-BBAC-11CB8741AD67" Text="专家论证清单" NavigateUrl="HSSE/Solution/ExpertArgumentList.aspx"></TreeNode>
+<TreeNode id="27DE7248-C4FF-4288-BBAC-11CB8741AD67" Text="危大工程清单" NavigateUrl="HSSE/Solution/ExpertArgumentList.aspx"></TreeNode>
 <TreeNode id="49485F7E-8E71-4EED-87B4-BF6CC180C69C" Text="安全技术交底" NavigateUrl="HSSE/License/HSETechnical.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="EE260447-028F-46AF-8864-9A5DC9DAA5BD" Text="人员信息" NavigateUrl=""><TreeNode id="AD6FC259-CF40-41C7-BA3F-15AC50C1DD20" Text="人员信息档案" NavigateUrl="HSSE/SitePerson/PersonList.aspx"></TreeNode>

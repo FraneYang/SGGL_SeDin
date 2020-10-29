@@ -59,7 +59,7 @@
 
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtProjectName" runat="server" LabelWidth="110px" Readonly="true" Label="项目名称" LabelAlign="Right"
+                                            <f:TextBox ID="txtProjectName" runat="server" LabelWidth="120px" Readonly="true" Label="项目名称" LabelAlign="Right"
                                                 MaxLength="50" Enabled="false">
                                             </f:TextBox>
                                             <f:TextBox ID="txtJointCheckCode" runat="server" LabelWidth="110px" Required="true" ShowRedStar="true" Label="编号" LabelAlign="Right"
@@ -69,7 +69,7 @@
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:DropDownList ID="drpUnit" LabelWidth="110px" EmptyText="--请选择--" AutoSelectFirstItem="false"
+                                            <f:DropDownList ID="drpUnit" LabelWidth="120px" EmptyText="--请选择--" AutoSelectFirstItem="false"
                                                 AutoPostBack="true" ShowRedStar="true" runat="server" Required="true" Label="受检施工单位"
                                                 LabelAlign="Right" EnableEdit="true" Enabled="false">
                                             </f:DropDownList>
@@ -81,7 +81,7 @@
 
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtCheckName" runat="server" LabelWidth="110px" Label="检查名称" LabelAlign="Right"
+                                            <f:TextBox ID="txtCheckName" runat="server" LabelWidth="120px" Label="检查名称" LabelAlign="Right"
                                                 MaxLength="50" Enabled="false">
                                             </f:TextBox>
                                             <f:DatePicker ID="txtCheckDate" ShowRedStar="true" LabelWidth="110px" runat="server" Label="共检日期" Required="true" LabelAlign="Right"
@@ -92,19 +92,19 @@
                                     <f:FormRow>
                                         <Items>
                                             <f:DropDownList ID="drpProposeUnit" ShowRedStar="true"  EmptyText="--请选择--" AutoSelectFirstItem="false"
-                                                LabelWidth="110px" Enabled="false" Required="true" runat="server" Label="提出单位" LabelAlign="Right" EnableEdit="true">
+                                                LabelWidth="120px" Enabled="false" Required="true" runat="server" Label="提出单位" LabelAlign="Right" EnableEdit="true">
                                             </f:DropDownList>
                                             <f:Label runat="server" Hidden="true"></f:Label>
                                         </Items>
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:Label runat="server" Label="参与共检人" LabelWidth="110px"></f:Label>
+                                            <f:Label runat="server" Label="参与共检人" LabelWidth="120px"></f:Label>
                                         </Items>
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtJointCheckMans1" runat="server" LabelWidth="110px" Enabled="false" Readonly="true" Label="总承包商" LabelAlign="Right"
+                                            <f:TextBox ID="txtJointCheckMans1" runat="server" LabelWidth="120px" Enabled="false" Readonly="true" Label="总承包商" LabelAlign="Right"
                                                >
                                             </f:TextBox>
                                             <f:TextBox ID="txtJointCheckMans2" runat="server" Readonly="true" Enabled="false" Label="施工单位" LabelAlign="Right"
@@ -300,11 +300,11 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="质量共检记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1100px" Height="520px">
         </f:Window>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

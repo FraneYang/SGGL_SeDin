@@ -75,7 +75,7 @@
                                     <Toolbars>
                                         <f:Toolbar ID="toolAdd" Position="Top" ToolbarAlign="Right" runat="server">
                                             <Items>
-                                                <f:Button ID="btnAdd" Icon="Add" runat="server" OnClick="btnAdd_Click" ToolTip="新增">
+                                                <f:Button ID="btnAdd" Icon="Add" runat="server" OnClick="btnAdd_Click" ToolTip="新增" Text="新增整改">
                                                 </f:Button>
                                             </Items>
                                         </f:Toolbar>
@@ -157,7 +157,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
     </form>

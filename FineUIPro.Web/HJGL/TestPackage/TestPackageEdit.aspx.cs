@@ -57,6 +57,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             rootNode1.NodeID = "1";
             rootNode1.Text = "建筑工程";
             rootNode1.CommandName = "建筑工程";
+            rootNode1.EnableClickEvent = true;
             this.tvControlItem.Nodes.Add(rootNode1);
 
             TreeNode rootNode2 = new TreeNode();
@@ -64,6 +65,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             rootNode2.Text = "安装工程";
             rootNode2.CommandName = "安装工程";
             rootNode2.Expanded = true;
+            rootNode2.EnableClickEvent = true;
             this.tvControlItem.Nodes.Add(rootNode2);
             var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
@@ -74,7 +76,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
             List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
-                                                            where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+                                                            where x.ProjectId == this.CurrUser.LoginProjectId
+                                                            select x).ToList();
             List<Model.WBS_UnitWork> unitWork1 = null;
             List<Model.WBS_UnitWork> unitWork2 = null;
 
@@ -105,6 +108,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     tn1.Text = q.UnitWorkName;
                     tn1.ToolTip = "施工单位：" + u.UnitName;
                     tn1.CommandName = "单位工程";
+                    tn1.EnableClickEvent = true;
                     rootNode1.Nodes.Add(tn1);
                     var testPackageUnitList = testPackageLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
                     BindNodes(tn1, testPackageUnitList);
@@ -121,6 +125,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     tn2.Text = q.UnitWorkName;
                     tn2.ToolTip = "施工单位：" + u.UnitName;
                     tn2.CommandName = "单位工程";
+                    tn2.EnableClickEvent = true;
                     rootNode2.Nodes.Add(tn2);
                     var testPackageUnitList = testPackageLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
                     BindNodes(tn2, testPackageUnitList);
@@ -176,6 +181,35 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
+            Model.WBS_UnitWork unitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(this.tvControlItem.SelectedNodeID);
+            Model.PTP_TestPackage testPackage = BLL.TestPackageEditService.GetTestPackageByID(this.tvControlItem.SelectedNodeID);
+            if (unitWork != null)
+            {
+                this.btnMenuNew.Hidden = false;
+                this.btnMenuModify.Hidden = true;
+                this.btnMenuSee.Hidden = true;
+                this.btnMenuDel.Hidden = true;
+                this.btnPrinter.Hidden = true;
+                this.btnPrinterAll.Hidden = false;
+            }
+            else if (testPackage != null)
+            {
+                this.btnMenuNew.Hidden = true;
+                this.btnMenuModify.Hidden = false;
+                this.btnMenuSee.Hidden = false;
+                this.btnMenuDel.Hidden = false;
+                this.btnPrinter.Hidden = false;
+                this.btnPrinterAll.Hidden = true;
+            }
+            else
+            {
+                this.btnMenuNew.Hidden = true;
+                this.btnMenuModify.Hidden = true;
+                this.btnMenuSee.Hidden = true;
+                this.btnMenuDel.Hidden = true;
+                this.btnPrinter.Hidden = true;
+                this.btnPrinterAll.Hidden = true;
+            }
             this.PTP_ID = tvControlItem.SelectedNodeID;
             this.BindGrid();
         }
@@ -349,6 +383,35 @@ namespace FineUIPro.Web.HJGL.TestPackage
         }
         #endregion
 
+        #region 查看试压包
+        /// <summary>
+        /// 查看试压包
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuSee_Click(object sender, EventArgs e)
+        {
+            if (this.tvControlItem.SelectedNode.CommandName == "TestPackage")
+            {
+                var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
+                if (testPackageManage != null)
+                {
+                    string window = String.Format("TestPackageItemEdit.aspx?PTP_ID={0}&type=see", this.PTP_ID, "编辑 - ");
+                    PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)
+                      + Window1.GetShowReference(window));
+                }
+                else
+                {
+                    ShowNotify("请选择要修改的试压包记录！", MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                ShowNotify("非试压包类型无法查看！", MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
+
         #region 删除试压包
         /// <summary>
         /// 删除试压包
@@ -425,7 +488,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             string PTP_ID = this.tvControlItem.SelectedNodeID;
             var p = BLL.TestPackageEditService.GetTestPackageByID(PTP_ID);
-            if (p != null) {
+            if (p != null)
+            {
                 string varValue = string.Empty;
                 var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
                 if (project != null)
@@ -436,7 +500,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         varValue = varValue + "|" + unitWork.UnitWorkName;
                     }
-                    if (!string.IsNullOrEmpty(p.TestPackageName)) {
+                    if (!string.IsNullOrEmpty(p.TestPackageName))
+                    {
                         varValue = varValue + "|" + p.TestPackageName;
                     }
                     if (!string.IsNullOrEmpty(p.TestPackageNo))

@@ -128,7 +128,7 @@
                                             </f:DropDownBox>
                                             <f:Panel ID="CCfile" ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
                                                 <Items>
-                                                    <f:Label runat="server" Text="附件：" CssStyle="padding-left:52px" LabelWidth="100px" Width="100px" CssClass="marginr" ShowLabel="false"></f:Label>
+                                                    <f:Label runat="server" Text="附件：" CssStyle="padding-left:52px" LabelWidth="110px" Width="110px" CssClass="marginr" ShowLabel="false"></f:Label>
                                                     <f:Button ID="imgfile" Text="附件" ToolTip="上传及查看" Icon="TableCell" runat="server" OnClick="imgfile_Click">
                                                     </f:Button>
                                                 </Items>
@@ -296,11 +296,11 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="工程联络单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="700px" Height="500px">
         </f:Window>
         <f:Window ID="WindowAtt" Title="弹出窗体"  Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
         

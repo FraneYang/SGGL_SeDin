@@ -16,7 +16,7 @@
                     <Items>
                         <f:Tree ID="tvControlItem" ShowHeader="false" Title="试压包节点树" OnNodeCommand="tvControlItem_NodeCommand"
                             runat="server" ShowBorder="false" EnableCollapse="true" EnableSingleClickExpand="true" AutoLeafIdentification="true"
-                            EnableSingleExpand="true" EnableTextSelection="true">
+                            EnableSingleExpand="true" EnableTextSelection="true" >
                             <Listeners>
                                 <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
                             </Listeners>
@@ -88,11 +88,11 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="试压包维护" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="1280px" Height="700px">
         </f:Window>
         <f:Window ID="Window2" Title="试压包打印" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1024px" Height="900px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
@@ -100,6 +100,8 @@
                 <f:MenuButton ID="btnMenuNew" EnablePostBack="true" runat="server" Text="新增" Icon="Add" OnClick="btnMenuNew_Click">
                 </f:MenuButton>
                 <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Text="编辑" Icon="Pencil" OnClick="btnMenuModify_Click">
+                </f:MenuButton>
+                <f:MenuButton ID="btnMenuSee" EnablePostBack="true" runat="server" Text="查看" Icon="Find" OnClick="btnMenuSee_Click">
                 </f:MenuButton>
                 <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                     OnClick="btnMenuDel_Click">

@@ -105,11 +105,11 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
             IsModal="true" Width="700px" Height="430px">
         </f:Window>
         <f:Window ID="Window2" Title="文件查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="680px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="680px"
             Height="480px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

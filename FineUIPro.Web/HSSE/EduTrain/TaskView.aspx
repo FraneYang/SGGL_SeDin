@@ -57,7 +57,7 @@
         </Rows>       
     </f:Form>
     <f:Window ID="Window1" Title="培训任务试题记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true"
         Width="900px" Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">    

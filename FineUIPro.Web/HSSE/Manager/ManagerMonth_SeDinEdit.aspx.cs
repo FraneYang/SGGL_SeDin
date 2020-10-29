@@ -188,8 +188,18 @@ namespace FineUIPro.Web.HSSE.Manager
                 projectName.Text = getInfo.ProjectName;
                 projectCode.Text = getInfo.ProjectCode;
                 projectType.Text = getInfo.ProjectType;
-                ProjectManager.Text = getInfo.ProjectManager;
-                HsseManager.Text = getInfo.HsseManager;
+                string[] str1 = getInfo.ProjectManager.Split('；');
+                ProjectManager.Text = str1[0];
+                if (str1.Length > 1)
+                {
+                    ProjectManagerPhone.Text = str1[1];
+                }
+                string[] str2 = getInfo.HsseManager.Split('；');
+                HsseManager.Text = str2[0];
+                if (str2.Length > 1)
+                {
+                    HsseManagerPhone.Text = str2[1];
+                }
                 ConstructionStage.Text = getInfo.ConstructionStage;
                 ContractAmount.Text = getInfo.ContractAmount;
                 ProjectAddress.Text = getInfo.ProjectAddress;
@@ -597,8 +607,8 @@ namespace FineUIPro.Web.HSSE.Manager
                     ProjectType = projectType.Text,
                     StartDate = pStartDate.Text,
                     EndDate = pEndDate.Text,
-                    ProjectManager = ProjectManager.Text,
-                    HsseManager = HsseManager.Text,
+                    ProjectManager = ProjectManager.Text+ "；"+ProjectManagerPhone.Text,
+                    HsseManager = HsseManager.Text + "；" + HsseManagerPhone.Text,
                     ContractAmount = ContractAmount.Text,
                     ConstructionStage = ConstructionStage.Text,
                     ProjectAddress = ProjectAddress.Text

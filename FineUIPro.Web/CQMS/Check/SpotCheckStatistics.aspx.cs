@@ -434,10 +434,21 @@ namespace FineUIPro.Web.CQMS.Check
                 var details = from x in Funs.DB.View_Check_SoptCheckDetail where x.UnitWorkId == this.drpUnitWork.SelectedValue && x.IsDataOK == "1" select x;
                 string projectCode = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId).ProjectCode;
                 string unitWorkName = string.Empty;
+                string unitWorkName2 = string.Empty;
                 Model.WBS_UnitWork u = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(this.drpUnitWork.SelectedValue);
+                string projectType = string.Empty;
                 if (u != null)
                 {
                     unitWorkName = u.UnitWorkName.Replace("/", "-") + BLL.UnitWorkService.GetProjectType(u.ProjectType);
+                    if (u.ProjectType == "1")
+                    {
+                        projectType = "建筑";
+                    }
+                    else if (u.ProjectType == "2")
+                    {
+                        projectType = "安装";
+                    }
+                    unitWorkName2 = projectType + "-" + u.UnitWorkName.Replace("/", "-");
                 }
                 if (details.Count() > 0)
                 {
@@ -468,8 +479,9 @@ namespace FineUIPro.Web.CQMS.Check
                     }
                     string startPath = rootPath + "FileUpload\\WBSFile\\" + projectCode + "\\" + unitWorkName;
                     string zipPath = rootPath + "FileUpload\\WBSFile\\" + projectCode + "\\" + unitWorkName + ".zip";
+                    string zipPath2 = rootPath + "FileUpload\\WBSFile\\" + projectCode + "\\" + unitWorkName2 + ".zip";
                     ZipFile.CreateFromDirectory(startPath, zipPath);
-                    string fileName = Path.GetFileName(zipPath);
+                    string fileName = Path.GetFileName(zipPath2);
                     FileInfo info = new FileInfo(zipPath);
                     long fileSize = info.Length;
                     Response.ClearContent();

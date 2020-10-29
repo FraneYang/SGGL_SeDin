@@ -344,7 +344,7 @@
         </f:Panel>
         <f:Window ID="windowCustomQuery" Title="自定义查询" Hidden="true" EnableIFrame="true" IFrameUrl="./SysManage/CustomQuery.aspx" ClearIFrameAfterClose="false"
             runat="server" IsModal="true" Width="1200px" Height="620px" EnableClose="true"
-            EnableMaximize="true" EnableResize="true">
+            EnableMaximize="true" EnableResize="false">
         </f:Window>
         <asp:XmlDataSource ID="XmlDataSource1" runat="server" EnableCaching="false"></asp:XmlDataSource>
     </form>

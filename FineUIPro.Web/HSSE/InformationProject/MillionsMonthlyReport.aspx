@@ -219,11 +219,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑百万工时安全统计月报表" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1100px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1100px"
         Height="560px">
     </f:Window>
     <f:Window ID="Window2" IconUrl="~/res/images/16/11.png" runat="server" Hidden="true"
-        IsModal="false" Target="Parent" EnableMaximize="true" EnableResize="true"
+        IsModal="false" Target="Parent" EnableMaximize="true" EnableResize="false"
         Title="打印百万工时安全统计月报表" CloseAction="HidePostBack" EnableIFrame="true" Height="768px"
         Width="1024px">
     </f:Window>

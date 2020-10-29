@@ -64,8 +64,8 @@
                                 <f:Toolbar ID="Toolbar4" Position="Top" runat="server" ToolbarAlign="Right">
                                     <Items>
                                         <f:Label runat="server" Width="380px" ID="lbHd"></f:Label>
-                                        <f:CheckBox runat="server" ID="cbAllHGForms" Label="全选对应的化工资料表格" LabelWidth="175px" AutoPostBack="true" OnCheckedChanged="cbAllHGForms_CheckedChanged"></f:CheckBox>
-                                        <f:CheckBox runat="server" ID="cbAllSHForms" Label="全选对应的石化资料表格" LabelWidth="175px" AutoPostBack="true" OnCheckedChanged="cbAllSHForms_CheckedChanged"></f:CheckBox>
+                                        <f:CheckBox runat="server" ID="cbAllHGForms" Label="全选对应的化工资料表格" LabelWidth="185px" AutoPostBack="true" OnCheckedChanged="cbAllHGForms_CheckedChanged"></f:CheckBox>
+                                        <f:CheckBox runat="server" ID="cbAllSHForms" Label="全选对应的石化资料表格" LabelWidth="185px" AutoPostBack="true" OnCheckedChanged="cbAllSHForms_CheckedChanged"></f:CheckBox>
                                         <f:ToolbarFill runat="server"></f:ToolbarFill>
                                         <f:Button ID="btnNew" ToolTip="新增" Icon="Add" runat="server" OnClick="btnNew_Click"
                                             Hidden="true">
@@ -73,7 +73,9 @@
                                         <f:Button ID="btnSave" ToolTip="保存" Icon="SystemSave" runat="server" Text="" Hidden="true"
                                             OnClick="btnSave_Click">
                                         </f:Button>
-                                        <f:Button ID="btnRset" OnClick="btnRset_Click" ToolTip="恢复默认" Hidden="true" Icon="ArrowUndo" runat="server">
+                                        <f:Button ID="btnRset" OnClick="btnRset_Click" ToolTip="恢复默认" Hidden="true" Icon="ArrowUndo" ConfirmText="是否确认恢复默认？" runat="server">
+                                        </f:Button>
+                                        <f:Button ID="btnAllRset" OnClick="btnAllRset_Click" ToolTip="全部恢复默认" Hidden="true" Icon="ArrowRotateClockwise" ConfirmText="是否确认全部恢复默认？" runat="server">
                                         </f:Button>
                                     </Items>
                                 </f:Toolbar>
@@ -169,15 +171,15 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Self" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="800px" Height="300px">
         </f:Window>
         <f:Window ID="Window2" Title="增加" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+            Target="Self" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
             Width="800px" Height="300px">
         </f:Window>
         <f:Window ID="Window3" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" OnClose="Window3_Close" IsModal="true"
+            Target="Self" EnableResize="false" runat="server" OnClose="Window3_Close" IsModal="true"
             Width="1000px" Height="600px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

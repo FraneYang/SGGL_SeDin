@@ -89,6 +89,14 @@
              background: url(../Images/siteProject.jpg) center center no-repeat;
              background-size: 100% 100%;
          }
+         .tab-wrap-hastit{
+           position:relative;
+         }
+         .tab-wrap-pos{
+           left: auto;
+           right: 30px;
+           top: 5px;
+         }
     </style>
 </head>
 <body>
@@ -120,7 +128,16 @@
             <div class="item flex1">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
-                        <div class="tit-one tit-center">施工进度统计</div>
+                        <div class='tab-wrap-hastit'>
+                          <div class="tit-one tit-center">施工进度统计</div>
+                          <div class="tab-wrap tab-wrap-pos">
+                              <div class="tab" data-value="0">
+                                  <div class="t-item active">安装单位工程</div>
+                                  <div class="spline"></div>
+                                  <div class="t-item">建筑单位工程</div>
+                              </div>
+                          </div>
+                        </div>
                         <div class="bw-item-content flex1 pdtb0">
                             <div id='three' style="width: 100%; height: 100%;"></div>
                         </div>
@@ -199,9 +216,15 @@
                 },
                 show: false
             },
-            tooltip: {},
+            tooltip: {
+	      formatter: '{a}<br />{b}: {c}%'
+	    },
             legend: {
-                show: false
+                show: true,
+		textStyle: {
+                  color: '#fff'
+                },
+                left: 0
             },
             xAxis: {
                 axisTick: {
@@ -235,7 +258,8 @@
                     show: true,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
-                    }
+                    },
+		    formatter: '{value} %'
                 }
             },
             series: data,
@@ -260,20 +284,34 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr1 = ['类别1', '类别2', '类别3', '类别4', '类别5', '类别6', '类别7']
+    var two =<%=Two %>;
+    var xArr1 = two.categories
     var data1 = [ {
-        name: '1',
-        type: 'line',
+        name: '计划值',
+        type: 'bar',
         //smooth: true,
-        data: [3, 5, 2, 3, 4, 2, 9],
+        data: two.series[0].data,
         lineStyle: {
             //color: 'rgba(200,201,10, 1)'
         }
     },{
-        name: '2',
+        name: '实际值',
+        type: 'bar',
+        //smooth: true,
+        data:  two.series[2].data,
+    },{
+        name: '累计计划值',
         type: 'line',
         //smooth: true,
-        data:  [1, 3, 2, 4, 7, 6, 1]
+        data: two.series[1].data,
+        lineStyle: {
+            //color: 'rgba(200,201,10, 1)'
+        }
+    },{
+        name: '累计实际值',
+        type: 'line',
+        //smooth: true,
+        data:  two.series[3].data,
     }]
     line('two', xArr1, data1)
 </script>
@@ -356,21 +394,15 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["单位工程1", "单位工程2", "单位工程3", "单位工程4", "单位工程5", "单位工程6", "单位工程7", "单位工程8", "单位工程9"]
-    var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
-    var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
+    var three =<%=Three %>;
+    var xArr = three.categories
+    var data = three.series[0].data
     var series = [{
-        name: '质量一次性合格率',
+        name: '合格检查数',
         type: 'bar',
         data: data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
-    },
-    {
-        name: '施工资料同步率',
-        type: 'bar',
-        data: data1,
-        itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
-    }];
+    }]
     category('three', xArr, series)
     //category('five', xArr, series)
 </script>
@@ -565,4 +597,35 @@
             $(".bg-img-1").css("background", "url(../Images/siteProject.jpg) center center no-repeat").css("background-size", "100% 100%")
         })
     </script>
+    <script>
+    $(".tab .t-item").click(function () {
+        var $this = $(this)
+        var index = $this.index()
+        if ($this.hasClass('active') && index == 0) {
+            return
+        }
+        var $tab = $this.closest(".tab")
+        var value = $tab.attr("data-value")
+        $tab.find(".t-item").removeClass('active');
+        $this.addClass('active')
+		
+        var three =<%=Three %>;
+        var three2 =<%=Three2 %>;
+        if (value == 0) {
+            var xArr = three.categories
+            var data = three.series[0].data
+            if (index == 2) {
+                xArr = three2.categories
+                data = three2.series[0].data
+            }
+            var series = [{
+                name: '合格检查数',
+                type: 'bar',
+                data: data,
+                itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
+            }]
+            category('three', xArr, series)
+        }
+    })
+</script>
 </html>

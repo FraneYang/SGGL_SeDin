@@ -181,11 +181,11 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Parent" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Parent" EnableResize="false" runat="server"
             IsModal="true" Width="1000px" Height="560px">
         </f:Window>
         <f:Window ID="WindowHardReport" Title="硬度报告" Hidden="true"
-            EnableIFrame="true" EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableIFrame="true" EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1000px" Height="520px">
         </f:Window>
     </form>

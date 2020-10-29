@@ -53,6 +53,11 @@ namespace FineUIPro.Web.CQMS.WBS
                 strSql += @" and c.ControlItemContent like @ControlItemContent ";
                 listStr.Add(new SqlParameter("@ControlItemContent", "%" + this.txtControlItemContent.Text.Trim() + "%"));
             }
+            if (!string.IsNullOrEmpty(this.txtControlItemDef.Text.Trim()))
+            {
+                strSql += @" and c.ControlItemDef like @ControlItemDef ";
+                listStr.Add(new SqlParameter("@ControlItemDef", "%" + this.txtControlItemDef.Text.Trim() + "%"));
+            }
             string controlPoint = string.Empty;
             string[] strs = this.drpControlPoint.SelectedValueArray;
             foreach (var item in strs)
@@ -93,6 +98,7 @@ namespace FineUIPro.Web.CQMS.WBS
             drpUnitWork.SelectedIndex = 0;
             drpControlPoint.SelectedIndex = 0;
             this.txtControlItemContent.Text = string.Empty;
+            this.txtControlItemDef.Text = string.Empty;
             this.txtForms.Text = string.Empty;
             BindGrid();
         }

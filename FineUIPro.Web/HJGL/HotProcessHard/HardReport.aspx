@@ -147,19 +147,19 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
             IsModal="true" Width="1090px" Height="660px">
         </f:Window>
         <f:Window ID="Window2" Title="打印" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server" IsModal="true"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server" IsModal="true"
             Width="1024px" Height="640px">
         </f:Window>
         <f:Window ID="WindowHardReport" Title="硬度报告" Hidden="true"
-            EnableIFrame="true" EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableIFrame="true" EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1000px" Height="520px" OnClose="WindowHardReport_Close">
         </f:Window>
          <f:Window ID="Window3" Title="热处理打印" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+            Target="Self" EnableResize="false" runat="server" IsModal="true" Width="1024px"
             Height="640px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

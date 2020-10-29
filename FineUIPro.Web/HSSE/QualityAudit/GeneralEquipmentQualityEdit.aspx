@@ -70,11 +70,11 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Window ID="Window1" runat="server" Hidden="true" IsModal="false" Target="Parent"
-        EnableMaximize="true" EnableResize="true" Title="弹出框" CloseAction="HidePostBack"
+        EnableMaximize="true" EnableResize="false" Title="弹出框" CloseAction="HidePostBack"
         EnableIFrame="true">
     </f:Window>
     </form>

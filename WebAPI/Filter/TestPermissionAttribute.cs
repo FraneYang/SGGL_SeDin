@@ -11,7 +11,7 @@ namespace WebAPI.Filter
     /// <summary>
     /// 
     /// </summary>
-    public class TestPermissionAttribute: ActionFilterAttribute
+    public class TestPermissionAttribute : ActionFilterAttribute
     {
         /// <summary>
         /// 
@@ -43,7 +43,7 @@ namespace WebAPI.Filter
                     }
                 }
             }
-           // base.OnActionExecuting(actionContext);
+            // base.OnActionExecuting(actionContext);
             if (isOk)
             {
                 base.OnActionExecuting(actionContext);
@@ -59,5 +59,33 @@ namespace WebAPI.Filter
         /// 
         /// </summary>
         public static List<string> lists = new List<string> { "User*postLoginOn" };
-    }     
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionExecutedContext"></param>
+        public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
+        {
+            bool isOk = false;
+            string strValues = actionExecutedContext.ActionContext.ActionDescriptor.ControllerDescriptor.ControllerName + "*" + ((ReflectedHttpActionDescriptor)actionExecutedContext.ActionContext.ActionDescriptor).ActionName;
+            if (listeds.FirstOrDefault(x => x == strValues) != null)
+            {
+                isOk = true;
+            }
+            if (!isOk)
+            {
+                if (BLL.Funs.DBList.ContainsKey(System.Threading.Thread.CurrentThread.ManagedThreadId))
+                {
+                    BLL.Funs.DBList.Remove(System.Threading.Thread.CurrentThread.ManagedThreadId);
+                }
+
+                base.OnActionExecuted(actionExecutedContext);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static List<string> listeds = new List<string> { "Person*getPersonDataExchange" };
+    }
 }

@@ -67,7 +67,7 @@
                         <f:RenderField HeaderText="得分" ColumnID="Grade" DataField="Grade"
                             SortField="Grade" FieldType="String" TextAlign="Center" Width="80px">
                             <Editor>
-                                <f:NumberBox ID="txtTotalCompleteNum1" runat="server" DecimalPrecision="1" NoNegative="true" Text='<%# Bind("Grade") %>'>
+                                <f:NumberBox ID="txtTotalCompleteNum1" runat="server" DecimalPrecision="1" MinValue="0" MaxValue="100" NoNegative="true" Text='<%# Bind("Grade") %>'>
                                 </f:NumberBox>
                             </Editor>
 

@@ -629,7 +629,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 string strList = UnitWorkId + "|" + UnitId + "|" + taskDate;
                 
                 string window = String.Format("SelectTaskWeldJoint.aspx?strList={0}", strList, "编辑 - ");
-                PageContext.RegisterStartupScript(Window1.GetShowReference(window));
+                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(hdTaskWeldJoint.ClientID) + Window1.GetShowReference(window));
+                //PageContext.RegisterStartupScript(Window1.GetShowReference(window));
             }
             else
             {

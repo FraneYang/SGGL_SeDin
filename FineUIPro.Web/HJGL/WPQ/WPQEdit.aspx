@@ -182,7 +182,7 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="文件上传" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="680px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="680px"
             Height="480px">
         </f:Window>
     </form>

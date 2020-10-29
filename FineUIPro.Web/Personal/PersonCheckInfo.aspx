@@ -13,7 +13,7 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-                <f:Grid ID="Grid1" ShowBorder="true" EnableAjax="false" ShowHeader="false" Title="员工绩效考核"
+                <f:Grid ID="Grid1" ShowBorder="true" EnableAjax="false" ShowHeader="false" Title="员工绩效考核" ForceFit="true"
                     EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataIDField="QuarterCheckId"
                      DataKeyNames="QuarterCheckId" AllowCellEditing="true" ClicksToEdit="2" SortDirection="DESC"
                     AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnRowDoubleClick="Grid1_RowDoubleClick" EnableRowDoubleClickEvent="true" EnableTextSelection="True" OnRowCommand="Grid1_RowCommand" OnPageIndexChange="Grid1_PageIndexChange">
@@ -69,7 +69,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="绩效考核" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1000px"
             Height="1000px" OnClose="Window1_Close">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

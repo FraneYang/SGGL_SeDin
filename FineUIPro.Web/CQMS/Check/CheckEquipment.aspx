@@ -133,7 +133,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="编辑检试验设备" Hidden="true" EnableIFrame="true" EnableMaximize="true" OnClose="Window1_Close"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1000px" Height="700px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

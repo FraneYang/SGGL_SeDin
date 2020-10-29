@@ -170,7 +170,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1200px" Height="650px" OnClose="Window1_Close">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

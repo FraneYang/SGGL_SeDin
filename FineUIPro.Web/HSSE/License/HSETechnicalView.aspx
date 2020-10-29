@@ -44,7 +44,7 @@
                 <Items>
                         <f:TextBox ID="drpPartTechnicalMans" runat="server" Label="参加人员" Readonly="true">
                     </f:TextBox>
-                    <f:TextBox  runat="server" ID="txtPartTechnicalManNames" Readonly="true"></f:TextBox>
+                    <f:TextBox  runat="server" ID="txtPartTechnicalManNames" Readonly="true" Label="补充人员"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
@@ -85,7 +85,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

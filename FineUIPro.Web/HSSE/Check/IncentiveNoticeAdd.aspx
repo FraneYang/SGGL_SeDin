@@ -51,15 +51,15 @@
                         <f:Panel ID="Panel19" runat="server" Height="100px" ShowBorder="false"
                             Layout="Table" TableConfigColumns="2" ShowHeader="false" BodyPadding="1px">
                             <Items>
-                                <f:Panel ID="Panel14" Title="Panel1" Width="150px" Height="100px" MarginRight="0"
+                                <f:Panel ID="Panel14" Title="Panel1" Width="90px" Height="120px" MarginRight="0"
                                     MarginTop="40" TableRowspan="3" runat="server" BodyPadding="1px" ShowBorder="false"
-                                    ShowHeader="false" MarginLeft="45px">
+                                    ShowHeader="false" MarginLeft="10px">
                                     <Items>
                                         <f:Label runat="server" ID="Label30" Text="奖励方式：" LabelWidth="90px">
                                         </f:Label>
                                     </Items>
                                 </f:Panel>
-                                <f:Panel ID="Panel16" Title="Panel1" Width="800px" Height="30px" runat="server" BodyPadding="1px"
+                                <f:Panel ID="Panel16" Title="Panel1" Width="800px" Height="40px" runat="server" BodyPadding="1px"
                                     ShowBorder="false" ShowHeader="false">
                                     <Items>
                                         <f:Form ID="Form2" ShowBorder="false" ShowHeader="false" AutoScroll="true" runat="server"
@@ -82,7 +82,7 @@
                                         </f:Form>
                                     </Items>
                                 </f:Panel>
-                                <f:Panel ID="Panel1" Title="Panel1" Width="800px" Height="30px" runat="server" BodyPadding="1px"
+                                <f:Panel ID="Panel1" Title="Panel1" Width="800px" Height="40px" runat="server" BodyPadding="1px"
                                     ShowBorder="false" ShowHeader="false">
                                     <Items>
                                         <f:Form ID="Form3" ShowBorder="false" ShowHeader="false" AutoScroll="true" runat="server"
@@ -104,7 +104,7 @@
                                         </f:Form>
                                     </Items>
                                 </f:Panel>
-                                <f:Panel ID="Panel2" Title="Panel1" Width="800px" Height="30px" runat="server" BodyPadding="1px"
+                                <f:Panel ID="Panel2" Title="Panel1" Width="800px" Height="40px" runat="server" BodyPadding="1px"
                                     ShowBorder="false" ShowHeader="false">
                                     <Items>
                                         <f:Form ID="Form4" ShowBorder="false" ShowHeader="false" AutoScroll="true" runat="server"
@@ -130,9 +130,9 @@
                         </f:Panel>
                     </Items>
                 </f:FormRow>
-                <f:FormRow>
+                <f:FormRow >
                     <Items>
-                        <f:FileUpload runat="server" ID="btnFile" EmptyText="请选择附件" OnFileSelected="btnFile_Click"
+                        <f:FileUpload runat="server" ID="btnFile" EmptyText="请选择附件" OnFileSelected="btnFile_Click" MarginTop="20px"
                             AutoPostBack="true" Label="附件" LabelWidth="90px">
                         </f:FileUpload>
                         <f:ContentPanel ID="ContentPanel2" runat="server" ShowHeader="false" ShowBorder="false"
@@ -150,7 +150,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:Label runat="server" ID="Label37" Text="有关证据（被奖罚人姓名、岗位、证件编号、有关文字描述或照片等）：">
+                        <f:Label runat="server" ID="Label37" Text="有关证据（被奖罚人姓名、岗位、证件编号、有关文字描述或照片等）：" MarginTop="15px">
                         </f:Label>
                     </Items>
                 </f:FormRow>

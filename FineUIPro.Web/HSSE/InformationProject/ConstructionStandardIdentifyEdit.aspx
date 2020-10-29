@@ -19,10 +19,9 @@
         <Items>
             <f:Grid ID="Grid1" ShowBorder="false" ShowHeader="false" Title="标准规范辨识" EnableCollapse="true"
                 IsDatabasePaging="true" PageSize="10" AllowPaging="true" runat="server" BoxFlex="1" 
-                DataKeyNames="StandardId" AllowCellEditing="true" OnPageIndexChange="Grid1_PageIndexChange"
-                EnableColumnLines="true" ClicksToEdit="1" DataIDField="StandardId" AllowSorting="true"
-                OnRowCommand="Grid1_RowCommand" AllowFilters="true" OnFilterChange="Grid1_FilterChange"
-                EnableTextSelection="true" Height="350px">
+                DataKeyNames="StandardId" DataIDField="StandardId"  AllowCellEditing="true" OnPageIndexChange="Grid1_PageIndexChange" 
+                AllowFilters="true" OnFilterChange="Grid1_FilterChange"
+                EnableTextSelection="true" Height="600px" EnableCheckBoxSelect="true">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
@@ -44,8 +43,6 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:CheckBoxField ColumnID="ckbIsSelected" Width="50px" RenderAsStaticField="false"
-                        AutoPostBack="true" CommandName="IsSelected" HeaderText="选择" HeaderTextAlign="Center" />
                     <f:RenderField Width="100px" ColumnID="StandardGrade" DataField="StandardGrade" FieldType="String"
                         HeaderText="标准级别" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
@@ -180,7 +177,7 @@
     </f:Panel>
     </form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <script type="text/jscript">

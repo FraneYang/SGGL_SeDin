@@ -66,8 +66,20 @@
                             EnableCollapse="True" Collapsed="false" EnableCollapseEvent="true"
                             EnableExpandEvent="true" Hidden="true">
                             <Items>
-                                <f:DropDownList ID="drpProfessionalEngineer" runat="server" Label="总包专业工程师" LabelAlign="Right" EnableEdit="true" LabelWidth="150px">
-                                </f:DropDownList>
+                                <f:DropDownBox runat="server" Label="总包专业工程师" ShowRedStar="true"
+                                    Required="true" ID="txtCarryUser" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true" LabelWidth="150px">
+                                    <PopPanel>
+                                        <f:Grid ID="gvCarryUser" DataIDField="UserId"
+                                            EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="UserId" DataTextField="UserName"
+                                            ShowBorder="true" ShowHeader="false" ForceFit="true"
+                                            runat="server" EnableCheckBoxSelect="true">
+                                            <Columns>
+                                                <f:BoundField Width="100px" DataField="UserId" SortField="UserId" DataFormatString="{0}" Hidden="true" />
+                                                <f:BoundField Width="100px" DataField="UserName" SortField="UserName" DataFormatString="{0}" HeaderText="姓名" />
+                                            </Columns>
+                                        </f:Grid>
+                                    </PopPanel>
+                                </f:DropDownBox>
                                 <f:DropDownList ID="drpConstructionManager" runat="server" Label="总包施工经理" LabelAlign="Right" EnableEdit="true" LabelWidth="150px">
                                 </f:DropDownList>
                                 <f:DropDownList ID="drpUnitHeadMan" runat="server" Label="相关施工分包单位" LabelAlign="Right" EnableEdit="true" LabelWidth="150px">
@@ -147,7 +159,7 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
     </form>

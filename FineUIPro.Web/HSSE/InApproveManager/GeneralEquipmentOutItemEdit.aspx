@@ -17,42 +17,42 @@
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpSpecialEquipmentId" runat="server" Label="设备" Required="true"
-                        ShowRedStar="true" LabelAlign="Right" LabelWidth="140px">
+                        ShowRedStar="true" LabelAlign="Right" LabelWidth="150px">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtSizeModel" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50"
-                        LabelWidth="140px">
+                        LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtOwnerCheck" runat="server" Label="进场前自查自检情况" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtCertificateNum" runat="server" Label="施工设备合格证号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtInsuranceNum" runat="server" Label="保险单号" LabelAlign="Right" MaxLength="50"
-                        LabelWidth="140px">
+                        LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpOutReason" runat="server" Label="出场理由" LabelAlign="Right"
-                        LabelWidth="140px">
+                        LabelWidth="150px">
                         <f:ListItem Value="退回供应商" Text="退回供应商" Selected="true" />
                         <f:ListItem Value="转场" Text="转场" />
                         <f:ListItem Value="承包商物资" Text="承包商物资" />

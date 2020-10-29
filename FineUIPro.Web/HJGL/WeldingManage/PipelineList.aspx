@@ -184,11 +184,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-        EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
+        EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
         IsModal="true" Width="800px" Height="560px">
     </f:Window>
     <f:Window ID="Window2" Title="选择显示列" Hidden="true"
-        EnableIFrame="true" EnableMaximize="false" Target="Top" EnableResize="true" runat="server"
+        EnableIFrame="true" EnableMaximize="false" Target="Top" EnableResize="false" runat="server"
         IsModal="true" Width="700px" Height="500px" OnClose="Window2_Close">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

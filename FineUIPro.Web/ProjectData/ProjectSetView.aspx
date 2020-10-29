@@ -14,65 +14,77 @@
         <rows>
             <f:FormRow>
                 <Items>
-                   <f:TextBox ID="txtProjectName" runat="server" Label="项目名称"  Readonly="true"></f:TextBox>
+                   <f:TextBox ID="txtProjectName" runat="server" Label="项目名称" LabelWidth="150px" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                   <f:TextBox ID="txtProjectCode" runat="server" Label="项目号" Readonly="true"></f:TextBox>
-                   <f:TextBox ID="txtShortName" runat="server" Label="简称" Readonly="true"></f:TextBox>
+                   <f:TextBox ID="txtProjectCode" runat="server" Label="项目号" Readonly="true" LabelWidth="150px"></f:TextBox>
+                   <f:TextBox ID="txtShortName" runat="server" Label="简称" Readonly="true" LabelWidth="140px"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                  <Items>               
-                  <f:TextBox ID="txtProjectType" runat="server" Label="项目类型" Readonly="true"></f:TextBox>               
-                   <f:TextBox ID="txtProjectState" runat="server" Label="项目状态" Readonly="true"></f:TextBox>
+                  <f:TextBox ID="txtProjectType" runat="server" Label="项目类型" Readonly="true" LabelWidth="150px"></f:TextBox>               
+                   <f:TextBox ID="txtProjectState" runat="server" Label="项目状态" Readonly="true" LabelWidth="140px"></f:TextBox>
                </Items>                                         
             </f:FormRow> 
             <f:FormRow>
                 <Items>
-                    <f:TextBox runat="server" Label="开工日期" ID="txtStartDate"  Readonly="true"></f:TextBox>           
-                   <f:TextBox runat="server" Label="竣工日期" ID="txtEndDate" Readonly="true"></f:TextBox>
+                    <f:TextBox runat="server" Label="开工日期" ID="txtStartDate"  Readonly="true" LabelWidth="150px"></f:TextBox>           
+                   <f:TextBox runat="server" Label="竣工日期" ID="txtEndDate" Readonly="true" LabelWidth="140px"></f:TextBox>
                 </Items>
             </f:FormRow> 
              <f:FormRow>              
                <Items>
-                      <f:TextBox runat="server" ID="txtDuration" Label="项目建设工期(月)"  Readonly="true">
+                      <f:TextBox runat="server" ID="txtDuration" Label="项目建设工期(月)" LabelWidth="150px"  Readonly="true">
                     </f:TextBox>
-                   <f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" Readonly="true"></f:TextBox>                      
+                   <f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" Readonly="true" LabelWidth="140px"></f:TextBox>                      
                 </Items>
             </f:FormRow>  
             <f:FormRow>
                 <Items>               
-                    <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" Readonly="true"></f:TextBox> 
-                    <f:TextBox ID="txtHSSEManager" runat="server" Label="安全经理" Readonly="true"></f:TextBox>      
+                    <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" Readonly="true" LabelWidth="150px"></f:TextBox> 
+                    <f:TextBox ID="txtHSSEManager" runat="server" Label="安全经理" Readonly="true" LabelWidth="140px"></f:TextBox>      
                 </Items>
             </f:FormRow>  
             <f:FormRow>
                  <Items>
-                   <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" Readonly="true"></f:TextBox>
-                   <f:TextBox ID="txtUnitName" runat="server" Label="所属单位" Readonly="true"></f:TextBox>
+                   <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" Readonly="true" LabelWidth="150px"></f:TextBox>
+                   <f:TextBox ID="txtUnitName" runat="server" Label="所属单位" Readonly="true" LabelWidth="140px"></f:TextBox>
                 </Items>
             </f:FormRow> 
                 <f:FormRow>
                  <Items>
-                   <f:TextArea ID="txtWorkRange" runat="server" Label="工作范围" Readonly="true"></f:TextArea>
+                   <f:TextArea ID="txtWorkRange" runat="server" Label="工作范围" Readonly="true" LabelWidth="150px"></f:TextArea>
                 </Items>
             </f:FormRow>  
             <f:FormRow>
                  <Items>
-                   <f:TextArea ID="txtRemark" runat="server" Label="项目概况" Readonly="true"></f:TextArea>
+                   <f:TextArea ID="txtRemark" runat="server" Label="项目概况" Readonly="true" LabelWidth="150px"></f:TextArea>
                 </Items>
             </f:FormRow>  
             <f:FormRow>
                  <Items>                   
-                    <f:TextBox runat="server" ID="txtProjectMoney" Label="合同额(万元)" Readonly="true"></f:TextBox>
+                    <f:TextBox runat="server" ID="txtProjectMoney" Label="合同额(万元)" Readonly="true" LabelWidth="150px"></f:TextBox>
                      <f:TextBox runat="server" ID="txtConstructionMoney" Label="施工合同额(万元)" LabelWidth="140px" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow> 
             <f:FormRow>
+                 <Items>                   
+                    <f:TextBox runat="server" ID="txtTelephone" Label="项目部电话" Readonly="true" LabelWidth="150px"></f:TextBox>
+                     <f:TextBox runat="server" ID="txtCountry" Label="国家" LabelWidth="140px" Readonly="true"></f:TextBox>
+                </Items>
+            </f:FormRow> 
+            <f:FormRow>
+                 <Items>                   
+                    <f:TextBox runat="server" ID="txtProvince" Label="省份" Readonly="true" LabelWidth="150px"></f:TextBox>
+                     <f:TextBox runat="server" ID="txtCity" Label="城市" LabelWidth="140px" Readonly="true"></f:TextBox>
+                </Items>
+            </f:FormRow> 
+            <f:FormRow>
                  <Items>
-                   <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目" Enabled="false"></f:CheckBox>
+                   <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目" Enabled="false" LabelWidth="150px"></f:CheckBox>
                     <f:TextBox ID="txtMapCoordinates" runat="server" Label="坐标" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>     

@@ -123,15 +123,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="类别" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="600px" Height="400px">
     </f:Window>
     <f:Window ID="Window2" Title="详情" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="600px" Height="400px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

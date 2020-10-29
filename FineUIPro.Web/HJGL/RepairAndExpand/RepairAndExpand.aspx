@@ -64,10 +64,10 @@
                             </f:HiddenField>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:Button ID="btnSave" Text="保存" ToolTip="扩透口保存"
+                            <f:Button ID="btnSave" Text="返修/扩透委托" ToolTip="返修/扩透委托"
                                 Icon="SystemSave" runat="server" OnClick="btnSave_Click">
                             </f:Button>
-                            <f:Button ID="btnPointAudit" Text="扩透口审核" ToolTip="监理审核后才可生成委托单" Icon="ArrowNsew" runat="server"
+                            <f:Button ID="btnPointAudit" Text="返修/扩透审核" ToolTip="监理审核后才可生成委托单" Icon="ArrowNsew" runat="server"
                                 OnClick="btnPointAudit_Click" >
                             </f:Button>
                             <f:Button ID="btnGenerate" Text="生成" ToolTip="生成委托单" Icon="TableEdit" runat="server"
@@ -205,7 +205,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-        EnableMaximize="true" Target="Top" EnableResize="true" runat="server" 
+        EnableMaximize="true" Target="Top" EnableResize="false" runat="server" 
         IsModal="true" Width="1200px" Height="660px">
     </f:Window>
     </form>

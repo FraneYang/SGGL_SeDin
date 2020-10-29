@@ -67,7 +67,28 @@ namespace FineUIPro.Web.HSSE.ActionPlan
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "select ManagerRule.ManagerRuleId,ManagerRule.ProjectId,CodeRecords.Code AS ManageRuleCode,ManagerRule.OldManageRuleCode,ManagerRule.ManageRuleName,ManagerRule.ManageRuleTypeName,ManagerRule.CompileDate,ManagerRule.VersionNo,ManagerRule.ShortRemark,ManagerRule.Remark from View_ActionPlan_ManagerRule ManagerRule left join Sys_CodeRecords AS CodeRecords ON ManagerRule.ManagerRuleId=CodeRecords.DataId where  IsIssue=1 ";
+            string strSql = string.Empty;
+            if (this.rblType.SelectedValue == "集团")
+            {
+                strSql = @"select ManagerRule.ManagerRuleId,ManagerRule.ProjectId,CodeRecords.Code AS ManageRuleCode,
+                           ManagerRule.OldManageRuleCode,ManagerRule.ManageRuleName,ManagerRule.ManageRuleTypeName,
+                           ManagerRule.VersionNo,ManagerRule.CompileDate from View_ActionPlan_ManagerRule ManagerRule 
+                           left join Sys_CodeRecords AS CodeRecords ON ManagerRule.ManagerRuleId=CodeRecords.DataId where  IsIssue=1 ";
+            }
+            else if(this.rblType.SelectedValue == "公司"){
+                strSql = @"SELECT ManagerRule.ManagerRuleId,ManageRuleCode,ManagerRule.ProjectId,ManagerRule.ManageRuleName,CompileDate,
+                           ManagerRule.ManageRuleTypeId,ManagerRule.VersionNo,ManageRuleType.ManageRuleTypeName AS ManageRuleTypeName 
+                           FROM ActionPlan_CompanyManagerRule AS ManagerRule 
+                           LEFT JOIN dbo.Base_ManageRuleType AS ManageRuleType ON ManageRuleType.ManageRuleTypeId=ManagerRule.ManageRuleTypeId  
+                           where  IsIssue=1 ";
+            }
+            else if (this.rblType.SelectedValue == "项目")
+            {
+                strSql = @"SELECT ManagerRule.ManagerRuleId,ManagerRule.ProjectId,ManageRuleCode, ManagerRule.ManageRuleName,CompileDate,
+                           ManageRuleType.ManageRuleTypeName AS ManageRuleTypeName,ManagerRule.VersionNo FROM ActionPlan_ProjectManagerRule AS ManagerRule  
+                           LEFT JOIN dbo.Base_ManageRuleType AS ManageRuleType ON ManageRuleType.ManageRuleTypeId=ManagerRule.ManageRuleTypeId
+                           where  IsIssue=1 ";
+            }
 
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND ManagerRule.ProjectId = @ProjectId";
@@ -237,7 +258,21 @@ namespace FineUIPro.Web.HSSE.ActionPlan
                 return;
             }
             string managerRuleId = Grid1.SelectedRowID;
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ManagerRuleEdit.aspx?type=see&ManagerRuleId={0}", managerRuleId, "查看 - ")));
+            var managerRule = BLL.ActionPlan_ManagerRuleService.GetManagerRuleById(managerRuleId);
+            var CompanymanagerRule = BLL.ActionPlan_CompanyManagerRuleService.GetManagerRuleById(managerRuleId);
+            var ProjectmanagerRule = BLL.ActionPlan_ProjectManagerRuleService.GetManagerRuleById(managerRuleId);
+            if (managerRule != null)
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ManagerRuleView.aspx?ManagerRuleId={0}", managerRuleId, "查看 - ")));
+            }
+            else if (CompanymanagerRule != null)
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CompanyManageRuleView.aspx?ManagerRuleId={0}", managerRuleId, "查看 - ")));
+            }
+            else if (ProjectmanagerRule != null)
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectManageRuleView.aspx?ManagerRuleId={0}", managerRuleId, "查看 - ")));
+            }
         }
         #endregion
 
@@ -412,5 +447,10 @@ namespace FineUIPro.Web.HSSE.ActionPlan
             BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ActionPlan_ManagerRuleListMenuId, Const.BtnQuery);
         }
         #endregion
+
+        protected void rblType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindGrid();
+        }
     }
 }

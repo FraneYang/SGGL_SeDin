@@ -184,22 +184,22 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         protected global::FineUIPro.NumberBox txtXXS;
         
         /// <summary>
-        /// Label2 控件。
+        /// txtSize 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label2;
+        protected global::FineUIPro.NumberBox txtSize;
         
         /// <summary>
-        /// Label3 控件。
+        /// txtthickness 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label3;
+        protected global::FineUIPro.NumberBox txtthickness;
         
         /// <summary>
         /// Toolbar1 控件。

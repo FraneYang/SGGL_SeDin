@@ -59,13 +59,13 @@
                                 <f:Panel ID="Panel1" Layout="Block" CssClass="blockpanel myblockform" BlockMD="12" ShowHeader="false" ShowBorder="false"
                                     BlockConfigSpace="5px" BodyPadding="5px" EnableCollapse="true" runat="server">
                                     <Items>
-                                        <f:DatePicker runat="server"  DateFormatString="yyyy-MM" Label="月报月份" EmptyText="请选择年月" BlockMD="4"
+                                        <f:DatePicker runat="server" DateFormatString="yyyy-MM" Label="月报月份" EmptyText="请选择年月" BlockMD="4"
                                             ID="ReporMonth" LabelAlign="right" DisplayType="Month" ShowTodayButton="false">
                                         </f:DatePicker>
-                                        <f:DatePicker runat="server" Label="报告日期" BlockMD="4" ID="StartDate" LabelAlign="right" >
+                                        <f:DatePicker runat="server" Label="报告日期" BlockMD="4" ID="StartDate" LabelAlign="right">
                                         </f:DatePicker>
                                         <f:DatePicker runat="server" Label="至" BlockMD="4" ID="EndDate"
-                                            LabelAlign="right" LabelWidth="50px" >
+                                            LabelAlign="right" LabelWidth="50px">
                                         </f:DatePicker>
                                     </Items>
                                 </f:Panel>
@@ -73,11 +73,11 @@
                                 <f:Panel ID="Panel2" Layout="Block" CssClass="blockpanel myblockform" BlockMD="12" ShowHeader="false" ShowBorder="false"
                                     BlockConfigSpace="5px" BodyPadding="5px" EnableCollapse="true" runat="server">
                                     <Items>
-                                        <f:DropDownList runat="server" ID="CompileManId"  LabelAlign="Right"  BlockMD="3" Label="报告人">
+                                        <f:DropDownList runat="server" ID="CompileManId" LabelAlign="Right" BlockMD="3" Label="报告人">
                                         </f:DropDownList>
-                                        <f:DropDownList runat="server" ID="AuditManId"  LabelAlign="Right"  BlockMD="3" Label="审核人">
+                                        <f:DropDownList runat="server" ID="AuditManId" LabelAlign="Right" BlockMD="3" Label="审核人">
                                         </f:DropDownList>
-                                        <f:DropDownList runat="server" ID="ApprovalManId"  LabelAlign="Right"  BlockMD="3" Label="批准人">
+                                        <f:DropDownList runat="server" ID="ApprovalManId" LabelAlign="Right" BlockMD="3" Label="批准人">
                                         </f:DropDownList>
                                         <f:DatePicker runat="server" Label="报告截至日期" LabelWidth="140px" BlockMD="3" ID="DueDate" LabelAlign="Right">
                                         </f:DatePicker>
@@ -89,35 +89,38 @@
                     </Items>
                 </f:FormRow>
 
-                <f:FormRow >
+                <f:FormRow>
                     <Items>
                         <f:Panel ID="pan" Layout="Block" CssClass="blockpanel myblockform" BlockMD="12"
                             BlockConfigSpace="10px" BodyPadding="5px" Title="1、项目信息" EnableCollapse="true" runat="server">
                             <Items>
 
-                                <f:TextBox ID="projectCode" runat="server" Label="项目编号" BlockMD="4" Readonly="true" MaxLength="50">
+                                <f:TextBox ID="projectCode" runat="server" Label="项目编号" BlockMD="4" Readonly="true" MaxLength="50" LabelWidth="120px">
                                 </f:TextBox>
-                                <f:Label ID="projectName" Label="项目名称" runat="server" BlockMD="4"></f:Label>
-                                <f:TextBox ID="projectType" runat="server" Label="项目类型"  BlockMD="4" MaxLength="50">
-                                </f:TextBox>
-
-                                <f:TextBox ID="ContractAmount" runat="server" Label="合同额" BlockMD="4" MaxLength="50">
-                                </f:TextBox>
-                                <f:TextBox ID="ConstructionStage" runat="server" Label="所处的施工阶段"  LabelWidth="120px" BlockMD="4" MaxLength="50">
-                                </f:TextBox>
-                                <f:TextBox ID="ProjectAddress" runat="server" Label="项目所在地"  BlockMD="4" MaxLength="50">
+                                <f:Label ID="projectName" Label="项目名称" runat="server" BlockMD="4" LabelWidth="120px"></f:Label>
+                                <f:TextBox ID="projectType" runat="server" Label="项目类型" BlockMD="4" MaxLength="50">
                                 </f:TextBox>
 
-                                <f:TextBox ID="ProjectManager" runat="server" Label="项目经理及联系方式" LabelWidth="150px" BlockMD="3" MaxLength="50">
+                                <f:TextBox ID="ContractAmount" runat="server" Label="合同额" BlockMD="4" MaxLength="50" LabelWidth="120px">
                                 </f:TextBox>
-                                <f:TextBox ID="HsseManager" runat="server" Label="安全经理及联系方式" LabelWidth="150px" BlockMD="3" MaxLength="50">
+                                <f:TextBox ID="ConstructionStage" runat="server" Label="所处的施工阶段" LabelWidth="120px" BlockMD="4" MaxLength="50">
                                 </f:TextBox>
-                                <f:DatePicker runat="server"  BlockMD="3" LabelAlign="right" DateFormatString="yyyy-MM-dd" Label="合同工期时间"
+                                <f:TextBox ID="ProjectAddress" runat="server" Label="项目所在地" BlockMD="4" MaxLength="50">
+                                </f:TextBox>
+
+                                <f:TextBox ID="ProjectManager" runat="server" Label="项目经理" BlockMD="4" MaxLength="50" LabelWidth="120px">
+                                </f:TextBox>
+                                <f:TextBox ID="ProjectManagerPhone" runat="server" Label="联系方式" LabelWidth="120px" BlockMD="8" MaxLength="50">
+                                </f:TextBox>
+                                <f:TextBox ID="HsseManager" runat="server" Label="安全经理" BlockMD="4" MaxLength="50" LabelWidth="120px">
+                                </f:TextBox>
+                                <f:TextBox ID="HsseManagerPhone" runat="server" Label="联系方式" LabelWidth="120px" BlockMD="8" MaxLength="50">
+                                </f:TextBox>
+                                <f:DatePicker runat="server" BlockMD="4" LabelAlign="right" DateFormatString="yyyy-MM-dd" Label="合同工期时间"
                                     EmptyText="请选择开始日期" LabelWidth="120px"
                                     ID="pStartDate">
                                 </f:DatePicker>
-                                <f:DatePicker runat="server" Label="至" ID="pEndDate" BlockMD="3" EmptyText="请选择结束日期"
-                                    LabelWidth="40px" >
+                                <f:DatePicker runat="server" Label="至" ID="pEndDate" BlockMD="8" EmptyText="请选择结束日期" LabelWidth="120px">
                                 </f:DatePicker>
                             </Items>
                         </f:Panel>
@@ -125,68 +128,36 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:ContentPanel ID="ContentPanel1" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="2、项目安全工时统计" runat="server">
-                            <table style="width: 100%" id="SeDinMonthReport3Item" runat="server">
-                                <tr>
-                                    <td>
-                                        <f:TextBox ID="MonthWorkTime" runat="server" Label="当月安全人工时" LabelAlign="Right" LabelWidth="160px" BlockMD="4" MaxLength="50">
+                        <f:Panel ID="SeDinMonthReport3Item" Layout="Block" CssClass="blockpanel myblockform" BlockMD="12"
+                            BlockConfigSpace="10px" BodyPadding="5px" Title="2、项目安全工时统计" EnableCollapse="true" runat="server">
+                            <Items>
+                                <f:TextBox ID="MonthWorkTime" runat="server" Label="当月安全人工时" LabelAlign="Right" LabelWidth="160px" BlockMD="4" MaxLength="50">
                                         </f:TextBox>
-                                    </td>
-                                    <td>
-                                        <f:TextBox ID="YearWorkTime" runat="server" Label="年度累计安全人工时" LabelAlign="Right" BlockMD="4" LabelWidth="160px" MaxLength="50">
+                                <f:TextBox ID="YearWorkTime" runat="server" Label="年度累计安全人工时" LabelAlign="Right" BlockMD="4" LabelWidth="160px" MaxLength="50">
                                         </f:TextBox>
-                                    </td>
-                                    <td>
-                                        <f:TextBox ID="ProjectWorkTime" runat="server" Label="项目累计安全人工时" LabelAlign="Right" BlockMD="4" LabelWidth="160px" MaxLength="50">
+                                <f:TextBox ID="ProjectWorkTime" runat="server" Label="项目累计安全人工时" LabelAlign="Right" BlockMD="4" LabelWidth="160px" MaxLength="50">
                                         </f:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: 100%">
-                                <tr>
-                                    <td>
-                                        <f:TextBox ID="TotalLostTime" runat="server" Label="总损失工时" LabelWidth="160px" LabelAlign="Right" BlockMD="4" MaxLength="50">
+                                <f:TextBox ID="TotalLostTime" runat="server" Label="总损失工时" LabelWidth="160px" LabelAlign="Right" BlockMD="4" MaxLength="50">
                                         </f:TextBox>
-
-                                    </td>
-                                    <td>
-                                        <f:TextBox ID="MillionLossRate" runat="server" Label="百万工时损失率" BlockMD="4" LabelAlign="Right" LabelWidth="160px" MaxLength="50">
+                                <f:TextBox ID="MillionLossRate" runat="server" Label="百万工时损失率" BlockMD="4" LabelAlign="Right" LabelWidth="160px" MaxLength="50">
                                         </f:TextBox>
-
-                                    </td>
-                                    <td>
-                                        <f:TextBox ID="TimeAccuracyRate" runat="server" Label="工时统计准确率" BlockMD="4" LabelAlign="Right" LabelWidth="160px" MaxLength="50">
+                                <f:TextBox ID="TimeAccuracyRate" runat="server" Label="工时统计准确率" BlockMD="4" LabelAlign="Right" LabelWidth="160px" MaxLength="50">
                                         </f:TextBox>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: unset; padding-left: 30px">
-                                <tr>                                    
-                                    <td>
-                                        <f:DatePicker runat="server"  LabelWidth="150px" LabelAlign="right" DateFormatString="yyyy-MM-dd"
-                                            EmptyText="请选择开始日期" Label="本项目自" 
+                                <f:DatePicker runat="server" LabelWidth="160px" LabelAlign="right" BlockMD="4" DateFormatString="yyyy-MM-dd"
+                                            EmptyText="请选择开始日期" Label="本项目自"
                                             ID="PsafeStartDate">
                                         </f:DatePicker>
-                                    </td>
-                                    <td>
-                                        <f:DatePicker runat="server" Label="至" ID="PsafeEndDate" EmptyText="请选择结束日期"
-                                            LabelWidth="40px" >
+                                <f:DatePicker runat="server" Label="至" ID="PsafeEndDate" EmptyText="请选择结束日期"
+                                            LabelWidth="160px" LabelAlign="Right" BlockMD="8">
                                         </f:DatePicker>
-                                    </td>                                  
-                                    <td>
-                                        <f:TextBox ID="SafeWorkTime" runat="server" MaxLength="50" Label="安全生产" LabelWidth="80px" Width="250px">
+                                <f:TextBox ID="SafeWorkTime" runat="server" MaxLength="50" Label="安全生产" LabelAlign="Right" LabelWidth="160px" BlockMD="4">
                                         </f:TextBox>
-                                    </td>
-                                    <td>
-                                        <f:Label runat="server" Text="人工时，无可记录事故"></f:Label>
-                                    </td>
-                                </tr>
-
-                            </table>
-                        </f:ContentPanel>
-
+                                        <f:Label runat="server" Text="人工时，无可记录事故" BlockMD="8"></f:Label>
+                            </Items>
+                        </f:Panel>
                     </Items>
                 </f:FormRow>
+
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel2" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="3、项目HSE事故、事件统计" runat="server">
@@ -213,7 +184,7 @@
                                 </tr>
                                 <tr>
                                     <td rowspan="4">
-                                        <label id="BigType" runat="server" ></label>
+                                        <label id="BigType" runat="server"></label>
                                     </td>
                                     <td>
                                         <label id="AccidentType1" runat="server"></label>
@@ -459,14 +430,14 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:ContentPanel ID="ContentPanel3" BodyPadding="10" ShowBorder="true" EnableCollapse="true" 
+                        <f:ContentPanel ID="ContentPanel3" BodyPadding="10" ShowBorder="true" EnableCollapse="true"
                             CssClass="blockpanel myblockform" ShowHeader="true" Title="4、本月人员投入情况" runat="server">
-                            <f:Grid ID="GvSeDinMonthReport4Item" CssClass="blockpanel" AllowCellEditing="true" EnableColumnLines="true" 
-                                    ShowBorder="true" ShowHeader="false" EnableCollapse="false" runat="server"
-                                    EnableSummary="true" SummaryPosition="Bottom">
+                            <f:Grid ID="GvSeDinMonthReport4Item" CssClass="blockpanel" AllowCellEditing="true" EnableColumnLines="true"
+                                ShowBorder="true" ShowHeader="false" EnableCollapse="false" runat="server"
+                                EnableSummary="true" SummaryPosition="Bottom">
                                 <Columns>
                                     <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="80px" HeaderTextAlign="Center"
-                                        HeaderText="单位名称" ExpandUnusedSpace="true"/>
+                                        HeaderText="单位名称" ExpandUnusedSpace="true" />
                                     <f:GroupField ColumnID="henan" HeaderText="管理人员" TextAlign="Center" HeaderTextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="180px" ColumnID="SafeManangerNum" DataField="SafeManangerNum" FieldType="Int"
@@ -519,10 +490,10 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:ContentPanel ID="ContentPanel4" BodyPadding="10" ShowBorder="true" EnableCollapse="true" 
+                        <f:ContentPanel ID="ContentPanel4" BodyPadding="10" ShowBorder="true" EnableCollapse="true"
                             CssClass="blockpanel myblockform" ShowHeader="true" Title="5、本月大型、特种设备投入情况" runat="server">
-                            <f:Grid ID="GvSeDinMonthReport5Item"  CssClass="table" ShowBorder="true" AllowCellEditing="true" 
-                                EnableColumnLines="true" ShowHeader="false"  EnableCollapse="false" runat="server"
+                            <f:Grid ID="GvSeDinMonthReport5Item" CssClass="table" ShowBorder="true" AllowCellEditing="true"
+                                EnableColumnLines="true" ShowHeader="false" EnableCollapse="false" runat="server"
                                 EnableSummary="true" SummaryPosition="Bottom">
                                 <Columns>
                                     <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="100px" ExpandUnusedSpace="true"
@@ -530,7 +501,7 @@
                                     <f:GroupField ColumnID="henan" HeaderText="特种设备" TextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="90px" ColumnID="T01" DataField="T01" FieldType="Int" HeaderTextAlign="Center"
-                                                    HeaderText="汽车吊">
+                                                HeaderText="汽车吊">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
@@ -576,12 +547,12 @@
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
-                                            </f:RenderField>                                                 
+                                            </f:RenderField>
                                         </Columns>
                                     </f:GroupField>
                                     <f:GroupField ColumnID="Special" HeaderText="大型机具设备" TextAlign="Center">
                                         <Columns>
-                                              <f:RenderField Width="90px" ColumnID="D01" DataField="D01" FieldType="Int"
+                                            <f:RenderField Width="90px" ColumnID="D01" DataField="D01" FieldType="Int"
                                                 HeaderText="挖掘机" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
@@ -589,7 +560,7 @@
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                              <f:RenderField Width="90px" ColumnID="D02" DataField="D02" FieldType="Int"
+                                            <f:RenderField Width="90px" ColumnID="D02" DataField="D02" FieldType="Int"
                                                 HeaderText="装载机" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
@@ -597,7 +568,7 @@
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                              <f:RenderField Width="90px" ColumnID="D03" DataField="D03" FieldType="Int"
+                                            <f:RenderField Width="90px" ColumnID="D03" DataField="D03" FieldType="Int"
                                                 HeaderText="拖板车" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
@@ -605,29 +576,29 @@
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                              <f:RenderField Width="60px" ColumnID="D04" DataField="D04" FieldType="Int"
+                                            <f:RenderField Width="60px" ColumnID="D04" DataField="D04" FieldType="Int"
                                                 HeaderText="桩机" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox NoDecimal="true" NoNegative="true"
                                                         MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
-                                            </f:RenderField>                                        
+                                            </f:RenderField>
                                         </Columns>
                                     </f:GroupField>
                                     <f:GroupField ColumnID="Sp" HeaderText="特殊机具设备" TextAlign="Center" Width="110px" HeaderTextAlign="Center">
                                         <Columns>
-                                              <f:RenderField Width="110px" ColumnID="S01" DataField="S01" FieldType="Int"
+                                            <f:RenderField Width="110px" ColumnID="S01" DataField="S01" FieldType="Int"
                                                 HeaderText="吊篮" HeaderTextAlign="Center">
                                                 <Editor>
-                                                    <f:NumberBox NoDecimal="true" NoNegative="true"  runat="server">
+                                                    <f:NumberBox NoDecimal="true" NoNegative="true" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
-                                            </f:RenderField>                                         
+                                            </f:RenderField>
                                         </Columns>
                                     </f:GroupField>
-                                       <f:BoundField ColumnID="TotalNum" DataField="TotalNum" Width="60px" HeaderTextAlign="Center"
-                                           HeaderText="合计"  />
+                                    <f:BoundField ColumnID="TotalNum" DataField="TotalNum" Width="60px" HeaderTextAlign="Center"
+                                        HeaderText="合计" />
                                 </Columns>
                             </f:Grid>
                         </f:ContentPanel>
@@ -792,26 +763,26 @@
                                         <input type="text" runat="server" class="input" id="Report8SpecialMontPerson" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                             </table>
-                            <f:Grid ID="GvSeDinMonthReport8Item" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="班前会" ForceFit="true" EnableCollapse="false" runat="server">          
+                            <f:Grid ID="GvSeDinMonthReport8Item" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="班前会" ForceFit="true" EnableCollapse="false" runat="server">
                                 <Columns>
                                     <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="80px" HeaderText="单位名称" />
                                     <f:BoundField ColumnID="TeamName" DataField="TeamName" Width="80px" HeaderText="班组名称" />
-                                     <f:RenderField Width="100px" ColumnID="ClassNum" DataField="ClassNum" FieldType="Int"
-                                                HeaderText="会议次数（本月）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                     <f:RenderField Width="100px" ColumnID="ClassPersonNum" DataField="ClassPersonNum" FieldType="Int"
-                                                HeaderText="参会人数累计（本月）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="ClassNum" DataField="ClassNum" FieldType="Int"
+                                        HeaderText="会议次数（本月）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="ClassPersonNum" DataField="ClassPersonNum" FieldType="Int"
+                                        HeaderText="参会人数累计（本月）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
                                 </Columns>
                             </f:Grid>
                         </f:ContentPanel>
@@ -865,72 +836,72 @@
                                         <input type="text" runat="server" class="input" id="MonthlyTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                 </tr>
                             </table>
-                            <f:Grid ID="GvSeDinMonthReport9ItemSpecial" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="专项检查" ForceFit="true" EnableCollapse="false" runat="server">                             
+                            <f:Grid ID="GvSeDinMonthReport9ItemSpecial" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="专项检查" ForceFit="true" EnableCollapse="false" runat="server">
                                 <Columns>
                                     <f:BoundField ColumnID="TypeName" DataField="TypeName" Width="80px" HeaderText="类型" />
-                                     <f:RenderField Width="100px" ColumnID="CheckMonth" DataField="CheckMonth" FieldType="Int"
-                                                HeaderText="检查次数（本月）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                     <f:RenderField Width="100px" ColumnID="CheckYear" DataField="CheckYear" FieldType="Int"
-                                                HeaderText="次数（本年度累计）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                     <f:RenderField Width="100px" ColumnID="CheckTotal" DataField="CheckTotal" FieldType="Int"
-                                                HeaderText="次数（项目总累计）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="CheckMonth" DataField="CheckMonth" FieldType="Int"
+                                        HeaderText="检查次数（本月）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="CheckYear" DataField="CheckYear" FieldType="Int"
+                                        HeaderText="次数（本年度累计）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="CheckTotal" DataField="CheckTotal" FieldType="Int"
+                                        HeaderText="次数（项目总累计）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
                                 </Columns>
                             </f:Grid>
 
-                            <f:Grid ID="GvSeDinMonthReport9ItemRect" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="隐患整改单" ForceFit="true" EnableCollapse="false" runat="server">           
+                            <f:Grid ID="GvSeDinMonthReport9ItemRect" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="隐患整改单" ForceFit="true" EnableCollapse="false" runat="server">
                                 <Columns>
                                     <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="80px" HeaderText="单位名称" />
-                                     <f:RenderField Width="100px" ColumnID="IssuedMonth" DataField="IssuedMonth" FieldType="Int"
-                                                HeaderText="下发数量（本月）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                     <f:RenderField Width="100px" ColumnID="RectificationMoth" DataField="RectificationMoth" FieldType="Int"
-                                                HeaderText="整改完成数量（本月）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                     <f:RenderField Width="100px" ColumnID="IssuedTotal" DataField="IssuedTotal" FieldType="Int"
-                                                HeaderText="下发数量（累计）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                     <f:RenderField Width="100px" ColumnID="RectificationTotal" DataField="RectificationTotal" FieldType="Int"
-                                                HeaderText="整改完成数量（累计）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                               <%--     <f:BoundField ColumnID="IssuedMonth" DataField="IssuedMonth" Width="80px" HeaderText="下发数量（本月）" />
+                                    <f:RenderField Width="100px" ColumnID="IssuedMonth" DataField="IssuedMonth" FieldType="Int"
+                                        HeaderText="下发数量（本月）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="RectificationMoth" DataField="RectificationMoth" FieldType="Int"
+                                        HeaderText="整改完成数量（本月）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="IssuedTotal" DataField="IssuedTotal" FieldType="Int"
+                                        HeaderText="下发数量（累计）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="RectificationTotal" DataField="RectificationTotal" FieldType="Int"
+                                        HeaderText="整改完成数量（累计）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <%--     <f:BoundField ColumnID="IssuedMonth" DataField="IssuedMonth" Width="80px" HeaderText="下发数量（本月）" />
                                     <f:BoundField ColumnID="RectificationMoth" DataField="RectificationMoth" Width="80px" HeaderText="整改完成数量（本月）" />
                                     <f:BoundField ColumnID="IssuedTotal" DataField="IssuedTotal" Width="80px" HeaderText="下发数量（累计）" />
                                     <f:BoundField ColumnID="RectificationTotal" DataField="RectificationTotal" Width="80px" HeaderText="改完成数量（累计）" />--%>
@@ -938,42 +909,42 @@
                             </f:Grid>
 
                             <f:Grid ID="GvSeDinMonthReport9ItemStoppage" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="停工令" ForceFit="true" EnableCollapse="false" runat="server">
-                               
+
                                 <Columns>
                                     <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="80px" HeaderText="单位名称" />
-                                      <f:RenderField Width="100px" ColumnID="IssuedMonth" DataField="IssuedMonth" FieldType="Int"
-                                                HeaderText="下发数量（本月）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                      <f:RenderField Width="100px" ColumnID="StoppageMonth" DataField="StoppageMonth" FieldType="Int"
-                                                HeaderText="停工天数（本月）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                      <f:RenderField Width="100px" ColumnID="IssuedTotal" DataField="IssuedTotal" FieldType="Int"
-                                                HeaderText="下发数量（累计）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                                      <f:RenderField Width="100px" ColumnID="StoppageTotal" DataField="StoppageTotal" FieldType="Int"
-                                                HeaderText="停工天数（累计）">
-                                                <Editor>
-                                                    <f:NumberBox  NoDecimal="true" NoNegative="true"
-                                                        MaxValue="10000" runat="server">
-                                                    </f:NumberBox>
-                                                </Editor>
-                                       </f:RenderField>
-                               <%--     <f:BoundField ColumnID="IssuedMonth" DataField="IssuedMonth" Width="80px" HeaderText="下发数量（本月）" />
+                                    <f:RenderField Width="100px" ColumnID="IssuedMonth" DataField="IssuedMonth" FieldType="Int"
+                                        HeaderText="下发数量（本月）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="StoppageMonth" DataField="StoppageMonth" FieldType="Int"
+                                        HeaderText="停工天数（本月）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="IssuedTotal" DataField="IssuedTotal" FieldType="Int"
+                                        HeaderText="下发数量（累计）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="100px" ColumnID="StoppageTotal" DataField="StoppageTotal" FieldType="Int"
+                                        HeaderText="停工天数（累计）">
+                                        <Editor>
+                                            <f:NumberBox NoDecimal="true" NoNegative="true"
+                                                MaxValue="10000" runat="server">
+                                            </f:NumberBox>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <%--     <f:BoundField ColumnID="IssuedMonth" DataField="IssuedMonth" Width="80px" HeaderText="下发数量（本月）" />
                                     <f:BoundField ColumnID="StoppageMonth" DataField="StoppageMonth" Width="80px" HeaderText="停工天数（本月）" />
                                     <f:BoundField ColumnID="IssuedTotal" DataField="IssuedTotal" Width="80px" HeaderText="下发数量（累计）" />
                                     <f:BoundField ColumnID="StoppageTotal" DataField="StoppageTotal" Width="80px" HeaderText="停工天数（累计）" />--%>
@@ -1170,7 +1141,7 @@
                                     <td>
                                         <input type="text" runat="server" class="input" id="SingleDesktopTotalNum" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
                                     <td>
-                                        <textarea runat="server" class="input"  style="text-align: left" id="SingleDesktopNext"></textarea>
+                                        <textarea runat="server" class="input" style="text-align: left" id="SingleDesktopNext"></textarea>
                                     </td>
                                 </tr>
                             </table>
@@ -1181,8 +1152,8 @@
                     <Items>
                         <f:ContentPanel ID="ContentPanel12" BodyPadding="10" ShowBorder="true"
                             EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="13、本月HSE活动综述及下月HSE工作计划" runat="server">
-                            <f:TextArea Label="13、本月HSE活动综述" ID="ThisSummary"  runat="server" LabelWidth="140px"></f:TextArea>
-                            <f:TextArea Label="14、下月HSE工作计划" ID="NextPlan" runat="server" LabelWidth="140px"></f:TextArea>
+                            <f:TextArea Label="13、本月HSE活动综述" ID="ThisSummary" runat="server" LabelWidth="170px"></f:TextArea>
+                            <f:TextArea Label="14、下月HSE工作计划" ID="NextPlan" runat="server" LabelWidth="170px"></f:TextArea>
                         </f:ContentPanel>
                     </Items>
                 </f:FormRow>
@@ -1192,7 +1163,7 @@
                     <Items>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" 
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存"
                             OnClick="btnSave_Click" ValidateForms="SimpleForm1" Hidden="true">
                         </f:Button>
                         <f:Button ID="btnSysSubmit" OnClick="btnSysSubmit_Click" Icon="SystemSaveNew" runat="server" ToolTip="提交"
@@ -1205,7 +1176,7 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="wdSeDinMonthReport4Item" Title="本月人员投入情况" Hidden="true" EnableIFrame="false"
-            EnableMaximize="true" EnableResize="true" runat="server"
+            EnableMaximize="true" EnableResize="false" runat="server"
             IsModal="true" Width="600px">
             <Items>
                 <f:Form BodyPadding="10px" ID="Form4" LabelWidth="100px" ShowBorder="false" ShowHeader="false"
@@ -1213,7 +1184,7 @@
                     <Rows>
                         <f:FormRow>
                             <Items>
-                                <f:DropDownList ID="drpUnit" runat="server" Label="单位名称" EmptyText="--请选择--"  ShowRedStar="true" AutoSelectFirstItem="false">
+                                <f:DropDownList ID="drpUnit" runat="server" Label="单位名称" EmptyText="--请选择--" ShowRedStar="true" AutoSelectFirstItem="false">
                                 </f:DropDownList>
                             </Items>
                         </f:FormRow>
@@ -1221,18 +1192,18 @@
                         <f:FormRow ColumnWidths="40% 60%">
                             <Items>
                                 <f:NumberBox Label="安全管理" ID="SafeManangerNum" runat="server" MaxLength="5"
-                                    NoDecimal="true" NoNegative="true"  ShowRedStar="true" />
+                                    NoDecimal="true" NoNegative="true" ShowRedStar="true" />
                                 <f:NumberBox Label="其他管理" ID="OtherManangerNum" runat="server" NoDecimal="true" NoNegative="true"
-                                     ShowRedStar="true" MaxLength="5" />
+                                    ShowRedStar="true" MaxLength="5" />
 
                             </Items>
                         </f:FormRow>
                         <f:FormRow ColumnWidths="40% 60%">
                             <Items>
                                 <f:NumberBox Label="特种作业" ID="SpecialWorkerNum" runat="server" MaxLength="5"
-                                    NoDecimal="true" NoNegative="true"  ShowRedStar="true" />
+                                    NoDecimal="true" NoNegative="true" ShowRedStar="true" />
                                 <f:NumberBox Label="一般作业" ID="GeneralWorkerNum" runat="server"
-                                    NoDecimal="true" NoNegative="true"  ShowRedStar="true" MaxLength="5" />
+                                    NoDecimal="true" NoNegative="true" ShowRedStar="true" MaxLength="5" />
                             </Items>
                         </f:FormRow>
                     </Rows>

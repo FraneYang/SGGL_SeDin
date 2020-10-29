@@ -793,7 +793,7 @@
     var data = [12, 5, 28, 43, 22, 11, 40, 21, 9]
     var data1 = [21, 9, 12, 15, 8, 43, 17, 11, 22]
     var series = [{
-        name: '质量一次性合格率',
+        name: '质量一次验收合格率',
         type: 'bar',
         barWidth: 15,
         data: two.series[0].data,
@@ -1042,7 +1042,7 @@
             var two2 =<%=Two2 %>;
             var xArr = two.categories
             var series = [{
-                name: '质量一次性合格率',
+                name: '质量一次验收合格率',
                 type: 'bar',
                 barWidth: 15,
                 data: two.series[0].data,
@@ -1052,7 +1052,7 @@
                 xArr = two2.categories
                 data = [10, 80]
                 series = [{
-                    name: '质量一次性合格率',
+                    name: '质量一次验收合格率',
                     type: 'bar',
                    barWidth: 15,
                     data: two2.series[0].data,

@@ -1,5 +1,10 @@
 ﻿using BLL;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Xml;
@@ -11,7 +16,7 @@ namespace FineUIPro.Web
         #region Page_Init
 
         private string _menuType = "menu";
-     //   private bool _compactMode = false;
+        //   private bool _compactMode = false;
         private int _examplesCount = 0;
         private string _searchText = "";
         #region Page_Init
@@ -52,7 +57,7 @@ namespace FineUIPro.Web
             ////////////////////////////////////////////////////////////////
             if (!IsPostBack)
             {
-                
+
             }
         }
 
@@ -78,7 +83,7 @@ namespace FineUIPro.Web
             {
                 treeMenu.HideHScrollbar = true;
                 treeMenu.ExpanderToRight = true;
-                treeMenu.HeaderStyle = true;              
+                treeMenu.HeaderStyle = true;
                 if (_menuType == "tree_minimode")
                 {
                     treeMenu.MiniMode = true;
@@ -91,7 +96,7 @@ namespace FineUIPro.Web
                 }
             }
 
-            leftPanel.Items.Add(treeMenu);            
+            leftPanel.Items.Add(treeMenu);
             XmlDocument doc = XmlDataSource1.GetXmlDocument();
             ResolveXmlDocument(doc);
             // 绑定 XML 数据源到树控件
@@ -139,7 +144,7 @@ namespace FineUIPro.Web
                                     node.Attributes.Append(removedAttr);
                                 }
                             }
-                        }                     
+                        }
                     }
 
                     // 存在子节点
@@ -178,7 +183,7 @@ namespace FineUIPro.Web
         private void treeMenu_NodeDataBound(object sender, TreeNodeEventArgs e)
         {
             // 是否叶子节点
-            bool isLeaf = e.XmlNode.ChildNodes.Count == 0;            
+            bool isLeaf = e.XmlNode.ChildNodes.Count == 0;
             if (!String.IsNullOrEmpty(e.Node.Text))
             {
                 if (GetIsNewHtml(e.XmlNode))
@@ -265,9 +270,9 @@ namespace FineUIPro.Web
             }
             else
             {
-              
+
             }
-           
+
             return isShow;
         }
         #endregion
@@ -303,9 +308,185 @@ namespace FineUIPro.Web
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
                 this.InitLangMenuButton();
+
+                GetWeather();
             }
-        }        
-    
+        }
+
+        private void GetWeather()
+        {
+            string appkey = "cc220b45380a453a08cb79fd2d40ea3e"; //配置您申请的appkey
+                                                                //1.根据城市查询天气
+            //string url1 = "http://op.juhe.cn/onebox/weather/query";
+            //var parameters1 = new Dictionary<string, string>();
+            Model.Base_Project project = BLL.ProjectService.GetProjectByProjectId(this.drpProject.SelectedValue);
+            string city = "太原";
+            if (project != null && !string.IsNullOrEmpty(project.City))
+            {
+                city = project.City;
+            }
+            if (!string.IsNullOrEmpty(city))
+            {
+                //parameters1.Add("cityname", city); //要查询的城市，如：温州、上海、北京
+                //parameters1.Add("key", appkey);//你申请的key
+                //parameters1.Add("dtype", ""); //返回数据的格式,xml或json，默认json
+
+                //string result1 = sendPost(url1, parameters1, "get");
+                string result = BLL.CommonService.CreateGetHttpResponse("http://apis.juhe.cn/simpleWeather/query?city=" + city + "&key=" + appkey);
+                var j2 = JsonConvert.DeserializeObject<dynamic>(result);
+                if (j2.reason == "查询成功!")
+                {
+                    string tem = j2.result.realtime.temperature;
+                    string weather = j2.result.realtime.info;
+                    if (weather == "多云")
+                    {
+                        this.btnWeather.IconFont = IconFont.Cloud;
+                    }
+                    else if (weather == "晴")
+                    {
+                        this.btnWeather.IconFont = IconFont.SunO;
+                    }
+                    else if (weather == "阴")
+                    {
+                        this.btnWeather.IconFont = IconFont.Cloud;
+                    }
+                    else if (weather.Contains("雪"))
+                    {
+                        this.btnWeather.IconFont = IconFont.SnowflakeO;
+                    }
+                    string alltem = j2.result.future[0].temperature;
+                    this.btnWeather.Text = tem;
+                    string date = DateTime.Now.Year + "年" + DateTime.Now.Month + "月" + DateTime.Now.Day + "日";
+                    this.btnWeather.ToolTip = date + " " + city + " " + weather + " " + alltem;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Http (GET/POST)
+        /// </summary>
+        /// <param name="url">请求URL</param>
+        /// <param name="parameters">请求参数</param>
+        /// <param name="method">请求方法</param>
+        /// <returns>响应内容</returns>
+        static string sendPost(string url, IDictionary<string, string> parameters, string method)
+        {
+            if (method.ToLower() == "post")
+            {
+                HttpWebRequest req = null;
+                HttpWebResponse rsp = null;
+                System.IO.Stream reqStream = null;
+                try
+                {
+                    req = (HttpWebRequest)WebRequest.Create(url);
+                    req.Method = method;
+                    req.KeepAlive = false;
+                    req.ProtocolVersion = HttpVersion.Version10;
+                    req.Timeout = 5000;
+                    req.ContentType = "application/x-www-form-urlencoded;charset=utf-8";
+                    byte[] postData = Encoding.UTF8.GetBytes(BuildQuery(parameters, "utf8"));
+                    reqStream = req.GetRequestStream();
+                    reqStream.Write(postData, 0, postData.Length);
+                    rsp = (HttpWebResponse)req.GetResponse();
+                    Encoding encoding = Encoding.GetEncoding(rsp.CharacterSet);
+                    return GetResponseAsString(rsp, encoding);
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                finally
+                {
+                    if (reqStream != null) reqStream.Close();
+                    if (rsp != null) rsp.Close();
+                }
+            }
+            else
+            {
+                //创建请求
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + "?" + BuildQuery(parameters, "utf8"));
+
+                //GET请求
+                request.Method = "GET";
+                request.ReadWriteTimeout = 5000;
+                request.ContentType = "text/html;charset=UTF-8";
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream myResponseStream = response.GetResponseStream();
+                StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+
+                //返回内容
+                string retString = myStreamReader.ReadToEnd();
+                return retString;
+            }
+        }
+
+        /// <summary>
+        /// 组装普通文本请求参数。
+        /// </summary>
+        /// <param name="parameters">Key-Value形式请求参数字典</param>
+        /// <returns>URL编码后的请求数据</returns>
+        static string BuildQuery(IDictionary<string, string> parameters, string encode)
+        {
+            StringBuilder postData = new StringBuilder();
+            bool hasParam = false;
+            IEnumerator<KeyValuePair<string, string>> dem = parameters.GetEnumerator();
+            while (dem.MoveNext())
+            {
+                string name = dem.Current.Key;
+                string value = dem.Current.Value;
+                // 忽略参数名或参数值为空的参数
+                if (!string.IsNullOrEmpty(name))//&& !string.IsNullOrEmpty(value)
+                {
+                    if (hasParam)
+                    {
+                        postData.Append("&");
+                    }
+                    postData.Append(name);
+                    postData.Append("=");
+                    if (encode == "gb2312")
+                    {
+                        postData.Append(HttpUtility.UrlEncode(value, Encoding.GetEncoding("gb2312")));
+                    }
+                    else if (encode == "utf8")
+                    {
+                        postData.Append(HttpUtility.UrlEncode(value, Encoding.UTF8));
+                    }
+                    else
+                    {
+                        postData.Append(value);
+                    }
+                    hasParam = true;
+                }
+            }
+            return postData.ToString();
+        }
+
+        /// <summary>
+        /// 把响应流转换为文本。
+        /// </summary>
+        /// <param name="rsp">响应流对象</param>
+        /// <param name="encoding">编码方式</param>
+        /// <returns>响应文本</returns>
+        static string GetResponseAsString(HttpWebResponse rsp, Encoding encoding)
+        {
+            System.IO.Stream stream = null;
+            StreamReader reader = null;
+            try
+            {
+                // 以字符流的方式读取HTTP响应
+                stream = rsp.GetResponseStream();
+                reader = new StreamReader(stream, encoding);
+                return reader.ReadToEnd();
+            }
+            finally
+            {
+                // 释放资源
+                if (reader != null) reader.Close();
+                if (stream != null) stream.Close();
+                if (rsp != null) rsp.Close();
+            }
+        }
+
         /// <summary>
         /// 菜单树样式
         /// </summary>
@@ -368,14 +549,14 @@ namespace FineUIPro.Web
             }
         }
         #endregion
-        
+
         protected void drpProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.Tab1.RefreshIFrame();
             //this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;            
             PageContext.RegisterStartupScript("parent.removeActiveTab();");
             MenuSwitchMethod(this.CurrUser.LastMenuType);
-          
+            GetWeather();
         }
 
         /// <summary>
@@ -387,7 +568,7 @@ namespace FineUIPro.Web
             this.CurrUser.LoginProjectId = this.drpProject.SelectedValue;
             this.XmlDataSource1.DataFile = "common/Menu_Personal.xml";
             this.leftPanel.Hidden = true;
-            this.Tab1.IFrameUrl = "~/common/mainProject.aspx";        
+            this.Tab1.IFrameUrl = "~/common/mainProject.aspx";
             this.CurrUser.LastProjectId = null;
             if (!string.IsNullOrEmpty(type))
             {
@@ -405,6 +586,11 @@ namespace FineUIPro.Web
                     {
                         this.Tab1.IFrameUrl = "~/ProjectData/ProjectSetView.aspx";
                     }
+                    if (type == Const.Menu_PZHGL)
+                    {
+                        this.Tab1.IFrameUrl = "~/PZHGL/InformationProject/ReceiveFileManager.aspx";
+                        this.Tab1.Title = "来往文件管理";
+                    }
                 }
                 else
                 {
@@ -412,16 +598,16 @@ namespace FineUIPro.Web
                     return;
                 }
             }
-        
+
             this.CurrUser.LastMenuType = type;
-            UserService.UpdateLastUserInfo(this.CurrUser.UserId, type, false, this.CurrUser.LoginProjectId);            
-            InitTreeMenu();            
+            UserService.UpdateLastUserInfo(this.CurrUser.UserId, type, false, this.CurrUser.LoginProjectId);
+            InitTreeMenu();
         }
 
         protected void btnHome_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(this.CurrUser.LastProjectId)
-                && ((this.CurrUser.UnitId == Const.UnitId_SEDIN && this.CurrUser.IsOffice ==true) || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId))
+                && ((this.CurrUser.UnitId == Const.UnitId_SEDIN && this.CurrUser.IsOffice == true) || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId))
             {
                 UserService.UpdateLastUserInfo(this.CurrUser.UserId, this.CurrUser.LastMenuType, false, this.CurrUser.LoginProjectId);
                 this.CurrUser.LastProjectId = this.CurrUser.LoginProjectId;

@@ -98,7 +98,7 @@
         </Items>
     </f:Panel> 
     <f:Window ID="Window1" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true">
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true">
     </f:Window>                  
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true" Hidden="true"

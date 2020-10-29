@@ -136,11 +136,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="文件上传" Hidden="true" EnableIFrame="true"
-        EnableMaximize="true" Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        EnableMaximize="true" Target="Parent" EnableResize="false" runat="server" IsModal="true"
         Width="680px" Height="480px">
     </f:Window>
     <f:Window ID="Window2" Title="文件上传" Hidden="true" EnableIFrame="true"
-        EnableMaximize="true" Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        EnableMaximize="true" Target="Parent" EnableResize="false" runat="server" IsModal="true"
         Width="480px" Height="480px">
     </f:Window>
     </form>

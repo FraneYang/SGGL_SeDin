@@ -66,10 +66,10 @@
                 <Items>
                     <f:NumberBox ID="txtXXS" runat="server" Label="XXS" Readonly="true">
                     </f:NumberBox>
-                    <f:Label ID="Label2" runat="server">
-                    </f:Label>
-                    <f:Label ID="Label3" runat="server">
-                    </f:Label>
+                     <f:NumberBox ID="txtSize" runat="server" Label="尺寸系列" Readonly="true">
+                    </f:NumberBox>
+                    <f:NumberBox ID="txtthickness" runat="server" Label="壁厚" Readonly="true">
+                    </f:NumberBox>
                 </Items>
             </f:FormRow>
         </Rows>

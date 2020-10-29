@@ -626,6 +626,18 @@ namespace BLL
         /// </summary>
         public const string PersonDutyMenuId = "A913653D-1EBB-4F55-97C9-81CC5B5913C4";
 
+        /// <summary>
+        /// HSSE公司管理规定发布
+        /// </summary>
+        public const string ActionPlan_CompanyManagerRuleMenuId = "0e5ac984-f624-44b6-9160-c15126005317";
+
+        /// <summary>
+        /// HSSE项目管理规定发布
+        /// </summary>
+        public const string ActionPlan_ProjectManagerRuleMenuId = "ec0942af-b1ae-4676-8442-4be3a5e22ea0";
+
+
+
         #region 系统设置
         /// <summary>
         /// 单位设置
@@ -1350,7 +1362,7 @@ namespace BLL
         public const string PersonTrainingMenuId = "1D8B35D2-5C8F-4FF4-96E4-8EB61BDBAE51";
 
         /// <summary>
-        /// 人员总结
+        /// 员工总结
         /// </summary>
         public const string PersonTotalMenuId = "3BF62723-9448-4A29-A239-0A17566F50E8";
 
@@ -2621,6 +2633,14 @@ namespace BLL
         /// WBS定制导入模板
         /// </summary>
         public const string WBSWorkPackageTemplateUrl = "File\\Excel\\DataIn\\WBS定制导入模板.xls";
+        /// <summary>
+        /// 管道等级导入模板
+        /// </summary>
+        public const string PipingClassTemplateUrl = "File\\Excel\\DataIn\\管道等级导入模板.xls";
+        /// <summary>
+        /// 管道介质导入模板
+        /// </summary>
+        public const string MediumTemplateUrl = "File\\Excel\\DataIn\\管道介质导入模板.xls";
         #endregion
 
         #region 初始化上传路径

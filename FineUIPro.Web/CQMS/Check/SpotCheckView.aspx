@@ -48,10 +48,10 @@
                                 <Rows>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtProjectName" runat="server" Readonly="true" LabelWidth="110px" Label="项目名称" LabelAlign="Right"
+                                            <f:TextBox ID="txtProjectName" runat="server" Readonly="true" LabelWidth="120px" Label="项目名称" LabelAlign="Right"
                                                 MaxLength="50">
                                             </f:TextBox>
-                                            <f:TextBox ID="txtDocCode" runat="server" Required="true" LabelWidth="110px" ShowRedStar="true" Readonly="true" Label="编号" LabelAlign="Right"
+                                            <f:TextBox ID="txtDocCode" runat="server" Required="true" LabelWidth="120px" ShowRedStar="true" Readonly="true" Label="编号" LabelAlign="Right"
                                                 MaxLength="50">
                                             </f:TextBox>
                                             <f:HiddenField ID="hdSpotCheckCode" runat="server"></f:HiddenField>
@@ -59,17 +59,17 @@
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtUnit" ShowRedStar="true" runat="server" LabelWidth="110px" Readonly="true" Label="施工单位" LabelAlign="Right"
+                                            <f:TextBox ID="txtUnit" ShowRedStar="true" runat="server" LabelWidth="120px" Readonly="true" Label="施工单位" LabelAlign="Right"
                                                >
                                             </f:TextBox>
-                                            <f:TextBox ID="txtCNProfessional" ShowRedStar="true" LabelWidth="110px" runat="server" Readonly="true" Label="专业" LabelAlign="Right"
+                                            <f:TextBox ID="txtCNProfessional" ShowRedStar="true" LabelWidth="120px" runat="server" Readonly="true" Label="专业" LabelAlign="Right"
                                                >
                                             </f:TextBox>
                                         </Items>
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtControlPointType" runat="server" LabelWidth="110px" Readonly="true" Required="true" ShowRedStar="true" Label="控制点级别" LabelAlign="Right"
+                                            <f:TextBox ID="txtControlPointType" runat="server" LabelWidth="120px" Readonly="true" Required="true" ShowRedStar="true" Label="控制点级别" LabelAlign="Right"
                                                 MaxLength="100">
                                             </f:TextBox>
                                             <f:Label runat="server" ID="lb1"></f:Label>
@@ -77,12 +77,12 @@
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:Label runat="server" Label="参与共检人" LabelWidth="110px"></f:Label>
+                                            <f:Label runat="server" Label="参与共检人" LabelWidth="120px"></f:Label>
                                         </Items>
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtJointCheckMans" runat="server" LabelWidth="110px" Readonly="true" Label="总承包商" LabelAlign="Right"
+                                            <f:TextBox ID="txtJointCheckMans" runat="server" LabelWidth="120px" Readonly="true" Label="总承包商" LabelAlign="Right"
                                                >
                                             </f:TextBox>
                                             <f:TextBox ID="txtJointCheckMans2" runat="server" Readonly="true" Label="监理单位" LabelAlign="Right"
@@ -95,7 +95,7 @@
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtCheckDateType" runat="server" LabelWidth="110px" Readonly="true" Required="true" ShowRedStar="true" Label="共检时间方式" LabelAlign="Right"
+                                            <f:TextBox ID="txtCheckDateType" runat="server" LabelWidth="120px" Readonly="true" Required="true" ShowRedStar="true" Label="共检时间方式" LabelAlign="Right"
                                                 MaxLength="100">
                                             </f:TextBox>
                                             <f:Label runat="server" ></f:Label>
@@ -103,17 +103,17 @@
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtSpotCheckDate" runat="server" LabelWidth="110px" Readonly="true" Required="true" ShowRedStar="true" Label="共检时间" LabelAlign="Right"
+                                            <f:TextBox ID="txtSpotCheckDate" runat="server" LabelWidth="120px" Readonly="true" Required="true" ShowRedStar="true" Label="共检时间" LabelAlign="Right"
                                                 MaxLength="100">
                                             </f:TextBox>
-                                            <f:TextBox ID="txtSpotCheckDate2" Hidden="true" runat="server" LabelWidth="110px" Readonly="true" Required="true" ShowRedStar="true" Label="结束时间" LabelAlign="Right"
+                                            <f:TextBox ID="txtSpotCheckDate2" Hidden="true" runat="server" LabelWidth="120px" Readonly="true" Required="true" ShowRedStar="true" Label="结束时间" LabelAlign="Right"
                                                 MaxLength="100">
                                             </f:TextBox>
                                         </Items>
                                     </f:FormRow>
                                     <f:FormRow>
                                         <Items>
-                                            <f:TextBox ID="txtCheckArea" runat="server" LabelWidth="110px" Readonly="true" Required="true" ShowRedStar="true" Label="共检地点" LabelAlign="Right"
+                                            <f:TextBox ID="txtCheckArea" runat="server" LabelWidth="120px" Readonly="true" Required="true" ShowRedStar="true" Label="共检地点" LabelAlign="Right"
                                                 MaxLength="100">
                                             </f:TextBox>
                                             <%--<f:Button ID="imgBtnFile" Text="自检记录" ToolTip="上传及查看" Icon="TableCell" runat="server"
@@ -121,7 +121,7 @@
                                                     </f:Button>--%>
                                             <f:Panel ID="Panel1" ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
                                                 <Items>
-                                                    <f:Label runat="server" Text="自检记录：" CssStyle="padding-left:35px" Width="110px" CssClass="marginr" ShowLabel="false"></f:Label>
+                                                    <f:Label runat="server" Text="自检记录：" CssStyle="padding-left:35px" Width="120px" CssClass="marginr" ShowLabel="false"></f:Label>
                                                     <f:Button ID="imgBtnFile" Text="自检记录" ToolTip="上传及查看" Icon="TableCell" runat="server"
                                                         OnClick="imgBtnFile_Click">
                                                     </f:Button>
@@ -195,11 +195,11 @@
             </Rows>
         </f:Form>
         <f:Window ID="Window1" Title="编辑检查项明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1100px" Height="520px">
         </f:Window>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" OnClose="WindowAtt_Close" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" OnClose="WindowAtt_Close" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

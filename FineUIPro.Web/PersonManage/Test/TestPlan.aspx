@@ -89,7 +89,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="制定计划" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true"
         Width="1200px" Height="560px">
     </f:Window>
 

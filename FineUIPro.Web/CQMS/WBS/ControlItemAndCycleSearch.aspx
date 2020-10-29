@@ -32,7 +32,7 @@
                     <Toolbars>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
-                                <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程" LabelAlign="Right" EnableEdit="true" LabelWidth="110px">
+                                <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程" LabelAlign="Right" EnableEdit="true" LabelWidth="140px">
                                 </f:DropDownList>
                                 <f:TextBox runat="server" ID="txtControlItemContent" Label="工作包" LabelWidth="70px" LabelAlign="Right"></f:TextBox>
                                 <f:DropDownList ID="drpControlPoint" runat="server" Label="控制点等级" EnableMultiSelect="true" LabelAlign="Right" EnableEdit="true" LabelWidth="110px">
@@ -43,6 +43,14 @@
                                     <f:ListItem Text="C" Value="C" />
                                     <f:ListItem Text="CR" Value="CR" />
                                 </f:DropDownList>
+                                
+                                <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                
+                            </Items>
+                        </f:Toolbar>
+                        <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
+                            <Items>
+                                <f:TextBox runat="server" ID="txtControlItemDef" Label="控制点内容描述" LabelAlign="Right" LabelWidth="140px" Width="400px"></f:TextBox>
                                 <f:TextBox runat="server" ID="txtForms" Label="资料表格" LabelAlign="Right"></f:TextBox>
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
                                 <f:Button ID="btnSearch" Icon="SystemSearch" ToolTip="查询"

@@ -103,7 +103,7 @@ namespace FineUIPro.Web.AttachFile
                 this.ToKeyId = Request.QueryString["toKeyId"];
                 if (!string.IsNullOrEmpty(Request.QueryString["strParam"]))
                 {
-                    this.ToKeyId = this.ToKeyId +"#"+ Request.QueryString["strParam"];
+                    this.ToKeyId = this.ToKeyId + "#" + Request.QueryString["strParam"];
                 }
 
                 this.AttachPath = Request.QueryString["path"];
@@ -347,7 +347,7 @@ namespace FineUIPro.Web.AttachFile
                     {
                         try
                         {
-                          
+
                             string savedName = item.Value<string>("savedName");
                             string folder = item.Value<string>("folder");
                             string xnUrl = AttachPath + "\\" + savedName;
@@ -355,13 +355,13 @@ namespace FineUIPro.Web.AttachFile
                             {
                                 xnUrl = folder + savedName;
                             }
-                           
+
                             string url = Funs.RootPath + xnUrl;
                             if (savedName.Contains("FileUpLoad"))
                             {
-                                url = Funs.RootPath + savedName.Replace('/','\\');
+                                url = Funs.RootPath + savedName.Replace('/', '\\');
                             }
-                            FileInfo info = new FileInfo(url);                           
+                            FileInfo info = new FileInfo(url);
                             if (!info.Exists || string.IsNullOrEmpty(savedName))
                             {
                                 url = Funs.RootPath + "Images//Null.jpg";
@@ -374,22 +374,30 @@ namespace FineUIPro.Web.AttachFile
                             }
                             else
                             {
-                                string fileName = Path.GetFileName(url);
-                                long fileSize = info.Length;
-                                System.Web.HttpContext.Current.Response.Clear();
-                                //System.Web.HttpContext.Current.Response.ContentType = "application/x-zip-compressed";
-                                System.Web.HttpContext.Current.Response.ContentType = "application/octet-stream";
-                                System.Web.HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
-                                System.Web.HttpContext.Current.Response.AddHeader("Content-Length", fileSize.ToString());
-                                System.Web.HttpContext.Current.Response.TransmitFile(url, 0, fileSize);
-                                System.Web.HttpContext.Current.Response.Flush();
-                                System.Web.HttpContext.Current.Response.End();
-                                break;
+                                if (Path.GetExtension(savedName) == ".gif" || Path.GetExtension(savedName) == ".jpg" || Path.GetExtension(savedName) == ".jpeg" || Path.GetExtension(savedName) == ".bmp" || Path.GetExtension(savedName) == ".png")
+                                {
+                                    string httpUrl = Funs.SGGLUrl + xnUrl;
+                                    ClientScript.RegisterStartupScript(ClientScript.GetType(), "myscript", "<script type='text/javascript'>window.open('" + httpUrl + "');</script>");
+                                }
+                                else
+                                {
+                                    string fileName = Path.GetFileName(url);
+                                    long fileSize = info.Length;
+                                    System.Web.HttpContext.Current.Response.Clear();
+                                    //System.Web.HttpContext.Current.Response.ContentType = "application/x-zip-compressed";
+                                    System.Web.HttpContext.Current.Response.ContentType = "application/octet-stream";
+                                    System.Web.HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                                    System.Web.HttpContext.Current.Response.AddHeader("Content-Length", fileSize.ToString());
+                                    System.Web.HttpContext.Current.Response.TransmitFile(url, 0, fileSize);
+                                    System.Web.HttpContext.Current.Response.Flush();
+                                    System.Web.HttpContext.Current.Response.End();
+                                    break;
+                                }
                             }
                         }
                         catch (Exception)
                         {
-                           
+
                         }
                     }
                 }
@@ -462,7 +470,7 @@ namespace FineUIPro.Web.AttachFile
                         string attachUrl = AttachPath + "\\" + savedName;
                         if (!string.IsNullOrEmpty(item.Value<string>("folder")))
                         {
-                            attachUrl = item.Value<string>("folder") + savedName ;
+                            attachUrl = item.Value<string>("folder") + savedName;
                         }
                         File.Delete(Server.MapPath("~/" + attachUrl));
                         BLL.LogService.AddSys_Log(this.CurrUser, "删除附件！", null, this.MenuId, BLL.Const.BtnDelete);
@@ -496,16 +504,16 @@ namespace FineUIPro.Web.AttachFile
                     JObject item = source[i] as JObject;
                     if (!string.IsNullOrEmpty(item.Value<string>("folder")))
                     {
-                        attachUrl += item.Value<string>("folder") + item.Value<string>("savedName") + ",";                        
+                        attachUrl += item.Value<string>("folder") + item.Value<string>("savedName") + ",";
                     }
                     else
                     {
                         attachUrl += AttachPath + "/" + DateTime.Now.ToString("yyyy-MM") + "/" + item.Value<string>("savedName") + ",";
-                    }                
+                    }
                 }
                 if (!string.IsNullOrEmpty(attachUrl))
                 {
-                    attachUrl = attachUrl.Substring(0, attachUrl.LastIndexOf(",")).Replace('\\','/');
+                    attachUrl = attachUrl.Substring(0, attachUrl.LastIndexOf(",")).Replace('\\', '/');
                 }
                 ///保存方法
                 this.SaveData(source.ToString(), attachUrl);
@@ -569,7 +577,7 @@ namespace FineUIPro.Web.AttachFile
                         if (menu != null)
                         {
                             name += menu.MenuName;
- 
+
                         }
                         name += Funs.GetNewFileName() + ".jpg";
                         string url = filePath + name;
@@ -583,7 +591,7 @@ namespace FineUIPro.Web.AttachFile
                                 {
                                     attachUrl = attachUrl.Replace('/', '\\');
                                 }
-                                string oldSrouce =string.Empty;
+                                string oldSrouce = string.Empty;
                                 string FullPath = string.Empty;
                                 Model.AttachFile att = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.ToKeyId);
                                 if (att != null && !string.IsNullOrEmpty(att.AttachUrl))
@@ -597,12 +605,12 @@ namespace FineUIPro.Web.AttachFile
                                 }
                                 string source = BLL.UploadFileService.GetSourceByAttachUrl(attachUrl, buffer.Length, oldSrouce);
                                 //this.SaveData(source, FullPath); ///保存方法
-                                Session[sessionName] = JArray.Parse(source);                                                                 
+                                Session[sessionName] = JArray.Parse(source);
                             }
 
                             this.BindGrid();
                             ShowNotify("扫描完成!", MessageBoxIcon.Success);
-                           
+
                         }
                     }
                 }
@@ -611,7 +619,7 @@ namespace FineUIPro.Web.AttachFile
             {
                 ShowNotify("请检查扫描仪是否连接正确!", MessageBoxIcon.Warning);
             }
-        } 
+        }
 
         #region 获取权限按钮
         /// <summary>

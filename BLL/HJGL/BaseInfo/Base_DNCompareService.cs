@@ -40,7 +40,9 @@ namespace BLL
                 SCH120 = dNCompare.SCH120,
                 SCH140 = dNCompare.SCH140,
                 SCH160 = dNCompare.SCH160,
-                XXS = dNCompare.XXS
+                XXS = dNCompare.XXS,
+                Size = dNCompare.Size,
+                Thickness=dNCompare.Thickness
             };
 
             db.Base_DNCompare.InsertOnSubmit(newDNCompare);
@@ -73,6 +75,8 @@ namespace BLL
                 newDNCompare.SCH140 = dNCompare.SCH140;
                 newDNCompare.SCH160 = dNCompare.SCH160;
                 newDNCompare.XXS = dNCompare.XXS;
+                newDNCompare.Size = dNCompare.Size;
+                newDNCompare.Thickness = dNCompare.Thickness;
                 db.SubmitChanges();
             }
         }

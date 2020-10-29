@@ -111,11 +111,11 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="员工信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1000px"
             Height="560px">
         </f:Window>
         <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
+            Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="false"
             CloseAction="HidePostBack" Width="1000px" Height="560px">
     </f:Window>
         <f:Menu ID="Menu1" runat="server">

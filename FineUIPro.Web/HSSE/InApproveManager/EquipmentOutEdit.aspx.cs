@@ -102,7 +102,7 @@ namespace FineUIPro.Web.HSSE.InApproveManager
         /// </summary>
         private void InitDropDownList()
         {
-            UnitService.InitUnitNameByProjectIdUnitTypeDropDownList(this.drpUnitId, this.ProjectId, Const.ProjectUnitType_2, true);
+            UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnitId, this.ProjectId, Const.ProjectUnitType_2, true);
         }
 
         /// <summary>

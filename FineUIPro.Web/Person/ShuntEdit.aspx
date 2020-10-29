@@ -167,7 +167,7 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="选择拟聘人员" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px" OnClose="Window1_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="900px" OnClose="Window1_Close"
             Height="500px">
         </f:Window>
     </form>

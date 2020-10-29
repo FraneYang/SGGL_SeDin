@@ -17,68 +17,68 @@
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpSpecialEquipmentId" runat="server" Label="设备" Required="true"
-                        ShowRedStar="true" LabelAlign="Right" LabelWidth="140px">
+                        ShowRedStar="true" LabelAlign="Right" LabelWidth="150px">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtSizeModel" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50" LabelWidth="140px">
+                    <f:TextBox ID="txtSizeModel" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtOwnerCheck" runat="server" Label="进场前自查自检情况" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtCertificateNum" runat="server" Label="施工设备合格证号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtSafetyInspectionNum" runat="server" Label="安全检验合格证号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtDrivingLicenseNum" runat="server" Label="驾驶证号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtRegistrationNum" runat="server" Label="行驶证号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtOperationQualificationNum" runat="server" Label="操作资质证号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtInsuranceNum" runat="server" Label="交险保单号" LabelAlign="Right" MaxLength="50" LabelWidth="140px">
+                    <f:TextBox ID="txtInsuranceNum" runat="server" Label="交险保单号" LabelAlign="Right" MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtCommercialInsuranceNum" runat="server" Label="商业险保单号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>

@@ -136,7 +136,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window2" Title="编辑危险源清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Self" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="700px" Height="350px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

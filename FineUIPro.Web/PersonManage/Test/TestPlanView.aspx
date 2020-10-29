@@ -57,8 +57,12 @@
                                 </Items>
                             </f:FormRow>
                     </Rows>
+                        
+                    </f:Form>
+                    <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="false" Title="题型" AutoScroll="true"
+                       runat="server" RedStarPosition="BeforeText" LabelAlign="Right" EnableTableStyle="true">
                         <Toolbars>
-                            <f:Toolbar ID="Toolbar2" Position="Top" ToolbarAlign="Right" runat="server">
+                            <f:Toolbar ID="Toolbar2" Position="Bottom" ToolbarAlign="Right" runat="server">
                                 <Items>
                                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                     </f:ToolbarFill>
@@ -73,9 +77,6 @@
                                 </Items>
                             </f:Toolbar>
                         </Toolbars>
-                    </f:Form>
-                    <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="false" Title="题型" AutoScroll="true"
-                       runat="server" RedStarPosition="BeforeText" LabelAlign="Right" EnableTableStyle="true">
                     <Rows>                        
                         <f:FormRow>
                             <Items>

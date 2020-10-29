@@ -8,7 +8,7 @@
     public static class ProjectService
     {
         public static SGGLDB db = Funs.DB;
-        
+
         /// <summary>
         ///获取项目信息
         /// </summary>
@@ -89,7 +89,12 @@
                 MapCoordinates = project.MapCoordinates,
                 ProjectMoney = project.ProjectMoney,
                 ConstructionMoney = project.ConstructionMoney,
-        };
+                Telephone = project.Telephone,
+                Country = project.Country,
+                Province = project.Province,
+                City = project.City,
+
+            };
             db.Base_Project.InsertOnSubmit(newProject);
             db.SubmitChanges();
         }
@@ -126,6 +131,10 @@
                 newProject.MapCoordinates = project.MapCoordinates;
                 newProject.ProjectMoney = project.ProjectMoney;
                 newProject.ConstructionMoney = project.ConstructionMoney;
+                newProject.Telephone = project.Telephone;
+                newProject.Country = project.Country;
+                newProject.Province = project.Province;
+                newProject.City = project.City;
                 db.SubmitChanges();
             }
         }
@@ -193,7 +202,7 @@
                         select x).ToList();
             return list;
         }
-        
+
 
         /// <summary>
         /// 获取某类型下项目下拉选项
@@ -225,7 +234,7 @@
             if (getUser != null)
             {
                 /// 获取角色类型
-                var getRoleP = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == false);              
+                var getRoleP = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == false);
                 if (getRoleP != null)
                 {
                     return (from x in Funs.DB.Base_Project
@@ -265,7 +274,7 @@
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
-        
+
         /// <summary>
         ///  项目表下拉框
         /// </summary>
@@ -294,7 +303,7 @@
         /// <param name="dropName"></param>
         /// <param name="userId"></param>
         /// <param name="isShowPlease"></param>
-        public static void InitAllProjectShortNameDropDownList(FineUIPro.DropDownList dropName,string userId, bool isShowPlease)
+        public static void InitAllProjectShortNameDropDownList(FineUIPro.DropDownList dropName, string userId, bool isShowPlease)
         {
             dropName.DataValueField = "ProjectId";
             dropName.DataTextField = "ShortName";
@@ -310,7 +319,7 @@
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
-        
+
         /// <summary>
         ///  某类型下项目表下拉框
         /// </summary>
@@ -408,7 +417,7 @@
         /// <param name="projectId"></param>
         /// <param name="unitType"></param>
         /// <returns></returns>
-        public static string getProjectUnitNameByUnitType(string projectId,string unitType)
+        public static string getProjectUnitNameByUnitType(string projectId, string unitType)
         {
             string unitName = string.Empty;
             if (!string.IsNullOrEmpty(projectId))

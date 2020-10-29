@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 
 namespace BLL
 {
@@ -556,5 +559,30 @@ namespace BLL
             }
         }
         #endregion
+
+        /// 接收http post请求
+        /// </summary>
+        /// <param name="url">地址</param>
+        /// <param name="parameters">查询参数集合</param>
+        /// <returns></returns>
+        public static string CreateGetHttpResponse(string url)
+        {
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;//创建请求对象
+            request.Method = "Get";//请求方式
+            request.ContentType = "application/x-www-form-urlencoded";//链接类型
+            try
+            {
+                HttpWebResponse webresponse = request.GetResponse() as HttpWebResponse;
+                using (Stream s = webresponse.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(s, Encoding.UTF8);
+                    return reader.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

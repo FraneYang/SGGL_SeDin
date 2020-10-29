@@ -50,7 +50,7 @@
             </Items>
       </f:Panel>
       <f:Window ID="Window1" Title="二维码打印" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" 
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" 
         Width="600px" Height="400px">
     </f:Window>
     </form>

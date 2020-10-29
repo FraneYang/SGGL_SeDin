@@ -43,6 +43,7 @@ namespace FineUIPro.Web.Person
                     var TrainingPlan = BLL.Person_TrainingPlanService.GetPersonTrainingPlanById(this.TrainingPlanId);
                     if (TrainingPlan != null)
                     {
+                        this.hdTrainingPlanId.Text = this.TrainingPlanId;
                         BindGrid();
                         BindGrid1();
                         if (!string.IsNullOrEmpty(TrainingPlan.TrainingPlanCode))
@@ -91,11 +92,31 @@ namespace FineUIPro.Web.Person
             gvCompany.DataBind();
         }
         #endregion
-        
+
 
         protected void MenuView_Click(object sender, EventArgs e)
         {
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PersonTrainingTaskItem.aspx?TrainingPersonId={0}", gvPerson.SelectedRowID, "操作 - ")));
         }
+
+        #region 附件上传
+        /// <summary>
+        /// 上传附件资源
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        {
+            string edit = "-1";
+            DateTime date = DateTime.Now;
+            if (!string.IsNullOrEmpty(this.txtStartTime.Text.Trim()))
+            {
+                date = Convert.ToDateTime(this.txtStartTime.Text.Trim());
+            }
+            string dateStr = date.Year.ToString() + date.Month.ToString();
+            PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonTraining/" + dateStr + "&menuId={1}&type={2}", this.hdTrainingPlanId.Text, Const.PersonTrainingMenuId, edit)));
+        }
+
+        #endregion
     }
 }

@@ -126,7 +126,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="详细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1200px" Height="540px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

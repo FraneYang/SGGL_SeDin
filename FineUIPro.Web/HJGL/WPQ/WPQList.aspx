@@ -137,11 +137,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑焊接工艺评定台账" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="900px" Height="660px">
     </f:Window>
     <f:Window ID="Window2" Title="导入焊接工艺评定台账" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1024px" Height="660px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

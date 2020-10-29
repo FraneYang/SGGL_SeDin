@@ -129,15 +129,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="考试试题" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="600px" Height="350px">
     </f:Window>
     <f:Window ID="Window2" Title="考试试题详情" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="900px" Height="580px">
     </f:Window>   
      <f:Window ID="Window3" Title="导入信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window3_Close" IsModal="false"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window3_Close" IsModal="false"
         CloseAction="HidePostBack" Width="1200px" Height="560px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

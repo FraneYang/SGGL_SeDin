@@ -47,7 +47,7 @@
                             ForceSelection="false" MaxLength="2000" EnableCheckBoxSelect="true"
                             AutoPostBack="true"   OnSelectedIndexChanged="drpPartTechnicalMans_SelectedIndexChanged">
                     </f:DropDownList>
-                    <f:TextBox  runat="server" ID="txtPartTechnicalManNames" MaxLength="2000" ></f:TextBox>
+                    <f:TextBox  runat="server" ID="txtPartTechnicalManNames" MaxLength="2000" Label="补充人员"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
@@ -94,7 +94,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

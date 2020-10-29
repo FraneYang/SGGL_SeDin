@@ -59,10 +59,10 @@
                             <Items>
                                  <f:DropDownList ID="drpProposeUnit"  runat="server"  Width="350px"   Label="提出单位" LabelAlign="Right" EnableEdit="true">
                                             </f:DropDownList>
-                                     <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime"
+                                     <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime" LabelWidth="100px" Width="250px"
                                     LabelAlign="right" >
                                 </f:DatePicker>
-                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime"
+                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime" LabelWidth="100px" Width="250px"
                                     LabelAlign="right" >
                                 </f:DatePicker>
                                 <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程" LabelAlign="Right" EnableEdit="true">
@@ -73,11 +73,11 @@
                             <Items>
                                 <f:DropDownList ID="drpCNProfessional" runat="server" Label="专业" Width="350px" LabelAlign="Right" EnableEdit="true">
                                 </f:DropDownList>
-                                <f:DropDownList ID="drpContactListType" runat="server" Label="分类" LabelAlign="Right" EnableEdit="true">
+                                <f:DropDownList ID="drpContactListType" runat="server" Label="分类" LabelAlign="Right" EnableEdit="true" LabelWidth="100px" Width="250px">
                                         <f:ListItem Text="图纸类" Value="1" />
                                         <f:ListItem Text="非图纸类" Value="2" />
                                 </f:DropDownList>
-                                 <f:DropDownList ID="drpIsReply" runat="server" Label="答复" LabelAlign="Right" EnableEdit="true">
+                                 <f:DropDownList ID="drpIsReply" runat="server" Label="答复" LabelAlign="Right" EnableEdit="true" LabelWidth="100px" Width="250px">
                                         <f:ListItem Text="需要回复" Value="1" />
                                         <f:ListItem Text="不需回复" Value="2" />
                                 </f:DropDownList>
@@ -165,7 +165,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="工程联络单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" OnClose="Window1_Close" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" OnClose="Window1_Close" runat="server" IsModal="true"
             Width="1300px" Height="660px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

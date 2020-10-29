@@ -42,6 +42,9 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingWire, true, "1", "请选择");//焊条类型
                 BLL.Base_ComponentsService.InitComponentsDropDownList(this.drpComponent1, this.CurrUser.LoginProjectId, true, "请选择");//组件1
                 BLL.Base_ComponentsService.InitComponentsDropDownList(this.drpComponent2, this.CurrUser.LoginProjectId, true, "请选择");//组件2
+                this.drpDetectionTypeId.DataValueField = "DetectionTypeId";
+                this.drpDetectionTypeId.DataTextField = "DetectionTypeCode";
+                //Funs.FineUIPleaseSelect(this.drpDetectionTypeId);
                 string weldJointId = Request.Params["WeldJointId"];
                 if (!string.IsNullOrEmpty(weldJointId))
                 {
@@ -91,8 +94,24 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         }
                         if (!string.IsNullOrEmpty(joint.DetectionTypeId))
                         {
-                            var DetectionTypeCode = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(joint.DetectionTypeId);
-                            this.txtDetectionTypeId.Text = DetectionTypeCode.DetectionTypeCode;
+                            List<Model.Base_DetectionType> dList = new List<Model.Base_DetectionType>();
+                            if (drpWeldTypeCode.SelectedItem.Text == "B")
+                            {
+                                Model.Base_DetectionType rt = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode("RT");
+                                Model.Base_DetectionType ut = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode("UT");
+                                dList.Add(rt);
+                                dList.Add(ut);
+                            }
+                            else
+                            {
+                                Model.Base_DetectionType mt = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode("MT");
+                                Model.Base_DetectionType pt = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode("PT");
+                                dList.Add(mt);
+                                dList.Add(pt);
+                            }
+                            this.drpDetectionTypeId.DataSource = dList;
+                            this.drpDetectionTypeId.DataBind();
+                            this.drpDetectionTypeId.SelectedValue = joint.DetectionTypeId;
                         }
                         if (!string.IsNullOrEmpty(joint.Components1Id))
                         {
@@ -160,8 +179,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldJointMenuId, BLL.Const.BtnModify))
             {
                 Model.HJGL_Pipeline pipeline = BLL.PipelineService.GetPipelineByPipelineId(this.PipelineId);
-                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID,drpMaterial2.ClientID,txtIsHotProess.ClientID)
-                    + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text,pipeline.UnitId,this.drpWeldingMethodId.SelectedText,this.drpWeldTypeCode.SelectedText, "维护 - ")));
+                //PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID,drpMaterial2.ClientID,txtIsHotProess.ClientID)
+                //    + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text,pipeline.UnitId,this.drpWeldingMethodId.SelectedText,this.drpWeldTypeCode.SelectedText, "维护 - ")));
+                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, txtIsHotProess.ClientID)
+                   + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text, pipeline.UnitId, this.drpWeldingMethodId.SelectedText, this.drpWeldTypeCode.SelectedText, "维护 - ")));
             }
             else
             {
@@ -287,8 +308,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             joint.PreTemperature = this.txtPreTemperature.Text;
             joint.Specification = this.txtSpecification.Text;
-            var DetectionType = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode(this.txtDetectionTypeId.Text.Trim());
-            joint.DetectionTypeId = DetectionType.DetectionTypeId;
+            //var DetectionType = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode(this.txtDetectionTypeId.Text.Trim());
+            if (this.drpDetectionTypeId.SelectedValue != null)
+            {
+                joint.DetectionTypeId = this.drpDetectionTypeId.SelectedValue;
+            }
             bool flag = false;
             if (Convert.ToBoolean(drpDesignIsHotProess.SelectedValue)) {
                 flag = true;
@@ -334,42 +358,63 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void drpWeldTypeCode_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.drpDetectionTypeId.Items.Clear();
             if (this.drpWeldTypeCode.SelectedValue != Const._Null)
             {
-                var DetectionType = BLL.Base_WeldTypeService.GetWeldTypeByWeldTypeId(drpWeldTypeCode.SelectedValue);
-                List<string> WTDetectionTypetr = new List<string>();
-                List<string> PiPDetectionTypestr = new List<string>();
-                //根据焊缝类型获取探伤类型
-                if (!string.IsNullOrEmpty(DetectionType.DetectionType))
-                {
-                    string[] dtype = DetectionType.DetectionType.Split('|');
+                //var DetectionType = BLL.Base_WeldTypeService.GetWeldTypeByWeldTypeId(drpWeldTypeCode.SelectedValue);
+                //List<string> WTDetectionTypetr = new List<string>();
+                //List<string> PiPDetectionTypestr = new List<string>();
+                ////根据焊缝类型获取探伤类型
+                //if (!string.IsNullOrEmpty(DetectionType.DetectionType))
+                //{
+                //    string[] dtype = DetectionType.DetectionType.Split('|');
 
-                    for (int i = 0; i < dtype.Length; i++)
-                    {
-                        var DetectionTypeCode = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(dtype[i].ToString());
-                        WTDetectionTypetr.Add(DetectionTypeCode.DetectionTypeCode);
-                    }
-                }
-                //管线表探伤类型
-                if (!string.IsNullOrEmpty(this.txtDetectionType.Text.Trim()))
-                {
-                    string[] dtype = this.txtDetectionType.Text.Trim().Split(',');
-                    for (int i = 0; i < dtype.Length; i++)
-                    {
-                        PiPDetectionTypestr.Add(dtype[i].ToString());
-                    }
-                }
+                //    for (int i = 0; i < dtype.Length; i++)
+                //    {
+                //        var DetectionTypeCode = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(dtype[i].ToString());
+                //        WTDetectionTypetr.Add(DetectionTypeCode.DetectionTypeCode);
+                //    }
+                //}
+                ////管线表探伤类型
+                //if (!string.IsNullOrEmpty(this.txtDetectionType.Text.Trim()))
+                //{
+                //    string[] dtype = this.txtDetectionType.Text.Trim().Split(',');
+                //    for (int i = 0; i < dtype.Length; i++)
+                //    {
+                //        PiPDetectionTypestr.Add(dtype[i].ToString());
+                //    }
+                //}
 
-                var newlist = WTDetectionTypetr.Intersect(PiPDetectionTypestr).ToArray();
-                if (newlist.Length > 0)
+                //var newlist = WTDetectionTypetr.Intersect(PiPDetectionTypestr).ToArray();
+                //if (newlist.Length > 0)
+                //{
+                //    this.txtDetectionTypeId.Text = newlist[0].ToString();
+                //}
+                //else
+                //{
+                //    this.txtDetectionTypeId.Text = string.Empty;
+                //}
+                List<Model.Base_DetectionType> dList = new List<Model.Base_DetectionType>();
+                if (drpWeldTypeCode.SelectedItem.Text == "B")
                 {
-                    this.txtDetectionTypeId.Text = newlist[0].ToString();
+                    Model.Base_DetectionType rt = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode("RT");
+                    Model.Base_DetectionType ut = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode("UT");
+                    dList.Add(rt);
+                    dList.Add(ut);
+                    this.drpDetectionTypeId.DataSource = dList;
+                    this.drpDetectionTypeId.DataBind();
+                    this.drpDetectionTypeId.SelectedValue = rt.DetectionTypeId;
                 }
                 else
                 {
-                    this.txtDetectionTypeId.Text = string.Empty;
+                    Model.Base_DetectionType mt = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode("MT");
+                    Model.Base_DetectionType pt = BLL.Base_DetectionTypeService.GetDetectionTypeIdByDetectionTypeCode("PT");
+                    dList.Add(mt);
+                    dList.Add(pt);
+                    this.drpDetectionTypeId.DataSource = dList;
+                    this.drpDetectionTypeId.DataBind();
+                    this.drpDetectionTypeId.SelectedValue = pt.DetectionTypeId;
                 }
-
             }
         }
 

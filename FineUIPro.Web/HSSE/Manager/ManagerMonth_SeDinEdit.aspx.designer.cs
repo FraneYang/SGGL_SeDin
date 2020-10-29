@@ -202,6 +202,15 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::FineUIPro.TextBox ProjectManager;
         
         /// <summary>
+        /// ProjectManagerPhone 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox ProjectManagerPhone;
+        
+        /// <summary>
         /// HsseManager 控件。
         /// </summary>
         /// <remarks>
@@ -209,6 +218,15 @@ namespace FineUIPro.Web.HSSE.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox HsseManager;
+        
+        /// <summary>
+        /// HsseManagerPhone 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox HsseManagerPhone;
         
         /// <summary>
         /// pStartDate 控件。
@@ -229,22 +247,13 @@ namespace FineUIPro.Web.HSSE.Manager {
         protected global::FineUIPro.DatePicker pEndDate;
         
         /// <summary>
-        /// ContentPanel1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.ContentPanel ContentPanel1;
-        
-        /// <summary>
         /// SeDinMonthReport3Item 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable SeDinMonthReport3Item;
+        protected global::FineUIPro.Panel SeDinMonthReport3Item;
         
         /// <summary>
         /// MonthWorkTime 控件。

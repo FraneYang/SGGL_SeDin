@@ -133,7 +133,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         /// </summary>
         private void PageInfoLoad()
         {
-            BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2,true);
+            BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
             BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);
             var report = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(this.WeldingDailyId);
 
@@ -193,24 +193,36 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             DataTable dt = null;
             if (weldingDailyItem != null)
             {
-                dt = this.LINQToDataTable(weldingDailyItem);
+                var task = from x in Funs.DB.View_HJGL_WeldingTask
+                           where (x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == Convert.ToDateTime(txtWeldingDate.Text)
+                           && x.WeldingDailyId == null && x.CoverWelderId != null && x.BackingWelderId != null) || x.WeldingDailyId == this.WeldingDailyId
+                           select x;
+                dt = this.LINQToDataTable(task);
             }
             else
             {
                 var task = from x in Funs.DB.View_HJGL_WeldingTask
                            where x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == Convert.ToDateTime(txtWeldingDate.Text)
-                           where x.WeldingDailyId == null && x.CoverWelderId != null && x.BackingWelderId != null
+                           && x.WeldingDailyId == null && x.CoverWelderId != null && x.BackingWelderId != null
                            select x;
                 dt = this.LINQToDataTable(task);
             }
             // 2.获取当前分页数据
             //var table = this.GetPagedDataTable(GridNewDynamic, tb1);
             Grid1.RecordCount = dt.Rows.Count;
-           // tb = GetFilteredTable(Grid1.FilteredData, tb);
+            // tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, dt);
 
             Grid1.DataSource = table;
             Grid1.DataBind();
+            if (weldingDailyItem != null)
+            {
+                var task = from x in Funs.DB.View_HJGL_WeldingTask
+                           where x.WeldingDailyId == this.WeldingDailyId
+                           select x;
+                var weldTaskIds = task.Select(x => x.WeldTaskId).ToArray();
+                this.Grid1.SelectedRowIDArray = weldTaskIds;
+            }
         }
         #endregion
 
@@ -259,7 +271,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                     newWeldingDaily.UnitWorkId = this.drpUnitWork.SelectedValue;
                 }
                 newWeldingDaily.UnitId = this.drpUnit.SelectedValue;
-               
+
                 DateTime? weldDate = Funs.GetNewDateTime(this.txtWeldingDate.Text);
                 if (weldDate.HasValue)
                 {
@@ -397,10 +409,25 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                             {
 
                                 var t = BLL.WeldTaskService.GetWeldTaskById(row);
-                                errlog += InsertWeldingDailyItem(t.WeldJointId,t.CoverWelderId,t.BackingWelderId,t.JointAttribute, newWeldingDaily.WeldingDate, batchCondition, true);
+                                errlog += InsertWeldingDailyItem(t.WeldJointId, t.CoverWelderId, t.BackingWelderId, t.JointAttribute, newWeldingDaily.WeldingDate, batchCondition, true);
                             }
                         }
-
+                        else
+                        {
+                            for (int i = 0; i < Grid1.Rows.Count; i++)
+                            {
+                                if (Grid1.SelectedRowIDArray.Contains(Grid1.Rows[i].RowID))
+                                {
+                                    var t = BLL.WeldTaskService.GetWeldTaskById(Grid1.Rows[i].RowID);
+                                    errlog += InsertWeldingDailyItem(t.WeldJointId, t.CoverWelderId, t.BackingWelderId, t.JointAttribute, newWeldingDaily.WeldingDate, batchCondition, true);
+                                }
+                                else
+                                {
+                                    var t = BLL.WeldTaskService.GetWeldTaskById(Grid1.Rows[i].RowID);
+                                    errlog += DeleteWeldingDailyItem(t.WeldJointId, t.CoverWelderId, t.BackingWelderId, t.JointAttribute, newWeldingDaily.WeldingDate, batchCondition, true);
+                                }
+                            }
+                        }
                         // 日报已存在的情况  暂时
                         //else
                         //{
@@ -530,10 +557,10 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
 
             var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(ste);
             var welderQ = from x in welderQualifys
-                         where wmeCode.Contains(x.WeldingMethod)
-                         && (mat == null || x.MaterialType.Contains(mat.MetalType ?? ""))
-                         && x.WeldType.Contains(weldType)
-                         select x;
+                          where wmeCode.Contains(x.WeldingMethod)
+                          && (mat == null || x.MaterialType.Contains(mat.MetalType ?? ""))
+                          && x.WeldType.Contains(weldType)
+                          select x;
 
             if (welderQ.Count() > 0)
             {
@@ -549,7 +576,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
 
                         if (welderDiaQ.Count() > 0)
                         {
-                            var welderThick = welderDiaQ.Where(x => x.ThicknessMax>=sch || x.ThicknessMax == 0);
+                            var welderThick = welderDiaQ.Where(x => x.ThicknessMax >= sch || x.ThicknessMax == 0);
 
                             // 只要有一个不限（为0）就通过
                             if (welderThick.Count() > 0)
@@ -605,13 +632,13 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 if (jointAttribute == "固定口")
                 {
                     floorQ = floorQ.Where(x => x.IsCanWeldG == true);
-                    cellQ= cellQ.Where(x => x.IsCanWeldG == true);
+                    cellQ = cellQ.Where(x => x.IsCanWeldG == true);
                 }
                 if (floorQ.Count() > 0 && cellQ.Count() > 0)
                 {
                     if (weldType == "1") // 1-对接焊缝 2-表示角焊缝，当为角焊缝时，管径和壁厚不限制
                     {
-                        var floorDiaQ = floorQ.Where(x => x.SizesMin <= dia || x.SizesMax==0);
+                        var floorDiaQ = floorQ.Where(x => x.SizesMin <= dia || x.SizesMax == 0);
                         var cellDiaQ = cellQ.Where(x => x.SizesMin <= dia || x.SizesMax == 0);
 
                         if (floorDiaQ.Count() > 0 && cellDiaQ.Count() > 0)
@@ -655,7 +682,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         /// <param name="item"></param>
         /// <param name="weldingDailyId"></param>
         /// <returns></returns>
-        private string InsertWeldingDailyItem(string weldJointId, string coverWelderId,string backingWelderId,string jointAttribute, DateTime? weldingDate, string batchCondition, bool isSave)
+        private string InsertWeldingDailyItem(string weldJointId, string coverWelderId, string backingWelderId, string jointAttribute, DateTime? weldingDate, string batchCondition, bool isSave)
         {
             string errlog = string.Empty;
             string[] condition = batchCondition.Split('|');
@@ -858,6 +885,64 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         }
         #endregion
 
+        #region 日报明细删除（更新焊口信息），组批等
+        /// <summary>
+        /// 日报明细删除（更新焊口信息），组批等
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="weldingDailyId"></param>
+        /// <returns></returns>
+        private string DeleteWeldingDailyItem(string weldJointId, string coverWelderId, string backingWelderId, string jointAttribute, DateTime? weldingDate, string batchCondition, bool isSave)
+        {
+            string errlog = string.Empty;
+            var newWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
+            var pipeline = BLL.PipelineService.GetPipelineByPipelineId(newWeldJoint.PipelineId);
+            var unit = BLL.UnitService.GetUnitByUnitId(pipeline.UnitId);
+            var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(newWeldJoint.DetectionTypeId);
+            var ndtr = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(pipeline.DetectionRateId);
+
+            if (newWeldJoint != null && !string.IsNullOrEmpty(newWeldJoint.WeldingDailyId))
+            {
+                var isTrust = from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                              where x.WeldJointId == weldJointId
+                              select x; ;
+                if (isTrust.Count() == 0)
+                {
+                    var updateWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
+                    if (updateWeldJoint != null)
+                    {
+                        updateWeldJoint.WeldingDailyId = null;
+                        updateWeldJoint.WeldingDailyCode = null;
+                        updateWeldJoint.CoverWelderId = null;
+                        updateWeldJoint.BackingWelderId = null;
+                        BLL.WeldJointService.UpdateWeldJoint(updateWeldJoint);
+
+                        var pointBatchItems = from x in Funs.DB.HJGL_Batch_PointBatchItem where x.WeldJointId == weldJointId select x;
+                        string pointBatchId = pointBatchItems.FirstOrDefault().PointBatchId;
+
+                        // 删除焊口所在批明细信息
+                        BLL.PointBatchDetailService.DeleteBatchDetail(weldJointId);
+
+                        // 删除批信息
+                        var batch = from x in Funs.DB.HJGL_Batch_PointBatchItem where x.PointBatchId == pointBatchId select x;
+                        if (pointBatchId != null && batch.Count() == 0)
+                        {
+                            BLL.PointBatchService.DeleteBatch(pointBatchId);
+                        }
+                        //BLL.Batch_NDEItemService.DeleteAllNDEInfoToWeldJoint(item.WeldJointId);
+                    }
+                    //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnDelete, weldingDailyId);
+                }
+                else
+                {
+                    errlog += "焊口【" + newWeldJoint.WeldJointCode + "】已进委托单了，不能删除。";
+                }
+            }
+
+            return errlog;
+        }
+        #endregion
+
         #region 收集Grid页面信息
         /// <summary>
         /// 收集Grid页面信息
@@ -886,7 +971,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 var item = GetWeldingDailyItem.FirstOrDefault(x => x.WeldJointId == rowID);
                 if (item != null)
                 {
-                    var coverWelderCode = (from x in Funs.DB.SitePerson_Person                                          
+                    var coverWelderCode = (from x in Funs.DB.SitePerson_Person
                                            where x.ProjectId == CurrUser.LoginProjectId && x.WelderCode == values.Value<string>("CoverWelderId")
                                            select x).FirstOrDefault();
                     if (coverWelderCode != null)
@@ -906,9 +991,9 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                     if (!string.IsNullOrEmpty(values.Value<string>("JointAttribute")))
                     {
                         item.JointAttribute = values.Value<string>("JointAttribute").ToString();
-                       
+
                     }
-                   
+
                     getNewWeldReportItem.Add(item);
                 }
 
@@ -948,7 +1033,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     var item = GetWeldingDailyItem.FirstOrDefault(x => x.WeldJointId == rowID);
                     var p = BLL.PointBatchDetailService.GetBatchDetailByJotId(rowID);
-                    if (item != null && (p==null || (p!=null && p.PointState==null)))
+                    if (item != null && (p == null || (p != null && p.PointState == null)))
                     {
                         GetWeldingDailyItem.Remove(item);
                         // 删除焊口所在批明细信息

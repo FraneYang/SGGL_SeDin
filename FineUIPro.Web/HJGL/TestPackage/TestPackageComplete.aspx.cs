@@ -108,6 +108,7 @@
             {
                 var dReports = from x in testPackageUnitList
                                where x.UnitWorkId == node.NodeID
+                               && x.State == Const.TestPackage_Complete
                                orderby x.TestPackageNo descending
                                select x;
                 foreach (var item in dReports)

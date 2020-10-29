@@ -16,17 +16,17 @@
             <Rows>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtControlItemCode" runat="server" Label="编号" LabelWidth="150px" Readonly="true" FocusOnPageLoad="true"></f:TextBox>
+                        <f:TextBox ID="txtControlItemCode" runat="server" Label="编号" LabelWidth="160px" Readonly="true" FocusOnPageLoad="true"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtControlItemContent" runat="server" Label="工作包" LabelWidth="150px" Required="true" ShowRedStar="true"></f:TextBox>
+                        <f:TextBox ID="txtControlItemContent" runat="server" Label="工作包" LabelWidth="160px" Required="true" ShowRedStar="true"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList ID="drpControlPoint" ShowRedStar="true" runat="server" Required="true" LabelWidth="150px" Label="控制点等级" LabelAlign="Right" EnableEdit="true">
+                        <f:DropDownList ID="drpControlPoint" ShowRedStar="true" runat="server" Required="true" LabelWidth="160px" Label="控制点等级" LabelAlign="Right" EnableEdit="true">
                             <f:ListItem Text="A" Value="A" />
                             <f:ListItem Text="AR" Value="AR" />
                             <f:ListItem Text="B" Value="B" />
@@ -38,32 +38,32 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextArea ID="txtControlItemDef" runat="server" Label="控制点内容描述" LabelWidth="150px" Height="80px" Required="true" ShowRedStar="true"></f:TextArea>
+                        <f:TextArea ID="txtControlItemDef" runat="server" Label="控制点内容描述" LabelWidth="160px" Height="80px" Required="true" ShowRedStar="true"></f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:NumberBox runat="server" ID="txtWeights" Label="权重%" LabelWidth="150px" NoDecimal="false" NoNegative="true"></f:NumberBox>
+                        <f:NumberBox runat="server" ID="txtWeights" Label="权重%" LabelWidth="160px" NoDecimal="false" NoNegative="true"></f:NumberBox>
                    </Items>
                 </f:FormRow>
                 <f:FormRow runat="server" ID="tr5">
                     <Items>
-                        <f:TextArea ID="txtHGForms" runat="server" Label="对应的化工资料表格" LabelWidth="150px" Height="80px" ></f:TextArea>
+                        <f:TextArea ID="txtHGForms" runat="server" Label="对应的化工资料表格" LabelWidth="160px" Height="80px" ></f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow runat="server" ID="tr6">
                     <Items>
-                        <f:TextArea ID="txtSHForms" runat="server" Label="对应的石化资料表格" LabelWidth="150px" Height="80px" ></f:TextArea>
+                        <f:TextArea ID="txtSHForms" runat="server" Label="对应的石化资料表格" LabelWidth="160px" Height="80px" ></f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtStandard" runat="server" Label="质量验收规范" LabelWidth="150px"></f:TextBox>
+                        <f:TextBox ID="txtStandard" runat="server" Label="质量验收规范" LabelWidth="160px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtClauseNo" runat="server" Label="条款号" LabelWidth="150px"></f:TextBox>
+                        <f:TextBox ID="txtClauseNo" runat="server" Label="条款号" LabelWidth="160px"></f:TextBox>
                     </Items>
                 </f:FormRow>
             </Rows>

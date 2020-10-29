@@ -141,7 +141,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="文件查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="650px" Height="500px">
         </f:Window>
     </form>

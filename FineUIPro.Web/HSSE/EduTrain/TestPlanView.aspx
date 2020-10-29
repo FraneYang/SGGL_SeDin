@@ -16,7 +16,7 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtPlanCode" runat="server" Label="编号" Readonly="true" LabelAlign="Right">
+                    <f:TextBox ID="txtPlanCode" runat="server" Label="编号" Readonly="true" LabelAlign="Right" LabelWidth="120px">
                     </f:TextBox>
                     <f:TextBox ID="txtPlanName" runat="server" Label="名称" Readonly="true" LabelAlign="Right">
                     </f:TextBox>
@@ -26,27 +26,27 @@
             </f:FormRow>  
             <f:FormRow>
                 <Items>
-                     <f:TextBox ID="txtWorkPostNames" runat="server" Label="考生岗位" Readonly="true" LabelAlign="Right">
+                     <f:TextBox ID="txtWorkPostNames" runat="server" Label="考生岗位" Readonly="true" LabelAlign="Right" LabelWidth="120px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
               <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtTestStartTime" runat="server" Label="扫码开始时间" LabelAlign="Right" Readonly="true">
+                    <f:TextBox ID="txtTestStartTime" runat="server" Label="扫码开始时间" LabelAlign="Right" Readonly="true" LabelWidth="120px">
                     </f:TextBox>
-                    <f:TextBox ID="txtTestEndTime" runat="server" Label="扫码结束时间" LabelAlign="Right" Readonly="true">
+                    <f:TextBox ID="txtTestEndTime" runat="server" Label="扫码结束时间" LabelAlign="Right" Readonly="true" LabelWidth="120px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                     <f:TextBox ID="txtTestPalce" runat="server" Label="考试地点" Readonly="true" LabelAlign="Right">
+                     <f:TextBox ID="txtTestPalce" runat="server" Label="考试地点" Readonly="true" LabelAlign="Right" LabelWidth="120px">
                     </f:TextBox>  
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtDuration" runat="server" Label="时长" Readonly="true" LabelAlign="Right">
+                    <f:TextBox ID="txtDuration" runat="server" Label="时长" Readonly="true" LabelAlign="Right" LabelWidth="120px">
                     </f:TextBox>
                     <f:TextBox ID="txtTotalScore" runat="server" Label="总分值" Readonly="true" LabelAlign="Right">
                     </f:TextBox>
@@ -56,25 +56,25 @@
             </f:FormRow>
              <f:FormRow>
                 <Items>                  
-                    <f:TextBox ID="txtTestType1" runat="server" Label="单选题数" Readonly="true" LabelAlign="Right">
+                    <f:TextBox ID="txtTestType1" runat="server" Label="单选题数" Readonly="true" LabelAlign="Right" LabelWidth="120px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                     <f:TextBox ID="txtTestType2" runat="server" Label="多选题数" Readonly="true" LabelAlign="Right">
+                     <f:TextBox ID="txtTestType2" runat="server" Label="多选题数" Readonly="true" LabelAlign="Right" LabelWidth="120px">
                      </f:TextBox>                   
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtTestType3" runat="server" Label="判断题数" Readonly="true" LabelAlign="Right">
+                    <f:TextBox ID="txtTestType3" runat="server" Label="判断题数" Readonly="true" LabelAlign="Right" LabelWidth="120px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
              <f:FormRow>
                 <Items>                  
-                    <f:TextArea ID="txtTrainingName" runat="server" Label="试题类型" Height="50px" Readonly="true" LabelAlign="Right">
+                    <f:TextArea ID="txtTrainingName" runat="server" Label="试题类型" Height="50px" Readonly="true" LabelAlign="Right" LabelWidth="120px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>

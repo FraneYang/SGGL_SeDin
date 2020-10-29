@@ -159,15 +159,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑危险源与评价清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="700px" Height="360px">
     </f:Window>
     <f:Window ID="Window2" Title="编辑危险源清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="800px" Height="500px">
     </f:Window>
     <f:Window ID="Window6" Title="导入危险源与评价清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" 
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close" 
         Width="1000px" Height="600px" EnableAjax="false">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

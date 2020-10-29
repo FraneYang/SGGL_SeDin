@@ -114,11 +114,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="管理规定选择" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1100px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1100px"
         OnClose="Window1_Close" Height="500px">
     </f:Window>
     <f:Window ID="Window2" Title="管理规定编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1024px" Height="550px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

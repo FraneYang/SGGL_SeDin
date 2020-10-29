@@ -17,27 +17,27 @@
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpSpecialEquipmentId" runat="server" Label="设备" Required="true"
-                        ShowRedStar="true" LabelAlign="Right" LabelWidth="140px">
+                        ShowRedStar="true" LabelAlign="Right" LabelWidth="150px">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtSizeModel" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50" LabelWidth="140px">
+                    <f:TextBox ID="txtSizeModel" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtOwnerCheck" runat="server" Label="进场前自查自检情况" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtCertificateNum" runat="server" Label="施工设备合格证号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="140px">
+                        MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>           

@@ -168,7 +168,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (this.tvControlItem.SelectedNode != null)
             {
-               
+
                 string strSql = @"SELECT WeldingDailyId,WeldJointId,PipelineCode,WeldJointCode,
                                          BackingWelderCode,CoverWelderCode,Material1Code,Material2Code,
                                          Dia,Thickness,WeldTypeCode,WeldingMethodCode,WeldingWireCode,
@@ -186,6 +186,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 tb = GetFilteredTable(Grid1.FilteredData, tb);
                 var table = this.GetPagedDataTable(Grid1, tb);
                 Grid1.DataSource = table;
+                Grid1.DataBind();
+            }
+            else
+            {
+                Grid1.DataSource = null;
                 Grid1.DataBind();
             }
         }
@@ -287,7 +292,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 var daily = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(tvControlItem.SelectedNodeID);
                 if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID) && daily != null)
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?WeldingDailyId={0}", Grid1.SelectedRowID, "维护 - ")));
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?WeldingDailyId={0}", tvControlItem.SelectedNodeID, "维护 - ")));
                 }
                 else
                 {
@@ -310,7 +315,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnDelete))
             {
                 var daily = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(tvControlItem.SelectedNodeID);
-                if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID) && daily != null)
+                if (daily == null)
                 {
                     Alert.ShowInTop("请选择要删除的日报", MessageBoxIcon.Warning);
                     return;
@@ -357,8 +362,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         BLL.WeldingDailyService.DeleteWeldingDaily(weldingDailyId);
                         //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldReportMenuId, Const.BtnDelete, weldingDailyId);
                         ShowNotify("删除成功！", MessageBoxIcon.Success);
+                        this.InitTreeMenu();
                         this.BindGrid();
-
                     }
                     else
                     {

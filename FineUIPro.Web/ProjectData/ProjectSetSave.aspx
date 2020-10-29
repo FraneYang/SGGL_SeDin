@@ -24,14 +24,14 @@
                     ShowRedStar="true" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"></f:TextBox>
                 </Items>
                 <Items>
-                   <f:TextBox ID="txtShortName" runat="server" Label="简称" MaxLength="200"></f:TextBox>
+                   <f:TextBox ID="txtShortName" runat="server" Label="简称" MaxLength="200" LabelWidth="150px"></f:TextBox>
                 </Items>
             </f:FormRow>                     
             <f:FormRow>
                  <Items>               
                    <f:DropDownList ID="drpProjectType" Label="项目类型" runat="server">
                    </f:DropDownList>
-                       <f:DropDownList ID="drpProjectState" runat="server" Label="项目状态" LabelAlign="Right" >
+                       <f:DropDownList ID="drpProjectState" runat="server" Label="项目状态" LabelAlign="Right" LabelWidth="150px">
                         <f:ListItem Text="在建" Value="1"  Selected="true"/>
                         <f:ListItem Text="停工" Value="2" />
                         <f:ListItem Text="竣工" Value="3" />
@@ -42,7 +42,7 @@
                 <Items>
                     <f:DatePicker runat="server" Label="开工日期" ID="txtStartDate" 
                         Required="true" ShowRedStar="true" AutoPostBack="true"  OnTextChanged="txtStartDate_Blur"></f:DatePicker>             
-                   <f:DatePicker runat="server" Label="竣工日期" ID="txtEndDate"
+                   <f:DatePicker runat="server" Label="竣工日期" ID="txtEndDate" LabelWidth="150px"
                        AutoPostBack="true"  OnTextChanged="txtStartDate_Blur"></f:DatePicker>
                </Items>
             </f:FormRow>   
@@ -50,7 +50,7 @@
                  <Items>               
                    <f:TextBox ID="txtContractNo" runat="server" Label="合同号"></f:TextBox>            
                    <f:NumberBox runat="server" ID="txtDuration" Label="项目建设工期(月)"  DecimalPrecision="1"
-                        NoNegative="true" LabelWidth="160px">
+                        NoNegative="true" LabelWidth="150px">
                     </f:NumberBox>
                </Items>                                         
             </f:FormRow>   
@@ -59,7 +59,7 @@
                     <f:DropDownList ID="drpProjectManager" runat="server" Label="项目经理" 
                         EnableEdit="true" Required="true" ShowRedStar="true">
                     </f:DropDownList>     
-                      <f:DropDownList ID="drpConstructionManager" runat="server" Label="施工经理" EnableEdit="true">
+                      <f:DropDownList ID="drpConstructionManager" runat="server" Label="施工经理" LabelWidth="150px" EnableEdit="true">
                     </f:DropDownList>     
                 </Items>
             </f:FormRow>  
@@ -67,7 +67,7 @@
                 <Items>
                     <f:DropDownList ID="drpHSSEManager" runat="server" Label="安全经理" EnableEdit="true">
                     </f:DropDownList>     
-                   <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" MaxLength="500" ></f:TextBox>
+                   <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" LabelWidth="150px" MaxLength="500" ></f:TextBox>
 
                 </Items>
             </f:FormRow>  
@@ -75,7 +75,7 @@
                  <Items>
                    <f:DropDownList ID="drpUnit" Label="所属单位" runat="server" EnableEdit="true">
                    </f:DropDownList>
-                     <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目"></f:CheckBox>                     
+                     <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目" LabelWidth="150px"></f:CheckBox>                     
                 </Items>
             </f:FormRow> 
             <f:FormRow>
@@ -91,10 +91,30 @@
             <f:FormRow>
                  <Items>                   
                     <f:NumberBox runat="server" ID="txtProjectMoney" Label="合同额(万元)" NoNegative="true" ></f:NumberBox>
-                     <f:NumberBox runat="server" ID="txtConstructionMoney" Label="施工合同额(万元)" LabelWidth="140px"
+                     <f:NumberBox runat="server" ID="txtConstructionMoney" Label="施工合同额(万元)" LabelWidth="150px"
                          NoNegative="true" ></f:NumberBox>
                 </Items>
             </f:FormRow>   
+            <f:FormRow>
+               <Items>
+                   <f:TextBox ID="txtTelephone" runat="server" Label="项目部电话" MaxLength="50" 
+                    ></f:TextBox>
+                </Items>
+                <Items>
+                   <f:TextBox ID="txtCountry" runat="server" Label="国家" MaxLength="50" LabelWidth="150px" 
+                    ></f:TextBox>
+                </Items>
+            </f:FormRow> 
+            <f:FormRow>
+               <Items>
+                   <f:TextBox ID="txtProvince" runat="server" Label="省份" MaxLength="50" 
+                    ></f:TextBox>
+                </Items>
+                <Items>
+                   <f:TextBox ID="txtCity" runat="server" Label="城市" MaxLength="50" LabelWidth="150px"
+                    ></f:TextBox>
+                </Items>
+            </f:FormRow> 
             <f:FormRow>   
                 <Items>
                      <f:CheckBox ID="ckIsUpTotalMonth" runat="server" Label="上报月总结" Checked="true" Hidden="true">

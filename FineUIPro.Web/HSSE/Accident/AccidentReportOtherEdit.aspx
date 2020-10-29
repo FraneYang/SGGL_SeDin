@@ -40,24 +40,24 @@
                         </f:Image>
                     </Items>
                 </f:Panel>
-                <f:Panel ID="Panel3" Title="Panel1" Width="400px" Height="30px" runat="server" BodyPadding="1px"
+                <f:Panel ID="Panel3" Title="Panel1" Width="500px" Height="30px" runat="server" BodyPadding="1px"
                     ShowBorder="false" ShowHeader="false">
                     <Items>
                         <f:Label ID="lblProjectName" runat="server" CssClass="titler" Margin="5 0 0 10">
                         </f:Label>
                     </Items>
                 </f:Panel>
-                <f:Panel ID="Panel5" Title="Panel1" Width="350px" Height="30px" runat="server" BodyPadding="1px"
-                    ShowBorder="false" ShowHeader="false">
+                <f:Panel ID="Panel5" Title="Panel1" Width="250px" Height="30px" runat="server" BodyPadding="1px"
+                    ShowBorder="false" ShowHeader="false" >
                     <Items>
                         <f:TextBox ID="txtAccidentReportOtherName" runat="server" LabelAlign="Right" Width="250px">
                         </f:TextBox>
                     </Items>
                 </f:Panel>
                 <f:Panel ID="Panel4" Title="Panel1" Width="300px" Height="50px" TableRowspan="2"
-                    runat="server" BodyPadding="1px" ShowBorder="false" ShowHeader="false">
+                    runat="server" BodyPadding="1px" ShowBorder="false" ShowHeader="false" BoxConfigAlign="Center">
                     <Items>
-                        <f:Label ID="Label3" runat="server" Text="事故调查处理报告" CssClass="titler" Margin="5 0 0 40">
+                        <f:Label ID="Label3" runat="server" Text="事故调查处理报告" CssClass="titler" Margin="5 0 0 100">
                         </f:Label>
                     </Items>
                 </f:Panel>
@@ -261,11 +261,11 @@
             </Items>
         </f:Toolbar>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="650px" Height="220px">
         </f:Window>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

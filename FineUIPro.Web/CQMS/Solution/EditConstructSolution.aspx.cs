@@ -605,9 +605,9 @@ namespace FineUIPro.Web.CQMS.Solution
         /// 删除未选择的代办记录
         /// </summary>
         /// <param name="constructSolutionId"></param>
-        private void delSolutionApprove(string constructSolutionId, string man)
+        private void delSolutionApprove(string constructSolutionId, string man, string signType)
         {
-            var count = CQMSConstructSolutionApproveService.getListSolutionApproveCount(constructSolutionId, man);
+            var count = CQMSConstructSolutionApproveService.getListSolutionApproveCount(constructSolutionId, man, signType);
             if (count > 0)
             {
                 CQMSConstructSolutionApproveService.delSolutionApprove(constructSolutionId, man);
@@ -639,13 +639,13 @@ namespace FineUIPro.Web.CQMS.Solution
                             edtion++;
                         }
                         approve.Edition = edtion;
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "ZY");
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
                         APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "ZY");
                     }
 
                 }
@@ -668,13 +668,13 @@ namespace FineUIPro.Web.CQMS.Solution
                             edtion++;
                         }
                         approve.Edition = edtion;
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "ZL");
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
                         APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "ZL");
                     }
 
                 }
@@ -697,13 +697,13 @@ namespace FineUIPro.Web.CQMS.Solution
                             edtion++;
                         }
                         approve.Edition = edtion;
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "AQ");
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
                         APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "AQ");
                     }
 
                 }
@@ -726,14 +726,14 @@ namespace FineUIPro.Web.CQMS.Solution
                             edtion++;
                         }
                         approve.Edition = edtion;
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "KZ");
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
                         APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
 
                     }
                     else
                     {
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "KZ");
                     }
 
                 }
@@ -756,13 +756,13 @@ namespace FineUIPro.Web.CQMS.Solution
                             edtion++;
                         }
                         approve.Edition = edtion;
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "SG");
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
                         APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "SG");
                     }
                 }
             }
@@ -784,13 +784,13 @@ namespace FineUIPro.Web.CQMS.Solution
                             edtion++;
                         }
                         approve.Edition = edtion;
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "XM");
                         CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve);
                         APICommonService.SendSubscribeMessage(approve.ApproveMan, "施工方案待办理", this.CurrUser.UserName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                     }
                     else
                     {
-                        delSolutionApprove(constructSolutionId, tn.NodeID);
+                        delSolutionApprove(constructSolutionId, tn.NodeID, "XM");
                     }
                 }
             }

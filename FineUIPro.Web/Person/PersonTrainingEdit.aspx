@@ -37,7 +37,15 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:Form ID="Form2" ShowBorder="true" ShowHeader="true" Title="员工" AutoScroll="true"
+                        <f:LinkButton ID="UploadAttach" runat="server" Label="培训课件" Text="上传和查看" OnClick="btnAttachUrl_Click" LabelAlign="Right">
+                                    </f:LinkButton>
+                        <f:Label runat="server" ></f:Label>
+                        <f:HiddenField runat="server" ID="hdTrainingPlanId"></f:HiddenField>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:Form ID="Form2" ShowBorder="true" ShowHeader="true" Title="员工" AutoScroll="true" BodyPadding="5px"
                             runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                             <Rows>
                                 <f:FormRow>
@@ -67,7 +75,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:Form ID="Form3" ShowBorder="true" ShowHeader="true" Title="教材" AutoScroll="true"
+                        <f:Form ID="Form3" ShowBorder="true" ShowHeader="true" Title="教材" AutoScroll="true" BodyPadding="5px"
                             runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                             <Rows>
                                 <f:FormRow>
@@ -113,9 +121,13 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="员工培训计划" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="800px"
             Height="650px" >
         </f:Window>
+         <f:Window ID="Window2" Title="文件上传" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="680px"
+        Height="480px">
+    </f:Window>
     </form>
 </body>
 </html>

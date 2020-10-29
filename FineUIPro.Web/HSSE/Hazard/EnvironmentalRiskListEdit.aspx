@@ -61,7 +61,7 @@
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
-                                    <f:Button ID="btnSelect" Icon="ShapeSquareSelect" runat="server" ToolTip="选择" ValidateForms="SimpleForm1"
+                                    <f:Button ID="btnSelect" Icon="ShapeSquareSelect" Text="危险源选择" runat="server" ToolTip="危险源选择" ValidateForms="SimpleForm1"
                                         OnClick="btnSelect_Click">
                                     </f:Button>
                                 </Items>
@@ -177,15 +177,15 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="编辑危险源明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="900px" Height="500px">
     </f:Window>
     <f:Window ID="Window2" Title="选择危险源明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1200px" Height="520px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

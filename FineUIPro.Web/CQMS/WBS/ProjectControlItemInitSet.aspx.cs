@@ -347,7 +347,7 @@ namespace FineUIPro.Web.CQMS.WBS
                     if (this.trWBS.SelectedNode.CommandName != "ProjectType")   //非工程类型节点可以删除
                     {
                         string id = this.trWBS.SelectedNodeID;
-                        var workPackage = Funs.DB.WBS_WorkPackage.FirstOrDefault(x=>x.ProjectId==this.CurrUser.LoginProjectId && x.InitWorkPackageCode==this.trWBS.SelectedNodeID);
+                        var workPackage = Funs.DB.WBS_WorkPackage.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.InitWorkPackageCode == this.trWBS.SelectedNodeID);
                         if (workPackage != null)
                         {
                             ShowNotify("WBS定制中已使用该数据，无法删除！", MessageBoxIcon.Warning);
@@ -854,6 +854,7 @@ namespace FineUIPro.Web.CQMS.WBS
                 {
                     this.btnSave.Hidden = false;
                     this.btnRset.Hidden = false;
+                    this.btnAllRset.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnDelete))
                 {
@@ -979,10 +980,10 @@ namespace FineUIPro.Web.CQMS.WBS
         }
         #endregion
 
-        #region
+        #region 恢复默认
         protected void btnRset_Click(object sender, EventArgs e)
         {
-            if (this.trWBS.SelectedNode.Nodes.Count == 0)  //末级节点
+            if (this.trWBS.SelectedNode != null && this.trWBS.SelectedNode.Nodes.Count == 0)  //末级节点
             {
                 //删除新增项
                 var q = BLL.ControlItemProjectService.GetItemsByWorkPackageCode(this.trWBS.SelectedNodeID, this.CurrUser.LoginProjectId);
@@ -1037,6 +1038,51 @@ namespace FineUIPro.Web.CQMS.WBS
             {
                 Alert.ShowInTop("请选择树节点的末级！", MessageBoxIcon.Warning);
             }
+        }
+
+        protected void btnAllRset_Click(object sender, EventArgs e)
+        {
+            var controlItemProjects = from x in Funs.DB.WBS_ControlItemProject where x.ProjectId == this.CurrUser.LoginProjectId select x;
+            Funs.DB.WBS_ControlItemProject.DeleteAllOnSubmit(controlItemProjects);
+            var workPackageProjects = from x in Funs.DB.WBS_WorkPackageProject where x.ProjectId == this.CurrUser.LoginProjectId select x;
+            Funs.DB.WBS_WorkPackageProject.DeleteAllOnSubmit(workPackageProjects);
+            Funs.DB.SubmitChanges();
+            //拷贝项目WBS数据
+            var workPackageInits = from x in Funs.DB.WBS_WorkPackageInit select x;
+            foreach (var workPackageInit in workPackageInits)
+            {
+                Model.WBS_WorkPackageProject workPackageProject = new Model.WBS_WorkPackageProject();
+                workPackageProject.WorkPackageCode = workPackageInit.WorkPackageCode;
+                workPackageProject.ProjectId = this.CurrUser.LoginProjectId;
+                workPackageProject.ProjectType = workPackageInit.ProjectType;
+                workPackageProject.PackageContent = workPackageInit.PackageContent;
+                workPackageProject.SuperWorkPack = workPackageInit.SuperWorkPack;
+                workPackageProject.IsChild = workPackageInit.IsChild;
+                workPackageProject.PackageCode = workPackageInit.PackageCode;
+                workPackageProject.ProjectType = workPackageInit.ProjectType;
+                BLL.WorkPackageProjectService.AddWorkPackageProject(workPackageProject);
+            }
+            var controlItemInits = from x in Funs.DB.WBS_ControlItemInit select x;
+            foreach (var controlItemInit in controlItemInits)
+            {
+                Model.WBS_ControlItemProject controlItemProject = new Model.WBS_ControlItemProject();
+                controlItemProject.ControlItemCode = controlItemInit.ControlItemCode;
+                controlItemProject.ProjectId = this.CurrUser.LoginProjectId;
+                controlItemProject.WorkPackageCode = controlItemInit.WorkPackageCode;
+                controlItemProject.ControlItemContent = controlItemInit.ControlItemContent;
+                controlItemProject.ControlPoint = controlItemInit.ControlPoint;
+                controlItemProject.ControlItemDef = controlItemInit.ControlItemDef;
+                controlItemProject.Weights = controlItemInit.Weights;
+                controlItemProject.HGForms = controlItemInit.HGForms;
+                controlItemProject.SHForms = controlItemInit.SHForms;
+                controlItemProject.Standard = controlItemInit.Standard;
+                controlItemProject.ClauseNo = controlItemInit.ClauseNo;
+                controlItemProject.CheckNum = 1;
+                BLL.ControlItemProjectService.AddControlItemProject(controlItemProject);
+            }
+            ShowNotify("全部恢复默认成功！", MessageBoxIcon.Success);
+            InitTreeMenu();
+            //BindGrid();
         }
         #endregion
 

@@ -63,7 +63,7 @@
                                                 <Items>
                                                     <f:Panel ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
                                                         <Items>
-                                                            <f:Label runat="server" Text="附件：" ShowRedStar="true"  CssStyle="padding-left:53px" Width="100px" CssClass="marginr" ShowLabel="false"></f:Label>
+                                                            <f:Label runat="server" Text="附件：" ShowRedStar="true"  CssStyle="padding-left:53px" Width="110px" CssClass="marginr" ShowLabel="false"></f:Label>
                                                             <f:Button ID="imgBtnFile" Text="附件" ToolTip="上传及查看" OnClick="imgBtnFile_Click" Icon="TableCell" runat="server">
                                                             </f:Button>
                                                         </Items>
@@ -92,7 +92,7 @@
         </f:Form>
     </form>
       <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true"  runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false"  runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
 </body>

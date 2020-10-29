@@ -56,7 +56,7 @@
         <br />
         注：本多附件上传支持的浏览器版本为：Chrome、Firefox、Safari、IE10+ 。
       <f:Window ID="Window1" Title="播放" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server"  IsModal="true"
+        Target="Parent" EnableResize="false" runat="server"  IsModal="true"
         Width="700px" Height="600px">
     </f:Window>
     </form>

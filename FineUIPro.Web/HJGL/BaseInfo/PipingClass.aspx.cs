@@ -287,5 +287,17 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             return BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_PipingClassMenuId, button);
         }
         #endregion
+
+        #region 导入
+        /// <summary>
+        /// 导入按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+             PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("PipingClassIn.aspx", "导入 - ")));
+        }
+        #endregion
     }
 }

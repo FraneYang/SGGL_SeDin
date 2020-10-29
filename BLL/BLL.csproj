@@ -190,6 +190,7 @@
     <Compile Include="CQMS\WBS\ControlItemAndCycleService.cs" />
     <Compile Include="CQMS\WBS\ControlItemInitService.cs" />
     <Compile Include="CQMS\WBS\ControlItemProjectService.cs" />
+    <Compile Include="CQMS\WBS\WBSsearchService.cs" />
     <Compile Include="CQMS\WBS\WorkPackageInitService.cs" />
     <Compile Include="CQMS\WBS\WorkPackageProjectService.cs" />
     <Compile Include="CQMS\WBS\WorkPackageService.cs" />
@@ -251,7 +252,9 @@
     <Compile Include="HSSE\Accident\AccidentReportService.cs" />
     <Compile Include="HSSE\Accident\NoFourLetoffService.cs" />
     <Compile Include="HSSE\ActionPlan\ActionPlanListService.cs" />
+    <Compile Include="HSSE\ActionPlan\ActionPlan_CompanyManagerRuleService.cs" />
     <Compile Include="HSSE\ActionPlan\ActionPlan_ManagerRuleService.cs" />
+    <Compile Include="HSSE\ActionPlan\ActionPlan_ProjectManagerRuleService.cs" />
     <Compile Include="HSSE\Check\Check_CheckColligationDetailService.cs" />
     <Compile Include="HSSE\Check\Check_CheckColligationService.cs" />
     <Compile Include="HSSE\Check\Check_CheckSpecialDetailService.cs" />

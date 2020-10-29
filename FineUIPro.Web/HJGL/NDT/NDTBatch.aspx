@@ -206,15 +206,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-        EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
+        EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
         IsModal="true" Width="1200px" Height="660px">
     </f:Window>
     <f:Window ID="Window2" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-        EnableMaximize="true" Target="Parent" EnableResize="true" runat="server" IsModal="false" OnClose="Window2_Close" 
+        EnableMaximize="true" Target="Parent" EnableResize="false" runat="server" IsModal="false" OnClose="Window2_Close" 
         CloseAction="HidePostBack" Width="1024px" Height="640px">
     </f:Window>
     <f:Window ID="WindowRepair" Title="弹出窗体" Hidden="true"
-        EnableIFrame="true" EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+        EnableIFrame="true" EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
         IsModal="true" Width="1280px" Height="800px">
     </f:Window>
     </form>

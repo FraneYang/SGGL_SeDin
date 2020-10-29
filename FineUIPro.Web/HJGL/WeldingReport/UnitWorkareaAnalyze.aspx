@@ -218,7 +218,7 @@
         </Items>
     </f:Panel>
        <f:Window ID="Window1" Title="选择显示列" Hidden="true"
-        EnableIFrame="true" EnableMaximize="false" Target="Top" EnableResize="true" runat="server"
+        EnableIFrame="true" EnableMaximize="false" Target="Top" EnableResize="false" runat="server"
         IsModal="true" Width="900px" Height="560px" OnClose="Window1_Close">
     </f:Window>
     </form>

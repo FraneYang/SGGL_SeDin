@@ -118,7 +118,7 @@
                                                     </f:Button>--%>
                                             <f:Panel ID="Panel1" ShowHeader="false" ShowBorder="false" Layout="Column" runat="server">
                                                 <Items>
-                                                    <f:Label runat="server" Text="自检记录：" CssStyle="padding-left:25px" Width="100px" CssClass="marginr" ShowLabel="false"></f:Label>
+                                                    <f:Label runat="server" Text="自检记录：" CssStyle="padding-left:25px" Width="110px" CssClass="marginr" ShowLabel="false"></f:Label>
                                                     <f:Button ID="imgBtnFile" Text="自检记录" ToolTip="上传及查看" Icon="TableCell" runat="server"
                                                         OnClick="imgBtnFile_Click">
                                                     </f:Button>
@@ -271,11 +271,11 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="选择工作包" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1500px" Height="660px">
         </f:Window>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" OnClose="WindowAtt_Close" runat="server" IsModal="true" Width="700px"
+            Target="Parent" EnableResize="false" OnClose="WindowAtt_Close" runat="server" IsModal="true" Width="700px"
             Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

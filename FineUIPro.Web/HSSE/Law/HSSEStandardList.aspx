@@ -179,15 +179,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="安全标准规范" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1200px" Height="500px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window5_Close" IsModal="true"
         Width="350px" Height="150px" EnableAjax="false">
     </f:Window>
        <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Parent" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Parent" EnableResize="false" runat="server"
             IsModal="true" Width="700px" Height="500px">
        </f:Window>
     <f:Menu ID="Menu1" runat="server">

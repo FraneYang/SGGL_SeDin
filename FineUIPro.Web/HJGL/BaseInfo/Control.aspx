@@ -31,8 +31,8 @@
                                 <f:Panel runat="server" ShowHeader="false" ShowBorder="false">
                                     <Items>
                                         <f:Label runat="server" Text="注：1 壁厚系列号(Sch.No.)后缀加S者,仅用于不锈钢管，其单位长度的理论质量是以碳素钢钢管给出"></f:Label>
-                                        <f:Label runat="server" Text="2 尽可能不选用标注颜色的规则"></f:Label>
-                                        <f:Label runat="server" Text="3 本表可用于无缝或焊接钢管"></f:Label>
+                                        <f:Label runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 尽可能不选用标注颜色的规则"></f:Label>
+                                        <f:Label runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 本表可用于无缝或焊接钢管"></f:Label>
                                     </Items>
                                 </f:Panel>
 
@@ -44,7 +44,7 @@
                                 </f:Button>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                 </f:ToolbarFill>
-                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
+                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true" Margin="0 0 50 0"
                                     runat="server" OnClick="btnNew_Click">
                                 </f:Button>
                             </Items>
@@ -99,6 +99,12 @@
                         <f:RenderField Width="80px" ColumnID="XXS" DataField="XXS" FieldType="Float" HeaderText="XXS"
                             HeaderTextAlign="Center" TextAlign="Left" SortField="XXS">
                         </f:RenderField>
+                        <f:RenderField Width="80px" ColumnID="size" DataField="size" FieldType="Float" HeaderText="尺寸系列"
+                            HeaderTextAlign="Center" TextAlign="Left" SortField="size">
+                        </f:RenderField>
+                        <f:RenderField Width="80px" ColumnID="thickness" DataField="thickness" FieldType="Float" HeaderText="壁厚"
+                            HeaderTextAlign="Center" TextAlign="Left" SortField="thickness">
+                        </f:RenderField>
                     </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -120,7 +126,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
             IsModal="true" Width="900px" Height="350px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

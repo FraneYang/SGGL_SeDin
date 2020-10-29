@@ -47,7 +47,7 @@ namespace FineUIPro.Web.CQMS.Check
                 UnitService.InitUnitByProjectIdUnitTypeDropDownList(drpSponsorUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
                 UnitWorkService.InitUnitWorkDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);
                 CNProfessionalService.InitCNProfessionalDownList(drpCNProfessional, true);
-                QualityQuestionTypeService.InitQualityQuestionTypeDownList(drpQuestionType,true);
+                QualityQuestionTypeService.InitQualityQuestionTypeDownList(drpQuestionType, true);
                 Funs.FineUIPleaseSelect(this.dpHandelStatus);
                 btnNew.OnClientClick = Window1.GetShowReference("ChecklistEdit.aspx") + "return false;";
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();

@@ -122,11 +122,11 @@
         </Items>
     </f:Menu>
     <f:Window ID="Window2" Title="检查项目设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="600px" Height="240px">
     </f:Window>
     <f:Window ID="Window1" Title="编辑检查项目明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="600px" Height="240px">
     </f:Window>
     </form>

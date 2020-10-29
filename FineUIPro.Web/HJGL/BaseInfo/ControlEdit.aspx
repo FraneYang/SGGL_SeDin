@@ -65,13 +65,13 @@
                 </Items>
             </f:FormRow>
             <f:FormRow>
-                <Items>
+                <Items>                    
                     <f:NumberBox ID="txtXXS" runat="server" Label="XXS" NoNegative="true" DecimalPrecision="2">
                     </f:NumberBox>
-                    <f:Label ID="Label2" runat="server">
-                    </f:Label>
-                    <f:Label ID="Label3" runat="server">
-                    </f:Label>
+                    <f:NumberBox ID="txtSize" runat="server" Label="尺寸系列" NoNegative="true" DecimalPrecision="2">
+                    </f:NumberBox>
+                    <f:NumberBox ID="txtthickness" runat="server" Label="壁厚" NoNegative="true" DecimalPrecision="2">
+                    </f:NumberBox>
                 </Items>
             </f:FormRow>
         </Rows>

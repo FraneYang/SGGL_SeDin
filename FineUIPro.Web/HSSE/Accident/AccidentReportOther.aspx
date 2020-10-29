@@ -109,7 +109,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="事故调查处理报告" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1100px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1100px"
         Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

@@ -68,7 +68,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="角色管理" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" IsModal="true" 
+        Target="Self" EnableResize="false" runat="server" IsModal="true" 
         Width="700px" Height="400px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

@@ -105,19 +105,19 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑安全规章制度" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="750px" Height="320px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window5_Close" IsModal="true"
         Width="350px" Height="180px" EnableAjax="false">
     </f:Window>
     <%--<f:Window ID="Window6" Title="请点击下方保存下载附件到本地" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" Hidden="true" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" Hidden="true" IsModal="true"
         Width="400px" Height="10px" EnableAjax="false">
     </f:Window>--%>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Parent" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Parent" EnableResize="false" runat="server"
             IsModal="true" Width="800px" Height="500px">
        </f:Window>
     <f:Menu ID="Menu1" runat="server">

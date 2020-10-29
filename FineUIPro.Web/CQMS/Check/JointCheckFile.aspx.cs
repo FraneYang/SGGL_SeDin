@@ -439,7 +439,7 @@ namespace FineUIPro.Web.CQMS.Check
                         var user1 = UserService.GetUserByUserId(approve1.ApproveMan);
                         if (user1 != null)
                         {
-                            row1[7] = user1.UserName;
+                            row1[7] = "分包专工："+user1.UserName;
                         }
                     }
                     var approve2 = JointCheckApproveService.GetAudit2(fileId, detail.JointCheckDetailId);
@@ -448,7 +448,7 @@ namespace FineUIPro.Web.CQMS.Check
                         var user2 = UserService.GetUserByUserId(approve2.ApproveMan);
                         if (user2 != null)
                         {
-                            row1[8] = user2.UserName;
+                            row1[8] = "分包负责：" + user2.UserName;
                         }
                     }
                     var approve3 = JointCheckApproveService.GetAudit3(fileId, detail.JointCheckDetailId);
@@ -457,7 +457,7 @@ namespace FineUIPro.Web.CQMS.Check
                         var user3 = UserService.GetUserByUserId(approve3.ApproveMan);
                         if (user3 != null)
                         {
-                            row1[9] = user3.UserName;
+                            row1[9] = "总包专工：" + user3.UserName;
                         }
                     }
                     var approve4 = JointCheckApproveService.GetAudit4(fileId, detail.JointCheckDetailId);
@@ -466,7 +466,7 @@ namespace FineUIPro.Web.CQMS.Check
                         var user4 = UserService.GetUserByUserId(approve4.ApproveMan);
                         if (user4 != null)
                         {
-                            row1[10] = user4.UserName;
+                            row1[10] = "总包负责：" + user4.UserName;
                         }
                     }
                     dt.Rows.Add(row1);
@@ -534,7 +534,7 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;
-                builder.CellFormat.Width = 205;
+                builder.CellFormat.Width = 219;
                 builder.Write("签字栏");
                 builder.EndRow();
                 builder.RowFormat.Height = 20;
@@ -579,19 +579,19 @@ namespace FineUIPro.Web.CQMS.Check
                         }
                         else if (column.ColumnName == "签字栏1")
                         {
-                            builder.CellFormat.Width = 51;
+                            builder.CellFormat.Width = 54;
                         }
                         else if (column.ColumnName == "签字栏2")
                         {
-                            builder.CellFormat.Width = 51;
+                            builder.CellFormat.Width = 55;
                         }
                         else if (column.ColumnName == "签字栏3")
                         {
-                            builder.CellFormat.Width = 51;
+                            builder.CellFormat.Width = 55;
                         }
                         else if (column.ColumnName == "签字栏4")
                         {
-                            builder.CellFormat.Width = 52;
+                            builder.CellFormat.Width = 55;
                         }
                         builder.Write(row[column.ColumnName].ToString());
                     }

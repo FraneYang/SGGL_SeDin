@@ -9,6 +9,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>编辑职工伤亡事故原因分析报</title>
     <link href="~/res/css/common.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .big {
+            font-size: 17px;
+        }
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -16,11 +21,11 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow ColumnWidths="20% 15% 10% 10% 10% 28%">
+            <f:FormRow ColumnWidths="27% 16% 10% 10% 10% 20%">
                 <Items>
                     <f:Label ID="Label1" runat="server">
                     </f:Label>
-                    <f:Label ID="Label2" runat="server" Text="职工伤亡事故原因分析">
+                    <f:Label ID="Label2" runat="server" Text="职工伤亡事故原因分析" CssClass="big">
                     </f:Label>
                     <f:DropDownList ID="drpMonth" AutoPostBack="true" EnableSimulateTree="true" Required="true"
                         ShowRedStar="true" runat="server" OnSelectedIndexChanged="drpMonth_SelectedIndexChanged">
@@ -28,7 +33,7 @@
                     <f:DropDownList ID="drpYear" AutoPostBack="true" EnableSimulateTree="true" Required="true"
                         ShowRedStar="true" runat="server" OnSelectedIndexChanged="drpYear_SelectedIndexChanged">
                     </f:DropDownList>
-                    <f:Label ID="Label3" runat="server" Text="报表">
+                    <f:Label ID="Label3" runat="server" Text="报表" CssClass="big">
                     </f:Label>
                     <f:Label ID="Label4" runat="server">
                     </f:Label>
@@ -46,7 +51,7 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="6% 5% 10% 6% 5% 6% 7% 6% 5% 6% 7% 6% 4% 6% 4%">
+            <f:FormRow ColumnWidths="6% 5% 10% 6% 6% 6% 9% 6% 6% 6% 9% 6% 6% 6% 4%">
                 <Items>
                     <f:Label ID="Label7" runat="server" Text="二、本月">
                     </f:Label>
@@ -80,7 +85,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="5% 5% 8% 10% 4% 10% 6%">
+            <f:FormRow ColumnWidths="6% 5% 10% 10% 5% 10% 6%">
                 <Items>
                     <f:Label ID="Label15" runat="server" Text="三、本月">
                     </f:Label>
@@ -98,7 +103,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="14% 10% 6% 5% 9% 10% 6%">
+            <f:FormRow ColumnWidths="16% 10% 7% 5% 11% 10% 6%">
                 <Items>
                     <f:Label ID="Label21" runat="server" Text="四、本月事故损失工时总数">
                     </f:Label>
@@ -116,7 +121,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="8% 5% 9% 10% 6%">
+            <f:FormRow ColumnWidths="10% 5% 11% 10% 6%">
                 <Items>
                     <f:Label ID="Label19" runat="server" Text="五、伤者在本月">
                     </f:Label>
@@ -130,7 +135,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="9% 10% 6% 10% 5% 10% 6%">
+            <f:FormRow ColumnWidths="11% 10% 7% 10% 6% 10% 6%">
                 <Items>
                     <f:Label ID="Label22" runat="server" Text="六、事故直接损失">
                     </f:Label>
@@ -148,7 +153,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="10% 10% 6%">
+            <f:FormRow ColumnWidths="12% 10% 6%">
                 <Items>
                     <f:Label ID="Label27" runat="server" Text="七、无损失工时总数">
                     </f:Label>

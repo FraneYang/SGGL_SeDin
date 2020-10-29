@@ -36,7 +36,7 @@ namespace FineUIPro.Web.HSSE.Accident
                 var unit = BLL.UnitService.GetUnitByUnitId(BLL.Const.UnitId_SEDIN);
                 if (unit != null && !string.IsNullOrEmpty(unit.UnitCode))
                 {
-                    string url = "../../Images/SUBimages/" + unit.UnitCode + ".gif";
+                    string url = "../../Images/SUBimages/" + unit.UnitCode + ".jpg";
                     if (url.Contains('*'))
                     {
                         url = url.Replace('*', '-');

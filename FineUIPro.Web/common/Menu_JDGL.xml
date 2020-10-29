@@ -3,4 +3,7 @@
   <TreeNode id="BAC3D994-03A8-466C-8975-A31039998BCC" Text="施工进度统计" NavigateUrl="JDGL/Check/ProgressShow.aspx">
   </TreeNode>
 <TreeNode id="1172B112-2A12-4410-AD66-E5BA6B461475" Text="施工进度赢得值曲线" NavigateUrl="JDGL/Check/ProgressStatistics.aspx"></TreeNode>
+<TreeNode id="4288426D-E49B-4E5D-A495-7E6A76F269B5" Text="周计划" NavigateUrl=""></TreeNode>
+<TreeNode id="C75F0853-8A2B-4B32-83B7-509278D11957" Text="项目里程碑节点" NavigateUrl=""></TreeNode>
+<TreeNode id="3550F422-E520-4962-9816-B691B0EE2865" Text="形象进度照片" NavigateUrl=""></TreeNode>
 </Tree>

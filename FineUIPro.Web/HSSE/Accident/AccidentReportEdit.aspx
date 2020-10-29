@@ -36,15 +36,15 @@
                     </f:Image>
                 </Items>
             </f:Panel>
-            <f:Panel ID="Panel3" Title="Panel1" Width="350px" Height="30px" runat="server" BodyPadding="1px"
-                ShowBorder="false" ShowHeader="false">
+            <f:Panel ID="Panel3" Title="Panel1" Width="460px" Height="30px" runat="server" BodyPadding="1px"
+                ShowBorder="false" ShowHeader="false" BoxConfigAlign="Center">
                 <Items>
                     <f:Label ID="lblProjectName" runat="server" CssClass="titler" Margin="5 0 0 20">
                     </f:Label>
                 </Items>
             </f:Panel>
-            <f:Panel ID="Panel5" Title="Panel1" Width="350px" Height="30px" runat="server" BodyPadding="1px"
-                ShowBorder="false" ShowHeader="false">
+            <f:Panel ID="Panel5" Title="Panel1" Width="250px" Height="30px" runat="server" BodyPadding="1px"
+                ShowBorder="false" ShowHeader="false" BoxConfigAlign="Center">
                 <Items>
                     <f:TextBox ID="txtAccidentReportName" runat="server" LabelAlign="Right" Width="250px">
                     </f:TextBox>
@@ -53,7 +53,7 @@
             <f:Panel ID="Panel4" Title="Panel1" Width="300px" Height="50px" TableRowspan="2"
                 runat="server" BodyPadding="1px" ShowBorder="false" ShowHeader="false">
                 <Items>
-                    <f:Label ID="Label3" runat="server" Text="事故报告登记" CssClass="titler" Margin="5 0 0 40">
+                    <f:Label ID="Label3" runat="server" Text="事故报告登记" CssClass="titler" Margin="5 0 0 95">
                     </f:Label>
                 </Items>
             </f:Panel>
@@ -216,7 +216,7 @@
     </f:Toolbar>
     </form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
 </body>

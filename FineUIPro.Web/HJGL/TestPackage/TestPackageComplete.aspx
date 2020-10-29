@@ -66,7 +66,7 @@
                                     <Items>
                                         <f:Label ID="txtTestDate" Label="试验日期" runat="server" LabelWidth="130px">
                                         </f:Label>
-                                        <f:Label ID="txtadjustTestPressure" Label="调整试验压力" runat="server" LabelWidth="120px">
+                                        <f:Label ID="txtadjustTestPressure" Label="调整试验压力" runat="server" LabelWidth="130px">
                                         </f:Label>
                                         <f:Label ID="txtAmbientTemperature" Label="试验环境温度" runat="server" LabelWidth="130px">
                                         </f:Label>
@@ -127,11 +127,11 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="试压包维护" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="1280px" Height="700px">
         </f:Window>
         <f:Window ID="Window2" Title="试压包打印" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1024px" Height="900px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

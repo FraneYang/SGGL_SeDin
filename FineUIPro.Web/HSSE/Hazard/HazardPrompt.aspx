@@ -15,6 +15,7 @@
          .f-grid-row.Yellow
         {
             background-color: Yellow;
+            color:blue;
         }              
         .f-grid-row.Red
         {
@@ -95,11 +96,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="提示" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1200px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1200px"
         Height="600px">
     </f:Window>
     <f:Window ID="Window2" Title="响应" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="900px"
         Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

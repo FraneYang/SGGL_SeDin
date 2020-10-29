@@ -26,10 +26,10 @@
                                 LabelAlign="right">
                             </f:TextBox>
                             <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" 
-                                OnSelectedIndexChanged="TextBox_TextChanged"  LabelWidth="70px" Width="250px">
+                                OnSelectedIndexChanged="TextBox_TextChanged"  LabelWidth="70px" Width="250px" LabelAlign="right">
                             </f:DropDownList>
                             <f:TextBox runat="server" Label="人员姓名" ID="txtPersonName" EmptyText="输入查询条件" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="70px" LabelAlign="right">
+                                OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="100px" LabelAlign="right">
                             </f:TextBox>
                             <f:TextBox runat="server" Label="岗位" ID="txtWorkPostName" EmptyText="输入查询条件" AutoPostBack="true"
                                 OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="70px" LabelAlign="right">
@@ -117,11 +117,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="安全人员资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="800px"
         Height="500px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

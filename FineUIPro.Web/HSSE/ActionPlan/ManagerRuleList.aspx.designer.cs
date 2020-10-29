@@ -58,6 +58,15 @@ namespace FineUIPro.Web.HSSE.ActionPlan {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
+        /// rblType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.RadioButtonList rblType;
+        
+        /// <summary>
         /// txtManageRuleCode 控件。
         /// </summary>
         /// <remarks>
@@ -119,15 +128,6 @@ namespace FineUIPro.Web.HSSE.ActionPlan {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblManageRuleCode;
-        
-        /// <summary>
-        /// lblOldManageRuleCode 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOldManageRuleCode;
         
         /// <summary>
         /// lblManageRuleName 控件。

@@ -425,7 +425,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     }
                     else
                     {
-                        Alert.ShowInTop("管线未全部通过不允许审核操作！", MessageBoxIcon.Warning);
+                        Alert.ShowInTop("管线未全部通过不允许确认操作！", MessageBoxIcon.Warning);
                         return;
                     }
                 }

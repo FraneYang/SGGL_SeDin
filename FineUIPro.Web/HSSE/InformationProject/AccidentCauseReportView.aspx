@@ -38,7 +38,7 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="5% 5% 8% 6% 5% 6% 7% 6% 5% 6% 7% 6% 5% 6% 5%">
+            <f:FormRow ColumnWidths="6% 5% 10% 6% 6% 6% 9% 6% 6% 6% 9% 6% 6% 6% 4%">
                 <Items>
                     <f:Label ID="Label7" runat="server" Text="二、本月">
                     </f:Label>
@@ -72,7 +72,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="5% 5% 8% 10% 4% 10% 6%">
+            <f:FormRow ColumnWidths="6% 5% 10% 10% 5% 10% 6%">
                 <Items>
                     <f:Label ID="Label15" runat="server" Text="三、本月">
                     </f:Label>
@@ -90,7 +90,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="14% 10% 6% 5% 9% 10% 6%">
+            <f:FormRow ColumnWidths="16% 10% 7% 5% 11% 10% 6%">
                 <Items>
                     <f:Label ID="Label21" runat="server" Text="四、本月事故损失工时总数">
                     </f:Label>
@@ -108,7 +108,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="8% 5% 9% 10% 6%">
+            <f:FormRow ColumnWidths="10% 5% 11% 10% 6%">
                 <Items>
                     <f:Label ID="Label19" runat="server" Text="五、伤者在本月">
                     </f:Label>
@@ -122,7 +122,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="9% 10% 6% 10% 5% 10% 6%">
+            <f:FormRow ColumnWidths="11% 10% 7% 10% 6% 10% 6%">
                 <Items>
                     <f:Label ID="Label22" runat="server" Text="六、事故直接损失">
                     </f:Label>
@@ -140,7 +140,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="10% 10% 6%">
+            <f:FormRow ColumnWidths="12% 10% 6%">
                 <Items>
                     <f:Label ID="Label27" runat="server" Text="七、无损失工时总数">
                     </f:Label>

@@ -132,11 +132,11 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="吹扫/清洗包维护" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="1280px" Height="900px">
         </f:Window>
         <f:Window ID="Window2" Title="吹扫/清洗包打印" Hidden="true" EnableIFrame="true"
-            EnableMaximize="true" Target="Top" EnableResize="true" runat="server"
+            EnableMaximize="true" Target="Top" EnableResize="false" runat="server"
             IsModal="true" Width="1024px" Height="900px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

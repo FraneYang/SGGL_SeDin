@@ -79,6 +79,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtXXS.Text = DNCompare.XXS.ToString();
                         }
+                        if (DNCompare.Size.HasValue)
+                        {
+                            this.txtSize.Text = DNCompare.Size.ToString();
+                        }
+                        if (DNCompare.Thickness.HasValue)
+                        {
+                            this.txtthickness.Text = DNCompare.Thickness.ToString();
+                        }
                     }
                 }
             }

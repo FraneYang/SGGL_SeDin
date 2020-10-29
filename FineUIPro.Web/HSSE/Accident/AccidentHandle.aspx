@@ -105,7 +105,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="HSE事故(含未遂)处理" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1024px"
         Height="550px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

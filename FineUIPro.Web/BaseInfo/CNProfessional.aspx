@@ -81,7 +81,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="施工专业" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="500px" Height="300px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

@@ -18,7 +18,7 @@
     <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
-            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="答题记录" EnableCollapse="true"
+            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="答题记录" EnableCollapse="true" ForceFit="true"
                 runat="server" BoxFlex="1" DataKeyNames="TestRecordId" EnableColumnLines="true" DataIDField="TestRecordId" 
                 AllowSorting="true" SortField="TestScores" SortDirection="DESC"  OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange" 
@@ -63,16 +63,16 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>                     
-                    <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
+                    <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
                         HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
+                    <f:RenderField Width="80px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
                         HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="ManTypeName" DataField="ManTypeName" FieldType="String"
+                    <f:RenderField Width="90px" ColumnID="ManTypeName" DataField="ManTypeName" FieldType="String"
                         HeaderText="类型" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="TestStartTime" DataField="TestStartTime" FieldType="String"
+                    <f:RenderField Width="160px" ColumnID="TestStartTime" DataField="TestStartTime" FieldType="String"
                         HeaderText="考试开始时间" HeaderTextAlign="Center" TextAlign="Left" SortField="TestStartTime">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="TestEndTime" DataField="TestEndTime" FieldType="String"
@@ -81,7 +81,7 @@
                      <f:RenderField Width="80px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
                         HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Right" SortField="TestScores">
                     </f:RenderField>
-                      <f:RenderField Width="120px" ColumnID="UseTimes" DataField="UseTimes" FieldType="String"
+                      <f:RenderField Width="100px" ColumnID="UseTimes" DataField="UseTimes" FieldType="String"
                         HeaderText="用时" HeaderTextAlign="Center" TextAlign="Right" SortField="UserTimesD">
                     </f:RenderField>
                     <%--<f:RenderField Width="110px" ColumnID="DepartName" DataField="DepartName" FieldType="String"
@@ -113,7 +113,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="答题记录查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true"
         Width="1200px" Height="560px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

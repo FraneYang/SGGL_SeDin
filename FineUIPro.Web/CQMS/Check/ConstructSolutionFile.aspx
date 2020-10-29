@@ -157,15 +157,15 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="施工方案" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="850px" Height="500px">
         </f:Window>
         <f:Window ID="window_tt" Title="施工方案" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="window_tt_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="window_tt_Close"
             Width="1300px" Height="660px">
         </f:Window>
            <f:Window ID="Windowtt" Title="文件柜" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true"
       Width="700px"   Height="500px" >
                </f:Window>
         <f:Menu ID="Menu1" runat="server">

@@ -118,6 +118,10 @@ namespace FineUIPro.Web.ProjectData
                         this.txtMapCoordinates.Text = project.MapCoordinates;
                         this.txtProjectMoney.Text = project.ProjectMoney.ToString();
                         this.txtConstructionMoney.Text = project.ConstructionMoney.ToString();
+                        this.txtTelephone.Text = project.Telephone;
+                        this.txtCountry.Text = project.Country;
+                        this.txtProvince.Text = project.Province;
+                        this.txtCity.Text = project.City;
                     }
                 }
             }
@@ -143,6 +147,10 @@ namespace FineUIPro.Web.ProjectData
                 ProjectMoney=Funs.GetNewDecimal(this.txtProjectMoney.Text),
                 ConstructionMoney = Funs.GetNewDecimal(this.txtConstructionMoney.Text),
                 Remark=this.txtRemark.Text.Trim(),
+                Telephone=this.txtTelephone.Text.Trim(),
+                Country=this.txtCountry.Text.Trim(),
+                Province=this.txtProvince.Text.Trim(),
+                City=this.txtCity.Text.Trim(),
             };
 
             if (!string.IsNullOrEmpty(txtStartDate.Text.Trim()))

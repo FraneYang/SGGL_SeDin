@@ -112,11 +112,11 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="处罚通知单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1000px"
             Height="600px" OnClose="Window1_Close">
         </f:Window>
         <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" IsModal="true" Width="700px" OnClose="WindowAtt_Close"
+            Target="Self" EnableResize="false" runat="server" IsModal="true" Width="700px" OnClose="WindowAtt_Close"
             Height="500px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

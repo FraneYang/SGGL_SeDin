@@ -181,8 +181,8 @@
                                 <Toolbars>
                                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                                         <Items>
-                                            <f:Label ID="MonthOk" runat="server" Label="本月质量验收一次合格率" Width="400px" LabelWidth="180px"></f:Label>
-                                            <f:Label ID="AllOk" runat="server" Label="累计质量验收一次合格率" Width="400px" LabelWidth="180px"></f:Label>
+                                            <f:Label ID="MonthOk" runat="server" Label="本月质量验收一次合格率" Width="400px" LabelWidth="190px"></f:Label>
+                                            <f:Label ID="AllOk" runat="server" Label="累计质量验收一次合格率" Width="400px" LabelWidth="190px"></f:Label>
                                         </Items>
                                     </f:Toolbar>
                                 </Toolbars>
@@ -330,8 +330,8 @@
                             runat="server">
 
                             <Items>
-                                <f:Label ID="MonthDataOk" runat="server" Label="本月质量记录同步率" Width="600px" LabelWidth="150px"></f:Label>
-                                <f:Label ID="AllDataOk" runat="server" Label="累计质量记录同步率" Width="600px" LabelWidth="150px"></f:Label>
+                                <f:Label ID="MonthDataOk" runat="server" Label="本月质量记录同步率" Width="600px" LabelWidth="160px"></f:Label>
+                                <f:Label ID="AllDataOk" runat="server" Label="累计质量记录同步率" Width="600px" LabelWidth="160px"></f:Label>
                                 <f:TextArea ID="txtConstructionData" ShowRedStar="true" Required="true" runat="server" Width="1230px" MaxLength="3000"></f:TextArea>
                             </Items>
 

@@ -139,24 +139,6 @@ namespace FineUIPro.Web.HSSE.CostGoods {
         protected global::FineUIPro.Label Label1;
         
         /// <summary>
-        /// Panel4 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Panel Panel4;
-        
-        /// <summary>
-        /// Label2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label2;
-        
-        /// <summary>
         /// Panel6 控件。
         /// </summary>
         /// <remarks>
@@ -175,22 +157,22 @@ namespace FineUIPro.Web.HSSE.CostGoods {
         protected global::FineUIPro.Label Label3;
         
         /// <summary>
-        /// Panel7 控件。
+        /// Panel4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel Panel7;
+        protected global::FineUIPro.Panel Panel4;
         
         /// <summary>
-        /// Label4 控件。
+        /// Label2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label4;
+        protected global::FineUIPro.Label Label2;
         
         /// <summary>
         /// Label5 控件。

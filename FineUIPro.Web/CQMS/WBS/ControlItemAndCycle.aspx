@@ -55,8 +55,8 @@
                                             Hidden="true">
                                         </f:Button>--%>
                                         <f:Label runat="server" Width="380px" ID="lbHd"></f:Label>
-                                        <f:CheckBox runat="server" ID="cbAllHGForms" Label="全选对应的化工资料表格" LabelWidth="175px" AutoPostBack="true" OnCheckedChanged="cbAllHGForms_CheckedChanged"></f:CheckBox>
-                                        <f:CheckBox runat="server" ID="cbAllSHForms" Label="全选对应的石化资料表格" LabelWidth="175px" AutoPostBack="true" OnCheckedChanged="cbAllSHForms_CheckedChanged"></f:CheckBox>
+                                        <f:CheckBox runat="server" ID="cbAllHGForms" Label="全选对应的化工资料表格" LabelWidth="185px" AutoPostBack="true" OnCheckedChanged="cbAllHGForms_CheckedChanged"></f:CheckBox>
+                                        <f:CheckBox runat="server" ID="cbAllSHForms" Label="全选对应的石化资料表格" LabelWidth="185px" AutoPostBack="true" OnCheckedChanged="cbAllSHForms_CheckedChanged"></f:CheckBox>
                                         <f:ToolbarFill runat="server"></f:ToolbarFill>
                                         <f:Button ID="btnIn" ToolTip="批量导入计划完成时间" Icon="ArrowDown" runat="server" Text="" Hidden="true"
                                             OnClick="btnIn_Click">
@@ -167,15 +167,15 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="定制" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Self" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="1300px" Height="656px">
         </f:Window>
         <f:Window ID="Window2" Title="增加" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+            Target="Self" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"
             Width="1300px" Height="656px">
         </f:Window>
         <f:Window ID="Window3" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Self" EnableResize="true" runat="server" OnClose="Window3_Close" IsModal="true"
+            Target="Self" EnableResize="false" runat="server" OnClose="Window3_Close" IsModal="true"
             Width="1300px" Height="656px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

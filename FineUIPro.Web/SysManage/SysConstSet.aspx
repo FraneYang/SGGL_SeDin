@@ -248,10 +248,11 @@
                                 <f:Form ID="frTestSet" ShowBorder="false" ShowHeader="false" AutoScroll="true"
                                     BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                                     <Rows>
-                                        <f:FormRow ColumnWidths="35% 65%">
+                                        <f:FormRow ColumnWidths="25% 10% 65%">
                                             <Items>
-                                                <f:Label ID="lbTotalScore" Label="总分" runat="server" LabelWidth="220px"></f:Label>
+                                                <f:Label ID="lbTotalScore" Label="总分" runat="server" LabelWidth="270px"></f:Label>
                                                 <f:Label ID="lbTotalCount" Label="题目数量" runat="server"></f:Label>
+                                                <f:Label runat="server"></f:Label>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow ColumnWidths="35% 65%">
@@ -336,7 +337,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="流程步骤设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="640px" Height="450px">
         </f:Window>
     </form>

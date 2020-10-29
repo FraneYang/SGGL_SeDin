@@ -86,7 +86,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="受限空间作业票" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+            Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
             Width="1100px" Height="640px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

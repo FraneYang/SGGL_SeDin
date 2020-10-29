@@ -12,7 +12,7 @@
     <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
-            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="缺陷性质"
+            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="缺陷性质" ForceFit="true"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="DefectId"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="DefectId" AllowSorting="true"
                 SortField="DefectId" SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true"
@@ -70,7 +70,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
-        EnableMaximize="true" Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close"
+        EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
         IsModal="true" Width="600px" Height="300px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

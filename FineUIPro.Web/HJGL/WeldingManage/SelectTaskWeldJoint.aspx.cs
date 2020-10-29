@@ -319,6 +319,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(txtTaskDate.Text) + ActiveWindow.GetHidePostBackReference());
+            //PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
         #endregion
     }

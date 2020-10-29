@@ -78,7 +78,7 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="Window1" Title="选择主项及设计专业" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="600px" Height="560px">
         </f:Window>
     </form>

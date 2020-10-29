@@ -11,8 +11,8 @@
 </TreeNode>
 <TreeNode id="1D009522-D2C6-4256-B4FB-3E5E061A23D7" Text="焊接工艺评定" NavigateUrl=""><TreeNode id="63CD1C52-1A87-4946-9CA7-8C3C2CB0CA2E" Text="焊接工艺规程编制" NavigateUrl="HJGL/WPQ/WPQList.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-DCS2-DCC3O48F080F" Text="焊口基础信息" NavigateUrl=""><TreeNode id="32F5CC8C-E0F4-456C-AB88-77E36269FA50" Text="焊口基础信息" NavigateUrl="HJGL/WeldingManage/WeldJointList.aspx"></TreeNode>
-<TreeNode id="8IDKGJE2-09B1-6UIO-3EFM-5TGED48F0001" Text="管线信息" NavigateUrl="HJGL/WeldingManage/PipelineList.aspx"></TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-DCS2-DCC3O48F080F" Text="焊口基础信息" NavigateUrl=""><TreeNode id="8IDKGJE2-09B1-6UIO-3EFM-5TGED48F0001" Text="管线信息" NavigateUrl="HJGL/WeldingManage/PipelineList.aspx"></TreeNode>
+<TreeNode id="32F5CC8C-E0F4-456C-AB88-77E36269FA50" Text="焊口基础信息" NavigateUrl="HJGL/WeldingManage/WeldJointList.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="4D36E99E-B3D8-4C61-826A-CBD98EC51515" Text="焊接日报" NavigateUrl=""><TreeNode id="6ce0b6bc-aa4d-4f0d-9f1f-75a553810793" Text="焊接任务单" NavigateUrl="HJGL/WeldingManage/WeldTask.aspx"></TreeNode>
 <TreeNode id="294A4F70-B19E-4D84-A09D-484128D9CC19" Text="预提交日报审核" NavigateUrl="HJGL/WeldingManage/PreWeldReportAudit.aspx"></TreeNode>
@@ -33,7 +33,7 @@
 </TreeNode>
 <TreeNode id="A24B7926-EF69-456E-8A24-936D30384680" Text="试压管理" NavigateUrl=""><TreeNode id="1C6F9CA9-FDAC-4CE5-A19C-5536538851E1" Text="试压包划分" NavigateUrl="HJGL/TestPackage/TestPackageEdit.aspx"></TreeNode>
 <TreeNode id="55976B16-2C33-406E-B514-2FE42D031071" Text="试压前条件确认" NavigateUrl="HJGL/TestPackage/TestPackageAudit.aspx"></TreeNode>
-<TreeNode id="24941EDC-CED6-4176-8CCD-EB5F08156D08" Text="尾项检查及消项" NavigateUrl="HJGL/TestPackage/AItemEndCheck.aspx"></TreeNode>
+<TreeNode id="24941EDC-CED6-4176-8CCD-EB5F08156D08" Text="尾项检查及消项" NavigateUrl="HJGL/TestPackage/ItemEndCheck.aspx"></TreeNode>
 <TreeNode id="82951D78-9029-4F69-A032-00C47551B3E6" Text="压力试验" NavigateUrl="HJGL/TestPackage/TestPackageComplete.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="96e7b541-7364-4075-a2b2-d6e0024f1781" Text="泄露性/真空管理" NavigateUrl=""><TreeNode id="4b1c7e7d-dc3e-46f6-b1e9-fab4457e7684" Text="泄露性/真空试验录入" NavigateUrl="HJGL/LeakVacuum/LeakVacuumEdit.aspx"></TreeNode>

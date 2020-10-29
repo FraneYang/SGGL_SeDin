@@ -242,6 +242,32 @@
         .Accumulation-next .tab-h .txt, .Accumulation-next .tab-i .txt {
             width: 45px;
         }
+
+        .tab-content .txt {
+            display: flex;
+            align-items: center;
+        }
+
+        @media screen and (min-height:780px) {
+            .tab-content .line-item {
+                border-radius: 25px;
+                height: 50px;
+            }
+
+                .tab-content .line-item > div {
+                    border-radius: 25px;
+                }
+        }
+ 	.itemflex{
+           padding-bottom:10px;
+        }
+        .itemflex2{
+             padding-top:10px;
+        }
+	.bw-b-bottom{
+            width:100%;
+            height:100%;
+        }
     </style>
 </head>
 <body>
@@ -349,75 +375,58 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex1" style="margin-top: 10px;">
-                    <div id="swiper-pre" class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
-                        <div class="bw-item-content flex flexV">
-                            <div class="tit-new">劳务统计</div>
-                            <%--<div class=" flex1">
-                                <div id='Accumulation' style="width: 100%; height: 100%;"></div>
-                            </div>--%>
-                            <div class="content-wrap tab-content flex1 flex" style="overflow: visible;">
-                                <div class="Accumulation-next">
-                                    <div class="flex tab-h">
-                                        <div class="txt">工程名</div>
-                                        <div class="txt">在线数</div>
-                                        <%--<div class="flex1">在线率</div>--%>
-                                    </div>
-                                    <div class="flex tab-i">
-                                        <div class="txt">工程1</div>
-                                        <div class="txt">12</div>
-                                        <%-- <div class="flex1 flex line-wrap">
-                                            <div class="line-item">
-                                                <div style="width:50%"></div>
-                                            </div>
-                                            <div class="per">50%</div>
-                                        </div>--%>
-                                    </div>
-                                    <div class="flex tab-i">
-                                        <div class="txt">工程2</div>
-                                        <div class="txt">23</div>
-                                        <%--<div class="flex1 flex line-wrap">
-                                            <div class="line-item">
-                                                <div style="width:90%"></div>
-                                            </div>
-                                            <div class="per">90%</div>
-                                        </div>--%>
-                                    </div>
-                                    <div class="flex tab-i">
-                                        <div class="txt">工程3</div>
-                                        <div class="txt">34</div>
-                                        <%-- <div class="flex1 flex line-wrap">
-                                        <div class="line-item">
-                                            <div style="width:90%"></div>
-                                        </div>
-                                        <div class="per">90%</div>
-                                    </div>--%>
-                                    </div>
-                                </div>
-                                <div class=" flex1">
-                                    <div id='Accumulation' style="width: 100%; height: 100%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="spline" style="width: 2%;"></div>
-                    <div class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
-                        <div class="bw-item-content flex flexV">
-                            <div class="tit-new">
-                                <div class="tab-wrap-tit">
-                                    <div class="tab" data-value="1">
-                                        <div class="t-item active">通知</div>
-                                        <div class="spline"></div>
-                                        <div class="t-item">待办</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="" style="padding: 0 10px 0;overflow:hidden;">
-                                <div class="swiper-container " id='swiper2' runat="server">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="flex1 itemflex2">
+                  <div class="flex bw-b-bottom">
+                      <div id="swiper-pre" class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
+                          <div class="bw-item-content flex flexV">
+                              <div class="tit-new">劳务统计</div>
+                              <%--<div class=" flex1">
+                                  <div id='Accumulation' style="width: 100%; height: 100%;"></div>
+                              </div>--%>
+                              <div class="content-wrap tab-content flex1 flex" style="overflow: visible;padding-bottom:0;margin-top:0;">
+                                  <%--<div class="Accumulation-next">
+                                      <div class="flex tab-h">
+                                          <div class="txt">工程名</div>
+                                          <div class="txt">在线数</div>
+                                      </div>
+                                      <div class="flex tab-i">
+                                          <div class="txt">工程1</div>
+                                          <div class="txt">12</div>
+                                      </div>
+                                      <div class="flex tab-i">
+                                          <div class="txt">工程2</div>
+                                          <div class="txt">23</div>
+                                      </div>
+                                      <div class="flex tab-i">
+                                          <div class="txt">工程3</div>
+                                          <div class="txt">34</div>
+                                      </div>
+                                  </div>--%>
+                                  <div class=" flex1">
+                                      <div id='Accumulation' style="width: 100%; height: 100%;"></div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="spline" style="width: 2%;"></div>
+                      <div class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
+                          <div class="bw-item-content flex flexV">
+                              <div class="tit-new">
+                                  <div class="tab-wrap-tit">
+                                      <div class="tab" data-value="1">
+                                          <div class="t-item active">通知</div>
+                                          <div class="spline"></div>
+                                          <div class="t-item">待办</div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="" style="padding: 0 10px 0; overflow: hidden;">
+                                  <div class="swiper-container " id='swiper2' runat="server">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 </div>
             </div>
             <!--右侧-->
@@ -529,10 +538,25 @@
                 },
                 axisLabel: {
                     show: true,
-                       interval: 0,
+                    interval: 0,
+                    rotate: 50,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
-                    }
+                    },
+                    formatter: function(params) {
+                        var newParamsName = ''
+                        var paramsNameNumber = params.length
+                        var provideNumber = 6
+                        var rowNumber = Math.ceil(paramsNameNumber / provideNumber)
+                        for (let row = 0; row < rowNumber; row++) {
+                          newParamsName +=
+                            params.substring(
+                              row * provideNumber,
+                              (row + 1) * provideNumber
+                            ) + '\n'
+                        }
+                        return newParamsName
+                      }
                 },
                 type: 'category',
                 data: xArr
@@ -542,13 +566,13 @@
                     show: false
                 },
                 axisLine: {
-                    show: false,                 
+                    show: false,
                     lineStyle: {
                         color: 'rgba(255, 255, 255, 0.3)'
                     }
                 },
                 axisLabel: {
-                    show: true,                    
+                    show: true,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -627,7 +651,7 @@
                 },
                 axisLabel: {
                     show: true,
-                      interval: 0,
+                    interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -723,7 +747,7 @@
                 },
                 axisLabel: {
                     show: true,
-                      interval: 0,
+                    interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -847,7 +871,7 @@
                 },
                 axisLabel: {
                     show: true,
-                      interval: 0,
+                    interval: 0,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
@@ -1355,7 +1379,7 @@
         } else if (value == 1) {
             if (index == 0) {
                 $("#swiper2").html(swiper_One)
-                 mySwiper = new Swiper('#swiper2', {
+                mySwiper = new Swiper('#swiper2', {
                     autoplay: 4000,//可选选项，自动滑动
                     direction: 'vertical',
                     loop: true,
@@ -1363,7 +1387,7 @@
                 })
             } else if (index == 2) {
                 $("#swiper2").html(swiper_Two)
-                  mySwiper = new Swiper('#swiper2', {
+                mySwiper = new Swiper('#swiper2', {
                     autoplay: 4000,//可选选项，自动滑动
                     direction: 'vertical',
                     loop: true,
@@ -1486,115 +1510,151 @@
         }
 </script>
 <script>
+    var widthNow = ((document.body.offsetWidth - 30) / 2) * 0.48
+    //alert(widthNow)
+    var leftAccValue = '100'
+    var leftoffsetValue = 150
+    var leftoffsetValue1 = 60
+    if (widthNow < 450) {
+       leftAccValue = '20'
+       leftoffsetValue = 80
+       leftoffsetValue1 = 20
+    }
+//alert(leftAccValue + "," + leftoffsetValue + "," +leftoffsetValue1)
     function Accumulation(id) {
         var myChartLine = echarts.init(document.getElementById(id));
         option = {
             title: {
-                top: 0,
-                // left:'center',
-                text: '劳务统计',
-                textStyle: {
-                    color: '#fff'
-                },
                 show: false
             },
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'cqms' | 'shadow'
+                    type: 'line'        // 默认为直线，可选为：'line' | 'shadow'
                 }
             },
             legend: {
-                show: false,
-                data: ['单位三', '单位二', '单位一']
+                show: false
             },
             grid: {
-                top: '15',
-                left: '0',
-                right: '0',
-                bottom: '0%',
-                containLabel: true
+              top: '2%',
+              left: leftAccValue,
+              right: '2%',
+              bottom: '0',
+              containLabel: true
             },
             xAxis: {
                 show: false,
-                splitLine: {
-                    show: false
-                },
-                axisLine: {
-                    show: false,
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    }
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    }
-                },
                 type: 'value'
             },
-            yAxis: {
-                // offset: 10,
-                show: false,
-                nameGap: 50,
-                axisTick: {
-                    show: false
-                },
-                splitLine: {
-                    show: false
-                },
-                axisLine: {
-                    show: false,
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    }
-                },
-                axisLabel: {
-                    margin: 15,
-                    show: true,
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.8)'
-                    }
-                },
+            yAxis: [{
+                offset: leftoffsetValue,
+                position: 'left',
                 type: 'category',
-                data: ['周一', '周二', '周三', '周四']
-                //data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-            },
+		
+                data: ['项目一项目目', '项目二', '项目三', '项目四', '项目五', '项目六', '项目名称'],
+                axisLabel: {
+		    interval:0,
+                    show: true,
+                    fontSize: 12,
+                    color: "#fff",
+                    align: 'middle',
+                    verticalAlign: 'middle',
+                    formatter: function (value) {
+                        var ret = "";//拼接加\n返回的类目项  
+                        var maxLength = 5;//每项显示文字个数  
+                        var valLength = value.length;//X轴类目项的文字个数  
+                        var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数  
+                        if (rowN > 1)//如果类目项的文字大于maxLength,  
+                        {
+                            for (var i = 0; i < rowN; i++) {
+                                var temp = "";//每次截取的字符串  
+                                var start = i * maxLength;//开始截取的位置  
+                                var end = start + maxLength;//结束截取的位置  
+                                //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧  
+                                temp = value.substring(start, end) + (i == rowN - 1 ? "" : "\n");
+                                ret += temp; //凭借最终的字符串  
+                            }
+                            return ret;
+                        }
+                        else {
+                            return value;
+                        }
+                    }
+                },
+                axisTick: { show: false },
+                splitLine: { show: false },
+                axisLine: { show: false }
+            }, {
+                offset: leftoffsetValue1,
+                position: 'left',
+                type: 'category',
+                data: ['20', '30', '30', '32', '30', '30', '在线数'],
+                axisLabel: {
+                    show: true,
+                    fontSize: 12,
+                    color: "#fff",
+                    align: 'middle',
+                    verticalAlign: 'middle',
+                    formatter: function (value) {
+                        var ret = "";//拼接加\n返回的类目项  
+                        var maxLength = 5;//每项显示文字个数  
+                        var valLength = value.length;//X轴类目项的文字个数  
+                        var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数  
+                        if (rowN > 1)//如果类目项的文字大于maxLength,  
+                        {
+                            for (var i = 0; i < rowN; i++) {
+                                var temp = "";//每次截取的字符串  
+                                var start = i * maxLength;//开始截取的位置  
+                                var end = start + maxLength;//结束截取的位置  
+                                //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧  
+                                temp = value.substring(start, end) + (i == rowN - 1 ? "" : "\n");
+                                ret += temp; //凭借最终的字符串  
+                            }
+                            return ret;
+                        }
+                        else {
+                            return value;
+                        }
+                    }
+                },
+                axisTick: { show: false },
+                splitLine: { show: false },
+                axisLine: { show: false },
+
+            }],
             series: [
                 {
-                    barWidth: 10, // 柱子宽度
-                    //barGap:'80%',/*多个并排柱子设置柱子之间的间距*/
-                    //barCategoryGap:'20%',/*多个并排柱子设置柱子之间的间距*/
-                    name: '单位三',
+                    name: '当前现场人数',
                     type: 'bar',
                     stack: '总量',
                     label: {
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [320, 302, 301, 334]
-                    //data: [320, 302, 301, 334, 390, 334, 390]
+                    data: [320, 302, 301, 334, 390, 330]
                 },
                 {
-                    name: '单位二',
+                    name: '作业人员总数',
                     type: 'bar',
                     stack: '总量',
                     label: {
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [120, 132, 101, 134] //, 90, 334, 390
+                    data: [120, 132, 101, 134, 90, 230]
                 },
                 {
-                    name: '单位一',
+                    name: '管理人员总数',
                     type: 'bar',
                     stack: '总量',
                     label: {
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [220, 182, 191, 234]//, 290, 334, 390
+                    //barWidth: 30,
+                    //barGap: 0,
+                    data: [220, 182, 191, 234, 290, 330]
                 }
             ]
         };
@@ -1661,9 +1721,9 @@
     var slidesNum = 5
     var mySwiper = null
     $(document).ready(function () {
-        
+
         var height = $("#swiper-pre").height() - 29
-        $("#swiper2").css("height", (height ) + 'px')
+        $("#swiper2").css("height", (height) + 'px')
         slidesNum = Math.floor((height) / 24)
         $("#swiper2").html(swiper_One)
         mySwiper = new Swiper('#swiper2', {

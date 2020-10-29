@@ -73,7 +73,7 @@
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="员工责任书" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1000px"
             Height="560px" OnClose="Window1_Close">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

@@ -119,7 +119,7 @@
             </Regions>
         </f:RegionPanel>
         <f:Window ID="Window1" Title="导入" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true" 
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" 
             Width="800px" Height="460px" OnClose="Window1_Close">
         </f:Window>
     </form>

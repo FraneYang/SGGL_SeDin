@@ -18,7 +18,7 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
             if (!IsPostBack)
             {
                 ////权限按钮方法
@@ -28,7 +28,7 @@ namespace FineUIPro.Web.ProjectData
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
-                } 
+                }
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 this.BindGrid();
@@ -47,7 +47,7 @@ namespace FineUIPro.Web.ProjectData
                           + @" FROM Base_Project AS Project LEFT JOIN Base_Unit as unit on unit.UnitId=Project.UnitId"
                           + @" LEFT JOIN Base_ProjectType AS ProjectType ON Project.ProjectType =ProjectType.ProjectTypeId"
                           + @" WHERE 1=1 ";
-            List<SqlParameter> listStr = new List<SqlParameter>();            
+            List<SqlParameter> listStr = new List<SqlParameter>();
             //if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
             //{
             //    strSql += " AND ProjectId = @ProjectId";
@@ -80,7 +80,7 @@ namespace FineUIPro.Web.ProjectData
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-            Grid1.RecordCount = tb.Rows.Count;         
+            Grid1.RecordCount = tb.Rows.Count;
             Grid1.DataSource = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataBind();
         }
@@ -108,7 +108,7 @@ namespace FineUIPro.Web.ProjectData
                     {
                         var project = BLL.ProjectService.GetProjectByProjectId(rowID);
                         if (project != null)
-                        {                           
+                        {
                             BLL.LogService.DeleteLog(rowID);
                             //BLL.ReportRemindService.DeleteReportRemindByProjectId(rowID);
                             //BLL.ProjectUnitService.DeleteProjectUnitByProjectId(rowID);
@@ -148,7 +148,7 @@ namespace FineUIPro.Web.ProjectData
         {
             BindGrid();
         }
-        
+
         /// <summary>
         /// 双击事件
         /// </summary>
@@ -183,10 +183,17 @@ namespace FineUIPro.Web.ProjectData
             var project = BLL.ProjectService.GetProjectByProjectId(Grid1.SelectedRowID);
             if (project != null)
             {
-                if (project.ProjectState == BLL.Const.ProjectState_2 ||project.ProjectState == BLL.Const.ProjectState_3)
+                if (project.ProjectState == BLL.Const.ProjectState_2 || project.ProjectState == BLL.Const.ProjectState_3)
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectSetView.aspx?ProjectId={0}", Grid1.SelectedRowID, "查看 - ")));
-                }                
+                    if (this.CurrUser.UserId == BLL.Const.sysglyId)   //系统管理员可修改停工或竣工的状态
+                    {
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectSetSave.aspx?ProjectId={0}", Grid1.SelectedRowID, "编辑 - ")));
+                    }
+                    else
+                    {
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectSetView.aspx?ProjectId={0}", Grid1.SelectedRowID, "查看 - ")));
+                    }
+                }
                 else
                 {
                     if (this.btnMenuEdit.Hidden && this.CurrUser.UserId != BLL.Const.sysglyId)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
@@ -236,11 +243,11 @@ namespace FineUIPro.Web.ProjectData
                     this.btnNew.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify) || buttonList.Contains(BLL.Const.BtnSave))
-                {                  
+                {
                     this.btnMenuEdit.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnDelete))
-                {                    
+                {
                     this.btnMenuDelete.Hidden = false;
                 }
             }
@@ -353,7 +360,7 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="unitId"></param>
         /// <returns></returns>
         protected string ConvertProjectManager(object projectId)
-        {            
+        {
             return ProjectService.GetProjectManagerName(projectId.ToString());
         }
 

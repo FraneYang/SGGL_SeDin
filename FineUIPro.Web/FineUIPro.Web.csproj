@@ -328,9 +328,11 @@
     <Content Include="HJGL\BaseInfo\MaterialView.aspx" />
     <Content Include="HJGL\BaseInfo\Medium.aspx" />
     <Content Include="HJGL\BaseInfo\MediumEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\MediumIn.aspx" />
     <Content Include="HJGL\BaseInfo\MediumView.aspx" />
     <Content Include="HJGL\BaseInfo\PipingClass.aspx" />
     <Content Include="HJGL\BaseInfo\PipingClassEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\PipingClassIn.aspx" />
     <Content Include="HJGL\BaseInfo\PipingClassView.aspx" />
     <Content Include="HJGL\BaseInfo\Pressure.aspx" />
     <Content Include="HJGL\BaseInfo\PressureEdit.aspx" />
@@ -457,11 +459,18 @@
     <Content Include="HSSE\ActionPlan\ActionPlanList.aspx" />
     <Content Include="HSSE\ActionPlan\ActionPlanListEdit.aspx" />
     <Content Include="HSSE\ActionPlan\ActionPlanListView.aspx" />
+    <Content Include="HSSE\ActionPlan\CompanyManageRule.aspx" />
+    <Content Include="HSSE\ActionPlan\CompanyManageRuleEdit.aspx" />
+    <Content Include="HSSE\ActionPlan\CompanyManageRuleView.aspx" />
+    <Content Include="HSSE\ActionPlan\EditCompanyManageRuleTemplate.aspx" />
     <Content Include="HSSE\ActionPlan\EditManagerRuleTemplate.aspx" />
     <Content Include="HSSE\ActionPlan\ManagerRule.aspx" />
     <Content Include="HSSE\ActionPlan\ManagerRuleEdit.aspx" />
     <Content Include="HSSE\ActionPlan\ManagerRuleList.aspx" />
     <Content Include="HSSE\ActionPlan\ManagerRuleView.aspx" />
+    <Content Include="HSSE\ActionPlan\ProjectManageRule.aspx" />
+    <Content Include="HSSE\ActionPlan\ProjectManageRuleEdit.aspx" />
+    <Content Include="HSSE\ActionPlan\ProjectManageRuleView.aspx" />
     <Content Include="HSSE\Check\CheckColligation.aspx" />
     <Content Include="HSSE\Check\CheckColligationDetailEdit.aspx" />
     <Content Include="HSSE\Check\CheckColligationEdit.aspx" />
@@ -5965,6 +5974,13 @@
     <Compile Include="HJGL\BaseInfo\MediumEdit.aspx.designer.cs">
       <DependentUpon>MediumEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\BaseInfo\MediumIn.aspx.cs">
+      <DependentUpon>MediumIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\MediumIn.aspx.designer.cs">
+      <DependentUpon>MediumIn.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\BaseInfo\MediumView.aspx.cs">
       <DependentUpon>MediumView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5985,6 +6001,13 @@
     </Compile>
     <Compile Include="HJGL\BaseInfo\PipingClassEdit.aspx.designer.cs">
       <DependentUpon>PipingClassEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PipingClassIn.aspx.cs">
+      <DependentUpon>PipingClassIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\PipingClassIn.aspx.designer.cs">
+      <DependentUpon>PipingClassIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\BaseInfo\PipingClassView.aspx.cs">
       <DependentUpon>PipingClassView.aspx</DependentUpon>
@@ -6871,6 +6894,34 @@
     <Compile Include="HSSE\ActionPlan\ActionPlanListView.aspx.designer.cs">
       <DependentUpon>ActionPlanListView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HSSE\ActionPlan\CompanyManageRule.aspx.cs">
+      <DependentUpon>CompanyManageRule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\CompanyManageRule.aspx.designer.cs">
+      <DependentUpon>CompanyManageRule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\CompanyManageRuleEdit.aspx.cs">
+      <DependentUpon>CompanyManageRuleEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\CompanyManageRuleEdit.aspx.designer.cs">
+      <DependentUpon>CompanyManageRuleEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\CompanyManageRuleView.aspx.cs">
+      <DependentUpon>CompanyManageRuleView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\CompanyManageRuleView.aspx.designer.cs">
+      <DependentUpon>CompanyManageRuleView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\EditCompanyManageRuleTemplate.aspx.cs">
+      <DependentUpon>EditCompanyManageRuleTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\EditCompanyManageRuleTemplate.aspx.designer.cs">
+      <DependentUpon>EditCompanyManageRuleTemplate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HSSE\ActionPlan\EditManagerRuleTemplate.aspx.cs">
       <DependentUpon>EditManagerRuleTemplate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6905,6 +6956,27 @@
     </Compile>
     <Compile Include="HSSE\ActionPlan\ManagerRuleView.aspx.designer.cs">
       <DependentUpon>ManagerRuleView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ProjectManageRule.aspx.cs">
+      <DependentUpon>ProjectManageRule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ProjectManageRule.aspx.designer.cs">
+      <DependentUpon>ProjectManageRule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ProjectManageRuleEdit.aspx.cs">
+      <DependentUpon>ProjectManageRuleEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ProjectManageRuleEdit.aspx.designer.cs">
+      <DependentUpon>ProjectManageRuleEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ProjectManageRuleView.aspx.cs">
+      <DependentUpon>ProjectManageRuleView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\ActionPlan\ProjectManageRuleView.aspx.designer.cs">
+      <DependentUpon>ProjectManageRuleView.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\Check\CheckColligation.aspx.cs">
       <DependentUpon>CheckColligation.aspx</DependentUpon>

@@ -178,7 +178,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             string wpqId = this.Grid1.SelectedRowID;
             Model.WPQ_WPQList wpq = BLL.WPQListServiceService.GetWPQById(wpqId);
-            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(wpq.WPQId, wpq.WPQCode,wpq.WeldingRod,wpq.WeldingWire,wpq.WeldingMethodId,wpq.GrooveType,wpq.PreTemperature,wpq.MaterialId1,wpq.MaterialId2,wpq.IsHotProess.Value.ToString()) + ActiveWindow.GetHidePostBackReference());
+            //PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(wpq.WPQId, wpq.WPQCode,wpq.WeldingRod,wpq.WeldingWire,wpq.WeldingMethodId,wpq.GrooveType,wpq.PreTemperature,wpq.MaterialId1,wpq.MaterialId2,wpq.IsHotProess.Value.ToString()) + ActiveWindow.GetHidePostBackReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(wpq.WPQId, wpq.WPQCode, wpq.WeldingRod, wpq.WeldingWire, wpq.WeldingMethodId, wpq.GrooveType, wpq.PreTemperature, wpq.IsHotProess.Value.ToString()) + ActiveWindow.GetHidePostBackReference());
         }
     }
 }

@@ -45,6 +45,7 @@ namespace FineUIPro.Web.Person
                     var TrainingPlan = BLL.Person_TrainingPlanService.GetPersonTrainingPlanById(this.TrainingPlanId);
                     if (TrainingPlan != null)
                     {
+                        this.hdTrainingPlanId.Text = this.TrainingPlanId;
                         BindGrid();
                         BindGrid1();
                         if (!string.IsNullOrEmpty(TrainingPlan.TrainingPlanCode))
@@ -156,7 +157,14 @@ namespace FineUIPro.Web.Person
             {
                 if (string.IsNullOrEmpty(this.TrainingPlanId))
                 {
-                    TrainingPlan.TrainingPlanId = SQLHelper.GetNewID(typeof(Model.Person_TrainingPlan));
+                    if (string.IsNullOrEmpty(this.hdTrainingPlanId.Text.Trim()))
+                    {
+                        TrainingPlan.TrainingPlanId = SQLHelper.GetNewID(typeof(Model.Person_TrainingPlan));
+                    }
+                    else
+                    {
+                        TrainingPlan.TrainingPlanId = this.hdTrainingPlanId.Text.Trim();
+                    }
                 }
                 else
                 {
@@ -445,7 +453,7 @@ namespace FineUIPro.Web.Person
                     {
                         getViewList.Remove(item);
                     }
-                    var PersonItem = Funs.DB.Person_TrainingPerson.First(x => x.TrainingPersonId == rowID);
+                    var PersonItem = Funs.DB.Person_TrainingPerson.FirstOrDefault(x => x.TrainingPersonId == rowID);
                     if (PersonItem != null)
                     {
                         Funs.DB.Person_TrainingPerson.DeleteOnSubmit(PersonItem);
@@ -475,7 +483,7 @@ namespace FineUIPro.Web.Person
                     {
                         getViewList.Remove(item);
                     }
-                    var CompanyItem = Funs.DB.Person_TrainingCompany.First(x => x.TrainingCompanyId == rowID);
+                    var CompanyItem = Funs.DB.Person_TrainingCompany.FirstOrDefault(x => x.TrainingCompanyId == rowID);
                     if (CompanyItem != null)
                     {
                         Funs.DB.Person_TrainingCompany.DeleteOnSubmit(CompanyItem);
@@ -487,6 +495,34 @@ namespace FineUIPro.Web.Person
                 this.gvCompany.DataBind();
             }
         }
+        #endregion
+
+        #region 附件上传
+        /// <summary>
+        /// 上传附件资源
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.hdTrainingPlanId.Text))
+            {
+                this.hdTrainingPlanId.Text= SQLHelper.GetNewID(typeof(Model.Person_TrainingPlan));
+            }
+            string edit = "-1";
+            if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.PersonTrainingMenuId, BLL.Const.BtnAdd))
+            {
+                edit = "0";
+                DateTime date = DateTime.Now;
+                if (!string.IsNullOrEmpty(this.txtStartTime.Text.Trim()))
+                {
+                    date = Convert.ToDateTime(this.txtStartTime.Text.Trim());
+                }
+                string dateStr = date.Year.ToString() + date.Month.ToString();
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonTraining/" + dateStr + "&menuId={1}&type={2}", this.hdTrainingPlanId.Text, Const.PersonTrainingMenuId, edit)));
+            }
+        }
+
         #endregion
 
     }

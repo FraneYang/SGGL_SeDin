@@ -185,7 +185,7 @@
             width="850px" height="500px">
         </f:window>
            <f:Window ID="window_tt" Title="工作联系单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="true"  OnClose="window_tt_Close"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true"  OnClose="window_tt_Close"
             Width="1300px" Height="660px">
         </f:Window>
         <f:menu id="Menu1" runat="server">

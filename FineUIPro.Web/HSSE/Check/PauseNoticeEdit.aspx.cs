@@ -124,7 +124,8 @@ namespace FineUIPro.Web.HSSE.Check
                                 this.drpHandleMan.SelectedValue = pauseNotice.ApproveManId;
                             }
                             this.GroupPanel2.Hidden = false;
-                            UserService.InitFlowOperateControlUserDropDownList(this.drpProfessionalEngineer, this.CurrUser.LoginProjectId,Const.UnitId_SEDIN, true);//专业工程师                            
+                            gvCarryUser.DataSource = BLL.UserService.GetProjectRoleUserListByProjectId(this.CurrUser.LoginProjectId, Const.UnitId_SEDIN);
+                            gvCarryUser.DataBind();//专业工程师                            
                             BLL.UserService.InitUserProjectIdUnitIdRoleIdDropDownList(this.drpConstructionManager, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, Const.ConstructionManager, true);
                             //施工经理
                             UserService.InitUserProjectIdUnitIdDropDownList(this.drpUnitHeadMan, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, true);//分包单位
@@ -255,9 +256,9 @@ namespace FineUIPro.Web.HSSE.Check
                             Alert.ShowInTop("总包项目经理不能为空！", MessageBoxIcon.Warning);
                             return;
                         }
-                        if (this.drpProfessionalEngineer.SelectedValue != BLL.Const._Null)
+                        if (!string.IsNullOrWhiteSpace(String.Join(",", this.txtCarryUser.Values)))
                         {
-                            isUpdate.ProfessionalEngineerId = this.drpProfessionalEngineer.SelectedValue;
+                            isUpdate.ProfessionalEngineerId = string.Join(",", txtCarryUser.Values);
                         }
                         if (this.drpConstructionManager.SelectedValue != BLL.Const._Null)
                         {

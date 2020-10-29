@@ -37,7 +37,7 @@
                             <f:TextBox ID="txtPersonName" runat="server" Label="人员姓名" MaxLength="200" LabelAlign="Right"
                                 Required="True" ShowRedStar="True" FocusOnPageLoad="true">
                             </f:TextBox>
-                            <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证/证件号" MaxLength="50" LabelAlign="Right" LabelWidth="120px"
+                            <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证/证件号" MaxLength="50" LabelAlign="Right" 
                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Required="true" ShowRedStar="true">
                             </f:TextBox>
                             <f:TextBox ID="txtUnitName" runat="server" Label="所属单位" LabelAlign="Right" Readonly="true" ></f:TextBox>
@@ -64,8 +64,20 @@
                             </f:RadioButtonList>
                             <f:DropDownList ID="drpPost" runat="server" Label="所属岗位" LabelAlign="Right" Required="True" ShowRedStar="True" EnableEdit="true">
                             </f:DropDownList>
-                            <f:DropDownList ID="drpWorkArea" runat="server" Label="单位工程" LabelAlign="Right" EnableEdit="true">
-                            </f:DropDownList>
+                            <f:DropDownBox runat="server" Label="单位工程" ShowRedStar="true"
+                                    Required="true" ID="txtWorkArea" EmptyText="--请选择--" EnableMultiSelect="true" MatchFieldWidth="true">
+                                    <PopPanel>
+                                        <f:Grid ID="gvWorkArea" DataIDField="UnitWorkId"
+                                            EnableMultiSelect="true" KeepCurrentSelection="true" Height="300px" Hidden="true" SortField="UnitWorkId" DataTextField="UnitWorkName"
+                                            ShowBorder="true" ShowHeader="false" ForceFit="true"
+                                            runat="server" EnableCheckBoxSelect="true">
+                                            <Columns>
+                                                <f:BoundField DataField="UnitWorkId" SortField="UnitWorkId" DataFormatString="{0}" Hidden="true" />
+                                                <f:BoundField DataField="UnitWorkName" SortField="UnitWorkName" DataFormatString="{0}" HeaderText="单位工程名称" />
+                                            </Columns>
+                                        </f:Grid>
+                                    </PopPanel>
+                                </f:DropDownBox>
                             <f:TextBox ID="txtTelephone" runat="server" Label="电话" LabelAlign="Right" MaxLength="50">
                             </f:TextBox>
                             <f:RadioButtonList ID="rblIsUsed" runat="server" Label="人员在场" LabelAlign="Right" Required="True" ShowRedStar="True">
@@ -168,11 +180,11 @@
         </Items>
     </f:Form>
     <f:Window ID="Window1" runat="server" Hidden="true" IsModal="false" Target="Parent"
-        EnableMaximize="true" EnableResize="true" Title="弹出框" CloseAction="HidePostBack"
+        EnableMaximize="true" EnableResize="false" Title="弹出框" CloseAction="HidePostBack"
         EnableIFrame="true">
     </f:Window>
          <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

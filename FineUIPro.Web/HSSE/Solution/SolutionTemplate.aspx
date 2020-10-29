@@ -79,7 +79,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑方案模板" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1024px"
         Height="620px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

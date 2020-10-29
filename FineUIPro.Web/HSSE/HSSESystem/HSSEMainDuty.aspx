@@ -72,7 +72,7 @@
         </Regions>
     </f:RegionPanel>
     <f:Window ID="Window1" Title="编辑安全主体责任" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="800px" Height="360px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

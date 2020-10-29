@@ -154,11 +154,11 @@
             </Rows>
         </f:Form>
         <f:Window ID="Window1" Title="审核焊接工艺评定台账" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" IsModal="false" CloseAction="HidePostBack"
+            Target="Parent" EnableResize="false" runat="server" IsModal="false" CloseAction="HidePostBack"
             Width="900px" Height="600px">
         </f:Window>
         <f:Window ID="Window2" Title="导入焊接工艺评定台账" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
+            Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="false"
             CloseAction="HidePostBack" Width="900px" Height="600px">
         </f:Window>
     </form>

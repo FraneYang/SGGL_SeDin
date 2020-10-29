@@ -848,6 +848,7 @@
     var series = [{
         name: '质量验收一次合格率',
         type: 'bar',
+        barWidth:30,
         barGap:0,
         data: four.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
@@ -856,7 +857,8 @@
         name: '施工资料同步率',
         type: 'bar',
         data: four.series[1].data,
-        barCategoryGap:20,
+        barWidth:30,
+        //barCategoryGap:20,
         itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
     }];
     category('four', xArr, series)
