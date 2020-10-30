@@ -1,5 +1,6 @@
 ﻿using BLL;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -705,6 +706,33 @@ namespace WebAPI.Controllers
                 {
                     getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取异常人员信息出入场记录
+        /// <summary>
+        /// 获取异常人员信息出入场记录
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId">单位ID</param>
+        /// <param name="inOut"> 入场异常 0 出场异常 1</param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public Model.ResponeData getAbnormalPersonInOutList(string projectId, string unitId, string inOut, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIPersonService.getAbnormalPersonInOutList(projectId, unitId, inOut, pageIndex);
+                int pageCount = getDataList.Count();
                 responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)

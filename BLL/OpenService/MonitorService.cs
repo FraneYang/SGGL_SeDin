@@ -2172,11 +2172,12 @@ namespace BLL
         {
             GetDataService.CreateTrainingTaskItemByTaskId(null);
             GetDataService.UpdateTestPlanStates();
-            GetDataService.CorrectingPersonInOutNumber(null);
             GetDataService.CreateQRCode();
             ServerTestPlanService.EndTestPlan(null);
-            ////推送订阅消息 
+            GetDataService.CloseLicenseData();
+            //////推送订阅消息 
             GetDataService.SendSubscribeMessage();
+            GetDataService.CorrectingPersonInOutNumber(null);
         }
     }
 }

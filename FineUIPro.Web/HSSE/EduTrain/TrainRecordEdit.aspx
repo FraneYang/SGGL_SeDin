@@ -13,6 +13,9 @@
         {
             text-align: center;
         }
+         .f-grid-row.Red {
+            background-color: red;
+        }
     </style>
 </head>
 <body>

@@ -40,6 +40,20 @@ namespace FineUIPro.Web.HSSE.EduTrain
         }
 
         /// <summary>
+        /// 考试计划ID
+        /// </summary>
+        public string TestPlanId
+        {
+            get
+            {
+                return (string)ViewState["TestPlanId"];
+            }
+            set
+            {
+                ViewState["TestPlanId"] = value;
+            }
+        }
+        /// <summary>
         /// 定义集合
         /// </summary>
         private static List<Model.View_EduTrain_TrainRecordDetail> trainRecordDetails = new List<Model.View_EduTrain_TrainRecordDetail>();
@@ -101,11 +115,12 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     {
                         this.txtTrainPersonNum.Text = Convert.ToString(trainRecord.TrainPersonNum);
                     }
-                    this.txtTrainContent.Text = trainRecord.TrainContent;                   
-                    trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail
-                                          where x.TrainingId == this.TrainingId
-                                          orderby x.UnitName,x.PersonName
-                                          select x).ToList();
+                    this.txtTrainContent.Text = trainRecord.TrainContent;
+                    var getTestPlan = TestPlanService.GetTestPlanByPlanId(trainRecord.PlanId);
+                    if (getTestPlan != null)
+                    {
+                        this.TestPlanId = getTestPlan.TestPlanId;
+                    }
                 }
                 else
                 {
@@ -117,9 +132,8 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     this.txtTeachHour.Text = "1";
                     //this.txtTrainEndDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                 }
-                Grid1.DataSource = trainRecordDetails;
-                Grid1.DataBind();
-               
+
+                this.Grid1DataBind();
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = Const.ProjectTrainRecordMenuId;
                 this.ctlAuditFlow.DataId = this.TrainingId;
@@ -128,6 +142,45 @@ namespace FineUIPro.Web.HSSE.EduTrain
             }
         }
         #endregion
+
+        /// <summary>
+        /// 绑定 Grid1
+        /// </summary>
+        private void Grid1DataBind()
+        {
+            trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail
+                                  where x.TrainingId == this.TrainingId
+                                  orderby x.UnitName, x.PersonName
+                                  select x).ToList();
+            Grid1.DataSource = trainRecordDetails;
+            Grid1.DataBind();
+            for (int i = 0; i < Grid1.Rows.Count; i++)
+            {
+                bool isRed = true;
+                string trainDetailId = Grid1.Rows[i].DataKeys[0].ToString();
+                var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == trainDetailId);
+                if (getAtt != null)
+                {
+                    isRed = false;
+                }
+                if(isRed)
+                {
+                    var getRecordDetail = trainRecordDetails.FirstOrDefault(x => x.TrainDetailId == trainDetailId);
+                    if (getRecordDetail != null && !string.IsNullOrEmpty(this.TestPlanId)) ////未参加过培训的人员
+                    {
+                        var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestManId == getRecordDetail.PersonId && x.TestPlanId == this.TestPlanId);
+                        if (getTestRecord != null)
+                        {
+                            isRed = false;
+                        }                      
+                    }
+                }
+                if (isRed)
+                {
+                    Grid1.Rows[i].RowCssClass = "Red";
+                }
+            }
+        }
 
         /// <summary>
         /// 
@@ -342,9 +395,7 @@ namespace FineUIPro.Web.HSSE.EduTrain
         /// <param name="e"></param>
         protected void Window1_Close(object sender, EventArgs e)
         {
-            trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail where x.TrainingId == this.TrainingId orderby x.UnitName select x).ToList();
-            Grid1.DataSource = trainRecordDetails;
-            Grid1.DataBind();
+            this.Grid1DataBind();
             this.txtTrainPersonNum.Text = trainRecordDetails.Count.ToString();
         }
         #endregion
@@ -364,10 +415,8 @@ namespace FineUIPro.Web.HSSE.EduTrain
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     BLL.EduTrain_TrainRecordDetailService.DeleteTrainDetailByTrainDetail(rowID);
                 }
-                
-                trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail where x.TrainingId == this.TrainingId orderby x.UnitName select x).ToList();
-                this.Grid1.DataSource = trainRecordDetails;
-                this.Grid1.DataBind();
+
+                this.Grid1DataBind();
                 this.txtTrainPersonNum.Text = trainRecordDetails.Count.ToString();              
                 this.ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }

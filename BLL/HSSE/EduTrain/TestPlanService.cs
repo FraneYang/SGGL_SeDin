@@ -140,5 +140,14 @@ namespace BLL
         {
             return (from x in db.Training_TestPlan orderby x.PlanCode select x).ToList();
         }
+
+        /// <summary>
+        /// 获取培训计划列
+        /// </summary>
+        /// <returns></returns>
+        public static Model.Training_TestPlan GetTestPlanByPlanId(string planId)
+        {
+            return Funs.DB.Training_TestPlan.FirstOrDefault(x => x.PlanId == planId);
+        }
     }
 }

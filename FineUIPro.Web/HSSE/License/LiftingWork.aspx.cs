@@ -276,6 +276,7 @@ namespace FineUIPro.Web.HSSE.License
             Response.End();
         }
         #endregion        
+
         #region 打印
         protected void btnPrinter_Click(object sender, EventArgs e)
         {
@@ -1037,7 +1038,12 @@ namespace FineUIPro.Web.HSSE.License
                         var getUser = UserService.GetUserByUserId(getLiftingWork.CloseManId);
                         if (getUser != null)
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getLiftingWork.CloseReasons))
+                            {
+                                bookmarkClose.Text = getLiftingWork.CloseReasons + " 关闭时间："
+                                 + string.Format("{0:yyyy-MM-dd HH:mm}", getLiftingWork.CloseTime) + "。";
+                            }
+                            else if(!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
                                 var file = rootPath + getUser.SignatureUrl;
                                 DocumentBuilder builders = new DocumentBuilder(doc);

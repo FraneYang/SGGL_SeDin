@@ -327,7 +327,7 @@ namespace BLL
                                   IsUsed = x.IsUsed,
                                   IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
                                   WorkAreaId = x.WorkAreaId,
-                                  WorkAreaName = db.WBS_UnitWork.First(z => z.UnitWorkId == x.WorkAreaId).UnitWorkName,
+                                  WorkAreaName = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
                                   PostType = ReturnQuality(x.PersonId, x.WorkPostId),
                                   //PostTypeName = db.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == p.PostType).ConstText,
                                   IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
@@ -489,6 +489,7 @@ namespace BLL
                     IsOutside = person.IsOutside,
                      //AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
                     Sex = person.Sex,
+                    WorkAreaId = person.WorkAreaId,
                 };
                 if (!string.IsNullOrEmpty(person.TeamGroupId))
                 {
@@ -497,10 +498,6 @@ namespace BLL
                 if (!string.IsNullOrEmpty(person.WorkPostId))
                 {
                     newPerson.WorkPostId = person.WorkPostId;
-                }
-                if (!string.IsNullOrEmpty(person.WorkAreaId))
-                {
-                    newPerson.WorkAreaId = person.WorkAreaId;
                 }
                 if (person.IsUsed == true)
                 {
@@ -1148,6 +1145,56 @@ namespace BLL
                 {
                     APIUpLoadFileService.SaveAttachUrl(Const.PersonQualityMenuId, newPersonQuality.PersonQualityId, personQuality.AttachUrl, "0");                    
                 }
+            }
+        }
+        #endregion
+
+        #region 获取异常人员信息出入场记录
+        /// <summary>
+        /// 获取异常人员信息出入场记录
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId">当前人单位ID</param>
+        /// <param name="inOut"> 入场异常 0 出场异常 1</param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public static List<Model.PersonInOutItem> getAbnormalPersonInOutList(string projectId, string unitId, string inOut, int pageIndex)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var personInOuts = from x in db.SitePerson_PersonInOut
+                                   join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                   where x.ProjectId == projectId
+                                   select new Model.PersonInOutItem
+                                   {
+                                       PersonId = x.PersonId,
+                                       PersonName = y.PersonName,
+                                       ProjectId = x.ProjectId,
+                                       UnitId = y.UnitId,
+                                       UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                       WorkPostId = y.WorkPostId,
+                                       WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                       IsIn = x.IsIn,
+                                       IsInName = x.IsIn == true ? "进场" : "出场",
+                                       ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
+                                       ChangeTimeD = x.ChangeTime,
+                                   };
+                if (!string.IsNullOrEmpty(unitId))
+                {
+                    personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+                }
+
+                var getPersonIns = personInOuts.Where(x => x.IsIn == false || x.IsIn == null);
+                var getPersonOuts = personInOuts.Where(x => x.IsIn == true);
+                if (inOut == "0")
+                {                   
+                    //getPersonIns= from x in getPersonIns                             
+                }
+                else
+                {
+                    
+                }
+                return personInOuts.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
             }
         }
         #endregion

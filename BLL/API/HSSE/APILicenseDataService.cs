@@ -1131,12 +1131,20 @@ namespace BLL
                             updateFireWork.CloseManId = newFireWork.CloseManId;
                             updateFireWork.CloseReasons = newFireWork.CloseReasons;
                             updateFireWork.CloseTime = DateTime.Now;
+                            if (newFireWork.ValidityEndTime.HasValue && newFireWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateFireWork.CloseTime = newFireWork.ValidityEndTime;
+                            }
                         }
                         else if (newItem.States == Const.State_R)
                         {
                             updateFireWork.CancelManId = newFireWork.CancelManId;
                             updateFireWork.CancelReasons = newFireWork.CancelReasons;
                             updateFireWork.CancelTime = DateTime.Now;
+                            if (newFireWork.ValidityEndTime.HasValue && newFireWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateFireWork.CancelTime = newFireWork.ValidityEndTime;
+                            }
                         }
                         else
                         {
@@ -1203,12 +1211,20 @@ namespace BLL
                             updateHeightWork.CloseManId = newHeightWork.CloseManId;
                             updateHeightWork.CloseReasons = newHeightWork.CloseReasons;
                             updateHeightWork.CloseTime = DateTime.Now;
+                            if (newHeightWork.ValidityEndTime.HasValue && newHeightWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateHeightWork.CloseTime = newHeightWork.ValidityEndTime;
+                            }
                         }
                         else if (newItem.States == Const.State_R)
                         {
                             updateHeightWork.CancelManId = newHeightWork.CancelManId;
                             updateHeightWork.CancelReasons = newHeightWork.CancelReasons;
                             updateHeightWork.CancelTime = DateTime.Now;
+                            if (newHeightWork.ValidityEndTime.HasValue && newHeightWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateHeightWork.CancelTime = newHeightWork.ValidityEndTime;
+                            }
                         }
                         else
                         {
@@ -1274,12 +1290,20 @@ namespace BLL
                             updateLimitedSpace.CloseManId = newLimitedSpace.CloseManId;
                             updateLimitedSpace.CloseReasons = newLimitedSpace.CloseReasons;
                             updateLimitedSpace.CloseTime = DateTime.Now;
+                            if (newLimitedSpace.ValidityEndTime.HasValue && newLimitedSpace.ValidityEndTime < DateTime.Now)
+                            {
+                                updateLimitedSpace.CloseTime = newLimitedSpace.ValidityEndTime;
+                            }
                         }
                         else if (newItem.States == Const.State_R)
                         {
                             updateLimitedSpace.CancelManId = newLimitedSpace.CancelManId;
                             updateLimitedSpace.CancelReasons = newLimitedSpace.CancelReasons;
                             updateLimitedSpace.CancelTime = DateTime.Now;
+                            if (newLimitedSpace.ValidityEndTime.HasValue && newLimitedSpace.ValidityEndTime < DateTime.Now)
+                            {
+                                updateLimitedSpace.CancelTime = newLimitedSpace.ValidityEndTime;
+                            }
                         }
                         else
                         {
@@ -1348,12 +1372,20 @@ namespace BLL
                             updateRadialWork.CloseManId = newRadialWork.CloseManId;
                             updateRadialWork.CloseReasons = newRadialWork.CloseReasons;
                             updateRadialWork.CloseTime = DateTime.Now;
+                            if (newRadialWork.ValidityEndTime.HasValue && newRadialWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateRadialWork.CloseTime = newRadialWork.ValidityEndTime;
+                            }
                         }
                         else if (newItem.States == Const.State_R)
                         {
                             updateRadialWork.CancelManId = newRadialWork.CancelManId;
                             updateRadialWork.CancelReasons = newRadialWork.CancelReasons;
                             updateRadialWork.CancelTime = DateTime.Now;
+                            if (newRadialWork.ValidityEndTime.HasValue && newRadialWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateRadialWork.CancelTime = newRadialWork.ValidityEndTime;
+                            }
                         }
                         else
                         {
@@ -1422,12 +1454,20 @@ namespace BLL
                             updateOpenCircuit.CloseManId = newOpenCircuit.CloseManId;
                             updateOpenCircuit.CloseReasons = newOpenCircuit.CloseReasons;
                             updateOpenCircuit.CloseTime = DateTime.Now;
+                            if (newOpenCircuit.ValidityEndTime.HasValue && newOpenCircuit.ValidityEndTime < DateTime.Now)
+                            {
+                                updateOpenCircuit.CloseTime = newOpenCircuit.ValidityEndTime;
+                            }
                         }
                         else if (newItem.States == Const.State_R)
                         {
                             updateOpenCircuit.CancelManId = newOpenCircuit.CancelManId;
                             updateOpenCircuit.CancelReasons = newOpenCircuit.CancelReasons;
                             updateOpenCircuit.CancelTime = DateTime.Now;
+                            if (newOpenCircuit.ValidityEndTime.HasValue && newOpenCircuit.ValidityEndTime < DateTime.Now)
+                            {
+                                updateOpenCircuit.CancelTime = newOpenCircuit.ValidityEndTime;
+                            }
                         }
                         else
                         {
@@ -1492,12 +1532,20 @@ namespace BLL
                             updateBreakGround.CloseManId = newBreakGround.CloseManId;
                             updateBreakGround.CloseReasons = newBreakGround.CloseReasons;
                             updateBreakGround.CloseTime = DateTime.Now;
+                            if (newBreakGround.ValidityEndTime.HasValue && newBreakGround.ValidityEndTime < DateTime.Now)
+                            {
+                                updateBreakGround.CloseTime = newBreakGround.ValidityEndTime;
+                            }
                         }
                         else if (newItem.States == Const.State_R)
                         {
                             updateBreakGround.CancelManId = newBreakGround.CancelManId;
                             updateBreakGround.CancelReasons = newBreakGround.CancelReasons;
                             updateBreakGround.CancelTime = DateTime.Now;
+                            if (newBreakGround.ValidityEndTime.HasValue && newBreakGround.ValidityEndTime < DateTime.Now)
+                            {
+                                updateBreakGround.CancelTime = newBreakGround.ValidityEndTime;
+                            }
                         }
                         else
                         {
@@ -1564,12 +1612,20 @@ namespace BLL
                             updateNightWork.CloseManId = newNightWork.CloseManId;
                             updateNightWork.CloseReasons = newNightWork.CloseReasons;
                             updateNightWork.CloseTime = DateTime.Now;
+                            if (newNightWork.ValidityEndTime.HasValue && newNightWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateNightWork.CloseTime = newNightWork.ValidityEndTime;
+                            }
                         }
                         else if (newItem.States == Const.State_R)
                         {
                             updateNightWork.CancelManId = newNightWork.CancelManId;
                             updateNightWork.CancelReasons = newNightWork.CancelReasons;
                             updateNightWork.CancelTime = DateTime.Now;
+                            if (newNightWork.ValidityEndTime.HasValue && newNightWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateNightWork.CancelTime = newNightWork.ValidityEndTime;
+                            }
                         }
                         else
                         {
@@ -1637,12 +1693,20 @@ namespace BLL
                             updateLiftingWork.CloseManId = newLiftingWork.CloseManId;
                             updateLiftingWork.CloseReasons = newLiftingWork.CloseReasons;
                             updateLiftingWork.CloseTime = DateTime.Now;
+                            if (newLiftingWork.ValidityEndTime.HasValue && newLiftingWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateLiftingWork.CloseTime = newLiftingWork.ValidityEndTime;
+                            }
                         }
                         else if (newItem.States == Const.State_R)
                         {
                             updateLiftingWork.CancelManId = newLiftingWork.CancelManId;
                             updateLiftingWork.CancelReasons = newLiftingWork.CancelReasons;
                             updateLiftingWork.CancelTime = DateTime.Now;
+                            if (newLiftingWork.ValidityEndTime.HasValue && newLiftingWork.ValidityEndTime < DateTime.Now)
+                            {
+                                updateLiftingWork.CancelTime = newLiftingWork.ValidityEndTime;
+                            }
                         }
                         else
                         {
@@ -1683,6 +1747,10 @@ namespace BLL
                     if (newLicenseManager.WorkStates == Const.State_3 || newLicenseManager.WorkStates == Const.State_R)
                     {
                         newLicenseManager.States = Const.State_2;
+                        if (!newLicenseManager.EndDate.HasValue)
+                        {
+                            newLicenseManager.EndDate = DateTime.Now;
+                        }
                     }
                     ////保存
                     var updateLicenseManager = db.License_LicenseManager.FirstOrDefault(x => x.LicenseManagerId == strLicenseId);

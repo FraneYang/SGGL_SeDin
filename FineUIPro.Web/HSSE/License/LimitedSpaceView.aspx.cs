@@ -70,8 +70,16 @@
                         }
                         if (!string.IsNullOrEmpty(getLimitedSpace.CloseManId))
                         {
-                            this.txtClose.Text = UserService.GetUserNameByUserId(getLimitedSpace.CloseManId) + "；关闭时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getLimitedSpace.CloseTime)+ "。";
+                            if (!string.IsNullOrEmpty(getLimitedSpace.CloseReasons))
+                            {
+                                this.txtClose.Text = getLimitedSpace.CloseReasons + " 关闭时间："
+                                 + string.Format("{0:yyyy-MM-dd HH:mm}", getLimitedSpace.CloseTime) + "。";
+                            }
+                            else
+                            {
+                                this.txtClose.Text = UserService.GetUserNameByUserId(getLimitedSpace.CloseManId) + "；关闭时间："
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getLimitedSpace.CloseTime) + "。";
+                            }
                         }
                     }
                 }

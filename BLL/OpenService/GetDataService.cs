@@ -238,7 +238,7 @@ namespace BLL
 
         #region 自动批量生成人员二维码
         /// <summary>
-        ///  自动校正出入场人数及工时
+        ///  自动批量生成人员二维码
         /// </summary>
         public static void CreateQRCode()
         {
@@ -324,6 +324,188 @@ namespace BLL
             { }
         }
 
+        #endregion
+
+        #region 关闭超期未关闭作业许可
+        /// <summary>
+        /// 关闭超期未关闭作业许可
+        /// </summary>
+        public static void CloseLicenseData()
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                ////动火作业
+                var getFireWorks = from x in db.License_FireWork
+                                  where x.States == Const.State_2 && x.ValidityEndTime <= DateTime.Now
+                                  select new Model.LicenseDataItem
+                                  {
+                                      LicenseId = x.FireWorkId,
+                                      MenuId = Const.ProjectFireWorkMenuId,
+                                      ProjectId = x.ProjectId,
+                                      CloseManId = x.ApplyManId,
+                                      CloseReasons = "到期自动关闭。",               
+                                      States = Const.State_3,
+                                  };
+                foreach (var itemFire in getFireWorks)
+                {
+                    APILicenseDataService.SaveLicenseData(itemFire);
+                }
+
+                ////高处作业票
+                var getHeightWorks = from x in db.License_HeightWork
+                                     where x.States == Const.State_2 && x.ValidityEndTime <= DateTime.Now
+                                     select new Model.LicenseDataItem
+                                     {
+                                         LicenseId = x.HeightWorkId,
+                                         MenuId = Const.ProjectHeightWorkMenuId,
+                                         ProjectId = x.ProjectId,
+                                         CloseManId = x.ApplyManId,
+                                         CloseReasons = "到期自动关闭。",                                    
+                                         States = Const.State_3,
+                                     };
+                foreach (var itemHeightWork in getHeightWorks)
+                {
+                    APILicenseDataService.SaveLicenseData(itemHeightWork);
+                }
+
+                ////受限空间作业票
+                var getLimitedSpaces = from x in db.License_LimitedSpace
+                                       where x.States == Const.State_2 && x.ValidityEndTime <= DateTime.Now
+                                       select new Model.LicenseDataItem
+                                       {
+                                           LicenseId = x.LimitedSpaceId,
+                                           MenuId = Const.ProjectLimitedSpaceMenuId,
+                                           ProjectId = x.ProjectId,
+                                           CloseManId = x.ApplyManId,
+                                           CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                           CloseReasons = "到期自动关闭。",
+                                           CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                           States = Const.State_3,
+                                       };
+                foreach (var itemLimitedSpace in getLimitedSpaces)
+                {
+                    APILicenseDataService.SaveLicenseData(itemLimitedSpace);
+                }
+
+                ////射线作业票
+                var getRadialWorks = from x in db.License_RadialWork
+                                     where x.States == Const.State_2 && x.ValidityEndTime <= DateTime.Now
+                                     select new Model.LicenseDataItem
+                                     {
+                                         LicenseId = x.RadialWorkId,
+                                         MenuId = Const.ProjectRadialWorkMenuId,
+                                         ProjectId = x.ProjectId,
+                                         CloseManId = x.ApplyManId,
+                                         CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                         CloseReasons = "到期自动关闭。",
+                                         CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                         States = Const.State_3,
+                                     };
+                foreach (var itemRadialWork in getRadialWorks)
+                {
+                    APILicenseDataService.SaveLicenseData(itemRadialWork);
+                }
+
+                ////断路(占道)作业票
+                var getOpenCircuits = from x in db.License_OpenCircuit
+                                      where x.States == Const.State_2 && x.ValidityEndTime <= DateTime.Now
+                                      select new Model.LicenseDataItem
+                                      {
+                                          LicenseId = x.OpenCircuitId,
+                                          MenuId = Const.ProjectOpenCircuitMenuId,
+                                          ProjectId = x.ProjectId,
+                                          CloseManId = x.ApplyManId,
+                                          CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                          CloseReasons = "到期自动关闭。",
+                                          CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                          States = Const.State_3,
+                                      };
+                foreach (var itemOpenCircuit in getOpenCircuits)
+                {
+                    APILicenseDataService.SaveLicenseData(itemOpenCircuit);
+                }
+
+                ////动土作业票
+                var getBreakGrounds = from x in db.License_BreakGround
+                                      where x.States == Const.State_2 && x.ValidityEndTime <= DateTime.Now
+                                      select new Model.LicenseDataItem
+                                      {
+                                          LicenseId = x.BreakGroundId,
+                                          MenuId = Const.ProjectBreakGroundMenuId,
+                                          ProjectId = x.ProjectId,
+                                          CloseManId = x.ApplyManId,
+                                          CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                          CloseReasons = "到期自动关闭。",
+                                          CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                          States = Const.State_3,
+                                      };
+                foreach (var itemBreakGround in getBreakGrounds)
+                {
+                    APILicenseDataService.SaveLicenseData(itemBreakGround);
+                }
+
+                ////夜间施工作业票
+                var getNightWorks = from x in db.License_NightWork
+                                    where x.States == Const.State_2 && x.ValidityEndTime <= DateTime.Now
+                                    select new Model.LicenseDataItem
+                                    {
+                                        LicenseId = x.NightWorkId,
+                                        MenuId = Const.ProjectNightWorkMenuId,
+                                        ProjectId = x.ProjectId,
+                                        CloseManId = x.ApplyManId,
+                                        CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                        CloseReasons = "到期自动关闭。",
+                                        CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                        States = Const.State_3,
+                                    };
+                foreach (var itemNightWork in getNightWorks)
+                {
+                    APILicenseDataService.SaveLicenseData(itemNightWork);
+                }
+
+                ////吊装作业票
+                var getLiftingWorks = from x in db.License_LiftingWork
+                                      where x.States == Const.State_2 && x.ValidityEndTime <= DateTime.Now
+                                      select new Model.LicenseDataItem
+                                      {
+                                          LicenseId = x.LiftingWorkId,
+                                          MenuId = Const.ProjectLiftingWorkMenuId,
+                                          ProjectId = x.ProjectId,
+                                          CloseManId = x.ApplyManId,
+                                          CloseManName = db.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                          CloseReasons = "到期自动关闭。",
+                                          CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                          States = Const.State_3,
+                                      };
+                foreach (var itemLiftingWork in getLiftingWorks)
+                {
+                    APILicenseDataService.SaveLicenseData(itemLiftingWork);
+                }
+
+                ////作业票【定稿】
+                var getLicenseManagers = from x in db.License_LicenseManager
+                                         where x.WorkStates == Const.State_2 && x.EndDate <= DateTime.Now
+                                         select new Model.LicenseDataItem
+                                         {
+                                             LicenseId = x.LicenseManagerId,
+                                             MenuId = Const.ProjectLicenseManagerMenuId,
+                                             ProjectId = x.ProjectId,
+                                             LicenseCode = x.LicenseManagerCode,
+                                             ApplyUnitId = x.UnitId,
+                                             ApplyManName = x.ApplicantMan,
+                                             WorkAreaIds = x.WorkAreaId,
+                                             ApplyManId = x.CompileMan,
+                                             ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                             ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
+                                             ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
+                                             States = Const.State_3,
+                                         };
+                foreach (var itemLicenseManager in getLicenseManagers)
+                {
+                    APILicenseDataService.SaveLicenseData(itemLicenseManager);
+                }
+            }
+        }
         #endregion
     }
 }

@@ -9,7 +9,6 @@
         .f-grid-row.Red {
             background-color: red;
         }
-
         .LabelColor {
             color: Red;
             font-size: small;
@@ -117,12 +116,9 @@
                                 <f:RenderField HeaderText="班组" ColumnID="TeamGroupName" DataField="TeamGroupName" SortField="TeamGroupName"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="100px">
                                 </f:RenderField>
-                                <f:TemplateField ColumnID="WorkAreaId" Width="130px" HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Center"
-                                    EnableLock="true" Locked="False">
-                                    <ItemTemplate>
-                                        <asp:Label ID="Label2" runat="server" Text='<%# BLL.UnitWorkService.GetUnitWorkName("WorkAreaId") %>'></asp:Label>
-                                    </ItemTemplate>
-                                </f:TemplateField>
+                                  <f:RenderField HeaderText="单位工程" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
+                                    FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="130px">
+                                </f:RenderField>                              
                                 <%--     <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime" SortField="InTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
@@ -157,7 +153,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="编辑人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
-            Width="1000px" Height="600px">
+            Width="1000px" Height="620px">
         </f:Window>
         <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="false"

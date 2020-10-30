@@ -68,8 +68,16 @@
                         }
                         if (!string.IsNullOrEmpty(getRadialWork.CloseManId))
                         {
-                            this.txtClose.Text = UserService.GetUserNameByUserId(getRadialWork.CloseManId) + "；关闭时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getRadialWork.CloseTime)+ "。";
+                            if (!string.IsNullOrEmpty(getRadialWork.CloseReasons))
+                            {
+                                this.txtClose.Text = getRadialWork.CloseReasons + " 关闭时间："
+                                 + string.Format("{0:yyyy-MM-dd HH:mm}", getRadialWork.CloseTime) + "。";
+                            }
+                            else
+                            {
+                                this.txtClose.Text = UserService.GetUserNameByUserId(getRadialWork.CloseManId) + "；关闭时间："
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getRadialWork.CloseTime) + "。";
+                            }
                         }
                     }
                 }

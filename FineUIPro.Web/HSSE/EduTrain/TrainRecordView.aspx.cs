@@ -23,7 +23,20 @@ namespace FineUIPro.Web.HSSE.EduTrain
                 ViewState["TrainingId"] = value;
             }
         }
-
+        /// <summary>
+        /// 考试计划ID
+        /// </summary>
+        public string TestPlanId
+        {
+            get
+            {
+                return (string)ViewState["TestPlanId"];
+            }
+            set
+            {
+                ViewState["TestPlanId"] = value;
+            }
+        }
         /// <summary>
         /// 定义集合
         /// </summary>
@@ -111,14 +124,58 @@ namespace FineUIPro.Web.HSSE.EduTrain
                         this.txtTrainPersonNum.Text = Convert.ToString(trainRecord.TrainPersonNum);
                     }
                     this.txtTrainContent.Text = trainRecord.TrainContent;
-                    trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail where x.TrainingId == this.TrainingId orderby x.UnitName select x).ToList();
+                    var getTestPlan = TestPlanService.GetTestPlanByPlanId(trainRecord.PlanId);
+                    if (getTestPlan != null)
+                    {
+                        this.TestPlanId = getTestPlan.TestPlanId;
+                    }
                 }
-                Grid1.DataSource = trainRecordDetails;
-                Grid1.DataBind();
-               
+
+                this.Grid1DataBind();
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.ProjectTrainRecordMenuId;
                 this.ctlAuditFlow.DataId = this.TrainingId;
+            }
+        }
+        #endregion
+
+        #region 绑定 Grid1
+        /// <summary>
+        /// 绑定 Grid1
+        /// </summary>
+        private void Grid1DataBind()
+        {
+            trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail
+                                  where x.TrainingId == this.TrainingId
+                                  orderby x.UnitName, x.PersonName
+                                  select x).ToList();
+            Grid1.DataSource = trainRecordDetails;
+            Grid1.DataBind();
+            for (int i = 0; i < Grid1.Rows.Count; i++)
+            {
+                bool isRed = true;
+                string trainDetailId = Grid1.Rows[i].DataKeys[0].ToString();
+                var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == trainDetailId);
+                if (getAtt != null)
+                {
+                    isRed = false;
+                }
+                if (isRed)
+                {
+                    var getRecordDetail = trainRecordDetails.FirstOrDefault(x => x.TrainDetailId == trainDetailId);
+                    if (getRecordDetail != null && !string.IsNullOrEmpty(this.TestPlanId)) 
+                    {
+                        var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestManId == getRecordDetail.PersonId && x.TestPlanId == this.TestPlanId);
+                        if (getTestRecord != null)
+                        {
+                            isRed = false;
+                        }
+                    }
+                }
+                if (isRed)
+                {
+                    Grid1.Rows[i].RowCssClass = "Red";
+                }
             }
         }
         #endregion
@@ -148,22 +205,50 @@ namespace FineUIPro.Web.HSSE.EduTrain
             PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TrainTest.aspx?TrainingId={0}", this.TrainingId, "查看 - ")));
         }
 
+        /// <summary>
+        /// 查看
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnMenuView_Click(object sender, EventArgs e)
         {
-            if (Grid1.SelectedRowIndexArray.Length > 0)
+            if (Grid1.SelectedRowIndexArray.Length == 0)
             {
-                foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            var trainDetailId = Grid1.SelectedRowID;
+            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == trainDetailId);
+            if (getAtt != null)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/TrainRecord&menuId={1}&type=-1", trainDetailId, BLL.Const.ProjectTrainRecordMenuId)));
+            }
+            else
+            {
+                var getRecordDetail = trainRecordDetails.FirstOrDefault(x => x.TrainDetailId == trainDetailId);
+                if (getRecordDetail != null && !string.IsNullOrEmpty(this.TestPlanId))
                 {
-                    string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TrainTestView.aspx?TrainDetailId={0}", rowID, "查看试卷 - ")));
+                    var getTestRecord = Funs.DB.Training_TestRecord.Where(x => x.TestManId == getRecordDetail.PersonId
+                    && x.TestPlanId == this.TestPlanId);
+                    if (getTestRecord.Count() > 0)
+                    {    ////及格分数
+                        int getPassScores = SysConstSetService.getPassScore();
+                        var getOK = getTestRecord.FirstOrDefault(x => x.TestScores >= getPassScores);
+                        if (getOK != null)
+                        {
+                            PrinterDocService.PrinterDocMethod(Const.ProjectTestRecordMenuId, getOK.TestRecordId, "试卷");
+                        }
+                        else
+                        {
+                            PrinterDocService.PrinterDocMethod(Const.ProjectTestRecordMenuId, getTestRecord.FirstOrDefault().TestRecordId, "试卷");
+                        }
+                    }
+                    else
+                    {
+                    }
                 }
             }
         }
-
-        //protected void btnTrainingType_Click(object sender, EventArgs e)
-        //{
-
-        //}
 
         #region 格式化字符串
         /// <summary>

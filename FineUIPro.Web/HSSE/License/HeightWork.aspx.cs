@@ -1038,7 +1038,12 @@ namespace FineUIPro.Web.HSSE.License
                         var getUser = UserService.GetUserByUserId(getHeightWork.CloseManId);
                         if (getUser != null)
                         {
-                            if (!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
+                            if (!string.IsNullOrEmpty(getHeightWork.CloseReasons))
+                            {
+                                bookmarkClose.Text = getHeightWork.CloseReasons + " 关闭时间："
+                                 + string.Format("{0:yyyy-MM-dd HH:mm}", getHeightWork.CloseTime) + "。";
+                            }
+                            else if(!string.IsNullOrEmpty(getUser.SignatureUrl) && File.Exists(rootPath + getUser.SignatureUrl))
                             {
                                 var file = rootPath + getUser.SignatureUrl;
                                 DocumentBuilder builders = new DocumentBuilder(doc);

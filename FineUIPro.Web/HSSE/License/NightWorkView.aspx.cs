@@ -66,8 +66,16 @@
                         }
                         if (!string.IsNullOrEmpty(getNightWork.CloseManId))
                         {
-                            this.txtClose.Text = UserService.GetUserNameByUserId(getNightWork.CloseManId) + "；关闭时间："
+                            if (!string.IsNullOrEmpty(getNightWork.CloseReasons))
+                            {
+                                this.txtClose.Text = getNightWork.CloseReasons + " 关闭时间："
+                                 + string.Format("{0:yyyy-MM-dd HH:mm}", getNightWork.CloseTime) + "。";
+                            }
+                            else
+                            {
+                                this.txtClose.Text = UserService.GetUserNameByUserId(getNightWork.CloseManId) + "；关闭时间："
                                 + string.Format("{0:yyyy-MM-dd HH:mm}", getNightWork.CloseTime) + "。";
+                            }
                         }
                     }
                 }

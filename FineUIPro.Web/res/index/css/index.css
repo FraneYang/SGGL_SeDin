@@ -2897,7 +2897,7 @@ li {
 .bi-input,.bi-textarea {
   border: none;
   outline: 0;
-  background-color: transparent;
+  /*background-color: transparent;*/
   padding: 0;
   margin: 0;
   width: 100%;

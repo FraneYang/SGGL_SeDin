@@ -49,7 +49,7 @@
                         this.txtApplyManName.Text = UserService.GetUserNameByUserId(getFireWork.ApplyManId);
                         this.txtWorkPalce.Text = getFireWork.WorkPalce;
                         string name = getFireWork.FireWatchManName;
-                        if(string.IsNullOrEmpty(getFireWork.FireWatchManName))
+                        if (string.IsNullOrEmpty(getFireWork.FireWatchManName))
                         {
                             name = UserService.GetUserNameByUserId(getFireWork.FireWatchManId);
                         }
@@ -70,8 +70,16 @@
                         }
                         if (!string.IsNullOrEmpty(getFireWork.CloseManId))
                         {
-                            this.txtClose.Text = UserService.GetUserNameByUserId(getFireWork.CloseManId) + "；关闭时间："
+                            if (!string.IsNullOrEmpty(getFireWork.CloseReasons))
+                            {
+                                this.txtClose.Text = getFireWork.CloseReasons + " 关闭时间："
+                                 + string.Format("{0:yyyy-MM-dd HH:mm}", getFireWork.CloseTime) + "。";
+                            }
+                            else
+                            {
+                                this.txtClose.Text = UserService.GetUserNameByUserId(getFireWork.CloseManId) + "关闭；关闭时间："
                                 + string.Format("{0:yyyy-MM-dd HH:mm}", getFireWork.CloseTime) + "。";
+                            }
                         }
                     }
                 }

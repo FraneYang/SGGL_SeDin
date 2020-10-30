@@ -13,6 +13,13 @@
         {
             text-align: center;
         }
+        .f-grid-row.Red {
+            background-color: red;
+        }
+        .LabelColor {
+            color: Red;
+            font-size: small;
+        }
     </style>
 </head>
 <body>
@@ -86,6 +93,7 @@
                          <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
+                                    <f:Label runat="server" Text="右键查看考试试卷。"  CssClass="LabelColor"></f:Label>
                               <%--      <f:Button ID="btnTrainingType" runat="server" ToolTip="教材类型" Icon="BorderDraw" 
                                         OnClick="btnTrainingType_Click">
                                     </f:Button>--%>
@@ -123,8 +131,8 @@
                                     </f:NumberBox>
                                 </Editor>
                             </f:RenderField> 
-                             <f:WindowField TextAlign="Center" Width="80px" WindowID="WindowAtt" 
-                                     Text="试卷" ToolTip="上传查看" DataIFrameUrlFields="TrainDetailId" DataIFrameUrlFormatString="~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/TrainRecord&menuId=1182E353-FAB9-4DB1-A1EC-F41A00892128"/>
+                             <%--<f:WindowField TextAlign="Center" Width="80px" WindowID="WindowAtt" 
+                                     Text="试卷" ToolTip="上传查看" DataIFrameUrlFields="TrainDetailId" DataIFrameUrlFormatString="~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/TrainRecord&menuId=1182E353-FAB9-4DB1-A1EC-F41A00892128"/>--%>
                         </Columns>
                         <Listeners>
                            <%-- <f:Listener Event="dataload" Handler="onGridDataLoad" />--%>
@@ -149,8 +157,7 @@
                     </f:Label>
                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
-                    </f:Button>
-                   
+                    </f:Button>                   
                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                     </f:ToolbarFill>
                     <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
@@ -169,7 +176,7 @@
     </f:Window>
          <f:Menu ID="Menu1" runat="server">  
         <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
-            runat="server" Text="查看"  Icon="TableGo" Hidden="true">
+            runat="server" Text="查看"  Icon="TableGo"  EnableAjax="false" DisableControlBeforePostBack="false">
         </f:MenuButton>   
     </f:Menu>
     </form>

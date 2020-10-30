@@ -50,7 +50,7 @@ namespace BLL
                                   DutyPersonName = db.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
                                   DutyPersonDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonDate),
                                   ProfessionalEngineerId = x.ProfessionalEngineerId,
-                                  ProfessionalEngineerName = db.Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
+                                  ProfessionalEngineerName = UserService.getUserNamesUserIds(x.ProfessionalEngineerId),
                                   ProfessionalEngineerTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime),
                                   ConstructionManagerId = x.ConstructionManagerId,
                                   ConstructionManagerName = db.Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,

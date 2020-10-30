@@ -37,7 +37,7 @@
                             <f:TextBox ID="txtPersonName" runat="server" Label="人员姓名" MaxLength="200" LabelAlign="Right"
                                 Required="True" ShowRedStar="True" FocusOnPageLoad="true">
                             </f:TextBox>
-                            <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证/证件号" MaxLength="50" LabelAlign="Right" 
+                            <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证/证件号码" MaxLength="50" LabelAlign="Right"  LabelWidth="130px"
                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Required="true" ShowRedStar="true">
                             </f:TextBox>
                             <f:TextBox ID="txtUnitName" runat="server" Label="所属单位" LabelAlign="Right" Readonly="true" ></f:TextBox>

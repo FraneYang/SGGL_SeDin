@@ -243,7 +243,6 @@ namespace FineUIPro.Web.HSSE.Check
                     if (this.rdbIsAgree.SelectedValue.Equals("false"))
                     {
                         isUpdate.PauseStates = "0";
-
                     }
                     else
                     {
