@@ -122,6 +122,7 @@ namespace FineUIPro.Web.ProjectData
                         this.txtCountry.Text = project.Country;
                         this.txtProvince.Text = project.Province;
                         this.txtCity.Text = project.City;
+                        this.txtEnglishRemark.Text = project.EnglishRemark;
                     }
                 }
             }
@@ -151,6 +152,7 @@ namespace FineUIPro.Web.ProjectData
                 Country=this.txtCountry.Text.Trim(),
                 Province=this.txtProvince.Text.Trim(),
                 City=this.txtCity.Text.Trim(),
+                EnglishRemark=this.txtEnglishRemark.Text.Trim(),
             };
 
             if (!string.IsNullOrEmpty(txtStartDate.Text.Trim()))

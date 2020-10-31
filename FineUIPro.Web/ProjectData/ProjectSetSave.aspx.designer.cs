@@ -247,15 +247,6 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.TextBox txtCity;
         
         /// <summary>
-        /// ckIsUpTotalMonth 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckIsUpTotalMonth;
-        
-        /// <summary>
         /// txtMapCoordinates 控件。
         /// </summary>
         /// <remarks>
@@ -274,6 +265,15 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.ContentPanel bottomPanel;
         
         /// <summary>
+        /// txtEnglishRemark 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtEnglishRemark;
+        
+        /// <summary>
         /// Toolbar1 控件。
         /// </summary>
         /// <remarks>
@@ -281,6 +281,15 @@ namespace FineUIPro.Web.ProjectData {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Toolbar Toolbar1;
+        
+        /// <summary>
+        /// ckIsUpTotalMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckIsUpTotalMonth;
         
         /// <summary>
         /// btnSave 控件。

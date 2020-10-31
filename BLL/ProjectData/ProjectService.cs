@@ -93,6 +93,7 @@
                 Country = project.Country,
                 Province = project.Province,
                 City = project.City,
+                EnglishRemark=project.EnglishRemark,
 
             };
             db.Base_Project.InsertOnSubmit(newProject);
@@ -135,6 +136,7 @@
                 newProject.Country = project.Country;
                 newProject.Province = project.Province;
                 newProject.City = project.City;
+                newProject.EnglishRemark = project.EnglishRemark;
                 db.SubmitChanges();
             }
         }

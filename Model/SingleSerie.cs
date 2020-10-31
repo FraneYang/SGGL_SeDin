@@ -11,5 +11,7 @@ namespace Model
         public string name { get; set; }
         public string type { get; set; }
         public List<double> data { get; set; }
+
+        public List<string> dataString { get; set; }
     }
 }

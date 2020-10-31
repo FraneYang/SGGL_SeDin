@@ -434,7 +434,7 @@
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">进度统计</div>
-                        <div class="content-wrap tab-content flex1" style="overflow: auto;">
+                        <div id="divJD" runat="server" class="content-wrap tab-content flex1" style="overflow: auto;">
                             <div class="flex tab-h">
                                 <div class="txt">工地名称</div>
                                 <div class="txt">状态</div>
@@ -541,22 +541,23 @@
                     interval: 0,
                     rotate: 50,
                     textStyle: {
+                        fontSize:8,
                         color: 'rgba(255, 255, 255, 0.8)'
                     },
-                    formatter: function(params) {
-                        var newParamsName = ''
-                        var paramsNameNumber = params.length
-                        var provideNumber = 6
-                        var rowNumber = Math.ceil(paramsNameNumber / provideNumber)
-                        for (let row = 0; row < rowNumber; row++) {
-                          newParamsName +=
-                            params.substring(
-                              row * provideNumber,
-                              (row + 1) * provideNumber
-                            ) + '\n'
-                        }
-                        return newParamsName
-                      }
+                    //formatter: function(params) {
+                    //    var newParamsName = ''
+                    //    var paramsNameNumber = params.length
+                    //    var provideNumber = 6
+                    //    var rowNumber = Math.ceil(paramsNameNumber / provideNumber)
+                    //    for (let row = 0; row < rowNumber; row++) {
+                    //      newParamsName +=
+                    //        params.substring(
+                    //          row * provideNumber,
+                    //          (row + 1) * provideNumber
+                    //        ) + '\n'
+                    //    }
+                    //    return newParamsName
+                    //  }
                 },
                 type: 'category',
                 data: xArr
@@ -598,23 +599,25 @@
         myChart.setOption(option)
     }
     var two =<%=Two %>;
+    var three=<%=Three %>;
     var xArr2 = two.categories
-    var xArr = ["项目1", "项目2", "项目3", "项目4", "项目5"]
+    var xArr = three.categories
     var data = [12, 5, 28, 43, 22]
     var data1 = [21, 9, 12, 15, 8]
     var series = [{
-        name: '质量一次性合格率',
+        name: '质量一次验收合格率',
         type: 'bar',
         barWidth: 20,
+        //barGap:10,
         data: two.series[0].data,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     }];
     var series1 = [
         {
-            name: '施工资料同步率',
+            name: '焊接一次合格率',
             type: 'bar',
             barWidth: 20,
-            data: data1,
+            data: three.series[0].data,
             itemStyle: { normal: { color: 'rgba(140,202,214, 1)' } }
         }];
     category('two', xArr2, series)
@@ -1128,6 +1131,7 @@
     function randomData() {
         return Math.round(Math.random() * 1000);
     }
+    var projectNum =<%=ProjectNum %>
     var myChart = null
     function mapEchart(id, mapType) {
         myChart = echarts.init(document.getElementById(id));
@@ -1174,27 +1178,41 @@
                     zoom: mapZoom,
                     roam: false,
                     data: [
-                        { name: 'China', value: 5 },
-                        { name: 'United States', value: 0 },
-                        { name: '北京', value: 0 },
-                        { name: '天津', value: 0 },
-                        { name: '上海', value: 0 },
-                        { name: '重庆', value: 0 },
-                        { name: '河北', value: 0 },
-                        { name: '安徽', value: 0 },
-                        { name: '新疆', value: 1 },
-                        { name: '浙江', value: 0 },
-                        { name: '江西', value: 0 },
-                        { name: '山西', value: 0 },
-                        { name: '内蒙古', value: 1 },
-                        { name: '吉林', value: 0 },
-                        { name: '福建', value: 0 },
-                        { name: '广东', value: 0 },
-                        { name: '西藏', value: 0 },
-                        { name: '四川', value: 0 },
-                        { name: '宁夏', value: 1 },
-                        { name: '香港', value: 0 },
-                        { name: '澳门', value: 0 }
+                        { name: 'China', value: projectNum.data[0] },
+                        { name: 'United States', value: randomData() },
+                        { name: '上海', value: projectNum.data[1] },
+                        { name: '河北', value: projectNum.data[2] },
+                        { name: '山西', value: projectNum.data[3] },
+                        { name: '内蒙古', value: projectNum.data[4] },
+                        { name: '辽宁', value: projectNum.data[5] },
+                        { name: '吉林', value: projectNum.data[6] },
+                        { name: '黑龙江', value: projectNum.data[7] },
+                        { name: '江苏', value: projectNum.data[8] },
+                        { name: '浙江', value: projectNum.data[9] },
+                        { name: '安徽', value: projectNum.data[10] },
+                        { name: '福建', value: projectNum.data[11] },
+                        { name: '江西', value: projectNum.data[12] },
+                        { name: '山东', value: projectNum.data[13] },
+                        { name: '河南', value: projectNum.data[14] },
+                        { name: '湖北', value: projectNum.data[15] },
+                        { name: '湖南', value: projectNum.data[16] },
+                        { name: '广东', value: projectNum.data[17] },
+                        { name: '广西', value: projectNum.data[18] },
+                        { name: '海南', value: projectNum.data[19] },
+                        { name: '四川', value: projectNum.data[20] },
+                        { name: '贵州', value: projectNum.data[21] },
+                        { name: '云南', value: projectNum.data[22] },
+                        { name: '西藏', value: projectNum.data[23] },
+                        { name: '陕西', value: projectNum.data[24] },
+                        { name: '甘肃', value: projectNum.data[25] },
+                        { name: '青海', value: projectNum.data[26] },
+                        { name: '宁夏', value: projectNum.data[27] },
+                        { name: '新疆', value: projectNum.data[28] },
+                        { name: '北京', value: projectNum.data[29] },
+                        { name: '天津', value: projectNum.data[30] },
+                        { name: '重庆', value: projectNum.data[31] },
+                        { name: '香港', value: projectNum.data[32] },
+                        { name: '澳门', value: projectNum.data[33] }
                     ],
                     //地图区域的多边形 图形样式，有 normal 和 emphasis 两个状态
                     itemStyle: {
@@ -1521,7 +1539,7 @@
        leftoffsetValue1 = 20
     }
 //alert(leftAccValue + "," + leftoffsetValue + "," +leftoffsetValue1)
-    function Accumulation(id) {
+    function Accumulation(id,datap,data0,data1,data2,data3) {
         var myChartLine = echarts.init(document.getElementById(id));
         option = {
             title: {
@@ -1552,7 +1570,7 @@
                 position: 'left',
                 type: 'category',
 		
-                data: ['项目一项目目', '项目二', '项目三', '项目四', '项目五', '项目六', '项目名称'],
+                data: datap,
                 axisLabel: {
 		    interval:0,
                     show: true,
@@ -1589,7 +1607,7 @@
                 offset: leftoffsetValue1,
                 position: 'left',
                 type: 'category',
-                data: ['20', '30', '30', '32', '30', '30', '在线数'],
+                data: data0,
                 axisLabel: {
                     show: true,
                     fontSize: 12,
@@ -1632,7 +1650,7 @@
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [320, 302, 301, 334, 390, 330]
+                    data:  [0,0,0,3,0]//data1
                 },
                 {
                     name: '作业人员总数',
@@ -1642,7 +1660,7 @@
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [120, 132, 101, 134, 90, 230]
+                    data: [0,2,0,0,0]// data2
                 },
                 {
                     name: '管理人员总数',
@@ -1654,13 +1672,30 @@
                     },
                     //barWidth: 30,
                     //barGap: 0,
-                    data: [220, 182, 191, 234, 290, 330]
+                    data: [0,2,0,1,0]//data3
                 }
             ]
         };
         myChartLine.setOption(option);
     }
-    Accumulation('Accumulation')
+
+     var accumulation =<%=accumulation %>;
+    var datap = [{
+        data: accumulation.series[0].dataString
+    }]
+    var data0 = [{
+        data: accumulation.series[1].dataString
+    }]
+     var data1 = [{
+        data: accumulation.series[2].data
+    }]
+     var data2 = [{
+        data: accumulation.series[3].data
+    }]
+      var data3 = [{
+        data: accumulation.series[4].data
+    }]
+    Accumulation('Accumulation', datap[0].data, data0[0].data, data1[0].data, data2[0].data, data3[0].data)
 </script>
 <script>
     function radar(id) {

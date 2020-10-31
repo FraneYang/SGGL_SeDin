@@ -24,7 +24,7 @@
                     ShowRedStar="true" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"></f:TextBox>
                 </Items>
                 <Items>
-                   <f:TextBox ID="txtShortName" runat="server" Label="简称" MaxLength="200" LabelWidth="150px"></f:TextBox>
+                   <f:TextBox ID="txtShortName" runat="server" Label="简称" LabelWidth="150px" MaxLength="4" Required="true" ShowRedStar="true"></f:TextBox>
                 </Items>
             </f:FormRow>                     
             <f:FormRow>
@@ -115,20 +115,22 @@
                     ></f:TextBox>
                 </Items>
             </f:FormRow> 
-            <f:FormRow>   
+            <f:FormRow ColumnWidths="40% 10% 50%">   
                 <Items>
-                     <f:CheckBox ID="ckIsUpTotalMonth" runat="server" Label="上报月总结" Checked="true" Hidden="true">
-                    </f:CheckBox>
                       <f:TextBox ID="txtMapCoordinates" runat="server" Label="坐标" MaxLength="50"></f:TextBox>                     
                     <f:ContentPanel ID="bottomPanel"  RegionPosition="Bottom" ShowBorder="false" ShowHeader="false" EnableCollapse="false" runat="server">
                         <a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" >拾取坐标</a>
                    </f:ContentPanel>
+                   <f:TextBox ID="txtEnglishRemark" runat="server" Label="英文简称" MaxLength="3" LabelWidth="150px" Width="300px"></f:TextBox>
+                    
                 </Items>
             </f:FormRow>   
         </rows>
         <toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
+                    <f:CheckBox ID="ckIsUpTotalMonth" runat="server" Label="上报月总结" Checked="true" Hidden="true">
+                    </f:CheckBox>
                     <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm1" 
                         OnClick="btnSave_Click">
                     </f:Button>

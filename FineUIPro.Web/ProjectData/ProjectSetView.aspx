@@ -88,6 +88,12 @@
                     <f:TextBox ID="txtMapCoordinates" runat="server" Label="坐标" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>     
+            <f:FormRow>
+                 <Items>
+                    <f:TextBox ID="txtEnglishRemark" runat="server" Label="英文简称" Readonly="true"></f:TextBox>
+                     <f:Label ID="lb1" runat="server"></f:Label>
+                </Items>
+            </f:FormRow>   
         </rows>
         <toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

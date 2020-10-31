@@ -110,5 +110,24 @@ namespace BLL
             SafeHours = Convert.ToInt32((SafeHours) * 1.0 / 60) + getMaxWorkHours;
             return SafeHours;
         }
+
+        #region 获取日进场人数
+        /// <summary>
+        /// 获取当前人数
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <returns></returns>
+        public static int getPersonInNowNum(string projectId, DateTime dateValue)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDayAll = from x in db.SitePerson_PersonInOutNow
+                                where x.ProjectId == projectId && x.ChangeTime.Value.Year == dateValue.Year && x.ChangeTime.Value.Month == dateValue.Month
+                                && x.ChangeTime.Value.Day == dateValue.Day && x.IsIn == true
+                                select x;
+                return getDayAll.Select(x=>x.PersonId).Distinct().Count(); ;
+            }
+        }
+        #endregion
     }
 }

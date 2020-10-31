@@ -94,6 +94,7 @@ namespace FineUIPro.Web.ProjectData
                         this.txtCountry.Text = project.Country;
                         this.txtProvince.Text = project.Province;
                         this.txtCity.Text = project.City;
+                        this.txtEnglishRemark.Text = project.EnglishRemark;
                     }
                 }
             }

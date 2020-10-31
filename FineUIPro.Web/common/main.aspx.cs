@@ -24,7 +24,7 @@ namespace FineUIPro.Web.common
                 if (acount > 0)
                 {
                     pcount1 = getAllProject.Where(x => x.ProjectState == "1" || x.ProjectState == null).Count();
-                    pcount2 = getAllProject.Where(x => x.ProjectState == "2" ).Count();
+                    pcount2 = getAllProject.Where(x => x.ProjectState == "2").Count();
                     pcount3 = getAllProject.Where(x => x.ProjectState == "3").Count();
                 }
                 this.numProjetcA.InnerHtml = acount.ToString();
@@ -34,14 +34,110 @@ namespace FineUIPro.Web.common
                 this.numProjetc3.InnerHtml = pcount3.ToString();
 
                 string projectHtml = string.Empty;
-                foreach (var item in getAllProject)
+                var workProjects = BLL.ProjectService.GetProjectWorkList();
+                foreach (var item in workProjects)
                 {
                     projectHtml += "<div>" + item.ProjectName + " </div>";
                 }
                 this.divProjectList.InnerHtml = projectHtml;
-                #endregion            
+                #endregion
+                #region 进度统计
+                this.divJD.InnerHtml = "<div class='flex tab-h'><div class='txt'>工地名称</div><div class='txt'>状态</div><div class='flex1' style='text-align: center'>进度</div></div>";
+                decimal dComplete1 = 0, dCompleteTotal = 0;
+                foreach (var p in workProjects)
+                {
+                    dComplete1 = 0;
+                    dCompleteTotal = 0;
+                    var unitWorks = BLL.UnitWorkService.GetUnitWorkLists(p.ProjectId);
+                    var workPackages = BLL.WorkPackageService.GetAllWorkPackagesByProjectId(p.ProjectId);
+                    var controlItemAndCycles = BLL.ControlItemAndCycleService.GetControlItemAndCyclesByProjectIdAndDate(p.ProjectId, DateTime.Now);
+                    var soptCheckDetails = BLL.SpotCheckDetailService.GetViewSpotCheckDetailsByProjectIdAndDate(p.ProjectId, DateTime.Now, string.Empty);
+                    foreach (var item in controlItemAndCycles)
+                    {
+                        //实际值
+                        var itemSoptCheckDetails = soptCheckDetails.Where(x => x.ControlItemAndCycleId == item.ControlItemAndCycleId && x.SpotCheckDate < DateTime.Now);
+                        if (itemSoptCheckDetails.Count() > 0)  //存在验收合格的记录
+                        {
+                            //工作包实际值
+                            dComplete1 = Convert.ToDecimal(itemSoptCheckDetails.Count()) / Convert.ToDecimal(item.CheckNum) * Convert.ToDecimal(item.Weights);
+                            var workPackage1 = workPackages.FirstOrDefault(x => x.WorkPackageId == item.WorkPackageId);
+                            if (workPackage1 != null)
+                            {
+                                //逐级递推计算权重计划值
+                                dComplete1 = Convert.ToDecimal((workPackage1.Weights ?? 0) / 100) * Convert.ToDecimal(dComplete1 / 100);
+                                var workPackage2 = workPackages.FirstOrDefault(x => x.WorkPackageId == workPackage1.SuperWorkPackageId);
+                                if (workPackage2 != null)
+                                {
+                                    dComplete1 = Convert.ToDecimal((workPackage2.Weights ?? 0) / 100) * dComplete1;
+                                    var workPackage3 = workPackages.FirstOrDefault(x => x.WorkPackageId == workPackage2.SuperWorkPackageId);
+                                    if (workPackage3 != null)
+                                    {
+                                        dComplete1 = Convert.ToDecimal((workPackage3.Weights ?? 0) / 100) * dComplete1;
+                                    }
+                                }
+                            }
+                            var unitWork = unitWorks.FirstOrDefault(x => x.UnitWorkId == workPackage1.UnitWorkId);
+                            if (unitWork != null)
+                            {
+                                dComplete1 = Convert.ToDecimal((unitWork.Weights ?? 0) / 100) * dComplete1;
+                            }
+                            dCompleteTotal += dComplete1;
+                        }
+                    }
+                    dCompleteTotal = dCompleteTotal * 100;
+                    this.divJD.InnerHtml += "<div class='flex tab-i'><div class='txt'>" + p.ShortName + "</div><div class='txt'>在建</div><div class='flex1 flex line-wrap'><div class='line-item'><div class='normal' style='width: " + dCompleteTotal + "%'></div></div></div></div>";
+                }
+                #endregion
             }
         }
+
+        #region  项目数量
+        protected string ProjectNum
+        {
+            get
+            {
+                Model.SingleSerie series = new Model.SingleSerie();
+                var getAllProject = ProjectService.GetAllProjectDropDownList();
+                List<double> listdata = new List<double>();
+                listdata.Add(getAllProject.Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "上海").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "河北").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "山西").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "内蒙古").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "辽宁").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "吉林").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "黑龙江").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "江苏").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "浙江").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "安徽").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "福建").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "江西").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "山东").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "河南").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "湖北").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "湖南").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "广东").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "广西").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "海南").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "四川").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "贵州").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "云南").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "西藏").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "陕西").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "甘肃").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "青海").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "宁夏").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "新疆").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "北京").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "天津").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "重庆").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "香港").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "澳门").Count());
+                series.data = listdata;
+                return JsonConvert.SerializeObject(series);
+            }
+        }
+        #endregion
 
         #region 安全人工时
         /// <summary>
@@ -119,7 +215,7 @@ namespace FineUIPro.Web.common
                 Model.BusinessColumn businessColumn = new Model.BusinessColumn();
                 List<string> listCategories = new List<string>();
                 businessColumn.title = "质量一次验收合格率";
-                var projects = BLL.ProjectService.GetAllProjectDropDownList();
+                var projects = BLL.ProjectService.GetProjectWorkList();
                 Model.SingleSerie s = new Model.SingleSerie();
                 //Model.SingleSerie s2 = new Model.SingleSerie();
                 List<double> listdata = new List<double>();
@@ -127,7 +223,7 @@ namespace FineUIPro.Web.common
                 double result = 0, result2 = 0;
                 foreach (var project in projects)
                 {
-                    listCategories.Add(project.ProjectCode);
+                    listCategories.Add(project.ShortName);
                     List<Model.View_Check_SoptCheckDetail> TotalCheckDetailOKLists = SpotCheckDetailService.GetTotalOKSpotCheckDetailListByTime1(project.ProjectId, DateTime.Now);
                     List<Model.View_Check_SoptCheckDetail> TotalCheckDetailLists = SpotCheckDetailService.GetTotalAllSpotCheckDetailListByTime(project.ProjectId, DateTime.Now);
                     //List<Model.View_Check_SoptCheckDetail> totalCheckDetailDataOKLists = SpotCheckDetailService.GetAllDataOkSpotCheckDetailListByTime(project.ProjectId, DateTime.Now);
@@ -158,6 +254,59 @@ namespace FineUIPro.Web.common
             }
         }
         #endregion
+
+        #region  焊接一次合格率统计
+        protected string Three
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "焊接一次合格率统计";
+                var projects = BLL.ProjectService.GetProjectWorkList();
+                Model.SingleSerie s = new Model.SingleSerie();
+                //Model.SingleSerie s2 = new Model.SingleSerie();
+                List<double> listdata = new List<double>();
+                //List<double> listdata2 = new List<double>();
+                double result = 0;
+                Model.SGGLDB db = Funs.DB;
+                foreach (var project in projects)
+                {
+                    listCategories.Add(project.ShortName);
+                    //一次检测合格焊口数
+                    int oneCheckJotNum = (from x in db.HJGL_Batch_NDEItem
+                                          join y in db.HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                                          join z in db.HJGL_Batch_PointBatchItem on y.PointBatchItemId equals z.PointBatchItemId
+                                          join a in db.HJGL_Batch_NDE on x.NDEID equals a.NDEID
+                                          where z.PointDate != null && z.PointState == "1" && y.RepairRecordId == null && a.ProjectId == project.ProjectId
+                                          select x.NDEItemID).Count();
+                    //一次检测返修焊口数
+                    int oneCheckRepairJotNum = (from x in db.HJGL_Batch_NDEItem
+                                                join y in db.HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                                                join z in db.HJGL_Batch_PointBatchItem on y.PointBatchItemId equals z.PointBatchItemId
+                                                join a in db.HJGL_Batch_NDE on x.NDEID equals a.NDEID
+                                                where z.PointDate != null && z.PointState == "1" && y.RepairRecordId == null && x.CheckResult == "2" && a.ProjectId == project.ProjectId
+                                                select x.NDEItemID).Count();
+                    if (oneCheckJotNum > 0)
+                    {
+                        var a = Convert.ToDouble(oneCheckJotNum - oneCheckRepairJotNum);
+                        var b = Convert.ToDouble(oneCheckJotNum);
+                        result = Convert.ToDouble(decimal.Round(decimal.Parse((a / b * 100).ToString()), 1));
+                    }
+                    listdata.Add(result);
+                    //listdata2.Add(result2);
+                    result = 0;
+                }
+                s.data = listdata;
+                series.Add(s);
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
+
         protected string CQMSData
         {
             get
@@ -174,7 +323,7 @@ namespace FineUIPro.Web.common
                 foreach (var project in projects)
                 {
                     listCategories.Add(project.ShortName);
-                    listdata.Add(i*100);
+                    listdata.Add(i * 100);
                     i = i + 0.1;
                 }
                 s.name = "质量验收一次合格率";
@@ -257,5 +406,68 @@ namespace FineUIPro.Web.common
                 return JsonConvert.SerializeObject(businessColumn);
             }
         }
+
+        #region 劳务统计
+        /// <summary>
+        ///  作业许可数量统计
+        /// </summary>
+        protected string accumulation
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "劳务统计";
+                ////项目
+                Model.SingleSerie s = new Model.SingleSerie();
+                List<string> listdataStringProject = new List<string>();
+                ////进场人数
+                Model.SingleSerie s0 = new Model.SingleSerie();
+                List<string> list0 = new List<string>();
+                ////进场人数
+                Model.SingleSerie s1 = new Model.SingleSerie();
+                List<double> list1 = new List<double>();
+                ////作业人数
+                Model.SingleSerie s2 = new Model.SingleSerie();
+                List<double> list2 = new List<double>();
+                ////管理人数
+                Model.SingleSerie s3 = new Model.SingleSerie();
+                List<double> list3 = new List<double>();
+                var projects = BLL.ProjectService.GetProjectWorkList();
+                foreach (var itemP in projects)
+                {
+                    listdataStringProject.Add(itemP.ShortName );
+                    list0.Add(APIPageDataService.getPersonInNowNum(itemP.ProjectId, DateTime.Now).ToString());
+                    var getallin = APIPageDataService.getPersonNum(this.CurrUser.LoginProjectId, DateTime.Now);
+                    int aCount = getallin.Count();
+                    int mCount = getallin.Where(x => x.PostType == Const.PostType_1).Count();
+                    list1.Add(aCount);
+                    list2.Add(aCount - mCount);
+                    list3.Add(mCount);
+                }
+
+                listdataStringProject.Add("项目");
+                list0.Add("进场人数");
+
+                s.dataString = listdataStringProject;
+                series.Add(s);
+
+                s0.dataString = list0;
+                series.Add(s0);
+
+                s1.data = list1;
+                series.Add(s1);
+                s2.data = list2;
+                series.Add(s2);
+                s3.data = list3;
+                series.Add(s3);
+
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
     }
 }
