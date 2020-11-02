@@ -556,5 +556,37 @@ namespace FineUIPro.Web.common
             }
         }
         #endregion
+
+        protected string swiper_One
+        {
+            get
+            {
+                var getNotice = (from x in Funs.DB.InformationProject_Notice
+                                 where x.IsRelease == true
+                                 orderby x.ReleaseDate
+                                 select x).Distinct().Take(20);
+                string strNoticeHtml = string.Empty;
+                foreach (var item in getNotice)
+                {
+                    string url = "../Notice/NoticeView.aspx?NoticeId=" + item.NoticeId;
+                    strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\">" + item.NoticeTitle + "</div></li>";
+                }
+                return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
+            }
+        }
+
+        protected string swiper_Two
+        {
+            get
+            {
+                var getDataList = Funs.DB.Sp_APP_GetToDoItems(this.CurrUser.LoginProjectId, this.CurrUser.UserId).ToList(); ;
+                string strNoticeHtml = string.Empty;
+                foreach (var item in getDataList)
+                {
+                    strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
+                }
+                return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
+            }
+        }
     }
 }

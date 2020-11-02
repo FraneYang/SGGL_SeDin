@@ -380,28 +380,7 @@
                       <div id="swiper-pre" class="bw-item flex1 mbnone" style="flex: 1; width: 48%;">
                           <div class="bw-item-content flex flexV">
                               <div class="tit-new">劳务统计</div>
-                              <%--<div class=" flex1">
-                                  <div id='Accumulation' style="width: 100%; height: 100%;"></div>
-                              </div>--%>
-                              <div class="content-wrap tab-content flex1 flex" style="overflow: visible;padding-bottom:0;margin-top:0;">
-                                  <div class="Accumulation-next">
-                                      <div class="flex tab-h">
-                                          <div class="txt">工程名</div>
-                                          <div class="txt">在线数</div>
-                                      </div>
-                                      <div class="flex tab-i">
-                                          <div class="txt">工程1</div>
-                                          <div class="txt">12</div>
-                                      </div>
-                                      <div class="flex tab-i">
-                                          <div class="txt">工程2</div>
-                                          <div class="txt">23</div>
-                                      </div>
-                                      <div class="flex tab-i">
-                                          <div class="txt">工程3</div>
-                                          <div class="txt">34</div>
-                                      </div>
-                                  </div>
+                              <div class="content-wrap tab-content flex1 flex" style="overflow: visible;padding-bottom:0;margin-top:0;">                                
                                   <div class=" flex1">
                                       <div id='Accumulation' style="width: 100%; height: 100%;"></div>
                                   </div>
@@ -435,7 +414,7 @@
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">进度统计</div>
                         <div id="divJD" runat="server" class="content-wrap tab-content flex1" style="overflow: auto;">
-                            <%--<div class="flex tab-h">
+                            <div class="flex tab-h">
                                 <div class="txt">工地名称</div>
                                 <div class="txt">状态</div>
                                 <div class="flex1" style="text-align: center">进度</div>
@@ -466,7 +445,7 @@
                                         <div class="warn" style="width: 100%"></div>
                                     </div>
                                 </div>
-                            </div>--%>
+                            </div>
                         </div>
                     </div>
                 </div>
