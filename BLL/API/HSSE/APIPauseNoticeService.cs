@@ -28,7 +28,8 @@ namespace BLL
                                   PauseNoticeCode = x.PauseNoticeCode,
                                   UnitId = x.UnitId,
                                   UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                                  ProjectPlace = x.ProjectPlace,
+                                  UnitWorkId=x.UnitWorkId,
+                                  ProjectPlace = db.WBS_UnitWork.First(u=>u.UnitWorkId ==x.UnitWorkId).UnitWorkName,
                                   WrongContent = x.WrongContent,
                                   PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
                                   PauseContent = x.PauseContent,
@@ -123,8 +124,9 @@ namespace BLL
                                          ProjectId = x.ProjectId,
                                          PauseNoticeCode = x.PauseNoticeCode,
                                          UnitId = x.UnitId,
-                                         UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                                         ProjectPlace = x.ProjectPlace,
+                                         UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,                                         
+                                         UnitWorkId = x.UnitWorkId,
+                                         ProjectPlace = db.WBS_UnitWork.First(u => u.UnitWorkId == x.UnitWorkId).UnitWorkName,
                                          WrongContent = x.WrongContent,
                                          PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
                                          PauseContent = x.PauseContent,
@@ -175,6 +177,10 @@ namespace BLL
                 if (!string.IsNullOrEmpty(newItem.CompileManId))
                 {
                     newPauseNotice.CompileManId = newItem.CompileManId;
+                }
+                if (!string.IsNullOrEmpty(newItem.UnitWorkId))
+                {
+                    newPauseNotice.UnitWorkId = newItem.UnitWorkId;
                 }
                 if (newPauseNotice.PauseStates == Const.State_1)
                 {
@@ -243,6 +249,7 @@ namespace BLL
                     {
                         getUpdate.UnitId = newPauseNotice.UnitId;
                         getUpdate.ProjectPlace = newPauseNotice.ProjectPlace;
+                        getUpdate.UnitWorkId = newPauseNotice.UnitWorkId;
                         getUpdate.WrongContent = newPauseNotice.WrongContent;
                         getUpdate.PauseTime = newPauseNotice.PauseTime;
                         getUpdate.PauseContent = newPauseNotice.PauseContent;

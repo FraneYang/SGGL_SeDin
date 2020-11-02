@@ -1650,7 +1650,7 @@
                         show: true,
                         position: 'insideRight'
                     },
-                    data:  [0,0,0,3,0]//data1
+                    data:  data1
                 },
                 {
                     name: '作业人员总数',
@@ -1660,7 +1660,7 @@
                         show: true,
                         position: 'insideRight'
                     },
-                    data: [0,2,0,0,0]// data2
+                    data: data2
                 },
                 {
                     name: '管理人员总数',
@@ -1672,7 +1672,7 @@
                     },
                     //barWidth: 30,
                     //barGap: 0,
-                    data: [0,2,0,1,0]//data3
+                    data: data3
                 }
             ]
         };

@@ -51,6 +51,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 工程部位ID
+        /// </summary>
+        public string UnitWorkId
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 工程部位
         /// </summary>
         public string ProjectPlace
