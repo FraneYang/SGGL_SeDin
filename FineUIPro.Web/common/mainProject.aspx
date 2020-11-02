@@ -955,7 +955,10 @@
         name: '累计实际值',
         type: 'line',
         //smooth: true,
-        data: four.series[3].data,
+            data: four.series[3].data,
+         lineStyle: {
+            color: 'rgba(200,201,10, 1)'
+        }
     }]
     line('four', xArr1, data1)
 
