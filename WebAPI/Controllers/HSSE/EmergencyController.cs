@@ -214,7 +214,8 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIEmergencyService.getEmergencyProcessItem(projectId, processSteps);
+                var getDataList = APIEmergencyService.getEmergencyProcessItem(projectId, processSteps);
+                responeData.data = new { getDataList };
             }
             catch (Exception ex)
             {
@@ -267,7 +268,7 @@ namespace WebAPI.Controllers
         //    try
         //    {
         //        var getDataList = APIEmergencyService.getEmergencyProcessItem(emergencyProcessId);
-        //        responeData.data = new {  getDataList };
+        //        responeData.data = new { getDataList };
         //    }
         //    catch (Exception ex)
         //    {

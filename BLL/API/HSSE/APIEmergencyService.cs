@@ -452,44 +452,44 @@ namespace BLL
         #endregion
 
         #region 获取应急流程列表信息
-        /// <summary>
-        /// 获取应急队伍列表信息
-        /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="processSteps"></param>
-        /// <returns></returns>
-        public static Model.EmergencyProcessItem getEmergencyProcessItem(string projectId, string processSteps)
-        {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
-            {
-                var getDataList = (from x in db.Emergency_EmergencyProcess
-                                   where x.ProjectId == projectId && x.ProcessSteps == processSteps
-                                   select new Model.EmergencyProcessItem
-                                   {
-                                       EmergencyProcessId = x.EmergencyProcessId,
-                                       ProjectId = x.ProjectId,
-                                       ProcessSteps = x.ProcessSteps,
-                                       ProcessName = x.ProcessName,
-                                       StepOperator = x.StepOperator,
-                                       Remark = x.Remark,
-                                   }).FirstOrDefault();
-                if (getDataList == null)
-                {
-                    getDataList = (from x in db.Emergency_EmergencyProcess
-                                   where x.ProjectId == null && x.ProcessSteps == processSteps
-                                   select new Model.EmergencyProcessItem
-                                   {
-                                       EmergencyProcessId = x.EmergencyProcessId,
-                                       ProjectId = x.ProjectId,
-                                       ProcessSteps = x.ProcessSteps,
-                                       ProcessName = x.ProcessName,
-                                       StepOperator = x.StepOperator,
-                                       Remark = x.Remark,
-                                   }).FirstOrDefault();
-                }
-                return getDataList;
-            }
-        }
+        ///// <summary>
+        ///// 获取应急队伍列表信息
+        ///// </summary>
+        ///// <param name="projectId"></param>
+        ///// <param name="processSteps"></param>
+        ///// <returns></returns>
+        //public static Model.EmergencyProcessItem getEmergencyProcessItem(string projectId, string processSteps)
+        //{
+        //    using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+        //    {
+        //        var getDataList = (from x in db.Emergency_EmergencyProcess
+        //                           where x.ProjectId == projectId && x.ProcessSteps == processSteps
+        //                           select new Model.EmergencyProcessItem
+        //                           {
+        //                               EmergencyProcessId = x.EmergencyProcessId,
+        //                               ProjectId = x.ProjectId,
+        //                               ProcessSteps = x.ProcessSteps,
+        //                               ProcessName = x.ProcessName,
+        //                               StepOperator = x.StepOperator,
+        //                               Remark = x.Remark,
+        //                           }).FirstOrDefault();
+        //        if (getDataList == null)
+        //        {
+        //            getDataList = (from x in db.Emergency_EmergencyProcess
+        //                           where x.ProjectId == null && x.ProcessSteps == processSteps
+        //                           select new Model.EmergencyProcessItem
+        //                           {
+        //                               EmergencyProcessId = x.EmergencyProcessId,
+        //                               ProjectId = x.ProjectId,
+        //                               ProcessSteps = x.ProcessSteps,
+        //                               ProcessName = x.ProcessName,
+        //                               StepOperator = x.StepOperator,
+        //                               Remark = x.Remark,
+        //                           }).FirstOrDefault();
+        //        }
+        //        return getDataList;
+        //    }
+        //}
         #endregion        
 
         #region 获取应急流程列表信息
@@ -519,32 +519,37 @@ namespace BLL
                 return getDataList.ToList();
             }
         }
-        #endregion        
+        #endregion
 
         #region 获取应急流程明细信息
         /// <summary>
-        /// 获取应急队伍列表信息
+        /// 获取应急流程明细信息
         /// </summary>
-        /// <param name="emergencyProcessId"></param>
+        /// <param name="projectId"></param>
+        /// <param name="processSteps"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getEmergencyProcessItem(string emergencyProcessId)
+        public static List<Model.BaseInfoItem> getEmergencyProcessItem(string projectId, string processSteps)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 List<Model.BaseInfoItem> getDataList = new List<Model.BaseInfoItem>();
-                var getEmergencyProcess = Funs.DB.Emergency_EmergencyProcess.FirstOrDefault(x => x.EmergencyProcessId == emergencyProcessId);
+                var getEmergencyProcess = db.Emergency_EmergencyProcess.FirstOrDefault(x => x.ProjectId == projectId && x.ProcessSteps == processSteps);
                 if (getEmergencyProcess != null)
                 {
                     if (getEmergencyProcess.ProcessSteps == "0")
                     {
                         var getData = from x in Funs.DB.Emergency_EmergencyProcessItem
-                                      where x.EmergencyProcessId == emergencyProcessId
+                                      where x.EmergencyProcessId == getEmergencyProcess.EmergencyProcessId
                                       orderby x.SortId
                                       select new Model.BaseInfoItem
                                       { BaseInfoId = x.EmergencyProcessItemId, BaseInfoCode = x.SortId, BaseInfoName = x.Content, RemarkOther = "0" };
                         if (getData.Count() > 0)
                         {
                             getDataList = getData.ToList();
+                        }
+                        else
+                        {
+                            getDataList.Add(new Model.BaseInfoItem { BaseInfoId = getEmergencyProcess.EmergencyProcessId, BaseInfoCode = getEmergencyProcess.ProcessSteps, BaseInfoName = getEmergencyProcess.Remark, RemarkOther = "0" });
                         }
                     }
                     else
@@ -570,6 +575,10 @@ namespace BLL
                                     getDataList.Add(newItem);
                                 }
                             }
+                        }
+                        else
+                        {
+                            getDataList.Add(new Model.BaseInfoItem { BaseInfoId = getEmergencyProcess.EmergencyProcessId, BaseInfoCode = getEmergencyProcess.ProcessSteps, BaseInfoName = getEmergencyProcess.Remark, RemarkOther = "1" });
                         }
                     }
                 }

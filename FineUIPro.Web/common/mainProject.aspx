@@ -450,45 +450,7 @@
                         <div class="flex1 widthper mbnone" style="flex: 1; width: 48%;">
                             <div class="flex1 flex flexV bg-item bg-item-fix pd0">
                                 <div class="tit-new">通知</div>
-                                <div class="swiper-container pdlrb" id='swiper2' style="width: 100%;">
-                                    <ul class="content-ul swiper-wrapper">
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于加强全国两会期间安全防范工作</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于组织开展全国“两会”期间安全质量环保专项督导检查</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">赛鼎公司2020年第一次安全生产委员会会议纪要</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">转发集团公司2020年安全工作会议精神</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于传达贯彻4月10日全国安全生产电视电话会议主要精神的通知</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于做好2020年项目复（开）工的通知</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于贯彻落实疫情防控和进一步做好安全生产工作的有关通知</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于贯彻落实疫情防控和进一步做好安全生产工作的有关通知</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                        <li class="c-item swiper-slide">
-                                            <div class="tit">关于贯彻落实疫情防控和进一步做好安全生产工作的有关通知</div>
-                                            <!-- <div class="time">2020-02-09</div> -->
-                                        </li>
-                                    </ul>
+                                <div class="swiper-container pdlrb" id='swiper2' style="width: 100%;">                                    
                                 </div>
                             </div>
                         </div>
@@ -1014,7 +976,7 @@
     //category_Two('two1', xArr, data)
 </script>
 <script type="text/javascript">
-     var swiper_One = '<%=swiper_One %>'
+    var swiper_One = '<%=swiper_One %>'
     var swiper_Two = '<%=swiper_Two %>'
     $(".tab .t-item").click(function () {
         var $this = $(this)
@@ -1103,6 +1065,12 @@
     })
 
       $("#swiper1").on('click', 'li', function () {
+        var $this = $(this)
+        var data = $this.attr("data-id")
+        window.open(data)
+      })
+
+    $("#swiper2").on('click', 'li', function () {
         var $this = $(this)
         var data = $this.attr("data-id")
         window.open(data)
@@ -1219,7 +1187,7 @@
         )
     }
 </script>
-<script>    
+<script type="text/javascript">    
     var slidesNum = 5
     var mySwiper = null
     $(document).ready(function () {
@@ -1243,4 +1211,15 @@
     })
 
 </script>
+
+<script type="text/javascript">    
+    var swiper_Three = '<%=swiper_Three %>'
+     $("#swiper2").html(swiper_Three)
+                mySwiper = new Swiper('#swiper2', {
+                    autoplay: 4000,//可选选项，自动滑动
+                    direction: 'vertical',
+                    loop: true,
+                    slidesPerView: slidesNum
+                })
+ </script>
 </html>

@@ -561,15 +561,11 @@ namespace FineUIPro.Web.common
         {
             get
             {
-                var getNotice = (from x in Funs.DB.InformationProject_Notice
-                                 where x.IsRelease == true
-                                 orderby x.ReleaseDate
-                                 select x).Distinct().Take(20);
+                var getDataList = Funs.DB.Sp_APP_GetToDoItems(this.CurrUser.LoginProjectId, this.CurrUser.UserId).ToList(); ;
                 string strNoticeHtml = string.Empty;
-                foreach (var item in getNotice)
+                foreach (var item in getDataList)
                 {
-                    string url = "../Notice/NoticeView.aspx?NoticeId=" + item.NoticeId;
-                    strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\">" + item.NoticeTitle + "</div></li>";
+                    strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
@@ -579,11 +575,39 @@ namespace FineUIPro.Web.common
         {
             get
             {
-                var getDataList = Funs.DB.Sp_APP_GetToDoItems(this.CurrUser.LoginProjectId, this.CurrUser.UserId).ToList(); ;
+                var getperson0= APIPersonService.getPersonQualityByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId, "0");
+                var getperson1 = APIPersonService.getPersonQualityByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId, "1");               
                 string strNoticeHtml = string.Empty;
-                foreach (var item in getDataList)
+                string url = "../HSSE/QualityAudit/PersonQualityEdit.aspx?PersonId=";
+                foreach (var item in getperson0)
                 {
-                    strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
+                    string pur = url + item.PersonId;
+                    string strT = item.UnitName + "[" + item.PersonName + "]：" + item.CertificateName + "。证书已过期";
+                    strNoticeHtml += "<li data-id=\"" + pur + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\""+ strT + "\">" +  item.PersonName +"："+item.CertificateName+"。证书已过期" + "</div></li>";
+                }
+                foreach (var item in getperson1)
+                {
+                    string pur = url + item.PersonId;
+                    string strT = item.UnitName + "[" + item.PersonName + "]：" + item.CertificateName + "。证书待过期";
+                    strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + strT + "\">" + item.PersonName + "：" + item.CertificateName + "。证书待过期" + "</div></li>";
+                }
+                return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
+            }
+        }
+
+        protected string swiper_Three
+        {
+            get
+            {
+                var getNotice = (from x in Funs.DB.InformationProject_Notice
+                                 where x.IsRelease == true && x.AccessProjectId.Contains(this.CurrUser.LoginProjectId)
+                                 orderby x.ReleaseDate
+                                 select x).Distinct().Take(20);
+                string strNoticeHtml = string.Empty;
+                foreach (var item in getNotice)
+                {
+                    string url = "../Notice/NoticeView.aspx?NoticeId=" + item.NoticeId;
+                    strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\">" + item.NoticeTitle + "</div></li>";
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
