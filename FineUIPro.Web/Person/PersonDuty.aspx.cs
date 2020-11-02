@@ -41,12 +41,11 @@ namespace FineUIPro.Web.Person
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"select DutyId, DutyPersonId, DutyTime, CompilePersonId, CompileTime, D.WorkPostId, ApprovePersonId, ApproveTime,U.UserName,W.WorkPostName ,(CASE WHEN State = 0 THEN '待['+CompileMan.UserName+']提交' WHEN State = 1 THEN '待员工签字' WHEN State = 2 THEN '待['+Approve.UserName+']审核' WHEN State = 3 THEN '完成' END) AS State
+            string strSql = @"select DutyId, DutyPersonId, DutyTime, CompilePersonId, CompileTime, D.WorkPostId, ApprovePersonId, ApproveTime,U.UserName ,(CASE WHEN State = 0 THEN '待['+CompileMan.UserName+']提交' WHEN State = 1 THEN '待员工签字' WHEN State = 2 THEN '待['+Approve.UserName+']审核' WHEN State = 3 THEN '完成' END) AS State
               from Person_Duty D 
               left join Sys_User U on D.DutyPersonId=U.UserId 
               Left join Sys_User CompileMan on D.CompilePersonId=CompileMan.UserId
-              Left join Sys_User Approve on D.ApprovePersonId=Approve.UserId
-              Left Join Base_WorkPost W on  D.WorkPostId=W.WorkPostId ";
+              Left join Sys_User Approve on D.ApprovePersonId=Approve.UserId ";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
@@ -95,7 +94,8 @@ namespace FineUIPro.Web.Person
                 {
                     this.btnMenuEdit.Hidden = false;
                 }
-                if (buttonList.Contains(BLL.Const.BtnDelete)) {
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
                     this.btnMenuDelete.Hidden = false;
                 }
             }
@@ -127,7 +127,7 @@ namespace FineUIPro.Web.Person
                     var PersonDuty = BLL.Person_DutyService.GetPersonDutyById(rowID);
                     if (PersonDuty != null)
                     {
-                            BLL.Person_DutyService.DeletePersonDuty(rowID);
+                        BLL.Person_DutyService.DeletePersonDuty(rowID);
                     }
                 }
 
@@ -212,7 +212,7 @@ namespace FineUIPro.Web.Person
             {
                 url = "PersonDutyEdit.aspx?DutyId={0}";
             }
-            else if (PersonDuty.State == "2"  && PersonDuty.ApprovePersonId == this.CurrUser.UserId)
+            else if (PersonDuty.State == "2" && PersonDuty.ApprovePersonId == this.CurrUser.UserId)
             {
                 url = "PersonDutyEdit.aspx?DutyId={0}";
             }
@@ -222,7 +222,7 @@ namespace FineUIPro.Web.Person
         {
             BindGrid();
         }
-        
+
         protected void btnTemplate_Click(object sender, EventArgs e)
         {
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PersonDutyTemplate.aspx")));
@@ -231,6 +231,26 @@ namespace FineUIPro.Web.Person
         protected void MenuView_Click(object sender, EventArgs e)
         {
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Person/PersonDutyView.aspx?DutyId={0}", Grid1.SelectedRowID, "操作 - ")));
+        }
+
+        //<summary>
+        //获取岗位名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertWorkPostName(object WorkPostId)
+        {
+            string WorkPostName = string.Empty;
+            if (WorkPostId != null)
+            {
+                var list = BLL.WorkPostService.GetMainWorkPostList();
+                var post = list.FirstOrDefault(x => x.Value == WorkPostId.ToString());
+                if (post != null)
+                {
+                    WorkPostName = post.Text;
+                }
+            }
+            return WorkPostName;
         }
     }
 }

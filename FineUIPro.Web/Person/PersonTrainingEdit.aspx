@@ -73,30 +73,6 @@
                         </f:Form>
                     </Items>
                 </f:FormRow>
-                <f:FormRow>
-                    <Items>
-                        <f:Form ID="Form3" ShowBorder="true" ShowHeader="true" Title="教材" AutoScroll="true" BodyPadding="5px"
-                            runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
-                            <Rows>
-                                <f:FormRow>
-                                    <Items>
-                                        <f:Grid ID="gvCompany" ShowBorder="true" ShowHeader="false" EnableCollapse="true" EnableColumnLines="true"  EnableColumnMove="true" runat="server" BoxFlex="1" 
-                                            DataIDField="TrainingCompanyId" AllowSorting="true" 
-                                            SortDirection="ASC" EnableTextSelection="True" Height="200px"
-                                            EnableRowDoubleClickEvent="true" >
-                                            <Columns>
-                                                <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                                                <f:RenderField MinWidth="250px" ColumnID="CompanyTrainingName" DataField="CompanyTrainingName"
-                                                    FieldType="String" HeaderText="教材类型" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
-                                                </f:RenderField>
-                                            </Columns>
-                                        </f:Grid>
-                                    </Items>
-                                </f:FormRow>
-                            </Rows>
-                        </f:Form>
-                    </Items>
-                </f:FormRow>
                 <f:FormRow >
                     <Items>
                         <f:RadioButtonList runat="server" ID="rdbIsAgree" Label="是否同意" ShowRedStar="true" LabelWidth="110px" AutoPostBack="true" OnSelectedIndexChanged="rdbIsAgree_SelectedIndexChanged">

@@ -17,9 +17,9 @@
                 <f:FormRow>
                     <Items>
                         <f:DropDownList ID="drpSEDINUser" runat="server" Label="员工" EnableEdit="true" ForceSelection="false"
-                            Required="true" ShowRedStar="true" LabelWidth="110px" AutoPostBack="true" OnSelectedIndexChanged="drpSEDINUser_SelectedIndexChanged">
+                            Required="true" ShowRedStar="true" LabelWidth="110px" >
                         </f:DropDownList>
-                        <f:DropDownList ID="drpWorkPost" runat="server" Label="岗位"  Readonly="true">
+                        <f:DropDownList ID="drpWorkPost" runat="server" Label="岗位" AutoPostBack="true" OnSelectedIndexChanged="drpWorkPost_SelectedIndexChanged">
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>

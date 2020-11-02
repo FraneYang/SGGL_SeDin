@@ -50,8 +50,14 @@
                         <f:RenderField Width="120px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
                             FieldType="String" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
+                        <f:TemplateField ColumnID="WorkPostName" Width="120px" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertWorkPostName(Eval("WorkPostId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
                         <f:RenderField Width="120px" ColumnID="CompileTime" DataField="CompileTime" SortField="CompileTime"
-                            FieldType="String"  HeaderText="日期" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="Date" Renderer="Date"  HeaderText="日期" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="State" DataField="State" SortField="State"
                             FieldType="String"  HeaderText="状态" HeaderTextAlign="Center" TextAlign="Left">

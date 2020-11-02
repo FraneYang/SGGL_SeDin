@@ -31,7 +31,7 @@ namespace FineUIPro.Web.Person
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 BLL.UserService.InitUserUnitIdDropDownList(drpSEDINUser, Const.UnitId_SEDIN, true);
-                BLL.WorkPostService.InitWorkPostDropDownList(drpWorkPost, true);
+                WorkPostService.InitMainWorkPostDropDownList(drpWorkPost, true);
                 this.DutyId = Request.Params["DutyId"];
                 if (!string.IsNullOrEmpty(this.DutyId)) {
                     var PersonDuty = BLL.Person_DutyService.GetPersonDutyById(this.DutyId);
@@ -143,6 +143,20 @@ namespace FineUIPro.Web.Person
             }
         }
 
-        
+        protected void drpWorkPost_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.txtTemplate.Text = HttpUtility.HtmlDecode(string.Empty);
+            if (this.drpWorkPost.SelectedValue != BLL.Const._Null)
+            {
+                var dutyTemplate = BLL.Person_DutyTemplateService.GetPersondutyTemplateByWorkPostId(this.drpWorkPost.SelectedValue);
+                if (dutyTemplate != null)
+                {
+                    if (!string.IsNullOrEmpty(dutyTemplate.Template))
+                    {
+                        this.txtTemplate.Text = HttpUtility.HtmlDecode(dutyTemplate.Template);
+                    }
+                }
+            }
+        }
     }
 }

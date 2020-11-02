@@ -79,7 +79,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="ThoughtWorks.QRCode">
-      <HintPath>..\FineUIPro.Web\bin\ThoughtWorks.QRCode.dll</HintPath>
+      <HintPath>..\..\..\SGGL\SGGL\FineUIPro.Web\bin\ThoughtWorks.QRCode.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -386,6 +386,7 @@
     <Compile Include="OpenService\GetDataService.cs" />
     <Compile Include="Person\PersonTotalService.cs" />
     <Compile Include="Person\Person_DutyService.cs" />
+    <Compile Include="Person\Person_DutyTemplateService.cs" />
     <Compile Include="Person\Person_QuarterCheckApproveService.cs" />
     <Compile Include="Person\Person_QuarterCheckItemService.cs" />
     <Compile Include="Person\Person_QuarterCheckService.cs" />

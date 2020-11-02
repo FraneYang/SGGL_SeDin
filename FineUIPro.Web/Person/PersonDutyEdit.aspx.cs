@@ -31,7 +31,7 @@ namespace FineUIPro.Web.Person
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 BLL.UserService.InitUserUnitIdDropDownList(drpSEDINUser, Const.UnitId_SEDIN, true);
-                BLL.WorkPostService.InitWorkPostDropDownList(drpWorkPost, true);
+                WorkPostService.InitMainWorkPostDropDownList(drpWorkPost, true);
                 BLL.UserService.InitUserUnitIdDepartIdDropDownList(drpHandleMan, Const.UnitId_SEDIN, Const.Depart_constructionId,true);
                 this.DutyId = Request.Params["DutyId"];
                 if (!string.IsNullOrEmpty(this.DutyId)) {

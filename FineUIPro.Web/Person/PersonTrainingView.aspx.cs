@@ -45,7 +45,6 @@ namespace FineUIPro.Web.Person
                     {
                         this.hdTrainingPlanId.Text = this.TrainingPlanId;
                         BindGrid();
-                        BindGrid1();
                         if (!string.IsNullOrEmpty(TrainingPlan.TrainingPlanCode))
                         {
                             this.txtTrainingPlanCode.Text = TrainingPlan.TrainingPlanCode;
@@ -80,16 +79,6 @@ namespace FineUIPro.Web.Person
             DataTable tb = SQLHelper.GetDataTableRunText(sqlStr, parameter);
             gvPerson.DataSource = GetPagedDataTable(gvPerson, tb);
             gvPerson.DataBind();
-        }
-        private void BindGrid1()
-        {
-            string sqlStr = "select * from Person_TrainingCompany T left join Training_CompanyTraining C on T.CompanyTrainingId=C.CompanyTrainingId where TrainingPlanId=@TrainingPlanId";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@TrainingPlanId", this.TrainingPlanId));
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb1 = SQLHelper.GetDataTableRunText(sqlStr, parameter);
-            gvCompany.DataSource = GetPagedDataTable(gvCompany, tb1);
-            gvCompany.DataBind();
         }
         #endregion
 

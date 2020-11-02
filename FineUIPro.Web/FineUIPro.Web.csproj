@@ -67,10 +67,10 @@
     </Reference>
     <Reference Include="Aspose.Words, Version=10.5.0.0, Culture=neutral, PublicKeyToken=fa9a48344f15a022, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Aspose.Words.dll</HintPath>
+      <HintPath>..\..\..\CQMS_New\CQMS\FineUIPro.Web\bin\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="AxInterop.SYNCARDOCXLib">
-      <HintPath>..\Lib\AxInterop.SYNCARDOCXLib.dll</HintPath>
+      <HintPath>..\..\..\SGGL\SGGL\FineUIPro.Web\bin\AxInterop.SYNCARDOCXLib.dll</HintPath>
     </Reference>
     <Reference Include="FineUIPro, Version=6.3.0.0, Culture=neutral, PublicKeyToken=9cbe753c029f291a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,7 +79,7 @@
     <Reference Include="Interop.WIA, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
-      <HintPath>bin\Interop.WIA.dll</HintPath>
+      <HintPath>..\..\..\SGGL\SGGL\FineUIPro.Web\bin\Interop.WIA.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
@@ -117,7 +117,10 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="ThoughtWorks.QRCode, Version=1.0.2774.19990, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\ThoughtWorks.QRCode.dll</HintPath>
+      <HintPath>..\..\..\SGGL\SGGL\FineUIPro.Web\bin\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+    <Reference Include="ThoughtWorks.QRCode.Fakes">
+      <HintPath>FakesAssemblies\ThoughtWorks.QRCode.Fakes.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -981,6 +984,7 @@
     <Content Include="File\Excel\DataIn\WBS定制导入模板.xls" />
     <Content Include="File\Word\HSSE\安全日志.doc" />
     <Fakes Include="Fakes\Apache.NMS.fakes" />
+    <Fakes Include="Fakes\ThoughtWorks.QRCode.fakes" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />

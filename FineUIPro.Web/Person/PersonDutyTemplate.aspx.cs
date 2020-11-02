@@ -12,7 +12,7 @@ namespace FineUIPro.Web.Person
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) {
-                WorkPostService.InitWorkPostDropDownList(drpWorkPost, true);
+                WorkPostService.InitMainWorkPostDropDownList(drpWorkPost, true);
             }
         }
 
@@ -20,10 +20,13 @@ namespace FineUIPro.Web.Person
         {
             this.txtTemplate.Text = HttpUtility.HtmlDecode(string.Empty);
             if (this.drpWorkPost.SelectedValue != BLL.Const._Null) {
-                var WorkPost = BLL.WorkPostService.GetWorkPostById(drpWorkPost.SelectedValue);
-                if (!string.IsNullOrEmpty(WorkPost.Template))
+                var dutyTemplate = BLL.Person_DutyTemplateService.GetPersondutyTemplateByWorkPostId(this.drpWorkPost.SelectedValue);
+                if (dutyTemplate != null)
                 {
-                    this.txtTemplate.Text = HttpUtility.HtmlDecode(WorkPost.Template);
+                    if (!string.IsNullOrEmpty(dutyTemplate.Template))
+                    {
+                        this.txtTemplate.Text = HttpUtility.HtmlDecode(dutyTemplate.Template);
+                    }
                 }
             }
         }
@@ -32,16 +35,26 @@ namespace FineUIPro.Web.Person
         {
             if (this.drpWorkPost.SelectedValue != BLL.Const._Null)
             {
-                var WorkPost = BLL.WorkPostService.GetWorkPostById(drpWorkPost.SelectedValue);
-                if (WorkPost != null)
+                var dutyTemplate = BLL.Person_DutyTemplateService.GetPersondutyTemplateByWorkPostId(this.drpWorkPost.SelectedValue);
+                if (dutyTemplate != null)
                 {
                     if (!string.IsNullOrEmpty(txtTemplate.Text))
                     {
-                        WorkPost.Template = HttpUtility.HtmlEncode(this.txtTemplate.Text);
+                        dutyTemplate.Template = HttpUtility.HtmlEncode(this.txtTemplate.Text);
                         Funs.DB.SubmitChanges();
                     }
                 }
-
+                else
+                {
+                    Model.Person_DutyTemplate newDutyTemplate = new Model.Person_DutyTemplate();
+                    newDutyTemplate.DutyTemplateId = SQLHelper.GetNewID();
+                    newDutyTemplate.WorkPostId = this.drpWorkPost.SelectedValue;
+                    if (!string.IsNullOrEmpty(txtTemplate.Text))
+                    {
+                        newDutyTemplate.Template = HttpUtility.HtmlEncode(this.txtTemplate.Text);
+                    }
+                    BLL.Person_DutyTemplateService.AddPersondutyTemplate(newDutyTemplate);
+                }
             }
             else {
                 Alert.ShowInParent("请先选择岗位！", MessageBoxIcon.Warning);

@@ -158,7 +158,7 @@ namespace FineUIPro.Web.Person
 
         protected void MenuView_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Person/PersonDutyView.aspx?DutyId={0}", Grid1.SelectedRowID, "操作 - ")));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Person/PersonTrainingView.aspx?TrainingPlanId={0}", Grid1.SelectedRowID, "操作 - ")));
         }
         /// <summary>
         /// Grid行双击事件

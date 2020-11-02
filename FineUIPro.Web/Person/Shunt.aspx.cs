@@ -52,7 +52,7 @@ namespace FineUIPro.Web.Person
                                      + @" From dbo.Sys_User AS Users"
                                      + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
                                      + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
-                                     + @" LEFT JOIN Base_WorkPost AS Post ON Post.WorkPostId=Users.WorkPostId"
+                                     + @" LEFT JOIN Base_WorkPost AS Post ON Post.WorkPostId=Users.ProjectWorkPostId"
                                      + @" LEFT JOIN Base_Depart AS Depart ON Depart.DepartId=Users.DepartId"
                                      + @" LEFT JOIN Base_PostTitle AS PostTitle ON PostTitle.PostTitleId=Users.PostTitleId"
                                      + @" LEFT JOIN Base_PracticeCertificate AS pc ON pc.PracticeCertificateId=Users.CertificateId"
@@ -271,7 +271,7 @@ namespace FineUIPro.Web.Person
                             if (user != null)
                             {
                                 user.ProjectId = this.drpProject.SelectedValue;
-                                user.WorkPostId = detail.WorkPostId;
+                                user.ProjectWorkPostId = detail.WorkPostId;
                                 BLL.UserService.UpdateUser(user);
                                 Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
                                 {

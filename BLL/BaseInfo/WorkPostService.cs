@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.UI.WebControls;
 
 namespace BLL
 {
@@ -95,6 +96,27 @@ namespace BLL
             return list;
         }
 
+        /// <summary>
+        /// 获取本部岗位下拉项
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] GetMainWorkPostList()
+        {
+            ListItem[] lis = new ListItem[11];
+            lis[0] = new ListItem("施工经理", "1");
+            lis[1] = new ListItem("安全经理", "2");
+            lis[2] = new ListItem("质量经理", "3");
+            lis[3] = new ListItem("试车经理", "4");
+            lis[4] = new ListItem("施工专业工程师", "5");
+            lis[5] = new ListItem("安全专业工程师", "6");
+            lis[6] = new ListItem("质量专业工程师", "7");
+            lis[7] = new ListItem("试车专业工程师", "8");
+            lis[8] = new ListItem("本部综合管理工程师", "9");
+            lis[9] = new ListItem("本部合同管理工程师", "10");
+            lis[10] = new ListItem("本部安全质量工程师", "11");
+            return lis;
+        }
+
         #region 表下拉框
         /// <summary>
         ///  表下拉框
@@ -157,6 +179,23 @@ namespace BLL
             dropName.DataValueField = "WorkPostId";
             dropName.DataTextField = "WorkPostName";
             dropName.DataSource = BLL.WorkPostService.GetWorkPostListByType(postType);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitMainWorkPostDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = BLL.WorkPostService.GetMainWorkPostList();
             dropName.DataBind();
             if (isShowPlease)
             {

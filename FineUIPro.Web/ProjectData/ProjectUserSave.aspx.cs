@@ -147,7 +147,7 @@ namespace FineUIPro.Web.ProjectData
                     user.ProjectRoleId = newProjectUser.RoleId;
                     if (this.drpWorkPost.SelectedValue != BLL.Const._Null)
                     {
-                        user.WorkPostId = this.drpWorkPost.SelectedValue;
+                        user.ProjectWorkPostId = this.drpWorkPost.SelectedValue;
                     }
                     BLL.UserService.UpdateUser(user);
                 }

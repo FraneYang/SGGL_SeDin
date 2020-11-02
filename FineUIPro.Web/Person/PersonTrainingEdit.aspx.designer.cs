@@ -121,24 +121,6 @@ namespace FineUIPro.Web.Person {
         protected global::FineUIPro.Grid gvPerson;
         
         /// <summary>
-        /// Form3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form3;
-        
-        /// <summary>
-        /// gvCompany 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Grid gvCompany;
-        
-        /// <summary>
         /// rdbIsAgree 控件。
         /// </summary>
         /// <remarks>
