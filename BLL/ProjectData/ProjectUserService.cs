@@ -36,6 +36,15 @@
         }
 
         /// <summary>
+        ///获取当前项目用户信息根据用户ID
+        /// </summary>
+        /// <returns></returns>
+        public static Project_ProjectUser GetCurrProjectUserByUserId(string userId)
+        {
+            return (from x in Funs.DB.Project_ProjectUser where x.UserId == userId && x.IsPost == true select x).FirstOrDefault();
+        }
+
+        /// <summary>
         /// 增加项目用户信息
         /// </summary>
         /// <returns></returns>

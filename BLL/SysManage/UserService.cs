@@ -286,6 +286,8 @@ namespace BLL
                 newUser.PositionId = user.PositionId;
                 newUser.PostTitleId = user.PostTitleId;
                 newUser.WorkPostId = user.WorkPostId;
+                newUser.ProjectId = user.ProjectId;
+                newUser.ProjectRoleId = user.ProjectRoleId;
                 db.SubmitChanges();
             }
         }

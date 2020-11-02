@@ -427,6 +427,7 @@ namespace FineUIPro.Web.Person
                     }
                 }
             }
+
             BLL.LogService.AddSys_Log(this.CurrUser, shunt.Code, shunt.ShuntId, BLL.Const.PersonShuntMenuId, "编辑分流管理");
         }
         #endregion

@@ -10,7 +10,7 @@
 namespace FineUIPro.Web.Person {
     
     
-    public partial class Shunt {
+    public partial class ShuntList {
         
         /// <summary>
         /// form1 控件。
@@ -49,96 +49,6 @@ namespace FineUIPro.Web.Person {
         protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
-        /// Toolbar2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar2;
-        
-        /// <summary>
-        /// drpProject 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpProject;
-        
-        /// <summary>
-        /// drpWorkPost 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpWorkPost;
-        
-        /// <summary>
-        /// drpPostTitle 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpPostTitle;
-        
-        /// <summary>
-        /// drpCertificate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpCertificate;
-        
-        /// <summary>
-        /// btnView 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnView;
-        
-        /// <summary>
-        /// btnSure 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnSure;
-        
-        /// <summary>
-        /// cbSelect 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbSelect;
-        
-        /// <summary>
-        /// Label2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-        
-        /// <summary>
-        /// drpWP 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpWP;
-        
-        /// <summary>
         /// ToolbarSeparator1 控件。
         /// </summary>
         /// <remarks>
@@ -173,5 +83,32 @@ namespace FineUIPro.Web.Person {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window Window1;
+        
+        /// <summary>
+        /// Menu1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Menu Menu1;
+        
+        /// <summary>
+        /// btnMenuView 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnMenuView;
+        
+        /// <summary>
+        /// btnMenuDelete 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnMenuDelete;
     }
 }

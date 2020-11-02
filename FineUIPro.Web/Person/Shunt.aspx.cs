@@ -1,4 +1,5 @@
 ﻿using BLL;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Person
 {
@@ -22,14 +24,17 @@ namespace FineUIPro.Web.Person
             if (!IsPostBack)
             {
                 Funs.DropDownPageSize(this.ddlPageSize);
+                BLL.ProjectService.InitProjectDropDownList(this.drpProject, true);
                 ////权限按钮方法
                 this.GetButtonPower();
-                this.btnNew.OnClientClick = Window1.GetShowReference("ShuntEdit.aspx") + "return false;";
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
                 }
-
+                WorkPostService.InitWorkPostNameByTypeDropDownList2(this.drpWorkPost, "1", true);  //加载管理岗位
+                WorkPostService.InitWorkPostNameByTypeDropDownList(this.drpWP, "1", false);  //加载管理岗位
+                PostTitleService.InitPostTitleDropDownList(this.drpPostTitle, true);
+                PracticeCertificateService.InitPracticeCertificateDropDownList(this.drpCertificate, true);
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 this.BindGrid();
@@ -41,36 +46,34 @@ namespace FineUIPro.Web.Person
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Shunt.ShuntId,Shunt.Code,Shunt.ProjectId,Shunt.State,Shunt.CompileMan,Shunt.CompileDate,project.ProjectName"
-                                    + @" From dbo.Person_Shunt AS Shunt"
-                                    + @" LEFT JOIN Base_Project AS project ON project.projectId=Shunt.ProjectId"
-                                    + @" WHERE 1=1 ";
+            string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Users.IdentityCard,Users.Telephone,Users.IsOffice,"
+                                     + @"Roles.RoleName,Unit.UnitName,Unit.UnitCode,Depart.DepartName,Users.Major,PostTitle.PostTitleName,pc.PracticeCertificateName,project.ProjectName,Post.WorkPostName"
+                                     + @",ProjectRoleName= STUFF(( SELECT ',' + RoleName FROM dbo.Sys_Role where PATINDEX('%,' + RTRIM(RoleId) + ',%',',' +Users.ProjectRoleId + ',')>0 FOR XML PATH('')), 1, 1,'')"
+                                     + @" From dbo.Sys_User AS Users"
+                                     + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
+                                     + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
+                                     + @" LEFT JOIN Base_WorkPost AS Post ON Post.WorkPostId=Users.WorkPostId"
+                                     + @" LEFT JOIN Base_Depart AS Depart ON Depart.DepartId=Users.DepartId"
+                                     + @" LEFT JOIN Base_PostTitle AS PostTitle ON PostTitle.PostTitleId=Users.PostTitleId"
+                                     + @" LEFT JOIN Base_PracticeCertificate AS pc ON pc.PracticeCertificateId=Users.CertificateId"
+                                     + @" LEFT JOIN Base_Project AS project ON project.projectId=Users.ProjectId"
+                                     + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "' AND Unit.UnitId='" + Const.UnitId_SEDIN + "' AND Users.DepartId='" + Const.Depart_constructionId + "' AND Users.IsPost =1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            //if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
-            //{
-            //    strSql += " AND Users.UserName LIKE @UserName";
-            //    listStr.Add(new SqlParameter("@UserName", "%" + this.txtUserName.Text.Trim() + "%"));
-            //}
-            //if (!BLL.CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId)) ///不是企业单位或者管理员
-            //{
-            //    strSql += " AND Users.UnitId = @UnitId";
-            //    listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
-            //}
-
-            //if (!string.IsNullOrEmpty(this.txtRoleName.Text.Trim()))
-            //{
-            //    strSql += " AND Roles.RoleName LIKE @RoleName";
-            //    listStr.Add(new SqlParameter("@RoleName", "%" + this.txtRoleName.Text.Trim() + "%"));
-            //}
-            //if (!string.IsNullOrEmpty(this.txtProjectName.Text.Trim()))
-            //{
-            //    strSql += " AND project.ProjectName LIKE @ProjectName";
-            //    listStr.Add(new SqlParameter("@ProjectName", "%" + this.txtProjectName.Text.Trim() + "%"));
-            //}
-            //if (this.ckbAll.Checked == false)
-            //{
-            //    strSql += " AND Users.IsPost =1 ";
-            //}
+            if (this.drpWorkPost.SelectedValue != BLL.Const._Null)
+            {
+                strSql += " AND CHARINDEX(@WorkPostId,Users.WorkPostId)>0 ";
+                listStr.Add(new SqlParameter("@WorkPostId", this.drpWorkPost.SelectedValue));
+            }
+            if (this.drpPostTitle.SelectedValue != BLL.Const._Null)
+            {
+                strSql += " AND Users.PostTitleId = @PostTitleId";
+                listStr.Add(new SqlParameter("@PostTitleId", this.drpPostTitle.SelectedValue));
+            }
+            if (this.drpCertificate.SelectedValue != BLL.Const._Null)
+            {
+                strSql += " AND CHARINDEX(@CertificateId,Users.CertificateId)>0 ";
+                listStr.Add(new SqlParameter("@CertificateId", this.drpCertificate.SelectedValue));
+            }
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -105,17 +108,9 @@ namespace FineUIPro.Web.Person
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.PersonShuntMenuId);
             if (buttonList.Count() > 0)
             {
-                if (buttonList.Contains(BLL.Const.BtnAdd))
+                if (buttonList.Contains(BLL.Const.BtnSave))
                 {
-                    this.btnNew.Hidden = false;
-                }
-                if (buttonList.Contains(BLL.Const.BtnModify))
-                {
-                    this.btnMenuEdit.Hidden = false;
-                }
-                if (buttonList.Contains(BLL.Const.BtnDelete))
-                {
-                    this.btnMenuDelete.Hidden = false;
+                    this.btnSure.Hidden = false;
                 }
             }
         }
@@ -202,6 +197,140 @@ namespace FineUIPro.Web.Person
             BindGrid();
         }
         #endregion
+
+        /// <summary>
+        /// 确定按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSure_Click(object sender, EventArgs e)
+        {
+            if (this.drpProject.SelectedValue != BLL.Const._Null)
+            {
+                bool b = true;
+                foreach (JObject mergedRow in Grid1.GetMergedData())
+                {
+                    JObject values = mergedRow.Value<JObject>("values");
+                    int i = mergedRow.Value<int>("index");
+                    if (this.Grid1.SelectedRowIndexArray.Contains(i))
+                    {
+                        AspNet.CheckBox cb = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
+                        if (cb.Checked)   //选择项
+                        {
+                            string workPost = values.Value<string>("WorkPost");
+                            if (string.IsNullOrEmpty(workPost))
+                            {
+                                b = false;
+                            }
+                        }
+                    }
+                }
+                if (!b)
+                {
+                    Alert.ShowInTop("勾选人员的拟聘岗位不能为空！", MessageBoxIcon.Warning);
+                    return;
+                }
+                Model.Person_Shunt shunt = new Model.Person_Shunt();
+                shunt.Code = BLL.SQLHelper.RunProcNewId("SpGetNewCode3", "dbo.Person_Shunt", "Code", string.Empty);
+                shunt.ProjectId = this.drpProject.SelectedValue;
+                shunt.State = BLL.Const.Shunt_Complete;
+                shunt.CompileDate = DateTime.Now;
+                shunt.CompileMan = this.CurrUser.UserId;
+                shunt.ShuntId = SQLHelper.GetNewID(typeof(Model.Person_Shunt));
+                BLL.Person_ShuntService.AddShunt(shunt);
+                var workPosts = BLL.WorkPostService.GetWorkPostList();
+                foreach (JObject mergedRow in Grid1.GetMergedData())
+                {
+                    JObject values = mergedRow.Value<JObject>("values");
+                    int i = mergedRow.Value<int>("index");
+                    AspNet.CheckBox cb = (AspNet.CheckBox)(this.Grid1.Rows[i].FindControl("cbSelect"));
+                    if (cb.Checked)   //选择项
+                    {
+                        Model.Person_ShuntDetail detail = new Model.Person_ShuntDetail();
+                        detail.ShuntDetailId = SQLHelper.GetNewID(typeof(Model.Person_ShuntDetail));
+                        detail.ShuntId = shunt.ShuntId;
+                        detail.UserId = this.Grid1.Rows[i].RowID;
+                        string workPost = values.Value<string>("WorkPost");
+                        var w = workPosts.FirstOrDefault(x => x.WorkPostName == workPost);
+                        if (w != null)
+                        {
+                            detail.WorkPostId = w.WorkPostId;
+                        }
+                        detail.SortIndex = i;
+                        BLL.Person_ShuntDetailService.AddShuntDetail(detail);
+                        var currProjectUser = BLL.ProjectUserService.GetCurrProjectUserByUserId(detail.UserId);
+                        if (currProjectUser != null)
+                        {
+                            currProjectUser.IsPost = false;
+                            BLL.ProjectUserService.UpdateProjectUser(currProjectUser);
+                        }
+                        var projectUser = BLL.ProjectUserService.GetProjectUserByUserIdProjectId(shunt.ProjectId, detail.UserId);
+                        if (projectUser == null)
+                        {
+                            var user = BLL.UserService.GetUserByUserId(detail.UserId);
+                            if (user != null)
+                            {
+                                user.ProjectId = this.drpProject.SelectedValue;
+                                user.WorkPostId = detail.WorkPostId;
+                                BLL.UserService.UpdateUser(user);
+                                Model.Project_ProjectUser newProjectUser = new Model.Project_ProjectUser
+                                {
+                                    ProjectId = shunt.ProjectId,
+                                    UserId = detail.UserId,
+                                    UnitId = user.UnitId,
+                                    RoleId = user.RoleId,
+                                    IsPost = true
+                                };
+                                BLL.ProjectUserService.AddProjectUser(newProjectUser);
+                                Model.Sys_RoleItem roleItem = new Model.Sys_RoleItem();
+                                roleItem.ProjectId = shunt.ProjectId;
+                                roleItem.UserId = detail.UserId;
+                                roleItem.RoleId = user.RoleId;
+                                roleItem.IntoDate = DateTime.Now;
+                                BLL.RoleItemService.AddRoleItem(roleItem);
+                                if (!string.IsNullOrEmpty(user.IdentityCard))
+                                {
+                                    ///当前用户是否已经添加到项目现场人员中
+                                    var sitePerson = BLL.PersonService.GetPersonByIdentityCard(shunt.ProjectId, user.IdentityCard);
+                                    if (sitePerson == null)
+                                    {
+                                        Model.SitePerson_Person newPerson = new Model.SitePerson_Person
+                                        {
+                                            PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person)),
+                                            PersonName = user.UserName,
+                                            Sex = user.Sex,
+                                            IdentityCard = user.IdentityCard,
+                                            ProjectId = shunt.ProjectId,
+                                            UnitId = user.UnitId,
+                                            IsUsed = true,
+                                            WorkPostId = detail.WorkPostId,
+                                        };
+                                        BLL.PersonService.AddPerson(newPerson);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                ShowNotify("拟聘成功！", MessageBoxIcon.Success);
+                BindGrid();
+                BLL.LogService.AddSys_Log(this.CurrUser, shunt.Code, shunt.ShuntId, BLL.Const.PersonShuntMenuId, "编辑分流管理");
+            }
+            else
+            {
+                Alert.ShowInParent("请选择拟聘项目！", MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
+        /// 确定按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ShuntList.aspx", "编辑 - ")));
+        }
 
         /// <summary>
         /// Grid行双击事件
@@ -331,6 +460,40 @@ namespace FineUIPro.Web.Person
         protected void ckbAll_CheckedChanged(object sender, CheckedEventArgs e)
         {
             BindGrid();
+        }
+
+        //<summary>
+        //获取职业资格证书名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertCertificateName(object UserId)
+        {
+            string CertificateName = string.Empty;
+            if (UserId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null && !string.IsNullOrEmpty(user.CertificateId))
+                {
+                    string[] Ids = user.CertificateId.Split(',');
+                    foreach (string t in Ids)
+                    {
+                        var type = BLL.PracticeCertificateService.GetPracticeCertificateById(t);
+                        if (type != null)
+                        {
+                            CertificateName += type.PracticeCertificateName + ",";
+                        }
+                    }
+                }
+            }
+            if (CertificateName != string.Empty)
+            {
+                return CertificateName.Substring(0, CertificateName.Length - 1);
+            }
+            else
+            {
+                return "";
+            }
         }
 
         /// <summary>

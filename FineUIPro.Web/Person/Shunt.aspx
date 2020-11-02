@@ -20,60 +20,76 @@
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="分流管理" EnableCollapse="true"
-                    runat="server" BoxFlex="1" DataKeyNames="ShuntId"  EnableColumnLines="true"
-                     DataIDField="ShuntId" AllowSorting="true" SortField="Code" ForceFit="true"
-                    SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
-                    PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true"
+                    runat="server" BoxFlex="1" DataKeyNames="UserId"  EnableColumnLines="true" AllowCellEditing="true" ClicksToEdit="1"
+                     DataIDField="UserId" AllowSorting="true" SortField="UserCode" ForceFit="true"
+                    SortDirection="ASC" OnSort="Grid1_Sort" 
+                    PageSize="1000" OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true"
                     OnRowDoubleClick="Grid1_RowDoubleClick"  EnableTextSelection="True">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                             <Items>
-                                <%--<f:TextBox runat="server" Label="姓名" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px">
-                                </f:TextBox>
-                                <f:TextBox runat="server" Label="角色" ID="txtRoleName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px">
-                                </f:TextBox>
-                                    <f:TextBox runat="server" Label="项目" ID="txtProjectName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="300px" LabelWidth="60px">
-                                </f:TextBox>
-                                <f:CheckBox runat="server" ID="ckbAll" Label="全部" LabelAlign="Right" AutoPostBack="true" OnCheckedChanged="ckbAll_CheckedChanged"></f:CheckBox>--%>
+                                <f:DropDownList ID="drpProject" runat="server" Label="拟聘项目" Width="300px" LabelWidth="100px"
+                            EnableEdit="true" ShowRedStar="true" Required="true">
+                        </f:DropDownList>
+                                <f:DropDownList ID="drpWorkPost" runat="server" Label="岗位" Width="250px" LabelWidth="60px" LabelAlign="Right"
+                                    EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                                </f:DropDownList>
+                                <f:DropDownList ID="drpPostTitle" runat="server" Label="职称" Width="250px" LabelWidth="60px" LabelAlign="Right"
+                                    EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                                </f:DropDownList>
+                                <f:DropDownList ID="drpCertificate" runat="server" Label="职业资格证书" Width="250px" LabelWidth="105px" LabelAlign="Right"
+                                    EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                                </f:DropDownList>
                                 <f:ToolbarFill runat="server">
                                 </f:ToolbarFill>
-                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
-                                    Hidden="true">
+                                <f:Button ID="btnView" ToolTip="查看历史记录" Icon="Find" runat="server" OnClick="btnView_Click">
+                                </f:Button>
+                                <f:Button ID="btnSure" ToolTip="确定" Icon="Accept" Hidden="true" runat="server" OnClick="btnSure_Click">
                                 </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
                     <Columns>
+                        <f:TemplateField ColumnID="Check" Width="50px" HeaderText="选择" HeaderTextAlign="Center" TextAlign="Center"
+                            EnableLock="true" Locked="False">
+                            <ItemTemplate>
+                                <asp:CheckBox runat="server" ID="cbSelect" />
+                            </ItemTemplate>
+                        </f:TemplateField>
                         <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="45px" HeaderTextAlign="Center"
                             TextAlign="Center" />
-                        <f:RenderField Width="120px" ColumnID="Code" DataField="Code" SortField="Code"
-                            FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Center">
+                        <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" SortField="UserName"
+                            FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="280px" ColumnID="ProjectName" DataField="ProjectName" SortField="ProjectName"
-                            FieldType="String" HeaderText="项目名称" HeaderTextAlign="Center" TextAlign="Center">
+                           <f:RenderField Width="120px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
+                            FieldType="String" HeaderText="本部角色" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
-                            FieldType="String" HeaderText="编制时间" Renderer="Date" HeaderTextAlign="Center" TextAlign="Center">
+                        <f:CheckBoxField Width="60px" SortField="IsPost" RenderAsStaticField="true" DataField="IsPost"
+                            HeaderText="在岗" HeaderTextAlign="Center" TextAlign="Center">
+                        </f:CheckBoxField>
+                            <f:RenderField Width="100px" ColumnID="PostTitleName" DataField="PostTitleName" 
+                            FieldType="String" HeaderText="职称" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:TemplateField ColumnID="State" Width="100px" HeaderText="审批状态" HeaderTextAlign="Center" TextAlign="Center"
-                            EnableLock="true" Locked="False">
-                            <ItemTemplate>
-                                <asp:Label ID="Label1" runat="server" Text='<%# ConvertState(Eval("State")) %>'></asp:Label>
-                            </ItemTemplate>
-                        </f:TemplateField>
-                        <f:TemplateField ColumnID="AuditMan" Width="80px" HeaderText="办理人" HeaderTextAlign="Center" TextAlign="Center"
-                            EnableLock="true" Locked="False">
-                            <ItemTemplate>
-                                <asp:Label ID="Label41" runat="server" Text='<%# ConvertMan(Eval("ShuntId")) %>'></asp:Label>
-                            </ItemTemplate>
-                        </f:TemplateField>
+                        <f:TemplateField ColumnID="Certificate" Width="130px" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertCertificateName(Eval("UserId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                        <f:RenderField Width="150px" ColumnID="ProjectName" DataField="ProjectName" SortField="ProjectName"
+                            FieldType="String" HeaderText="当前所在项目" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
+                        <f:RenderField Width="130px" ColumnID="WorkPostName" DataField="WorkPostName" 
+                            FieldType="String" HeaderText="当前项目岗位" HeaderTextAlign="Center" TextAlign="Left">
+                        </f:RenderField>
+                        <f:RenderField Width="100px" ColumnID="WorkPost" DataField="WorkPost" FieldType="String"
+                            HeaderText="拟聘岗位" HeaderTextAlign="Center">
+                            <Editor>
+                                <f:DropDownList ID="drpWP" Required="true" runat="server">
+                                </f:DropDownList>
+                            </Editor>
+                        </f:RenderField>
                     </Columns>
-                    <Listeners>
-                        <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
-                    </Listeners>
                     <PageItems>
                         <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                         </f:ToolbarSeparator>
@@ -86,30 +102,12 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="分流管理" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        <f:Window ID="Window1" Title="查看历史记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="1000px" OnClose="Window1_Close"
             Height="560px">
         </f:Window>
-        <f:Menu ID="Menu1" runat="server">
-            <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
-                Hidden="true" runat="server" Text="编辑" Icon="Pencil">
-            </f:MenuButton>
-            <f:MenuButton ID="btnMenuView" EnablePostBack="true" runat="server" Text="查看" Icon="ApplicationViewIcons"
-                    OnClick="btnMenuView_Click">
-                </f:MenuButton>
-            <f:MenuButton ID="btnMenuDelete" ConfirmText="确定删除当前数据？" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-                Hidden="true" runat="server" Text="删除" Icon="Delete">
-            </f:MenuButton>
-        </f:Menu>
     </form>
     <script type="text/jscript">
-        var menuID = '<%= Menu1.ClientID %>';
-        // 返回false，来阻止浏览器右键菜单
-        function onRowContextMenu(event, rowId) {
-            F(menuID).show();  //showAt(event.pageX, event.pageY);
-            return false;
-        }
-
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
         }
