@@ -406,5 +406,68 @@ namespace FineUIPro.Web.common
                 return JsonConvert.SerializeObject(businessColumn);
             }
         }
+
+        #region 劳务统计
+        /// <summary>
+        ///  作业许可数量统计
+        /// </summary>
+        protected string accumulation
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "劳务统计";
+                ////项目
+                Model.SingleSerie s = new Model.SingleSerie();
+                List<string> listdataStringProject = new List<string>();
+                ////进场人数
+                Model.SingleSerie s0 = new Model.SingleSerie();
+                List<string> list0 = new List<string>();
+                ////进场人数
+                Model.SingleSerie s1 = new Model.SingleSerie();
+                List<double> list1 = new List<double>();
+                ////作业人数
+                Model.SingleSerie s2 = new Model.SingleSerie();
+                List<double> list2 = new List<double>();
+                ////管理人数
+                Model.SingleSerie s3 = new Model.SingleSerie();
+                List<double> list3 = new List<double>();
+                var projects = BLL.ProjectService.GetProjectWorkList();
+                foreach (var itemP in projects)
+                {
+                    listdataStringProject.Add(itemP.ShortName );
+                    list0.Add(APIPageDataService.getPersonInNowNum(itemP.ProjectId, DateTime.Now).ToString());
+                    var getallin = APIPageDataService.getPersonNum(this.CurrUser.LoginProjectId, DateTime.Now);
+                    int aCount = getallin.Count();
+                    int mCount = getallin.Where(x => x.PostType == Const.PostType_1).Count();
+                    list1.Add(aCount);
+                    list2.Add(aCount - mCount);
+                    list3.Add(mCount);
+                }
+
+                listdataStringProject.Add("项目");
+                list0.Add("进场人数");
+
+                s.dataString = listdataStringProject;
+                series.Add(s);
+
+                s0.dataString = list0;
+                series.Add(s0);
+
+                s1.data = list1;
+                series.Add(s1);
+                s2.data = list2;
+                series.Add(s2);
+                s3.data = list3;
+                series.Add(s3);
+
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
     }
 }
