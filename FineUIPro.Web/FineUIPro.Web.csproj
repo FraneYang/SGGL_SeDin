@@ -62,6 +62,9 @@
     <Reference Include="Apache.NMS.ActiveMQ, Version=1.7.2.4108, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
       <HintPath>..\packages\Apache.NMS.ActiveMQ.1.7.2\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
     </Reference>
+    <Reference Include="Apache.NMS.Fakes">
+      <HintPath>FakesAssemblies\Apache.NMS.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="Aspose.Words, Version=10.5.0.0, Culture=neutral, PublicKeyToken=fa9a48344f15a022, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Aspose.Words.dll</HintPath>
@@ -81,6 +84,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -867,6 +873,7 @@
     <Content Include="Person\Shunt.aspx" />
     <Content Include="Person\ShuntDetailEdit.aspx" />
     <Content Include="Person\ShuntEdit.aspx" />
+    <Content Include="Person\ShuntList.aspx" />
     <Content Include="Person\ShuntView.aspx" />
     <Content Include="ProjectData\MainItem.aspx" />
     <Content Include="ProjectData\MainItemEdit.aspx" />
@@ -973,6 +980,7 @@
     <Content Include="File\Word\HSSE\专项检查.doc" />
     <Content Include="File\Excel\DataIn\WBS定制导入模板.xls" />
     <Content Include="File\Word\HSSE\安全日志.doc" />
+    <Fakes Include="Fakes\Apache.NMS.fakes" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -9455,6 +9463,13 @@
     </Compile>
     <Compile Include="Person\ShuntEdit.aspx.designer.cs">
       <DependentUpon>ShuntEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Person\ShuntList.aspx.cs">
+      <DependentUpon>ShuntList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Person\ShuntList.aspx.designer.cs">
+      <DependentUpon>ShuntList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Person\ShuntView.aspx.cs">
       <DependentUpon>ShuntView.aspx</DependentUpon>

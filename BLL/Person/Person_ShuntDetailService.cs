@@ -20,6 +20,7 @@ namespace BLL
             newShuntDetail.ShuntId = a.ShuntId;
             newShuntDetail.UserId = a.UserId;
             newShuntDetail.WorkPostId = a.WorkPostId;
+            newShuntDetail.SortIndex = a.SortIndex;
             db.Person_ShuntDetail.InsertOnSubmit(newShuntDetail);
             db.SubmitChanges();
         }

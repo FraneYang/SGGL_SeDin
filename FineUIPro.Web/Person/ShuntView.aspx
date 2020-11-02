@@ -34,7 +34,7 @@
                                         <asp:Label ID="Label1" runat="server" Text='<%# ConvertUserName(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
-                                <f:TemplateField ColumnID="UserWorkPost" Width="100px" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center"
+                                <%--<f:TemplateField ColumnID="UserWorkPost" Width="100px" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
                                         <asp:Label ID="Label6" runat="server" Text='<%# ConvertUserWorkPost(Eval("UserId")) %>'></asp:Label>
@@ -52,7 +52,7 @@
                                     <ItemTemplate>
                                         <asp:Label ID="Label3" runat="server" Text='<%# ConvertCurrWorkPost(Eval("UserId")) %>'></asp:Label>
                                     </ItemTemplate>
-                                </f:TemplateField>
+                                </f:TemplateField>--%>
                                 <f:TemplateField ColumnID="PostTitle" Width="100px" HeaderText="职称" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
@@ -73,30 +73,6 @@
                                 </f:TemplateField>
                             </Columns>
                         </f:Grid>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow ID="plApprove2">
-                    <Items>
-                        <f:ContentPanel Title="分流管理审批列表" ShowBorder="true"
-                            BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
-                            runat="server">
-                            <f:Grid ID="gvApprove" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
-                                DataKeyNames="ShuntApproveId" EnableColumnLines="true" ForceFit="true">
-                                <Columns>
-                                    <f:RowNumberField Width="40px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"/>
-                                    <f:TemplateField ColumnID="State" Width="150px" HeaderText="办理类型" HeaderTextAlign="Center" TextAlign="Center"
-                                        EnableLock="true" Locked="False">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lbtype" runat="server" Text='<%# ConvertState(Eval("ApproveType")) %>'></asp:Label>
-                                        </ItemTemplate>
-                                    </f:TemplateField>
-                                    <f:BoundField Width="100px" DataField="ApproveMan" HeaderTextAlign="Center" HeaderText="办理人员" TextAlign="Center" />
-                                    <f:BoundField Width="100px" DataField="ApproveDate" HeaderTextAlign="Center" TextAlign="Center" DataFormatString="{0:yyyy-MM-dd}" HeaderText="办理时间" />
-                                    <f:BoundField Width="180px" DataField="ApproveIdea" HeaderTextAlign="Center" TextAlign="Center" HeaderText="办理意见" />
-
-                                </Columns>
-                            </f:Grid>
-                        </f:ContentPanel>
                     </Items>
                 </f:FormRow>
             </Rows>

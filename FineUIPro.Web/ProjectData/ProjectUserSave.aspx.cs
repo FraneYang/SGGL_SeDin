@@ -139,6 +139,18 @@ namespace FineUIPro.Web.ProjectData
                     BLL.RoleItemService.UpdateRoleItem(roleItem);
                 }
                 this.SetWorkPost(newProjectUser);
+                //更新用户的项目id和项目角色
+                Model.Sys_User user = BLL.UserService.GetUserByUserId(newProjectUser.UserId);
+                if (user != null)
+                {
+                    user.ProjectId = newProjectUser.ProjectId;
+                    user.ProjectRoleId = newProjectUser.RoleId;
+                    if (this.drpWorkPost.SelectedValue != BLL.Const._Null)
+                    {
+                        user.WorkPostId = this.drpWorkPost.SelectedValue;
+                    }
+                    BLL.UserService.UpdateUser(user);
+                }
                 BLL.LogService.AddSys_Log(this.CurrUser, this.lbUserCode.Text, newProjectUser.UserId, BLL.Const.ProjectUserMenuId, BLL.Const.BtnModify);
                 ShowNotify("保存数据成功!", MessageBoxIcon.Success);
                 // 2. 关闭本窗体，然后回发父窗体

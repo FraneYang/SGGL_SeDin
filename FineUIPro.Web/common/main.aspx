@@ -1539,7 +1539,7 @@
        leftoffsetValue1 = 20
     }
 //alert(leftAccValue + "," + leftoffsetValue + "," +leftoffsetValue1)
-    function Accumulation(id,datap,data0,data1,data2,data3) {
+    function Accumulation(id) {
         var myChartLine = echarts.init(document.getElementById(id));
         option = {
             title: {
@@ -1570,7 +1570,7 @@
                 position: 'left',
                 type: 'category',
 		
-                data: datap,
+                data: ['项目一项目目', '项目二', '项目三', '项目四', '项目五', '项目六', '项目名称'],
                 axisLabel: {
 		    interval:0,
                     show: true,
@@ -1607,7 +1607,7 @@
                 offset: leftoffsetValue1,
                 position: 'left',
                 type: 'category',
-                data: data0,
+                data: ['20', '30', '30', '32', '30', '30', '在线数'],
                 axisLabel: {
                     show: true,
                     fontSize: 12,
@@ -1650,7 +1650,11 @@
                         show: true,
                         position: 'insideRight'
                     },
+<<<<<<< HEAD
                     data:  data1
+=======
+                    data: [320, 302, 301, 334, 390, 330]
+>>>>>>> 43f031eed793f0bbda7af444e70d062240ffc332
                 },
                 {
                     name: '作业人员总数',
@@ -1660,7 +1664,11 @@
                         show: true,
                         position: 'insideRight'
                     },
+<<<<<<< HEAD
                     data: data2
+=======
+                    data: [120, 132, 101, 134, 90, 230]
+>>>>>>> 43f031eed793f0bbda7af444e70d062240ffc332
                 },
                 {
                     name: '管理人员总数',
@@ -1672,30 +1680,17 @@
                     },
                     //barWidth: 30,
                     //barGap: 0,
+<<<<<<< HEAD
                     data: data3
+=======
+                    data: [220, 182, 191, 234, 290, 330]
+>>>>>>> 43f031eed793f0bbda7af444e70d062240ffc332
                 }
             ]
         };
         myChartLine.setOption(option);
     }
-
-     var accumulation =<%=accumulation %>;
-    var datap = [{
-        data: accumulation.series[0].dataString
-    }]
-    var data0 = [{
-        data: accumulation.series[1].dataString
-    }]
-     var data1 = [{
-        data: accumulation.series[2].data
-    }]
-     var data2 = [{
-        data: accumulation.series[3].data
-    }]
-      var data3 = [{
-        data: accumulation.series[4].data
-    }]
-    Accumulation('Accumulation', datap[0].data, data0[0].data, data1[0].data, data2[0].data, data3[0].data)
+    Accumulation('Accumulation')
 </script>
 <script>
     function radar(id) {

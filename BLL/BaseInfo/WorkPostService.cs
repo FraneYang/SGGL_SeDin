@@ -85,6 +85,16 @@ namespace BLL
             return list;
         }
 
+        /// <summary>
+        /// 获取类别下拉项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_WorkPost> GetWorkPostListByType(string postType)
+        {
+            var list = (from x in Funs.DB.Base_WorkPost where x.PostType == postType orderby x.WorkPostCode select x).ToList();
+            return list;
+        }
+
         #region 表下拉框
         /// <summary>
         ///  表下拉框
@@ -113,6 +123,40 @@ namespace BLL
             dropName.DataValueField = "WorkPostName";
             dropName.DataTextField = "WorkPostName";
             dropName.DataSource = BLL.WorkPostService.GetWorkPostList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitWorkPostNameByTypeDropDownList(FineUIPro.DropDownList dropName, string postType, bool isShowPlease)
+        {
+            dropName.DataValueField = "WorkPostName";
+            dropName.DataTextField = "WorkPostName";
+            dropName.DataSource = BLL.WorkPostService.GetWorkPostListByType(postType);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitWorkPostNameByTypeDropDownList2(FineUIPro.DropDownList dropName, string postType, bool isShowPlease)
+        {
+            dropName.DataValueField = "WorkPostId";
+            dropName.DataTextField = "WorkPostName";
+            dropName.DataSource = BLL.WorkPostService.GetWorkPostListByType(postType);
             dropName.DataBind();
             if (isShowPlease)
             {

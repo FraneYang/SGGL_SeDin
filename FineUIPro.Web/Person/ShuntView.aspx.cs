@@ -47,10 +47,6 @@ namespace FineUIPro.Web.Person
                 ShuntId = Request.Params["ShuntId"];
                 if (!string.IsNullOrEmpty(ShuntId))
                 {
-                    plApprove2.Hidden = false;
-                    var dt = Person_ShuntApproveService.getListData(ShuntId);
-                    gvApprove.DataSource = dt;
-                    gvApprove.DataBind();
                     Model.Person_Shunt shunt = Person_ShuntService.GetShunt(ShuntId);
                     this.txtCode.Text = shunt.Code;
                     if (!string.IsNullOrEmpty(shunt.ProjectId))
