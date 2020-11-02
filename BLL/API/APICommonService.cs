@@ -186,7 +186,7 @@ namespace BLL
                     var getRectifyNotices = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == flowReceiveItem.DataId);
                     if (getRectifyNotices != null)
                     {
-                        if (getRectifyNotices.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////专业工程师
+                        if (!string.IsNullOrEmpty(getRectifyNotices.ProfessionalEngineerId) && getRectifyNotices.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////专业工程师
                         {
                             if (!getRectifyNotices.ProfessionalEngineerTime1.HasValue)
                             {
@@ -241,7 +241,7 @@ namespace BLL
                     var getPunishNotice = db.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == flowReceiveItem.DataId);
                     if (getPunishNotice != null)
                     {
-                        if (getPunishNotice.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////总包专业工程师
+                        if (!string.IsNullOrEmpty(getPunishNotice.ProfessionalEngineerId) && getPunishNotice.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////总包专业工程师
                         {
                             getPunishNotice.ProfessionalEngineerTime = DateTime.Now;
                         }
@@ -265,7 +265,7 @@ namespace BLL
                     var getPunishNotice = db.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == flowReceiveItem.DataId);
                     if (getPunishNotice != null)
                     {
-                        if (getPunishNotice.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////总包专业工程师
+                        if (!string.IsNullOrEmpty(getPunishNotice.ProfessionalEngineerId) && getPunishNotice.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////总包专业工程师
                         {
                             getPunishNotice.ProfessionalEngineerTime = DateTime.Now;
                         }

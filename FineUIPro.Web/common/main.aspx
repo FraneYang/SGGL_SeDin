@@ -488,7 +488,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>     
 </body>
 <script type="text/javascript" src="../res/index/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
@@ -1418,6 +1418,7 @@
     $("#swiper2").on('click', 'li', function () {
         var $this = $(this)
         var data = $this.attr("data-id")
+        //Window1.GetShowReference(data) + "return false;";
         window.open(data)
     })
 </script>

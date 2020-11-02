@@ -79,7 +79,14 @@ namespace Model
             get;
             set;
         }
-
+        /// <summary>
+        /// PC端路径
+        /// </summary>
+        public string PCUrl
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// IsInsert 1:插入；2：更新
         /// </summary>

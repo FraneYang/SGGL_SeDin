@@ -181,11 +181,12 @@ namespace FineUIPro.Web.common
                 var getNotice = (from x in Funs.DB.InformationProject_Notice
                                  where x.IsRelease == true
                                  orderby x.ReleaseDate
-                                 select x.NoticeTitle).Distinct().Take(20);
+                                 select x).Distinct().Take(20);
                 string strNoticeHtml = string.Empty;
                 foreach (var item in getNotice)
                 {
-                    strNoticeHtml += "<li data-id=\"http://www.baidu.com\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item + "\">" + item + "</div></li>";
+                    string url = "../Notice/NoticeView.aspx?NoticeId=" + item.NoticeId;
+                    strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\">" + item.NoticeTitle + "</div></li>";
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
@@ -195,13 +196,11 @@ namespace FineUIPro.Web.common
         {
             get
             {
-                var getNotice = (from x in Funs.DB.InformationProject_ReceiveFileManager
-                                 orderby x.GetFileDate
-                                 select x.ReceiveFileName).Distinct().Take(20);
+                var getDataList = Funs.DB.Sp_APP_GetToDoItems(this.CurrUser.LoginProjectId,this.CurrUser.UserId).ToList(); ;
                 string strNoticeHtml = string.Empty;
-                foreach (var item in getNotice)
+                foreach (var item in getDataList)
                 {
-                    strNoticeHtml += "<li class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item + "\">" + item + "</div></li>";
+                    strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
@@ -439,7 +438,7 @@ namespace FineUIPro.Web.common
                 {
                     listdataStringProject.Add(itemP.ShortName );
                     list0.Add(APIPageDataService.getPersonInNowNum(itemP.ProjectId, DateTime.Now).ToString());
-                    var getallin = APIPageDataService.getPersonNum(this.CurrUser.LoginProjectId, DateTime.Now);
+                    var getallin = APIPageDataService.getPersonNum(itemP.ProjectId, DateTime.Now);
                     int aCount = getallin.Count();
                     int mCount = getallin.Where(x => x.PostType == Const.PostType_1).Count();
                     list1.Add(aCount);
