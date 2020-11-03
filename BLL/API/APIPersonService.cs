@@ -139,7 +139,7 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getPerson = from x in db.View_SitePerson_Person
-                                where x.ProjectId == projectId && ( x.PersonId == identityCard || x.IdentityCard == identityCard)
+                                where x.ProjectId == projectId && (x.PersonId == identityCard || x.IdentityCard == identityCard)
                                 select new Model.PersonItem
                                 {
                                     PersonId = x.PersonId,
@@ -487,7 +487,7 @@ namespace BLL
                     AuditorId = person.AuditorId,
                     IsForeign = person.IsForeign,
                     IsOutside = person.IsOutside,
-                     //AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
+                    //AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
                     Sex = person.Sex,
                     WorkAreaId = person.WorkAreaId,
                 };
@@ -508,7 +508,7 @@ namespace BLL
                     newPerson.IsUsed = false;
                 }
                 newPerson.Password = PersonService.GetPersonPassWord(person.IdentityCard);
-                var getPerson = db.SitePerson_Person.FirstOrDefault(x => (x.IdentityCard == newPerson.IdentityCard && x.ProjectId==newPerson.ProjectId) || x.PersonId == newPerson.PersonId);
+                var getPerson = db.SitePerson_Person.FirstOrDefault(x => (x.IdentityCard == newPerson.IdentityCard && x.ProjectId == newPerson.ProjectId) || x.PersonId == newPerson.PersonId);
                 if (getPerson == null)
                 {
                     newPerson.Isprint = "0";
@@ -541,7 +541,7 @@ namespace BLL
                     getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);
                     getPerson.Sex = person.Sex;
 
-                   // getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
+                    // getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
                     if (!string.IsNullOrEmpty(person.TeamGroupId))
                     {
                         getPerson.TeamGroupId = person.TeamGroupId;
@@ -580,7 +580,7 @@ namespace BLL
                     SaveMeetUrl(newPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
                 }
                 // 更新同身份证号码用户的电话
-                if(!string.IsNullOrEmpty(newPerson.Telephone))
+                if (!string.IsNullOrEmpty(newPerson.Telephone))
                 {
                     var getUser = db.Sys_User.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard);
                     if (getUser != null)
@@ -730,7 +730,7 @@ namespace BLL
                             db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
                             db.SubmitChanges();
                             //// 插入当日记录表
-                           PersonInOutService. InsertPersonInOutNowNow(newInOut);
+                            PersonInOutService.InsertPersonInOutNowNow(newInOut);
                             // GetDataService.CorrectingPersonInOutNumber(projectId);
                         }
                     }
@@ -929,7 +929,7 @@ namespace BLL
         /// </summary>
         /// <param name="identityCard"></param>
         /// <returns></returns>
-        public static Model.PersonQualityItem getPersonQualityByIdentityCard(string identityCard,string projectId)
+        public static Model.PersonQualityItem getPersonQualityByIdentityCard(string identityCard, string projectId)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -1088,9 +1088,9 @@ namespace BLL
             {
                 Model.QualityAudit_PersonQuality newPersonQuality = new Model.QualityAudit_PersonQuality
                 {
-                    PersonQualityId=personQuality.PersonQualityId,
-                    PersonId = personQuality.PersonId,                    
-                    CertificateNo = personQuality.CertificateNo,                
+                    PersonQualityId = personQuality.PersonQualityId,
+                    PersonId = personQuality.PersonId,
+                    CertificateNo = personQuality.CertificateNo,
                     CertificateName = personQuality.CertificateName,
                     Grade = personQuality.Grade,
                     SendUnit = personQuality.SendUnit,
@@ -1098,7 +1098,7 @@ namespace BLL
                     LimitDate = Funs.GetNewDateTime(personQuality.LimitDate),
                     LateCheckDate = Funs.GetNewDateTime(personQuality.LateCheckDate),
                     ApprovalPerson = personQuality.ApprovalPerson,
-                    Remark = personQuality.Remark,                 
+                    Remark = personQuality.Remark,
                     CompileDate = Funs.GetNewDateTime(personQuality.CompileDate),
                     AuditDate = Funs.GetNewDateTime(personQuality.AuditDate),
                 };
@@ -1143,7 +1143,7 @@ namespace BLL
                 }
                 if (!string.IsNullOrEmpty(newPersonQuality.PersonQualityId))
                 {
-                    APIUpLoadFileService.SaveAttachUrl(Const.PersonQualityMenuId, newPersonQuality.PersonQualityId, personQuality.AttachUrl, "0");                    
+                    APIUpLoadFileService.SaveAttachUrl(Const.PersonQualityMenuId, newPersonQuality.PersonQualityId, personQuality.AttachUrl, "0");
                 }
             }
         }
@@ -1154,48 +1154,92 @@ namespace BLL
         /// 获取异常人员信息出入场记录
         /// </summary>
         /// <param name="projectId"></param>
-        /// <param name="unitId">当前人单位ID</param>
+        /// <param name="unitId">单位ID</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
         /// <param name="inOut"> 入场异常 0 出场异常 1</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
-        public static List<Model.PersonInOutItem> getAbnormalPersonInOutList(string projectId, string unitId, string inOut, int pageIndex)
+        public static List<Model.PersonInOutItem> getAbnormalPersonInOutList(string projectId, string unitId, string startTime, string endTime, string inOut, int pageIndex)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var personInOuts = from x in db.SitePerson_PersonInOut
-                                   join y in db.SitePerson_Person on x.PersonId equals y.PersonId
-                                   where x.ProjectId == projectId
-                                   select new Model.PersonInOutItem
-                                   {
-                                       PersonId = x.PersonId,
-                                       PersonName = y.PersonName,
-                                       ProjectId = x.ProjectId,
-                                       UnitId = y.UnitId,
-                                       UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                                       WorkPostId = y.WorkPostId,
-                                       WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
-                                       IsIn = x.IsIn,
-                                       IsInName = x.IsIn == true ? "进场" : "出场",
-                                       ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
-                                       ChangeTimeD = x.ChangeTime,
-                                   };
-                if (!string.IsNullOrEmpty(unitId))
+                DateTime startTimeD = Funs.GetNewDateTimeOrNow(startTime);
+                DateTime endTimeD = Funs.GetNewDateTimeOrNow(endTime);
+                List<Model.PersonInOutItem> getAbnormalPersonInOutList = new List<Model.PersonInOutItem>();
+                //// 入场异常
+                if (inOut == "0")
                 {
-                    personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+                    var getAllPersonInOutLists = getPersonInOutLists(projectId, unitId, startTimeD.AddHours(-18), endTimeD);
+                    /// 出场
+                    var getPersonOuts = getAllPersonInOutLists.Where(x => (x.IsIn == false || x.IsIn == null) && x.ChangeTimeD >= startTimeD );
+                    var getgetPersonIns = getAllPersonInOutLists.Where(x => x.IsIn == true );
+
+                    Model.PersonInOutItem newItem = new Model.PersonInOutItem();
+                    foreach (var item in getPersonOuts)
+                    {
+                        var getIn = getgetPersonIns.FirstOrDefault(x => x.PersonId == item.PersonId && x.ChangeTimeD.Value.AddHours(18) >= item.ChangeTimeD && x.ChangeTimeD < item.ChangeTimeD);
+                        if (getIn == null)
+                        {
+                            getAbnormalPersonInOutList.Add(item);
+                        }
+                    }                   
+                }
+                else //// 出场异常
+                {
+                    var getAllPersonInOutLists = getPersonInOutLists(projectId, unitId, startTimeD, endTimeD.AddHours(18));
+                    /// 进场
+                    var getPersonInts = getAllPersonInOutLists.Where(x => x.IsIn == true && x.ChangeTimeD <= endTimeD);
+                    var getPersonOuts = getAllPersonInOutLists.Where(x => (x.IsIn == false || x.IsIn == null));
+                    Model.PersonInOutItem newItem = new Model.PersonInOutItem();
+                    foreach (var item in getPersonInts)
+                    {
+                        var getOut = getPersonOuts.FirstOrDefault(x => x.PersonId == item.PersonId && x.ChangeTimeD.Value.AddHours(-18) <= item.ChangeTimeD && x.ChangeTimeD > item.ChangeTimeD);
+                        if (getOut == null)
+                        {
+                            getAbnormalPersonInOutList.Add(item);
+                        }
+                    }
                 }
 
-                var getPersonIns = personInOuts.Where(x => x.IsIn == false || x.IsIn == null);
-                var getPersonOuts = personInOuts.Where(x => x.IsIn == true);
-                if (inOut == "0")
-                {                   
-                    //getPersonIns= from x in getPersonIns                             
-                }
-                else
-                {
-                    
-                }
-                return personInOuts.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                return getAbnormalPersonInOutList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="inOut"></param>
+        /// <returns></returns>
+        public static List<Model.PersonInOutItem> getPersonInOutLists(string projectId, string unitId, DateTime startTimeD, DateTime endTimeD)
+        {
+            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
+                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+                               where x.ProjectId == projectId && x.ChangeTime >= startTimeD && x.ChangeTime <= endTimeD
+                               select new Model.PersonInOutItem
+                               {
+                                   PersonId = x.PersonId,
+                                   PersonName = y.PersonName,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = y.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   WorkPostId = y.WorkPostId,
+                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                   IsIn = x.IsIn,
+                                   IsInName = x.IsIn == true ? "进场" : "出场",
+                                   ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
+                                   ChangeTimeD = x.ChangeTime,
+                               };
+            if (!string.IsNullOrEmpty(unitId))
+            {
+                personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+            }
+
+            return personInOuts.ToList();
         }
         #endregion
     }
