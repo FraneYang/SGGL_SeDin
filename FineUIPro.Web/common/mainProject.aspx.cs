@@ -557,6 +557,30 @@ namespace FineUIPro.Web.common
         }
         #endregion
 
+        /// <summary>
+        /// 获取项目照片
+        /// </summary>
+        protected string projectSitePhoto
+        {
+            get
+            {
+                string photo = "../images/sedinsite.jpg";
+                var getMap = (from x in Funs.DB.InformationProject_ProjectMap
+                             where x.MapType == "1" && x.ProjectId == this.CurrUser.LoginProjectId
+                             orderby x.UploadDate descending
+                             select x).FirstOrDefault();
+                if (getMap != null)
+                {
+                    var geturl = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == getMap.ProjectMapId);
+                    if (geturl != null && !string.IsNullOrEmpty(geturl.AttachUrl))
+                    {
+                        photo = "../"+geturl.AttachUrl;
+                    }                 
+                }
+                return "\"" +photo+"\"";
+            }
+        }
+
         protected string swiper_One
         {
             get

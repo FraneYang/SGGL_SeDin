@@ -415,8 +415,6 @@
                         </div>
                         <div style="display: none" class="bg-img js-item-1 bg-img-jk-1"></div>
                         <div class="bg-img js-item-1 bg-img-jk"></div>
-                        <%--<img style="display:none" src="../res/images/enable_gzip_iis6_5.png" alt="Alternate Text"  class=""/>
-                        <img  src="../res/images/Page-01.jpg" alt="Alternate Text"  class="bg-img js-item-1"/>--%>
                         <div class="tab-wrap">
                             <div class="tab" data-value="0">
                                 <div class="t-item ">项目概况</div>
@@ -426,7 +424,6 @@
                                 <div class="t-item active">监控</div>
                             </div>
                         </div>
-                        <%--<div id='map' style="width: 100%; height: 100%;"></div>--%>
                     </div>
                 </div>
                 <div class="flex1 itemflex itemflex2">
@@ -559,6 +556,12 @@
 <script type="text/javascript" src="../res/index/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../res/index/js/swiper-3.4.2.jquery.min.js"></script>
 <script type="text/javascript" src="../res/index/js/echarts.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".bg-img-jk-1").css("background", "url("+<%=projectSitePhoto %>+") center center no-repeat").css("background-size", "100% 100%")
+    })
+</script>
+
 <script type="text/javascript">
     function category_One(id, title, dataNum, text) {
         // 基于准备好的dom，初始化echarts实例
@@ -1211,7 +1214,6 @@
     })
 
 </script>
-
 <script type="text/javascript">    
     var swiper_Three = '<%=swiper_Three %>'
      $("#swiper2").html(swiper_Three)
