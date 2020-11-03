@@ -91,6 +91,8 @@ namespace FineUIPro.Web.common
             }
         }
 
+        protected int ProjectMaxNum;
+
         #region  项目数量
         protected string ProjectNum
         {
@@ -134,6 +136,10 @@ namespace FineUIPro.Web.common
                 listdata.Add(getAllProject.Where(x => x.Province == "香港").Count());
                 listdata.Add(getAllProject.Where(x => x.Province == "澳门").Count());
                 listdata.Add(getAllProject.Where(x => x.Province == "台湾").Count());
+                List<double> listdata2 = new List<double>();
+                listdata2.AddRange(listdata);
+                listdata2.Remove(getAllProject.Count());
+                ProjectMaxNum = Convert.ToInt32(listdata2.Max());
                 series.data = listdata;
                 return JsonConvert.SerializeObject(series);
             }

@@ -1111,6 +1111,7 @@
         return Math.round(Math.random() * 1000);
     }
     var projectNum =<%=ProjectNum %>
+    var projectMaxNum =<%=ProjectMaxNum %>
     var myChart = null
     function mapEchart(id, mapType) {
         myChart = echarts.init(document.getElementById(id));
@@ -1136,7 +1137,7 @@
 
             visualMap: {
                 min: 0,
-                max: 5,
+                max: projectMaxNum,
                 left: 20,
                 bottom: 10,
                 text: ['高', '低'],// 文本，默认为数值文本
@@ -1524,13 +1525,15 @@
 <script>
     var widthNow = ((document.body.offsetWidth - 30) / 2) * 0.48
     //alert(widthNow)
-    var leftAccValue = '100'
-    var leftoffsetValue = 150
-    var leftoffsetValue1 = 60
+    var leftAccValue = '0'
+    var leftoffsetValue = 80
+    var leftoffsetValue1 = 20
+    var fontlabelsize = 12
     if (widthNow < 450) {
-       leftAccValue = '20'
+       leftAccValue = '0'
        leftoffsetValue = 80
        leftoffsetValue1 = 20
+       fontlabelsize = 10
     }
 //alert(leftAccValue + "," + leftoffsetValue + "," +leftoffsetValue1)
   function Accumulation(id,datap,data0,data1,data2,data3) {
@@ -1552,7 +1555,7 @@
               top: '2%',
               left: leftAccValue,
               right: '1%',
-              left:'0',
+              //left:'0',
               bottom: '0',
               containLabel: true
             },
@@ -1570,7 +1573,12 @@
 		    interval:0,
                     show: true,
                     fontSize: 12,
-                    color: "#57B8BD",
+		    textStyle: {
+      		      color: function (value, index) {
+        		return index == datap.length -1 ? '#FFFFFF' : '#57B8BD';
+    		      }
+		    },
+                    //color: "#57B8BD",
                     align: 'middle',
                     verticalAlign: 'middle',
                     formatter: function (value) {
@@ -1603,10 +1611,18 @@
                 position: 'left',
                 type: 'category',
                 data: data0,
+                nameTextStyle: {
+                   width: 100,
+                },
                 axisLabel: {
                     show: true,
                     fontSize: 12,
-                    color: "#57B8BD",
+		    textStyle: {
+      		      color: function (value, index) {
+        		return index == data0.length - 1 ? '#FFFFFF' : '#57B8BD';
+    		      }
+		    },
+                    //color: "#57B8BD",
                     align: 'middle',
                     verticalAlign: 'middle',
                     formatter: function (value) {
@@ -1643,6 +1659,7 @@
                     stack: '总量',
                     color: "#1c6ead",
                     label: {
+                        fontSize: fontlabelsize,
                         show: true,
                         position: 'insideRight'
                     },
@@ -1654,6 +1671,7 @@
                     stack: '总量',
                     color: "#0047b3",
                     label: {
+			fontSize: fontlabelsize,			 
                         show: true,
                         position: 'insideRight'
                     },
@@ -1665,10 +1683,11 @@
                     stack: '总量',
                     color: "#26734d",
                     label: {
+                        fontSize: fontlabelsize,
                         show: true,
                         position: 'insideRight'
                     },
-                    //barWidth: 30,
+                    barWidth: 20,
                     //barGap: 0,
                     data: data3
                 }
