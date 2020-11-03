@@ -723,15 +723,17 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId">单位ID</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
         /// <param name="inOut"> 入场异常 0 出场异常 1</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
-        public Model.ResponeData getAbnormalPersonInOutList(string projectId, string unitId, string inOut, int pageIndex)
+        public Model.ResponeData getAbnormalPersonInOutList(string projectId, string unitId, string startTime, string endTime, string inOut, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonService.getAbnormalPersonInOutList(projectId, unitId, inOut, pageIndex);
+                var getDataList = APIPersonService.getAbnormalPersonInOutList(projectId, unitId, startTime, endTime, inOut, pageIndex);
                 int pageCount = getDataList.Count();
                 responeData.data = new { pageCount, getDataList };
             }
