@@ -22,6 +22,19 @@ namespace Model
         }
 
         /// <summary>
+        /// 获取当前用户在本部待办事项
+        /// </summary>
+        /// <param name="unitcode"></param>
+        /// <param name="isono"></param>
+        /// <returns></returns>
+        [Function(Name = "[dbo].[Sp_Main_GetToDoItems]")]
+        public IEnumerable<ToDoItem> Sp_Main_GetToDoItems([Parameter(DbType = "nvarchar(50)")] string userId)
+        {
+            IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), userId);
+            return (ISingleResult<ToDoItem>)result.ReturnValue;
+        }
+
+        /// <summary>
         /// 获取人员培训教材
         /// </summary>
         /// <param name="unitcode"></param>

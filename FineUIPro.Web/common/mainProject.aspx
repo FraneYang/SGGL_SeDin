@@ -981,6 +981,8 @@
 <script type="text/javascript">
     var swiper_One = '<%=swiper_One %>'
     var swiper_Two = '<%=swiper_Two %>'
+    var todoNum = '<%=TodoNum %>'
+    var warnNum = '<%=WarnNum %>'
     $(".tab .t-item").click(function () {
         var $this = $(this)
         var index = $this.index()
@@ -1003,20 +1005,41 @@
         } else if (value == 1) {
             if (index == 0) {
                 $("#swiper1").html(swiper_One)
-                mySwiper = new Swiper('#swiper1', {
-                    autoplay: 4000,//可选选项，自动滑动
-                    direction: 'vertical',
-                    loop: true,
-                    slidesPerView: slidesNum
-                })
+                if (todoNum >= slidesNum) {
+                    mySwiper = new Swiper('#swiper1', {
+                        autoplay: 4000,//可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        slidesPerView: slidesNum
+                    })
+                }
+                else {
+                     mySwiper = new Swiper('#swiper1', {
+                        //autoplay: 4000,//可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        slidesPerView: slidesNum
+                    })
+                }
             } else if (index == 2) {
-                $("#swiper1").html(swiper_Two)
-                mySwiper = new Swiper('#swiper1', {
-                    autoplay: 4000,//可选选项，自动滑动
-                    direction: 'vertical',
-                    loop: true,
-                    slidesPerView: slidesNum
-                })
+                if (warnNum >= slidesNum) {
+                    $("#swiper1").html(swiper_Two)
+                    mySwiper = new Swiper('#swiper1', {
+                        autoplay: 4000,//可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        slidesPerView: slidesNum
+                    })
+                }
+                else {
+                    $("#swiper1").html(swiper_Two)
+                    mySwiper = new Swiper('#swiper1', {
+                        //autoplay: 4000,//可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        slidesPerView: slidesNum
+                    })
+                }
             }
         }
         else if (value == 2) {
@@ -1069,14 +1092,18 @@
 
       $("#swiper1").on('click', 'li', function () {
         var $this = $(this)
-        var data = $this.attr("data-id")
-        window.open(data)
+          var data = $this.attr("data-id")
+          if (data != "") {
+              window.open(data)
+          }
       })
 
     $("#swiper2").on('click', 'li', function () {
         var $this = $(this)
         var data = $this.attr("data-id")
-        window.open(data)
+        if (data != "") {
+            window.open(data)
+        }
     })
 </script>
 <script>
@@ -1193,29 +1220,36 @@
 <script type="text/javascript">    
     var slidesNum = 5
     var mySwiper = null
+    var todoNum = '<%=TodoNum %>'
     $(document).ready(function () {
         var height = $("#swiper-pre").height() - 29
         $("#swiper1").css("height", (height) + 'px')
         slidesNum = Math.floor((height) / 24)
         $("#swiper1").html(swiper_One)
-        mySwiper = new Swiper('#swiper1', {
-            autoplay: 4000,//可选选项，自动滑动
-            direction: 'vertical',
-            loop: true,
-            slidesPerView: slidesNum
-        })
-
-        var mySwiper = new Swiper('#swiper1', {
-            //autoplay: 4000,//可选选项，自动滑动
-            direction: 'vertical',
-            loop: false,
-            slidesPerView: 5
-        })
+        if (todoNum >= slidesNum) {
+                    mySwiper = new Swiper('#swiper1', {
+                        autoplay: 4000,//可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        slidesPerView: slidesNum
+                    })
+                }
+                else {
+                     mySwiper = new Swiper('#swiper1', {
+                        //autoplay: 4000,//可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        slidesPerView: slidesNum
+                    })
+                }
     })
 
 </script>
 <script type="text/javascript">    
     var swiper_Three = '<%=swiper_Three %>'
+    var height = $("#swiper-pre").height() - 29
+        $("#swiper2").css("height", (height) + 'px')
+        slidesNum = Math.floor((height) / 24)
      $("#swiper2").html(swiper_Three)
                 mySwiper = new Swiper('#swiper2', {
                     autoplay: 4000,//可选选项，自动滑动

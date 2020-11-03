@@ -193,16 +193,37 @@ namespace FineUIPro.Web.common
             }
         }
 
+        protected int TodoNum;
+
         protected string swiper_Two
         {
             get
             {
-                var getDataList = Funs.DB.Sp_APP_GetToDoItems(this.CurrUser.LoginProjectId,this.CurrUser.UserId).ToList(); ;
+                var getDataList = Funs.DB.Sp_Main_GetToDoItems(this.CurrUser.UserId).ToList();
                 string strNoticeHtml = string.Empty;
-                foreach (var item in getDataList)
+                if (getDataList.Count >= 8)
                 {
-                    strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
+                    foreach (var item in getDataList)
+                    {
+                        strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
+                    }
                 }
+                else
+                {
+                    if (getDataList.Count > 0)
+                    {
+                        foreach (var item in getDataList)
+                        {
+                            strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
+                        }
+                        int addRowNum = 8 - getDataList.Count;
+                        for (int i = 0; i < addRowNum; i++)
+                        {
+                            strNoticeHtml += "<li data-id=\"\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
+                        }
+                    }
+                }
+                TodoNum = getDataList.Count;
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
         }

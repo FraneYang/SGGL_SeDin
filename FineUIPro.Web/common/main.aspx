@@ -1361,6 +1361,7 @@
 <script>
     var swiper_One = '<%=swiper_One %>'
     var swiper_Two = '<%=swiper_Two %>'
+    var todoNum = '<%=TodoNum %>'
     $(".tab .t-item").click(function () {
         var $this = $(this)
         var index = $this.index()
@@ -1385,12 +1386,22 @@
                 })
             } else if (index == 2) {
                 $("#swiper2").html(swiper_Two)
-                mySwiper = new Swiper('#swiper2', {
-                    autoplay: 4000,//可选选项，自动滑动
-                    direction: 'vertical',
-                    loop: true,
-                    slidesPerView: slidesNum
-                })
+                if (todoNum >= slidesNum) {
+                    mySwiper = new Swiper('#swiper2', {
+                        autoplay: 4000,//可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        slidesPerView: slidesNum
+                    })
+                }
+                else {
+                    mySwiper = new Swiper('#swiper2', {
+                        //autoplay: 4000,//可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        slidesPerView: slidesNum
+                    })
+                }
             }
         }
     })
@@ -1398,8 +1409,10 @@
     $("#swiper2").on('click', 'li', function () {
         var $this = $(this)
         var data = $this.attr("data-id")
-        //Window1.GetShowReference(data) + "return false;";
-        window.open(data)
+        if (data != "") {
+            //Window1.GetShowReference(data) + "return false;";
+            window.open(data)
+        }
     })
 </script>
 <script>
@@ -1628,7 +1641,7 @@
                     name: '当前现场人数',
                     type: 'bar',
                     stack: '总量',
-                    color: "#ffb84d",
+                    color: "#1c6ead",
                     label: {
                         show: true,
                         position: 'insideRight'
@@ -1639,7 +1652,7 @@
                     name: '作业人员总数',
                     type: 'bar',
                     stack: '总量',
-                    color: "#19c719",
+                    color: "#0047b3",
                     label: {
                         show: true,
                         position: 'insideRight'
@@ -1650,7 +1663,7 @@
                     name: '管理人员总数',
                     type: 'bar',
                     stack: '总量',
-                    color: "#0000ff",
+                    color: "#26734d",
                     label: {
                         show: true,
                         position: 'insideRight'

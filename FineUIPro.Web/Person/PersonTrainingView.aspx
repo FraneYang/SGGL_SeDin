@@ -51,20 +51,29 @@
                                 <f:FormRow>
                                     <Items>
                                         <f:Grid ID="gvPerson" ShowBorder="true" ShowHeader="false" EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true" runat="server" BoxFlex="1" 
-                                            DataIDField="TrainingPersonId" AllowSorting="true" PageSize="1000"
+                                            DataIDField="UserId" AllowSorting="true" PageSize="1000" ForceFit="true"
                                             SortDirection="ASC" EnableTextSelection="True" Height="200px"
                                             EnableRowDoubleClickEvent="true" >
                                             <Columns>
                                                 <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                                                <f:RenderField MinWidth="250px" ColumnID="UserName" DataField="UserName"
-                                                    FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                                                <f:RenderField MinWidth="100px" ColumnID="UserName" DataField="UserName"
+                                                    FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Center">
                                                 </f:RenderField>
-                                                <f:RenderField MinWidth="250px" ColumnID="DepartName" DataField="DepartName"
-                                                    FieldType="String" HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left">
+                                                <f:RenderField Width="120px" ColumnID="PostTitleName" DataField="PostTitleName"
+                                                    FieldType="String" HeaderText="职称" HeaderTextAlign="Center" TextAlign="Center">
                                                 </f:RenderField>
-                                                <f:RenderField MinWidth="250px" ColumnID="WorkPostName" DataField="WorkPostName"
-                                                    FieldType="String" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Left">
-                                                </f:RenderField>
+                                                <f:TemplateField ColumnID="Certificate" Width="160px" HeaderText="职业资格证书" HeaderTextAlign="Center" TextAlign="Center"
+                                                    EnableLock="true" Locked="False">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertCertificateName(Eval("UserId")) %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </f:TemplateField>
+                                                <f:TemplateField ColumnID="WorkPost" Width="330px" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center"
+                                                    EnableLock="true" Locked="False">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="Label1" runat="server" Text='<%# ConvertWorkPostName(Eval("WorkPostId")) %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </f:TemplateField>
                                             </Columns>
                                             <Listeners>
                                                 <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

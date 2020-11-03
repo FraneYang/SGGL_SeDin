@@ -71,12 +71,38 @@ namespace FineUIPro.Web.Person
 
         private void BindGrid()
         {
-            string sqlStr = "select * from View_Person_TrainingPerson where TrainingPlanId=@TrainingPlanId";
+            string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Users.IdentityCard,Users.Telephone,Users.IsOffice,"
+                                       + @"Roles.RoleName,Unit.UnitName,Unit.UnitCode,Depart.DepartName,Users.Major,Users.WorkPostId,PostTitle.PostTitleName,pc.PracticeCertificateName,project.ProjectName,Post.WorkPostName"
+                                       + @",ProjectRoleName= STUFF(( SELECT ',' + RoleName FROM dbo.Sys_Role where PATINDEX('%,' + RTRIM(RoleId) + ',%',',' +Users.ProjectRoleId + ',')>0 FOR XML PATH('')), 1, 1,'')"
+                                       + @" From dbo.Sys_User AS Users"
+                                       + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
+                                       + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
+                                       + @" LEFT JOIN Base_WorkPost AS Post ON Post.WorkPostId=Users.WorkPostId"
+                                       + @" LEFT JOIN Base_Depart AS Depart ON Depart.DepartId=Users.DepartId"
+                                       + @" LEFT JOIN Base_PostTitle AS PostTitle ON PostTitle.PostTitleId=Users.PostTitleId"
+                                       + @" LEFT JOIN Base_PracticeCertificate AS pc ON pc.PracticeCertificateId=Users.CertificateId"
+                                       + @" LEFT JOIN Base_Project AS project ON project.projectId=Users.ProjectId"
+                                       + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "' AND Unit.UnitId='" + Const.UnitId_SEDIN + "' AND Users.DepartId='" + Const.Depart_constructionId + "' AND Users.IsPost =1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@TrainingPlanId", this.TrainingPlanId));
+            var personIds = from x in Funs.DB.View_Person_TrainingPerson where x.TrainingPlanId == this.TrainingPlanId select x.TrainingUserId;
+            if (personIds.Count() > 0)
+            {
+                string userIds = string.Empty;
+                foreach (var personId in personIds)
+                {
+                    userIds += personId + ",";
+                }
+                strSql += " AND CHARINDEX(Users.UserId,@UserId)>0 ";
+                listStr.Add(new SqlParameter("@UserId", userIds));
+            }
+
             SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(sqlStr, parameter);
-            gvPerson.DataSource = GetPagedDataTable(gvPerson, tb);
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+            gvPerson.RecordCount = tb.Rows.Count;
+            //tb = GetFilteredTable(Grid1.FilteredData, tb);
+            var table = this.GetPagedDataTable(gvPerson, tb);
+            gvPerson.DataSource = table;
             gvPerson.DataBind();
         }
         #endregion
@@ -162,6 +188,54 @@ namespace FineUIPro.Web.Person
             }
         }
 
+        //<summary>
+        //获取职业资格证书名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertCertificateName(object UserId)
+        {
+            string CertificateName = string.Empty;
+            if (UserId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null && !string.IsNullOrEmpty(user.CertificateId))
+                {
+                    string[] Ids = user.CertificateId.Split(',');
+                    foreach (string t in Ids)
+                    {
+                        var type = BLL.PracticeCertificateService.GetPracticeCertificateById(t);
+                        if (type != null)
+                        {
+                            CertificateName += type.PracticeCertificateName + ",";
+                        }
+                    }
+                }
+            }
+            if (CertificateName != string.Empty)
+            {
+                return CertificateName.Substring(0, CertificateName.Length - 1);
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        //<summary>
+        //获取岗位名称
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertWorkPostName(object WorkPostId)
+        {
+            string WorkPostName = string.Empty;
+            if (WorkPostId != null)
+            {
+                WorkPostName = BLL.WorkPostService.getWorkPostNamesWorkPostIds(WorkPostId.ToString());
+            }
+            return WorkPostName;
+        }
 
         #region 附件上传
         /// <summary>

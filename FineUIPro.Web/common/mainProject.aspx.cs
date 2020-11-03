@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace FineUIPro.Web.common
@@ -566,55 +567,138 @@ namespace FineUIPro.Web.common
             {
                 string photo = "../images/sedinsite.jpg";
                 var getMap = (from x in Funs.DB.InformationProject_ProjectMap
-                             where x.MapType == "1" && x.ProjectId == this.CurrUser.LoginProjectId
-                             orderby x.UploadDate descending
-                             select x).FirstOrDefault();
+                              where x.MapType == "1" && x.ProjectId == this.CurrUser.LoginProjectId
+                              orderby x.UploadDate descending
+                              select x).FirstOrDefault();
                 if (getMap != null)
                 {
                     var geturl = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == getMap.ProjectMapId);
                     if (geturl != null && !string.IsNullOrEmpty(geturl.AttachUrl))
                     {
-                        photo = "../"+geturl.AttachUrl;
-                    }                 
+                        photo = "../" + geturl.AttachUrl;
+                    }
                 }
-                return "\"" +photo+"\"";
+                return "\"" + photo + "\"";
             }
         }
+
+        protected int TodoNum;
 
         protected string swiper_One
         {
             get
             {
+                //安全
                 var getDataList = Funs.DB.Sp_APP_GetToDoItems(this.CurrUser.LoginProjectId, this.CurrUser.UserId).ToList(); ;
                 string strNoticeHtml = string.Empty;
-                foreach (var item in getDataList)
+                //质量
+                SqlParameter[] val = new SqlParameter[]
                 {
-                    strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
+                    new SqlParameter("@UserId", this.CurrUser.UserId),
+                    new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId)
+                 };
+                var dt = BLL.SQLHelper.GetDataTableRunProc("SpAuditingManageByProjectId", val).AsEnumerable().ToArray();
+                TodoNum = getDataList.Count + dt.Count();
+                if (TodoNum >= 8)
+                {
+                    foreach (var item in getDataList)
+                    {
+                        strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
+                    }
+                    foreach (var item in dt)
+                    {
+                        strNoticeHtml += "<li data-id=\"" + item.ItemArray[2].ToString() + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.ItemArray[1].ToString() + "\">" + item.ItemArray[1].ToString() + "</div></li>";
+                    }
+                }
+                else
+                {
+                    if (TodoNum > 0)
+                    {
+                        foreach (var item in getDataList)
+                        {
+                            strNoticeHtml += "<li data-id=\"" + item.PCUrl + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.MenuName + "\">" + item.Content + "</div></li>";
+                        }
+                        foreach (var item in dt)
+                        {
+                            strNoticeHtml += "<li data-id=\"" + item.ItemArray[2].ToString() + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.ItemArray[1].ToString() + "\">" + item.ItemArray[1].ToString() + "</div></li>";
+                        }
+                        int addRowNum = 8 - TodoNum;
+                        for (int i = 0; i < addRowNum; i++)
+                        {
+                            strNoticeHtml += "<li data-id=\"\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
+                        }
+                    }
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
         }
 
+        protected int WarnNum;
+
         protected string swiper_Two
         {
             get
             {
-                var getperson0= APIPersonService.getPersonQualityByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId, "0");
-                var getperson1 = APIPersonService.getPersonQualityByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId, "1");               
+                var getperson0 = APIPersonService.getPersonQualityByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId, "0");
+                var getperson1 = APIPersonService.getPersonQualityByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId, "1");
+                SqlParameter[] val = new SqlParameter[]
+                {
+                    new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId)
+                };
+                var dt = BLL.SQLHelper.GetDataTableRunProc("SpEnableCueQualityByPrject", val).AsEnumerable().ToArray();
+                WarnNum = getperson0.Count + getperson1.Count + dt.Count();
                 string strNoticeHtml = string.Empty;
                 string url = "../HSSE/QualityAudit/PersonQualityEdit.aspx?PersonId=";
-                foreach (var item in getperson0)
+                string cqmsUrl = "../CQMS/Check/EditCheckEquipment.aspx?see=see&CheckEquipmentId=";
+                if (WarnNum >= 8)
                 {
-                    string pur = url + item.PersonId;
-                    string strT = item.UnitName + "[" + item.PersonName + "]：" + item.CertificateName + "。证书已过期";
-                    strNoticeHtml += "<li data-id=\"" + pur + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\""+ strT + "\">" +  item.PersonName +"："+item.CertificateName+"。证书已过期" + "</div></li>";
+                    foreach (var item in getperson0)
+                    {
+                        string pur = url + item.PersonId;
+                        string strT = item.UnitName + "[" + item.PersonName + "]：" + item.CertificateName + "。证书已过期";
+                        strNoticeHtml += "<li data-id=\"" + pur + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + strT + "\">" + item.PersonName + "：" + item.CertificateName + "。证书已过期" + "</div></li>";
+                    }
+                    foreach (var item in getperson1)
+                    {
+                        string pur = url + item.PersonId;
+                        string strT = item.UnitName + "[" + item.PersonName + "]：" + item.CertificateName + "。证书待过期";
+                        strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + strT + "\">" + item.PersonName + "：" + item.CertificateName + "。证书待过期" + "</div></li>";
+                    }
+                    foreach (var item in dt)
+                    {
+                        string pur = cqmsUrl + item.ItemArray[0].ToString();
+                        strNoticeHtml += "<li data-id=\"" + pur + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.ItemArray[1].ToString() + "\">" + item.ItemArray[1].ToString() + "</div></li>";
+                    }
                 }
-                foreach (var item in getperson1)
+                else
                 {
-                    string pur = url + item.PersonId;
-                    string strT = item.UnitName + "[" + item.PersonName + "]：" + item.CertificateName + "。证书待过期";
-                    strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + strT + "\">" + item.PersonName + "：" + item.CertificateName + "。证书待过期" + "</div></li>";
+                    if (WarnNum > 0)
+                    {
+                        foreach (var item in getperson0)
+                        {
+                            string pur = url + item.PersonId;
+                            string strT = item.UnitName + "[" + item.PersonName + "]：" + item.CertificateName + "。证书已过期";
+                            strNoticeHtml += "<li data-id=\"" + pur + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + strT + "\">" + item.PersonName + "：" + item.CertificateName + "。证书已过期" + "</div></li>";
+                        }
+                        foreach (var item in getperson1)
+                        {
+                            string pur = url + item.PersonId;
+                            string strT = item.UnitName + "[" + item.PersonName + "]：" + item.CertificateName + "。证书待过期";
+                            strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + strT + "\">" + item.PersonName + "：" + item.CertificateName + "。证书待过期" + "</div></li>";
+                        }
+                        foreach (var item in dt)
+                        {
+                            string pur = cqmsUrl + item.ItemArray[0].ToString();
+                            strNoticeHtml += "<li data-id=\"" + pur + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.ItemArray[1].ToString() + "\">" + item.ItemArray[1].ToString() + "</div></li>";
+                        }
+                        int addRowNum = 8 - WarnNum;
+                        for (int i = 0; i < addRowNum; i++)
+                        {
+                            strNoticeHtml += "<li data-id=\"\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
+                        }
+                    }
                 }
+
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
         }
