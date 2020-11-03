@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 
 namespace BLL
 {
@@ -111,6 +113,32 @@ namespace BLL
             dropName.DataValueField = "ProjectTypeId";
             dropName.DataTextField = "ProjectTypeName";
             dropName.DataSource = BLL.ProjectTypeService.GetProjectTypeDropDownList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
+
+        #region 省份下拉框
+        /// <summary>
+        ///  单位类型表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitProvinceDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            JArray SHENG_JSON = JArray.Parse("[\"北京\",\"天津\",\"上海\",\"重庆\",\"河北\",\"山西\",\"辽宁\",\"吉林\",\"黑龙江\",\"江苏\",\"浙江\",\"安徽\",\"福建\",\"江西\",\"山东\",\"河南\",\"湖北\",\"湖南\",\"广东\",\"海南\",\"四川\",\"贵州\",\"云南\",\"陕西\",\"甘肃\",\"青海\",\"内蒙古\",\"广西\",\"西藏\",\"宁夏\",\"新疆\",\"香港\",\"澳门\",\"台湾\"]");
+            string[] strs = SHENG_JSON.ToObject<List<string>>().ToArray();
+            ListItem[] list = new ListItem[strs.Length];
+            for (int i = 0; i < strs.Length; i++)
+            {
+                list[i] = new ListItem(strs[i], strs[i]);
+            }
+            dropName.DataSource = list;
             dropName.DataBind();
             if (isShowPlease)
             {

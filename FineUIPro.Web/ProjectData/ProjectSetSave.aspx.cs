@@ -34,7 +34,8 @@ namespace FineUIPro.Web.ProjectData
             if (!IsPostBack)
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                ProjectTypeService.InitProjectTypeDropDownList(this.drpProjectType, true);                
+                ProjectTypeService.InitProjectTypeDropDownList(this.drpProjectType, true);
+                ProjectTypeService.InitProvinceDropDownList(this.drpProvince,true);
                 this.ProjectId = Request.QueryString["ProjectId"];              
                 ///项目经理
                 UserService.InitUserDropDownList(this.drpProjectManager, string.Empty, true);
@@ -120,7 +121,10 @@ namespace FineUIPro.Web.ProjectData
                         this.txtConstructionMoney.Text = project.ConstructionMoney.ToString();
                         this.txtTelephone.Text = project.Telephone;
                         this.txtCountry.Text = project.Country;
-                        this.txtProvince.Text = project.Province;
+                        if (!string.IsNullOrEmpty(project.Province))
+                        {
+                            this.drpProvince.SelectedValue = project.Province;
+                        }
                         this.txtCity.Text = project.City;
                         this.txtEnglishRemark.Text = project.EnglishRemark;
                     }
@@ -135,6 +139,11 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            if (this.drpProvince.SelectedValue == BLL.Const._Null)
+            {
+                ShowNotify("请选择省份!", MessageBoxIcon.Warning);
+                return;
+            }
             Base_Project project = new Base_Project
             {
                 ProjectCode = this.txtProjectCode.Text.Trim(),
@@ -150,7 +159,7 @@ namespace FineUIPro.Web.ProjectData
                 Remark=this.txtRemark.Text.Trim(),
                 Telephone=this.txtTelephone.Text.Trim(),
                 Country=this.txtCountry.Text.Trim(),
-                Province=this.txtProvince.Text.Trim(),
+                Province=this.drpProvince.SelectedValue,
                 City=this.txtCity.Text.Trim(),
                 EnglishRemark=this.txtEnglishRemark.Text.Trim(),
             };

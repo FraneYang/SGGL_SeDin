@@ -107,8 +107,8 @@
             </f:FormRow> 
             <f:FormRow>
                <Items>
-                   <f:TextBox ID="txtProvince" runat="server" Label="省份" MaxLength="50" 
-                    ></f:TextBox>
+                   <f:DropDownList ID="drpProvince" runat="server" Label="省份" EnableEdit="true" ShowRedStar="true" Required="true">
+                    </f:DropDownList>  
                 </Items>
                 <Items>
                    <f:TextBox ID="txtCity" runat="server" Label="城市" MaxLength="50" LabelWidth="150px"

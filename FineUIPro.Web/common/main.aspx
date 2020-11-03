@@ -1136,7 +1136,7 @@
 
             visualMap: {
                 min: 0,
-                max: 2500,
+                max: 5,
                 left: 20,
                 bottom: 10,
                 text: ['高', '低'],// 文本，默认为数值文本
@@ -1191,7 +1191,8 @@
                         { name: '天津', value: projectNum.data[30] },
                         { name: '重庆', value: projectNum.data[31] },
                         { name: '香港', value: projectNum.data[32] },
-                        { name: '澳门', value: projectNum.data[33] }
+                        { name: '澳门', value: projectNum.data[33] },
+                        { name: '台湾', value: projectNum.data[34] }
                     ],
                     //地图区域的多边形 图形样式，有 normal 和 emphasis 两个状态
                     itemStyle: {
@@ -1294,7 +1295,7 @@
 
             visualMap: {
                 min: 0,
-                max: 2500,
+                max: 100,
                 left: 20,
                 bottom: 10,
                 text: ['高', '低'],// 文本，默认为数值文本

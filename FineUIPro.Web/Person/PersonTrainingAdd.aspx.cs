@@ -106,6 +106,14 @@ namespace FineUIPro.Web.Person
             var table = this.GetPagedDataTable(gvPerson, tb);
             gvPerson.DataSource = table;
             gvPerson.DataBind();
+            var persons = from x in Funs.DB.View_Person_TrainingPerson where x.TrainingPlanId == this.TrainingPlanId select x;
+            if (persons.Count() > 0)
+            {
+                for (int i = 0; i < this.gvPerson.Rows.Count; i++)
+                {
+
+                }
+            }
         }
         #endregion
 

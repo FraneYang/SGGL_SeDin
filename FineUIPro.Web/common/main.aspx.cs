@@ -42,7 +42,7 @@ namespace FineUIPro.Web.common
                 this.divProjectList.InnerHtml = projectHtml;
                 #endregion
                 #region 进度统计
-                this.divJD.InnerHtml = "<div class='flex tab-h'><div class='txt'>工地名称</div><div class='txt'>状态</div><div class='flex1' style='text-align: center'>进度</div></div>";
+                this.divJD.InnerHtml = "<div class='flex tab-h'><div class='txt'>项目</div><div class='txt'>状态</div><div class='flex1' style='text-align: center'>进度</div></div>";
                 decimal dComplete1 = 0, dCompleteTotal = 0;
                 foreach (var p in workProjects)
                 {
@@ -133,6 +133,7 @@ namespace FineUIPro.Web.common
                 listdata.Add(getAllProject.Where(x => x.Province == "重庆").Count());
                 listdata.Add(getAllProject.Where(x => x.Province == "香港").Count());
                 listdata.Add(getAllProject.Where(x => x.Province == "澳门").Count());
+                listdata.Add(getAllProject.Where(x => x.Province == "台湾").Count());
                 series.data = listdata;
                 return JsonConvert.SerializeObject(series);
             }
