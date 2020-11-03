@@ -1520,7 +1520,7 @@
        leftoffsetValue1 = 20
     }
 //alert(leftAccValue + "," + leftoffsetValue + "," +leftoffsetValue1)
-    function Accumulation(id,datap,data0,data1,data2,data3) {
+  function Accumulation(id,datap,data0,data1,data2,data3) {
         var myChartLine = echarts.init(document.getElementById(id));
         option = {
             title: {
@@ -1538,13 +1538,14 @@
             grid: {
               top: '2%',
               left: leftAccValue,
-              right: '2%',
+              right: '1%',
+              left:'0',
               bottom: '0',
               containLabel: true
             },
             xAxis: {
                 show: false,
-                type: 'value'
+                type: 'value',
             },
             yAxis: [{
                 offset: leftoffsetValue,
@@ -1556,7 +1557,7 @@
 		    interval:0,
                     show: true,
                     fontSize: 12,
-                    color: "#fff",
+                    color: "#57B8BD",
                     align: 'middle',
                     verticalAlign: 'middle',
                     formatter: function (value) {
@@ -1592,7 +1593,7 @@
                 axisLabel: {
                     show: true,
                     fontSize: 12,
-                    color: "#fff",
+                    color: "#57B8BD",
                     align: 'middle',
                     verticalAlign: 'middle',
                     formatter: function (value) {
@@ -1627,16 +1628,18 @@
                     name: '当前现场人数',
                     type: 'bar',
                     stack: '总量',
+                    color: "#ffb84d",
                     label: {
                         show: true,
                         position: 'insideRight'
                     },
-                    data:  data1
+                    data: data1
                 },
                 {
                     name: '作业人员总数',
                     type: 'bar',
                     stack: '总量',
+                    color: "#19c719",
                     label: {
                         show: true,
                         position: 'insideRight'
@@ -1647,6 +1650,7 @@
                     name: '管理人员总数',
                     type: 'bar',
                     stack: '总量',
+                    color: "#0000ff",
                     label: {
                         show: true,
                         position: 'insideRight'

@@ -106,12 +106,16 @@ namespace FineUIPro.Web.Person
             var table = this.GetPagedDataTable(gvPerson, tb);
             gvPerson.DataSource = table;
             gvPerson.DataBind();
-            var persons = from x in Funs.DB.View_Person_TrainingPerson where x.TrainingPlanId == this.TrainingPlanId select x;
-            if (persons.Count() > 0)
+            var personIds = from x in Funs.DB.View_Person_TrainingPerson where x.TrainingPlanId == this.TrainingPlanId select x.TrainingUserId;
+            if (personIds.Count() > 0)
             {
                 for (int i = 0; i < this.gvPerson.Rows.Count; i++)
                 {
-
+                    if (personIds.Contains(this.gvPerson.Rows[i].RowID))
+                    {
+                        System.Web.UI.WebControls.CheckBox cb = (System.Web.UI.WebControls.CheckBox)(this.gvPerson.Rows[i].FindControl("cbSelect"));
+                        cb.Checked = true;
+                    }
                 }
             }
         }
