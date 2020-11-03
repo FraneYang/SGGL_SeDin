@@ -51,7 +51,7 @@
                                 <f:FormRow>
                                     <Items>
                                         <f:Grid ID="gvPerson" ShowBorder="true" ShowHeader="false" EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true" runat="server" BoxFlex="1" 
-                                            DataIDField="TrainingPersonId" AllowSorting="true" 
+                                            DataIDField="TrainingPersonId" AllowSorting="true" PageSize="1000"
                                             SortDirection="ASC" EnableTextSelection="True" Height="200px"
                                             EnableRowDoubleClickEvent="true" >
                                             <Columns>

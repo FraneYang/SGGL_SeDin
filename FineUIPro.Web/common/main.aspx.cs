@@ -85,7 +85,7 @@ namespace FineUIPro.Web.common
                         }
                     }
                     dCompleteTotal = dCompleteTotal * 100;
-                    this.divJD.InnerHtml += "<div class='flex tab-i'><div class='txt'>" + p.ShortName + "</div><div class='txt'>在建</div><div class='flex1 flex line-wrap'><div class='line-item'><div class='normal' style='width: " + dCompleteTotal + "%'></div></div></div></div>";
+                    this.divJD.InnerHtml += "<div class='flex tab-i'><div class='txt' style='color:#57B8BD'>" + p.ShortName + "</div><div class='txt' style='color:#57B8BD'>在建</div><div class='flex1 flex line-wrap'><div class='line-item'><div class='normal' style='width: " + dCompleteTotal + "%'></div></div></div></div>";
                 }
                 #endregion
             }
