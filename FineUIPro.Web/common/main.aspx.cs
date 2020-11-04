@@ -42,7 +42,7 @@ namespace FineUIPro.Web.common
                 this.divProjectList.InnerHtml = projectHtml;
                 #endregion
                 #region 进度统计
-                this.divJD.InnerHtml = "<div class='flex tab-h'><div class='txt'>项目</div><div class='txt'>状态</div><div class='flex1' style='text-align: center'>进度</div></div>";
+                this.divJD.InnerHtml = "<div class='flex tab-h'><div class='txt'>&nbsp;&nbsp;&nbsp;&nbsp;项目</div><div class='txt'>状态</div><div class='flex1' style='text-align: center'>进度</div></div>";
                 decimal dComplete1 = 0, dCompleteTotal = 0;
                 foreach (var p in workProjects)
                 {
@@ -490,6 +490,45 @@ namespace FineUIPro.Web.common
                 s3.data = list3;
                 series.Add(s3);
 
+                businessColumn.categories = listCategories;
+                businessColumn.series = series;
+                return JsonConvert.SerializeObject(businessColumn);
+            }
+        }
+        #endregion
+
+        #region  产值/合同统计
+        protected string Five
+        {
+            get
+            {
+                List<Model.SingleSerie> series = new List<Model.SingleSerie>();
+                Model.BusinessColumn businessColumn = new Model.BusinessColumn();
+                List<string> listCategories = new List<string>();
+                businessColumn.title = "产值/合同统计";
+                var projects = BLL.ProjectService.GetProjectWorkList();
+                Model.SingleSerie s = new Model.SingleSerie();
+                Model.SingleSerie s2 = new Model.SingleSerie();
+                List<double> listdata = new List<double>();
+                List<double> listdata2 = new List<double>();
+                int i = 1, e = 40;
+                foreach (var project in projects)
+                {
+                    listCategories.Add(project.ShortName);
+                    Random ran = new Random();
+                    int RandKey1 = ran.Next(i, e);
+                    i++;
+                    e--;
+                    int RandKey2 = ran.Next(i, e);
+                    i++;
+                    e--;
+                    listdata.Add(RandKey1);
+                    listdata2.Add(RandKey2);
+                }
+                s.data = listdata;
+                s2.data = listdata2;
+                series.Add(s);
+                series.Add(s2);
                 businessColumn.categories = listCategories;
                 businessColumn.series = series;
                 return JsonConvert.SerializeObject(businessColumn);
