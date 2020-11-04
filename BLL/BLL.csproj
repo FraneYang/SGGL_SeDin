@@ -408,6 +408,8 @@
     <Compile Include="ProjectData\TeamGroupService.cs" />
     <Compile Include="ProjectData\UnitWorkService.cs" />
     <Compile Include="HSSE\SitePerson\PersonService.cs" />
+    <Compile Include="PZHGL\InformationProject\ConstructionPlanApproveService.cs" />
+    <Compile Include="PZHGL\InformationProject\ConstructionPlanService.cs" />
     <Compile Include="PZHGL\InformationProject\PictureService.cs" />
     <Compile Include="PZHGL\InformationProject\ReceiveFileManagerService.cs" />
     <Compile Include="PZHGL\ProjectData\ProjectMapService.cs" />

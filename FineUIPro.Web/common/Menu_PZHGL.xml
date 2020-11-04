@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="1DFB41AB-526C-4246-B2A7-A201AB334C17" Text="总承包商施工计划" NavigateUrl="">
+  <TreeNode id="1DFB41AB-526C-4246-B2A7-A201AB334C17" Text="总承包商施工计划" NavigateUrl="PZHGL/InformationProject/ConstructionPlan.aspx">
   </TreeNode>
 <TreeNode id="0DAFF358-EA16-44B2-8E4B-E15E40EFAAD0" Text="总承包商施工报告" NavigateUrl=""></TreeNode>
 <TreeNode id="4CB03F8B-C967-4082-ADF1-08776FE40E21" Text="项目级施工日志" NavigateUrl=""></TreeNode>

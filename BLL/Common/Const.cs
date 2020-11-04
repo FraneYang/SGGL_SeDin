@@ -358,8 +358,15 @@ namespace BLL
         /// 半年上报时间 下半年日
         /// </summary>
         public const string HalfYearDate_2 = "HalfYearDate_2";
-        #endregion              
-        
+        #endregion
+
+        #region 内置本部角色定义
+        /// <summary>
+        /// 系统管理员
+        /// </summary>
+        public const string SystemManager = "4001f8c8-7f55-4660-822a-6b129ecf0342";
+        #endregion
+
         #region 内置项目角色定义
         /// <summary>
         /// 项目经理
@@ -3385,6 +3392,49 @@ namespace BLL
         public const string SpotCheckTemplateUrl = "File\\Word\\CQMS\\Check\\质量共检通知单.doc";
         #endregion
 
+        #endregion
+
+        #region 施工综合
+        #region 菜单Id
+        /// <summary>
+        /// 总承包商施工计划
+        /// </summary>
+        public const string ConstructionPlanMenuId = "1DFB41AB-526C-4246-B2A7-A201AB334C17";
+        #endregion
+
+        #region 施工综合流程定义
+        #region 总承包商施工计划
+        /// <summary>
+        /// 重新整理
+        /// </summary>
+        public const string ConstructionPlan_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public const string ConstructionPlan_Compile = "1";
+
+        /// <summary>
+        /// 施工经理审核
+        /// </summary>
+        public const string ConstructionPlan_Audit1 = "2";
+
+        /// <summary>
+        /// 施工管理部审核
+        /// </summary>
+        public const string ConstructionPlan_Audit2 = "3";
+
+        /// <summary>
+        /// 项目经理批准
+        /// </summary>
+        public const string ConstructionPlan_Audit3 = "4";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public const string ConstructionPlan_Complete= "5";
+        #endregion
+        #endregion
         #endregion
 
         #region  焊接管理
