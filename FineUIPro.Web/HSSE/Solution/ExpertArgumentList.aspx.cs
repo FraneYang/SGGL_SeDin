@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace FineUIPro.Web.HSSE.Solution
 {
@@ -21,6 +22,7 @@ namespace FineUIPro.Web.HSSE.Solution
                 ////权限按钮方法
                 this.GetButtonPower();
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                btnNew.OnClientClick = Window1.GetShowReference("ExpertArgumentListEdit.aspx") + "return false;";
                 // 绑定表格
                 BindGrid();
             }
@@ -31,22 +33,17 @@ namespace FineUIPro.Web.HSSE.Solution
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT LargerHazard.HazardId,LargerHazard.ProjectId,CodeRecords.Code AS HazardCode,LargerHazard.Address,Users.UserName,LargerHazard.ExpectedTime,LargerHazard.RecordTime "
-                          + @" ,(CASE WHEN LargerHazard.States = " + BLL.Const.State_0 + " OR LargerHazard.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN LargerHazard.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
-                          + @", case when LargerHazard.IsArgument=1 then '是' else '否' end as IsArgumentStr,Const.ConstText as TypeName"
-                          + @" FROM Solution_LargerHazard AS LargerHazard "
-                          + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON LargerHazard.HazardId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
-                          + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
-                          + @" LEFT JOIN Sys_User AS Users ON LargerHazard.RecardMan=Users.UserId "
-                          + @" LEFT JOIN Sys_Const AS Const ON LargerHazard.HazardType=Const.ConstValue and Const.GroupId='LargerHazardType' "
-                          + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON LargerHazard.HazardId=CodeRecords.DataId WHERE LargerHazard.IsArgument=1 ";
+            string strSql = @"SELECT Larger.LargerHazardListId,Larger.HazardCode,Larger.ProjectId,Larger.RecordTime,Larger.RecardManId,sysUser.UserName as RecardManName,Larger.Remark,Larger.States,Larger.VersionNo"
+                          + @",(CASE WHEN Larger.States=1 THEN '已完成' WHEN Larger.States=-1 THEN '已作废' ELSE '待提交' END) AS StatesName"
+                          + @" FROM dbo.Solution_LargerHazardList AS Larger"
+                          + @" LEFT JOIN Sys_User AS sysUser on Larger.RecardManId=sysUser.UserId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " AND LargerHazard.ProjectId = @ProjectId";
+            strSql += " AND Larger.ProjectId = @ProjectId";
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
             {
                 listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
-                strSql += " AND LargerHazard.States = @States";  ///状态为已完成
-                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+                strSql += " AND Larger.States = @States";  ///状态为已完成
+                listStr.Add(new SqlParameter("@States", BLL.Const.State_1));
             }
             else
             {
@@ -54,24 +51,13 @@ namespace FineUIPro.Web.HSSE.Solution
             }
             if (!string.IsNullOrEmpty(this.txtHazardCode.Text.Trim()))
             {
-                strSql += " AND LargerHazard.HazardCode LIKE @HazardCode";
+                strSql += " AND Larger.HazardCode LIKE @HazardCode";
                 listStr.Add(new SqlParameter("@HazardCode", "%" + this.txtHazardCode.Text.Trim() + "%"));
-            }
-            if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
-            {
-                strSql += " AND LargerHazard.ExpectedTime >= @StartDate";
-                listStr.Add(new SqlParameter("@StartDate", this.txtStartDate.Text.Trim()));
-            }
-            if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
-            {
-                strSql += " AND LargerHazard.ExpectedTime <= @EndDate";
-                listStr.Add(new SqlParameter("@EndDate", this.txtEndDate.Text.Trim()));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.RecordCount = tb.Rows.Count;
             var table = this.GetPagedDataTable(Grid1, tb);
-
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
@@ -158,11 +144,46 @@ namespace FineUIPro.Web.HSSE.Solution
                 Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            string HazardId = Grid1.SelectedRowID;
-            var checkWork = BLL.LargerHazardService.GetLargerHazardByHazardId(HazardId);
-            if (checkWork != null)
+
+            var getRecord = BLL.ExpertArgumentService.GetLargerHazardListById(Grid1.SelectedRowID);
+            if (getRecord != null)
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("LargerHazardView.aspx?HazardId={0}", HazardId, "查看 - ")));
+                if (!this.btnMenuModify.Hidden && (getRecord.States == BLL.Const.State_0 || string.IsNullOrEmpty(getRecord.States)))   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ExpertArgumentListEdit.aspx?LargerHazardListId={0}", getRecord.LargerHazardListId, "查看 - ")));
+                }
+                else
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ExpertArgumentListView.aspx?LargerHazardListId={0}", getRecord.LargerHazardListId, "编辑 - ")));
+                }
+            }
+        }
+        #endregion
+
+        #region 删除
+        /// <summary>
+        ///  删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuDel_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length > 0)
+            {
+                foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                {
+                    string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                    var getRecord = BLL.ExpertArgumentService.GetLargerHazardListById(rowID);
+                    if (getRecord != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getRecord.HazardCode, getRecord.LargerHazardListId, BLL.Const.ProjectExpertArgumentMenuId, BLL.Const.BtnDelete);
+                        BLL.ExpertArgumentService.DeleteLargerHazardListItemByLargerHazardListId(rowID);
+                        BLL.ExpertArgumentService.DeleteLargerHazardListById(rowID);
+                    }
+                }
+
+                BindGrid();
+                ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }
         }
         #endregion
@@ -179,7 +200,22 @@ namespace FineUIPro.Web.HSSE.Solution
             {
                 return;
             }
-            this.btnMenuModify.Hidden = false;
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.ProjectExpertArgumentMenuId);
+            if (buttonList.Count() > 0)
+            {
+                if (buttonList.Contains(BLL.Const.BtnAdd))
+                {
+                    this.btnNew.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnModify))
+                {
+                    this.btnMenuModify.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
+                    this.btnMenuDel.Hidden = false;
+                }
+            }
         }
         #endregion
 
@@ -192,7 +228,7 @@ namespace FineUIPro.Web.HSSE.Solution
         {
             Response.ClearContent();
             string filename = Funs.GetNewFileName();
-            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("专家论证清单" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("危大工程清单" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
             this.Grid1.PageSize = this.Grid1.RecordCount;
@@ -200,6 +236,6 @@ namespace FineUIPro.Web.HSSE.Solution
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
         }
-        #endregion        
+        #endregion
     }
 }

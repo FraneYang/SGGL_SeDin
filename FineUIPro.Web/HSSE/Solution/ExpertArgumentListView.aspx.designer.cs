@@ -40,85 +40,40 @@ namespace FineUIPro.Web.HSSE.Solution {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
-        /// txtExpertArgumentCode 控件。
+        /// txtHazardCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtExpertArgumentCode;
+        protected global::FineUIPro.TextBox txtHazardCode;
         
         /// <summary>
-        /// txtHazardType 控件。
+        /// txtVersionNo 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtHazardType;
+        protected global::FineUIPro.TextBox txtVersionNo;
         
         /// <summary>
-        /// txtAddress 控件。
+        /// txtRecordTime 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtAddress;
+        protected global::FineUIPro.TextBox txtRecordTime;
         
         /// <summary>
-        /// txtExpectedTime 控件。
+        /// Grid1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtExpectedTime;
-        
-        /// <summary>
-        /// txtIsArgument 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtIsArgument;
-        
-        /// <summary>
-        /// lb1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label lb1;
-        
-        /// <summary>
-        /// txtRemark 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.HtmlEditor txtRemark;
-        
-        /// <summary>
-        /// ContentPanel1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.ContentPanel ContentPanel1;
-        
-        /// <summary>
-        /// ctlAuditFlow 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Web.Controls.FlowOperateControl ctlAuditFlow;
+        protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -139,15 +94,6 @@ namespace FineUIPro.Web.HSSE.Solution {
         protected global::FineUIPro.Label lbTemp;
         
         /// <summary>
-        /// btnAttachUrl 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnAttachUrl;
-        
-        /// <summary>
         /// ToolbarFill1 控件。
         /// </summary>
         /// <remarks>
@@ -157,6 +103,15 @@ namespace FineUIPro.Web.HSSE.Solution {
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
         
         /// <summary>
+        /// btnCancel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnCancel;
+        
+        /// <summary>
         /// btnClose 控件。
         /// </summary>
         /// <remarks>
@@ -164,14 +119,5 @@ namespace FineUIPro.Web.HSSE.Solution {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnClose;
-        
-        /// <summary>
-        /// WindowAtt 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Window WindowAtt;
     }
 }

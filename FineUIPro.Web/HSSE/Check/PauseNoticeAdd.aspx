@@ -35,7 +35,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DatePicker ID="txtPauseTime" ShowRedStar="true" DateFormatString="yyyy-MM-dd HH:mm" runat="server" Label="现要求你公司于" Required="true" LabelAlign="Right" EnableEdit="true" ShowTime="true" ShowSecond="false" LabelWidth="150px">
+                        <f:DatePicker ID="txtPauseTime" ShowRedStar="true" DateFormatString="yyyy-MM-dd HH:mm" runat="server" Label="现要求你公司于" Required="true" LabelAlign="Right" ShowTime="true" ShowSecond="false" LabelWidth="150px">
                         </f:DatePicker>
                         <f:Label runat="server" Text="日起停止施工"></f:Label>
                     </Items>

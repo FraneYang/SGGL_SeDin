@@ -1,25 +1,26 @@
 ﻿using BLL;
 using System;
-using System.Linq;
 using System.Web;
+using System.Linq;
+using System.Data;
 
 namespace FineUIPro.Web.HSSE.Solution
 {
-    public partial class ExpertArgumentListView :PageBase
+    public partial class ExpertArgumentListView : PageBase
     {
         #region 定义变量
         /// <summary>
         /// 主键
         /// </summary>
-        public string ExpertArgumentId
+        public string LargerHazardListId
         {
             get
             {
-                return (string)ViewState["ExpertArgumentId"];
+                return (string)ViewState["LargerHazardListId"];
             }
             set
             {
-                ViewState["ExpertArgumentId"] = value;
+                ViewState["LargerHazardListId"] = value;
             }
         }
         #endregion
@@ -33,52 +34,130 @@ namespace FineUIPro.Web.HSSE.Solution
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                this.ExpertArgumentId = Request.Params["ExpertArgumentId"];
-                var expertArgument = BLL.ExpertArgumentService.GetExpertArgumentById(this.ExpertArgumentId);
-                if (expertArgument != null)
+            {              
+                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();          
+                this.LargerHazardListId = Request.Params["LargerHazardListId"];              
+                var getRecord = BLL.ExpertArgumentService.GetLargerHazardListById(LargerHazardListId);
+                if (getRecord != null)
                 {
-                    this.txtExpertArgumentCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.ExpertArgumentId);
-                    if (!string.IsNullOrEmpty(expertArgument.HazardType))
+                    this.txtHazardCode.Text = getRecord.HazardCode;
+                    this.txtRecordTime.Text = string.Format("{0:yyyy-MM-dd}", getRecord.RecordTime);
+                    this.txtVersionNo.Text = getRecord.VersionNo;
+                    ExpertArgumentService.getViewLargerHazardListItem = (from x in Funs.DB.View_Solution_LargerHazardListItem
+                                                                         where x.LargerHazardListId == this.LargerHazardListId
+                                                                         select x).ToList();
+                    if (getRecord.States == Const.State_1 && this.CurrUser.UserId == Const.sysglyId)
                     {
-                        this.txtHazardType.Text = ConstValue.drpConstItemList(ConstValue.Group_LargerHazardType).FirstOrDefault(x => x.ConstValue == expertArgument.HazardType).ConstText;
+                        var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.ProjectExpertArgumentMenuId);
+                        if (buttonList.Count() > 0)
+                        {
+                            if (buttonList.Contains(BLL.Const.BtnDelete))
+                            {
+                                this.btnCancel.Hidden = false;
+                            }
+                        }
                     }
-                    this.txtAddress.Text = expertArgument.Address;
-                    if (expertArgument.ExpectedTime != null)
-                    {
-                        this.txtExpectedTime.Text = string.Format("{0:yyyy-MM-dd}", expertArgument.ExpectedTime);
-                    }
-                    if (expertArgument.IsArgument == true)
-                    {
-                        this.txtIsArgument.Text = "是";
-                    }
-                    else
-                    {
-                        this.txtIsArgument.Text = "否";
-                    }
-                    this.txtRemark.Text = HttpUtility.HtmlDecode(expertArgument.Remark);
                 }
-                ///初始化审核菜单
-                this.ctlAuditFlow.MenuId = BLL.Const.ProjectExpertArgumentMenuId;
-                this.ctlAuditFlow.DataId = this.ExpertArgumentId;
+                // 绑定表格
+                BindGrid();
             }
         }
         #endregion
 
-        #region 附件上传
         /// <summary>
-        /// 上传附件
+        /// 
+        /// </summary>
+        private void BindGrid()
+        {
+            if (ExpertArgumentService.getViewLargerHazardListItem != null)
+            {
+                Grid1.RecordCount = ExpertArgumentService.getViewLargerHazardListItem.Count();
+                DataTable tb = this.GetPagedDataTable(Grid1, ExpertArgumentService.getViewLargerHazardListItem);
+                Grid1.DataSource = tb;
+                Grid1.DataBind();
+            }
+            else
+            {
+                Grid1.DataSource = null;
+                Grid1.DataBind();
+            }
+        }
+               
+
+        #region 作废按钮
+        /// <summary>
+        /// 保存按钮
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        protected void btnCancel_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.ExpertArgumentId))
+            var getData = BLL.ExpertArgumentService.GetLargerHazardListById(this.LargerHazardListId);
+            if (getData != null)
             {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ExpertArgument&menuId={1}&type=-1", this.ExpertArgumentId, BLL.Const.ProjectExpertArgumentMenuId)));
+                getData.States = "-1";
+                BLL.ExpertArgumentService.UpdateLargerHazardList(getData);
             }
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
         #endregion
+
+        #region 保存数据
+        /// <summary>
+        /// 保存数据
+        /// </summary>
+        /// <param name="type"></param>
+        private void SaveData(string type)
+        {
+            Model.Solution_LargerHazardList newRecord = new Model.Solution_LargerHazardList
+            {
+                LargerHazardListId = this.LargerHazardListId,
+                HazardCode = this.txtHazardCode.Text,
+                ProjectId = this.CurrUser.LoginProjectId,
+                RecordTime = Funs.GetNewDateTime(this.txtRecordTime.Text),
+                VersionNo = this.txtVersionNo.Text.Trim(),
+                RecardManId = this.CurrUser.UserId,
+                ////单据状态
+                States = BLL.Const.State_0,
+            };
+
+            if (type == BLL.Const.BtnSubmit)
+            {
+                newRecord.States = BLL.Const.State_1;
+            }
+            if (!string.IsNullOrEmpty(this.LargerHazardListId))
+            {
+                BLL.ExpertArgumentService.UpdateLargerHazardList(newRecord);
+                BLL.LogService.AddSys_Log(this.CurrUser, newRecord.HazardCode, newRecord.LargerHazardListId, BLL.Const.ProjectExpertArgumentMenuId, BLL.Const.BtnModify);
+
+                BLL.ExpertArgumentService.DeleteLargerHazardListItemByLargerHazardListId(this.LargerHazardListId);
+            }
+            else
+            {                
+                this.LargerHazardListId = newRecord.LargerHazardListId = SQLHelper.GetNewID();
+                BLL.ExpertArgumentService.AddLargerHazardList(newRecord);
+                BLL.LogService.AddSys_Log(this.CurrUser, newRecord.HazardCode, newRecord.LargerHazardListId, BLL.Const.ProjectExpertArgumentMenuId, BLL.Const.BtnAdd);
+            }
+            var newListItems = from x in ExpertArgumentService.getViewLargerHazardListItem
+                               select new Model.Solution_LargerHazardListItem
+                               {
+                                   LargerHazardListItemId = x.LargerHazardListItemId,
+                                   SortIndex = x.SortIndex,
+                                   LargerHazardListId = this.LargerHazardListId,
+                                   UnitWorkId = x.UnitWorkId,
+                                   WorkPackageId = x.WorkPackageId,
+                                   WorkPackageSize = x.WorkPackageSize,
+                                   ExpectedStartTime = x.ExpectedStartTime,
+                                   ExpectedEndTime = x.ExpectedEndTime,
+                                   IsArgument = x.IsArgument,
+                                   UnitId = x.UnitId,
+                               };
+            if (newListItems != null && newListItems.Count() > 0)
+            {
+                Funs.DB.Solution_LargerHazardListItem.InsertAllOnSubmit(newListItems);
+                Funs.DB.SubmitChanges();
+            }
+        }
+        #endregion        
     }
 }

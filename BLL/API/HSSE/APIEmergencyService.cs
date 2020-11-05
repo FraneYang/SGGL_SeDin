@@ -549,7 +549,7 @@ namespace BLL
                         }
                         else
                         {
-                            getDataList.Add(new Model.BaseInfoItem { BaseInfoId = getEmergencyProcess.EmergencyProcessId, BaseInfoCode = getEmergencyProcess.ProcessSteps, BaseInfoName = getEmergencyProcess.Remark, RemarkOther = "0" });
+                            getDataList.Add(new Model.BaseInfoItem { BaseInfoId = getEmergencyProcess.EmergencyProcessId, BaseInfoCode = getEmergencyProcess.ProcessSteps, BaseInfoName = getEmergencyProcess.Remark, RemarkOther = "" });
                         }
                     }
                     else
@@ -578,7 +578,7 @@ namespace BLL
                         }
                         else
                         {
-                            getDataList.Add(new Model.BaseInfoItem { BaseInfoId = getEmergencyProcess.EmergencyProcessId, BaseInfoCode = getEmergencyProcess.ProcessSteps, BaseInfoName = getEmergencyProcess.Remark, RemarkOther = "1" });
+                            getDataList.Add(new Model.BaseInfoItem { BaseInfoId = getEmergencyProcess.EmergencyProcessId, BaseInfoCode = getEmergencyProcess.ProcessSteps, BaseInfoName = getEmergencyProcess.Remark, RemarkOther = "" });
                         }
                     }
                 }

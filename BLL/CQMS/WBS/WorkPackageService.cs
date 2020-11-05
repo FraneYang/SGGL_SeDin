@@ -178,5 +178,23 @@ namespace BLL
         {
             return (from x in Funs.DB.WBS_WorkPackage where unitWorkIds.Contains(x.UnitWorkId) orderby x.WorkPackageCode select x).ToList();
         }
+
+        /// <summary>
+        ///  获取单位工程分部分项下拉列表
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="projectId"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitWorkPackagesDropDownListByUnitWorkId(FineUIPro.DropDownList dropName, string unitWorkId, bool isShowPlease)
+        {
+            dropName.DataValueField = "WorkPackageId";
+            dropName.DataTextField = "PackageContent";
+            dropName.DataSource = GetAllWorkPackagesByUnitWorkId(unitWorkId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
     }
 }

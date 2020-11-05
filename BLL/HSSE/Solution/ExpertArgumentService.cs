@@ -12,6 +12,7 @@ namespace BLL
     {
         public static Model.SGGLDB db = Funs.DB;
 
+        #region 专家论证清单
         /// <summary>
         /// 根据主键获取专家论证清单
         /// </summary>
@@ -90,5 +91,173 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+        #endregion
+
+        /// <summary>
+        /// 根据主键获取危大工程清单
+        /// </summary>
+        /// <param name="LargerHazardListId"></param>
+        /// <returns></returns>
+        public static Model.Solution_LargerHazardList GetLargerHazardListById(string LargerHazardListId)
+        {
+            return Funs.DB.Solution_LargerHazardList.FirstOrDefault(e => e.LargerHazardListId == LargerHazardListId);
+        }
+
+        /// <summary>
+        /// 添加危大工程清单
+        /// </summary>
+        /// <param name="LargerHazardList"></param>
+        public static void AddLargerHazardList(Model.Solution_LargerHazardList LargerHazardList)
+        {
+            Model.SGGLDB db = Funs.DB;
+            Model.Solution_LargerHazardList newLargerHazardList = new Model.Solution_LargerHazardList
+            {
+                LargerHazardListId = LargerHazardList.LargerHazardListId,
+                HazardCode = LargerHazardList.HazardCode,
+                ProjectId = LargerHazardList.ProjectId,
+                RecardManId = LargerHazardList.RecardManId,
+                RecordTime = LargerHazardList.RecordTime,
+                Remark = LargerHazardList.Remark,
+                VersionNo = LargerHazardList.VersionNo,
+                States = LargerHazardList.States,
+            };
+            db.Solution_LargerHazardList.InsertOnSubmit(newLargerHazardList);
+            db.SubmitChanges();
+
+            CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectExpertArgumentMenuId, LargerHazardList.ProjectId, null, LargerHazardList.LargerHazardListId, LargerHazardList.RecordTime);
+        }
+
+        /// <summary>
+        /// 修改危大工程清单
+        /// </summary>
+        /// <param name="LargerHazardList"></param>
+        public static void UpdateLargerHazardList(Model.Solution_LargerHazardList LargerHazardList)
+        {
+            Model.SGGLDB db = Funs.DB;
+            Model.Solution_LargerHazardList newLargerHazardList = db.Solution_LargerHazardList.FirstOrDefault(e => e.LargerHazardListId == LargerHazardList.LargerHazardListId);
+            if (newLargerHazardList != null)
+            {
+                newLargerHazardList.HazardCode = LargerHazardList.HazardCode;
+                newLargerHazardList.RecardManId = LargerHazardList.RecardManId;
+                newLargerHazardList.RecordTime = LargerHazardList.RecordTime;
+                newLargerHazardList.Remark = LargerHazardList.Remark;
+                newLargerHazardList.VersionNo = LargerHazardList.VersionNo;
+                newLargerHazardList.States = LargerHazardList.States;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除危大工程清单
+        /// </summary>
+        /// <param name="LargerHazardListId"></param>
+        public static void DeleteLargerHazardListById(string LargerHazardListId)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var getDelLargerHazardList = db.Solution_LargerHazardList.FirstOrDefault(e => e.LargerHazardListId == LargerHazardListId);
+            if (getDelLargerHazardList != null)
+            {
+                CodeRecordsService.DeleteCodeRecordsByDataId(LargerHazardListId);
+                db.Solution_LargerHazardList.DeleteOnSubmit(getDelLargerHazardList);
+                db.SubmitChanges();
+            }
+        }
+
+        #region 危大工程清单明细
+        /// <summary>
+        /// 
+        /// </summary>
+        public static List<Model.View_Solution_LargerHazardListItem> getViewLargerHazardListItem = new List<Model.View_Solution_LargerHazardListItem>();
+
+        /// <summary>
+        /// 根据主键获取危大工程清单明细
+        /// </summary>
+        /// <param name="LargerHazardListItemId"></param>
+        /// <returns></returns>
+        public static Model.Solution_LargerHazardListItem GetLargerHazardListItemById(string LargerHazardListItemId)
+        {
+            return Funs.DB.Solution_LargerHazardListItem.FirstOrDefault(e => e.LargerHazardListItemId == LargerHazardListItemId);
+        }
+
+        /// <summary>
+        /// 添加危大工程清单明细
+        /// </summary>
+        /// <param name="LargerHazardListItem"></param>
+        public static void AddLargerHazardListItem(Model.Solution_LargerHazardListItem LargerHazardListItem)
+        {
+            Model.SGGLDB db = Funs.DB;
+            Model.Solution_LargerHazardListItem newLargerHazardListItem = new Model.Solution_LargerHazardListItem
+            {
+                LargerHazardListItemId = LargerHazardListItem.LargerHazardListItemId,
+                SortIndex = LargerHazardListItem.SortIndex,
+                LargerHazardListId = LargerHazardListItem.LargerHazardListId,
+                UnitWorkId = LargerHazardListItem.UnitWorkId,
+                WorkPackageId = LargerHazardListItem.WorkPackageId,
+                WorkPackageSize = LargerHazardListItem.WorkPackageSize,
+                ExpectedStartTime = LargerHazardListItem.ExpectedStartTime,
+                ExpectedEndTime = LargerHazardListItem.ExpectedEndTime,
+                IsArgument = LargerHazardListItem.IsArgument,
+                UnitId = LargerHazardListItem.UnitId,
+            };
+            db.Solution_LargerHazardListItem.InsertOnSubmit(newLargerHazardListItem);
+            db.SubmitChanges();
+        }
+
+        /// <summary>
+        /// 修改危大工程清单明细
+        /// </summary>
+        /// <param name="LargerHazardListItem"></param>
+        public static void UpdateLargerHazardListItem(Model.Solution_LargerHazardListItem LargerHazardListItem)
+        {
+            Model.SGGLDB db = Funs.DB;
+            Model.Solution_LargerHazardListItem newLargerHazardListItem = db.Solution_LargerHazardListItem.FirstOrDefault(e => e.LargerHazardListItemId == LargerHazardListItem.LargerHazardListItemId);
+            if (newLargerHazardListItem != null)
+            {
+                newLargerHazardListItem.SortIndex = LargerHazardListItem.SortIndex;
+                newLargerHazardListItem.UnitWorkId = LargerHazardListItem.UnitWorkId;
+                newLargerHazardListItem.WorkPackageId = LargerHazardListItem.WorkPackageId;
+                newLargerHazardListItem.WorkPackageSize = LargerHazardListItem.WorkPackageSize;
+                newLargerHazardListItem.ExpectedStartTime = LargerHazardListItem.ExpectedStartTime;
+                newLargerHazardListItem.ExpectedEndTime = LargerHazardListItem.ExpectedEndTime;
+                newLargerHazardListItem.IsArgument = LargerHazardListItem.IsArgument;
+                newLargerHazardListItem.UnitId = LargerHazardListItem.UnitId;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除危大工程清单明细
+        /// </summary>
+        /// <param name="LargerHazardListItemId"></param>
+        public static void DeleteLargerHazardListItemById(string LargerHazardListItemId)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var getDelLargerHazardListItem = db.Solution_LargerHazardListItem.FirstOrDefault(e => e.LargerHazardListItemId == LargerHazardListItemId);
+            if (getDelLargerHazardListItem != null)
+            {
+                db.Solution_LargerHazardListItem.DeleteOnSubmit(getDelLargerHazardListItem);
+                db.SubmitChanges();
+            }
+        }
+
+
+        /// <summary>
+        /// 根据主键删除危大工程清单明细
+        /// </summary>
+        /// <param name="LargerHazardListItemId"></param>
+        public static void DeleteLargerHazardListItemByLargerHazardListId(string LargerHazardListId)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var getDelLargerHazardListItems = from x in db.Solution_LargerHazardListItem
+                                             where x.LargerHazardListId == LargerHazardListId
+                                             select x;
+            if (getDelLargerHazardListItems.Count() > 0)
+            {
+                db.Solution_LargerHazardListItem.DeleteAllOnSubmit(getDelLargerHazardListItems);
+                db.SubmitChanges();
+            }
+        }
+        
+        #endregion
     }
 }
