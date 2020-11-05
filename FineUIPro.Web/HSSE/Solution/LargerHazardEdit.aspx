@@ -24,7 +24,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                        <f:RadioButtonList ID="rblIsArgument" runat="server" Label="专家论证" LabelWidth="100px"  Required="true" ShowRedStar="true">
+                    <f:RadioButtonList ID="rblIsArgument" runat="server" Label="专家论证" LabelWidth="100px"  Required="true" ShowRedStar="true">
                     </f:RadioButtonList>
                     <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="编制时间" ID="txtRecordTime">
                     </f:DatePicker>
