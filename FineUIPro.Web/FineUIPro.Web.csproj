@@ -905,6 +905,8 @@
     <Content Include="ProjectData\UnitWork.aspx" />
     <Content Include="ProjectData\UnitWorkEdit.aspx" />
     <Content Include="ProjectData\UnitWorkView.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionPlan.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionPlanEdit.aspx" />
     <Content Include="PZHGL\InformationProject\Picture.aspx" />
     <Content Include="PZHGL\InformationProject\PictureEdit.aspx" />
     <Content Include="PZHGL\InformationProject\PictureView.aspx" />
@@ -9670,6 +9672,20 @@
     </Compile>
     <Compile Include="ProjectData\UnitWorkView.aspx.designer.cs">
       <DependentUpon>UnitWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionPlan.aspx.cs">
+      <DependentUpon>ConstructionPlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionPlan.aspx.designer.cs">
+      <DependentUpon>ConstructionPlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionPlanEdit.aspx.cs">
+      <DependentUpon>ConstructionPlanEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionPlanEdit.aspx.designer.cs">
+      <DependentUpon>ConstructionPlanEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="PZHGL\InformationProject\Picture.aspx.cs">
       <DependentUpon>Picture.aspx</DependentUpon>

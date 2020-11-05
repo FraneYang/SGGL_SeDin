@@ -680,20 +680,22 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
     }
-    var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5"]
+     var five =<%=Five %>;
+    //var xArr = ["类别1", "类别2", "类别3", "类别4", "类别5"]
+    var xArr =five.categories
     var data = [{
         name: '',
         type: 'bar',
         barWidth: 20,
         stack: '总量',
-        data: [20, 2, 1, 34, 39],
+        data: five.series[0].data,
         itemStyle: { normal: { color: 'rgba(160,181,204, 1)' } }
     },
     {
         name: '',
         type: 'bar',
         stack: '总量',
-        data: [12, 32, 10, 14, 9],
+        data: five.series[1].data,
         itemStyle: { normal: { color: 'rgba(28,110,173, 1)' } }
     }]
     category_Five('five', xArr, data)

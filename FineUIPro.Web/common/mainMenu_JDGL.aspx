@@ -401,6 +401,7 @@
         name: '合格检查数',
         type: 'bar',
         data: data,
+        barWidth: 20,
         itemStyle: { normal: { color: 'rgba(43,155,176,1)' } }
     }]
     category('three', xArr, series)

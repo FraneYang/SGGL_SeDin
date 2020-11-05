@@ -588,8 +588,8 @@ namespace FineUIPro.Web
                     }
                     if (type == Const.Menu_PZHGL)
                     {
-                        this.Tab1.IFrameUrl = "~/PZHGL/InformationProject/ReceiveFileManager.aspx";
-                        this.Tab1.Title = "来往文件管理";
+                        this.Tab1.IFrameUrl = "~/PZHGL/InformationProject/ConstructionPlan.aspx";
+                        this.Tab1.Title = "总承包商施工计划";
                     }
                 }
                 else
