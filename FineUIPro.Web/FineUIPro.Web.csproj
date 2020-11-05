@@ -908,6 +908,10 @@
     <Content Include="ProjectData\UnitWorkView.aspx" />
     <Content Include="PZHGL\InformationProject\ConstructionPlan.aspx" />
     <Content Include="PZHGL\InformationProject\ConstructionPlanEdit.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionPlanView.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionReport.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionReportEdit.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionReportView.aspx" />
     <Content Include="PZHGL\InformationProject\Picture.aspx" />
     <Content Include="PZHGL\InformationProject\PictureEdit.aspx" />
     <Content Include="PZHGL\InformationProject\PictureView.aspx" />
@@ -9694,6 +9698,34 @@
     </Compile>
     <Compile Include="PZHGL\InformationProject\ConstructionPlanEdit.aspx.designer.cs">
       <DependentUpon>ConstructionPlanEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionPlanView.aspx.cs">
+      <DependentUpon>ConstructionPlanView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionPlanView.aspx.designer.cs">
+      <DependentUpon>ConstructionPlanView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionReport.aspx.cs">
+      <DependentUpon>ConstructionReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionReport.aspx.designer.cs">
+      <DependentUpon>ConstructionReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionReportEdit.aspx.cs">
+      <DependentUpon>ConstructionReportEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionReportEdit.aspx.designer.cs">
+      <DependentUpon>ConstructionReportEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionReportView.aspx.cs">
+      <DependentUpon>ConstructionReportView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionReportView.aspx.designer.cs">
+      <DependentUpon>ConstructionReportView.aspx</DependentUpon>
     </Compile>
     <Compile Include="PZHGL\InformationProject\Picture.aspx.cs">
       <DependentUpon>Picture.aspx</DependentUpon>

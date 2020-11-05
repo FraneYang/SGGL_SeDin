@@ -410,6 +410,8 @@
     <Compile Include="HSSE\SitePerson\PersonService.cs" />
     <Compile Include="PZHGL\InformationProject\ConstructionPlanApproveService.cs" />
     <Compile Include="PZHGL\InformationProject\ConstructionPlanService.cs" />
+    <Compile Include="PZHGL\InformationProject\ConstructionReportApproveService.cs" />
+    <Compile Include="PZHGL\InformationProject\ConstructionReportService.cs" />
     <Compile Include="PZHGL\InformationProject\PictureService.cs" />
     <Compile Include="PZHGL\InformationProject\ReceiveFileManagerService.cs" />
     <Compile Include="PZHGL\ProjectData\ProjectMapService.cs" />

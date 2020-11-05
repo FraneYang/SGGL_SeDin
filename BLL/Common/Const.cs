@@ -3400,6 +3400,11 @@ namespace BLL
         /// 总承包商施工计划
         /// </summary>
         public const string ConstructionPlanMenuId = "1DFB41AB-526C-4246-B2A7-A201AB334C17";
+
+        /// <summary>
+        /// 总承包商施工报告
+        /// </summary>
+        public const string ConstructionReportMenuId = "0DAFF358-EA16-44B2-8E4B-E15E40EFAAD0";
         #endregion
 
         #region 施工综合流程定义
@@ -3433,6 +3438,28 @@ namespace BLL
         /// 审批完成
         /// </summary>
         public const string ConstructionPlan_Complete= "5";
+        #endregion
+
+        #region 总承包商施工报告
+        /// <summary>
+        /// 重新整理
+        /// </summary>
+        public const string ConstructionReport_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public const string ConstructionReport_Compile = "1";
+
+        /// <summary>
+        /// 施工经理批准
+        /// </summary>
+        public const string ConstructionReport_Audit1 = "2";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public const string ConstructionReport_Complete = "4";
         #endregion
         #endregion
         #endregion

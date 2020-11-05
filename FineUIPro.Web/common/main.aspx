@@ -268,6 +268,39 @@
             width:100%;
             height:100%;
         }
+    .content-ul .c-item .tit {
+ display:block;
+position:relative;
+padding-left: 2em;
+}
+
+
+.content-ul .c-item .tit::before {
+  content: '';
+  position: absolute;
+  border-color: #009933;
+  border-style: solid;
+  border-width: 0.5em 0 0 0;
+  height: 1em;
+  top: 1.5em;
+  left: 0.6em;
+  margin-top: -1em;
+  width: 0.5em;
+}
+
+.content-ul .c-item .tit-read::before {
+  content: '';
+  position: absolute;
+  border-color: #009933;
+  border-style: solid;
+  border-width: 0 0.3em 0.25em 0;
+  height: 1em;
+  top: 1.0em;
+  left: 0.6em;
+  margin-top: -1em;
+  transform: rotate(45deg);
+  width: 0.5em;
+}
     </style>
 </head>
 <body>
@@ -1556,8 +1589,7 @@
             grid: {
               top: '2%',
               left: leftAccValue,
-              right: '1%',
-              //left:'0',
+              right: '0',
               bottom: '0',
               containLabel: true
             },
@@ -1569,7 +1601,6 @@
                 offset: leftoffsetValue,
                 position: 'left',
                 type: 'category',
-		
                 data: datap,
                 axisLabel: {
 		    interval:0,
@@ -1582,7 +1613,7 @@
 		    },
                     //color: "#57B8BD",
                     align: 'middle',
-                    verticalAlign: 'middle',
+                    //verticalAlign: 'middle',
                     formatter: function (value) {
                         var ret = "";//拼接加\n返回的类目项  
                         var maxLength = 5;//每项显示文字个数  
@@ -1626,7 +1657,7 @@
 		    },
                     //color: "#57B8BD",
                     align: 'middle',
-                    verticalAlign: 'middle',
+                    //verticalAlign: 'middle',
                     formatter: function (value) {
                         var ret = "";//拼接加\n返回的类目项  
                         var maxLength = 5;//每项显示文字个数  
@@ -1663,8 +1694,9 @@
                     label: {
                         fontSize: fontlabelsize,
                         show: true,
-                        position: 'insideRight'
+                        position: 'inside'
                     },
+                    barMinHeight: 20,
                     data: data1
                 },
                 {
@@ -1675,8 +1707,9 @@
                     label: {
 			fontSize: fontlabelsize,			 
                         show: true,
-                        position: 'insideRight'
+                        position: 'inside'
                     },
+		    barMinHeight: 20,
                     data: data2
                 },
                 {
@@ -1687,8 +1720,9 @@
                     label: {
                         fontSize: fontlabelsize,
                         show: true,
-                        position: 'insideRight'
+                        position: 'inside'
                     },
+		    barMinHeight: 20,
                     barWidth: 20,
                     //barGap: 0,
                     data: data3

@@ -94,14 +94,14 @@ namespace FineUIPro.Web.PZHGL.InformationProject
                         rblIsAgree.Hidden = true;
                         drpHandleMan.Enabled = true;
                         drpHandleMan.Required = true;
-                        UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
+                        UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, Const.UnitId_SEDIN);
                         //drpHandleMan.Items.AddRange(UserService.GetAllUserList(CurrUser.LoginProjectId));
                         drpHandleMan.SelectedIndex = 0;
                     }
                     else
                     {
                         //------------
-                        UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
+                        UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, Const.UnitId_SEDIN);
                         //drpHandleMan.Items.AddRange(UserService.GetAllUserList(CurrUser.LoginProjectId));
                         HideOptions.Hidden = false;
                         //Url.Visible = true; 附件查看权限 - 1
@@ -120,7 +120,7 @@ namespace FineUIPro.Web.PZHGL.InformationProject
                         drpHandleMan.Items.Clear();
                         if (State != Const.ConstructionPlan_Audit1)
                         {
-                            UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
+                            UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, Const.UnitId_SEDIN);
                         }
                         else
                         {
@@ -144,7 +144,7 @@ namespace FineUIPro.Web.PZHGL.InformationProject
                     State = Const.ConstructionPlan_Compile;
                     ConstructionPlanService.InitHandleType(drpHandleType, false, State);
                     this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
+                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, Const.UnitId_SEDIN);
                     drpHandleMan.SelectedIndex = 0;
                     plApprove2.Hidden = true;
                     string unitId = string.Empty;
@@ -343,12 +343,13 @@ namespace FineUIPro.Web.PZHGL.InformationProject
                 drpHandleType.SelectedIndex = 0;
                 if (drpHandleType.SelectedValue != Const.ConstructionPlan_Audit2)
                 {
-                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
+                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, Const.UnitId_SEDIN);
                 }
                 else
                 {
                     UserService.InitUserProjectIdUnitIdRoleIdDropDownList(drpHandleMan, string.Empty, Const.UnitId_SEDIN, Const.SystemManager, false);
                 }
+                drpHandleMan.SelectedIndex = 0;
                 if (drpHandleType.SelectedValue == Const.ConstructionPlan_Complete)
                 {
                     drpHandleMan.Items.Clear();
@@ -367,16 +368,16 @@ namespace FineUIPro.Web.PZHGL.InformationProject
                 drpHandleType.SelectedIndex = 1;
                 if (drpHandleType.SelectedValue != Const.ConstructionPlan_Audit2)
                 {
-                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, string.Empty);
+                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false, Const.UnitId_SEDIN);
                 }
                 else
                 {
                     UserService.InitUserProjectIdUnitIdRoleIdDropDownList(drpHandleMan, string.Empty, Const.UnitId_SEDIN, Const.SystemManager, false);
                 }
+                drpHandleMan.SelectedIndex = 0;
                 if (drpHandleType.SelectedValue == Const.ConstructionPlan_ReCompile)
                 {
                     drpHandleMan.Enabled = true;
-                    UserService.InitUserDropDownList(drpHandleMan, CurrUser.LoginProjectId, false);
                     var HandleMan = BLL.ConstructionPlanApproveService.GetComplie(this.ConstructionPlanId);                    if (HandleMan != null)                    {                        this.drpHandleMan.SelectedValue = HandleMan.ApproveMan;                    }
                     drpHandleMan.Required = true;
                 }

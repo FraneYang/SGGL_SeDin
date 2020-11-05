@@ -77,7 +77,7 @@
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="70px"
                                 LabelAlign="right">
                             </f:TextBox>
-                                <f:ToolbarFill></f:ToolbarFill>
+                                <f:ToolbarFill runat="server"></f:ToolbarFill>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                     Hidden="true">
                                 </f:Button>

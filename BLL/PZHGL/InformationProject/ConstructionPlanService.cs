@@ -190,7 +190,7 @@ namespace BLL
             {
                 ListItem[] lis = new ListItem[2];
                 lis[0] = new ListItem("审批完成", Const.ConstructionPlan_Complete);//是 加载
-                lis[1] = new ListItem("施工管理部审核", Const.ConstructionPlan_Audit3);//否加载
+                lis[1] = new ListItem("施工管理部审核", Const.ConstructionPlan_Audit2);//否加载
                 return lis;
             }
             else
