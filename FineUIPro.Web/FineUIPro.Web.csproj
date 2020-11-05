@@ -764,6 +764,7 @@
     <Content Include="HSSE\Solution\ConstructSolutionView.aspx" />
     <Content Include="HSSE\Solution\ExpertArgumentList.aspx" />
     <Content Include="HSSE\Solution\ExpertArgumentListEdit.aspx" />
+    <Content Include="HSSE\Solution\ExpertArgumentListEditItem.aspx" />
     <Content Include="HSSE\Solution\ExpertArgumentListView.aspx" />
     <Content Include="HSSE\Solution\LargerHazardEdit.aspx" />
     <Content Include="HSSE\Solution\LargerHazardList.aspx" />
@@ -8979,6 +8980,13 @@
     </Compile>
     <Compile Include="HSSE\Solution\ExpertArgumentListEdit.aspx.designer.cs">
       <DependentUpon>ExpertArgumentListEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Solution\ExpertArgumentListEditItem.aspx.cs">
+      <DependentUpon>ExpertArgumentListEditItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Solution\ExpertArgumentListEditItem.aspx.designer.cs">
+      <DependentUpon>ExpertArgumentListEditItem.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\Solution\ExpertArgumentListView.aspx.cs">
       <DependentUpon>ExpertArgumentListView.aspx</DependentUpon>

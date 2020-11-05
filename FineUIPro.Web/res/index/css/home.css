@@ -704,3 +704,10 @@ body {
     color: #fff;
     font-size: 10px;
 }
+
+@media (min-width: 1440px) {
+ .tit-new{
+   font-size: 14px;
+   line-height: 28px;
+ }
+}
