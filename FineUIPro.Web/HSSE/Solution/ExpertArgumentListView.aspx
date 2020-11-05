@@ -1,12 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ExpertArgumentListView.aspx.cs"
-    Inherits="FineUIPro.Web.HSSE.Solution.ExpertArgumentListView" %>
-
-<%@ Register Src="~/Controls/FlowOperateControl.ascx" TagName="FlowOperateControl"
-    TagPrefix="uc1" %>
+    ValidateRequest="false" Inherits="FineUIPro.Web.HSSE.Solution.ExpertArgumentListView" %>
 <!DOCTYPE html>
+<!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>查看专家论证清单</title>
+    <title>编辑专家论证清单</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -17,41 +15,47 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtExpertArgumentCode" runat="server" Label="文件编号" Readonly="true">
+                    <f:TextBox ID="txtHazardCode" runat="server" Label="文件编号" Readonly="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtHazardType" runat="server" Label="类型" Readonly="true">
+                     <f:TextBox ID="txtVersionNo" runat="server" Label="版本"  Readonly="true">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtAddress" runat="server" Label="地点" Readonly="true">
-                    </f:TextBox>
-                    <f:TextBox ID="txtExpectedTime" runat="server" Label="预计施工时间" Readonly="true">
+                    <f:TextBox ID="txtRecordTime" runat="server" Label="版本"  Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtIsArgument" runat="server" Label="需要专家论证" Readonly="true">
-                    </f:TextBox>
-                    <f:Label runat="server" ID="lb1">
-                    </f:Label>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:HtmlEditor runat="server" Label="描述" ID="txtRemark" ShowLabel="false" Editor="UMEditor"
-                        BasePath="~/res/umeditor/" ToolbarSet="Full" Height="200px" LabelAlign="Right">
-                    </f:HtmlEditor>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:ContentPanel ID="ContentPanel1" runat="server" ShowHeader="false" EnableCollapse="true"
-                        BodyPadding="0px">
-                        <uc1:FlowOperateControl ID="ctlAuditFlow" runat="server" />
-                    </f:ContentPanel>
+                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" 
+                        DataIDField="LargerHazardListItemId" DataKeyNames="LargerHazardListItemId"   
+                        SortDirection="ASC" AllowSorting="true" SortField="SortIndex" ForceFit="true"
+                        Height="400px" EnableColumnLines="true" >
+                        <Columns>                            
+                            <f:RenderField Width="50px" ColumnID="SortIndex" DataField="SortIndex" 
+                                FieldType="String" HeaderText="序号" TextAlign="Center" HeaderTextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="150px" ColumnID="UnitWorkName" DataField="UnitWorkName"
+                                FieldType="String" HeaderText="单位工程名称" TextAlign="Left" HeaderTextAlign="Center">
+                            </f:RenderField>
+                             <f:RenderField Width="150px" ColumnID="PackageContent" DataField="PackageContent" 
+                                FieldType="String" HeaderText="分部分项工程名称" TextAlign="Left" HeaderTextAlign="Center">
+                            </f:RenderField>  
+                              <f:RenderField Width="150px" ColumnID="WorkPackageSize" DataField="WorkPackageSize" 
+                                FieldType="String" HeaderText="分部分项工程规模" TextAlign="Left" HeaderTextAlign="Center">
+                            </f:RenderField>  
+                            <f:RenderField Width="270px" ColumnID="ExpectedTime" DataField="ExpectedTime"
+                                FieldType="String" HeaderText="预计施工起止时间" TextAlign="Left" HeaderTextAlign="Center">
+                            </f:RenderField>  
+                             <f:RenderField Width="80px" ColumnID="IsArgumentName" DataField="IsArgumentName" 
+                                FieldType="String" HeaderText="是否需要</br>专家论证" TextAlign="Left" HeaderTextAlign="Center">
+                            </f:RenderField>  
+                            <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" 
+                                FieldType="String" HeaderText="施工单位" TextAlign="Left" HeaderTextAlign="Center">
+                            </f:RenderField> 
+                        </Columns>
+                        <Listeners>
+                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
+                        </Listeners>
+                    </f:Grid>
                 </Items>
             </f:FormRow>
         </Rows>
@@ -59,22 +63,26 @@
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
                     <f:Label runat="server" ID="lbTemp">
-                    </f:Label>
-                    <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
-                        OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
-                    </f:Button>
+                    </f:Label>                  
                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                     </f:ToolbarFill>
-                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                    <f:Button ID="btnCancel" Icon="PageCancel" runat="server" ToolTip="作废"  Hidden="true"
+                            OnClick="btnCancel_Click" Text="作废" ConfirmText="确定作废当前记录？">
+                    </f:Button>
+                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" 
+                        runat="server" Icon="SystemClose">
                     </f:Button>
                 </Items>
             </f:Toolbar>
         </Toolbars>
     </f:Form>
-    <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
-        Height="500px">
-    </f:Window>
     </form>
+    <script type="text/jscript">
+        // 返回false，来阻止浏览器右键菜单
+        function onRowContextMenu(event, rowId) {
+           // F(menuID).show();  //showAt(event.pageX, event.pageY);
+            return false;
+        }
+    </script>
 </body>
 </html>

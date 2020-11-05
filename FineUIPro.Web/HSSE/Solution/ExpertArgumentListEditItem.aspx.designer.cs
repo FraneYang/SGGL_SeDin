@@ -10,7 +10,7 @@
 namespace FineUIPro.Web.HSSE.Solution {
     
     
-    public partial class ExpertArgumentListView {
+    public partial class ExpertArgumentListEditItem {
         
         /// <summary>
         /// form1 控件。
@@ -40,40 +40,76 @@ namespace FineUIPro.Web.HSSE.Solution {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
-        /// txtHazardCode 控件。
+        /// txtSortIndex 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtHazardCode;
+        protected global::FineUIPro.NumberBox txtSortIndex;
         
         /// <summary>
-        /// txtVersionNo 控件。
+        /// drpUnitWorkId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtVersionNo;
+        protected global::FineUIPro.DropDownList drpUnitWorkId;
         
         /// <summary>
-        /// txtRecordTime 控件。
+        /// drpWorkPackageId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtRecordTime;
+        protected global::FineUIPro.DropDownList drpWorkPackageId;
         
         /// <summary>
-        /// Grid1 控件。
+        /// txtWorkPackageSize 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Grid Grid1;
+        protected global::FineUIPro.TextBox txtWorkPackageSize;
+        
+        /// <summary>
+        /// txtExpectedStartTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtExpectedStartTime;
+        
+        /// <summary>
+        /// txtExpectedEndTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtExpectedEndTime;
+        
+        /// <summary>
+        /// rblIsArgument 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.RadioButtonList rblIsArgument;
+        
+        /// <summary>
+        /// drpUnitId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpUnitId;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -103,13 +139,13 @@ namespace FineUIPro.Web.HSSE.Solution {
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
         
         /// <summary>
-        /// btnCancel 控件。
+        /// btnSave 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnCancel;
+        protected global::FineUIPro.Button btnSave;
         
         /// <summary>
         /// btnClose 控件。

@@ -67,33 +67,6 @@ namespace FineUIPro.Web.HSSE.Solution {
         protected global::FineUIPro.TextBox txtHazardCode;
         
         /// <summary>
-        /// txtStartDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtStartDate;
-        
-        /// <summary>
-        /// lblTo 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label lblTo;
-        
-        /// <summary>
-        /// txtEndDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtEndDate;
-        
-        /// <summary>
         /// ToolbarFill1 控件。
         /// </summary>
         /// <remarks>
@@ -101,6 +74,15 @@ namespace FineUIPro.Web.HSSE.Solution {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
+        
+        /// <summary>
+        /// btnNew 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnNew;
         
         /// <summary>
         /// btnOut 控件。
@@ -173,5 +155,14 @@ namespace FineUIPro.Web.HSSE.Solution {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.MenuButton btnMenuModify;
+        
+        /// <summary>
+        /// btnMenuDel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnMenuDel;
     }
 }
