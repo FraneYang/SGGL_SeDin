@@ -199,6 +199,10 @@ namespace FineUIPro.Web.common
                     {
                         strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\"><div class=\"flex\" ><div class=\"tit-t flex1\">" + item.NoticeTitle + "</div><div class=\"tit-v\">" + string.Format("{0:yyyy-MM-dd}", item.CompileDate) + "</div></div></div></li>";
                     }
+                    else
+                    {
+                        strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit tit-read\" title=\"" + item.NoticeTitle + "\"><div class=\"flex\" ><div class=\"tit-t flex1\">" + item.NoticeTitle + "</div><div class=\"tit-v\">" + string.Format("{0:yyyy-MM-dd}", item.CompileDate) + "</div></div></div></li>";
+                    }
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
@@ -230,7 +234,7 @@ namespace FineUIPro.Web.common
                         int addRowNum = 8 - getDataList.Count;
                         for (int i = 0; i < addRowNum; i++)
                         {
-                            strNoticeHtml += "<li data-id=\"\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
+                            strNoticeHtml += "<li data-id=\"\" class=\"c-item disabled swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
                         }
                     }
                 }

@@ -48,7 +48,7 @@
 <TreeNode id="C198EBA8-9E23-4654-92E1-09C61105C522" Text="综合检查" NavigateUrl="HSSE/Check/CheckColligation.aspx"></TreeNode>
 <TreeNode id="C3B6B222-44DC-46F3-B783-B1FC0F743C48" Text="隐患整改单" NavigateUrl="HSSE/Check/RectifyNotices.aspx"></TreeNode>
 <TreeNode id="C81DB7ED-165E-4C69-86B0-A3AAE37059FE" Text="工程暂停令" NavigateUrl="HSSE/Check/PauseNotice.aspx"></TreeNode>
-<TreeNode id="7B272C3F-39D2-496D-A87C-E2C89A20E4EF" Text="安全分析" NavigateUrl="HSSE/Check/SafetyAnalysis.aspx"></TreeNode>
+<TreeNode id="7B272C3F-39D2-496D-A87C-E2C89A20E4EF" Text="安全巡检统计(图表)" NavigateUrl="HSSE/HiddenInspection/RiskAnalysisChart.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="5309E7E0-395E-4F11-8F5E-D52E11526A2A" Text="安全会议" NavigateUrl=""><TreeNode id="5236B1D9-8B57-495E-8644-231DF5D066CE" Text="安全周例会" NavigateUrl="HSSE/Meeting/WeekMeeting.aspx"></TreeNode>
 <TreeNode id="D5DD5EBD-A5F2-4A43-BA4C-E9A242B43684" Text="安全月例会" NavigateUrl="HSSE/Meeting/MonthMeeting.aspx"></TreeNode>

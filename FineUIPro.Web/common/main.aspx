@@ -311,6 +311,10 @@ padding-left: 2em;
             word-break: keep-all;
  }
 
+.content-ul .c-item.disabled .tit::before{
+  display:none !important;
+}
+
 .content-ul .c-item .tit .tit-v{
   margin-left: 12px;
   width: 80px;  
