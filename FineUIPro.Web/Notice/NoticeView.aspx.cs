@@ -52,6 +52,7 @@ namespace FineUIPro.Web.Notice
                         this.txtMainContent.Text = HttpUtility.HtmlDecode(notice.MainContent);
                         var userCompileMan = BLL.UserService.GetUserByUserId(notice.CompileMan);                      
                         this.drpProjects.Text = notice.AccessProjectText;
+                        BLL.APIUserService.getSaveUserRead(BLL.Const.ServerNoticeMenuId, notice.ProjectId, this.CurrUser.UserId, this.NoticeId);
                     }
                 }
             }

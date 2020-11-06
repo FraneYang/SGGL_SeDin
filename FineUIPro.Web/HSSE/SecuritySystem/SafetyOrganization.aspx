@@ -29,8 +29,8 @@
                 TitleToolTip="安全组织机构" AutoScroll="true">
                 <Items>
                     <f:Grid ID="Grid1" Width="870px" ShowBorder="true" ShowHeader="false" EnableCollapse="true"
-                        runat="server" BoxFlex="1" DataKeyNames="SafetyOrganizationId" AllowSorting="true" 
-                        OnSort="Grid1_Sort" SortField="SortIndex" SortDirection="ASC" EnableColumnLines="true" DataIDField="SafetyOrganizationId" ForceFit="true"
+                        runat="server" BoxFlex="1" DataKeyNames="PersonId" AllowSorting="true" 
+                        OnSort="Grid1_Sort" SortField="CardNo" SortDirection="ASC" EnableColumnLines="true" DataIDField="PersonId" ForceFit="true"
                         AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                         EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                         <Toolbars>
@@ -58,22 +58,22 @@
                                     <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:RenderField Width="150px" ColumnID="Post" DataField="Post" SortField="Post" FieldType="String"
-                                HeaderTextAlign="Center" TextAlign="Left" HeaderText="职务">
+                            <f:RenderField Width="150px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName" FieldType="String"
+                                HeaderTextAlign="Center" TextAlign="Left" HeaderText="岗位">
                             </f:RenderField>
-                            <f:RenderField Width="110px" ColumnID="Names" DataField="Names" SortField="Names"
+                            <f:RenderField Width="110px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="姓名">
                             </f:RenderField>
                   <%--          <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Right" HeaderText="电话">
                             </f:RenderField>--%>
-                            <f:RenderField Width="110px" ColumnID="MobilePhone" DataField="MobilePhone" SortField="MobilePhone"
+                            <f:RenderField Width="110px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Right" HeaderText="手机">
                             </f:RenderField>
-                            <f:RenderField Width="110px" ColumnID="EMail" DataField="EMail" SortField="EMail"
+                     <%--       <f:RenderField Width="110px" ColumnID="EMail" DataField="EMail" SortField="EMail"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="邮箱">
-                            </f:RenderField>
-                            <f:RenderField Width="150px" ColumnID="Duty" DataField="Duty" SortField="Duty" FieldType="String"
+                            </f:RenderField>--%>
+                            <f:RenderField Width="150px" ColumnID="Remark" DataField="Remark" SortField="Remark" FieldType="String"
                                 HeaderTextAlign="Center" TextAlign="Left" HeaderText="职责">
                             </f:RenderField>
                         </Columns>

@@ -98,6 +98,7 @@
     <Compile Include="APIItem\HSSE\PersonItem.cs" />
     <Compile Include="APIItem\HSSE\PersonQualityItem.cs" />
     <Compile Include="APIItem\HSSE\PictureItem.cs" />
+    <Compile Include="APIItem\HSSE\SeDinMonthReport4OtherItem.cs" />
     <Compile Include="APIItem\ProjectItem.cs" />
     <Compile Include="APIItem\HSSE\PunishNoticeItem.cs" />
     <Compile Include="APIItem\HSSE\PunishNoticeItemItem.cs" />

@@ -278,29 +278,43 @@ padding-left: 2em;
 .content-ul .c-item .tit::before {
   content: '';
   position: absolute;
-  border-color: #009933;
+  border-color: #ff0000;
   border-style: solid;
-  border-width: 0.5em 0 0 0;
-  height: 1em;
-  top: 1.5em;
+  border-width: 0.5em;
+  height: 0;
+  top: 0;
   left: 0.6em;
-  margin-top: -1em;
-  width: 0.5em;
+  margin-top: 0.25em;
+  width: 0;
+  border-radius:50%;
 }
 
 .content-ul .c-item .tit-read::before {
   content: '';
   position: absolute;
-  border-color: #009933;
+  border-color: #ffffff;
   border-style: solid;
-  border-width: 0 0.3em 0.25em 0;
-  height: 1em;
-  top: 1.0em;
+  border-width: 0.5em;
+  height: 0;
+  top: 0;
   left: 0.6em;
-  margin-top: -1em;
-  transform: rotate(45deg);
-  width: 0.5em;
+  margin-top: 0.25em;
+  width: 0;
+  border-radius:50%
 }
+.content-ul .c-item .tit .tit-t{
+   flex:1;  
+   min-width: 0;
+   overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: keep-all;
+ }
+
+.content-ul .c-item .tit .tit-v{
+  margin-left: 12px;
+  width: 80px;  
+ }
     </style>
 </head>
 <body>
@@ -494,7 +508,7 @@ padding-left: 2em;
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">站点链接</div>
                         <div class="content-wrap tab-content flex1" style="overflow: auto;">
-                            <a class="link">公司网站</a>
+                            <a class="link" onclick="window.open('http://211.138.109.180/login/Login.jsp?logintype=1')">公司网站</a>
                         </div>
                     </div>
                 </div>
@@ -667,7 +681,9 @@ padding-left: 2em;
                 axisLabel: {
                     show: true,
                     interval: 0,
+                    rotate: 50,
                     textStyle: {
+                        fontSize:8,
                         color: 'rgba(255, 255, 255, 0.8)'
                     }
                 },
@@ -1608,7 +1624,7 @@ padding-left: 2em;
                     fontSize: 12,
 		    textStyle: {
       		      color: function (value, index) {
-        		return index == datap.length -1 ? '#FFFFFF' : '#57B8BD';
+        		return index == datap.length -1 ? '#FFFFFF' : '#00a2e9';
     		      }
 		    },
                     //color: "#57B8BD",
@@ -1652,7 +1668,7 @@ padding-left: 2em;
                     fontSize: 12,
 		    textStyle: {
       		      color: function (value, index) {
-        		return index == data0.length - 1 ? '#FFFFFF' : '#57B8BD';
+        		return index == data0.length - 1 ? '#FFFFFF' : '#00a2e9';
     		      }
 		    },
                     //color: "#57B8BD",

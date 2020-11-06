@@ -191,10 +191,14 @@ namespace FineUIPro.Web.common
                                  orderby x.ReleaseDate
                                  select x).Distinct().Take(20);
                 string strNoticeHtml = string.Empty;
+                var readIds = from x in Funs.DB.Sys_UserRead where x.UserId == this.CurrUser.UserId select x.DataId;
                 foreach (var item in getNotice)
                 {
                     string url = "../Notice/NoticeView.aspx?NoticeId=" + item.NoticeId;
-                    strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\">" + item.NoticeTitle + "</div></li>";
+                    if (!readIds.Contains(item.NoticeId))
+                    {
+                        strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\"><div class=\"flex\" ><div class=\"tit-t flex1\">" + item.NoticeTitle + "</div><div class=\"tit-v\">" + string.Format("{0:yyyy-MM-dd}", item.CompileDate) + "</div></div></div></li>";
+                    }
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }
@@ -465,7 +469,7 @@ namespace FineUIPro.Web.common
                 var projects = BLL.ProjectService.GetProjectWorkList();
                 foreach (var itemP in projects)
                 {
-                    listdataStringProject.Add(itemP.ShortName );
+                    listdataStringProject.Add(itemP.ShortName);
                     list0.Add(APIPageDataService.getPersonInNowNum(itemP.ProjectId, DateTime.Now).ToString());
                     var getallin = APIPageDataService.getPersonNum(itemP.ProjectId, DateTime.Now);
                     int aCount = getallin.Count();

@@ -33,16 +33,16 @@
                             <f:RenderField Width="50px" ColumnID="SortIndex" DataField="SortIndex" 
                                 FieldType="String" HeaderText="序号" TextAlign="Center" HeaderTextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="150px" ColumnID="UnitWorkName" DataField="UnitWorkName"
+                            <f:RenderField Width="145px" ColumnID="UnitWorkName" DataField="UnitWorkName"
                                 FieldType="String" HeaderText="单位工程名称" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>
-                             <f:RenderField Width="150px" ColumnID="PackageContent" DataField="PackageContent" 
+                             <f:RenderField Width="145px" ColumnID="PackageContent" DataField="PackageContent" 
                                 FieldType="String" HeaderText="分部分项工程名称" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>  
                               <f:RenderField Width="150px" ColumnID="WorkPackageSize" DataField="WorkPackageSize" 
                                 FieldType="String" HeaderText="分部分项工程规模" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>  
-                            <f:RenderField Width="270px" ColumnID="ExpectedTime" DataField="ExpectedTime"
+                            <f:RenderField Width="260px" ColumnID="ExpectedTime" DataField="ExpectedTime"
                                 FieldType="String" HeaderText="预计施工起止时间" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>  
                              <f:RenderField Width="80px" ColumnID="IsArgumentName" DataField="IsArgumentName" 

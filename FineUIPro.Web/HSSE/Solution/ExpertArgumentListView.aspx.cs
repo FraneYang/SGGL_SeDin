@@ -36,8 +36,9 @@ namespace FineUIPro.Web.HSSE.Solution
             if (!IsPostBack)
             {              
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();          
-                this.LargerHazardListId = Request.Params["LargerHazardListId"];              
-                var getRecord = BLL.ExpertArgumentService.GetLargerHazardListById(LargerHazardListId);
+                this.LargerHazardListId = Request.Params["LargerHazardListId"];
+                ExpertArgumentService.getViewLargerHazardListItem.Clear();
+               var getRecord = BLL.ExpertArgumentService.GetLargerHazardListById(LargerHazardListId);
                 if (getRecord != null)
                 {
                     this.txtHazardCode.Text = getRecord.HazardCode;

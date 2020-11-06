@@ -38,6 +38,7 @@ namespace FineUIPro.Web.HSSE.Solution
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();          
                 this.LargerHazardListId = Request.Params["LargerHazardListId"];
                 btnNew.OnClientClick = Window1.GetShowReference(String.Format("ExpertArgumentListEditItem.aspx?LargerHazardListItemId={0}", this.LargerHazardListId, "编辑 - ")) + "return false;";
+                ExpertArgumentService.getViewLargerHazardListItem.Clear();
                 var getRecord = BLL.ExpertArgumentService.GetLargerHazardListById(this.LargerHazardListId);
                 if (getRecord != null)
                 {

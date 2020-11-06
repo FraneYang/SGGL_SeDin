@@ -43,7 +43,7 @@
                             </ItemTemplate>
                         </f:TemplateField>
                     <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" FieldType="String"
-                        ExpandUnusedSpace="true" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center">
+                        ExpandUnusedSpace="true" HeaderText="职责" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="10px" ColumnID="PostType" DataField="PostType" FieldType="String"
                         HeaderText="类型" Hidden="true" HeaderTextAlign="Center" TextAlign="Center">
@@ -98,7 +98,7 @@
                                 </f:Grid>
                             </PopPanel>
                         </f:DropDownBox>
-                    <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right" MaxLength="200"
+                    <f:TextArea ID="txtRemark" runat="server" Label="职责" LabelAlign="right" MaxLength="200"
                         LabelWidth="80px">
                     </f:TextArea>
                     <f:Label ID="lb1" runat="server" Text="岗位类型说明：" LabelWidth="120px">

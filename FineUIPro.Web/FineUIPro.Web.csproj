@@ -602,6 +602,7 @@
     <Content Include="HSSE\HiddenInspection\HiddenRectificationList.aspx" />
     <Content Include="HSSE\HiddenInspection\HiddenRectificationRectify.aspx" />
     <Content Include="HSSE\HiddenInspection\HiddenRectificationView.aspx" />
+    <Content Include="HSSE\HiddenInspection\RiskAnalysisChart.aspx" />
     <Content Include="HSSE\HSSESystem\HSSEMainDuty.aspx" />
     <Content Include="HSSE\HSSESystem\HSSEMainDutyEdit.aspx" />
     <Content Include="HSSE\HSSESystem\SafetyInstitution.aspx" />
@@ -7850,6 +7851,13 @@
     </Compile>
     <Compile Include="HSSE\HiddenInspection\HiddenRectificationView.aspx.designer.cs">
       <DependentUpon>HiddenRectificationView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\RiskAnalysisChart.aspx.cs">
+      <DependentUpon>RiskAnalysisChart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\HiddenInspection\RiskAnalysisChart.aspx.designer.cs">
+      <DependentUpon>RiskAnalysisChart.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\HSSESystem\HSSEMainDuty.aspx.cs">
       <DependentUpon>HSSEMainDuty.aspx</DependentUpon>

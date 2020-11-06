@@ -9,23 +9,6 @@ namespace BLL
     /// </summary>
     public static class APISeDinMonthReportService
     {
-
-        public static int count(string monthReportId)
-        {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
-            {
-                //Model.SeDin_MonthReport
-                var count =  db.SeDin_MonthReport.Where(p=>p.MonthReportId== monthReportId).Count();
-                return count;
-             }
-        }
-        public static Model.SeDin_MonthReport report(string monthReportId) 
-        {
-            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString)) { 
-               return db.SeDin_MonthReport.FirstOrDefault(p => p.MonthReportId == monthReportId);
-            }
-        }
-
         #region 获取赛鼎月报列表信息
         /// <summary>
         /// 获取赛鼎月报列表信息
@@ -49,7 +32,6 @@ namespace BLL
                 {
                     getSeDinMonthReport = getSeDinMonthReport.Where(x => x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month);
                 }
-
                 var getReport = from x in getSeDinMonthReport
                                 orderby x.ReporMonth descending
                                 select new Model.SeDinMonthReportItem
@@ -69,7 +51,6 @@ namespace BLL
                                     ThisSummary = x.ThisSummary,
                                     NextPlan = x.NextPlan,
                                 };
-
                 return getReport.ToList();
             }
         }
@@ -323,7 +304,7 @@ namespace BLL
                 return getLists.ToList();
             }
         }
-
+        #region 获取人员数量
         /// <summary>
         ///  获取人员数量
         /// </summary>
@@ -372,6 +353,40 @@ namespace BLL
                     }
                 }
                 return num;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        ///  获取赛鼎公司人员信息统计
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="month"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public static Model.SeDinMonthReport4OtherItem getSeDinMonthReportNullPage4Other(string projectId, string month, string startDate, string endDate)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                var getPersons = from x in db.SitePerson_Person
+                                  where x.ProjectId == projectId && x.InTime <= startDateD && (!x.OutTime.HasValue) && x.UnitId ==Const.UnitId_SEDIN
+                                  select x;
+                Model.SeDinMonthReport4OtherItem newItem = new Model.SeDinMonthReport4OtherItem
+                {
+                    FormalNum = getPersons.Where(x=>(x.IsForeign==false || x.IsForeign == null) && (x.IsOutside == false || x.IsOutside == null)).Count(),
+                    ForeignNum = getPersons.Where(x=>x.IsForeign ==true).Count(),
+                    OutsideNum = getPersons.Where(x => x.IsOutside == true).Count(),
+                    //ManagerNum = getPersons.Where(x => x.IsOutside == true).Count(),
+                    TotalNum = getPersons.Count(),
+                };
+                newItem.ManagerNum = (from x in getPersons
+                                     join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                                     where y.IsHsse == true
+                                     select x).Count();
+                return newItem;
             }
         }
         #endregion
@@ -698,18 +713,25 @@ namespace BLL
                 foreach (var item in getUnits)
                 {
                     var getUAll = getAll.Where(x => x.UnitId == item.UnitId);
-                    var getUMon = getMon.Where(x => x.UnitId == item.UnitId);
+                    var getUMon = getMon.Where(x => x.UnitId == item.UnitId);                    
                     Model.SeDinMonthReport9ItemRectification newItem = new Model.SeDinMonthReport9ItemRectification
                     {
                         UnitName = item.UnitName,
-                        IssuedMonth = getUMon.Count(),
-                        RectificationMoth = getUMon.Where(x => x.States == Const.State_5).Count(),
-                        IssuedTotal = getUAll.Count(),
-                        RectificationTotal = getUAll.Where(x => x.States == Const.State_5).Count(),
+                        IssuedMonth = getUMon.Where(x=>x.HiddenHazardType == "1" || x.HiddenHazardType == null).Count(),
+                        IssuedMonthLarge = getUMon.Where(x => x.HiddenHazardType == "2" ).Count(),
+                        IssuedMonthSerious = getUMon.Where(x => x.HiddenHazardType == "3" ).Count(),
+                        RectificationMoth = getUMon.Where(x => (x.HiddenHazardType == "1" || x.HiddenHazardType == null) && x.States == Const.State_5).Count(),
+                        RectificationMothLarge = getUMon.Where(x => x.HiddenHazardType == "2"  && x.States == Const.State_5).Count(),
+                        RectificationMothSerious = getUMon.Where(x => x.HiddenHazardType == "3" && x.States == Const.State_5).Count(),
+                        IssuedTotal = getUAll.Where(x => x.HiddenHazardType == "1" || x.HiddenHazardType == null).Count(),
+                        IssuedTotalLarge = getUAll.Where(x => x.HiddenHazardType == "2").Count(),
+                        IssuedTotalSerious = getUAll.Where(x => x.HiddenHazardType == "3").Count(),
+                        RectificationTotal = getUAll.Where(x => (x.HiddenHazardType == "1" || x.HiddenHazardType == null) && x.States == Const.State_5).Count(),
+                        RectificationTotalLarge = getUAll.Where(x => x.HiddenHazardType == "2" && x.States == Const.State_5).Count(),
+                        RectificationTotalSerious = getUAll.Where(x => x.HiddenHazardType == "3" && x.States == Const.State_5).Count(),
                     };
                     getLists.Add(newItem);
                 }
-
                 return getLists.OrderBy(x => x.UnitName).ToList();
             }
         }
@@ -1123,6 +1145,40 @@ namespace BLL
                 return getInfo;
             }
         }
+
+        /// <summary>
+        /// 获取赛鼎月报详细 --4、赛鼎公司人员信息统计
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public static Model.SeDinMonthReport4OtherItem getSeDinMonthReport4OtherById(string projectId, string month)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var monthD = Funs.GetNewDateTime(month);
+                if (monthD.HasValue)
+                {
+                    return  (from x in db.SeDin_MonthReport4Other
+                               join y in db.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                               where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                               select new Model.SeDinMonthReport4OtherItem
+                               {
+                                   MonthReport4OtherId = x.MonthReport4OtherId,
+                                   MonthReportId = x.MonthReportId,
+                                   FormalNum = x.FormalNum ?? 0,
+                                   ForeignNum = x.ForeignNum ?? 0,
+                                   OutsideNum = x.OutsideNum ?? 0,
+                                   ManagerNum = x.ManagerNum ?? 0,
+                                   TotalNum = x.TotalNum ?? 0,
+                               }).FirstOrDefault();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         #endregion
         #region  获取赛鼎月报详细 --5、本月大型、特种设备投入情况
         /// <summary>
@@ -1374,9 +1430,17 @@ namespace BLL
                                   MonthReportId = x.MonthReportId,
                                   UnitName = x.UnitName,
                                   IssuedMonth = x.IssuedMonth ?? 0,
+                                  IssuedMonthLarge = x.IssuedMonthLarge ?? 0,
+                                  IssuedMonthSerious = x.IssuedMonthSerious ?? 0,
                                   RectificationMoth = x.RectificationMoth ?? 0,
+                                  RectificationMothLarge = x.RectificationMothLarge ?? 0,
+                                  RectificationMothSerious = x.RectificationMothSerious ?? 0,
                                   IssuedTotal = x.IssuedTotal ?? 0,
+                                  IssuedTotalLarge = x.IssuedTotalLarge ?? 0,
+                                  IssuedTotalSerious = x.IssuedTotalSerious ?? 0,
                                   RectificationTotal = x.RectificationTotal ?? 0,
+                                  RectificationTotalLarge = x.RectificationTotalLarge ?? 0,
+                                  RectificationTotalSerious = x.RectificationTotalSerious ?? 0,
                               };
                 return getInfo.ToList();
             }
@@ -1856,6 +1920,42 @@ namespace BLL
                 return newItem.MonthReportId;
             }
         }
+
+        /// <summary>
+        /// 保存SeDin_MonthReport 赛鼎公司人员信息统计
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        public static string SaveSeDinMonthReport4Other(Model.SeDinMonthReport4OtherItem newItem)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                ////删除
+                var delMonthReport4s = db.SeDin_MonthReport4Other.FirstOrDefault(x => x.MonthReportId == newItem.MonthReportId);
+                if (delMonthReport4s != null)
+                {
+                    db.SeDin_MonthReport4Other.DeleteOnSubmit(delMonthReport4s);
+                    db.SubmitChanges();
+                }
+                ////新增
+                if (newItem != null)
+                {
+                    Model.SeDin_MonthReport4Other newReport4Item = new Model.SeDin_MonthReport4Other
+                    {
+                        MonthReportId = newItem.MonthReportId,
+                        MonthReport4OtherId = SQLHelper.GetNewID(),
+                        FormalNum = newItem.FormalNum,
+                        ForeignNum = newItem.ForeignNum,
+                        OutsideNum = newItem.OutsideNum,
+                        ManagerNum = newItem.ManagerNum,
+                        TotalNum = newItem.TotalNum,
+                    };
+                    db.SeDin_MonthReport4Other.InsertOnSubmit(newReport4Item);
+                    db.SubmitChanges();
+                }
+                return newItem.MonthReportId;
+            }
+        }
         #endregion
         #region 保存 MonthReport5、本月大型、特种设备投入情况
         /// <summary>
@@ -2178,9 +2278,17 @@ namespace BLL
                             MonthReportId = newItem.MonthReportId,
                             UnitName = item.UnitName,
                             IssuedMonth = item.IssuedMonth,
+                            IssuedMonthLarge = item.IssuedMonthLarge,
+                            IssuedMonthSerious = item.IssuedMonthSerious,
                             RectificationMoth = item.RectificationMoth,
+                            RectificationMothLarge = item.RectificationMothLarge,
+                            RectificationMothSerious = item.RectificationMothSerious,
                             IssuedTotal = item.IssuedTotal,
+                            IssuedTotalLarge = item.IssuedTotalLarge,
+                            IssuedTotalSerious = item.IssuedTotalSerious,
                             RectificationTotal = item.RectificationTotal,
+                            RectificationTotalLarge = item.RectificationTotalLarge,
+                            RectificationTotalSerious = item.RectificationTotalSerious,
                         };
                         db.SeDin_MonthReport9Item_Rectification.InsertOnSubmit(new9Item);
                         db.SubmitChanges();

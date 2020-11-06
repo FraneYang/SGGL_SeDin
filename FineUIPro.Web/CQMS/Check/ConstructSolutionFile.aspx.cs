@@ -244,18 +244,19 @@ namespace FineUIPro.Web.CQMS.Check
                 {
                     string SolutionType = string.Empty;
                     List<Model.Base_SolutionTempleteType> Solution = BLL.SolutionTempleteTypeService.GetSolutionTempleteList();
-                    if (Solution.Count > 0) {
+                    if (Solution.Count > 0)
+                    {
                         for (int i = 0; i < Solution.Count; i++)
                         {
-                                if (constructSolution.SolutionType == Solution[i].SolutionTempleteTypeCode)
-                                {
-                                    SolutionType += "■" + Solution[i].SolutionTempleteTypeName + "   ";
-                                }
-                                else
-                                {
-                                    SolutionType += "□" + Solution[i].SolutionTempleteTypeName + "   ";
-                                }
-                            
+                            if (constructSolution.SolutionType == Solution[i].SolutionTempleteTypeCode)
+                            {
+                                SolutionType += "■" + Solution[i].SolutionTempleteTypeName + "   ";
+                            }
+                            else
+                            {
+                                SolutionType += "□" + Solution[i].SolutionTempleteTypeName + "   ";
+                            }
+
                         }
                     }
                     //if (constructSolution.SolutionType == "1")
@@ -517,7 +518,43 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkAuditMan1 = doc.Range.Bookmarks["AuditMan1"];
                 if (bookmarkAuditMan1 != null)
                 {
-                    bookmarkAuditMan1.Text = auditMan1;
+                    foreach (var approve in approves1)
+                    {
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        if (user != null)
+                        {
+                            var file = user.SignatureUrl;
+                            if (!string.IsNullOrWhiteSpace(file))
+                            {
+                                string url = rootPath + file;
+                                DocumentBuilder builder = new DocumentBuilder(doc);
+                                builder.MoveToBookmark("AuditMan1");
+                                if (!string.IsNullOrEmpty(url))
+                                {
+                                    System.Drawing.Size JpgSize;
+                                    float Wpx;
+                                    float Hpx;
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
+                                    if (File.Exists(url))
+                                    {
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    }
+                                    else
+                                    {
+                                        bookmarkAuditMan1.Text = user.UserName;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                bookmarkAuditMan1.Text = user.UserName;
+                            }
+                        }
+                    }
+                    //bookmarkAuditMan1.Text = auditMan1;
                 }
                 Bookmark bookmarkAuditDate1 = doc.Range.Bookmarks["AuditDate1"];
                 if (bookmarkAuditDate1 != null)
@@ -532,7 +569,43 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkAuditMan2 = doc.Range.Bookmarks["AuditMan2"];
                 if (bookmarkAuditMan2 != null)
                 {
-                    bookmarkAuditMan2.Text = auditMan2;
+                    foreach (var approve in approves2)
+                    {
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        if (user != null)
+                        {
+                            var file = user.SignatureUrl;
+                            if (!string.IsNullOrWhiteSpace(file))
+                            {
+                                string url = rootPath + file;
+                                DocumentBuilder builder = new DocumentBuilder(doc);
+                                builder.MoveToBookmark("AuditMan2");
+                                if (!string.IsNullOrEmpty(url))
+                                {
+                                    System.Drawing.Size JpgSize;
+                                    float Wpx;
+                                    float Hpx;
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
+                                    if (File.Exists(url))
+                                    {
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    }
+                                    else
+                                    {
+                                        bookmarkAuditMan1.Text = user.UserName;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                bookmarkAuditMan1.Text = user.UserName;
+                            }
+                        }
+                    }
+                    //bookmarkAuditMan2.Text = auditMan2;
                 }
                 Bookmark bookmarkAuditDate2 = doc.Range.Bookmarks["AuditDate2"];
                 if (bookmarkAuditDate2 != null)
@@ -547,7 +620,43 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkAuditMan3 = doc.Range.Bookmarks["AuditMan3"];
                 if (bookmarkAuditMan3 != null)
                 {
-                    bookmarkAuditMan3.Text = auditMan3;
+                    foreach (var approve in approves3)
+                    {
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        if (user != null)
+                        {
+                            var file = user.SignatureUrl;
+                            if (!string.IsNullOrWhiteSpace(file))
+                            {
+                                string url = rootPath + file;
+                                DocumentBuilder builder = new DocumentBuilder(doc);
+                                builder.MoveToBookmark("AuditMan3");
+                                if (!string.IsNullOrEmpty(url))
+                                {
+                                    System.Drawing.Size JpgSize;
+                                    float Wpx;
+                                    float Hpx;
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
+                                    if (File.Exists(url))
+                                    {
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    }
+                                    else
+                                    {
+                                        bookmarkAuditMan1.Text = user.UserName;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                bookmarkAuditMan1.Text = user.UserName;
+                            }
+                        }
+                    }
+                    //bookmarkAuditMan3.Text = auditMan3;
                 }
                 Bookmark bookmarkAuditDate3 = doc.Range.Bookmarks["AuditDate3"];
                 if (bookmarkAuditDate3 != null)
@@ -562,7 +671,43 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkAuditMan4 = doc.Range.Bookmarks["AuditMan4"];
                 if (bookmarkAuditMan4 != null)
                 {
-                    bookmarkAuditMan4.Text = auditMan4;
+                    foreach (var approve in approves4)
+                    {
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        if (user != null)
+                        {
+                            var file = user.SignatureUrl;
+                            if (!string.IsNullOrWhiteSpace(file))
+                            {
+                                string url = rootPath + file;
+                                DocumentBuilder builder = new DocumentBuilder(doc);
+                                builder.MoveToBookmark("AuditMan4");
+                                if (!string.IsNullOrEmpty(url))
+                                {
+                                    System.Drawing.Size JpgSize;
+                                    float Wpx;
+                                    float Hpx;
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
+                                    if (File.Exists(url))
+                                    {
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    }
+                                    else
+                                    {
+                                        bookmarkAuditMan1.Text = user.UserName;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                bookmarkAuditMan1.Text = user.UserName;
+                            }
+                        }
+                    }
+                    //bookmarkAuditMan4.Text = auditMan4;
                 }
                 Bookmark bookmarkAuditDate4 = doc.Range.Bookmarks["AuditDate4"];
                 if (bookmarkAuditDate4 != null)
@@ -577,7 +722,43 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkAuditMan5 = doc.Range.Bookmarks["AuditMan5"];
                 if (bookmarkAuditMan5 != null)
                 {
-                    bookmarkAuditMan5.Text = auditMan5;
+                    foreach (var approve in approves5)
+                    {
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        if (user != null)
+                        {
+                            var file = user.SignatureUrl;
+                            if (!string.IsNullOrWhiteSpace(file))
+                            {
+                                string url = rootPath + file;
+                                DocumentBuilder builder = new DocumentBuilder(doc);
+                                builder.MoveToBookmark("AuditMan5");
+                                if (!string.IsNullOrEmpty(url))
+                                {
+                                    System.Drawing.Size JpgSize;
+                                    float Wpx;
+                                    float Hpx;
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
+                                    if (File.Exists(url))
+                                    {
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    }
+                                    else
+                                    {
+                                        bookmarkAuditMan1.Text = user.UserName;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                bookmarkAuditMan1.Text = user.UserName;
+                            }
+                        }
+                    }
+                    //bookmarkAuditMan5.Text = auditMan5;
                 }
                 Bookmark bookmarkAuditDate5 = doc.Range.Bookmarks["AuditDate5"];
                 if (bookmarkAuditDate5 != null)
@@ -592,7 +773,43 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkAuditMan6 = doc.Range.Bookmarks["AuditMan6"];
                 if (bookmarkAuditMan6 != null)
                 {
-                    bookmarkAuditMan6.Text = auditMan6;
+                    foreach (var approve in approves6)
+                    {
+                        Model.Sys_User user = UserService.GetUserByUserId(approve.ApproveMan);
+                        if (user != null)
+                        {
+                            var file = user.SignatureUrl;
+                            if (!string.IsNullOrWhiteSpace(file))
+                            {
+                                string url = rootPath + file;
+                                DocumentBuilder builder = new DocumentBuilder(doc);
+                                builder.MoveToBookmark("AuditMan6");
+                                if (!string.IsNullOrEmpty(url))
+                                {
+                                    System.Drawing.Size JpgSize;
+                                    float Wpx;
+                                    float Hpx;
+                                    UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                    double i = 1;
+                                    i = JpgSize.Width / 50.0;
+                                    if (File.Exists(url))
+                                    {
+                                        builder.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    }
+                                    else
+                                    {
+                                        bookmarkAuditMan1.Text = user.UserName;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                bookmarkAuditMan1.Text = user.UserName;
+                            }
+                        }
+                    }
+                    //bookmarkAuditMan6.Text = auditMan6;
                 }
                 Bookmark bookmarkAuditDate6 = doc.Range.Bookmarks["AuditDate6"];
                 if (bookmarkAuditDate6 != null)

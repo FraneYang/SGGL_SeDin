@@ -116,19 +116,13 @@ namespace FineUIPro.Web.HSSE.SecuritySystem
             {
                 unitIdSelect = this.trSafetyOrganization.SelectedNode.NodeID;
             }
-            string strSql = @"SELECT SafetyOrganizationId,ProjectId,UnitId,Post,Names,Telephone,MobilePhone,EMail,Duty,SortIndex"
-                          + @" FROM SecuritySystem_SafetyOrganization"
-                          + @" WHERE ProjectId= '" + this.ProjectId + "' AND UnitId='" + unitIdSelect + "'";
+            string strSql = @"SELECT p.PersonId,p.CardNo,p.PersonName,p.ProjectId,p.UnitId,w.WorkPostName,p.Telephone,w.Remark"
+                          + @" FROM SitePerson_Person AS P"
+                          + @" LEFT JOIN  Base_WorkPost AS W ON P.WorkPostId =W.WorkPostId"
+                          + @" WHERE w.PostType='1' AND p.ProjectId= '" + this.ProjectId + "' AND p.UnitId='" + unitIdSelect + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            //if (!string.IsNullOrEmpty(this.txtWeekMeetingCode.Text.Trim()))
-            //{
-            //    strSql += " AND WeekMeetingCode LIKE @WeekMeetingCode";
-            //    listStr.Add(new SqlParameter("@WeekMeetingCode", "%" + this.txtWeekMeetingCode.Text.Trim() + "%"));
-            //}
-
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-
             Grid1.RecordCount = tb.Rows.Count;
             tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
@@ -149,24 +143,24 @@ namespace FineUIPro.Web.HSSE.SecuritySystem
             {
                 return;
             }
-            var buttonList = BLL.CommonService.GetAllButtonList(this.ProjectId, this.CurrUser.UserId, BLL.Const.ProjectSafetyOrganizationMenuId);
-            if (buttonList.Count() > 0)
-            {
-                if (buttonList.Contains(BLL.Const.BtnAdd))
-                {
-                    this.btnNewItem.Hidden = false;
-                }
-                if (buttonList.Contains(BLL.Const.BtnModify))
-                {
-                    this.btnEditItem.Hidden = false;
-                    this.btnMenuEdit.Hidden = false;
-                }
-                if (buttonList.Contains(BLL.Const.BtnDelete))
-                {
-                    this.btnDeleteItem.Hidden = false;
-                    this.btnMenuDelete.Hidden = false;
-                }
-            }
+            //var buttonList = BLL.CommonService.GetAllButtonList(this.ProjectId, this.CurrUser.UserId, BLL.Const.ProjectSafetyOrganizationMenuId);
+            //if (buttonList.Count() > 0)
+            //{
+            //    if (buttonList.Contains(BLL.Const.BtnAdd))
+            //    {
+            //        this.btnNewItem.Hidden = false;
+            //    }
+            //    if (buttonList.Contains(BLL.Const.BtnModify))
+            //    {
+            //        this.btnEditItem.Hidden = false;
+            //        this.btnMenuEdit.Hidden = false;
+            //    }
+            //    if (buttonList.Contains(BLL.Const.BtnDelete))
+            //    {
+            //        this.btnDeleteItem.Hidden = false;
+            //        this.btnMenuDelete.Hidden = false;
+            //    }
+            //}
         }
         #endregion
 
@@ -303,12 +297,12 @@ namespace FineUIPro.Web.HSSE.SecuritySystem
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    var getV = BLL.SafetyOrganizationService.GetSafetyOrganizationById(rowID);
-                    if (getV != null)
-                    {
-                        BLL.LogService.AddSys_Log(this.CurrUser, getV.Names, getV.SafetyOrganizationId, BLL.Const.ProjectSafetyOrganizationMenuId, BLL.Const.BtnDelete);
-                        BLL.SafetyOrganizationService.DeleteSafetyOrganization(rowID);                       
-                    }                    
+                    //var getV = BLL.SafetyOrganizationService.GetSafetyOrganizationById(rowID);
+                    //if (getV != null)
+                    //{
+                    //    BLL.LogService.AddSys_Log(this.CurrUser, getV.Names, getV.SafetyOrganizationId, BLL.Const.ProjectSafetyOrganizationMenuId, BLL.Const.BtnDelete);
+                    //    BLL.SafetyOrganizationService.DeleteSafetyOrganization(rowID);                       
+                    //}                    
                 }
 
                 BindGrid();

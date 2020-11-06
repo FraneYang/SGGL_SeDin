@@ -43,9 +43,41 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 下发数量（本月）较大
+        /// </summary>
+        public int? IssuedMonthLarge
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 下发数量（本月）重大
+        /// </summary>
+        public int? IssuedMonthSerious
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 整改完成数量（本月）
         /// </summary>
         public int? RectificationMoth
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 整改完成数量（本月）较大
+        /// </summary>
+        public int? RectificationMothLarge
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 整改完成数量（本月）重大
+        /// </summary>
+        public int? RectificationMothSerious
         {
             get;
             set;
@@ -59,9 +91,41 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 下发数量（累计）较大
+        /// </summary>
+        public int? IssuedTotalLarge
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 下发数量（累计）重大
+        /// </summary>
+        public int? IssuedTotalSerious
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 整改完成数量（累计）
         /// </summary>
         public int? RectificationTotal
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 整改完成数量（累计）较大
+        /// </summary>
+        public int? RectificationTotalLarge
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 整改完成数量（累计）重大
+        /// </summary>
+        public int? RectificationTotalSerious
         {
             get;
             set;
