@@ -68,6 +68,7 @@ namespace BLL
             newWelderQualify.IsCanWeldG = welderQualify.IsCanWeldG;
             newWelderQualify.Remark = welderQualify.Remark;
             newWelderQualify.IsPrintShow = welderQualify.IsPrintShow;
+            newWelderQualify.WelderMode = welderQualify.WelderMode;
             Funs.DB.Welder_WelderQualify.InsertOnSubmit(newWelderQualify);
             Funs.DB.SubmitChanges();
         }
@@ -95,6 +96,7 @@ namespace BLL
                 newWelderQualify.IsCanWeldG = welderQualify.IsCanWeldG;
                 newWelderQualify.Remark = welderQualify.Remark;
                 newWelderQualify.IsPrintShow = welderQualify.IsPrintShow;
+                newWelderQualify.WelderMode = welderQualify.WelderMode;
                 Funs.DB.SubmitChanges();
             }
         }

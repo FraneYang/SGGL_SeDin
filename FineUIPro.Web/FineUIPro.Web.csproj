@@ -316,6 +316,7 @@
     <Content Include="CQMS\WBS\WorkPackageSet2In.aspx" />
     <Content Include="HJGL\BaseInfo\Components.aspx" />
     <Content Include="HJGL\BaseInfo\ComponentsEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\ComponentsIn.aspx" />
     <Content Include="HJGL\BaseInfo\ComponentsView.aspx" />
     <Content Include="HJGL\BaseInfo\Consumables.aspx" />
     <Content Include="HJGL\BaseInfo\ConsumablesEdit.aspx" />
@@ -427,6 +428,7 @@
     <Content Include="HJGL\TestPackage\TestPackageItemEdit.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineEdit.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineList.aspx" />
+    <Content Include="HJGL\WeldingManage\PipelineListIn.aspx" />
     <Content Include="HJGL\WeldingManage\PreWeldReportAudit.aspx" />
     <Content Include="HJGL\WeldingManage\SelectDailyWeldJoint.aspx" />
     <Content Include="HJGL\WeldingManage\SelectTaskWeldJoint.aspx" />
@@ -451,6 +453,7 @@
     <Content Include="HJGL\WPQ\WPQEdit.aspx" />
     <Content Include="HJGL\WPQ\WPQIn.aspx" />
     <Content Include="HJGL\WPQ\WPQList.aspx" />
+    <Content Include="HJGL\WPQ\WPQView.aspx" />
     <Content Include="HSSE\Accident\AccidentHandle.aspx" />
     <Content Include="HSSE\Accident\AccidentHandleEdit.aspx" />
     <Content Include="HSSE\Accident\AccidentHandleView.aspx" />
@@ -849,6 +852,7 @@
     <Content Include="Notice\NoIssuedNotice.aspx" />
     <Content Include="Notice\NoticeEdit.aspx" />
     <Content Include="Notice\NoticeView.aspx" />
+    <Content Include="Notice\NoticeView2.aspx" />
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluation.aspx" />
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluationEdit.aspx" />
     <Content Include="Personal\FileSearch.aspx" />
@@ -907,6 +911,9 @@
     <Content Include="ProjectData\UnitWork.aspx" />
     <Content Include="ProjectData\UnitWorkEdit.aspx" />
     <Content Include="ProjectData\UnitWorkView.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionLog.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionLogEdit.aspx" />
+    <Content Include="PZHGL\InformationProject\ConstructionLogView.aspx" />
     <Content Include="PZHGL\InformationProject\ConstructionPlan.aspx" />
     <Content Include="PZHGL\InformationProject\ConstructionPlanEdit.aspx" />
     <Content Include="PZHGL\InformationProject\ConstructionPlanView.aspx" />
@@ -919,6 +926,9 @@
     <Content Include="PZHGL\InformationProject\ReceiveFileManager.aspx" />
     <Content Include="PZHGL\InformationProject\ReceiveFileManagerEdit.aspx" />
     <Content Include="PZHGL\InformationProject\ReceiveFileManagerView.aspx" />
+    <Content Include="PZHGL\InformationProject\WorkHandover.aspx" />
+    <Content Include="PZHGL\InformationProject\WorkHandoverEdit.aspx" />
+    <Content Include="PZHGL\InformationProject\WorkHandoverView.aspx" />
     <Content Include="PZHGL\ProjectData\ProjectMap.aspx" />
     <Content Include="PZHGL\ProjectData\ProjectMapEdit.aspx" />
     <Content Include="PZHGL\ProjectData\ProjectMapView.aspx" />
@@ -5847,6 +5857,13 @@
     <Compile Include="HJGL\BaseInfo\ComponentsEdit.aspx.designer.cs">
       <DependentUpon>ComponentsEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\BaseInfo\ComponentsIn.aspx.cs">
+      <DependentUpon>ComponentsIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\ComponentsIn.aspx.designer.cs">
+      <DependentUpon>ComponentsIn.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\BaseInfo\ComponentsView.aspx.cs">
       <DependentUpon>ComponentsView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6627,6 +6644,13 @@
     <Compile Include="HJGL\WeldingManage\PipelineList.aspx.designer.cs">
       <DependentUpon>PipelineList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\WeldingManage\PipelineListIn.aspx.cs">
+      <DependentUpon>PipelineListIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\PipelineListIn.aspx.designer.cs">
+      <DependentUpon>PipelineListIn.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\WeldingManage\PreWeldReportAudit.aspx.cs">
       <DependentUpon>PreWeldReportAudit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6794,6 +6818,13 @@
     </Compile>
     <Compile Include="HJGL\WPQ\WPQList.aspx.designer.cs">
       <DependentUpon>WPQList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\WPQ\WPQView.aspx.cs">
+      <DependentUpon>WPQView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WPQ\WPQView.aspx.designer.cs">
+      <DependentUpon>WPQView.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\Accident\AccidentHandle.aspx.cs">
       <DependentUpon>AccidentHandle.aspx</DependentUpon>
@@ -9287,6 +9318,13 @@
     <Compile Include="Notice\NoticeView.aspx.designer.cs">
       <DependentUpon>NoticeView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Notice\NoticeView2.aspx.cs">
+      <DependentUpon>NoticeView2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notice\NoticeView2.aspx.designer.cs">
+      <DependentUpon>NoticeView2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OfficeCheck\ProjectEvaluation\ProjectEvaluation.aspx.cs">
       <DependentUpon>ProjectEvaluation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -9693,6 +9731,27 @@
     <Compile Include="ProjectData\UnitWorkView.aspx.designer.cs">
       <DependentUpon>UnitWorkView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionLog.aspx.cs">
+      <DependentUpon>ConstructionLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionLog.aspx.designer.cs">
+      <DependentUpon>ConstructionLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionLogEdit.aspx.cs">
+      <DependentUpon>ConstructionLogEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionLogEdit.aspx.designer.cs">
+      <DependentUpon>ConstructionLogEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionLogView.aspx.cs">
+      <DependentUpon>ConstructionLogView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\ConstructionLogView.aspx.designer.cs">
+      <DependentUpon>ConstructionLogView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PZHGL\InformationProject\ConstructionPlan.aspx.cs">
       <DependentUpon>ConstructionPlan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -9776,6 +9835,27 @@
     </Compile>
     <Compile Include="PZHGL\InformationProject\ReceiveFileManagerView.aspx.designer.cs">
       <DependentUpon>ReceiveFileManagerView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\WorkHandover.aspx.cs">
+      <DependentUpon>WorkHandover.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\WorkHandover.aspx.designer.cs">
+      <DependentUpon>WorkHandover.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\WorkHandoverEdit.aspx.cs">
+      <DependentUpon>WorkHandoverEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\WorkHandoverEdit.aspx.designer.cs">
+      <DependentUpon>WorkHandoverEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\WorkHandoverView.aspx.cs">
+      <DependentUpon>WorkHandoverView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PZHGL\InformationProject\WorkHandoverView.aspx.designer.cs">
+      <DependentUpon>WorkHandoverView.aspx</DependentUpon>
     </Compile>
     <Compile Include="PZHGL\ProjectData\ProjectMap.aspx.cs">
       <DependentUpon>ProjectMap.aspx</DependentUpon>

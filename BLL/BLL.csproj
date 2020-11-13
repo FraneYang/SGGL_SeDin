@@ -408,12 +408,16 @@
     <Compile Include="ProjectData\TeamGroupService.cs" />
     <Compile Include="ProjectData\UnitWorkService.cs" />
     <Compile Include="HSSE\SitePerson\PersonService.cs" />
+    <Compile Include="PZHGL\InformationProject\ConstructionLogService.cs" />
     <Compile Include="PZHGL\InformationProject\ConstructionPlanApproveService.cs" />
     <Compile Include="PZHGL\InformationProject\ConstructionPlanService.cs" />
     <Compile Include="PZHGL\InformationProject\ConstructionReportApproveService.cs" />
     <Compile Include="PZHGL\InformationProject\ConstructionReportService.cs" />
     <Compile Include="PZHGL\InformationProject\PictureService.cs" />
     <Compile Include="PZHGL\InformationProject\ReceiveFileManagerService.cs" />
+    <Compile Include="PZHGL\InformationProject\WorkHandoverApproveService.cs" />
+    <Compile Include="PZHGL\InformationProject\WorkHandoverDetailService.cs" />
+    <Compile Include="PZHGL\InformationProject\WorkHandoverService.cs" />
     <Compile Include="PZHGL\ProjectData\ProjectMapService.cs" />
     <Compile Include="PZHGL\ProjectData\ProjectPageDataService.cs" />
     <Compile Include="SQLHelper.cs" />

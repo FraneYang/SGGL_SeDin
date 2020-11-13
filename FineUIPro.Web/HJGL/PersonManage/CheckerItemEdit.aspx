@@ -18,7 +18,7 @@
                         <f:TextBox ID="txtWelderCode" runat="server" Label="无损检测工号"
                             Readonly="true" LabelWidth="140px">
                         </f:TextBox>
-                        <f:TextBox ID="txtQualificationItem" runat="server" Label="合格项目" LabelWidth="140px"
+                        <f:TextBox ID="txtQualificationItem" runat="server" Label="合格项目代号" LabelWidth="140px"
                             Required="true" ShowRedStar="true" EnableBlurEvent="true">
                         </f:TextBox>
                     </Items>
@@ -28,7 +28,7 @@
                         <f:DatePicker ID="txtCheckDate" runat="server" Label="批准日期"
                             LabelWidth="140px" Required="true" ShowRedStar="true">
                         </f:DatePicker>
-                        <f:DatePicker ID="txtLimitDate" runat="server" Label="截止日期"
+                        <f:DatePicker ID="txtLimitDate" runat="server" Label="有效日期"
                             LabelWidth="140px" Required="true" ShowRedStar="true">
                         </f:DatePicker>
 
@@ -36,7 +36,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox runat="server" ID="txtlevel" Label="等级" LabelWidth="140px"></f:TextBox>
+                        <f:TextBox runat="server" ID="txtlevel" Label="级别" LabelWidth="140px"></f:TextBox>
                         <f:Label runat="server"></f:Label>
                     </Items>
                 </f:FormRow>

@@ -17,13 +17,18 @@ namespace FineUIPro.Web.HJGL.PersonManage
             if (!IsPostBack)
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                ///机动化程度
+                this.drpWeldingMode.DataTextField = "Text";
+                this.drpWeldingMode.DataValueField = "Value";
+                this.drpWeldingMode.DataSource = BLL.DropListService.HJGL_WeldingMode();
+                this.drpWeldingMode.DataBind();
                 this.hdWelderId.Text = Request.Params["PersonId"];
                 string welderQualifyId = Request.Params["WelderQualifyId"];
                 if (!string.IsNullOrEmpty(welderQualifyId))
                 {
                     Model.Welder_WelderQualify welderQualify = BLL.WelderQualifyService.GetWelderQualifyById(welderQualifyId);
                     if (welderQualify != null)
-                    {
+                     {
                         this.hdWelderId.Text = welderQualify.WelderId;
                         this.txtQualificationItem.Text = welderQualify.QualificationItem;
                         txtWeldingLocation.Text = welderQualify.WeldingLocation;
@@ -52,7 +57,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
                         this.txtWeldType.Text = welderQualify.WeldType;
                         this.ckbIsCanWeldG.Checked = welderQualify.IsCanWeldG.Value;
                         this.txtRemark.Text = welderQualify.Remark;
-                        
+                        if (!string.IsNullOrEmpty(welderQualify.WelderMode)) {
+                            this.drpWeldingMode.SelectedValue = welderQualify.WelderMode;
+                        }
                     }
                 }
                 var w = BLL.WelderService.GetWelderById(this.hdWelderId.Text);
@@ -86,7 +93,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
             welderQualify.SizesMin = Funs.GetNewDecimal(this.txtSizesMin.Text.Trim());
             welderQualify.WeldType = txtWeldType.Text.Trim();
             welderQualify.IsCanWeldG = ckbIsCanWeldG.Checked;
-
+            if (this.drpWeldingMode.SelectedValue != BLL.Const._Null) {
+                welderQualify.WelderMode = drpWeldingMode.SelectedValue;
+            }
             if (!string.IsNullOrEmpty(welderQualifyId))
             {
                 welderQualify.WelderQualifyId = welderQualifyId;

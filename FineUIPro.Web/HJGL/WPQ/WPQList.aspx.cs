@@ -167,9 +167,18 @@ namespace FineUIPro.Web.HJGL.WPQ
                 return;
             }
             string id = Grid1.SelectedRowID;
-            if (!string.IsNullOrEmpty(id))
+            string url = "WPQView.aspx?WPQId={0}";
+            var wpq = BLL.WPQListServiceService.GetWPQById(id);
+            if (wpq!=null)
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WPQEdit.aspx?WPQId={0}", id, "编辑 - ")));
+                if (wpq.State == BLL.Const.State_0 || string.IsNullOrEmpty(wpq.State))
+                {
+                    url = "WPQEdit.aspx?WPQId={0}";
+                }
+                else if (wpq.State == BLL.Const.State_1 && (wpq.ApproveManId == this.CurrUser.UserId || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId)) {
+                    url = "WPQEdit.aspx?WPQId={0}";
+                }
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, id, "操作 - ")));;
             }
         }
         #endregion

@@ -7,7 +7,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLL;
-
+using Newtonsoft.Json.Linq;
+using AspNet = System.Web.UI.WebControls;
 namespace FineUIPro.Web.HJGL.RepairAndExpand
 {
     public partial class RepairAndExpand : PageBase
@@ -58,6 +59,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 if (repairRecord.AuditDate.HasValue)
                 {
                     lbIsAudit.Text = "已审核";
+                    this.btnPointAudit.Enabled = false;
                 }
                 else
                 {
@@ -217,14 +219,24 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 if (repairRecord.RepairMark == "R1")
                 {
                     strSql = @"SELECT PointBatchItemId,PointBatchId,PointBatchCode,WeldJointId,PointState,PointDate,WeldJointCode,
-                                     JointArea,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit
+                                     JointArea,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit,UnitId,
+                                     (case when PBackingWelderId is null then BackingWelderId else PBackingWelderId end) BackingWelderId,
+                                     (case when PCoverWelderId is null then CoverWelderId else PCoverWelderId end) CoverWelderId    
                               FROM dbo.View_HJGL_Batch_PointBatchItem
-                              WHERE ProjectId=@ProjectId AND DetectionTypeId=@DetectionTypeId AND
-                                    (PointDate IS NULL OR (PointDate IS NOT NULL AND RepairRecordId=@RepairRecordId))";
+                              WHERE ProjectId=@ProjectId AND DetectionTypeId=@DetectionTypeId ";
                     List<SqlParameter> listStr = new List<SqlParameter>();
                     listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
                     listStr.Add(new SqlParameter("@DetectionTypeId", repairRecord.DetectionTypeId));
-                    listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
+                    if (repairRecord.AuditDate.HasValue)
+                    {
+                        this.btnPointAudit.Enabled = false;
+                        strSql += " AND RepairRecordId =@RepairRecordId";
+                        listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
+                    }
+                    else {
+                        strSql += "AND (PointDate IS NULL OR(PointDate IS NOT NULL AND RepairRecordId = @RepairRecordId))";
+                        listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
+                    }
                     if (ckbWelder.Checked)
                     {
                         strSql += " AND WelderId =@WelderId";
@@ -267,15 +279,26 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 else
                 {
                     strSql = @"SELECT PointBatchItemId,PointBatchId,PointBatchCode,WeldJointId,PointState,PointDate,WeldJointCode,
-                                     JointArea,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit
+                                     JointArea,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit,UnitId,
+                                     (case when PBackingWelderId is null then BackingWelderId else PBackingWelderId end) BackingWelderId,
+                                     (case when PCoverWelderId is null then CoverWelderId else PCoverWelderId end) CoverWelderId  
                               FROM dbo.View_HJGL_Batch_PointBatchItem
-                              WHERE ProjectId=@ProjectId AND DetectionTypeId=@DetectionTypeId AND
-                                    (PointDate IS NULL OR (PointDate IS NOT NULL AND RepairRecordId=@RepairRecordId))
-                                      AND WelderId =@WelderId AND PointBatchId=@PointBatchId";
+                              WHERE ProjectId=@ProjectId AND DetectionTypeId=@DetectionTypeId 
+                                      AND WelderId =@WelderId AND PointBatchId=@PointBatchId  ";
                     List<SqlParameter> listStr = new List<SqlParameter>();
+                    if (repairRecord.AuditDate.HasValue)
+                    {
+                        this.btnPointAudit.Enabled = false;
+                        strSql += " AND RepairRecordId =@RepairRecordId";
+                        listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
+                    }
+                    else
+                    {
+                        strSql += "AND (PointDate IS NULL OR(PointDate IS NOT NULL AND RepairRecordId = @RepairRecordId))";
+                        listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
+                    }
                     listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
                     listStr.Add(new SqlParameter("@DetectionTypeId", repairRecord.DetectionTypeId));
-                    listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
                     listStr.Add(new SqlParameter("@WelderId", jot.BackingWelderId));
                     listStr.Add(new SqlParameter("@PointBatchId", jot.PointBatchId));
 
@@ -308,6 +331,38 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 {
                     ids = ids.Substring(0, ids.Length - 1);
                     this.Grid1.SelectedRowIDArray = ids.Split(',');
+                }
+                if (Grid1.Rows.Count > 0)
+                {
+                    foreach (JObject mergedRow in Grid1.GetMergedData())
+                    {
+                        int i = mergedRow.Value<int>("index");
+                        GridRow row = Grid1.Rows[i];
+                        string UnitId = this.Grid1.Rows[i].DataKeys[1].ToString();
+                        //打底焊工
+                        AspNet.DropDownList drpBackingWelderId = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpBackingWelderId");
+                        AspNet.HiddenField hdBackingWelderId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdBackingWelderId");
+                        drpBackingWelderId.Items.AddRange(BLL.WelderService.GetWelderListItem(this.CurrUser.LoginProjectId, UnitId));
+                        Funs.PleaseSelect(drpBackingWelderId);
+                        if (!string.IsNullOrEmpty(hdBackingWelderId.Value))
+                        {
+                            drpBackingWelderId.SelectedValue = hdBackingWelderId.Value;
+                        }
+                        //盖面焊工
+                        AspNet.DropDownList drpCoverWelderId = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpCoverWelderId");
+                        AspNet.HiddenField hdCoverWelderId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdCoverWelderId");
+                        drpCoverWelderId.Items.AddRange(BLL.WelderService.GetWelderListItem(this.CurrUser.LoginProjectId, UnitId));
+                        Funs.PleaseSelect(drpCoverWelderId);
+                        if (!string.IsNullOrEmpty(hdCoverWelderId.Value))
+                        {
+                            drpCoverWelderId.SelectedValue = hdCoverWelderId.Value;
+                        }
+                        if (repairRecord.AuditDate.HasValue)//若已审核完毕，则不能修改
+                        {
+                            drpBackingWelderId.Enabled = false;
+                            drpCoverWelderId.Enabled = false;
+                        }
+                    }
                 }
             }
         }
@@ -390,6 +445,30 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                             db.SubmitChanges();
                         }
                     }
+                }
+                //更新返修打底/盖面焊工
+                JArray teamGroupData = Grid1.GetMergedData();
+                foreach (JObject mergedRow in Grid1.GetMergedData())
+                {
+                    int i = mergedRow.Value<int>("index");
+                    JObject values = mergedRow.Value<JObject>("values");
+                    string PointBatchItemId = Grid1.DataKeys[i][0].ToString();
+                    Model.HJGL_Batch_PointBatchItem newPointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.PointBatchItemId == PointBatchItemId);
+                    if (newPointBatchItem != null)
+                    {
+                        System.Web.UI.WebControls.DropDownList drpBackingWelderId = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpBackingWelderId"));
+                        if (drpBackingWelderId.SelectedValue != BLL.Const._Null)
+                        {
+                            newPointBatchItem.PBackingWelderId = drpBackingWelderId.SelectedValue;
+                        }
+                        System.Web.UI.WebControls.DropDownList drpCoverWelderId = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpCoverWelderId"));
+                        if (drpCoverWelderId.SelectedValue != BLL.Const._Null)
+                        {
+                            newPointBatchItem.PCoverWelderId = drpCoverWelderId.SelectedValue;
+                        }
+                        db.SubmitChanges();
+                    }
+                   
                 }
 
                 BindGrid();

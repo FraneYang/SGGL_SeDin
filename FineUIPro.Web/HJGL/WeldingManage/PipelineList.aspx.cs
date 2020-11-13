@@ -495,7 +495,17 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 return "";
             }
         }
+        #region 导入
+        /// <summary>
+        /// 导入按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("PipelineListIn.aspx", "导入 - ")));
+        }
+        #endregion
 
-        
     }
 }

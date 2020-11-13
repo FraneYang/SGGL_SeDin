@@ -70,8 +70,9 @@ namespace BLL
                 TrustType = batchTrust.TrustType,
                 DetectionTypeId = batchTrust.DetectionTypeId,
                 IsCheck = batchTrust.IsCheck,
-                TopointBatch = batchTrust.TopointBatch
-            };
+                TopointBatch = batchTrust.TopointBatch,
+                IsAudit = true
+        };
 
             db.HJGL_Batch_BatchTrust.InsertOnSubmit(newBatchTrust);
             db.SubmitChanges();

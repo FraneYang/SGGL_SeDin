@@ -46,6 +46,7 @@ namespace FineUIPro.Web.SysManage
                         this.txtCorporate.Text = unit.Corporate;
                         this.txtAddress.Text = unit.Address;
                         this.txtTelephone.Text = unit.Telephone;
+                        this.txtShortUnitName.Text = unit.ShortUnitName;
                         this.txtFax.Text = unit.Fax;
                         this.txtEMail.Text = unit.EMail;
                         this.txtProjectRange.Text = unit.ProjectRange;
@@ -91,6 +92,7 @@ namespace FineUIPro.Web.SysManage
             unit.Corporate = this.txtCorporate.Text.Trim();
             unit.Address = this.txtAddress.Text.Trim();
             unit.Telephone = this.txtTelephone.Text.Trim();
+            unit.ShortUnitName = this.txtShortUnitName.Text.Trim();
             unit.Fax = this.txtFax.Text.Trim();
             unit.EMail = this.txtEMail.Text.Trim();
             unit.ProjectRange = this.txtProjectRange.Text.Trim();                  

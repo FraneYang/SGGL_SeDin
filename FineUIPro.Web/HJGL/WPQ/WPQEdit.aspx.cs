@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BLL;
 
 namespace FineUIPro.Web.HJGL.WPQ
@@ -22,6 +23,7 @@ namespace FineUIPro.Web.HJGL.WPQ
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingRod, true, "2", "请选择");//焊材类型
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingWire, true, "1", "请选择");//焊材类型
                 BLL.Base_GrooveTypeService.InitGrooveTypeDropDownList(this.drpGrooveType, true, "请选择");//焊材类型
+                BLL.UserService.InitUsersDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, false, null);//审批人
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 string wpqId = Request.Params["WPQId"];
                 if (!string.IsNullOrEmpty(wpqId))
@@ -133,6 +135,10 @@ namespace FineUIPro.Web.HJGL.WPQ
                             drpWeldType.SelectedValue = wpq.JointType;
                         }
                         this.txtProtectiveGas.Text = wpq.ProtectiveGas;
+                        if (wpq.State == "1") {
+                            rblFlowOperate.Hidden = false;
+                            drpPerson.Hidden = true;
+                        }
                     }
                 }
                 else
@@ -161,15 +167,30 @@ namespace FineUIPro.Web.HJGL.WPQ
                 Alert.ShowInTop("材质1不能为空！", MessageBoxIcon.Warning);
                 return;
             }
-            string id = SaveData();
+            string id = SaveData(BLL.Const.BtnSave);
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
-
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (drpUnit.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("编制单位不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (this.drpSteel1.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("材质1不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
+            string id = SaveData(BLL.Const.BtnSubmit);
+            ShowNotify("提交成功！", MessageBoxIcon.Success);
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+        }
         /// <summary>
         /// 提交数据
         /// </summary>
-        private string SaveData()
+        private string SaveData(string type)
         {
             Model.WPQ_WPQList wpq = new Model.WPQ_WPQList();
             wpq.WPQCode = this.txtWeldingProcedureCode.Text.Trim();
@@ -234,8 +255,30 @@ namespace FineUIPro.Web.HJGL.WPQ
             wpq.ProtectiveGas = this.txtProtectiveGas.Text.Trim();
          
             string wpqId = Request.Params["WPQId"];
-            if (!string.IsNullOrEmpty(wpqId))
+            var GetWpq = BLL.WPQListServiceService.GetWPQById(wpqId);
+            if (GetWpq!=null)
             {
+                if (type == BLL.Const.BtnSubmit)
+                {
+                    if (GetWpq.State == BLL.Const.State_0 || string.IsNullOrEmpty(GetWpq.State))
+                    {
+                        if (this.drpPerson.SelectedValue == BLL.Const._Null)
+                        {
+                            Alert.ShowInTop("请选择下一步办理人", MessageBoxIcon.Warning);
+                            return "";
+                        }
+                        wpq.State = "1";
+                        wpq.ApproveManId = this.drpPerson.SelectedValue;
+                        SaveFlowOperate(GetWpq.WPQId, "施工单位编制");
+                    }
+                    else if (GetWpq.State == BLL.Const.State_1) {
+                        wpq.State = "2";
+                        wpq.ApproveTime = DateTime.Now;
+                        wpq.ApproveManId = GetWpq.ApproveManId;
+                        SaveFlowOperate(GetWpq.WPQId, "总包用户审核");
+                    }
+                    
+                }
                 wpq.WPQId = wpqId;
                 BLL.WPQListServiceService.UpdateWPQ(wpq);
                 //BLL.Sys_LogService.AddLog(Const.System_2, this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改焊接工艺评定台账");
@@ -244,11 +287,46 @@ namespace FineUIPro.Web.HJGL.WPQ
             {
                 string newId = SQLHelper.GetNewID(typeof(Model.WPQ_WPQList));
                 wpq.WPQId = newId;
+                if (type == BLL.Const.BtnSubmit)
+                {
+                    if (this.drpPerson.SelectedValue == BLL.Const._Null)
+                    {
+                        Alert.ShowInTop("请选择下一步办理人", MessageBoxIcon.Warning);
+                        return "";
+                    }
+                    else {
+                        wpq.ApproveManId = drpPerson.SelectedValue;
+                        wpq.State = "1";
+                        SaveFlowOperate(wpq.WPQId, "施工单位编制");
+                    }
+                }
                 BLL.WPQListServiceService.AddWPQ(wpq);
                 //BLL.Sys_LogService.AddLog(Const.System_2, this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加焊接工艺评定台账");
             }
             return wpq.WPQId;
         }
+        #region 保存流程审核数据
+        /// <summary>
+        /// 保存数据
+        /// </summary>
+        /// <param name="menuId">菜单id</param>
+        /// <param name="dataId">主键id</param>
+        /// <param name="isClosed">是否关闭这步流程</param>
+        /// <param name="content">单据内容</param>
+        /// <param name="url">路径</param>
+        public void SaveFlowOperate(string WpqId,string OperateName)
+        {
+            Model.WPQ_WPQListFlowOperate newFlowOperate = new Model.WPQ_WPQListFlowOperate();
+            newFlowOperate.FlowOperateId = SQLHelper.GetNewID(typeof(Model.WPQ_WPQListFlowOperate));
+            newFlowOperate.WPQId = WpqId;
+            newFlowOperate.OperateName = OperateName;
+            newFlowOperate.OperateManId = CurrUser.UserId;
+            newFlowOperate.OperateTime = DateTime.Now;
+            Funs.DB.WPQ_WPQListFlowOperate.InsertOnSubmit(newFlowOperate);
+            Funs.DB.SubmitChanges();
+
+        }
+        #endregion
         #endregion
 
         #region 附件上传
@@ -265,7 +343,7 @@ namespace FineUIPro.Web.HJGL.WPQ
             {
                 if (string.IsNullOrEmpty(wpqId))
                 {
-                    wpqId = SaveData();
+                    wpqId = SaveData(BLL.Const.BtnSave);
                 }
                 edit = "1";
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HJGLServer/WeldingManage&menuId={1}&edit={2}", wpqId, Const.WPQListMenuId, edit)));
@@ -337,5 +415,7 @@ namespace FineUIPro.Web.HJGL.WPQ
         {
 
         }
+
+        
     }
 }

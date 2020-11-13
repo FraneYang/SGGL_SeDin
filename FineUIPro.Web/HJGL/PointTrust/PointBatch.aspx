@@ -59,7 +59,7 @@
                             <f:Button ID="btnAutoPoint" Text="自动点口" ToolTip="生成" Icon="cmy" runat="server"
                                 OnClick="btnAutoPoint_Click">
                             </f:Button>
-                            <f:Button ID="btnbtnOpenResetPoint" Text="打开重新点口" ToolTip="打开重新点口" Icon="ArrowUndo"
+                            <f:Button ID="btnbtnOpenResetPoint" Text="点口调整" ToolTip="点口调整" Icon="ArrowUndo"
                                 runat="server" OnClick="btnbtnOpenResetPoint_Click">
                             </f:Button> 
                             <f:Button ID="btnPointAudit" Text="生成委托单" ToolTip="监理点口审核并生成委托单" Icon="ArrowNsew" runat="server"
@@ -146,6 +146,14 @@
                                 Width="80px">
                             </f:RenderField>
                              <f:RenderField HeaderText="是否委托" ColumnID="IsBuildTrust" DataField="IsBuildTrust"
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
+                                Width="90px">
+                            </f:RenderField>
+                            <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderCode" DataField="BackingWelderCode"
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
+                                Width="90px">
+                            </f:RenderField>
+                            <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderCode" DataField="CoverWelderCode"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
                                 Width="90px">
                             </f:RenderField>

@@ -278,13 +278,13 @@ padding-left: 2em;
 .content-ul .c-item .tit::before {
   content: '';
   position: absolute;
-  border-color: #ff0000;
+  border-color: #57B8BD;
   border-style: solid;
-  border-width: 0.5em;
+  border-width: 0.25em;
   height: 0;
   top: 0;
   left: 0.6em;
-  margin-top: 0.25em;
+  margin-top: 0.5em;
   width: 0;
   border-radius:50%;
 }
@@ -294,7 +294,7 @@ padding-left: 2em;
   position: absolute;
   border-color: #ffffff;
   border-style: solid;
-  border-width: 0.5em;
+  border-width: 0.25em;
   height: 0;
   top: 0;
   left: 0.6em;
@@ -445,7 +445,7 @@ padding-left: 2em;
                                   <div class="tab-wrap-tit">
                                       <div class="tab" data-value="1">
                                           <div class="t-item active">通知</div>
-                                          <div class="spline"></div>
+                                          <div class="spline"><form runat="server"><asp:HiddenField runat="server" ID="hdNoticeId" /></form></div>
                                           <div class="t-item">待办</div>
                                       </div>
                                   </div>
@@ -503,16 +503,14 @@ padding-left: 2em;
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">产值/合同统计</div>
-                        <div class="content-wrap flex1">
                             <div id='five' style="width: 100%; height: 100%;"></div>
-                        </div>
                     </div>
                 </div>
                 <div class="bg-item flex1">
                     <div class="bw-item-content flex flexV">
                         <div class="tit-new">站点链接</div>
                         <div class="content-wrap tab-content flex1" style="overflow: auto;">
-                            <a class="link" onclick="window.open('http://211.138.109.180/login/Login.jsp?logintype=1')">公司网站</a>
+                            <a class="link" style="cursor:pointer;" onclick="window.open('http://211.138.109.180/login/Login.jsp?logintype=1')">公司OA网站</a>
                         </div>
                     </div>
                 </div>
@@ -716,7 +714,7 @@ padding-left: 2em;
                 top: '15%',
                 left: '10',
                 right: '10',
-                bottom: '0%',
+                bottom: '10',
                 containLabel: true,
                 backgroundColor: 'rgba(0,162,233, 0.01)',
                 // borderColor: 'rgba(0,162,233, 1)'
@@ -1465,9 +1463,13 @@ padding-left: 2em;
     $("#swiper2").on('click', 'li', function () {
         var $this = $(this)
         var data = $this.attr("data-id")
+        var noticeId = $this.attr("notice-id")
         if (data != "") {
             //Window1.GetShowReference(data) + "return false;";
-            window.open(data)
+            document.getElementById("hdNoticeId").value = noticeId;
+
+            window.open(data);
+            top.window.location.reload();
         }
     })
 </script>

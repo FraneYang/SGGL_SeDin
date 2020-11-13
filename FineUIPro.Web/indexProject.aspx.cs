@@ -303,6 +303,10 @@ namespace FineUIPro.Web
                         this.drpProject.SelectedValue = getproject.ProjectId;
                     }
                 }
+                if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
+                {
+                    this.drpProject.SelectedValue = this.CurrUser.LoginProjectId;
+                }
 
                 this.MenuSwitchMethod(Request.Params["menuType"]);
                 this.InitMenuStyleButton();

@@ -111,6 +111,9 @@ namespace BLL
                 newWPQ.Bend = WPQ.Bend;
                 newWPQ.ToAttack = WPQ.ToAttack;
                 newWPQ.Others = WPQ.Others;
+                newWPQ.State = WPQ.State;
+                newWPQ.ApproveManId = WPQ.ApproveManId;
+                newWPQ.ApproveTime = WPQ.ApproveTime;
                 db.SubmitChanges();
             }
         }

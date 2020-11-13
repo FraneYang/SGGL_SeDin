@@ -1,29 +1,39 @@
 ﻿
 错误信息开始=====>
-错误类型:HttpRequestValidationException
-错误信息:从客户端(SimpleForm1$ctl00$ContentPanel2$Form2$ctl01$txtContent="<p>11</p>")中检测到有潜在危险的 Request.Form 值。
+错误类型:SqlException
+错误信息:执行超时已过期。完成操作之前已超时或服务器未响应。 
 错误堆栈:
-   在 System.Web.HttpRequest.ValidateString(String value, String collectionKey, RequestValidationSource requestCollection)
-   在 System.Web.HttpRequest.ValidateHttpValueCollection(HttpValueCollection collection, RequestValidationSource requestCollection)
-   在 System.Web.HttpRequest.get_Form()
-   在 System.Web.HttpRequest.get_HasForm()
-   在 System.Web.UI.Page.GetCollectionBasedOnMethod(Boolean dontReturnNull)
-   在 System.Web.UI.Page.DeterminePostBackMode()
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-   在 System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-   在 System.Web.UI.Page.ProcessRequest()
-   在 System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
-   在 System.Web.UI.Page.ProcessRequest(HttpContext context)
-   在 ASP.pzhgl_informationproject_constructionreportedit_aspx.ProcessRequest(HttpContext context) 位置 c:\Users\admin\AppData\Local\Temp\Temporary ASP.NET Files\vs\f96a5cb5\d20712d1\App_Web_xmzg0wrz.3.cs:行号 0
-   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
-   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:11/05/2020 15:52:14
-出错文件:http://localhost:8118/PZHGL/InformationProject/ConstructionReportEdit.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:11/05/2020 15:52:14
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParserStateObject.ReadSniError(TdsParserStateObject stateObj, UInt32 error)
+   在 System.Data.SqlClient.TdsParserStateObject.ReadSniSyncOverAsync()
+   在 System.Data.SqlClient.TdsParserStateObject.TryReadNetworkPacket()
+   在 System.Data.SqlClient.TdsParserStateObject.TryPrepareBuffer()
+   在 System.Data.SqlClient.TdsParserStateObject.TryReadByte(Byte& value)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 BLL.GetDataService.CorrectingPersonInOutNumber(String projectId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\GetDataService.cs:行号 139
+   在 BLL.MonitorService.DoSynchData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 2180
+   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 112
+----错误类型:Win32Exception
+----错误信息:
+----等待的操作过时。
+----错误堆栈:
+    出错时间:11/12/2020 11:11:55
+出错时间:11/12/2020 11:12:00
 
 
 错误信息开始=====>
@@ -55,6 +65,354 @@ IP地址:::1
 ----错误信息:
 ----等待的操作过时。
 ----错误堆栈:
-    出错时间:11/06/2020 11:29:12
-出错时间:11/06/2020 11:29:14
+    出错时间:11/12/2020 11:21:32
+出错时间:11/12/2020 11:21:33
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:执行超时已过期。完成操作之前已超时或服务器未响应。 
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 BLL.GetDataService.CorrectingPersonInOutNumber(String projectId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\GetDataService.cs:行号 139
+   在 BLL.MonitorService.DoSynchData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 2180
+   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 112
+----错误类型:Win32Exception
+----错误信息:
+----等待的操作过时。
+----错误堆栈:
+    出错时间:11/12/2020 11:26:18
+出错时间:11/12/2020 11:26:19
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:执行超时已过期。完成操作之前已超时或服务器未响应。 
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 BLL.GetDataService.CorrectingPersonInOutNumber(String projectId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\GetDataService.cs:行号 139
+   在 BLL.MonitorService.DoSynchData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 2180
+   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 112
+----错误类型:Win32Exception
+----错误信息:
+----等待的操作过时。
+----错误堆栈:
+    出错时间:11/12/2020 11:28:42
+出错时间:11/12/2020 11:28:43
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:执行超时已过期。完成操作之前已超时或服务器未响应。 
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 BLL.GetDataService.CorrectingPersonInOutNumber(String projectId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\GetDataService.cs:行号 139
+   在 BLL.MonitorService.DoSynchData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 2180
+   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 112
+----错误类型:Win32Exception
+----错误信息:
+----等待的操作过时。
+----错误堆栈:
+    出错时间:11/12/2020 11:29:53
+出错时间:11/12/2020 11:29:54
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:执行超时已过期。完成操作之前已超时或服务器未响应。 
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 BLL.GetDataService.CorrectingPersonInOutNumber(String projectId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\GetDataService.cs:行号 139
+   在 BLL.MonitorService.DoSynchData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 2180
+   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 112
+----错误类型:Win32Exception
+----错误信息:
+----等待的操作过时。
+----错误堆栈:
+    出错时间:11/12/2020 11:30:29
+出错时间:11/12/2020 11:30:30
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:无法使用前导 .. 在顶级目录上退出。
+错误堆栈:
+   在 System.Web.Util.UrlPath.ReduceVirtualPath(String path)
+   在 System.Web.Util.UrlPath.ReduceVirtualPath(String path)
+   在 System.Web.Util.UrlPath.Reduce(String path)
+   在 System.Web.Util.UrlPath.Combine(String appPath, String basepath, String relative)
+   在 System.Web.UI.Control.ResolveUrl(String relativeUrl)
+   在 (Control , String )
+   在 FineUIPro.WindowField.VQscVYXUOqxsrrrlgEYaXHIhTAZB(GridRow )
+   在 (GridColumn , GridRow )
+   在 FineUIPro.GridRow.BkpgFeAELTFlAvoTrOBrConfcLJbA()
+   在 (GridRow )
+   在 FineUIPro.Grid.BkpgFeAELTFlAvoTrOBrConfcLJbA(Int32 , Object )
+   在 (Grid , Int32 , Object )
+   在 FineUIPro.Grid.LDChsdiaqdhUTcxBcQPMKyQFfjEDB(DataTable , Boolean )
+   在 (Grid , DataTable , Boolean )
+   在 FineUIPro.Grid.DataBind(Boolean keepCurrentData)
+   在 (Grid , Boolean )
+   在 FineUIPro.Grid.DataBind()
+   在 FineUIPro.Web.SysManage.Unit.BindGrid() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\SysManage\Unit.aspx.cs:行号 52
+   在 FineUIPro.Web.SysManage.Unit.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\SysManage\Unit.aspx.cs:行号 26
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:11/12/2020 14:30:05
+出错文件:http://localhost:8118/SysManage/Unit.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:11/12/2020 14:30:05
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:无法使用前导 .. 在顶级目录上退出。
+错误堆栈:
+   在 System.Web.Util.UrlPath.ReduceVirtualPath(String path)
+   在 System.Web.Util.UrlPath.ReduceVirtualPath(String path)
+   在 System.Web.Util.UrlPath.Reduce(String path)
+   在 System.Web.Util.UrlPath.Combine(String appPath, String basepath, String relative)
+   在 System.Web.UI.Control.ResolveUrl(String relativeUrl)
+   在 (Control , String )
+   在 FineUIPro.WindowField.VQscVYXUOqxsrrrlgEYaXHIhTAZB(GridRow )
+   在 (GridColumn , GridRow )
+   在 FineUIPro.GridRow.BkpgFeAELTFlAvoTrOBrConfcLJbA()
+   在 (GridRow )
+   在 FineUIPro.Grid.BkpgFeAELTFlAvoTrOBrConfcLJbA(Int32 , Object )
+   在 (Grid , Int32 , Object )
+   在 FineUIPro.Grid.LDChsdiaqdhUTcxBcQPMKyQFfjEDB(DataTable , Boolean )
+   在 (Grid , DataTable , Boolean )
+   在 FineUIPro.Grid.DataBind(Boolean keepCurrentData)
+   在 (Grid , Boolean )
+   在 FineUIPro.Grid.DataBind()
+   在 FineUIPro.Web.SysManage.Unit.BindGrid() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\SysManage\Unit.aspx.cs:行号 52
+   在 FineUIPro.Web.SysManage.Unit.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\SysManage\Unit.aspx.cs:行号 26
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:11/12/2020 14:31:45
+出错文件:http://localhost:8118/SysManage/Unit.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:11/12/2020 14:31:46
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:无法使用前导 .. 在顶级目录上退出。
+错误堆栈:
+   在 System.Web.Util.UrlPath.ReduceVirtualPath(String path)
+   在 System.Web.Util.UrlPath.ReduceVirtualPath(String path)
+   在 System.Web.Util.UrlPath.Reduce(String path)
+   在 System.Web.Util.UrlPath.Combine(String appPath, String basepath, String relative)
+   在 System.Web.UI.Control.ResolveUrl(String relativeUrl)
+   在 (Control , String )
+   在 FineUIPro.WindowField.VQscVYXUOqxsrrrlgEYaXHIhTAZB(GridRow )
+   在 (GridColumn , GridRow )
+   在 FineUIPro.GridRow.BkpgFeAELTFlAvoTrOBrConfcLJbA()
+   在 (GridRow )
+   在 FineUIPro.Grid.BkpgFeAELTFlAvoTrOBrConfcLJbA(Int32 , Object )
+   在 (Grid , Int32 , Object )
+   在 FineUIPro.Grid.LDChsdiaqdhUTcxBcQPMKyQFfjEDB(DataTable , Boolean )
+   在 (Grid , DataTable , Boolean )
+   在 FineUIPro.Grid.DataBind(Boolean keepCurrentData)
+   在 (Grid , Boolean )
+   在 FineUIPro.Grid.DataBind()
+   在 FineUIPro.Web.SysManage.Unit.BindGrid() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\SysManage\Unit.aspx.cs:行号 52
+   在 FineUIPro.Web.SysManage.Unit.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\SysManage\Unit.aspx.cs:行号 26
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:11/12/2020 14:56:40
+出错文件:http://localhost:8118/SysManage/Unit.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:11/12/2020 14:56:40
+
+
+错误信息开始=====>
+错误类型:NullReferenceException
+错误信息:未将对象引用设置到对象的实例。
+错误堆栈:
+   在 FineUIPro.Web.CQMS.Unqualified.EditWorkContact.Reply(String type) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Unqualified\EditWorkContact.aspx.cs:行号 394
+   在 FineUIPro.Web.CQMS.Unqualified.EditWorkContact.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Unqualified\EditWorkContact.aspx.cs:行号 253
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:11/12/2020 17:12:57
+出错文件:http://localhost:8118/CQMS/Unqualified/EditWorkContact.aspx?WorkContactId=aec7c94e-e098-464a-8e68-95d02996a044
+IP地址:::1
+操作人员:JT
+
+出错时间:11/12/2020 17:12:57
+
+
+错误信息开始=====>
+错误类型:NullReferenceException
+错误信息:未将对象引用设置到对象的实例。
+错误堆栈:
+   在 FineUIPro.Web.CQMS.Unqualified.EditWorkContact.Reply(String type) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Unqualified\EditWorkContact.aspx.cs:行号 394
+   在 FineUIPro.Web.CQMS.Unqualified.EditWorkContact.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Unqualified\EditWorkContact.aspx.cs:行号 253
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:11/12/2020 17:15:29
+出错文件:http://localhost:8118/CQMS/Unqualified/EditWorkContact.aspx?WorkContactId=aec7c94e-e098-464a-8e68-95d02996a044
+IP地址:::1
+操作人员:JT
+
+出错时间:11/12/2020 17:15:29
+
+
+错误信息开始=====>
+错误类型:ChangeConflictException
+错误信息:找不到行或行已更改。
+错误堆栈:
+   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges()
+   在 BLL.WorkContactApproveService.DeleteWorkContactApproveByWorkContactId(String noticeId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\CQMS\Unqualified\WorkContactApproveService.cs:行号 51
+   在 FineUIPro.Web.CQMS.Unqualified.ContactList.btnMenuDel_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Unqualified\ContactList.aspx.cs:行号 259
+   在 FineUIPro.MenuButton.OnClick(EventArgs e)
+   在 (MenuButton , EventArgs )
+   在 FineUIPro.MenuButton.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:11/12/2020 17:15:45
+出错文件:http://localhost:8118/CQMS/Unqualified/ContactList.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:11/12/2020 17:15:45
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:类型“HiddenField”的控件“hdNoticeId”必须放在具有 runat=server 的窗体标记内。
+错误堆栈:
+   在 System.Web.UI.Page.VerifyRenderingInServerForm(Control control)
+   在 System.Web.UI.WebControls.HiddenField.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 c:\Users\admin\AppData\Local\Temp\Temporary ASP.NET Files\vs\f96a5cb5\d20712d1\App_Web_v24omqmf.6.cs:行号 0
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:11/13/2020 11:43:37
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:11/13/2020 11:43:37
+
+
+错误信息开始=====>
+错误类型:HttpParseException
+错误信息:类型“FineUIPro.Form”不具有名为“HiddenField”的公共属性。
+错误堆栈:
+   在 System.Web.UI.TemplateParser.ProcessException(Exception ex)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+   在 System.Web.UI.TemplateParser.ParseString(String text, VirtualPath virtualPath, Encoding fileEncoding)
+----错误类型:HttpException
+----错误信息:
+----类型“FineUIPro.Form”不具有名为“HiddenField”的公共属性。
+----错误堆栈:
+       在 System.Web.UI.ControlBuilder.GetChildPropertyBuilder(String tagName, IDictionary attribs, Type& childType, TemplateParser templateParser, Boolean defaultProperty)
+       在 System.Web.UI.ControlBuilder.CreateChildBuilder(String filter, String tagName, IDictionary attribs, TemplateParser parser, ControlBuilder parentBuilder, String id, Int32 line, VirtualPath virtualPath, Type& childType, Boolean defaultProperty)
+       在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+       在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+出错时间:11/13/2020 11:44:51
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+
+出错时间:11/13/2020 11:44:51
 

@@ -689,6 +689,7 @@ var basePath = '<%= ResolveUrl("~/") %>';
                 axisLabel: {
                     show: true,
                     interval: 0,
+                    fontSize:10,
                     rotate: 15,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)'
@@ -747,7 +748,7 @@ var basePath = '<%= ResolveUrl("~/") %>';
     },{
         name: '当月',
            type: 'bar',
-          barWidth: 40,
+          barWidth: 30,
         data: five.series[0].data
     }]
 

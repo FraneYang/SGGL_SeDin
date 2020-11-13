@@ -54,6 +54,9 @@
                         <f:RadioItem Value="true" Text="是" />
                         <f:RadioItem Value="false" Text="否" Selected="true" />
                     </f:RadioButtonList>
+                    <f:TextBox ID="txtShortUnitName" runat="server" Label="单位简称" Required="true" 
+                         MaxLength="6" ShowRedStar="true" >
+                    </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>

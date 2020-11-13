@@ -16,7 +16,6 @@
                         <f:TextBox ID="txtWeldingProcedureCode" runat="server" Label="评定编号" LabelAlign="Right"
                             MaxLength="50" Required="true" ShowRedStar="true" LabelWidth="180px">
                         </f:TextBox>
-
                         <f:DropDownList ID="drpUnit" runat="server" Required="true" ShowRedStar="true"
                             Label="编制单位" LabelAlign="Right" LabelWidth="180px">
                         </f:DropDownList>
@@ -24,32 +23,31 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        
                         <f:DropDownList ID="drpSteel1" runat="server" Label="材质1" LabelAlign="Right" Required="true"
                             ShowRedStar="true" LabelWidth="180px" AutoPostBack="true" OnSelectedIndexChanged="drpSteel1_SelectedIndexChanged">
                         </f:DropDownList>
                         <f:DropDownList ID="drpSteel2" runat="server" Label="材质2" LabelAlign="Right" LabelWidth="180px"
-                           Required="true" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpSteel2_SelectedIndexChanged">
+                            Required="true" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpSteel2_SelectedIndexChanged">
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtMaterialClass1" runat="server" Label="材质1类别" LabelAlign="Right"
-                            LabelWidth="180px" >
+                            LabelWidth="180px">
                         </f:TextBox>
                         <f:TextBox ID="txtMaterialClass2" runat="server" Label="材质2类别" LabelAlign="Right"
-                            LabelWidth="180px" >
+                            LabelWidth="180px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtMaterialGroup1" runat="server" Label="材质1组别" LabelAlign="Right"
-                            LabelWidth="180px" >
+                            LabelWidth="180px">
                         </f:TextBox>
                         <f:TextBox ID="txtMaterialGroup2" runat="server" Label="材质2组别" LabelAlign="Right"
-                            LabelWidth="180px" >
+                            LabelWidth="180px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -68,10 +66,10 @@
                         <f:DropDownList ID="drpWeldingRod" runat="server" Label="焊条" LabelAlign="Right"
                             AutoPostBack="true" OnSelectedIndexChanged="drpWeldingRod_SelectedIndexChanged" LabelWidth="180px" Required="true" ShowRedStar="true">
                         </f:DropDownList>
-                            <f:DropDownList ID="drpGrooveType" runat="server" Label="坡口类型" LabelAlign="Right"
-                            AutoPostBack="true" OnSelectedIndexChanged="drpGrooveType_SelectedIndexChanged"  LabelWidth="180px" Required="true" ShowRedStar="true">
+                        <f:DropDownList ID="drpGrooveType" runat="server" Label="坡口类型" LabelAlign="Right"
+                            AutoPostBack="true" OnSelectedIndexChanged="drpGrooveType_SelectedIndexChanged" LabelWidth="180px" Required="true" ShowRedStar="true">
                         </f:DropDownList>
-                        
+
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
@@ -106,7 +104,7 @@
                         </f:NumberBox>
                     </Items>
                 </f:FormRow>
-                 <f:FormRow>
+                <f:FormRow>
                     <Items>
                         <f:NumberBox ID="txtMinCImpactDia" runat="server" Label="管径覆盖最小值(角焊缝)" LabelAlign="Right"
                             NoNegative="false" LabelWidth="180px">
@@ -168,12 +166,29 @@
                         </f:LinkButton>
                     </Items>
                 </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:GroupPanel runat="server" Title="审核流程" BodyPadding="1px" ID="GroupPanel1"
+                            EnableCollapse="True" Collapsed="false" >
+                            <Items>
+                                <f:DropDownList ID="rblFlowOperate" Label="步骤" runat="server" Hidden="true" LabelAlign="Right" LabelWidth="170px">
+                                    <f:ListItem Value="1" Text="审批完成" />
+                                </f:DropDownList>
+                                <f:DropDownList ID="drpPerson" runat="server" Label="审核/审批人" EnableEdit="true" LabelAlign="Right" LabelWidth="170px">
+                                </f:DropDownList>
+                            </Items>
+                        </f:GroupPanel>
+                    </Items>
+                </f:FormRow>
             </Rows>
             <Toolbars>
                 <f:Toolbar ID="Toolbar2" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="提交数据" ValidateForms="Form2"
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存数据" ValidateForms="Form2"
                             OnClick="btnSave_Click">
+                        </f:Button>
+                        <f:Button ID="btnSubmit" Icon="SystemSaveNew" runat="server" Text="提交数据" ValidateForms="SimpleForm1"
+                            OnClick="btnSubmit_Click">
                         </f:Button>
                         <f:Button ID="btnClose" EnablePostBack="false" Text="关闭" runat="server" Icon="SystemClose">
                         </f:Button>

@@ -98,12 +98,8 @@
                                 </f:Toolbar>
                             </Toolbars>
                             <Columns>
-                                <f:RenderField Width="100px" ColumnID="WelderCode" DataField="WelderCode" FieldType="String"
-                                    HeaderText="无损检测工号" HeaderTextAlign="Center" TextAlign="Left"
-                                    SortField="UnitName">
-                                </f:RenderField>
                                 <f:RenderField Width="280px" ColumnID="QualificationItem" DataField="QualificationItem"
-                                    FieldType="String" HeaderText="合格项目" HeaderTextAlign="Center"
+                                    FieldType="String" HeaderText="合格项目代号" HeaderTextAlign="Center"
                                     TextAlign="Left" SortField="QualificationItem">
                                 </f:RenderField>
                                 <f:RenderField Width="100px" ColumnID="CheckDate" DataField="CheckDate" FieldType="Date"

@@ -57,6 +57,7 @@ namespace BLL
                 UnitId = unit.UnitId,
                 UnitCode = unit.UnitCode,
                 UnitName = unit.UnitName,
+                ShortUnitName=unit.ShortUnitName,
                 UnitTypeId = unit.UnitTypeId,
                 Corporate = unit.Corporate,
                 Address = unit.Address,
@@ -88,6 +89,7 @@ namespace BLL
                 newUnit.UnitTypeId = unit.UnitTypeId;
                 newUnit.Corporate = unit.Corporate;
                 newUnit.Address = unit.Address;
+                newUnit.ShortUnitName = unit.ShortUnitName;
                 newUnit.Telephone = unit.Telephone;
                 newUnit.Fax = unit.Fax;
                 newUnit.EMail = unit.EMail;
@@ -285,6 +287,22 @@ namespace BLL
             if (unit != null)
             {
                 name = unit.UnitName;
+            }
+            return name;
+        }
+
+        /// <summary>
+        /// 获取单位简称
+        /// </summary>
+        /// <param name="UnitId"></param>
+        /// <returns></returns>
+        public static string GetShortUnitNameByUnitId(string unitId)
+        {
+            string name = string.Empty;
+            var unit = Funs.DB.Base_Unit.FirstOrDefault(x => x.UnitId == unitId);
+            if (unit != null)
+            {
+                name = unit.ShortUnitName;
             }
             return name;
         }

@@ -12,7 +12,7 @@
     <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
-            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="缺陷性质" ForceFit="true"
+            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="缺陷性质"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="DefectId"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="DefectId" AllowSorting="true"
                 SortField="DefectId" SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true"

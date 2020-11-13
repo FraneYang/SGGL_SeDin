@@ -625,7 +625,7 @@ namespace FineUIPro.Web.common
                         int addRowNum = 8 - TodoNum;
                         for (int i = 0; i < addRowNum; i++)
                         {
-                            strNoticeHtml += "<li data-id=\"\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
+                            strNoticeHtml += "<li data-id=\"\" class=\"c-item disabled swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
                         }
                     }
                 }
@@ -694,7 +694,7 @@ namespace FineUIPro.Web.common
                         int addRowNum = 8 - WarnNum;
                         for (int i = 0; i < addRowNum; i++)
                         {
-                            strNoticeHtml += "<li data-id=\"\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
+                            strNoticeHtml += "<li data-id=\"\" class=\"c-item disabled swiper-slide\"><div class=\"tit\" title=\"\"></div></li>";
                         }
                     }
                 }
@@ -711,11 +711,24 @@ namespace FineUIPro.Web.common
                                  where x.IsRelease == true && x.AccessProjectId.Contains(this.CurrUser.LoginProjectId)
                                  orderby x.ReleaseDate
                                  select x).Distinct().Take(20);
+                var readIds = from x in Funs.DB.Sys_UserRead where x.UserId == this.CurrUser.UserId select x.DataId;
                 string strNoticeHtml = string.Empty;
                 foreach (var item in getNotice)
                 {
-                    string url = "../Notice/NoticeView.aspx?NoticeId=" + item.NoticeId;
-                    strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\">" + item.NoticeTitle + "</div></li>";
+                    string url = "../Notice/NoticeView2.aspx?NoticeId=" + item.NoticeId;
+                    var attachFile = BLL.AttachFileService.GetAttachFile(item.NoticeId, BLL.Const.ServerNoticeMenuId);
+                    if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
+                    {
+                        url = "../" + attachFile.AttachUrl.Split(',')[0];
+                    }
+                    if (!readIds.Contains(item.NoticeId))
+                    {
+                        strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\"><div class=\"flex\" ><div class=\"tit-t flex1\">" + item.NoticeTitle + "</div><div class=\"tit-v\">" + string.Format("{0:yyyy-MM-dd}", item.CompileDate) + "</div></div></div></li>";
+                    }
+                    else
+                    {
+                        strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item disabled swiper-slide\"><div class=\"tit tit-read\" title=\"" + item.NoticeTitle + "\"><div class=\"flex\" ><div class=\"tit-t flex1\">" + item.NoticeTitle + "</div><div class=\"tit-v\">" + string.Format("{0:yyyy-MM-dd}", item.CompileDate) + "</div></div></div></li>";
+                    }
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
             }

@@ -132,7 +132,7 @@ namespace FineUIPro.Web
                 var units = UnitService.GetUnitByProjectIdUnitTypeList(this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2);                
                 foreach (var unit in units)
                 {
-                    listCategories.Add(unit.UnitName);
+                    listCategories.Add(unit.ShortUnitName);
                     var unitHazardRegisters = getHazardRegisterLists.Where(x => x.ResponsibleUnit == unit.UnitId);
                     var noW = unitHazardRegisters.Where(x => x.States !="3");
                     listdata.Add(unitHazardRegisters.Count() - noW.Count());

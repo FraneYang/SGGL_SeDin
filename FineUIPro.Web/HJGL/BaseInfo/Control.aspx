@@ -31,8 +31,8 @@
                                 <f:Panel runat="server" ShowHeader="false" ShowBorder="false">
                                     <Items>
                                         <f:Label runat="server" Text="注：1 壁厚系列号(Sch.No.)后缀加S者,仅用于不锈钢管，其单位长度的理论质量是以碳素钢钢管给出"></f:Label>
-                                        <f:Label runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 尽可能不选用标注颜色的规则"></f:Label>
-                                        <f:Label runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 本表可用于无缝或焊接钢管"></f:Label>
+                                        <f:Label runat="server" Text="2 尽可能不选用标注颜色的规则"></f:Label>
+                                        <f:Label runat="server" Text="3 本表可用于无缝或焊接钢管"></f:Label>
                                     </Items>
                                 </f:Panel>
 
@@ -44,7 +44,7 @@
                                 </f:Button>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                 </f:ToolbarFill>
-                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true" Margin="0 0 50 0"
+                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="true"
                                     runat="server" OnClick="btnNew_Click">
                                 </f:Button>
                             </Items>

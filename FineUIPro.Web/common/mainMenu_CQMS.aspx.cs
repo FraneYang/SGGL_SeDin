@@ -167,7 +167,7 @@ namespace FineUIPro.Web
                 int okNum = 0;
                 foreach (var unit in units)
                 {
-                    listCategories.Add(BLL.UnitService.GetUnitNameByUnitId(unit.UnitId));
+                    listCategories.Add(BLL.UnitService.GetShortUnitNameByUnitId(unit.UnitId));
                     var unitChecks = checks.Where(x => x.UnitId == unit.UnitId);
                     okNum = unitChecks.Where(x => x.OK == 1).Count();
                     listdata.Add(unitChecks.Count() - okNum);
@@ -308,7 +308,7 @@ namespace FineUIPro.Web
                 double result = 0, result2 = 0;
                 foreach (var unit in units)
                 {
-                    listCategories.Add(BLL.UnitService.GetUnitNameByUnitId(unit.UnitId));
+                    listCategories.Add(BLL.UnitService.GetShortUnitNameByUnitId(unit.UnitId));
                     var okChecks = TotalCheckDetailOKLists.Where(x => x.UnitId == unit.UnitId).ToList();
                     var totalChecks = TotalCheckDetailLists.Where(x => x.UnitId == unit.UnitId).ToList();
                     if (okChecks.Count > 0 && totalChecks.Count > 0)

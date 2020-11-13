@@ -69,7 +69,7 @@
             font-size:10px;
         }
         .jd-list .jd-title{
-            color:#333;
+            color:#fff;
         }
         .jd-list .jd-item{
             display:flex;
@@ -105,7 +105,7 @@
             <div class="item flex1">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
-                        <div class="tit-one tit-center">周计划完成情况统计</div>
+                        <div class="tit-one tit-center" style="color:#fff">周计划完成情况统计</div>
                         <div class="bw-item-content flex1 pd0 flex">
                             <div class="flex1" id='one1' style="width: 100%; height: 100%;"></div>
                             <div class="flex1" id='one2' style="width: 100%; height: 100%;"></div>
@@ -118,7 +118,7 @@
             <div class="item flex1">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
-                        <div class="tit-one tit-center">赢得值曲线</div>
+                        <div class="tit-one tit-center" style="color:#fff">赢得值曲线</div>
                         <div class="bw-item-content flex1 pdtb0">
                             <div id='two' style="width: 100%; height: 100%;"></div>
                         </div>
@@ -129,7 +129,7 @@
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
                         <div class='tab-wrap-hastit'>
-                          <div class="tit-one tit-center">施工进度统计</div>
+                          <div class="tit-one tit-center" style="color:#fff">施工进度统计</div>
                           <div class="tab-wrap tab-wrap-pos">
                               <div class="tab" data-value="0">
                                   <div class="t-item active">安装单位工程</div>
@@ -149,7 +149,7 @@
             <div class="item-one flex1">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
-                        <div class="tit-one pdl">进度统计</div>
+                        <div class="tit-one pdl" style="color:#fff">进度统计</div>
                         <div class="bw-item-content flex1 pdtb0">
                              <div id='four' style="width: 100%; height: 100%;"></div>
                         </div>
@@ -159,7 +159,7 @@
             <div class="item-two flex2">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
-                        <div class="tit-one pdl">项目里程碑节点</div>
+                        <div class="tit-one pdl" style="color:#fff">项目里程碑节点</div>
                         <div class="bw-item-content flex1 pd10">
                              <%--<div id='five' style="width: 100%; height: 100%;"></div>--%>
                             <div class="jd-list">
@@ -183,7 +183,7 @@
             <div class="item-three flex3">
                 <div class="bw-b-bottom">
                     <div class="bw-b-bottom-up flex flexV">
-                        <div class="tit-one pdl">形象进度照片</div>
+                        <div class="tit-one pdl" style="color:#fff">形象进度照片</div>
                         <div class="bw-item-content flex1 pdtb0" style="margin-top:10px;">
                             <div style="width:100%;height:100%;">
                                 <div class="bg-img-1"></div>
@@ -212,7 +212,7 @@
                 textStyle: {
                     color: '#fff',
                     fontSize: 12,
-                    fontWeight:'300'
+                    fontWeight: '300'
                 },
                 show: false
             },
@@ -326,7 +326,7 @@
                 text: '',
                 textStyle: {
                     color: '#fff',
-                    fontWeight: 'normal',
+                    fontWeight: '300',
                     fontSize:12
                 },
                 show: false
@@ -419,7 +419,7 @@
 	            left:'center',
 	            textStyle:{
 	                color: '#fff',
-                    fontSize: 10,
+                    fontSize: 12,
                     fontWeight:300
 	            }
 	        }],
@@ -498,7 +498,7 @@
                     textStyle: {
                         color: '#fff',
                         fontSize:12,
-                        fontWeight:'normal',
+                        fontWeight:'300',
                     },
                     show: false
                 },

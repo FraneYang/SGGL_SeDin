@@ -2648,6 +2648,14 @@ namespace BLL
         /// 管道介质导入模板
         /// </summary>
         public const string MediumTemplateUrl = "File\\Excel\\DataIn\\管道介质导入模板.xls";
+        /// <summary>
+        /// 安装组件导入模板
+        /// </summary>
+        public const string ComponentsTemplateUrl = "File\\Excel\\DataIn\\安装组件导入模板.xls";
+        /// <summary>
+        /// 管线导入模板
+        /// </summary>
+        public const string PipelineTemplateUrl = "File\\Excel\\DataIn\\管线信息导入模板.xls";
         #endregion
 
         #region 初始化上传路径
@@ -3405,6 +3413,16 @@ namespace BLL
         /// 总承包商施工报告
         /// </summary>
         public const string ConstructionReportMenuId = "0DAFF358-EA16-44B2-8E4B-E15E40EFAAD0";
+
+        /// <summary>
+        /// 项目级施工日志
+        /// </summary>
+        public const string ConstructionLogMenuId = "4CB03F8B-C967-4082-ADF1-08776FE40E21";
+
+        /// <summary>
+        /// 项目级施工日志
+        /// </summary>
+        public const string WorkHandoverMenuId = "CD88CE2A-A8E2-4F07-9A90-9161BD1C345C";
         #endregion
 
         #region 施工综合流程定义
@@ -3460,6 +3478,33 @@ namespace BLL
         /// 审批完成
         /// </summary>
         public const string ConstructionReport_Complete = "4";
+        #endregion
+
+        #region 工作交接
+        /// <summary>
+        /// 重新整理
+        /// </summary>
+        public const string WorkHandover_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public const string WorkHandover_Compile = "1";
+
+        /// <summary>
+        /// 接收人确认
+        /// </summary>
+        public const string WorkHandover_Audit1 = "2";
+
+        /// <summary>
+        /// 移交人主管确认
+        /// </summary>
+        public const string WorkHandover_Audit2 = "3";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public const string WorkHandover_Complete = "4";
         #endregion
         #endregion
         #endregion

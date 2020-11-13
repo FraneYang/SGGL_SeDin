@@ -259,6 +259,58 @@
             right: 10px;
             top: 0;
         }
+
+            .content-ul .c-item .tit {
+ display:block;
+position:relative;
+padding-left: 2em;
+}
+
+
+.content-ul .c-item .tit::before {
+  content: '';
+  position: absolute;
+  border-color: #57B8BD;
+  border-style: solid;
+  border-width: 0.25em;
+  height: 0;
+  top: 0;
+  left: 0.6em;
+  margin-top: 0.5em;
+  width: 0;
+  border-radius:50%;
+}
+
+.content-ul .c-item .tit-read::before {
+  content: '';
+  position: absolute;
+  border-color: #ffffff;
+  border-style: solid;
+  border-width: 0.25em;
+  height: 0;
+  top: 0;
+  left: 0.6em;
+  margin-top: 0.25em;
+  width: 0;
+  border-radius:50%
+}
+.content-ul .c-item .tit .tit-t{
+   flex:1;  
+   min-width: 0;
+   overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: keep-all;
+ }
+
+.content-ul .c-item.disabled .tit::before{
+  display:none !important;
+}
+
+.content-ul .c-item .tit .tit-v{
+  margin-left: 12px;
+  width: 80px;  
+ }
     </style>
 </head>
 <body>
@@ -1094,7 +1146,8 @@
         var $this = $(this)
           var data = $this.attr("data-id")
           if (data != "") {
-              window.open(data)
+              window.open(data);
+              top.window.location.reload();
           }
       })
 
@@ -1102,7 +1155,8 @@
         var $this = $(this)
         var data = $this.attr("data-id")
         if (data != "") {
-            window.open(data)
+            window.open(data);
+            top.window.location.reload();
         }
     })
 </script>

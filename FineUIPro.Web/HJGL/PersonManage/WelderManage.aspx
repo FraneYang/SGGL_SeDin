@@ -117,10 +117,6 @@
                                 </f:Toolbar>
                             </Toolbars>
                             <Columns>
-                                <f:RenderField Width="100px" ColumnID="WelderCode" DataField="WelderCode" FieldType="String"
-                                    HeaderText="焊工号" HeaderTextAlign="Center" TextAlign="Left"
-                                    SortField="UnitName">
-                                </f:RenderField>
                                 <f:RenderField Width="280px" ColumnID="QualificationItem" DataField="QualificationItem"
                                     FieldType="String" HeaderText="合格项目" HeaderTextAlign="Center"
                                     TextAlign="Left" SortField="QualificationItem">

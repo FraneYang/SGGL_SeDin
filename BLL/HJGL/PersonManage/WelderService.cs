@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace BLL
 {
@@ -157,6 +158,25 @@ namespace BLL
                 {
                     Funs.FineUIPleaseSelect(dropName, itemText);
                 }
+            }
+        }
+
+        public static ListItem[] GetWelderListItem(string ProjectId, string unitId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var list = (from x in db.SitePerson_Person
+                            join y in db.Base_Project on x.ProjectId equals y.ProjectId
+                            where y.ProjectId == ProjectId && x.UnitId == unitId
+                            && x.WorkPostId == Const.WorkPost_Welder && (x.WelderCode != null || x.WelderCode != "")
+                            orderby x.WelderCode
+                            select x).ToList();
+                ListItem[] item = new ListItem[list.Count()];
+                for (int i = 0; i < list.Count(); i++)
+                {
+                    item[i] = new ListItem(list[i].WelderCode ?? "", list[i].PersonId);
+                }
+                return item;
             }
         }
         #endregion

@@ -171,7 +171,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
                 string strSql = @"SELECT WeldingDailyId,WeldJointId,PipelineCode,WeldJointCode,
                                          BackingWelderCode,CoverWelderCode,Material1Code,Material2Code,
-                                         Dia,Thickness,WeldTypeCode,WeldingMethodCode,WeldingWireCode,
+                                         Dia,Thickness,WeldTypeCode,WeldingMethodCode,WeldingWireCode,WeldingMode,
 	                                     WeldingRodCode
                                   FROM dbo.View_HJGL_WeldJoint
                                    WHERE WeldingDailyId=@WeldingDailyId";
