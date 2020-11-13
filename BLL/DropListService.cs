@@ -124,5 +124,41 @@
             return list;
         }
         #endregion
+
+        #region 安全
+        #region 月报审核
+        /// <summary>
+        /// 获取模块
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] GetMonthReportStepList(string states)
+        {
+            if (states == Const.State_0 || string.IsNullOrEmpty(states)) ///待提交
+            {
+                ListItem[] list = new ListItem[2];
+                list[0] = new ListItem("安全总监", Const.State_1);
+                list[1] = new ListItem("项目经理", Const.State_2);
+                return list;
+            }
+            else if (states == Const.State_1) /// 待安全
+            {
+                ListItem[] list = new ListItem[1];
+                list[0] = new ListItem("项目经理", Const.State_2);
+                return list;
+            }
+            else if (states == Const.State_2)
+            {
+                ListItem[] list = new ListItem[1];
+                list[0] = new ListItem("审核完成", Const.State_3);
+                return list;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #endregion
     }
 }

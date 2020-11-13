@@ -615,7 +615,37 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
+        #endregion        
         #endregion
+
+        #region 汇总到HSE数据
+        /// <summary>
+        /// 汇总到HSE数据
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthHSEDataCollect([FromBody] Model.SeDinMonthReportItem newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                ////如果月报审核完成 月报信息写入到汇总   
+                var getSeDin_MonthReport = ManagerMonth_SeDinService.GetMonthReportByMonthReportId(newItem.MonthReportId);
+                if (getSeDin_MonthReport != null && getSeDin_MonthReport.States == Const.State_3 && getSeDin_MonthReport.ReporMonth.HasValue)
+                {
+                    HSEDataCollectService.SaveHSEDataCollectItem(getSeDin_MonthReport);
+                }
+                responeData.data = newItem.MonthReportId;
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
         #endregion
     }
 }

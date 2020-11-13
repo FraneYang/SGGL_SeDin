@@ -80,6 +80,7 @@ namespace FineUIPro.Web.HSSE.Manager
                     MonthReportId = Request.Params["MonthReportId"];
                 }            
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.CompileManId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, false);
+                this.CompileManId.SelectedValue = this.CurrUser.UserId;
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.AuditManId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, false);
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.ApprovalManId, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, false);
                 string montvalues = ReporMonth.Text;
@@ -91,10 +92,24 @@ namespace FineUIPro.Web.HSSE.Manager
                     this.ApprovalManId.SelectedValue = getMont.ApprovalManId;
                     montvalues = string.Format("{0:yyyy-MM-dd}", getMont.ReporMonth);
                     this.States = getMont.States;
-                    if (getMont.States == Const.State_1)
+                    if (string.IsNullOrEmpty(getMont.NextManId))
+                    {
+                        getMont.NextManId = getMont.CompileManId;
+                    }
+                    if (this.CurrUser.UserId != getMont.NextManId)
                     {
                         this.btnSave.Hidden = true;
                         this.btnSysSubmit.Hidden = true;
+                        this.Toolbar2.Hidden = true;
+                    }
+                    else
+                    {
+                        if (this.States != Const.State_3)
+                        {
+                            this.btnSave.Hidden = false;
+                            this.btnSysSubmit.Hidden = false;
+                            this.Toolbar2.Hidden = false;
+                        }
                     }
                 }
                 else
@@ -109,7 +124,33 @@ namespace FineUIPro.Web.HSSE.Manager
                 {
                     getInfo(ProjectId, montvalues, StartDate.Text, EndDate.Text, i.ToString());
                 }
-                //BLL.UnitService.InitUnitDropDownList(this.drpUnit, ProjectId, false);
+
+                this.drpStep.DataTextField = "Text";
+                this.drpStep.DataValueField = "Value";
+                this.drpStep.DataSource = BLL.DropListService.GetMonthReportStepList(this.States);
+                this.drpStep.DataBind();
+
+                UserService.InitUserProjectIdUnitIdDropDownList(this.drpAudit, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);                
+                if (this.States == Const.State_0 || string.IsNullOrEmpty(this.States)) ///待提交
+                {
+                    this.txtOpinion.Hidden = true;
+                    this.rbIsAgree.Hidden = true;
+                }
+                else if (this.States == Const.State_1) /// 待安全
+                {
+                    this.btnSave.Hidden = true;
+                }
+                else if (this.States == Const.State_2)
+                {
+                    this.btnSave.Hidden = true;
+                    this.drpAudit.Hidden = true;
+                }
+                else
+                {
+                    this.btnSave.Hidden = true;
+                    this.btnSysSubmit.Hidden = true;
+                    this.Toolbar2.Hidden = true;
+                }                
             }
         }
                
@@ -178,7 +219,7 @@ namespace FineUIPro.Web.HSSE.Manager
         /// <param name="endDate"></param>
         /// <param name="pageNum"></param>
         protected void getInfo(string projectId, string month, string startDate, string endDate, string pageNum)
-        {            
+        {
             if (pageNum == "0") ////封面
             {
                 var getReport = APISeDinMonthReportService.getSeDinMonthReport0ById(projectId, month);
@@ -190,14 +231,23 @@ namespace FineUIPro.Web.HSSE.Manager
                 DueDate.Text = getReport.DueDate;
                 StartDate.Text = getReport.StartDate;
                 EndDate.Text = getReport.EndDate;
-                CompileManId.SelectedValue = getReport.CompileManId;
-                AuditManId.SelectedValue = getReport.AuditManId;
-                ApprovalManId.SelectedValue = getReport.ApprovalManId;
+                if (!string.IsNullOrEmpty(getReport.CompileManId))
+                {
+                    CompileManId.SelectedValue = getReport.CompileManId;
+                }
+                if (!string.IsNullOrEmpty(getReport.AuditManId))
+                {
+                    AuditManId.SelectedValue = getReport.AuditManId;
+                }
+                if (!string.IsNullOrEmpty(getReport.ApprovalManId))
+                {
+                    ApprovalManId.SelectedValue = getReport.ApprovalManId;
+                }
             }
             else if (pageNum == "1") ////1、项目信息
             {
                 var getInfo = APISeDinMonthReportService.getSeDinMonthReport1ById(projectId, month);
-                if (this.States ==Const.State_0 && ( getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId)))
+                if (this.States == Const.State_0 && (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId)))
                 {
                     getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage1(projectId);
                 }
@@ -258,7 +308,7 @@ namespace FineUIPro.Web.HSSE.Manager
             else if (pageNum == "3") ////3、项目HSE事故、事件统计
             {
                 var getInfo = APISeDinMonthReportService.getSeDinMonthReport3ById(projectId, month);
-                if (this.States == Const.State_0 &&  (getInfo == null || getInfo.SeDinMonthReport3Item == null || getInfo.SeDinMonthReport3Item.Count() == 0))
+                if (this.States == Const.State_0 && (getInfo == null || getInfo.SeDinMonthReport3Item == null || getInfo.SeDinMonthReport3Item.Count() == 0))
                 {
                     getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage3(projectId, month, startDate, endDate);
                 }
@@ -285,7 +335,7 @@ namespace FineUIPro.Web.HSSE.Manager
             else if (pageNum == "4") ////4、人员
             {
                 var getLists = APISeDinMonthReportService.getSeDinMonthReport4ById(projectId, month);
-                if (this.States == Const.State_0 &&  getLists.Count() == 0)
+                if (this.States == Const.State_0 && getLists.Count() == 0)
                 {
                     getLists = APISeDinMonthReportService.getSeDinMonthReportNullPage4(projectId, month, startDate, endDate);
                 }
@@ -560,7 +610,7 @@ namespace FineUIPro.Web.HSSE.Manager
             }
             else ////13、14、本月HSE活动综述、下月HSE工作计划
             {
-                var getReport = APISeDinMonthReportService.getSeDinMonthReport0ById(projectId, month);               
+                var getReport = APISeDinMonthReportService.getSeDinMonthReport0ById(projectId, month);
                 if (getReport != null)
                 {
                     ThisSummary.Text = getReport.ThisSummary;
@@ -595,14 +645,35 @@ namespace FineUIPro.Web.HSSE.Manager
             {
                 newItem.MonthReportId = MonthReportId;
             }
+            newItem.States = Const.State_0;
+            newItem.OperaterId = this.CurrUser.UserId;
+            newItem.StepName = "报告人保存。";
+            newItem.isAgree = true;
+            newItem.Opinion = this.txtOpinion.Text.Trim();
             ////提交
             if (type ==Const.BtnSubmit)
             { 
-                newItem.States = Const.State_1;
-            }
-            else
-            {
-                newItem.States = Const.State_0;
+                newItem.States = this.drpStep.SelectedValue;
+                newItem.NextManId = this.drpAudit.SelectedValue;              
+                newItem.isAgree = true;
+                if (this.rbIsAgree.SelectedValue == "0")
+                {
+                    newItem.States =Const.State_0;
+                    newItem.NextManId = newItem.CompileManId;
+                    newItem.isAgree = false;
+                }
+                if (this.drpStep.SelectedValue == Const.State_1)
+                {
+                    newItem.StepName = "报告人提交。";
+                }
+                else if (this.drpStep.SelectedValue == Const.State_2)
+                {
+                    newItem.StepName = "安全总监审核。";
+                }
+                else if (this.drpStep.SelectedValue == Const.State_3)
+                {
+                    newItem.StepName = "项目经理批准。";
+                }
             }
             MonthReportId = APISeDinMonthReportService.SaveSeDinMonthReport0(newItem);
             return MonthReportId;
@@ -1175,6 +1246,11 @@ namespace FineUIPro.Web.HSSE.Manager
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(this.CompileManId.SelectedValue))
+            {
+                Alert.ShowInTop("请选择下一步报告人！", MessageBoxIcon.Warning);
+                return;
+            }
             if (!string.IsNullOrEmpty(SaveSeDinMonthReport0(Const.BtnSave)))
             {
                 SaveData();
@@ -1191,6 +1267,16 @@ namespace FineUIPro.Web.HSSE.Manager
         /// <param name="e"></param>
         protected void btnSysSubmit_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(this.CompileManId.SelectedValue))
+            {
+                Alert.ShowInTop("请选择下一步报告人！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (this.States != Const.State_2 && (this.drpAudit.SelectedValue == Const._Null || string.IsNullOrEmpty(this.drpAudit.SelectedValue)))
+            {
+                Alert.ShowInTop("请选择下一步办理人！", MessageBoxIcon.Warning);
+                return;
+            }
             if (!string.IsNullOrEmpty(SaveSeDinMonthReport0(Const.BtnSubmit)))
             {
                 SaveData();
@@ -1205,7 +1291,8 @@ namespace FineUIPro.Web.HSSE.Manager
         /// </summary>
         protected void SaveData()
         {
-            if (BLL.ManagerMonth_SeDinService.GetMonthReportByMonthReportId(MonthReportId) == null)
+            var getSeDin_MonthReport = ManagerMonth_SeDinService.GetMonthReportByMonthReportId(MonthReportId);
+            if (getSeDin_MonthReport == null)
             {
                 Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
                 return;
@@ -1225,6 +1312,12 @@ namespace FineUIPro.Web.HSSE.Manager
                 SaveSeDinMonthReport11();
                 SaveSeDinMonthReport12();
                 SaveSeDinMonthReport13();
+
+                ////如果月报审核完成 月报信息写入到汇总
+                if (getSeDin_MonthReport.States == Const.State_3 && getSeDin_MonthReport.ReporMonth.HasValue)
+                {
+                    HSEDataCollectService.SaveHSEDataCollectItem(getSeDin_MonthReport);
+                }
             }
         }
         #endregion
@@ -1253,5 +1346,37 @@ namespace FineUIPro.Web.HSSE.Manager
             }
         }
         #endregion
+
+        #region 是否同意
+        /// <summary>
+        ///  是否同意
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void rbIsAgree_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.rbIsAgree.SelectedValue == "0")
+            {
+                this.drpStep.Hidden = true;
+                this.drpAudit.SelectedValue = this.CompileManId.SelectedValue;
+                this.txtOpinion.Text = "不同意。";
+                this.drpAudit.Label = "打回";
+                if (this.States == Const.State_2)
+                {
+                    this.drpAudit.Hidden = false;
+                }
+            }
+            else
+            {
+                this.drpStep.Hidden = false;
+                if (this.States == Const.State_2)
+                {
+                    this.drpAudit.Hidden = true;
+                }
+                this.drpAudit.SelectedValue = Const._Null;
+                this.txtOpinion.Text = "同意。";
+            }           
+        }
+#endregion
     }
 }

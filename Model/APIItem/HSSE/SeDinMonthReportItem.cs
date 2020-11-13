@@ -131,7 +131,63 @@ namespace Model
             get;
             set;
         }
-
+    
+        /// <summary>
+        ///  办理人
+        /// </summary>
+        public string OperaterId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  下一步办理人
+        /// </summary>
+        public string NextManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  下一步办理人
+        /// </summary>
+        public string NextManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  提交时间
+        /// </summary>
+        public DateTime? CommitTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  办理步骤
+        /// </summary>
+        public string StepName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  是否同意
+        /// </summary>
+        public bool isAgree
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  意见
+        /// </summary>
+        public string Opinion
+        {
+            get;
+            set;
+        }
         /// <summary>
         ///  事故综述
         /// </summary>

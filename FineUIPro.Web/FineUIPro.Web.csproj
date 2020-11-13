@@ -314,6 +314,7 @@
     <Content Include="CQMS\WBS\WorkPackageSet1.aspx" />
     <Content Include="CQMS\WBS\WorkPackageSet2.aspx" />
     <Content Include="CQMS\WBS\WorkPackageSet2In.aspx" />
+    <Content Include="DigData\HSEDataCollect.aspx" />
     <Content Include="HJGL\BaseInfo\Components.aspx" />
     <Content Include="HJGL\BaseInfo\ComponentsEdit.aspx" />
     <Content Include="HJGL\BaseInfo\ComponentsIn.aspx" />
@@ -5842,6 +5843,13 @@
     </Compile>
     <Compile Include="CQMS\WBS\WorkPackageSet2In.aspx.designer.cs">
       <DependentUpon>WorkPackageSet2In.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DigData\HSEDataCollect.aspx.cs">
+      <DependentUpon>HSEDataCollect.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DigData\HSEDataCollect.aspx.designer.cs">
+      <DependentUpon>HSEDataCollect.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\BaseInfo\Components.aspx.cs">
       <DependentUpon>Components.aspx</DependentUpon>

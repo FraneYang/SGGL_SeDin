@@ -730,6 +730,41 @@
                     sb.Append("</table>");
                 }
                 #endregion
+                #region 4、赛鼎公司人员信息统计
+                sb.Append("<table width=\"100% \" cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;font-size: 10.5pt;\">");
+                sb.Append("<tr style=\"height: 20px\">");
+                sb.AppendFormat("<td align=\"center\" colspan=\"5\"  style=\"width: 100%;border-bottom: none;border-top: none;\">{0}</td> "
+                    , "赛鼎公司人员信息统计");
+                sb.Append("</tr>");
+
+                sb.Append("<tr style=\"height: 20px\">");
+                sb.AppendFormat("<td align=\"center\" style=\"width: 20%;\" >{0}</td> ", "项目现场正式员工总数");
+                sb.AppendFormat("<td align=\"center\" style=\"width: 20%;\" >{0}</td> ", "项目现场外聘人员总数");
+                sb.AppendFormat("<td align=\"center\" style=\"width: 20%;\" >{0}</td> ", "项目现场外籍人员总数");
+                sb.AppendFormat("<td align=\"center\" style=\"width: 20%;\" >{0}</td> ", "项目现场HSE管理人员总数");
+                sb.AppendFormat("<td align=\"center\" style=\"width: 20%;\" >{0}</td> ", "项目现场员工总数（含外聘）");
+                sb.Append("</tr>");
+                int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0;
+                var getMonthReport4Other = Funs.DB.SeDin_MonthReport4Other.FirstOrDefault(x => x.MonthReportId == monthReportId);              
+                if (getMonthReport4Other != null)
+                {
+                    count1 = getMonthReport4Other.FormalNum ?? 0;
+                    count2 = getMonthReport4Other.ForeignNum ?? 0;
+                    count3 = getMonthReport4Other.OutsideNum ?? 0;
+                    count4 = getMonthReport4Other.ManagerNum ?? 0;
+                    count5 = getMonthReport4Other.TotalNum ?? 0;
+                }
+
+                sb.Append("<tr style=\"height: 20px\">");
+                sb.AppendFormat("<td align=\"center\">{0}</td> ", count1);
+                sb.AppendFormat("<td align=\"center\">{0}</td> ", count2);
+                sb.AppendFormat("<td align=\"center\">{0}</td> ", count3);
+                sb.AppendFormat("<td align=\"center\">{0}</td> ", count4);
+                sb.AppendFormat("<td align=\"center\">{0}</td> ", count5);
+                sb.Append("</tr>");
+
+                sb.Append("</table>");
+                #endregion
 
                 sb.Append("<tr style=\"height: 20px\">");
                 sb.AppendFormat("<td align=\"center\" style=\"width: 100%; border-right: none;border-left: none;border-bottom: none;border-top: none; \">{0}</td> ", "");
@@ -1069,11 +1104,25 @@
                     sb.Append("<td align=\"center\" colspan=\"4\"  style=\"width: 100%;\">");
                     sb.Append("<table width=\"100% \" cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;font-size: 10.5pt;\">");
                     sb.Append("<tr style=\"height: 20px\">");
-                    sb.AppendFormat("<td align=\"center\" style=\"width: 20%;border-left: none;border-top: none; \">{0}</td> ", "单位名称");
-                    sb.AppendFormat("<td align=\"center\" style=\"width: 20%;border-top: none; \">{0}</td> ", "下发数量（本月）");
-                    sb.AppendFormat("<td align=\"center\" style=\"width: 20%;border-top: none; \">{0}</td> ", "整改完成数量（本月）");
-                    sb.AppendFormat("<td align=\"center\" style=\"width: 20%;border-top: none; \">{0}</td> ", "下发数量（累计）");
-                    sb.AppendFormat("<td align=\"center\" style=\"width: 20%;border-top: none; border-right: none;\">{0}</td> ", "整改完成数量（累计）");
+                    sb.AppendFormat("<td align=\"center\"  rowspan=\"2\" style=\"width: 16%;border-left: none;border-top: none; \">{0}</td> ", "单位名称");
+                    sb.AppendFormat("<td align=\"center\" colspan=\"3\"  style=\"width: 21%;border-top: none; \">{0}</td> ", "下发数量（本月）");
+                    sb.AppendFormat("<td align=\"center\" colspan=\"3\"  style=\"width: 21%;border-top: none; \">{0}</td> ", "整改完成数量（本月）");
+                    sb.AppendFormat("<td align=\"center\" colspan=\"3\"  style=\"width: 21%;border-top: none; \">{0}</td> ", "下发数量（累计）");
+                    sb.AppendFormat("<td align=\"center\" colspan=\"3\"  style=\"width: 21%;border-top: none; border-right: none;\">{0}</td> ", "整改完成数量（累计）");
+                    sb.Append("</tr>");
+                    sb.Append("<tr style=\"height: 20px\">");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-left: none;border-top: none; \">{0}</td> ", "一般");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "较大");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "重大");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "一般");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "较大");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "重大");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "一般");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "较大");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "重大");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "一般");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; \">{0}</td> ", "较大");
+                    sb.AppendFormat("<td align=\"center\" style=\"width: 7%;border-top: none; border-right: none;\">{0}</td> ", "重大");
                     sb.Append("</tr>");
                     var get9ItemRectifications = from x in Funs.DB.SeDin_MonthReport9Item_Rectification
                                            where x.MonthReportId == monthReportId
@@ -1083,10 +1132,18 @@
                     {
                         sb.Append("<tr style=\"height: 20px\">");
                         sb.AppendFormat("<td align=\"center\" style=\"border-left: none;border-bottom: none;\">{0}</td> ", itemr.UnitName);
-                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.IssuedMonth);
-                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.RectificationMoth);
-                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.IssuedTotal);
-                        sb.AppendFormat("<td align=\"center\" style=\"border-right: none;border-bottom: none;\">{0}</td> ", itemr.RectificationTotal);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.IssuedMonth ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.IssuedMonthLarge ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.IssuedMonthSerious ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.RectificationMoth ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.RectificationMothLarge ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.RectificationMothSerious ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.IssuedTotal ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.IssuedTotalLarge ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.IssuedTotalSerious ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.RectificationTotal ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-bottom: none;\">{0}</td> ", itemr.RectificationTotalLarge ?? 0);
+                        sb.AppendFormat("<td align=\"center\" style=\"border-right: none;border-bottom: none;\">{0}</td> ", itemr.RectificationTotalSerious ?? 0);
                         sb.Append("</tr>");
                     }
                     sb.Append("</table>");

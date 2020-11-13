@@ -355,7 +355,10 @@ namespace BLL
         /// 作业票 组id
         /// </summary>
         public const string Group_LicenseType = "LicenseType";
-
+        /// <summary>
+        /// 安全数据（月报）汇总 组id
+        /// </summary>
+        public const string Group_HSEData = "HSEData";
         /// <summary>
         /// 本部菜单
         /// </summary>

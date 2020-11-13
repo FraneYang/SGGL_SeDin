@@ -194,6 +194,7 @@
     <Compile Include="CQMS\WBS\WorkPackageInitService.cs" />
     <Compile Include="CQMS\WBS\WorkPackageProjectService.cs" />
     <Compile Include="CQMS\WBS\WorkPackageService.cs" />
+    <Compile Include="DigData\HSEDataCollectService.cs" />
     <Compile Include="DropListService.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HJGL\BaseInfo\Base_ComponentsService.cs" />

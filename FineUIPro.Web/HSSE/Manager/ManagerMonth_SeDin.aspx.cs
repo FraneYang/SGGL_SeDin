@@ -56,13 +56,17 @@ namespace FineUIPro.Web.HSSE.Manager
         private void BindGrid()
         {
             string strSql = @"SELECT mr.MonthReportId,mr.ProjectId,mr.DueDate,mr.StartDate,mr.EndDate,mr.ReporMonth,mr.CompileManId,CompileMan.UserName AS CompileManName,mr.AuditManId
-                            ,AuditMan.UserName AS AuditManName,mr.ApprovalManId,mr.AuditManId,ApprovalMan.UserName AS ApprovalManName,mr.ThisSummary,mr.NextPlan,mr.States
-                            ,(CASE WHEN mr.States='1' THEN '已提交' ELSE '待提交' END) AS StateName
-                            FROM dbo.SeDin_MonthReport AS mr 
-                            LEFT JOIN Sys_User AS CompileMan on mr.CompileManId = CompileMan.UserId
-                            LEFT JOIN Sys_User AS AuditMan on mr.AuditManId = AuditMan.UserId
-                            LEFT JOIN Sys_User AS ApprovalMan on mr.ApprovalManId = ApprovalMan.UserId
-                            WHERE 1=1 ";
+                                        ,AuditMan.UserName AS AuditManName,mr.ApprovalManId,mr.AuditManId,ApprovalMan.UserName AS ApprovalManName,mr.ThisSummary,mr.NextPlan,mr.States
+                                        ,(CASE WHEN mr.States='0' THEN '待['+ (CASE WHEN nextMan.UserName IS NULL THEN CompileMan.UserName ELSE nextMan.UserName END) +']提交'
+	                                        WHEN mr.States='1' OR mr.States='2' THEN '待['+nextMan.UserName+']审核'
+	                                        WHEN mr.States='3' THEN '已完成'
+	                                        ELSE '待['+(CASE WHEN nextMan.UserName IS NULL THEN CompileMan.UserName ELSE nextMan.UserName END)+']提交' END) AS StateName
+                                        FROM dbo.SeDin_MonthReport AS mr 
+                                        LEFT JOIN Sys_User AS CompileMan on mr.CompileManId = CompileMan.UserId
+                                        LEFT JOIN Sys_User AS AuditMan on mr.AuditManId = AuditMan.UserId
+                                        LEFT JOIN Sys_User AS ApprovalMan on mr.ApprovalManId = ApprovalMan.UserId
+                                        LEFT JOIN Sys_User AS nextMan on mr.NextManId = nextMan.UserId
+                                        WHERE 1=1  ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND mr.ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
@@ -181,6 +185,7 @@ namespace FineUIPro.Web.HSSE.Manager
                     var mont = ManagerMonth_SeDinService.GetMonthReportByMonthReportId(rowID);
                     if (mont != null)
                     {
+                        BLL.HSEDataCollectService.DeleteHSEDataCollectItem(mont);
                         LogService.AddSys_Log(this.CurrUser, mont.ReporMonth.ToString(), mont.MonthReportId, BLL.Const.ProjectManagerMonth_SeDinMenuId, BLL.Const.BtnDelete);                  
                         ManagerMonth_SeDinService.DeleteMonthReportByMonthReportId(rowID);
                     }

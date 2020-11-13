@@ -98,6 +98,7 @@
             };
             db.Base_Project.InsertOnSubmit(newProject);
             db.SubmitChanges();
+            HSEDataCollectService.ProjectHSEDataCollectSubmission(newProject);
         }
 
         /// <summary>
@@ -138,6 +139,7 @@
                 newProject.City = project.City;
                 newProject.EnglishRemark = project.EnglishRemark;
                 db.SubmitChanges();
+                HSEDataCollectService.ProjectHSEDataCollectSubmission(newProject);
             }
         }
 

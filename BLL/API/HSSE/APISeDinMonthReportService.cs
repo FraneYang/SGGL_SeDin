@@ -968,9 +968,11 @@ namespace BLL
                                    AuditManName = db.Sys_User.First(u => u.UserId == x.AuditManId).UserName,
                                    ApprovalManId = x.ApprovalManId,
                                    ApprovalManName = db.Sys_User.First(u => u.UserId == x.ApprovalManId).UserName,
+                                   States = x.States,
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                    //ThisSummary = x.ThisSummary,
                                    //NextPlan = x.NextPlan,
-
                                }).FirstOrDefault();
                 }
 
@@ -1651,6 +1653,9 @@ namespace BLL
                                    ThisSummary = x.ThisSummary,
                                    NextPlan = x.NextPlan,
                                    AccidentsSummary = x.AccidentsSummary,
+                                   States = x.States,
+                                   NextManId = x.NextManId,
+                                   NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                }).FirstOrDefault();
                 }
                 return getInfo;
@@ -1673,15 +1678,14 @@ namespace BLL
                 Model.SeDin_MonthReport newReport = new Model.SeDin_MonthReport
                 {
                     MonthReportId = newItem.MonthReportId,
-                    ProjectId = newItem.ProjectId,                  
+                    ProjectId = newItem.ProjectId,
                     DueDate = Funs.GetNewDateTime(newItem.DueDate),
                     StartDate = Funs.GetNewDateTime(newItem.StartDate),
                     EndDate = Funs.GetNewDateTime(newItem.EndDate),
                     ReporMonth = Funs.GetNewDateTime(newItem.ReporMonth),
-                    States =newItem.States,
-                    //ThisSummary = System.Web.HttpUtility.HtmlEncode(newItem.ThisSummary),
-                    //NextPlan = System.Web.HttpUtility.HtmlEncode(newItem.NextPlan),
+                    States = newItem.States,                   
                 };
+
                 if (!string.IsNullOrEmpty(newItem.CompileManId) && newItem.AuditManId != Const._Null)
                 {
                     newReport.CompileManId = newItem.CompileManId;
@@ -1694,6 +1698,21 @@ namespace BLL
                 {
                     newReport.ApprovalManId = newItem.ApprovalManId;
                 }
+                ////下一步办理人
+                if (!string.IsNullOrEmpty(newItem.NextManId) && newItem.NextManId != Const._Null)
+                {
+                    newReport.NextManId = newItem.NextManId;
+                }
+                else
+                {
+                    newReport.NextManId = newReport.CompileManId;
+                }
+                if (newItem.States == Const.State_3)
+                {
+                    newReport.CommitTime = DateTime.Now;
+                    newReport.NextManId = null;
+                }
+
                 var updateReport = db.SeDin_MonthReport.FirstOrDefault(x => x.MonthReportId == newItem.MonthReportId || (x.ProjectId==newItem.ProjectId && x.ReporMonth ==newReport.ReporMonth));
                 if (updateReport == null)
                 {
@@ -1710,10 +1729,28 @@ namespace BLL
                     updateReport.AuditManId = newReport.AuditManId;
                     updateReport.ApprovalManId = newReport.ApprovalManId;
                     updateReport.States = newReport.States;
+                    updateReport.CommitTime = newReport.CommitTime;
+                    updateReport.NextManId = newReport.NextManId;
                     //updateReport.ThisSummary = newReport.ThisSummary;
                     //updateReport.NextPlan = newReport.NextPlan;                  
                 }
-                db.SubmitChanges();
+                //// 审核信息
+                int maxIndex = (db.SeDin_MonthReportFlowOperate.Where(x => x.DataId == newReport.MonthReportId).Max(x => x.SortIndex) ?? 0) + 1;
+                Model.SeDin_MonthReportFlowOperate newFlow = new Model.SeDin_MonthReportFlowOperate()
+                {
+                    FlowOperateId= SQLHelper.GetNewID(),
+                    MenuId=Const.ProjectManagerMonth_SeDinMenuId,
+                    DataId = newReport.MonthReportId,
+                    SortIndex= maxIndex,
+                    StepName=newItem.StepName,
+                    OperaterId = newItem.OperaterId,
+                    OperaterTime=DateTime.Now,
+                    IsAgree=newItem.isAgree,
+                    Opinion=newItem.Opinion,
+                    IsClosed=true,
+                };
+                db.SeDin_MonthReportFlowOperate.InsertOnSubmit(newFlow);
+                db.SubmitChanges();             
                 return newReport.MonthReportId;
             }
         }
@@ -2022,6 +2059,13 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
+                var getSeDinMonthReport6 = from x in db.SeDin_MonthReport6 where x.MonthReportId == newItem.MonthReportId select x;
+                if (getSeDinMonthReport6.Count() > 0)
+                {
+                    db.SeDin_MonthReport6.DeleteAllOnSubmit(getSeDinMonthReport6);
+                    db.SubmitChanges();
+                }
+
                 Model.SeDin_MonthReport6 newReport = new Model.SeDin_MonthReport6
                 {
                     MonthReportId = newItem.MonthReportId,
@@ -2046,35 +2090,9 @@ namespace BLL
                     ContractTotal = newItem.ContractTotal,
                     ConstructionCost = newItem.ConstructionCost,
                 };
-                var updateReport = db.SeDin_MonthReport6.FirstOrDefault(x => x.MonthReport6Id == newItem.MonthReport6Id);
-                if (updateReport == null)
-                {
-                    newReport.MonthReport6Id = SQLHelper.GetNewID();
-                    db.SeDin_MonthReport6.InsertOnSubmit(newReport);
-                }
-                else
-                {
-                    newReport.MonthReportId = updateReport.MonthReportId;
-                    updateReport.SafetyMonth = newReport.SafetyMonth;
-                    updateReport.SafetyYear = newReport.SafetyYear;
-                    updateReport.SafetyTotal = newReport.SafetyTotal;
-                    updateReport.LaborMonth = newReport.LaborMonth;
-                    updateReport.LaborYear = newReport.LaborYear;
-                    updateReport.LaborTotal = newReport.LaborTotal;
-                    updateReport.ProgressMonth = newReport.ProgressMonth;
-                    updateReport.ProgressYear = newReport.ProgressYear;
-                    updateReport.ProgressTotal = newReport.ProgressTotal;
-                    updateReport.EducationMonth = newReport.EducationMonth;
-                    updateReport.EducationYear = newReport.EducationYear;
-                    updateReport.EducationTotal = newReport.EducationTotal;
-                    updateReport.SumMonth = newReport.SumMonth;
-                    updateReport.SumYear = newReport.SumYear;
-                    updateReport.SumTotal = newReport.SumTotal;
-                    updateReport.ContractMonth = newReport.ContractMonth;
-                    updateReport.ContractYear = newReport.ContractYear;
-                    updateReport.ContractTotal = newReport.ContractTotal;
-                    updateReport.ConstructionCost = newReport.ConstructionCost;
-                }
+
+                newReport.MonthReport6Id = SQLHelper.GetNewID();
+                db.SeDin_MonthReport6.InsertOnSubmit(newReport);
                 db.SubmitChanges();
                 return newReport.MonthReportId;
             }
@@ -2090,6 +2108,12 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
+                var getSeDinMonthReport7 = from x in db.SeDin_MonthReport7 where x.MonthReportId == newItem.MonthReportId select x;
+                if (getSeDinMonthReport7.Count() > 0)
+                {
+                    db.SeDin_MonthReport7.DeleteAllOnSubmit(getSeDinMonthReport7);
+                    db.SubmitChanges();
+                }
                 Model.SeDin_MonthReport7 newReport = new Model.SeDin_MonthReport7
                 {
                     MonthReportId = newItem.MonthReportId,
@@ -2107,28 +2131,9 @@ namespace BLL
                     EmployeeYearPerson = newItem.EmployeeYearPerson,
                     EmployeeTotalPerson = newItem.EmployeeTotalPerson,
                 };
-                var updateReport = db.SeDin_MonthReport7.FirstOrDefault(x => x.MonthReport7Id == newItem.MonthReport7Id);
-                if (updateReport == null)
-                {
-                    newReport.MonthReport7Id = SQLHelper.GetNewID();
-                    db.SeDin_MonthReport7.InsertOnSubmit(newReport);
-                }
-                else
-                {
-                    newReport.MonthReportId = updateReport.MonthReportId;
-                    updateReport.SpecialMontNum = newReport.SpecialMontNum;
-                    updateReport.SpecialYearNum = newReport.SpecialYearNum;
-                    updateReport.SpecialTotalNum = newReport.SpecialTotalNum;
-                    updateReport.SpecialMontPerson = newReport.SpecialMontPerson;
-                    updateReport.SpecialYearPerson = newReport.SpecialYearPerson;
-                    updateReport.SpecialTotalPerson = newReport.SpecialTotalPerson;
-                    updateReport.EmployeeMontNum = newReport.EmployeeMontNum;
-                    updateReport.EmployeeYearNum = newReport.EmployeeYearNum;
-                    updateReport.EmployeeTotalNum = newReport.EmployeeTotalNum;
-                    updateReport.EmployeeMontPerson = newReport.EmployeeMontPerson;
-                    updateReport.EmployeeYearPerson = newReport.EmployeeYearPerson;
-                    updateReport.EmployeeTotalPerson = newReport.EmployeeTotalPerson;
-                }
+
+                newReport.MonthReport7Id = SQLHelper.GetNewID();
+                db.SeDin_MonthReport7.InsertOnSubmit(newReport);
                 db.SubmitChanges();
                 return newReport.MonthReportId;
             }
@@ -2144,6 +2149,13 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
+                var getMonthReport8 = from x in db.SeDin_MonthReport8 where x.MonthReportId == newItem.MonthReportId
+                                select x;
+                if (getMonthReport8.Count() > 0)
+                {
+                    db.SeDin_MonthReport8.DeleteAllOnSubmit(getMonthReport8);
+                    db.SubmitChanges();
+                }
                 Model.SeDin_MonthReport8 newReport = new Model.SeDin_MonthReport8
                 {
                     MonthReportId = newItem.MonthReportId,
@@ -2158,26 +2170,10 @@ namespace BLL
                     SpecialTotalNum = newItem.SpecialTotalNum,
                     SpecialMontPerson = newItem.SpecialMontPerson,
                 };
-                var updateReport = db.SeDin_MonthReport8.FirstOrDefault(x => x.MonthReport8Id == newItem.MonthReport8Id);
-                if (updateReport == null)
-                {
-                    newReport.MonthReport8Id = SQLHelper.GetNewID();
-                    db.SeDin_MonthReport8.InsertOnSubmit(newReport);
-                }
-                else
-                {
-                    newReport.MonthReportId = updateReport.MonthReportId;
-                    updateReport.WeekMontNum = newReport.WeekMontNum;
-                    updateReport.WeekTotalNum = newReport.WeekTotalNum;
-                    updateReport.WeekMontPerson = newReport.WeekMontPerson;
-                    updateReport.MonthMontNum = newReport.MonthMontNum;
-                    updateReport.MonthTotalNum = newReport.MonthTotalNum;
-                    updateReport.MonthMontPerson = newReport.MonthMontPerson;
-                    updateReport.SpecialMontNum = newReport.SpecialMontNum;
-                    updateReport.SpecialTotalNum = newReport.SpecialTotalNum;
-                    updateReport.SpecialMontPerson = newReport.SpecialMontPerson;           
-                }
+                newReport.MonthReport8Id = SQLHelper.GetNewID();
+                db.SeDin_MonthReport8.InsertOnSubmit(newReport);
                 db.SubmitChanges();
+
                 var get8Items = from x in db.SeDin_MonthReport8Item
                                 where x.MonthReportId == newItem.MonthReportId
                                 select x;
@@ -2218,6 +2214,14 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
+                var getMonthReport9 = from x in db.SeDin_MonthReport9
+                                      where x.MonthReportId == newItem.MonthReportId
+                                      select x;
+                if (getMonthReport9.Count() > 0)
+                {
+                    db.SeDin_MonthReport9.DeleteAllOnSubmit(getMonthReport9);
+                    db.SubmitChanges();
+                }
                 Model.SeDin_MonthReport9 newReport = new Model.SeDin_MonthReport9
                 {
                     MonthReport9Id = newItem.MonthReport9Id,
@@ -2236,28 +2240,8 @@ namespace BLL
                     MonthlyTotal = newItem.MonthlyTotal,
                 };
 
-                var updateReport = db.SeDin_MonthReport9.FirstOrDefault(x => x.MonthReport9Id == newItem.MonthReport9Id);
-                if (updateReport == null)
-                {
-                    newReport.MonthReport9Id = SQLHelper.GetNewID();
-                    db.SeDin_MonthReport9.InsertOnSubmit(newReport);
-                }
-                else
-                {
-                    newReport.MonthReportId = updateReport.MonthReportId;
-                    updateReport.DailyMonth = newReport.DailyMonth;
-                    updateReport.DailyYear = newReport.DailyYear;
-                    updateReport.DailyTotal = newReport.DailyTotal;
-                    updateReport.WeekMonth = newReport.WeekMonth;
-                    updateReport.WeekYear = newReport.WeekYear;
-                    updateReport.WeekTotal = newReport.WeekTotal;
-                    updateReport.SpecialMonth = newReport.SpecialMonth;
-                    updateReport.SpecialYear = newReport.SpecialYear;
-                    updateReport.SpecialTotal = newReport.SpecialTotal;
-                    updateReport.MonthlyMonth = newReport.MonthlyMonth;
-                    updateReport.MonthlyYear = newReport.MonthlyYear;
-                    updateReport.MonthlyTotal = newReport.MonthlyTotal;
-                }
+                newReport.MonthReport9Id = SQLHelper.GetNewID();
+                db.SeDin_MonthReport9.InsertOnSubmit(newReport);
                 db.SubmitChanges();
                 ////隐患整改单
                 var get9Items = from x in db.SeDin_MonthReport9Item_Rectification
@@ -2361,6 +2345,14 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
+                var getMonthReport10 = from x in db.SeDin_MonthReport10
+                                      where x.MonthReportId == newItem.MonthReportId
+                                      select x;
+                if (getMonthReport10.Count() > 0)
+                {
+                    db.SeDin_MonthReport10.DeleteAllOnSubmit(getMonthReport10);
+                    db.SubmitChanges();
+                }
                 Model.SeDin_MonthReport10 newReport = new Model.SeDin_MonthReport10
                 {
                     MonthReportId = newItem.MonthReportId,
@@ -2390,40 +2382,8 @@ namespace BLL
                     ManageMonthMoney = newItem.ManageMonthMoney,
                     ManageTotalMoney = newItem.ManageTotalMoney,
                 };
-                var updateReport = db.SeDin_MonthReport10.FirstOrDefault(x => x.MonthReport10Id == newItem.MonthReport10Id);
-                if (updateReport == null)
-                {
-                    newReport.MonthReport10Id = SQLHelper.GetNewID();
-                    db.SeDin_MonthReport10.InsertOnSubmit(newReport);
-                }
-                else
-                {
-                    newReport.MonthReportId = updateReport.MonthReportId;
-                    updateReport.SafeMonthNum = newItem.SafeMonthNum;
-                    updateReport.SafeTotalNum = newItem.SafeTotalNum;
-                    updateReport.SafeMonthMoney = newItem.SafeMonthMoney;
-                    updateReport.SafeTotalMoney = newItem.SafeTotalMoney;
-                    updateReport.HseMonthNum = newItem.HseMonthNum;
-                    updateReport.HseTotalNum = newItem.HseTotalNum;
-                    updateReport.HseMonthMoney = newItem.HseMonthMoney;
-                    updateReport.HseTotalMoney = newItem.HseTotalMoney;
-                    updateReport.ProduceMonthNum = newItem.ProduceMonthNum;
-                    updateReport.ProduceTotalNum = newItem.ProduceTotalNum;
-                    updateReport.ProduceMonthMoney = newItem.ProduceMonthMoney;
-                    updateReport.ProduceTotalMoney = newItem.ProduceTotalMoney;
-                    updateReport.AccidentMonthNum = newItem.AccidentMonthNum;
-                    updateReport.AccidentTotalNum = newItem.AccidentTotalNum;
-                    updateReport.AccidentMonthMoney = newItem.AccidentMonthMoney;
-                    updateReport.AccidentTotalMoney = newItem.AccidentTotalMoney;
-                    updateReport.ViolationMonthNum = newItem.ViolationMonthNum;
-                    updateReport.ViolationTotalNum = newItem.ViolationTotalNum;
-                    updateReport.ViolationMonthMoney = newItem.ViolationMonthMoney;
-                    updateReport.ViolationTotalMoney = newItem.ViolationTotalMoney;
-                    updateReport.ManageMonthNum = newItem.ManageMonthNum;
-                    updateReport.ManageTotalNum = newItem.ManageTotalNum;
-                    updateReport.ManageMonthMoney = newItem.ManageMonthMoney;
-                    updateReport.ManageTotalMoney = newItem.ManageTotalMoney;
-                }
+                newReport.MonthReport10Id = SQLHelper.GetNewID();
+                db.SeDin_MonthReport10.InsertOnSubmit(newReport);
                 db.SubmitChanges();
                 return newReport.MonthReportId;
             }

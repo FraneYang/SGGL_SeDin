@@ -69,11 +69,10 @@
                                         </f:DatePicker>
                                     </Items>
                                 </f:Panel>
-
                                 <f:Panel ID="Panel2" Layout="Block" CssClass="blockpanel myblockform" BlockMD="12" ShowHeader="false" ShowBorder="false"
                                     BlockConfigSpace="5px" BodyPadding="5px" EnableCollapse="true" runat="server">
                                     <Items>
-                                        <f:DropDownList runat="server" ID="CompileManId" LabelAlign="Right" BlockMD="3" Label="报告人">
+                                        <f:DropDownList runat="server" ID="CompileManId" LabelAlign="Right" BlockMD="3" Label="报告人" Required="true">
                                         </f:DropDownList>
                                         <f:DropDownList runat="server" ID="AuditManId" LabelAlign="Right" BlockMD="3" Label="审核人">
                                         </f:DropDownList>
@@ -87,7 +86,6 @@
                         </f:ContentPanel>
                     </Items>
                 </f:FormRow>
-
                 <f:FormRow>
                     <Items>
                         <f:Panel ID="pan" Layout="Block" CssClass="blockpanel myblockform" BlockMD="12"
@@ -98,14 +96,12 @@
                                 <f:Label ID="projectName" Label="项目名称" runat="server" BlockMD="4" LabelWidth="120px"></f:Label>
                                 <f:TextBox ID="projectType" runat="server" Label="项目类型" BlockMD="4" MaxLength="50">
                                 </f:TextBox>
-
                                 <f:TextBox ID="ContractAmount" runat="server" Label="合同额" BlockMD="4" MaxLength="50" LabelWidth="120px">
                                 </f:TextBox>
                                 <f:TextBox ID="ConstructionStage" runat="server" Label="所处的施工阶段" LabelWidth="120px" BlockMD="4" MaxLength="50">
                                 </f:TextBox>
                                 <f:TextBox ID="ProjectAddress" runat="server" Label="项目所在地" BlockMD="4" MaxLength="50">
                                 </f:TextBox>
-
                                 <f:TextBox ID="ProjectManager" runat="server" Label="项目经理" BlockMD="4" MaxLength="50" LabelWidth="120px">
                                 </f:TextBox>
                                 <f:TextBox ID="ProjectManagerPhone" runat="server" Label="联系方式" LabelWidth="120px" BlockMD="8" MaxLength="50">
@@ -155,7 +151,6 @@
                         </f:Panel>
                     </Items>
                 </f:FormRow>
-
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel2" BodyPadding="10" ShowBorder="true" EnableCollapse="true" CssClass="blockpanel myblockform" ShowHeader="true" Title="3、项目HSE事故、事件统计" runat="server">
@@ -900,14 +895,13 @@
                                     </f:RenderField>
                                 </Columns>
                             </f:Grid>
-
                             <f:Grid ID="GvSeDinMonthReport9ItemRect" CssClass="blockpanel table" AllowCellEditing="true"
                                 ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="隐患整改单" ForceFit="true"
                                 EnableCollapse="false" runat="server">
                                 <Columns>
-                                    <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="180px" 
-                                        HeaderText="单位名称"  ExpandUnusedSpace="true"/>
-                                    <f:GroupField ColumnID="colIssuedMonth" HeaderText="下发数量（本月）"  Width="90px"
+                                    <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="180px"
+                                        HeaderText="单位名称" ExpandUnusedSpace="true" />
+                                    <f:GroupField ColumnID="colIssuedMonth" HeaderText="下发数量（本月）" Width="90px"
                                         TextAlign="Center" HeaderTextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="30px" ColumnID="IssuedMonth" DataField="IssuedMonth" FieldType="Int"
@@ -933,7 +927,7 @@
                                             </f:RenderField>
                                         </Columns>
                                     </f:GroupField>
-                                    <f:GroupField ColumnID="colRectificationMoth" HeaderText="整改完成数量（本月）"  Width="90px"
+                                    <f:GroupField ColumnID="colRectificationMoth" HeaderText="整改完成数量（本月）" Width="90px"
                                         TextAlign="Center" HeaderTextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="30px" ColumnID="RectificationMoth" DataField="RectificationMoth" FieldType="Int"
@@ -959,7 +953,7 @@
                                             </f:RenderField>
                                         </Columns>
                                     </f:GroupField>
-                                    <f:GroupField ColumnID="colIssuedTotal" HeaderText="下发数量（累计）"  Width="90px"
+                                    <f:GroupField ColumnID="colIssuedTotal" HeaderText="下发数量（累计）" Width="90px"
                                         TextAlign="Center" HeaderTextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="30px" ColumnID="IssuedTotal" DataField="IssuedTotal" FieldType="Int"
@@ -972,7 +966,7 @@
                                             <f:RenderField Width="30px" ColumnID="IssuedTotalLarge" DataField="IssuedMonthLarge" FieldType="Int"
                                                 HeaderText="较大">
                                                 <Editor>
-                                                    <f:NumberBox NoDecimal="true" NoNegative="true"  MaxValue="10000" runat="server">
+                                                    <f:NumberBox NoDecimal="true" NoNegative="true" MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -985,7 +979,7 @@
                                             </f:RenderField>
                                         </Columns>
                                     </f:GroupField>
-                                    <f:GroupField ColumnID="colRectificationTotal" HeaderText="整改完成数量（累计）"  Width="90px"
+                                    <f:GroupField ColumnID="colRectificationTotal" HeaderText="整改完成数量（累计）" Width="90px"
                                         TextAlign="Center" HeaderTextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="30px" ColumnID="RectificationTotal" DataField="RectificationTotal" FieldType="Int"
@@ -1005,7 +999,7 @@
                                             <f:RenderField Width="30px" ColumnID="RectificationTotalSerious" DataField="IssuedMonthSerious" FieldType="Int"
                                                 HeaderText="重大">
                                                 <Editor>
-                                                    <f:NumberBox NoDecimal="true" NoNegative="true"  MaxValue="10000" runat="server">
+                                                    <f:NumberBox NoDecimal="true" NoNegative="true" MaxValue="10000" runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -1013,7 +1007,6 @@
                                     </f:GroupField>
                                 </Columns>
                             </f:Grid>
-
                             <f:Grid ID="GvSeDinMonthReport9ItemStoppage" CssClass="blockpanel table" AllowCellEditing="true" ShowBorder="true" EnableColumnLines="true" ShowHeader="true" Title="停工令" ForceFit="true" EnableCollapse="false" runat="server">
                                 <Columns>
                                     <f:BoundField ColumnID="UnitName" DataField="UnitName" Width="80px" HeaderText="单位名称" />
@@ -1199,8 +1192,6 @@
                                     <td>
                                         <textarea runat="server" class="input" style="text-align: left" id="MultipleSiteNext"></textarea>
                                     </td>
-
-
                                 </tr>
                                 <tr>
                                     <td>桌面演练</td>
@@ -1260,6 +1251,23 @@
                 </f:FormRow>
             </Rows>
             <Toolbars>
+                 <f:Toolbar ID="Toolbar2" Position="Bottom" ToolbarAlign="Right" runat="server">
+                    <Items>
+                        <f:ToolbarFill runat="server"></f:ToolbarFill>
+                        <f:RadioButtonList runat="server" ID="rbIsAgree" AutoPostBack="true" 
+                            OnSelectedIndexChanged="rbIsAgree_SelectedIndexChanged" Width="200px">
+                            <f:RadioItem  Value="1" Text="同意" Selected="true"/>
+                            <f:RadioItem  Value="0" Text="不同意"/>
+                        </f:RadioButtonList>
+                        <f:TextBox runat="server" ID="txtOpinion" Label="意见" LabelWidth="70px" Width="450px" MarginRight="50"></f:TextBox>
+                        <f:ToolbarSeparator runat="server"></f:ToolbarSeparator>
+                        <f:DropDownList runat="server" ID="drpStep" Label="下一步" LabelWidth="70px" Width="200px">                                   
+                        </f:DropDownList> 
+                        <f:DropDownList runat="server" ID="drpAudit" Label="审核人" 
+                            LabelWidth="70px" Width="250px" EnableEdit="true" ></f:DropDownList>
+                        <f:Label runat="server" Width="100px"></f:Label>
+                    </Items>
+                </f:Toolbar>
                 <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
@@ -1267,8 +1275,8 @@
                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存"
                             OnClick="btnSave_Click" ValidateForms="SimpleForm1" Hidden="true">
                         </f:Button>
-                        <f:Button ID="btnSysSubmit" OnClick="btnSysSubmit_Click" Icon="SystemSaveNew" runat="server" ToolTip="提交"
-                            ValidateForms="SimpleForm1" Hidden="true">
+                        <f:Button ID="btnSysSubmit" OnClick="btnSysSubmit_Click" Icon="SystemSaveNew"
+                            runat="server" ToolTip="提交" ValidateForms="SimpleForm1" Hidden="true">
                         </f:Button>
                         <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
                         </f:Button>
