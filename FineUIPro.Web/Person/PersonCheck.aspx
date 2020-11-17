@@ -20,17 +20,17 @@
                     <Toolbars>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
-                                <f:DropDownList ID="drpCheckType" runat="server" Label="类型" LabelAlign="Right" EnableEdit="true" LabelWidth="50px" > 
+                                <f:DropDownList ID="drpCheckType" runat="server" Label="类型" LabelAlign="Right" EnableEdit="true" LabelWidth="50px" Width="210px"> 
                                 </f:DropDownList>
                                 <f:DropDownList ID="drpProject" runat="server" Label="项目" LabelAlign="Right" EnableEdit="true" LabelWidth="50px">
                                 </f:DropDownList>
-                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime" Width="200px" LabelWidth="80px"
+                                <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime" Width="190px" LabelWidth="80px"
                                       LabelAlign="right"  EnableEdit="false">
                                 </f:DatePicker>
-                                  <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime" Width="200px" LabelWidth="80px"
+                                  <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime" Width="190px" LabelWidth="80px"
                                       LabelAlign="right"  EnableEdit="false">
                                 </f:DatePicker>
-                                <f:DropDownList ID="drpState" runat="server" Label="考核状态" LabelAlign="Right" EnableEdit="true" LabelWidth="80px" > 
+                                <f:DropDownList ID="drpState" runat="server" Label="考核状态" LabelAlign="Right" EnableEdit="true" LabelWidth="80px" Width="200px"> 
                                     <f:ListItem Value="0" Text="正在考核" />
                                     <f:ListItem Value="1" Text="考核结束" />
                                 </f:DropDownList>
@@ -41,7 +41,10 @@
                                 <f:Button ID="BtnCreat" Text="生成考核表" Icon="ChartPie"
                                     runat="server" OnClick="BtnCreat_Click" Hidden="true">
                                 </f:Button>
-
+                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" Text="批量导出" ToolTip="批量导出" Icon="TableGo" Hidden="true"
+                            AjaxLoadingType="Mask" ShowAjaxLoadingMaskText="true" AjaxLoadingMaskText="正在导出数据到服务器，请稍候"
+                                    EnableAjax="false" DisableControlBeforePostBack="false">
+                                    </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>

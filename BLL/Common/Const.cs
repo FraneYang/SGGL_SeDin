@@ -2656,6 +2656,30 @@ namespace BLL
         /// 管线导入模板
         /// </summary>
         public const string PipelineTemplateUrl = "File\\Excel\\DataIn\\管线信息导入模板.xls";
+        /// <summary>
+        /// 施工计划模板
+        /// </summary>
+        public const string ConstructionPlanTemplateUrl = "File\\Word\\ZHGL\\施工计划模板.doc";
+        /// <summary>
+        /// 施工开工报告模板
+        /// </summary>
+        public const string ConstructionCommencementReportTemplateUrl = "File\\Word\\ZHGL\\施工开工报告模板.doc";
+        /// <summary>
+        /// 施工完工报告模板
+        /// </summary>
+        public const string ConstructionCompletionReportTemplateUrl = "File\\Word\\ZHGL\\施工完工报告模板.doc";
+        /// <summary>
+        /// 施工月报告模板
+        /// </summary>
+        public const string ConstructionMonthlyReportTemplateUrl = "File\\Word\\ZHGL\\施工月报告模板.doc";
+        /// <summary>
+        /// 施工周报告模板
+        /// </summary>
+        public const string ConstructionWeeklyReportTemplateUrl = "File\\Word\\ZHGL\\施工周报告模板.doc";
+        /// <summary>
+        /// 施工专题报告模板
+        /// </summary>
+        public const string ConstructionSpecialReportTemplateUrl = "File\\Word\\ZHGL\\施工专题报告模板.doc";
         #endregion
 
         #region 初始化上传路径

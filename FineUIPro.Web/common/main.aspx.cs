@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI;
 
 namespace FineUIPro.Web.common
 {
@@ -198,7 +199,7 @@ namespace FineUIPro.Web.common
                     var attachFile = BLL.AttachFileService.GetAttachFile(item.NoticeId, BLL.Const.ServerNoticeMenuId);
                     if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
                     {
-                        url = "../" + attachFile.AttachUrl.Split(',')[0];
+                        url = "../" + attachFile.AttachUrl.Split(',')[0].Replace("\\","/");
                     }
                     if (!readIds.Contains(item.NoticeId))
                     {
@@ -549,5 +550,14 @@ namespace FineUIPro.Web.common
             }
         }
         #endregion
+
+        protected void imgBtn_Click(object sender, ImageClickEventArgs e)
+        {
+            Model.InformationProject_Notice notice = BLL.NoticeService.GetNoticeById(this.hdNoticeId.Value);
+            if (notice != null)
+            {
+                BLL.APIUserService.getSaveUserRead(BLL.Const.ServerNoticeMenuId, notice.ProjectId, this.CurrUser.UserId, notice.NoticeId);
+            }
+        }
     }
 }

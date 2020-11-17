@@ -116,6 +116,11 @@
                         <f:Button ID="imgBtnFile" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="imgBtnFile_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
                     </f:Button>
+                        <f:Button runat="server" ID="btnDownLoad" Icon="ArrowDown" Text="模板下载" ToolTip="模板下载">
+                                    <Listeners>
+                                        <f:Listener Event="click" Handler="ButtonClick" />
+                                    </Listeners>
+                                </f:Button>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
                         <f:HiddenField ID="HFConstructionReportId" runat="server"></f:HiddenField>
@@ -134,5 +139,11 @@
         Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
+    <script type="text/javascript">
+        function ButtonClick(event) {
+            // 第一个参数 false 用来指定当前不是AJAX请求
+            __doPostBack(false, '', 'ButtonClick');
+        }
+    </script>
 </body>
 </html>

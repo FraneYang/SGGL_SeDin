@@ -1,6 +1,7 @@
 ﻿using BLL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -157,6 +158,54 @@ namespace FineUIPro.Web.PZHGL.InformationProject
                     drpHandleMan.SelectedIndex = 0;
                     plApprove2.Hidden = true;
                     string unitId = string.Empty;
+                }
+            }
+            else
+            {
+                var eventArgs = GetRequestEventArgument(); // 此函数所在文件：PageBase.cs
+                if (eventArgs.StartsWith("ButtonClick"))
+                {
+                    string rootPath = Server.MapPath("~/");
+                    string path = string.Empty;
+                    if (drpFileType.SelectedValue != BLL.Const._Null)
+                    {
+                        if (drpFileType.SelectedValue == "1")
+                        {
+                            path = Const.ConstructionWeeklyReportTemplateUrl;
+                        }
+                        else if (drpFileType.SelectedValue == "2")
+                        {
+                            path = Const.ConstructionMonthlyReportTemplateUrl;
+                        }
+                        else if (drpFileType.SelectedValue == "3")
+                        {
+                            path = Const.ConstructionCommencementReportTemplateUrl;
+                        }
+                        else if (drpFileType.SelectedValue == "4")
+                        {
+                            path = Const.ConstructionCompletionReportTemplateUrl;
+                        }
+                        else if (drpFileType.SelectedValue == "5")
+                        {
+                            path = Const.ConstructionSpecialReportTemplateUrl;
+                        }
+                        string uploadfilepath = rootPath + path;
+                        string fileName = Path.GetFileName(uploadfilepath);
+                        FileInfo fileInfo = new FileInfo(uploadfilepath);
+                        FileInfo info = new FileInfo(uploadfilepath);
+                        long fileSize = info.Length;
+                        Response.Clear();
+                        Response.ContentType = "application/octet-stream";
+                        Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                        Response.AddHeader("Content-Length", fileSize.ToString());
+                        Response.TransmitFile(uploadfilepath, 0, fileSize);
+                        Response.Flush();
+                    }
+                    else
+                    {
+                        Alert.ShowInTop("请选择文件类型！", MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
             }
         }

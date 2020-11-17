@@ -251,7 +251,7 @@
         @media screen and (min-height:780px) {
             .tab-content .line-item {
                 border-radius: 25px;
-                height: 50px;
+                height: 28px;
             }
 
                 .tab-content .line-item > div {
@@ -445,7 +445,8 @@ padding-left: 2em;
                                   <div class="tab-wrap-tit">
                                       <div class="tab" data-value="1">
                                           <div class="t-item active">通知</div>
-                                          <div class="spline"><form runat="server"><asp:HiddenField runat="server" ID="hdNoticeId" /></form></div>
+                                          <div class="spline"><form runat="server"><asp:HiddenField runat="server" ID="hdNoticeId" /><asp:ImageButton ID="imgBtn" runat="server" OnClick="imgBtn_Click" Style="height: 1px"
+                                Width="0" /></form></div>
                                           <div class="t-item">待办</div>
                                       </div>
                                   </div>
@@ -1467,7 +1468,7 @@ padding-left: 2em;
         if (data != "") {
             //Window1.GetShowReference(data) + "return false;";
             document.getElementById("hdNoticeId").value = noticeId;
-
+            document.getElementById("imgBtn").click();
             window.open(data);
             top.window.location.reload();
         }

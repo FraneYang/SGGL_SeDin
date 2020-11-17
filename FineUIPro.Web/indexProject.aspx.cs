@@ -336,32 +336,50 @@ namespace FineUIPro.Web
                 //parameters1.Add("dtype", ""); //返回数据的格式,xml或json，默认json
 
                 //string result1 = sendPost(url1, parameters1, "get");
-                string result = BLL.CommonService.CreateGetHttpResponse("http://apis.juhe.cn/simpleWeather/query?city=" + city + "&key=" + appkey);
-                var j2 = JsonConvert.DeserializeObject<dynamic>(result);
-                if (j2.reason == "查询成功!")
+                Model.Weather oldWeather = BLL.WeatherService.GetWeatherByDateAndCity(DateTime.Now.Date,city);
+                if (oldWeather == null)   //未生成天气记录
                 {
-                    string tem = j2.result.realtime.temperature;
-                    string weather = j2.result.realtime.info;
-                    if (weather == "多云")
+                    string result = BLL.CommonService.CreateGetHttpResponse("http://apis.juhe.cn/simpleWeather/query?city=" + city + "&key=" + appkey);
+                    var j2 = JsonConvert.DeserializeObject<dynamic>(result);
+                    if (j2.reason == "查询成功!")
                     {
-                        this.btnWeather.IconFont = IconFont.Cloud;
+                        string tem = j2.result.realtime.temperature;
+                        string weather = j2.result.realtime.info;
+                        if (weather == "多云")
+                        {
+                            this.btnWeather.IconFont = IconFont.Cloud;
+                        }
+                        else if (weather == "晴")
+                        {
+                            this.btnWeather.IconFont = IconFont.SunO;
+                        }
+                        else if (weather == "阴")
+                        {
+                            this.btnWeather.IconFont = IconFont.Cloud;
+                        }
+                        else if (weather.Contains("雪"))
+                        {
+                            this.btnWeather.IconFont = IconFont.SnowflakeO;
+                        }
+                        string alltem = j2.result.future[0].temperature;
+                        this.btnWeather.Text = tem;
+                        string date = DateTime.Now.Year + "年" + DateTime.Now.Month + "月" + DateTime.Now.Day + "日";
+                        this.btnWeather.ToolTip = date + " " + city + " " + weather + " " + alltem;
+                        Model.Weather newWeather = new Model.Weather();
+                        newWeather.WeatherId = SQLHelper.GetNewID();
+                        newWeather.City = city;
+                        newWeather.Date = DateTime.Now.Date;
+                        newWeather.WeatherRef = weather;
+                        newWeather.CurrTem = tem;
+                        newWeather.AllTem = alltem;
+                        BLL.WeatherService.AddWeather(newWeather);
                     }
-                    else if (weather == "晴")
-                    {
-                        this.btnWeather.IconFont = IconFont.SunO;
-                    }
-                    else if (weather == "阴")
-                    {
-                        this.btnWeather.IconFont = IconFont.Cloud;
-                    }
-                    else if (weather.Contains("雪"))
-                    {
-                        this.btnWeather.IconFont = IconFont.SnowflakeO;
-                    }
-                    string alltem = j2.result.future[0].temperature;
-                    this.btnWeather.Text = tem;
+                }
+                else
+                {
+                    this.btnWeather.Text = oldWeather.CurrTem;
                     string date = DateTime.Now.Year + "年" + DateTime.Now.Month + "月" + DateTime.Now.Day + "日";
-                    this.btnWeather.ToolTip = date + " " + city + " " + weather + " " + alltem;
+                    this.btnWeather.ToolTip = date + " " + city + " " + oldWeather.WeatherRef + " " + oldWeather.AllTem;
                 }
             }
         }

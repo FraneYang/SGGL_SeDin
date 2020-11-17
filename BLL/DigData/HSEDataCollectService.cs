@@ -418,7 +418,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month1 = (Funs.GetNewDecimalOrZero(getItem20.Month1) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month1 = (Funs.GetNewDecimalOrZero(getItem20.Month1) + (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -528,12 +528,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month1 = (Funs.GetNewDecimalOrZero(getItem36.Month1) +  getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month1 = (Funs.GetNewDecimalOrZero(getItem36.Month1) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month1 = (Funs.GetNewDecimalOrZero(getItem37.Month1) +  getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month1 = (Funs.GetNewDecimalOrZero(getItem37.Month1) +  (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -779,7 +779,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month2 = (Funs.GetNewDecimalOrZero(getItem20.Month2) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month2 = (Funs.GetNewDecimalOrZero(getItem20.Month2) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -889,12 +889,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month2 = (Funs.GetNewDecimalOrZero(getItem36.Month2) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month2 = (Funs.GetNewDecimalOrZero(getItem36.Month2) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month2 = (Funs.GetNewDecimalOrZero(getItem37.Month2) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month2 = (Funs.GetNewDecimalOrZero(getItem37.Month2) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -1140,7 +1140,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month3 = (Funs.GetNewDecimalOrZero(getItem20.Month3) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month3 = (Funs.GetNewDecimalOrZero(getItem20.Month3) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -1250,12 +1250,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month3 = (Funs.GetNewDecimalOrZero(getItem36.Month3) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month3 = (Funs.GetNewDecimalOrZero(getItem36.Month3) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month3 = (Funs.GetNewDecimalOrZero(getItem37.Month3) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month3 = (Funs.GetNewDecimalOrZero(getItem37.Month3) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -1501,7 +1501,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month4 = (Funs.GetNewDecimalOrZero(getItem20.Month4) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month4 = (Funs.GetNewDecimalOrZero(getItem20.Month4) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -1611,12 +1611,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month4 = (Funs.GetNewDecimalOrZero(getItem36.Month4) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month4 = (Funs.GetNewDecimalOrZero(getItem36.Month4) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month4 = (Funs.GetNewDecimalOrZero(getItem37.Month4) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month4 = (Funs.GetNewDecimalOrZero(getItem37.Month4) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -1862,7 +1862,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month5 = (Funs.GetNewDecimalOrZero(getItem20.Month5) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month5 = (Funs.GetNewDecimalOrZero(getItem20.Month5) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -1972,12 +1972,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month5 = (Funs.GetNewDecimalOrZero(getItem36.Month5) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month5 = (Funs.GetNewDecimalOrZero(getItem36.Month5) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month5 = (Funs.GetNewDecimalOrZero(getItem37.Month5) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month5 = (Funs.GetNewDecimalOrZero(getItem37.Month5) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -2223,7 +2223,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month6 = (Funs.GetNewDecimalOrZero(getItem20.Month6) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month6 = (Funs.GetNewDecimalOrZero(getItem20.Month6) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -2333,12 +2333,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month6 = (Funs.GetNewDecimalOrZero(getItem36.Month6) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month6 = (Funs.GetNewDecimalOrZero(getItem36.Month6) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month6 = (Funs.GetNewDecimalOrZero(getItem37.Month6) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month6 = (Funs.GetNewDecimalOrZero(getItem37.Month6) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -2584,7 +2584,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month7 = (Funs.GetNewDecimalOrZero(getItem20.Month7) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month7 = (Funs.GetNewDecimalOrZero(getItem20.Month7) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -2694,12 +2694,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month7 = (Funs.GetNewDecimalOrZero(getItem36.Month7) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month7 = (Funs.GetNewDecimalOrZero(getItem36.Month7) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month7 = (Funs.GetNewDecimalOrZero(getItem37.Month7) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month7 = (Funs.GetNewDecimalOrZero(getItem37.Month7) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -2945,7 +2945,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month8 = (Funs.GetNewDecimalOrZero(getItem20.Month8) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month8 = (Funs.GetNewDecimalOrZero(getItem20.Month8) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -3055,12 +3055,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month8 = (Funs.GetNewDecimalOrZero(getItem36.Month8) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month8 = (Funs.GetNewDecimalOrZero(getItem36.Month8) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month8 = (Funs.GetNewDecimalOrZero(getItem37.Month8) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month8 = (Funs.GetNewDecimalOrZero(getItem37.Month8) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -3306,7 +3306,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month9 = (Funs.GetNewDecimalOrZero(getItem20.Month9) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month9 = (Funs.GetNewDecimalOrZero(getItem20.Month9) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -3416,12 +3416,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month9 = (Funs.GetNewDecimalOrZero(getItem36.Month9) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month9 = (Funs.GetNewDecimalOrZero(getItem36.Month9) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month9 = (Funs.GetNewDecimalOrZero(getItem37.Month9) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month9 = (Funs.GetNewDecimalOrZero(getItem37.Month9) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -3667,7 +3667,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month10 = (Funs.GetNewDecimalOrZero(getItem20.Month10) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month10 = (Funs.GetNewDecimalOrZero(getItem20.Month10) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -3777,12 +3777,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month10 = (Funs.GetNewDecimalOrZero(getItem36.Month10) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month10 = (Funs.GetNewDecimalOrZero(getItem36.Month10) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month10 = (Funs.GetNewDecimalOrZero(getItem37.Month10) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month10 = (Funs.GetNewDecimalOrZero(getItem37.Month10) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -4028,7 +4028,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month11 = (Funs.GetNewDecimalOrZero(getItem20.Month11) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month11 = (Funs.GetNewDecimalOrZero(getItem20.Month11) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -4138,12 +4138,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month11 = (Funs.GetNewDecimalOrZero(getItem36.Month11) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month11 = (Funs.GetNewDecimalOrZero(getItem36.Month11) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month11 = (Funs.GetNewDecimalOrZero(getItem37.Month11) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month11 = (Funs.GetNewDecimalOrZero(getItem37.Month11) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -4389,7 +4389,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month12 = (Funs.GetNewDecimalOrZero(getItem20.Month12) + getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month12 = (Funs.GetNewDecimalOrZero(getItem20.Month12) +  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -4499,12 +4499,12 @@ namespace BLL
                         var getItem36 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 36);
                         if (getItem36 != null)
                         {
-                            getItem36.Month12 = (Funs.GetNewDecimalOrZero(getItem36.Month12) + getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0).ToString();
+                            getItem36.Month12 = (Funs.GetNewDecimalOrZero(getItem36.Month12) +  (getSeDin_MonthReport10.SafeMonthMoney ?? 0 + getSeDin_MonthReport10.HseMonthMoney ?? 0 + getSeDin_MonthReport10.ProduceMonthMoney ?? 0)/10000).ToString();
                         }
                         var getItem37 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 37);
                         if (getItem37 != null)
                         {
-                            getItem37.Month12 = (Funs.GetNewDecimalOrZero(getItem37.Month12) + getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0).ToString();
+                            getItem37.Month12 = (Funs.GetNewDecimalOrZero(getItem37.Month12) + (getSeDin_MonthReport10.AccidentMonthMoney ?? 0 + getSeDin_MonthReport10.ViolationMonthMoney ?? 0 + getSeDin_MonthReport10.ManageMonthMoney ?? 0)/10000).ToString();
                         }
                     }
                     ////危大工程
@@ -4755,7 +4755,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month1 = (Funs.GetNewDecimalOrZero(getItem20.Month1) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month1 = (Funs.GetNewDecimalOrZero(getItem20.Month1) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -5093,7 +5093,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month2 = (Funs.GetNewDecimalOrZero(getItem20.Month2) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month2 = (Funs.GetNewDecimalOrZero(getItem20.Month2) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -5431,7 +5431,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month3 = (Funs.GetNewDecimalOrZero(getItem20.Month3) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month3 = (Funs.GetNewDecimalOrZero(getItem20.Month3) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -5769,7 +5769,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month4 = (Funs.GetNewDecimalOrZero(getItem20.Month4) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month4 = (Funs.GetNewDecimalOrZero(getItem20.Month4) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -6107,7 +6107,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month5 = (Funs.GetNewDecimalOrZero(getItem20.Month5) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month5 = (Funs.GetNewDecimalOrZero(getItem20.Month5) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -6445,7 +6445,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month6 = (Funs.GetNewDecimalOrZero(getItem20.Month6) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month6 = (Funs.GetNewDecimalOrZero(getItem20.Month6) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -6783,7 +6783,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month7 = (Funs.GetNewDecimalOrZero(getItem20.Month7) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month7 = (Funs.GetNewDecimalOrZero(getItem20.Month7) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -7121,7 +7121,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month8 = (Funs.GetNewDecimalOrZero(getItem20.Month8) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month8 = (Funs.GetNewDecimalOrZero(getItem20.Month8) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -7459,7 +7459,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month9 = (Funs.GetNewDecimalOrZero(getItem20.Month9) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month9 = (Funs.GetNewDecimalOrZero(getItem20.Month9) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -7797,7 +7797,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month10 = (Funs.GetNewDecimalOrZero(getItem20.Month10) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month10 = (Funs.GetNewDecimalOrZero(getItem20.Month10) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -8135,7 +8135,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month11 = (Funs.GetNewDecimalOrZero(getItem20.Month11) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month11 = (Funs.GetNewDecimalOrZero(getItem20.Month11) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数
@@ -8473,7 +8473,7 @@ namespace BLL
                         var getItem20 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 20);
                         if (getItem20 != null)
                         {
-                            getItem20.Month12 = (Funs.GetNewDecimalOrZero(getItem20.Month12) - getSeDin_MonthReport6.SumMonth ?? 0).ToString();
+                            getItem20.Month12 = (Funs.GetNewDecimalOrZero(getItem20.Month12) -  (getSeDin_MonthReport6.SumMonth ?? 0)/10000).ToString();
                         }
                     }
                     ////项目现场员工入场安全培训人数

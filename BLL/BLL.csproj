@@ -162,6 +162,7 @@
     <Compile Include="Common\UploadFileService.cs" />
     <Compile Include="Common\UpLoadImageService.cs" />
     <Compile Include="Common\UserShowColumnsService.cs" />
+    <Compile Include="Common\WeatherService.cs" />
     <Compile Include="Common\WeekDayService.cs" />
     <Compile Include="CQMS\Check\CheckControlApproveService.cs" />
     <Compile Include="CQMS\Check\CheckControlService.cs" />

@@ -763,7 +763,7 @@ var basePath = '<%= ResolveUrl("~/") %>';
             title: [{
                 text: '事故统计',
                 top: '0',
-                left: '12%',
+                left: '30%',
                 textStyle: {
                     color: '#fff',
                     fontSize: 12,
@@ -776,9 +776,9 @@ var basePath = '<%= ResolveUrl("~/") %>';
             },
             legend: {
                 orient: 'vertical',
-                left: 'right',
+                right: 20,
                 top: 'center',
-                align: 'left',                
+                       
                 data: ['人身伤害', '未遂事故', '火灾', '机械设备',  '环境影响', '其他'],
                 textStyle: {//图例文字的样式
                     color: '#f2f2f2',
@@ -787,8 +787,8 @@ var basePath = '<%= ResolveUrl("~/") %>';
             },
             graphic: {
                 type: "text",
-                left: "23%",
-                top: "55%",
+                left: "36%",
+                top: "52%",
                 style: {
                     text: data2,
                     textAlign: "center",
@@ -802,7 +802,7 @@ var basePath = '<%= ResolveUrl("~/") %>';
                 {
                     name: '事故统计',
                     type: 'pie',
-                    center: ['25%', '60%'],
+                    center: ['38%', '55%'],
                     radius: ['40%', '78%'],
                     avoidLabelOverlap: false,
                     label: {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Web.UI;
 
 namespace FineUIPro.Web.common
 {
@@ -723,7 +724,7 @@ namespace FineUIPro.Web.common
                     }
                     if (!readIds.Contains(item.NoticeId))
                     {
-                        strNoticeHtml += "<li data-id=\"" + url + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\"><div class=\"flex\" ><div class=\"tit-t flex1\">" + item.NoticeTitle + "</div><div class=\"tit-v\">" + string.Format("{0:yyyy-MM-dd}", item.CompileDate) + "</div></div></div></li>";
+                        strNoticeHtml += "<li data-id=\"" + url + "\" notice-id=\"" + item.NoticeId + "\" class=\"c-item swiper-slide\"><div class=\"tit\" title=\"" + item.NoticeTitle + "\"><div class=\"flex\" ><div class=\"tit-t flex1\">" + item.NoticeTitle + "</div><div class=\"tit-v\">" + string.Format("{0:yyyy-MM-dd}", item.CompileDate) + "</div></div></div></li>";
                     }
                     else
                     {
@@ -731,6 +732,15 @@ namespace FineUIPro.Web.common
                     }
                 }
                 return "<ul class=\"content-ul swiper-wrapper\">" + strNoticeHtml + "</ul>";
+            }
+        }
+
+        protected void imgBtn_Click(object sender, ImageClickEventArgs e)
+        {
+            Model.InformationProject_Notice notice = BLL.NoticeService.GetNoticeById(this.hdNoticeId.Value);
+            if (notice != null)
+            {
+                BLL.APIUserService.getSaveUserRead(BLL.Const.ServerNoticeMenuId, notice.ProjectId, this.CurrUser.UserId, notice.NoticeId);
             }
         }
     }

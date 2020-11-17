@@ -486,7 +486,8 @@ padding-left: 2em;
                                     <div class="tab-wrap-tit">
                                         <div class="tab" data-value="1">
                                             <div class="t-item active">待办</div>
-                                            <div class="spline"></div>
+                                            <div class="spline"><form runat="server"><asp:HiddenField runat="server" ID="hdNoticeId" /><asp:ImageButton ID="imgBtn" runat="server" OnClick="imgBtn_Click" Style="height: 1px"
+                                Width="0" /></form></div>
                                             <div class="t-item">预警</div>
                                         </div>
                                     </div>
@@ -1154,7 +1155,10 @@ padding-left: 2em;
     $("#swiper2").on('click', 'li', function () {
         var $this = $(this)
         var data = $this.attr("data-id")
+        var noticeId = $this.attr("notice-id")
         if (data != "") {
+            document.getElementById("hdNoticeId").value = noticeId;
+            document.getElementById("imgBtn").click();
             window.open(data);
             top.window.location.reload();
         }

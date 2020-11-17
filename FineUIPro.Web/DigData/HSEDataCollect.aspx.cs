@@ -136,5 +136,29 @@ namespace FineUIPro.Web.DigData
             this.BindGrid2();
             ShowNotify("刷新完成！", MessageBoxIcon.Success);
         }
+
+        protected void Grid2_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            int? year = Funs.GetNewInt(this.drpYear.SelectedValue);
+            int? month = Funs.GetNewInt(e.CommandName);
+            if (year.HasValue && month.HasValue)
+            {
+                var getSubmission = Funs.DB.DigData_HSEDataCollectSubmission.FirstOrDefault(x => x.HSEDataCollectSubmissionId == e.RowID);
+                if (getSubmission != null)
+                {
+                    var getMont = Funs.DB.SeDin_MonthReport.FirstOrDefault(x => x.ReporMonth.Value.Year == year.Value && x.ReporMonth.Value.Month == month.Value && x.ProjectId == getSubmission.ProjectId);
+                    if (getMont != null)
+                    {
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../HSSE/Manager/ManagerMonth_SeDinEdit.aspx?MonthReportId={0}&projectId={1}", getMont.MonthReportId, getMont.ProjectId, "查看 - ")));
+                        //PrinterDocService.PrinterDocMethod(Const.ProjectManagerMonth_SeDinMenuId, getMont.MonthReportId, "安全月报");
+                    }
+                }
+            }
+            else
+            {
+                Alert.ShowInParent("当前月报不存在！", MessageBoxIcon.Warning);
+                return;
+            }
+        }
     }
 }

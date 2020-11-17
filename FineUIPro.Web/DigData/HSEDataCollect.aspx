@@ -89,7 +89,7 @@
                 <f:Grid ID="Grid2" ShowBorder="true" ShowHeader="true" Title="项目HSE月报提交情况" EnableCollapse="true" Collapsed="true"
                     runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="HSEDataCollectSubmissionId" ForceFit="true"
                     DataIDField="HSEDataCollectSubmissionId" AllowSorting="true" SortField="ProjectCode" SortDirection="ASC"
-                    AllowPaging="false" IsDatabasePaging="true" PageSize="50"  EnableTextSelection="True">
+                    AllowPaging="false" IsDatabasePaging="true" PageSize="50"  EnableTextSelection="True" OnRowCommand="Grid2_RowCommand">
                     <Columns>
                           <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="60px" HeaderTextAlign="Center"
                          TextAlign="Center" />
@@ -98,48 +98,55 @@
                         </f:RenderField>
                         <f:GroupField ColumnID="xx" HeaderText="提交日期" TextAlign="Center">
                             <Columns>
-                                <f:RenderField Width="60px" ColumnID="Month1" DataField="Month1"
-                                    FieldType="String" HeaderText="1月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month2" DataField="Month2"
-                                    FieldType="String" HeaderText="2月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month3" DataField="Month3"
-                                    FieldType="String" HeaderText="3月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month4" DataField="Month4"
-                                    FieldType="String" HeaderText="4月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month5" DataField="Month5"
-                                    FieldType="String" HeaderText="5月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month6" DataField="Month6"
-                                    FieldType="String" HeaderText="6月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month7" DataField="Month7"
-                                    FieldType="String" HeaderText="7月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month8" DataField="Month8"
-                                    FieldType="String" HeaderText="8月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month9" DataField="Month9"
-                                    FieldType="String" HeaderText="9月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month10" DataField="Month10"
-                                    FieldType="String" HeaderText="10月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month11" DataField="Month11"
-                                    FieldType="String" HeaderText="11月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="60px" ColumnID="Month12" DataField="Month12"
-                                    FieldType="String" HeaderText="12月" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month1" DataTextField="Month1" CommandName="1"
+                                     HeaderText="1月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month2" DataTextField="Month2"  CommandName="2"
+                                     HeaderText="2月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month3" DataTextField="Month3"  CommandName="3"
+                                     HeaderText="3月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month4" DataTextField="Month4"  CommandName="4"
+                                     HeaderText="4月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month5" DataTextField="Month5"  CommandName="5"
+                                     HeaderText="5月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month6" DataTextField="Month6"  CommandName="6"
+                                     HeaderText="6月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month7" DataTextField="Month7"  CommandName="7"
+                                     HeaderText="7月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month8" DataTextField="Month8"  CommandName="8"
+                                     HeaderText="8月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month9" DataTextField="Month9"  CommandName="9"
+                                     HeaderText="9月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month10" DataTextField="Month10"  CommandName="10"
+                                     HeaderText="10月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month11" DataTextField="Month11"  CommandName="11"
+                                     HeaderText="11月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
+                                <f:LinkButtonField Width="60px" ColumnID="Month12" DataTextField="Month12"  CommandName="12"
+                                    HeaderText="12月" HeaderTextAlign="Center" TextAlign="Center" EnableAjax="false">
+                                </f:LinkButtonField>
                             </Columns>
                         </f:GroupField>
+                         <f:RenderField Width="1px" ColumnID="ProjectId" DataField="ProjectId" Hidden="true"
+                            FieldType="String" HeaderText="项目名称" HeaderTextAlign="Center" TextAlign="Center">
+                        </f:RenderField>
                     </Columns>
                 </f:Grid>
             </Items>
         </f:Panel>
+         <f:Window ID="Window1" Title="月报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true"
+        Width="1300px" Height="600px">
+    </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <%--<f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"
             Hidden="true" runat="server" Text="编辑">
