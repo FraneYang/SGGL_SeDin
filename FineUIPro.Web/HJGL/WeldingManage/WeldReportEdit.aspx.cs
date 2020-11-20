@@ -53,6 +53,11 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             if (!IsPostBack)
             {
                 this.WeldingDailyId = Request.Params["WeldingDailyId"];
+                ///焊口属性
+                this.drpJointAttribute.DataTextField = "Text";
+                this.drpJointAttribute.DataValueField = "Value";
+                this.drpJointAttribute.DataSource = BLL.DropListService.HJGL_JointAttribute();
+                this.drpJointAttribute.DataBind();
                 this.PageInfoLoad(); // 加载页面 
 
                 if (!string.IsNullOrEmpty(this.WeldingDailyId))
@@ -512,7 +517,27 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                     //}
 
                     #endregion
-
+                    //更新焊口属性
+                    foreach (JObject mergedRow in Grid1.GetMergedData())
+                    {
+                        JObject values = mergedRow.Value<JObject>("values");
+                        int i = mergedRow.Value<int>("index");
+                        string rowId = Grid1.Rows[i].RowID;
+                        if (this.Grid1.SelectedRowIDArray.Contains(rowId))
+                        {
+                            var t = BLL.WeldTaskService.GetWeldTaskById(rowId);
+                            var newWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(t.WeldJointId);
+                            if (newWeldJoint != null)
+                            {
+                                if (!string.IsNullOrEmpty(values.Value<string>("JointAttribute").ToString()))
+                                {
+                                    newWeldJoint.JointAttribute = values.Value<string>("JointAttribute").ToString();
+                                }
+                                BLL.WeldJointService.UpdateWeldJoint(newWeldJoint);
+                                BLL.WeldJointService.UpdateWeldJointAddG(newWeldJoint.WeldJointId, newWeldJoint.JointAttribute, Const.BtnAdd);
+                            }
+                        }
+                    }
                     if (string.IsNullOrEmpty(errlog))
                     {
                         ShowNotify("保存成功！", MessageBoxIcon.Success);

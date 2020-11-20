@@ -117,6 +117,32 @@ namespace BLL
             return lis;
         }
 
+        /// <summary>
+        /// 获取员工总结岗位下拉项
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] GetPersonTotalPostList()
+        {
+            ListItem[] lis = new ListItem[16];
+            lis[0] = new ListItem("项目经理", "1");
+            lis[1] = new ListItem("项目副经理", "2");
+            lis[2] = new ListItem("执行经理", "3");
+            lis[3] = new ListItem("现场经理", "4");
+            lis[4] = new ListItem("施工经理", "5");
+            lis[5] = new ListItem("施工副经理", "6");
+            lis[6] = new ListItem("安全经理", "7");
+            lis[7] = new ListItem("质量经理", "8");
+            lis[8] = new ListItem("试车经理", "9");
+            lis[9] = new ListItem("施工专业工程师", "10");
+            lis[10] = new ListItem("安全专业工程师", "11");
+            lis[11] = new ListItem("质量专业工程师", "12");
+            lis[12] = new ListItem("试车专业工程师", "13");
+            lis[13] = new ListItem("本部综合管理工程师", "14");
+            lis[14] = new ListItem("本部合同管理工程师", "15");
+            lis[15] = new ListItem("本部安全质量工程师", "16");
+            return lis;
+        }
+
         #region 表下拉框
         /// <summary>
         ///  表下拉框
@@ -196,6 +222,23 @@ namespace BLL
             dropName.DataValueField = "Value";
             dropName.DataTextField = "Text";
             dropName.DataSource = BLL.WorkPostService.GetMainWorkPostList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitPersonTotalPostDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "Text";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = BLL.WorkPostService.GetPersonTotalPostList();
             dropName.DataBind();
             if (isShowPlease)
             {

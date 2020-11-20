@@ -1500,5 +1500,15 @@ namespace BLL
                 return lis;
             }
         }
+
+        /// <summary>
+        ///根据用户名获取用户信息
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public static Model.Sys_User GetUserByUserName(string userName)
+        {
+            return Funs.DB.Sys_User.FirstOrDefault(e => e.UserName == userName);
+        }
     }
 }

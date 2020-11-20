@@ -28,9 +28,7 @@
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                             <Items>
-                                <f:DropDownList ID="drpProject" runat="server" Label="拟聘项目" Width="300px" LabelWidth="100px"
-                            EnableEdit="true" ShowRedStar="true" Required="true">
-                        </f:DropDownList>
+                                
                                 <f:DropDownList ID="drpWorkPost" runat="server" Label="岗位" Width="250px" LabelWidth="60px" LabelAlign="Right"
                                     EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
                                 </f:DropDownList>
@@ -40,6 +38,9 @@
                                 <f:DropDownList ID="drpCertificate" runat="server" Label="职业资格证书" Width="250px" LabelWidth="105px" LabelAlign="Right"
                                     EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
                                 </f:DropDownList>
+                                <f:DropDownList ID="drpProject" runat="server" Label="拟聘项目" Width="300px" LabelWidth="90px" LabelAlign="Right"
+                            EnableEdit="true" ShowRedStar="true" Required="true">
+                        </f:DropDownList>
                                 <f:ToolbarFill runat="server">
                                 </f:ToolbarFill>
                                 <f:Button ID="btnView" ToolTip="查看历史记录" Icon="Find" runat="server" OnClick="btnView_Click">

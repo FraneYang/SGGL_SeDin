@@ -176,7 +176,7 @@ namespace FineUIPro.Web.PersonManage.Test
                 return;
             }
 
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("~/HSSE/EduTrain/TestRecordItem.aspx?TestRecordId={0}&type=1", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 1200, 600));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("~/HSSE/EduTrain/TestRecordPrint.aspx?TestRecordId={0}&type=1", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 1200, 600));
         }
         #endregion
 

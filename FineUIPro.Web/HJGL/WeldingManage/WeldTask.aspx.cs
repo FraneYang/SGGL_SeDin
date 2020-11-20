@@ -20,7 +20,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 txtTaskDate.MinDate = DateTime.Now;
                 this.txtTaskDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now.AddDays(1));
                 this.txtTaskDateMonth.Text = string.Format("{0:yyyy-MM}", DateTime.Now);
-                ///焊接属性
+                ///焊口属性
                 this.drpJointAttribute.DataTextField = "Text";
                 this.drpJointAttribute.DataValueField = "Value";
                 this.drpJointAttribute.DataSource = BLL.DropListService.HJGL_JointAttribute();
@@ -118,10 +118,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         private void BindNodes(TreeNode node)
         {
             var p = (from x in Funs.DB.HJGL_WeldTask
-                    where x.UnitWorkId == node.NodeID
-                         && x.TaskDate < Convert.ToDateTime(this.txtTaskDateMonth.Text.Trim() + "-01").AddMonths(1)
-                         && x.TaskDate >= Convert.ToDateTime(this.txtTaskDateMonth.Text.Trim() + "-01")
-                    select x.TaskDate.Value.Date).Distinct();
+                     where x.UnitWorkId == node.NodeID
+                          && x.TaskDate < Convert.ToDateTime(this.txtTaskDateMonth.Text.Trim() + "-01").AddMonths(1)
+                          && x.TaskDate >= Convert.ToDateTime(this.txtTaskDateMonth.Text.Trim() + "-01")
+                     select x.TaskDate.Value.Date).Distinct();
             if (p.Count() > 0)
             {
                 foreach (var item in p)
@@ -247,7 +247,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
             }
             this.BindGrid(GetWeldingTaskList);
-           
+
         }
 
         #endregion
@@ -290,7 +290,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             NewTask.TableDate = task.TaskDate;
                             BLL.WeldTaskService.UpdateWeldTask(NewTask);
                         }
-                       
+
                     }
                 }
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
@@ -350,6 +350,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                                                                        where x.WelderId == welder.PersonId && x.WeldingMethod != null
                                                                                       && x.MaterialType != null && x.WeldType != null
                                                                                       && x.ThicknessMax != null && x.SizesMin != null
+                                                                                      && x.LimitDate > DateTime.Now
                                                                        select x).ToList();
                     if (welderQualifys != null)
                     {
@@ -364,7 +365,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         if (canSave)
                         {
                             canWelderId = canWelderId + welder.PersonId + ",";
-                            canWelderCode= canWelderCode+welder.WelderCode + ",";
+                            canWelderCode = canWelderCode + welder.WelderCode + ",";
                         }
                     }
                 }
@@ -543,7 +544,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 string status = mergedRow.Value<string>("status");
                 JObject values = mergedRow.Value<JObject>("values");
 
-                NewItem.WeldTaskId= values.Value<string>("WeldTaskId").ToString();
+                NewItem.WeldTaskId = values.Value<string>("WeldTaskId").ToString();
                 NewItem.WeldJointId = values.Value<string>("WeldJointId").ToString();
 
                 if (!string.IsNullOrEmpty(values.Value<string>("PipelineCode")))
@@ -591,7 +592,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 {
                     NewItem.WeldingMode = values.Value<string>("WeldingMode").ToString();
                 }
-                if(!string.IsNullOrEmpty(values.Value<string>("WeldTypeCode")))
+                if (!string.IsNullOrEmpty(values.Value<string>("WeldTypeCode")))
                 {
                     NewItem.WeldTypeCode = values.Value<string>("WeldTypeCode").ToString();
                 }
@@ -627,7 +628,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 string UnitWorkId = w.UnitWorkId;
                 string taskDate = "";
                 string strList = UnitWorkId + "|" + UnitId + "|" + taskDate;
-                
+
                 string window = String.Format("SelectTaskWeldJoint.aspx?strList={0}", strList, "编辑 - ");
                 PageContext.RegisterStartupScript(Window1.GetSaveStateReference(hdTaskWeldJoint.ClientID) + Window1.GetShowReference(window));
                 //PageContext.RegisterStartupScript(Window1.GetShowReference(window));
@@ -724,7 +725,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     //    txtTaskDate.Hidden = false;
                     //}
                 }
-                
+
             }
             //else
             //{
@@ -735,7 +736,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             //    txtTaskDate.Hidden = false;
 
             //    this.BindGrid(null);
-               
+
             //}
 
         }

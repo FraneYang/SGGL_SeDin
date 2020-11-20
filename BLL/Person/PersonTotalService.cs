@@ -36,6 +36,7 @@ namespace BLL
                 EndTime = total.EndTime,
                 CompiledManId = total.CompiledManId,
                 CompiledDate = total.CompiledDate,
+                RoleName=total.RoleName,
             };
             db.PersonTotal.InsertOnSubmit(newTotla);
             db.SubmitChanges();
@@ -56,6 +57,7 @@ namespace BLL
                 newTotal.StartTime = total.StartTime;
                 newTotal.EndTime = total.EndTime;
                 newTotal.CompiledManId = total.CompiledManId;
+                newTotal.RoleName = total.RoleName;
                 db.SubmitChanges();
             }
         }

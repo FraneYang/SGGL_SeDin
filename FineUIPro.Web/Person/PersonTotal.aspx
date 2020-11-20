@@ -36,6 +36,10 @@
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                     Hidden="true">
                                 </f:Button>
+                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" Text="批量导出" ToolTip="批量导出" Icon="TableGo" Hidden="true"
+                            AjaxLoadingType="Mask" ShowAjaxLoadingMaskText="true" AjaxLoadingMaskText="正在导出数据到服务器，请稍候"
+                                    EnableAjax="false" DisableControlBeforePostBack="false">
+                                    </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
@@ -43,16 +47,16 @@
                         <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="45px" HeaderTextAlign="Center"
                             TextAlign="Center" />
                         <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" SortField="UserName"
-                            FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="250px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
-                            FieldType="String" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="String" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="StartTime" DataField="StartTime" SortField="StartTime"
-                            FieldType="String"  HeaderText="开始日期" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="String"  HeaderText="开始日期" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="200px" ColumnID="EndTime" DataField="EndTime" SortField="EndTime"
-                            FieldType="String" HeaderText="结束日期" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="String" HeaderText="结束日期" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                     </Columns>
                     <Listeners>

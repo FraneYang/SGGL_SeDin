@@ -61,7 +61,7 @@ namespace FineUIPro.Web.Person
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (this.drpWorkPost.SelectedValue != BLL.Const._Null)
             {
-                strSql += " AND CHARINDEX(@WorkPostId,Users.WorkPostId)>0 ";
+                strSql += " AND Users.ProjectWorkPostId=@WorkPostId ";
                 listStr.Add(new SqlParameter("@WorkPostId", this.drpWorkPost.SelectedValue));
             }
             if (this.drpPostTitle.SelectedValue != BLL.Const._Null)

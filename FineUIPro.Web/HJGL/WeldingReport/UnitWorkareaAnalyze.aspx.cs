@@ -292,12 +292,14 @@ namespace FineUIPro.Web.HJGL.WeldingReport
                 this.Grid1.Columns[31].Hidden = true;
                 this.Grid1.Columns[32].Hidden = true;
                 this.Grid1.Columns[33].Hidden = true;
-                this.Grid1.Columns[34].Hidden = true;
                 
                 List<string> columns = column.Split(',').ToList();
                 foreach (var item in columns)
                 {
-                    this.Grid1.Columns[Convert.ToInt32(item)].Hidden = false;
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        this.Grid1.Columns[Convert.ToInt32(item)].Hidden = false;
+                    }
                 }
             }
         }

@@ -551,7 +551,7 @@ namespace FineUIPro.Web.common
         }
         #endregion
 
-        protected void imgBtn_Click(object sender, ImageClickEventArgs e)
+        protected void imgBtn_Click(object sender, EventArgs e)
         {
             Model.InformationProject_Notice notice = BLL.NoticeService.GetNoticeById(this.hdNoticeId.Value);
             if (notice != null)

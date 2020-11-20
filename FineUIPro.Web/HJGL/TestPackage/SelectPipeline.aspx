@@ -20,11 +20,11 @@
                         <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
                                 <f:HiddenField ID="hdPipelinesId" runat="server"></f:HiddenField>
-                                <f:DropDownList ID="drpPipingClass" Label="管线等级" runat="server" LabelWidth="120px" LabelAlign="Right" Width="220px" EnableEdit="true">
+                                <f:DropDownList ID="drpPipingClass" Label="管线等级" runat="server" LabelWidth="120px" LabelAlign="Right" Width="250px" EnableEdit="true">
                                 </f:DropDownList>
-                                <f:DropDownList ID="drpMedium" Label="管道介质" runat="server" LabelWidth="120px" Width="220px" LabelAlign="Right" EnableEdit="true">
+                                <f:DropDownList ID="drpMedium" Label="管道介质" runat="server" LabelWidth="120px" Width="250px" LabelAlign="Right" EnableEdit="true">
                                 </f:DropDownList>
-                                <f:DropDownList ID="drpTestMedium" Label="试验介质" runat="server" LabelWidth="120px" Width="220px" LabelAlign="Right" EnableEdit="true">
+                                <f:DropDownList ID="drpTestMedium" Label="试验介质" runat="server" LabelWidth="120px" Width="250px" LabelAlign="Right" EnableEdit="true">
                                 </f:DropDownList>
                             </Items>
                         </f:Toolbar>

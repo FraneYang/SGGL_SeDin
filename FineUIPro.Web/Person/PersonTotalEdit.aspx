@@ -16,11 +16,13 @@
             <Rows>
                 <f:FormRow>
                     <Items>
+                        <%--AutoPostBack="true" OnSelectedIndexChanged="drpUser_SelectedIndexChanged"--%>
                         <f:DropDownList ID="drpUser" runat="server" Label="人员" EnableEdit="true" ForceSelection="false"
-                            Required="true" ShowRedStar="true" LabelWidth="110px" AutoPostBack="true" OnSelectedIndexChanged="drpUser_SelectedIndexChanged">
+                            Required="true" ShowRedStar="true" LabelWidth="110px" 
+                            >
                         </f:DropDownList>
-                        <f:TextBox ID="txtRoleName" runat="server" Label="岗位" MaxLength="50" LabelWidth="110px" Readonly="true">
-                        </f:TextBox>
+                        <f:DropDownList ID="drpRoleName" runat="server" Label="岗位" LabelWidth="110px">
+                        </f:DropDownList>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>

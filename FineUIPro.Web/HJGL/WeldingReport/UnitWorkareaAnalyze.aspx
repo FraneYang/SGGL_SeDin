@@ -22,7 +22,7 @@
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="单位工区进度分析"
                 EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="baw_areano"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="baw_areano" AllowSorting="true"
-                SortField="bsu_unitcode,InstallationName,baw_areano" SortDirection="DESC" OnSort="Grid1_Sort"
+                SortField="bsu_unitcode,UnitWorkName,baw_areano" SortDirection="DESC" OnSort="Grid1_Sort"
                 AllowPaging="true" IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableTextSelection="True" EnableSummary="true" SummaryPosition="Flow">
                 <Toolbars>
@@ -32,7 +32,7 @@
                                 LabelAlign="Right" Width="280px" AutoPostBack="true" >
                             </f:DropDownList>
                             <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程名称"
-                                LabelAlign="Right" Width="280px" AutoPostBack="true">
+                                LabelAlign="Right" Width="280px" AutoPostBack="true" LabelWidth="120px">
                             </f:DropDownList>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -53,7 +53,7 @@
                                 LabelAlign="Right" Width="280px">
                             </f:DropDownList>
                             <f:DatePicker runat="server" Label="日期" ID="txtStarTime" LabelAlign="Right"
-                                LabelWidth="100px" Width="220px">
+                                LabelWidth="120px" Width="220px">
                             </f:DatePicker>
                             <f:Label ID="Label1" runat="server" Text="至">
                             </f:Label>

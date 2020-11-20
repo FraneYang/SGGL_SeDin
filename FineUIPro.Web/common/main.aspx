@@ -445,8 +445,7 @@ padding-left: 2em;
                                   <div class="tab-wrap-tit">
                                       <div class="tab" data-value="1">
                                           <div class="t-item active">通知</div>
-                                          <div class="spline"><form runat="server"><asp:HiddenField runat="server" ID="hdNoticeId" /><asp:ImageButton ID="imgBtn" runat="server" OnClick="imgBtn_Click" Style="height: 1px"
-                                Width="0" /></form></div>
+                                          <div class="spline"><form runat="server"><asp:HiddenField runat="server" ID="hdNoticeId" /><asp:Button ID="imgBtn" runat="server" OnClick="imgBtn_Click" style="display:none;"/></form></div>
                                           <div class="t-item">待办</div>
                                       </div>
                                   </div>

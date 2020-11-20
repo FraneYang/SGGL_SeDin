@@ -854,6 +854,13 @@
     <Content Include="Notice\NoticeEdit.aspx" />
     <Content Include="Notice\NoticeView.aspx" />
     <Content Include="Notice\NoticeView2.aspx" />
+    <Content Include="OfficeCheck\Check\CheckContentEdit1.aspx" />
+    <Content Include="OfficeCheck\Check\CheckInfo.aspx" />
+    <Content Include="OfficeCheck\Check\CheckNotice.aspx" />
+    <Content Include="OfficeCheck\Check\CheckNoticeEdit.aspx" />
+    <Content Include="OfficeCheck\Check\CheckReport.aspx" />
+    <Content Include="OfficeCheck\Check\CheckTeamEdit.aspx" />
+    <Content Include="OfficeCheck\Check\RectifyEdit.aspx" />
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluation.aspx" />
     <Content Include="OfficeCheck\ProjectEvaluation\ProjectEvaluationEdit.aspx" />
     <Content Include="Personal\FileSearch.aspx" />
@@ -9332,6 +9339,55 @@
     </Compile>
     <Compile Include="Notice\NoticeView2.aspx.designer.cs">
       <DependentUpon>NoticeView2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckContentEdit1.aspx.cs">
+      <DependentUpon>CheckContentEdit1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckContentEdit1.aspx.designer.cs">
+      <DependentUpon>CheckContentEdit1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckInfo.aspx.cs">
+      <DependentUpon>CheckInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckInfo.aspx.designer.cs">
+      <DependentUpon>CheckInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckNotice.aspx.cs">
+      <DependentUpon>CheckNotice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckNotice.aspx.designer.cs">
+      <DependentUpon>CheckNotice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckNoticeEdit.aspx.cs">
+      <DependentUpon>CheckNoticeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckNoticeEdit.aspx.designer.cs">
+      <DependentUpon>CheckNoticeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckReport.aspx.cs">
+      <DependentUpon>CheckReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckReport.aspx.designer.cs">
+      <DependentUpon>CheckReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckTeamEdit.aspx.cs">
+      <DependentUpon>CheckTeamEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\CheckTeamEdit.aspx.designer.cs">
+      <DependentUpon>CheckTeamEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\RectifyEdit.aspx.cs">
+      <DependentUpon>RectifyEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OfficeCheck\Check\RectifyEdit.aspx.designer.cs">
+      <DependentUpon>RectifyEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="OfficeCheck\ProjectEvaluation\ProjectEvaluation.aspx.cs">
       <DependentUpon>ProjectEvaluation.aspx</DependentUpon>

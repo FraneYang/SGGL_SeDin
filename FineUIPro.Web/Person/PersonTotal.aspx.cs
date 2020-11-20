@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -24,6 +26,10 @@ namespace FineUIPro.Web.Person
                 Funs.DropDownPageSize(this.ddlPageSize);
                 ////权限按钮方法
                 this.GetButtonPower();
+                if (this.CurrUser.UserId == BLL.Const.sysglyId || this.CurrUser.UserId == BLL.Const.hfnbdId)
+                {
+                    this.btnOut.Hidden = false;
+                }
                 this.btnNew.OnClientClick = Window1.GetShowReference("PersonTotalEdit.aspx") + "return false;";
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
@@ -41,15 +47,20 @@ namespace FineUIPro.Web.Person
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"select PersonTotalId, T.UserId, Content, StartTime, EndTime ,U.UserName,RoleName=(select RoleName from                   Sys_Role where roleId=(select RoleId from Sys_user where UserId=T.UserId))
+            string strSql = @"select PersonTotalId, T.UserId, Content, StartTime, EndTime ,U.UserName,RoleName
                              from PersonTotal T
                              left join Sys_User  U on T.UserId=U.UserId ";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
-                strSql += " Where Users.UserName LIKE @UserName";
+                strSql += " Where U.UserName LIKE @UserName";
                 listStr.Add(new SqlParameter("@UserName", "%" + this.txtUserName.Text.Trim() + "%"));
+            }
+            if (this.CurrUser.UserId != BLL.Const.sysglyId && this.CurrUser.UserId != BLL.Const.hfnbdId)
+            {
+                strSql += " Where T.UserId = @UserId";
+                listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -91,7 +102,8 @@ namespace FineUIPro.Web.Person
                 {
                     this.btnMenuEdit.Hidden = false;
                 }
-                if (buttonList.Contains(BLL.Const.BtnDelete)) {
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
                     this.btnMenuDelete.Hidden = false;
                 }
             }
@@ -123,10 +135,11 @@ namespace FineUIPro.Web.Person
                     var user = BLL.UserService.GetUserByUserId(rowID);
                     if (user != null)
                     {
-                        string cont = judgementDelete(rowID);
+                        string cont = string.Empty;
+                        //string cont = judgementDelete(rowID);
                         if (string.IsNullOrEmpty(cont))
                         {
-                            BLL.LogService.AddSys_Log(this.CurrUser, user.UserCode, user.UserId, BLL.Const.PersonTotalMenuId, BLL.Const.BtnAdd);
+                            BLL.LogService.AddSys_Log(this.CurrUser, user.UserCode, user.UserId, BLL.Const.PersonTotalMenuId, BLL.Const.BtnDelete);
                             BLL.PersonTotalService.DeletePersonTotal(Grid1.SelectedRowID);
                         }
                         else
@@ -248,6 +261,66 @@ namespace FineUIPro.Web.Person
 
         #endregion
 
-        
+        #region 导出按钮
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            string rootPath = Server.MapPath("~/");
+            var personTotals = from x in Funs.DB.PersonTotal select x;
+            List<string> list = new List<string>();
+            if (personTotals.Count() > 0)
+            {
+                string filePath = rootPath + "FileUpload\\员工总结\\";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                foreach (var detail in personTotals)
+                {
+                    string attachFileUrls = BLL.AttachFileService.getFileUrl(detail.PersonTotalId);
+                    string[] urls = attachFileUrls.Split(',');
+                    foreach (var url in urls)
+                    {
+                        string atturl = Funs.RootPath + url;
+                        if (File.Exists(atturl))
+                        {
+                            string newUrlPath = url.Substring(url.LastIndexOf("/"));
+                            string newUrl = filePath + "/" + newUrlPath.Substring(newUrlPath.IndexOf("_") + 1);
+                            if (!File.Exists(newUrl))
+                            {
+                                File.Copy(atturl, newUrl);
+                                list.Add(newUrl);
+                            }
+                        }
+                    }
+                }
+                string startPath = rootPath + "FileUpload\\员工总结\\";
+                string zipPath = rootPath + "FileUpload\\员工总结.zip";
+                ZipFile.CreateFromDirectory(startPath, zipPath);
+                string fileName = Path.GetFileName(zipPath);
+                FileInfo info = new FileInfo(zipPath);
+                long fileSize = info.Length;
+                Response.ClearContent();
+                Response.ContentType = "application/x-zip-compressed";
+                Response.AddHeader("content-disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                Response.AddHeader("Content-Length", fileSize.ToString());
+                Response.TransmitFile(zipPath, 0, fileSize);
+                Response.Flush();
+                Response.Close();
+                File.Delete(zipPath);
+                foreach (var item in list)
+                {
+                    File.Delete(item);
+                }
+            }
+            else
+            {
+                ShowNotify("尚无员工总结可以导出！", MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
     }
 }

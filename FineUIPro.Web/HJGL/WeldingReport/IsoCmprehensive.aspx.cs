@@ -43,11 +43,11 @@ namespace FineUIPro.Web.HJGL.WeldingReport
             }
             if (this.drpUnitWork.SelectedValue != BLL.Const._Null)
             {
-                listStr.Add(new SqlParameter("@workAreaId", this.drpUnitWork.SelectedValue));
+                listStr.Add(new SqlParameter("@UnitWorkId", this.drpUnitWork.SelectedValue));
             }
             else
             {
-                listStr.Add(new SqlParameter("@workAreaId", null));
+                listStr.Add(new SqlParameter("@UnitWorkId", null));
             }
            
             if (!string.IsNullOrEmpty(this.txtPipelineCode.Text.Trim()))

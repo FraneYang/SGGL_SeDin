@@ -44,7 +44,7 @@
                         <f:DropDownList ID="drpIsOffice" runat="server" Label="本部人员"  
                             EnableEdit="true" ForceSelection="false" LabelWidth="90px">
                         </f:DropDownList>
-                          <f:DropDownList ID="drpRole" runat="server" Label="本部角色" EnableEdit="true" ForceSelection="false" LabelWidth="90px">
+                          <f:DropDownList ID="drpRole" runat="server" Label="本部角色" EnableEdit="true" EnableMultiSelect="true" EnableCheckBoxSelect="true" ForceSelection="false" LabelWidth="90px">
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>                

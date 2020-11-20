@@ -47,6 +47,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 strSql += " AND IsoInfo.PipingClassId = @PipingClassId";
                 listStr.Add(new SqlParameter("@PipingClassId", this.drpPipingClass.SelectedValue));
             }
+            if (this.drpMedium.SelectedValue != Const._Null)
+            {
+                strSql += " AND IsoInfo.MediumId = @MediumId";
+                listStr.Add(new SqlParameter("@MediumId", this.drpMedium.SelectedValue));
+            }
             if (this.drpTestMedium.SelectedValue != Const._Null)
             {
                 strSql += " AND IsoInfo.TestMedium = @TestMedium";

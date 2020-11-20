@@ -101,8 +101,8 @@ namespace FineUIPro.Web.SysManage
                         this.txtAccount.Text = user.Account;
                         if (!string.IsNullOrEmpty(user.RoleId))
                         {
-                            this.drpRole.SelectedValue = user.RoleId;
-                        }                       
+                            this.drpRole.SelectedValueArray = user.RoleId.Split(',');
+                        }
                         if (user.IsPost.HasValue)
                         {
                             this.drpIsPost.SelectedValue = Convert.ToString(user.IsPost);
@@ -192,9 +192,21 @@ namespace FineUIPro.Web.SysManage
             {
                 newUser.UnitId = this.CurrUser.UnitId;
             }
-            if (this.drpRole.SelectedValue != Const._Null)
+            string roleIds = string.Empty;
+            foreach (var item in this.drpRole.SelectedValueArray)
             {
-                newUser.RoleId = this.drpRole.SelectedValue;
+                var role = BLL.RoleService.GetRoleByRoleId(item);
+                if (role != null)
+                {
+                    if (string.IsNullOrEmpty(newUser.RoleId))
+                    {
+                        newUser.RoleId = role.RoleId;
+                    }
+                    else
+                    {
+                        newUser.RoleId += "," + role.RoleId;
+                    }
+                }
             }
             if (this.drpDepart.SelectedValue != Const._Null)
             {

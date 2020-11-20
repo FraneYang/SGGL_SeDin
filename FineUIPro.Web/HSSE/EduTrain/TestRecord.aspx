@@ -35,10 +35,10 @@
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server">
                             <Items>
                                 <f:TextBox ID="txtName" runat="server" Label="查询" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="180px" LabelWidth="60px" LabelAlign="Right">
+                                    OnTextChanged="TextBox_TextChanged" Width="170px" LabelWidth="60px" LabelAlign="Right">
                                 </f:TextBox>
                                 <f:NumberBox runat="server" ID="txtMinScores" Label="分值范围" AutoPostBack="true" NoNegative="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="180px" LabelWidth="80px" LabelAlign="Right">
+                                    OnTextChanged="TextBox_TextChanged" Width="170px" LabelWidth="80px" LabelAlign="Right">
                                 </f:NumberBox>
                                 <f:NumberBox runat="server" ID="txtMaxScores" Label="至" AutoPostBack="true" NoNegative="true"
                                     OnTextChanged="TextBox_TextChanged" Width="130px" LabelWidth="30px" LabelAlign="Right">
@@ -54,8 +54,7 @@
                                 </f:DatePicker>
                                 <f:CheckBox runat="server" Label="时间空" ID="ckIsNULL" AutoPostBack="true"
                                     OnCheckedChanged="IsTemp_CheckedChanged" LabelWidth="70px" Width="80px">
-                                </f:CheckBox>
-                                <f:Label runat="server" Text="红色表示分数低于80分。"  CssClass="LabelColor"></f:Label>
+                                </f:CheckBox>                               
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                                 <f:Button ID="btnOut" OnClick="btnMenuOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                     EnableAjax="false" DisableControlBeforePostBack="false">
@@ -110,14 +109,15 @@
                         </f:ToolbarText>
                         <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
                             OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                        </f:DropDownList>
+                        </f:DropDownList>     
+                         <f:Label runat="server" Text="红色表示分数低于80分。"  CssClass="LabelColor"></f:Label>
                     </PageItems>
                 </f:Grid>
             </Items>
         </f:Panel>
         <f:Window ID="Window1" Title="考试记录查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true"
-            Width="1200px" Height="560px">
+            Width="1000px" Height="560px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"

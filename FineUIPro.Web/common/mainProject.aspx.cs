@@ -720,7 +720,7 @@ namespace FineUIPro.Web.common
                     var attachFile = BLL.AttachFileService.GetAttachFile(item.NoticeId, BLL.Const.ServerNoticeMenuId);
                     if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
                     {
-                        url = "../" + attachFile.AttachUrl.Split(',')[0];
+                        url = "../" + attachFile.AttachUrl.Split(',')[0].Replace("\\", "/");
                     }
                     if (!readIds.Contains(item.NoticeId))
                     {

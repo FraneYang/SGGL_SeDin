@@ -44,14 +44,14 @@
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtWeldingLocation" runat="server" Label="焊接位置" LabelWidth="160px"></f:TextBox>
-                        <f:NumberBox ID="txtThicknessMax" runat="server" Label="管径覆盖范围（最大值）"
+                        <f:NumberBox ID="txtThicknessMax" runat="server" Label="管径覆盖范围（最小值）"
                             NoNegative="true" LabelAlign="Right" LabelWidth="200px">
                         </f:NumberBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:NumberBox ID="txtSizesMin" runat="server" Label="壁厚覆盖范围（最小值）" NoNegative="true" LabelAlign="Right" LabelWidth="200px">
+                        <f:NumberBox ID="txtSizesMin" runat="server" Label="壁厚覆盖范围（最大值）" NoNegative="true" LabelAlign="Right" LabelWidth="200px">
                         </f:NumberBox>
                         <f:TextBox ID="txtWeldType" runat="server" Label="可焊焊缝类型" LabelWidth="160px"></f:TextBox>
                     </Items>

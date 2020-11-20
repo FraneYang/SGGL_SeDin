@@ -8,7 +8,7 @@
     using BLL;
 
     public partial class UserList : PageBase
-    { 
+    {
         /// <summary>
         /// 加载页面
         /// </summary>
@@ -19,6 +19,7 @@
             if (!IsPostBack)
             {
                 Funs.DropDownPageSize(this.ddlPageSize);
+                DepartService.InitDepartDropDownList(this.drpDepart, true);
                 ////权限按钮方法
                 this.GetButtonPower();
                 this.btnNew.OnClientClick = Window1.GetShowReference("UserListEdit.aspx?type=0") + "return false;";
@@ -37,11 +38,12 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Users.IdentityCard,Users.Telephone,Users.IsOffice,"
+            string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Depart.DepartName,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Users.IdentityCard,Users.Telephone,Users.IsOffice,"
                           + @"Roles.RoleName,Unit.UnitName,Unit.UnitCode"
                           + @" From dbo.Sys_User AS Users"
                           + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
-                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"                          
+                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
+                          + @" LEFT JOIN Base_Depart AS Depart ON Depart.DepartId=Users.DepartId"
                           + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND Users.UnitId = @ThisUnitId";
@@ -57,7 +59,11 @@
                 strSql += " AND Users.UnitId = @UnitId";
                 listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
             }
-
+            if (this.drpDepart.SelectedValue != BLL.Const._Null)
+            {
+                strSql += " AND Users.DepartId = @DepartId";
+                listStr.Add(new SqlParameter("@DepartId", this.drpDepart.SelectedValue));
+            }
             if (!string.IsNullOrEmpty(this.txtUnitName.Text.Trim()))
             {
                 strSql += " AND Unit.UnitName LIKE @UnitName";
@@ -68,7 +74,7 @@
                 strSql += " AND Roles.RoleName LIKE @RoleName";
                 listStr.Add(new SqlParameter("@RoleName", "%" + this.txtRoleName.Text.Trim() + "%"));
             }
-           
+
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
@@ -318,6 +324,34 @@
         protected void Window2_Close(object sender, WindowCloseEventArgs e)
         {
             BindGrid();
+        }
+
+        protected string ConvertRoleName(object UserId)
+        {
+            string roleName = string.Empty;
+            if (UserId != null)
+            {
+                Model.Sys_User user = BLL.UserService.GetUserByUserId(UserId.ToString());
+                if (user != null)
+                {
+                    roleName = BLL.RoleService.getRoleNamesRoleIds(user.RoleId);
+                }
+            }
+            return roleName;
+        }
+
+        protected string ConvertProjectRoleName(object UserId)
+        {
+            string roleName = string.Empty;
+            if (UserId != null)
+            {
+                Model.Project_ProjectUser projectUser = BLL.ProjectUserService.GetCurrProjectUserByUserId(UserId.ToString());
+                if (projectUser != null)
+                {
+                    roleName = BLL.RoleService.getRoleNamesRoleIds(projectUser.RoleId);
+                }
+            }
+            return roleName;
         }
     }
 }

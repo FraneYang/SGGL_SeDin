@@ -36,7 +36,6 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 txtWeldJointCode.Text = jot.WeldJointCode;
                 txtWelder.Text = jot.BackingWelderCode;
                 txtRepairLocation.Text = repairRecord.RepairLocation;
-                txtWeldJointCode.Text = jot.BackingWelderCode;
                 txtJudgeGrade.Text = ndeItem.JudgeGrade;
                 txtCheckDefects.Text = repairRecord.CheckDefects;
                 if (repairRecord.RepairDate.HasValue)

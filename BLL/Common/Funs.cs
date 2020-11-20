@@ -1023,6 +1023,32 @@ namespace BLL
             }
             return pagesCount;
         }
+
+
+        /// <summary>
+        /// 根据时间获取是上、下半年
+        /// </summary>
+        /// <returns></returns>
+        public static string ReturnEvaluationResultByScore(decimal? score)
+        {
+            string value = string.Empty;
+            if (score.HasValue)
+            {
+                if (score >= 80)
+                {
+                    value = "合格";
+                }
+                else if (score >= 71 && score <= 79)
+                {
+                    value = "基本合格";
+                }
+                else if (score <= 70)
+                {
+                    value = "不合格";
+                }
+            }
+            return value;
+        }
     }
 }
 

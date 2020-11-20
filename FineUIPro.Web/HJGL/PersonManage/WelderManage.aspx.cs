@@ -112,6 +112,17 @@ namespace FineUIPro.Web.HJGL.PersonManage
 
                 Grid1.DataSource = table;
                 Grid1.DataBind();
+                for (int i = 0; i < this.Grid1.Rows.Count; i++)
+                {
+                    if (!string.IsNullOrEmpty(this.Grid1.Rows[i].Values[2].ToString()))
+                    {
+                        DateTime limitDate = Convert.ToDateTime(this.Grid1.Rows[i].Values[2].ToString());
+                        if (DateTime.Now > limitDate)
+                        {
+                            this.Grid1.Rows[i].RowCssClass = "color3";
+                        }
+                    }
+                }
             }
         }
 

@@ -57,11 +57,7 @@ namespace FineUIPro.Web.Person
                         {
                             this.txtEndTime.Text = string.Format("{0:yyyy-MM-dd}", totle.EndTime);
                         }
-                        var roleId = BLL.UserService.GetUserByUserId(totle.UserId);
-                        if (roleId != null) {
-                            this.txtRoleName.Text = BLL.RoleService.getRoleNamesRoleIds(roleId.RoleId);
-                        }
-                        
+                        this.txtRoleName.Text = totle.RoleName;
                         this.txtContents.Text = HttpUtility.HtmlDecode(totle.Content);
                     }
                 }

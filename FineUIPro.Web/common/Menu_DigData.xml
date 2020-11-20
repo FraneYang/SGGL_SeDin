@@ -39,6 +39,7 @@
 </TreeNode>
 </TreeNode>
 </TreeNode>
-<TreeNode id="FF0D9166-4509-4411-8039-F035BC251114" Text="数据库" NavigateUrl=""></TreeNode>
+<TreeNode id="FF0D9166-4509-4411-8039-F035BC251114" Text="数据库" NavigateUrl=""><TreeNode id="427AB060-2510-4568-B85B-AD6796EBE569" Text="项目HSE数据汇总" NavigateUrl="DigData/HSEDataCollect.aspx"></TreeNode>
+</TreeNode>
 <TreeNode id="B87413D8-4EFB-42F3-A4F6-9D21C0CD3DFE" Text="数据作战室" NavigateUrl=""></TreeNode>
 </Tree>

@@ -178,7 +178,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldJointMenuId, BLL.Const.BtnModify))
             {
                 Model.HJGL_Pipeline pipeline = BLL.PipelineService.GetPipelineByPipelineId(this.PipelineId);
-                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWPQId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID, drpMaterial2.ClientID) 
+                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWPQId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpIsHotProess.ClientID) 
                     + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text,pipeline.UnitId, this.drpWeldingMethodId.SelectedText, this.drpWeldTypeCode.SelectedText, "维护 - ")));
             }
             else

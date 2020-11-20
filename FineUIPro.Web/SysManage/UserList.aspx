@@ -33,6 +33,9 @@
                                 <f:TextBox runat="server" Label="单位" ID="txtUnitName" EmptyText="输入查询条件" AutoPostBack="true"
                                     OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px">
                                 </f:TextBox>
+                                <f:DropDownList ID="drpDepart" runat="server" Label="部门" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"
+                            EnableEdit="true" Width="190px" LabelWidth="50px">
+                        </f:DropDownList>
                                 <f:TextBox runat="server" Label="角色" ID="txtRoleName" EmptyText="输入查询条件" AutoPostBack="true"
                                     OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px">
                                 </f:TextBox>
@@ -56,15 +59,25 @@
                         <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                             FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" >
                         </f:RenderField>
+                        <f:RenderField Width="120px" ColumnID="DepartName" DataField="DepartName" SortField="DepartName"
+                            FieldType="String" HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left" >
+                        </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="Account" DataField="Account" SortField="Account"
                             FieldType="String" HeaderText="账号" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                        <%-- <f:RenderField Width="120px" ColumnID="IdentityCard" DataField="IdentityCard" SortField="IdentityCard"
                             FieldType="String" HeaderText="身份证号码" HeaderTextAlign="Center" TextAlign="Right" Hidden="true">
                         </f:RenderField>--%>
-                        <f:RenderField Width="200px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
-                            FieldType="String" HeaderText="本部角色" HeaderTextAlign="Center" TextAlign="Left">
-                        </f:RenderField>
+                        <f:TemplateField Width="150px" ColumnID="RoleName" HeaderText="本部角色" TextAlign="Left">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# ConvertRoleName(Eval("UserId")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField Width="200px" ColumnID="ProjectRoleName" HeaderText="项目角色" TextAlign="Left">
+                            <ItemTemplate>
+                                <asp:Label ID="lbtnPro" runat="server" Text='<%# ConvertProjectRoleName(Eval("UserId")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
                         <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                             FieldType="String" HeaderText="手机号码" HeaderTextAlign="Center" TextAlign="Right" Hidden="true">
                         </f:RenderField>

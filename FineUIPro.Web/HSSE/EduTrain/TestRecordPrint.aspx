@@ -60,7 +60,7 @@
     <form id="form1" runat="server">
     <table id="Table1" runat="server" width="100%" cellpadding="0" cellspacing="0" align="center"
         border="0">
-        <tr>
+        <tr runat="server" visible="false"> 
             <td style="width: 100%; background: url('~/Images/bg-1.gif')">
                 <div id="div1">
                     <table id="tabbtn" runat="server" width="100%"  cellpadding="0" cellspacing="0">

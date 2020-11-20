@@ -160,6 +160,7 @@
     <Compile Include="Num.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleSerie.cs" />
+    <Compile Include="SpCheckInfoItem.cs" />
     <Compile Include="SpSysMenuItem.cs" />
     <Compile Include="SpSysUserItem.cs" />
     <Compile Include="APIItem\ResponeData.cs" />

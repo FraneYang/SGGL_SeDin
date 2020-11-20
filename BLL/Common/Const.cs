@@ -161,7 +161,7 @@ namespace BLL
         /// <summary>
         /// 生成委托单
         /// </summary>
-        public const string BtnGenerate = "生成";
+        public const string BtnGenerate = "生成委托单";
         /// <summary>
         /// 审核
         /// </summary>
@@ -643,7 +643,15 @@ namespace BLL
         /// </summary>
         public const string ActionPlan_ProjectManagerRuleMenuId = "ec0942af-b1ae-4676-8442-4be3a5e22ea0";
 
+        /// <summary>
+        /// 检查通知单
+        /// </summary>
+        public const string CheckNoticeMenuId = "C502FC6D-DE43-4646-AE28-168D8C7BF4C0";
 
+        /// <summary>
+        /// 发起检查
+        /// </summary>
+        public const string CheckInfoMenuId = "6090DD54-FE59-4011-92EE-9906C9BC69B6";
 
         #region 系统设置
         /// <summary>
