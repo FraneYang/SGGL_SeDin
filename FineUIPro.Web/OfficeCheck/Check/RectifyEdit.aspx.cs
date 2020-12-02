@@ -43,10 +43,8 @@ namespace FineUIPro.Web.OfficeCheck.Check
         {
             if (!IsPostBack)
             {
-                //受检单位            
-                BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
-                //区域
-                BLL.UnitWorkService.InitUnitWorkDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId, true);
+                //受检项目       
+                BLL.ProjectService.InitAllProjectDropDownList(this.drpProjectId, true);
                 ///安全经理
                 BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpSignPerson, this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, true);
                 ///检察人员
@@ -65,13 +63,9 @@ namespace FineUIPro.Web.OfficeCheck.Check
                     if (RectifyNotices != null)
                     {
                         this.hdRectifyNoticesId.Text = RectifyNotices.RectifyId;
-                        if (!string.IsNullOrEmpty(RectifyNotices.UnitId))
+                        if (!string.IsNullOrEmpty(RectifyNotices.ProjectId))
                         {
-                            this.drpUnitId.SelectedValue = RectifyNotices.UnitId;
-                        }
-                        if (!string.IsNullOrEmpty(RectifyNotices.WorkAreaId))
-                        {
-                            this.drpWorkAreaId.SelectedValue = RectifyNotices.WorkAreaId;
+                            this.drpProjectId.SelectedValue = RectifyNotices.ProjectId;
                         }
                         if (!string.IsNullOrEmpty(RectifyNotices.CheckManIds))
                         {
@@ -278,6 +272,16 @@ namespace FineUIPro.Web.OfficeCheck.Check
         }
 
         /// <summary>
+        /// 提交
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            SaveRectifyNotices("submit");
+        }
+
+        /// <summary>
         /// 保存方法
         /// </summary>
         /// <param name="saveType"></param>
@@ -290,13 +294,9 @@ namespace FineUIPro.Web.OfficeCheck.Check
             }
             Model.ProjectSupervision_Rectify Notices = new Model.ProjectSupervision_Rectify();
             Notices.RectifyCode = this.txtRectifyNoticesCode.Text.Trim();
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
+            if (this.drpProjectId.SelectedValue != BLL.Const._Null)
             {
-                Notices.UnitId = this.drpUnitId.SelectedValue;
-            }
-            if (this.drpWorkAreaId.SelectedValue != BLL.Const._Null)
-            {
-                Notices.WorkAreaId = this.drpWorkAreaId.SelectedValue;
+                Notices.ProjectId = this.drpProjectId.SelectedValue;
             }
             if (this.drpCheckMan.SelectedValue != BLL.Const._Null)
             {
@@ -319,6 +319,15 @@ namespace FineUIPro.Web.OfficeCheck.Check
             {
                 Notices.SignPerson = this.drpSignPerson.SelectedValue;
             }
+            if (saveType == "submit")
+            {
+                Notices.States = BLL.Const.State_1;
+            }
+            else
+            {
+                Notices.States = BLL.Const.State_0;
+            }
+          
             if (!string.IsNullOrEmpty(this.hdRectifyNoticesId.Text))
             {
                 Notices.RectifyId = this.hdRectifyNoticesId.Text;
@@ -332,7 +341,7 @@ namespace FineUIPro.Web.OfficeCheck.Check
                 this.hdRectifyNoticesId.Text = Notices.RectifyId;
             }
             saveNoticesItemDetail();//增加明细
-            ShowNotify("提交成功！", MessageBoxIcon.Success);
+            ShowNotify("保存成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
@@ -341,6 +350,7 @@ namespace FineUIPro.Web.OfficeCheck.Check
         /// </summary>
         public void saveNoticesItemDetail()
         {
+            int j = 0;
             var data = Grid1.GetMergedData();
             if (data != null)
             {
@@ -360,12 +370,16 @@ namespace FineUIPro.Web.OfficeCheck.Check
                     {
                         rectifyNoticesItem.RectifyItemId = rectifyNoticesItemId;
                         rectifyNoticesItem.RectifyId = this.hdRectifyNoticesId.Text.Trim();
-                        rectifyNoticesItem.WrongContent = wrongContent;
-                        rectifyNoticesItem.Requirement = requirement;
+                        rectifyNoticesItem.WrongContent = wrongContent.Trim();
+                        rectifyNoticesItem.Requirement = requirement.Trim();
                         rectifyNoticesItem.LimitTime = Funs.GetNewDateTime(limitTime);
-                        rectifyNoticesItem.RectifyResults = rectifyResults;
+                        rectifyNoticesItem.RectifyResults = rectifyResults.Trim();
                         rectifyNoticesItem.IsRectify = Convert.ToBoolean(drpIsRect.SelectedValue);
                         Funs.DB.SubmitChanges();
+                        if (rectifyNoticesItem.IsRectify == true)
+                        {
+                            j++;
+                        }
                     }
                     else
                     {
@@ -373,13 +387,22 @@ namespace FineUIPro.Web.OfficeCheck.Check
                         var item = new ProjectSupervision_RectifyItem();
                         item.RectifyItemId = rectifyNoticesItemId;
                         item.RectifyId = this.hdRectifyNoticesId.Text.Trim();
-                        item.WrongContent = wrongContent;
-                        item.Requirement = requirement;
+                        item.WrongContent = wrongContent.Trim();
+                        item.Requirement = requirement.Trim();
                         item.LimitTime = Funs.GetNewDateTime(limitTime);
-                        item.RectifyResults = rectifyResults;
+                        item.RectifyResults = rectifyResults.Trim();
                         item.IsRectify = Convert.ToBoolean(drpIsRect.SelectedValue);
                         Funs.DB.ProjectSupervision_RectifyItem.InsertOnSubmit(item);
                         Funs.DB.SubmitChanges();
+                    }
+                }
+                if (j == data.Count)
+                {
+                    var re = BLL.ProjectSupervision_RectifyService.GetRectifyById(this.hdRectifyNoticesId.Text.Trim());
+                    if (re != null)
+                    {
+                        re.States = BLL.Const.State_3;
+                        BLL.ProjectSupervision_RectifyService.UpdateRectify(re);
                     }
                 }
             }
@@ -419,6 +442,6 @@ namespace FineUIPro.Web.OfficeCheck.Check
             }
             this.drpCheckMan.SelectedValueArray = str.ToArray();
         }
-        #endregion
+        #endregion        
     }
 }

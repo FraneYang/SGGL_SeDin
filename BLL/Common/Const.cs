@@ -2688,6 +2688,10 @@ namespace BLL
         /// 施工专题报告模板
         /// </summary>
         public const string ConstructionSpecialReportTemplateUrl = "File\\Word\\ZHGL\\施工专题报告模板.doc";
+        /// <summary>
+        /// 员工总结模板
+        /// </summary>
+        public const string PersonTotalTemplateUrl = "File\\Word\\Person\\员工总结模板.doc";
         #endregion
 
         #region 初始化上传路径

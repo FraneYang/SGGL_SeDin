@@ -1,6 +1,7 @@
 ﻿using BLL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -77,6 +78,26 @@ namespace FineUIPro.Web.Person
                     //        this.drpRoleName.SelectedValue = roleName;
                     //    }
                     //}
+                }
+            }
+            else
+            {
+                var eventArgs = GetRequestEventArgument(); // 此函数所在文件：PageBase.cs
+                if (eventArgs.StartsWith("ButtonClick"))
+                {
+                    string rootPath = Server.MapPath("~/");
+                    string path = Const.PersonTotalTemplateUrl;
+                    string uploadfilepath = rootPath + path;
+                    string fileName = Path.GetFileName(uploadfilepath);
+                    FileInfo fileInfo = new FileInfo(uploadfilepath);
+                    FileInfo info = new FileInfo(uploadfilepath);
+                    long fileSize = info.Length;
+                    Response.Clear();
+                    Response.ContentType = "application/octet-stream";
+                    Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                    Response.AddHeader("Content-Length", fileSize.ToString());
+                    Response.TransmitFile(uploadfilepath, 0, fileSize);
+                    Response.Flush();
                 }
             }
         }

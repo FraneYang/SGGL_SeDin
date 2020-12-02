@@ -112,14 +112,15 @@ namespace FineUIPro.Web.OfficeCheck.Check
                 foreach (var item in dReports)
                 {
                     TreeNode newNode = new TreeNode();
-                    var units = BLL.UnitService.GetUnitByUnitId(item.SubjectUnitId);
-                    if (units != null)
+                    //var units = BLL.UnitService.GetUnitByUnitId(item.SubjectUnitId);
+                    var projectName = BLL.ProjectService.GetProjectNameByProjectId(item.SubjectProjectId);
+                    if (!string.IsNullOrEmpty(projectName))
                     {
-                        newNode.Text = (item.CheckStartTime.Day).ToString().PadLeft(2, '0') + "日：" + units.UnitName;
+                        newNode.Text = (item.CheckStartTime.Day).ToString().PadLeft(2, '0') + "日：" + projectName;
                     }
                     else
                     {
-                        newNode.Text = (item.CheckStartTime.Day).ToString().PadLeft(2, '0') + "日：未知单位";
+                        newNode.Text = (item.CheckStartTime.Day).ToString().PadLeft(2, '0') + "日：未知项目";
                     }
                     newNode.NodeID = item.CheckNoticeId;
                     newNode.EnableClickEvent = true;
@@ -157,11 +158,11 @@ namespace FineUIPro.Web.OfficeCheck.Check
             {
                 this.txtCheckStartTime.Text = string.Format("{0:yyyy-MM-dd}", checkInfo.CheckStartTime);
                 this.txtCheckEndTime.Text = string.Format("{0:yyyy-MM-dd}", checkInfo.CheckEndTime);
-                this.drpSubjectUnit.Text = BLL.UnitService.GetUnitNameByUnitId(checkInfo.SubjectUnitId);               
+                this.drpSubjectUnit.Text = BLL.ProjectService.GetProjectNameByProjectId(checkInfo.SubjectProjectId);             
                 this.txtSubjectUnitMan.Text = checkInfo.SubjectUnitMan;
                 this.txtSubjectUnitAdd.Text = checkInfo.SubjectUnitAdd;
                 this.txtSubjectUnitTel.Text = checkInfo.SubjectUnitTel;
-                this.txtSubjectObject.Text = checkInfo.SubjectObject;
+                //this.txtSubjectObject.Text = checkInfo.SubjectObject;
                 this.txtCheckTeamLeader.Text = BLL.UserService.GetUserNameByUserId(checkInfo.CheckTeamLeader);
                 this.txtCompileMan.Text = BLL.UserService.GetUserNameByUserId(checkInfo.CompileMan);
                 this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", checkInfo.CompileDate);

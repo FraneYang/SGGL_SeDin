@@ -17,7 +17,7 @@
             <Toolbars>
                 <f:Toolbar ID="Toolbar1" runat="server" ToolbarAlign="Right">
                     <Items>
-                        <f:Label runat="server" ID="lbTitle" Text="监督检查报告"></f:Label>
+                        <f:Label runat="server" ID="lbTitle" Text="检查报告"></f:Label>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                         <%--<f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Text="导出" Icon="FolderUp"
                             EnableAjax="false" DisableControlBeforePostBack="false">

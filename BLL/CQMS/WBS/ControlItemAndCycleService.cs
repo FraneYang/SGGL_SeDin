@@ -166,7 +166,7 @@ namespace BLL
         {
             using (var db = new Model.SGGLDB(Funs.ConnString))
             {
-                var res = (from x in db.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId orderby x.ControlItemAndCycleCode select x).ToList();
+                var res = (from x in db.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId && x.IsApprove == true orderby x.ControlItemAndCycleCode select x).ToList();
                 foreach (var item in res)
                 {
                     var details = BLL.SpotCheckDetailService.GetSpotCheckDetailsByControlItemAndCycleId(item.ControlItemAndCycleId);

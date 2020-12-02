@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <title>隐患整改</title>
     <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />    
     <script type="text/javascript" src="../../Controls/My97DatePicker/WdatePicker.js"></script>
 </head>
@@ -21,15 +21,12 @@
                             <Items>
                                 <f:TextBox ID="txtRectifyNoticesCode" runat="server" Label="编号" MaxLength="70" >
                                 </f:TextBox>
-                                <f:DropDownList ID="drpUnitId" runat="server" Label="受检单位" 
+                                <f:DropDownList ID="drpProjectId" runat="server" Label="受检项目" 
                                     LabelAlign="Right" EnableEdit="true">
-                                </f:DropDownList>
-                                <f:DropDownList ID="drpWorkAreaId" runat="server" Label="单位工程" 
-                                    LabelAlign="Right" EnableEdit="true" >
                                 </f:DropDownList>
                             </Items>
                         </f:FormRow>
-                        <f:FormRow runat="server" ColumnWidths="66% 34%">
+                        <f:FormRow runat="server">
                             <Items>
                                 <f:DropDownList ID="drpCheckMan" runat="server" Label="检查人员" LabelAlign="Right" 
                                     EnableEdit="true" EnableMultiSelect="true" AutoPostBack="true" OnSelectedIndexChanged="drpCheckMan_SelectedIndexChanged" >
@@ -37,17 +34,16 @@
                                 <f:TextBox runat="server" Label="检查人员" ID="txtCheckPerson"></f:TextBox>
                             </Items>
                         </f:FormRow>
-                        <f:FormRow>
+                        <f:FormRow runat="server">
                             <Items>
                                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="txtCheckedDate" 
                                     LabelAlign="right" ShowRedStar="true">
                                 </f:DatePicker>
-                                <f:DropDownList ID="drpHiddenHazardType" runat="server" Label="隐患类别" LabelAlign="Right" EnableEdit="true" EmptyText="--请选择--">
+                                <f:DropDownList ID="drpHiddenHazardType" runat="server" Label="隐患类别" EnableEdit="true" EmptyText="--请选择--">
                                     <f:ListItem Text="一般" Value="1" />
                                     <f:ListItem Text="较大" Value="2" />
                                     <f:ListItem Text="重大" Value="3" />
                                 </f:DropDownList>
-                                <f:Label runat="server" ></f:Label>
                             </Items>
                         </f:FormRow>
                     </Rows>
@@ -56,6 +52,8 @@
                             <Items>
                                 <f:HiddenField ID="hdRectifyNoticesId" runat="server"></f:HiddenField>
                                 <f:Button ID="btnSave" OnClick="btnSave_Click" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1" >
+                                </f:Button>
+                                 <f:Button ID="btnSubmit" OnClick="btnSubmit_Click" Icon="SystemSaveNew" runat="server" ToolTip="签发" ValidateForms="SimpleForm1" >
                                 </f:Button>
                             </Items>
                         </f:Toolbar>

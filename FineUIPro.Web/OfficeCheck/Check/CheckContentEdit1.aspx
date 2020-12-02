@@ -36,7 +36,7 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:DropDownList ID="drpSubjectUnit" runat="server" Height="22px" Label="企业名称" 
+                    <f:DropDownList ID="drpSubjectProject" runat="server" Height="22px" Label="项目名称" 
                         EnableEdit="true"  Required="true" ShowRedStar="true" LabelWidth="90px">
                     </f:DropDownList>
                     <f:Label ID="lbTemp" runat="server"></f:Label>

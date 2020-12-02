@@ -36,29 +36,29 @@
             </f:FormRow>
             <f:FormRow>
                 <Items> 
-                    <f:DropDownList ID="drpSubjectUnit" runat="server" Label="受检单位" 
+                    <f:DropDownList ID="drpSubjectProject" runat="server" Label="受检项目" 
                        EnableEdit="true"  Required="true" ShowRedStar="true"  LabelWidth="120px" 
-                       AutoPostBack="true" OnSelectedIndexChanged="drpSubjectUnit_OnSelectedIndexChanged">
+                       AutoPostBack="true" OnSelectedIndexChanged="drpSubjectProject_OnSelectedIndexChanged">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>
-              <f:FormRow>
+              <%--<f:FormRow>
                 <Items>
                     <f:TextBox ID="txtSubjectObject" runat="server" MarginLeft="120px" Height="40px"  EmptyText="项目部名称" MaxLength="500">
                     </f:TextBox>
                 </Items>
-            </f:FormRow>
+            </f:FormRow>--%>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtSubjectUnitAdd" runat="server" Label="受检单位地址"  LabelWidth="120px" Height="40px">
+                    <f:TextArea ID="txtSubjectUnitAdd" runat="server" Label="受检项目地址"  LabelWidth="120px" Height="40px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtSubjectUnitMan" runat="server" Label="受检单位负责人"  LabelWidth="120px">
+                    <f:TextBox ID="txtSubjectUnitMan" runat="server" Label="受检项目负责人"  LabelWidth="120px">
                     </f:TextBox>
-                    <f:TextBox ID="txtSubjectUnitTel" runat="server" Label="受检单位负责人电话"  LabelWidth="150px">
+                    <f:TextBox ID="txtSubjectUnitTel" runat="server" Label="受检项目负责人电话"  LabelWidth="150px">
                     </f:TextBox> 
                 </Items>
             </f:FormRow>          

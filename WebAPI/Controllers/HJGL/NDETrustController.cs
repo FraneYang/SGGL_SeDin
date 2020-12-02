@@ -46,12 +46,12 @@ namespace WebAPI.Controllers
         /// <param name="detectionRateId"></param>
         /// <param name="pointBatchCode"></param>
         /// <returns></returns>
-        public Model.ResponeData getPointBatchCode(string unitWorkId, string detectionTypeId, string detectionRateId, string pointBatchCode)
+        public Model.ResponeData getPointBatchCode(string unitWorkId, string startDate, string detectionTypeId, string detectionRateId, string pointBatchCode)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APINDETrustService.getPointBatchCode(unitWorkId, detectionTypeId, pointBatchCode, pointBatchCode);
+                responeData.data = APINDETrustService.getPointBatchCode(unitWorkId, startDate, detectionTypeId, pointBatchCode, pointBatchCode);
             }
             catch (Exception ex)
             {

@@ -8,6 +8,16 @@ namespace BLL
 {
   public static class ProjectSupervision_RectifyItemService
     {
+        /// <summary>
+        /// 根据主键获取整改明细
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
+        public static Model.ProjectSupervision_RectifyItem GeRectifyItemById(string itemId)
+        {
+            return Funs.DB.ProjectSupervision_RectifyItem.FirstOrDefault(e => e.RectifyItemId == itemId);
+        }
+
         public static List<Model.ProjectSupervision_RectifyItem> GetRectifyItemByRectifyId(string rectifyId)
         {
             return (from x in Funs.DB.ProjectSupervision_RectifyItem where x.RectifyId == rectifyId select x).ToList();

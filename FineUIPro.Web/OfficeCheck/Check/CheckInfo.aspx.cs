@@ -104,14 +104,14 @@ namespace FineUIPro.Web.OfficeCheck.Check
                 foreach (var item in dReports)
                 {
                     TreeNode newNode = new TreeNode();
-                    var units = BLL.UnitService.GetUnitByUnitId(item.SubjectUnitId);
-                    if (units != null)
+                    var projectName = BLL.ProjectService.GetProjectNameByProjectId(item.SubjectProjectId);
+                    if (!string.IsNullOrEmpty(projectName))
                     {
-                        newNode.Text = (item.CheckStartTime.Day).ToString().PadLeft(2, '0') + "日：" + units.UnitName;
+                        newNode.Text = (item.CheckStartTime.Day).ToString().PadLeft(2, '0') + "日：" + projectName;
                     }
                     else
                     {
-                        newNode.Text = (item.CheckStartTime.Day).ToString().PadLeft(2, '0') + "日：未知单位";
+                        newNode.Text = (item.CheckStartTime.Day).ToString().PadLeft(2, '0') + "日：未知项目";
                     }
                     newNode.NodeID = item.CheckNoticeId;
                     newNode.EnableClickEvent = true;
@@ -195,15 +195,14 @@ namespace FineUIPro.Web.OfficeCheck.Check
                 this.GetButtonPower();
                 this.txtCheckStartTime.Text = string.Format("{0:yyyy-MM-dd}", checkInfo.CheckStartTime);
                 this.txtCheckEndTime.Text = string.Format("{0:yyyy-MM-dd}", checkInfo.CheckEndTime);
-                var unit = BLL.UnitService.GetUnitByUnitId(checkInfo.SubjectUnitId);
-                if (unit != null)
+                var projectName = BLL.ProjectService.GetProjectNameByProjectId(checkInfo.SubjectProjectId);
+                if (!string.IsNullOrEmpty(projectName))
                 {
-                    this.drpSubjectUnit.Text = unit.UnitName;
+                    this.drpSubjectUnit.Text = projectName;
                 }
                 this.txtSubjectUnitMan.Text = checkInfo.SubjectUnitMan;
                 this.txtSubjectUnitAdd.Text = checkInfo.SubjectUnitAdd;
                 this.txtSubjectUnitTel.Text = checkInfo.SubjectUnitTel;
-                this.txtSubjectObject.Text = checkInfo.SubjectObject;
                 this.txtCompileMan.Text = BLL.UserService.GetUserNameByUserId(checkInfo.CompileMan);
                 this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", checkInfo.CompileDate);
 
@@ -211,7 +210,7 @@ namespace FineUIPro.Web.OfficeCheck.Check
                 var checkTable = BLL.CheckTable1Service.GetCheckTable1ByCheckNoticeId(this.CheckNoticeId);
                 if (checkTable != null)
                 {
-                    this.lblSubjectUnitId.Text = "企业名称：" + BLL.UnitService.GetUnitNameByUnitId(checkTable.SubjectUnitId);
+                    this.lblSubjectUnitId.Text = BLL.ProjectService.GetProjectNameByProjectId(checkTable.SubjectProjectId);
                     this.lblCheckDate.Text = string.Format("{0:yyyy-MM-dd}", checkTable.CheckDate);
                     this.lblResult.Text = "评定得分：" + checkTable.TotalLastScore + "；评定结果：" + checkTable.EvaluationResult;
                 }
@@ -219,7 +218,7 @@ namespace FineUIPro.Web.OfficeCheck.Check
                 var checkReport = BLL.CheckReportService.GetCheckReportByCheckNoticeId(this.CheckNoticeId);
                 if (checkReport != null)
                 {
-                    this.lblCheckObject.Text = "受检单位：" + BLL.UnitService.GetUnitNameByUnitId(checkInfo.SubjectUnitId);
+                    this.lblCheckObject.Text =BLL.ProjectService.GetProjectNameByProjectId(checkInfo.SubjectProjectId);
                     this.lblCheckStartTime.Text = string.Format("{0:yyyy-MM-dd}", checkInfo.CheckStartTime);
                     this.lblCheckReportResult.Text = checkReport.CheckResult;
                 }
@@ -227,7 +226,7 @@ namespace FineUIPro.Web.OfficeCheck.Check
                 var rectify = BLL.ProjectSupervision_RectifyService.GetRectifyByCheckNoticeId(this.CheckNoticeId);
                 if (rectify != null)
                 {
-                    this.lblUnitId.Text = "受检单位：" + BLL.UnitService.GetUnitNameByUnitId(rectify.UnitId);
+                    this.lblUnitId.Text = BLL.ProjectService.GetProjectNameByProjectId(rectify.ProjectId);
                     this.lblCheckedDate.Text = string.Format("{0:yyyy-MM-dd}", rectify.CheckedDate);
                     var item = BLL.ProjectSupervision_RectifyItemService.GetRectifyItemByRectifyId(rectify.RectifyId);
                     if (item != null)

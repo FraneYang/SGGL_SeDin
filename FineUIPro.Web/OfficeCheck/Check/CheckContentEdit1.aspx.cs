@@ -33,7 +33,7 @@ namespace FineUIPro.Web.OfficeCheck.Check
             if (!IsPostBack)
             {
                 this.GetButtonPower();
-                BLL.UnitService.InitUnitDropDownList(drpSubjectUnit, this.CurrUser.LoginProjectId, true);
+                BLL.ProjectService.InitAllProjectDropDownList(this.drpSubjectProject, true);
                 string type = Request.Params["type"];//查看
                 if (type == "1")
                 {
@@ -45,9 +45,9 @@ namespace FineUIPro.Web.OfficeCheck.Check
                     var table1 = BLL.CheckTable1Service.GetCheckTable1ByCheckNoticeId(this.CheckNoticeId);
                     if (table1 != null)
                     {
-                        if (!string.IsNullOrEmpty(table1.SubjectUnitId))
+                        if (!string.IsNullOrEmpty(table1.SubjectProjectId))
                         {
-                            this.drpSubjectUnit.SelectedValue = table1.SubjectUnitId;
+                            this.drpSubjectProject.SelectedValue = table1.SubjectProjectId;
                         }
                         if (!string.IsNullOrEmpty(table1.CheckMan))
                         {
@@ -206,9 +206,9 @@ namespace FineUIPro.Web.OfficeCheck.Check
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (this.drpSubjectUnit.SelectedValue == BLL.Const._Null)
+            if (this.drpSubjectProject.SelectedValue == BLL.Const._Null)
             {
-                Alert.ShowInTop("请选择企业名称！", MessageBoxIcon.Warning);
+                Alert.ShowInTop("请选择项目名称！", MessageBoxIcon.Warning);
                 return;
             }
             if (this.Grid1.GetModifiedData().Count > 0)
@@ -286,9 +286,9 @@ namespace FineUIPro.Web.OfficeCheck.Check
 
             BLL.CheckTable1Service.DeleteCheckTable1ByNoticeId(this.CheckNoticeId);
             Model.ProjectSupervision_CheckTable1 table1 = new Model.ProjectSupervision_CheckTable1();
-            if (this.drpSubjectUnit.SelectedValue != BLL.Const._Null && !string.IsNullOrEmpty(this.drpSubjectUnit.SelectedValue))
+            if (this.drpSubjectProject.SelectedValue != BLL.Const._Null && !string.IsNullOrEmpty(this.drpSubjectProject.SelectedValue))
             {
-                table1.SubjectUnitId = this.drpSubjectUnit.SelectedValue;
+                table1.SubjectProjectId = this.drpSubjectProject.SelectedValue;
             }
 
             table1.CheckMan = this.txtCheckMan.Text.Trim();

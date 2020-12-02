@@ -149,8 +149,8 @@ namespace FineUIPro.Web.DigData
                     var getMont = Funs.DB.SeDin_MonthReport.FirstOrDefault(x => x.ReporMonth.Value.Year == year.Value && x.ReporMonth.Value.Month == month.Value && x.ProjectId == getSubmission.ProjectId);
                     if (getMont != null)
                     {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../HSSE/Manager/ManagerMonth_SeDinEdit.aspx?MonthReportId={0}&projectId={1}", getMont.MonthReportId, getMont.ProjectId, "查看 - ")));
-                        //PrinterDocService.PrinterDocMethod(Const.ProjectManagerMonth_SeDinMenuId, getMont.MonthReportId, "安全月报");
+                        //PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../HSSE/Manager/ManagerMonth_SeDinEdit.aspx?MonthReportId={0}&projectId={1}", getMont.MonthReportId, getMont.ProjectId, "查看 - ")));
+                        PrinterDocService.PrinterDocMethod(Const.ProjectManagerMonth_SeDinMenuId, getMont.MonthReportId, "安全月报");
                     }
                 }
             }

@@ -47,6 +47,11 @@
                         <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                             OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
                         </f:Button>
+                        <f:Button runat="server" ID="btnDownLoad" Icon="ArrowDown" Text="模板下载" ToolTip="模板下载">
+                                    <Listeners>
+                                        <f:Listener Event="click" Handler="ButtonClick" />
+                                    </Listeners>
+                                </f:Button>
                         <f:ToolbarFill runat="server">
                         </f:ToolbarFill>
                         <f:Button ID="btnSave" Icon="SystemSave" ToolTip="保存" runat="server" ValidateForms="SimpleForm1"
@@ -63,5 +68,11 @@
             Height="500px">
         </f:Window>
     </form>
+    <script type="text/javascript">
+        function ButtonClick(event) {
+            // 第一个参数 false 用来指定当前不是AJAX请求
+            __doPostBack(false, '', 'ButtonClick');
+        }
+    </script>
 </body>
 </html>

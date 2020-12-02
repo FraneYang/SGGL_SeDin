@@ -496,6 +496,7 @@
     <Content Include="HSSE\Check\IncentiveNoticeEdit.aspx" />
     <Content Include="HSSE\Check\IncentiveNoticeStatistics.aspx" />
     <Content Include="HSSE\Check\IncentiveNoticeView.aspx" />
+    <Content Include="HSSE\Check\OfficeCheck.aspx" />
     <Content Include="HSSE\Check\PauseNotice.aspx" />
     <Content Include="HSSE\Check\PauseNoticeAdd.aspx" />
     <Content Include="HSSE\Check\PauseNoticeEdit.aspx" />
@@ -7127,6 +7128,13 @@
     </Compile>
     <Compile Include="HSSE\Check\IncentiveNoticeView.aspx.designer.cs">
       <DependentUpon>IncentiveNoticeView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HSSE\Check\OfficeCheck.aspx.cs">
+      <DependentUpon>OfficeCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HSSE\Check\OfficeCheck.aspx.designer.cs">
+      <DependentUpon>OfficeCheck.aspx</DependentUpon>
     </Compile>
     <Compile Include="HSSE\Check\PauseNotice.aspx.cs">
       <DependentUpon>PauseNotice.aspx</DependentUpon>

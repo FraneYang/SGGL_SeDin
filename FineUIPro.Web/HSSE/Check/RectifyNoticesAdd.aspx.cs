@@ -273,7 +273,7 @@ namespace FineUIPro.Web.HSSE.Check
             {
                 newRectifyNotices.CheckManNames = txtCheckPerson.Text;
             }
-            if (this.drpHiddenHazardType.SelectedValue != BLL.Const._Null)
+            if (this.drpHiddenHazardType.SelectedValue != BLL.Const._Null) 
             {
                 newRectifyNotices.HiddenHazardType = this.drpHiddenHazardType.SelectedValue;
             }

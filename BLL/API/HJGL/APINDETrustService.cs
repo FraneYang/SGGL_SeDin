@@ -56,16 +56,28 @@ namespace BLL
         /// </summary>
         /// <param name="unitWorkId"></param>
         /// <param name="pointBatchCode"></param>
+        /// <param name="detectionRateId"></param>
+        /// <param name="detectionTypeId"></param>
         /// <param name="startDate"></param>
         /// <returns></returns>
-        public static List<Model.NDETrustItem> getPointBatchCode(string unitWorkId, string detectionTypeId, string detectionRateId, string pointBatchCode)
+        public static List<Model.NDETrustItem> getPointBatchCode(string unitWorkId,string startDate, string detectionTypeId, string detectionRateId, string pointBatchCode)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var dataList = from x in db.HJGL_Batch_PointBatch
                                join y in db.HJGL_Batch_PointBatchItem on x.PointBatchId equals y.PointBatchId
-                               where x.UnitWorkId == unitWorkId && y.IsBuildTrust == null && x.EndDate.HasValue
+                               where x.UnitWorkId == unitWorkId
+                               //&& y.IsBuildTrust == null 
+                               //&& x.EndDate.HasValue
                                select x;
+
+
+                if (!string.IsNullOrEmpty(startDate))
+                {
+                    DateTime t = Convert.ToDateTime(startDate + "-01");
+                    DateTime mt = t.AddMonths(1);
+                    dataList = dataList.Where(e => e.StartDate >= t && e.StartDate < mt);
+                }
 
                 if (!string.IsNullOrEmpty(detectionTypeId))
                 {

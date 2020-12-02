@@ -12,6 +12,16 @@ namespace BLL
     public static class ProjectSupervision_RectifyService
     {
         /// <summary>
+        /// 根据主键获取隐患整改
+        /// </summary>
+        /// <param name="rectifyId"></param>
+        /// <returns></returns>
+        public static Model.ProjectSupervision_Rectify GetRectifyById(string rectifyId)
+        {
+            return Funs.DB.ProjectSupervision_Rectify.FirstOrDefault(e => e.RectifyId == rectifyId);
+        }
+
+        /// <summary>
         /// 根据检查通知Id获取隐患整改
         /// </summary>
         /// <param name="checkNoticeId"></param>
@@ -30,14 +40,14 @@ namespace BLL
             Model.ProjectSupervision_Rectify newRectify = new Model.ProjectSupervision_Rectify();
             newRectify.RectifyId = rectify.RectifyId;
             newRectify.RectifyCode = rectify.RectifyCode;
-            newRectify.UnitId = rectify.UnitId;
-            newRectify.WorkAreaId = rectify.WorkAreaId;
+            newRectify.ProjectId = rectify.ProjectId;
             newRectify.CheckManIds = rectify.CheckManIds;
             newRectify.CheckManNames = rectify.CheckManNames;
             newRectify.CheckedDate = rectify.CheckedDate;
             newRectify.HiddenHazardType = rectify.HiddenHazardType;
             newRectify.SignPerson = rectify.SignPerson;
             newRectify.CheckNoticeId = rectify.CheckNoticeId;
+            newRectify.States = rectify.States;
             Funs.DB.ProjectSupervision_Rectify.InsertOnSubmit(newRectify);
             Funs.DB.SubmitChanges();
         }
@@ -52,13 +62,13 @@ namespace BLL
             if (newRectify != null)
             {
                 newRectify.RectifyCode = rectify.RectifyCode;
-                newRectify.UnitId = rectify.UnitId;
-                newRectify.WorkAreaId = rectify.WorkAreaId;
+                newRectify.ProjectId = rectify.ProjectId;
                 newRectify.CheckManIds = rectify.CheckManIds;
                 newRectify.CheckManNames = rectify.CheckManNames;
                 newRectify.CheckedDate = rectify.CheckedDate;
                 newRectify.HiddenHazardType = rectify.HiddenHazardType;
                 newRectify.SignPerson = rectify.SignPerson;
+                newRectify.States = rectify.States;
                 Funs.DB.SubmitChanges();
             }
         }

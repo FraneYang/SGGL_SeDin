@@ -67,22 +67,13 @@ namespace FineUIPro.Web.OfficeCheck.Check {
         protected global::FineUIPro.DropDownList drpUnit;
         
         /// <summary>
-        /// drpSubjectUnit 控件。
+        /// drpSubjectProject 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpSubjectUnit;
-        
-        /// <summary>
-        /// txtSubjectObject 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtSubjectObject;
+        protected global::FineUIPro.DropDownList drpSubjectProject;
         
         /// <summary>
         /// txtSubjectUnitAdd 控件。

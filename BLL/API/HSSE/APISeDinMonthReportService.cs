@@ -971,8 +971,9 @@ namespace BLL
                                    States = x.States,
                                    NextManId = x.NextManId,
                                    NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
-                                   //ThisSummary = x.ThisSummary,
-                                   //NextPlan = x.NextPlan,
+                                   ThisSummary = x.ThisSummary,
+                                   NextPlan = x.NextPlan,
+                                   AccidentsSummary=x.AccidentsSummary,
                                }).FirstOrDefault();
                 }
 

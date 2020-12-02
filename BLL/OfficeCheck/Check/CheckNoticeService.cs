@@ -29,19 +29,20 @@ namespace BLL
         {
             Model.ProjectSupervision_CheckNotice newCheckNotice = new Model.ProjectSupervision_CheckNotice();
             newCheckNotice.CheckNoticeId = checkNotice.CheckNoticeId;
-            newCheckNotice.SubjectUnitId = checkNotice.SubjectUnitId;
+            //newCheckNotice.SubjectUnitId = checkNotice.SubjectUnitId;
             newCheckNotice.SubjectUnitAdd = checkNotice.SubjectUnitAdd;
             newCheckNotice.SubjectUnitMan = checkNotice.SubjectUnitMan;
             newCheckNotice.SubjectUnitTel = checkNotice.SubjectUnitTel;
             newCheckNotice.CheckStartTime = checkNotice.CheckStartTime;
             newCheckNotice.CheckEndTime = checkNotice.CheckEndTime;
-            newCheckNotice.SubjectObject = checkNotice.SubjectObject;
+            //newCheckNotice.SubjectObject = checkNotice.SubjectObject;
             newCheckNotice.CheckTeamLeader = checkNotice.CheckTeamLeader;
             newCheckNotice.CompileMan = checkNotice.CompileMan;
             newCheckNotice.CompileDate = checkNotice.CompileDate;
             newCheckNotice.CheckTeamLeaderName = checkNotice.CheckTeamLeaderName;
             newCheckNotice.UnitId = checkNotice.UnitId;
             newCheckNotice.SexName = checkNotice.SexName;
+            newCheckNotice.SubjectProjectId = checkNotice.SubjectProjectId;
             Funs.DB.ProjectSupervision_CheckNotice.InsertOnSubmit(newCheckNotice);
             Funs.DB.SubmitChanges();
 
@@ -74,19 +75,20 @@ namespace BLL
             Model.ProjectSupervision_CheckNotice newCheckNotice = Funs.DB.ProjectSupervision_CheckNotice.FirstOrDefault(e => e.CheckNoticeId == checkNotice.CheckNoticeId);
             if (newCheckNotice != null)
             {
-                newCheckNotice.SubjectUnitId = checkNotice.SubjectUnitId;
+                //newCheckNotice.SubjectUnitId = checkNotice.SubjectUnitId;
                 newCheckNotice.SubjectUnitAdd = checkNotice.SubjectUnitAdd;
                 newCheckNotice.SubjectUnitMan = checkNotice.SubjectUnitMan;
                 newCheckNotice.SubjectUnitTel = checkNotice.SubjectUnitTel;
                 newCheckNotice.CheckStartTime = checkNotice.CheckStartTime;
                 newCheckNotice.CheckEndTime = checkNotice.CheckEndTime;
-                newCheckNotice.SubjectObject = checkNotice.SubjectObject;
+                //newCheckNotice.SubjectObject = checkNotice.SubjectObject;
                 newCheckNotice.CheckTeamLeader = checkNotice.CheckTeamLeader;
                 newCheckNotice.CompileMan = checkNotice.CompileMan;
                 newCheckNotice.CompileDate = checkNotice.CompileDate;
                 newCheckNotice.CheckTeamLeaderName = checkNotice.CheckTeamLeaderName;
                 newCheckNotice.UnitId = checkNotice.UnitId;
                 newCheckNotice.SexName = checkNotice.SexName;
+                newCheckNotice.SubjectProjectId = checkNotice.SubjectProjectId;
                 Funs.DB.SubmitChanges();                
             }
         }

@@ -39,7 +39,7 @@ namespace FineUIPro.Web.OfficeCheck.Check
             {
                 this.GetButtonPower();               
 
-                BLL.UnitService.InitUnitDropDownList(this.drpSubjectUnit,this.CurrUser.LoginProjectId, true);
+                BLL.ProjectService.InitAllProjectDropDownList(this.drpSubjectProject, true);
                 BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, true);
 
                 this.CheckNoticeId = Request.Params["CheckNoticeId"];
@@ -50,14 +50,14 @@ namespace FineUIPro.Web.OfficeCheck.Check
                     {
                         this.txtCheckStartTime.Text = string.Format("{0:yyyy-MM-dd}", checkNotice.CheckStartTime);
                         this.txtCheckEndTime.Text = string.Format("{0:yyyy-MM-dd}", checkNotice.CheckEndTime);
-                        if (!string.IsNullOrEmpty(checkNotice.SubjectUnitId))
+                        if (!string.IsNullOrEmpty(checkNotice.SubjectProjectId))
                         {
-                            this.drpSubjectUnit.SelectedValue = checkNotice.SubjectUnitId;
+                            this.drpSubjectProject.SelectedValue = checkNotice.SubjectProjectId;
                         }
                         this.txtSubjectUnitMan.Text = checkNotice.SubjectUnitMan;
                         this.txtSubjectUnitAdd.Text = checkNotice.SubjectUnitAdd;
                         this.txtSubjectUnitTel.Text = checkNotice.SubjectUnitTel;
-                        this.txtSubjectObject.Text = checkNotice.SubjectObject;
+                        //this.txtSubjectObject.Text = checkNotice.SubjectObject;
                         this.txtCheckTeamLeaderName.Text = checkNotice.CheckTeamLeaderName;
                         if (!string.IsNullOrEmpty(checkNotice.UnitId))
                         {
@@ -91,16 +91,15 @@ namespace FineUIPro.Web.OfficeCheck.Check
                 return;
             }
             Model.ProjectSupervision_CheckNotice newCheckNotice = new Model.ProjectSupervision_CheckNotice();            
-            if (this.drpSubjectUnit.SelectedValue != BLL.Const._Null && !string.IsNullOrEmpty(this.drpSubjectUnit.SelectedValue))
+            if (this.drpSubjectProject.SelectedValue != BLL.Const._Null && !string.IsNullOrEmpty(this.drpSubjectProject.SelectedValue))
             {
-                newCheckNotice.SubjectUnitId = this.drpSubjectUnit.SelectedValue;
+                newCheckNotice.SubjectProjectId = this.drpSubjectProject.SelectedValue;
             }
             newCheckNotice.SubjectUnitAdd = this.txtSubjectUnitAdd.Text.Trim();
             newCheckNotice.SubjectUnitMan = this.txtSubjectUnitMan.Text.Trim();
             newCheckNotice.SubjectUnitTel = this.txtSubjectUnitTel.Text.Trim();
             newCheckNotice.CheckStartTime = Funs.GetNewDateTime(this.txtCheckStartTime.Text).Value;
             newCheckNotice.CheckEndTime = Funs.GetNewDateTime(this.txtCheckEndTime.Text).Value;
-            newCheckNotice.SubjectObject = this.txtSubjectObject.Text.Trim();
             newCheckNotice.CompileMan = this.CurrUser.UserId;
             newCheckNotice.CompileDate = DateTime.Now;
             newCheckNotice.CheckTeamLeaderName = this.txtCheckTeamLeaderName.Text.Trim();
@@ -141,12 +140,12 @@ namespace FineUIPro.Web.OfficeCheck.Check
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void drpSubjectUnit_OnSelectedIndexChanged(object sender, EventArgs e)
+        protected void drpSubjectProject_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            var units = BLL.UnitService.GetUnitByUnitId(this.drpSubjectUnit.SelectedValue);
+            var units = BLL.ProjectService.GetProjectByProjectId(this.drpSubjectProject.SelectedValue);
             if (units != null)
             {
-                this.txtSubjectUnitAdd.Text = units.Address;
+                this.txtSubjectUnitAdd.Text = units.ProjectAddress;
             }
         }
         #endregion

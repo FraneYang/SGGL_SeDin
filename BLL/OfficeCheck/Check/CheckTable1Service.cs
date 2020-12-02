@@ -18,7 +18,7 @@ namespace BLL
             Model.ProjectSupervision_CheckTable1 newTable1 = new Model.ProjectSupervision_CheckTable1();
             newTable1.CheckItemId = table1.CheckItemId;
             newTable1.CheckNoticeId = table1.CheckNoticeId;
-            newTable1.SubjectUnitId = table1.SubjectUnitId;
+            newTable1.SubjectProjectId = table1.SubjectProjectId;
             newTable1.CheckMan = table1.CheckMan;
             newTable1.CheckLeader = table1.CheckLeader;
             newTable1.CheckDate = table1.CheckDate;
