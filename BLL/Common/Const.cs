@@ -91,6 +91,10 @@ namespace BLL
         /// </summary>
         public const string BtnSee = "查看";
         /// <summary>
+        /// 查看全部
+        /// </summary>
+        public const string BtnSeeAll = "查看全部";
+        /// <summary>
         /// 保存并上报
         /// </summary>
         public const string BtnSaveUp = "保存并上报";
@@ -688,6 +692,21 @@ namespace BLL
         /// 数据同步
         /// </summary>
         public const string SynchronizationMenuId = "6EDFBE24-9419-4E73-AC2E-CAD30A754A73";
+        #endregion
+
+        #region 综合管理
+        /// <summary>
+        /// 同步设置
+        /// </summary>
+        public const string RealNameSynchroSetMenuId = "13F11D51-1B54-400F-BDBB-36685BC94819";
+        /// <summary>
+        /// 基础数据
+        /// </summary>
+        public const string RealNameBasicDataMenuId = "C0B52610-ED93-4881-AC61-1764C243F84A";
+        /// <summary>
+        /// 同步记录
+        /// </summary>
+        public const string RealNameSynchroRecordMenuId = "F36E6C54-E39F-4032-874D-548EE090A35B";
         #endregion
 
         #region 基础信息

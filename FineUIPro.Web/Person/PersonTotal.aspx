@@ -29,8 +29,12 @@
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                             <Items>
                                 <f:TextBox runat="server" Label="用户" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px" LabelAlign="Right">
                                 </f:TextBox>
+                                 <f:DatePicker runat="server" Label="开始日期" ID="txtStartTime" LabelWidth="110px" AutoPostBack="true"
+                                    OnTextChanged="TextBox_TextChanged" LabelAlign="Right"></f:DatePicker>
+                        <f:DatePicker runat="server" Label="结束日期" ID="txtEndTime" LabelWidth="110px" AutoPostBack="true"
+                                    OnTextChanged="TextBox_TextChanged" LabelAlign="Right"></f:DatePicker>
                                 <f:ToolbarFill runat="server">
                                 </f:ToolbarFill>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
@@ -53,10 +57,10 @@
                             FieldType="String" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="StartTime" DataField="StartTime" SortField="StartTime"
-                            FieldType="String"  HeaderText="开始日期" HeaderTextAlign="Center" TextAlign="Center">
+                            FieldType="String" Renderer="Date"  HeaderText="开始日期" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="200px" ColumnID="EndTime" DataField="EndTime" SortField="EndTime"
-                            FieldType="String" HeaderText="结束日期" HeaderTextAlign="Center" TextAlign="Center">
+                            FieldType="String" Renderer="Date" HeaderText="结束日期" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                     </Columns>
                     <Listeners>

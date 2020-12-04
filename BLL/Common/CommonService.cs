@@ -163,7 +163,8 @@ namespace BLL
                 {
                     if (!string.IsNullOrEmpty(getUser.RoleId))
                     {
-                        var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == getUser.RoleId);
+                        string[] roleList = getUser.RoleId.Split(',');
+                        var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && roleList.Contains(x.RoleId));
                         if (power != null)
                         {
                             returnValue = true;
@@ -215,11 +216,14 @@ namespace BLL
                 {
                     if (string.IsNullOrEmpty(projectId))
                     {
-
-                        buttons = (from x in db.Sys_ButtonToMenu
-                                   join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
-                                   where y.RoleId == user.RoleId && y.MenuId == menuId && x.MenuId == menuId
-                                   select x).ToList();
+                        if (!string.IsNullOrEmpty(user.RoleId))
+                        {
+                            string[] roleList = user.RoleId.Split(',');
+                            buttons = (from x in db.Sys_ButtonToMenu
+                                       join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
+                                       where roleList.Contains(y.RoleId) && y.MenuId == menuId && x.MenuId == menuId
+                                       select x).ToList();
+                        }
                     }
                     else
                     {

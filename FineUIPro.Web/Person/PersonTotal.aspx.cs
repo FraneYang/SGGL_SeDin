@@ -49,18 +49,32 @@ namespace FineUIPro.Web.Person
         {
             string strSql = @"select PersonTotalId, T.UserId, Content, StartTime, EndTime ,U.UserName,RoleName
                              from PersonTotal T
-                             left join Sys_User  U on T.UserId=U.UserId ";
+                             left join Sys_User  U on T.UserId=U.UserId Where 1=1";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
-                strSql += " Where U.UserName LIKE @UserName";
+                strSql += " And U.UserName LIKE @UserName";
                 listStr.Add(new SqlParameter("@UserName", "%" + this.txtUserName.Text.Trim() + "%"));
             }
+            if (!string.IsNullOrEmpty(this.txtStartTime.Text.Trim()))
+            {
+                strSql += " And T.StartTime >= @StartTime";
+                listStr.Add(new SqlParameter("@StartTime", this.txtStartTime.Text.Trim()));
+            }
+            if (!string.IsNullOrEmpty(this.txtEndTime.Text.Trim()))
+            {
+                strSql += " And T.EndTime <= @EndTime";
+                listStr.Add(new SqlParameter("@EndTime", this.txtEndTime.Text.Trim()));
+            }
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.PersonTotalMenuId);
             if (this.CurrUser.UserId != BLL.Const.sysglyId && this.CurrUser.UserId != BLL.Const.hfnbdId)
             {
-                strSql += " Where T.UserId = @UserId";
-                listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
+                if (!buttonList.Contains(Const.BtnSeeAll))  //不能查看全部
+                {
+                    strSql += " And T.UserId = @UserId";
+                    listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
+                }
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -105,6 +119,10 @@ namespace FineUIPro.Web.Person
                 if (buttonList.Contains(BLL.Const.BtnDelete))
                 {
                     this.btnMenuDelete.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnSeeAll))
+                {
+                    this.btnOut.Hidden = false;
                 }
             }
         }
@@ -270,6 +288,14 @@ namespace FineUIPro.Web.Person
         {
             string rootPath = Server.MapPath("~/");
             var personTotals = from x in Funs.DB.PersonTotal select x;
+            if (!string.IsNullOrEmpty(this.txtStartTime.Text.Trim()))
+            {
+                personTotals = personTotals.Where(x => x.StartTime >= Convert.ToDateTime(this.txtStartTime.Text.Trim()));
+            }
+            if (!string.IsNullOrEmpty(this.txtEndTime.Text.Trim()))
+            {
+                personTotals = personTotals.Where(x => x.EndTime <= Convert.ToDateTime(this.txtEndTime.Text.Trim()));
+            }
             List<string> list = new List<string>();
             if (personTotals.Count() > 0)
             {
@@ -280,6 +306,8 @@ namespace FineUIPro.Web.Person
                 }
                 foreach (var detail in personTotals)
                 {
+                    string userName = string.Empty;
+                    userName = BLL.UserService.GetUserNameByUserId(detail.UserId);
                     string attachFileUrls = BLL.AttachFileService.getFileUrl(detail.PersonTotalId);
                     string[] urls = attachFileUrls.Split(',');
                     foreach (var url in urls)
@@ -288,7 +316,7 @@ namespace FineUIPro.Web.Person
                         if (File.Exists(atturl))
                         {
                             string newUrlPath = url.Substring(url.LastIndexOf("/"));
-                            string newUrl = filePath + "/" + newUrlPath.Substring(newUrlPath.IndexOf("_") + 1);
+                            string newUrl = filePath + "/" + userName + "-" + newUrlPath.Substring(newUrlPath.IndexOf("_") + 1);
                             if (!File.Exists(newUrl))
                             {
                                 File.Copy(atturl, newUrl);

@@ -455,6 +455,7 @@
     <Compile Include="PersonManage\Test\ServerTestPlanService.cs" />
     <Compile Include="PersonManage\Test\ServerTestPlanTrainingService.cs" />
     <Compile Include="PersonManage\Test\ServerTestRecordService.cs" />
+    <Compile Include="ZHGL\RealName\SynchroSetService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

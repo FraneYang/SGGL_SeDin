@@ -27,8 +27,8 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DatePicker runat="server" Label="开始日期" ID="txtStartTime" LabelWidth="110px"></f:DatePicker>
-                        <f:DatePicker runat="server" Label="结束日期" ID="txtEndTime" LabelWidth="110px"></f:DatePicker>
+                        <f:DatePicker runat="server" Label="开始日期" ID="txtStartTime" LabelWidth="110px" Readonly="true" Required="true" ShowRedStar="true"></f:DatePicker>
+                        <f:DatePicker runat="server" Label="结束日期" ID="txtEndTime" LabelWidth="110px" Readonly="true" Required="true" ShowRedStar="true"></f:DatePicker>
 
                     </Items>
                 </f:FormRow>

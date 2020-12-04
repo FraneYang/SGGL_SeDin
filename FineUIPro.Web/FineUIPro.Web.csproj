@@ -947,6 +947,8 @@
     <Content Include="Doc\help.doc" />
     <Content Include="AttachFile\fileupload.ashx" />
     <Content Include="AttachFile\lib\README.md" />
+    <Content Include="ZHGL\RealName\BasicData.aspx" />
+    <Content Include="ZHGL\RealName\SynchroSet.aspx" />
     <None Include="Doc\help1.doc" />
     <None Include="Doc\危险源因素辨识及评价方法说明.doc" />
     <None Include="Doc\危险源清单导入说明.doc" />
@@ -10315,6 +10317,20 @@
     </Compile>
     <Compile Include="PersonManage\Test\TestRecord.aspx.designer.cs">
       <DependentUpon>TestRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ZHGL\RealName\BasicData.aspx.cs">
+      <DependentUpon>BasicData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ZHGL\RealName\BasicData.aspx.designer.cs">
+      <DependentUpon>BasicData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ZHGL\RealName\SynchroSet.aspx.cs">
+      <DependentUpon>SynchroSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ZHGL\RealName\SynchroSet.aspx.designer.cs">
+      <DependentUpon>SynchroSet.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

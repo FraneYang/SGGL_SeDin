@@ -19,7 +19,17 @@ namespace BLL
         {
             return Funs.DB.PersonTotal.FirstOrDefault(e => e.PersonTotalId == PersonTotalId);
         }
-        
+
+        /// <summary>
+        /// 获取人员信息
+        /// </summary>
+        /// <param name="PersonTotalId">人员Id</param>
+        /// <returns>人员信息</returns>
+        public static Model.PersonTotal GetPersonByUserIdAndStartTime(string userId, DateTime? startTime)
+        {
+            return Funs.DB.PersonTotal.FirstOrDefault(e => e.UserId == userId && e.StartTime == startTime);
+        }
+
         /// <summary>
         /// 增加人员总结信息
         /// </summary>
@@ -36,7 +46,7 @@ namespace BLL
                 EndTime = total.EndTime,
                 CompiledManId = total.CompiledManId,
                 CompiledDate = total.CompiledDate,
-                RoleName=total.RoleName,
+                RoleName = total.RoleName,
             };
             db.PersonTotal.InsertOnSubmit(newTotla);
             db.SubmitChanges();
@@ -76,6 +86,6 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
-        
+
     }
 }
