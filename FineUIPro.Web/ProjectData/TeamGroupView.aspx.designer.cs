@@ -40,6 +40,15 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
+        /// drpUnitId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox drpUnitId;
+        
+        /// <summary>
         /// txtTeamGroupCode 控件。
         /// </summary>
         /// <remarks>
@@ -58,13 +67,13 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.TextBox txtTeamGroupName;
         
         /// <summary>
-        /// drpUnitId 控件。
+        /// drpTeamType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox drpUnitId;
+        protected global::FineUIPro.TextBox drpTeamType;
         
         /// <summary>
         /// drpGroupLeader 控件。
@@ -74,6 +83,24 @@ namespace FineUIPro.Web.ProjectData {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox drpGroupLeader;
+        
+        /// <summary>
+        /// txtEntryTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtEntryTime;
+        
+        /// <summary>
+        /// txtExitTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtExitTime;
         
         /// <summary>
         /// txtRemark 控件。

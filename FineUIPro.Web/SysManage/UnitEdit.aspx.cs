@@ -29,13 +29,14 @@ namespace FineUIPro.Web.SysManage
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 ////权限按钮方法
-                this.GetButtonPower();                
+                this.GetButtonPower();
                 UnitTypeService.InitUnitTypeDropDownList(this.ddlUnitTypeId, true);
+                BasicDataService.InitBasicDataProjectUnitDropDownList(this.drpIdcardType, "ZHENGJIAN_TYPE", true);
                 this.UnitId = Request.Params["UnitId"];
                 if (!string.IsNullOrEmpty(this.UnitId))
                 {
                     Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(this.UnitId);
-                    if (unit!=null)
+                    if (unit != null)
                     {
                         this.txtUnitCode.Text = unit.UnitCode;
                         this.txtUnitName.Text = unit.UnitName;
@@ -53,7 +54,23 @@ namespace FineUIPro.Web.SysManage
                         if (unit.IsBranch == true)
                         {
                             this.rblIsBranch.SelectedValue = "true";
-                        }                        
+                        }
+                        if (!string.IsNullOrEmpty(unit.IsChina))
+                        {
+                            this.rblIsChina.SelectedValue = unit.IsChina;
+                        }
+                        this.txtCollCropCode.Text = unit.CollCropCode;
+                        this.txtLinkName.Text = unit.LinkName;
+                        if (!string.IsNullOrEmpty(unit.IdcardType))
+                        {
+                            this.drpIdcardType.SelectedValue = unit.IdcardType;
+                        }
+                        this.txtIdcardNumber.Text = unit.IdcardNumber;
+                        this.txtLinkMobile.Text = unit.LinkMobile;
+                        if (!string.IsNullOrEmpty(unit.CollCropStatus))
+                        {
+                            this.rblCollCropStatus.SelectedValue = unit.CollCropStatus;
+                        }
                     }
                 }
             }
@@ -68,7 +85,7 @@ namespace FineUIPro.Web.SysManage
         {
             if (BLL.UnitService.IsExitUnitByUnitName(this.UnitId, this.txtUnitName.Text.Trim()))
             {
-                Alert.ShowInTop("单位名称已存在！",MessageBoxIcon.Warning);
+                Alert.ShowInTop("单位名称已存在！", MessageBoxIcon.Warning);
                 return;
             }
             if (BLL.UnitService.IsExitUnitByUnitName(this.UnitId, this.txtUnitCode.Text.Trim()))
@@ -95,14 +112,24 @@ namespace FineUIPro.Web.SysManage
             unit.ShortUnitName = this.txtShortUnitName.Text.Trim();
             unit.Fax = this.txtFax.Text.Trim();
             unit.EMail = this.txtEMail.Text.Trim();
-            unit.ProjectRange = this.txtProjectRange.Text.Trim();                  
+            unit.ProjectRange = this.txtProjectRange.Text.Trim();
+            unit.IsChina = this.rblIsChina.SelectedValue;
+            unit.CollCropCode = this.txtCollCropCode.Text.Trim();
+            unit.LinkName = this.txtLinkName.Text.Trim();
+            if (this.drpIdcardType.SelectedValue != BLL.Const._Null)
+            {
+                unit.IdcardType = this.drpIdcardType.SelectedValue;
+            }
+            unit.IdcardNumber = this.txtIdcardNumber.Text.Trim();
+            unit.LinkMobile = this.txtLinkMobile.Text.Trim();
+            unit.CollCropStatus = this.rblCollCropStatus.SelectedValue;
             if (string.IsNullOrEmpty(this.UnitId))
             {
                 unit.UnitId = SQLHelper.GetNewID(typeof(Model.Base_Unit));
                 unit.DataSources = this.CurrUser.LoginProjectId;
                 BLL.UnitService.AddUnit(unit);
                 BLL.LogService.AddSys_Log(this.CurrUser, unit.UnitCode, unit.UnitId, BLL.Const.UnitMenuId, Const.BtnAdd);
-              
+
             }
             else
             {
@@ -112,7 +139,7 @@ namespace FineUIPro.Web.SysManage
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
-        
+
         #region 获取按钮权限
         /// <summary>
         /// 获取按钮权限

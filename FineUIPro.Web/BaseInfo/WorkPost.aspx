@@ -12,7 +12,7 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" Title="岗位信息" ShowHeader="false"
             Layout="HBox">
             <items>
-            <f:Grid ID="Grid1" Title="岗位信息" ShowHeader="false" EnableCollapse="true" PageSize="10"
+            <f:Grid ID="Grid1" Title="岗位信息" ShowHeader="false" EnableCollapse="true" PageSize="20"
                 EnableColumnLines="true" ShowBorder="true" AllowPaging="true" IsDatabasePaging="true"
                 runat="server" Width="750px" DataKeyNames="WorkPostId" DataIDField="WorkPostId" AllowSorting="true"
                 SortField="PostType,WorkPostCode" SortDirection="ASC"
@@ -21,10 +21,10 @@
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                         TextAlign="Center" />
-                    <f:RenderField Width="100px" ColumnID="WorkPostCode" DataField="WorkPostCode" FieldType="String"
-                        HeaderText="编号" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="150px" ColumnID="WorkPostCode" DataField="WorkPostCode" FieldType="String"
+                        HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="WorkPostName" DataField="WorkPostName" FieldType="String"
+                    <f:RenderField Width="100px" ColumnID="WorkPostName" DataField="WorkPostName" FieldType="String"
                         HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:TemplateField Width="120px" HeaderText="类型" HeaderTextAlign="Center" TextAlign="Center">
@@ -32,18 +32,17 @@
                             <asp:Label ID="Label1" runat="server" Text='<%# ConvertPostType(Eval("PostType")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="110px" ColumnID="IsHsse" DataField="IsHsse" FieldType="Boolean"
+                    <f:RenderField Width="80px" ColumnID="IsHsse" DataField="IsHsse" FieldType="Boolean"
                         RendererFunction="renderIsHsse" HeaderText="安管人员" HeaderTextAlign="Center"
                         TextAlign="Center">
                     </f:RenderField>
-                    <f:TemplateField Width="180px" HeaderText="对口专业" HeaderTextAlign="Center" TextAlign="Center"
-                            >
+                    <f:TemplateField Width="120px" HeaderText="对口专业" HeaderTextAlign="Center" TextAlign="Center" >
                             <ItemTemplate>
                                 <asp:Label ID="Label4" runat="server" Text='<%# ConvertCNCodes(Eval("CNCodes")) %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" FieldType="String"
-                        ExpandUnusedSpace="true" HeaderText="职责" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="90px" ColumnID="Remark" DataField="Remark" FieldType="String"
+                         HeaderText="职责" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="10px" ColumnID="PostType" DataField="PostType" FieldType="String"
                         HeaderText="类型" Hidden="true" HeaderTextAlign="Center" TextAlign="Center">
@@ -71,10 +70,9 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtWorkPostCode" Label="编号" ShowRedStar="true" Required="true" runat="server"
-                        MaxLength="50" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
-                        LabelWidth="80px">
-                    </f:TextBox>
+                    <f:DropDownList ID="drpWorkPostCode" runat="server" Label="编号" LabelAlign="Right" Required="true"
+                        ShowRedStar="true" LabelWidth="80px">
+                    </f:DropDownList>
                     <f:TextBox ID="txtWorkPostName" Label="名称" ShowRedStar="true" Required="true" runat="server"
                         MaxLength="100" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
                         LabelWidth="80px">
@@ -160,7 +158,7 @@
         var btnSaveClientID = '<%= btnSave.ClientID %>';
         var formClientID = '<%= SimpleForm1.ClientID %>';
         var hfFormIDClientID = '<%= hfFormID.ClientID %>';
-        var txtCodeClientID = '<%= txtWorkPostCode.ClientID %>';
+        var drpCodeClientID = '<%= drpWorkPostCode.ClientID %>';
         var txtNameClientID = '<%= txtWorkPostName.ClientID %>';
         var drpPostTypeClientID = '<%= drpPostType.ClientID %>';
         var ckbIsHsseClientID = '<%= ckbIsHsse.ClientID %>';
@@ -177,7 +175,7 @@
 
             // 使用当前行数据填充表单字段
             F(hfFormIDClientID).setValue(rowId);
-            F(txtCodeClientID).setValue(rowValue['WorkPostCode']);
+            F(drpCodeClientID).setValue(rowValue['WorkPostCode']);
             F(txtNameClientID).setValue(rowValue['WorkPostName']);
             F(drpPostTypeClientID).setValue(rowValue['PostType']);
             F(ckbIsHsseClientID).setValue(rowValue['IsHsse']);

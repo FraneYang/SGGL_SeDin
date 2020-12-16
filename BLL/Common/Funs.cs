@@ -1049,6 +1049,30 @@ namespace BLL
             }
             return value;
         }
+
+        /// <summary>
+        /// 输入文本转换数字类型
+        /// </summary>
+        /// <returns></returns>
+        public static long? GetNewlong(string value)
+        {
+            if (!String.IsNullOrEmpty(value))
+            {
+                try
+                {
+                    return long.Parse(value);
+                }
+                catch (Exception ex)
+                {
+                    ErrLogInfo.WriteLog(string.Empty, ex);
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
 

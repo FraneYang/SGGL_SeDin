@@ -49,6 +49,16 @@ namespace FineUIPro.Web.ProjectData
                         this.drpUnitId.Text = UnitService.GetUnitNameByUnitId(teamGroup.UnitId);
                         this.txtRemark.Text = teamGroup.Remark;
                         this.drpGroupLeader.Text = PersonService.GetPersonNameById(teamGroup.GroupLeaderId);
+                        this.drpTeamType.Text = BasicDataService.GetDictNameByDictCode(teamGroup.TeamTypeId);
+                        //this.txtThirdTeamCode.Text = teamGroup.ThirdTeamCode;
+                        if (teamGroup.EntryTime != null)
+                        {
+                            this.txtEntryTime.Text = string.Format("{0:yyyy-MM-dd}", teamGroup.EntryTime);
+                        }
+                        if (teamGroup.ExitTime != null)
+                        {
+                            this.txtExitTime.Text = string.Format("{0:yyyy-MM-dd}", teamGroup.ExitTime);
+                        }
                     }
                 }
             }

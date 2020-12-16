@@ -243,3 +243,313 @@ IP地址:::1
 
 出错时间:12/03/2020 16:54:02
 
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer)
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:12/09/2020 10:46:46
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:12/09/2020 10:46:46
+
+
+错误信息开始=====>
+错误类型:NullReferenceException
+错误信息:未将对象引用设置到对象的实例。
+错误堆栈:
+   在 FineUIPro.Web.common.mainProject.get_Four() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\mainProject.aspx.cs:行号 322
+   在 ASP.common_mainproject_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer)
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:12/09/2020 16:08:41
+出错文件:http://localhost:8118/common/mainProject.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:12/09/2020 16:08:41
+
+
+错误信息开始=====>
+错误类型:DirectoryNotFoundException
+错误信息:未能找到路径“E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\FileUpload\CQMS\SpotCheck\2020-12\637431270274308956_新建文本文档_(2).txt,FileUpload\CQMS\SpotCheck\2020-12\637431270318943457_新建文本文档_(3).txt”的一部分。
+错误堆栈:
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 BLL.AttachFileService.SetImageToByteArray(String imageUrl) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\AttachFileService.cs:行号 381
+   在 BLL.UploadFileService.SaveAttachUrl(String source, String attachUrl, String menuId, String toKeyId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\UploadFileService.cs:行号 0
+   在 FineUIPro.Web.AttachFile.uploader.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\AttachFile\uploader.aspx.cs:行号 434
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:12/09/2020 16:10:33
+出错文件:http://localhost:8118/AttachFile/uploader.aspx?toKeyId=518ab0e3-901e-42b1-950d-a8db5fede6e3&path=FileUpload/CQMS/SpotCheck&menuId=8317C0F7-3A69-48AB-87E5-03E96C543B1C&type=0&fname=++++++++J204+%e8%ae%be%e5%a4%87%e5%9f%ba%e7%a1%80%e5%a4%8d%e6%b5%8b%e8%ae%b0%e5%bd%95%2cJ205+%e5%9d%97%e4%bd%93%e5%bc%8f%e8%ae%be%e5%a4%87%e5%9f%ba%e7%a1%80%e5%85%81%e8%ae%b8%e5%81%8f%e5%b7%ae%e9%a1%b9%e7%9b%ae%e5%a4%8d%e6%b5%8b%e8%ae%b0%e5%bd%95%2cJ206+%e6%95%b4%e4%bd%93%e6%a1%86%e6%9e%b6%e5%bc%8f%e8%ae%be%e5%a4%87%e5%9f%ba%e7%a1%80%e5%85%81%e8%ae%b8%e5%81%8f%e5%b7%ae%e9%a1%b9%e7%9b%ae%e5%a4%8d%e6%b5%8b%e8%ae%b0%e5%bd%95
+IP地址:::1
+操作人员:盛仙頔
+
+出错时间:12/09/2020 16:10:33
+
+
+错误信息开始=====>
+错误类型:DirectoryNotFoundException
+错误信息:未能找到路径“E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\FileUpload\CQMS\SpotCheck\2020-12\637431270597355202_新建文本文档_(2).txt,FileUpload\CQMS\SpotCheck\2020-12\637431270687164037_新建文本文档_(3).txt”的一部分。
+错误堆栈:
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 BLL.AttachFileService.SetImageToByteArray(String imageUrl) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\AttachFileService.cs:行号 381
+   在 BLL.UploadFileService.SaveAttachUrl(String source, String attachUrl, String menuId, String toKeyId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\UploadFileService.cs:行号 0
+   在 FineUIPro.Web.AttachFile.uploader.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\AttachFile\uploader.aspx.cs:行号 434
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:12/09/2020 16:11:13
+出错文件:http://localhost:8118/AttachFile/uploader.aspx?toKeyId=518ab0e3-901e-42b1-950d-a8db5fede6e3&path=FileUpload/CQMS/SpotCheck&menuId=8317C0F7-3A69-48AB-87E5-03E96C543B1C&type=0&fname=++++++++J204+%e8%ae%be%e5%a4%87%e5%9f%ba%e7%a1%80%e5%a4%8d%e6%b5%8b%e8%ae%b0%e5%bd%95%2cJ205+%e5%9d%97%e4%bd%93%e5%bc%8f%e8%ae%be%e5%a4%87%e5%9f%ba%e7%a1%80%e5%85%81%e8%ae%b8%e5%81%8f%e5%b7%ae%e9%a1%b9%e7%9b%ae%e5%a4%8d%e6%b5%8b%e8%ae%b0%e5%bd%95%2cJ206+%e6%95%b4%e4%bd%93%e6%a1%86%e6%9e%b6%e5%bc%8f%e8%ae%be%e5%a4%87%e5%9f%ba%e7%a1%80%e5%85%81%e8%ae%b8%e5%81%8f%e5%b7%ae%e9%a1%b9%e7%9b%ae%e5%a4%8d%e6%b5%8b%e8%ae%b0%e5%bd%95
+IP地址:::1
+操作人员:盛仙頔
+
+出错时间:12/09/2020 16:11:13
+
+
+错误信息开始=====>
+错误类型:DirectoryNotFoundException
+错误信息:未能找到路径“E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\FileUpload\CheckControl\2020-12\637431271555275247_新建文本文档_(3).txt,FileUpload\CheckControl\2020-12\637431271613820749_新建文本文档_(2).txt”的一部分。
+错误堆栈:
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 BLL.AttachFileService.SetImageToByteArray(String imageUrl) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\AttachFileService.cs:行号 381
+   在 BLL.UploadFileService.SaveAttachUrl(String source, String attachUrl, String menuId, String toKeyId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\UploadFileService.cs:行号 0
+   在 FineUIPro.Web.AttachFile.webuploader.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\AttachFile\webuploader.aspx.cs:行号 517
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:12/09/2020 16:12:43
+出错文件:http://localhost:8118/AttachFile/webuploader.aspx?type=0&toKeyId=5582e493-bc13-4c8c-b63c-80659f952e48&path=FileUpload/CheckControl&menuId=B3E99BD9-FDC7-4F15-8C3C-A7821AC9E306
+IP地址:::1
+操作人员:JT
+
+出错时间:12/09/2020 16:12:43
+
+
+错误信息开始=====>
+错误类型:DirectoryNotFoundException
+错误信息:未能找到路径“E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\FileUpload\PersonBaseInfo\2020-12\637431909205543822_LoginHSSE.jpg”的一部分。
+错误堆栈:
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 BLL.AttachFileService.SetImageToByteArray(String imageUrl) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\AttachFileService.cs:行号 381
+   在 FineUIPro.Web.HSSE.SitePerson.PersonListEdit.SaveData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HSSE\SitePerson\PersonListEdit.aspx.cs:行号 478
+   在 FineUIPro.Web.HSSE.SitePerson.PersonListEdit.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HSSE\SitePerson\PersonListEdit.aspx.cs:行号 328
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:12/10/2020 11:51:34
+出错文件:http://localhost:8118/HSSE/SitePerson/PersonListEdit.aspx?PersonId=9e642eab-5257-4024-b7e3-004d04ac5d93&&ProjectId=15916f50-5958-4065-bd78-e26be1b1f0c8&&UnitId=6d29ed79-e20a-4c19-bb91-d280ea2e442e
+IP地址:::1
+操作人员:JT
+
+出错时间:12/10/2020 11:51:34
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 20:51:31
+出错时间:12/14/2020 20:51:31
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 20:51:31
+出错时间:12/14/2020 20:51:31
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 20:52:05
+出错时间:12/14/2020 20:52:05
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 21:00:28
+出错时间:12/14/2020 21:00:28
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 21:00:28
+出错时间:12/14/2020 21:00:28
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 21:03:21
+出错时间:12/14/2020 21:03:21
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 21:03:21
+出错时间:12/14/2020 21:03:21
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:文件“/HJGL/WeldingManage/JointShowColumn.aspx”不存在。
+错误堆栈:
+   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:12/14/2020 21:29:38
+出错文件:http://localhost:8118/HJGL/WeldingManage/JointShowColumn.aspx
+IP地址:::1
+
+出错时间:12/14/2020 21:29:38
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 21:46:54
+出错时间:12/14/2020 21:46:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:12/14/2020 21:46:54
+出错时间:12/14/2020 21:46:54
+
+
+错误信息开始=====>
+错误类型:ThreadAbortException
+错误信息:Thread was being aborted.
+错误堆栈:
+   在 SNIReadSyncOverAsync(SNI_ConnWrapper* , SNI_Packet** , Int32 )
+   在 SNINativeMethodWrapper.SNIReadSyncOverAsync(SafeHandle pConn, IntPtr& packet, Int32 timeout)
+   在 System.Data.SqlClient.TdsParserStateObject.ReadSniSyncOverAsync()
+   在 System.Data.SqlClient.TdsParserStateObject.TryReadNetworkPacket()
+   在 System.Data.SqlClient.TdsParserStateObject.TryPrepareBuffer()
+   在 System.Data.SqlClient.TdsParserStateObject.TryReadByte(Byte& value)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 BLL.GetDataService.CorrectingPersonInOutNumber(String projectId)
+   在 BLL.MonitorService.DoSynchData()
+   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e)
+出错时间:12/15/2020 11:00:54
+出错时间:12/15/2020 11:00:56
+
+
+错误信息开始=====>
+错误类型:HttpParseException
+错误信息:无法从其“LabelWidth”属性的字符串表示形式“项目”创建“System.Nullable`1[[System.Web.UI.WebControls.Unit, System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a]]”类型的对象。
+错误堆栈:
+   在 System.Web.UI.TemplateParser.ProcessException(Exception ex)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+   在 System.Web.UI.TemplateParser.ParseString(String text, VirtualPath virtualPath, Encoding fileEncoding)
+----错误类型:HttpException
+----错误信息:
+----无法从其“LabelWidth”属性的字符串表示形式“项目”创建“System.Nullable`1[[System.Web.UI.WebControls.Unit, System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a]]”类型的对象。
+----错误堆栈:
+       在 System.Web.UI.PropertyConverter.ObjectFromString(Type objType, MemberInfo propertyInfo, String value)
+       在 System.Web.UI.ControlBuilder.AddProperty(String filter, String name, String value, Boolean mainDirectiveMode)
+       在 System.Web.UI.ControlBuilder.PreprocessAttribute(String filter, String attribname, String attribvalue, Boolean mainDirectiveMode, Int32 line, Int32 column)
+       在 System.Web.UI.ControlBuilder.PreprocessAttributes(ParsedAttributeCollection attribs)
+       在 System.Web.UI.ControlBuilder.Init(TemplateParser parser, ControlBuilder parentBuilder, Type type, String tagName, String id, IDictionary attribs)
+       在 System.Web.UI.ControlBuilder.CreateBuilderFromType(TemplateParser parser, ControlBuilder parentBuilder, Type type, String tagName, String id, IDictionary attribs, Int32 line, String sourceFileName)
+       在 System.Web.UI.ControlBuilder.CreateChildBuilder(String filter, String tagName, IDictionary attribs, TemplateParser parser, ControlBuilder parentBuilder, String id, Int32 line, VirtualPath virtualPath, Type& childType, Boolean defaultProperty)
+       在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+       在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+出错时间:12/15/2020 15:52:01
+出错文件:http://localhost:8118/ZHGL/RealName/SynchroSet.aspx
+IP地址:::1
+
+出错时间:12/15/2020 15:52:01
+

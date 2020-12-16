@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -304,13 +305,17 @@ namespace BLL
         /// <param name="toKeyId"></param>
         public static void SaveAttachUrl(string source, string attachUrl,string menuId,string toKeyId)
         {
-
+            string rootUrl = ConfigurationManager.AppSettings["localRoot"];
+            if (string.IsNullOrEmpty(rootUrl))
+            {
+                rootUrl = Funs.RootPath;
+            }
+            var imageByte = AttachFileService.SetImageToByteArray(rootUrl + attachUrl.Split(',')[0]);
             List<Model.AttachFile> sour = (from x in Funs.DB.AttachFile
-                                           where x.MenuId == menuId &&
-                      x.ToKeyId == toKeyId
+                                           where x.MenuId == menuId &&  x.ToKeyId == toKeyId
                                            select x).ToList();
             if (sour.Count() == 0)
-            {
+            {           
                 Model.AttachFile att = new Model.AttachFile
                 {
                     AttachFileId = SQLHelper.GetNewID(),
@@ -318,6 +323,7 @@ namespace BLL
                     AttachSource = source.ToString(),
                     AttachUrl = attachUrl,
                     MenuId = menuId,
+                    ImageByte= imageByte,
                     //AttachPath= attachPath,
                 };
                 Funs.DB.AttachFile.InsertOnSubmit(att);
@@ -332,6 +338,7 @@ namespace BLL
                     att.AttachSource = source.ToString();
                     att.AttachUrl = attachUrl;
                     att.MenuId = menuId;
+                    att.ImageByte = imageByte;
                     Funs.DB.SubmitChanges();
                 }
             }

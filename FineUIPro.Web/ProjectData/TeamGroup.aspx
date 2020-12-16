@@ -53,6 +53,11 @@
                             <asp:Label ID="lblUnitName" runat="server" Text='<%#ConvertUnitName(Eval("UnitId")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
+                    <f:TemplateField ColumnID="TeamTypeId" Width="120px" HeaderText="施工队类型" HeaderTextAlign="Center" TextAlign="Left">
+                        <ItemTemplate>
+                            <asp:Label ID="lblTeamType" runat="server" Text='<%#ConvertTeamType(Eval("TeamTypeId")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
                     <f:TemplateField ColumnID="tfGroupLeader" Width="120px" HeaderText="班组长" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
                             <asp:Label ID="lbGroupLeader" runat="server" Text='<%#ConvertGroupLeader(Eval("GroupLeaderId")) %>'></asp:Label>
@@ -85,7 +90,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="800px" Height="330px">
+        Width="800px" Height="370px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="Pencil" EnablePostBack="true"

@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="SimpleForm1" runat="server" />
-    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
+    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true" LabelWidth="140px"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
             <f:FormRow>
@@ -59,10 +59,50 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
+            <f:FormRow>                 
+                <Items>
+                    <f:RadioButtonList runat="server" ID="rblIsChina" Label="是否中国企业">
+                        <f:RadioItem Value="Y" Text="是" Selected="true"/>
+                        <f:RadioItem Value="N" Text="否"  />
+                    </f:RadioButtonList>
+                    <f:TextBox ID="txtCollCropCode" runat="server" Label="社会统一信用代码" Required="true" 
+                         MaxLength="50" ShowRedStar="true" >
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>                 
+                <Items>
+                    <f:TextBox ID="txtLinkName" runat="server" Label="联系人姓名"  
+                         MaxLength="50" >
+                    </f:TextBox>
+                    <f:DropDownList ID="drpIdcardType" runat="server" Label="联系人证件类型" EnableEdit="true"
+                       >
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>                 
+                <Items>
+                    <f:TextBox ID="txtIdcardNumber" runat="server" Label="联系人证件号"  
+                         MaxLength="50" >
+                    </f:TextBox>
+                    <f:TextBox ID="txtLinkMobile" runat="server" Label="联系人电话"  
+                         MaxLength="50" >
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextArea ID="txtProjectRange" runat="server" Height="100px" Label="工程范围" MaxLength="1000">
                     </f:TextArea>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>                 
+                <Items>
+                    <f:RadioButtonList runat="server" ID="rblCollCropStatus" Label="是否黑名单企业">
+                        <f:RadioItem Value="Y" Text="是" />
+                        <f:RadioItem Value="N" Text="否" Selected="true" />
+                    </f:RadioButtonList>
+                    <f:Label runat="server"></f:Label>
                 </Items>
             </f:FormRow>
         </Rows>

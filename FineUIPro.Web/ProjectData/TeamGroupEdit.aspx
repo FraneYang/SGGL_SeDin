@@ -16,21 +16,38 @@
         <Rows>
             <f:FormRow>
                 <Items>
+                    <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称"  EnableEdit="true" ShowRedStar="true" Required="true"
+                        OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged" FocusOnPageLoad="true" AutoPostBack="true">
+                    </f:DropDownList>
+                    <%--<f:TextBox ID="txtThirdTeamCode" runat="server" Label="第三方施工队号码"  MaxLength="50" LabelWidth="150px" Hidden="true"
+                         >
+                    </f:TextBox>--%>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextBox ID="txtTeamGroupCode" runat="server" Label="班组编号" Required="true" MaxLength="50"
-                        ShowRedStar="true" FocusOnPageLoad="true" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
+                        ShowRedStar="true"  AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                        <f:TextBox ID="txtTeamGroupName" runat="server" Label="班组名称" Required="true" MaxLength="50"
                         ShowRedStar="true" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                 </Items>
             </f:FormRow>           
+            
             <f:FormRow>
                 <Items>
-                    <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称"  EnableEdit="true" ShowRedStar="true" Required="true"
-                        OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged" AutoPostBack="true">
+                    <f:DropDownList ID="drpTeamType" runat="server" Label="施工队类型"  EnableEdit="true" ShowRedStar="true" Required="true"
+                        >
                     </f:DropDownList>
-                     <f:DropDownList ID="drpGroupLeader" runat="server" Label="班组长" EnableEdit="true">
+                     <f:DropDownList ID="drpGroupLeader" runat="server" Label="班组长" EnableEdit="true" ShowRedStar="true">
                     </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:DatePicker runat="server" Label="进场时间" ID="txtEntryTime" ></f:DatePicker>      
+                    <f:DatePicker runat="server" Label="退场时间" ID="txtExitTime" ></f:DatePicker>      
                 </Items>
             </f:FormRow>
             <f:FormRow>

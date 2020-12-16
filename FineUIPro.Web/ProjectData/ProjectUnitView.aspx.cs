@@ -51,6 +51,22 @@ namespace FineUIPro.Web.ProjectData
                         if (unit != null)
                         {
                             this.lbUnitName.Text = unit.UnitName;
+                            this.txtCollCropCode.Text = unit.CollCropCode;
+                            this.txtLinkName.Text = unit.LinkName;
+                            if (!string.IsNullOrEmpty(unit.IdcardType))
+                            {
+                                this.drpIdcardType.Text = BasicDataService.GetDictNameByDictCode(unit.IdcardType);
+                            }
+                            this.txtIdcardNumber.Text = unit.IdcardNumber;
+                            this.txtLinkMobile.Text = unit.LinkMobile;
+                            if (!string.IsNullOrEmpty(unit.IsChina))
+                            {
+                                this.rblIsChina.SelectedValue = unit.IsChina;
+                            }
+                            if (!string.IsNullOrEmpty(unit.CollCropStatus))
+                            {
+                                this.rblCollCropStatus.SelectedValue = unit.CollCropStatus;
+                            }
                         }
                         this.txtInTime.Text = string.Format("{0:yyyy-MM-dd}", projectUnit.InTime);
                         this.txtOutTime.Text = string.Format("{0:yyyy-MM-dd}", projectUnit.OutTime);

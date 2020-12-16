@@ -17,6 +17,7 @@ namespace FineUIPro.Web.ZHGL.RealName
         {
             if (!IsPostBack)
             {
+                ProjectService.InitAllProjectShortNameDropDownList(this.drpProject, this.CurrUser.UserId, true);
                 ///权限
                 this.GetButtonPower();
                 var getSynchroSet = SynchroSetService.GetSynchroSetByUnitId(Const.UnitId_SEDIN);
@@ -48,8 +49,8 @@ namespace FineUIPro.Web.ZHGL.RealName
                 ApiUrl = this.txtapiUrl.Text.Trim(),
                 ClientId = this.txtclientId.Text.Trim(),
                 UserName = this.txt1.Text.Trim(),
-                Password =  this.txtword.Text.Trim(),
-                Intervaltime=Funs.GetNewInt(this.txtintervaltime.Text.Trim()),
+                Password = this.txtword.Text.Trim(),
+                Intervaltime = Funs.GetNewInt(this.txtintervaltime.Text.Trim()),
             };
 
             BLL.SynchroSetService.SaveSynchroSet(newSynchroSet);
@@ -78,7 +79,7 @@ namespace FineUIPro.Web.ZHGL.RealName
             }
             else
             {
-                ShowNotify("连接失败！", MessageBoxIcon.Warning);
+                Alert.ShowInParent("连接失败！", MessageBoxIcon.Warning);
             }
         }
 
@@ -95,12 +96,70 @@ namespace FineUIPro.Web.ZHGL.RealName
             {
                 if (buttonList.Contains(BLL.Const.BtnSave))
                 {
-                    //this.btnSave.Hidden = false;
+                    this.btnSave.Hidden = false;
                     this.btnConnect.Hidden = false;
+                    this.btnCompany.Hidden = false;
+
+                    this.btnCompany.Hidden = false;
+                    this.btnProCollCompany.Hidden = false;
+                    this.btnCollTeam.Hidden = false;
+                    this.btnPersons.Hidden = false;
+                    this.btnAttendance.Hidden = false;
                 }
             }
         }
-        #endregion       
-     
+        #endregion
+
+        /// <summary>
+        /// 推送参建企业
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnCompany_Click(object sender, EventArgs e)
+        {
+            ShowNotify(BLL.SynchroSetService.PushCollCompany(), MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// 推送项目参建单位
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnProCollCompany_Click(object sender, EventArgs e)
+        {
+            ShowNotify(BLL.SynchroSetService.PushProCollCompany(null), MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// 推送施工队
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnCollTeam_Click(object sender, EventArgs e)
+        {
+            ShowNotify(BLL.SynchroSetService.PushCollTeam(null), MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// 推送人员信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnPersons_Click(object sender, EventArgs e)
+        {
+            string add = "新增" + BLL.SynchroSetService.PushPersons(Const.BtnAdd, this.drpProject.SelectedValue == BLL.Const._Null ? null : BLL.ProjectService.GetProjectCodeByProjectId(this.drpProject.SelectedValue)) ?? "";
+            string update = "更新" + BLL.SynchroSetService.PushPersons(Const.BtnModify, this.drpProject.SelectedValue == BLL.Const._Null ? null : BLL.ProjectService.GetProjectCodeByProjectId(this.drpProject.SelectedValue)) ?? "";
+            ShowNotify(add + "|" + update, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// 推送考勤
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttendance_Click(object sender, EventArgs e)
+        {
+            ShowNotify(BLL.SynchroSetService.PushAttendance(null), MessageBoxIcon.Information);
+        }
     }
 }

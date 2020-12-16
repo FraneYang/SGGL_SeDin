@@ -1,6 +1,7 @@
 ﻿using EmitMapper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 namespace BLL
@@ -93,6 +94,30 @@ namespace BLL
                                     AttachUrl2 = APIUpLoadFileService.getFileUrl(personId + "#2", null),
                                     AttachUrl3 = APIUpLoadFileService.getFileUrl(personId + "#3", null),
                                     AttachUrl4 = getAttachUrl4(x.PersonId),
+                                    AttachUrl5 = APIUpLoadFileService.getFileUrl(personId + "#5", null),
+                                    IdcardType=x.IdcardType,
+                                    IdcardTypeName=x.IdcardTypeName,
+                                    IdcardStartDate= string.Format("{0:yyyy-MM-dd}", x.IdcardStartDate),
+                                    IdcardEndDate = string.Format("{0:yyyy-MM-dd}", x.IdcardEndDate),
+                                    IdcardForever=x.IdcardForever,
+                                    IdcardForeverStr=x.IdcardForeverStr,
+                                    PoliticsStatus=x.PoliticsStatus,
+                                    PoliticsStatusName=x.PoliticsStatusName,
+                                    IdcardAddress=x.IdcardAddress,
+                                    Nation=x.Nation,
+                                    NationName=x.NationName,
+                                    EduLevel=x.EduLevel,
+                                    EduLevelName=x.EduLevelName,
+                                    MaritalStatus=x.MaritalStatus,
+                                    MaritalStatusName=x.MaritalStatusName,
+                                    CountryCode=x.CountryCode,
+                                    CountryName=x.CountryName,
+                                    ProvinceCode=x.ProvinceCode,
+                                    ProvinceName=x.ProvinceName,
+                                    MainCNProfessionalId=x.MainCNProfessionalId,
+                                    MainCNProfessionalName=x.MainCNProfessionalName,
+                                    ViceCNProfessionalId=x.ViceCNProfessionalId,
+                                    ViceCNProfessionalName=x.ViceCNProfessionalName
                                 };
                 return getPerson.FirstOrDefault();
             }
@@ -176,6 +201,30 @@ namespace BLL
                                     AttachUrl2 = APIUpLoadFileService.getFileUrl(x.PersonId + "#2", null),
                                     AttachUrl3 = APIUpLoadFileService.getFileUrl(x.PersonId + "#3", null),
                                     AttachUrl4 = getAttachUrl4(x.PersonId),
+                                    AttachUrl5 = APIUpLoadFileService.getFileUrl(x.PersonId + "#5", null),
+                                    IdcardType = x.IdcardType,
+                                    IdcardTypeName = x.IdcardTypeName,
+                                    IdcardStartDate = string.Format("{0:yyyy-MM-dd}", x.IdcardStartDate),
+                                    IdcardEndDate = string.Format("{0:yyyy-MM-dd}", x.IdcardEndDate),
+                                    IdcardForever = x.IdcardForever,
+                                    IdcardForeverStr = x.IdcardForeverStr,
+                                    PoliticsStatus = x.PoliticsStatus,
+                                    PoliticsStatusName = x.PoliticsStatusName,
+                                    IdcardAddress = x.IdcardAddress,
+                                    Nation = x.Nation,
+                                    NationName = x.NationName,
+                                    EduLevel = x.EduLevel,
+                                    EduLevelName = x.EduLevelName,
+                                    MaritalStatus = x.MaritalStatus,
+                                    MaritalStatusName = x.MaritalStatusName,
+                                    CountryCode = x.CountryCode,
+                                    CountryName = x.CountryName,
+                                    ProvinceCode = x.ProvinceCode,
+                                    ProvinceName = x.ProvinceName,
+                                    MainCNProfessionalId = x.MainCNProfessionalId,
+                                    MainCNProfessionalName = x.MainCNProfessionalName,
+                                    ViceCNProfessionalId = x.ViceCNProfessionalId,
+                                    ViceCNProfessionalName = x.ViceCNProfessionalName
                                 };
                 return getPerson.FirstOrDefault();
             }
@@ -489,7 +538,12 @@ namespace BLL
                     IsOutside = person.IsOutside,
                     //AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
                     Sex = person.Sex,
-                    WorkAreaId = person.WorkAreaId,
+                    WorkAreaId = person.WorkAreaId,                   
+                    IdcardStartDate = Funs.GetNewDateTime(person.IdcardStartDate),
+                    IdcardEndDate = Funs.GetNewDateTime(person.IdcardEndDate),
+                    IdcardForever=person.IdcardForever,
+                    IdcardAddress = person.IdcardAddress,
+                    IdcardType= "SHENFEN_ZHENGJIAN",
                 };
                 if (!string.IsNullOrEmpty(person.TeamGroupId))
                 {
@@ -498,6 +552,42 @@ namespace BLL
                 if (!string.IsNullOrEmpty(person.WorkPostId))
                 {
                     newPerson.WorkPostId = person.WorkPostId;
+                }
+                //if (!string.IsNullOrEmpty(person.IdcardType))
+                //{
+                //    newPerson.IdcardType = person.IdcardType;
+                //}
+                if (!string.IsNullOrEmpty(person.PoliticsStatus))
+                {
+                    newPerson.PoliticsStatus = person.PoliticsStatus;
+                }
+                if (!string.IsNullOrEmpty(person.Nation))
+                {
+                    newPerson.Nation = person.Nation;
+                }
+                if (!string.IsNullOrEmpty(person.EduLevel))
+                {
+                    newPerson.EduLevel = person.EduLevel;
+                }
+                if (!string.IsNullOrEmpty(person.MaritalStatus))
+                {
+                    newPerson.MaritalStatus = person.MaritalStatus;
+                }
+                if (!string.IsNullOrEmpty(person.CountryCode))
+                {
+                    newPerson.CountryCode = person.CountryCode;
+                }
+                if (!string.IsNullOrEmpty(person.ProvinceCode))
+                {
+                    newPerson.ProvinceCode = person.ProvinceCode;
+                }
+                if (!string.IsNullOrEmpty(person.MainCNProfessionalId))
+                {
+                    newPerson.MainCNProfessionalId = person.MainCNProfessionalId;
+                }
+                if (!string.IsNullOrEmpty(person.ViceCNProfessionalId))
+                {
+                    newPerson.ViceCNProfessionalId = person.ViceCNProfessionalId;
                 }
                 if (person.IsUsed == true)
                 {
@@ -508,6 +598,11 @@ namespace BLL
                     newPerson.IsUsed = false;
                 }
                 newPerson.Password = PersonService.GetPersonPassWord(person.IdentityCard);
+                string rootUrl = ConfigurationManager.AppSettings["localRoot"];
+                if (!string.IsNullOrEmpty(rootUrl) && !string.IsNullOrEmpty(person.PhotoUrl))
+                {
+                    newPerson.HeadImage = AttachFileService.SetImageToByteArray(rootUrl + person.PhotoUrl);
+                }                
                 var getPerson = db.SitePerson_Person.FirstOrDefault(x => (x.IdentityCard == newPerson.IdentityCard && x.ProjectId == newPerson.ProjectId) || x.PersonId == newPerson.PersonId);
                 if (getPerson == null)
                 {
@@ -529,9 +624,27 @@ namespace BLL
                     getPerson.OutResult = person.OutResult;
                     getPerson.Telephone = person.Telephone;
                     getPerson.Password = newPerson.Password;
+                    getPerson.MainCNProfessionalId = newPerson.MainCNProfessionalId;
+                    getPerson.ViceCNProfessionalId = newPerson.ViceCNProfessionalId;
+
+                    getPerson.IdcardStartDate = newPerson.IdcardStartDate;
+                    getPerson.IdcardEndDate = newPerson.IdcardEndDate;
+                    getPerson.IdcardForever = newPerson.IdcardForever;
+                    getPerson.IdcardAddress = newPerson.IdcardAddress;
+                    getPerson.IdcardType = newPerson.IdcardType;
+                    getPerson.EduLevel = newPerson.EduLevel;
+                    getPerson.MaritalStatus = newPerson.MaritalStatus;
+                    getPerson.PoliticsStatus = newPerson.PoliticsStatus;
+                    getPerson.Nation = newPerson.Nation;
+                    getPerson.CountryCode = newPerson.CountryCode;
+                    getPerson.ProvinceCode = newPerson.ProvinceCode;
+                    getPerson.MainCNProfessionalId = newPerson.MainCNProfessionalId;
+                    getPerson.ViceCNProfessionalId = newPerson.ViceCNProfessionalId;
+
                     if (!string.IsNullOrEmpty(person.PhotoUrl))
                     {
                         getPerson.PhotoUrl = person.PhotoUrl;
+                        getPerson.HeadImage = newPerson.HeadImage;
                     }
                     if (!string.IsNullOrEmpty(person.AttachUrl1))
                     {
@@ -577,7 +690,7 @@ namespace BLL
                 }
                 if (!string.IsNullOrEmpty(newPerson.PersonId))
                 {
-                    SaveMeetUrl(newPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
+                    SaveMeetUrl(newPerson.PersonId, Const.PersonListMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4, person.AttachUrl5);
                 }
                 // 更新同身份证号码用户的电话
                 if (!string.IsNullOrEmpty(newPerson.Telephone))
@@ -601,7 +714,7 @@ namespace BLL
         /// <summary>
         /// 人员附件保存方法
         /// </summary>
-        public static void SaveMeetUrl(string personId, string menuId, string url1, string url2, string url3, string url4)
+        public static void SaveMeetUrl(string personId, string menuId, string url1, string url2, string url3, string url4, string url5)
         {
             Model.ToDoItem toDoItem = new Model.ToDoItem
             {
@@ -631,7 +744,16 @@ namespace BLL
             toDoItem.DataId = personId + "#4";
             toDoItem.UrlStr = url4;
             if (!string.IsNullOrEmpty(url4))
-            { APIUpLoadFileService.SaveAttachUrl(toDoItem); }
+            {
+                APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            }
+
+            toDoItem.DataId = personId + "#5";
+            toDoItem.UrlStr = url5;
+            if (!string.IsNullOrEmpty(url5))
+            {
+                APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            }
         }
         #endregion
         #endregion
@@ -651,13 +773,18 @@ namespace BLL
                     if (!string.IsNullOrEmpty(person.PhotoUrl))
                     {
                         getPerson.PhotoUrl = person.PhotoUrl;
+                        string rootUrl = ConfigurationManager.AppSettings["localRoot"];
+                        if (!string.IsNullOrEmpty(rootUrl) && !string.IsNullOrEmpty(person.PhotoUrl))
+                        {
+                            getPerson.HeadImage = AttachFileService.SetImageToByteArray(rootUrl + person.PhotoUrl);
+                        }
                     }
                     if (!string.IsNullOrEmpty(person.AttachUrl1))
                     {
                         getPerson.IDCardUrl = person.AttachUrl1;
                     }
                     db.SubmitChanges();
-                    SaveMeetUrl(getPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
+                    SaveMeetUrl(getPerson.PersonId, Const.PersonListMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4, person.AttachUrl5);
                 }
             }
         }
@@ -729,8 +856,25 @@ namespace BLL
 
                             db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
                             db.SubmitChanges();
+
+                            string proCode = ProjectService.GetProjectCodeByProjectId(projectId);
+                            Model.SitePerson_PersonInOutNow newNow = new Model.SitePerson_PersonInOutNow
+                            {
+                                PersonInOutId = newInOut.PersonInOutId,
+                                ProjectId = newInOut.ProjectId,
+                                UnitId = newInOut.UnitId,
+                                PersonId = newInOut.PersonId,
+                                IsIn = newInOut.IsIn,
+                                ChangeTime = newInOut.ChangeTime,
+                                WorkPostId = newInOut.WorkPostId,
+                                PostType = newInOut.PostType,
+                                ProCode = proCode,
+                                Name = getPerson.PersonName,
+                                IdcardType = getPerson.IdcardType,
+                                IdcardNumber = getPerson.IdentityCard,
+                            };
                             //// 插入当日记录表
-                            PersonInOutService.InsertPersonInOutNowNow(newInOut);
+                            PersonInOutService.InsertPersonInOutNowNow(newNow);
                             // GetDataService.CorrectingPersonInOutNumber(projectId);
                         }
                     }

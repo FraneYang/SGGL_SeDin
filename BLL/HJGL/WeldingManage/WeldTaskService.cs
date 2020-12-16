@@ -45,6 +45,7 @@ namespace BLL
                 JointAttribute= WeldTask.JointAttribute,
                 Tabler = WeldTask.Tabler,
                 TableDate = WeldTask.TableDate,
+                TaskCode=WeldTask.TaskCode,
                 WeldingMode = WeldTask.WeldingMode,
             };
 

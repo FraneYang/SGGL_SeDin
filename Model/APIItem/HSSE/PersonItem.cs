@@ -161,6 +161,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 身份证背面照
+        /// </summary>
+        public string AttachUrl5
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 岗位类型
         /// </summary>
         public string PostType
@@ -188,6 +196,190 @@ namespace Model
         /// 是否外聘人员
         /// </summary>
         public bool? IsOutside
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 文化程度
+        /// </summary>
+        public string EduLevel
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 文化程度
+        /// </summary>
+        public string EduLevelName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 婚姻状况
+        /// </summary>
+        public string MaritalStatus
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 婚姻状况
+        /// </summary>
+        public string MaritalStatusName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 证件类型
+        /// </summary>
+        public string IdcardType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 证件类型
+        /// </summary>
+        public string IdcardTypeName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 证件开始时间
+        /// </summary>
+        public string IdcardStartDate
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 证件结束时间
+        /// </summary>
+        public string IdcardEndDate
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 证件是否永久有效
+        /// </summary>
+        public string IdcardForever
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 证件是否永久有效
+        /// </summary>
+        public string IdcardForeverStr
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 政治面貌
+        /// </summary>
+        public string PoliticsStatus
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 政治面貌
+        /// </summary>
+        public string PoliticsStatusName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 发证机关
+        /// </summary>
+        public string IdcardAddress
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 民族
+        /// </summary>
+        public string Nation
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 民族
+        /// </summary>
+        public string NationName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 国家
+        /// </summary>
+        public string CountryCode
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 国家
+        /// </summary>
+        public string CountryName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 省份
+        /// </summary>
+        public string ProvinceCode
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 省份
+        /// </summary>
+        public string ProvinceName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 主专业
+        /// </summary>
+        public string MainCNProfessionalId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 主专业
+        /// </summary>
+        public string MainCNProfessionalName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 副专业
+        /// </summary>
+        public string ViceCNProfessionalId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 副专业
+        /// </summary>
+        public string ViceCNProfessionalName
         {
             get;
             set;

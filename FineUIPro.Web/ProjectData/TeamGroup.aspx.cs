@@ -28,7 +28,7 @@ namespace FineUIPro.Web.ProjectData
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
-                } 
+                }
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 this.BindGrid();
@@ -40,7 +40,7 @@ namespace FineUIPro.Web.ProjectData
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT TeamGroupId,ProjectId,UnitId,TeamGroupCode,TeamGroupName,Remark,GroupLeaderId FROM ProjectData_TeamGroup WHERE 1=1 ";
+            string strSql = "SELECT TeamGroupId,ProjectId,UnitId,TeamGroupCode,TeamGroupName,Remark,TeamTypeId,GroupLeaderId FROM ProjectData_TeamGroup WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
             {
@@ -79,10 +79,10 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
-        {            
+        {
             BindGrid();
         }
-        
+
         /// <summary>
         /// 分页下拉选择事件
         /// </summary>
@@ -100,7 +100,7 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Grid1_Sort(object sender, FineUIPro.GridSortEventArgs e)
-        {          
+        {
             BindGrid();
         }
 
@@ -154,7 +154,7 @@ namespace FineUIPro.Web.ProjectData
             else
             {
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TeamGroupEdit.aspx?TeamGroupId={0}", Grid1.SelectedRowID, "编辑 - ")));
-            }                        
+            }
         }
         #endregion
 
@@ -183,7 +183,7 @@ namespace FineUIPro.Web.ProjectData
                         {
                             BLL.LogService.AddSys_Log(this.CurrUser, TeamGroup.TeamGroupCode, TeamGroup.TeamGroupId, BLL.Const.TeamGroupMenuId, BLL.Const.BtnDelete);
                             BLL.TeamGroupService.DeleteTeamGroupById(rowID);
-                        }                                                
+                        }
                     }
                 }
                 BindGrid();
@@ -198,7 +198,7 @@ namespace FineUIPro.Web.ProjectData
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-           
+
             if (string.IsNullOrEmpty(content))
             {
                 return true;
@@ -241,11 +241,25 @@ namespace FineUIPro.Web.ProjectData
             }
             return unitName;
         }
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="groupLeaderId"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// 根据施工队类型Id获取施工队类型名称字符串
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        protected string ConvertTeamType(object teamTypeId)
+        {
+            string teamType = string.Empty;
+            if (teamTypeId != null)
+            {
+                teamType = BLL.BasicDataService.GetDictNameByDictCode(teamTypeId.ToString());
+            }
+            return teamType;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="groupLeaderId"></param>
+        /// <returns></returns>
         protected string ConvertGroupLeader(object groupLeaderId)
         {
             string name = string.Empty;
@@ -256,10 +270,10 @@ namespace FineUIPro.Web.ProjectData
             return name;
         }
         /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="groupLeaderId"></param>
-       /// <returns></returns>
+        /// 
+        /// </summary>
+        /// <param name="groupLeaderId"></param>
+        /// <returns></returns>
         protected string ConvertPersonNum(object teamGroupId)
         {
             string name = string.Empty;
@@ -351,6 +365,18 @@ namespace FineUIPro.Web.ProjectData
                     if (column.ColumnID == "tfUnitId")
                     {
                         html = (row.FindControl("lblUnitName") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "TeamTypeId")
+                    {
+                        html = (row.FindControl("lblTeamType") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfGroupLeader")
+                    {
+                        html = (row.FindControl("lbGroupLeader") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfPersonNum")
+                    {
+                        html = (row.FindControl("lbPersonNum") as AspNet.Label).Text;
                     }
                     sb.AppendFormat("<td>{0}</td>", html);
                 }

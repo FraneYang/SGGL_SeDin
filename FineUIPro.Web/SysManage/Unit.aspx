@@ -87,7 +87,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server"  IsModal="true" 
-        Width="900px" Height="400px">
+        Width="1000px" Height="570px">
     </f:Window>
     <f:Window ID="Window2" Title="导入" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="false"

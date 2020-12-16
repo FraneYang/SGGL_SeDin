@@ -10,7 +10,7 @@ namespace BLL
     /// </summary>
     public static class TeamGroupService
     {
-        public static Model.SGGLDB db = Funs.DB; 
+        public static Model.SGGLDB db = Funs.DB;
 
         /// <summary>
         /// 根据主键获取班组信息
@@ -37,8 +37,13 @@ namespace BLL
                 TeamGroupCode = teamGroup.TeamGroupCode,
                 TeamGroupName = teamGroup.TeamGroupName,
                 Remark = teamGroup.Remark,
-                GroupLeaderId = teamGroup.GroupLeaderId
-        };
+                TeamTypeId = teamGroup.TeamTypeId,
+                ThirdTeamCode = teamGroup.ThirdTeamCode,
+                EntryTime = teamGroup.EntryTime,
+                ExitTime = teamGroup.ExitTime,
+                GroupLeaderId = teamGroup.GroupLeaderId,
+                RealNamePushTime=teamGroup.RealNamePushTime,
+            };
             db.ProjectData_TeamGroup.InsertOnSubmit(newTeamGroup);
             db.SubmitChanges();
         }
@@ -58,7 +63,12 @@ namespace BLL
                 newTeamGroup.TeamGroupCode = teamGroup.TeamGroupCode;
                 newTeamGroup.TeamGroupName = teamGroup.TeamGroupName;
                 newTeamGroup.GroupLeaderId = teamGroup.GroupLeaderId;
+                newTeamGroup.TeamTypeId = teamGroup.TeamTypeId;
+                newTeamGroup.ThirdTeamCode = teamGroup.ThirdTeamCode;
+                newTeamGroup.EntryTime = teamGroup.EntryTime;
+                newTeamGroup.ExitTime = teamGroup.ExitTime;
                 newTeamGroup.Remark = teamGroup.Remark;
+                //newTeamGroup.RealNamePushTime = teamGroup.RealNamePushTime;
                 db.SubmitChanges();
             }
         }
@@ -86,9 +96,9 @@ namespace BLL
         public static int getTeamGroupPersonNum(string teamGroupId)
         {
             Model.SGGLDB db = Funs.DB;
-            return  (from x in Funs.DB.SitePerson_Person
-             where x.TeamGroupId == teamGroupId && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
-             select x).Count();
+            return (from x in Funs.DB.SitePerson_Person
+                    where x.TeamGroupId == teamGroupId && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
+                    select x).Count();
         }
 
         /// <summary>
@@ -118,11 +128,11 @@ namespace BLL
         /// </summary>
         /// <param name="dropName">下拉框名字</param>
         /// <param name="isShowPlease">是否显示请选择</param>
-        public static void InitTeamGroupProjectUnitDropDownList(FineUIPro.DropDownList dropName,string projectId, string unitId, bool isShowPlease)
+        public static void InitTeamGroupProjectUnitDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitId, bool isShowPlease)
         {
             dropName.DataValueField = "TeamGroupId";
             dropName.DataTextField = "TeamGroupName";
-            dropName.DataSource = GetTeamGroupListByUnitId(projectId,unitId);
+            dropName.DataSource = GetTeamGroupListByUnitId(projectId, unitId);
             dropName.DataBind();
             if (isShowPlease)
             {

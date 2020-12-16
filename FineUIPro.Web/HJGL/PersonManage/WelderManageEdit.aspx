@@ -41,21 +41,21 @@
                             <f:Panel ID="Panel1" Title="面板1" BoxFlex="5" MarginRight="5px" runat="server" ShowBorder="false"
                                 Width="200px" ShowHeader="false">
                                 <Items> 
-                                    <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称" 
+                                    <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称" Enabled="false" 
                                         AutoPostBack="true" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged"  LabelWidth="120px" Required="true" ShowRedStar="true">
                                     </f:DropDownList>
                                    
                                     
-                                     <f:TextBox ID="txtWelderName" runat="server" Label="焊工姓名"
+                                     <f:TextBox ID="txtWelderName" runat="server" Label="焊工姓名" Enabled="false" 
                                         Required="true" MaxLength="50" ShowRedStar="true" LabelWidth="120px">
                                     </f:TextBox>
                                     <f:TextBox ID="txtCertificateCode" runat="server" Label="证书编号"
                                         MaxLength="50" LabelWidth="120px" Required="true" ShowRedStar="true">
                                     </f:TextBox>
-                                    <f:DatePicker ID="txtBirthday" runat="server" Label="出生日期"
+                                    <f:DatePicker ID="txtBirthday" runat="server" Label="出生日期" Enabled="false"
                                         LabelWidth="120px">
                                     </f:DatePicker>
-                                    <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗"
+                                    <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗" Enabled="false"
                                         LabelWidth="120px">
                                     </f:CheckBox>
                                 </Items>
@@ -66,11 +66,11 @@
                                     <f:TextBox ID="txtWelderCode" runat="server" Label="焊工号"
                                         Required="true" MaxLength="50" ShowRedStar="true" FocusOnPageLoad="true" LabelWidth="120px">
                                     </f:TextBox>
-                                    <f:RadioButtonList ID="rblSex" runat="server" Label="性别" LabelWidth="120px">
+                                    <f:RadioButtonList ID="rblSex" runat="server" Label="性别" LabelWidth="120px" Enabled="false">
                                         <f:RadioItem Selected="true" Value="1" Text="男" />
                                         <f:RadioItem Value="2" Text="女" />
                                     </f:RadioButtonList>
-                                    <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证号"
+                                    <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证号" Enabled="false"
                                         MaxLength="18" LabelWidth="120px" Required="true" ShowRedStar="true">
                                     </f:TextBox>
                                     <f:DatePicker ID="txtCertificateLimitTime" runat="server" Label="有效期"
@@ -88,11 +88,11 @@
                                         BoxFlex="1">
                                     </f:Image>
                                 </Items>
-                                <Items>
+                                <%--<Items>
                                     <f:FileUpload runat="server" ID="filePhoto" EmptyText="请选择照片" OnFileSelected="btnPhoto_Click"
                                         AutoPostBack="true">
                                     </f:FileUpload>
-                                </Items>
+                                </Items>--%>
                             </f:Panel>
                         </Items>
                     </f:Panel>

@@ -34,49 +34,49 @@ namespace BLL
             return Funs.DB.SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == personId && x.ChangeTime == ChangeTime && x.IsIn == isIn);
         }
 
-        /// <summary>
-        /// 增加人员出入场信息
-        /// </summary>
-        /// <param name="PersonInOut">人员实体</param>
-        public static void AddPersonInOut(Model.SitePerson_PersonInOut PersonInOut)
-        {
-            Model.SGGLDB db = Funs.DB;
-            string postType = null;
-            string workpostId = null;
-            var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == PersonInOut.PersonId);
-            if (getPerson != null)
-            {
-                workpostId = getPerson.WorkPostId;
-                var getWokPost = db.Base_WorkPost.FirstOrDefault(x => x.PostType == getPerson.WorkPostId);
-                if (getWokPost != null)
-                {
-                    postType = getWokPost.PostType;
-                }
-            }
+        ///// <summary>
+        ///// 增加人员出入场信息
+        ///// </summary>
+        ///// <param name="PersonInOut">人员实体</param>
+        //public static void AddPersonInOut(Model.SitePerson_PersonInOut PersonInOut)
+        //{
+        //    Model.SGGLDB db = Funs.DB;
+        //    string postType = null;
+        //    string workpostId = null;
+        //    var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == PersonInOut.PersonId);
+        //    if (getPerson != null)
+        //    {
+        //        workpostId = getPerson.WorkPostId;
+        //        var getWokPost = db.Base_WorkPost.FirstOrDefault(x => x.PostType == getPerson.WorkPostId);
+        //        if (getWokPost != null)
+        //        {
+        //            postType = getWokPost.PostType;
+        //        }
+        //    }
 
-            Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
-            {
-                PersonInOutId = SQLHelper.GetNewID(typeof(Model.SitePerson_PersonInOut)),
-                ProjectId = PersonInOut.ProjectId,
-                UnitId = PersonInOut.UnitId,
-                PersonId = PersonInOut.PersonId,
-                IsIn = PersonInOut.IsIn,
-                ChangeTime = PersonInOut.ChangeTime,
-                WorkPostId = workpostId,
-                PostType = postType,
-            };
+        //    Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
+        //    {
+        //        PersonInOutId = SQLHelper.GetNewID(typeof(Model.SitePerson_PersonInOut)),
+        //        ProjectId = PersonInOut.ProjectId,
+        //        UnitId = PersonInOut.UnitId,
+        //        PersonId = PersonInOut.PersonId,
+        //        IsIn = PersonInOut.IsIn,
+        //        ChangeTime = PersonInOut.ChangeTime,
+        //        WorkPostId = workpostId,
+        //        PostType = postType,
+        //    };
 
-            db.SitePerson_PersonInOut.InsertOnSubmit(newPersonInOut);
-            db.SubmitChanges();
-            //// 插入当日记录表
-            InsertPersonInOutNowNow(newPersonInOut);
-        }
+        //    db.SitePerson_PersonInOut.InsertOnSubmit(newPersonInOut);
+        //    db.SubmitChanges();
+        //    //// 插入当日记录表
+        //    InsertPersonInOutNowNow(newPersonInOut);
+        //}
 
         /// <summary>
         ///  插入当日出入记录表
         /// </summary>
         /// <param name="PersonInOut"></param>
-        public static void InsertPersonInOutNowNow(Model.SitePerson_PersonInOut PersonInOut)
+        public static void InsertPersonInOutNowNow(Model.SitePerson_PersonInOutNow PersonInOut)
         {
             Model.SGGLDB db = Funs.DB;        
             var getNow = db.SitePerson_PersonInOutNow.FirstOrDefault(x => x.PersonInOutId == PersonInOut.PersonInOutId);
@@ -92,13 +92,43 @@ namespace BLL
                     ChangeTime = PersonInOut.ChangeTime,
                     WorkPostId = PersonInOut.WorkPostId,
                     PostType = PersonInOut.PostType,
+                    ProCode = PersonInOut.ProCode,
+                    Name = PersonInOut.Name,
+                    IdcardType = PersonInOut.IdcardType,
+                    IdcardNumber = PersonInOut.IdcardNumber,
+                    CheckType = "ZHENGCHANG_KAOQINLEIBIE",
+                    CheckWay = "FACE_FANGSHI",
                 };
                 db.SitePerson_PersonInOutNow.InsertOnSubmit(newPersonInOut);
                 db.SubmitChanges();
-            }
 
+                var getRealNameP = db.RealName_Project.FirstOrDefault(x => x.ProCode == newPersonInOut.ProCode);
+                if (getRealNameP != null)
+                {
+                    Model.RealName_PersonInOutNow newR = new Model.RealName_PersonInOutNow
+                    {
+                        PersonInOutId = newPersonInOut.PersonInOutId,
+                        ProjectId = newPersonInOut.ProjectId,
+                        UnitId = newPersonInOut.UnitId,
+                        PersonId = newPersonInOut.PersonId,
+                        IsIn = newPersonInOut.IsIn,
+                        ChangeTime = newPersonInOut.ChangeTime,
+                        WorkPostId = newPersonInOut.WorkPostId,
+                        PostType = newPersonInOut.PostType,
+                        ProCode = newPersonInOut.ProCode,
+                        Name = newPersonInOut.Name,
+                        IdcardType = newPersonInOut.IdcardType,
+                        IdcardNumber = newPersonInOut.IdcardNumber,
+                        CheckType = "ZHENGCHANG_KAOQINLEIBIE",
+                        CheckWay = "FACE_FANGSHI",
+                    };
+                    db.RealName_PersonInOutNow.InsertOnSubmit(newR);
+                    db.SubmitChanges();
+                }
+            }
+          
             var getLastList = from x in db.SitePerson_PersonInOutNow
-                              where x.ChangeTime <= PersonInOut.ChangeTime.Value.AddDays(-1)
+                              where x.ChangeTime <= PersonInOut.ChangeTime.Value.AddHours(-48)
                               select x;
             if (getLastList.Count() > 0)
             {

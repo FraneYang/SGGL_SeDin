@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        ///获取项目名称
+        ///根据ID获取项目名称
         /// </summary>
         /// <returns></returns>
         public static string GetProjectNameByProjectId(string projectId)
@@ -33,6 +33,20 @@
             return name;
         }
 
+        /// <summary>
+        ///根据ID获取项目编号
+        /// </summary>
+        /// <returns></returns>
+        public static string GetProjectCodeByProjectId(string projectId)
+        {
+            string name = string.Empty;
+            var project = Funs.DB.Base_Project.FirstOrDefault(e => e.ProjectId == projectId);
+            if (project != null)
+            {
+                name = project.ProjectCode;
+            }
+            return name;
+        }
         public static Model.Base_Project GetProjectByProjectShortName(string name)
         {
             return Funs.DB.Base_Project.FirstOrDefault(e => e.ShortName == name);

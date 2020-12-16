@@ -36,11 +36,12 @@ namespace FineUIPro.Web.ProjectData
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {              
+            {
                 this.txtTeamGroupCode.Focus();
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
 
                 UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
+                BasicDataService.InitBasicDataProjectUnitDropDownList(this.drpTeamType, "TEAM_TYPE", true);
                 if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
                 {
                     this.drpUnitId.SelectedValue = this.CurrUser.UnitId;
@@ -65,6 +66,19 @@ namespace FineUIPro.Web.ProjectData
                                 this.drpGroupLeader.SelectedValue = teamGroup.GroupLeaderId;
                             }
                         }
+                        if (!string.IsNullOrEmpty(teamGroup.TeamTypeId))
+                        {
+                            this.drpTeamType.SelectedValue = teamGroup.TeamTypeId;
+                        }
+                        //this.txtThirdTeamCode.Text = teamGroup.ThirdTeamCode;
+                        if (teamGroup.EntryTime != null)
+                        {
+                            this.txtEntryTime.Text = string.Format("{0:yyyy-MM-dd}", teamGroup.EntryTime);
+                        }
+                        if (teamGroup.ExitTime != null)
+                        {
+                            this.txtExitTime.Text = string.Format("{0:yyyy-MM-dd}", teamGroup.ExitTime);
+                        }
                         this.txtRemark.Text = teamGroup.Remark;
                     }
                 }
@@ -80,13 +94,32 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            //var q2 = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupName == this.txtTeamGroupName.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
+            //if (q2 != null)
+            //{
+            //    Alert.ShowInTop("输入的班组名称已存在", MessageBoxIcon.Warning);
+            //    return;
+            //}
+            if (this.drpUnitId.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("请选择单位名称", MessageBoxIcon.Warning);
+                return;
+            }
+            if (this.drpTeamType.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("请选择施工队类型", MessageBoxIcon.Warning);
+                return;
+            }
             Model.ProjectData_TeamGroup teamGroup = new Model.ProjectData_TeamGroup
             {
                 ProjectId = this.CurrUser.LoginProjectId,
                 TeamGroupCode = this.txtTeamGroupCode.Text.Trim(),
-                TeamGroupName = this.txtTeamGroupName.Text.Trim()
+                TeamGroupName = this.txtTeamGroupName.Text.Trim(),
+                //ThirdTeamCode = this.txtThirdTeamCode.Text.Trim(),
+                EntryTime = Funs.GetNewDateTime(this.txtEntryTime.Text.Trim()),
+                ExitTime = Funs.GetNewDateTime(this.txtExitTime.Text.Trim())
             };
-            if (this.drpUnitId.SelectedValue!=BLL.Const._Null)
+            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
             {
                 teamGroup.UnitId = this.drpUnitId.SelectedValue;
             }
@@ -94,12 +127,13 @@ namespace FineUIPro.Web.ProjectData
             {
                 teamGroup.GroupLeaderId = this.drpGroupLeader.SelectedValue;
             }
+            teamGroup.TeamTypeId = this.drpTeamType.SelectedValue;
             teamGroup.Remark = this.txtRemark.Text.Trim();
             if (!string.IsNullOrEmpty(this.TeamGroupId))
             {
                 teamGroup.TeamGroupId = this.TeamGroupId;
                 BLL.TeamGroupService.UpdateTeamGroup(teamGroup);
-                BLL.LogService.AddSys_Log(this.CurrUser, teamGroup.TeamGroupCode, teamGroup.TeamGroupId,BLL.Const.TeamGroupMenuId,BLL.Const.BtnModify);
+                BLL.LogService.AddSys_Log(this.CurrUser, teamGroup.TeamGroupCode, teamGroup.TeamGroupId, BLL.Const.TeamGroupMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -121,17 +155,17 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x =>x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupCode == this.txtTeamGroupCode.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
+            var q = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupCode == this.txtTeamGroupCode.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
             if (q != null)
             {
                 ShowNotify("输入的班组编号已存在！", MessageBoxIcon.Warning);
             }
 
-            var q2 = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupName == this.txtTeamGroupName.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
-            if (q2 != null)
-            {
-                ShowNotify("输入的班组名称已存在！", MessageBoxIcon.Warning);
-            }
+            //var q2 = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x => x.ProjectId == this.CurrUser.LoginProjectId && x.TeamGroupName == this.txtTeamGroupName.Text.Trim() && (x.TeamGroupId != this.TeamGroupId || (this.TeamGroupId == null && x.TeamGroupId != null)));
+            //if (q2 != null)
+            //{
+            //    ShowNotify("输入的班组名称已存在！", MessageBoxIcon.Warning);
+            //}
         }
         #endregion
 
@@ -151,7 +185,7 @@ namespace FineUIPro.Web.ProjectData
         private void getDrpGroupLeader()
         {
             this.drpGroupLeader.Items.Clear();
-            PersonService.InitPersonByProjectUnitDropDownList(this.drpGroupLeader, this.CurrUser.LoginProjectId, this.drpUnitId.SelectedValue, true);            
+            PersonService.InitPersonByProjectUnitDropDownList(this.drpGroupLeader, this.CurrUser.LoginProjectId, this.drpUnitId.SelectedValue, true);
         }
     }
 }

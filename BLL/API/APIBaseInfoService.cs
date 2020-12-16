@@ -686,5 +686,58 @@ namespace BLL
             }
         }
         #endregion
+
+        #region 获取国家基础数据
+        /// <summary>
+        /// 获取国家基础数据
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getCountry()
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.RealName_Country
+                                    orderby x.Name
+                                    select new Model.BaseInfoItem { BaseInfoId = x.CountryId, BaseInfoCode = x.Name, BaseInfoName = x.Cname }).ToList();
+                return getDataLists;
+            }
+        }
+        #endregion
+
+        #region 获取省份基础数据
+        /// <summary>
+        /// 获取省份基础数据
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getProvinceByCountry(string countryId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.RealName_City
+                                    where countryId == null || countryId=="" || x.CountryId== countryId
+                                    orderby x.ProvinceCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.ProvinceCode, BaseInfoCode = x.Name, BaseInfoName = x.Cname }).ToList();
+                return getDataLists;
+            }
+        }
+        #endregion
+
+        #region 获取实名制数据字典信息
+        /// <summary>
+        /// 获取实名制数据字典信息
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getBasicDataByDictTypeCode(string dictTypeCode)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.RealName_BasicData
+                                    where x.DictTypeCode == dictTypeCode
+                                    orderby x.DictCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.DictCode, BaseInfoCode = x.DictCode, BaseInfoName = x.DictName }).ToList();
+                return getDataLists;
+            }
+        }
+        #endregion
     }
 }

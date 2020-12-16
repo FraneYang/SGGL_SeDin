@@ -19,6 +19,7 @@ namespace FineUIPro.Web.BaseInfo
                 this.GetButtonPower();
                 Funs.DropDownPageSize(this.ddlPageSize);
                 //岗位类型            
+                BasicDataService.InitBasicDataCodeAndNameDropDownList(this.drpWorkPostCode, "LAB_WORK_TYPE", true);
                 BLL.ConstValue.InitConstValueDropDownList(this.drpPostType, ConstValue.Group_PostType, true);
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
@@ -102,7 +103,7 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.LogService.AddSys_Log(this.CurrUser, this.txtWorkPostCode.Text, hfFormID.Text, BLL.Const.WorkPostMenuId, BLL.Const.BtnDelete);
+            BLL.LogService.AddSys_Log(this.CurrUser, this.drpWorkPostCode.SelectedValue, hfFormID.Text, BLL.Const.WorkPostMenuId, BLL.Const.BtnDelete);
             BLL.WorkPostService.DeleteWorkPostById(hfFormID.Text);
 
             // 重新绑定表格，并模拟点击[新增按钮]
@@ -151,7 +152,7 @@ namespace FineUIPro.Web.BaseInfo
             var workPost = BLL.WorkPostService.GetWorkPostById(Id);
             if (workPost != null)
             {
-                this.txtWorkPostCode.Text = workPost.WorkPostCode;
+                this.drpWorkPostCode.SelectedValue = workPost.WorkPostCode;
                 this.txtWorkPostName.Text = workPost.WorkPostName;
                 if (!string.IsNullOrEmpty(workPost.PostType))
                 {
@@ -183,6 +184,11 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            if (this.drpWorkPostCode.SelectedValue == BLL.Const._Null)
+            {
+                ShowNotify("请选择编号！", MessageBoxIcon.Warning);
+                return;
+            }
             if (this.drpPostType.SelectedValue == BLL.Const._Null)
             {
                 ShowNotify("请选择类型！", MessageBoxIcon.Warning);
@@ -191,7 +197,7 @@ namespace FineUIPro.Web.BaseInfo
             string strRowID = hfFormID.Text;
             Model.Base_WorkPost newWorkPost = new Model.Base_WorkPost
             {
-                WorkPostCode = this.txtWorkPostCode.Text.Trim(),
+                WorkPostCode = this.drpWorkPostCode.SelectedValue,
                 WorkPostName = this.txtWorkPostName.Text.Trim(),
                 PostType = this.drpPostType.SelectedValue,
                 IsHsse = Convert.ToBoolean(this.ckbIsHsse.Checked),
@@ -257,11 +263,11 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            var q = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostCode == this.txtWorkPostCode.Text.Trim() && (x.WorkPostId != hfFormID.Text || (hfFormID.Text == null && x.WorkPostId != null)));
-            if (q != null)
-            {
-                ShowNotify("输入的岗位编号已存在！", MessageBoxIcon.Warning);
-            }
+            //var q = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostCode == this.txtWorkPostCode.Text.Trim() && (x.WorkPostId != hfFormID.Text || (hfFormID.Text == null && x.WorkPostId != null)));
+            //if (q != null)
+            //{
+            //    ShowNotify("输入的岗位编号已存在！", MessageBoxIcon.Warning);
+            //}
 
             var q2 = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostName == this.txtWorkPostName.Text.Trim() && (x.WorkPostId != hfFormID.Text || (hfFormID.Text == null && x.WorkPostId != null)));
             if (q2 != null)

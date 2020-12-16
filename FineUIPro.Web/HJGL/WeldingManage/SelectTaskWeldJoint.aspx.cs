@@ -263,6 +263,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnAccept_Click(object sender, EventArgs e)
         {
+
             if (!string.IsNullOrEmpty(txtTaskDate.Text))
             {
                 if (!string.IsNullOrEmpty(TaskDate))

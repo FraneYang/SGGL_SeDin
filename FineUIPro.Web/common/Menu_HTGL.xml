@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0002" Text="单位设置" NavigateUrl="SysManage/Unit.aspx">
+  <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0002" Text="单位管理" NavigateUrl="SysManage/Unit.aspx">
   </TreeNode>
 </Tree>

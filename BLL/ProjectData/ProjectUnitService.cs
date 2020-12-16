@@ -76,7 +76,8 @@
                 OutTime = projectUnit.OutTime,
                 PlanCostA = projectUnit.PlanCostA,
                 PlanCostB = projectUnit.PlanCostB,
-                ContractRange = projectUnit.ContractRange
+                ContractRange = projectUnit.ContractRange,
+                RealNamePushTime= projectUnit.RealNamePushTime,
             };
             db.Project_ProjectUnit.InsertOnSubmit(newProjectUnit);
             db.SubmitChanges();
@@ -98,6 +99,7 @@
                 newProjectUnit.PlanCostA = projectUnit.PlanCostA;
                 newProjectUnit.PlanCostB = projectUnit.PlanCostB;
                 newProjectUnit.ContractRange = projectUnit.ContractRange;
+                newProjectUnit.RealNamePushTime = projectUnit.RealNamePushTime;
                 db.SubmitChanges();
             }
         }

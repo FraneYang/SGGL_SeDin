@@ -85,7 +85,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 this.UnitId = Request.Params["UnitId"];
                 this.PersonId = Request.Params["PersonId"];
                 this.InitDropDownList();
-
+                this.drpIdcardType.SelectedValue = "SHENFEN_ZHENGJIAN";
                 if (!string.IsNullOrEmpty(this.PersonId))
                 {
                     var person = BLL.PersonService.GetPersonById(this.PersonId);
@@ -133,6 +133,23 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         {
                             this.drpAuditor.SelectedValue = person.AuditorId;
                         }
+                        if (!string.IsNullOrEmpty(person.MainCNProfessionalId))
+                        {
+                            this.drpMainCNProfessional.SelectedValue = person.MainCNProfessionalId;
+                        }
+                        if (!string.IsNullOrEmpty(person.ViceCNProfessionalId))
+                        {
+                            this.drpViceCNProfessional.SelectedValueArray = person.ViceCNProfessionalId.Split(',');
+                        }
+                        if (!string.IsNullOrEmpty(person.EduLevel))
+                        {
+                            this.drpEduLevel.SelectedValue = person.EduLevel;
+                        }
+                        if (!string.IsNullOrEmpty(person.MaritalStatus))
+                        {
+                            this.drpMaritalStatus.SelectedValue = person.MaritalStatus;
+                        }
+                        this.txtIdcardAddress.Text = person.IdcardAddress;
                         this.rblIsUsed.SelectedValue = person.IsUsed ? "True" : "False";
                         this.rblIsCardUsed.SelectedValue = person.IsCardUsed ? "True" : "False";
                         this.txtCardNo.Text = person.CardNo;
@@ -163,9 +180,52 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             this.drpAuditor.Readonly = true;
                             this.txtAuditorDate.Readonly = true;
                         }
+                        if (person.Birthday.HasValue)
+                        {
+                            this.txtBirthday.Text = string.Format("{0:yyyy-MM-dd}", person.Birthday);
+                        }
                         if (!string.IsNullOrEmpty(person.PhotoUrl))
                         {
-                            imgPhoto.ImageUrl = ("~/"+person.PhotoUrl) ;
+                            imgPhoto.ImageUrl = ("~/" + person.PhotoUrl);
+                        }
+                        if (!string.IsNullOrEmpty(person.IdcardType))
+                        {
+                            this.drpIdcardType.SelectedValue = person.IdcardType;
+                        }
+                        if (!string.IsNullOrEmpty(person.PoliticsStatus))
+                        {
+                            this.drpPoliticsStatus.SelectedValue = person.PoliticsStatus;
+                        }
+                        if (!string.IsNullOrEmpty(person.Nation))
+                        {
+                            this.drpNation.SelectedValue = person.Nation;
+                        }
+                        if (!string.IsNullOrEmpty(person.CountryCode))
+                        {
+                            this.drpCountryCode.SelectedValue = person.CountryCode;
+                            CityService.InitCityDropDownList(this.drpProvinceCode, person.CountryCode, false);
+                        }
+                        if (!string.IsNullOrEmpty(person.ProvinceCode))
+                        {
+                            this.drpProvinceCode.SelectedValue = person.ProvinceCode;
+                        }
+                        if (person.IdcardStartDate != null)
+                        {
+                            this.txtIdcardStartDate.Text = string.Format("{0:yyyy-MM-dd}", person.IdcardStartDate);
+                        }
+                        if (!string.IsNullOrEmpty(person.IdcardForever))
+                        {
+                            this.rblIdcardForever.SelectedValue = person.IdcardForever;
+                            if (person.IdcardForever == "Y")
+                            {
+                                this.txtIdcardEndDate.Enabled = false;
+                                this.txtIdcardEndDate.ShowRedStar = false;
+                                this.txtIdcardEndDate.Required = false;
+                            }
+                        }
+                        if (person.IdcardEndDate != null)
+                        {
+                            this.txtIdcardEndDate.Text = string.Format("{0:yyyy-MM-dd}", person.IdcardEndDate);
                         }
                     }
 
@@ -206,6 +266,15 @@ namespace FineUIPro.Web.HSSE.SitePerson
             TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.ProjectId, this.UnitId, true);
             CertificateService.InitCertificateDropDownList(this.drpCertificate, true);
             UserService.InitFlowOperateControlUserDropDownList(this.drpAuditor, this.ProjectId, Const.UnitId_SEDIN, true);
+            CNProfessionalService.InitCNProfessionalDownList(this.drpMainCNProfessional, true);
+            CNProfessionalService.InitCNProfessionalDownList(this.drpViceCNProfessional, true);
+            BasicDataService.InitBasicDataProjectUnitDropDownList(this.drpEduLevel, "EDU_LEVEL", true);
+            BasicDataService.InitBasicDataProjectUnitDropDownList(this.drpMaritalStatus, "MARITAL_STATUS", true);
+            BasicDataService.InitBasicDataProjectUnitDropDownList(this.drpIdcardType, "ZHENGJIAN_TYPE", true);
+            BasicDataService.InitBasicDataProjectUnitDropDownList(this.drpPoliticsStatus, "POLITICAL_LANDSCAPE", true);
+            BasicDataService.InitBasicDataProjectUnitDropDownList(this.drpNation, "MINZU_TYPE", true);
+            SynchroSetService.InitCountryDropDownList(this.drpCountryCode, true);
+            Funs.FineUIPleaseSelect(this.drpProvinceCode);
         }
 
         #region 保存
@@ -221,16 +290,41 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 ShowNotify("人员姓名不能为空！", MessageBoxIcon.Warning);
                 return;
             }
+            if (this.drpIdcardType.SelectedValue == BLL.Const._Null)
+            {
+                ShowNotify("请选择证件类型！", MessageBoxIcon.Warning);
+                return;
+            }
             if (string.IsNullOrEmpty(this.txtIdentityCard.Text))
             {
-                ShowNotify("身份证/证件号不能为空！", MessageBoxIcon.Warning);
+                ShowNotify("证件号码不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
+            //if (string.IsNullOrEmpty(this.txtIdcardStartDate.Text))
+            //{
+            //    ShowNotify("证件开始日期不能为空！", MessageBoxIcon.Warning);
+            //    return;
+            //}
+            //if (this.txtIdcardEndDate.Enabled == true && string.IsNullOrEmpty(this.txtIdcardEndDate.Text.Trim()))
+            //{
+            //    ShowNotify("证件有效日期不能为空！", MessageBoxIcon.Warning);
+            //    return;
+            //}
+            if (this.drpTeamGroup.SelectedValue == BLL.Const._Null)
+            {
+                ShowNotify("请选择所属班组！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (this.drpPost.SelectedValue == BLL.Const._Null)
+            {
+                ShowNotify("请选择所属岗位！", MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(this.txtInTime.Text))
             {
                 ShowNotify("入场时间不能为空！", MessageBoxIcon.Warning);
                 return;
-            }           
+            }
             SaveData();
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
@@ -269,6 +363,10 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 person.UnitId = this.UnitId;
             }
+            if (this.drpIdcardType.SelectedValue != BLL.Const._Null)
+            {
+                person.IdcardType = this.drpIdcardType.SelectedValue;
+            }
             if (this.drpTeamGroup.SelectedValue != BLL.Const._Null)
             {
                 person.TeamGroupId = this.drpTeamGroup.SelectedValue;
@@ -297,6 +395,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 person.IsCardUsed = Convert.ToBoolean(this.rblIsCardUsed.SelectedValue);
             }
+            person.IdcardAddress = this.txtIdcardAddress.Text.Trim();
             if (!string.IsNullOrEmpty(this.txtCardNo.Text.Trim()))
             {
                 person.CardNo = this.txtCardNo.Text.Trim();
@@ -306,6 +405,58 @@ namespace FineUIPro.Web.HSSE.SitePerson
             if (!string.IsNullOrEmpty(this.txtIdentityCard.Text))
             {
                 person.IdentityCard = this.txtIdentityCard.Text.Trim();
+            }
+            if (!string.IsNullOrEmpty(this.txtIdcardStartDate.Text.Trim()))
+            {
+                person.IdcardStartDate = Convert.ToDateTime(this.txtIdcardStartDate.Text.Trim());
+            }
+            person.IdcardForever = this.rblIdcardForever.SelectedValue;
+            if (!string.IsNullOrEmpty(this.txtIdcardEndDate.Text.Trim()))
+            {
+                person.IdcardEndDate = Convert.ToDateTime(this.txtIdcardEndDate.Text.Trim());
+            }
+            if (this.drpEduLevel.SelectedValue != Const._Null)
+            {
+                person.EduLevel = this.drpEduLevel.SelectedValue;
+            }
+            if (this.drpPoliticsStatus.SelectedValue != Const._Null)
+            {
+                person.PoliticsStatus = this.drpPoliticsStatus.SelectedValue;
+            }
+            if (this.drpNation.SelectedValue != Const._Null)
+            {
+                person.Nation = this.drpNation.SelectedValue;
+            }
+            if (this.drpCountryCode.SelectedValue != Const._Null)
+            {
+                person.CountryCode = this.drpCountryCode.SelectedValue;
+            }
+            if (this.drpProvinceCode.SelectedValue != Const._Null)
+            {
+                person.ProvinceCode = this.drpProvinceCode.SelectedValue;
+            }
+            if (this.drpMaritalStatus.SelectedValue != Const._Null)
+            {
+                person.MaritalStatus = this.drpMaritalStatus.SelectedValue;
+            }
+            if (this.drpMainCNProfessional.SelectedValue != Const._Null)
+            {
+                person.MainCNProfessionalId = this.drpMainCNProfessional.SelectedValue;
+            }
+            foreach (var item in this.drpViceCNProfessional.SelectedValueArray)
+            {
+                var cn = BLL.CNProfessionalService.GetCNProfessional(item);
+                if (cn != null)
+                {
+                    if (string.IsNullOrEmpty(person.ViceCNProfessionalId))
+                    {
+                        person.ViceCNProfessionalId = cn.CNProfessionalId;
+                    }
+                    else
+                    {
+                        person.ViceCNProfessionalId += "," + cn.CNProfessionalId;
+                    }
+                }
             }
             person.Address = this.txtAddress.Text.Trim();
             person.Telephone = this.txtTelephone.Text.Trim();
@@ -318,13 +469,19 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 person.OutTime = Convert.ToDateTime(this.txtOutTime.Text.Trim());
             }
+            if (!string.IsNullOrEmpty(this.txtBirthday.Text.Trim()))
+            {
+                person.Birthday = Convert.ToDateTime(this.txtBirthday.Text.Trim());
+            }
             if (!string.IsNullOrEmpty(imgPhoto.ImageUrl) && imgPhoto.ImageUrl != "~/res/images/blank_150.png")
             {
                 person.PhotoUrl = imgPhoto.ImageUrl.Replace("~/", "");
+                person.HeadImage = AttachFileService.SetImageToByteArray(Funs.RootPath + person.PhotoUrl);
             }
             else
             {
                 person.PhotoUrl = null;
+                person.HeadImage = null;
             }
 
             if (!string.IsNullOrEmpty(this.txtAuditorDate.Text))
@@ -360,7 +517,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         return;
                     }
                 }
-                
+
                 if (!BLL.PersonService.IsExistPersonByUnit(this.UnitId, this.txtPersonName.Text.Trim(), this.ProjectId))
                 {
                     this.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
@@ -378,6 +535,14 @@ namespace FineUIPro.Web.HSSE.SitePerson
 
                 person.PersonId = PersonId;
                 BLL.PersonService.UpdatePerson(person);
+                //判断并更新项目用户的主副专业信息
+                var projectUser = BLL.ProjectUserService.GetProjectUserByProjectIdAndIdentityCard(this.ProjectId, person.IdentityCard);
+                if (projectUser != null)
+                {
+                    projectUser.MainCNProfessionalId = person.MainCNProfessionalId;
+                    projectUser.ViceCNProfessionalId = person.ViceCNProfessionalId;
+                    BLL.ProjectUserService.UpdateProjectUser(projectUser);
+                }
                 BLL.LogService.AddSys_Log(this.CurrUser, person.PersonName, person.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnModify);
             }
 
@@ -438,8 +603,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 }
                 fileName = fileName.Replace(":", "_").Replace(" ", "_").Replace("\\", "_").Replace("/", "_");
                 fileName = DateTime.Now.Ticks.ToString() + "_" + fileName;
-                string url = "~/FileUpload/PersonBaseInfo/" + DateTime.Now.Year + "-" + DateTime.Now.Month + "/"
-;                filePhoto.SaveAs(Server.MapPath(url + fileName));
+                string url = "~/FileUpload/PersonBaseInfo/" + DateTime.Now.Year + "-" + DateTime.Now.Month + "/";
+                filePhoto.SaveAs(Server.MapPath(url + fileName));
                 imgPhoto.ImageUrl = url + fileName;
                 // 清空文件上传组件
                 filePhoto.Reset();
@@ -493,7 +658,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     this.btnSave.Hidden = false;
                     this.filePhoto.Hidden = false;
                     this.btnReadIdentityCard.Hidden = false;
-                }                
+                }
             }
         }
         #endregion
@@ -514,7 +679,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 ShowNotify("人员姓名不能为空！", MessageBoxIcon.Warning);
                 return;
-            }            
+            }
             if (string.IsNullOrEmpty(this.txtInTime.Text))
             {
                 ShowNotify("入场时间不能为空！", MessageBoxIcon.Warning);
@@ -540,8 +705,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 SaveData();
             }
-            
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/IdCardAttachUrl&menuId={1}&strParam=1", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
+
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/IdCardAttachUrl&menuId={1}&strParam=1", this.PersonId, BLL.Const.PersonListMenuId)));
         }
         /// <summary>
         /// 上传附件
@@ -554,7 +719,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 SaveData();
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=2", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=2", this.PersonId, BLL.Const.PersonListMenuId)));
         }
         /// <summary>
         /// 上传附件
@@ -567,7 +732,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 SaveData();
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=3", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=3", this.PersonId, BLL.Const.PersonListMenuId)));
         }
         /// <summary>
         /// 上传附件
@@ -580,7 +745,21 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 SaveData();
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=4", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=4", this.PersonId, BLL.Const.PersonListMenuId)));
+        }
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl5_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.PersonId))
+            {
+                SaveData();
+            }
+
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/IdCardAttachUrl&menuId={1}&strParam=5", this.PersonId, BLL.Const.PersonListMenuId)));
         }
         #endregion
 
@@ -588,8 +767,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             var getatt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.PersonId + "#1");
             if (getatt != null && !string.IsNullOrEmpty(getatt.AttachUrl))
-            {             
-                string url = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port+"/"+getatt.AttachUrl;
+            {
+                string url = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/" + getatt.AttachUrl;
                 string idInfo = APIIDCardInfoService.ReadIDCardInfo(url);
                 if (!string.IsNullOrEmpty(idInfo))
                 {
@@ -617,9 +796,44 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         {
                             this.rblSex.SelectedValue = gender == "女" ? "2" : "1";
                         }
-                       // string nationality = obj["nationality"].ToString();
+                        // string nationality = obj["nationality"].ToString();
                     }
                 }
+            }
+        }
+
+        protected void rblIdcardForever_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.rblIdcardForever.SelectedValue == "Y")
+            {
+                this.txtIdcardEndDate.Text = string.Empty;
+                this.txtIdcardEndDate.Enabled = false;
+                this.txtIdcardEndDate.ShowRedStar = false;
+                this.txtIdcardEndDate.Required = false;
+            }
+            else
+            {
+                this.txtIdcardEndDate.Enabled = true;
+                this.txtIdcardEndDate.ShowRedStar = true;
+                this.txtIdcardEndDate.Required = true;
+            }
+        }
+
+        protected void drpCountryCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.drpCountryCode.SelectedValue != BLL.Const._Null)
+            {
+                CityService.InitCityDropDownList(this.drpProvinceCode, this.drpCountryCode.SelectedValue, false);
+                if (this.drpProvinceCode.Items.Count > 0)
+                {
+                    this.drpProvinceCode.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                this.drpProvinceCode.Items.Clear();
+                Funs.FineUIPleaseSelect(this.drpProvinceCode);
+                this.drpProvinceCode.SelectedIndex = 0;
             }
         }
     }

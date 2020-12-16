@@ -155,7 +155,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 oleDBConn.Close();
                 oleDBConn.Dispose();
 
-                AddDatasetToSQL(ds.Tables[0], 18);
+                AddDatasetToSQL(ds.Tables[0], 36);
             }
             catch (Exception ex)
             {
@@ -179,12 +179,16 @@ namespace FineUIPro.Web.HSSE.SitePerson
             if (ic < Cols)
             {
                 Alert.ShowInTop("导入Excel格式错误！Excel只有" + ic.ToString().Trim() + "行", MessageBoxIcon.Warning);
-            }           
+            }
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
-            {                
+            {
                 var units = from x in Funs.DB.Base_Unit
                             select x;
+                var cnProfessionals = from x in Funs.DB.Base_CNProfessional select x;
+                var basicDatas = from x in Funs.DB.RealName_BasicData select x;
+                var countrys = from x in Funs.DB.RealName_Country select x;
+                var citys = from x in Funs.DB.RealName_City select x;
                 var teamGroups = from x in Funs.DB.ProjectData_TeamGroup
                                  where x.ProjectId == this.ProjectId
                                  select x;
@@ -195,8 +199,10 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             select x;
                 var certificates = from x in Funs.DB.Base_Certificate
                                    select x;
+                var positions = from x in Funs.DB.Base_Position select x;
+                var postTitles = from x in Funs.DB.Base_PostTitle select x;
                 for (int i = 0; i < ir; i++)
-                {                   
+                {
                     string col1 = pds.Rows[i][1].ToString().Trim();
                     if (!string.IsNullOrEmpty(col1))
                     {
@@ -221,14 +227,28 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         string col3 = pds.Rows[i][3].ToString().Trim();
                         if (!string.IsNullOrEmpty(col3))
                         {
-                            if (col3.Length > 50)
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col3);
+                            if (basicData == null)
                             {
-                                result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "[" + col3 + "]错误！" + "|";
+                                result += "第" + (i + 2).ToString() + "行," + "证件类型" + "," + "[" + col3 + "]错误！" + "|";
+                            }
+                        }
+                        else
+                        {
+                            result += "第" + (i + 2).ToString() + "行," + "证件类型" + "," + "此项为必填项！" + "|";
+                        }
+
+                        string col4 = pds.Rows[i][4].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col4))
+                        {
+                            if (col4.Length > 50)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "[" + col4 + "]错误！" + "|";
                             }
 
-                            if (PersonService.GetPersonCountByIdentityCard(col3, this.ProjectId) != null)
+                            if (PersonService.GetPersonCountByIdentityCard(col4, this.ProjectId) != null)
                             {
-                                result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "[" + col3 + "]已存在！" + "|";
+                                result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "[" + col4 + "]已存在！" + "|";
                             }
                         }
                         else
@@ -239,18 +259,68 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         string col5 = pds.Rows[i][5].ToString().Trim();
                         if (!string.IsNullOrEmpty(col5))
                         {
-                            var unit = units.FirstOrDefault(e => e.UnitName == col5);
+                            try
+                            {
+                                DateTime date = Convert.ToDateTime(col5);
+                            }
+                            catch (Exception)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "证件开始日期" + "," + "[" + col5 + "]错误！" + "|";
+                            }
+                        }
+                        else
+                        {
+                            result += "第" + (i + 2).ToString() + "行," + "证件开始日期" + "," + "此项为必填项！" + "|";
+                        }
+
+                        string col6 = pds.Rows[i][6].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col6))
+                        {
+                            if (col6 != "是" && col6 != "否")
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "证件是否永久有效" + "," + "[" + col6 + "]错误！" + "|";
+                            }
+                        }
+                        else
+                        {
+                            result += "第" + (i + 2).ToString() + "行," + "证件是否永久有效" + "," + "此项为必填项！" + "|";
+                        }
+
+                        string col7 = pds.Rows[i][7].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col7))
+                        {
+                            try
+                            {
+                                DateTime date = Convert.ToDateTime(col7);
+                            }
+                            catch (Exception)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "证件有效日期" + "," + "[" + col7 + "]错误！" + "|";
+                            }
+                        }
+                        else
+                        {
+                            if (col6 == "否")
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "证件有效日期" + "," + "此项为必填项！" + "|";
+                            }
+                        }
+
+                        string col9 = pds.Rows[i][9].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col9))
+                        {
+                            var unit = units.FirstOrDefault(e => e.UnitName == col9);
                             if (unit != null)
                             {
                                 var projectUnit = Funs.DB.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.UnitId == unit.UnitId);
                                 if (projectUnit == null)
                                 {
-                                    result += "第" + (i + 2).ToString() + "行," + "所属单位" + "," + "[" + col5 + "]不在本项目中！" + "|";
+                                    result += "第" + (i + 2).ToString() + "行," + "所属单位" + "," + "[" + col9 + "]不在本项目中！" + "|";
                                 }
                             }
                             else
                             {
-                                result += "第" + (i + 2).ToString() + "行," + "所属单位" + "," + "[" + col5 + "]不在单位表中！" + "|";
+                                result += "第" + (i + 2).ToString() + "行," + "所属单位" + "," + "[" + col9 + "]不在单位表中！" + "|";
                             }
                         }
                         else
@@ -258,33 +328,13 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             result += "第" + (i + 2).ToString() + "行," + "所属单位" + "," + "此项为必填项！" + "|";
                         }
 
-                        string col6 = pds.Rows[i][6].ToString().Trim();
-                        if (!string.IsNullOrEmpty(col6))
+                        string col10 = pds.Rows[i][10].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col10))
                         {
-                            var teamGroup = teamGroups.FirstOrDefault(e => e.TeamGroupName == col6);
-                            if (teamGroup == null)
-                            {
-                                result += "第" + (i + 2).ToString() + "行," + "所在班组" + "," + "[" + col6 + "]错误！" + "|";
-                            }
-                        }
-
-                        string col7 = pds.Rows[i][7].ToString().Trim();
-                        if (!string.IsNullOrEmpty(col7))
-                        {
-                            var workArea = workAreas.FirstOrDefault(e => e.UnitWorkName == col7);
-                            if (workArea == null)
-                            {
-                                result += "第" + (i + 2).ToString() + "行," + "单位工程" + "," + "[" + col7 + "]错误！" + "|";
-                            }
-                        }
-
-                        string col8 = pds.Rows[i][8].ToString().Trim();
-                        if (!string.IsNullOrEmpty(col8))
-                        {
-                            var post = posts.FirstOrDefault(e => e.WorkPostName == col8);
+                            var post = posts.FirstOrDefault(e => e.WorkPostName == col10);
                             if (post == null)
                             {
-                                result += "第" + (i + 2).ToString() + "行," + "岗位" + "," + "[" + col8 + "]错误！" + "|";
+                                result += "第" + (i + 2).ToString() + "行," + "岗位" + "," + "[" + col10 + "]错误！" + "|";
                             }
                         }
                         else
@@ -292,39 +342,31 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             result += "第" + (i + 2).ToString() + "行," + "岗位" + "," + "此项为必填项！" + "|";
                         }
 
-                        string col9 = pds.Rows[i][9].ToString().Trim();
-                        if (!string.IsNullOrEmpty(col9))
-                        {
-                            var certificate = certificates.FirstOrDefault(e => e.CertificateName == col9);
-                            if (certificate == null)
-                            {
-                                result += "第" + (i + 2).ToString() + "行," + "特岗证书" + "," + "[" + col9 + "]错误！" + "|";
-                            }
-                        }
-
                         string col11 = pds.Rows[i][11].ToString().Trim();
                         if (!string.IsNullOrEmpty(col11))
                         {
-                            try
+                            var teamGroup = teamGroups.FirstOrDefault(e => e.TeamGroupName == col11);
+                            if (teamGroup == null)
                             {
-                                DateTime date = Convert.ToDateTime(col11);
+                                result += "第" + (i + 2).ToString() + "行," + "所在班组" + "," + "[" + col11 + "]错误！" + "|";
                             }
-                            catch (Exception)
-                            {
-                                result += "第" + (i + 2).ToString() + "行," + "证书有效期" + "," + "[" + col11 + "]错误！" + "|";
-                            }
+                        }
+                        else
+                        {
+                            result += "第" + (i + 2).ToString() + "行," + "所在班组" + "," + "此项为必填项！" + "|";
                         }
 
                         string col12 = pds.Rows[i][12].ToString().Trim();
                         if (!string.IsNullOrEmpty(col12))
                         {
-                            try
+                            string[] strs = col12.Split('，');
+                            foreach (var item in strs)
                             {
-                                DateTime date = Convert.ToDateTime(col12);
-                            }
-                            catch (Exception)
-                            {
-                                result += "第" + (i + 2).ToString() + "行," + "入场时间" + "," + "[" + col12 + "]错误！" + "|";
+                                var workArea = workAreas.FirstOrDefault(e => e.UnitWorkName == item);
+                                if (workArea == null)
+                                {
+                                    result += "第" + (i + 2).ToString() + "行," + "单位工程" + "," + "[" + item + "]错误！" + "|";
+                                }
                             }
                         }
 
@@ -337,16 +379,191 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             }
                             catch (Exception)
                             {
-                                result += "第" + (i + 2).ToString() + "行," + "出场时间" + "," + "[" + col13 + "]错误！" + "|";
+                                result += "第" + (i + 2).ToString() + "行," + "入场时间" + "," + "[" + col13 + "]错误！" + "|";
+                            }
+                        }
+                        else
+                        {
+                            result += "第" + (i + 2).ToString() + "行," + "入场时间" + "," + "此项为必填项！" + "|";
+                        }
+
+                        string col14 = pds.Rows[i][14].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col14))
+                        {
+                            var position = positions.FirstOrDefault(e => e.PositionName == col14);
+                            if (position == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "所属职务" + "," + "[" + col14 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col15 = pds.Rows[i][15].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col15))
+                        {
+                            var postTitle = postTitles.FirstOrDefault(e => e.PostTitleName == col15);
+                            if (postTitle == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "所属职称" + "," + "[" + col15 + "]错误！" + "|";
                             }
                         }
 
                         string col16 = pds.Rows[i][16].ToString().Trim();
                         if (!string.IsNullOrEmpty(col16))
                         {
-                            if (col16 != "是" && col16 != "否")
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col16);
+                            if (basicData == null)
                             {
-                                result += "第" + (i + 2).ToString() + "行," + "人员是否在场" + "," + "[" + col16 + "]错误！" + "|";
+                                result += "第" + (i + 2).ToString() + "行," + "文化程度" + "," + "[" + col16 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col17 = pds.Rows[i][17].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col17))
+                        {
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col17);
+                            if (basicData == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "婚姻状况" + "," + "[" + col17 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col18 = pds.Rows[i][18].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col18))
+                        {
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col18);
+                            if (basicData == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "政治面貌" + "," + "[" + col18 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col19 = pds.Rows[i][19].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col19))
+                        {
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col19);
+                            if (basicData == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "民族" + "," + "[" + col19 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col20 = pds.Rows[i][20].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col20))
+                        {
+                            var country = countrys.FirstOrDefault(e => e.Cname == col20);
+                            if (country == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "国家" + "," + "[" + col20 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col21 = pds.Rows[i][21].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col21))
+                        {
+                            var city = citys.FirstOrDefault(e => e.Cname == col21);
+                            if (city == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "省或地区" + "," + "[" + col21 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col22 = pds.Rows[i][22].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col22))
+                        {
+                            var cnProfessional = cnProfessionals.FirstOrDefault(e => e.ProfessionalName == col22);
+                            if (cnProfessional == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "主专业" + "," + "[" + col22 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col23 = pds.Rows[i][23].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col23))
+                        {
+                            string[] strs = col23.Split('，');
+                            foreach (var item in strs)
+                            {
+                                var cnProfessional = cnProfessionals.FirstOrDefault(e => e.ProfessionalName == item);
+                                if (cnProfessional == null)
+                                {
+                                    result += "第" + (i + 2).ToString() + "行," + "副专业" + "," + "[" + item + "]错误！" + "|";
+                                }
+                            }
+                        }
+
+                        string col24 = pds.Rows[i][24].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col24))
+                        {
+                            var certificate = certificates.FirstOrDefault(e => e.CertificateName == col24);
+                            if (certificate == null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "特岗证书" + "," + "[" + col24 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col26 = pds.Rows[i][26].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col26))
+                        {
+                            try
+                            {
+                                DateTime date = Convert.ToDateTime(col26);
+                            }
+                            catch (Exception)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "证书有效期" + "," + "[" + col26 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col27 = pds.Rows[i][27].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col27))
+                        {
+                            try
+                            {
+                                DateTime date = Convert.ToDateTime(col27);
+                            }
+                            catch (Exception)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "出生日期" + "," + "[" + col27 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col30 = pds.Rows[i][30].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col30))
+                        {
+                            try
+                            {
+                                DateTime date = Convert.ToDateTime(col30);
+                            }
+                            catch (Exception)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "出场时间" + "," + "[" + col30 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col32 = pds.Rows[i][32].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col32))
+                        {
+                            if (col32 != "是" && col32 != "否")
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "外籍" + "," + "[" + col32 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col33 = pds.Rows[i][33].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col33))
+                        {
+                            if (col33 != "是" && col33 != "否")
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "外聘" + "," + "[" + col33 + "]错误！" + "|";
+                            }
+                        }
+
+                        string col34 = pds.Rows[i][34].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col34))
+                        {
+                            if (col34 != "是" && col34 != "否")
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "人员是否在场" + "," + "[" + col34 + "]错误！" + "|";
                             }
                         }
                         else
@@ -354,12 +571,12 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             result += "第" + (i + 2).ToString() + "行," + "人员是否在场" + "," + "此项为必填项！" + "|";
                         }
 
-                        string col17 = pds.Rows[i][17].ToString().Trim();
-                        if (!string.IsNullOrEmpty(col17))
+                        string col35 = pds.Rows[i][35].ToString().Trim();
+                        if (!string.IsNullOrEmpty(col35))
                         {
-                            if (col17 != "是" && col17 != "否")
+                            if (col35 != "是" && col35 != "否")
                             {
-                                result += "第" + (i + 2).ToString() + "行," + "考勤卡是否启用" + "," + "[" + col17 + "]错误！" + "|";
+                                result += "第" + (i + 2).ToString() + "行," + "考勤卡是否启用" + "," + "[" + col35 + "]错误！" + "|";
                             }
                         }
                         else
@@ -459,7 +676,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 oleDBConn.Close();
                 oleDBConn.Dispose();
 
-                AddDatasetToSQL2(ds.Tables[0], 18);
+                AddDatasetToSQL2(ds.Tables[0], 36);
             }
             catch (Exception ex)
             {
@@ -490,6 +707,10 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 var units = from x in Funs.DB.Base_Unit
                             select x;
+                var cnProfessionals = from x in Funs.DB.Base_CNProfessional select x;
+                var basicDatas = from x in Funs.DB.RealName_BasicData select x;
+                var countrys = from x in Funs.DB.RealName_Country select x;
+                var citys = from x in Funs.DB.RealName_City select x;
                 var teamGroups = from x in Funs.DB.ProjectData_TeamGroup
                                  where x.ProjectId == this.ProjectId
                                  select x;
@@ -500,6 +721,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             select x;
                 var certificates = from x in Funs.DB.Base_Certificate
                                    select x;
+                var positions = from x in Funs.DB.Base_Position select x;
+                var postTitles = from x in Funs.DB.Base_PostTitle select x;
                 for (int i = 0; i < ir; i++)
                 {
                     string col1 = pds.Rows[i][1].ToString().Trim();
@@ -508,7 +731,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         Model.View_SitePerson_Person person = new Model.View_SitePerson_Person();
                         Model.QualityAudit_PersonQuality personQuality = new Model.QualityAudit_PersonQuality();
                         string col0 = pds.Rows[i][0].ToString().Trim();
-                        
+
                         string col2 = pds.Rows[i][2].ToString().Trim();
                         string col3 = pds.Rows[i][3].ToString().Trim();
                         string col4 = pds.Rows[i][4].ToString().Trim();
@@ -525,6 +748,24 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         string col15 = pds.Rows[i][15].ToString().Trim();
                         string col16 = pds.Rows[i][16].ToString().Trim();
                         string col17 = pds.Rows[i][17].ToString().Trim();
+                        string col18 = pds.Rows[i][18].ToString().Trim();
+                        string col19 = pds.Rows[i][19].ToString().Trim();
+                        string col20 = pds.Rows[i][20].ToString().Trim();
+                        string col21 = pds.Rows[i][21].ToString().Trim();
+                        string col22 = pds.Rows[i][22].ToString().Trim();
+                        string col23 = pds.Rows[i][23].ToString().Trim();
+                        string col24 = pds.Rows[i][24].ToString().Trim();
+                        string col25 = pds.Rows[i][25].ToString().Trim();
+                        string col26 = pds.Rows[i][26].ToString().Trim();
+                        string col27 = pds.Rows[i][27].ToString().Trim();
+                        string col28 = pds.Rows[i][28].ToString().Trim();
+                        string col29 = pds.Rows[i][29].ToString().Trim();
+                        string col30 = pds.Rows[i][30].ToString().Trim();
+                        string col31 = pds.Rows[i][31].ToString().Trim();
+                        string col32 = pds.Rows[i][32].ToString().Trim();
+                        string col33 = pds.Rows[i][33].ToString().Trim();
+                        string col34 = pds.Rows[i][34].ToString().Trim();
+                        string col35 = pds.Rows[i][35].ToString().Trim();
 
                         if (!string.IsNullOrEmpty(col0))//卡号
                         {
@@ -541,85 +782,231 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         {
                             person.SexName = col2;
                         }
-                        if (!string.IsNullOrEmpty(col3))//身份证号码
+                        if (!string.IsNullOrEmpty(col3))//证件类型
                         {
-                            person.IdentityCard = col3;
+                            person.IdcardTypeName = col3;
+                            person.IdcardType = basicDatas.FirstOrDefault(x => x.DictName == col3).DictCode;
                         }
-                        if (!string.IsNullOrEmpty(col4))//家庭地址
+                        if (!string.IsNullOrEmpty(col4))//身份证号码
                         {
-                            person.Address = col4;
+                            person.IdentityCard = col4;
                         }
-                        if (!string.IsNullOrEmpty(col5))//所属单位
+                        if (!string.IsNullOrEmpty(col5))//证件开始日期
                         {
-                            var unit = units.FirstOrDefault(x => x.UnitName == col5);
+                            person.IdcardStartDate = Funs.GetNewDateTime(col5);
+                        }
+                        if (!string.IsNullOrEmpty(col6))//证件是否永久有效
+                        {
+                            person.IdcardForeverStr = col6;
+                            person.IdcardForever = col6 == "是" ? "Y" : "N";
+                        }
+                        if (!string.IsNullOrEmpty(col7))//证件有效日期
+                        {
+                            person.IdcardEndDate = Funs.GetNewDateTime(col7);
+                        }
+                        if (!string.IsNullOrEmpty(col8))//发证机关
+                        {
+                            person.IdcardAddress = col8;
+                        }
+                        if (!string.IsNullOrEmpty(col9))//所属单位
+                        {
+                            var unit = units.FirstOrDefault(x => x.UnitName == col9);
                             if (unit != null)
                             {
                                 person.UnitId = unit.UnitId;
                                 person.UnitName = unit.UnitName;
                             }
                         }
-                        if (!string.IsNullOrEmpty(col6))//所在班组
+                        if (!string.IsNullOrEmpty(col10))//岗位
                         {
-                            var teamGroup = teamGroups.FirstOrDefault(e => e.TeamGroupName == col6);
-                            if (teamGroup != null)
-                            {
-                                person.TeamGroupId = teamGroup.TeamGroupId;
-                                person.TeamGroupName = teamGroup.TeamGroupName;
-                            }
-                        }
-                        if (!string.IsNullOrEmpty(col7))//单位工程
-                        {
-                            var workArea = workAreas.FirstOrDefault(e => e.UnitWorkName == col7);
-                            if (workArea != null)
-                            {
-                                person.WorkAreaId = workArea.UnitWorkId;
-                                person.WorkAreaName = workArea.UnitWorkName;
-                            }
-                        }
-                        if (!string.IsNullOrEmpty(col8))//岗位
-                        {
-                            var post = posts.FirstOrDefault(e => e.WorkPostName == col8);
+                            var post = posts.FirstOrDefault(e => e.WorkPostName == col10);
                             if (post != null)
                             {
                                 person.WorkPostId = post.WorkPostId;
                                 person.WorkPostName = post.WorkPostName;
                             }
                         }
-                        if (!string.IsNullOrEmpty(col9))//特岗证书
+                        if (!string.IsNullOrEmpty(col11))//所在班组
                         {
-                            personQuality.CertificateName = col9;
+                            var teamGroup = teamGroups.FirstOrDefault(e => e.TeamGroupName == col11);
+                            if (teamGroup != null)
+                            {
+                                person.TeamGroupId = teamGroup.TeamGroupId;
+                                person.TeamGroupName = teamGroup.TeamGroupName;
+                            }
                         }
-                        if (!string.IsNullOrEmpty(col10))//证书编号
+                        if (!string.IsNullOrEmpty(col12))//单位工程
                         {
-                            personQuality.CertificateNo = col10;
+                            person.WorkAreaName = col12;
+                            string ids = string.Empty;
+                            string[] strs = col12.Split('，');
+                            foreach (var item in strs)
+                            {
+                                var workArea = workAreas.FirstOrDefault(e => e.UnitWorkName == item);
+                                if (workArea != null)
+                                {
+                                    ids += workArea.UnitWorkId + ",";
+                                }
+                            }
+                            if (!string.IsNullOrEmpty(ids))
+                            {
+                                ids = ids.Substring(0, ids.Length - 1);
+                            }
+                            person.WorkAreaId = ids;
                         }
-                        if (!string.IsNullOrEmpty(col11))//证书有效期
+                        if (!string.IsNullOrEmpty(col13))//入场时间
                         {
-                            personQuality.LimitDate = Funs.GetNewDateTime(col11);
+                            person.InTime = Funs.GetNewDateTime(col13);
                         }
-                        if (!string.IsNullOrEmpty(col12))//入场时间
+                        if (!string.IsNullOrEmpty(col14))//所属职务
                         {
-                            person.InTime = Funs.GetNewDateTime(col12);
+                            var position = positions.FirstOrDefault(e => e.PositionName == col14);
+                            if (position != null)
+                            {
+                                person.PositionId = position.PositionId;
+                                person.PositionName = position.PositionName;
+                            }
                         }
-                        if (!string.IsNullOrEmpty(col13))//出场时间
+                        if (!string.IsNullOrEmpty(col15))//所属职称
                         {
-                            person.OutTime = Funs.GetNewDateTime(col13);
+                            var postTitle = postTitles.FirstOrDefault(e => e.PostTitleName == col15);
+                            if (postTitle != null)
+                            {
+                                person.PostTitleId = postTitle.PostTitleId;
+                                person.PostTitleName = postTitle.PostTitleName;
+                            }
                         }
-                        if (!string.IsNullOrEmpty(col14))//出场原因
+                        if (!string.IsNullOrEmpty(col16))//文化程度
                         {
-                            person.OutResult = col14;
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col16);
+                            if (basicData != null)
+                            {
+                                person.EduLevel = basicData.DictCode;
+                                person.EduLevelName = basicData.DictName;
+                            }
                         }
-                        if (!string.IsNullOrEmpty(col15))//电话
+                        if (!string.IsNullOrEmpty(col17))//婚姻状况
                         {
-                            person.Telephone = col15;
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col17);
+                            if (basicData != null)
+                            {
+                                person.MaritalStatus = basicData.DictCode;
+                                person.MaritalStatusName = basicData.DictName;
+                            }
                         }
-                        if (!string.IsNullOrEmpty(col16))//人员是否在场
+                        if (!string.IsNullOrEmpty(col18))//政治面貌
                         {
-                            person.IsUsedName = col16;
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col18);
+                            if (basicData != null)
+                            {
+                                person.PoliticsStatus = basicData.DictCode;
+                                person.PoliticsStatusName = basicData.DictName;
+                            }
                         }
-                        if (!string.IsNullOrEmpty(col17))//考勤卡是否启用
+                        if (!string.IsNullOrEmpty(col19))//民族
                         {
-                            person.IsCardUsedName = col17;
+                            var basicData = basicDatas.FirstOrDefault(e => e.DictName == col19);
+                            if (basicData != null)
+                            {
+                                person.Nation = basicData.DictCode;
+                                person.NationName = basicData.DictName;
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(col20))//国家
+                        {
+                            var country = countrys.FirstOrDefault(e => e.Cname == col20);
+                            if (country != null)
+                            {
+                                person.CountryCode = country.CountryId;
+                                person.CountryName = country.Cname;
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(col21))//省或地区
+                        {
+                            var city = citys.FirstOrDefault(e => e.Cname == col21);
+                            if (city != null)
+                            {
+                                person.ProvinceCode = city.ProvinceCode;
+                                person.ProvinceName = city.Cname;
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(col22))//主专业
+                        {
+                            var cnProfessional = cnProfessionals.FirstOrDefault(e => e.ProfessionalName == col22);
+                            if (cnProfessional != null)
+                            {
+                                person.MainCNProfessionalId = cnProfessional.CNProfessionalId;
+                                person.MainCNProfessionalName = cnProfessional.ProfessionalName;
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(col23))//副专业
+                        {
+                            person.ViceCNProfessionalName = col23;
+                            string ids = string.Empty;
+                            string[] strs = col23.Split('，');
+                            foreach (var item in strs)
+                            {
+                                var cnProfessional = cnProfessionals.FirstOrDefault(e => e.ProfessionalName == item);
+                                if (cnProfessional != null)
+                                {
+                                    ids += cnProfessional.CNProfessionalId + ",";
+                                }
+                            }
+                            if (!string.IsNullOrEmpty(ids))
+                            {
+                                ids = ids.Substring(0, ids.Length - 1);
+                            }
+                            person.ViceCNProfessionalId = ids;
+                        }
+                        if (!string.IsNullOrEmpty(col24))//特岗证书
+                        {
+                            personQuality.CertificateName = col24;
+                        }
+                        if (!string.IsNullOrEmpty(col25))//证书编号
+                        {
+                            personQuality.CertificateNo = col25;
+                        }
+                        if (!string.IsNullOrEmpty(col26))//证书有效期
+                        {
+                            personQuality.LimitDate = Funs.GetNewDateTime(col26);
+                        }
+                        if (!string.IsNullOrEmpty(col27))//出生日期
+                        {
+                            person.Birthday = Funs.GetNewDateTime(col27);
+                        }
+                        if (!string.IsNullOrEmpty(col28))//电话
+                        {
+                            person.Telephone = col28;
+                        }
+                        if (!string.IsNullOrEmpty(col29))//家庭地址
+                        {
+                            person.Address = col29;
+                        }
+                        if (!string.IsNullOrEmpty(col30))//出场时间
+                        {
+                            person.OutTime = Funs.GetNewDateTime(col30);
+                        }
+                        if (!string.IsNullOrEmpty(col31))//出场原因
+                        {
+                            person.OutResult = col31;
+                        }
+                        if (!string.IsNullOrEmpty(col32))//外籍
+                        {
+                            person.IsForeignStr = col32;
+                            person.IsForeign = col32 == "是" ? true : false;
+                        }
+                        if (!string.IsNullOrEmpty(col33))//外聘
+                        {
+                            person.IsOutsideStr = col33;
+                            person.IsOutside = col33 == "是" ? true : false;
+                        }
+                        if (!string.IsNullOrEmpty(col34))//人员是否在场
+                        {
+                            person.IsUsedName = col34;
+                        }
+                        if (!string.IsNullOrEmpty(col35))//考勤卡是否启用
+                        {
+                            person.IsCardUsedName = col35;
                         }
                         person.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
                         persons.Add(person);
@@ -658,8 +1045,9 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 int a = persons.Count();
                 for (int i = 0; i < a; i++)
                 {
+                    var getPerson = PersonService.GetPersonCountByIdentityCard(persons[i].IdentityCard, Request.Params["ProjectId"]);
                     //!BLL.PersonService.IsExistPersonByUnit(persons[i].UnitId, persons[i].IdentityCard, Request.Params["ProjectId"]) &&
-                    if (PersonService.GetPersonCountByIdentityCard(persons[i].IdentityCard, Request.Params["ProjectId"]) == null)
+                    if (getPerson == null)
                     {
                         Model.SitePerson_Person newPerson = new Model.SitePerson_Person();
                         string newKeyID = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
@@ -668,24 +1056,39 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         newPerson.CardNo = persons[i].CardNo;
                         newPerson.PersonName = persons[i].PersonName;
                         newPerson.Sex = persons[i].SexName == "男" ? "1" : "2";
+                        newPerson.IdcardType = persons[i].IdcardType;
                         newPerson.IdentityCard = persons[i].IdentityCard;
-                        newPerson.Address = persons[i].Address;
+                        newPerson.IdcardStartDate = persons[i].IdcardStartDate;
+                        newPerson.IdcardForever = persons[i].IdcardForever;
+                        newPerson.IdcardEndDate = persons[i].IdcardEndDate;
+                        newPerson.IdcardAddress = persons[i].IdcardAddress;
                         newPerson.UnitId = persons[i].UnitId;
+                        newPerson.WorkPostId = persons[i].WorkPostId;
                         newPerson.TeamGroupId = persons[i].TeamGroupId;
                         newPerson.WorkAreaId = persons[i].WorkAreaId;
-                        newPerson.WorkPostId = persons[i].WorkPostId;
-                        //newPerson.CertificateId = persons[i].CertificateId;
-                        //newPerson.CertificateCode = persons[i].CertificateCode;
-                        //newPerson.CertificateLimitTime = persons[i].CertificateLimitTime;
                         newPerson.InTime = persons[i].InTime;
+                        newPerson.PositionId = persons[i].PositionId;
+                        newPerson.PostTitleId = persons[i].PostTitleId;
+                        newPerson.EduLevel = persons[i].EduLevel;
+                        newPerson.MaritalStatus = persons[i].MaritalStatus;
+                        newPerson.PoliticsStatus = persons[i].PoliticsStatus;
+                        newPerson.Nation = persons[i].Nation;
+                        newPerson.CountryCode = persons[i].CountryCode;
+                        newPerson.ProvinceCode = persons[i].ProvinceCode;
+                        newPerson.MainCNProfessionalId = persons[i].MainCNProfessionalId;
+                        newPerson.ViceCNProfessionalId = persons[i].ViceCNProfessionalId;
+                        newPerson.Birthday = persons[i].Birthday;
+                        newPerson.Telephone = persons[i].Telephone;
+                        newPerson.Address = persons[i].Address;
                         newPerson.OutTime = persons[i].OutTime;
                         newPerson.OutResult = persons[i].OutResult;
-                        newPerson.Telephone = persons[i].Telephone;
+                        newPerson.IsForeign = persons[i].IsForeign;
+                        newPerson.IsOutside = persons[i].IsOutside;
                         newPerson.IsUsed = persons[i].IsUsedName == "是" ? true : false;
                         newPerson.IsCardUsed = persons[i].IsCardUsedName == "是" ? true : false;
                         BLL.PersonService.AddPerson(newPerson);
 
-                        var item = personQualitys.FirstOrDefault(x => x.Remark ==  newPerson.IdentityCard);
+                        var item = personQualitys.FirstOrDefault(x => x.Remark == newPerson.IdentityCard);
                         if (item != null)
                         {
                             Model.QualityAudit_PersonQuality newPersonQuality = new Model.QualityAudit_PersonQuality
@@ -705,6 +1108,28 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             newPersonQuality.LimitDate = item.LimitDate;
                             BLL.PersonQualityService.AddPersonQuality(newPersonQuality);
                         }
+                    }
+                    else
+                    {
+                        getPerson.CardNo = persons[i].CardNo;
+                        getPerson.PersonName = persons[i].PersonName;
+                        getPerson.Sex = persons[i].SexName == "男" ? "1" : "2";
+                        getPerson.IdentityCard = persons[i].IdentityCard;
+                        getPerson.Address = persons[i].Address;
+                        getPerson.UnitId = persons[i].UnitId;
+                        getPerson.TeamGroupId = persons[i].TeamGroupId;
+                        getPerson.WorkAreaId = persons[i].WorkAreaId;
+                        getPerson.WorkPostId = persons[i].WorkPostId;
+                        //newPerson.CertificateId = persons[i].CertificateId;
+                        //newPerson.CertificateCode = persons[i].CertificateCode;
+                        //newPerson.CertificateLimitTime = persons[i].CertificateLimitTime;
+                        getPerson.InTime = persons[i].InTime;
+                        getPerson.OutTime = persons[i].OutTime;
+                        getPerson.OutResult = persons[i].OutResult;
+                        getPerson.Telephone = persons[i].Telephone;
+                        getPerson.IsUsed = persons[i].IsUsedName == "是" ? true : false;
+                        getPerson.IsCardUsed = persons[i].IsCardUsedName == "是" ? true : false;
+                        Funs.DB.SubmitChanges();
                     }
                 }
                 string rootPath = Server.MapPath("~/");

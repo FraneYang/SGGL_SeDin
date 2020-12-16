@@ -43,8 +43,16 @@
             {
                 ErrLogInfo.WriteLog("得到集团服务器地址失败!", ex);
             }
-
-            ////日志定时上报自动启动
+            ////实名制同步定时器
+            try
+            {
+                BLL.RealNameMonitorService.StartMonitor();
+            }
+            catch (Exception ex)
+            {
+                ErrLogInfo.WriteLog("实名制同步定时器启动失败!", ex);
+            }
+            ////通用定时器
             try
             {                
                 BLL.MonitorService.StartMonitor();
@@ -53,7 +61,7 @@
             }
             catch (Exception ex)
             {
-                ErrLogInfo.WriteLog("日志定时上报失败!", ex);
+                ErrLogInfo.WriteLog("通用定时器!", ex);
             }
         }
 

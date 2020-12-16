@@ -130,6 +130,60 @@ namespace FineUIPro.Web.SysManage {
         protected global::FineUIPro.TextBox txtShortUnitName;
         
         /// <summary>
+        /// rblIsChina 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.RadioButtonList rblIsChina;
+        
+        /// <summary>
+        /// txtCollCropCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtCollCropCode;
+        
+        /// <summary>
+        /// txtLinkName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtLinkName;
+        
+        /// <summary>
+        /// drpIdcardType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpIdcardType;
+        
+        /// <summary>
+        /// txtIdcardNumber 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtIdcardNumber;
+        
+        /// <summary>
+        /// txtLinkMobile 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtLinkMobile;
+        
+        /// <summary>
         /// txtProjectRange 控件。
         /// </summary>
         /// <remarks>
@@ -137,6 +191,15 @@ namespace FineUIPro.Web.SysManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextArea txtProjectRange;
+        
+        /// <summary>
+        /// rblCollCropStatus 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.RadioButtonList rblCollCropStatus;
         
         /// <summary>
         /// Toolbar1 控件。

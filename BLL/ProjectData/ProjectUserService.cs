@@ -133,5 +133,18 @@
         {
             return Funs.DB.Project_ProjectUser.FirstOrDefault(e => e.ProjectId == ProjectId && e.RoleId.Contains(RoleId));
         }
+
+        /// <summary>
+        ///获取项目用户信息 根据ProjectId
+        /// </summary>
+        /// <returns></returns>
+        public static Project_ProjectUser GetProjectUserByProjectIdAndIdentityCard(string ProjectId, string IdentityCard)
+        {
+            return (from x in Funs.DB.Project_ProjectUser
+                    join y in Funs.DB.Sys_User
+                    on x.UserId equals y.UserId
+                    where x.ProjectId == ProjectId && y.IdentityCard == IdentityCard
+                    select x).FirstOrDefault();
+        }
     }
 }

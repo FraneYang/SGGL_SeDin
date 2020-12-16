@@ -3,6 +3,8 @@ using System;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Xml;
+using System.Linq;
+using System.Configuration;
 
 namespace FineUIPro.Web
 {
@@ -49,7 +51,7 @@ namespace FineUIPro.Web
                 return;
             }
             ////////////////////////////////////////////////////////////////
-            
+
             if (!IsPostBack)
             {
                 this.CurrUser.LoginProjectId = null;
@@ -359,7 +361,7 @@ namespace FineUIPro.Web
             }
         }
         #endregion
-        
+
         /// <summary>
         ///  功能模块切换方法
         /// </summary>
@@ -387,7 +389,7 @@ namespace FineUIPro.Web
             else
             {
                 this.leftPanel.Hidden = true;
-                this.XmlDataSource1.DataFile = "common/Menu_Personal.xml";               
+                this.XmlDataSource1.DataFile = "common/Menu_Personal.xml";
                 this.Tab1.IFrameUrl = "~/common/main.aspx";
             }
 
@@ -470,6 +472,35 @@ namespace FineUIPro.Web
             CreateMenuXML.getMenuXML();
             MenuSwitchMethod(string.Empty);
             ShowNotify("菜单刷新完成！", MessageBoxIcon.Success);
+            //var list = from x in Funs.DB.AttachFile where x.ImageByte == null && (x.AttachUrl.Contains("IdCardAttachUrl") || x.AttachUrl.Contains("PersonBaseInfo")) select x;
+            //foreach (var item in list)
+            //{
+            //    if (!string.IsNullOrEmpty(item.AttachUrl))
+            //    {
+            //        string rootUrl = ConfigurationManager.AppSettings["localRoot"];
+            //        if (string.IsNullOrEmpty(rootUrl))
+            //        {
+            //            rootUrl = Funs.RootPath;
+            //        }
+            //        item.ImageByte = AttachFileService.SetImageToByteArray(rootUrl + item.AttachUrl.Split(',')[0]);
+
+            //    }
+            //}
+            //var list = from x in Funs.DB.SitePerson_Person where x.PhotoUrl != null select x;
+            //foreach (var person in list)
+            //{
+            //    person.HeadImage = AttachFileService.SetImageToByteArray(Funs.RootPath + person.PhotoUrl);
+            //}
+            //var list = from x in Funs.DB.SitePerson_Person where x.PhotoUrl == null || x.PhotoUrl == "" select x;
+            //foreach (var person in list)
+            //{
+            //    Model.AttachFile att = BLL.AttachFileService.GetAttachFileByToKeyId(person.PersonId + "#1");
+            //    if (att != null)
+            //    {
+            //        person.HeadImage = att.ImageByte;
+            //    }
+            //}
+            //Funs.DB.SubmitChanges();
         }
     }
 }

@@ -61,14 +61,31 @@
                                 SortField="SexName" FieldType="String" HeaderText="性别" HeaderTextAlign="Center"
                                 TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="200px" ColumnID="IdentityCard" DataField="IdentityCard" SortField="IdentityCard"
-                                FieldType="String" HeaderText="身份证号" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:RenderField Width="120px" ColumnID="IdcardTypeName" DataField="IdcardTypeName" SortField="IdcardTypeName"
+                                FieldType="String" HeaderText="证件类型" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="200px" ColumnID="Address" DataField="Address" FieldType="String"
-                                HeaderText="家庭地址" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:RenderField Width="200px" ColumnID="IdentityCard" DataField="IdentityCard" SortField="IdentityCard"
+                                FieldType="String" HeaderText="证件号码" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="100px" ColumnID="IdcardStartDate" DataField="IdcardStartDate" SortField="IdcardStartDate"
+                                FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="证件开始日期"
+                                HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="100px" ColumnID="IdcardForeverStr" DataField="IdcardForeverStr" SortField="IdcardForeverStr"
+                                FieldType="String" HeaderText="证件是否永久有效" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                             <f:RenderField Width="100px" ColumnID="IdcardEndDate" DataField="IdcardEndDate" SortField="IdcardEndDate"
+                                FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="证件有效日期"
+                                HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="100px" ColumnID="IdcardAddress" DataField="IdcardAddress" SortField="IdcardAddress"
+                                FieldType="String" HeaderText="发证机关" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
                                 HeaderText="所属单位" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="PostName" DataField="PostName" SortField="PostName"
+                                FieldType="String" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="80px" ColumnID="TeamGroupName" DataField="TeamGroupName" FieldType="String"
                                 HeaderText="所在班组" HeaderTextAlign="Center" TextAlign="Center">
@@ -76,10 +93,41 @@
                             <f:RenderField Width="90px" ColumnID="WorkAreaName" DataField="WorkAreaName" FieldType="String"
                                 HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="PostName" DataField="PostName" SortField="PostName"
-                                FieldType="String" HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime" SortField="InTime"
+                                FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
+                                HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="120px" ColumnID="CertificateName" DataField="CertificateName" SortField="CertificateName"
+                            <f:RenderField Width="90px" ColumnID="PositionName" DataField="PositionName" FieldType="String"
+                                HeaderText="所属职务" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="PostTitleName" DataField="PostTitleName" FieldType="String"
+                                HeaderText="所属职称" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="EduLevelName" DataField="EduLevelName" FieldType="String"
+                                HeaderText="文化程度" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="MaritalStatusName" DataField="MaritalStatusName" FieldType="String"
+                                HeaderText="婚姻状况" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="PoliticsStatusName" DataField="PoliticsStatusName" FieldType="String"
+                                HeaderText="政治面貌" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="NationName" DataField="NationName" FieldType="String"
+                                HeaderText="民族" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="CountryName" DataField="CountryName" FieldType="String"
+                                HeaderText="国家" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="ProvinceName" DataField="ProvinceName" FieldType="String"
+                                HeaderText="省或地区" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="MainCNProfessionalName" DataField="MainCNProfessionalName" FieldType="String"
+                                HeaderText="主专业" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="ViceCNProfessionalName" DataField="ViceCNProfessionalName" FieldType="String"
+                                HeaderText="副专业" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                             <f:RenderField Width="120px" ColumnID="CertificateName" DataField="CertificateName" SortField="CertificateName"
                                 FieldType="String" HeaderText="特岗证书" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="110px" ColumnID="CertificateCode" DataField="CertificateCode" SortField="CertificateCode"
@@ -89,9 +137,15 @@
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="证书有效期"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime" SortField="InTime"
-                                FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
+                            <f:RenderField Width="100px" ColumnID="Birthday" DataField="Birthday" SortField="Birthday"
+                                FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="出生日期"
                                 HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="100px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
+                                FieldType="String" HeaderText="电话" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="200px" ColumnID="Address" DataField="Address" FieldType="String"
+                                HeaderText="家庭地址" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="OutTime" DataField="OutTime" SortField="OutTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="出场时间"
@@ -100,8 +154,11 @@
                             <f:RenderField Width="110px" ColumnID="OutResult" DataField="OutResult" SortField="OutResult"
                                 FieldType="String" HeaderText="出场原因" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
-                                FieldType="String" HeaderText="电话" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsForeignStr" DataField="IsForeignStr" FieldType="String"
+                                HeaderText="是否外籍" HeaderTextAlign="Center" TextAlign="Center">
+                            </f:RenderField>
+                            <f:RenderField Width="90px" ColumnID="IsOutsideStr" DataField="IsOutsideStr" FieldType="String"
+                                HeaderText="是否外聘" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="80px" ColumnID="IsUsedName" DataField="IsUsedName" FieldType="String"
                                 HeaderText="人员在场" HeaderTextAlign="Center" TextAlign="Center">

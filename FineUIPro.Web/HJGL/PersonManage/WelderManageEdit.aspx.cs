@@ -247,18 +247,18 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// <param name="e"></param>
         protected void btnPhoto_Click(object sender, EventArgs e)
         {
-            if (filePhoto.HasFile)
-            {
-                string fileName = filePhoto.ShortFileName;
+            //if (filePhoto.HasFile)
+            //{
+            //    string fileName = filePhoto.ShortFileName;
 
-                if (!ValidateFileType(fileName))
-                {
-                    ShowNotify("无效的文件类型", MessageBoxIcon.Warning);
-                    return;
-                }
-                this.PhotoAttachUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.filePhoto, this.PhotoAttachUrl, Const.WelderFilePath);
-                this.Image1.ImageUrl = "~/" + this.PhotoAttachUrl;
-            }
+            //    if (!ValidateFileType(fileName))
+            //    {
+            //        ShowNotify("无效的文件类型", MessageBoxIcon.Warning);
+            //        return;
+            //    }
+            //    this.PhotoAttachUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.filePhoto, this.PhotoAttachUrl, Const.WelderFilePath);
+            //    this.Image1.ImageUrl = "~/" + this.PhotoAttachUrl;
+            //}
         }
         #endregion
 

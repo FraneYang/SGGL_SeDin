@@ -1141,5 +1141,68 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 获取国家基础信息
+        /// <summary>
+        ///   获取应急预案类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getCountry()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getCountry();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取省份基础信息
+        /// <summary>
+        ///   获取应急预案类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getProvinceByCountry(string countryId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getProvinceByCountry(countryId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取实名制数据字典信息
+        /// <summary>
+        ///   获取实名制数据字典信息
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getBasicDataByDictTypeCode(string dictTypeCode)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getBasicDataByDictTypeCode(dictTypeCode);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

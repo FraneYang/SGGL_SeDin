@@ -55,6 +55,9 @@
                                         <f:DatePicker ID="txtTaskDate" Label="计划焊接日期" runat="server"
                                             DateFormatString="yyyy-MM-dd" LabelAlign="Left" LabelWidth="110px" >
                                         </f:DatePicker>
+                                        <f:TextBox ID="txtTaskCode" Label="焊接任务单编号"
+                                            runat="server" LabelWidth="120px" >
+                                        </f:TextBox>
                                         <f:DropDownList ID="drpJointAttribute" Label="焊口属性"
                                             runat="server" ShowRedStar="true" Required="true" LabelWidth="100px"
                                             Width="180px" LabelAlign="Right">

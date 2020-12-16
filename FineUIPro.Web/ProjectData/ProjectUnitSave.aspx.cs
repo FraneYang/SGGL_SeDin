@@ -37,6 +37,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();               
                 BLL.ConstValue.InitConstValueDropDownList(this.drpUnitType, ConstValue.Group_ProjectUnitType, true);
+                BasicDataService.InitBasicDataProjectUnitDropDownList(this.drpIdcardType, "ZHENGJIAN_TYPE", true);
                 this.ProjectUnitId = Request.QueryString["ProjectUnitId"];
                 if (!String.IsNullOrEmpty(this.ProjectUnitId))
                 {
@@ -52,6 +53,22 @@ namespace FineUIPro.Web.ProjectData
                         if (unit != null)
                         {
                             this.lbUnitName.Text = unit.UnitName;
+                            this.txtCollCropCode.Text = unit.CollCropCode;
+                            this.txtLinkName.Text = unit.LinkName;
+                            if (!string.IsNullOrEmpty(unit.IdcardType))
+                            {
+                                this.drpIdcardType.SelectedValue = unit.IdcardType;
+                            }
+                            this.txtIdcardNumber.Text = unit.IdcardNumber;
+                            this.txtLinkMobile.Text = unit.LinkMobile;
+                            if (!string.IsNullOrEmpty(unit.IsChina))
+                            {
+                                this.rblIsChina.SelectedValue = unit.IsChina;
+                            }
+                            if (!string.IsNullOrEmpty(unit.CollCropStatus))
+                            {
+                                this.rblCollCropStatus.SelectedValue = unit.CollCropStatus;
+                            }
                         }
                         this.txtInTime.Text = string.Format("{0:yyyy-MM-dd}", projectUnit.InTime);
                         this.txtOutTime.Text = string.Format("{0:yyyy-MM-dd}", projectUnit.OutTime);
@@ -93,6 +110,21 @@ namespace FineUIPro.Web.ProjectData
                 newProjectUnit.PlanCostB = Funs.GetNewDecimalOrZero(this.nbPlanCostB.Text.Trim());
                 newProjectUnit.ContractRange = this.txtContractRange.Text.Trim();
                 BLL.ProjectUnitService.UpdateProjectUnit(newProjectUnit);
+                Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(newProjectUnit.UnitId);
+                if (unit != null)
+                {
+                    unit.IsChina = this.rblIsChina.SelectedValue;
+                    unit.CollCropCode = this.txtCollCropCode.Text.Trim();
+                    unit.LinkName = this.txtLinkName.Text.Trim();
+                    if (this.drpIdcardType.SelectedValue != BLL.Const._Null)
+                    {
+                        unit.IdcardType = this.drpIdcardType.SelectedValue;
+                    }
+                    unit.IdcardNumber = this.txtIdcardNumber.Text.Trim();
+                    unit.LinkMobile = this.txtLinkMobile.Text.Trim();
+                    unit.CollCropStatus = this.rblCollCropStatus.SelectedValue;
+                    BLL.UnitService.UpdateUnit(unit);
+                }
                 BLL.LogService.AddSys_Log(this.CurrUser, null, newProjectUnit.ProjectUnitId, BLL.Const.ProjectUnitMenuId, BLL.Const.BtnModify);
                 ShowNotify("保存数据成功!", MessageBoxIcon.Success);
                 // 2. 关闭本窗体，然后回发父窗体

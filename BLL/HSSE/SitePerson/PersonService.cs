@@ -30,7 +30,7 @@ namespace BLL
         public static string GetPersonNameById(string personId)
         {
             string name = string.Empty;
-            var getp= Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
+            var getp = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
             if (getp != null)
             {
                 name = getp.PersonName;
@@ -68,7 +68,7 @@ namespace BLL
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static Model.SitePerson_Person GetPersonByUserId(string userId,string projectId)
+        public static Model.SitePerson_Person GetPersonByUserId(string userId, string projectId)
         {
             var getPerson = GetPersonById(userId);
             if (getPerson == null)
@@ -76,7 +76,7 @@ namespace BLL
                 var getUser = UserService.GetUserByUserId(userId);
                 if (getUser != null)
                 {
-                    getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard && e.ProjectId == projectId);                   
+                    getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard && e.ProjectId == projectId);
                 }
             }
 
@@ -100,11 +100,11 @@ namespace BLL
             else
             {
                 return (from x in Funs.DB.SitePerson_Person
-                        where x.ProjectId == projectId 
+                        where x.ProjectId == projectId
                         orderby x.PersonName
                         select x).ToList();
             }
-            
+
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace BLL
         /// </summary>
         /// <param name="personId"></param>
         /// <returns></returns>
-        public static List<Model.SitePerson_Person> GetPersonLitsByprojectIdUnitIdTeamGroupId(string projectId, string unitId,string teamGroupId)
+        public static List<Model.SitePerson_Person> GetPersonLitsByprojectIdUnitIdTeamGroupId(string projectId, string unitId, string teamGroupId)
         {
             var getPersons = GetPersonLitsByprojectIdUnitId(projectId, unitId);
             if (!string.IsNullOrEmpty(teamGroupId))
@@ -259,7 +259,22 @@ namespace BLL
                 AuditorDate = person.AuditorDate,
                 IsForeign = person.IsForeign,
                 IsOutside = person.IsOutside,
+                EduLevel = person.EduLevel,
+                MaritalStatus = person.MaritalStatus,
                 Isprint = "0",
+                MainCNProfessionalId = person.MainCNProfessionalId,
+                ViceCNProfessionalId = person.ViceCNProfessionalId,
+                Birthday = person.Birthday,
+                IdcardType = person.IdcardType,
+                IdcardStartDate = person.IdcardStartDate,
+                IdcardEndDate = person.IdcardEndDate,
+                IdcardForever = person.IdcardForever,
+                PoliticsStatus = person.PoliticsStatus,
+                IdcardAddress = person.IdcardAddress,
+                Nation = person.Nation,
+                CountryCode = person.CountryCode,
+                ProvinceCode = person.ProvinceCode,
+                HeadImage = person.HeadImage,
             };
 
             if (person.InTime.HasValue)
@@ -273,7 +288,7 @@ namespace BLL
 
             db.SitePerson_Person.InsertOnSubmit(newPerson);
             db.SubmitChanges();
-            
+
             ////增加一条编码记录
             BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.PersonListMenuId, person.ProjectId, person.UnitId, person.PersonId, person.InTime);
         }
@@ -308,6 +323,8 @@ namespace BLL
                 newPerson.PhotoUrl = person.PhotoUrl;
                 newPerson.IsUsed = person.IsUsed;
                 newPerson.IsCardUsed = person.IsCardUsed;
+                newPerson.EduLevel = person.EduLevel;
+                newPerson.MaritalStatus = person.MaritalStatus;
                 newPerson.DepartId = person.DepartId;
                 newPerson.QRCodeAttachUrl = person.QRCodeAttachUrl;
                 newPerson.Password = GetPersonPassWord(person.IdentityCard);
@@ -323,6 +340,19 @@ namespace BLL
 
                 newPerson.IsForeign = person.IsForeign;
                 newPerson.IsOutside = person.IsOutside;
+                newPerson.Birthday = person.Birthday;
+                newPerson.MainCNProfessionalId = person.MainCNProfessionalId;
+                newPerson.ViceCNProfessionalId = person.ViceCNProfessionalId;
+                newPerson.IdcardType = person.IdcardType;
+                newPerson.IdcardStartDate = person.IdcardStartDate;
+                newPerson.IdcardEndDate = person.IdcardEndDate;
+                newPerson.IdcardForever = person.IdcardForever;
+                newPerson.PoliticsStatus = person.PoliticsStatus;
+                newPerson.IdcardAddress = person.IdcardAddress;
+                newPerson.Nation = person.Nation;
+                newPerson.CountryCode = person.CountryCode;
+                newPerson.ProvinceCode = person.ProvinceCode;
+                newPerson.HeadImage = person.HeadImage;
                 db.SubmitChanges();
             }
         }
@@ -418,7 +448,7 @@ namespace BLL
         /// </summary>
         /// <param name="dropName">下拉框名字</param>
         /// <param name="isShowPlease">是否显示请选择</param>
-        public static void InitPersonByProjectUnitTeamGroupDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitId,string teamGroupId, bool isShowPlease)
+        public static void InitPersonByProjectUnitTeamGroupDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitId, string teamGroupId, bool isShowPlease)
         {
             dropName.DataValueField = "PersonId";
             dropName.DataTextField = "PersonName";
@@ -438,7 +468,7 @@ namespace BLL
         /// <returns></returns>
         public static string GetPersonPassWord(string idCard)
         {
-            string passWord= Funs.EncryptionPassword(Const.Password);
+            string passWord = Funs.EncryptionPassword(Const.Password);
             ////现场人员密码
             if (!string.IsNullOrEmpty(idCard))
             {

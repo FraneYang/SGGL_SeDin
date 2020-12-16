@@ -16,16 +16,29 @@
         <Rows>
             <f:FormRow>
                 <Items>
+                   <f:TextBox ID="drpUnitId" runat="server" Label="单位名称" Readonly="true"></f:TextBox>
+                    <%--<f:TextBox ID="txtThirdTeamCode" runat="server" Label="第三方施工队号码" Readonly="true" LabelWidth="150px" Hidden="true"></f:TextBox>--%>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextBox ID="txtTeamGroupCode" runat="server" Label="班组编号" Readonly="true">
                     </f:TextBox>
                       <f:TextBox ID="txtTeamGroupName" runat="server" Label="班组名称" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
+            
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="drpUnitId" runat="server" Label="单位名称" Readonly="true"></f:TextBox>
+                    <f:TextBox ID="drpTeamType" runat="server" Label="施工队类型" Readonly="true"></f:TextBox>
                     <f:TextBox ID="drpGroupLeader" runat="server" Label="班组长" Readonly="true"></f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:TextBox ID="txtEntryTime" runat="server" Label="进场时间" Readonly="true"></f:TextBox>
+                    <f:TextBox ID="txtExitTime" runat="server" Label="退场时间" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>

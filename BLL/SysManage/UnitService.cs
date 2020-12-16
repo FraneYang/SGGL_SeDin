@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.UI.WebControls;
 
 namespace BLL
 {
@@ -57,7 +58,7 @@ namespace BLL
                 UnitId = unit.UnitId,
                 UnitCode = unit.UnitCode,
                 UnitName = unit.UnitName,
-                ShortUnitName=unit.ShortUnitName,
+                ShortUnitName = unit.ShortUnitName,
                 UnitTypeId = unit.UnitTypeId,
                 Corporate = unit.Corporate,
                 Address = unit.Address,
@@ -69,6 +70,14 @@ namespace BLL
                 DataSources = unit.DataSources,
                 FromUnitId = unit.FromUnitId,
                 SupUnitId = unit.SupUnitId,
+                CollCropCode = unit.CollCropCode,
+                IsChina = unit.IsChina,
+                LinkName = unit.LinkName,
+                IdcardType = unit.IdcardType,
+                IdcardNumber = unit.IdcardNumber,
+                LinkMobile = unit.LinkMobile,
+                CollCropStatus = unit.CollCropStatus,
+                RealNamePushTime=null,
             };
             db.Base_Unit.InsertOnSubmit(newUnit);
             db.SubmitChanges();
@@ -97,6 +106,14 @@ namespace BLL
                 newUnit.IsBranch = unit.IsBranch;
                 newUnit.FromUnitId = unit.FromUnitId;
                 newUnit.SupUnitId = unit.SupUnitId;
+                newUnit.CollCropCode = unit.CollCropCode;
+                newUnit.IsChina = unit.IsChina;
+                newUnit.LinkName = unit.LinkName;
+                newUnit.IdcardType = unit.IdcardType;
+                newUnit.IdcardNumber = unit.IdcardNumber;
+                newUnit.LinkMobile = unit.LinkMobile;
+                newUnit.CollCropStatus = unit.CollCropStatus;
+                newUnit.RealNamePushTime = null;
                 db.SubmitChanges();
             }
         }
@@ -108,7 +125,7 @@ namespace BLL
         public static void DeleteUnitById(string unitId)
         {
             Model.SGGLDB db = Funs.DB;
-           var delUnit = db.Base_Unit.FirstOrDefault(e => e.UnitId == unitId);
+            var delUnit = db.Base_Unit.FirstOrDefault(e => e.UnitId == unitId);
             if (delUnit != null)
             {
                 db.Base_Unit.DeleteOnSubmit(delUnit);
@@ -163,7 +180,7 @@ namespace BLL
         /// <returns></returns>
         public static List<string> GetChildrenUnitId(string unitId)
         {
-            List<string> unitIdList = new List<string>();            
+            List<string> unitIdList = new List<string>();
             var unit = Funs.DB.Base_Unit.FirstOrDefault(e => e.SupUnitId == unitId);  //本单位
             if (unit != null)
             {
@@ -530,7 +547,7 @@ namespace BLL
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
-        
+
         /// <summary>
         /// 根据项目Id获取单位名称下拉选择项
         /// </summary>
@@ -577,5 +594,69 @@ namespace BLL
             return unitName;
         }
         #endregion
+
+        /// <summary>
+        ///  根据项目Id获取总包和分包单位名称项
+        /// </summary>
+        /// <param name="projectId">项目Id</param>
+        /// <returns></returns>
+        public static ListItem[] drpMainOrSubUnitList(string projectId)
+        {
+            var q = (from x in Funs.DB.Project_ProjectUnit
+                     join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
+                     where x.ProjectId == projectId && (x.UnitType == Const.ProjectUnitType_1 || x.UnitType == Const.ProjectUnitType_2)
+                     orderby y.UnitCode
+                     select y).ToList();
+            ListItem[] list = new ListItem[q.Count()];
+            for (int i = 0; i < list.Count(); i++)
+            {
+                list[i] = new ListItem(q[i].UnitName ?? "", q[i].UnitId);
+            }
+            return list;
+        }
+        public static void InitUnitDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = drpMainOrSubUnitList(projectId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 字符串转化-》单位名称转化为对应的单位ID
+        /// </summary>
+        /// <param name="unitNames">带“，”的一个或多个单位名称</param>
+        /// <returns></returns>
+        public static string GetUnitIds(string unitNames)
+        {
+            if (!string.IsNullOrEmpty(unitNames))
+            {
+                string[] ins = unitNames.Split(',');
+                string unitIds = string.Empty;
+                foreach (string s in ins)
+                {
+                    var q = BLL.UnitService.getUnitByUnitName(s);
+                    unitIds = unitIds + q.UnitId + ",";
+                }
+                return unitIds.Substring(0, unitIds.Length - 1);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        /// <summary>
+        /// 根据单位名称获取单位信息
+        /// </summary>
+        /// <param name="unitName"></param>
+        /// <returns></returns>
+        public static Model.Base_Unit getUnitByUnitName(string unitName)
+        {
+            return Funs.DB.Base_Unit.FirstOrDefault(e => e.UnitName == unitName);
+        }
     }
 }

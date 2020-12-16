@@ -67,13 +67,67 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.DropDownList drpUnitType;
         
         /// <summary>
-        /// texmp 控件。
+        /// txtCollCropCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label texmp;
+        protected global::FineUIPro.TextBox txtCollCropCode;
+        
+        /// <summary>
+        /// txtLinkName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtLinkName;
+        
+        /// <summary>
+        /// drpIdcardType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpIdcardType;
+        
+        /// <summary>
+        /// txtIdcardNumber 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtIdcardNumber;
+        
+        /// <summary>
+        /// txtLinkMobile 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtLinkMobile;
+        
+        /// <summary>
+        /// rblIsChina 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.RadioButtonList rblIsChina;
+        
+        /// <summary>
+        /// rblCollCropStatus 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.RadioButtonList rblCollCropStatus;
         
         /// <summary>
         /// txtInTime 控件。

@@ -50,7 +50,7 @@
                                 <f:Toolbar ID="Toolbar3" Position="Top" ToolbarAlign="Left" runat="server">
                                     <Items>
                                         <f:TextBox runat="server" Label="姓名" ID="txtPersonName" EmptyText="输入查询条件"
-                                            Width="250px" LabelWidth="70px" LabelAlign="right">
+                                            Width="200px" LabelWidth="70px" LabelAlign="right">
                                         </f:TextBox>
                                         <f:TextBox runat="server" Label="卡号" ID="txtCardNo" EmptyText="输入查询条件"
                                             Width="200px" LabelWidth="50px" LabelAlign="right">
@@ -68,9 +68,11 @@
                                 <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                                     <Items>
                                         <f:TextBox runat="server" Label="身份证" ID="txtIdentityCard" EmptyText="输入查询条件"
-                                            Width="250px" LabelWidth="70px"
+                                            Width="200px" LabelWidth="70px"
                                             LabelAlign="right">
                                         </f:TextBox>
+                                        <f:CheckBox runat="server" ID="ckIdCardInfoNotOK" Label="身份信息不齐全" LabelAlign="right" LabelWidth="120px">
+                                        </f:CheckBox>
                                         <f:CheckBox runat="server" ID="ckTrain" Label="未参加培训" LabelAlign="right">
                                         </f:CheckBox>
                                         <f:Label runat="server" Text="红色表示未进行过任何培训人员。"  CssClass="LabelColor"></f:Label>
@@ -118,11 +120,12 @@
                                 </f:RenderField>
                                   <f:RenderField HeaderText="单位工程" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="130px">
-                                </f:RenderField>                              
-                                <%--     <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime" SortField="InTime"
+                                </f:RenderField>   
+                                <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime" SortField="InTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
+                                <%--     
                             <f:RenderField Width="100px" ColumnID="OutTime" DataField="OutTime" SortField="OutTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="出场时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
@@ -153,7 +156,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="编辑人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
-            Width="1000px" Height="620px">
+            Width="1000px" Height="660px">
         </f:Window>
         <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="false"

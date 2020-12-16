@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Net;
 
 namespace BLL
 {
@@ -70,6 +70,22 @@ namespace BLL
             return Funs.DB.AttachFile.FirstOrDefault(e => e.ToKeyId == toKey && e.MenuId == menuId);
         }
 
+        /// <summary>
+        /// 根据对应主键和菜单获取文件信息
+        /// </summary>
+        /// <param name="toKey">对应主键</param>
+        /// <param name="menuId">对应菜单</param>
+        /// <returns>文件信息</returns>
+        public static Model.AttachFile GetAttachFileByToKeyId(string toKey)
+        {
+            return Funs.DB.AttachFile.FirstOrDefault(e => e.ToKeyId == toKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="toKeyId"></param>
+        /// <returns></returns>
         public static string getFileUrl(string toKeyId)
         {
             try
@@ -96,6 +112,12 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="toKeyId"></param>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
         public static Boolean Getfile(string toKeyId, string menuId)
         {
             bool res = false;
@@ -111,6 +133,12 @@ namespace BLL
             return res;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="toKeyId"></param>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
         public static IList<Model.AttachFile> Getfilelist(string toKeyId, string menuId)
         {
             List<string> listToKeyId = new List<string>();
@@ -122,6 +150,13 @@ namespace BLL
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="toKeyId"></param>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
         public static bool updateAttachFile(string url, string toKeyId, string menuId)
         {
             if (!string.IsNullOrEmpty(url))
@@ -196,6 +231,12 @@ namespace BLL
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="fileDir"></param>
+        /// <returns></returns>
         public static string reNameUrl(string url, string fileDir)
         {
             string[] urls = url.Split(',');
@@ -219,6 +260,12 @@ namespace BLL
             return res;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="fileDir"></param>
+        /// <returns></returns>
         public static string getAttachSource(string url, string fileDir)
         {
             string res = "";
@@ -303,12 +350,24 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="toKeyId"></param>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
         public static Model.AttachFile Getfiles(string toKeyId, string menuId)
         {
             var list = Funs.DB.AttachFile.FirstOrDefault((x => x.ToKeyId == toKeyId && x.MenuId == menuId));
             return list;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="toKeyId"></param>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
         public static IList<Model.AttachFile> GetfileDetaillist(List<string> toKeyId, string menuId)
         {
             if (toKeyId.Count > 0)
@@ -321,5 +380,30 @@ namespace BLL
                 return null;
             }
         }
+
+        #region 根据图片路径转换为base64
+        /// <summary>
+        /// 根据图片路径转换为base64
+        /// </summary>
+        /// <param name="imageUrl"></param>
+        /// <returns></returns>
+        public static byte[] SetImageToByteArray(string imageUrl)
+        {
+            try
+            {
+                FileStream fs = new FileStream(imageUrl, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                int streamLength = (int)fs.Length;
+                byte[] image = new byte[streamLength];
+                fs.Read(image, 0, streamLength);
+                fs.Close();
+                return image;
+            }
+            catch
+            {
+                return null;
+
+            }
+        }
+        #endregion
     }
 }

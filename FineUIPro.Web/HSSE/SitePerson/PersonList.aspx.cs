@@ -237,6 +237,10 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     {
                         strSql += " AND TrainCount =0";
                     }
+                    if (this.ckIdCardInfoNotOK.Checked)
+                    {
+                        strSql += " AND (IdcardType is null or IdentityCard is null or PhotoUrl is null or (select count(*) from AttachFile where ToKeyId=PersonId+'#1')=0 or (select count(*) from AttachFile where ToKeyId=PersonId+'#5')=0)";
+                    }
 
                     SqlParameter[] parameter = listStr.ToArray();
                     DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);

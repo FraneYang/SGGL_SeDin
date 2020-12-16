@@ -229,8 +229,6 @@ namespace FineUIPro.Web.AttachFile
                     Session[sessionName] = JArray.Parse(stxt.ToString());
 
                 }
-
-
             }
 
             return (JArray)Session[sessionName];
