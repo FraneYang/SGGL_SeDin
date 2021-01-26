@@ -48,6 +48,8 @@
                         </f:TemplateField>
                         <f:RenderField Width="120px" ColumnID="Result" DataField="Result" HeaderTextAlign="Center" HeaderText="消项结果" TextAlign="Left">
                         </f:RenderField>
+                        <f:RenderField Width="120px" ColumnID="Remark" DataField="Remark" HeaderTextAlign="Center" HeaderText="备注" TextAlign="Left">
+                        </f:RenderField>
                     </Columns>
 
                 </f:Grid>
@@ -58,9 +60,10 @@
                     <f:Form ID="Form5" ShowBorder="false" ShowHeader="false" AutoScroll="true"
                         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                         <Rows>
-                            <f:FormRow ID="ckA" Hidden="true">
+                            <f:FormRow ID="ckA">
                                 <Items>
-                                    <f:CheckBox runat="server" ID="ckIsOK" Label="A项已全部整改完毕" LabelWidth="150px" ShowRedStar="true"></f:CheckBox>
+                                    <f:CheckBox runat="server" ID="ckAIsOK" Label="A项已全部整改完成" LabelWidth="150px" ShowRedStar="true"></f:CheckBox>
+                                    <f:CheckBox runat="server" ID="ckBIsOK" Label="B项已全部整改完成" LabelWidth="150px" ShowRedStar="true"></f:CheckBox>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow ID="IsAgree" Hidden="true">
@@ -81,7 +84,7 @@
                                 <Items>
                                     <f:DropDownList ID="drpHandleType" runat="server" Label="办理步骤" LabelAlign="Right" EnableEdit="true" Required="true" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpHandleType_SelectedIndexChanged" LabelWidth="150px">
                                     </f:DropDownList>
-                                    <f:DropDownList ID="drpHandleMan" runat="server" Label="办理人员" Required="true" LabelAlign="Right" EnableEdit="true" ShowRedStar="true">
+                                    <f:DropDownList ID="drpHandleMan" runat="server" Label="办理人员" Required="true" LabelWidth="150px" LabelAlign="Right" EnableEdit="true" ShowRedStar="true">
                                     </f:DropDownList>
                                 </Items>
                             </f:FormRow>

@@ -161,6 +161,27 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        /// 项目焊工下拉项
+        /// </summary>
+        /// <param name="dropName">下拉框名称</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        /// <param name="InstallationType">耗材类型</param>
+        public static void InitProjectWelderDropDownListByData(FineUIPro.DropDownList dropName, bool isShowPlease, List<Model.SitePerson_Person> welders, string itemText)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                dropName.DataValueField = "PersonId";
+                dropName.DataTextField = "WelderCode";
+                dropName.DataSource = welders;
+                dropName.DataBind();
+                if (isShowPlease)
+                {
+                    Funs.FineUIPleaseSelect(dropName, itemText);
+                }
+            }
+        }
+
         public static ListItem[] GetWelderListItem(string ProjectId, string unitId)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))

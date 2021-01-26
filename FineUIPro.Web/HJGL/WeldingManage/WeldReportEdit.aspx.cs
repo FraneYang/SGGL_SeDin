@@ -196,20 +196,47 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         private void BindGrid(List<Model.SpWeldingDailyItem> weldingDailyItem)
         {
             DataTable dt = null;
+            //if (weldingDailyItem != null)
+            //{
+            //    var task = from x in Funs.DB.View_HJGL_WeldingTask
+            //               where (x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == Convert.ToDateTime(txtWeldingDate.Text)
+            //               && x.WeldingDailyId == null && x.CoverWelderId != null && x.BackingWelderId != null) || x.WeldingDailyId == this.WeldingDailyId
+            //               select x;
+            //    dt = this.LINQToDataTable(task);
+            //}
+            //else
+            //{
+            //    var task = from x in Funs.DB.View_HJGL_WeldingTask
+            //               where x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == Convert.ToDateTime(txtWeldingDate.Text)
+            //               && x.WeldingDailyId == null && x.CoverWelderId != null && x.BackingWelderId != null
+            //               select x;
+            //    dt = this.LINQToDataTable(task);
+            //}
+            var list = from x in Funs.DB.View_HJGL_WeldingTask select x;
             if (weldingDailyItem != null)
             {
-                var task = from x in Funs.DB.View_HJGL_WeldingTask
-                           where (x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == Convert.ToDateTime(txtWeldingDate.Text)
+                var task = new List<Model.View_HJGL_WeldingTask>();
+                var weldJointIds = (from x in list
+                                    where (x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date <= Convert.ToDateTime(txtWeldingDate.Text)
                            && x.WeldingDailyId == null && x.CoverWelderId != null && x.BackingWelderId != null) || x.WeldingDailyId == this.WeldingDailyId
-                           select x;
+                                    select x.WeldJointId).Distinct().ToList();
+                foreach (var weldJointId in weldJointIds)
+                {
+                    task.Add(list.FirstOrDefault(x => x.WeldJointId == weldJointId));
+                }
                 dt = this.LINQToDataTable(task);
             }
             else
             {
-                var task = from x in Funs.DB.View_HJGL_WeldingTask
-                           where x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == Convert.ToDateTime(txtWeldingDate.Text)
+                var task = new List<Model.View_HJGL_WeldingTask>();
+                var weldJointIds = (from x in list
+                                    where x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date <= Convert.ToDateTime(txtWeldingDate.Text)
                            && x.WeldingDailyId == null && x.CoverWelderId != null && x.BackingWelderId != null
-                           select x;
+                                    select x.WeldJointId).Distinct().ToList();
+                foreach (var weldJointId in weldJointIds)
+                {
+                    task.Add(list.FirstOrDefault(x => x.WeldJointId == weldJointId));
+                }
                 dt = this.LINQToDataTable(task);
             }
             // 2.获取当前分页数据

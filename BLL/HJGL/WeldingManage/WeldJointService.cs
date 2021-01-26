@@ -138,6 +138,7 @@ namespace BLL
                 newWeldJoint.BackingWelderId = weldJoint.BackingWelderId;
                 newWeldJoint.CoverWelderId = weldJoint.CoverWelderId;
                 newWeldJoint.WeldingDailyId = weldJoint.WeldingDailyId;
+                newWeldJoint.WeldingMode = weldJoint.WeldingMode;
                 newWeldJoint.WeldingDailyCode = weldJoint.WeldingDailyCode;
                 newWeldJoint.Specification = weldJoint.Specification;
                 newWeldJoint.PreTemperature = weldJoint.PreTemperature;

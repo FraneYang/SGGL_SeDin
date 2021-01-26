@@ -6,6 +6,17 @@
 <head runat="server">
     <title>热处理报告</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
+    <style>
+        .f-grid-row .f-grid-cell-inner {
+            white-space: normal;
+            word-break: break-all;
+        }
+
+         .f-grid-colheader-text {
+            white-space: normal;
+            word-break: break-all;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -38,7 +49,7 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Columns>
-                        <f:RenderField Width="120px" ColumnID="PointCount" DataField="PointCount" FieldType="Int"
+                        <f:RenderField Width="100px" ColumnID="PointCount" DataField="PointCount" FieldType="Int"
                             HeaderText="测温点编号" HeaderTextAlign="Center" TextAlign="Left"
                             SortField="PointCount">
                             <Editor>
@@ -46,34 +57,42 @@
                                 </f:NumberBox>
                             </Editor>
                         </f:RenderField>
-                        <f:RenderField Width="150px" ColumnID="RequiredT" DataField="RequiredT" FieldType="String"
+                        <f:RenderField Width="120px" ColumnID="RequiredT" DataField="RequiredT" FieldType="String"
                             HeaderText="热处理温度℃(要求)" HeaderTextAlign="Center" TextAlign="Left">
                             <Editor>
                                 <f:NumberBox ID="txtRequiredT" runat="server">
                                 </f:NumberBox>
                             </Editor>
                         </f:RenderField>
-                        <f:RenderField Width="150px" ColumnID="ActualT" DataField="ActualT" FieldType="String"
+                        <f:RenderField Width="120px" ColumnID="ActualT" DataField="ActualT" FieldType="String"
                             HeaderText="热处理温度℃(实际)" HeaderTextAlign="Center" TextAlign="Left">
                             <Editor>
                                 <f:NumberBox ID="txtActualT" runat="server">
                                 </f:NumberBox>
                             </Editor>
                         </f:RenderField>
-                        <f:RenderField Width="150px" ColumnID="RequestTime" DataField="RequestTime" FieldType="String"
+                        <f:RenderField Width="100px" ColumnID="RequestTime" DataField="RequestTime" FieldType="String"
                             HeaderText="恒温时间h（要求）" HeaderTextAlign="Center" TextAlign="Left">
                             <Editor>
                                 <f:NumberBox ID="txtRequestTime" runat="server">
                                 </f:NumberBox>
                             </Editor>
                         </f:RenderField>
-                        <f:RenderField Width="150px" ColumnID="ActualTime" DataField="ActualTime" FieldType="String"
+                        <f:RenderField Width="100px" ColumnID="ActualTime" DataField="ActualTime" FieldType="String"
                             HeaderText="恒温时间h（实际）" HeaderTextAlign="Center" TextAlign="Left">
                             <Editor>
                                 <f:NumberBox ID="txtActualTime" runat="server">
                                 </f:NumberBox>
                             </Editor>
                         </f:RenderField>
+                        <f:RenderField HeaderText="热处理日期" ColumnID="ProessDate" DataField="ProessDate"
+                                SortField="ProessDate" HeaderTextAlign="Center" TextAlign="Left" Width="120px"
+                                RendererArgument="yyyy-MM-dd" FieldType="Date" Renderer="Date">
+                                <Editor>
+                                    <f:DatePicker ID="txtProessDate" runat="server" DateFormatString="yyyy-MM-dd">
+                                    </f:DatePicker>
+                                </Editor>
+                            </f:RenderField>
                         <f:RenderField Width="150px" ColumnID="RecordChartNo" DataField="RecordChartNo" FieldType="String"
                             HeaderText="记录曲线图编号" HeaderTextAlign="Center" TextAlign="Left"
                             ExpandUnusedSpace="true">

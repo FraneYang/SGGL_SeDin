@@ -44,15 +44,6 @@
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtWeldingLocation" runat="server" Label="焊接位置" LabelWidth="160px"></f:TextBox>
-                        <f:NumberBox ID="txtThicknessMax" runat="server" Label="管径覆盖范围（最小值）"
-                            NoNegative="true" LabelAlign="Right" LabelWidth="200px">
-                        </f:NumberBox>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow>
-                    <Items>
-                        <f:NumberBox ID="txtSizesMin" runat="server" Label="壁厚覆盖范围（最大值）" NoNegative="true" LabelAlign="Right" LabelWidth="200px">
-                        </f:NumberBox>
                         <f:TextBox ID="txtWeldType" runat="server" Label="可焊焊缝类型" LabelWidth="160px"></f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -66,10 +57,61 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtRemark" runat="server" Label="备注"
+                        <f:GroupPanel ID="GroupPanel3" Layout="Anchor" Title="对接焊缝" runat="server">
+                            <Items>
+                                <f:Form ID="Form2" ShowBorder="false" ShowHeader="false" BodyPadding="10px"
+                                    runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+                                    <Rows>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:TextBox ID="txtThicknessMin" runat="server" Label="壁厚覆盖范围（最小值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtThicknessMax" runat="server" Label="壁厚覆盖范围（最大值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:TextBox ID="txtSizesMin" runat="server" Label="管径覆盖范围（最小值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtSizesMax" runat="server" Label="管径覆盖范围（最大值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                            </Items>
+                                        </f:FormRow>
+                                    </Rows>
+                                </f:Form>
+                            </Items>
+                        </f:GroupPanel>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:GroupPanel ID="GroupPanel1" Layout="Anchor" Title="角焊缝" runat="server">
+                            <Items>
+                                <f:Form ID="Form3" ShowBorder="false" ShowHeader="false" BodyPadding="10px"
+                                    runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+                                    <Rows>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:TextBox ID="txtThicknessMin2" runat="server" Label="壁厚覆盖范围（最小值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtThicknessMax2" runat="server" Label="壁厚覆盖范围（最大值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:TextBox ID="txtSizesMin2" runat="server" Label="管径覆盖范围（最小值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtSizesMax2" runat="server" Label="管径覆盖范围（最大值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                            </Items>
+                                        </f:FormRow>
+                                    </Rows>
+                                </f:Form>
+                            </Items>
+                        </f:GroupPanel>
+                    </Items>
+                </f:FormRow>
+                
+                <f:FormRow>
+                    <Items>
+                        <f:TextBox ID="txtRemark" runat="server" Label="备注" MarginTop="5px"
                             LabelWidth="160px">
                         </f:TextBox>
-                        <f:Label runat="server" ></f:Label>
+                        <f:Label runat="server"></f:Label>
                     </Items>
                 </f:FormRow>
             </Rows>

@@ -150,7 +150,14 @@ namespace FineUIPro.Web.HSSE.SitePerson
                             this.drpMaritalStatus.SelectedValue = person.MaritalStatus;
                         }
                         this.txtIdcardAddress.Text = person.IdcardAddress;
-                        this.rblIsUsed.SelectedValue = person.IsUsed ? "True" : "False";
+                        if (person.IsUsed == true && person.InTime <= DateTime.Now && (!person.OutTime.HasValue || person.OutTime >= DateTime.Now))
+                        {
+                            this.rblIsUsed.SelectedValue = "True";
+                        }
+                        else
+                        {
+                            this.rblIsUsed.SelectedValue = "False";
+                        }
                         this.rblIsCardUsed.SelectedValue = person.IsCardUsed ? "True" : "False";
                         this.txtCardNo.Text = person.CardNo;
                         this.txtPersonName.Text = person.PersonName;

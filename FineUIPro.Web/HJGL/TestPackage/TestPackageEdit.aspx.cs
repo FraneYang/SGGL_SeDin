@@ -189,7 +189,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 this.btnMenuModify.Hidden = true;
                 this.btnMenuSee.Hidden = true;
                 this.btnMenuDel.Hidden = true;
-                this.btnPrinter.Hidden = true;
+                //this.btnPrinter.Hidden = true;
                 this.btnPrinterAll.Hidden = false;
             }
             else if (testPackage != null)
@@ -198,7 +198,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 this.btnMenuModify.Hidden = false;
                 this.btnMenuSee.Hidden = false;
                 this.btnMenuDel.Hidden = false;
-                this.btnPrinter.Hidden = false;
+                //this.btnPrinter.Hidden = false;
                 this.btnPrinterAll.Hidden = true;
             }
             else
@@ -207,7 +207,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 this.btnMenuModify.Hidden = true;
                 this.btnMenuSee.Hidden = true;
                 this.btnMenuDel.Hidden = true;
-                this.btnPrinter.Hidden = true;
+                //this.btnPrinter.Hidden = true;
                 this.btnPrinterAll.Hidden = true;
             }
             this.PTP_ID = tvControlItem.SelectedNodeID;
@@ -358,7 +358,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         if (testPackageManage.AduditDate.HasValue)
                         {
-                            Alert.ShowInTop("此试压单已审核！", MessageBoxIcon.Warning);
+                            Alert.ShowInTop("此试压包已条件确认！", MessageBoxIcon.Warning);
                             return;
                         }
 
@@ -483,44 +483,6 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.BindGrid();
         }
         #endregion
-
-        protected void btnPrinter_Click(object sender, EventArgs e)
-        {
-            string PTP_ID = this.tvControlItem.SelectedNodeID;
-            var p = BLL.TestPackageEditService.GetTestPackageByID(PTP_ID);
-            if (p != null)
-            {
-                string varValue = string.Empty;
-                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
-                if (project != null)
-                {
-                    varValue = project.ProjectName;
-                    var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(p.UnitWorkId);
-                    if (unitWork != null)
-                    {
-                        varValue = varValue + "|" + unitWork.UnitWorkName;
-                    }
-                    if (!string.IsNullOrEmpty(p.TestPackageName))
-                    {
-                        varValue = varValue + "|" + p.TestPackageName;
-                    }
-                    if (!string.IsNullOrEmpty(p.TestPackageNo))
-                    {
-                        varValue = varValue + "|" + p.TestPackageNo;
-                    }
-                }
-                if (!string.IsNullOrEmpty(varValue))
-                {
-                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
-                }
-                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_TestPackageRecordReportId, PTP_ID, varValue, this.CurrUser.LoginProjectId)));
-            }
-            else
-            {
-                ShowNotify("请选择试压包！", MessageBoxIcon.Warning);
-                return;
-            }
-        }
 
         protected void btnPrinterAll_Click(object sender, EventArgs e)
         {

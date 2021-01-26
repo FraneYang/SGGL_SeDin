@@ -65,13 +65,13 @@
                                 </f:HiddenField>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                 </f:ToolbarFill>
-                                <f:Button ID="btnSave" Text="返修/扩透委托" ToolTip="返修/扩透委托"
+                                <f:Button ID="btnSave" Text="自动扩透" ToolTip="自动扩透"
                                     Icon="SystemSave" runat="server" OnClick="btnSave_Click">
                                 </f:Button>
-                                <f:Button ID="btnPointAudit" Text="返修/扩透审核" ToolTip="监理审核后才可生成委托单" Icon="ArrowNsew" runat="server"
+                                <f:Button ID="btnPointAudit" Text="返修/扩透审核" ToolTip="监理审核后才可生成委托单" Icon="ArrowNsew" runat="server" Hidden="true"
                                     OnClick="btnPointAudit_Click">
                                 </f:Button>
-                                <f:Button ID="btnGenerate" Text="生成委托单" ToolTip="生成委托单" Icon="TableEdit" runat="server"
+                                <f:Button ID="btnGenerate" Text="生成返修/扩透委托单" ToolTip="生成返修/扩透委托单" Icon="TableEdit" runat="server"
                                     OnClick="btnGenerate_Click">
                                 </f:Button>
                                 <f:Button ID="btnSee" Text="查看底片" OnClick="btnSee_Click" runat="server"></f:Button>
@@ -100,16 +100,18 @@
                                         </f:Label>
                                         <f:Label ID="txtCheckDefects" Label="缺陷" runat="server" LabelWidth="90px">
                                         </f:Label>
-                                        <f:DropDownList ID="drpRepairWelder" runat="server" Label="返修焊工" LabelWidth="90px"></f:DropDownList>
-                                        <f:DatePicker ID="txtRepairDate" Label="返修日期" runat="server"
-                                            DateFormatString="yyyy-MM-dd" LabelWidth="90px" LabelAlign="Right">
-                                        </f:DatePicker>
+                                        <f:DropDownList ID="drpPBackingWelder" runat="server" Label="返修打底焊工" LabelWidth="120px"></f:DropDownList>
+                                        <f:DropDownList ID="drpPCoverWelder" runat="server" Label="返修盖面焊工" LabelWidth="120px"></f:DropDownList>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:CheckBox ID="ckbIsCut" runat="server" Label="是否切除" LabelAlign="Right" AutoPostBack="true"></f:CheckBox>
-                                        <f:Label ID="lbIsAudit" Label="是否审核" runat="server"></f:Label>
+                                        <f:DatePicker ID="txtRepairDate" Label="返修日期" runat="server"
+                                            DateFormatString="yyyy-MM-dd" LabelWidth="90px" LabelAlign="Right">
+                                        </f:DatePicker>
+                                        <%--<f:CheckBox ID="ckbIsCut" runat="server" Label="是否切除" LabelAlign="Right" AutoPostBack="true"></f:CheckBox>
+                                        <f:Label ID="lbIsAudit" Label="是否审核" runat="server"></f:Label>--%>
+                                        <f:Label runat="server"></f:Label>
                                         <f:Label runat="server"></f:Label>
                                         <f:Label runat="server"></f:Label>
 
@@ -125,14 +127,16 @@
                             AllowSorting="true" SortField="PipelineCode,WeldJointCode" SortDirection="ASC"
                             OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" PageSize="100"
                             OnPageIndexChange="Grid1_PageIndexChange" EnableTextSelection="True"
-                            KeepCurrentSelection="true" EnableCheckBoxSelect="true">
+                            KeepCurrentSelection="true" 
+                            >
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar3" Position="Top" runat="server">
                                     <Items>
                                         <f:Label runat="server" Text="选择扩透口："></f:Label>
-                                        <f:CheckBox ID="ckbWelder" runat="server" Label="同焊工" LabelAlign="Right" Checked="true" AutoPostBack="true" LabelWidth="70px" OnCheckedChanged="ckbWelder_CheckedChanged"></f:CheckBox>
+                                        <f:CheckBox ID="ckbWelder" runat="server" Label="同焊工" LabelAlign="Right" Checked="true" Enabled="false" AutoPostBack="true" LabelWidth="70px" OnCheckedChanged="ckbWelder_CheckedChanged"></f:CheckBox>
+                                        <f:CheckBox ID="ckbBatch" runat="server" Label="同批次" LabelAlign="Right" Checked="true" LabelWidth="70px" AutoPostBack="true" OnCheckedChanged="ckbBatch_CheckedChanged"></f:CheckBox>
                                         <f:CheckBox ID="ckbPipe" runat="server" Label="同管线" LabelAlign="Right" LabelWidth="70px" AutoPostBack="true" OnCheckedChanged="ckbPipe_CheckedChanged"></f:CheckBox>
-                                        <f:CheckBox ID="ckbdaily" runat="server" Label="同一天" LabelAlign="Right" Checked="true" LabelWidth="70px" AutoPostBack="true" OnCheckedChanged="ckbDaily_CheckedChanged"></f:CheckBox>
+                                        <f:CheckBox ID="ckbdaily" runat="server" Label="同一天" LabelAlign="Right" LabelWidth="70px" AutoPostBack="true" OnCheckedChanged="ckbDaily_CheckedChanged"></f:CheckBox>
                                         <f:CheckBox ID="ckbRepairBefore" runat="server" Label="返修前所焊" LabelAlign="Right" LabelWidth="100px" AutoPostBack="true" OnCheckedChanged="ckbRepairBefore_CheckedChanged"></f:CheckBox>
                                         <f:CheckBox ID="ckbMat" runat="server" Label="同材质" LabelAlign="Right" AutoPostBack="true" LabelWidth="70px" OnCheckedChanged="ckbMat_CheckedChanged"></f:CheckBox>
                                         <f:CheckBox ID="ckbSpec" runat="server" Label="同规格" LabelAlign="Right" AutoPostBack="true" LabelWidth="70px" OnCheckedChanged="ckbSpec_CheckedChanged"></f:CheckBox>
@@ -182,7 +186,7 @@
                                     SortField="PointIsAudit" FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
                                     Width="90px">
                                 </f:RenderField>
-                                <f:TemplateField ColumnID="BackingWelderId" Width="130px" HeaderText="返修打底焊工" HeaderTextAlign="Center" TextAlign="Center"
+                                <%--<f:TemplateField ColumnID="BackingWelderId" Width="130px" HeaderText="返修打底焊工" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="drpBackingWelderId" runat="server" Height="22" Width="90%">
@@ -197,7 +201,7 @@
                                         </asp:DropDownList>
                                         <asp:HiddenField ID="hdCoverWelderId" runat="server" Value='<%# Bind("CoverWelderId") %>' />
                                     </ItemTemplate>
-                                </f:TemplateField>
+                                </f:TemplateField>--%>
                             </Columns>
                             <Listeners>
                                 <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

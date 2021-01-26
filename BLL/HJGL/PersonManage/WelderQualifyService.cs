@@ -62,8 +62,12 @@ namespace BLL
             newWelderQualify.WeldingLocation = welderQualify.WeldingLocation;
             newWelderQualify.ThicknessMin = welderQualify.ThicknessMin;
             newWelderQualify.ThicknessMax = welderQualify.ThicknessMax;
+            newWelderQualify.ThicknessMin2 = welderQualify.ThicknessMin2;
+            newWelderQualify.ThicknessMax2 = welderQualify.ThicknessMax2;
             newWelderQualify.SizesMin = welderQualify.SizesMin;
             newWelderQualify.SizesMax = welderQualify.SizesMax;
+            newWelderQualify.SizesMin2 = welderQualify.SizesMin2;
+            newWelderQualify.SizesMax2 = welderQualify.SizesMax2;
             newWelderQualify.WeldType = welderQualify.WeldType;
             newWelderQualify.IsCanWeldG = welderQualify.IsCanWeldG;
             newWelderQualify.Remark = welderQualify.Remark;
@@ -90,8 +94,12 @@ namespace BLL
                 newWelderQualify.WeldingLocation = welderQualify.WeldingLocation;
                 newWelderQualify.ThicknessMin = welderQualify.ThicknessMin;
                 newWelderQualify.ThicknessMax = welderQualify.ThicknessMax;
+                newWelderQualify.ThicknessMin2 = welderQualify.ThicknessMin2;
+                newWelderQualify.ThicknessMax2 = welderQualify.ThicknessMax2;
                 newWelderQualify.SizesMin = welderQualify.SizesMin;
                 newWelderQualify.SizesMax = welderQualify.SizesMax;
+                newWelderQualify.SizesMin2 = welderQualify.SizesMin2;
+                newWelderQualify.SizesMax2 = welderQualify.SizesMax2;
                 newWelderQualify.WeldType = welderQualify.WeldType;
                 newWelderQualify.IsCanWeldG = welderQualify.IsCanWeldG;
                 newWelderQualify.Remark = welderQualify.Remark;

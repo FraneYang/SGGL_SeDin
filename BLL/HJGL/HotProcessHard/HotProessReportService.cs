@@ -37,6 +37,7 @@ namespace BLL
             newHotProessReport.ActualT = hotProessReport.ActualT;
             newHotProessReport.RequestTime = hotProessReport.RequestTime;
             newHotProessReport.ActualTime = hotProessReport.ActualTime;
+            newHotProessReport.ProessDate = hotProessReport.ProessDate;
             newHotProessReport.RecordChartNo = hotProessReport.RecordChartNo;
             db.HJGL_HotProess_Report.InsertOnSubmit(newHotProessReport);
             db.SubmitChanges();
@@ -57,6 +58,7 @@ namespace BLL
                 newHotProessReport.ActualT = hotProessReport.ActualT;
                 newHotProessReport.RequestTime = hotProessReport.RequestTime;
                 newHotProessReport.ActualTime = hotProessReport.ActualTime;
+                newHotProessReport.ProessDate = hotProessReport.ProessDate;
                 newHotProessReport.RecordChartNo = hotProessReport.RecordChartNo;
                 db.SubmitChanges();
             }

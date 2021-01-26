@@ -86,12 +86,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
             {
                 string strSql = @"SELECT WelderQualifyId, WelderId, QualificationItem, LimitDate, CheckDate,
-									  (CASE WHEN ThicknessMax >0 THEN '不限 ~ '+ CONVERT(VARCHAR(5),CAST(ThicknessMax AS REAL))
-									       WHEN ThicknessMax=0 THEN '不限'
-										   WHEN ThicknessMax IS NULL THEN '' END) AS ThicknessMax,
-								     (CASE WHEN SizesMin >0 THEN  CONVERT(VARCHAR(5),CAST(SizesMin AS REAL))+' ~ 不限'
-									       WHEN SizesMin=0 THEN '不限'
-										   WHEN SizesMin IS NULL THEN '' END) AS SizesMin,
+									 Thickness,Sizes,Thickness2,Sizes2,
 									 Remark,WelderCode,PersonName,WeldingMethod,
                                      WeldingLocation,MaterialType,IsPrintShow,WeldType,IsCanWeldG
                               FROM View_Welder_WelderQualify

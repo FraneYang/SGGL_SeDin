@@ -52,7 +52,10 @@
                                 <f:Button ID="btnAudit" Text="审核" ToolTip="审核后才可进行检测" Icon="Accept" runat="server"
                                     OnClick="btnAudit_Click" Hidden="true">
                                 </f:Button>
-                                <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server"
+                                <f:Button ID="btnPointAudit" Text="生成委托单" ToolTip="监理点口审核并生成委托单" Icon="ArrowNsew" runat="server"
+                                OnClick="btnPointAudit_Click">
+                            </f:Button>
+                                <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server" Hidden="true"
                                     OnClick="btnDelete_Click">
                                 </f:Button>
                                 <f:Button ID="btnPrint" Text="打印" Icon="Printer" runat="server"
@@ -84,10 +87,11 @@
                                         <f:Label ID="lbNDEUnit" Label="检测单位" runat="server"
                                             LabelWidth="170px" LabelAlign="Right">
                                         </f:Label>
-                                        <f:Label ID="lbIsAudit" Label="是否审核" runat="server"
+                                        
+                                        <f:Label ID="lbIsCheck" Label="是否检测" runat="server"
                                             LabelWidth="105px" LabelAlign="Right">
                                         </f:Label>
-                                        <f:Label ID="lbIsCheck" Label="是否检测" runat="server"
+                                        <f:Label ID="lbIsAudit" Label="是否审核" runat="server" Hidden="true"
                                             LabelWidth="105px" LabelAlign="Right">
                                         </f:Label>
                                     </Items>

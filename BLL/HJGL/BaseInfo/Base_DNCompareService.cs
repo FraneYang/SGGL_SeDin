@@ -28,21 +28,31 @@ namespace BLL
                 DN = dNCompare.DN,
                 PipeSize = dNCompare.PipeSize,
                 OutSizeDia = dNCompare.OutSizeDia,
+                Sch5S = dNCompare.Sch5S,
+                Sch10S = dNCompare.Sch10S,
                 SCH10 = dNCompare.SCH10,
                 SCH20 = dNCompare.SCH20,
                 SCH30 = dNCompare.SCH30,
-                STD = dNCompare.STD,
+                SCH40S = dNCompare.SCH40S,
                 SCH40 = dNCompare.SCH40,
                 SCH60 = dNCompare.SCH60,
-                XS = dNCompare.XS,
+                SCH80S = dNCompare.SCH80S,
                 SCH80 = dNCompare.SCH80,
                 SCH100 = dNCompare.SCH100,
                 SCH120 = dNCompare.SCH120,
                 SCH140 = dNCompare.SCH140,
                 SCH160 = dNCompare.SCH160,
-                XXS = dNCompare.XXS,
-                Size = dNCompare.Size,
-                Thickness=dNCompare.Thickness
+                Thickness1 = dNCompare.Thickness1,
+                Thickness2 = dNCompare.Thickness2,
+                Thickness3 = dNCompare.Thickness3,
+                Thickness4 = dNCompare.Thickness4,
+                Thickness5 = dNCompare.Thickness5,
+                Thickness6 = dNCompare.Thickness6,
+                Thickness7 = dNCompare.Thickness7,
+                Thickness8 = dNCompare.Thickness8,
+                Thickness9 = dNCompare.Thickness9,
+                Thickness10 = dNCompare.Thickness10,
+                Thickness11 = dNCompare.Thickness11,
             };
 
             db.Base_DNCompare.InsertOnSubmit(newDNCompare);
@@ -62,21 +72,31 @@ namespace BLL
                 newDNCompare.DN = dNCompare.DN;
                 newDNCompare.PipeSize = dNCompare.PipeSize;
                 newDNCompare.OutSizeDia = dNCompare.OutSizeDia;
+                newDNCompare.Sch5S = dNCompare.Sch5S;
+                newDNCompare.Sch10S = dNCompare.Sch10S;
                 newDNCompare.SCH10 = dNCompare.SCH10;
                 newDNCompare.SCH20 = dNCompare.SCH20;
                 newDNCompare.SCH30 = dNCompare.SCH30;
-                newDNCompare.STD = dNCompare.STD;
+                newDNCompare.SCH40S = dNCompare.SCH40S;
                 newDNCompare.SCH40 = dNCompare.SCH40;
                 newDNCompare.SCH60 = dNCompare.SCH60;
-                newDNCompare.XS = dNCompare.XS;
+                newDNCompare.SCH80S = dNCompare.SCH80S;
                 newDNCompare.SCH80 = dNCompare.SCH80;
                 newDNCompare.SCH100 = dNCompare.SCH100;
                 newDNCompare.SCH120 = dNCompare.SCH120;
                 newDNCompare.SCH140 = dNCompare.SCH140;
                 newDNCompare.SCH160 = dNCompare.SCH160;
-                newDNCompare.XXS = dNCompare.XXS;
-                newDNCompare.Size = dNCompare.Size;
-                newDNCompare.Thickness = dNCompare.Thickness;
+                newDNCompare.Thickness1 = dNCompare.Thickness1;
+                newDNCompare.Thickness2 = dNCompare.Thickness2;
+                newDNCompare.Thickness3 = dNCompare.Thickness3;
+                newDNCompare.Thickness4 = dNCompare.Thickness4;
+                newDNCompare.Thickness5 = dNCompare.Thickness5;
+                newDNCompare.Thickness6 = dNCompare.Thickness6;
+                newDNCompare.Thickness7 = dNCompare.Thickness7;
+                newDNCompare.Thickness8 = dNCompare.Thickness8;
+                newDNCompare.Thickness9 = dNCompare.Thickness9;
+                newDNCompare.Thickness10 = dNCompare.Thickness10;
+                newDNCompare.Thickness11 = dNCompare.Thickness11;
                 db.SubmitChanges();
             }
         }
@@ -104,7 +124,7 @@ namespace BLL
         public static List<Model.Base_DNCompare> GetdNCompareList()
         {
             var list = (from x in Funs.DB.Base_DNCompare
-                        orderby x.PipeSize,x.OutSizeDia
+                        orderby x.PipeSize, x.OutSizeDia
                         select x).ToList();
 
             return list;

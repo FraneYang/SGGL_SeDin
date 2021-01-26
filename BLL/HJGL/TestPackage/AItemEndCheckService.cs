@@ -23,11 +23,11 @@ namespace BLL
         /// </summary>
         /// <param name="jot_id"></param>
         /// <returns></returns>
-        public static List<Model.PTP_ItemEndCheck> GetItemEndCheckByPTPID(string PTP_Id)
+        public static List<Model.PTP_ItemEndCheck> GetItemEndCheckByItemEndCheckListId(string ItemEndCheckListId)
         {
             return (from x in Funs.DB.PTP_ItemEndCheck
-                   where x.PTP_ID == PTP_Id
-                   select x).ToList();
+                   where x.ItemEndCheckListId == ItemEndCheckListId
+                    select x).ToList();
         }
 
         /// <summary>
@@ -53,10 +53,11 @@ namespace BLL
             Model.PTP_ItemEndCheck newAItemEndCheck = new Model.PTP_ItemEndCheck();
             newAItemEndCheck.ItemCheckId = SQLHelper.GetNewID(typeof(Model.PTP_ItemEndCheck));
             newAItemEndCheck.PipelineId = aItemEndCheck.PipelineId;
-            newAItemEndCheck.PTP_ID = aItemEndCheck.PTP_ID;
+            newAItemEndCheck.ItemEndCheckListId = aItemEndCheck.ItemEndCheckListId;
             newAItemEndCheck.Content = aItemEndCheck.Content;
             newAItemEndCheck.ItemType = aItemEndCheck.ItemType;
             newAItemEndCheck.Result = aItemEndCheck.Result;
+            newAItemEndCheck.Remark = aItemEndCheck.Remark;
             db.PTP_ItemEndCheck.InsertOnSubmit(newAItemEndCheck);
             db.SubmitChanges();
         }
@@ -70,9 +71,10 @@ namespace BLL
             Model.SGGLDB db = Funs.DB;
             Model.PTP_ItemEndCheck newAItemEndCheck = db.PTP_ItemEndCheck.First(e => e.ItemCheckId == aItemEndCheck.ItemCheckId);
             newAItemEndCheck.PipelineId = aItemEndCheck.PipelineId;
-            newAItemEndCheck.PTP_ID = aItemEndCheck.PTP_ID;
+            newAItemEndCheck.ItemEndCheckListId = aItemEndCheck.ItemEndCheckListId;
             newAItemEndCheck.ItemType = aItemEndCheck.ItemType;
             newAItemEndCheck.Result = aItemEndCheck.Result;
+            newAItemEndCheck.Remark = aItemEndCheck.Remark;
             db.SubmitChanges();
         }
 
@@ -87,10 +89,10 @@ namespace BLL
             db.PTP_ItemEndCheck.DeleteOnSubmit(ItemCheck);
             db.SubmitChanges();
         }
-        public static void DeleteAllItemEndCheckByID(string PTP_Id)
+        public static void DeleteAllItemEndCheckByID(string ItemEndCheckListId)
         {
             Model.SGGLDB db = Funs.DB;
-            var ItemCheck = from x in db.PTP_ItemEndCheck where x.PTP_ID == PTP_Id select x;
+            var ItemCheck = from x in db.PTP_ItemEndCheck where x.ItemEndCheckListId == ItemEndCheckListId select x;
             if (ItemCheck != null)
             {
                 db.PTP_ItemEndCheck.DeleteAllOnSubmit(ItemCheck);

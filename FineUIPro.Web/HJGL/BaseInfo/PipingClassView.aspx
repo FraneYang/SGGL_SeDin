@@ -30,6 +30,13 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
+                   <f:TextBox ID="txtSteelType" runat="server" Label="钢材类型"
+                        Readonly="true" LabelWidth="150px">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelWidth="150px" Readonly="true">
                     </f:TextArea>
                 </Items>

@@ -103,15 +103,6 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning {
         protected global::FineUIPro.DropDownList drpUnitWork;
         
         /// <summary>
-        /// drpTabler 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpTabler;
-        
-        /// <summary>
         /// txtTableDate 控件。
         /// </summary>
         /// <remarks>
@@ -119,6 +110,15 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DatePicker txtTableDate;
+        
+        /// <summary>
+        /// txtFinishDef 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtFinishDef;
         
         /// <summary>
         /// txtRemark 控件。
@@ -256,13 +256,13 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning {
         protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
-        /// drpMaterialId 控件。
+        /// lbMaterial 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpMaterialId;
+        protected global::System.Web.UI.WebControls.Label lbMaterial;
         
         /// <summary>
         /// hdMaterialId 控件。
@@ -274,13 +274,13 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning {
         protected global::System.Web.UI.WebControls.HiddenField hdMaterialId;
         
         /// <summary>
-        /// drpMediumId 控件。
+        /// lbMedium 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpMediumId;
+        protected global::System.Web.UI.WebControls.Label lbMedium;
         
         /// <summary>
         /// hdMediumId 控件。

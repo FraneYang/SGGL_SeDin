@@ -14,64 +14,127 @@
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
             <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtDN" runat="server" Label="公称尺寸(DN)" Readonly="true"></f:TextBox>
-                    <f:TextBox ID="txtPipeSize" runat="server" Label="公称尺寸(NPS)" Readonly="true">
-                    </f:TextBox>
-                    <f:NumberBox ID="txtOutSizeDia" runat="server" Label="外径" Readonly="true">
-                    </f:NumberBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:NumberBox ID="txtSCH10" runat="server" Label="SCH10" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtSCH20" runat="server" Label="SCH20" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtSCH30" runat="server" Label="SCH30" Readonly="true">
-                    </f:NumberBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:NumberBox ID="txtSTD" runat="server" Label="STD" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtSCH40" runat="server" Label="SCH40" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtSCH60" runat="server" Label="SCH60" Readonly="true">
-                    </f:NumberBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:NumberBox ID="txtXS" runat="server" Label="XS" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtSCH80" runat="server" Label="SCH80" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtSCH100" runat="server" Label="SCH100" Readonly="true">
-                    </f:NumberBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:NumberBox ID="txtSCH120" runat="server" Label="SCH120" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtSCH140" runat="server" Label="SCH140" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtSCH160" runat="server" Label="SCH160" Readonly="true">
-                    </f:NumberBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:NumberBox ID="txtXXS" runat="server" Label="XXS" Readonly="true">
-                    </f:NumberBox>
-                     <f:NumberBox ID="txtSize" runat="server" Label="尺寸系列" Readonly="true">
-                    </f:NumberBox>
-                    <f:NumberBox ID="txtthickness" runat="server" Label="壁厚" Readonly="true">
-                    </f:NumberBox>
-                </Items>
-            </f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtDN" runat="server" Label="公称尺寸(DN)" NoNegative="true" DecimalPrecision="0" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtPipeSize" runat="server" Label="公称尺寸(NPS)" DecimalPrecision="3" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtOutSizeDia" runat="server" Label="外径(mm)" Required="true" Readonly="true"
+                            NoNegative="true" DecimalPrecision="2" ShowRedStar="true">
+                        </f:NumberBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtSCH5S" runat="server" Label="SCH5S/SCH5" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH10S" runat="server" Label="SCH10S" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH10" runat="server" Label="SCH10" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtSCH20" runat="server" Label="SCH20" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH30" runat="server" Label="SCH30" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH40S" runat="server" Label="SCH40S" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtSCH40" runat="server" Label="SCH40" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH60" runat="server" Label="SCH60" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH80S" runat="server" Label="SCH80S" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtSCH80" runat="server" Label="SCH80" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH100" runat="server" Label="SCH100" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH120" runat="server" Label="SCH120" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtSCH140" runat="server" Label="SCH140" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="txtSCH160" runat="server" Label="SCH160" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                        </f:NumberBox>
+                        <f:NumberBox ID="NumberBox5" runat="server" Label="SCH160" NoNegative="true" DecimalPrecision="2" Hidden="true">
+                        </f:NumberBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:GroupPanel ID="GroupPanel3" Layout="Anchor" Title="壁厚(mm)" runat="server">
+                            <Items>
+                                <f:Form ID="Form2" ShowBorder="false" ShowHeader="false" BodyPadding="10px"
+                                    runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+                                    <Rows>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:NumberBox ID="txtThickness1" runat="server" Label="1" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                                <f:NumberBox ID="txtThickness2" runat="server" Label="2" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                                <f:NumberBox ID="txtThickness3" runat="server" Label="3" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:NumberBox ID="txtThickness4" runat="server" Label="1" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                                <f:NumberBox ID="txtThickness5" runat="server" Label="2" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                                <f:NumberBox ID="txtThickness6" runat="server" Label="3" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:NumberBox ID="txtThickness7" runat="server" Label="1" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                                <f:NumberBox ID="txtThickness8" runat="server" Label="2" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                                <f:NumberBox ID="txtThickness9" runat="server" Label="3" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:NumberBox ID="txtThickness10" runat="server" Label="1" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                                <f:NumberBox ID="txtThickness11" runat="server" Label="2" NoNegative="true" DecimalPrecision="2" Readonly="true">
+                                                </f:NumberBox>
+                                                <f:NumberBox ID="NumberBox3" runat="server" Label="3" NoNegative="true" DecimalPrecision="2" Hidden="true">
+                                                </f:NumberBox>
+                                            </Items>
+                                        </f:FormRow>
+                                    </Rows>
+                                </f:Form>
+                            </Items>
+                        </f:GroupPanel>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                    </Items>
+                </f:FormRow>
         </Rows>
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

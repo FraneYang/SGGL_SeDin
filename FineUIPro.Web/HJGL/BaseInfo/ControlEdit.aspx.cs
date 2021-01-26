@@ -47,6 +47,14 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtOutSizeDia.Text = DNCompare.OutSizeDia.ToString();
                         }
+                        if (DNCompare.Sch5S.HasValue)
+                        {
+                            this.txtSCH5S.Text = DNCompare.Sch5S.ToString();
+                        }
+                        if (DNCompare.Sch10S.HasValue)
+                        {
+                            this.txtSCH10S.Text = DNCompare.Sch10S.ToString();
+                        }
                         if (DNCompare.SCH10.HasValue)
                         {
                             this.txtSCH10.Text = DNCompare.SCH10.ToString();
@@ -59,9 +67,9 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtSCH30.Text = DNCompare.SCH30.ToString();
                         }
-                        if (DNCompare.STD.HasValue)
+                        if (DNCompare.SCH40S.HasValue)
                         {
-                            this.txtSTD.Text = DNCompare.STD.ToString();
+                            this.txtSCH40S.Text = DNCompare.SCH40S.ToString();
                         }
                         if (DNCompare.SCH40.HasValue)
                         {
@@ -71,9 +79,9 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtSCH60.Text = DNCompare.SCH60.ToString();
                         }
-                        if (DNCompare.XS.HasValue)
+                        if (DNCompare.SCH80S.HasValue)
                         {
-                            this.txtXS.Text = DNCompare.XS.ToString();
+                            this.txtSCH80S.Text = DNCompare.SCH80S.ToString();
                         }
                         if (DNCompare.SCH80.HasValue)
                         {
@@ -95,16 +103,48 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtSCH160.Text = DNCompare.SCH160.ToString();
                         }
-                        if (DNCompare.XXS.HasValue)
-                        {
-                            this.txtXXS.Text = DNCompare.XXS.ToString();
+                        if (DNCompare.Thickness1.HasValue) {
+                            this.txtThickness1.Text = DNCompare.Thickness1.ToString();
                         }
-                        if (DNCompare.Size.HasValue)
+                        if (DNCompare.Thickness2.HasValue)
                         {
-                            this.txtSize.Text = DNCompare.Size.ToString();
+                            this.txtThickness2.Text = DNCompare.Thickness2.ToString();
                         }
-                        if (DNCompare.Thickness.HasValue) {
-                            this.txtthickness.Text = DNCompare.Thickness.ToString();
+                        if (DNCompare.Thickness3.HasValue)
+                        {
+                            this.txtThickness3.Text = DNCompare.Thickness3.ToString();
+                        }
+                        if (DNCompare.Thickness4.HasValue)
+                        {
+                            this.txtThickness4.Text = DNCompare.Thickness4.ToString();
+                        }
+                        if (DNCompare.Thickness5.HasValue)
+                        {
+                            this.txtThickness5.Text = DNCompare.Thickness5.ToString();
+                        }
+                        if (DNCompare.Thickness6.HasValue)
+                        {
+                            this.txtThickness6.Text = DNCompare.Thickness6.ToString();
+                        }
+                        if (DNCompare.Thickness7.HasValue)
+                        {
+                            this.txtThickness7.Text = DNCompare.Thickness7.ToString();
+                        }
+                        if (DNCompare.Thickness8.HasValue)
+                        {
+                            this.txtThickness8.Text = DNCompare.Thickness8.ToString();
+                        }
+                        if (DNCompare.Thickness9.HasValue)
+                        {
+                            this.txtThickness9.Text = DNCompare.Thickness9.ToString();
+                        }
+                        if (DNCompare.Thickness10.HasValue)
+                        {
+                            this.txtThickness10.Text = DNCompare.Thickness10.ToString();
+                        }
+                        if (DNCompare.Thickness11.HasValue)
+                        {
+                            this.txtThickness11.Text = DNCompare.Thickness11.ToString();
                         }
                     }
                 }
@@ -124,21 +164,31 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             newDNCompare.PipeSize =Funs.GetNewDecimal(this.txtPipeSize.Text.Trim());
             newDNCompare.DN = Funs.GetNewInt(this.txtDN.Text.Trim());
             newDNCompare.OutSizeDia =Funs.GetNewDecimal(this.txtOutSizeDia.Text.Trim());
+            newDNCompare.Sch5S = Funs.GetNewDecimal(this.txtSCH5S.Text.Trim());
+            newDNCompare.Sch10S = Funs.GetNewDecimal(this.txtSCH10S.Text.Trim());
             newDNCompare.SCH10 = Funs.GetNewDecimal(this.txtSCH10.Text.Trim());
             newDNCompare.SCH20 = Funs.GetNewDecimal(this.txtSCH20.Text.Trim());
             newDNCompare.SCH30 = Funs.GetNewDecimal(this.txtSCH30.Text.Trim());
-            newDNCompare.STD = Funs.GetNewDecimal(this.txtSTD.Text.Trim());
+            newDNCompare.SCH40S = Funs.GetNewDecimal(this.txtSCH40S.Text.Trim());
             newDNCompare.SCH40 = Funs.GetNewDecimal(this.txtSCH40.Text.Trim());
             newDNCompare.SCH60 = Funs.GetNewDecimal(this.txtSCH60.Text.Trim());
-            newDNCompare.XS = Funs.GetNewDecimal(this.txtXS.Text.Trim());
+            newDNCompare.SCH80S = Funs.GetNewDecimal(this.txtSCH80S.Text.Trim());
             newDNCompare.SCH80 = Funs.GetNewDecimal(this.txtSCH80.Text.Trim());
             newDNCompare.SCH100 = Funs.GetNewDecimal(this.txtSCH100.Text.Trim());
             newDNCompare.SCH120 = Funs.GetNewDecimal(this.txtSCH120.Text.Trim());
             newDNCompare.SCH140 = Funs.GetNewDecimal(this.txtSCH140.Text.Trim());
             newDNCompare.SCH160 = Funs.GetNewDecimal(this.txtSCH160.Text.Trim());
-            newDNCompare.XXS = Funs.GetNewDecimal(this.txtXXS.Text.Trim());
-            newDNCompare.Size = Funs.GetNewDecimal(this.txtSize.Text.Trim());
-            newDNCompare.Thickness = Funs.GetNewDecimal(this.txtthickness.Text.Trim());
+            newDNCompare.Thickness1 = Funs.GetNewDecimal(this.txtThickness1.Text.Trim());
+            newDNCompare.Thickness2 = Funs.GetNewDecimal(this.txtThickness2.Text.Trim());
+            newDNCompare.Thickness3 = Funs.GetNewDecimal(this.txtThickness3.Text.Trim());
+            newDNCompare.Thickness4 = Funs.GetNewDecimal(this.txtThickness4.Text.Trim());
+            newDNCompare.Thickness5 = Funs.GetNewDecimal(this.txtThickness5.Text.Trim());
+            newDNCompare.Thickness6 = Funs.GetNewDecimal(this.txtThickness6.Text.Trim());
+            newDNCompare.Thickness7 = Funs.GetNewDecimal(this.txtThickness7.Text.Trim());
+            newDNCompare.Thickness8 = Funs.GetNewDecimal(this.txtThickness8.Text.Trim());
+            newDNCompare.Thickness9 = Funs.GetNewDecimal(this.txtThickness9.Text.Trim());
+            newDNCompare.Thickness10 = Funs.GetNewDecimal(this.txtThickness10.Text.Trim());
+            newDNCompare.Thickness11 = Funs.GetNewDecimal(this.txtThickness11.Text.Trim());
 
             if (!string.IsNullOrEmpty(this.DNCompareId))
             {

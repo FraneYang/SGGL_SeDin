@@ -63,7 +63,7 @@
                                 runat="server" OnClick="btnbtnOpenResetPoint_Click">
                             </f:Button> 
                             <f:Button ID="btnPointAudit" Text="生成委托单" ToolTip="监理点口审核并生成委托单" Icon="ArrowNsew" runat="server"
-                                OnClick="btnPointAudit_Click">
+                                OnClick="btnPointAudit_Click" Hidden="true">
                             </f:Button> 
                             <f:Button ID="btnGenerate" Text="生成" ToolTip="生成委托单" Icon="TableEdit" runat="server"
                                 OnClick="btnGenerate_Click"  Hidden="true">
@@ -146,6 +146,10 @@
                                 Width="80px">
                             </f:RenderField>
                              <f:RenderField HeaderText="是否委托" ColumnID="IsBuildTrust" DataField="IsBuildTrust"
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
+                                Width="90px">
+                            </f:RenderField>
+                            <f:RenderField HeaderText="焊缝类型" ColumnID="WeldTypeCode" DataField="WeldTypeCode"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
                                 Width="90px">
                             </f:RenderField>

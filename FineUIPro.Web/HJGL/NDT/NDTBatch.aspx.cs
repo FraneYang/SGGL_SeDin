@@ -38,10 +38,50 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             if (!IsPostBack)
             {
+                GetButtonPower();
                 this.txtNDEDateMonth.Text = string.Format("{0:yyyy-MM}", DateTime.Now);
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
                 this.NDEID = string.Empty;
                 this.InitTreeMenu();//加载树
+            }
+        }
+        #endregion
+
+        #region 获取按钮权限
+        /// <summary>
+        /// 获取按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
+        private void GetButtonPower()
+        {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_NDTBatchMenuId);
+            if (buttonList.Count() > 0)
+            {
+                if (buttonList.Contains(BLL.Const.BtnAdd))
+                {
+                    this.btnNew.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnSave))
+                {
+                    this.btnEdit.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnAuditing))
+                {
+                    this.btnAudit.Hidden = false;
+                }
+                //if (buttonList.Contains(BLL.Const.BtnRepairNotice))
+                //{
+                //    this.BtnRepairRecord.Hidden = false;
+                //}
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
+                    this.btnDelete.Hidden = false;
+                }
             }
         }
         #endregion
@@ -58,12 +98,14 @@ namespace FineUIPro.Web.HJGL.NDT
             rootNode1.NodeID = "1";
             rootNode1.Text = "建筑工程";
             rootNode1.CommandName = "建筑工程";
+            rootNode1.EnableClickEvent = true;
             this.tvControlItem.Nodes.Add(rootNode1);
 
             TreeNode rootNode2 = new TreeNode();
             rootNode2.NodeID = "2";
             rootNode2.Text = "安装工程";
             rootNode2.CommandName = "安装工程";
+            rootNode2.EnableClickEvent = true;
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
@@ -106,6 +148,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     tn1.Text = q.UnitWorkName;
                     tn1.ToolTip = "施工单位：" + u.UnitName;
                     tn1.CommandName = "单位工程";
+                    tn1.EnableClickEvent = true;
                     tn1.EnableExpandEvent = true;
                     rootNode1.Nodes.Add(tn1);
                     BindNodes(tn1);
@@ -122,6 +165,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     tn2.Text = q.UnitWorkName;
                     tn2.ToolTip = "施工单位：" + u.UnitName;
                     tn2.CommandName = "单位工程";
+                    tn2.EnableClickEvent = true;
                     tn2.EnableExpandEvent = true;
                     rootNode2.Nodes.Add(tn2);
                     BindNodes(tn2);
@@ -176,6 +220,7 @@ namespace FineUIPro.Web.HJGL.NDT
                         newNode.EnableExpandEvent = true;
                         newNode.ToolTip = item.DetectionTypeName;
                         newNode.CommandName = "探伤类型";
+                        newNode.EnableClickEvent = true;
                         e.Node.Nodes.Add(newNode);
                     }
 
@@ -213,6 +258,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     }
                     newNode.NodeID = check.NDEID;
                     newNode.ToolTip = "check";
+                    newNode.CommandName = "检测单号";
                     newNode.EnableClickEvent = true;
                     e.Node.Nodes.Add(newNode);
                 }
@@ -229,6 +275,46 @@ namespace FineUIPro.Web.HJGL.NDT
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_NDTBatchMenuId);
+            if (this.tvControlItem.SelectedNode.CommandName == "建筑工程" || this.tvControlItem.SelectedNode.CommandName == "安装工程" || this.tvControlItem.SelectedNode.CommandName == "探伤类型")
+            {
+                this.btnNew.Hidden = true;
+                this.btnEdit.Hidden = true;
+                this.btnAudit.Hidden = true;
+                //this.BtnRepairRecord.Hidden = true;
+                this.btnDelete.Hidden = true;
+            }
+            else if (this.tvControlItem.SelectedNode.CommandName == "单位工程")
+            {
+                if (buttonList.Contains(BLL.Const.BtnAdd))
+                {
+                    this.btnNew.Hidden = false;
+                }
+                this.btnEdit.Hidden = true;
+                this.btnAudit.Hidden = true;
+                //this.BtnRepairRecord.Hidden = true;
+                this.btnDelete.Hidden = true;
+            }
+            else if (this.tvControlItem.SelectedNode.CommandName == "检测单号")
+            {
+                this.btnNew.Hidden = true;
+                if (buttonList.Contains(BLL.Const.BtnSave))
+                {
+                    this.btnEdit.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnAuditing))
+                {
+                    this.btnAudit.Hidden = false;
+                }
+                //if (buttonList.Contains(BLL.Const.BtnRepairNotice))
+                //{
+                //    this.BtnRepairRecord.Hidden = false;
+                //}
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
+                    this.btnDelete.Hidden = false;
+                }
+            }
             this.NDEID = tvControlItem.SelectedNodeID;
             this.BindGrid();
         }
@@ -375,7 +461,7 @@ namespace FineUIPro.Web.HJGL.NDT
                 }
                 else
                 {
-                    ShowNotify("请选择区域！", MessageBoxIcon.Warning);
+                    ShowNotify("请选择单位工程！", MessageBoxIcon.Warning);
                 }
             }
             else
@@ -477,6 +563,20 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnRepairNotice))
             {
+                //Model.HJGL_Batch_NDE nde = BLL.Batch_NDEService.GetNDEById(this.NDEID);
+                //if (nde != null)
+                //{
+                //    var trust = Batch_BatchTrustService.GetBatchTrustById(nde.TrustBatchId);
+                //    if (trust != null)
+                //    {
+                //        if (trust.IsCheck != true)
+                //        {
+                //            ShowNotify("请先审核该检测单！", MessageBoxIcon.Warning);
+                //            return;
+                //        }
+                //    }
+                //}
+                //var notOKCheckItem = from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == this.NDEID  select x;
                 string ndtItem = Grid1.SelectedRowID;
                 if (ndtItem != string.Empty)
                 {
@@ -623,6 +723,8 @@ namespace FineUIPro.Web.HJGL.NDT
                 Model.HJGL_Batch_NDE nde = BLL.Batch_NDEService.GetNDEById(this.NDEID);
                 if (nde != null)
                 {
+                    nde.AuditDate = DateTime.Now;
+                    BLL.Batch_NDEService.UpdateNDE(nde);
                     int trustItemCount = BLL.Batch_BatchTrustItemService.GetBatchTrustItemByTrustBatchId(nde.TrustBatchId).Count;
                     int checkItemCount = BLL.Batch_NDEItemService.GetNDEItemByNDEID(this.NDEID).Count;
                     int noResultCheckItemCount = (from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == this.NDEID && x.CheckResult == null select x).Count();

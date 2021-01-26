@@ -78,7 +78,7 @@ namespace BLL
         /// <param name="PersonInOut"></param>
         public static void InsertPersonInOutNowNow(Model.SitePerson_PersonInOutNow PersonInOut)
         {
-            Model.SGGLDB db = Funs.DB;        
+            Model.SGGLDB db = Funs.DB;
             var getNow = db.SitePerson_PersonInOutNow.FirstOrDefault(x => x.PersonInOutId == PersonInOut.PersonInOutId);
             if (getNow == null)
             {
@@ -117,7 +117,7 @@ namespace BLL
                         PostType = newPersonInOut.PostType,
                         ProCode = newPersonInOut.ProCode,
                         Name = newPersonInOut.Name,
-                        IdcardType = newPersonInOut.IdcardType,
+                        IdcardType = newPersonInOut.IdcardType ?? "SHENFEN_ZHENGJIAN",
                         IdcardNumber = newPersonInOut.IdcardNumber,
                         CheckType = "ZHENGCHANG_KAOQINLEIBIE",
                         CheckWay = "FACE_FANGSHI",
@@ -126,7 +126,7 @@ namespace BLL
                     db.SubmitChanges();
                 }
             }
-          
+
             var getLastList = from x in db.SitePerson_PersonInOutNow
                               where x.ChangeTime <= PersonInOut.ChangeTime.Value.AddHours(-48)
                               select x;
@@ -151,7 +151,7 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
-        
+
         /// <summary>
         ///  获取出入记录人工时
         /// </summary>
@@ -159,8 +159,8 @@ namespace BLL
         public static List<Model.WorkPostStatisticItem> getWorkPostStatistic(List<Model.SitePerson_PersonInOut> getAllPersonInOutList)
         {
             Model.SGGLDB db = Funs.DB;
-            List<Model.WorkPostStatisticItem> reports = new List<Model.WorkPostStatisticItem>();           
-          
+            List<Model.WorkPostStatisticItem> reports = new List<Model.WorkPostStatisticItem>();
+
             var getUnitIdList = getAllPersonInOutList.Select(x => x.UnitId).Distinct();
             foreach (var uitem in getUnitIdList)
             {

@@ -26,12 +26,27 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 ViewState["PTP_ID"] = value;
             }
         }
+        /// <summary>
+        /// 记录主键
+        /// </summary>
+        public string ItemEndCheckListId
+        {
+            get
+            {
+                return (string)ViewState["ItemEndCheckListId"];
+            }
+            set
+            {
+                ViewState["ItemEndCheckListId"] = value;
+            }
+        }
         #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 PTP_ID = Request.Params["PTP_ID"];
+                ItemEndCheckListId = Request.Params["ItemEndCheckListId"];
                 if (!string.IsNullOrEmpty(PTP_ID))
                 {
                     var getTestPakeage = TestPackageEditService.GetTestPackageByID(PTP_ID);
@@ -47,10 +62,10 @@ namespace FineUIPro.Web.HJGL.TestPackage
 
         private void BindGrid()
         {
-            string strSql = @"  select ItemCheckId, PTP_ID, PipelineId, Content, ItemType,(case when Content='/' then '/' else Result end)AS Result from PTP_ItemEndCheck WHERE PTP_ID =@PTP_ID Order By PipelineId";
+            string strSql = @"  select ItemCheckId, ItemEndCheckListId, PipelineId, Content,Remark, ItemType,(case when Content='/' then '/' else Result end)AS Result from PTP_ItemEndCheck WHERE ItemEndCheckListId =@ItemEndCheckListId Order By PipelineId";
             SqlParameter[] parameter = new SqlParameter[]
                     {
-                        new SqlParameter("@PTP_ID",this.PTP_ID),
+                        new SqlParameter("@ItemEndCheckListId",this.ItemEndCheckListId),
                     };
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.DataSource = tb;
@@ -59,11 +74,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
         //办理记录
         public void BindGrid1()
         {
-            string strSql = @"select ApproveId, PTP_ID, ApproveDate, Opinion, ApproveMan, ApproveType ,U.UserName from [dbo].[PTP_TestPackageApprove] P 
+            string strSql = @"select ApproveId, ItemEndCheckListId, ApproveDate, Opinion, ApproveMan, ApproveType ,U.UserName from [dbo].[PTP_TestPackageApprove] P 
                               Left Join Sys_User U on p.ApproveMan=U.UserId";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " where PTP_ID= @PTP_ID";
-            listStr.Add(new SqlParameter("@PTP_ID", PTP_ID));
+            strSql += " where ItemEndCheckListId= @ItemEndCheckListId";
+            listStr.Add(new SqlParameter("@ItemEndCheckListId", ItemEndCheckListId));
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             var table = this.GetPagedDataTable(gvFlowOperate, tb);

@@ -39,9 +39,9 @@
                                             runat="server" LabelAlign="Right"  FocusOnPageLoad="true"
                                             LabelWidth="180px" Readonly="true">
                                         </f:TextBox>
-                                        <f:DatePicker ID="txtProessDate" runat="server" Label="热处理日期"
-                                            LabelAlign="Right"  LabelWidth="140px" Readonly="true">
-                                        </f:DatePicker>
+                                        <f:TextBox ID="txtReportNo" Label="报告编号" runat="server"
+                                            LabelAlign="Right" MaxLength="50" LabelWidth="180px">
+                                        </f:TextBox>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
@@ -72,14 +72,6 @@
                                         <f:TextBox ID="txtProessEquipment" Label="热处理设备" runat="server"
                                             LabelAlign="Right" MaxLength="50" LabelWidth="140px">
                                         </f:TextBox>
-                                    </Items>
-                                </f:FormRow>
-                                <f:FormRow>
-                                    <Items>
-                                        <f:TextBox ID="txtReportNo" Label="报告编号" runat="server"
-                                            LabelAlign="Right" MaxLength="50" LabelWidth="180px">
-                                        </f:TextBox>
-                                        <f:Label runat="server"></f:Label>
                                     </Items>
                                 </f:FormRow>
                             </Rows>

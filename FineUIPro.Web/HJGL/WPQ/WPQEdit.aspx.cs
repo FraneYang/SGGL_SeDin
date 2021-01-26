@@ -167,6 +167,11 @@ namespace FineUIPro.Web.HJGL.WPQ
                 Alert.ShowInTop("材质1不能为空！", MessageBoxIcon.Warning);
                 return;
             }
+            if (this.drpWeldingWire.SelectedValue == BLL.Const._Null && this.drpWeldingRod.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("焊丝、焊条不能同时为空！", MessageBoxIcon.Warning);
+                return;
+            }
             string id = SaveData(BLL.Const.BtnSave);
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

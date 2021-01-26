@@ -60,7 +60,7 @@ namespace BLL
         /// <param name="detectionTypeId"></param>
         /// <param name="startDate"></param>
         /// <returns></returns>
-        public static List<Model.NDETrustItem> getPointBatchCode(string unitWorkId,string startDate, string detectionTypeId, string detectionRateId, string pointBatchCode)
+        public static List<Model.NDETrustItem> getPointBatchCode(string unitWorkId, string startDate, string detectionTypeId, string detectionRateId, string pointBatchCode)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -670,7 +670,8 @@ namespace BLL
                 var repair = db.HJGL_RepairRecord.FirstOrDefault(x => x.RepairRecordId == repairRecordId);
                 if (repair != null)
                 {
-                    repair.RepairWelder = repairWelder;
+                    repair.PBackingWelderId = repairWelder;
+                    repair.PCoverWelderId = repairWelder;
                     repair.RepairDate = Convert.ToDateTime(repairDate);
                     if (isCut)
                     {

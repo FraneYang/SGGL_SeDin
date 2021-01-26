@@ -89,10 +89,10 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             if (trust != null)
             {
                 this.txtHotProessTrustNo.Text = trust.HotProessTrustNo;
-                if (trust.ProessDate.HasValue)
-                {
-                    this.txtProessDate.Text = string.Format("{0:yyyy-MM-dd}", trust.ProessDate);
-                }
+                //if (trust.ProessDate.HasValue)
+                //{
+                //    this.txtProessDate.Text = string.Format("{0:yyyy-MM-dd}", trust.ProessDate);
+                //}
                 if (!string.IsNullOrEmpty(trust.UnitWorkId))
                 {
                     this.drpUnitWork.SelectedValue = trust.UnitWorkId;

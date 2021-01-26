@@ -105,48 +105,68 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private void ImportXlsToData(string fileName)
         {
             //支持.xls和.xlsx，即包括office2010等版本的   HDR=Yes代表第一行是标题，不是数据；
-            string cmdText = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 12.0; HDR=Yes; IMEX=1'";
+            //string cmdText = "Provider=Microsoft.ACE.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0; HDR=Yes; IMEX=1'";
 
-            //建立连接
-            OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
+            ////建立连接
+            //OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
             try
             {
                 //打开连接
-                if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
+                //if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
+                //{
+                //    conn.Open();
+                //}
+                //OleDbDataAdapter oleAdMaster = null;
+                //DataTable m_tableName = new DataTable();
+                //DataSet ds = new DataSet();
+                //m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                //if (m_tableName != null && m_tableName.Rows.Count > 0)
+                //{
+
+                //    m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
+
+                //}
+                //string sqlMaster;
+                //sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
+                //oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                //oleAdMaster.Fill(ds, "m_tableName");
+                //oleAdMaster.Dispose();
+                //conn.Close();
+                //conn.Dispose();
+                string oleDBConnString = String.Empty;
+                oleDBConnString = "Provider=Microsoft.Jet.OLEDB.4.0;";
+                oleDBConnString += "Data Source=";
+                oleDBConnString += fileName;
+                oleDBConnString += ";Extended Properties=Excel 8.0;";
+                OleDbConnection oleDBConn = null;
                 OleDbDataAdapter oleAdMaster = null;
                 DataTable m_tableName = new DataTable();
                 DataSet ds = new DataSet();
-                m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                oleDBConn = new OleDbConnection(oleDBConnString);
+                oleDBConn.Open();
+                m_tableName = oleDBConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
                 if (m_tableName != null && m_tableName.Rows.Count > 0)
                 {
-
                     m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
-
                 }
                 string sqlMaster;
                 sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
-                oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                oleAdMaster = new OleDbDataAdapter(sqlMaster, oleDBConn);
                 oleAdMaster.Fill(ds, "m_tableName");
                 oleAdMaster.Dispose();
-                conn.Close();
-                conn.Dispose();
+                oleDBConn.Close();
+                oleDBConn.Dispose();
 
-                AddDatasetToSQL(ds.Tables[0], 3);
+                AddDatasetToSQL(ds.Tables[0], 4);
             }
             catch (Exception exc)
             {
                 Response.Write(exc);
                 //return null;
                 // return dt;
-            }
-            finally
-            {
-                conn.Close();
-                conn.Dispose();
             }
         }
         #endregion
@@ -202,7 +222,18 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                             result += "第" + (i + 2).ToString() + "行," + "此等级名称已存在" + "|";
                         }
                     }
-
+                    string col2 = pds.Rows[i][2].ToString();
+                    if (string.IsNullOrEmpty(col1))
+                    {
+                        result += "第" + (i + 2).ToString() + "行," + "钢材类型" + "," + "此项为必填项！" + "|";
+                    }
+                    else
+                    {
+                        if (col2 != "碳钢" && col2 != "合金钢" && col2 != "不锈钢")
+                        {
+                            result += "第" + (i + 2).ToString() + "行," + "钢材类型错误" + "|";
+                        }
+                    }
                 }
                 if (!string.IsNullOrEmpty(result))
                 {
@@ -262,36 +293,60 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private void ImportXlsToData2(string fileName)
         {
             //支持.xls和.xlsx，即包括office2010等版本的   HDR=Yes代表第一行是标题，不是数据；
-            string cmdText = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 12.0; HDR=Yes; IMEX=1'";
-            //建立连接
-            OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
+            //string cmdText = "Provider=Microsoft.ACE.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0; HDR=Yes; IMEX=1'";
+            ////建立连接
+            //OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
             try
             {
                 //打开连接
-                if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
+                //if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
+                //{
+                //    conn.Open();
+                //}
+                //OleDbDataAdapter oleAdMaster = null;
+                //DataTable m_tableName = new DataTable();
+                //DataSet ds = new DataSet();
+                //m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                //if (m_tableName != null && m_tableName.Rows.Count > 0)
+                //{
+
+                //    m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
+
+                //}
+                //string sqlMaster;
+                //sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
+                //oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                //oleAdMaster.Fill(ds, "m_tableName");
+                //oleAdMaster.Dispose();
+                //conn.Close();
+                //conn.Dispose();
+                string oleDBConnString = String.Empty;
+                oleDBConnString = "Provider=Microsoft.Jet.OLEDB.4.0;";
+                oleDBConnString += "Data Source=";
+                oleDBConnString += fileName;
+                oleDBConnString += ";Extended Properties=Excel 8.0;";
+                OleDbConnection oleDBConn = null;
                 OleDbDataAdapter oleAdMaster = null;
                 DataTable m_tableName = new DataTable();
                 DataSet ds = new DataSet();
-                m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                oleDBConn = new OleDbConnection(oleDBConnString);
+                oleDBConn.Open();
+                m_tableName = oleDBConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
                 if (m_tableName != null && m_tableName.Rows.Count > 0)
                 {
-
                     m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
-
                 }
                 string sqlMaster;
                 sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
-                oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                oleAdMaster = new OleDbDataAdapter(sqlMaster, oleDBConn);
                 oleAdMaster.Fill(ds, "m_tableName");
                 oleAdMaster.Dispose();
-                conn.Close();
-                conn.Dispose();
-
-                AddDatasetToSQL2(ds.Tables[0], 3);
+                oleDBConn.Close();
+                oleDBConn.Dispose();
+                AddDatasetToSQL2(ds.Tables[0], 4);
             }
             catch (Exception ex)
             {
@@ -325,17 +380,19 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                     string col0 = pds.Rows[i][0].ToString().Trim();
                     string col1 = pds.Rows[i][1].ToString().Trim();
                     string col2 = pds.Rows[i][2].ToString().Trim();
+                    string col3 = pds.Rows[i][3].ToString().Trim();
                     Model.Base_PipingClass newPipingClass = new Model.Base_PipingClass
                     {
                         PipingClassId = SQLHelper.GetNewID(typeof(Model.Base_PipingClass)),
                         PipingClassCode = col0,
                         PipingClassName = col1,
-                        Remark = col2,
+                        SteelType=col2,
+                        Remark = col3,
                         ProjectId = this.CurrUser.LoginProjectId
                     };
 
                     PipingClassList.Add(newPipingClass);
-                }
+                } 
                 if (PipingClassList.Count > 0)
                 {
                     this.Grid1.Hidden = false;
@@ -384,6 +441,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                             PipingClassId = PipingClassList[i].PipingClassId,
                             PipingClassCode = PipingClassList[i].PipingClassCode,
                             PipingClassName = PipingClassList[i].PipingClassName,
+                            SteelType= PipingClassList[i].SteelType,
                             Remark = PipingClassList[i].Remark,
                             ProjectId = this.CurrUser.LoginProjectId
                         };

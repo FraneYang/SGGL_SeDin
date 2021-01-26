@@ -65,7 +65,8 @@ namespace BLL
             newRepair.WelderId = repair.WelderId;
             newRepair.RepairMark = repair.RepairMark;
             newRepair.CheckDefects = repair.CheckDefects;
-            newRepair.RepairWelder = repair.RepairWelder;
+            newRepair.PBackingWelderId = repair.PBackingWelderId;
+            newRepair.PCoverWelderId = repair.PCoverWelderId;
             newRepair.RepairDate = repair.RepairDate;
             newRepair.PhotoUrl = repair.PhotoUrl;
             newRepair.Ex_ToPointBatchItemId = repair.Ex_ToPointBatchItemId;
@@ -91,7 +92,8 @@ namespace BLL
                 newRepair.WelderId = repair.WelderId;
                 newRepair.RepairMark = repair.RepairMark;
                 newRepair.CheckDefects = repair.CheckDefects;
-                newRepair.RepairWelder = repair.RepairWelder;
+                newRepair.PBackingWelderId = repair.PBackingWelderId;
+                newRepair.PCoverWelderId = repair.PCoverWelderId;
                 newRepair.RepairDate = repair.RepairDate;
                 newRepair.PhotoUrl = repair.PhotoUrl;
                 newRepair.Ex_ToPointBatchItemId = repair.Ex_ToPointBatchItemId;

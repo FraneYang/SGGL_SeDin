@@ -94,6 +94,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 NewReport.ActualT = item.ActualT;
                 NewReport.RequestTime = item.RequestTime;
                 NewReport.ActualTime = item.ActualTime;
+                NewReport.ProessDate = item.ProessDate;
                 NewReport.RecordChartNo = item.RecordChartNo;
                 HotProessReportList.Add(NewReport);
             }
@@ -182,6 +183,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 string ActualT = values.Value<string>("ActualT");
                 string RequestTime = values.Value<string>("RequestTime");
                 string ActualTime = values.Value<string>("ActualTime");
+                string ProessDate = values.Value<string>("ProessDate");
                 string RecordChartNo = values.Value<string>("RecordChartNo");
                 Model.HJGL_HotProess_Report NewReport = new Model.HJGL_HotProess_Report();
                 NewReport.HotProessReportId = Grid1.Rows[i].DataKeys[0].ToString(); 
@@ -195,6 +197,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 NewReport.ActualT = ActualT;
                 NewReport.RequestTime = RequestTime;
                 NewReport.ActualTime = ActualTime;
+                NewReport.ProessDate = Funs.GetNewDateTime(ProessDate);
                 NewReport.RecordChartNo = RecordChartNo;
                 HotProessReportList.Add(NewReport);
             }
@@ -225,6 +228,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 NewReport.ActualT = item.ActualT;
                 NewReport.RequestTime = item.RequestTime;
                 NewReport.ActualTime = item.ActualTime;
+                NewReport.ProessDate = item.ProessDate;
                 NewReport.RecordChartNo = item.RecordChartNo;
                 BLL.HotProessReportService.AddHotProessReport(NewReport);
             }

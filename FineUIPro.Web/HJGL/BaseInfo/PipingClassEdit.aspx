@@ -30,6 +30,13 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
+                     <f:DropDownList ID="drpSteelType" Label="钢材类型" runat="server"
+                                       ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="150px">
+                                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" MaxLength="500" LabelWidth="150px">
                     </f:TextArea>
                 </Items>

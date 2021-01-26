@@ -46,38 +46,98 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 {
                     txtRepairDate.Text = DateTime.Now.Date.ToString();
                 }
-                if (!string.IsNullOrEmpty(repairRecord.RepairWelder))
+                if (!string.IsNullOrEmpty(repairRecord.PBackingWelderId))
                 {
-                    drpRepairWelder.SelectedValue = repairRecord.RepairWelder;
+                    drpPBackingWelder.SelectedValue = repairRecord.PBackingWelderId;
                 }
                 else
                 {
-                    drpRepairWelder.SelectedValue = repairRecord.WelderId;
+                    drpPBackingWelder.SelectedValue = repairRecord.WelderId;
                 }
-
-                if (repairRecord.AuditDate.HasValue)
+                if (!string.IsNullOrEmpty(repairRecord.PCoverWelderId))
                 {
-                    lbIsAudit.Text = "已审核";
-                    this.btnPointAudit.Enabled = false;
+                    drpPCoverWelder.SelectedValue = repairRecord.PCoverWelderId;
                 }
                 else
                 {
-                    lbIsAudit.Text = "未审核";
+                    drpPCoverWelder.SelectedValue = repairRecord.WelderId;
                 }
+                //if (repairRecord.AuditDate.HasValue)
+                //{
+                //    lbIsAudit.Text = "已审核";
+                //    this.btnPointAudit.Enabled = false;
+                //}
+                //else
+                //{
+                //    lbIsAudit.Text = "未审核";
+                //}
 
                 if (repairRecord.RepairMark == "R2")
                 {
-                    ckbdaily.Hidden = true;
-                    ckbMat.Hidden = true;
-                    ckbPipe.Hidden = true;
-                    ckbRepairBefore.Hidden = true;
-                    ckbSpec.Hidden = true;
-                    ckbWelder.Hidden = true;
-                    lbdef.Hidden = false;
-
+                    //ckbdaily.Hidden = true;
+                    //ckbMat.Hidden = true;
+                    //ckbPipe.Hidden = true;
+                    //ckbRepairBefore.Hidden = true;
+                    //ckbSpec.Hidden = true;
+                    //ckbWelder.Hidden = true;
+                    //lbdef.Hidden = false;
+                    this.ckbBatch.Checked = false;
+                    this.ckbPipe.Checked = false;
+                    this.ckbdaily.Checked = false;
+                    this.ckbRepairBefore.Checked = false;
+                    this.ckbMat.Checked = false;
+                    this.ckbSpec.Checked = false;
+                    var repairRecordR1 = Funs.DB.HJGL_RepairRecord.FirstOrDefault(x => x.WeldJointId == repairRecord.WeldJointId && x.RepairMark == "R1");
+                    if (repairRecordR1 != null)
+                    {
+                        if (repairRecordR1.Batch == true)
+                        {
+                            this.ckbBatch.Checked = true;
+                        }
+                        if (repairRecordR1.Pipe == true)
+                        {
+                            this.ckbPipe.Checked = true;
+                        }
+                        if (repairRecordR1.Daily == true)
+                        {
+                            this.ckbdaily.Checked = true;
+                        }
+                        if (repairRecordR1.RepairBefore == true)
+                        {
+                            this.ckbRepairBefore.Checked = true;
+                        }
+                        if (repairRecordR1.Mat == true)
+                        {
+                            this.ckbMat.Checked = true;
+                        }
+                        if (repairRecordR1.Spec == true)
+                        {
+                            this.ckbSpec.Checked = true;
+                        }
+                    }
+                    ckbBatch.Enabled = false;
+                    ckbdaily.Enabled = false;
+                    ckbMat.Enabled = false;
+                    ckbPipe.Enabled = false;
+                    ckbRepairBefore.Enabled = false;
+                    ckbSpec.Enabled = false;
+                    lbdef.Hidden = true;
                 }
                 else
                 {
+                    this.ckbBatch.Checked = true;
+                    this.ckbPipe.Checked = false;
+                    this.ckbdaily.Checked = false;
+                    this.ckbRepairBefore.Checked = false;
+                    this.ckbMat.Checked = false;
+                    this.ckbSpec.Checked = false;
+                    ckbBatch.Enabled = true;
+                    ckbdaily.Enabled = true;
+                    ckbMat.Enabled = true;
+                    ckbPipe.Enabled = true;
+                    ckbRepairBefore.Enabled = true;
+                    ckbSpec.Enabled = true;
+                    ckbBatch.Hidden = false;
                     ckbdaily.Hidden = false;
                     ckbMat.Hidden = false;
                     ckbPipe.Hidden = false;
@@ -187,14 +247,58 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                           select x;
             foreach (var r in repairs)
             {
+                var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(r.WeldJointId);
+                var iso = BLL.PipelineService.GetPipelineByPipelineId(jot.PipelineId);
                 TreeNode newNode = new TreeNode();
-                if (!r.AuditDate.HasValue)
+                //if (!r.AuditDate.HasValue)
+                //{
+                //    newNode.Text = "<font color='#EE0000'>" + r.RepairRecordCode + "</font>";
+                //}
+                //else
+                //{
+                //    newNode.Text = r.RepairRecordCode;
+                //}
+                var trustItems = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.RepairRecordId == r.RepairRecordId select x;
+                if (trustItems.Count() == 0)   //未生成返修委托单
                 {
-                    newNode.Text = "<font color='#EE0000'>" + r.RepairRecordCode + "</font>";
+                    bool b = false;
+                    var trustItem = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                                     join y in Funs.DB.HJGL_Batch_NDEItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                                     where y.NDEItemID == r.NDEItemID
+                                     select x).FirstOrDefault();
+                    if (trustItem != null)
+                    {
+                        var trustItems2 = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.TrustBatchId == trustItem.TrustBatchId select x;
+                        foreach (var item in trustItems2)
+                        {
+                            var ndeItem = Funs.DB.HJGL_Batch_NDEItem.FirstOrDefault(x => x.TrustBatchItemId == item.TrustBatchItemId);
+                            if (ndeItem != null)
+                            {
+                                var repairRecord = Funs.DB.HJGL_RepairRecord.FirstOrDefault(x => x.NDEItemID == ndeItem.NDEItemID);
+                                if (repairRecord != null)
+                                {
+                                    var trustItem3s = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.RepairRecordId == repairRecord.RepairRecordId select x;
+                                    if (trustItem3s.Count() > 0)
+                                    {
+                                        b = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (b)
+                    {
+                        newNode.Text = iso.PipelineCode + "-" + jot.WeldJointCode + r.RepairMark;
+                    }
+                    else
+                    {
+                        newNode.Text = "<font color='#EE0000'>" + iso.PipelineCode + "-" + jot.WeldJointCode + r.RepairMark + "</font>";
+                    }
                 }
                 else
                 {
-                    newNode.Text = r.RepairRecordCode;
+                    newNode.Text = iso.PipelineCode + "-" + jot.WeldJointCode + r.RepairMark;
                 }
                 newNode.NodeID = r.RepairRecordId;
                 newNode.ToolTip = "返修单";
@@ -211,6 +315,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 string repairRecordId = tvControlItem.SelectedNodeID;
                 var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
                 var jot = BLL.WeldJointService.GetViewWeldJointById(repairRecord.WeldJointId);
+                var batchDetail = BLL.PointBatchDetailService.GetBatchDetailByJotId(repairRecord.WeldJointId);
                 var day = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(jot.WeldingDailyId);
 
                 string strSql = string.Empty;
@@ -232,7 +337,8 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                         strSql += " AND RepairRecordId =@RepairRecordId";
                         listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
                     }
-                    else {
+                    else
+                    {
                         strSql += "AND (PointDate IS NULL OR(PointDate IS NOT NULL AND RepairRecordId = @RepairRecordId))";
                         listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
                     }
@@ -241,7 +347,11 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                         strSql += " AND WelderId =@WelderId";
                         listStr.Add(new SqlParameter("@WelderId", jot.BackingWelderId));
                     }
-
+                    if (ckbBatch.Checked)
+                    {
+                        strSql += " AND PointBatchId =@PointBatchId";
+                        listStr.Add(new SqlParameter("@PointBatchId", batchDetail.PointBatchId));
+                    }
                     if (ckbPipe.Checked)
                     {
                         strSql += " AND PipelineId =@PipelineId";
@@ -339,28 +449,28 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                         GridRow row = Grid1.Rows[i];
                         string UnitId = this.Grid1.Rows[i].DataKeys[1].ToString();
                         //打底焊工
-                        AspNet.DropDownList drpBackingWelderId = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpBackingWelderId");
-                        AspNet.HiddenField hdBackingWelderId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdBackingWelderId");
-                        drpBackingWelderId.Items.AddRange(BLL.WelderService.GetWelderListItem(this.CurrUser.LoginProjectId, UnitId));
-                        Funs.PleaseSelect(drpBackingWelderId);
-                        if (!string.IsNullOrEmpty(hdBackingWelderId.Value))
-                        {
-                            drpBackingWelderId.SelectedValue = hdBackingWelderId.Value;
-                        }
+                        //AspNet.DropDownList drpBackingWelderId = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpBackingWelderId");
+                        //AspNet.HiddenField hdBackingWelderId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdBackingWelderId");
+                        //drpBackingWelderId.Items.AddRange(BLL.WelderService.GetWelderListItem(this.CurrUser.LoginProjectId, UnitId));
+                        //Funs.PleaseSelect(drpBackingWelderId);
+                        //if (!string.IsNullOrEmpty(hdBackingWelderId.Value))
+                        //{
+                        //    drpBackingWelderId.SelectedValue = hdBackingWelderId.Value;
+                        //}
                         //盖面焊工
-                        AspNet.DropDownList drpCoverWelderId = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpCoverWelderId");
-                        AspNet.HiddenField hdCoverWelderId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdCoverWelderId");
-                        drpCoverWelderId.Items.AddRange(BLL.WelderService.GetWelderListItem(this.CurrUser.LoginProjectId, UnitId));
-                        Funs.PleaseSelect(drpCoverWelderId);
-                        if (!string.IsNullOrEmpty(hdCoverWelderId.Value))
-                        {
-                            drpCoverWelderId.SelectedValue = hdCoverWelderId.Value;
-                        }
-                        if (repairRecord.AuditDate.HasValue)//若已审核完毕，则不能修改
-                        {
-                            drpBackingWelderId.Enabled = false;
-                            drpCoverWelderId.Enabled = false;
-                        }
+                        //AspNet.DropDownList drpCoverWelderId = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpCoverWelderId");
+                        //AspNet.HiddenField hdCoverWelderId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdCoverWelderId");
+                        //drpCoverWelderId.Items.AddRange(BLL.WelderService.GetWelderListItem(this.CurrUser.LoginProjectId, UnitId));
+                        //Funs.PleaseSelect(drpCoverWelderId);
+                        //if (!string.IsNullOrEmpty(hdCoverWelderId.Value))
+                        //{
+                        //    drpCoverWelderId.SelectedValue = hdCoverWelderId.Value;
+                        //}
+                        //if (repairRecord.AuditDate.HasValue)//若已审核完毕，则不能修改
+                        //{
+                        //    drpBackingWelderId.Enabled = false;
+                        //    drpCoverWelderId.Enabled = false;
+                        //}
                     }
                 }
             }
@@ -370,15 +480,214 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         {
             string repairRecordId = tvControlItem.SelectedNodeID;
             var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
-            BLL.WelderService.InitProjectWelderDropDownList(this.drpRepairWelder, true, this.CurrUser.LoginProjectId, repairRecord.UnitId, "请选择");
+            //获取可焊焊工
+            var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(repairRecord.WeldJointId);
+            var iso = BLL.PipelineService.GetPipelineByPipelineId(jot.PipelineId);
+            var joty = BLL.Base_WeldTypeService.GetWeldTypeByWeldTypeId(jot.WeldTypeId);
+            string weldType = string.Empty;
+            if (joty != null && joty.WeldTypeCode.Contains("B"))
+            {
+                weldType = "对接焊缝";
+            }
+            else
+            {
+                weldType = "角焊缝";
+            }
+
+            decimal? dia = jot.Dia;
+            decimal? sch = Funs.GetNewDecimal(jot.Thickness.HasValue ? jot.Thickness.Value.ToString() : "");
+            string wmeCode = string.Empty;
+            var wm = BLL.Base_WeldingMethodService.GetWeldingMethodByWeldingMethodId(jot.WeldingMethodId);
+            if (wm != null)
+            {
+                wmeCode = wm.WeldingMethodCode;
+            }
+            string[] wmeCodes = wmeCode.Split('+');
+            //string location = item.JOT_Location;
+            string ste = jot.Material1Id;
+            string jointAttribute = jot.JointAttribute;
+            List<Model.SitePerson_Person> welders = new List<Model.SitePerson_Person>();
+            string canWelderCode = string.Empty;
+            string canWeldingRodName = string.Empty;
+            string canWeldingWireName = string.Empty;
+            var projectWelder = from x in Funs.DB.SitePerson_Person
+                                where x.ProjectId == jot.ProjectId
+                                      && x.UnitId == iso.UnitId && x.WorkPostId == Const.WorkPost_Welder
+                                      && x.WelderCode != null && x.WelderCode != ""
+                                select x;
+
+            foreach (var welder in projectWelder)
+            {
+                bool canSave = false;
+                List<Model.Welder_WelderQualify> welderQualifys = (from x in Funs.DB.Welder_WelderQualify
+                                                                   where x.WelderId == welder.PersonId && x.WeldingMethod != null
+                                                                                  && x.MaterialType != null && x.WeldType != null
+                                                                                  && x.ThicknessMax != null && x.SizesMin != null
+                                                                                  && x.LimitDate > DateTime.Now
+                                                                   select x).ToList();
+                if (welderQualifys != null)
+                {
+                    if (wmeCodes.Count() <= 1) // 一种焊接方法
+                    {
+                        canSave = OneWmeIsOK(welderQualifys, wmeCode, jointAttribute, weldType, ste, dia, sch);
+                    }
+                    else  // 大于一种焊接方法，如氩电联焊
+                    {
+                        canSave = TwoWmeIsOK(welderQualifys, wmeCodes[0], wmeCodes[1], jointAttribute, weldType, ste, dia, sch);
+                    }
+                    if (canSave)
+                    {
+                        welders.Add(welder);
+                    }
+                }
+            }
+            BLL.WelderService.InitProjectWelderDropDownListByData(this.drpPBackingWelder, true, welders, "请选择");
+            BLL.WelderService.InitProjectWelderDropDownListByData(this.drpPCoverWelder, true, welders, "请选择");
+
             PageInit();
             this.BindGrid();
 
-            if (!repairRecord.AuditDate.HasValue)
-            {
-                RandomExport(repairRecord.RepairMark);
-            }
+            //if (!repairRecord.AuditDate.HasValue)
+            //{
+            //    RandomExport(repairRecord.RepairMark);
+            //}
         }
+
+        #region 焊工资质判断
+        /// <summary>
+        /// 一种焊接方法资质判断
+        /// </summary>
+        /// <param name="welderQualifys"></param>
+        /// <param name="wmeCode"></param>
+        /// <param name="jointAttribute"></param>
+        /// <param name="weldType"></param>
+        /// <param name="ste"></param>
+        /// <param name="dia"></param>
+        /// <param name="sch"></param>
+        /// <returns></returns>
+        private bool OneWmeIsOK(List<Model.Welder_WelderQualify> welderQualifys, string wmeCode, string jointAttribute, string weldType, string ste, decimal? dia, decimal? sch)
+        {
+            bool isok = false;
+
+            var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(ste);
+            var welderQ = from x in welderQualifys
+                          where wmeCode.Contains(x.WeldingMethod)
+                          && (mat == null || x.MaterialType.Contains(mat.MetalType ?? ""))
+                          && x.WeldType.Contains(weldType)
+                          select x;
+
+            if (welderQ.Count() > 0)
+            {
+                if (jointAttribute == "固定口")
+                {
+                    welderQ = welderQ.Where(x => x.IsCanWeldG == true);
+                }
+                if (welderQ.Count() > 0)
+                {
+                    if (weldType == "1") // 1-对接焊缝 2-表示角焊缝，当为角焊缝时，管径和壁厚不限制
+                    {
+                        var welderDiaQ = welderQ.Where(x => x.SizesMin <= dia || x.SizesMax == 0);
+
+                        if (welderDiaQ.Count() > 0)
+                        {
+                            var welderThick = welderDiaQ.Where(x => x.ThicknessMax >= sch || x.ThicknessMax == 0);
+
+                            // 只要有一个不限（为0）就通过
+                            if (welderThick.Count() > 0)
+                            {
+                                isok = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        isok = true;
+                    }
+                }
+            }
+
+            return isok;
+        }
+        /// <summary>
+        /// 两种焊接方法资质判断
+        /// </summary>
+        /// <param name="floorWelderQualifys"></param>
+        /// <param name="cellWelderQualifys"></param>
+        /// <param name="wmeCode1"></param>
+        /// <param name="wmeCode2"></param>
+        /// <param name="jointAttribute"></param>
+        /// <param name="weldType"></param>
+        /// <param name="ste"></param>
+        /// <param name="dia"></param>
+        /// <param name="sch"></param>
+        /// <returns></returns>
+        private bool TwoWmeIsOK(List<Model.Welder_WelderQualify> welderQualifys, string wmeCode1, string wmeCode2, string jointAttribute, string weldType, string ste, decimal? dia, decimal? sch)
+        {
+            bool isok = false;
+
+            decimal? fThicknessMax = 0;
+            decimal? cThicknessMax = 0;
+
+            var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(ste);
+            var floorQ = from x in welderQualifys
+                         where wmeCode1.Contains(x.WeldingMethod)
+                         && (mat == null || x.MaterialType.Contains(mat.MetalType ?? ""))
+                         && x.WeldType.Contains(weldType)
+                         // && (dia == null || x.SizesMin<=dia)
+                         select x;
+            var cellQ = from x in welderQualifys
+                        where wmeCode2.Contains(x.WeldingMethod)
+                         && (mat == null || x.MaterialType.Contains(mat.MetalType ?? ""))
+                         && x.WeldType.Contains(weldType)
+                        // && (dia == null || x.SizesMin <= dia)
+                        select x;
+            if (floorQ.Count() > 0 && cellQ.Count() > 0)
+            {
+                if (jointAttribute == "固定口")
+                {
+                    floorQ = floorQ.Where(x => x.IsCanWeldG == true);
+                    cellQ = cellQ.Where(x => x.IsCanWeldG == true);
+                }
+                if (floorQ.Count() > 0 && cellQ.Count() > 0)
+                {
+                    if (weldType == "1") // 1-对接焊缝 2-表示角焊缝，当为角焊缝时，管径和壁厚不限制
+                    {
+                        var floorDiaQ = floorQ.Where(x => x.SizesMin <= dia || x.SizesMax == 0);
+                        var cellDiaQ = cellQ.Where(x => x.SizesMin <= dia || x.SizesMax == 0);
+
+                        if (floorDiaQ.Count() > 0 && cellDiaQ.Count() > 0)
+                        {
+                            var fThick = floorDiaQ.Where(x => x.ThicknessMax == 0);
+                            var cThick = cellDiaQ.Where(x => x.ThicknessMax == 0);
+
+                            // 只要有一个不限（为0）就通过
+                            if (fThick.Count() > 0 || cThick.Count() > 0)
+                            {
+                                isok = true;
+                            }
+
+                            else
+                            {
+                                fThicknessMax = floorQ.Max(x => x.ThicknessMax);
+                                cThicknessMax = cellQ.Max(x => x.ThicknessMax);
+
+                                if ((fThicknessMax + cThicknessMax) >= sch)
+                                {
+                                    isok = true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        isok = true;
+                    }
+                }
+            }
+
+            return isok;
+        }
+        #endregion
 
         protected void Tree_TextChanged(object sender, EventArgs e)
         {
@@ -390,19 +699,51 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             Model.SGGLDB db = Funs.DB;
             string repairRecordId = tvControlItem.SelectedNodeID;
             Model.HJGL_RepairRecord repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
-
+            var trustItem = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                             join y in Funs.DB.HJGL_Batch_NDEItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                             where y.NDEItemID == repairRecord.NDEItemID
+                             select x).FirstOrDefault();
+            if (trustItem != null)
+            {
+                var trustItems2 = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.TrustBatchId == trustItem.TrustBatchId select x;
+                foreach (var item in trustItems2)
+                {
+                    var ndeItem = Funs.DB.HJGL_Batch_NDEItem.FirstOrDefault(x => x.TrustBatchItemId == item.TrustBatchItemId);
+                    if (ndeItem != null)
+                    {
+                        var repair = Funs.DB.HJGL_RepairRecord.FirstOrDefault(x => x.NDEItemID == ndeItem.NDEItemID);
+                        if (repair != null)
+                        {
+                            var trustItem3s = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.RepairRecordId == repair.RepairRecordId select x;
+                            if (trustItem3s.Count() > 0)
+                            {
+                                Alert.ShowInTop("本次返修已扩透！", MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
             if (!repairRecord.AuditDate.HasValue)
             {
                 // 更新返修记录
                 var repair = db.HJGL_RepairRecord.FirstOrDefault(x => x.RepairRecordId == repairRecordId);
                 if (repair != null)
                 {
-                    repair.RepairWelder = drpRepairWelder.SelectedValue;
+                    repair.PBackingWelderId = drpPBackingWelder.SelectedValue;
+                    repair.PCoverWelderId = drpPCoverWelder.SelectedValue;
                     repair.RepairDate = Convert.ToDateTime(this.txtRepairDate.Text);
-                    if (ckbIsCut.Checked)
-                    {
-                        repair.IsCut = true;
-                    }
+                    repair.AuditDate = DateTime.Now;
+                    repair.Batch = this.ckbBatch.Checked;
+                    repair.Pipe = this.ckbPipe.Checked;
+                    repair.Daily = this.ckbdaily.Checked;
+                    repair.RepairBefore = this.ckbRepairBefore.Checked;
+                    repair.Mat = this.ckbMat.Checked;
+                    repair.Spec = this.ckbSpec.Checked;
+                    //if (ckbIsCut.Checked)
+                    //{
+                    //    repair.IsCut = true;
+                    //}
                 }
 
                 // 更新返修口
@@ -410,10 +751,10 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 if (batchItem != null)
                 {
                     batchItem.RepairDate = Convert.ToDateTime(this.txtRepairDate.Text);
-                    if (ckbIsCut.Checked)
-                    {
-                        batchItem.CutDate = DateTime.Now.Date;
-                    }
+                    //if (ckbIsCut.Checked)
+                    //{
+                    //    batchItem.CutDate = DateTime.Now.Date;
+                    //}
                 }
                 db.SubmitChanges();
 
@@ -430,6 +771,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                     }
                 }
                 // 更新扩透口
+                RandomExport(repairRecord.RepairMark);
                 string[] checkedRow = Grid1.SelectedRowIDArray;
                 if (checkedRow.Count() > 0)
                 {
@@ -446,29 +788,29 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                     }
                 }
                 //更新返修打底/盖面焊工
-                JArray teamGroupData = Grid1.GetMergedData();
-                foreach (JObject mergedRow in Grid1.GetMergedData())
-                {
-                    int i = mergedRow.Value<int>("index");
-                    JObject values = mergedRow.Value<JObject>("values");
-                    string PointBatchItemId = Grid1.DataKeys[i][0].ToString();
-                    Model.HJGL_Batch_PointBatchItem newPointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.PointBatchItemId == PointBatchItemId);
-                    if (newPointBatchItem != null)
-                    {
-                        System.Web.UI.WebControls.DropDownList drpBackingWelderId = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpBackingWelderId"));
-                        if (drpBackingWelderId.SelectedValue != BLL.Const._Null)
-                        {
-                            newPointBatchItem.PBackingWelderId = drpBackingWelderId.SelectedValue;
-                        }
-                        System.Web.UI.WebControls.DropDownList drpCoverWelderId = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpCoverWelderId"));
-                        if (drpCoverWelderId.SelectedValue != BLL.Const._Null)
-                        {
-                            newPointBatchItem.PCoverWelderId = drpCoverWelderId.SelectedValue;
-                        }
-                        db.SubmitChanges();
-                    }
-                   
-                }
+                //JArray teamGroupData = Grid1.GetMergedData();
+                //foreach (JObject mergedRow in Grid1.GetMergedData())
+                //{
+                //    int i = mergedRow.Value<int>("index");
+                //    JObject values = mergedRow.Value<JObject>("values");
+                //    string PointBatchItemId = Grid1.DataKeys[i][0].ToString();
+                //    Model.HJGL_Batch_PointBatchItem newPointBatchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.PointBatchItemId == PointBatchItemId);
+                //    if (newPointBatchItem != null)
+                //    {
+                //        System.Web.UI.WebControls.DropDownList drpBackingWelderId = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpBackingWelderId"));
+                //        if (drpBackingWelderId.SelectedValue != BLL.Const._Null)
+                //        {
+                //            newPointBatchItem.PBackingWelderId = drpBackingWelderId.SelectedValue;
+                //        }
+                //        System.Web.UI.WebControls.DropDownList drpCoverWelderId = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpCoverWelderId"));
+                //        if (drpCoverWelderId.SelectedValue != BLL.Const._Null)
+                //        {
+                //            newPointBatchItem.PCoverWelderId = drpCoverWelderId.SelectedValue;
+                //        }
+                //        db.SubmitChanges();
+                //    }
+
+                //}
 
                 BindGrid();
                 Alert.ShowInTop("保存成功！", MessageBoxIcon.Success);
@@ -509,6 +851,31 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             Model.SGGLDB db = Funs.DB;
             string repairRecordId = tvControlItem.SelectedNodeID;
             Model.HJGL_RepairRecord repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            var trustItem1 = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                             join y in Funs.DB.HJGL_Batch_NDEItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                             where y.NDEItemID == repairRecord.NDEItemID
+                             select x).FirstOrDefault();
+            if (trustItem1 != null)
+            {
+                var trustItems2 = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.TrustBatchId == trustItem1.TrustBatchId select x;
+                foreach (var item in trustItems2)
+                {
+                    var ndeItem = Funs.DB.HJGL_Batch_NDEItem.FirstOrDefault(x => x.TrustBatchItemId == item.TrustBatchItemId);
+                    if (ndeItem != null)
+                    {
+                        var repair = Funs.DB.HJGL_RepairRecord.FirstOrDefault(x => x.NDEItemID == ndeItem.NDEItemID);
+                        if (repair != null)
+                        {
+                            var trustItem3s = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.RepairRecordId == repair.RepairRecordId select x;
+                            if (trustItem3s.Count() > 0)
+                            {
+                                Alert.ShowInTop("本次返修已委托！", MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
             var trustItem = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.RepairRecordId == repairRecordId select x;
             if (trustItem.Count() == 0)
             {
@@ -524,7 +891,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                     newRepairTrust.UnitId = repairRecord.UnitId;
                     newRepairTrust.UnitWorkId = repairRecord.UnitWorkId;
                     newRepairTrust.DetectionTypeId = repairRecord.DetectionTypeId;
-
+                    newRepairTrust.TrustType = "R";
                     BLL.Batch_BatchTrustService.AddBatchTrust(newRepairTrust);  // 新增返修委托单
 
                     Model.HJGL_Batch_BatchTrustItem newRepairTrustItem = new Model.HJGL_Batch_BatchTrustItem();
@@ -614,67 +981,78 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
         protected void ckbWelder_CheckedChanged(object sender, CheckedEventArgs e)
         {
             BindGrid();
-            string repairRecordId = tvControlItem.SelectedNodeID;
-            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
-            if (!repairRecord.AuditDate.HasValue)
-            {
-                RandomExport(repairRecord.RepairMark);
-            }
+            //string repairRecordId = tvControlItem.SelectedNodeID;
+            //var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            //if (!repairRecord.AuditDate.HasValue)
+            //{
+            //    RandomExport(repairRecord.RepairMark);
+            //}
+        }
+
+        protected void ckbBatch_CheckedChanged(object sender, CheckedEventArgs e)
+        {
+            BindGrid();
+            //string repairRecordId = tvControlItem.SelectedNodeID;
+            //var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            //if (!repairRecord.AuditDate.HasValue)
+            //{
+            //    RandomExport(repairRecord.RepairMark);
+            //}
         }
 
         protected void ckbPipe_CheckedChanged(object sender, CheckedEventArgs e)
         {
             BindGrid();
-            string repairRecordId = tvControlItem.SelectedNodeID;
-            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
-            if (!repairRecord.AuditDate.HasValue)
-            {
-                RandomExport(repairRecord.RepairMark);
-            }
+            //string repairRecordId = tvControlItem.SelectedNodeID;
+            //var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            //if (!repairRecord.AuditDate.HasValue)
+            //{
+            //    RandomExport(repairRecord.RepairMark);
+            //}
         }
 
         protected void ckbDaily_CheckedChanged(object sender, CheckedEventArgs e)
         {
             BindGrid();
-            string repairRecordId = tvControlItem.SelectedNodeID;
-            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
-            if (!repairRecord.AuditDate.HasValue)
-            {
-                RandomExport(repairRecord.RepairMark);
-            }
+            //string repairRecordId = tvControlItem.SelectedNodeID;
+            //var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            //if (!repairRecord.AuditDate.HasValue)
+            //{
+            //    RandomExport(repairRecord.RepairMark);
+            //}
         }
 
         protected void ckbRepairBefore_CheckedChanged(object sender, CheckedEventArgs e)
         {
             BindGrid();
-            string repairRecordId = tvControlItem.SelectedNodeID;
-            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
-            if (!repairRecord.AuditDate.HasValue)
-            {
-                RandomExport(repairRecord.RepairMark);
-            }
+            //string repairRecordId = tvControlItem.SelectedNodeID;
+            //var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            //if (!repairRecord.AuditDate.HasValue)
+            //{
+            //    RandomExport(repairRecord.RepairMark);
+            //}
         }
 
         protected void ckbMat_CheckedChanged(object sender, CheckedEventArgs e)
         {
             BindGrid();
-            string repairRecordId = tvControlItem.SelectedNodeID;
-            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
-            if (!repairRecord.AuditDate.HasValue)
-            {
-                RandomExport(repairRecord.RepairMark);
-            }
+            //string repairRecordId = tvControlItem.SelectedNodeID;
+            //var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            //if (!repairRecord.AuditDate.HasValue)
+            //{
+            //    RandomExport(repairRecord.RepairMark);
+            //}
         }
 
         protected void ckbSpec_CheckedChanged(object sender, CheckedEventArgs e)
         {
             BindGrid();
-            string repairRecordId = tvControlItem.SelectedNodeID;
-            var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
-            if (!repairRecord.AuditDate.HasValue)
-            {
-                RandomExport(repairRecord.RepairMark);
-            }
+            //string repairRecordId = tvControlItem.SelectedNodeID;
+            //var repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
+            //if (!repairRecord.AuditDate.HasValue)
+            //{
+            //    RandomExport(repairRecord.RepairMark);
+            //}
         }
 
         private void RandomExport(string mark)
@@ -702,7 +1080,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             else
             {
                 int[] groupNum = new int[num];
-                for(int i=0;i<num; i++)
+                for (int i = 0; i < num; i++)
                 {
                     groupNum[i] = i;
                 }

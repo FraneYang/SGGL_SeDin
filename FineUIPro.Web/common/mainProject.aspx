@@ -203,8 +203,8 @@
 
             .num-wrap .tit {
                 color: #88C8E2;
-                margin: 10px 0 0;
-                font-size: 11px;
+                margin: 10px 0 10px;
+                font-size: 14px;
                 width: 100%;
                 text-align: center;
             }
@@ -215,14 +215,21 @@
                 color: #fff;
                 width: 100%;
                 text-align: center;
+                margin-top:10px;
+                margin-bottom:10px;
             }
 
                 .num-wrap .num > div {
-                    background-color: #387491;
-                    color: #FFB84D;
-                    padding: 2px;
-                    font-size: 24px;
-                    /*margin:5px;*/
+                       background-color: #387491;
+                        color: #FFB84D;
+                        padding: 2px;
+                        font-size: 30px;
+                        /* margin: 5px; */
+                        height: 45px;
+                        width: 25px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                 }
 
             .num-wrap .color1 > div {
@@ -518,7 +525,7 @@ padding-left: 2em;
                             <div class="content-wrap flex1 flex txt-board">
                                 <div class="num-wrap flex1 flex flexV">
                                     <div class="tit">当前现场人数</div>
-                                    <div class="num flex flex1">
+                                    <div class="num flex">
                                         <div class="" runat="server" id="Div1">0</div>
                                         <div class="" runat="server" id="person00">0</div>
                                         <div class="" runat="server" id="person01">0</div>
@@ -527,7 +534,7 @@ padding-left: 2em;
                                 </div>
                                 <div class="num-wrap flex1 flex flexV">
                                     <div class="tit">作业人员总数</div>
-                                    <div class="num flex flex1 color1">
+                                    <div class="num flex color1">
                                         <div class="" runat="server" id="Div2">0</div>
                                         <div class="" runat="server" id="person10">0</div>
                                         <div class="" runat="server" id="person11">0</div>
@@ -536,7 +543,7 @@ padding-left: 2em;
                                 </div>
                                 <div class="num-wrap flex1 flex flexV">
                                     <div class="tit">管理人员总数</div>
-                                    <div class="num flex flex1 color2">
+                                    <div class="num flex color2">
                                         <div class="" runat="server" id="Div3">0</div>
                                         <div class="" runat="server" id="person20">0</div>
                                         <div class="" runat="server" id="person21">0</div>

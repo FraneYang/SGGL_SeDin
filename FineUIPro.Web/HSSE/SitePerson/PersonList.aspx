@@ -71,6 +71,8 @@
                                             Width="200px" LabelWidth="70px"
                                             LabelAlign="right">
                                         </f:TextBox>
+                                        <f:CheckBox runat="server" ID="ckIsUsed" Label="在场" LabelAlign="right" LabelWidth="60px">
+                                        </f:CheckBox>
                                         <f:CheckBox runat="server" ID="ckIdCardInfoNotOK" Label="身份信息不齐全" LabelAlign="right" LabelWidth="120px">
                                         </f:CheckBox>
                                         <f:CheckBox runat="server" ID="ckTrain" Label="未参加培训" LabelAlign="right">
@@ -118,9 +120,15 @@
                                 <f:RenderField HeaderText="班组" ColumnID="TeamGroupName" DataField="TeamGroupName" SortField="TeamGroupName"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="100px">
                                 </f:RenderField>
-                                  <f:RenderField HeaderText="单位工程" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
+                                  <%--<f:RenderField HeaderText="单位工程" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
                                     FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="130px">
-                                </f:RenderField>   
+                                </f:RenderField>--%>   
+                                <f:TemplateField ColumnID="WorkAreaName" Width="150px" HeaderText="单位工程" HeaderTextAlign="Center" TextAlign="Center"
+                            >
+                            <ItemTemplate>
+                                <asp:Label ID="lblWorkAreaName" runat="server" Text='<%# ConvertWorkAreaName(Eval("WorkAreaId")) %>' ToolTip='<%# Bind("WorkAreaName") %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
                                 <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime" SortField="InTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
                                 HeaderTextAlign="Center" TextAlign="Center">

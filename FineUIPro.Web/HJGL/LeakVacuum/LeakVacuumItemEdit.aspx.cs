@@ -46,8 +46,6 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);//单位
                 BLL.UnitWorkService.InitUnitWorkDropDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);
 
-                // 建档人
-                BLL.UserService.InitUserDropDownList(drpTabler, this.CurrUser.LoginProjectId, true);
 
                 var list = (from x in Funs.DB.HJGL_LV_Pipeline
                             where x.LeakVacuumId == this.LeakVacuumId
@@ -88,11 +86,11 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                     drpUnitWork.SelectedValue = leakVacuunManage.UnitWorkId;
                 }
                 this.txtsysName.Text = leakVacuunManage.SysName;
-                this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", leakVacuunManage.TableDate);
-                if (!string.IsNullOrEmpty(leakVacuunManage.Tabler))
+                if (leakVacuunManage.TableDate != null)
                 {
-                    this.drpTabler.SelectedValue = leakVacuunManage.Tabler;
+                    this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", leakVacuunManage.TableDate);
                 }
+                this.txtFinishDef.Text = leakVacuunManage.FinishDef;
                 this.txtRemark.Text = leakVacuunManage.Remark;
                 drpInstallationSpecification.SelectedValue = leakVacuunManage.Check1;
                 drpPressureTest.SelectedValue = leakVacuunManage.Check2;
@@ -112,11 +110,6 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                     var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(unitWorkId);
                     drpUnit.SelectedValue = w.UnitId;
                     this.drpUnitWork.SelectedValue = w.UnitWorkId;
-                }
-
-                if (this.CurrUser.UserId != BLL.Const.sysglyId)
-                {
-                    this.drpTabler.SelectedValue = this.CurrUser.UserId;
                 }
             }
         }
@@ -275,7 +268,7 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                     ShowNotify("试压包编号已存在，请重新录入！", MessageBoxIcon.Warning);
                     return;
                 }
-                if (string.IsNullOrEmpty(this.txtsysName.Text) || this.drpUnit.SelectedValue == BLL.Const._Null || this.drpTabler.SelectedValue == BLL.Const._Null
+                if (string.IsNullOrEmpty(this.txtsysName.Text) || this.drpUnit.SelectedValue == BLL.Const._Null || string.IsNullOrEmpty(this.txtFinishDef.Text)
                     || this.drpUnitWork.SelectedValue == BLL.Const._Null || string.IsNullOrEmpty(this.txtTableDate.Text))
                 {
                     ShowNotify("必填项不能为空！", MessageBoxIcon.Warning);
@@ -307,11 +300,9 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                 LeakVacuum.SysNo = this.txtsysNo.Text.Trim();
                 LeakVacuum.SysName = this.txtsysName.Text.Trim();
 
-                if (this.drpTabler.SelectedValue != BLL.Const._Null)
-                {
-                    LeakVacuum.Tabler = this.drpTabler.SelectedValue;
-                }
+               
                 LeakVacuum.TableDate = Funs.GetNewDateTime(this.txtTableDate.Text);
+                LeakVacuum.FinishDef = this.txtFinishDef.Text.Trim();
                 LeakVacuum.Check1 = drpInstallationSpecification.SelectedValue;
                 LeakVacuum.Check2 = drpPressureTest.SelectedValue;
                 LeakVacuum.Check3 = drpWorkRecord.SelectedValue;

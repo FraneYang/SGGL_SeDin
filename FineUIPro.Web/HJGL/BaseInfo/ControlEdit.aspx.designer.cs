@@ -67,6 +67,24 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         protected global::FineUIPro.NumberBox txtOutSizeDia;
         
         /// <summary>
+        /// txtSCH5S 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtSCH5S;
+        
+        /// <summary>
+        /// txtSCH10S 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtSCH10S;
+        
+        /// <summary>
         /// txtSCH10 控件。
         /// </summary>
         /// <remarks>
@@ -94,13 +112,13 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         protected global::FineUIPro.NumberBox txtSCH30;
         
         /// <summary>
-        /// txtSTD 控件。
+        /// txtSCH40S 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtSTD;
+        protected global::FineUIPro.NumberBox txtSCH40S;
         
         /// <summary>
         /// txtSCH40 控件。
@@ -121,13 +139,13 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         protected global::FineUIPro.NumberBox txtSCH60;
         
         /// <summary>
-        /// txtXS 控件。
+        /// txtSCH80S 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtXS;
+        protected global::FineUIPro.NumberBox txtSCH80S;
         
         /// <summary>
         /// txtSCH80 控件。
@@ -175,31 +193,139 @@ namespace FineUIPro.Web.HJGL.BaseInfo {
         protected global::FineUIPro.NumberBox txtSCH160;
         
         /// <summary>
-        /// txtXXS 控件。
+        /// NumberBox5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtXXS;
+        protected global::FineUIPro.NumberBox NumberBox5;
         
         /// <summary>
-        /// txtSize 控件。
+        /// GroupPanel3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtSize;
+        protected global::FineUIPro.GroupPanel GroupPanel3;
         
         /// <summary>
-        /// txtthickness 控件。
+        /// Form2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtthickness;
+        protected global::FineUIPro.Form Form2;
+        
+        /// <summary>
+        /// txtThickness1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness1;
+        
+        /// <summary>
+        /// txtThickness2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness2;
+        
+        /// <summary>
+        /// txtThickness3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness3;
+        
+        /// <summary>
+        /// txtThickness4 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness4;
+        
+        /// <summary>
+        /// txtThickness5 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness5;
+        
+        /// <summary>
+        /// txtThickness6 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness6;
+        
+        /// <summary>
+        /// txtThickness7 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness7;
+        
+        /// <summary>
+        /// txtThickness8 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness8;
+        
+        /// <summary>
+        /// txtThickness9 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness9;
+        
+        /// <summary>
+        /// txtThickness10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness10;
+        
+        /// <summary>
+        /// txtThickness11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThickness11;
+        
+        /// <summary>
+        /// NumberBox3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox NumberBox3;
         
         /// <summary>
         /// Toolbar1 控件。

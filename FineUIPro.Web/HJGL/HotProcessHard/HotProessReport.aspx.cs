@@ -95,23 +95,33 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 unitWork1 = (from x in unitWorkList where x.ProjectType == "1" select x).ToList();
                 unitWork2 = (from x in unitWorkList where x.ProjectType == "2" select x).ToList();
             }
-            var WeldJointList = (from x in Funs.DB.HJGL_HotProess_TrustItem
+            var TrustItemList = (from x in Funs.DB.HJGL_HotProess_TrustItem
                                  join y in Funs.DB.HJGL_HotProess_Trust on x.HotProessTrustId equals y.HotProessTrustId
-                                 where y.ProjectId == this.CurrUser.LoginProjectId && y.ReportNo == null
+                                 where y.ProjectId == this.CurrUser.LoginProjectId
                                  select new { x.WeldJointId, y.UnitWorkId }).ToList();
+            var ReportList = (from x in Funs.DB.HJGL_HotProess_Report
+                                 join y in Funs.DB.HJGL_HotProess_TrustItem on x.HotProessTrustItemId equals y.HotProessTrustItemId
+                                 join z in Funs.DB.HJGL_HotProess_Trust on y.HotProessTrustId equals z.HotProessTrustId
+                                 where z.ProjectId == this.CurrUser.LoginProjectId
+                                 select new { x.WeldJointId, z.UnitWorkId }).Distinct().ToList();
             if (unitWork1.Count() > 0)
             {
                 foreach (var q in unitWork1)
                 {
-                    var items = (from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    var trustItems = (from x in TrustItemList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    var reportItems = (from x in ReportList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    int num = trustItems.Count() - reportItems.Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
-                    tn1.Text = q.UnitWorkName;
-                    tn1.ToolTip = "施工单位：" + u.UnitName;
-                    if (items.Count > 0)
+                    if (num > 0)
                     {
-                        tn1.ToolTip += "(" + items.Count + ")";
+                        tn1.Text = q.UnitWorkName + "(" + num + ")";
+                        tn1.ToolTip = "未生成热处理报告焊口总数：" + num;
+                    }
+                    else
+                    {
+                        tn1.Text = q.UnitWorkName;
                     }
                     tn1.CommandName = "单位工程";
                     rootNode1.Nodes.Add(tn1);
@@ -122,15 +132,20 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork2)
                 {
-                    var items = (from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    var trustItems = (from x in TrustItemList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    var reportItems = (from x in ReportList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    int num = trustItems.Count() - reportItems.Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
-                    tn2.Text = q.UnitWorkName;
-                    tn2.ToolTip = "施工单位：" + u.UnitName;
-                    if (items.Count > 0)
+                    if (num > 0)
                     {
-                        tn2.ToolTip += "(" + items.Count + ")";
+                        tn2.Text = q.UnitWorkName + "(" + num + ")";
+                        tn2.ToolTip = "未生成热处理报告焊口总数：" + num;
+                    }
+                    else
+                    {
+                        tn2.Text = q.UnitWorkName;
                     }
                     tn2.CommandName = "单位工程";
                     rootNode2.Nodes.Add(tn2);

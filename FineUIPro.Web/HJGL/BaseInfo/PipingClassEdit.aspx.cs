@@ -18,7 +18,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             {
                 this.txtPipingClassCode.Focus();
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
-
+                Base_PipingClassService.InitSteelTypeDropDownList(this.drpSteelType, true, "-请选择-");
                 string pipingClassId = Request.Params["PipingClassId"];
                 if (!string.IsNullOrEmpty(pipingClassId))
                 {
@@ -28,6 +28,10 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         this.txtPipingClassCode.Text = PipingClass.PipingClassCode;
                         this.txtPipingClassName.Text = PipingClass.PipingClassName;                 
                         this.txtRemark.Text = PipingClass.Remark;
+                        if (!string.IsNullOrEmpty(PipingClass.SteelType))
+                        {
+                            this.drpSteelType.SelectedValue = PipingClass.SteelType;
+                        }
                     }
                 }
             }
@@ -56,11 +60,16 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 Alert.ShowInTop("此等级名称已存在！", MessageBoxIcon.Warning);
                 return;
             }
-
+            if (this.drpSteelType.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("请选择钢材类型！", MessageBoxIcon.Warning);
+                return;
+            }
             Model.Base_PipingClass newPipingClass = new Model.Base_PipingClass
             {
                 PipingClassCode = this.txtPipingClassCode.Text.Trim(),
                 PipingClassName = this.txtPipingClassName.Text.Trim(),
+                SteelType=this.drpSteelType.SelectedValue,
                 Remark = this.txtRemark.Text.Trim(),
                 ProjectId=this.CurrUser.LoginProjectId
             };

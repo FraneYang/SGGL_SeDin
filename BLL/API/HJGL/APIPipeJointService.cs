@@ -264,7 +264,7 @@ namespace BLL
                         newPipe.DetectionType = detectionType.DetectionTypeId;
                     }
 
-                    newPipe.TestPressure = addItem.TestPressure;
+                    newPipe.TestPressure = addItem.TestPressure.ToString();
                     if (testMedium != null)
                     {
                         newPipe.TestMedium = testMedium.MediumId;

@@ -91,6 +91,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 Base_PressurePipingClassService.InitPressurePipingClassDropDownList(drpPressurePipingClass, true, "-请选择-");
                 Base_TestMediumService.InitMediumDropDownList(this.drpLeakMedium, "2", true);
                 Base_PurgeMethodService.InitPurgeMethodDropDownList(this.drpPCMedium, true, "-请选择-");
+                BLL.Base_MaterialService.InitMaterialDropDownList(this.drpMaterial, true, "请选择");//材质1
                 if (!string.IsNullOrEmpty(this.PipelineId))
                 {
                     Model.View_HJGL_Pipeline pipeline = BLL.PipelineService.GetViewPipelineByPipelineId(this.PipelineId);
@@ -126,17 +127,17 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     this.txtSingleNumber.Text = pipeline.SingleNumber;
                     if (pipeline.DesignPress != null)
                     {
-                        numDesignPress.Text = pipeline.DesignPress.Value.ToString();
+                        numDesignPress.Text = pipeline.DesignPress;
                     }
 
                     if (pipeline.DesignTemperature != null)
                     {
-                        numDesignTemperature.Text = pipeline.DesignTemperature.Value.ToString();
+                        numDesignTemperature.Text = pipeline.DesignTemperature;
                     }
 
                     if (pipeline.TestPressure!=null)
                     {
-                        numTestPressure.Text = pipeline.TestPressure.Value.ToString();
+                        numTestPressure.Text = pipeline.TestPressure;
                     }
 
                     if (pipeline.PressurePipingClassId != null)
@@ -150,21 +151,25 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     }
                     this.txtRemark.Text = pipeline.Remark;
                     this.UnitWorkId = pipeline.UnitWorkId;
-                    if (!string.IsNullOrEmpty(pipeline.LeakPressure.ToString()))
+                    if (!string.IsNullOrEmpty(pipeline.LeakPressure))
                     {
-                        this.numLeakPressure.Text = pipeline.LeakPressure.Value.ToString();
+                        this.numLeakPressure.Text = pipeline.LeakPressure;
                     }
                     if (!string.IsNullOrEmpty(pipeline.LeakMedium))
                     {
                         drpLeakMedium.SelectedValue = pipeline.LeakMedium;
                     }
-                    if (!string.IsNullOrEmpty(pipeline.VacuumPressure.ToString()))
+                    if (!string.IsNullOrEmpty(pipeline.VacuumPressure))
                     {
-                        this.numVacuumPressure.Text = pipeline.VacuumPressure.Value.ToString();
+                        this.numVacuumPressure.Text = pipeline.VacuumPressure;
                     }
                     if (!string.IsNullOrEmpty(pipeline.PCMedium))
                     {
                         drpPCMedium.SelectedValue = pipeline.PCMedium;
+                    }
+                    if (!string.IsNullOrEmpty(pipeline.MaterialId))
+                    {
+                        drpMaterial.SelectedValue = pipeline.MaterialId;
                     }
                 }
                 else
@@ -261,16 +266,16 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
             if (!string.IsNullOrEmpty(numDesignPress.Text))
             {
-                pipeline.DesignPress = Convert.ToDecimal(numDesignPress.Text);
+                pipeline.DesignPress = numDesignPress.Text;
             }
             if (!string.IsNullOrEmpty(numDesignTemperature.Text))
             {
-                pipeline.DesignTemperature = Convert.ToDecimal(numDesignTemperature.Text);
+                pipeline.DesignTemperature = numDesignTemperature.Text;
             }
 
             if (!string.IsNullOrEmpty(numTestPressure.Text))
             {
-                pipeline.TestPressure = Convert.ToDecimal(numTestPressure.Text);
+                pipeline.TestPressure = numTestPressure.Text;
             }
             if (this.drpDetectionType.SelectedValue != BLL.Const._Null)
             {
@@ -287,7 +292,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             if (!string.IsNullOrEmpty(numLeakPressure.Text))
             {
-                pipeline.LeakPressure = Convert.ToDecimal(numLeakPressure.Text);
+                pipeline.LeakPressure = numLeakPressure.Text;
             }
             if (this.drpLeakMedium.SelectedValue != BLL.Const._Null)
             {
@@ -295,7 +300,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             if (!string.IsNullOrEmpty(numVacuumPressure.Text))
             {
-                pipeline.VacuumPressure = Convert.ToDecimal(numVacuumPressure.Text);
+                pipeline.VacuumPressure = numVacuumPressure.Text;
             }
             if (this.drpPCMedium.SelectedValue != BLL.Const._Null)
             {
@@ -310,6 +315,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         pipeline.PCtype = "2";
                     }
                 }
+            }
+            if (this.drpMaterial.SelectedValue != BLL.Const._Null)
+            {
+                pipeline.MaterialId = this.drpMaterial.SelectedValue;
             }
             pipeline.Remark = this.txtRemark.Text.Trim();
             if (!string.IsNullOrEmpty(this.PipelineId))

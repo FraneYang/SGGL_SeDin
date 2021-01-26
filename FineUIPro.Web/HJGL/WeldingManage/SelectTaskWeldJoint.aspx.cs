@@ -52,7 +52,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 ViewState["TaskDate"] = value;
             }
         }
-        
+
         /// <summary>
         /// 日报主键
         /// </summary>
@@ -117,17 +117,32 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 {
                     this.UnitWorkId = list[0];
                     this.UnitId = list[1];
+                    Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(this.UnitId);
+                    if (unit != null)
+                    {
+                        this.txtUnitName.Text = unit.UnitName;
+                    }
                     TaskDate = list[2];
                     if (!string.IsNullOrEmpty(TaskDate))
                     {
                         txtTaskDate.Text = TaskDate;
                         txtTaskDate.Enabled = false;
+                        var task = (from x in Funs.DB.HJGL_WeldTask
+                                    where x.UnitWorkId == UnitWorkId
+                                    && x.TaskDate.Value.Date.ToString() == Convert.ToDateTime(txtTaskDate.Text.Trim()).ToString("yyyy-MM-dd")
+                                    select x).FirstOrDefault();
+                        if (task != null)
+                        {
+                            txtTaskCode.Text = task.TaskCode;
+                        }
+                        txtTaskCode.Enabled = false;
                     }
                     string projectId = string.Empty;
                     Model.WBS_UnitWork UnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(this.UnitWorkId);
                     if (UnitWorkId != null)
                     {
                         projectId = UnitWork.ProjectId;
+                        this.txtUnitWorkName.Text = UnitWork.UnitWorkName;
                     }
                 }
                 this.InitTreeMenu();//加载树
@@ -148,7 +163,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             rootNode.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode);
 
-            var iso = (from x in Funs.DB.HJGL_Pipeline where x.UnitId == this.UnitId orderby x.PipelineCode select x).ToList();
+            var iso = (from x in Funs.DB.HJGL_Pipeline where x.UnitWorkId == this.UnitWorkId && x.UnitId == this.UnitId orderby x.PipelineCode select x).ToList();
             if (!string.IsNullOrEmpty(this.txtPipelineCode.Text))
             {
                 iso = (from x in iso where x.PipelineCode.Contains(this.txtPipelineCode.Text.Trim()) orderby x.PipelineCode select x).ToList();
@@ -177,7 +192,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             var toDoMatterList = (from x in Funs.DB.View_HJGL_NoWeldJointFind
                                   where x.PipelineId == pipelineId && x.WeldingDailyId == null
                                   select x).ToList();
-           
+
             //去除任务表已存在的焊口 
             if (!string.IsNullOrEmpty(TaskDate))
             {
@@ -194,7 +209,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     }
                 }
             }
-          
+
             DataTable tb = this.LINQToDataTable(toDoMatterList);
             // 2.获取当前分页数据
             Grid1.RecordCount = tb.Rows.Count;
@@ -263,7 +278,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrEmpty(this.txtTaskCode.Text.Trim()))
+            {
+                ShowNotify("请输入焊接任务单编号", MessageBoxIcon.Warning);
+                return;
+            }
             if (!string.IsNullOrEmpty(txtTaskDate.Text))
             {
                 if (!string.IsNullOrEmpty(TaskDate))
@@ -287,7 +306,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     }
                 }
             }
-            
+
             else
             {
                 ShowNotify("请选择预计焊接日期", MessageBoxIcon.Warning);
@@ -298,18 +317,68 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
         private void SaveTask()
         {
+            var weldingRods = from x in Funs.DB.Base_Consumables where x.ConsumablesType == "2" select x;
+            var weldingWires = from x in Funs.DB.Base_Consumables where x.ConsumablesType == "1" select x;
             string[] selectRowId = Grid1.SelectedRowIDArray;
             for (int i = 0; i < selectRowId.Count(); i++)
             {
+                string canWeldingRodName = string.Empty;
+                string canWeldingWireName = string.Empty;
                 Model.HJGL_WeldTask NewTask = new Model.HJGL_WeldTask();
                 NewTask.ProjectId = this.CurrUser.LoginProjectId;
                 NewTask.UnitWorkId = this.UnitWorkId;
                 NewTask.UnitId = this.UnitId;
 
-
+                NewTask.TaskCode = this.txtTaskCode.Text.Trim();
                 NewTask.WeldTaskId = SQLHelper.GetNewID();
                 NewTask.WeldJointId = selectRowId[i];
-
+                Model.HJGL_WeldJoint weldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(NewTask.WeldJointId);
+                if (weldJoint != null)
+                {
+                    NewTask.WeldingRod = weldJoint.WeldingRod;
+                    NewTask.WeldingWire = weldJoint.WeldingWire;
+                    //获取可替代焊丝焊条
+                    var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(weldJoint.Material1Id);
+                    string matClass = mat.MaterialClass;
+                    var matRod = weldingRods.FirstOrDefault(x => x.ConsumablesId == weldJoint.WeldingRod);
+                    foreach (var item in weldingRods)
+                    {
+                        if (matClass == "Fe-1" || matClass == "Fe-3")
+                        {
+                            if (IsCoverClass(matRod.SteelType, item.SteelType))
+                            {
+                                canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
+                            }
+                        }
+                        else
+                        {
+                            canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(canWeldingRodName))
+                    {
+                        NewTask.CanWeldingRodName = canWeldingRodName.Substring(0, canWeldingRodName.Length - 1);
+                    }
+                    var matWire = weldingWires.FirstOrDefault(x => x.ConsumablesId == weldJoint.WeldingWire);
+                    foreach (var item in weldingWires)
+                    {
+                        if (matClass == "Fe-1" || matClass == "Fe-3")
+                        {
+                            if (IsCoverClass(matWire.SteelType, item.SteelType))
+                            {
+                                canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
+                            }
+                        }
+                        else
+                        {
+                            canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(canWeldingWireName))
+                    {
+                        NewTask.CanWeldingWireName = canWeldingWireName.Substring(0, canWeldingWireName.Length - 1);
+                    }
+                }
                 NewTask.JointAttribute = drpJointAttribute.SelectedValue;
                 NewTask.WeldingMode = drpWeldingMode.SelectedValue;
 
@@ -321,6 +390,36 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(txtTaskDate.Text) + ActiveWindow.GetHidePostBackReference());
             //PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+        }
+
+        /// <summary>
+        /// 判断耗材强度是否大于WPS耗材强度，如是为true,否则为false
+        /// </summary>
+        /// <param name="wpsClass"></param>
+        /// <param name="matClass"></param>
+        /// <returns></returns>
+        private bool IsCoverClass(string wpsClass, string matClass)
+        {
+            bool isCover = false;
+            int wpsSn = 0;
+            int matSn = 0;
+            if (wpsClass.Length > 2 && matClass.Length > 2)
+            {
+                string wpsPre = wpsClass.Substring(0, wpsClass.Length - 2);
+                string matPre = matClass.Substring(0, matClass.Length - 2);
+
+                string wps = wpsClass.Substring(wpsClass.Length - 1, 1);
+                wpsSn = Funs.GetNewInt(wps).HasValue ? Funs.GetNewInt(wps).Value : 0;
+
+                string mat = matClass.Substring(matClass.Length - 1, 1);
+                matSn = Funs.GetNewInt(mat).HasValue ? Funs.GetNewInt(mat).Value : 0;
+
+                if (wpsPre == matPre && matSn >= wpsSn)
+                {
+                    return true;
+                }
+            }
+            return isCover;
         }
         #endregion
     }

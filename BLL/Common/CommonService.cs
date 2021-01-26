@@ -37,7 +37,8 @@ namespace BLL
                         if (!string.IsNullOrEmpty(getUser.RoleId))
                         {
                             rolesStr = getUser.RoleId;
-                            var getOffice = db.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == true);
+                            string[] roleList = getUser.RoleId.Split(',');
+                            var getOffice = db.Sys_RolePower.FirstOrDefault(x => roleList.Contains(x.RoleId) && x.IsOffice == true);
                             if (getOffice != null)
                             {
                                 returnList.Add(Const.Menu_Server);

@@ -122,18 +122,23 @@ namespace BLL
         {
             Model.SGGLDB db = Funs.DB;
             Model.PTP_TestPackage testPackage = db.PTP_TestPackage.First(e => e.PTP_ID == testPackageID);
-            var ItemCheck = from x in db.PTP_ItemEndCheck where x.PTP_ID == testPackageID select x;
-            if (ItemCheck != null)
+            var itemEndCheckLists = from x in db.PTP_ItemEndCheckList where x.PTP_ID == testPackageID select x;
+            foreach (var item in itemEndCheckLists)
             {
-                db.PTP_ItemEndCheck.DeleteAllOnSubmit(ItemCheck);
-                db.SubmitChanges();
+                var ItemCheck = from x in db.PTP_ItemEndCheck where x.ItemEndCheckListId == item.ItemEndCheckListId select x;
+                if (ItemCheck != null)
+                {
+                    db.PTP_ItemEndCheck.DeleteAllOnSubmit(ItemCheck);
+                    db.SubmitChanges();
+                }
+                var Approve = from x in db.PTP_TestPackageApprove where x.ItemEndCheckListId == item.ItemEndCheckListId select x;
+                if (Approve != null)
+                {
+                    db.PTP_TestPackageApprove.DeleteAllOnSubmit(Approve);
+                    db.SubmitChanges();
+                }
             }
-            var Approve = from x in db.PTP_TestPackageApprove where x.PTP_ID == testPackageID select x;
-            if (Approve != null)
-            {
-                db.PTP_TestPackageApprove.DeleteAllOnSubmit(Approve);
-                db.SubmitChanges();
-            }
+         
             db.PTP_TestPackage.DeleteOnSubmit(testPackage);
             db.SubmitChanges();
         }

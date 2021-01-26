@@ -2500,6 +2500,10 @@ namespace BLL
         public const string HJGL_NDTBatchMenuId = "CDECC461-1897-4D88-BD13-0824E540F565";
         #endregion
 
+        #region 返修委托单
+        public const string HJGL_RepairTrustMenuId = "E5053406-1A22-42F1-846E-721ACA2253D6";
+        #endregion
+
         #region 试压包
         /// <summary>
         /// 试压包录入
@@ -3604,7 +3608,7 @@ namespace BLL
         /// <summary>
         /// PDMS导入模版文件原始的虚拟路径
         /// </summary>
-        public const string WPQTemplateUrl = "File\\Excel\\焊接工艺评定导入模版.xls";
+        public const string WPQTemplateUrl = "File\\Excel\\DataIn\\焊接工艺评定导入模版.xls";
 
         #region 焊接报表
         /// <summary>

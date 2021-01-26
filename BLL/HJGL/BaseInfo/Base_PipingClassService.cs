@@ -3,6 +3,7 @@
     using Model;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.UI.WebControls;
 
     public static class Base_PipingClassService
     {
@@ -29,6 +30,7 @@
                 PipingClassName = pipingClass.PipingClassName,
                 Remark = pipingClass.Remark,
                 PNO = pipingClass.PNO,
+                SteelType=pipingClass.SteelType,
                 ProjectId=pipingClass.ProjectId
             };
             db.Base_PipingClass.InsertOnSubmit(newPipingClass);
@@ -49,6 +51,7 @@
                 newPipingClass.PipingClassName = pipingClass.PipingClassName;
                 newPipingClass.Remark = pipingClass.Remark;
                 newPipingClass.PNO = pipingClass.PNO;
+                newPipingClass.SteelType = pipingClass.SteelType;
                 newPipingClass.ProjectId = pipingClass.ProjectId;
                 db.SubmitChanges();
             }
@@ -100,6 +103,40 @@
             {
                 Funs.FineUIPleaseSelect(dropName,itemText);
             }
+        }
+        #endregion
+
+        #region 钢材类型下拉项
+        /// <summary>
+        /// 钢材类型下拉项
+        /// </summary>
+        /// <param name="dropName">下拉框名称</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        /// <param name="PipingClassType">钢材类型</param>
+        public static void InitSteelTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease, string itemText)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = GetSteelType();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName, itemText);
+            }
+        }
+
+        /// <summary>
+        /// 获取钢材类型
+        /// </summary>
+        /// <param name="PipingClassType"></param>
+        /// <returns></returns>
+        public static ListItem[] GetSteelType()
+        {
+            ListItem[] list = new ListItem[3];
+            list[0] = new ListItem("碳钢", "碳钢");
+            list[1] = new ListItem("合金钢", "合金钢");
+            list[2] = new ListItem("不锈钢", "不锈钢");
+            return list;
         }
         #endregion
     }

@@ -46,8 +46,6 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);//单位
                 BLL.UnitWorkService.InitUnitWorkDropDownList(drpUnitWork, this.CurrUser.LoginProjectId, true);
 
-                // 建档人
-                BLL.UserService.InitUserDropDownList(drpTabler, this.CurrUser.LoginProjectId, true);
 
                 var list = (from x in Funs.DB.HJGL_PC_Pipeline
                             where x.PurgingCleaningId == this.PurgingCleaningId
@@ -88,11 +86,11 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                     drpUnitWork.SelectedValue = PurgingCleaningManage.UnitWorkId;
                 }
                 this.txtsysName.Text = PurgingCleaningManage.SysName;
-                this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", PurgingCleaningManage.TableDate);
-                if (!string.IsNullOrEmpty(PurgingCleaningManage.Tabler))
+                if (PurgingCleaningManage.TableDate != null)
                 {
-                    this.drpTabler.SelectedValue = PurgingCleaningManage.Tabler;
+                    this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", PurgingCleaningManage.TableDate);
                 }
+                this.txtFinishDef.Text = PurgingCleaningManage.FinishDef;
                 this.txtRemark.Text = PurgingCleaningManage.Remark;
                 drpInstallationSpecification.SelectedValue = PurgingCleaningManage.Check1;
                 drpPressureTest.SelectedValue = PurgingCleaningManage.Check2;
@@ -112,11 +110,6 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                     drpUnit.SelectedValue = w.UnitId;
                     this.drpUnitWork.SelectedValue = w.UnitWorkId;
                 }
-
-                if (this.CurrUser.UserId != BLL.Const.sysglyId)
-                {
-                    this.drpTabler.SelectedValue = this.CurrUser.UserId;
-                }
             }
         }
         #endregion
@@ -128,12 +121,13 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
         private void BindGrid()
         {
             string strSql = @"SELECT IsoInfo.ProjectId,IsoInfo.UnitWorkId,UnitWork.UnitWorkCode,IsoInfo.PipelineId,IsoInfo.PipelineCode,
-                                     IsoInfo.UnitId,IsoInfo.TestPressure,IsoInfo.TestMedium,
+                                     IsoInfo.UnitId,IsoInfo.TestPressure,IsoInfo.TestMedium,mat.MaterialCode,IsoInfo.MaterialId,
 		                             bs.MediumName,testMedium.MediumName AS TestMediumName,IsoInfo.SingleNumber,IsoInfo.PipingClassId,
-		                             class.PipingClassCode,IsoList.PC_PipeId,IsoList.PurgingCleaningId,IsoList.MaterialId,IsoList.MediumId,
+		                             class.PipingClassCode,IsoList.PC_PipeId,IsoList.PurgingCleaningId,IsoList.MaterialId,IsoInfo.MediumId,
                                      (case when IsoList.PurgingMedium is null then (case when IsoInfo.PCtype='1' then IsoInfo.PCMedium else null end)  else IsoList.PurgingMedium end) PurgingMedium,
                                      (case when IsoList.CleaningMedium is null then (case when IsoInfo.PCtype='2' then IsoInfo.PCMedium else null end) else   IsoList.CleaningMedium end) CleaningMedium
                                      FROM dbo.HJGL_Pipeline AS IsoInfo
+                                     LEFT JOIN dbo.Base_Material AS mat ON mat.MaterialId=IsoInfo.MaterialId
                                      LEFT JOIN WBS_UnitWork AS UnitWork ON IsoInfo.UnitWorkId=UnitWork.UnitWorkId
                                      LEFT JOIN dbo.Base_Medium  AS bs ON  bs.MediumId = IsoInfo.MediumId
 								     LEFT JOIN dbo.Base_TestMedium  AS testMedium ON testMedium.TestMediumId = IsoInfo.TestMedium
@@ -172,23 +166,9 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                     int i = mergedRow.Value<int>("index");
                     GridRow row = Grid1.Rows[i];
                     //材质
-                    AspNet.DropDownList drpMaterialId = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpMaterialId");
                     AspNet.HiddenField MaterialId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdMaterialId");
-                    drpMaterialId.Items.AddRange(BLL.Base_MaterialService.GetMaterialListItem());
-                    Funs.PleaseSelect(drpMaterialId);
-                    if (!string.IsNullOrEmpty(MaterialId.Value))
-                    {
-                        drpMaterialId.SelectedValue = MaterialId.Value;
-                    }
                     //操作介质
-                    AspNet.DropDownList drpMediumId = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpMediumId");
                     AspNet.HiddenField MediumId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdMediumId");
-                    drpMediumId.Items.AddRange(BLL.Base_MediumService.GetMediumListItem(this.CurrUser.LoginProjectId));
-                    Funs.PleaseSelect(drpMediumId);
-                    if (!string.IsNullOrEmpty(MediumId.Value))
-                    {
-                        drpMediumId.SelectedValue = MediumId.Value;
-                    }
                     //吹扫
                     AspNet.DropDownList drpPurgingMedium = (AspNet.DropDownList)Grid1.Rows[i].FindControl("drpPurgingMedium");
                     AspNet.HiddenField PurgingMedium = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdPurgingMedium");
@@ -288,7 +268,7 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                     ShowNotify("吹扫清洗试验包编号已存在，请重新录入！", MessageBoxIcon.Warning);
                     return;
                 }
-                if (string.IsNullOrEmpty(this.txtsysName.Text) || this.drpUnit.SelectedValue == BLL.Const._Null || this.drpTabler.SelectedValue == BLL.Const._Null
+                if (string.IsNullOrEmpty(this.txtsysName.Text) || this.drpUnit.SelectedValue == BLL.Const._Null || string.IsNullOrEmpty(this.txtFinishDef.Text)
                     || this.drpUnitWork.SelectedValue == BLL.Const._Null || string.IsNullOrEmpty(this.txtTableDate.Text))
                 {
                     ShowNotify("必填项不能为空！", MessageBoxIcon.Warning);
@@ -300,7 +280,7 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                     return;
                 }
                 var updatePurgingCleaning = BLL.PurgingCleaningEditService.GetPurgingCleaningByID(this.PurgingCleaningId);
-                if (updatePurgingCleaning != null && !string.IsNullOrEmpty( updatePurgingCleaning.AduditDate))
+                if (updatePurgingCleaning != null && !string.IsNullOrEmpty(updatePurgingCleaning.AduditDate))
                 {
                     ShowNotify("此泄露性/真空试验包已审核不能修改！", MessageBoxIcon.Warning);
                     return;
@@ -320,11 +300,9 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                 PurgingCleaning.SysNo = this.txtsysNo.Text.Trim();
                 PurgingCleaning.SysName = this.txtsysName.Text.Trim();
 
-                if (this.drpTabler.SelectedValue != BLL.Const._Null)
-                {
-                    PurgingCleaning.Tabler = this.drpTabler.SelectedValue;
-                }
+
                 PurgingCleaning.TableDate = Funs.GetNewDateTime(this.txtTableDate.Text);
+                PurgingCleaning.FinishDef = this.txtFinishDef.Text.Trim();
                 PurgingCleaning.Check1 = drpInstallationSpecification.SelectedValue;
                 PurgingCleaning.Check2 = drpPressureTest.SelectedValue;
                 PurgingCleaning.Check3 = drpWorkRecord.SelectedValue;
@@ -348,13 +326,23 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                     Model.HJGL_PC_Pipeline newitem = new Model.HJGL_PC_Pipeline();
                     newitem.PurgingCleaningId = this.PurgingCleaningId;
                     newitem.PipelineId = item.PipelineId;
-                    if (item.MaterialId != "0")
+                    if (!string.IsNullOrEmpty(item.MaterialId))
                     {
                         newitem.MaterialId = item.MaterialId;
                     }
-                    if (item.MediumId != "0")
+                    else
+                    {
+                        ShowNotify("材质不能为空，请先在管线信息中进行维护！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                    if (!string.IsNullOrEmpty(item.MediumId))
                     {
                         newitem.MediumId = item.MediumId;
+                    }
+                    else
+                    {
+                        ShowNotify("操作介质不能为空，请先在管线信息中进行维护！", MessageBoxIcon.Warning);
+                        return;
                     }
                     if (item.PurgingMedium != "0")
                     {
@@ -396,16 +384,10 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
                 Model.HJGL_PC_Pipeline newView = new Model.HJGL_PC_Pipeline();
                 newView.PurgingCleaningId = this.PurgingCleaningId;
                 newView.PipelineId = Grid1.DataKeys[i][0].ToString();
-                System.Web.UI.WebControls.DropDownList drpMaterialId = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpMaterialId"));
-                if (drpMaterialId.SelectedValue != BLL.Const._Null)
-                {
-                    newView.MaterialId = drpMaterialId.SelectedValue;
-                }
-                System.Web.UI.WebControls.DropDownList drpMediumId = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpMediumId"));
-                if (drpMediumId.SelectedValue != BLL.Const._Null)
-                {
-                    newView.MediumId = drpMediumId.SelectedValue;
-                }
+                AspNet.HiddenField MaterialId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdMaterialId");
+                newView.MaterialId = MaterialId.Value;
+                AspNet.HiddenField MediumId = (AspNet.HiddenField)Grid1.Rows[i].FindControl("hdMediumId");
+                newView.MediumId = MediumId.Value;
                 System.Web.UI.WebControls.DropDownList drpPurgingMedium = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpPurgingMedium"));
                 if (drpPurgingMedium.SelectedValue != BLL.Const._Null)
                 {

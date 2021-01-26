@@ -278,23 +278,23 @@ namespace BLL
                                     db.SubmitChanges();
                                 }
 
-                                if (type == "LAB_WORK_TYPE")
-                                {
-                                    var getWorkPost = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostCode == dictCode);
-                                    if (getWorkPost == null)
-                                    {
-                                        Model.Base_WorkPost newWorkPost = new Model.Base_WorkPost
-                                        {
-                                            WorkPostId = SQLHelper.GetNewID(),
-                                            WorkPostCode = dictCode,
-                                            WorkPostName = name,
-                                            PostType = "3",
-                                            Remark = "来源实名制系统"
-                                        };
-                                        Funs.DB.Base_WorkPost.InsertOnSubmit(newWorkPost);
-                                        Funs.DB.SubmitChanges();
-                                    }
-                                }
+                                //if (type == "LAB_WORK_TYPE")
+                                //{
+                                //    var getWorkPost = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostCode == dictCode);
+                                //    if (getWorkPost == null)
+                                //    {
+                                //        Model.Base_WorkPost newWorkPost = new Model.Base_WorkPost
+                                //        {
+                                //            WorkPostId = SQLHelper.GetNewID(),
+                                //            WorkPostCode = dictCode,
+                                //            WorkPostName = name,
+                                //            PostType = "3",
+                                //            Remark = "来源实名制系统"
+                                //        };
+                                //        Funs.DB.Base_WorkPost.InsertOnSubmit(newWorkPost);
+                                //        Funs.DB.SubmitChanges();
+                                //    }
+                                //}
                             }
                         }
                     }
@@ -842,7 +842,7 @@ namespace BLL
                                join u in db.Base_Unit on x.UnitId equals u.UnitId
                                join v in db.ProjectData_TeamGroup on x.TeamGroupId equals v.TeamGroupId
                                join w in db.Base_WorkPost on x.WorkPostId equals w.WorkPostId
-                               where z.ProCode != null && x.IdentityCard != null && x.IdentityCard != "" && x.IsUsed == true
+                               where z.ProCode != null && x.IdentityCard != null && x.IdentityCard != "" && x.OutTime == null
                                 && (proCode == null || y.ProjectCode == proCode) && v.TeamId.HasValue && x.HeadImage != null
                                && ((type == Const.BtnModify && !x.RealNameUpdateTime.HasValue) || (type != Const.BtnModify && !x.RealNameAddTime.HasValue))
                                select new
@@ -955,12 +955,15 @@ namespace BLL
             {
                 string url = getSynchroSet.ApiUrl + "/foreignApi/accept/attendance";
                 var getData = (from x in db.RealName_PersonInOutNow
-                                   //   join y in db.RealName_Project on x.ProCode equals y.ProCode    
                                join p in db.SitePerson_Person on x.PersonId equals p.PersonId
-                               where x.IdcardNumber != null && !x.RealNamePushTime.HasValue && p.TeamGroupId != null && p.TeamGroupId != ""
+                               join v in db.ProjectData_TeamGroup on p.TeamGroupId equals v.TeamGroupId
+                               join r in db.RealName_CollTeam on v.TeamId equals r.TeamId
+                               where x.IdcardNumber != null && !x.RealNamePushTime.HasValue
                                    && x.IdcardType != null && x.ChangeTime.HasValue && (proCode == null || x.ProCode == proCode)
+                                   && v.TeamId.HasValue && p.HeadImage != null && r.TeamId.HasValue
                                select new
                                {
+                                   p.PersonId,
                                    proCode = x.ProCode,
                                    name = x.Name,
                                    idcardType = x.IdcardType,
@@ -985,6 +988,8 @@ namespace BLL
                     {
                         { "token", getaccess_token() }
                     };
+
+                    addPerson(getData.Select(x => x.PersonId).Distinct().ToList(), newToken, getSynchroSet.ApiUrl);
                     var returndata = BLL.APIGetHttpService.OutsideHttp(url, "POST", contenttype, newToken, JsonConvert.SerializeObject(listObject));
                     if (!string.IsNullOrEmpty(returndata))
                     {
@@ -1000,7 +1005,8 @@ namespace BLL
                                     var getPersonInOutNow = db.RealName_PersonInOutNow.FirstOrDefault(x => x.PersonInOutId == item.PersonInOutId);
                                     if (getPersonInOutNow != null)
                                     {
-                                        getPersonInOutNow.RealNamePushTime = DateTime.Now;
+                                        //getPersonInOutNow.RealNamePushTime = DateTime.Now;
+                                        db.RealName_PersonInOutNow.DeleteOnSubmit(getPersonInOutNow);
                                         db.SubmitChanges();
                                     }
                                 }
@@ -1016,5 +1022,61 @@ namespace BLL
             return mess;
         }
         #endregion        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="personList"></param>
+        public static void addPerson(List<string> personList, Hashtable header, string url)
+        {
+            var getData = (from x in db.SitePerson_Person
+                           join y in db.Base_Project on x.ProjectId equals y.ProjectId
+                           join v in db.ProjectData_TeamGroup on x.TeamGroupId equals v.TeamGroupId
+                           join w in db.Base_WorkPost on x.WorkPostId equals w.WorkPostId
+                           where personList.Contains(x.PersonId)
+                           select new
+                           {
+                               name = x.PersonName,
+                               idcardType = x.IdcardType ?? "SHENFEN_ZHENGJIAN",
+                               idcardNumber = x.IdentityCard,
+                               idcardStartDate = string.Format("{0:yyyy-MM-dd}", x.IdcardStartDate),
+                               idcardEndDate = string.Format("{0:yyyy-MM-dd}", x.IdcardEndDate),
+                               idcardForever = x.IdcardForever,
+                               politicsStatus = x.PoliticsStatus,
+                               eduLevel = x.EduLevel,
+                               maritalStatus = x.MaritalStatus,
+                               sex = (x.Sex == "2" ? "F" : "M"),
+                               idcardAddress = x.IdcardAddress,
+                               homeAddress = x.Address,
+                               birthday = string.Format("{0:yyyy-MM-dd}", x.Birthday),
+                               nation = x.Nation,
+                               countryCode = x.CountryCode,
+                               provinceCode = x.ProvinceCode,
+                               //positiveIdcardImage = db.AttachFile.First(t => (x.PersonId + "#1") == t.ToKeyId).ImageByte,
+                               //negativeIdcardImage = db.AttachFile.First(t => (x.PersonId + "#5") == t.ToKeyId).ImageByte,
+                               headImage = x.HeadImage,
+                               proCode = y.ProjectCode,
+                               teamId = v.TeamId,
+                               mobile = x.Telephone,
+                               teamLeaderFlag = (v.GroupLeaderId == x.PersonId ? "Y" : "N"),
+                               userType = ((w.PostType == "1" || w.PostType == "4") ? "LAB_USER_MANAGE" : "LAB_USER_BULIDER"),
+                               workType = w.WorkPostCode,
+                               isLeave = x.OutTime < DateTime.Now ? "Y" : "N",
+                               entryTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                               exitTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                               x.RealNameAddTime,
+                               x.RealNameUpdateTime,
+                               x.PersonId,
+                           }).Take(200).ToList();
+            if (getData.Count() > 0)
+            {
+                var addlistObject = new
+                {
+                    list = getData.Select(x => new { x.name, x.idcardType, x.idcardNumber, x.idcardStartDate, x.idcardEndDate, x.idcardForever, x.politicsStatus, x.eduLevel, x.maritalStatus, x.sex, x.idcardAddress, x.homeAddress, x.birthday, x.nation, x.countryCode, x.provinceCode, x.headImage, x.proCode, x.teamId, x.mobile, x.teamLeaderFlag, x.userType, x.workType, x.isLeave, x.entryTime, x.exitTime })
+                };
+
+                BLL.APIGetHttpService.OutsideHttp(url + "/foreignApi/accept/persons", "POST", null, header, JsonConvert.SerializeObject(addlistObject));
+            }
+        }
     }
 }

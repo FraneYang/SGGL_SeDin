@@ -122,7 +122,7 @@
                                 TextAlign="Left" Width="70px">
                             </f:RenderField>
                             <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Hidden="true"
                                 Width="100px">
                             </f:RenderField>
                             <f:RenderField HeaderText="焊工号" ColumnID="WelderCode"

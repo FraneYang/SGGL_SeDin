@@ -148,7 +148,8 @@ namespace BLL
                                                      join y in db.WBS_WorkPackage
                                                      on x.WorkPackageId equals y.WorkPackageId
                                                      where y.UnitWorkId == unitWorkId
-                                                     orderby x.ControlItemAndCycleCode select x).ToList();
+                                                     orderby x.ControlItemAndCycleCode
+                                                     select x).ToList();
             db.WBS_ControlItemAndCycle.DeleteAllOnSubmit(q);
             db.SubmitChanges();
         }
@@ -161,6 +162,16 @@ namespace BLL
         public static List<Model.WBS_ControlItemAndCycle> GetListByWorkPackageId(string WorkPackageId)
         {
             return (from x in Funs.DB.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId orderby x.ControlItemAndCycleCode select x).ToList();
+        }
+
+        /// <summary>
+        /// 根据分部分项Id获取所有工作包内容
+        /// </summary>
+        /// <param name="WorkPackageId"></param>
+        /// <returns></returns>
+        public static List<Model.WBS_ControlItemAndCycle> GetControlItemAndCyclesByWorkPackageId(string WorkPackageId)
+        {
+            return (from x in Funs.DB.WBS_ControlItemAndCycle where x.WorkPackageId == WorkPackageId && x.IsApprove == true orderby x.ControlItemAndCycleCode select x).ToList();
         }
         public static List<Model.WBS_ControlItemAndCycle> GetListByWorkPackageIdForApi(string WorkPackageId)
         {

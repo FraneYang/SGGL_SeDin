@@ -4,6 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>试压尾项检查</title>
+    <style type="text/css">
+        .Yellow  {
+            background-color: #FFFF93;
+        }
+
+        .Red {
+            background-color: red;
+        }
+
+        .Green  {
+            background-color: Green;
+            color:white;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -17,6 +31,9 @@
                         <f:Tree ID="tvControlItem" ShowHeader="false" Title="尾工录入节点树" OnNodeCommand="tvControlItem_NodeCommand"
                             runat="server" ShowBorder="false" EnableCollapse="true" EnableSingleClickExpand="true" AutoLeafIdentification="true"
                             EnableSingleExpand="true" EnableTextSelection="true">
+                            <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                            </Listeners>
                         </f:Tree>
                     </Items>
                 </f:Panel>
@@ -25,8 +42,8 @@
                     TitleToolTip="试压尾项检查" AutoScroll="true">
                     <Items>
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="试压尾项检查录入(双击编辑)" EnableCollapse="false" runat="server"
-                            BoxFlex="1" DataKeyNames="PTP_ID" AllowCellEditing="true" EnableColumnLines="true"
-                            ClicksToEdit="2" DataIDField="PTP_ID" AllowSorting="true" SortField="CheckDate"
+                            BoxFlex="1" DataKeyNames="ItemEndCheckListId" AllowCellEditing="true" EnableColumnLines="true"
+                            ClicksToEdit="2" DataIDField="ItemEndCheckListId" AllowSorting="true" SortField="CompileDate" SortDirection="DESC"
                             OnSort="Grid1_Sort" EnableTextSelection="True" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">
                             <Columns>
                                 <f:RenderField Width="120px" ColumnID="TestPackageNo" DataField="TestPackageNo"
@@ -35,16 +52,19 @@
                                 <f:RenderField Width="120px" ColumnID="TestPackageName" DataField="TestPackageName"
                                     HeaderTextAlign="Center" HeaderText="试压包名称" TextAlign="Left" ExpandUnusedSpace="true">
                                 </f:RenderField>
-                                <f:RenderField Width="110px" ColumnID="UserName" DataField="UserName"
-                                    HeaderTextAlign="Center" HeaderText="建档人" TextAlign="Left">
-                                </f:RenderField>
-                                <f:RenderField Width="110px" ColumnID="TableDate" DataField="TableDate"
-                                    HeaderTextAlign="Center" FieldType="Date" TextAlign="Left"
-                                    Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="建档日期">
-                                </f:RenderField>
-                                <f:RenderField Width="110px" ColumnID="Remark" DataField="Remark"
-                                    HeaderTextAlign="Center" HeaderText="备注" TextAlign="Left">
-                                </f:RenderField>
+                                
+                                <f:TemplateField ColumnID="AState" Width="110px" HeaderText="A项整改状态" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertAState(Eval("ItemEndCheckListId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                <f:TemplateField ColumnID="BState" Width="110px" HeaderText="B项整改状态" HeaderTextAlign="Center" TextAlign="Center"
+                                    EnableLock="true" Locked="False">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label3" runat="server" Text='<%# ConvertBState(Eval("ItemEndCheckListId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
                                 <f:TemplateField ColumnID="State" Width="110px" HeaderText="审批状态" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
@@ -54,9 +74,16 @@
                                 <f:TemplateField ColumnID="AuditMan" Width="100px" HeaderText="办理人" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:Label ID="Label41" runat="server" Text='<%# ConvertMan(Eval("PTP_ID")) %>'></asp:Label>
+                                        <asp:Label ID="Label41" runat="server" Text='<%# ConvertMan(Eval("ItemEndCheckListId")) %>'></asp:Label>
                                     </ItemTemplate>
                                 </f:TemplateField>
+                                <%--<f:RenderField Width="110px" ColumnID="UserName" DataField="UserName"
+                                    HeaderTextAlign="Center" HeaderText="编制人" TextAlign="Left">
+                                </f:RenderField>--%>
+                                <f:RenderField Width="110px" ColumnID="CompileDate" DataField="CompileDate"
+                                    HeaderTextAlign="Center" FieldType="Date" TextAlign="Left"
+                                    Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="编制日期">
+                                </f:RenderField>
                             </Columns>
                             <Listeners>
                                 <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -81,16 +108,28 @@
                 </f:MenuButton>
             </Items>
         </f:Menu>
+        <f:Menu ID="Menu2" runat="server">
+            <Items>
+                <f:MenuButton ID="btnMenuNew" EnablePostBack="true" runat="server" Text="新增" Icon="Add" OnClick="btnMenuNew_Click">
+                </f:MenuButton>
+            </Items>
+        </f:Menu>
     </form>
     <script type="text/javascript">
         // 返回false，来阻止浏览器右键菜单
         var menuID = '<%= Menu1.ClientID %>';
+        var menuID2 = '<%= Menu2.ClientID %>';
         function onRowContextMenu(event, rowId) {
             F(menuID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
+        }
+
+        function onTreeNodeContextMenu(event, rowId) {
+            F(menuID2).show();  //showAt(event.pageX, event.pageY);
+            return false;
         }
     </script>
 </body>

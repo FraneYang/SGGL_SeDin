@@ -50,7 +50,7 @@
                                         <f:Label ID="txtHotProessTrustNo" Label="委托单号"
                                             runat="server" LabelAlign="Right" LabelWidth="100px">
                                         </f:Label>
-                                        <f:Label ID="txtProessDate" Label="热处理日期" runat="server"
+                                        <f:Label ID="txtProessDate" Label="委托日期" runat="server"
                                             LabelAlign="Right" LabelWidth="100px">
                                         </f:Label>
                                         <f:Label ID="txtTabler" Label="制表人" runat="server" LabelAlign="Right"

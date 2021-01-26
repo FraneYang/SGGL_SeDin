@@ -229,6 +229,8 @@
              align-items:center;
              justify-content:center;
              display:flex;
+             font-size: 15px;
+             font-weight: bold;
          }
         .yj-info-1-info{
             color:#fff;

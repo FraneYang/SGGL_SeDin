@@ -62,21 +62,32 @@
                             <Rows>
                                 <f:FormRow>
                                     <Items>
+                                        <f:TextBox ID="txtTestPackageNo" Label="系统号" runat="server" Readonly="true" LabelWidth="150px">
+                                        </f:TextBox>
+                                        <f:TextBox ID="txtTestPackageName" Label="系统名称" runat="server" Readonly="true" LabelWidth="150px">
+                                        </f:TextBox>
+                                        <f:TextBox ID="txtadjustTestPressure" Label="调整试验压力" runat="server" Readonly="true" LabelWidth="150px">
+                                        </f:TextBox>
+                                    </Items>
+                                </f:FormRow>
+                                <f:FormRow>
+                                    <Items>
                                         <f:DatePicker ID="txtTestDate" Label="试验日期" runat="server" DateFormatString="yyyy-MM-dd"  LabelWidth="150px">
                                         </f:DatePicker>
-                                        <f:TextBox ID="txtadjustTestPressure" Label="调整试验压力" runat="server" LabelWidth="150px">
-                                        </f:TextBox>
+                                        
                                         <f:NumberBox ID="txtAmbientTemperature" Label="试验环境温度"  runat="server" LabelWidth="150px">
+                                        </f:NumberBox>
+                                        <f:NumberBox ID="txtTestMediumTemperature" Label="试验介质温度"  runat="server" LabelWidth="150px">
                                         </f:NumberBox>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:NumberBox ID="txtTestMediumTemperature" Label="试验介质温度"  runat="server" LabelWidth="150px">
-                                        </f:NumberBox>
+                                        
                                         <f:NumberBox ID="txtHoldingTime" Label="稳压时间"  runat="server" LabelWidth="150px">
                                         </f:NumberBox>
                                         <f:TextBox runat="server" ID="txtFinishDef" Label="试验结论" LabelWidth="150px"></f:TextBox>
+                                        <f:Label runat="server" ID="lb1"></f:Label>
                                     </Items>
                                 </f:FormRow>
                             </Rows>

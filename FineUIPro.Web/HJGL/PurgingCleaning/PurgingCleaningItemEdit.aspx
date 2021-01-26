@@ -19,9 +19,9 @@
                             <Rows>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtsysNo" Label="吹扫/清洗试验包号" ShowRedStar="true" Required="true" runat="server" FocusOnPageLoad="true" LabelWidth="120px">
+                                        <f:TextBox ID="txtsysNo" Label="系统编号" ShowRedStar="true" Required="true" runat="server" FocusOnPageLoad="true" LabelWidth="120px">
                                         </f:TextBox>
-                                        <f:TextBox ID="txtsysName" Label="系统名称" runat="server" LabelWidth="120px">
+                                        <f:TextBox ID="txtsysName" Label="系统名称" ShowRedStar="true" Required="true" runat="server" LabelWidth="120px">
                                         </f:TextBox>
                                         <f:DropDownList ID="drpUnit" Label="单位" runat="server" ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="120px"
                                             Readonly="true">
@@ -31,12 +31,12 @@
                                         </f:DropDownList>
                                     </Items>
                                 </f:FormRow>
-                                <f:FormRow ColumnWidths="25% 25% 50%">
+                                <f:FormRow ColumnWidths="25% 50% 25%">
                                     <Items>
-                                        <f:DropDownList ID="drpTabler" Label="建档人" runat="server" EnableEdit="true" LabelWidth="120px" ShowRedStar="true" Required="true">
-                                        </f:DropDownList>
-                                        <f:DatePicker ID="txtTableDate" Label="建档日期" runat="server" DateFormatString="yyyy-MM-dd" LabelWidth="120px" ShowRedStar="true" Required="true">
+                                        <f:DatePicker ID="txtTableDate" Label="试验日期" runat="server" DateFormatString="yyyy-MM-dd" LabelWidth="120px" ShowRedStar="true" Required="true">
                                         </f:DatePicker>
+                                        <f:TextBox ID="txtFinishDef" Label="方法及结论" runat="server" LabelWidth="120px" ShowRedStar="true" Required="true">
+                                        </f:TextBox>
                                         <f:TextBox ID="txtRemark" Label="备注" runat="server" LabelWidth="130px">
                                         </f:TextBox>
                                     </Items>
@@ -121,16 +121,14 @@
                                 <f:TemplateField ColumnID="MaterialId" Width="130px" HeaderText="材质" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:DropDownList ID="drpMaterialId" runat="server" Height="22" Width="90%">
-                                        </asp:DropDownList>
+                                        <asp:Label runat="server" ID="lbMaterial" Text='<%# Bind("MaterialCode") %>'></asp:Label>
                                         <asp:HiddenField ID="hdMaterialId" runat="server" Value='<%# Bind("MaterialId") %>' />
                                     </ItemTemplate>
                                 </f:TemplateField>
                                 <f:TemplateField ColumnID="MediumId" Width="130px" HeaderText="操作介质" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
-                                        <asp:DropDownList ID="drpMediumId" runat="server" Height="22" Width="90%">
-                                        </asp:DropDownList>
+                                        <asp:Label runat="server" ID="lbMedium" Text='<%# Bind("MediumName") %>'></asp:Label>
                                         <asp:HiddenField ID="hdMediumId" runat="server" Value='<%# Bind("MediumId") %>' />
                                     </ItemTemplate>
                                 </f:TemplateField>

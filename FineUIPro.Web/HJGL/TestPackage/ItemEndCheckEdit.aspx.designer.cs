@@ -103,13 +103,13 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// txtRemark 控件。
+        /// txtContent 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtRemark;
+        protected global::FineUIPro.TextBox txtContent;
         
         /// <summary>
         /// drpItemType 控件。
@@ -128,6 +128,15 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdItemType;
+        
+        /// <summary>
+        /// txtRemark 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtRemark;
         
         /// <summary>
         /// ContentPanel5 控件。

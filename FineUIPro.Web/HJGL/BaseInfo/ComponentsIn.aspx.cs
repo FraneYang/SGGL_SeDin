@@ -105,36 +105,60 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private void ImportXlsToData(string fileName)
         {
             //支持.xls和.xlsx，即包括office2010等版本的   HDR=Yes代表第一行是标题，不是数据；
-            string cmdText = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 12.0; HDR=Yes; IMEX=1'";
+            //string cmdText = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 12.0; HDR=Yes; IMEX=1'";
 
-            //建立连接
-            OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
+            ////建立连接
+            //OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
             try
             {
                 //打开连接
-                if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
+                //if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
+                //{
+                //    conn.Open();
+                //}
+                //OleDbDataAdapter oleAdMaster = null;
+                //DataTable m_tableName = new DataTable();
+                //DataSet ds = new DataSet();
+                //m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                //if (m_tableName != null && m_tableName.Rows.Count > 0)
+                //{
+
+                //    m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
+
+                //}
+                //string sqlMaster;
+                //sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
+                //oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                //oleAdMaster.Fill(ds, "m_tableName");
+                //oleAdMaster.Dispose();
+                //conn.Close();
+                //conn.Dispose();
+                string oleDBConnString = String.Empty;
+                oleDBConnString = "Provider=Microsoft.Jet.OLEDB.4.0;";
+                oleDBConnString += "Data Source=";
+                oleDBConnString += fileName;
+                oleDBConnString += ";Extended Properties=Excel 8.0;";
+                OleDbConnection oleDBConn = null;
                 OleDbDataAdapter oleAdMaster = null;
                 DataTable m_tableName = new DataTable();
                 DataSet ds = new DataSet();
-                m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                oleDBConn = new OleDbConnection(oleDBConnString);
+                oleDBConn.Open();
+                m_tableName = oleDBConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
                 if (m_tableName != null && m_tableName.Rows.Count > 0)
                 {
-
                     m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
-
                 }
                 string sqlMaster;
                 sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
-                oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                oleAdMaster = new OleDbDataAdapter(sqlMaster, oleDBConn);
                 oleAdMaster.Fill(ds, "m_tableName");
                 oleAdMaster.Dispose();
-                conn.Close();
-                conn.Dispose();
-
+                oleDBConn.Close();
+                oleDBConn.Dispose();
                 AddDatasetToSQL(ds.Tables[0], 3);
             }
             catch (Exception exc)
@@ -143,11 +167,11 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 //return null;
                 // return dt;
             }
-            finally
-            {
-                conn.Close();
-                conn.Dispose();
-            }
+            //finally
+            //{
+            //    conn.Close();
+            //    conn.Dispose();
+            //}
         }
         #endregion
 
@@ -261,35 +285,59 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         private void ImportXlsToData2(string fileName)
         {
             //支持.xls和.xlsx，即包括office2010等版本的   HDR=Yes代表第一行是标题，不是数据；
-            string cmdText = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 12.0; HDR=Yes; IMEX=1'";
-            //建立连接
-            OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
+            //string cmdText = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 12.0; HDR=Yes; IMEX=1'";
+            ////建立连接
+            //OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
             try
             {
                 //打开连接
-                if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
+                //if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
+                //{
+                //    conn.Open();
+                //}
+                //OleDbDataAdapter oleAdMaster = null;
+                //DataTable m_tableName = new DataTable();
+                //DataSet ds = new DataSet();
+                //m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                //if (m_tableName != null && m_tableName.Rows.Count > 0)
+                //{
+
+                //    m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
+
+                //}
+                //string sqlMaster;
+                //sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
+                //oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                //oleAdMaster.Fill(ds, "m_tableName");
+                //oleAdMaster.Dispose();
+                //conn.Close();
+                //conn.Dispose();
+                string oleDBConnString = String.Empty;
+                oleDBConnString = "Provider=Microsoft.Jet.OLEDB.4.0;";
+                oleDBConnString += "Data Source=";
+                oleDBConnString += fileName;
+                oleDBConnString += ";Extended Properties=Excel 8.0;";
+                OleDbConnection oleDBConn = null;
                 OleDbDataAdapter oleAdMaster = null;
                 DataTable m_tableName = new DataTable();
                 DataSet ds = new DataSet();
-                m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                oleDBConn = new OleDbConnection(oleDBConnString);
+                oleDBConn.Open();
+                m_tableName = oleDBConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
                 if (m_tableName != null && m_tableName.Rows.Count > 0)
                 {
-
                     m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
-
                 }
                 string sqlMaster;
                 sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
-                oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                oleAdMaster = new OleDbDataAdapter(sqlMaster, oleDBConn);
                 oleAdMaster.Fill(ds, "m_tableName");
                 oleAdMaster.Dispose();
-                conn.Close();
-                conn.Dispose();
-
+                oleDBConn.Close();
+                oleDBConn.Dispose();
                 AddDatasetToSQL2(ds.Tables[0], 3);
             }
             catch (Exception ex)
@@ -364,20 +412,20 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                 int a = ComponentsList.Count();
                 for (int i = 0; i < a; i++)
                 {
-                    var isExistMediumCode = Funs.DB.Base_Components.FirstOrDefault(x => (x.ComponentsId != ComponentsList[i].ComponentsId || (ComponentsList[i].ComponentsId == null && x.ComponentsId != null)) && x.ComponentsCode == ComponentsList[i].ComponentsCode);
-                    var isExistMediumName = Funs.DB.Base_Components.FirstOrDefault(x => (x.ComponentsId != ComponentsList[i].ComponentsId || (ComponentsList[i].ComponentsId == null && x.ComponentsId != null)) && x.ComponentsName == ComponentsList[i].ComponentsName);
-                    if (isExistMediumCode != null)
-                    {
-                        ShowNotify("存在相同批次的组件代号，请修正后重新提交！", MessageBoxIcon.Warning);
-                        return;
-                    }
-                    else if (isExistMediumName != null)
-                    {
-                        ShowNotify("存在相同批次的组件名称，请修正后重新提交！", MessageBoxIcon.Warning);
-                        return;
-                    }
-                    else
-                    {
+                    //var isExistMediumCode = Funs.DB.Base_Components.FirstOrDefault(x => (x.ComponentsId != ComponentsList[i].ComponentsId || (ComponentsList[i].ComponentsId == null && x.ComponentsId != null)) && x.ComponentsCode == ComponentsList[i].ComponentsCode);
+                    //var isExistMediumName = Funs.DB.Base_Components.FirstOrDefault(x => (x.ComponentsId != ComponentsList[i].ComponentsId || (ComponentsList[i].ComponentsId == null && x.ComponentsId != null)) && x.ComponentsName == ComponentsList[i].ComponentsName);
+                    //if (isExistMediumCode != null)
+                    //{
+                    //    ShowNotify("存在相同批次的组件代号，请修正后重新提交！", MessageBoxIcon.Warning);
+                    //    return;
+                    //}
+                    //else if (isExistMediumName != null)
+                    //{
+                    //    ShowNotify("存在相同批次的组件名称，请修正后重新提交！", MessageBoxIcon.Warning);
+                    //    return;
+                    //}
+                    //else
+                    //{
                         Model.Base_Components newComponents = new Model.Base_Components
                         {
                             ComponentsId = ComponentsList[i].ComponentsId,
@@ -387,7 +435,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                             ProjeceId = this.CurrUser.LoginProjectId
                         };
                         BLL.Base_ComponentsService.AddComponents(newComponents);
-                    }
+                    //}
                 }
                 string rootPath = Server.MapPath("~/");
                 string initFullPath = rootPath + initPath;

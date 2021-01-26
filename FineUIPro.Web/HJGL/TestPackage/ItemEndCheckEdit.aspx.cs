@@ -30,6 +30,20 @@ namespace FineUIPro.Web.HJGL.TestPackage
             }
         }
         /// <summary>
+        /// 记录主键
+        /// </summary>
+        public string ItemEndCheckListId
+        {
+            get
+            {
+                return (string)ViewState["ItemEndCheckListId"];
+            }
+            set
+            {
+                ViewState["ItemEndCheckListId"] = value;
+            }
+        }
+        /// <summary>
         /// 办理类型
         /// </summary>
         public string State
@@ -53,6 +67,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             if (!IsPostBack)
             {
                 PTP_ID = Request.Params["PTP_ID"];
+                ItemEndCheckListId= Request.Params["ItemEndCheckListId"];
                 if (!string.IsNullOrEmpty(PTP_ID))
                 {
                     var getTestPakeage = TestPackageEditService.GetTestPackageByID(PTP_ID);
@@ -61,7 +76,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         this.txtTestPackageNo.Text = getTestPakeage.TestPackageNo;
                         this.txtTestPackageName.Text = getTestPakeage.TestPackageName;
                     }
-                    var getItemEndCheck = BLL.AItemEndCheckService.GetItemEndCheckByPTPID(this.PTP_ID);
+                    var getItemEndCheck = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(this.ItemEndCheckListId);
                     if (getItemEndCheck.Count == 0)
                     {
                         var getPipeLineList = TestPackageEditService.GetPipeLineListByPTP_ID(PTP_ID);
@@ -69,7 +84,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         {
                             Model.PTP_ItemEndCheck newPipelineList = new Model.PTP_ItemEndCheck();
                             newPipelineList.ItemCheckId = SQLHelper.GetNewID(typeof(Model.PTP_ItemEndCheck));
-                            newPipelineList.PTP_ID = this.PTP_ID;
+                            newPipelineList.ItemEndCheckListId = this.ItemEndCheckListId;
                             newPipelineList.PipelineId = TestPackage.PipelineId;
                             ItemEndCheckLists.Add(newPipelineList);
                         }
@@ -78,10 +93,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         Model.PTP_ItemEndCheck newItemEndCheck = new Model.PTP_ItemEndCheck();
                         newItemEndCheck.ItemCheckId = SQLHelper.GetNewID(typeof(Model.PTP_ItemEndCheck));
-                        newItemEndCheck.PTP_ID = this.PTP_ID;
+                        newItemEndCheck.ItemEndCheckListId = this.ItemEndCheckListId;
                         newItemEndCheck.PipelineId = item.PipelineId;
                         newItemEndCheck.Content = item.Content;
                         newItemEndCheck.ItemType = item.ItemType;
+                        newItemEndCheck.Remark = item.Remark;
                         ItemEndCheckLists.Add(newItemEndCheck);
                     }
                     ItemEndCheckLists = ItemEndCheckLists.OrderBy(x => x.PipelineId).ToList();
@@ -111,7 +127,10 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     State = "1";
                     TestPackageEditService.Init(drpHandleType, State, false);
                     UserService.InitUserProjectIdUnitTypeDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
-                    BindGrid1();
+                    if (!string.IsNullOrEmpty(ItemEndCheckListId))
+                    {
+                        BindGrid1();
+                    }
                 }
             }
         }
@@ -119,11 +138,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
         //办理记录
         public void BindGrid1()
         {
-            string strSql = @"select ApproveId, PTP_ID, ApproveDate, Opinion, ApproveMan, ApproveType ,U.UserName from [dbo].[PTP_TestPackageApprove] P 
+            string strSql = @"select ApproveId, ItemEndCheckListId, ApproveDate, Opinion, ApproveMan, ApproveType ,U.UserName from [dbo].[PTP_TestPackageApprove] P 
                               Left Join Sys_User U on p.ApproveMan=U.UserId";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " where PTP_ID= @PTP_ID";
-            listStr.Add(new SqlParameter("@PTP_ID", PTP_ID));
+            strSql += " where ItemEndCheckListId= @ItemEndCheckListId";
+            listStr.Add(new SqlParameter("@ItemEndCheckListId", ItemEndCheckListId));
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             var table = this.GetPagedDataTable(gvFlowOperate, tb);
@@ -155,7 +174,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 Model.PTP_ItemEndCheck newItemEndCheck = new Model.PTP_ItemEndCheck();
                 newItemEndCheck.ItemCheckId = SQLHelper.GetNewID(typeof(Model.PTP_ItemEndCheck));
-                newItemEndCheck.PTP_ID = this.PTP_ID;
+                newItemEndCheck.ItemEndCheckListId = this.ItemEndCheckListId;
                 newItemEndCheck.PipelineId = this.Grid1.SelectedRow.DataKeys[0].ToString();
                 ItemEndCheckLists.Add(newItemEndCheck);
                 ItemEndCheckLists = ItemEndCheckLists.OrderBy(x => x.PipelineId).ToList();
@@ -212,9 +231,10 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 JObject values = mergedRow.Value<JObject>("values");
                 int i = mergedRow.Value<int>("index");
                 string Content = values.Value<string>("Content");
+                string Remark = values.Value<string>("Remark");
                 System.Web.UI.WebControls.DropDownList ItemType = (System.Web.UI.WebControls.DropDownList)(Grid1.Rows[i].FindControl("drpItemType"));
                 Model.PTP_ItemEndCheck newAddItemEndCheck = new Model.PTP_ItemEndCheck();
-                newAddItemEndCheck.PTP_ID = this.PTP_ID;
+                newAddItemEndCheck.ItemEndCheckListId = this.ItemEndCheckListId;
                 newAddItemEndCheck.PipelineId = Grid1.Rows[i].DataKeys[0].ToString();
                 newAddItemEndCheck.ItemCheckId = Grid1.Rows[i].DataKeys[1].ToString();
                 newAddItemEndCheck.Content = Content;
@@ -222,6 +242,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 {
                     newAddItemEndCheck.ItemType = ItemType.SelectedValue;
                 }
+                newAddItemEndCheck.Remark = Remark;
                 ItemEndCheckLists.Add(newAddItemEndCheck);
             }
             return ItemEndCheckLists;
@@ -250,12 +271,23 @@ namespace FineUIPro.Web.HJGL.TestPackage
 
         private void SaveData(string saveType)
         {
+            if (string.IsNullOrEmpty(this.ItemEndCheckListId))
+            {
+                Model.PTP_ItemEndCheckList list = new Model.PTP_ItemEndCheckList();
+                list.ItemEndCheckListId = SQLHelper.GetNewID();
+                list.PTP_ID = this.PTP_ID;
+                list.CompileMan = this.CurrUser.UserId;
+                list.CompileDate = DateTime.Now;
+                list.State = BLL.Const.TestPackage_Compile;
+                BLL.ItemEndCheckListService.AddItemEndCheckList(list);
+                ItemEndCheckListId = list.ItemEndCheckListId;
+            }
             ///保存明细
             if (saveType == Const.BtnSubmit)
             {
                 this.State = Const.TestPackage_Audit1;
             }
-            var getItemEndCheck = BLL.AItemEndCheckService.GetItemEndCheckByPTPID(this.PTP_ID);
+            var getItemEndCheck = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(this.ItemEndCheckListId);
             if (getItemEndCheck.Count>0)
             {
                 BLL.AItemEndCheckService.DeleteAllItemEndCheckByID(this.PTP_ID);
@@ -266,24 +298,26 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         Model.PTP_ItemEndCheck newItemEndCheck = new Model.PTP_ItemEndCheck();
                         newItemEndCheck.ItemCheckId = item.ItemCheckId;
-                        newItemEndCheck.PTP_ID = item.PTP_ID;
+                        newItemEndCheck.ItemEndCheckListId = item.ItemEndCheckListId;
                         newItemEndCheck.PipelineId = item.PipelineId;
                         newItemEndCheck.Content = item.Content;
                         newItemEndCheck.ItemType = item.ItemType;
+                        newItemEndCheck.Remark = item.Remark;
                         AItemEndCheckService.AddAItemEndCheck(newItemEndCheck);
                     }
                     else
                     {
                         Model.PTP_ItemEndCheck newItemEndCheck = new Model.PTP_ItemEndCheck();
                         newItemEndCheck.ItemCheckId = item.ItemCheckId;
-                        newItemEndCheck.PTP_ID = item.PTP_ID;
+                        newItemEndCheck.ItemEndCheckListId = item.ItemEndCheckListId;
                         newItemEndCheck.PipelineId = item.PipelineId;
                         newItemEndCheck.Content = "/";
                         newItemEndCheck.ItemType = "/";
+                        newItemEndCheck.Remark = item.Remark;
                         AItemEndCheckService.AddAItemEndCheck(newItemEndCheck);
                     }
                 }
-                Model.PTP_TestPackageApprove approve1 = BLL.TestPackageApproveService.GetTestPackageApproveById(this.PTP_ID);
+                Model.PTP_TestPackageApprove approve1 = BLL.TestPackageApproveService.GetTestPackageApproveById(this.ItemEndCheckListId);
                 if (approve1 != null && saveType == Const.BtnSubmit)
                 {
                     approve1.ApproveDate = DateTime.Now;
@@ -299,12 +333,12 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         approve.ApproveMan = this.drpHandleMan.SelectedValue;
                     }
                     approve.ApproveType = this.drpHandleType.SelectedValue;
-                    approve.PTP_ID = this.PTP_ID;
+                    approve.ItemEndCheckListId = this.ItemEndCheckListId;
                     BLL.TestPackageApproveService.AddTestPackageApprove(approve);
-                    var TestPackage = TestPackageEditService.GetTestPackageByID(this.PTP_ID);
-                    if (TestPackage != null) {
-                        TestPackage.State = this.State;
-                        TestPackageEditService.UpdateTestPackage(TestPackage);
+                    var ItemEndCheckList = ItemEndCheckListService.GetItemEndCheckListByID(this.ItemEndCheckListId);
+                    if (ItemEndCheckList != null) {
+                        ItemEndCheckList.State = this.State;
+                        ItemEndCheckListService.UpdateItemEndCheckList(ItemEndCheckList);
                     }
                 }
             }
@@ -317,20 +351,22 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         Model.PTP_ItemEndCheck newItemEndCheck = new Model.PTP_ItemEndCheck();
                         newItemEndCheck.ItemCheckId = item.ItemCheckId;
-                        newItemEndCheck.PTP_ID = item.PTP_ID;
+                        newItemEndCheck.ItemEndCheckListId = item.ItemEndCheckListId;
                         newItemEndCheck.PipelineId = item.PipelineId;
                         newItemEndCheck.Content = item.Content;
                         newItemEndCheck.ItemType = item.ItemType;
+                        newItemEndCheck.Remark = item.Remark;
                         AItemEndCheckService.AddAItemEndCheck(newItemEndCheck);
                     }
                     else
                     {
                         Model.PTP_ItemEndCheck newItemEndCheck = new Model.PTP_ItemEndCheck();
                         newItemEndCheck.ItemCheckId = item.ItemCheckId;
-                        newItemEndCheck.PTP_ID = item.PTP_ID;
+                        newItemEndCheck.ItemEndCheckListId = item.ItemEndCheckListId;
                         newItemEndCheck.PipelineId = item.PipelineId;
                         newItemEndCheck.Content = "/";
                         newItemEndCheck.ItemType = "/";
+                        newItemEndCheck.Remark = item.Remark;
                         AItemEndCheckService.AddAItemEndCheck(newItemEndCheck);
                     }
                 }
@@ -340,8 +376,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     approve1.ApproveId = SQLHelper.GetNewID(typeof(Model.PTP_TestPackageApprove));
                     approve1.ApproveDate = DateTime.Now;
                     approve1.ApproveMan = this.CurrUser.UserId;
-                    approve1.ApproveType = BLL.Const.CheckControl_Compile;
-                    approve1.PTP_ID = this.PTP_ID;
+                    approve1.ApproveType = BLL.Const.TestPackage_Compile;
+                    approve1.ItemEndCheckListId = this.ItemEndCheckListId;
                     BLL.TestPackageApproveService.AddTestPackageApprove(approve1);
                     Model.PTP_TestPackageApprove approve = new Model.PTP_TestPackageApprove();
                     approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PTP_TestPackageApprove));
@@ -350,13 +386,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         approve.ApproveMan = this.drpHandleMan.SelectedValue;
                     }
                     approve.ApproveType = this.drpHandleType.SelectedValue;
-                    approve.PTP_ID = this.PTP_ID;
+                    approve.ItemEndCheckListId = this.ItemEndCheckListId;
                     BLL.TestPackageApproveService.AddTestPackageApprove(approve);
-                    var TestPackage = TestPackageEditService.GetTestPackageByID(this.PTP_ID);
-                    if (TestPackage != null)
+                    var ItemEndCheckList = ItemEndCheckListService.GetItemEndCheckListByID(this.ItemEndCheckListId);
+                    if (ItemEndCheckList != null)
                     {
-                        TestPackage.State =State;
-                        TestPackageEditService.UpdateTestPackage(TestPackage);
+                        ItemEndCheckList.State = this.State;
+                        ItemEndCheckListService.UpdateItemEndCheckList(ItemEndCheckList);
                     }
                 }
                 else
@@ -364,8 +400,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     Model.PTP_TestPackageApprove approve1 = new Model.PTP_TestPackageApprove();
                     approve1.ApproveId = SQLHelper.GetNewID(typeof(Model.PTP_TestPackageApprove));
                     approve1.ApproveMan = this.CurrUser.UserId;
-                    approve1.ApproveType = BLL.Const.CheckControl_Compile;
-                    approve1.PTP_ID = this.PTP_ID;
+                    approve1.ApproveType = BLL.Const.TestPackage_Compile;
+                    approve1.ItemEndCheckListId = this.ItemEndCheckListId;
                     BLL.TestPackageApproveService.AddTestPackageApprove(approve1);
                 }
             }

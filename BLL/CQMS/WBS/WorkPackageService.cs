@@ -116,6 +116,17 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据单位工程Id和初始化编号获取分部分项信息
+        /// </summary>
+        /// <param name="unitWorkId"></param>
+        /// <param name="initWorkPackageCode"></param>
+        /// <returns></returns>
+        public static Model.WBS_WorkPackage GetWorkPackageByUnitWorkIdAndInitWorkPackageCode(string unitWorkId, string initWorkPackageCode)
+        {
+            return Funs.DB.WBS_WorkPackage.FirstOrDefault(x => x.UnitWorkId == unitWorkId && x.InitWorkPackageCode == initWorkPackageCode);
+        }
+
+        /// <summary>
         /// 根据父级Id获取所有分部分项信息
         /// </summary>
         /// <param name="workPackageId"></param>

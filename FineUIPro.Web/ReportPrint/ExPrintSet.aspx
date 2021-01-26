@@ -91,6 +91,9 @@
                   <td >
                       <a  href="#" class="tbButton" onclick="onReportSave('<%=reportId %>','<%=reportName %>')"  title="保存文件"><img alt="" style="vertical-align:middle;" src="images/save.gif" width="16" height="16"/></a>
                   </td>
+                <td>
+                      <a href="#" class="tbButton"  onclick="FileSave()" title="报表导出"><img alt="" style="vertical-align:middle" src="images/export.gif" width="16" height="16"/></a>
+                  </td>
                   <td>
                       <a href="#" class="tbButton"  onclick="PrintSetup()" title="打印设置"><img alt="" style="vertical-align:middle" src="images/printsetup.gif" width="16" height="16"/></a>
                   </td>

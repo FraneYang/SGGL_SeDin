@@ -32,7 +32,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT PipingClassId,PipingClassCode,PipingClassName,Remark,PNO"
+            string strSql = @"SELECT PipingClassId,PipingClassCode,SteelType,PipingClassName,Remark,PNO"
                          + @" FROM dbo.Base_PipingClass WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND ProjectId = @ProjectId";

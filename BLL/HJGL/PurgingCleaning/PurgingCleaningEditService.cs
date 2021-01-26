@@ -49,6 +49,7 @@ namespace BLL
             newPurgingCleaning.SysName = PurgingCleaning.SysName;
             newPurgingCleaning.Finisher = PurgingCleaning.Finisher;
             newPurgingCleaning.FinishDate = PurgingCleaning.FinishDate;
+            newPurgingCleaning.FinishDef = PurgingCleaning.FinishDef;
             newPurgingCleaning.Tabler = PurgingCleaning.Tabler;
             newPurgingCleaning.TableDate = PurgingCleaning.TableDate;
             newPurgingCleaning.Auditer = PurgingCleaning.Auditer;
@@ -77,6 +78,7 @@ namespace BLL
             newPurgingCleaning.SysName = PurgingCleaning.SysName;
             newPurgingCleaning.Finisher = PurgingCleaning.Finisher;
             newPurgingCleaning.FinishDate = PurgingCleaning.FinishDate;
+            newPurgingCleaning.FinishDef = PurgingCleaning.FinishDef;
             newPurgingCleaning.Tabler = PurgingCleaning.Tabler;
             newPurgingCleaning.TableDate = PurgingCleaning.TableDate;
             newPurgingCleaning.Auditer = PurgingCleaning.Auditer;

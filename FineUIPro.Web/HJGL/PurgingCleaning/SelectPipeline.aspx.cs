@@ -26,10 +26,11 @@ namespace FineUIPro.Web.HJGL.PurgingCleaning
             string strSql = @"SELECT IsoInfo.ProjectId,IsoInfo.UnitWorkId,UnitWork.UnitWorkCode,IsoInfo.PipelineId,IsoInfo.PipelineCode,
                                      IsoInfo.UnitId,IsoInfo.TestPressure,IsoInfo.TestMedium,
 		                             bs.MediumName,testMedium.MediumName AS TestMediumName,IsoInfo.SingleNumber,
-		                             IsoInfo.PipingClassId,
+		                             IsoInfo.PipingClassId,mat.MaterialCode,
                                      (case when IsoInfo.PCtype='1' then pur.MediumName when IsoInfo.PCtype is null then null end) PurgingMediumName,
                                      (case when IsoInfo.PCtype='2' then pur.MediumName when IsoInfo.PCtype is null then null end) CleaningMediumName
                                      FROM dbo.HJGL_Pipeline AS IsoInfo
+                                     LEFT JOIN dbo.Base_Material AS mat ON mat.MaterialId=IsoInfo.MaterialId
                                      LEFT JOIN WBS_UnitWork AS UnitWork ON IsoInfo.UnitWorkId=UnitWork.UnitWorkId
                                      LEFT JOIN dbo.Base_Medium  AS bs ON  bs.MediumId = IsoInfo.MediumId
 								     LEFT JOIN dbo.Base_TestMedium  AS testMedium ON testMedium.TestMediumId = IsoInfo.TestMedium

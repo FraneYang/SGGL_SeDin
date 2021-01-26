@@ -7,7 +7,7 @@
 <body>
     <form id="form1" runat="server">
         <f:PageManager ID="PageManager1" AutoSizePanelID="SimpleForm1" runat="server" OnCustomEvent="PageManager1_CustomEvent" />
-        <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
+        <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true" 
             BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
             <Toolbars>
                 <f:Toolbar ID="Toolbar2" Position="Top" ToolbarAlign="Right" runat="server">
@@ -38,7 +38,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="管线信息"
+                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="管线信息" Height="350px"
                             EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="PipelineId" AllowCellEditing="true"
                             AllowColumnLocking="true" EnableColumnLines="true" ClicksToEdit="2" DataIDField="PipelineId"
                             AllowSorting="true" SortField="PipelineCode" SortDirection="ASC"
@@ -89,11 +89,11 @@
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="130px" ColumnID="DesignPress" DataField="DesignPress" SortField="DesignPress"
-                                    FieldType="Double" HeaderText="设计压力 MPa(g)" HeaderTextAlign="Center"
+                                    FieldType="String" HeaderText="设计压力 MPa(g)" HeaderTextAlign="Center"
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="130px" ColumnID="DesignTemperature" DataField="DesignTemperature" SortField="DesignTemperature"
-                                    FieldType="Double" HeaderText="设计温度℃" HeaderTextAlign="Center"
+                                    FieldType="String" HeaderText="设计温度℃" HeaderTextAlign="Center"
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="130px" ColumnID="TestMediumCode" DataField="TestMediumCode" SortField="TestMediumCode"
@@ -101,7 +101,7 @@
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="160px" ColumnID="TestPressure" DataField="TestPressure" SortField="TestPressure"
-                                    FieldType="Double" HeaderText="压力试验压力 MPa(g)" HeaderTextAlign="Center"
+                                    FieldType="String" HeaderText="压力试验压力 MPa(g)" HeaderTextAlign="Center"
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="130px" ColumnID="PressurePipingClassCode" DataField="PressurePipingClassCode" SortField="PressurePipingClassCode"
@@ -117,7 +117,7 @@
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="160px" ColumnID="LeakPressure" DataField="LeakPressure" SortField="LeakPressure"
-                                    FieldType="Double" HeaderText="泄露试验压力 MPa(g)" HeaderTextAlign="Center"
+                                    FieldType="String" HeaderText="泄露试验压力 MPa(g)" HeaderTextAlign="Center"
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="100px" ColumnID="PCMediumName" DataField="PCMediumName" SortField="PCMediumName"
@@ -125,7 +125,11 @@
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="160px" ColumnID="VacuumPressure" DataField="VacuumPressure" SortField="VacuumPressure"
-                                    FieldType="Double" HeaderText="真空试验压力 KPa(a)" HeaderTextAlign="Center"
+                                    FieldType="String" HeaderText="真空试验压力 KPa(a)" HeaderTextAlign="Center"
+                                    TextAlign="Left">
+                                </f:RenderField>
+                                <f:RenderField Width="100px" ColumnID="MaterialCode" DataField="MaterialCode" SortField="MaterialCode"
+                                    FieldType="String" HeaderText="材质" HeaderTextAlign="Center"
                                     TextAlign="Left">
                                 </f:RenderField>
                                 <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" SortField="Remark"

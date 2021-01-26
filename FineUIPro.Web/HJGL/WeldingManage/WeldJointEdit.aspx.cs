@@ -178,6 +178,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldJointMenuId, BLL.Const.BtnModify))
             {
+                if (this.drpPipingClass.SelectedValue == BLL.Const._Null || this.drpMaterial1.SelectedValue == BLL.Const._Null || this.drpMaterial2.SelectedValue == BLL.Const._Null)
+                {
+                    Alert.ShowInTop("材质1、材质2不能为空", MessageBoxIcon.Warning);
+                    return;
+                }
                 Model.HJGL_Pipeline pipeline = BLL.PipelineService.GetPipelineByPipelineId(this.PipelineId);
                 //PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID,drpMaterial2.ClientID,txtIsHotProess.ClientID)
                 //    + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text,pipeline.UnitId,this.drpWeldingMethodId.SelectedText,this.drpWeldTypeCode.SelectedText, "维护 - ")));
@@ -234,7 +239,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// </summary>
         private void SaveData()
         {
-            if (string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()) || this.drpPipingClass.SelectedValue == BLL.Const._Null || this.drpMaterial1.SelectedValue == BLL.Const._Null || this.drpWeldTypeCode.SelectedValue == BLL.Const._Null)
+            if (string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()) || this.drpPipingClass.SelectedValue == BLL.Const._Null || this.drpMaterial1.SelectedValue == BLL.Const._Null || this.drpMaterial2.SelectedValue == BLL.Const._Null || this.drpWeldTypeCode.SelectedValue == BLL.Const._Null)
             {
                 Alert.ShowInTop("页面必填项不能为空", MessageBoxIcon.Warning);
                 Alert.ShowInTop("请完善必填项！", MessageBoxIcon.Warning);
@@ -440,7 +445,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         if (IsCoverClass(wpsRod.SteelType, matRod.SteelType))
                         {
 
-                        }
+                        }   
                         else
                         {
                             Alert.ShowInTop("焊口焊材强度需大于等于WPS焊材强度！", MessageBoxIcon.Warning);

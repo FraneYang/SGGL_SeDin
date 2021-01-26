@@ -57,12 +57,14 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
             rootNode1.NodeID = "1";
             rootNode1.Text = "建筑工程";
             rootNode1.CommandName = "建筑工程";
+            rootNode1.EnableClickEvent = true;
             this.tvControlItem.Nodes.Add(rootNode1);
 
             TreeNode rootNode2 = new TreeNode();
             rootNode2.NodeID = "2";
             rootNode2.Text = "安装工程";
             rootNode2.CommandName = "安装工程";
+            rootNode2.EnableClickEvent = true;
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
             var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
@@ -104,6 +106,7 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                     tn1.Text = q.UnitWorkName;
                     tn1.ToolTip = "施工单位：" + u.UnitName;
                     tn1.CommandName = "单位工程";
+                    tn1.EnableClickEvent = true;
                     rootNode1.Nodes.Add(tn1);
                     var LeakVacuumUnitList = LeakVacuumLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
                     BindNodes(tn1, LeakVacuumUnitList);
@@ -120,6 +123,7 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                     tn2.Text = q.UnitWorkName;
                     tn2.ToolTip = "施工单位：" + u.UnitName;
                     tn2.CommandName = "单位工程";
+                    tn2.EnableClickEvent = true;
                     rootNode2.Nodes.Add(tn2);
                     var LeakVacuumUnitList = LeakVacuumLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
                     BindNodes(tn2, LeakVacuumUnitList);
@@ -152,11 +156,11 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                     {
                         newNode.Text = "未知";
                     }
-                    if (!string.IsNullOrEmpty(item.AduditDate) || string.IsNullOrEmpty(item.Auditer))
-                    {
-                        newNode.Text = "<font color='#FF7575'>" + newNode.Text + "</font>";
-                        node.Text = "<font color='#FF7575'>" + node.Text + "</font>";
-                    }
+                    //if (!string.IsNullOrEmpty(item.AduditDate) || string.IsNullOrEmpty(item.Auditer))
+                    //{
+                    //    newNode.Text = "<font color='#FF7575'>" + newNode.Text + "</font>";
+                    //    node.Text = "<font color='#FF7575'>" + node.Text + "</font>";
+                    //}
                     newNode.NodeID = item.LeakVacuumId;
                     newNode.CommandName = "LeakVacuum";
                     newNode.EnableClickEvent = true;
@@ -176,6 +180,29 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
             this.LeakVacuumId = tvControlItem.SelectedNodeID;
+            Model.WBS_UnitWork unitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(this.tvControlItem.SelectedNodeID);
+            Model.HJGL_LV_LeakVacuum leakVacuum = BLL.LeakVacuumEditService.GetLeakVacuumByID(this.tvControlItem.SelectedNodeID);
+            if (unitWork != null)
+            {
+                this.btnMenuNew.Hidden = false;
+                this.btnMenuModify.Hidden = true;
+                this.btnMenuDel.Hidden = true;
+                this.btnMenuPrint.Hidden = true;
+            }
+            else if (leakVacuum != null)
+            {
+                this.btnMenuNew.Hidden = true;
+                this.btnMenuModify.Hidden = false;
+                this.btnMenuDel.Hidden = false;
+                this.btnMenuPrint.Hidden = false;
+            }
+            else
+            {
+                this.btnMenuNew.Hidden = true;
+                this.btnMenuModify.Hidden = true;
+                this.btnMenuDel.Hidden = true;
+                this.btnMenuPrint.Hidden = true;
+            }
             this.BindGrid();
         }
         #endregion
@@ -221,24 +248,9 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                 this.txtSysNo.Text = leakVacuunManage.SysNo;
                 this.txtSysName.Text = leakVacuunManage.SysName;
                 this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", leakVacuunManage.TableDate);
-                if (!string.IsNullOrEmpty(leakVacuunManage.Tabler))
-                {
-                    var users = BLL.UserService.GetUserByUserId(leakVacuunManage.Tabler);
-                    if (users != null)
-                    {
-                        this.drpTabler.Text = users.UserName;
-                    }
-                }
                 this.txtRemark.Text = leakVacuunManage.Remark;
                 this.txtAduditDate.Text = string.Format("{0:yyyy-MM-dd}", leakVacuunManage.AduditDate);
-                if (!string.IsNullOrEmpty(leakVacuunManage.Auditer))
-                {
-                    var users = BLL.UserService.GetUserByUserId(leakVacuunManage.Auditer);
-                    if (users != null)
-                    {
-                        this.drpAuditer.Text = users.UserName;
-                    }
-                }
+                this.txtFinishDef.Text = leakVacuunManage.FinishDef;
                 txtCheck1.Text = leakVacuunManage.Check1;
                 txtCheck2.Text = leakVacuunManage.Check2;
                 txtCheck3.Text = leakVacuunManage.Check3;
@@ -256,10 +268,9 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
         {
             this.txtSysNo.Text = string.Empty;
             this.txtSysName.Text = string.Empty;
-            this.drpTabler.Text = string.Empty;
             this.txtTableDate.Text = string.Empty;
             this.txtRemark.Text = string.Empty;
-            this.drpAuditer.Text = string.Empty;
+            this.txtFinishDef.Text = string.Empty;
             this.txtAduditDate.Text = string.Empty;
         }
         #endregion
@@ -470,6 +481,10 @@ namespace FineUIPro.Web.HJGL.LeakVacuum
                     varValue = varValue + "|" + p.Check3;
                     varValue = varValue + "|" + p.Check4;
                     varValue = varValue + "|" + p.Check5;
+                    if (!string.IsNullOrEmpty(p.FinishDef))
+                    {
+                        varValue = varValue + "|" + p.FinishDef;
+                    }
                 }
                 if (!string.IsNullOrEmpty(varValue))
                 {

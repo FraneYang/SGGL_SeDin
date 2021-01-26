@@ -50,7 +50,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
             if (!IsPostBack)
             {
                 Funs.DropDownPageSize(this.ddlPageSize);
@@ -87,7 +87,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                 };
                 if (personLists.Count() > 0)
                 {
-                    var personIn =personLists.Where(x=>x.InTime<= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now));
+                    var personIn = personLists.Where(x => x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now));
                     rootNode.ToolTip = "当前项目人员总数：" + personLists.Count() + "；在场人员数：" + personIn.Count() + "；离场人员数：" + (personLists.Count() - personIn.Count());
                 }
                 else
@@ -237,6 +237,91 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     {
                         strSql += " AND TrainCount =0";
                     }
+                    if (this.ckIsUsed.Checked)
+                    {
+                        strSql += " AND IsUsedName ='是'";
+                    }
+                    if (this.ckIdCardInfoNotOK.Checked)
+                    {
+                        strSql += " AND (IdcardType is null or IdentityCard is null or PhotoUrl is null or (select count(*) from AttachFile where ToKeyId=PersonId+'#1')=0 or (select count(*) from AttachFile where ToKeyId=PersonId+'#5')=0)";
+                    }
+
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                    Grid1.RecordCount = tb.Rows.Count;
+                    var table = this.GetPagedDataTable(Grid1, tb);
+                    Grid1.DataSource = table;
+                    Grid1.DataBind();
+
+                    for (int i = 0; i < Grid1.Rows.Count; i++)
+                    {
+                        string personId = Grid1.Rows[i].DataKeys[0].ToString();
+
+                        var isNull = from x in db.EduTrain_TrainRecordDetail
+                                     join y in db.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
+                                     where y.ProjectId == this.ProjectId && x.PersonId == personId
+                                     select x;
+                        if (isNull.Count() == 0) ////未参加过培训的人员
+                        {
+                            Grid1.Rows[i].RowCssClass = "Red";
+                        }
+                    }
+                }
+                else
+                {
+                    string strSql = "select * from View_SitePerson_Person Where ProjectId=@ProjectId ";
+                    List<SqlParameter> listStr = new List<SqlParameter>
+                {
+                    new SqlParameter("@ProjectId", this.ProjectId)
+                };
+                    if (!string.IsNullOrEmpty(this.txtPersonName.Text.Trim()))
+                    {
+                        strSql += " AND PersonName LIKE @PersonName";
+                        listStr.Add(new SqlParameter("@PersonName", "%" + this.txtPersonName.Text.Trim() + "%"));
+                    }
+
+                    if (!string.IsNullOrEmpty(this.txtCardNo.Text.Trim()))
+                    {
+                        strSql += " AND CardNo LIKE @CardNo";
+                        listStr.Add(new SqlParameter("@CardNo", "%" + this.txtCardNo.Text.Trim() + "%"));
+                    }
+                    if (!string.IsNullOrEmpty(this.txtIdentityCard.Text.Trim()))
+                    {
+                        strSql += " AND IdentityCard LIKE @IdentityCard";
+                        listStr.Add(new SqlParameter("@IdentityCard", "%" + this.txtIdentityCard.Text.Trim() + "%"));
+                    }
+                    if (!string.IsNullOrEmpty(this.drpTreamGroup.SelectedValue) && this.drpTreamGroup.SelectedValue != BLL.Const._Null)
+                    {
+                        strSql += " AND TeamGroupId = @TeamGroupId";
+                        listStr.Add(new SqlParameter("@TeamGroupId", this.drpTreamGroup.SelectedValue));
+                    }
+
+                    if (this.drpPost.SelectedItemArray.Count() > 1 || (this.drpPost.SelectedValue != BLL.Const._Null && this.drpPost.SelectedItemArray.Count() == 1))
+                    {
+                        strSql += " AND (1=2 ";
+                        int i = 0;
+                        foreach (var item in this.drpPost.SelectedValueArray)
+                        {
+                            if (!string.IsNullOrEmpty(item) && item != BLL.Const._Null)
+                            {
+                                strSql += " OR WorkPostId = @WorkPostId" + i.ToString();
+                                listStr.Add(new SqlParameter("@WorkPostId" + i.ToString(), item));
+                            }
+
+                            i++;
+                        }
+
+                        strSql += ")";
+                    }
+                    if (this.ckTrain.Checked)
+                    {
+                        strSql += " AND TrainCount =0";
+                    }
+                    if (this.ckIsUsed.Checked)
+                    {
+                        strSql += " AND IsUsedName ='是'";
+                    }
                     if (this.ckIdCardInfoNotOK.Checked)
                     {
                         strSql += " AND (IdcardType is null or IdentityCard is null or PhotoUrl is null or (select count(*) from AttachFile where ToKeyId=PersonId+'#1')=0 or (select count(*) from AttachFile where ToKeyId=PersonId+'#5')=0)";
@@ -385,13 +470,20 @@ namespace FineUIPro.Web.HSSE.SitePerson
             }
 
             this.PersonId = Grid1.SelectedRowID;
-            string id = this.tvProjectAndUnit.SelectedNodeID;
-            string[] str = id.Split('|');
-            if (str.Count() > 1)
+            if (this.tvProjectAndUnit.SelectedNode != null)
             {
-                string unitId = id.Split('|')[0];
-                string projectId = id.Split('|')[1];
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PersonListEdit.aspx?PersonId={0}&&ProjectId={1}&&UnitId={2}", this.PersonId, projectId, unitId, "编辑 - ")));
+                string id = this.tvProjectAndUnit.SelectedNodeID;
+                string[] str = id.Split('|');
+                if (str.Count() > 1)
+                {
+                    string unitId = id.Split('|')[0];
+                    string projectId = id.Split('|')[1];
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PersonListEdit.aspx?PersonId={0}&&ProjectId={1}&&UnitId={2}", this.PersonId, projectId, unitId, "编辑 - ")));
+                }
+            }
+            else
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PersonListEdit.aspx?PersonId={0}", this.PersonId, "编辑 - ")));
             }
         }
 
@@ -610,7 +702,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     }
                     if (column.ColumnID == "tfI")
                     {
-                        html = (row.FindControl("lbI") as AspNet.Label).Text;                        
+                        html = (row.FindControl("lbI") as AspNet.Label).Text;
                     }
                     //sb.AppendFormat("<td>{0}</td>", html);
                     sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html);
@@ -634,8 +726,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
         protected void btnPersonOut_Click(object sender, EventArgs e)
         {
             PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("PersonOut.aspx?ProjectId={0}", this.CurrUser.LoginProjectId, "批量出场 - ")));
-        }    
-        
+        }
+
         /// <summary>
         /// 批量单位转换
         /// </summary>
@@ -674,8 +766,8 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             this.BindGrid();
         }
-        #endregion     
-            
+        #endregion
+
         /// <summary>
         /// 批量生成二维码
         /// </summary>
@@ -691,7 +783,7 @@ namespace FineUIPro.Web.HSSE.SitePerson
             {
                 foreach (var item in getPersons)
                 {
-                    string url =  CreateQRCodeService.CreateCode_Simple("person$" + item.IdentityCard);
+                    string url = CreateQRCodeService.CreateCode_Simple("person$" + item.IdentityCard);
                     if (!string.IsNullOrEmpty(url))
                     {
                         item.QRCodeAttachUrl = url;
@@ -700,7 +792,23 @@ namespace FineUIPro.Web.HSSE.SitePerson
                     }
                 }
             }
-            ShowNotify("操作完成，新生成二维码"+ num.ToString()+"条", MessageBoxIcon.Success);
+            ShowNotify("操作完成，新生成二维码" + num.ToString() + "条", MessageBoxIcon.Success);
+        }
+
+        /// <summary>
+        /// 根据id返回单位工程名称
+        /// </summary>
+        /// <param name="WorkAreaId"></param>
+        /// <returns></returns>
+        protected string ConvertWorkAreaName(object WorkAreaId)
+        {
+            string name = "";
+            if (WorkAreaId != null)
+            {
+                name = BLL.UnitWorkService.GetUnitWorkName(WorkAreaId.ToString());
+                name = Funs.GetSubStr(name, 6);
+            }
+            return name;
         }
     }
 }

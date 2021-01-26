@@ -201,25 +201,27 @@ namespace FineUIPro.Web.HJGL.PointTrust
                                        && x.DetectionTypeId == e.Node.NodeID.Split('|')[0]
                                        && x.DetectionRateId == item.DetectionRateId
                                        select x;
-
-                    TreeNode newNode = new TreeNode();
-                    if (pointManages.Count() > 0)
+                    if (item.DetectionRateValue > 0)   //探伤比例为0的批不显示
                     {
-                        newNode.Text = item.DetectionRateValue.ToString() + "%";
-                        newNode.NodeID = item.DetectionRateId + "|" + e.Node.NodeID;
-                        newNode.EnableExpandEvent = true;
-                        newNode.ToolTip = item.DetectionRateCode;
-                        newNode.CommandName = "检测比例";
+                        TreeNode newNode = new TreeNode();
+                        if (pointManages.Count() > 0)
+                        {
+                            newNode.Text = item.DetectionRateValue.ToString() + "%";
+                            newNode.NodeID = item.DetectionRateId + "|" + e.Node.NodeID;
+                            newNode.EnableExpandEvent = true;
+                            newNode.ToolTip = item.DetectionRateCode;
+                            newNode.CommandName = "检测比例";
 
-                        e.Node.Nodes.Add(newNode);
+                            e.Node.Nodes.Add(newNode);
+                        }
+
+                        TreeNode tn1 = new TreeNode
+                        {
+                            Text = "检测批",
+                            NodeID = "检测批",
+                        };
+                        newNode.Nodes.Add(tn1);
                     }
-
-                    TreeNode tn1 = new TreeNode
-                    {
-                        Text = "检测批",
-                        NodeID = "检测批",
-                    };
-                    newNode.Nodes.Add(tn1);
                 }
             }
 
@@ -325,8 +327,8 @@ namespace FineUIPro.Web.HJGL.PointTrust
         private void BindGrid()
         {
             this.PageInfoLoad();
-            string strSql = @"SELECT PointBatchItemId,PointBatchId,WeldJointId,PointState,PointDate,RepairDate,CutDate,WeldJointCode,IsBuildTrust,
-                                     JointAttribute ,JointArea,IsWelderFirst,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit
+            string strSql = @"SELECT PointBatchItemId,PointBatchId,WeldJointId,PointState,PointDate,RepairDate,CutDate,WeldJointCode,IsBuildTrust,WeldTypeCode,
+                                     JointAttribute ,JointArea,IsWelderFirst,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit,BackingWelderCode,CoverWelderCode
                               FROM dbo.View_HJGL_Batch_PointBatchItem 
                               WHERE PointBatchId=@PointBatchId";
             List<SqlParameter> listStr = new List<SqlParameter>();

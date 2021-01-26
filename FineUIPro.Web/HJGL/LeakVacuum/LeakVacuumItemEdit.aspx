@@ -19,9 +19,9 @@
                             <Rows>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtsysNo" Label="泄露性/真空试验包号" ShowRedStar="true" Required="true" runat="server" FocusOnPageLoad="true" LabelWidth="120px">
+                                        <f:TextBox ID="txtsysNo" Label="系统编号" ShowRedStar="true" Required="true" runat="server" FocusOnPageLoad="true" LabelWidth="120px">
                                         </f:TextBox>
-                                        <f:TextBox ID="txtsysName" Label="系统名称" runat="server" LabelWidth="120px">
+                                        <f:TextBox ID="txtsysName" Label="系统名称" ShowRedStar="true" Required="true" runat="server" LabelWidth="120px">
                                         </f:TextBox>
                                         <f:DropDownList ID="drpUnit" Label="单位" runat="server" ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="120px"
                                             Readonly="true">
@@ -31,12 +31,13 @@
                                         </f:DropDownList>
                                     </Items>
                                 </f:FormRow>
-                                <f:FormRow ColumnWidths="25% 25% 50%">
+                                <f:FormRow ColumnWidths="25% 50% 25%">
                                     <Items>
-                                        <f:DropDownList ID="drpTabler" Label="建档人" runat="server" EnableEdit="true" LabelWidth="120px" ShowRedStar="true" Required="true">
-                                        </f:DropDownList>
-                                        <f:DatePicker ID="txtTableDate" Label="建档日期" runat="server" DateFormatString="yyyy-MM-dd" LabelWidth="120px" ShowRedStar="true" Required="true">
+                                        
+                                        <f:DatePicker ID="txtTableDate" Label="试验日期" runat="server" DateFormatString="yyyy-MM-dd" LabelWidth="120px" ShowRedStar="true" Required="true">
                                         </f:DatePicker>
+                                        <f:TextBox ID="txtFinishDef" Label="试验结论" runat="server" LabelWidth="120px" ShowRedStar="true" Required="true">
+                                        </f:TextBox>
                                         <f:TextBox ID="txtRemark" Label="备注" runat="server" LabelWidth="130px">
                                         </f:TextBox>
                                     </Items>

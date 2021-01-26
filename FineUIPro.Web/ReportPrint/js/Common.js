@@ -72,6 +72,11 @@ function PrintpaperSet() {
     obChinaExcel.OnPrintPaperSet();
 }
 
+function FileSave() {
+    var obChinaExcel = document.getElementById('ChinaExcel');
+    obChinaExcel.OnFileSave();
+}
+
 //单元斜线设置
 function SlashSet() {
     var obChinaExcel = document.getElementById('ChinaExcel');

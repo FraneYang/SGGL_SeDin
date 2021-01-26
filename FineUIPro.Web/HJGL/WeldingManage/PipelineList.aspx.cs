@@ -131,7 +131,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             string strSql = @"SELECT ProjectId,UnitWorkId,PipelineId,PipelineCode,UnitName,MediumCode,PipingClassCode,UnitWorkCode,
                                      TestPressure,SingleNumber,DetectionRateCode,DetectionType,Remark,TestMediumCode,TotalDin,
                                      JointCount,PressurePipingClassCode,PipeLenth,DesignPress,DesignTemperature,LeakPressure,VacuumPressure,
-                                     LeakMediumName,PCMediumName
+                                     LeakMediumName,PCMediumName,MaterialCode
                               FROM dbo.View_HJGL_Pipeline WHERE ProjectId= @ProjectId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
@@ -503,9 +503,35 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnImport_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("PipelineListIn.aspx", "导入 - ")));
+            Model.WBS_UnitWork unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(this.tvControlItem.SelectedNodeID);
+            if (unitWork != null)
+            {
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("PipelineListIn.aspx?UnitWorkId={0}",this.tvControlItem.SelectedNodeID, "导入 - ")));
+            }
+            else
+            {
+                ShowNotify("请先选择单位工程！", MessageBoxIcon.Warning);
+            }
         }
         #endregion
-
+        #region 更新导入
+        /// <summary>
+        /// 更新导入按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnUpdateImport_Click(object sender, EventArgs e)
+        {
+            Model.WBS_UnitWork unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(this.tvControlItem.SelectedNodeID);
+            if (unitWork != null)
+            {
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("PipelineListUpdateIn.aspx?UnitWorkId={0}", this.tvControlItem.SelectedNodeID, "更新导入 - ")));
+            }
+            else
+            {
+                ShowNotify("请先选择单位工程！", MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
     }
 }

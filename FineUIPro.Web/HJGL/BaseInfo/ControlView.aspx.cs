@@ -21,11 +21,19 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                     Model.Base_DNCompare DNCompare = BLL.Base_DNCompareService.GetDNCompareByDNCompareId(DNCompareId);
                     if (DNCompare != null)
                     {
-                        this.txtDN.Text = DNCompare.DN.ToString();
                         this.txtPipeSize.Text = DNCompare.PipeSize.ToString();
+                        this.txtDN.Text = DNCompare.DN.ToString();
                         if (DNCompare.OutSizeDia.HasValue)
                         {
                             this.txtOutSizeDia.Text = DNCompare.OutSizeDia.ToString();
+                        }
+                        if (DNCompare.Sch5S.HasValue)
+                        {
+                            this.txtSCH5S.Text = DNCompare.Sch5S.ToString();
+                        }
+                        if (DNCompare.Sch10S.HasValue)
+                        {
+                            this.txtSCH10S.Text = DNCompare.Sch10S.ToString();
                         }
                         if (DNCompare.SCH10.HasValue)
                         {
@@ -39,9 +47,9 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtSCH30.Text = DNCompare.SCH30.ToString();
                         }
-                        if (DNCompare.STD.HasValue)
+                        if (DNCompare.SCH40S.HasValue)
                         {
-                            this.txtSTD.Text = DNCompare.STD.ToString();
+                            this.txtSCH40S.Text = DNCompare.SCH40S.ToString();
                         }
                         if (DNCompare.SCH40.HasValue)
                         {
@@ -51,9 +59,9 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtSCH60.Text = DNCompare.SCH60.ToString();
                         }
-                        if (DNCompare.XS.HasValue)
+                        if (DNCompare.SCH80S.HasValue)
                         {
-                            this.txtXS.Text = DNCompare.XS.ToString();
+                            this.txtSCH80S.Text = DNCompare.SCH80S.ToString();
                         }
                         if (DNCompare.SCH80.HasValue)
                         {
@@ -75,17 +83,49 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         {
                             this.txtSCH160.Text = DNCompare.SCH160.ToString();
                         }
-                        if (DNCompare.XXS.HasValue)
+                        if (DNCompare.Thickness1.HasValue)
                         {
-                            this.txtXXS.Text = DNCompare.XXS.ToString();
+                            this.txtThickness1.Text = DNCompare.Thickness1.ToString();
                         }
-                        if (DNCompare.Size.HasValue)
+                        if (DNCompare.Thickness2.HasValue)
                         {
-                            this.txtSize.Text = DNCompare.Size.ToString();
+                            this.txtThickness2.Text = DNCompare.Thickness2.ToString();
                         }
-                        if (DNCompare.Thickness.HasValue)
+                        if (DNCompare.Thickness3.HasValue)
                         {
-                            this.txtthickness.Text = DNCompare.Thickness.ToString();
+                            this.txtThickness3.Text = DNCompare.Thickness3.ToString();
+                        }
+                        if (DNCompare.Thickness4.HasValue)
+                        {
+                            this.txtThickness4.Text = DNCompare.Thickness4.ToString();
+                        }
+                        if (DNCompare.Thickness5.HasValue)
+                        {
+                            this.txtThickness5.Text = DNCompare.Thickness5.ToString();
+                        }
+                        if (DNCompare.Thickness6.HasValue)
+                        {
+                            this.txtThickness6.Text = DNCompare.Thickness6.ToString();
+                        }
+                        if (DNCompare.Thickness7.HasValue)
+                        {
+                            this.txtThickness7.Text = DNCompare.Thickness7.ToString();
+                        }
+                        if (DNCompare.Thickness8.HasValue)
+                        {
+                            this.txtThickness8.Text = DNCompare.Thickness8.ToString();
+                        }
+                        if (DNCompare.Thickness9.HasValue)
+                        {
+                            this.txtThickness9.Text = DNCompare.Thickness9.ToString();
+                        }
+                        if (DNCompare.Thickness10.HasValue)
+                        {
+                            this.txtThickness10.Text = DNCompare.Thickness10.ToString();
+                        }
+                        if (DNCompare.Thickness11.HasValue)
+                        {
+                            this.txtThickness11.Text = DNCompare.Thickness11.ToString();
                         }
                     }
                 }

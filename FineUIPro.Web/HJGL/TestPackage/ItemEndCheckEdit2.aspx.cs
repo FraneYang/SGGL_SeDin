@@ -29,6 +29,20 @@ namespace FineUIPro.Web.HJGL.TestPackage
             }
         }
         /// <summary>
+        /// 记录主键
+        /// </summary>
+        public string ItemEndCheckListId
+        {
+            get
+            {
+                return (string)ViewState["ItemEndCheckListId"];
+            }
+            set
+            {
+                ViewState["ItemEndCheckListId"] = value;
+            }
+        }
+        /// <summary>
         /// 办理类型
         /// </summary>
         public string State
@@ -48,6 +62,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             if (!IsPostBack)
             {
                 PTP_ID = Request.Params["PTP_ID"];
+                ItemEndCheckListId = Request.Params["ItemEndCheckListId"];
                 if (!string.IsNullOrEmpty(PTP_ID))
                 {
                     var getTestPakeage = TestPackageEditService.GetTestPackageByID(PTP_ID);
@@ -55,13 +70,25 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         this.txtTestPackageNo.Text = getTestPakeage.TestPackageNo;
                         this.txtTestPackageName.Text = getTestPakeage.TestPackageName;
-                        State = getTestPakeage.State;
+                    }
+                    var itemEndCheckList = ItemEndCheckListService.GetItemEndCheckListByID(ItemEndCheckListId);
+                    if (itemEndCheckList != null)
+                    {
+                        State = itemEndCheckList.State;
+                        if (itemEndCheckList.AIsOK == true)
+                        {
+                            this.ckAIsOK.Checked = true;
+                        }
+                        if (itemEndCheckList.BIsOK == true)
+                        {
+                            this.ckBIsOK.Checked = true;
+                        }
                     }
                     TestPackageEditService.Init(drpHandleType, State, false);
                     BindGrid(); BindGrid1();
-                    if (State == Const.TestPackage_Audit1 || State==Const.TestPackage_ReAudit2)
+                    if (State == Const.TestPackage_Audit1 || State == Const.TestPackage_ReAudit2)
                     {
-                        this.ckA.Hidden = false;
+                        //this.ckA.Hidden = false;
                         this.Grid1.Columns[4].Hidden = true;
                         UserService.InitUserProjectIdUnitTypeDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_1, false);
                     }
@@ -70,7 +97,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         this.Grid1.Columns[3].Hidden = false;
                         this.IsAgree.Hidden = false;
                         this.Opinion.Hidden = false;
-                        UserService.InitJLUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId , false);
+                        UserService.InitJLUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
                     }
                     if (State == Const.TestPackage_Audit3)
                     {
@@ -81,11 +108,12 @@ namespace FineUIPro.Web.HJGL.TestPackage
             }
         }
 
-        private void BindGrid() {
-            string strSql = @"  select ItemCheckId, PTP_ID, PipelineId, Content, ItemType,(case when Content='/' then '/' else Result end)AS Result from PTP_ItemEndCheck WHERE PTP_ID =@PTP_ID Order By PipelineId";
+        private void BindGrid()
+        {
+            string strSql = @"  select ItemCheckId, ItemEndCheckListId, PipelineId, Content,Remark, ItemType,(case when Content='/' then '/' else Result end)AS Result from PTP_ItemEndCheck WHERE ItemEndCheckListId =@ItemEndCheckListId Order By PipelineId";
             SqlParameter[] parameter = new SqlParameter[]
                     {
-                        new SqlParameter("@PTP_ID",this.PTP_ID),
+                        new SqlParameter("@ItemEndCheckListId",this.ItemEndCheckListId),
                     };
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.DataSource = tb;
@@ -101,7 +129,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         AspNet.Button btnOK = (AspNet.Button)Grid1.Rows[i].FindControl("btnOK");
                         AspNet.Button btnNotOK = (AspNet.Button)Grid1.Rows[i].FindControl("btnNotOK");
-                        btnOK.Visible =false;
+                        btnOK.Visible = false;
                         btnNotOK.Visible = false;
                     }
                 }
@@ -110,11 +138,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
         //办理记录
         public void BindGrid1()
         {
-            string strSql = @"select ApproveId, PTP_ID, ApproveDate, Opinion, ApproveMan, ApproveType ,U.UserName from [dbo].[PTP_TestPackageApprove] P 
+            string strSql = @"select ApproveId, ItemEndCheckListId, ApproveDate, Opinion, ApproveMan, ApproveType ,U.UserName from [dbo].[PTP_TestPackageApprove] P 
                               Left Join Sys_User U on p.ApproveMan=U.UserId";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " where PTP_ID= @PTP_ID";
-            listStr.Add(new SqlParameter("@PTP_ID", PTP_ID));
+            strSql += " where ItemEndCheckListId= @ItemEndCheckListId";
+            listStr.Add(new SqlParameter("@ItemEndCheckListId", ItemEndCheckListId));
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             var table = this.GetPagedDataTable(gvFlowOperate, tb);
@@ -163,19 +191,21 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 State = drpHandleType.SelectedValue.Trim();
             }
-            var getItemEndCheck = BLL.AItemEndCheckService.GetItemEndCheckByPTPID(this.PTP_ID);
+            var getItemEndCheck = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(this.ItemEndCheckListId);
             if (getItemEndCheck.Count > 0)
             {
                 foreach (var item in getItemEndCheck)
                 {
-                    if (item.Result == "不合格") {
+                    if (item.ItemType == "A" && item.Result != "合格")
+                    {
                         flag = false;
                     }
                 }
-                if (saveType != Const.BtnSave) {
+                if (saveType != Const.BtnSave)
+                {
                     if (State == Const.TestPackage_Audit2)
                     {
-                        if (!this.ckIsOK.Checked)
+                        if (!this.ckAIsOK.Checked)
                         {
                             Alert.ShowInTop("请勾选【A项已全部整改完毕】!", MessageBoxIcon.Warning);
                             return;
@@ -185,11 +215,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         if (!flag)
                         {
-                            Alert.ShowInTop("尾项中有【不合格】选项！", MessageBoxIcon.Warning);
+                            Alert.ShowInTop("A项尾项尚未全部合格，请打回施工单位重新整改！", MessageBoxIcon.Warning);
                             return;
                         }
                     }
-                    Model.PTP_TestPackageApprove approve1 = BLL.TestPackageApproveService.GetTestPackageApproveById(this.PTP_ID);
+                    Model.PTP_TestPackageApprove approve1 = BLL.TestPackageApproveService.GetTestPackageApproveById(this.ItemEndCheckListId);
                     if (approve1 != null && saveType == Const.BtnSubmit)
                     {
                         approve1.ApproveDate = DateTime.Now;
@@ -205,13 +235,49 @@ namespace FineUIPro.Web.HJGL.TestPackage
                             approve.ApproveMan = this.drpHandleMan.SelectedValue;
                         }
                         approve.ApproveType = this.drpHandleType.SelectedValue;
-                        approve.PTP_ID = this.PTP_ID;
+                        approve.ItemEndCheckListId = this.ItemEndCheckListId;
                         BLL.TestPackageApproveService.AddTestPackageApprove(approve);
-                        var TestPackage = TestPackageEditService.GetTestPackageByID(this.PTP_ID);
-                        if (TestPackage != null)
+                        var ItemEndCheckList = ItemEndCheckListService.GetItemEndCheckListByID(this.ItemEndCheckListId);
+                        if (ItemEndCheckList != null)
                         {
-                            TestPackage.State = this.State;
-                            TestPackageEditService.UpdateTestPackage(TestPackage);
+                            if (State == Const.TestPackage_Complete)
+                            {
+                                bool b = true;   //B项是否全部整改完成
+                                var BItems = getItemEndCheck.Where(x => x.ItemType == "B");
+                                foreach (var item in BItems)
+                                {
+                                    if (item.Result != "合格")
+                                    {
+                                        b = false;
+                                    }
+                                }
+                                if (b)
+                                {
+                                    ItemEndCheckList.State = this.State;
+                                }
+                                else
+                                {
+                                    ItemEndCheckList.State = BLL.Const.TestPackage_ReAudit2;
+                                    var approve2 = Funs.DB.PTP_TestPackageApprove.FirstOrDefault(x=>x.ItemEndCheckListId== this.ItemEndCheckListId && x.ApproveType== BLL.Const.TestPackage_Audit1);
+                                    Model.PTP_TestPackageApprove approveR = new Model.PTP_TestPackageApprove();
+                                    approveR.ApproveId = SQLHelper.GetNewID(typeof(Model.PTP_TestPackageApprove));
+                                    if (approve2!=null)
+                                    {
+                                        approveR.ApproveMan = approve2.ApproveMan;
+                                    }
+                                    approveR.ApproveType = BLL.Const.TestPackage_ReAudit2;
+                                    approveR.ItemEndCheckListId = this.ItemEndCheckListId;
+                                    BLL.TestPackageApproveService.AddTestPackageApprove(approveR);
+                                    BLL.TestPackageApproveService.DeleteAllTestPackageApproveByApproveID(approve.ApproveId);
+                                }
+                            }
+                            else
+                            {
+                                ItemEndCheckList.State = this.State;
+                            }
+                            ItemEndCheckList.AIsOK = this.ckAIsOK.Checked;
+                            ItemEndCheckList.BIsOK = this.ckBIsOK.Checked;
+                            ItemEndCheckListService.UpdateItemEndCheckList(ItemEndCheckList);
                         }
                     }
                 }
@@ -248,12 +314,14 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             this.drpHandleType.Items.Clear();
             this.drpHandleMan.Items.Clear();
+            string state = BLL.ItemEndCheckListService.GetItemEndCheckListByID(this.ItemEndCheckListId).State;
             if (rblIsAgree.SelectedValue.Equals("true"))
             {
-                TestPackageEditService.Init(drpHandleType, State, false);
+                TestPackageEditService.Init(drpHandleType, state, false);
                 UserService.InitJLUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
             }
-            else {
+            else
+            {
                 TestPackageEditService.Init(drpHandleType, "F", false);
                 UserService.InitUserProjectIdUnitTypeDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, false);
             }
@@ -268,7 +336,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
             {
                 drpHandleMan.Enabled = false;
             }
-            else if (drpHandleType.SelectedValue == BLL.Const.TestPackage_Audit3) {
+            else if (drpHandleType.SelectedValue == BLL.Const.TestPackage_Audit3)
+            {
                 drpHandleMan.Enabled = true;
                 UserService.InitJLUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
             }
@@ -286,10 +355,10 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 {
 
                     return "施工分包商整改";
-                } 
+                }
                 else if (Type.ToString() == Const.TestPackage_Audit2)
                 {
-                   
+
                     return "总包确认";
                 }
                 else if (Type.ToString() == Const.TestPackage_Audit3)

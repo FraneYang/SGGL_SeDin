@@ -65,6 +65,7 @@ namespace BLL
             newWPQ.Bend = WPQ.Bend;
             newWPQ.ToAttack = WPQ.ToAttack;
             newWPQ.Others = WPQ.Others;
+            newWPQ.State = WPQ.State;
             db.WPQ_WPQList.InsertOnSubmit(newWPQ);
             db.SubmitChanges();
         }
@@ -128,6 +129,12 @@ namespace BLL
             Model.WPQ_WPQList WPQ = db.WPQ_WPQList.FirstOrDefault(e => e.WPQId == WPQId);
             if (WPQ != null)
             {
+                var flow = db.WPQ_WPQListFlowOperate.Where(x => x.WPQId == WPQId);
+                if (flow.Count() > 0)
+                {
+                    db.WPQ_WPQListFlowOperate.DeleteAllOnSubmit(flow);
+                    db.SubmitChanges();
+                }
                 AttachFileService.DeleteAttachFile(Funs.RootPath, WPQId, Const.WPQListMenuId);//删除附件
                 db.WPQ_WPQList.DeleteOnSubmit(WPQ);
                 db.SubmitChanges();

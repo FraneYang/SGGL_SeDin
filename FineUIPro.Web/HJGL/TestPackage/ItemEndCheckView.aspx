@@ -36,6 +36,8 @@
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="Result" DataField="Result" HeaderTextAlign="Center" HeaderText="消项结果" TextAlign="Left">
                         </f:RenderField>
+                        <f:RenderField Width="120px" ColumnID="Remark" DataField="Remark" HeaderTextAlign="Center" HeaderText="备注" TextAlign="Left">
+                        </f:RenderField>
                     </Columns>
 
                 </f:Grid>

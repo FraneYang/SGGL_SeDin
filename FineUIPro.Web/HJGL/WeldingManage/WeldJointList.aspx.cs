@@ -18,11 +18,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
                 this.InitTreeMenu();//加载树
                 //显示列
-                //Model.Sys_UserShowColumns c = BLL.UserShowColumnsService.GetColumnsByUserId(this.CurrUser.UserId, "Joint");
-                //if (c != null)
-                //{
-                //    this.GetShowColumn(c.Columns);
-                //}
+                Model.Sys_UserShowColumns c = BLL.UserShowColumnsService.GetColumnsByUserId(this.CurrUser.UserId, "Joint");
+                if (c != null)
+                {
+                    this.GetShowColumn(c.Columns);
+                }
             }
         }
 
@@ -91,7 +91,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     tn1.Text = q.UnitWorkName + "【" + a.ToString() + "】" + "管线";
                     tn1.ToolTip = "施工单位：" + u.UnitName;
                     rootNode1.Nodes.Add(tn1);
-                    if (a > 0) {
+                    if (a > 0)
+                    {
                         BindNodes(tn1);
                     }
                 }
@@ -126,7 +127,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         select x).ToList();
             foreach (var item in pipeline)
             {
-                var jotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == item.PipelineId  select x).Count();
+                var jotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == item.PipelineId select x).Count();
                 TreeNode newNode = new TreeNode();
                 newNode.Text = item.PipelineCode;
                 newNode.Text += "【" + jotCount.ToString() + " " + "焊口" + "】";
@@ -558,6 +559,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void btnSelectColumn_Click(object sender, EventArgs e)
         {
+            //((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[0];
             PageContext.RegisterStartupScript(Window4.GetShowReference(String.Format("JointShowColumn.aspx", "显示列 - ")));
         }
         #endregion
@@ -565,13 +567,13 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         #region 显示列
         protected void Window4_Close(object sender, WindowCloseEventArgs e)
         {
-            //this.BindGrid();
-            ////显示列
-            //Model.Sys_UserShowColumns c = BLL.UserShowColumnsService.GetColumnsByUserId(this.CurrUser.UserId, "Joint");
-            //if (c != null)
-            //{
-            //    this.GetShowColumn(c.Columns);
-            //}
+            this.BindGrid();
+            //显示列
+            Model.Sys_UserShowColumns c = BLL.UserShowColumnsService.GetColumnsByUserId(this.CurrUser.UserId, "Joint");
+            if (c != null)
+            {
+                this.GetShowColumn(c.Columns);
+            }
         }
 
         /// <summary>
@@ -583,40 +585,40 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             if (!string.IsNullOrEmpty(column))
             {
                 this.Grid1.Columns[1].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[1].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[2].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[3].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[4].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[5].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[6].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[7].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[8].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[1]).Columns[9].Hidden = true;
                 this.Grid1.Columns[2].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[2]).Columns[0].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[2]).Columns[1].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[2]).Columns[2].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[2]).Columns[3].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[2]).Columns[4].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[2]).Columns[5].Hidden = true;
+                ((FineUIPro.GroupField)this.Grid1.Columns[2]).Columns[6].Hidden = true;
                 this.Grid1.Columns[3].Hidden = true;
-                this.Grid1.Columns[4].Hidden = true;
-                this.Grid1.Columns[5].Hidden = true;
-                this.Grid1.Columns[6].Hidden = true;
-                this.Grid1.Columns[7].Hidden = true;
-                this.Grid1.Columns[8].Hidden = true;
-                this.Grid1.Columns[9].Hidden = true;
-                this.Grid1.Columns[10].Hidden = true;
-                this.Grid1.Columns[11].Hidden = true;
-                this.Grid1.Columns[12].Hidden = true;
-                this.Grid1.Columns[13].Hidden = true;
-                this.Grid1.Columns[14].Hidden = true;
-                this.Grid1.Columns[15].Hidden = true;
-                this.Grid1.Columns[16].Hidden = true;
-                this.Grid1.Columns[17].Hidden = true;
-                this.Grid1.Columns[18].Hidden = true;
-                this.Grid1.Columns[19].Hidden = true;
-                this.Grid1.Columns[20].Hidden = true;
-                this.Grid1.Columns[21].Hidden = true;
-                this.Grid1.Columns[22].Hidden = true;
-                this.Grid1.Columns[23].Hidden = true;
-                this.Grid1.Columns[24].Hidden = true;
-                this.Grid1.Columns[25].Hidden = true;
-                this.Grid1.Columns[26].Hidden = true;
-                this.Grid1.Columns[27].Hidden = true;
-                this.Grid1.Columns[28].Hidden = true;
-                this.Grid1.Columns[29].Hidden = true;
                 List<string> columns = column.Split(',').ToList();
                 foreach (var item in columns)
                 {
                     if (!string.IsNullOrEmpty(item))
                     {
-                        this.Grid1.Columns[Convert.ToInt32(item)].Hidden = false;
+                        if (item.Length == 1)
+                        {
+                            this.Grid1.Columns[Convert.ToInt32(item)].Hidden = false;
+                        }
+                        else
+                        {
+                            int c1 = Convert.ToInt32(item.Substring(0, 1));
+                            int c2 = Convert.ToInt32(item.Substring(1, 1));
+                            this.Grid1.Columns[c1].Hidden = false;
+                            ((FineUIPro.GroupField)this.Grid1.Columns[c1]).Columns[c2].Hidden = false;
+                        }
                     }
                 }
             }

@@ -49,6 +49,7 @@ namespace BLL
             newLeakVacuum.SysName = LeakVacuum.SysName;
             newLeakVacuum.Finisher = LeakVacuum.Finisher;
             newLeakVacuum.FinishDate = LeakVacuum.FinishDate;
+            newLeakVacuum.FinishDef = LeakVacuum.FinishDef;
             newLeakVacuum.Tabler = LeakVacuum.Tabler;
             newLeakVacuum.TableDate = LeakVacuum.TableDate;
             newLeakVacuum.Auditer = LeakVacuum.Auditer;
@@ -78,6 +79,7 @@ namespace BLL
             newLeakVacuum.SysName = LeakVacuum.SysName;
             newLeakVacuum.Finisher = LeakVacuum.Finisher;
             newLeakVacuum.FinishDate = LeakVacuum.FinishDate;
+            newLeakVacuum.FinishDef = LeakVacuum.FinishDef;
             newLeakVacuum.Tabler = LeakVacuum.Tabler;
             newLeakVacuum.TableDate = LeakVacuum.TableDate;
             newLeakVacuum.Auditer = LeakVacuum.Auditer;

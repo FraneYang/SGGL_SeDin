@@ -132,7 +132,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
         /// <param name="e"></param>
         protected void btnGenerate_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_PointBatchMenuId, Const.BtnGenerate))
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_TrustBatchMenuId, Const.BtnGenerate))
             {
                 /////取当前项目所有未委托批
                 //var getViewPointBatchLists = (from x in Funs.DB.View_Batch_PointBatch

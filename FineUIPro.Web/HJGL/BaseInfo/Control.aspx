@@ -18,10 +18,10 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="直径寸经对照"
+                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="直径寸经对照" AllowColumnLocking="true"
                     EnableCollapse="true" runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="DNCompareId"
                     AllowCellEditing="true" ClicksToEdit="2" DataIDField="DNCompareId" AllowSorting="true"
-                    SortField="PipeSize" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
+                    SortField="PipeSize" SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true"
                     IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                     EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True" OnRowDataBound="Grid1_RowDataBound">
 
@@ -51,14 +51,24 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Columns>
-                        <f:RenderField Width="140px" ColumnID="DN" DataField="DN" FieldType="String"
-                            HeaderText="公称尺寸(DN)" HeaderTextAlign="Center" TextAlign="Left" SortField="DN">
+                        <f:GroupField  HeaderText="公称尺寸" TextAlign="Center" Locked="true">
+                            <Columns>
+                                <f:RenderField Width="100px" ColumnID="DN" DataField="DN" FieldType="String"
+                                    HeaderText="DN" HeaderTextAlign="Center" TextAlign="Left" SortField="DN">
+                                </f:RenderField>
+                                <f:RenderField Width="100px" ColumnID="PipeSize" DataField="PipeSize" FieldType="Float"
+                                    HeaderText="NPS" HeaderTextAlign="Center" TextAlign="Left" SortField="PipeSize">
+                                </f:RenderField>
+                            </Columns>
+                        </f:GroupField>
+                        <f:RenderField Width="100px" ColumnID="OutSizeDia" DataField="OutSizeDia" FieldType="Float" Locked="true"
+                            HeaderText="外径(mm)" HeaderTextAlign="Center" TextAlign="Left" SortField="OutSizeDia">
                         </f:RenderField>
-                        <f:RenderField Width="150px" ColumnID="PipeSize" DataField="PipeSize" FieldType="String"
-                            HeaderText="公称尺寸(NPS)" HeaderTextAlign="Center" TextAlign="Left" SortField="PipeSize">
+                        <f:RenderField Width="120px" ColumnID="Sch5S" DataField="Sch5S" FieldType="Float"
+                            HeaderText="SCH5S/SCH5" HeaderTextAlign="Center" TextAlign="Left" SortField="Sch5S">
                         </f:RenderField>
-                        <f:RenderField Width="100px" ColumnID="OutSizeDia" DataField="OutSizeDia" FieldType="Float"
-                            HeaderText="外径" HeaderTextAlign="Center" TextAlign="Left" SortField="OutSizeDia">
+                        <f:RenderField Width="80px" ColumnID="Sch10S" DataField="Sch10S" FieldType="Float"
+                            HeaderText="SCH10S" HeaderTextAlign="Center" TextAlign="Left" SortField="Sch10S">
                         </f:RenderField>
                         <f:RenderField Width="80px" ColumnID="SCH10" DataField="SCH10" FieldType="Float"
                             HeaderText="SCH10" HeaderTextAlign="Center" TextAlign="Left" SortField="SCH10">
@@ -69,8 +79,8 @@
                         <f:RenderField Width="80px" ColumnID="SCH30" DataField="SCH30" FieldType="Float"
                             HeaderText="SCH30" HeaderTextAlign="Center" TextAlign="Left" SortField="SCH30">
                         </f:RenderField>
-                        <f:RenderField Width="80px" ColumnID="STD" DataField="STD" FieldType="Float" HeaderText="STD"
-                            HeaderTextAlign="Center" TextAlign="Left" SortField="STD">
+                        <f:RenderField Width="80px" ColumnID="SCH40S" DataField="SCH40S" FieldType="Float" HeaderText="SCH40S"
+                            HeaderTextAlign="Center" TextAlign="Left" SortField="SCH40S">
                         </f:RenderField>
                         <f:RenderField Width="80px" ColumnID="SCH40" DataField="SCH40" FieldType="Float"
                             HeaderText="SCH40" HeaderTextAlign="Center" TextAlign="Left" SortField="SCH40">
@@ -78,8 +88,8 @@
                         <f:RenderField Width="80px" ColumnID="SCH60" DataField="SCH60" FieldType="Float"
                             HeaderText="SCH60" HeaderTextAlign="Center" TextAlign="Left" SortField="SCH60">
                         </f:RenderField>
-                        <f:RenderField Width="80px" ColumnID="XS" DataField="XS" FieldType="Float" HeaderText="XS"
-                            HeaderTextAlign="Center" TextAlign="Left" SortField="XS">
+                        <f:RenderField Width="80px" ColumnID="SCH80S" DataField="SCH80S" FieldType="Float" HeaderText="SCH80S"
+                            HeaderTextAlign="Center" TextAlign="Left" SortField="SCH80S">
                         </f:RenderField>
                         <f:RenderField Width="80px" ColumnID="SCH80" DataField="SCH80" FieldType="Float"
                             HeaderText="SCH80" HeaderTextAlign="Center" TextAlign="Left" SortField="SCH80">
@@ -96,15 +106,43 @@
                         <f:RenderField Width="80px" ColumnID="SCH160" DataField="SCH160" FieldType="Float"
                             HeaderText="SCH160" HeaderTextAlign="Center" TextAlign="Left" SortField="SCH160">
                         </f:RenderField>
-                        <f:RenderField Width="80px" ColumnID="XXS" DataField="XXS" FieldType="Float" HeaderText="XXS"
-                            HeaderTextAlign="Center" TextAlign="Left" SortField="XXS">
-                        </f:RenderField>
-                        <f:RenderField Width="80px" ColumnID="size" DataField="size" FieldType="Float" HeaderText="尺寸系列"
-                            HeaderTextAlign="Center" TextAlign="Left" SortField="size">
-                        </f:RenderField>
-                        <f:RenderField Width="80px" ColumnID="thickness" DataField="thickness" FieldType="Float" HeaderText="壁厚"
-                            HeaderTextAlign="Center" TextAlign="Left" SortField="thickness">
-                        </f:RenderField>
+                        <f:GroupField EnableLock="true" HeaderText="壁厚(mm)" TextAlign="Center">
+                            <Columns>
+                                <f:RenderField Width="50px" ColumnID="Thickness1" DataField="Thickness1" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness1">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness2" DataField="Thickness2" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness2">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness3" DataField="Thickness3" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness3">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness4" DataField="Thickness4" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness4">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness5" DataField="Thickness5" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness5">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness6" DataField="Thickness6" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness6">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness7" DataField="Thickness7" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness7">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness8" DataField="Thickness8" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness8">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness9" DataField="Thickness9" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness9">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness10" DataField="Thickness10" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness10">
+                                </f:RenderField>
+                                <f:RenderField Width="50px" ColumnID="Thickness11" DataField="Thickness11" FieldType="Float" HeaderText=""
+                                    HeaderTextAlign="Center" TextAlign="Left" SortField="Thickness11">
+                                </f:RenderField>
+                            </Columns>
+                        </f:GroupField>
                     </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -119,7 +157,7 @@
                             <f:ListItem Text="10" Value="10" />
                             <f:ListItem Text="15" Value="15" />
                             <f:ListItem Text="20" Value="20" />
-                            <f:ListItem Text="25" Value="25" />
+                            <f:ListItem Text="所有行" Value="1000" />
                         </f:DropDownList>
                     </PageItems>
                 </f:Grid>
@@ -127,7 +165,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
             EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
-            IsModal="true" Width="900px" Height="350px">
+            IsModal="true" Width="900px" Height="560px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"

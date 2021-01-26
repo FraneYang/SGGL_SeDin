@@ -286,6 +286,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 testPackage.TableDate = DateTime.Now;
                 testPackage.Remark = this.txtRemark.Text.Trim();
                 testPackage.AdjustTestPressure = this.txtadjustTestPressure.Text.Trim();
+                ///保存明细
+                var getViewList = this.CollectGridInfo();
                 if (!string.IsNullOrEmpty(this.PTP_ID))
                 {
                     testPackage.PTP_ID = this.PTP_ID;
@@ -300,9 +302,44 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     this.PTP_ID = testPackage.PTP_ID;
                     BLL.TestPackageEditService.AddTestPackage(testPackage);
                     //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TestPackageEditMenuId, Const.BtnAdd, this.PTP_ID);
+                    #region 向质量WBS中增加试压工作包内容
+                    //获取地上管道
+                    Model.WBS_WorkPackage workPackage = BLL.WorkPackageService.GetWorkPackageByUnitWorkIdAndInitWorkPackageCode(testPackage.UnitWorkId, "0201");
+                    if (workPackage != null)
+                    {
+                        var steelTypeWorkPackages = BLL.WorkPackageService.GetAllApproveWorkPackagesBySuperWorkPackageId(workPackage.WorkPackageId);
+                        if (steelTypeWorkPackages.Count > 0)  //地上管道下存在不同材质的管道分类
+                        {
+                            if (getViewList.Count > 0)
+                            {
+                                var pipeline = BLL.PipelineService.GetPipelineByPipelineId(getViewList[0].PipelineId);
+                                if (pipeline != null)
+                                {
+                                    //获取管道等级
+                                    var pipelineClass = BLL.Base_PipingClassService.GetPipingClassByPipingClassId(pipeline.PipingClassId);
+                                    if (pipelineClass != null)
+                                    {
+                                        if (pipelineClass.SteelType == "碳钢")
+                                        {
+                                            //碳钢分项
+                                            var steelTypeWorkPackage = steelTypeWorkPackages.FirstOrDefault(x=>x.InitWorkPackageCode== "020101");
+                                            if (steelTypeWorkPackage != null)
+                                            {
+                                                var controlItemAndCycles = BLL.ControlItemAndCycleService.GetControlItemAndCyclesByWorkPackageId(steelTypeWorkPackage.WorkPackageId);
+                                                if (controlItemAndCycles.Count > 0)
+                                                {
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    #endregion
                 }
-                ///保存明细
-                var getViewList = this.CollectGridInfo();
+
                 foreach (var item in getViewList)
                 {
                     Model.PTP_PipelineList newitem = new Model.PTP_PipelineList();

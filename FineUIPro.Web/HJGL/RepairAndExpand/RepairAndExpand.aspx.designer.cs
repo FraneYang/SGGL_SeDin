@@ -229,13 +229,22 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand {
         protected global::FineUIPro.Label txtCheckDefects;
         
         /// <summary>
-        /// drpRepairWelder 控件。
+        /// drpPBackingWelder 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpRepairWelder;
+        protected global::FineUIPro.DropDownList drpPBackingWelder;
+        
+        /// <summary>
+        /// drpPCoverWelder 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpPCoverWelder;
         
         /// <summary>
         /// txtRepairDate 控件。
@@ -245,24 +254,6 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DatePicker txtRepairDate;
-        
-        /// <summary>
-        /// ckbIsCut 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckbIsCut;
-        
-        /// <summary>
-        /// lbIsAudit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label lbIsAudit;
         
         /// <summary>
         /// Grid1 控件。
@@ -290,6 +281,15 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.CheckBox ckbWelder;
+        
+        /// <summary>
+        /// ckbBatch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckbBatch;
         
         /// <summary>
         /// ckbPipe 控件。
@@ -344,42 +344,6 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label lbdef;
-        
-        /// <summary>
-        /// drpBackingWelderId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpBackingWelderId;
-        
-        /// <summary>
-        /// hdBackingWelderId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdBackingWelderId;
-        
-        /// <summary>
-        /// drpCoverWelderId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpCoverWelderId;
-        
-        /// <summary>
-        /// hdCoverWelderId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdCoverWelderId;
         
         /// <summary>
         /// ToolbarSeparator1 控件。

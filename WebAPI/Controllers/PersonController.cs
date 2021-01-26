@@ -574,7 +574,7 @@ namespace WebAPI.Controllers
             {
                 using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
                 {
-                    responeData.data = from x in db.SitePerson_Person
+                    responeData.data = (from x in db.SitePerson_Person
                                        where x.ProjectId == projectId && x.InTime.HasValue && ((x.IsUsed == true && !x.OutTime.HasValue) || x.OutTime.HasValue)
                                         && x.InTime < DateTime.Now && x.CardNo != null && !x.ExchangeTime2.HasValue && x.ExchangeTime.HasValue
                                        select new
@@ -584,7 +584,7 @@ namespace WebAPI.Controllers
                                            x.CardNo,
                                            x.IdentityCard,
                                            OutTime = x.OutTime == null ? DateTime.Now.AddYears(10) : x.OutTime,
-                                       };
+                                       }).ToList();
                 }
             }
             catch (Exception ex)

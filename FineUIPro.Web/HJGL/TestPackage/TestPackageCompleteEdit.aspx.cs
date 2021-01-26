@@ -98,6 +98,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
             var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
             if (testPackageManage != null)
             {
+                this.txtTestPackageNo.Text = testPackageManage.TestPackageNo;
+                this.txtTestPackageName.Text = testPackageManage.TestPackageName;
                 this.txtadjustTestPressure.Text = testPackageManage.AdjustTestPressure;
                 this.txtAmbientTemperature.Text = testPackageManage.AmbientTemperature.ToString();
                 this.txtFinishDef.Text = testPackageManage.FinishDef;

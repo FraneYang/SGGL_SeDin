@@ -52,30 +52,51 @@
                                 <f:RenderField Width="120px" ColumnID="WPQCode" DataField="WPQCode"
                                     FieldType="String" HeaderText="评定编号" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="MaterialId1" DataField="MaterialId1" FieldType="String"
-                                    HeaderText="材质1" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="MaterialId2" DataField="MaterialId2" FieldType="String"
-                                    HeaderText="材质2" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
+                                <f:TemplateField Width="120px" HeaderText="材质1" HeaderTextAlign="Center"
+                                    TextAlign="Center" SortField="MaterialId1">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# ConvertMaterial(Eval("MaterialId1")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                <f:TemplateField Width="120px" HeaderText="材质2" HeaderTextAlign="Center"
+                                    TextAlign="Center" SortField="MaterialId2">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label2" runat="server" Text='<%# ConvertMaterial(Eval("MaterialId2")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
                                 <f:RenderField Width="120px" ColumnID="Specifications" DataField="Specifications"
                                     FieldType="String" HeaderText="规格" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="WeldingRod" DataField="WeldingRod" FieldType="String"
-                                    HeaderText="焊丝类别" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="WeldingWire" DataField="WeldingWire" FieldType="String"
-                                    HeaderText="焊条类别" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="100px" ColumnID="GrooveType" DataField="GrooveType"
-                                    FieldType="String" HeaderText="坡口类型" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
+                                <f:TemplateField Width="120px" HeaderText="焊丝" HeaderTextAlign="Center"
+                                    TextAlign="Center" SortField="WeldingWire">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label4" runat="server" Text='<%# ConvertConsumables(Eval("WeldingWire")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                <f:TemplateField Width="120px" HeaderText="焊条" HeaderTextAlign="Center"
+                                    TextAlign="Center" SortField="WeldingRod">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label3" runat="server" Text='<%# ConvertConsumables(Eval("WeldingRod")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                <f:TemplateField Width="100px" HeaderText="坡口类型" HeaderTextAlign="Center"
+                                    TextAlign="Center" SortField="GrooveType">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label6" runat="server" Text='<%# ConvertGrooveType(Eval("GrooveType")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
                                 <f:RenderField Width="90px" ColumnID="WeldingPosition" DataField="WeldingPosition"
                                     FieldType="String" HeaderText="焊接位置" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="120px" ColumnID="WeldingMethodCode" DataField="WeldingMethodCode"
                                     FieldType="String" HeaderText="焊接方法" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
+                                <f:TemplateField Width="120px" HeaderText="焊接方法" HeaderTextAlign="Center"
+                                    TextAlign="Center" SortField="WeldingMethodId">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label5" runat="server" Text='<%# ConvertWeldMethod(Eval("WeldingMethodId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
                                 <f:RenderField Width="120px" ColumnID="MinImpactDia" DataField="MinImpactDia" FieldType="String"
                                     HeaderText="管径覆盖最小值(对接焊缝)" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
@@ -113,18 +134,6 @@
                                 </f:RenderField>
                                 <f:RenderField Width="100px" ColumnID="ProtectiveGas" DataField="ProtectiveGas" FieldType="String"
                                     HeaderText="保护气体" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="100px" ColumnID="Stretching" DataField="Stretching" FieldType="String"
-                                    HeaderText="检验项目拉伸" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="100px" ColumnID="Bend" DataField="Bend" FieldType="String"
-                                    HeaderText="检验项目弯曲" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="100px" ColumnID="ToAttack" DataField="ToAttack" FieldType="String"
-                                    HeaderText="检验项目冲击" HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderField>
-                                <f:RenderField Width="100px" ColumnID="Others" DataField="Others" FieldType="String"
-                                    HeaderText="检验项目其他" HeaderTextAlign="Center" TextAlign="Center">
                                 </f:RenderField>
                                 <f:RenderField Width="100px" ColumnID="WPQStandard" DataField="WPQStandard" FieldType="String"
                                     HeaderText="评定标准" HeaderTextAlign="Center" TextAlign="Center">

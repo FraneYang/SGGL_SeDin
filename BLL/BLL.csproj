@@ -239,6 +239,7 @@
     <Compile Include="HJGL\RepairAndExpand\RepairRecordService.cs" />
     <Compile Include="HJGL\TestPackage\AItemEndCheckService.cs" />
     <Compile Include="HJGL\TestPackage\BItemEndCheckService.cs" />
+    <Compile Include="HJGL\TestPackage\ItemEndCheckListService.cs" />
     <Compile Include="HJGL\TestPackage\TestPackageApproveService.cs" />
     <Compile Include="HJGL\TestPackage\TestPackageAuditService.cs" />
     <Compile Include="HJGL\TestPackage\TestPackageEditService.cs" />
@@ -450,6 +451,7 @@
     <Compile Include="SysManage\RoleService.cs" />
     <Compile Include="SysManage\SysConstSetService.cs" />
     <Compile Include="SysManage\SysMenuService.cs" />
+    <Compile Include="SysManage\Sys_UserShowColumnsService.cs" />
     <Compile Include="SysManage\UnitService.cs" />
     <Compile Include="SysManage\UserService.cs" />
     <Compile Include="PersonManage\Test\ServerTestPlanService.cs" />

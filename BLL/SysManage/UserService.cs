@@ -1395,7 +1395,7 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 return (from x in db.Sys_User
-                        where x.RoleId == role
+                        where x.RoleId.Contains(role)
                         orderby x.UserId
                         select x).Distinct().ToList();
             }

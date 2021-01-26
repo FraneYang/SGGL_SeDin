@@ -251,7 +251,7 @@
         @media screen and (min-height:780px) {
             .tab-content .line-item {
                 border-radius: 25px;
-                height: 28px;
+               /* height: 28px*/;
             }
 
                 .tab-content .line-item > div {

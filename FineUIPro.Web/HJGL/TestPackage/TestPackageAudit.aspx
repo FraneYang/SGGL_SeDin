@@ -70,7 +70,7 @@
                                 <f:HiddenField runat="server" ID="hdPTP_ID"></f:HiddenField>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                                 <f:Button ID="btnAudit" Text="保存" ToolTip="保存" AjaxLoadingType="Mask" ShowAjaxLoadingMaskText="true"
-                                    AjaxLoadingMaskText="试压审核中，请稍候" Icon="TableKey" runat="server" OnClick="btnAudit_Click" Hidden="true" ValidateForms="SimpleForm1">
+                                    AjaxLoadingMaskText="试压条件确认中，请稍候" Icon="TableKey" runat="server" OnClick="btnAudit_Click" Hidden="true" ValidateForms="SimpleForm1">
                                 </f:Button>
                                 <f:Button ID="btnPrint" Text="打印" Icon="Printer" runat="server" OnClick="btnPrint_Click" Hidden="true">
                                 </f:Button>

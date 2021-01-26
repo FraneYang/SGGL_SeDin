@@ -102,18 +102,18 @@ namespace FineUIPro.Web.ProjectData
                     var delProjectUnit = BLL.ProjectUnitService.GetProjectUnitById(projectUnitId);
                     if (delProjectUnit != null)
                     {
-                        //var person = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == delProjectUnit.ProjectId && x.UnitId == delProjectUnit.UnitId);
-                        //if (person == null)
-                        //{
-                        //    BLL.LogService.AddSys_Log(this.CurrUser, "删除项目单位！", delProjectUnit.ProjectUnitId,BLL.Const.ProjectUnitMenuId,BLL.Const.BtnDelete);
-                        //    BLL.ProjectUnitService.DeleteProjectProjectUnitById(projectUnitId);
-                           
-                        //}
-                        //else
-                        //{
-                        //    unitName = BLL.UnitService.GetUnitNameByUnitId(delProjectUnit.UnitId);
-                        //    ShowNotify(unitName + "：存在现场人员不能删除！", MessageBoxIcon.Warning);
-                        //}
+                        var person = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == delProjectUnit.ProjectId && x.UnitId == delProjectUnit.UnitId);
+                        if (person == null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, "删除项目单位！", delProjectUnit.ProjectUnitId, BLL.Const.ProjectUnitMenuId, BLL.Const.BtnDelete);
+                            BLL.ProjectUnitService.DeleteProjectProjectUnitById(projectUnitId);
+
+                        }
+                        else
+                        {
+                            unitName = BLL.UnitService.GetUnitNameByUnitId(delProjectUnit.UnitId);
+                            ShowNotify(unitName + "：存在现场人员不能删除！", MessageBoxIcon.Warning);
+                        }
                     }
                 }
 

@@ -60,11 +60,11 @@
                             <Rows>
                                 <f:FormRow>
                                     <Items>
-                                        <f:Label ID="drpUnitId" runat="server" Label="单位名称" LabelWidth="120px" >
+                                        <f:Label ID="drpUnitId" runat="server" Label="单位名称" LabelWidth="120px">
                                         </f:Label>
                                         <f:Label ID="txtWelderName" runat="server" Label="焊工姓名" LabelWidth="120px">
                                         </f:Label>
-                                        <f:Label ID="txtWelderCode" runat="server" Label="焊工号"  LabelWidth="120px">
+                                        <f:Label ID="txtWelderCode" runat="server" Label="焊工号" LabelWidth="120px">
                                         </f:Label>
                                     </Items>
                                 </f:FormRow>
@@ -75,16 +75,16 @@
                                         <f:Label ID="txtBirthday" runat="server" Label="出生日期"
                                             LabelWidth="120px">
                                         </f:Label>
-                                        <f:Label ID="txtCertificateCode" runat="server" Label="证书编号"  LabelWidth="120px" >
+                                        <f:Label ID="txtCertificateCode" runat="server" Label="证书编号" LabelWidth="120px">
                                         </f:Label>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
                                         <f:Label ID="txtCertificateLimitTime" runat="server" Label="有效期"
-                                            LabelWidth="120px" >
+                                            LabelWidth="120px">
                                         </f:Label>
-                                        <f:Label ID="txtWelderLevel" runat="server" Label="焊工等级"  LabelWidth="120px">
+                                        <f:Label ID="txtWelderLevel" runat="server" Label="焊工等级" LabelWidth="120px">
                                         </f:Label>
                                         <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗"
                                             LabelWidth="120px">
@@ -95,7 +95,7 @@
                         </f:Form>
                     </Items>
                     <Items>
-                        <f:Grid ID="Grid1"  ShowBorder="true" ShowHeader="true" Title="焊工资质"  EnableCollapse="true" runat="server"
+                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="焊工资质" EnableCollapse="true" runat="server"
                             BoxFlex="1" EnableColumnLines="true" DataKeyNames="WelderQualifyId" AllowCellEditing="true"
                             ClicksToEdit="2" DataIDField="WelderQualifyId" AllowSorting="true" SortField="LimitDate"
                             SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
@@ -141,12 +141,26 @@
                                     FieldType="String" HeaderText="焊接位置" HeaderTextAlign="Center"
                                     TextAlign="Left">
                                 </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="ThicknessMax" DataField="ThicknessMax" FieldType="String"
-                                    HeaderText="管径覆盖范围" HeaderTextAlign="Center" TextAlign="Left">
-                                </f:RenderField>
-                                <f:RenderField Width="120px" ColumnID="SizesMin" DataField="SizesMin" FieldType="String" HeaderText="壁厚覆盖范围"
-                                    HeaderTextAlign="Center" TextAlign="Left">
-                                </f:RenderField>
+                                <f:GroupField EnableLock="true" HeaderText="对接焊缝" TextAlign="Center">
+                                    <Columns>
+                                        <f:RenderField Width="120px" ColumnID="Thickness" DataField="Thickness" FieldType="String"
+                                            HeaderText="壁厚覆盖范围" HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                        <f:RenderField Width="120px" ColumnID="Sizes" DataField="Sizes" FieldType="String" HeaderText="管径覆盖范围"
+                                            HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                    </Columns>
+                                </f:GroupField>
+                                <f:GroupField EnableLock="true" HeaderText="角焊缝" TextAlign="Center">
+                                    <Columns>
+                                        <f:RenderField Width="120px" ColumnID="Thickness2" DataField="Thickness2" FieldType="String"
+                                            HeaderText="壁厚覆盖范围" HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                        <f:RenderField Width="120px" ColumnID="Sizes2" DataField="Sizes2" FieldType="String" HeaderText="管径覆盖范围"
+                                            HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                    </Columns>
+                                </f:GroupField>
                                 <f:RenderField Width="160px" ColumnID="WeldType" DataField="WeldType" FieldType="String"
                                     HeaderText="可焊焊缝类型" HeaderTextAlign="Center"
                                     TextAlign="Left">
@@ -182,7 +196,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true"
             EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
-            IsModal="true" Width="960px" Height="500px">
+            IsModal="true" Width="960px" Height="620px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"

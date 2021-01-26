@@ -127,6 +127,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 foreach (var item in p)
                 {
                     TreeNode newNode = new TreeNode();
+                    newNode.CommandName = "Date";
                     newNode.Text = string.Format("{0:yyyy-MM-dd}", item);
                     newNode.NodeID = string.Format("{0:yyyy-MM-dd}", item);
                     newNode.EnableClickEvent = true;
@@ -152,6 +153,33 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
+            bool hasAdd = false;
+            for (int i = 0; i < this.Grid1.Rows.Count; i++)
+            {
+                Model.HJGL_WeldTask task = BLL.WeldTaskService.GetWeldTaskById(this.Grid1.Rows[i].RowID);
+                if (task.IsSaved == true)
+                {
+                    this.Grid1.Rows[i].RowCssClass = "f-grid-cell-uneditable";
+                    foreach (GridColumn column in Grid1.AllColumns)
+                    {
+                        Grid1.Rows[i].CellCssClasses[column.ColumnIndex] = "f-grid-cell-uneditable";
+                    }
+                }
+                else
+                {
+                    hasAdd = true;
+                }
+            }
+            if (this.tvControlItem.SelectedNode.CommandName == "Date" && !hasAdd)
+            {
+                this.Grid1.Columns[12].Hidden = true;
+                this.btnSave.Hidden = true;
+            }
+            else
+            {
+                this.Grid1.Columns[12].Hidden = false;
+                this.btnSave.Hidden = false;
+            }
         }
         #endregion
 
@@ -234,6 +262,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
+            string str1 = hdItemsString.Text;
+            string str2 = hdTaskWeldJoint.Text;
             this.InitTreeMenu();
             var unit = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(tvControlItem.SelectedNodeID);
             List<Model.View_HJGL_WeldingTask> GetWeldingTaskList = null;
@@ -266,6 +296,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
                 if (getUnit != null)
                 {
+                    var consumablesTypes = from x in Funs.DB.Base_Consumables select x;
                     foreach (var item in getNewWeldTaskItem)
                     {
                         Model.HJGL_WeldTask NewTask = new Model.HJGL_WeldTask();
@@ -282,15 +313,39 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         NewTask.BackingWelderId = item.BackingWelderId;
                         NewTask.JointAttribute = item.JointAttribute;
                         NewTask.WeldingMode = item.WeldingMode;
+                        var weldingRod = consumablesTypes.FirstOrDefault(x => x.ConsumablesName == item.WeldingRodCode);
+                        if (weldingRod != null)
+                        {
+                            NewTask.WeldingRod = weldingRod.ConsumablesId;
+                        }
+                        var weldingWire = consumablesTypes.FirstOrDefault(x => x.ConsumablesName == item.WeldingWireCode);
+                        if (weldingWire != null)
+                        {
+                            NewTask.WeldingWire = weldingWire.ConsumablesId;
+                        }
                         var task = Funs.DB.HJGL_WeldTask.FirstOrDefault(x => x.WeldTaskId == item.WeldTaskId);
                         if (task != null)
                         {
                             NewTask.TaskDate = task.TaskDate;
                             NewTask.Tabler = task.Tabler;
                             NewTask.TableDate = task.TaskDate;
+                            NewTask.IsSaved = true;
                             BLL.WeldTaskService.UpdateWeldTask(NewTask);
                         }
-
+                        Model.HJGL_WeldJoint jot = BLL.WeldJointService.GetWeldJointByWeldJointId(item.WeldJointId);
+                        if (jot != null)
+                        {
+                            if (NewTask.WeldingRod != null)
+                            {
+                                jot.WeldingRod = NewTask.WeldingRod;
+                            }
+                            if (NewTask.WeldingWire != null)
+                            {
+                                jot.WeldingWire = NewTask.WeldingWire;
+                            }
+                            jot.WeldingMode = NewTask.WeldingMode;
+                            BLL.WeldJointService.UpdateWeldJoint(jot);
+                        }
                     }
                 }
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
@@ -305,6 +360,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
         protected void CreatWeldableWeldJoint_Click(object sender, EventArgs e)
         {
+            var weldingRods = from x in Funs.DB.Base_Consumables where x.ConsumablesType == "2" select x;
+            var weldingWires = from x in Funs.DB.Base_Consumables where x.ConsumablesType == "1" select x;
             for (int i = 0; i < Grid1.Rows.Count(); i++)
             {
                 string weldTaskId = Grid1.DataKeys[i][0].ToString();
@@ -336,7 +393,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 string jointAttribute = jot.JointAttribute;
                 string canWelderId = string.Empty;
                 string canWelderCode = string.Empty;
-
+                string canWeldingRodName = string.Empty;
+                string canWeldingWireName = string.Empty;
                 var projectWelder = from x in Funs.DB.SitePerson_Person
                                     where x.ProjectId == jot.ProjectId
                                           && x.UnitId == iso.UnitId && x.WorkPostId == Const.WorkPost_Welder
@@ -369,6 +427,40 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         }
                     }
                 }
+                //获取可替代焊丝焊条
+                //var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(jot.Material1Id);
+                //string matClass = mat.MaterialClass;
+                //var matRod = weldingRods.FirstOrDefault(x => x.ConsumablesId == jot.WeldingRod);
+                //foreach (var item in weldingRods)
+                //{
+                //    if (matClass == "Fe-1" || matClass == "Fe-3")
+                //    {
+                //        if (IsCoverClass(matRod.SteelType, item.SteelType))
+                //        {
+                //            canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
+                //        }
+                //    }
+                //    else
+                //    {
+                //        canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
+                //    }
+                //}
+                //var matWire = weldingWires.FirstOrDefault(x => x.ConsumablesId == jot.WeldingRod);
+                //foreach (var item in weldingWires)
+                //{
+                //    if (matClass == "Fe-1" || matClass == "Fe-3")
+                //    {
+                //        if (IsCoverClass(matWire.SteelType, item.SteelType))
+                //        {
+                //            canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
+                //        }
+                //    }
+                //    else
+                //    {
+                //        canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
+                //    }
+                //}
+
                 if (!string.IsNullOrEmpty(canWelderId))
                 {
                     BLL.WeldTaskService.UpdateCanWelderTask(weldTaskId, canWelderId.Substring(0, canWelderId.Length - 1), canWelderCode.Substring(0, canWelderCode.Length - 1));
@@ -382,7 +474,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 }
                 else
                 {
-                    GetWeldingTaskList = BLL.WeldTaskService.GetWeldingTaskList(this.CurrUser.LoginProjectId, tvControlItem.SelectedNodeID, Convert.ToDateTime(txtTaskDate.Text));
+                    GetWeldingTaskList = BLL.WeldTaskService.GetWeldingTaskList(this.CurrUser.LoginProjectId, tvControlItem.SelectedNodeID, Convert.ToDateTime(hdTaskWeldJoint.Text));
                 }
                 this.BindGrid(GetWeldingTaskList);
                 //GetCanWelderDropDownList(GetWeldingTaskList);
@@ -390,6 +482,33 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
             Alert.ShowInTop("已生成可焊焊工！", MessageBoxIcon.Success);
 
+        }
+
+        /// <summary>
+        /// 判断耗材强度是否大于WPS耗材强度，如是为true,否则为false
+        /// </summary>
+        /// <param name="wpsClass"></param>
+        /// <param name="matClass"></param>
+        /// <returns></returns>
+        private bool IsCoverClass(string wpsClass, string matClass)
+        {
+            bool isCover = false;
+            int wpsSn = 0;
+            int matSn = 0;
+            string wpsPre = wpsClass.Substring(0, wpsClass.Length - 2);
+            string matPre = matClass.Substring(0, matClass.Length - 2);
+
+            string wps = wpsClass.Substring(wpsClass.Length - 1, 1);
+            wpsSn = Funs.GetNewInt(wps).HasValue ? Funs.GetNewInt(wps).Value : 0;
+
+            string mat = matClass.Substring(matClass.Length - 1, 1);
+            matSn = Funs.GetNewInt(mat).HasValue ? Funs.GetNewInt(mat).Value : 0;
+
+            if (wpsPre == matPre && matSn >= wpsSn)
+            {
+                return true;
+            }
+            return isCover;
         }
 
         #region 焊工资质判断
@@ -596,6 +715,14 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 {
                     NewItem.WeldTypeCode = values.Value<string>("WeldTypeCode").ToString();
                 }
+                if (!string.IsNullOrEmpty(values.Value<string>("WeldingRodCode")))
+                {
+                    NewItem.WeldingRodCode = values.Value<string>("WeldingRodCode").ToString();
+                }
+                if (!string.IsNullOrEmpty(values.Value<string>("WeldingWireCode")))
+                {
+                    NewItem.WeldingWireCode = values.Value<string>("WeldingWireCode").ToString();
+                }
                 if (!string.IsNullOrEmpty(values.Value<int>("Size").ToString()))
                 {
                     NewItem.Size = values.Value<int>("Size");
@@ -655,7 +782,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             else
             {
-                Alert.ShowInTop("请选择单位和单位工程", MessageBoxIcon.Warning);
+                Alert.ShowInTop("请选择任务单", MessageBoxIcon.Warning);
             }
         }
 

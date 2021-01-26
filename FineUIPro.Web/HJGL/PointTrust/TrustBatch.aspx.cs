@@ -112,18 +112,18 @@ namespace FineUIPro.Web.HJGL.PointTrust
         /// <param name="node"></param>
         private void BindNodes(TreeNode node)
         {
-                var p = from x in Funs.DB.HJGL_Batch_BatchTrust
-                        where x.UnitWorkId == node.NodeID
-                             && x.TrustDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
-                             && x.TrustDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
-                        select x;
-                if (p.Count() > 0)
-                {
-                    TreeNode newNode = new TreeNode();
-                    newNode.Text = "探伤类型";
-                    newNode.NodeID = "探伤类型";
-                    node.Nodes.Add(newNode);
-                }
+            var p = from x in Funs.DB.HJGL_Batch_BatchTrust
+                    where x.UnitWorkId == node.NodeID && x.TrustType == null
+                         && x.TrustDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
+                         && x.TrustDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
+                    select x;
+            if (p.Count() > 0)
+            {
+                TreeNode newNode = new TreeNode();
+                newNode.Text = "探伤类型";
+                newNode.NodeID = "探伤类型";
+                node.Nodes.Add(newNode);
+            }
 
         }
         protected void tvControlItem_TreeNodeExpanded(object sender, TreeNodeEventArgs e)
@@ -139,7 +139,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
                 {
                     var pointManages = from x in Funs.DB.View_Batch_BatchTrust
                                        where x.ProjectId == this.CurrUser.LoginProjectId
-                                       && x.UnitWorkId == e.Node.NodeID
+                                       && x.UnitWorkId == e.Node.NodeID && x.TrustType == null
                                        && x.DetectionTypeId == item.DetectionTypeId
                                        select x;
 
@@ -168,7 +168,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
                 ///单号
                 var trusts = from x in Funs.DB.HJGL_Batch_BatchTrust
                              where x.TrustDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
-                             && x.TrustDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
+                             && x.TrustDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01") && x.TrustType == null
                              && x.ProjectId == this.CurrUser.LoginProjectId && x.TrustBatchCode.Contains(this.txtSearchCode.Text.Trim())
                              && x.UnitWorkId == e.Node.ParentNode.NodeID
                              && x.DetectionTypeId == e.NodeID.Split('|')[0]
@@ -246,6 +246,24 @@ namespace FineUIPro.Web.HJGL.PointTrust
                         lbNDEUnit.Text = unit.UnitName;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// 手动点口关闭
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnPointAudit_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_PointBatchMenuId, Const.BtnPointAudit))
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PointAudit.aspx", "点口审核 - ")));
+            }
+            else
+            {
+                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
             }
         }
 
@@ -415,7 +433,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
                         db.SubmitChanges();
                         this.InitTreeMenu();
                         this.BindGrid();
-                        ShowNotify("已删除委托单："+ trustBatchCode, MessageBoxIcon.Success);
+                        ShowNotify("已删除委托单：" + trustBatchCode, MessageBoxIcon.Success);
                     }
                 }
             }

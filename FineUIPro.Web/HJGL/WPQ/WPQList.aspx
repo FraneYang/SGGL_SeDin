@@ -70,10 +70,10 @@
                     <f:RenderField Width="120px" ColumnID="Specifications" DataField="Specifications"
                         FieldType="String" HeaderText="规格" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="WeldingRod" DataField="WeldingRod" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="WeldingWire" DataField="WeldingWire" FieldType="String"
                         HeaderText="焊丝类别" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="WeldingWire" DataField="WeldingWire" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="WeldingRod" DataField="WeldingRod" FieldType="String"
                         HeaderText="焊条类别" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="GrooveType" DataField="GrooveTypeName"

@@ -245,6 +245,10 @@ namespace FineUIPro.Web.SysManage
             if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
             {
                 this.btnSave.Hidden = false;
+                if (this.CurrUser.UserId == BLL.Const.sysglyId || this.CurrUser.UserId == BLL.Const.hfnbdId)
+                {
+                    this.btnArrowRefresh.Hidden = false;
+                }
             }
             else
             {

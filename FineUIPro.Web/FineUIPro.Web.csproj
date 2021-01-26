@@ -415,6 +415,7 @@
     <Content Include="HJGL\PurgingCleaning\PurgingCleaningItemEdit.aspx" />
     <Content Include="HJGL\PurgingCleaning\SelectPipeline.aspx" />
     <Content Include="HJGL\RepairAndExpand\RepairAndExpand.aspx" />
+    <Content Include="HJGL\RepairAndExpand\RepairTrust.aspx" />
     <Content Include="HJGL\RepairAndExpand\SeeFilm.aspx" />
     <Content Include="HJGL\TestPackage\BItemEndCheck.aspx" />
     <Content Include="HJGL\TestPackage\ItemEndCheck.aspx" />
@@ -427,9 +428,11 @@
     <Content Include="HJGL\TestPackage\TestPackageCompleteEdit.aspx" />
     <Content Include="HJGL\TestPackage\TestPackageEdit.aspx" />
     <Content Include="HJGL\TestPackage\TestPackageItemEdit.aspx" />
+    <Content Include="HJGL\WeldingManage\JointShowColumn.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineEdit.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineList.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineListIn.aspx" />
+    <Content Include="HJGL\WeldingManage\PipelineListUpdateIn.aspx" />
     <Content Include="HJGL\WeldingManage\PreWeldReportAudit.aspx" />
     <Content Include="HJGL\WeldingManage\SelectDailyWeldJoint.aspx" />
     <Content Include="HJGL\WeldingManage\SelectTaskWeldJoint.aspx" />
@@ -6562,6 +6565,13 @@
     <Compile Include="HJGL\RepairAndExpand\RepairAndExpand.aspx.designer.cs">
       <DependentUpon>RepairAndExpand.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\RepairAndExpand\RepairTrust.aspx.cs">
+      <DependentUpon>RepairTrust.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\RepairAndExpand\RepairTrust.aspx.designer.cs">
+      <DependentUpon>RepairTrust.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\RepairAndExpand\SeeFilm.aspx.cs">
       <DependentUpon>SeeFilm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6649,6 +6659,13 @@
     <Compile Include="HJGL\WeldingManage\GetWdldingDailyItem.ashx.cs">
       <DependentUpon>GetWdldingDailyItem.ashx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\WeldingManage\JointShowColumn.aspx.cs">
+      <DependentUpon>JointShowColumn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\JointShowColumn.aspx.designer.cs">
+      <DependentUpon>JointShowColumn.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\WeldingManage\PipelineEdit.aspx.cs">
       <DependentUpon>PipelineEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6669,6 +6686,13 @@
     </Compile>
     <Compile Include="HJGL\WeldingManage\PipelineListIn.aspx.designer.cs">
       <DependentUpon>PipelineListIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\PipelineListUpdateIn.aspx.cs">
+      <DependentUpon>PipelineListUpdateIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\PipelineListUpdateIn.aspx.designer.cs">
+      <DependentUpon>PipelineListUpdateIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\WeldingManage\PreWeldReportAudit.aspx.cs">
       <DependentUpon>PreWeldReportAudit.aspx</DependentUpon>

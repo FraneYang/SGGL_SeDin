@@ -1,4 +1,5 @@
-﻿using System;using System.Collections.Generic;using System.Data;using System.Data.SqlClient;using System.Linq;using BLL;using Newtonsoft.Json.Linq;namespace FineUIPro.Web.HJGL.TestPackage{    public partial class TestPackageComplete : PageBase    {        #region 定义项
+﻿using System;using System.Collections.Generic;using System.Data;using System.Data.SqlClient;using System.Linq;using System.Web;
+using BLL;using Newtonsoft.Json.Linq;namespace FineUIPro.Web.HJGL.TestPackage{    public partial class TestPackageComplete : PageBase    {        #region 定义项
         /// <summary>
         /// 试压包主键
         /// </summary>
@@ -107,30 +108,37 @@
             if (node.CommandName == "单位工程")
             {
                 var dReports = from x in testPackageUnitList
-                               where x.UnitWorkId == node.NodeID
-                               && x.State == Const.TestPackage_Complete
+                               where x.AduditDate.HasValue
                                orderby x.TestPackageNo descending
                                select x;
+                var totalList = from x in Funs.DB.PTP_ItemEndCheckList select x;
                 foreach (var item in dReports)
                 {
-                    TreeNode newNode = new TreeNode();
-                    if (!string.IsNullOrEmpty(item.TestPackageNo))
+                    var list= from x in totalList where x.PTP_ID == item.PTP_ID select x;
+                    var notCompletelist = from x in totalList
+                                          where x.PTP_ID == item.PTP_ID && x.State != BLL.Const.TestPackage_Complete
+                                          select x;
+                    if (list.Count()>0 && notCompletelist.Count() == 0)   //不存在流程未闭合记录
                     {
-                        newNode.Text = item.TestPackageNo;
+                        TreeNode newNode = new TreeNode();
+                        if (!string.IsNullOrEmpty(item.TestPackageNo))
+                        {
+                            newNode.Text = item.TestPackageNo;
+                        }
+                        else
+                        {
+                            newNode.Text = "未知";
+                        }
+                        //if (!item.AduditDate.HasValue || string.IsNullOrEmpty(item.Auditer))
+                        //{
+                        //    newNode.Text = "<font color='#FF7575'>" + newNode.Text + "</font>";
+                        //    node.Text = "<font color='#FF7575'>" + node.Text + "</font>";
+                        //}
+                        newNode.NodeID = item.PTP_ID;
+                        newNode.EnableClickEvent = true;
+                        newNode.CommandName = "TestPackage";
+                        node.Nodes.Add(newNode);
                     }
-                    else
-                    {
-                        newNode.Text = "未知";
-                    }
-                    if (!item.AduditDate.HasValue || string.IsNullOrEmpty(item.Auditer))
-                    {
-                        newNode.Text = "<font color='#FF7575'>" + newNode.Text + "</font>";
-                        node.Text = "<font color='#FF7575'>" + node.Text + "</font>";
-                    }
-                    newNode.NodeID = item.PTP_ID;
-                    newNode.EnableClickEvent = true;
-                    newNode.CommandName = "TestPackage";
-                    node.Nodes.Add(newNode);
                 }
             }
         }
@@ -187,6 +195,8 @@
             var testPackageManage = BLL.TestPackageEditService.GetTestPackageByID(this.PTP_ID);
             if (testPackageManage != null)
             {
+                this.txtTestPackageNo.Text = testPackageManage.TestPackageNo;
+                this.txtTestPackageName.Text = testPackageManage.TestPackageName;
                 this.txtadjustTestPressure.Text = testPackageManage.AdjustTestPressure;
                 this.txtAmbientTemperature.Text = testPackageManage.AmbientTemperature.ToString();
                 this.txtFinishDef.Text = testPackageManage.FinishDef;
@@ -220,5 +230,47 @@
         protected void btnMenuModify_Click(object sender, EventArgs e)
         {
             PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)+ Window1.GetShowReference(String.Format("TestPackageCompleteEdit.aspx?PTP_ID={0}", this.tvControlItem.SelectedNodeID, "操作 - ")));
+        }
+
+        protected void btnPrinter_Click(object sender, EventArgs e)
+        {
+            string PTP_ID = this.tvControlItem.SelectedNodeID;
+            var p = BLL.TestPackageEditService.GetTestPackageByID(PTP_ID);
+            if (p != null)
+            {
+                string varValue = string.Empty;
+                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                if (project != null)
+                {
+                    varValue = project.ProjectName;
+                    var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(p.UnitWorkId);
+                    if (unitWork != null)
+                    {
+                        varValue = varValue + "|" + unitWork.UnitWorkName;
+                    }
+                    if (!string.IsNullOrEmpty(p.TestPackageName))
+                    {
+                        varValue = varValue + "|" + p.TestPackageName;
+                    }
+                    if (!string.IsNullOrEmpty(p.TestPackageNo))
+                    {
+                        varValue = varValue + "|" + p.TestPackageNo;
+                    }
+                    if (!string.IsNullOrEmpty(p.FinishDef))
+                    {
+                        varValue = varValue + "|" + p.FinishDef;
+                    }
+                }
+                if (!string.IsNullOrEmpty(varValue))
+                {
+                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                }
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_TestPackageRecordReportId, PTP_ID, varValue, this.CurrUser.LoginProjectId)));
+            }
+            else
+            {
+                ShowNotify("请选择试压包！", MessageBoxIcon.Warning);
+                return;
+            }
         }
     }}

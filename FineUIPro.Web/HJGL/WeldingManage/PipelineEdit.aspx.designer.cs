@@ -163,7 +163,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox numDesignTemperature;
+        protected global::FineUIPro.TextBox numDesignTemperature;
         
         /// <summary>
         /// numDesignPress 控件。
@@ -172,7 +172,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox numDesignPress;
+        protected global::FineUIPro.TextBox numDesignPress;
         
         /// <summary>
         /// drpTestMedium 控件。
@@ -190,7 +190,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox numTestPressure;
+        protected global::FineUIPro.TextBox numTestPressure;
         
         /// <summary>
         /// drpPressurePipingClass 控件。
@@ -226,7 +226,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox numLeakPressure;
+        protected global::FineUIPro.TextBox numLeakPressure;
         
         /// <summary>
         /// drpPCMedium 控件。
@@ -244,7 +244,16 @@ namespace FineUIPro.Web.HJGL.WeldingManage {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox numVacuumPressure;
+        protected global::FineUIPro.TextBox numVacuumPressure;
+        
+        /// <summary>
+        /// drpMaterial 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpMaterial;
         
         /// <summary>
         /// txtRemark 控件。

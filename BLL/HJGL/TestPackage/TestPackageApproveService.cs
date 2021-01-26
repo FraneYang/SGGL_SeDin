@@ -11,9 +11,9 @@ namespace BLL
     public class TestPackageApproveService
     {
         public static Model.SGGLDB db = Funs.DB;
-        public static Model.PTP_TestPackageApprove GetTestPackageApproveById(string PTP_ID)
+        public static Model.PTP_TestPackageApprove GetTestPackageApproveById(string ItemEndCheckListId)
         {
-            return db.PTP_TestPackageApprove.FirstOrDefault(x => x.PTP_ID == PTP_ID && x.ApproveDate == null);
+            return db.PTP_TestPackageApprove.FirstOrDefault(x => x.ItemEndCheckListId == ItemEndCheckListId && x.ApproveDate == null);
         }
         /// <summary>
         /// 修改尾项检查审批信息
@@ -27,7 +27,7 @@ namespace BLL
             newApprove.ApproveMan = approve.ApproveMan;
             newApprove.ApproveDate = approve.ApproveDate;
             newApprove.Opinion = approve.Opinion;
-            newApprove.PTP_ID = approve.PTP_ID;
+            newApprove.ItemEndCheckListId = approve.ItemEndCheckListId;
             newApprove.ApproveType = approve.ApproveType;
             db.SubmitChanges();
         }
@@ -44,7 +44,7 @@ namespace BLL
             newApprove.ApproveMan = approve.ApproveMan;
             newApprove.ApproveDate = approve.ApproveDate;
             newApprove.Opinion = approve.Opinion;
-            newApprove.PTP_ID = approve.PTP_ID;
+            newApprove.ItemEndCheckListId = approve.ItemEndCheckListId;
             newApprove.ApproveType = approve.ApproveType;
             db.PTP_TestPackageApprove.InsertOnSubmit(newApprove);
             db.SubmitChanges();
@@ -54,13 +54,28 @@ namespace BLL
         /// 根据试压包主键删除所有办理记录
         /// </summary>
         /// <param name="PTP_Id"></param>
-        public static void DeleteAllTestPackageApproveByID(string PTP_Id)
+        public static void DeleteAllTestPackageApproveByID(string ItemEndCheckListId)
         {
             Model.SGGLDB db = Funs.DB;
-            var Approve = from x in db.PTP_TestPackageApprove where x.PTP_ID == PTP_Id select x;
+            var Approve = from x in db.PTP_TestPackageApprove where x.ItemEndCheckListId == ItemEndCheckListId select x;
             if (Approve != null)
             {
                 db.PTP_TestPackageApprove.DeleteAllOnSubmit(Approve);
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除办理记录
+        /// </summary>
+        /// <param name="PTP_Id"></param>
+        public static void DeleteAllTestPackageApproveByApproveID(string ApproveId)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var Approve = (from x in db.PTP_TestPackageApprove where x.ApproveId == ApproveId select x).FirstOrDefault();
+            if (Approve != null)
+            {
+                db.PTP_TestPackageApprove.DeleteOnSubmit(Approve);
                 db.SubmitChanges();
             }
         }

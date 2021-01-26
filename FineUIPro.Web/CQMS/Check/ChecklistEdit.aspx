@@ -170,7 +170,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:ContentPanel ID="ContentPanel5" Title="工程联络单审批流程设置" runat="server" ShowHeader="true" EnableCollapse="true"
+                        <f:ContentPanel ID="ContentPanel5" Title="质量巡检审批流程设置" runat="server" ShowHeader="true" EnableCollapse="true"
                             BodyPadding="0px">
                             <f:Form ID="Form5" ShowBorder="false" ShowHeader="false" AutoScroll="true"
                                 BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">

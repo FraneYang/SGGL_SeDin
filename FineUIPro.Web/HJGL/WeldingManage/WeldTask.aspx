@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>焊接任务单</title>
+    <link href="../../res/css/common.css" rel="stylesheet" type="text/css" />
     <meta name="sourcefiles" content="~/HJGL/WeldingManage/GetWdldingDailyItem.ashx" />
 </head>
 <body>
@@ -30,9 +31,9 @@
                         <f:Tree ID="tvControlItem" ShowHeader="false" Height="500px" Title="焊接任务单" runat="server" ShowBorder="false" EnableCollapse="true"
                             EnableSingleClickExpand="true" AutoLeafIdentification="true" EnableSingleExpand="true"
                             EnableTextSelection="true" OnNodeCommand="tvControlItem_NodeCommand" EnableExpandEvent="true">
-                             <Listeners>
+                            <Listeners>
                                 <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
-                         </Listeners>
+                            </Listeners>
                         </f:Tree>
                     </Items>
                 </f:Panel>
@@ -45,26 +46,26 @@
                             AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldTaskId" AllowSorting="true"
                             SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort"
                             AllowPaging="false" IsDatabasePaging="true" PageSize="10000" EnableTextSelection="True"
-                             EnableCheckBoxSelect="true" KeepCurrentSelection="true">
+                            EnableCheckBoxSelect="true" KeepCurrentSelection="true">
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar4" Position="Top" runat="server" ToolbarAlign="Right">
                                     <Items>
                                         <f:HiddenField runat="server" ID="hdItemsString"></f:HiddenField>
                                         <f:HiddenField runat="server" ID="hdTaskWeldJoint"></f:HiddenField>
-                                         <f:Button ID="btnSelectWelder"  runat="server" Text="选择焊工批量填充" OnClick="btnSelectWelder_Click">
+                                        <f:Button ID="btnSelectWelder" runat="server" Text="选择焊工批量填充" OnClick="btnSelectWelder_Click">
                                         </f:Button>
-                                        <f:DropDownList ID="drpCanWelder"  EnableEdit="true" runat="server" LabelWidth="140px">
+                                        <f:DropDownList ID="drpCanWelder" EnableEdit="true" runat="server" LabelWidth="140px">
                                         </f:DropDownList>
-                                         <f:Button ID="btnSaveWelder" Icon="Accept" runat="server" Text="确认" OnClick="btnSaveWelder_Click">
+                                        <f:Button ID="btnSaveWelder" Icon="Accept" runat="server" Text="确认" OnClick="btnSaveWelder_Click">
                                         </f:Button>
                                         <f:ToolbarFill runat="server"></f:ToolbarFill>
                                         <f:DatePicker ID="txtTaskDate" Label="计划焊接日期" runat="server"
-                                            DateFormatString="yyyy-MM-dd" LabelAlign="Left" LabelWidth="110px"  Hidden="true">
+                                            DateFormatString="yyyy-MM-dd" LabelAlign="Left" LabelWidth="110px" Hidden="true">
                                         </f:DatePicker>
                                         <f:Button runat="server" ID="ckSelect" Icon="Find" ToolTip="查找" Text="查找" OnClick="ckSelect_Click" Hidden="true">
-                                        </f:Button> 
+                                        </f:Button>
                                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存" OnClick="btnSave_Click">
-                                        </f:Button> 
+                                        </f:Button>
                                         <f:Button runat="server" ID="CreatWeldableWeldJoint" Icon="ChartPie" Text="生成可焊焊工" OnClick="CreatWeldableWeldJoint_Click"></f:Button>
                                     </Items>
                                 </f:Toolbar>
@@ -72,13 +73,13 @@
                             <Columns>
                                 <f:RenderField HeaderText="管线号" ColumnID="PipelineCode"
                                     DataField="PipelineCode" SortField="PipelineCode" FieldType="String" HeaderTextAlign="Center"
-                                    TextAlign="Left" Width="90px" >
+                                    TextAlign="Left" Width="90px">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode"
                                     DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="70px">
                                 </f:RenderField>
-                                <f:RenderField  ColumnID="WeldTaskId"
+                                <f:RenderField ColumnID="WeldTaskId"
                                     DataField="WeldTaskId" FieldType="String" Hidden="true">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="焊口属性" ColumnID="JointAttribute"
@@ -99,7 +100,7 @@
                                 </f:RenderField>
                                 <f:RenderField HeaderText="焊接类型" ColumnID="WeldTypeCode"
                                     DataField="WeldTypeCode" SortField="WeldTypeCode" FieldType="String" HeaderTextAlign="Center"
-                                    TextAlign="Left" Width="70px">
+                                    TextAlign="Left" Width="80px">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="达因" ColumnID="Size"
                                     DataField="Size" SortField="Size" FieldType="Double" HeaderTextAlign="Center" TextAlign="Left"
@@ -117,12 +118,30 @@
                                     DataField="WeldingMethodCode" SortField="WeldingMethodCode" FieldType="String"
                                     HeaderTextAlign="Center" TextAlign="Left" Width="120px">
                                 </f:RenderField>
-                                  <f:RenderField HeaderText="可焊焊工号" ColumnID="CanWelderCode"
+                                <f:RenderField HeaderText="焊条" ColumnID="WeldingRodCode"
+                                    DataField="WeldingRodCode" FieldType="String" HeaderTextAlign="Center"
+                                    TextAlign="Left" Width="110px">
+                                    <Editor>
+                                        <f:DropDownList ID="drpWeldingRod" EnableEdit="true" Required="true" runat="server"
+                                            ShowRedStar="true">
+                                        </f:DropDownList>
+                                    </Editor>
+                                </f:RenderField>
+                                <f:RenderField HeaderText="焊丝" ColumnID="WeldingWireCode"
+                                    DataField="WeldingWireCode" FieldType="String" HeaderTextAlign="Center"
+                                    TextAlign="Left" Width="110px">
+                                    <Editor>
+                                        <f:DropDownList ID="drpWeldingWire" EnableEdit="true" Required="true" runat="server"
+                                            ShowRedStar="true">
+                                        </f:DropDownList>
+                                    </Editor>
+                                </f:RenderField>
+                                <f:RenderField HeaderText="可焊焊工号" ColumnID="CanWelderCode"
                                     DataField="CanWelderCode" SortField="CanWelderCode" FieldType="String" HeaderTextAlign="Center"
                                     TextAlign="Left" Width="300px">
                                 </f:RenderField>
-                                 <f:RenderField HeaderText="可焊焊工ID" ColumnID="CanWelderId"
-                                    DataField="CanWelderId"  FieldType="String" Hidden="true">
+                                <f:RenderField HeaderText="可焊焊工ID" ColumnID="CanWelderId"
+                                    DataField="CanWelderId" FieldType="String" Hidden="true">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="盖面焊工" ColumnID="CoverWelderCode"
                                     DataField="CoverWelderCode" FieldType="String" HeaderTextAlign="Center"
@@ -134,8 +153,8 @@
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="打底焊工" ColumnID="BackingWelderCode"
-                                    DataField="BackingWelderCode"  FieldType="String"
-                                     HeaderTextAlign="Center" TextAlign="Left" Width="110px">
+                                    DataField="BackingWelderCode" FieldType="String"
+                                    HeaderTextAlign="Center" TextAlign="Left" Width="110px">
                                     <Editor>
                                         <f:DropDownList ID="drpBackingWelderId" EnableEdit="true" Required="true" runat="server"
                                             ShowRedStar="true">
@@ -143,6 +162,12 @@
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField HeaderText="WeldJointId" ColumnID="WeldJointId" DataField="WeldJointId"
+                                    FieldType="String" Hidden="true">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="CanWeldingRodName" ColumnID="CanWeldingRodName" DataField="CanWeldingRodName"
+                                    FieldType="String" Hidden="true">
+                                </f:RenderField>
+                                <f:RenderField HeaderText="CanWeldingWireName" ColumnID="CanWeldingWireName" DataField="CanWeldingWireName"
                                     FieldType="String" Hidden="true">
                                 </f:RenderField>
                             </Columns>
@@ -176,14 +201,14 @@
         <f:Menu ID="Menu1" runat="server">
             <f:MenuButton ID="btnMenuAdd" EnablePostBack="true" runat="server" Text="新增" Icon="Add" OnClick="btnMenuAdd_Click">
             </f:MenuButton>
-             <f:MenuButton ID="btnMotify" EnablePostBack="true" runat="server" Text="修改" Icon="ApplicationEdit"  OnClick="btnMotify_Click">
+            <f:MenuButton ID="btnMotify" EnablePostBack="true" runat="server" Text="修改" Icon="ApplicationEdit" OnClick="btnMotify_Click">
             </f:MenuButton>
         </f:Menu>
         <f:Menu ID="Menu2" runat="server">
-             <f:MenuButton ID="btnMenuDelete"
+            <f:MenuButton ID="btnMenuDelete"
                 EnablePostBack="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" OnClick="btnMenuDelete_Click">
             </f:MenuButton>
-            </f:Menu>
+        </f:Menu>
     </form>
     <script type="text/javascript">
         var menu1ID = '<%= Menu1.ClientID %>';
@@ -193,7 +218,7 @@
             F(menu2ID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
-         function onTreeNodeContextMenu(event, rowId) {
+        function onTreeNodeContextMenu(event, rowId) {
             F(menu1ID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
@@ -205,17 +230,52 @@
         var gridClientID = '<%= Grid1.ClientID %>';
         var drpCoverWelderIdClientID = '<%= drpCoverWelderId.ClientID %>';
         var drpBackingWelderIdClientID = '<%= drpBackingWelderId.ClientID %>';
+        var drpWeldingRodClientID = '<%= drpWeldingRod.ClientID %>';
+        var drpWeldingWireClientID = '<%= drpWeldingWire.ClientID %>';
 
-         function onGridBeforeEdit(event, value, params) {
+        function onGridBeforeEdit(event, value, params) {
             var grid = F(gridClientID);
-             var canWelder = grid.getCellValue(params.rowId, 'CanWelderCode');
-             var coverWelderCode = grid.getCellValue(params.rowId, 'CoverWelderCode');
-             var backingWelderCode = grid.getCellValue(params.rowId, 'BackingWelderCode');
-             var canWelderList = canWelder.split(',');
+            var canWelder = grid.getCellValue(params.rowId, 'CanWelderCode');
+            var coverWelderCode = grid.getCellValue(params.rowId, 'CoverWelderCode');
+            var backingWelderCode = grid.getCellValue(params.rowId, 'BackingWelderCode');
+            var canWelderList = canWelder.split(',');
+
+            var canWeldingRodName = grid.getCellValue(params.rowId, 'CanWeldingRodName');
+            var weldingRodCode = grid.getCellValue(params.rowId, 'WeldingRodCode');
+            var canWeldingRodList = canWeldingRodName.split(',');
+            var canWeldingWireName = grid.getCellValue(params.rowId, 'CanWeldingWireName');
+            var weldingWireCode = grid.getCellValue(params.rowId, 'WeldingWireCode');
+            var canWeldingWireList = canWeldingWireName.split(',');
+
+            if (params.columnId === 'WeldingRodCode') {
+                var drpWeldingRod = F(drpWeldingRodClientID);
+                if (canWeldingRodName != '') {
+                    drpWeldingRod.enable();
+                    drpWeldingRod.setEmptyText('');
+                    drpWeldingRod.loadData(canWeldingRodList);
+                } else {
+                    drpWeldingRod.setEmptyText('请先生成可选焊条！');
+                    drpWeldingRod.disable();
+                }
+                drpWeldingRod.value = weldingRodCode;
+            }
+
+            if (params.columnId === 'WeldingWireCode') {
+                var drpWeldingWire = F(drpWeldingWireClientID);
+                if (canWeldingWireName != '') {
+                    drpWeldingWire.enable();
+                    drpWeldingWire.setEmptyText('');
+                    drpWeldingWire.loadData(canWeldingWireList);
+                } else {
+                    drpWeldingWire.setEmptyText('请先生成可选焊丝！');
+                    drpWeldingWire.disable();
+                }
+                drpWeldingWire.value = weldingWireCode;
+            }
 
             if (params.columnId === 'CoverWelderCode') {
                 var drpCoverWelderId = F(drpCoverWelderIdClientID);
-                if (canWelder!='') {
+                if (canWelder != '') {
                     drpCoverWelderId.enable();
                     drpCoverWelderId.setEmptyText('');
                     drpCoverWelderId.loadData(canWelderList);
@@ -224,11 +284,11 @@
                     drpCoverWelderId.disable();
                 }
                 drpCoverWelderId.value = coverWelderCode;
-             }
+            }
 
-               if (params.columnId === 'BackingWelderCode') {
+            if (params.columnId === 'BackingWelderCode') {
                 var drpBackingWelderId = F(drpBackingWelderIdClientID);
-                if (canWelder!='') {
+                if (canWelder != '') {
                     drpBackingWelderId.enable();
                     drpBackingWelderId.setEmptyText('');
                     drpBackingWelderId.loadData(canWelderList);

@@ -25,6 +25,7 @@ namespace FineUIPro.Web.HJGL.BaseInfo
                         this.txtPipingClassCode.Text = getPipingClass.PipingClassCode;
                         this.txtPipingClassName.Text = getPipingClass.PipingClassName;                      
                         this.txtRemark.Text = getPipingClass.Remark;
+                        this.txtSteelType.Text = getPipingClass.SteelType;
                     }
                 }
             }

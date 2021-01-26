@@ -138,6 +138,14 @@ namespace BLL
                                          States = x.States,
                                          PauseStates = x.PauseStates,
                                          PauseNoticeAttachUrl = APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
+                                         SignManId = x.SignManId,
+                                         ApproveManId = x.ApproveManId,
+                                         DutyPersonId = x.DutyPersonId,
+                                         ProfessionalEngineerId = x.ProfessionalEngineerId,
+                                         ConstructionManagerId = x.ConstructionManagerId,
+                                         UnitHeadManId = x.UnitHeadManId,
+                                         SupervisorManId = x.SupervisorManId,
+                                         OwnerId = x.OwnerId,
                                      };
                 if (!string.IsNullOrEmpty(strParam))
                 {

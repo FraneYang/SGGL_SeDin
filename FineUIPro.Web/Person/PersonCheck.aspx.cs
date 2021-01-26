@@ -187,23 +187,23 @@ namespace FineUIPro.Web.Person
             DateTime endTime = DateTime.Now;
             if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-1" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-3" + "-31"))
             {
-                startTime = Convert.ToDateTime(DateTime.Now.AddYears(-1).ToString() + "-10" + "-1");
-                endTime = Convert.ToDateTime(DateTime.Now.AddYears(-1).ToString() + "-12" + "-31");
+                startTime = Convert.ToDateTime(DateTime.Now.AddYears(-1).ToString() + "-1" + "-1");
+                endTime = Convert.ToDateTime(DateTime.Now.AddYears(-1).ToString() + "-3" + "-31");
             }
             else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-4" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-6" + "-30"))
-            {
-                startTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-1" + "-1");
-                endTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-3" + "-31");
-            }
-            else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-7" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-9" + "-30"))
             {
                 startTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-4" + "-1");
                 endTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-6" + "-30");
             }
-            else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-10" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-12" + "-31"))
+            else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-7" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-9" + "-30"))
             {
                 startTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-7" + "-1");
                 endTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-9" + "-30");
+            }
+            else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-10" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-12" + "-31"))
+            {
+                startTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-10" + "-1");
+                endTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-12" + "-31");
             }
             var QuarterCheck = BLL.Person_QuarterCheckService.GetQuarterCheckByDateTime(startTime, endTime);
             if (QuarterCheck == null)
@@ -2738,7 +2738,8 @@ namespace FineUIPro.Web.Person
                     }
                     uploadfilepath = rootPath + initTemplatePath;
                     var userName = BLL.UserService.GetUserByUserId(GetQuarterCheck.UserId).UserName;
-                    newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + userName + ".doc").Replace("Person", "Person\\员工考核");
+                    //newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + userName + ".doc").Replace("Person", "Person\\员工考核");
+                    newUrl = uploadfilepath.Replace("Person\\", "Person\\"+ userName + string.Format("{0:yyyy-MM}", DateTime.Now)).Replace("Person", "Person\\员工考核");
                     File.Copy(uploadfilepath, newUrl);
                     //更新书签内容
                     Document doc = new Aspose.Words.Document(newUrl);

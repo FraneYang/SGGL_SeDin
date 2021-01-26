@@ -130,51 +130,6 @@ namespace FineUIPro.Web.HJGL.NDT {
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
         
         /// <summary>
-        /// btnNew 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnNew;
-        
-        /// <summary>
-        /// btnImport 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnImport;
-        
-        /// <summary>
-        /// btnEdit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnEdit;
-        
-        /// <summary>
-        /// btnAudit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnAudit;
-        
-        /// <summary>
-        /// btnDelete 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnDelete;
-        
-        /// <summary>
         /// BtnRepairRecord 控件。
         /// </summary>
         /// <remarks>
@@ -317,5 +272,50 @@ namespace FineUIPro.Web.HJGL.NDT {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window WindowRepair;
+        
+        /// <summary>
+        /// Menu1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Menu Menu1;
+        
+        /// <summary>
+        /// btnNew 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnNew;
+        
+        /// <summary>
+        /// btnEdit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnEdit;
+        
+        /// <summary>
+        /// btnAudit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnAudit;
+        
+        /// <summary>
+        /// btnDelete 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnDelete;
     }
 }

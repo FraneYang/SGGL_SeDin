@@ -270,10 +270,10 @@ namespace FineUIPro.Web.HJGL.BaseInfo
             DataRowView row = e.DataItem as DataRowView;
             string dn = row["DN"].ToString();
             RenderField cdn = Grid1.FindColumn("DN") as RenderField;
-            if (dn=="65"||dn=="125"||dn=="550"||dn == "650" || dn == "850" || dn == "950"||dn == "1050" || dn == "1100" || dn == "1150" || dn == "1300" || dn == "1500" || dn == "1700" || dn == "1900")
-            {
-                e.CellCssClasses[cdn.ColumnIndex] = "color1";
-            }
+            //if (dn=="65"||dn=="125"||dn=="550"||dn == "650" || dn == "850" || dn == "950"||dn == "1050" || dn == "1100" || dn == "1150" || dn == "1300" || dn == "1500" || dn == "1700" || dn == "1900")
+            //{
+            //    e.CellCssClasses[cdn.ColumnIndex] = "color1";
+            //}
         }
     }
 }

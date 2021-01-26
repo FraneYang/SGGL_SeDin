@@ -62,24 +62,35 @@
                     <Items>
                         <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="false" AutoScroll="true" BodyPadding="2px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                             <Rows>
-                                <f:FormRow>
+                                 <f:FormRow>
                                     <Items>
-                                        <f:Label ID="txtTestDate" Label="试验日期" runat="server" LabelWidth="130px">
+                                        <f:Label ID="txtTestPackageNo" Label="系统号" runat="server" LabelWidth="130px">
+                                        </f:Label>
+                                        <f:Label ID="txtTestPackageName" Label="系统名称" runat="server" LabelWidth="130px">
                                         </f:Label>
                                         <f:Label ID="txtadjustTestPressure" Label="调整试验压力" runat="server" LabelWidth="130px">
-                                        </f:Label>
-                                        <f:Label ID="txtAmbientTemperature" Label="试验环境温度" runat="server" LabelWidth="130px">
                                         </f:Label>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
+                                        <f:Label ID="txtTestDate" Label="试验日期" runat="server" LabelWidth="130px">
+                                        </f:Label>
+                                        
+                                        <f:Label ID="txtAmbientTemperature" Label="试验环境温度" runat="server" LabelWidth="130px">
+                                        </f:Label>
                                         <f:Label ID="txtTestMediumTemperature" Label="试验介质温度" runat="server" LabelWidth="130px">
                                         </f:Label>
+                                    </Items>
+                                </f:FormRow>
+                                <f:FormRow>
+                                    <Items>
+                                        
                                         <f:Label ID="txtHoldingTime" Label="稳压时间" runat="server" LabelWidth="130px">
                                         </f:Label>
                                         <f:Label ID="txtFinishDef" Label="试验结论" runat="server" LabelWidth="130px">
                                         </f:Label>
+                                        <f:Label runat="server" ID="lb1"></f:Label>
                                     </Items>
                                 </f:FormRow>
                             </Rows>
@@ -137,6 +148,8 @@
         <f:Menu ID="Menu1" runat="server">
             <Items>
                 <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Text="编辑" Icon="Pencil" OnClick="btnMenuModify_Click">
+                </f:MenuButton>
+                <f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server" Text="打印" Icon="Printer" OnClick="btnPrinter_Click">
                 </f:MenuButton>
             </Items>
         </f:Menu>

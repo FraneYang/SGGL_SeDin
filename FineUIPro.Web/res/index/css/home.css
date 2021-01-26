@@ -559,7 +559,7 @@ body {
     background-color: #0B5EA5;
     z-index: 90;
     border-radius: 10px;
-    height: 20px;
+    /*height: 20px;*/
 }
 
 .tab-content .line-item > div {
@@ -662,23 +662,26 @@ body {
     height: 100%;
     margin-bottom: 5px;
     align-items: flex-end;
-    padding-left:10px;
+    /*padding-left:10px;*/
 }
 
 .content-wrap-1 .item .content-1 .cc-num-wrap {
     height: 100%;
     justify-content: space-around;
+    align-items:center;
 }
 
-.content-wrap-1 .item .content-1 .cc-num-wrap .cc-num {
-    color: #F4B286;
-    background-color: #4967AD;
-    font-size: 32px;
-    padding: 0 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .content-wrap-1 .item .content-1 .cc-num-wrap .cc-num {
+        color: #F4B286;
+        background-color: #4967AD;
+        font-size: 38px;
+        /* padding: 0 2px; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        width: 40px;
+    }
 
 .content-wrap-1 .item .content-1 .unit {
     font-size: 10px;
@@ -697,7 +700,7 @@ body {
 
 .content-wrap-1 .item .content .t-item .c-num {
     color: #57B8BD;
-    font-size: 24px;
+    font-size: 30px;
 }
 
 .content-wrap-1 .item .content .t-item .c-txt {

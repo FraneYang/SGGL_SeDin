@@ -88,6 +88,7 @@ namespace BLL
             newPipeline.VacuumPressure = pipeline.VacuumPressure;
             newPipeline.PCMedium = pipeline.PCMedium;
             newPipeline.PCtype = pipeline.PCtype;
+            newPipeline.MaterialId = pipeline.MaterialId;
             db.HJGL_Pipeline.InsertOnSubmit(newPipeline);
             db.SubmitChanges();
         }
@@ -123,6 +124,7 @@ namespace BLL
                 newPipeline.PCMedium = pipeline.PCMedium;
                 newPipeline.PCtype = pipeline.PCtype;
                 newPipeline.Remark = pipeline.Remark;
+                newPipeline.MaterialId = pipeline.MaterialId;
                 try
                 {
                     db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);

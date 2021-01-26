@@ -39,7 +39,7 @@
                                         runat="server" LabelAlign="Right" Required="true" ShowRedStar="true" FocusOnPageLoad="true"
                                         LabelWidth="180px">
                                     </f:TextBox>
-                                    <f:DatePicker ID="txtProessDate" runat="server" Label="热处理日期"
+                                    <f:DatePicker ID="txtProessDate" runat="server" Label="委托日期"
                                         LabelAlign="Right" Required="true" ShowRedStar="true" LabelWidth="140px">
                                     </f:DatePicker>
                                 </Items>

@@ -130,6 +130,15 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         protected global::FineUIPro.Button btnAudit;
         
         /// <summary>
+        /// btnPointAudit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnPointAudit;
+        
+        /// <summary>
         /// btnDelete 控件。
         /// </summary>
         /// <remarks>
@@ -193,15 +202,6 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         protected global::FineUIPro.Label lbNDEUnit;
         
         /// <summary>
-        /// lbIsAudit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label lbIsAudit;
-        
-        /// <summary>
         /// lbIsCheck 控件。
         /// </summary>
         /// <remarks>
@@ -209,6 +209,15 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label lbIsCheck;
+        
+        /// <summary>
+        /// lbIsAudit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbIsAudit;
         
         /// <summary>
         /// Grid1 控件。

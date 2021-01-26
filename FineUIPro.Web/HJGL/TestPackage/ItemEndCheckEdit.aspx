@@ -38,7 +38,7 @@
                         <f:RenderField Width="120px" ColumnID="Content" DataField="Content"
                             HeaderTextAlign="Center" HeaderText="尾项内容" TextAlign="Left" ExpandUnusedSpace="true">
                             <Editor>
-                                <f:TextBox ID="txtRemark" Required="true" runat="server">
+                                <f:TextBox ID="txtContent" Required="true" runat="server">
                                 </f:TextBox>
                             </Editor>
                         </f:RenderField>
@@ -51,6 +51,13 @@
                                 <asp:HiddenField ID="hdItemType" runat="server" Value='<%# Bind("ItemType") %>' />
                             </ItemTemplate>
                         </f:TemplateField>
+                        <f:RenderField Width="120px" ColumnID="Remark" DataField="Remark"
+                            HeaderTextAlign="Center" HeaderText="备注" TextAlign="Left" >
+                            <Editor>
+                                <f:TextBox ID="txtRemark" runat="server">
+                                </f:TextBox>
+                            </Editor>
+                        </f:RenderField>
                         <f:LinkButtonField Width="60px" TextAlign="Center" HeaderText="增加" ToolTip="增加" CommandName="add"
                             Icon="Add" />
                         <f:LinkButtonField Width="60px" TextAlign="Center" HeaderText="删除" ToolTip="删除" CommandName="del"

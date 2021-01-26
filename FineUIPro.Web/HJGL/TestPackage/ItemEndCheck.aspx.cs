@@ -12,17 +12,17 @@ namespace FineUIPro.Web.HJGL.TestPackage
     {
         #region 定义项
         /// <summary>
-        /// 单位工程主键
+        /// 试压包主键
         /// </summary>
-        public string UnitWorkId
+        public string PTP_ID
         {
             get
             {
-                return (string)ViewState["UnitWorkId"];
+                return (string)ViewState["PTP_ID"];
             }
             set
             {
-                ViewState["UnitWorkId"] = value;
+                ViewState["PTP_ID"] = value;
             }
         }
 
@@ -39,7 +39,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             if (!IsPostBack)
             {
-                this.UnitWorkId = string.Empty;
+                this.PTP_ID = string.Empty;
                 this.InitTreeMenu();//加载树
                 // 删除选中单元格的客户端脚本
                 string deleteScript = GetDeleteScript();
@@ -74,6 +74,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             rootNode1.NodeID = "1";
             rootNode1.Text = "建筑工程";
             rootNode1.CommandName = "建筑工程";
+            rootNode1.EnableClickEvent = true;
             this.tvControlItem.Nodes.Add(rootNode1);
 
             TreeNode rootNode2 = new TreeNode();
@@ -81,6 +82,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             rootNode2.Text = "安装工程";
             rootNode2.CommandName = "安装工程";
             rootNode2.Expanded = true;
+            rootNode2.EnableClickEvent = true;
             this.tvControlItem.Nodes.Add(rootNode2);
             var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
             // 获取当前用户所在单位
@@ -91,7 +93,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
             List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
-                                                            where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+                                                            where x.ProjectId == this.CurrUser.LoginProjectId
+                                                            select x).ToList();
             List<Model.WBS_UnitWork> unitWork1 = null;
             List<Model.WBS_UnitWork> unitWork2 = null;
 
@@ -125,7 +128,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     tn1.EnableClickEvent = true;
                     rootNode1.Nodes.Add(tn1);
                     var testPackageUnitList = testPackageLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
-                    //BindNodes(tn1, testPackageUnitList);
+                    BindNodes(tn1, testPackageUnitList);
                 }
             }
             if (unitWork2.Count() > 0)
@@ -139,15 +142,69 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     tn2.Text = q.UnitWorkName;
                     tn2.ToolTip = "施工单位：" + u.UnitName;
                     tn2.CommandName = "单位工程";
+                    tn2.ToolTip = "试压包存在未闭合尾项记录红色提醒，存在流程未闭合记录黄色提醒";
                     tn2.EnableClickEvent = true;
                     rootNode2.Nodes.Add(tn2);
                     var testPackageUnitList = testPackageLists.Where(x => x.UnitWorkId == q.UnitWorkId).ToList();
-                    //BindNodes(tn2, testPackageUnitList);
+                    BindNodes(tn2, testPackageUnitList);
                 }
             }
         }
         #endregion
 
+        #region 绑定树节点
+        /// <summary>
+        ///  绑定树节点
+        /// </summary>
+        /// <param name="node"></param>
+        private void BindNodes(TreeNode node, List<Model.PTP_TestPackage> testPackageUnitList)
+        {
+            if (node.CommandName == "单位工程")
+            {
+                var dReports = from x in testPackageUnitList
+                               where x.AduditDate.HasValue
+                               orderby x.TestPackageNo descending
+                               select x;
+                var totalItems = from x in Funs.DB.PTP_ItemEndCheck select x;
+                var totalList = from x in Funs.DB.PTP_ItemEndCheckList select x;
+                foreach (var item in dReports)
+                {
+                    TreeNode newNode = new TreeNode();
+                    if (!string.IsNullOrEmpty(item.TestPackageNo))
+                    {
+                        newNode.Text = item.TestPackageNo;
+                    }
+                    else
+                    {
+                        newNode.Text = "未知";
+                    }
+                    var items = from x in totalItems
+                                join y in totalList on x.ItemEndCheckListId equals y.ItemEndCheckListId
+                                where y.PTP_ID == item.PTP_ID && (x.Result==null || x.Result=="不合格")
+                                select x;
+                    if (items.Count() > 0)   //存在未闭合尾项记录
+                    {
+                        newNode.Text = "<font color='#FF7575'>" + newNode.Text + "</font>";
+                    }
+                    else
+                    {
+                        var notCompletelist = from x in totalList
+                                              where x.PTP_ID == item.PTP_ID && x.State != BLL.Const.TestPackage_Complete
+                                              select x;
+                        if (notCompletelist.Count() > 0)   //存在流程未闭合记录
+                        {
+                            newNode.Text = "<font color='#FFD700'>" + newNode.Text + "</font>";
+                        }
+                    }
+                    newNode.NodeID = item.PTP_ID;
+                    newNode.EnableClickEvent = true;
+                    newNode.CommandName = "TestPackage";
+                    node.Nodes.Add(newNode);
+                }
+            }
+        }
+
+        #endregion
 
         #region 点击TreeView
         /// <summary>
@@ -157,8 +214,17 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
-            this.UnitWorkId = tvControlItem.SelectedNodeID;
-            this.BindGrid();
+            this.PTP_ID = tvControlItem.SelectedNodeID;
+            Model.PTP_TestPackage testPackage = BLL.TestPackageEditService.GetTestPackageByID(this.tvControlItem.SelectedNodeID);
+            if (testPackage != null)
+            {
+                this.btnMenuNew.Hidden = false;
+                this.BindGrid();
+            }
+            else
+            {
+                this.btnMenuNew.Hidden = true;
+            }
         }
         #endregion
 
@@ -168,15 +234,67 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"select PTP_ID, TestPackageNo, TestPackageName, Tabler, TableDate, Remark, P.ProjectId, UnitWorkId,State,UserName from [dbo].[PTP_TestPackage] p LEFT Join Sys_User U on P.Tabler=U.UserId WHERE Check1 is not null And P.ProjectId =@ProjectId and UnitWorkId=@UnitWorkId";
+            string strSql = @"select ItemEndCheckListId,i.PTP_ID, TestPackageNo, TestPackageName, CompileMan, CompileDate, Remark, P.ProjectId, UnitWorkId,i.State,UserName from [dbo].[PTP_ItemEndCheckList] i left join [dbo].[PTP_TestPackage] p on i.PTP_ID=p.PTP_ID LEFT Join Sys_User U on i.CompileMan=U.UserId WHERE P.ProjectId =@ProjectId and i.PTP_ID=@PTP_ID order by CompileDate desc";
             SqlParameter[] parameter = new SqlParameter[]
                     {
-                        new SqlParameter("@UnitWorkId",this.UnitWorkId),
+                        new SqlParameter("@PTP_ID",this.PTP_ID),
                         new SqlParameter("@ProjectId",this.CurrUser.LoginProjectId),
                     };
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.DataSource = tb;
             Grid1.DataBind();
+            for (int i = 0; i < Grid1.Rows.Count; i++)
+            {
+                string rowID = Grid1.Rows[i].DataKeys[0].ToString();
+                var items = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(rowID);
+                var aItems = items.Where(x => x.ItemType == "A");
+                var bItems = items.Where(x => x.ItemType == "B");
+                var aOKItems = aItems.Where(x => x.Result == "合格");
+                var bOKItems = bItems.Where(x => x.Result == "合格");
+                if (aItems.Count() > 0)   //存在A项
+                {
+                    if (aItems.Count() == aOKItems.Count())   //A项完成
+                    {
+                        if (bItems.Count() > 0)   //存在B项
+                        {
+                            if (bItems.Count() == bOKItems.Count())   //B项完成
+                            {
+                                Grid1.Rows[i].RowCssClass = "Green";
+                            }
+                            else
+                            {
+                                Grid1.Rows[i].RowCssClass = "Yellow";
+                            }
+                        }
+                        else
+                        {
+                            Grid1.Rows[i].RowCssClass = "Green";
+                        }
+                    }
+                    else
+                    {
+                        Grid1.Rows[i].RowCssClass = "Red";
+                    }
+                }
+                else
+                {
+                    if (bItems.Count() > 0)   //存在B项
+                    {
+                        if (bItems.Count() == bOKItems.Count())   //B项完成
+                        {
+                            Grid1.Rows[i].RowCssClass = "Green";
+                        }
+                        else
+                        {
+                            Grid1.Rows[i].RowCssClass = "Yellow";
+                        }
+                    }
+                    else
+                    {
+                        Grid1.Rows[i].RowCssClass = "Green";
+                    }
+                }
+            }
         }
         #endregion
 
@@ -188,7 +306,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         {
             if (!CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.AItemEndCheckMenuId, Const.BtnDelete))
             {
-                ShowNotify("您没有这个权限，请与管理员联系！");
+                //ShowNotify("您没有这个权限，请与管理员联系！");
                 return null;
             }
             else
@@ -221,8 +339,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.BindGrid();
         }
         #endregion
-        
-        
+
+
 
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
@@ -235,6 +353,31 @@ namespace FineUIPro.Web.HJGL.TestPackage
             btnMenuModify_Click(null, null);
         }
 
+        /// <summary>
+        /// 增加尾项记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuNew_Click(object sender, EventArgs e)
+        {
+            if (this.tvControlItem.SelectedNode.CommandName == "TestPackage")
+            {
+                if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.AItemEndCheckMenuId, Const.BtnAdd))
+                {
+                    string url = "ItemEndCheckEdit.aspx?PTP_ID={0}";
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, tvControlItem.SelectedNodeID, "操作 - ")));
+                }
+                else
+                {
+                    ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                ShowNotify("非试压包节点无法新增！", MessageBoxIcon.Warning);
+            }
+        }
+
         protected void btnMenuModify_Click(object sender, EventArgs e)
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.AItemEndCheckMenuId, Const.BtnModify))
@@ -244,13 +387,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
                     return;
                 }
-                string url = "ItemEndCheckView.aspx?PTP_ID={0}";
+                string url = "ItemEndCheckView.aspx?PTP_ID={0}&ItemEndCheckListId={1}";
                 var TestPackageApprove = TestPackageApproveService.GetTestPackageApproveById(Grid1.SelectedRowID);
-                var TestPackage = BLL.TestPackageEditService.GetTestPackageByID(Grid1.SelectedRowID);
+                var ItemEndCheckList = BLL.ItemEndCheckListService.GetItemEndCheckListByID(Grid1.SelectedRowID);
 
-                if (string.IsNullOrEmpty(TestPackage.State))
+                if (ItemEndCheckList.State == BLL.Const.TestPackage_Compile)
                 {
-                    url = "ItemEndCheckEdit.aspx?PTP_ID={0}";
+                    url = "ItemEndCheckEdit.aspx?PTP_ID={0}&ItemEndCheckListId={1}";
                 }
                 else
                 {
@@ -258,9 +401,9 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     {
                         if (!string.IsNullOrEmpty(TestPackageApprove.ApproveMan))
                         {
-                            if (this.CurrUser.UserId == TestPackageApprove.ApproveMan || this.CurrUser.UserId == BLL.Const.sysglyId)
+                            if (this.CurrUser.UserId == TestPackageApprove.ApproveMan || this.CurrUser.UserId == BLL.Const.sysglyId || this.CurrUser.UserId == BLL.Const.hfnbdId)
                             {
-                                url = "ItemEndCheckEdit2.aspx?PTP_ID={0}";
+                                url = "ItemEndCheckEdit2.aspx?PTP_ID={0}&ItemEndCheckListId={1}";
                             }
                             else
                             {
@@ -270,7 +413,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         }
                     }
                 }
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, Grid1.SelectedRowID, "操作 - ")));
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, tvControlItem.SelectedNodeID, Grid1.SelectedRowID, "操作 - ")));
             }
             else
             {
@@ -282,11 +425,11 @@ namespace FineUIPro.Web.HJGL.TestPackage
         //</summary>
         //<param name="state"></param>
         //<returns></returns>
-        protected string ConvertMan(object PTP_ID)
+        protected string ConvertMan(object ItemEndCheckListId)
         {
-            if (PTP_ID != null)
+            if (ItemEndCheckListId != null)
             {
-                var approve = BLL.TestPackageApproveService.GetTestPackageApproveById(PTP_ID.ToString());
+                var approve = BLL.TestPackageApproveService.GetTestPackageApproveById(ItemEndCheckListId.ToString());
                 if (approve != null)
                 {
                     if (approve.ApproveMan != null)
@@ -300,6 +443,62 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 }
             }
             return "";
+        }
+
+        /// <summary>
+        /// 获取A项整改状态
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        protected string ConvertAState(object ItemEndCheckListId)
+        {
+            string rowID = ItemEndCheckListId.ToString();
+            var items = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(rowID);
+            var aItems = items.Where(x => x.ItemType == "A");
+            var aOKItems = aItems.Where(x => x.Result == "合格");
+            if (aItems.Count() > 0)   //存在A项
+            {
+                if (aItems.Count() == aOKItems.Count())   //A项完成
+                {
+                    return "已完成";
+                }
+                else
+                {
+                    return "未完成";
+                }
+            }
+            else
+            {
+                return "无";
+            }
+        }
+
+        /// <summary>
+        /// 获取B项整改状态
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        protected string ConvertBState(object ItemEndCheckListId)
+        {
+            string rowID = ItemEndCheckListId.ToString();
+            var items = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(rowID);
+            var bItems = items.Where(x => x.ItemType == "B");
+            var bOKItems = bItems.Where(x => x.Result == "合格");
+            if (bItems.Count() > 0)   //存在B项
+            {
+                if (bItems.Count() == bOKItems.Count())   //B项完成
+                {
+                    return "已完成";
+                }
+                else
+                {
+                    return "未完成";
+                }
+            }
+            else
+            {
+                return "无";
+            }
         }
 
         /// <summary>
@@ -351,7 +550,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
         protected void btnMenuView_Click(object sender, EventArgs e)
         {
 
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ItemEndCheckView.aspx?PTP_ID={0}", Grid1.SelectedRowID, "操作 - ")));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ItemEndCheckView.aspx?PTP_ID={0}&ItemEndCheckListId={1}", tvControlItem.SelectedNodeID, Grid1.SelectedRowID, "操作 - ")));
         }
 
         protected void btnMenuDel_Click(object sender, EventArgs e)
@@ -363,12 +562,13 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 {
                     BLL.TestPackageApproveService.DeleteAllTestPackageApproveByID(rowID);
                     BLL.AItemEndCheckService.DeleteAllItemEndCheckByID(rowID);
-                    Model.PTP_TestPackage testPackage= BLL.TestPackageEditService.GetTestPackageByID(rowID);
-                    if (testPackage != null)
-                    {
-                        testPackage.State = null;
-                        BLL.TestPackageEditService.UpdateTestPackage(testPackage);
-                    }
+                    BLL.ItemEndCheckListService.DeleteItemEndCheckList(rowID);
+                    //Model.PTP_TestPackage testPackage = BLL.TestPackageEditService.GetTestPackageByID(rowID);
+                    //if (testPackage != null)
+                    //{
+                    //    testPackage.State = null;
+                    //    BLL.TestPackageEditService.UpdateTestPackage(testPackage);
+                    //}
                     BindGrid();
                 }
                 else

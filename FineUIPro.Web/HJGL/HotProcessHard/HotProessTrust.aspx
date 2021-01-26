@@ -30,6 +30,9 @@
                     <f:Tree ID="tvControlItem" ShowHeader="false" Title="热处理委托节点树" OnNodeCommand="tvControlItem_NodeCommand"
                         Height="470px" runat="server" ShowBorder="false" EnableCollapse="true" EnableSingleClickExpand="true"
                         AutoLeafIdentification="true" EnableSingleExpand="true" EnableTextSelection="true">
+                        <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                            </Listeners>
                     </f:Tree>
                 </Items>
             </f:Panel>
@@ -37,13 +40,13 @@
                 Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="热处理委托"
                 TitleToolTip="热处理委托" AutoScroll="true">
                 <Toolbars>
-                    <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
+                    <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right" Hidden="true">
                         <Items>
                             <f:HiddenField runat="server" ID="hdHotProessTrustId">
                             </f:HiddenField>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
-                            <f:Button ID="btnNew" Text="新增" ToolTip="新增"
+                            <%--<f:Button ID="btnNew" Text="新增" ToolTip="新增"
                                 Icon="Add" runat="server" OnClick="btnNew_Click">
                             </f:Button>
                             <f:Button ID="btnEdit" Text="编辑" ToolTip="编辑"
@@ -52,7 +55,7 @@
                             <f:Button ID="btnDelete" Text="删除" ToolTip="删除"
                                 ConfirmText="确认删除此热处理委托?" ConfirmTarget="Top" Icon="Delete"
                                 runat="server" OnClick="btnDelete_Click">
-                            </f:Button>
+                            </f:Button>--%>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
@@ -65,7 +68,7 @@
                                     <f:Label ID="txtHotProessTrustNo" Label="委托单号"
                                         runat="server" LabelAlign="Right" LabelWidth="100px">
                                     </f:Label>
-                                    <f:Label ID="txtProessDate" Label="热处理日期" runat="server"
+                                    <f:Label ID="txtProessDate" Label="委托日期" runat="server"
                                         LabelAlign="Right" LabelWidth="100px">
                                     </f:Label> 
                                 </Items>
@@ -151,6 +154,17 @@
         EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
         IsModal="true" Width="1090px" Height="660px">
     </f:Window>
+         <f:Menu ID="Menu1" runat="server">
+        <f:MenuButton ID="btnNew" OnClick="btnNew_Click" EnablePostBack="true" runat="server" Hidden="true" Icon="Add"
+            Text="新增">
+        </f:MenuButton>
+        <f:MenuButton ID="btnEdit" OnClick="btnEdit_Click" EnablePostBack="true" Hidden="true" Icon="Pencil"
+            runat="server" Text="编辑">
+        </f:MenuButton>
+        <f:MenuButton ID="btnDelete" OnClick="btnDelete_Click" EnablePostBack="true" Hidden="true" Icon="Delete"
+            ConfirmText="确认删除此热处理委托？" ConfirmTarget="Top" runat="server" Text="删除">
+        </f:MenuButton>
+    </f:Menu>
     </form>
     <script type="text/javascript">
         function reloadGrid() {
@@ -159,6 +173,39 @@
         function onGridDataLoad(event) {
             this.mergeColumns(['PipelineCode']);
             this.mergeColumns(['WeldJointCode']);
+        }
+
+        var treeID = '<%= tvControlItem.ClientID %>';
+        var menuID = '<%= Menu1.ClientID %>';
+        // 保存当前菜单对应的树节点ID
+        var currentNodeId;
+
+        // 返回false，来阻止浏览器右键菜单
+        function onTreeNodeContextMenu(event, nodeId) {
+            currentNodeId = nodeId;
+            F(menuID).show();
+            return false;
+        }
+
+        // 设置所有菜单项的禁用状态
+        function setMenuItemsDisabled(disabled) {
+            var menu = F(menuID);
+            $.each(menu.items, function (index, item) {
+                item.setDisabled(disabled);
+            });
+        }
+
+        // 显示菜单后，检查是否禁用菜单项
+        function onMenuShow() {
+            if (currentNodeId) {
+                var tree = F(treeID);
+                var nodeData = tree.getNodeData(currentNodeId);
+                if (nodeData.leaf) {
+                    setMenuItemsDisabled(true);
+                } else {
+                    setMenuItemsDisabled(false);
+                }
+            }
         }
     </script>
 </body>

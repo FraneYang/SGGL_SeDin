@@ -36,9 +36,41 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         {
             if (!IsPostBack)
             {
+                GetButtonPower();
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
                 this.HardTrustID = string.Empty;
                 this.InitTreeMenu();//加载树
+            }
+        }
+        #endregion
+
+        #region 获取按钮权限
+        /// <summary>
+        /// 获取按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
+        private void GetButtonPower()
+        {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_HotHardManageEditMenuId);
+            if (buttonList.Count() > 0)
+            {
+                if (buttonList.Contains(BLL.Const.BtnAdd))
+                {
+                    this.btnNew.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnSave))
+                {
+                    this.btnEdit.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
+                    this.btnDelete.Hidden = false;
+                }
             }
         }
         #endregion
@@ -55,12 +87,14 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             rootNode1.NodeID = "1";
             rootNode1.Text = "建筑工程";
             rootNode1.CommandName = "建筑工程";
+            rootNode1.EnableClickEvent = true;
             this.tvControlItem.Nodes.Add(rootNode1);
 
             TreeNode rootNode2 = new TreeNode();
             rootNode2.NodeID = "2";
             rootNode2.Text = "安装工程";
             rootNode2.CommandName = "安装工程";
+            rootNode2.EnableClickEvent = true;
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
@@ -91,25 +125,37 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 unitWork1 = (from x in unitWorkList where x.ProjectType == "1" select x).ToList();
                 unitWork2 = (from x in unitWorkList where x.ProjectType == "2" select x).ToList();
             }
-            var WeldJointList = (from x in Funs.DB.HJGL_HotProess_TrustItem
-                                 join y in Funs.DB.HJGL_HotProess_Trust on x.HotProessTrustId equals y.HotProessTrustId
-                                 where y.ProjectId == this.CurrUser.LoginProjectId && y.ReportNo !=null
+            var ReportList = (from x in Funs.DB.HJGL_HotProess_Report
+                              join y in Funs.DB.HJGL_HotProess_TrustItem on x.HotProessTrustItemId equals y.HotProessTrustItemId
+                              join z in Funs.DB.HJGL_HotProess_Trust on y.HotProessTrustId equals z.HotProessTrustId
+                              where z.ProjectId == this.CurrUser.LoginProjectId
+                              select new { x.WeldJointId, z.UnitWorkId }).Distinct().ToList();
+
+            var TrustItemList = (from x in Funs.DB.HJGL_Hard_TrustItem
+                             join y in Funs.DB.HJGL_Hard_Trust on x.HardTrustID equals y.HardTrustID
+                             where y.ProjectId == this.CurrUser.LoginProjectId 
                                  select new { x.WeldJointId, y.UnitWorkId }).ToList();
             if (unitWork1.Count() > 0)
             {
                 foreach (var q in unitWork1)
                 {
-                    var items = (from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    var reportItems = (from x in ReportList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    var trustItems = (from x in TrustItemList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    int num = reportItems.Count() - trustItems.Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
-                    tn1.Text = q.UnitWorkName;
-                    tn1.ToolTip = "施工单位：" + u.UnitName;
-                    if (items.Count > 0)
+                    if (num > 0)
                     {
-                        tn1.ToolTip += "(" + items.Count + ")";
+                        tn1.Text = q.UnitWorkName + "(" + num + ")";
+                        tn1.ToolTip = "未硬度检测焊口总数：" + num;
+                    }
+                    else
+                    {
+                        tn1.Text = q.UnitWorkName;
                     }
                     tn1.CommandName = "单位工程";
+                    tn1.EnableClickEvent = true;
                     rootNode1.Nodes.Add(tn1);
                     BindNodes(tn1);
                 }
@@ -118,17 +164,23 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 foreach (var q in unitWork2)
                 {
-                    var items = (from x in WeldJointList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    var reportItems = (from x in ReportList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    var trustItems = (from x in TrustItemList where x.UnitWorkId == q.UnitWorkId select x).ToList();
+                    int num = reportItems.Count() - trustItems.Count();
                     var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
-                    tn2.Text = q.UnitWorkName;
-                    tn2.ToolTip = "施工单位：" + u.UnitName;
-                    if (items.Count > 0)
+                    if (num > 0)
                     {
-                        tn2.ToolTip += "(" + items.Count + ")";
+                        tn2.Text = q.UnitWorkName + "(" + num + ")";
+                        tn2.ToolTip = "未硬度检测焊口总数：" + num;
+                    }
+                    else
+                    {
+                        tn2.Text = q.UnitWorkName;
                     }
                     tn2.CommandName = "单位工程";
+                    tn2.EnableClickEvent = true;
                     rootNode2.Nodes.Add(tn2);
                     BindNodes(tn2);
                 }
@@ -178,6 +230,34 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_HotHardManageEditMenuId);
+            if (this.tvControlItem.SelectedNode.CommandName == "建筑工程" || this.tvControlItem.SelectedNode.CommandName == "安装工程")
+            {
+                this.btnNew.Hidden = true;
+                this.btnEdit.Hidden = true;
+                this.btnDelete.Hidden = true;
+            }
+            else if (this.tvControlItem.SelectedNode.CommandName == "单位工程")
+            {
+                if (buttonList.Contains(BLL.Const.BtnAdd))
+                {
+                    this.btnNew.Hidden = false;
+                }
+                this.btnEdit.Hidden = true;
+                this.btnDelete.Hidden = true;
+            }
+            else if (this.tvControlItem.SelectedNode.CommandName == "委托单号")
+            {
+                this.btnNew.Hidden = true;
+                if (buttonList.Contains(BLL.Const.BtnSave))
+                {
+                    this.btnEdit.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
+                    this.btnDelete.Hidden = false;
+                }
+            }
             this.HardTrustID = tvControlItem.SelectedNodeID;
             this.BindGrid();
         }
@@ -204,26 +284,27 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                            FROM dbo.View_HJGL_Hard_TrustItem
                            WHERE HardTrustID=@HardTrustID";
                 listStr.Add(new SqlParameter("@HardTrustID", this.HardTrustID));
+
+                if (!string.IsNullOrEmpty(this.txtPipelineCode.Text.Trim()))
+                {
+                    strSql += @" and PipelineCode like @PipelineCode ";
+                    listStr.Add(new SqlParameter("@PipelineCode", "%" + this.txtPipelineCode.Text.Trim() + "%"));
+                }
+                if (!string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()))
+                {
+                    strSql += @" and WeldJointCode like @WeldJointCode ";
+                    listStr.Add(new SqlParameter("@WeldJointCode", "%" + this.txtWeldJointCode.Text.Trim() + "%"));
+                }
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                // 2.获取当前分页数据
+                //var table = this.GetPagedDataTable(Grid1, tb1);
+                Grid1.RecordCount = tb.Rows.Count;
+                tb = GetFilteredTable(Grid1.FilteredData, tb);
+                var table = this.GetPagedDataTable(Grid1, tb);
+                Grid1.DataSource = table;
+                Grid1.DataBind();
             }
-            if (!string.IsNullOrEmpty(this.txtPipelineCode.Text.Trim()))
-            {
-                strSql += @" and PipelineCode like @PipelineCode ";
-                listStr.Add(new SqlParameter("@PipelineCode", "%" + this.txtPipelineCode.Text.Trim() + "%"));
-            }
-            if (!string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()))
-            {
-                strSql += @" and WeldJointCode like @WeldJointCode ";
-                listStr.Add(new SqlParameter("@WeldJointCode", "%" + this.txtWeldJointCode.Text.Trim() + "%"));
-            }
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-            // 2.获取当前分页数据
-            //var table = this.GetPagedDataTable(Grid1, tb1);
-            Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
-            var table = this.GetPagedDataTable(Grid1, tb);
-            Grid1.DataSource = table;
-            Grid1.DataBind();
         }
 
         #region 加载页面输入提交信息

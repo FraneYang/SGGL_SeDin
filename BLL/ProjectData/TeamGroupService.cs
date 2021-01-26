@@ -68,7 +68,7 @@ namespace BLL
                 newTeamGroup.EntryTime = teamGroup.EntryTime;
                 newTeamGroup.ExitTime = teamGroup.ExitTime;
                 newTeamGroup.Remark = teamGroup.Remark;
-                //newTeamGroup.RealNamePushTime = teamGroup.RealNamePushTime;
+                newTeamGroup.RealNamePushTime = null;
                 db.SubmitChanges();
             }
         }

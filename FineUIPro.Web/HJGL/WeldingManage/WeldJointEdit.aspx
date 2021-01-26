@@ -50,14 +50,14 @@
                             <Rows>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtWeldJointCode" Label="焊口号"
+                                        <f:TextBox ID="txtWeldJointCode" Label="焊口号" ShowRedStar="true" Required="true"
                                             runat="server" FocusOnPageLoad="true" LabelWidth="100px" LabelAlign="Right">
                                         </f:TextBox>
                                         <f:DropDownList ID="drpMaterial1" Label="材质1"
                                             runat="server" ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="100px" LabelAlign="Right">
                                         </f:DropDownList>
                                         <f:DropDownList ID="drpMaterial2" Label="材质2"
-                                            runat="server" EnableEdit="true" LabelWidth="100px" LabelAlign="Right">
+                                            runat="server" ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="100px" LabelAlign="Right">
                                         </f:DropDownList>
                                         <f:NumberBox ID="txtDia" Label="外径" runat="server"
                                             LabelWidth="100px" DecimalPrecision="4" NoNegative="true" ShowRedStar="true" Required="true"
@@ -119,7 +119,7 @@
                                         </f:DropDownList>
                                         <f:Panel ID="Panel3" Width="300px" ShowHeader="false" ShowBorder="false" Layout="Column" CssClass="" runat="server">
                                             <Items>
-                                                <f:TextBox ID="txtWPQCode" Label="WPS编号" runat="server"
+                                                <f:TextBox ID="txtWPQCode" Label="WPS编号" runat="server" ShowRedStar="true" Required="true"
                                                     LabelWidth="100px" Width="250px" LabelAlign="Right">
                                                 </f:TextBox>
                                                 <f:Button ID="search" OnClick="search_Click" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" runat="server">

@@ -34,23 +34,21 @@
                             <Rows>
                                 <f:FormRow>
                                     <Items>
-                                        <f:Label ID="txtSysNo" Label="系统号" runat="server" LabelWidth="130px">
+                                        <f:Label ID="txtSysNo" Label="系统编号" runat="server" LabelWidth="130px">
                                         </f:Label>
                                         <f:Label ID="txtSysName" Label="系统名称" runat="server" LabelWidth="130px">
                                         </f:Label>
-                                        <f:Label ID="drpTabler" Label="创建人" runat="server" LabelWidth="130px">
-                                        </f:Label>
-                                        <f:Label ID="txtTableDate" Label="创建日期" runat="server" LabelWidth="130px">
+                                        <f:Label ID="txtTableDate" Label="试验日期" runat="server" LabelWidth="130px">
                                         </f:Label>
                                     </Items>
                                 </f:FormRow>
-                                <f:FormRow ColumnWidths="25% 25% 50%">
+                                <f:FormRow >
                                     <Items>
-                                        <f:Label ID="drpAuditer" Label="审核人" runat="server" LabelWidth="130px">
-                                        </f:Label>
-                                        <f:Label ID="txtAduditDate" Label="审核日期" runat="server" LabelWidth="130px">
+                                        <f:Label ID="txtFinishDef" Label="试验结论" runat="server" LabelWidth="130px">
                                         </f:Label>
                                         <f:Label ID="txtRemark" Label="备注" runat="server" LabelWidth="130px">
+                                        </f:Label>
+                                        <f:Label ID="txtAduditDate" Label="" runat="server" LabelWidth="130px">
                                         </f:Label>
                                     </Items>
                                 </f:FormRow>

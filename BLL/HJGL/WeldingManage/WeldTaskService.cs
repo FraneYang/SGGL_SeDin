@@ -32,21 +32,26 @@ namespace BLL
         public static void AddWeldTask(Model.HJGL_WeldTask WeldTask)
         {
             Model.SGGLDB db = Funs.DB;
-            Model.HJGL_WeldTask newWeldTask=new Model.HJGL_WeldTask 
+            Model.HJGL_WeldTask newWeldTask = new Model.HJGL_WeldTask
             {
                 WeldTaskId = WeldTask.WeldTaskId,
                 ProjectId = WeldTask.ProjectId,
                 UnitId = WeldTask.UnitId,
                 UnitWorkId = WeldTask.UnitWorkId,
                 WeldJointId = WeldTask.WeldJointId,
-                TaskDate= WeldTask.TaskDate,
-                CoverWelderId= WeldTask.CoverWelderId,
-                BackingWelderId= WeldTask.BackingWelderId,
-                JointAttribute= WeldTask.JointAttribute,
+                TaskDate = WeldTask.TaskDate,
+                CoverWelderId = WeldTask.CoverWelderId,
+                BackingWelderId = WeldTask.BackingWelderId,
+                JointAttribute = WeldTask.JointAttribute,
                 Tabler = WeldTask.Tabler,
                 TableDate = WeldTask.TableDate,
-                TaskCode=WeldTask.TaskCode,
+                TaskCode = WeldTask.TaskCode,
                 WeldingMode = WeldTask.WeldingMode,
+                WeldingRod = WeldTask.WeldingRod,
+                WeldingWire = WeldTask.WeldingWire,
+                CanWeldingRodName = WeldTask.CanWeldingRodName,
+                CanWeldingWireName = WeldTask.CanWeldingWireName
+
             };
 
             db.HJGL_WeldTask.InsertOnSubmit(newWeldTask);
@@ -75,12 +80,13 @@ namespace BLL
                 newWeldTask.Tabler = WeldTask.Tabler;
                 newWeldTask.TableDate = WeldTask.TableDate;
                 newWeldTask.WeldingMode = WeldTask.WeldingMode;
+                newWeldTask.IsSaved = WeldTask.IsSaved;
 
                 db.SubmitChanges();
             }
         }
 
-        public static void UpdateCanWelderTask(string weldTaskId,string canWelderId,string canWelderCode)
+        public static void UpdateCanWelderTask(string weldTaskId, string canWelderId, string canWelderCode)
         {
             Model.SGGLDB db = Funs.DB;
             Model.HJGL_WeldTask newWeldTask = db.HJGL_WeldTask.FirstOrDefault(e => e.WeldTaskId == weldTaskId);

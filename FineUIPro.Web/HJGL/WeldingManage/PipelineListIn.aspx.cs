@@ -104,37 +104,61 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         private void ImportXlsToData(string fileName)
         {
             //支持.xls和.xlsx，即包括office2010等版本的   HDR=Yes代表第一行是标题，不是数据；
-            string cmdText = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 12.0; HDR=Yes; IMEX=1'";
+            //string cmdText = "Provider=Microsoft.ACE.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0; HDR=Yes; IMEX=1'";
 
-            //建立连接
-            OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
+            ////建立连接
+            //OleDbConnection conn = new OleDbConnection(string.Format(cmdText, fileName));
             try
             {
                 //打开连接
-                if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
+                //if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
+                //{
+                //    conn.Open();
+                //}
+                //OleDbDataAdapter oleAdMaster = null;
+                //DataTable m_tableName = new DataTable();
+                //DataSet ds = new DataSet();
+                //m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                //if (m_tableName != null && m_tableName.Rows.Count > 0)
+                //{
+
+                //    m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
+
+                //}
+                //string sqlMaster;
+                //sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
+                //oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                //oleAdMaster.Fill(ds, "m_tableName");
+                //oleAdMaster.Dispose();
+                //conn.Close();
+                //conn.Dispose();
+                string oleDBConnString = String.Empty;
+                oleDBConnString = "Provider=Microsoft.Jet.OLEDB.4.0;";
+                oleDBConnString += "Data Source=";
+                oleDBConnString += fileName;
+                oleDBConnString += ";Extended Properties=Excel 8.0;";
+                OleDbConnection oleDBConn = null;
                 OleDbDataAdapter oleAdMaster = null;
                 DataTable m_tableName = new DataTable();
                 DataSet ds = new DataSet();
-                m_tableName = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                oleDBConn = new OleDbConnection(oleDBConnString);
+                oleDBConn.Open();
+                m_tableName = oleDBConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
                 if (m_tableName != null && m_tableName.Rows.Count > 0)
                 {
-
                     m_tableName.TableName = m_tableName.Rows[0]["TABLE_NAME"].ToString().Trim();
-
                 }
                 string sqlMaster;
                 sqlMaster = " SELECT *  FROM [" + m_tableName.TableName + "]";
-                oleAdMaster = new OleDbDataAdapter(sqlMaster, conn);
+                oleAdMaster = new OleDbDataAdapter(sqlMaster, oleDBConn);
                 oleAdMaster.Fill(ds, "m_tableName");
                 oleAdMaster.Dispose();
-                conn.Close();
-                conn.Dispose();
-
-                AddDatasetToSQL(ds.Tables[0],19);
+                oleDBConn.Close();
+                oleDBConn.Dispose();
+                AddDatasetToSQL(ds.Tables[0], 18);
             }
             catch (Exception exc)
             {
@@ -142,11 +166,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 //return null;
                 // return dt;
             }
-            finally
-            {
-                conn.Close();
-                conn.Dispose();
-            }
+            //finally
+            //{
+            //    conn.Close();
+            //    conn.Dispose();
+            //}
         }
         #endregion
 
@@ -170,7 +194,6 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             if (pds != null && ir > 0)
             {
-                var getUnitWork = (from x in Funs.DB.WBS_UnitWork select x).ToList();
                 var getMedium = from x in Funs.DB.Base_Medium where x.ProjectId == this.CurrUser.LoginProjectId select x;//介质
                 var getPipeLineClass = from x in Funs.DB.Base_PipingClass where x.ProjectId == this.CurrUser.LoginProjectId select x;//管道等级
                 var getDetectionRate = from x in Funs.DB.Base_DetectionRate select x;//探伤比例
@@ -179,80 +202,42 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 var getTestMedium = from x in Funs.DB.Base_TestMedium where x.TestType == "1" select x;//压力试验介质
                 var getLeakMedium = from x in Funs.DB.Base_TestMedium where x.TestType == "2" select x;//泄露性试验介质
                 var getPurgeMethod = from x in Funs.DB.Base_PurgeMethod select x;
-                Model.View_HJGL_Pipeline pipeline = new Model.View_HJGL_Pipeline();
+                var getMaterial = from x in Funs.DB.Base_Material select x;
                 for (int i = 0; i < ir; i++)
                 {
+                    Model.View_HJGL_Pipeline pipeline = new Model.View_HJGL_Pipeline();
+                    pipeline.PipelineId = SQLHelper.GetNewID();
+                    Model.WBS_UnitWork unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(Request.Params["UnitWorkId"]);
+                    if (unitWork != null)
+                    {
+                        pipeline.UnitWorkId = Request.Params["UnitWorkId"];
+                        pipeline.UnitId = unitWork.UnitId;
+                    }
                     string col0 = pds.Rows[i][0].ToString();
-                    List<Model.WBS_UnitWork> UnitWork = new List<Model.WBS_UnitWork>();
-                    if (col0 == "安装工程")
-                    {
-                        UnitWork = getUnitWork.Where(x => x.ProjectType == "2").ToList();
-                    }
-                    else if (col0 == "建筑工程")
-                    {
-                        UnitWork = getUnitWork.Where(x => x.ProjectType == "1").ToList();
-                    }
-                    else if (string.IsNullOrEmpty(col0))
-                    {
-                        result += "第" + (i + 2).ToString() + "行," + "单位工程类型" + "," + "此项为必填项！" + "|";
-                    }
-                    else
-                    {
-                        result += "第" + (i + 2).ToString() + "行," + "单位工程类型输入有误！请输入建筑工程或者安装工程" + "|";
-                    }
-                    string col1 = pds.Rows[i][1].ToString();
-                    var uniwork = UnitWork.FirstOrDefault(x => x.UnitWorkName == col1);
-                    if (string.IsNullOrEmpty(col1))
-                    {
-                        result += "第" + (i + 2).ToString() + "行," + "单位工程名称" + "," + "此项为必填项！" + "|";
-                    }
-                    else
-                    {
-                        if (UnitWork == null)//如果输入的单位工程类型有误，则单位工程名称也不能通过
-                        {
-                            result += "第" + (i + 2).ToString() + "行," + "此单位工程不存在" + "|";
-                        }
-                        else
-                        {
-                            if (uniwork == null)
-                            {
-                                result += "第" + (i + 2).ToString() + "行," + "此单位工程不存在" + "|";
-                            }
-                            else
-                            {
-                                pipeline.UnitId = uniwork.UnitId;
-                                pipeline.UnitWorkId = uniwork.UnitWorkId;
-                            }
-                        }
-                    }
-                    string col2 = pds.Rows[i][2].ToString();
-                    if (string.IsNullOrEmpty(col2))
+                    if (string.IsNullOrEmpty(col0))
                     {
                         result += "第" + (i + 2).ToString() + "行," + "管线号" + "," + "此项为必填项！" + "|";
                     }
                     else
                     {
-                        if (uniwork != null)
+                        if (BLL.PipelineService.IsExistPipelineCode(col0, Request.Params["UnitWorkId"], null))
                         {
-                            if (BLL.PipelineService.IsExistPipelineCode(col2, uniwork.UnitWorkId, null))
-                            {
-                                Alert.ShowInTop("该管线号已存在！", MessageBoxIcon.Warning);
-                            }
-                            else
-                            {
-                                pipeline.PipelineCode = col2;
-                            }
+                            //Alert.ShowInTop("该管线号已存在！", MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            pipeline.PipelineCode = col0;
                         }
                     }
-                    pipeline.SingleNumber = pds.Rows[i][3].ToString();
-                    string col4 = pds.Rows[i][4].ToString();
-                    if (string.IsNullOrEmpty(col4))
+                    pipeline.SingleNumber = pds.Rows[i][1].ToString();
+                    string col2 = pds.Rows[i][2].ToString();
+                    if (string.IsNullOrEmpty(col2))
                     {
                         result += "第" + (i + 2).ToString() + "行," + "介质" + "," + "此项为必填项！" + "|";
                     }
                     else
                     {
-                        var Medium = getMedium.FirstOrDefault(x => x.MediumName == col4);
+                        var Medium = getMedium.FirstOrDefault(x => x.MediumName == col2);
                         if (Medium == null)
                         {
                             result += "第" + (i + 2).ToString() + "行," + "该介质不存在！" + "|";
@@ -262,14 +247,14 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             pipeline.MediumId = Medium.MediumId;
                         }
                     }
-                    string col5 = pds.Rows[i][5].ToString();
-                    if (string.IsNullOrEmpty(col5))
+                    string col3 = pds.Rows[i][3].ToString();
+                    if (string.IsNullOrEmpty(col3))
                     {
                         result += "第" + (i + 2).ToString() + "行," + "管线等级" + "," + "此项为必填项！" + "|";
                     }
                     else
                     {
-                        var PipeLineClass = getPipeLineClass.FirstOrDefault(x => x.PipingClassCode == col5);
+                        var PipeLineClass = getPipeLineClass.FirstOrDefault(x => x.PipingClassCode == col3);
                         if (PipeLineClass == null)
                         {
                             result += "第" + (i + 2).ToString() + "行," + "该管线等级不存在！" + "|";
@@ -279,10 +264,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             pipeline.PipingClassId = PipeLineClass.PipingClassId;
                         }
                     }
-                    string col6 = pds.Rows[i][6].ToString();
-                    if (!string.IsNullOrEmpty(col6))
+                    string col4 = pds.Rows[i][4].ToString();
+                    if (!string.IsNullOrEmpty(col4))
                     {
-                        var DetectionRate = getDetectionRate.FirstOrDefault(x => x.DetectionRateCode == col6);
+                        var DetectionRate = getDetectionRate.FirstOrDefault(x => x.DetectionRateCode == col4);
                         if (DetectionRate == null)
                         {
                             result += "第" + (i + 2).ToString() + "行," + "该探伤比例不存在！" + "|";
@@ -292,10 +277,14 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             pipeline.DetectionRateId = DetectionRate.DetectionRateId;
                         }
                     }
-                    string col7 = pds.Rows[i][7].ToString();
-                    if (!string.IsNullOrEmpty(col7))
+                    else
                     {
-                        string[] types = col7.ToString().Split(',');
+                        result += "第" + (i + 2).ToString() + "行," + "探伤比例" + "," + "此项为必填项！" + "|";
+                    }
+                    string col5 = pds.Rows[i][5].ToString();
+                    if (!string.IsNullOrEmpty(col5))
+                    {
+                        string[] types = col5.ToString().Split(',');
                         foreach (string t in types)
                         {
                             var type = getDetectionType.FirstOrDefault(x => x.DetectionTypeCode == t);
@@ -313,36 +302,24 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             }
                         }
                     }
+                    else
+                    {
+                        result += "第" + (i + 2).ToString() + "行," + "探伤类型" + "," + "此项为必填项！" + "|";
+                    }
+                    string col6 = pds.Rows[i][6].ToString();
+                    if (!string.IsNullOrEmpty(col6))
+                    {
+                        pipeline.DesignTemperature = col6;
+                    }
+                    string col7 = pds.Rows[i][7].ToString();
+                    if (!string.IsNullOrEmpty(col7))
+                    {
+                        pipeline.DesignPress = col7;
+                    }
                     string col8 = pds.Rows[i][8].ToString();
                     if (!string.IsNullOrEmpty(col8))
                     {
-                        try
-                        {
-                            var DesignTemperature = Funs.GetNewDecimal(col8);
-                            pipeline.DesignTemperature = DesignTemperature;
-                        }
-                        catch (Exception)
-                        {
-                            result += "第" + (i + 2).ToString() + "行," + "设计温度℃格式输入有误" + "|";
-                        }
-                    }
-                    string col9 = pds.Rows[i][9].ToString();
-                    if (!string.IsNullOrEmpty(col9))
-                    {
-                        try
-                        {
-                            var DesignPress = Funs.GetNewDecimal(col9);
-                            pipeline.DesignPress = DesignPress;
-                        }
-                        catch (Exception)
-                        {
-                            result += "第" + (i + 2).ToString() + "行," + "设计压力 MPa(g)格式输入有误" + "|";
-                        }
-                    }
-                    string col10 = pds.Rows[i][10].ToString();
-                    if (!string.IsNullOrEmpty(col10))
-                    {
-                        var TestMedium = getTestMedium.FirstOrDefault(x => x.MediumName == col10);
+                        var TestMedium = getTestMedium.FirstOrDefault(x => x.MediumName == col8);
                         if (TestMedium == null)
                         {
                             result += "第" + (i + 2).ToString() + "行," + "该压力试验介质不存在！" + "|";
@@ -352,23 +329,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             pipeline.TestMedium = TestMedium.TestMediumId;
                         }
                     }
-                    string col11 = pds.Rows[i][11].ToString();
-                    if (!string.IsNullOrEmpty(col11))
+                    string col9 = pds.Rows[i][9].ToString();
+                    if (!string.IsNullOrEmpty(col9))
                     {
-                        try
-                        {
-                            var TestPressure = Funs.GetNewDecimal(col9);
-                            pipeline.TestPressure = TestPressure;
-                        }
-                        catch (Exception)
-                        {
-                            result += "第" + (i + 2).ToString() + "行," + "压力试验压力 MPa(g)格式输入有误" + "|";
-                        }
+                        pipeline.TestPressure = col9;
                     }
-                    string col12 = pds.Rows[i][12].ToString();
-                    if (!string.IsNullOrEmpty(col12))
+                    string col10 = pds.Rows[i][10].ToString();
+                    if (!string.IsNullOrEmpty(col10))
                     {
-                        var PressurePipingClass = getPressurePipingClass.FirstOrDefault(x => x.PressurePipingClassCode == col12);
+                        var PressurePipingClass = getPressurePipingClass.FirstOrDefault(x => x.PressurePipingClassCode == col10);
                         if (PressurePipingClass == null)
                         {
                             result += "第" + (i + 2).ToString() + "行," + "该压力管道级别不存在！" + "|";
@@ -378,12 +347,12 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             pipeline.PressurePipingClassId = PressurePipingClass.PressurePipingClassId;
                         }
                     }
-                    string col13 = pds.Rows[i][13].ToString();
-                    if (!string.IsNullOrEmpty(col13))
+                    string col11 = pds.Rows[i][11].ToString();
+                    if (!string.IsNullOrEmpty(col11))
                     {
                         try
                         {
-                            var PipeLenth = Funs.GetNewDecimal(col13);
+                            var PipeLenth = Funs.GetNewDecimal(col11);
                             pipeline.PipeLenth = PipeLenth;
                         }
                         catch (Exception)
@@ -391,10 +360,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             result += "第" + (i + 2).ToString() + "行," + "管线长度(m)格式输入有误" + "|";
                         }
                     }
-                    string col14 = pds.Rows[i][14].ToString();
-                    if (!string.IsNullOrEmpty(col14))
+                    string col12 = pds.Rows[i][12].ToString();
+                    if (!string.IsNullOrEmpty(col12))
                     {
-                        var LeakMedium = getLeakMedium.FirstOrDefault(x => x.MediumName == col14);
+                        var LeakMedium = getLeakMedium.FirstOrDefault(x => x.MediumName == col12);
                         if (LeakMedium == null)
                         {
                             result += "第" + (i + 2).ToString() + "行," + "该泄露试验介质不存在！" + "|";
@@ -404,23 +373,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             pipeline.LeakMedium = LeakMedium.TestMediumId;
                         }
                     }
-                    string col15 = pds.Rows[i][15].ToString();
-                    if (!string.IsNullOrEmpty(col15))
+                    string col13 = pds.Rows[i][13].ToString();
+                    if (!string.IsNullOrEmpty(col13))
                     {
-                        try
-                        {
-                            var LeakPressure = Funs.GetNewDecimal(col15);
-                            pipeline.LeakPressure = LeakPressure;
-                        }
-                        catch (Exception)
-                        {
-                            result += "第" + (i + 2).ToString() + "行," + "泄露试验压力 MPa(g)格式输入有误" + "|";
-                        }
+                        pipeline.LeakPressure = col13;
                     }
-                    string col16 = pds.Rows[i][16].ToString();
-                    if (!string.IsNullOrEmpty(col16))
+                    string col14 = pds.Rows[i][14].ToString();
+                    if (!string.IsNullOrEmpty(col14))
                     {
-                        var PurgeMethod = getPurgeMethod.FirstOrDefault(x => x.PurgeMethodName == col16);
+                        var PurgeMethod = getPurgeMethod.FirstOrDefault(x => x.PurgeMethodCode == col14);
                         if (PurgeMethod == null)
                         {
                             result += "第" + (i + 2).ToString() + "行," + "该吹洗要求不存在！" + "|";
@@ -442,21 +403,31 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             }
                         }
                     }
-                    string col17 = pds.Rows[i][17].ToString();
-                    if (!string.IsNullOrEmpty(col17))
+                    string col15 = pds.Rows[i][15].ToString();
+                    if (!string.IsNullOrEmpty(col15))
                     {
-                        try
+                        pipeline.VacuumPressure = col15;
+                    }
+                    string col16 = pds.Rows[i][16].ToString();
+                    if (!string.IsNullOrEmpty(col16))
+                    {
+                        var material = getMaterial.FirstOrDefault(x => x.MaterialCode == col16);
+                        if (material == null)
                         {
-                            var VacuumPressure = Funs.GetNewDecimal(col17);
-                            pipeline.VacuumPressure = VacuumPressure;
+                            result += "第" + (i + 2).ToString() + "行," + "该材质不存在！" + "|";
                         }
-                        catch (Exception)
+                        else
                         {
-                            result += "第" + (i + 2).ToString() + "行," + "真空试验压力 KPa(a)格式输入有误" + "|";
+                            pipeline.MaterialId = material.MaterialId;
+                            pipeline.MaterialCode = col16;
                         }
                     }
-                    pipeline.Remark = col17 = pds.Rows[i][18].ToString();
-                    PipelineList.Add(pipeline);
+
+                    pipeline.Remark = pds.Rows[i][17].ToString();
+                    if (!string.IsNullOrEmpty(pipeline.PipelineCode))
+                    {
+                        PipelineList.Add(pipeline);
+                    }
                 }
                 if (!string.IsNullOrEmpty(result))
                 {
@@ -531,12 +502,13 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     var isExistPipelineCode = Funs.DB.HJGL_Pipeline.FirstOrDefault(x => (x.PipelineId != PipelineList[i].PipelineId || (PipelineList[i].PipelineId == null && x.PipelineId != null)) && x.PipelineCode == PipelineList[i].PipelineCode);
                     if (isExistPipelineCode != null)
                     {
-                        ShowNotify("存在相同批次的管线号，请修正后重新提交！", MessageBoxIcon.Warning);
-                        return;
+                        //ShowNotify("存在相同批次的管线号，请修正后重新提交！", MessageBoxIcon.Warning);
+                        //return;
                     }
                     else
                     {
                         Model.HJGL_Pipeline pipeline = new Model.HJGL_Pipeline();
+                        pipeline.PipelineId = PipelineList[i].PipelineId;
                         pipeline.ProjectId = this.CurrUser.LoginProjectId;
                         pipeline.UnitId = PipelineList[i].UnitId;
                         pipeline.UnitWorkId = PipelineList[i].UnitWorkId;
@@ -557,6 +529,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         pipeline.VacuumPressure = PipelineList[i].VacuumPressure;
                         pipeline.PCMedium = PipelineList[i].PCMedium;
                         pipeline.PCtype = PipelineList[i].PCtype;
+                        pipeline.MaterialId = PipelineList[i].MaterialId;
                         pipeline.Remark = PipelineList[i].Remark;
                         BLL.PipelineService.AddPipeline(pipeline);
                     }

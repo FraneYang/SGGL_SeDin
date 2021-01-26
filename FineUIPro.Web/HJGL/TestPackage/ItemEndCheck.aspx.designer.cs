@@ -85,6 +85,24 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
+        /// Label2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// Label3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
         /// Label1 控件。
         /// </summary>
         /// <remarks>
@@ -146,5 +164,23 @@ namespace FineUIPro.Web.HJGL.TestPackage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.MenuButton btnMenuDel;
+        
+        /// <summary>
+        /// Menu2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Menu Menu2;
+        
+        /// <summary>
+        /// btnMenuNew 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnMenuNew;
     }
 }

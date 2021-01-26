@@ -52,6 +52,10 @@
                             FieldType="String" HeaderText="管道等级名称" HeaderTextAlign="Center"
                             TextAlign="Left" SortField="PipingClassName">
                         </f:RenderField>
+                        <f:RenderField Width="120px" ColumnID="" DataField="SteelType"
+                            FieldType="String" HeaderText="钢材类型" HeaderTextAlign="Center"
+                            TextAlign="Left" SortField="SteelType">
+                        </f:RenderField>
                         <f:RenderField Width="160px" ColumnID="PNO" DataField="PNO" FieldType="String" HeaderText="P NO."
                             HeaderTextAlign="Center" TextAlign="Left" SortField="PNO" Hidden="true">
                         </f:RenderField>

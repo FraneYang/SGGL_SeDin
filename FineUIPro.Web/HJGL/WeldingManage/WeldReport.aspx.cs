@@ -292,6 +292,16 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 var daily = BLL.WeldingDailyService.GetPipeline_WeldingDailyByWeldingDailyId(tvControlItem.SelectedNodeID);
                 if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID) && daily != null)
                 {
+                    string weldingDailyId = tvControlItem.SelectedNodeID;
+                    var isPoint = from x in Funs.DB.HJGL_Batch_PointBatchItem
+                                  join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                  where y.WeldingDailyId == weldingDailyId && x.PointState != null
+                                  select x;
+                    if (isPoint.Count() > 0)
+                    {
+                        Alert.ShowInTop("该日报已点口，不能编辑！", MessageBoxIcon.Warning);
+                        return;
+                    }
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?WeldingDailyId={0}", tvControlItem.SelectedNodeID, "维护 - ")));
                 }
                 else
@@ -323,6 +333,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 else
                 {
                     string weldingDailyId = tvControlItem.SelectedNodeID;
+                    var isPoint = from x in Funs.DB.HJGL_Batch_PointBatchItem
+                                  join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                  where y.WeldingDailyId == weldingDailyId && x.PointState != null
+                                  select x;
+                    if (isPoint.Count() > 0)
+                    {
+                        Alert.ShowInTop("该日报已点口，不能删除！", MessageBoxIcon.Warning);
+                        return;
+                    }
                     var isTrust = from x in Funs.DB.HJGL_Batch_BatchTrustItem
                                   join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                   where y.WeldingDailyId == weldingDailyId

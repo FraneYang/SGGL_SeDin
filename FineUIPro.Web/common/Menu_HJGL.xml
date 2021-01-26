@@ -18,7 +18,7 @@
 <TreeNode id="294A4F70-B19E-4D84-A09D-484128D9CC19" Text="预提交日报审核" NavigateUrl="HJGL/WeldingManage/PreWeldReportAudit.aspx"></TreeNode>
 <TreeNode id="5TYHMD2F-2582-4DEB-905E-6E9DCFEFBGHO" Text="焊接日报" NavigateUrl="HJGL/WeldingManage/WeldReport.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="7FE911EF-616A-4F04-AACD-E53E633A9E86" Text="热处理/硬度管理" NavigateUrl=""><TreeNode id="90579BE7-E38C-4CD2-A3BC-755169FF3BB2" Text="热处理委托" NavigateUrl="HJGL/HotProcessHard/HotProessTrust.aspx"></TreeNode>
+<TreeNode id="7FE911EF-616A-4F04-AACD-E53E633A9E86" Text="热处理/硬度检测管理" NavigateUrl=""><TreeNode id="90579BE7-E38C-4CD2-A3BC-755169FF3BB2" Text="热处理委托" NavigateUrl="HJGL/HotProcessHard/HotProessTrust.aspx"></TreeNode>
 <TreeNode id="71a7de4f-5216-41cb-bcc9-8a5e43d5d168" Text="热处理报告" NavigateUrl="HJGL/HotProcessHard/HotProessReport.aspx"></TreeNode>
 <TreeNode id="72B3E508-1315-4CC3-939F-E840FA701A0E" Text="硬度检测委托" NavigateUrl="HJGL/HotProcessHard/HardTrust.aspx"></TreeNode>
 <TreeNode id="c5ba5ef6-2112-4fe2-9ada-b8762cb629f6" Text="硬度检测报告" NavigateUrl="HJGL/HotProcessHard/HardReport.aspx"></TreeNode>
@@ -30,6 +30,7 @@
 <TreeNode id="DFDD9655-0284-499C-8842-A238CA97418C" Text="无损检测" NavigateUrl=""><TreeNode id="CDECC461-1897-4D88-BD13-0824E540F565" Text="检测单录入" NavigateUrl="HJGL/NDT/NDTBatch.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="E7533566-73A9-4507-8FCB-1FE713819A24" Text="返修检测委托" NavigateUrl=""><TreeNode id="6D215BF6-7002-46B3-B2EA-A57CD849F0F1" Text="返修/扩透" NavigateUrl="HJGL/RepairAndExpand/RepairAndExpand.aspx"></TreeNode>
+<TreeNode id="E5053406-1A22-42F1-846E-721ACA2253D6" Text="返修/扩透委托单" NavigateUrl="HJGL/RepairAndExpand/RepairTrust.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="A24B7926-EF69-456E-8A24-936D30384680" Text="试压管理" NavigateUrl=""><TreeNode id="1C6F9CA9-FDAC-4CE5-A19C-5536538851E1" Text="试压包划分" NavigateUrl="HJGL/TestPackage/TestPackageEdit.aspx"></TreeNode>
 <TreeNode id="55976B16-2C33-406E-B514-2FE42D031071" Text="试压前条件确认" NavigateUrl="HJGL/TestPackage/TestPackageAudit.aspx"></TreeNode>

@@ -78,9 +78,9 @@
                             </f:FormRow> 
                               <f:FormRow>
                                 <Items> 
-                                    <f:NumberBox ID="numDesignTemperature" Label="设计温度℃" runat="server" LabelWidth="120px"></f:NumberBox>
-                                     <f:NumberBox ID="numDesignPress" Label="设计压力 MPa(g)" runat="server"  LabelWidth="140px">
-                                    </f:NumberBox>
+                                    <f:TextBox ID="numDesignTemperature" Label="设计温度℃" runat="server" LabelWidth="120px"></f:TextBox>
+                                     <f:TextBox ID="numDesignPress" Label="设计压力 MPa(g)" runat="server"  LabelWidth="140px">
+                                    </f:TextBox>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
@@ -88,7 +88,7 @@
                                      <f:DropDownList ID="drpTestMedium" Label="压力试验介质" runat="server"
                                         EnableEdit="true" LabelWidth="120px">
                                     </f:DropDownList>
-                                    <f:NumberBox ID="numTestPressure" Label="压力试验压力 MPa(g)" runat="server" LabelWidth="140px"></f:NumberBox>
+                                    <f:TextBox ID="numTestPressure" Label="压力试验压力 MPa(g)" runat="server" LabelWidth="140px"></f:TextBox>
                                 </Items>
                             </f:FormRow>
                              <f:FormRow>
@@ -104,7 +104,7 @@
                                      <f:DropDownList ID="drpLeakMedium" Label="泄露试验介质" runat="server"
                                         EnableEdit="true" LabelWidth="120px">
                                     </f:DropDownList>
-                                    <f:NumberBox ID="numLeakPressure" Label="泄露试验压力 MPa(g)" runat="server" LabelWidth="140px"></f:NumberBox>
+                                    <f:TextBox ID="numLeakPressure" Label="泄露试验压力 MPa(g)" runat="server" LabelWidth="140px"></f:TextBox>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
@@ -112,12 +112,15 @@
                                      <f:DropDownList ID="drpPCMedium" Label="吹洗要求" runat="server"
                                         EnableEdit="true" LabelWidth="120px">
                                     </f:DropDownList>
-                                    <f:NumberBox ID="numVacuumPressure" Label="真空试验压力 KPa(a)" runat="server" LabelWidth="140px"></f:NumberBox>
+                                    <f:TextBox ID="numVacuumPressure" Label="真空试验压力 KPa(a)" runat="server" LabelWidth="140px"></f:TextBox>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtRemark" Label="备注" runat="server" LabelWidth="120px">
+                                    <f:DropDownList ID="drpMaterial" Label="材质"
+                                            runat="server" EnableEdit="true" LabelWidth="120px" LabelAlign="Right">
+                                        </f:DropDownList>
+                                    <f:TextBox ID="txtRemark" Label="备注" runat="server" LabelWidth="140px">
                                     </f:TextBox>
                                 </Items>
                             </f:FormRow>

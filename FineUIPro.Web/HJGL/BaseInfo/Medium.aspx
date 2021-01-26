@@ -21,7 +21,7 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox ID="txtMediumCode" runat="server" Label="输入查询条件"
+                            <f:TextBox ID="txtMediumCode" runat="server" Label="介质代号"
                                 EmptyText="输入查询条件" Width="250px" LabelWidth="120px" LabelAlign="Right">
                             </f:TextBox>
                             <f:TextBox ID="txtMediumName" runat="server" Label="介质名称"
