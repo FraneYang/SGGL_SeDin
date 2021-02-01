@@ -21,15 +21,22 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                     <f:TextBox ID="txtRegisterTypesName" runat="server" Label="类型名称" Required="true" MaxLength="20"
+                     <f:TextBox ID="txtRegisterTypesName" runat="server" Label="名称" Required="true" MaxLength="20"
                         ShowRedStar="true" >
                     </f:TextBox>
                  </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                     <f:CheckBox ID="chkIsPunished" runat="server" Label="是否处罚">
-                    </f:CheckBox>
+                      <f:RadioButtonList runat="server" ID="rblType" Label="类型" AutoColumnWidth="true"
+                            LabelWidth="50px" Width="200px">
+                            <f:RadioItem Text="问题类型" Value="1"  Selected="true"/>
+                            <f:RadioItem Text="危害因素" Value="2" />
+                            <f:RadioItem Text="作业内容" Value="3" />
+                            <f:RadioItem Text="导致伤害/事故" Value="4" />
+                        </f:RadioButtonList>
+                   <%--  <f:CheckBox ID="chkIsPunished" runat="server" Label="是否处罚">
+                    </f:CheckBox>--%>
                  </Items>
             </f:FormRow>
         </Rows>

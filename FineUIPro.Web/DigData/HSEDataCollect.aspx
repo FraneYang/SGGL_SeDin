@@ -15,9 +15,10 @@
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="项目HSE数据汇总表" EnableCollapse="true"
-                    runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="HSEDataCollectItemId" ForceFit="true"
+                    runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="HSEDataCollectItemId"  
+                    DataParentIDField="ParentId"  EnableTree="true" TreeColumn="HSEContent"                  
                     DataIDField="HSEDataCollectItemId" AllowSorting="true" SortField="SortIndex" SortDirection="ASC"
-                    AllowPaging="false" IsDatabasePaging="true" PageSize="50"
+                    AllowPaging="false" IsDatabasePaging="true" PageSize="100"  ForceFit="true"
                     EnableTextSelection="True">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
@@ -37,10 +38,10 @@
                             SortField="SortIndex" FieldType="Int" HeaderText="序号" HeaderTextAlign="Center"
                             TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="140px" ColumnID="HSEContent" DataField="HSEContent"
-                            FieldType="String" HeaderText="HSE管理内容" HeaderTextAlign="Center" TextAlign="Center">
+                        <f:RenderField Width="160px" ColumnID="HSEContent" DataField="HSEContent"
+                            FieldType="String" HeaderText="HSE管理内容" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="70px" ColumnID="MeasureUnit" DataField="MeasureUnit"
+                        <f:RenderField Width="60px" ColumnID="MeasureUnit" DataField="MeasureUnit"
                             FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                         <f:RenderField Width="60px" ColumnID="Month1" DataField="Month1"
@@ -79,8 +80,8 @@
                         <f:RenderField Width="60px" ColumnID="Month12" DataField="Month12"
                             FieldType="String" HeaderText="12月" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="85px" ColumnID="MonthSum" DataField="MonthSum"
-                            FieldType="String" HeaderText="本年度合计" HeaderTextAlign="Center" TextAlign="Center">
+                        <f:RenderField Width="80px" ColumnID="MonthSum" DataField="MonthSum"
+                            FieldType="String" HeaderText="年度合计" HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
                     </Columns>
                 </f:Grid>

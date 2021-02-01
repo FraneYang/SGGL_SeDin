@@ -188,6 +188,11 @@ namespace FineUIPro.Web.HJGL.WPQ
                 Alert.ShowInTop("材质1不能为空！", MessageBoxIcon.Warning);
                 return;
             }
+            if (this.drpWeldingWire.SelectedValue == BLL.Const._Null && this.drpWeldingRod.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("焊丝、焊条不能同时为空！", MessageBoxIcon.Warning);
+                return;
+            }
             string id = SaveData(BLL.Const.BtnSubmit);
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
@@ -292,6 +297,7 @@ namespace FineUIPro.Web.HJGL.WPQ
             {
                 string newId = SQLHelper.GetNewID(typeof(Model.WPQ_WPQList));
                 wpq.WPQId = newId;
+                BLL.WPQListServiceService.AddWPQ(wpq);
                 if (type == BLL.Const.BtnSubmit)
                 {
                     if (this.drpPerson.SelectedValue == BLL.Const._Null)
@@ -305,7 +311,6 @@ namespace FineUIPro.Web.HJGL.WPQ
                         SaveFlowOperate(wpq.WPQId, "施工单位编制");
                     }
                 }
-                BLL.WPQListServiceService.AddWPQ(wpq);
                 //BLL.Sys_LogService.AddLog(Const.System_2, this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加焊接工艺评定台账");
             }
             return wpq.WPQId;

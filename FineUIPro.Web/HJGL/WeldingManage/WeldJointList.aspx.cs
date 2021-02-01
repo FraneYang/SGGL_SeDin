@@ -128,9 +128,16 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             foreach (var item in pipeline)
             {
                 var jotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == item.PipelineId select x).Count();
+                var weldJotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == item.PipelineId && x.WeldingDailyId != null select x).Count();
                 TreeNode newNode = new TreeNode();
-                newNode.Text = item.PipelineCode;
-                newNode.Text += "【" + jotCount.ToString() + " " + "焊口" + "】";
+                if (jotCount > weldJotCount)
+                {
+                    newNode.Text = "<font color='#EE0000'>" + item.PipelineCode + "【" + jotCount.ToString() + " " + "焊口" + "】" + "</font>";
+                }
+                else
+                {
+                    newNode.Text = item.PipelineCode + "【" + jotCount.ToString() + " " + "焊口" + "】";
+                }
                 newNode.ToolTip = "管线号【焊口数】";
                 newNode.NodeID = item.PipelineId;
                 newNode.EnableClickEvent = true;
@@ -349,39 +356,49 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
             if (q != null)
             {
-                string varValue = string.Empty;
-                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
-                if (project != null)
+                var jotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == pipelineId select x).Count();
+                var weldJotCount = (from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == pipelineId && x.WeldingDailyId != null select x).Count();
+                if (jotCount == weldJotCount)
                 {
-                    varValue = project.ProjectName;
-                    var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(q.UnitWorkId);
-                    if (unitWork != null)
+                    string varValue = string.Empty;
+                    var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                    if (project != null)
                     {
-                        varValue = varValue + "|" + unitWork.UnitWorkName;
+                        varValue = project.ProjectName;
+                        var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(q.UnitWorkId);
+                        if (unitWork != null)
+                        {
+                            varValue = varValue + "|" + unitWork.UnitWorkName;
+                        }
                     }
-                }
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@IsoId", pipelineId));
-                listStr.Add(new SqlParameter("@Flag", "0"));
-                SqlParameter[] parameter = listStr.ToArray();
-                DataTable tb = BLL.SQLHelper.GetDataTableRunProc("HJGL_spJointWorkRecordNew", parameter);
-                string page = Funs.GetPagesCountByPageSize(11, 16, tb.Rows.Count).ToString();
+                    List<SqlParameter> listStr = new List<SqlParameter>();
+                    listStr.Add(new SqlParameter("@IsoId", pipelineId));
+                    listStr.Add(new SqlParameter("@Flag", "0"));
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable tb = BLL.SQLHelper.GetDataTableRunProc("HJGL_spJointWorkRecordNew", parameter);
+                    string page = Funs.GetPagesCountByPageSize(11, 16, tb.Rows.Count).ToString();
 
 
-                varValue = varValue + "|" + page;
+                    varValue = varValue + "|" + page;
 
-                if (!string.IsNullOrEmpty(varValue))
-                {
-                    varValue = HttpUtility.UrlEncodeUnicode(varValue);
-                }
-                if (tb.Rows.Count <= 11)
-                {
-                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport1Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
+                    if (!string.IsNullOrEmpty(varValue))
+                    {
+                        varValue = HttpUtility.UrlEncodeUnicode(varValue);
+                    }
+                    if (tb.Rows.Count <= 11)
+                    {
+                        PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport1Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
+                    }
+                    else
+                    {
+                        PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport2Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
+                        PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport1Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
+                    }
                 }
                 else
                 {
-                    PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport2Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
-                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../../ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId={3}", BLL.Const.HJGL_JointInfoReport1Id, pipelineId, varValue, this.CurrUser.LoginProjectId)));
+                    ShowNotify("请选择焊接完成管线！", MessageBoxIcon.Warning);
+                    return;
                 }
             }
 

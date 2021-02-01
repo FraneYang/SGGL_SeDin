@@ -25,34 +25,17 @@
                             </f:Label>
                             <f:DatePicker ID="txtEndRectificationTime" runat="server">
                             </f:DatePicker>
-                            <f:DropDownList ID="drpChartType" runat="server" Label="图形类型" AutoPostBack="true"
-                                OnSelectedIndexChanged="drpChartType_SelectedIndexChanged" Width="300px" LabelWidth="80px">
-                                <f:ListItem Value="Column" Text="柱形图"></f:ListItem>
-                                <f:ListItem Value="Line" Text="折线图"></f:ListItem>
-                                <f:ListItem Value="Pie" Text="饼形图"></f:ListItem>
-                                <f:ListItem Value="StackedArea" Text="堆积面积图"></f:ListItem>
-                                <f:ListItem Value="Spline" Text="样条图"></f:ListItem>
-                                <f:ListItem Value="SplineArea" Text="样条面积图"></f:ListItem>
-                                <f:ListItem Value="StepLine" Text="阶梯线图"></f:ListItem>
-                                <f:ListItem Value="Stock" Text="股价图"></f:ListItem>
-                                <f:ListItem Value="Radar" Text="雷达图"></f:ListItem>
+                            <f:DropDownList runat="server" ID="drpType" >
+                                <f:ListItem Text="按责任单位" Value="0" Selected="true"/>
+                                <f:ListItem Text="按问题类型" Value="1" />
+                                <f:ListItem Text="按危害因素" Value="2" />
+                                <f:ListItem Text="按作业内容" Value="3" />
+                                <f:ListItem Text="按导致伤害/事故" Value="4" />
+                                <f:ListItem Text="按责任单位" Value="0" Selected="true"/>
+                                <f:ListItem Text="按单位工程" Value="5" />
                             </f:DropDownList>
-                            <f:CheckBox ID="ckbShow" runat="server" LabelWidth="80px" Label="三维效果" AutoPostBack="true"
-                                OnCheckedChanged="ckbShow_CheckedChanged" Width="110px">
-                            </f:CheckBox>
                             <f:Button ID="BtnAnalyse" Text="统计" Icon="ChartPie" runat="server" OnClick="BtnAnalyse_Click">
                             </f:Button>
-                        </Items>
-                    </f:FormRow>
-                    <f:FormRow >
-                        <Items>
-                            <f:RadioButtonList ID="rblState" runat="server" Label="分析类型" LabelWidth="80px" Width="250px"
-                                AutoPostBack="true" OnSelectedIndexChanged="drpChartType_SelectedIndexChanged">
-                                <f:RadioItem Value="0" Selected="true" Text="按责任单位" />
-                                <f:RadioItem Value="1" Text="按检查项" />
-                            </f:RadioButtonList>
-                            <f:Label ID="aa" runat="server">
-                            </f:Label>
                         </Items>
                     </f:FormRow>
                 </Rows>
@@ -60,23 +43,13 @@
         </Items>
     </f:Panel>
     <f:Panel ID="Panel4" CssClass="blockpanel" runat="server"  EnableCollapse="false"
-        BodyPadding="10px" ShowBorder="true" ShowHeader="false">
+        BodyPadding="10px" ShowBorder="true" ShowHeader="false" >
         <Items>
-            <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="360px" ShowBorder="true"
-                TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" runat="server">
-                <Tabs>
-                    <f:Tab ID="Tab2" Title="按类别" BodyPadding="5px" Layout="Fit" IconFont="Bookmark" runat="server"
-                        TitleToolTip="按类别统计">
-                        <Items>
-                            <f:ContentPanel ShowHeader="false" runat="server" ID="cpAccidentTime" Margin="0 0 0 0">
-                                <div id="divAccidentTime">
-                                    <uc1:ChartControl ID="ChartAccidentTime" runat="server" />
-                                </div>
-                            </f:ContentPanel>
-                        </Items>
-                    </f:Tab>
-                </Tabs>
-            </f:TabStrip>
+            <f:ContentPanel ShowHeader="false" runat="server" ID="cpAccidentTime" Margin="0 0 0 0" AutoScroll="true">
+                <div id="divAccidentTime" style="height:100%;width:100%">
+                    <uc1:ChartControl ID="ChartAccidentTime" runat="server" />
+                </div>
+            </f:ContentPanel>
         </Items>
     </f:Panel>
     </form>

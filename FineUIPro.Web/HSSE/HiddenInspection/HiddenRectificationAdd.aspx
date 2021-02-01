@@ -13,62 +13,86 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow>
+             <f:FormRow>
                 <Items>
-                    <f:DropDownList runat="server" EnableSimulateTree="True" Label="检查项" ID="drpRegisterTypes" >
-                    </f:DropDownList>
-                    <f:RadioButtonList ID="ckType" runat="server" Label="巡检周期"
-                                Width="330px" Hidden="true">
-                                <f:RadioItem Value="D" Selected="True" Text="日检" />
-                                <f:RadioItem Value="W" Text="周检" />
-                                <f:RadioItem Value="M" Text="月检" />
-                            </f:RadioButtonList>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:DropDownList runat="server" EnableSimulateTree="True" Label="责任单位" ID="drpUnit"
-                        AutoPostBack="true" OnSelectedIndexChanged="drpUnit_OnSelectedIndexChanged">
-                    </f:DropDownList>
-                    <f:DropDownList runat="server" EnableSimulateTree="True" Label="单位工程" ID="drpWorkArea">
-                    </f:DropDownList>
-                </Items>
-            </f:FormRow>
-            
-            <f:FormRow>
-                <Items>
-                    <f:TextArea ID="txtRegisterDef" runat="server" Label="问题描述" ShowRedStar="true" Required="true">
+                    <f:TextArea ID="txtRegisterDef" runat="server" Label="问题描述" FocusOnPageLoad="true" 
+                        ShowRedStar="true" Required="true" LabelWidth="110px" Height="64px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox runat="server" ID="txtHandleIdea" Label="复检问题描述" Hidden="true"></f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:DropDownList runat="server" EnableSimulateTree="True" Label="责任人" ID="drpResponsibleMan"
-                        >
-                    </f:DropDownList>
-                    <f:DatePicker ID="txtRectificationPeriod" runat="server" Label="整改期限" LabelAlign="Right" Required="True" ShowRedStar="true"
-                        >
+                    <f:TextBox ID="txtCheckManName" runat="server" Label="检查人" Readonly="true" LabelWidth="110px">
+                    </f:TextBox>
+                      <f:DatePicker ID="txtCheckTime" runat="server" Label="检查时间" ShowTime="true"
+                            LabelAlign="Right" Required="True" ShowRedStar="true" LabelWidth="110px" 
+                           DateFormatString="yyyy-MM-dd HH:mm">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtCheckManName" runat="server" Label="检查人" Readonly="true">
-                    </f:TextBox>
-                    <f:TextBox ID="txtCheckTime" runat="server" Label="检查时间" Readonly="true">
-                    </f:TextBox>
+                       <f:DropDownList runat="server"  Label="危害因素" ID="drpRegisterTypes2" EnableEdit="true" LabelWidth="110px">
+                    </f:DropDownList>    
+                    <f:DropDownList runat="server"  Label="问题类型" ID="drpRegisterTypes" EnableEdit="true" LabelWidth="110px">
+                    </f:DropDownList>    
+                </Items>
+            </f:FormRow>
+             <f:FormRow>
+                <Items>
+                     <f:DropDownList runat="server"  Label="作业内容" ID="drpRegisterTypes3" EnableEdit="true" LabelWidth="110px">
+                    </f:DropDownList>    
+                    <f:DropDownList runat="server"  Label="风险值" ID="drpHazardValue" EnableEdit="true" LabelWidth="110px">
+                        <f:ListItem Value="0.3" Text="0.3"/>
+                        <f:ListItem Value="1" Text="1"/>
+                        <f:ListItem Value="3" Text="3"/>
+                    </f:DropDownList>    
+                </Items>
+            </f:FormRow>
+              <f:FormRow>
+                <Items>
+                      <f:DropDownList runat="server"  Label="导致伤害/事故" ID="drpRegisterTypes4" EnableEdit="true" LabelWidth="110px">
+                    </f:DropDownList>    
+                       <f:TextBox runat="server" ID="txtRequirements" Label="整改要求" LabelWidth="110px"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:LinkButton ID="UploadAttach" runat="server" Label="整改前照片" Text="上传和查看" OnClick="btnAttachUrl_Click" LabelAlign="Right">
-                                    </f:LinkButton>
-                    <f:NumberBox ID="txtCutPayment" runat="server" Label="罚款金额" LabelAlign="Right" Text="0" NoNegative="true" NoDecimal="true"></f:NumberBox>
+                    <f:DropDownList runat="server" EnableEdit="true" Label="责任单位" ID="drpUnit" LabelWidth="110px"
+                        AutoPostBack="true" OnSelectedIndexChanged="drpUnit_OnSelectedIndexChanged">
+                    </f:DropDownList>
+                     <f:DropDownList runat="server" EnableEdit="true" Label="责任人" ID="drpResponsibleMan" LabelWidth="110px">
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:DropDownList runat="server" EnableEdit="true" Label="单位工程" ID="drpWorkArea" LabelWidth="110px">
+                    </f:DropDownList>   
+                    <f:DatePicker ID="txtRectificationPeriod" runat="server" Label="整改期限"  LabelWidth="110px"
+                             LabelAlign="Right" Required="True" ShowRedStar="true" ShowTime="true"
+                             DateFormatString="yyyy-MM-dd HH:mm">
+                    </f:DatePicker>
+                </Items>
+            </f:FormRow>           
+            <f:FormRow>
+                <Items>
+                    <f:TextBox runat="server" ID="txtHandleIdea" Label="复检问题描述" Hidden="true" LabelWidth="110px"></f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:LinkButton ID="UploadAttach" runat="server" Label="整改前照片"  LabelWidth="110px"
+                        Text="上传和查看" OnClick="btnAttachUrl_Click" LabelAlign="Right">
+                </f:LinkButton>
+                </Items>
+            </f:FormRow>
+             <f:FormRow>
+                <Items>
+                     <f:DropDownList runat="server" EnableMultiSelect="True" EnableCheckBoxSelect="true" EnableEdit="true"
+                         Label="抄送" ID="drpCCManIds" LabelWidth="110px" AutoPostBack="true" 
+                         OnSelectedIndexChanged="drpCCManIds_SelectedIndexChanged">
+                    </f:DropDownList>
                 </Items>
             </f:FormRow>
         </Rows>

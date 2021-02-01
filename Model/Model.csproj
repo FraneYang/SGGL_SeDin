@@ -152,6 +152,7 @@
     <Compile Include="ErrorInfo.cs" />
     <Compile Include="HandleStep.cs" />
     <Compile Include="HJGL\SpWeldingDailyItem.cs" />
+    <Compile Include="HSSE\DigDataHSEDataCollectItem.cs" />
     <Compile Include="HSSE\PageDataPersonInOutItem.cs" />
     <Compile Include="HSSE\WorkPostStatisticItem.cs" />
     <Compile Include="HSSE\HSSE_HazardTemplate.cs" />

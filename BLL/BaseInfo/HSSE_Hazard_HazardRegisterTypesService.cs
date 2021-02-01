@@ -27,14 +27,16 @@ namespace BLL
         public static void AddHazardRegisterTypes(Model.HSSE_Hazard_HazardRegisterTypes types)
         {
             Model.SGGLDB db = Funs.DB;
-            Model.HSSE_Hazard_HazardRegisterTypes newTitle = new Model.HSSE_Hazard_HazardRegisterTypes();
-            newTitle.RegisterTypesId = types.RegisterTypesId;
-            newTitle.RegisterTypesName = types.RegisterTypesName;
-            newTitle.TypeCode = types.TypeCode;
-            newTitle.HazardRegisterType = types.HazardRegisterType;
-            newTitle.GroupType = types.GroupType;
-            newTitle.Remark = types.Remark;
-            newTitle.IsPunished = types.IsPunished;
+            Model.HSSE_Hazard_HazardRegisterTypes newTitle = new Model.HSSE_Hazard_HazardRegisterTypes
+            {
+                RegisterTypesId = types.RegisterTypesId,
+                RegisterTypesName = types.RegisterTypesName,
+                TypeCode = types.TypeCode,
+                HazardRegisterType = types.HazardRegisterType,
+                GroupType = types.GroupType,
+                Remark = types.Remark
+            };
+            //   newTitle.IsPunished = types.IsPunished;
 
             db.HSSE_Hazard_HazardRegisterTypes.InsertOnSubmit(newTitle);
             db.SubmitChanges();
@@ -49,14 +51,15 @@ namespace BLL
         public static void UpdateHazardRegisterTypes(Model.HSSE_Hazard_HazardRegisterTypes types)
         {
             Model.SGGLDB db = Funs.DB;
-            Model.HSSE_Hazard_HazardRegisterTypes newTitle = db.HSSE_Hazard_HazardRegisterTypes.FirstOrDefault(e => e.RegisterTypesId == types.RegisterTypesId);
-            if (newTitle != null)
+            Model.HSSE_Hazard_HazardRegisterTypes newTypes = db.HSSE_Hazard_HazardRegisterTypes.FirstOrDefault(e => e.RegisterTypesId == types.RegisterTypesId);
+            if (newTypes != null)
             {
-                newTitle.RegisterTypesName = types.RegisterTypesName;
-                newTitle.TypeCode = types.TypeCode;
-                newTitle.GroupType = types.GroupType;
-                newTitle.Remark = types.Remark;
-                newTitle.IsPunished = types.IsPunished;
+                newTypes.RegisterTypesName = types.RegisterTypesName;
+                newTypes.TypeCode = types.TypeCode;
+                newTypes.HazardRegisterType = types.HazardRegisterType;
+                newTypes.GroupType = types.GroupType;
+                newTypes.Remark = types.Remark;
+                //newTitle.IsPunished = types.IsPunished;
 
                 db.SubmitChanges();
             }
@@ -66,7 +69,7 @@ namespace BLL
         /// 删除职务信息
         /// </summary>
         /// <param name="RegisterTypesId"></param>
-        public static void DeleteTitle(string RegisterTypesId)
+        public static void DeleteRegisterTypes(string RegisterTypesId)
         {
             Model.SGGLDB db = Funs.DB;
             Model.HSSE_Hazard_HazardRegisterTypes types = db.HSSE_Hazard_HazardRegisterTypes.FirstOrDefault(e => e.RegisterTypesId == RegisterTypesId);
@@ -83,7 +86,27 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.HSSE_Hazard_HazardRegisterTypes> GetHazardRegisterTypesList(string hazardRegisterType)
         {
-            return (from x in Funs.DB.HSSE_Hazard_HazardRegisterTypes where x.HazardRegisterType == hazardRegisterType orderby x.TypeCode select x).ToList();
+            return (from x in Funs.DB.HSSE_Hazard_HazardRegisterTypes
+                    where x.HazardRegisterType == hazardRegisterType
+                    orderby x.TypeCode select x).ToList();
+        }
+
+        /// <summary>
+        /// 应急响应类型下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="projectId">项目id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitAccidentTypeDropDownList(FineUIPro.DropDownList dropName,string type, bool isShowPlease)
+        {
+            dropName.DataValueField = "RegisterTypesId";
+            dropName.DataTextField = "RegisterTypesName";
+            dropName.DataSource = GetHazardRegisterTypesList(type);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
         }
     }
 }

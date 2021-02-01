@@ -59,5 +59,18 @@ namespace Model
             IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), projectId, states, pageIndex, pageSize);
             return (ISingleResult<RectifyNoticesItem>)result.ReturnValue;
         }
+
+        /// <summary>
+        /// 获取安全数据汇总
+        /// </summary>
+        /// <param name="unitcode"></param>
+        /// <param name="isono"></param>
+        /// <returns></returns>
+        [Function(Name = "[dbo].[Sp_DigData_HSEDataCollect]")]
+        public IEnumerable<DigDataHSEDataCollectItem> Sp_DigData_HSEDataCollect( [Parameter(DbType = "INT")] int year)
+        {
+            IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), year);
+            return (ISingleResult<DigDataHSEDataCollectItem>)result.ReturnValue;
+        }
     }
 }

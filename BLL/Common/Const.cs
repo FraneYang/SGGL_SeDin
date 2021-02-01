@@ -2640,6 +2640,10 @@ namespace BLL
         /// </summary>
         public const string TestTrainingTemplateUrl = "File\\Excel\\DataIn\\考试试题模版.xls";
         /// <summary>
+        /// 试卷模版文件原始的虚拟路径
+        /// </summary>
+        public const string TestRecordTemplateUrl = "File\\Word\\HSSE\\试卷.doc";
+        /// <summary>
         /// 日常巡检导入模板
         /// </summary>
         public const string CheckDayTemplateUrl = "File\\Excel\\DataIn\\日常巡检导入模板.xls";

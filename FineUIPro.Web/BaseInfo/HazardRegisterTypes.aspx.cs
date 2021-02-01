@@ -1,5 +1,6 @@
 ﻿using BLL;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -33,8 +34,15 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "select RegisterTypesId,RegisterTypesName,cast(TypeCode as int) as TypeCode,IsPunished from HSSE_Hazard_HazardRegisterTypes where HazardRegisterType='1' order by TypeCode";
-            SqlParameter[] parameter = null;
+            string strSql = "select RegisterTypesId,RegisterTypesName,TypeCode,IsPunished from HSSE_Hazard_HazardRegisterTypes where 1=1 ";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+
+            if (!string.IsNullOrEmpty(this.rblType.SelectedValue))
+            {
+                strSql += " AND HazardRegisterType =@HazardRegisterType";
+                listStr.Add(new SqlParameter("@HazardRegisterType", this.rblType.SelectedValue));
+            }
+            SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.RecordCount = tb.Rows.Count;
             var table = this.GetPagedDataTable(Grid1, tb);
@@ -163,7 +171,7 @@ namespace FineUIPro.Web.BaseInfo
                             if (title != null)
                             {
                                 BLL.LogService.AddSys_Log(this.CurrUser, title.TypeCode, title.RegisterTypesId, BLL.Const.HazardRegisterTypesMenuId, BLL.Const.BtnDelete);
-                                BLL.HSSE_Hazard_HazardRegisterTypesService.DeleteTitle(rowID);
+                                BLL.HSSE_Hazard_HazardRegisterTypesService.DeleteRegisterTypes(rowID);
                             }
                         }
                     }
@@ -186,6 +194,12 @@ namespace FineUIPro.Web.BaseInfo
         private bool judgementDelete(string rowID, bool isShow)
         {
             string content = string.Empty;
+            var geth = Funs.DB.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.RegisterTypesId == rowID 
+            || x.RegisterTypes2Id == rowID || x.RegisterTypes3Id == rowID || x.RegisterTypes4Id == rowID);
+            if (geth != null)
+            {
+                content = "安全巡检中已使用该类型！";
+            }
             if (string.IsNullOrEmpty(content))
             {
                 return true;
@@ -227,5 +241,10 @@ namespace FineUIPro.Web.BaseInfo
             }
         }
         #endregion
+
+        protected void rblType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
     }
 }

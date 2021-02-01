@@ -29,7 +29,7 @@ namespace BLL
                     var eDate = Funs.GetNewDateTime(endDate);
                     getHazardRegister = getHazardRegister.Where(x => x.RegisterDate <= eDate);
                 }
-                if (type == "1")
+                if (type == "6")
                 {
                     var getUnitlistIds = getHazardRegister.Select(x => x.ResponsibleUnit).Distinct().ToList();
                     foreach (var unitItem in getUnitlistIds)
@@ -48,9 +48,45 @@ namespace BLL
 
                     }
                 }
-                else if (type == "2")
+                else if (type == "5")
                 {
-                    var getRegisterTypesIds = getHazardRegister.Select(x => x.RegisterTypesId).Distinct().ToList();
+                    var getWorkAreaIds = getHazardRegister.Select(x => x.Place).Distinct().ToList();
+                    foreach (var typeItem in getWorkAreaIds)
+                    {
+                        var getUnitRegister = getHazardRegister.Where(x => x.Place == typeItem);
+                        Model.ChartAnalysisItem newItem = new Model.ChartAnalysisItem
+                        {
+                            DataId = typeItem,
+                            Type = type,
+                            DataName = db.WBS_UnitWork.First(y => y.UnitWorkId == typeItem).UnitWorkName,
+                            DataSumCount = getUnitRegister.Count(),
+                            DataCount1 = getUnitRegister.Where(x => x.States == "2" || x.States == "3").Count(),
+                        };
+
+                        getDataLists.Add(newItem);
+
+                    }
+                }
+                else
+                {
+                    List<string> getRegisterTypesIds = new List<string>();
+                    if (type == "1")
+                    {
+                        getRegisterTypesIds = getHazardRegister.Select(x => x.RegisterTypesId).Distinct().ToList();
+                    }
+                    else if (type == "2")
+                    {
+                        getRegisterTypesIds = getHazardRegister.Select(x => x.RegisterTypes2Id).Distinct().ToList();
+                    }
+                    else if (type == "3")
+                    {
+                        getRegisterTypesIds = getHazardRegister.Select(x => x.RegisterTypes3Id).Distinct().ToList();
+                    }
+                    else if (type == "4")
+                    {
+                        getRegisterTypesIds = getHazardRegister.Select(x => x.RegisterTypes4Id).Distinct().ToList();
+                    }
+
                     foreach (var typeItem in getRegisterTypesIds)
                     {
                         var getUnitRegister = getHazardRegister.Where(x => x.RegisterTypesId == typeItem);

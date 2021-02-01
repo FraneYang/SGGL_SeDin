@@ -15,80 +15,100 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtRegisterTypesName" runat="server" Label="问题类型" Readonly="true">
-                    </f:TextBox>
-                    <f:TextBox ID="txtType" runat="server" Label="巡检周期" Readonly="true">
-                    </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtUnitName" runat="server" Label="责任单位" Readonly="true">
-                    </f:TextBox>
-                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="单位工程" Readonly="true">
-                    </f:TextBox>
-                </Items>
-            </f:FormRow>
-            
-            <f:FormRow>
-                <Items>
-                    <f:TextArea ID="txtRegisterDef" runat="server" Label="问题描述" Readonly="true">
+                    <f:TextArea ID="txtRegisterDef" runat="server" Label="问题描述" Readonly="true"
+                        ShowRedStar="true" Required="true" LabelWidth="110px"  Height="64px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox runat="server" ID="txtOldHandleIdea" Label="之前复检问题描述" Hidden="true"></f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtResponsibleManName" runat="server" Label="责任人" Readonly="true">
+                    <f:TextBox ID="txtCheckManName" runat="server" Label="检查人" Readonly="true" LabelWidth="110px">
                     </f:TextBox>
-                    <f:TextBox ID="txtRectificationPeriod" runat="server" Label="整改期限" Readonly="true">
+                      <f:TextBox ID="txtCheckTime" runat="server" Label="检查时间" LabelWidth="110px" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtCheckManName" runat="server" Label="检查人" Readonly="true">
+                    <f:TextBox runat="server"  Label="危害因素" ID="drpRegisterTypes2" Readonly="true" LabelWidth="110px">
+                    </f:TextBox>    
+                    <f:TextBox runat="server"  Label="问题类型" ID="drpRegisterTypes" Readonly="true" LabelWidth="110px">
+                    </f:TextBox>    
+                </Items>
+            </f:FormRow>
+             <f:FormRow>
+                <Items>
+                     <f:TextBox runat="server"  Label="作业内容" ID="drpRegisterTypes3" Readonly="true" LabelWidth="110px">
+                    </f:TextBox>    
+                    <f:TextBox runat="server"  Label="风险值" ID="drpHazardValue" Readonly="true" LabelWidth="110px">
+                    </f:TextBox>    
+                </Items>
+            </f:FormRow>
+              <f:FormRow>
+                <Items>
+                     <f:TextBox runat="server"  Label="导致伤害/事故" ID="drpRegisterTypes4" Readonly="true" LabelWidth="110px">
+                    </f:TextBox>    
+                    <f:TextBox runat="server" ID="txtRequirements" Label="整改要求" Readonly="true" LabelWidth="110px"></f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:TextBox runat="server" Readonly="true" Label="责任单位" ID="drpUnit" LabelWidth="110px">
                     </f:TextBox>
-                    <f:TextBox ID="txtCheckTime" runat="server" Label="检查时间" Readonly="true">
+                     <f:TextBox runat="server" Readonly="true" Label="责任人" ID="drpResponsibleMan" LabelWidth="110px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:LinkButton ID="UploadAttach" runat="server" Label="整改前照片" Text="上传和查看" OnClick="btnAttachUrl_Click" LabelAlign="Right">
-                                    </f:LinkButton>
-                    <f:NumberBox ID="txtCutPayment" runat="server" Label="罚款金额" LabelAlign="Right" Text="0" NoNegative="true" NoDecimal="true" Readonly="true"></f:NumberBox>
+                    <f:TextBox runat="server" Readonly="true" Label="单位工程" ID="drpWorkArea" LabelWidth="110px">
+                    </f:TextBox>   
+                    <f:TextBox ID="txtRectificationPeriod" runat="server" Label="整改期限"  LabelWidth="110px" Readonly="true">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>           
+            <f:FormRow>
+                <Items>
+                    <f:TextBox runat="server" ID="txtOldHandleIdea" Label="之前复检问题" 
+                            Hidden="true" Readonly="true" FocusOnPageLoad="true"
+                        LabelWidth="110px"></f:TextBox>
+                </Items>
+            </f:FormRow>
+             <f:FormRow>
+                <Items>
+                     <f:TextBox runat="server"  Label="抄送" ID="drpCCManIds" LabelWidth="110px" Readonly="true">
+                    </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtRectification" runat="server" Label="采取措施" Readonly="true">
-                    </f:TextArea>
+                    <f:TextBox ID="txtRectification" runat="server" Label="采取措施"  Readonly="true" LabelWidth="110px">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>                   
+                    <f:LinkButton ID="UploadAttach" runat="server" Label="整改前照片"  LabelWidth="110px"
+                        Text="查看/上传" OnClick="btnAttachUrl_Click" LabelAlign="Right">
+                </f:LinkButton>
+                    <f:LinkButton ID="UploadAttachR" runat="server" Label="整改后照片" Text="查看" 
+                        OnClick="btnAttachUrlR_Click" LabelAlign="Right">
+                    </f:LinkButton>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:LinkButton ID="UploadAttachR" runat="server" Label="整改后照片" Text="查看" OnClick="btnAttachUrlR_Click" LabelAlign="Right">
-                                    </f:LinkButton>
-                    
+                       <f:RadioButtonList ID="ckConfirm" runat="server" Label="是否通过"  AutoColumnWidth="true" ShowRedStar="true"
+                          AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged" LabelWidth="110px">
+                        <f:RadioItem Value="True" Selected="True" Text="通过" />
+                        <f:RadioItem Value="False" Text="不通过" />
+                    </f:RadioButtonList>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:RadioButtonList ID="ckConfirm" runat="server" Label="是否通过" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"
-                                Width="330px">
-                                <f:RadioItem Value="True" Selected="True" Text="通过" />
-                                <f:RadioItem Value="False" Text="不通过" />
-                            </f:RadioButtonList>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox runat="server" ID="txtHandleIdea" Label="复检问题描述" Hidden="true"></f:TextBox>
+                    <f:TextBox runat="server" ID="txtHandleIdea" Label="复检问题描述" 
+                        Hidden="true" LabelWidth="110px"></f:TextBox>
                 </Items>
             </f:FormRow>
         </Rows>

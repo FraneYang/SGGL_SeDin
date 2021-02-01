@@ -21,17 +21,25 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                         <Items>
+                               <f:RadioButtonList runat="server" ID="rblType" Label="类型" AutoPostBack="true" OnSelectedIndexChanged="rblType_SelectedIndexChanged"
+                                   LabelWidth="50px" Width="500px" AutoColumnWidth="true">
+                                    <f:RadioItem Text="问题类型" Value="1"  Selected="true"/>
+                                    <f:RadioItem Text="危害因素" Value="2" />
+                                   <f:RadioItem Text="作业内容" Value="3" />
+                                   <f:RadioItem Text="导致伤害/事故" Value="4" />
+                                </f:RadioButtonList>
+                            <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false"  runat="server">
                             </f:Button>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:TemplateField Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
+                    <%--<f:TemplateField Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
                         <ItemTemplate>
                             <asp:Label ID="Label1" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
-                    </f:TemplateField>
+                    </f:TemplateField>--%>
                    <f:RenderField Width="100px" ColumnID="TypeCode" DataField="TypeCode" SortField="TypeCode"
                         FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -39,7 +47,7 @@
                         FieldType="String" HeaderText="名称" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">                        
                     </f:RenderField>
-                    <f:CheckBoxField Width="100px" RenderAsStaticField="true" TextAlign="Left"  DataField="IsPunished" HeaderText="是否处罚" /> 
+                    <%--<f:CheckBoxField Width="100px" RenderAsStaticField="true" TextAlign="Left"  DataField="IsPunished" HeaderText="是否处罚" /> --%>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -58,7 +66,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="编辑安全巡检类型" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="500px" Height="230px">
+        Width="500px" Height="400px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"

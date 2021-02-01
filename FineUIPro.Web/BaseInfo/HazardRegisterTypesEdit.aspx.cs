@@ -37,19 +37,20 @@ namespace FineUIPro.Web.BaseInfo
                 this.RegisterTypesId = Request.QueryString["RegisterTypesId"];
                 if (!string.IsNullOrEmpty(this.RegisterTypesId))
                 {
-                    var title = BLL.HSSE_Hazard_HazardRegisterTypesService.GetTitleByRegisterTypesId(this.RegisterTypesId);
-                    if (title != null)
+                    var getTypes = BLL.HSSE_Hazard_HazardRegisterTypesService.GetTitleByRegisterTypesId(this.RegisterTypesId);
+                    if (getTypes != null)
                     {
-                        this.txtRegisterTypesName.Text = title.RegisterTypesName;
-                        this.txtTypeCode.Text = title.TypeCode;
-                        if (title.IsPunished == true)
-                        {
-                            chkIsPunished.Checked = true;
-                        }
-                        else
-                        {
-                            chkIsPunished.Checked = false;
-                        }
+                        this.txtRegisterTypesName.Text = getTypes.RegisterTypesName;
+                        this.txtTypeCode.Text = getTypes.TypeCode;
+                        this.rblType.SelectedValue = getTypes.HazardRegisterType;
+                        //if (title.IsPunished == true)
+                        //{
+                        //    chkIsPunished.Checked = true;
+                        //}
+                        //else
+                        //{
+                        //    chkIsPunished.Checked = false;
+                        //}
                     }
                 }
             }
@@ -64,16 +65,21 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(this.rblType.SelectedValue))
+            {
+                Alert.ShowInParent("请选择类型！", MessageBoxIcon.Warning);
+                return;
+            }
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HazardRegisterTypesMenuId, Const.BtnSave))
             {
                 Model.HSSE_Hazard_HazardRegisterTypes title = new Model.HSSE_Hazard_HazardRegisterTypes();
                 title.RegisterTypesName = this.txtRegisterTypesName.Text.Trim();
                 title.TypeCode = this.txtTypeCode.Text.Trim();
-                title.HazardRegisterType = "1";   //安全巡检类型
-                if (this.chkIsPunished.Checked)
-                {
-                    title.IsPunished = true;
-                }
+                title.HazardRegisterType = this.rblType.SelectedValue;   //安全巡检类型
+                //if (this.chkIsPunished.Checked)
+                //{
+                //    title.IsPunished = true;
+                //}
                 if (string.IsNullOrEmpty(this.RegisterTypesId))
                 {
                     this.RegisterTypesId = SQLHelper.GetNewID(typeof(Model.HSSE_Hazard_HazardRegisterTypes));

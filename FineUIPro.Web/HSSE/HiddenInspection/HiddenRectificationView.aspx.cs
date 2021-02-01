@@ -68,30 +68,31 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                 this.HazardRegisterId = Request.Params["HazardRegisterId"];
                 if (!string.IsNullOrEmpty(this.HazardRegisterId))
                 {
-                    Model.View_Hazard_HazardRegister registration = (from x in Funs.DB.View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
+                    var registration = Funs.DB.View_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == HazardRegisterId);
                     if (registration != null)
                     {
-                        this.txtWorkAreaName.Text = registration.WorkAreaName;
-                        this.txtResponsibilityUnitName.Text = registration.ResponsibilityUnitName;
-                        this.txtRegisterTypesName.Text = registration.RegisterTypesName;
-                        this.txtProblemDescription.Text = registration.RegisterDef;
-                        this.txtTakeSteps.Text = registration.Rectification;
-                        this.txtResponsibilityManName.Text = registration.ResponsibilityManName;
-                        this.txtRectificationPeriod.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.RectificationPeriod);
+                        this.txtRegisterDef.Text = registration.RegisterDef;
                         this.txtCheckManName.Text = registration.CheckManName;
                         this.txtCheckTime.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.CheckTime);
+                        this.drpRegisterTypes.Text = registration.RegisterTypesName;
+                        this.drpRegisterTypes2.Text = registration.RegisterTypes2Name;
+                        this.drpRegisterTypes3.Text = registration.RegisterTypes3Name;
+                        this.drpRegisterTypes4.Text = registration.RegisterTypes4Name;
+                        this.drpHazardValue.Text = registration.HazardValue;
+                        this.txtRequirements.Text = registration.Requirements;
+                        this.drpUnit.Text = registration.ResponsibilityUnitName;
+                        this.drpResponsibleMan.Text = registration.ResponsibilityManName;
+                        this.drpWorkArea.Text = registration.WorkAreaName;
+                        this.txtRectificationPeriod.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.RectificationPeriod);
+                        this.drpCCManIds.Text = registration.CCManNames;
+                        this.txtRectification.Text = registration.Rectification;
+
                         this.txtRectificationTime.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.RectificationTime);
                         this.txtStates.Text = registration.StatesStr;
                         this.ImageUrl = registration.ImageUrl;
                         this.RectificationImageUrl = registration.RectificationImageUrl;
                         this.divImageUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.ImageUrl);
-                        this.divRectificationImageUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.RectificationImageUrl);
-                        //var punishRecords = (from x in Funs.DB.View_Common_PunishRecord
-                        //                     where x.HazardRegisterId == this.HazardRegisterId
-                        //                     orderby x.PunishDate descending
-                        //                     select x).ToList();
-                        //Grid1.DataSource = punishRecords;
-                        //Grid1.DataBind();
+                        this.divRectificationImageUrl.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../../", this.RectificationImageUrl);                      
                     }
                 }
             }

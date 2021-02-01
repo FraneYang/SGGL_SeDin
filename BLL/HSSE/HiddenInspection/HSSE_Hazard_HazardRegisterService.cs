@@ -38,35 +38,43 @@ namespace BLL
         public static void AddHazardRegister(Model.HSSE_Hazard_HazardRegister hazardRegister)
         {
             Model.SGGLDB db = Funs.DB;
-            Model.HSSE_Hazard_HazardRegister newHazardRegister = new Model.HSSE_Hazard_HazardRegister();
-            newHazardRegister.HazardRegisterId = hazardRegister.HazardRegisterId;
-            newHazardRegister.HazardCode = hazardRegister.HazardCode;
-            newHazardRegister.RegisterDate = DateTime.Now;
-            newHazardRegister.RegisterDef = hazardRegister.RegisterDef;
-            newHazardRegister.RegisterTypesId = hazardRegister.RegisterTypesId;
-            newHazardRegister.CheckCycle = hazardRegister.CheckCycle;
-            newHazardRegister.Rectification = hazardRegister.Rectification;
-            newHazardRegister.Place = hazardRegister.Place;
-            newHazardRegister.ResponsibleUnit = hazardRegister.ResponsibleUnit;
-            newHazardRegister.Observer = hazardRegister.Observer;
-            newHazardRegister.RectifiedDate = hazardRegister.RectifiedDate;
-            newHazardRegister.AttachUrl = hazardRegister.AttachUrl;
-            newHazardRegister.ProjectId = hazardRegister.ProjectId;
-            newHazardRegister.States = hazardRegister.States;
-            newHazardRegister.IsEffective = hazardRegister.IsEffective;
-            newHazardRegister.ResponsibleMan = hazardRegister.ResponsibleMan;
-            newHazardRegister.CheckManId = hazardRegister.CheckManId;
-            newHazardRegister.CheckTime = hazardRegister.CheckTime;
-            newHazardRegister.RectificationPeriod = hazardRegister.RectificationPeriod;
-            newHazardRegister.ImageUrl = hazardRegister.ImageUrl;
-            newHazardRegister.RectificationImageUrl = hazardRegister.RectificationImageUrl;
-            newHazardRegister.RectificationTime = hazardRegister.RectificationTime;
-            newHazardRegister.ConfirmMan = hazardRegister.ConfirmMan;
-            newHazardRegister.ConfirmDate = hazardRegister.ConfirmDate;
-            newHazardRegister.HandleIdea = hazardRegister.HandleIdea;
-            newHazardRegister.CutPayment = hazardRegister.CutPayment;
-            newHazardRegister.ProblemTypes = hazardRegister.ProblemTypes;
-            newHazardRegister.DIC_ID = hazardRegister.DIC_ID;
+            Model.HSSE_Hazard_HazardRegister newHazardRegister = new Model.HSSE_Hazard_HazardRegister
+            {
+                HazardRegisterId = hazardRegister.HazardRegisterId,
+                HazardCode = hazardRegister.HazardCode,
+                RegisterDate = DateTime.Now,
+                RegisterDef = hazardRegister.RegisterDef,
+                RegisterTypesId = hazardRegister.RegisterTypesId,
+                CheckCycle = hazardRegister.CheckCycle,
+                Rectification = hazardRegister.Rectification,
+                Place = hazardRegister.Place,
+                ResponsibleUnit = hazardRegister.ResponsibleUnit,
+                Observer = hazardRegister.Observer,
+                RectifiedDate = hazardRegister.RectifiedDate,
+                AttachUrl = hazardRegister.AttachUrl,
+                ProjectId = hazardRegister.ProjectId,
+                States = hazardRegister.States,
+                IsEffective = hazardRegister.IsEffective,
+                ResponsibleMan = hazardRegister.ResponsibleMan,
+                CheckManId = hazardRegister.CheckManId,
+                CheckTime = hazardRegister.CheckTime,
+                RectificationPeriod = hazardRegister.RectificationPeriod,
+                ImageUrl = hazardRegister.ImageUrl,
+                RectificationImageUrl = hazardRegister.RectificationImageUrl,
+                RectificationTime = hazardRegister.RectificationTime,
+                ConfirmMan = hazardRegister.ConfirmMan,
+                ConfirmDate = hazardRegister.ConfirmDate,
+                HandleIdea = hazardRegister.HandleIdea,
+                CutPayment = hazardRegister.CutPayment,
+                ProblemTypes = hazardRegister.ProblemTypes,
+                DIC_ID = hazardRegister.DIC_ID,
+
+                HazardValue = hazardRegister.HazardValue,
+                RegisterTypes2Id = hazardRegister.RegisterTypes2Id,
+                RegisterTypes3Id = hazardRegister.RegisterTypes3Id,
+                RegisterTypes4Id = hazardRegister.RegisterTypes4Id,
+                CCManIds = hazardRegister.CCManIds
+            };
             db.HSSE_Hazard_HazardRegister.InsertOnSubmit(newHazardRegister);
             db.SubmitChanges();
         }
@@ -105,6 +113,11 @@ namespace BLL
                 newHazardRegister.CutPayment = hazardRegister.CutPayment;
                 newHazardRegister.ProblemTypes = hazardRegister.ProblemTypes;
                 newHazardRegister.DIC_ID = hazardRegister.DIC_ID;
+                newHazardRegister.HazardValue = hazardRegister.HazardValue;
+                newHazardRegister.RegisterTypes2Id = hazardRegister.RegisterTypes2Id;
+                newHazardRegister.RegisterTypes3Id = hazardRegister.RegisterTypes3Id;
+                newHazardRegister.RegisterTypes4Id = hazardRegister.RegisterTypes4Id;
+                newHazardRegister.CCManIds = hazardRegister.CCManIds;
                 //把附件表的路径复制过来
                 Model.AttachFile file = BLL.AttachFileService.GetAttachFile(hazardRegister.HazardRegisterId, Const.HSSE_HiddenRectificationListMenuId);
                 if (file != null)

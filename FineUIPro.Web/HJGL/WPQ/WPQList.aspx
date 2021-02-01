@@ -28,7 +28,7 @@
                             </f:ToolbarFill>
                             <f:Button ID="btnNew" Text="增加" Icon="Add" runat="server" OnClick="btnNew_Click">
                             </f:Button>
-                            <f:Button ID="btnImport" Text="导入" ToolTip="导入" Icon="PackageIn" runat="server" OnClick="btnImport_Click">
+                            <f:Button ID="btnImport" Text="导入" ToolTip="导入" Icon="PackageIn" runat="server" Hidden="true" OnClick="btnImport_Click">
                             </f:Button>
                             <f:Button ID="btnExport" OnClick="btnExport_Click" runat="server" Text="导出" ToolTip="导出"
                                 Icon="NoteGo" EnableAjax="false" DisableControlBeforePostBack="false">

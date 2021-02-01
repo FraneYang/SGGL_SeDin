@@ -72,41 +72,28 @@ namespace FineUIPro.Web.HiddenInspection
                 //新增初始化
                 if (!string.IsNullOrEmpty(this.HazardRegisterId))
                 {
-                    Model.View_Hazard_HazardRegister registration = (from x in Funs.DB.View_Hazard_HazardRegister where x.HazardRegisterId == HazardRegisterId select x).FirstOrDefault();
+                    var registration = Funs.DB.View_Hazard_HazardRegister.FirstOrDefault(x=> x.HazardRegisterId == HazardRegisterId);
                     if (registration != null)
                     {
-                        this.txtUnitName.Text = registration.ResponsibilityUnitName;
-                        this.txtWorkAreaName.Text = registration.WorkAreaName;
-                        this.txtRegisterTypesName.Text = registration.RegisterTypesName;
-                        if (registration.CheckCycle == "D")
-                        {
-                            this.txtType.Text = "日检";
-                        }
-                        else if (registration.CheckCycle == "W")
-                        {
-                            this.txtType.Text = "周检";
-                        }
-                        else if (registration.CheckCycle == "M")
-                        {
-                            this.txtType.Text = "月检";
-                        }
-                        this.txtResponsibleManName.Text = registration.ResponsibilityManName;
-                        if (registration.RectificationPeriod != null)
-                        {
-                            this.txtRectificationPeriod.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.RectificationPeriod);
-                        }
                         this.txtRegisterDef.Text = registration.RegisterDef;
-                        this.txtCutPayment.Text = registration.CutPayment.ToString();
                         this.txtCheckManName.Text = registration.CheckManName;
-                        if (registration.CheckTime != null)
-                        {
-                            this.txtCheckTime.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.CheckTime);
-                        }
+                        this.txtCheckTime.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.CheckTime);
+                        this.drpRegisterTypes.Text = registration.RegisterTypesName;
+                        this.drpRegisterTypes2.Text = registration.RegisterTypes2Name;
+                        this.drpRegisterTypes3.Text = registration.RegisterTypes3Name;
+                        this.drpRegisterTypes4.Text = registration.RegisterTypes4Name;
+                        this.drpHazardValue.Text = registration.HazardValue;
+                        this.txtRequirements.Text = registration.Requirements;
+                        this.drpUnit.Text = registration.ResponsibilityUnitName;
+                        this.drpResponsibleMan.Text = registration.ResponsibilityManName;
+                        this.drpWorkArea.Text = registration.WorkAreaName;
+                        this.txtRectificationPeriod.Text = string.Format("{0:yyyy-MM-dd HH:mm:ss}", registration.RectificationPeriod);
+                        this.drpCCManIds.Text = registration.CCManNames;
                         this.txtRectification.Text = registration.Rectification;
+                        this.txtHandleIdea.Text = registration.HandleIdea;
                         if (!string.IsNullOrEmpty(registration.HandleIdea))
                         {
-                            this.txtHandleIdea.Hidden = false;
-                            this.txtHandleIdea.Text = registration.HandleIdea;
+                            this.txtHandleIdea.Hidden = false;                            
                         }
                     }
                 }
@@ -167,7 +154,7 @@ namespace FineUIPro.Web.HiddenInspection
             Model.HSSE_Hazard_HazardRegister register = BLL.HSSE_Hazard_HazardRegisterService.GetHazardRegisterByHazardRegisterId(this.HazardRegisterId);
             DateTime date = Convert.ToDateTime(register.CheckTime);
             string dateStr = date.Year.ToString() + date.Month.ToString();
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Registration/" + dateStr + "&menuId={1}&edit={2}", this.HazardRegisterId, Const.HSSE_HiddenRectificationListMenuId, edit)));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Registration/" + dateStr + "&menuId={1}&edit={2}", this.HazardRegisterId, Const.HSSE_HiddenRectificationListMenuId, edit)));
         }
         #endregion
 
@@ -183,7 +170,7 @@ namespace FineUIPro.Web.HiddenInspection
             Model.HSSE_Hazard_HazardRegister register = BLL.HSSE_Hazard_HazardRegisterService.GetHazardRegisterByHazardRegisterId(this.HazardRegisterId);
             DateTime date = Convert.ToDateTime(register.CheckTime);
             string dateStr = date.Year.ToString() + date.Month.ToString();
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Registration/" + dateStr + "&menuId={1}&edit={2}", this.HazardRegisterId + "-R", Const.HSSE_HiddenRectificationListMenuId, edit)));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Registration/" + dateStr + "&menuId={1}&edit={2}", this.HazardRegisterId + "-R", Const.HSSE_HiddenRectificationListMenuId, edit)));
         }
         #endregion
     }

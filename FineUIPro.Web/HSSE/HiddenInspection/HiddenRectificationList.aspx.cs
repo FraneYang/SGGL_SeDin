@@ -354,64 +354,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
             }
         }
         #endregion
-
-        #region Grid行点击事件
-        /// <summary>
-        /// Grid行点击事件
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            string RegistrationId = Grid1.DataKeys[e.RowIndex][0].ToString();
-            Model.HSSE_Hazard_HazardRegister hazardRegister = BLL.HSSE_Hazard_HazardRegisterService.GetHazardRegisterByHazardRegisterId(RegistrationId);
-            if (e.CommandName == "IsSelected")
-            {
-                CheckBoxField checkField = (CheckBoxField)Grid1.FindColumn("ckbIsSelected");
-                if (checkField.GetCheckedState(e.RowIndex))
-                {
-                    if (!ItemSelectedList.Contains(RegistrationId))
-                    {
-                        ItemSelectedList.Add(RegistrationId);
-                    }
-                }
-                else
-                {
-                    if (ItemSelectedList.Contains(RegistrationId))
-                    {
-                        ItemSelectedList.Remove(RegistrationId);
-                    }
-                }
-            }
-            if (e.CommandName == "del")
-            {
-                if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HSSE_HiddenRectificationListMenuId, BLL.Const.BtnDelete))
-                {
-                    if (hazardRegister.States == Const.State_1 || this.CurrUser.UserId == BLL.Const.sysglyId)   //待整改
-                    {
-                        var getD = BLL.HSSE_Hazard_HazardRegisterService.GetHazardRegisterByHazardRegisterId(RegistrationId);
-                        if (getD != null)
-                        {
-                            BLL.LogService.AddSys_Log(this.CurrUser, getD.HazardCode, getD.HazardRegisterId, BLL.Const.HSSE_HiddenRectificationListMenuId, BLL.Const.BtnDelete);
-                            BLL.HSSE_Hazard_HazardRegisterService.DeleteHazardRegisterByHazardRegisterId(RegistrationId);                            
-                            BindGrid();
-                            ShowNotify("删除成功!", MessageBoxIcon.Success);
-                        }
-                    }
-                    else
-                    {
-                        Alert.ShowInTop("已进入整改流程，无法删除！", MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-                else
-                {
-                    Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-        }
-        #endregion
-
+      
         #region 删除
         /// <summary>
         /// 右键删除事件
@@ -623,29 +566,6 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
         }
         #endregion
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Window3_Close(object sender, WindowCloseEventArgs e)
-        {
-            //if (!string.IsNullOrEmpty(this.hdRemark.Text))
-            //{
-            string hazardRegisterIds = string.Empty;
-            foreach (var item in ItemSelectedList)
-            {
-                hazardRegisterIds += item + ",";
-            }
-            if (!string.IsNullOrEmpty(hazardRegisterIds))
-            {
-                hazardRegisterIds = hazardRegisterIds.Substring(0, hazardRegisterIds.LastIndexOf(","));
-            }
-       //     PageContext.RegisterStartupScript(Window4.GetShowReference(String.Format("HiddenRectificationPrint.aspx?HazardRegisterIds={0}&CheckType={1}", hazardRegisterIds,"0", "查看 - ")));            
-            this.hdRemark.Text = string.Empty;
-            //}
-        }
-
         #region 获取按钮权限
         /// <summary>
         /// 获取按钮权限
@@ -663,9 +583,7 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
             {
                 if (buttonList.Contains(Const.BtnAdd))
                 {
-                    this.btnNew.Hidden = false;
-                    this.btnRectify.Hidden = false;
-                    this.btnConfirm.Hidden = false;
+                    this.btnNew.Hidden = false;                
                 }
                 if (buttonList.Contains(Const.BtnModify))
                 {
@@ -674,6 +592,11 @@ namespace FineUIPro.Web.HSSE.HiddenInspection
                 if (buttonList.Contains(Const.BtnDelete))
                 {
                     this.btnMenuDelete.Hidden = false;
+                }
+                if (buttonList.Contains(Const.BtnSave))
+                {
+                    this.btnRectify.Hidden = false;
+                    this.btnConfirm.Hidden = false;
                 }
             }
         }

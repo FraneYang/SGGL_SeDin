@@ -1,39 +1,5 @@
 ﻿
 错误信息开始=====>
-错误类型:SqlException
-错误信息:传递给 LEFT 或 SUBSTRING 函数的长度参数无效。
-错误堆栈:
-   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
-   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
-   在 System.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
-   在 System.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
-   在 System.Data.SqlClient.SqlDataReader.Read()
-   在 System.Data.Common.DataAdapter.FillLoadDataRow(SchemaMapping mapping)
-   在 System.Data.Common.DataAdapter.FillFromReader(DataSet dataset, DataTable datatable, String srcTable, DataReaderContainer dataReader, Int32 startRecord, Int32 maxRecords, DataColumn parentChapterColumn, Object parentChapterValue)
-   在 System.Data.Common.DataAdapter.Fill(DataTable[] dataTables, IDataReader dataReader, Int32 startRecord, Int32 maxRecords)
-   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
-   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
-   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
-   在 BLL.SQLHelper.GetDataTableRunText(String strSql, SqlParameter[] parameters) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\SQLHelper.cs:行号 312
-   在 FineUIPro.Web.HJGL.WPQ.WPQList.BindGrid() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQList.aspx.cs:行号 42
-   在 FineUIPro.Web.HJGL.WPQ.WPQList.Window1_Close(Object sender, WindowCloseEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQList.aspx.cs:行号 107
-   在 FineUIPro.Window.OnClose(WindowCloseEventArgs e)
-   在 (Window , WindowCloseEventArgs )
-   在 FineUIPro.Window.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/20/2021 11:26:55
-出错文件:http://localhost:8118/HJGL/WPQ/WPQList.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:01/20/2021 11:26:55
-
-
-错误信息开始=====>
 错误类型:NullReferenceException
 错误信息:未将对象引用设置到对象的实例。
 错误堆栈:
@@ -46,17 +12,17 @@ IP地址:::1
    在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
    在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
    在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/20/2021 11:28:31
+出错时间:01/28/2021 10:21:19
 出错文件:http://localhost:8118/common/mainProject.aspx
 IP地址:::1
 操作人员:JT
 
-出错时间:01/20/2021 11:28:31
+出错时间:01/28/2021 10:21:19
 
 
 错误信息开始=====>
 错误类型:SqlException
-错误信息:DELETE 语句与 REFERENCE 约束"FK_WPQ_WPQListFlowOperate_WPQ_WPQList"冲突。该冲突发生于数据库"SGGLDB_SD"，表"dbo.WPQ_WPQListFlowOperate", column 'WPQId'。
+错误信息:INSERT 语句与 FOREIGN KEY 约束"FK_WPQ_WPQListFlowOperate_WPQ_WPQList"冲突。该冲突发生于数据库"SGGLDB_SD"，表"dbo.WPQ_WPQList", column 'WPQId'。
 语句已终止。
 错误堆栈:
    在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
@@ -71,12 +37,34 @@ IP地址:::1
    在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
    在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
    在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
-   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicDelete(TrackedObject item)
-   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Delete(TrackedObject item)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicInsert(TrackedObject item)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Insert(TrackedObject item)
    在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
    在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
-   在 System.Data.Linq.DataContext.SubmitChanges()
-   在 BLL.WPQListServiceService.DeleteWPQById(String WPQId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\WPQ\WPQListService.cs:行号 134
+   在 FineUIPro.Web.HJGL.WPQ.WPQEdit.SaveFlowOperate(String WpqId, String OperateName) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQEdit.aspx.cs:行号 329
+   在 FineUIPro.Web.HJGL.WPQ.WPQEdit.SaveData(String type) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQEdit.aspx.cs:行号 309
+   在 FineUIPro.Web.HJGL.WPQ.WPQEdit.btnSubmit_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQEdit.aspx.cs:行号 196
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:01/28/2021 17:20:37
+出错文件:http://localhost:8118/HJGL/WPQ/WPQEdit.aspx?WPQId=
+IP地址:::1
+操作人员:JT
+
+出错时间:01/28/2021 17:20:38
+
+
+错误信息开始=====>
+错误类型:ChangeConflictException
+错误信息:找不到行或行已更改。
+错误堆栈:
+   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
+   在 BLL.WPQListServiceService.DeleteWPQById(String WPQId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\WPQ\WPQListService.cs:行号 140
    在 FineUIPro.Web.HJGL.WPQ.WPQList.DeleteData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQList.aspx.cs:行号 216
    在 FineUIPro.Web.HJGL.WPQ.WPQList.btnMenuDelete_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQList.aspx.cs:行号 194
    在 FineUIPro.MenuButton.OnClick(EventArgs e)
@@ -85,213 +73,10 @@ IP地址:::1
    在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
    在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
    在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/20/2021 14:36:58
+出错时间:01/28/2021 17:25:13
 出错文件:http://localhost:8118/HJGL/WPQ/WPQList.aspx
 IP地址:::1
 操作人员:JT
 
-出错时间:01/20/2021 14:36:59
-
-
-错误信息开始=====>
-错误类型:NullReferenceException
-错误信息:未将对象引用设置到对象的实例。
-错误堆栈:
-   在 FineUIPro.Web.HJGL.WeldingManage.PipelineEdit.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\PipelineEdit.aspx.cs:行号 152
-   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
-   在 System.EventHandler.Invoke(Object sender, EventArgs e)
-   在 System.Web.UI.Control.OnLoad(EventArgs e)
-   在 System.Web.UI.Control.LoadRecursive()
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/20/2021 16:04:18
-出错文件:http://localhost:8118/HJGL/WeldingManage/PipelineEdit.aspx?PipelineId=d44aca16-3cfa-41e1-b129-d804601b3b98
-IP地址:::1
-操作人员:JT
-
-出错时间:01/20/2021 16:04:18
-
-
-错误信息开始=====>
-错误类型:NullReferenceException
-错误信息:未将对象引用设置到对象的实例。
-错误堆栈:
-   在 FineUIPro.Web.HJGL.WeldingManage.PipelineEdit.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\PipelineEdit.aspx.cs:行号 154
-   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
-   在 System.EventHandler.Invoke(Object sender, EventArgs e)
-   在 System.Web.UI.Control.OnLoad(EventArgs e)
-   在 System.Web.UI.Control.LoadRecursive()
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/20/2021 16:06:27
-出错文件:http://localhost:8118/HJGL/WeldingManage/PipelineEdit.aspx?PipelineId=d44aca16-3cfa-41e1-b129-d804601b3b98
-IP地址:::1
-操作人员:JT
-
-出错时间:01/20/2021 16:06:27
-
-
-错误信息开始=====>
-错误类型:NullReferenceException
-错误信息:未将对象引用设置到对象的实例。
-错误堆栈:
-   在 FineUIPro.Web.common.mainProject.get_Four() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\mainProject.aspx.cs:行号 323
-   在 ASP.common_mainproject_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\mainProject.aspx:行号 921
-   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
-   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
-   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
-   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
-   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
-   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/20/2021 16:52:36
-出错文件:http://localhost:8118/common/mainProject.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:01/20/2021 16:52:36
-
-
-错误信息开始=====>
-错误类型:HttpException
-错误信息:文件“/HJGL/WeldingManage/JointShowColumn.aspx”不存在。
-错误堆栈:
-   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
-   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
-   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
-   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
-   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
-   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:01/22/2021 10:07:17
-出错文件:http://localhost:8118/HJGL/WeldingManage/JointShowColumn.aspx
-IP地址:::1
-
-出错时间:01/22/2021 10:07:17
-
-
-错误信息开始=====>
-错误类型:HttpException
-错误信息:文件“/HJGL/WeldingManage/JointShowColumn.aspx”不存在。
-错误堆栈:
-   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
-   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
-   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
-   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
-   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
-   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:01/22/2021 10:13:41
-出错文件:http://localhost:8118/HJGL/WeldingManage/JointShowColumn.aspx
-IP地址:::1
-
-出错时间:01/22/2021 10:13:41
-
-
-错误信息开始=====>
-错误类型:HttpException
-错误信息:文件“/HJGL/WeldingManage/JointShowColumn.aspx”不存在。
-错误堆栈:
-   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
-   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
-   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
-   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
-   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
-   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:01/22/2021 10:14:00
-出错文件:http://localhost:8118/HJGL/WeldingManage/JointShowColumn.aspx
-IP地址:::1
-
-出错时间:01/22/2021 10:14:00
-
-
-错误信息开始=====>
-错误类型:NullReferenceException
-错误信息:未将对象引用设置到对象的实例。
-错误堆栈:
-   在 FineUIPro.Web.HJGL.WeldingManage.SelectWPS.BindGrid() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\SelectWPS.aspx.cs:行号 37
-   在 FineUIPro.Web.HJGL.WeldingManage.SelectWPS.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\SelectWPS.aspx.cs:行号 17
-   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
-   在 System.EventHandler.Invoke(Object sender, EventArgs e)
-   在 System.Web.UI.Control.OnLoad(EventArgs e)
-   在 System.Web.UI.Control.LoadRecursive()
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/22/2021 10:15:47
-出错文件:http://localhost:8118/HJGL/WeldingManage/SelectWPS.aspx?Material1=602e4242-f1c9-4431-b5b5-a45b70b9d4ab&Material2=null&Dia=114.3&Thickness=2&UnitId=cbb77f48-d9bd-4d50-9254-c3cd2518b9f2&WeldingMethod=%E8%AF%B7%E9%80%89%E6%8B%A9&WeldType=B
-IP地址:::1
-操作人员:系统管理员
-
-出错时间:01/22/2021 10:15:47
-
-
-错误信息开始=====>
-错误类型:ArgumentOutOfRangeException
-错误信息:索引超出范围。必须为非负值并小于集合大小。
-参数名: index
-错误堆栈:
-   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
-   在 System.Collections.Generic.List`1.get_Item(Int32 index)
-   在 System.Collections.ObjectModel.Collection`1.get_Item(Int32 index)
-   在 FineUIPro.Web.HJGL.WeldingManage.WeldJointList.GetShowColumn(String column) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\WeldJointList.aspx.cs:行号 589
-   在 FineUIPro.Web.HJGL.WeldingManage.WeldJointList.Window4_Close(Object sender, WindowCloseEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\WeldJointList.aspx.cs:行号 574
-   在 FineUIPro.Window.OnClose(WindowCloseEventArgs e)
-   在 (Window , WindowCloseEventArgs )
-   在 FineUIPro.Window.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/23/2021 10:25:30
-出错文件:http://localhost:8118/HJGL/WeldingManage/WeldJointList.aspx
-IP地址:::1
-操作人员:系统管理员
-
-出错时间:01/23/2021 10:25:30
-
-
-错误信息开始=====>
-错误类型:NullReferenceException
-错误信息:未将对象引用设置到对象的实例。
-错误堆栈:
-   在 FineUIPro.Web.common.mainProject.get_Four() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\mainProject.aspx.cs:行号 323
-   在 ASP.common_mainproject_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\mainProject.aspx:行号 921
-   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
-   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
-   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
-   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
-   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
-   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/25/2021 09:17:30
-出错文件:http://localhost:8118/common/mainProject.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:01/25/2021 09:17:30
-
-
-错误信息开始=====>
-错误类型:NullReferenceException
-错误信息:未将对象引用设置到对象的实例。
-错误堆栈:
-   在 FineUIPro.Web.HJGL.WeldingManage.SelectWPS.BindGrid() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\SelectWPS.aspx.cs:行号 39
-   在 FineUIPro.Web.HJGL.WeldingManage.SelectWPS.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\SelectWPS.aspx.cs:行号 17
-   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
-   在 System.EventHandler.Invoke(Object sender, EventArgs e)
-   在 System.Web.UI.Control.OnLoad(EventArgs e)
-   在 System.Web.UI.Control.LoadRecursive()
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/25/2021 09:17:44
-出错文件:http://localhost:8118/HJGL/WeldingManage/SelectWPS.aspx?Material1=null&Material2=null&Dia=&Thickness=&UnitId=cbb77f48-d9bd-4d50-9254-c3cd2518b9f2&WeldingMethod=%E8%AF%B7%E9%80%89%E6%8B%A9&WeldType=%E8%AF%B7%E9%80%89%E6%8B%A9
-IP地址:::1
-操作人员:JT
-
-出错时间:01/25/2021 09:17:44
+出错时间:01/28/2021 17:25:13
 

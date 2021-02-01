@@ -49,25 +49,33 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 巡检类型（D-日 W-周 M-月）
+        /// 问题描述
         /// </summary>
-        public string CheckCycle
+        public string RegisterDef
         {
             get;
             set;
         }
         /// <summary>
-        /// 编号
+        /// 检查时间
         /// </summary>
-        public string HazardCode
+        public DateTime? CheckTime
         {
             get;
             set;
         }      
         /// <summary>
-        /// 问题描述
+        /// 危害因素id
         /// </summary>
-        public string RegisterDef
+        public string RegisterTypes2Id
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 危害因素名称
+        /// </summary>
+        public string RegisterTypes2Name
         {
             get;
             set;
@@ -89,13 +97,62 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 整改措施 -反馈
+        /// 作业内容id
         /// </summary>
-        public string Rectification
+        public string RegisterTypes3Id
         {
             get;
             set;
         }
+        /// <summary>
+        /// 作业内容名称
+        /// </summary>
+        public string RegisterTypes3Name
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 风险值
+        /// </summary>
+        public string HazardValue
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 导致伤害/事故id
+        /// </summary>
+        public string RegisterTypes4Id
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 导致伤害/事故名称
+        /// </summary>
+        public string RegisterTypes4Name
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 区域id
+        /// </summary>
+        public string Place
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 区域名称
+        /// </summary>
+        public string WorkAreaName
+        {
+            get;
+            set;
+        }
+     
         /// <summary>
         /// 责任单位ID
         /// </summary>
@@ -137,21 +194,21 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 区域id
+        /// 整改要求
         /// </summary>
-        public string Place
+        public string Requirements
         {
             get;
             set;
         }
         /// <summary>
-        /// 区域名称
+        /// 整改期限
         /// </summary>
-        public string WorkAreaName
+        public DateTime? RectificationPeriod
         {
             get;
             set;
-        }       
+        }
         /// <summary>
         /// 检查人id
         /// </summary>
@@ -176,22 +233,7 @@ namespace Model
             get;
             set;
         }
-        /// <summary>
-        /// 检查时间
-        /// </summary>
-        public DateTime? CheckTime
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// 整改期限
-        /// </summary>
-        public DateTime? RectificationPeriod
-        {
-            get;
-            set;
-        }
+        
         /// <summary>
         /// 整改前照片
         /// </summary>
@@ -209,25 +251,17 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 整改措施 -反馈
+        /// </summary>
+        public string Rectification
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 整改时间
         /// </summary>
         public DateTime? RectificationTime
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// 处罚金额
-        /// </summary>
-        public int CutPayment
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// 问题类型 安全 默认值 1
-        /// </summary>
-        public string ProblemTypes
         {
             get;
             set;
@@ -296,14 +330,7 @@ namespace Model
             get;
             set;
         }
-        /// <summary>
-        /// 整改要求
-        /// </summary>
-        public string Requirements
-        {
-            get;
-            set;
-        }
+    
         /// <summary>
         /// 相关单据类型（1-整改单；2-惩罚单；3-停工令）
         /// </summary>
