@@ -15,42 +15,68 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtLawRegulationCode" runat="server" FocusOnPageLoad="true" Label="编号"
-                        Required="true" ShowRedStar="true" MaxLength="50">
-                    </f:TextBox>
-                    <f:DropDownList ID="ddlLawsRegulationsTypeId" runat="server" Height="22px" Label="类别">
+                    <f:DropDownList ID="drpReleaseStates" runat="server" Label="状态" Required="true" ShowRedStar="true">
                     </f:DropDownList>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtLawRegulationName" runat="server" Label="名称" Required="true" ShowRedStar="true"
+                        <f:TextBox ID="txtLawRegulationName" runat="server" Label="名称" Required="true" ShowRedStar="true"
                         MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="批准日" EmptyText="请选择批准日"
+                    <f:TextBox ID="txtLawRegulationCode" runat="server" FocusOnPageLoad="true" Label="编号"
+                        Required="true" ShowRedStar="true" MaxLength="50">
+                    </f:TextBox>
+                    <f:DropDownList ID="ddlLawsRegulationsTypeId" runat="server"  Label="类型" 
+                        Required="true" ShowRedStar="true">
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+              <f:FormRow>
+                <Items>
+                    <f:TextBox ID="txtReleaseUnit" runat="server" Label="发布机构" MaxLength="500">
+                    </f:TextBox>
+                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="发布日期" EmptyText="请选择发布日期"
                         ID="dpkApprovalDate">
                     </f:DatePicker>
-                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="生效日" ID="dpkEffectiveDate"
-                        EmptyText="请选择生效日" LabelWidth="120px">
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>                   
+                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="生效日期" ID="dpkEffectiveDate"
+                        EmptyText="请选择生效日期" >
+                    </f:DatePicker>
+                     <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="废止日期" EmptyText="请选择废止日期"
+                        ID="txtAbolitionDate">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtDescription" runat="server" Height="100px" Label="简介及重点关注条款" MaxLength="1000">
+                    <f:TextArea ID="txtReplaceInfo" runat="server" Label="替换内容" MaxLength="1000">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:Label ID="txtCompileMan" runat="server" Label="整理人">
-                    </f:Label>
-                    <f:Label ID="txtCompileDate" runat="server" Label="整理时间">
-                    </f:Label>
+                    <f:TextArea ID="txtDescription" runat="server" Label="简介及重点关注条款" MaxLength="1000">
+                    </f:TextArea>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:DropDownList ID="drpIndexesIds" runat="server" Label="索引"
+                        EnableEdit="true" EnableMultiSelect="true" EnableCheckBoxSelect="true">
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                      <f:TextBox ID="txtCompileMan" runat="server" Label="上传人" MaxLength="50">
+                    </f:TextBox>
+                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="上传时间" EmptyText="请选择上传时间"
+                        ID="txtCompileDate">
+                    </f:DatePicker>
                 </Items>
             </f:FormRow>           
         </Rows>

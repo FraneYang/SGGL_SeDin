@@ -105,6 +105,9 @@ namespace BLL
                 newWelderQualify.Remark = welderQualify.Remark;
                 newWelderQualify.IsPrintShow = welderQualify.IsPrintShow;
                 newWelderQualify.WelderMode = welderQualify.WelderMode;
+                newWelderQualify.IsAudit = welderQualify.IsAudit;
+                newWelderQualify.AuditMan = welderQualify.AuditMan;
+                newWelderQualify.AuditDate = welderQualify.AuditDate;
                 Funs.DB.SubmitChanges();
             }
         }

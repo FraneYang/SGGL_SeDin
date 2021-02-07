@@ -38,45 +38,32 @@ namespace FineUIPro.Web.HSSE.Law
                 //权限设置
                 this.GetButtonPower();
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-
                 //加载法律法规类别下拉选项
-                this.ddlLawsRegulationsTypeId.DataTextField = "Name";
-                this.ddlLawsRegulationsTypeId.DataValueField = "Id";
-                this.ddlLawsRegulationsTypeId.DataSource = BLL.LawsRegulationsTypeService.GetLawsRegulationsTypeList();
-                ddlLawsRegulationsTypeId.DataBind();
-                Funs.FineUIPleaseSelect(this.ddlLawsRegulationsTypeId);
-
+                LawsRegulationsTypeService.InitLawsRegulationsTypeDropDownList(this.ddlLawsRegulationsTypeId, true);
+                ConstValue.InitConstValueDropDownList(this.drpIndexesIds, ConstValue.Group_HSSE_Indexes, false);
+                ConstValue.InitConstValueDropDownList(this.drpReleaseStates, ConstValue.Group_HSSE_ReleaseStates, false);
                 this.LawRegulationId = Request.Params["LawRegulationId"];
                 if (!string.IsNullOrEmpty(this.LawRegulationId))
                 {
                     var lawRegulation = BLL.LawRegulationListService.GetViewLawRegulationListById(this.LawRegulationId);
                     if (lawRegulation != null)
                     {
+                        this.drpReleaseStates.SelectedValue = lawRegulation.ReleaseStates;
                         this.txtLawRegulationCode.Text = lawRegulation.LawRegulationCode;
                         this.txtLawRegulationName.Text = lawRegulation.LawRegulationName;
-                        if (lawRegulation.ApprovalDate.HasValue)
-                        {
-                            this.dpkApprovalDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulation.ApprovalDate);
-                        }
-                        if (lawRegulation.EffectiveDate.HasValue)
-                        {
-                            this.dpkEffectiveDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulation.EffectiveDate);
-                        }
+                        this.ddlLawsRegulationsTypeId.SelectedValue = lawRegulation.LawsRegulationsTypeId;
+                        this.txtReleaseUnit.Text = lawRegulation.ReleaseUnit;
+                        this.dpkApprovalDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulation.ApprovalDate);
+                        this.dpkEffectiveDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulation.EffectiveDate);
+                        this.txtAbolitionDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulation.AbolitionDate);
+                        this.txtReplaceInfo.Text = lawRegulation.ReplaceInfo;
                         this.txtDescription.Text = lawRegulation.Description;
-                        if (!string.IsNullOrEmpty(lawRegulation.LawsRegulationsTypeId))
+                        if (!string.IsNullOrEmpty(lawRegulation.IndexesIds))
                         {
-                            this.ddlLawsRegulationsTypeId.SelectedValue = lawRegulation.LawsRegulationsTypeId;
+                            this.drpIndexesIds.SelectedValueArray = lawRegulation.IndexesIds.Split(',');
                         }
-                        //if (!string.IsNullOrEmpty(lawRegulation.AttachUrl))
-                        //{
-                        //    this.FullAttachUrl = lawRegulation.AttachUrl;
-                        //    this.lbAttachUrl.Text = lawRegulation.AttachUrl.Substring(lawRegulation.AttachUrl.IndexOf("~") + 1);
-                        //}
                         this.txtCompileMan.Text = lawRegulation.CompileMan;
-                        if (lawRegulation.CompileDate.HasValue)
-                        {
-                            this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulation.CompileDate);
-                        }
+                        this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", lawRegulation.CompileDate);
                     }
                 }
                 else
@@ -108,18 +95,20 @@ namespace FineUIPro.Web.HSSE.Law
             Model.Law_LawRegulationList lawRegulationList = new Model.Law_LawRegulationList
             {
                 LawRegulationCode = this.txtLawRegulationCode.Text.Trim(),
-                LawRegulationName = this.txtLawRegulationName.Text.Trim()
+                LawRegulationName = this.txtLawRegulationName.Text.Trim(),
+                ApprovalDate = Funs.GetNewDateTime(this.dpkApprovalDate.Text.Trim()),
+                EffectiveDate = Funs.GetNewDateTime(this.dpkEffectiveDate.Text.Trim()),               
+                ReleaseUnit=this.txtReleaseUnit.Text.Trim(),
+                AbolitionDate = Funs.GetNewDateTime(this.txtAbolitionDate.Text.Trim()),
+                ReplaceInfo=this.txtReplaceInfo.Text.Trim(),
+                Description = this.txtDescription.Text.Trim(),
             };
-            if (!string.IsNullOrEmpty(this.dpkApprovalDate.Text.Trim()))
+            if (!string.IsNullOrEmpty(this.drpReleaseStates.SelectedValue))
             {
-                lawRegulationList.ApprovalDate = Convert.ToDateTime(this.dpkApprovalDate.Text.Trim());
+                lawRegulationList.ReleaseStates = this.drpReleaseStates.SelectedValue;
             }
-            if (!string.IsNullOrEmpty(this.dpkEffectiveDate.Text.Trim()))
-            {
-                lawRegulationList.EffectiveDate = Convert.ToDateTime(this.dpkEffectiveDate.Text.Trim());
-            }
-            lawRegulationList.Description = this.txtDescription.Text.Trim();
-            //lawRegulationList.AttachUrl = this.FullAttachUrl;
+
+            lawRegulationList.IndexesIds = Funs.GetStringByArray(this.drpIndexesIds.SelectedValueArray);
             if (this.ddlLawsRegulationsTypeId.SelectedValue != BLL.Const._Null)
             {
                 lawRegulationList.LawsRegulationsTypeId = this.ddlLawsRegulationsTypeId.SelectedValue;

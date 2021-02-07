@@ -13,9 +13,9 @@
     <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
-            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="安全制度" EnableCollapse="true"
-                runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="SafetyInstitutionId" ForceFit="true"
-                DataIDField="SafetyInstitutionId" AllowSorting="true" SortField="EffectiveDate" SortDirection="DESC" 
+            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="赛鼎制度" EnableCollapse="true"
+                runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="SafetyInstitutionId" 
+                DataIDField="SafetyInstitutionId" AllowSorting="true" SortField="ApprovalDate" SortDirection="DESC" 
                 OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                 <Toolbars>
@@ -38,36 +38,56 @@
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
                                 runat="server">
                             </f:Button>
-                            <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                          <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:RenderField Width="400px" ColumnID="SafetyInstitutionName" DataField="SafetyInstitutionName" ExpandUnusedSpace="True"
-                        SortField="SafetyInstitutionName" FieldType="String" HeaderText="制度名称" HeaderTextAlign="Center"
-                        TextAlign="Left">
+                    <f:RenderField Width="100px" ColumnID="ReleaseStatesName" DataField="ReleaseStatesName" 
+                        FieldType="String" HeaderText="状态" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="110px" ColumnID="EffectiveDate" DataField="EffectiveDate" SortField="EffectiveDate"
+                      <f:RenderField Width="200px" ColumnID="SafetyInstitutionName" DataField="SafetyInstitutionName" 
+                        FieldType="String" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="150px" ColumnID="Code" DataField="Code" 
+                        FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="140px" ColumnID="TypeName" DataField="TypeName" 
+                        FieldType="String" HeaderText="类型" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                      <f:RenderField Width="100px" ColumnID="ReleaseUnit" DataField="ReleaseUnit" 
+                        FieldType="String" HeaderText="发布机构" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="ApprovalDate" DataField="ApprovalDate" SortField="ApprovalDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发布日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="Scope" DataField="Scope" SortField="Scope"
-                        FieldType="String" HeaderText="使用范围" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="100px" ColumnID="EffectiveDate" DataField="EffectiveDate" SortField="EffectiveDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="生效日期"
+                        HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="Remark" DataField="Remark" SortField="Remark"
-                        FieldType="String" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="100px" ColumnID="AbolitionDate" DataField="AbolitionDate" SortField="AbolitionDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="废止日期"
+                        HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                   <%-- <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
-                        Text="上传查看" ToolTip="附件上传查看" DataIFrameUrlFields="SafetyInstitutionId" DataIFrameUrlFormatString="~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SafetyInstitutionAttachUrl&menuId=499E23C1-057C-4B04-B92A-973B1DACD546"
-                         HeaderTextAlign="Center" />--%>
+                     <f:RenderField Width="260px" ColumnID="ReplaceInfo" DataField="ReplaceInfo" 
+                        FieldType="String" HeaderText="替换信息" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                    <f:RenderField Width="300px" ColumnID="Description" DataField="Description" 
+                        FieldType="String" HeaderText="简介及重点关注条款" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                     <f:RenderField Width="200px" ColumnID="IndexesNames" DataField="IndexesNames"  SortField="IndexesNames"
+                        FieldType="String" HeaderText="索引" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                      <f:RenderField Width="100px" ColumnID="CompileMan" DataField="CompileMan" 
+                        FieldType="String" HeaderText="上传人" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="上传时间"
+                        HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -86,7 +106,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="安全制度" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="900px" Height="560px">
+        Width="1024px" Height="560px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"

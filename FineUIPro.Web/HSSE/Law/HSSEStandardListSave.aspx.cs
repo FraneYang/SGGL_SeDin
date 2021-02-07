@@ -36,77 +36,42 @@ namespace FineUIPro.Web.HSSE.Law
             if (!IsPostBack)
             {
                 this.GetButtonPower();//权限设置
-                LoadData();
-                this.drpType.DataTextField = "TypeName";
-                drpType.DataValueField = "TypeId";
-                drpType.DataSource = BLL.HSSEStandardListTypeService.GetHSSEStandardListTypeList();
-                drpType.DataBind();
-                Funs.FineUIPleaseSelect(this.drpType);
-
+                btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                BLL.HSSEStandardListTypeService.InitStandardListTypeDropDownList(this.drpType, true);
+                ConstValue.InitConstValueDropDownList(this.drpIndexesIds, ConstValue.Group_HSSE_Indexes, false);
+                ConstValue.InitConstValueDropDownList(this.drpReleaseStates, ConstValue.Group_HSSE_ReleaseStates, false);
                 StandardId = Request.QueryString["StandardId"];
                 if (!String.IsNullOrEmpty(StandardId))
                 {
                     var q = BLL.HSSEStandardsListService.GetHSSEStandardsListByHSSEStandardsListId(StandardId);
                     if (q != null)
                     {
-                        txtStandardNo.Text = q.StandardNo;
-                        txtStandardName.Text = q.StandardName;
+                        this.txtStandardNo.Text = q.StandardNo;
+                        this.txtStandardName.Text = q.StandardName;
                         this.drpType.SelectedValue = q.TypeId;
-                        txtStandardGrade.Text = q.StandardGrade;
-                        txtCompileMan.Text = q.CompileMan;
-                        hdCompileMan.Text = q.CompileMan;
-                        if (q.CompileDate != null)
+                        this.drpReleaseStates.SelectedValue = q.ReleaseStates;                    
+                        this.txtReleaseUnit.Text = q.ReleaseUnit;
+                        this.dpkApprovalDate.Text = string.Format("{0:yyyy-MM-dd}", q.ApprovalDate);
+                        this.dpkEffectiveDate.Text = string.Format("{0:yyyy-MM-dd}", q.EffectiveDate);
+                        this.txtAbolitionDate.Text = string.Format("{0:yyyy-MM-dd}", q.AbolitionDate);
+                        this.txtReplaceInfo.Text = q.ReplaceInfo;
+                        this.txtDescription.Text = q.Description;
+                        if (!string.IsNullOrEmpty(q.IndexesIds))
                         {
-                            txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", q.CompileDate);
+                            this.drpIndexesIds.SelectedValueArray = q.IndexesIds.Split(',');
                         }
-                        //if (!string.IsNullOrEmpty(q.AttachUrl))
-                        //{
-                        //    this.FullAttachUrl = q.AttachUrl;
-                        //    this.lbAttachUrl.Text = q.AttachUrl.Substring(q.AttachUrl.IndexOf("~") + 1);
-                        //}
-
-                        //q.AttachUrl = this.FullAttachUrl;
-                        this.ckb01.Checked = q.IsSelected1.HasValue ? q.IsSelected1.Value : false;
-                        this.ckb02.Checked = q.IsSelected2.HasValue ? q.IsSelected2.Value : false;
-                        this.ckb03.Checked = q.IsSelected3.HasValue ? q.IsSelected3.Value : false;
-                        this.ckb04.Checked = q.IsSelected4.HasValue ? q.IsSelected4.Value : false;
-                        this.ckb05.Checked = q.IsSelected5.HasValue ? q.IsSelected5.Value : false;
-                        this.ckb06.Checked = q.IsSelected6.HasValue ? q.IsSelected6.Value : false;
-                        this.ckb07.Checked = q.IsSelected7.HasValue ? q.IsSelected7.Value : false;
-                        this.ckb08.Checked = q.IsSelected8.HasValue ? q.IsSelected8.Value : false;
-                        this.ckb09.Checked = q.IsSelected9.HasValue ? q.IsSelected9.Value : false;
-                        this.ckb10.Checked = q.IsSelected10.HasValue ? q.IsSelected10.Value : false;
-                        this.ckb11.Checked = q.IsSelected11.HasValue ? q.IsSelected11.Value : false;
-                        this.ckb12.Checked = q.IsSelected12.HasValue ? q.IsSelected12.Value : false;
-                        this.ckb13.Checked = q.IsSelected13.HasValue ? q.IsSelected13.Value : false;
-                        this.ckb14.Checked = q.IsSelected14.HasValue ? q.IsSelected14.Value : false;
-                        this.ckb15.Checked = q.IsSelected15.HasValue ? q.IsSelected15.Value : false;
-                        this.ckb16.Checked = q.IsSelected16.HasValue ? q.IsSelected16.Value : false;
-                        this.ckb17.Checked = q.IsSelected17.HasValue ? q.IsSelected17.Value : false;
-                        this.ckb18.Checked = q.IsSelected18.HasValue ? q.IsSelected18.Value : false;
-                        this.ckb19.Checked = q.IsSelected19.HasValue ? q.IsSelected19.Value : false;
-                        this.ckb20.Checked = q.IsSelected20.HasValue ? q.IsSelected20.Value : false;
-                        this.ckb21.Checked = q.IsSelected21.HasValue ? q.IsSelected21.Value : false;
-                        this.ckb22.Checked = q.IsSelected22.HasValue ? q.IsSelected22.Value : false;
-                        this.ckb23.Checked = q.IsSelected23.HasValue ? q.IsSelected23.Value : false;
-                        this.ckb24.Checked = q.IsSelected24.HasValue ? q.IsSelected24.Value : false;
-                        this.ckb25.Checked = q.IsSelected25.HasValue ? q.IsSelected25.Value : false;
-                        this.ckb90.Checked = q.IsSelected90.HasValue ? q.IsSelected90.Value : false;
+                        this.txtCompileMan.Text = q.CompileMan;
+                        this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", q.CompileDate);
                     }
                 }
                 else
                 {
                     txtCompileMan.Text = this.CurrUser.UserName;
-                    hdCompileMan.Text = this.CurrUser.UserId;
                     txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                 }
             }
         }
 
-        private void LoadData()
-        {
-            btnClose.OnClientClick = ActiveWindow.GetHideReference();
-        }
         #endregion
 
         #region 保存
@@ -131,41 +96,23 @@ namespace FineUIPro.Web.HSSE.Law
             {
                 StandardNo = txtStandardNo.Text.Trim(),
                 StandardName = txtStandardName.Text.Trim(),
-                StandardGrade = txtStandardGrade.Text.Trim()
+                ApprovalDate = Funs.GetNewDateTime(this.dpkApprovalDate.Text.Trim()),
+                EffectiveDate = Funs.GetNewDateTime(this.dpkEffectiveDate.Text.Trim()),
+                ReleaseUnit = this.txtReleaseUnit.Text.Trim(),
+                AbolitionDate = Funs.GetNewDateTime(this.txtAbolitionDate.Text.Trim()),
+                ReplaceInfo = this.txtReplaceInfo.Text.Trim(),
+                Description = this.txtDescription.Text.Trim(),
             };
             if (drpType.SelectedValue != BLL.Const._Null)
             {
                 hSSEStandardsList.TypeId = drpType.SelectedValue;
             }
-            //hSSEStandardsList.AttachUrl = this.FullAttachUrl;
-            hSSEStandardsList.IsSelected1 = this.ckb01.Checked;
-            hSSEStandardsList.IsSelected2 = this.ckb02.Checked;
-            hSSEStandardsList.IsSelected3 = this.ckb03.Checked;
-            hSSEStandardsList.IsSelected4 = this.ckb04.Checked;
-            hSSEStandardsList.IsSelected5 = this.ckb05.Checked;
-            hSSEStandardsList.IsSelected6 = this.ckb06.Checked;
-            hSSEStandardsList.IsSelected7 = this.ckb07.Checked;
-            hSSEStandardsList.IsSelected8 = this.ckb08.Checked;
-            hSSEStandardsList.IsSelected9 = this.ckb09.Checked;
-            hSSEStandardsList.IsSelected10 = this.ckb10.Checked;
-            hSSEStandardsList.IsSelected11 = this.ckb11.Checked;
-            hSSEStandardsList.IsSelected12 = this.ckb12.Checked;
-            hSSEStandardsList.IsSelected13 = this.ckb13.Checked;
-            hSSEStandardsList.IsSelected14 = this.ckb14.Checked;
-            hSSEStandardsList.IsSelected15 = this.ckb15.Checked;
-            hSSEStandardsList.IsSelected16 = this.ckb16.Checked;
-            hSSEStandardsList.IsSelected17 = this.ckb17.Checked;
-            hSSEStandardsList.IsSelected18 = this.ckb18.Checked;
-            hSSEStandardsList.IsSelected19 = this.ckb19.Checked;
-            hSSEStandardsList.IsSelected20 = this.ckb20.Checked;
-            hSSEStandardsList.IsSelected21 = this.ckb21.Checked;
-            hSSEStandardsList.IsSelected22 = this.ckb22.Checked;
-            hSSEStandardsList.IsSelected23 = this.ckb23.Checked;
-            hSSEStandardsList.IsSelected24 = this.ckb24.Checked;
-            hSSEStandardsList.IsSelected25 = this.ckb25.Checked;
+            if (!string.IsNullOrEmpty(this.drpReleaseStates.SelectedValue))
+            {
+                hSSEStandardsList.ReleaseStates = this.drpReleaseStates.SelectedValue;
+            }
 
-            hSSEStandardsList.IsSelected90 = this.ckb90.Checked;
-            
+            hSSEStandardsList.IndexesIds = Funs.GetStringByArray(this.drpIndexesIds.SelectedValueArray);
             if (string.IsNullOrEmpty(this.StandardId))
             {
                 hSSEStandardsList.IsPass = true;

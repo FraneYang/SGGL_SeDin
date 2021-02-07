@@ -40,13 +40,13 @@ namespace FineUIPro.Web.HSSE.Law {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
-        /// txtStandardNo 控件。
+        /// drpReleaseStates 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtStandardNo;
+        protected global::FineUIPro.DropDownList drpReleaseStates;
         
         /// <summary>
         /// txtStandardName 控件。
@@ -58,13 +58,13 @@ namespace FineUIPro.Web.HSSE.Law {
         protected global::FineUIPro.TextBox txtStandardName;
         
         /// <summary>
-        /// txtStandardGrade 控件。
+        /// txtStandardNo 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtStandardGrade;
+        protected global::FineUIPro.TextBox txtStandardNo;
         
         /// <summary>
         /// drpType 控件。
@@ -74,6 +74,69 @@ namespace FineUIPro.Web.HSSE.Law {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList drpType;
+        
+        /// <summary>
+        /// txtReleaseUnit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtReleaseUnit;
+        
+        /// <summary>
+        /// dpkApprovalDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker dpkApprovalDate;
+        
+        /// <summary>
+        /// dpkEffectiveDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker dpkEffectiveDate;
+        
+        /// <summary>
+        /// txtAbolitionDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtAbolitionDate;
+        
+        /// <summary>
+        /// txtReplaceInfo 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea txtReplaceInfo;
+        
+        /// <summary>
+        /// txtDescription 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea txtDescription;
+        
+        /// <summary>
+        /// drpIndexesIds 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpIndexesIds;
         
         /// <summary>
         /// txtCompileMan 控件。
@@ -92,258 +155,6 @@ namespace FineUIPro.Web.HSSE.Law {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DatePicker txtCompileDate;
-        
-        /// <summary>
-        /// Label25 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label25;
-        
-        /// <summary>
-        /// ckb01 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb01;
-        
-        /// <summary>
-        /// ckb02 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb02;
-        
-        /// <summary>
-        /// ckb03 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb03;
-        
-        /// <summary>
-        /// ckb04 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb04;
-        
-        /// <summary>
-        /// ckb05 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb05;
-        
-        /// <summary>
-        /// ckb06 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb06;
-        
-        /// <summary>
-        /// ckb07 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb07;
-        
-        /// <summary>
-        /// ckb08 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb08;
-        
-        /// <summary>
-        /// ckb09 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb09;
-        
-        /// <summary>
-        /// ckb10 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb10;
-        
-        /// <summary>
-        /// ckb11 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb11;
-        
-        /// <summary>
-        /// ckb12 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb12;
-        
-        /// <summary>
-        /// ckb13 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb13;
-        
-        /// <summary>
-        /// ckb14 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb14;
-        
-        /// <summary>
-        /// ckb15 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb15;
-        
-        /// <summary>
-        /// ckb16 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb16;
-        
-        /// <summary>
-        /// ckb17 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb17;
-        
-        /// <summary>
-        /// ckb18 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb18;
-        
-        /// <summary>
-        /// ckb19 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb19;
-        
-        /// <summary>
-        /// ckb20 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb20;
-        
-        /// <summary>
-        /// ckb21 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb21;
-        
-        /// <summary>
-        /// ckb22 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb22;
-        
-        /// <summary>
-        /// ckb23 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb23;
-        
-        /// <summary>
-        /// ckb24 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb24;
-        
-        /// <summary>
-        /// ckb25 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb25;
-        
-        /// <summary>
-        /// ckb90 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBox ckb90;
-        
-        /// <summary>
-        /// labTem 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label labTem;
         
         /// <summary>
         /// Toolbar1 控件。

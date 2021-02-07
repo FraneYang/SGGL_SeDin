@@ -14,7 +14,7 @@
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="安全管理规定" EnableCollapse="true"
                   runat="server" BoxFlex="1" DataKeyNames="ManageRuleId" EnableColumnLines="true" DataIDField="ManageRuleId"
-                AllowSorting="true" SortField="ManageRuleCode" SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" ForceFit="true"
+                AllowSorting="true" SortField="ApprovalDate" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" 
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                 <Toolbars>
@@ -28,49 +28,62 @@
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
                                 LabelAlign="Right">
                             </f:TextBox>
-                            <f:TextBox ID="txtManageRuleTypeName" runat="server" Label="分类" EmptyText="输入查询分类"
+                            <f:TextBox ID="txtManageRuleTypeName" runat="server" Label="类型" EmptyText="输入查询分类"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
                                 LabelAlign="Right">
                             </f:TextBox>
                             <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true" runat="server">
                             </f:Button> 
-                            <f:Button ID="btnSelectColumns" runat="server" ToolTip="导出" Icon="FolderUp" EnablePostBack="false" Hidden="true">
+                          <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                   <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                    <f:TemplateField Width="220px" HeaderText="文件编号" HeaderTextAlign="Center" TextAlign="Center"
-                        SortField="ManageRuleCode">
-                        <ItemTemplate>
-                            <asp:Label ID="lblManageRuleCode" runat="server" Text='<%# Bind("ManageRuleCode") %>'
-                                ToolTip='<%#Bind("ManageRuleCode") %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:TemplateField Width="220px" HeaderText="文件名称" HeaderTextAlign="Center" TextAlign="Left"
-                        SortField="ManageRuleName">
-                        <ItemTemplate>
-                            <asp:Label ID="lblManageRuleName" runat="server" Text='<%# Bind("ManageRuleName") %>'
-                                ToolTip='<%#Bind("ManageRuleName") %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:TemplateField Width="140px" HeaderText="分类" HeaderTextAlign="Center" TextAlign="Left"
-                        SortField="ManageRuleTypeName">
-                        <ItemTemplate>
-                            <asp:Label ID="lblManageRuleTypeName" runat="server" Text='<%# Bind("ManageRuleTypeName") %>'
-                                ToolTip='<%#Bind("ManageRuleTypeName") %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:TemplateField Width="200px" HeaderText="摘要" HeaderTextAlign="Center" TextAlign="Left"
-                        SortField="Remark">
-                        <ItemTemplate>
-                            <asp:Label ID="lblRemark" runat="server" Text='<%# Bind("RemarkDef") %>' ToolTip='<%#Bind("Remark") %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:RenderField Width="70px" ColumnID="IsBuildName" DataField="IsBuildName" SortField="IsBuildName"
-                        FieldType="String" HeaderText="来源" HeaderTextAlign="Center" TextAlign="Center">
+                     <f:RenderField Width="100px" ColumnID="ReleaseStatesName" DataField="ReleaseStatesName" 
+                        FieldType="String" HeaderText="状态" HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                      <f:RenderField Width="150px" ColumnID="ManageRuleName" DataField="ManageRuleName" 
+                        FieldType="String" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="150px" ColumnID="ManageRuleCode" DataField="ManageRuleCode" 
+                        FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="140px" ColumnID="ManageRuleTypeName" DataField="ManageRuleTypeName" 
+                        FieldType="String" HeaderText="类型" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                      <f:RenderField Width="100px" ColumnID="ReleaseUnit" DataField="ReleaseUnit" 
+                        FieldType="String" HeaderText="发布机构" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="ApprovalDate" DataField="ApprovalDate" SortField="ApprovalDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发布日期"
+                        HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="EffectiveDate" DataField="EffectiveDate" SortField="EffectiveDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="生效日期"
+                        HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="AbolitionDate" DataField="AbolitionDate" SortField="AbolitionDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="废止日期"
+                        HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                     <f:RenderField Width="260px" ColumnID="ReplaceInfo" DataField="ReplaceInfo" 
+                        FieldType="String" HeaderText="替换信息" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                    <f:RenderField Width="300px" ColumnID="Description" DataField="Description" 
+                        FieldType="String" HeaderText="简介及重点关注条款" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                     <f:RenderField Width="200px" ColumnID="IndexesNames" DataField="IndexesNames"  SortField="IndexesNames"
+                        FieldType="String" HeaderText="索引" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                      <f:RenderField Width="100px" ColumnID="CompileMan" DataField="CompileMan" 
+                        FieldType="String" HeaderText="上传人" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="上传时间"
+                        HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -90,11 +103,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="编辑安全管理规定" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1024px" Height="550px">
-    </f:Window>
-    <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="false" runat="server" OnClose="Window5_Close" IsModal="true"
-        Width="350px" Height="180px" EnableAjax="false">
+        Width="1024px" Height="560px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="670px"

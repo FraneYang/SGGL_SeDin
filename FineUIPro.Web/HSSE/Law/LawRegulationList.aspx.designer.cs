@@ -85,40 +85,13 @@ namespace FineUIPro.Web.HSSE.Law {
         protected global::FineUIPro.Button btnNew;
         
         /// <summary>
-        /// btnSelectColumns 控件。
+        /// btnOut 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnSelectColumns;
-        
-        /// <summary>
-        /// lblLawRegulationName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLawRegulationName;
-        
-        /// <summary>
-        /// lblLawsRegulationsTypeName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLawsRegulationsTypeName;
-        
-        /// <summary>
-        /// lblDescription 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescription;
+        protected global::FineUIPro.Button btnOut;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -155,15 +128,6 @@ namespace FineUIPro.Web.HSSE.Law {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window Window1;
-        
-        /// <summary>
-        /// Window5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Window Window5;
         
         /// <summary>
         /// WindowAtt 控件。

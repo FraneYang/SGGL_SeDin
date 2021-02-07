@@ -40,28 +40,24 @@ namespace FineUIPro.Web.HSSE.HSSESystem
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT SafetyInstitution.SafetyInstitutionId"
-                          + @",SafetyInstitution.SafetyInstitutionName"
-                          + @",SafetyInstitution.EffectiveDate"
-                          + @",SafetyInstitution.Scope"
-                          + @",SafetyInstitution.Remark"
-                          + @",SafetyInstitution.FileContents"
-                          + @" FROM HSSESystem_SafetyInstitution AS SafetyInstitution "              
-                          + @" WHERE 1=1 ";
+            string strSql = @"SELECT SafetyInstitutionId,Code,SafetyInstitutionName,CompileMan,CompileDate
+                        , UnitId, TypeId, TypeCode, TypeName, ApprovalDate, EffectiveDate, Description
+                        , ReleaseStates, ReleaseStatesName, ReleaseUnit, AbolitionDate, ReplaceInfo, IndexesIds, IndexesNames
+                          FROM dbo.View_HSSESystem_SafetyInstitution WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtSafetyInstitutionName.Text.Trim()))
             {
-                strSql += " AND SafetyInstitution.SafetyInstitutionName LIKE @SafetyInstitutionName";
+                strSql += " AND SafetyInstitutionName LIKE @SafetyInstitutionName";
                 listStr.Add(new SqlParameter("@SafetyInstitutionName", "%" + this.txtSafetyInstitutionName.Text.Trim() + "%"));
             }
             if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
             {
-                strSql += " AND SafetyInstitution.EffectiveDate >= @StartDate";
+                strSql += " AND ApprovalDate >= @StartDate";
                 listStr.Add(new SqlParameter("@StartDate", this.txtStartDate.Text.Trim()));
             }
             if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
             {
-                 strSql += " AND SafetyInstitution.EffectiveDate <= @EndDate";
+                 strSql += " AND ApprovalDate <= @EndDate";
                 listStr.Add(new SqlParameter("@EndDate", this.txtEndDate.Text.Trim()));
             }
             SqlParameter[] parameter = listStr.ToArray();
@@ -79,7 +75,6 @@ namespace FineUIPro.Web.HSSE.HSSESystem
         /// <param name="e"></param>
         protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
         {
-            Grid1.PageIndex = e.NewPageIndex;
             BindGrid();
         }
 
@@ -90,7 +85,6 @@ namespace FineUIPro.Web.HSSE.HSSESystem
         /// <param name="e"></param>
         protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
             BindGrid();
         }
 
@@ -101,8 +95,6 @@ namespace FineUIPro.Web.HSSE.HSSESystem
         /// <param name="e"></param>
         protected void Grid1_Sort(object sender, FineUIPro.GridSortEventArgs e)
         {
-            Grid1.SortDirection = e.SortDirection;
-            Grid1.SortField = e.SortField;
             BindGrid();
         }
 
@@ -243,9 +235,9 @@ namespace FineUIPro.Web.HSSE.HSSESystem
         {
             Response.ClearContent();
             string filename = Funs.GetNewFileName();
-            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("安全制度" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("赛鼎制度" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            Response.ContentEncoding = Encoding.UTF8;
             this.Grid1.PageSize = this.Grid1.RecordCount;
             this.BindGrid();
             Response.Write(GetGridTableHtml(Grid1));

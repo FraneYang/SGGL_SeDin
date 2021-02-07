@@ -399,5 +399,223 @@ namespace BLL
         }
 
         #endregion
+
+        #region 安全合规
+        /// <summary>
+        /// 获取安全合规列表
+        /// </summary>
+        /// <param name="type">类型（1-法律啊法规；2-标准规范；3-集团制度；4-赛鼎制度）</param>
+        /// <returns></returns>
+        public static List<Model.SafeLawItem> getSafeLawListByType(string type)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                if (type == "1")
+                {
+                    return (from x in db.Law_LawRegulationList
+                            orderby x.ApprovalDate descending
+                            select new Model.SafeLawItem
+                            {
+                                ID = x.LawRegulationId,
+                                ReleaseStates = x.ReleaseStates,
+                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                DataType=type,
+                            }).ToList();
+                }
+                else if (type == "2")
+                {
+                    return (from x in db.Law_HSSEStandardsList
+                            orderby x.ApprovalDate descending
+                            select new Model.SafeLawItem
+                            {
+                                ID = x.StandardId,
+                                ReleaseStates = x.ReleaseStates,
+                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                DataType = type,
+                            }).ToList();
+                }
+                else if (type == "3")
+                {
+                    return (from x in db.Law_ManageRule
+                            orderby x.ApprovalDate descending
+                            select new Model.SafeLawItem
+                            {
+                                ID = x.ManageRuleId,
+                                ReleaseStates = x.ReleaseStates,
+                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                DataType = type,
+                            }).ToList();
+                }
+                else if (type == "4")
+                {
+                    return (from x in db.HSSESystem_SafetyInstitution
+                            orderby x.ApprovalDate descending
+                            select new Model.SafeLawItem
+                            {
+                                ID = x.SafetyInstitutionId,
+                                ReleaseStates = x.ReleaseStates,
+                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                DataType = type,
+                            }).ToList();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取公司制度详细信息
+        /// </summary>
+        /// <param name="safetyInstitutionId"></param>
+        /// <returns></returns>
+        public static Model.SafeLawItem getSafeLawInfo(string type, string id)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                if (type == "1")
+                {
+                    return (from x in db.Law_LawRegulationList
+                            where x.LawRegulationId == id
+                            orderby x.ApprovalDate descending
+                            select new Model.SafeLawItem
+                            {
+                                ID = x.LawRegulationId,
+                                ReleaseStates = x.ReleaseStates,
+                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                Name = x.LawRegulationName,
+                                Code = x.LawRegulationCode,
+                                TypeId = x.LawsRegulationsTypeId,
+                                TypeName = db.Base_LawsRegulationsType.First(u => u.Id == x.LawsRegulationsTypeId).Name,
+                                ReleaseUnit = x.ReleaseUnit,
+                                ApprovalDate = x.ApprovalDate,
+                                ApprovalDateStr = string.Format("{0:yyyy-MM-dd}", x.ApprovalDate),
+                                EffectiveDate = x.EffectiveDate,
+                                EffectiveDateStr = string.Format("{0:yyyy-MM-dd}", x.EffectiveDate),
+                                AbolitionDate = x.AbolitionDate,
+                                AbolitionDateStr = string.Format("{0:yyyy-MM-dd}", x.AbolitionDate),
+                                ReplaceInfo = x.ReplaceInfo,
+                                Description = x.Description,
+                                IndexesIds = x.IndexesIds,
+                                IndexesNames = ConstValue.getConstTextsConstValues(x.IndexesIds, ConstValue.Group_HSSE_Indexes),
+                                UnitId = x.UnitId,
+                                UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                CompileManName = x.CompileMan,
+                                CompileDate = x.CompileDate,
+                                CompileDateStr = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                DataType = type,
+                                AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.LawRegulationId).AttachUrl.Replace('\\', '/'),
+                            }).FirstOrDefault();
+                }
+                else if (type == "2")
+                {
+                    return (from x in db.Law_HSSEStandardsList
+                            where x.StandardId == id
+                            orderby x.ApprovalDate descending
+                            select new Model.SafeLawItem
+                            {
+                                ID = x.StandardId,
+                                ReleaseStates = x.ReleaseStates,
+                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                Name = x.StandardName,
+                                Code = x.StandardNo,
+                                TypeId = x.TypeId,
+                                TypeName = db.Base_HSSEStandardListType.First(u => u.TypeId == x.TypeId).TypeName,
+                                ReleaseUnit = x.ReleaseUnit,
+                                ApprovalDate = x.ApprovalDate,
+                                ApprovalDateStr = string.Format("{0:yyyy-MM-dd}", x.ApprovalDate),
+                                EffectiveDate = x.EffectiveDate,
+                                EffectiveDateStr = string.Format("{0:yyyy-MM-dd}", x.EffectiveDate),
+                                AbolitionDate = x.AbolitionDate,
+                                AbolitionDateStr = string.Format("{0:yyyy-MM-dd}", x.AbolitionDate),
+                                ReplaceInfo = x.ReplaceInfo,
+                                Description = x.Description,
+                                IndexesIds = x.IndexesIds,
+                                IndexesNames = ConstValue.getConstTextsConstValues(x.IndexesIds, ConstValue.Group_HSSE_Indexes),
+                                UnitId = x.UnitId,
+                                UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                CompileManName = x.CompileMan,
+                                CompileDate = x.CompileDate,
+                                CompileDateStr = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                DataType = type,
+                                AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.StandardId).AttachUrl.Replace('\\', '/'),
+                            }).FirstOrDefault();
+                }
+                else if (type == "3")
+                {
+                    return (from x in db.Law_ManageRule
+                            where x.ManageRuleId == id
+                            orderby x.ApprovalDate descending
+                            select new Model.SafeLawItem
+                            {
+                                ID = x.ManageRuleId,
+                                ReleaseStates = x.ReleaseStates,
+                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                Name = x.ManageRuleName,
+                                Code = x.ManageRuleCode,
+                                TypeId = x.ManageRuleTypeId,
+                                TypeName = db.Base_ManageRuleType.First(u => u.ManageRuleTypeId == x.ManageRuleTypeId).ManageRuleTypeName,
+                                ReleaseUnit = x.ReleaseUnit,
+                                ApprovalDate = x.ApprovalDate,
+                                ApprovalDateStr = string.Format("{0:yyyy-MM-dd}", x.ApprovalDate),
+                                EffectiveDate = x.EffectiveDate,
+                                EffectiveDateStr = string.Format("{0:yyyy-MM-dd}", x.EffectiveDate),
+                                AbolitionDate = x.AbolitionDate,
+                                AbolitionDateStr = string.Format("{0:yyyy-MM-dd}", x.AbolitionDate),
+                                ReplaceInfo = x.ReplaceInfo,
+                                Description = x.Description,
+                                IndexesIds = x.IndexesIds,
+                                IndexesNames = ConstValue.getConstTextsConstValues(x.IndexesIds, ConstValue.Group_HSSE_Indexes),
+                                UnitId = x.UnitId,
+                                UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                CompileManName = x.CompileMan,
+                                CompileDate = x.CompileDate,
+                                CompileDateStr = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                DataType = type,
+                                AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.ManageRuleId).AttachUrl.Replace('\\', '/'),
+                            }).FirstOrDefault();
+                }
+                else if (type == "4")
+                {
+                    return (from x in db.HSSESystem_SafetyInstitution
+                            where x.SafetyInstitutionId == id
+                            orderby x.ApprovalDate descending
+                            select new Model.SafeLawItem
+                            {
+                                ID = x.SafetyInstitutionId,
+                                ReleaseStates = x.ReleaseStates,
+                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                Name = x.SafetyInstitutionName,
+                                Code = x.Code,
+                                TypeId = x.TypeId,
+                                TypeName = db.Base_ManageRuleType.First(u => u.ManageRuleTypeId == x.TypeId).ManageRuleTypeName,
+                                ReleaseUnit = x.ReleaseUnit,
+                                ApprovalDate = x.ApprovalDate,
+                                ApprovalDateStr = string.Format("{0:yyyy-MM-dd}", x.ApprovalDate),
+                                EffectiveDate = x.EffectiveDate,
+                                EffectiveDateStr = string.Format("{0:yyyy-MM-dd}", x.EffectiveDate),
+                                AbolitionDate = x.AbolitionDate,
+                                AbolitionDateStr = string.Format("{0:yyyy-MM-dd}", x.AbolitionDate),
+                                ReplaceInfo = x.ReplaceInfo,
+                                Description = x.Description,
+                                IndexesIds = x.IndexesIds,
+                                IndexesNames = ConstValue.getConstTextsConstValues(x.IndexesIds, ConstValue.Group_HSSE_Indexes),
+                                UnitId = x.UnitId,
+                                UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                CompileManName = x.CompileMan,
+                                CompileDate = x.CompileDate,
+                                CompileDateStr = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                DataType = type,
+                                AttachUrl = db.AttachFile.First(z => z.ToKeyId == x.SafetyInstitutionId).AttachUrl.Replace('\\', '/'),
+                            }).FirstOrDefault();
+                }
+                else
+                {
+                    return null;
+                }
+            }          
+        }
+        #endregion
     }
 }

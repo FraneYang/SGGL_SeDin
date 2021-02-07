@@ -80,22 +80,22 @@ namespace FineUIPro.Web.HJGL.PersonManage
                         }
                         this.txtIdentityCard.Text = welder.IdentityCard;
                         this.txtCertificateCode.Text = welder.CertificateCode;
-                        if (string.IsNullOrEmpty(welder.CertificateCode))
-                        {
-                            this.txtCertificateCode.Text = welder.IdentityCard;
-                        }
-                        if (welder.CertificateLimitTime.HasValue)
-                        {
-                            this.txtCertificateLimitTime.Text = string.Format("{0:yyyy-MM-dd}", welder.CertificateLimitTime);
-                        }
+                        //if (string.IsNullOrEmpty(welder.CertificateCode))
+                        //{
+                        //    this.txtCertificateCode.Text = welder.IdentityCard;
+                        //}
+                        //if (welder.CertificateLimitTime.HasValue)
+                        //{
+                        //    this.txtCertificateLimitTime.Text = string.Format("{0:yyyy-MM-dd}", welder.CertificateLimitTime);
+                        //}
                         this.txtWelderLevel.Text = welder.WelderLevel;
                         if (welder.IsUsed == true)
                         {
-                            cbIsOnDuty.Checked = true;
+                            cbIsUsed.Checked = true;
                         }
                         else
                         {
-                            cbIsOnDuty.Checked = false;
+                            cbIsUsed.Checked = false;
                         }
                         this.txtRemark.Text = welder.Remark;
                         if (!string.IsNullOrEmpty(welder.PhotoUrl))
@@ -114,7 +114,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 }
                 else
                 {
-                    this.cbIsOnDuty.Checked = true;
+                    this.cbIsUsed.Checked = true;
                 }
             }
         }
@@ -162,16 +162,16 @@ namespace FineUIPro.Web.HJGL.PersonManage
             newWelder.Birthday = Funs.GetNewDateTime(this.txtBirthday.Text.Trim());
             newWelder.IdentityCard = this.txtIdentityCard.Text.Trim();
             newWelder.CertificateCode = this.txtCertificateCode.Text.Trim();
-            newWelder.CertificateLimitTime = Funs.GetNewDateTime(this.txtCertificateLimitTime.Text.Trim());
+            //newWelder.CertificateLimitTime = Funs.GetNewDateTime(this.txtCertificateLimitTime.Text.Trim());
             newWelder.WelderLevel = this.txtWelderLevel.Text.Trim();
-            if (this.cbIsOnDuty.Checked)
-            {
-                newWelder.IsUsed = true;
-            }
-            else
-            {
-                newWelder.IsUsed = false;
-            }
+            //if (this.cbIsOnDuty.Checked)
+            //{
+            //    newWelder.IsUsed = true;
+            //}
+            //else
+            //{
+            //    newWelder.IsUsed = false;
+            //}
             newWelder.Remark = this.txtRemark.Text.Trim();
             newWelder.PhotoUrl = this.PhotoAttachUrl;
             newWelder.Isprint = "0";
@@ -235,7 +235,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             {
                 edit = "1";
             }
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/WelderManage&menuId={1}&edit={2}", PersonId, BLL.Const.WelderManageMenuId, edit)));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/WelderManage&menuId={1}&edit={2}&strParam=4", PersonId, BLL.Const.WelderManageMenuId, edit)));
         }
         #endregion
 

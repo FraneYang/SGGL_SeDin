@@ -30,10 +30,24 @@ namespace BLL
             {
                 SafetyInstitutionId = safetyInstitution.SafetyInstitutionId,
                 SafetyInstitutionName = safetyInstitution.SafetyInstitutionName,
-                EffectiveDate = safetyInstitution.EffectiveDate,
+                Code = safetyInstitution.Code,
                 Scope = safetyInstitution.Scope,
                 Remark = safetyInstitution.Remark,
-                FileContents = safetyInstitution.FileContents
+                FileContents = safetyInstitution.FileContents,
+
+                TypeId = safetyInstitution.TypeId,
+                CompileMan = safetyInstitution.CompileMan,
+                CompileDate = safetyInstitution.CompileDate,
+                UnitId = safetyInstitution.UnitId,
+                ApprovalDate = safetyInstitution.ApprovalDate,
+                EffectiveDate = safetyInstitution.EffectiveDate,
+                Description = safetyInstitution.Description,
+                ReleaseStates = safetyInstitution.ReleaseStates,
+                ReleaseUnit = safetyInstitution.ReleaseUnit,
+                AbolitionDate = safetyInstitution.AbolitionDate,
+                ReplaceInfo = safetyInstitution.ReplaceInfo,
+                IndexesIds = safetyInstitution.IndexesIds,
+               
             };
             db.HSSESystem_SafetyInstitution.InsertOnSubmit(newSafetyInstitution);
             db.SubmitChanges();
@@ -49,11 +63,25 @@ namespace BLL
             Model.HSSESystem_SafetyInstitution newSafetyInstitution = db.HSSESystem_SafetyInstitution.FirstOrDefault(e => e.SafetyInstitutionId == safetyInstitution.SafetyInstitutionId);
             if (newSafetyInstitution != null)
             {
+                newSafetyInstitution.Code = safetyInstitution.Code;
                 newSafetyInstitution.SafetyInstitutionName = safetyInstitution.SafetyInstitutionName;
                 newSafetyInstitution.EffectiveDate = safetyInstitution.EffectiveDate;
                 newSafetyInstitution.Scope = safetyInstitution.Scope;
                 newSafetyInstitution.Remark = safetyInstitution.Remark;
                 newSafetyInstitution.FileContents = safetyInstitution.FileContents;
+
+                newSafetyInstitution.TypeId = safetyInstitution.TypeId;
+                newSafetyInstitution.CompileMan = safetyInstitution.CompileMan;
+                newSafetyInstitution.CompileDate = safetyInstitution.CompileDate;
+                newSafetyInstitution.UnitId = safetyInstitution.UnitId;
+                newSafetyInstitution.ApprovalDate = safetyInstitution.ApprovalDate;
+                newSafetyInstitution.EffectiveDate = safetyInstitution.EffectiveDate;
+                newSafetyInstitution.Description = safetyInstitution.Description;
+                newSafetyInstitution.ReleaseStates = safetyInstitution.ReleaseStates;
+                newSafetyInstitution.ReleaseUnit = safetyInstitution.ReleaseUnit;
+                newSafetyInstitution.AbolitionDate = safetyInstitution.AbolitionDate;
+                newSafetyInstitution.ReplaceInfo = safetyInstitution.ReplaceInfo;
+                newSafetyInstitution.IndexesIds = safetyInstitution.IndexesIds;
                 db.SubmitChanges();
             }
         }

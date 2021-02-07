@@ -95,6 +95,21 @@ namespace FineUIPro.Web.HSSE.HSSESystem
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+
+            if (string.IsNullOrEmpty(this.txtDuties.Text.Trim()))
+            {
+                ShowNotify("请输入职责！");
+                return;
+            }
+           
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SaveData()
+        {
             Model.HSSESystem_HSSEMainDuty hsseMainDuty = new Model.HSSESystem_HSSEMainDuty
             {
                 WorkPostId = this.hdWorkPostId.Text
@@ -103,16 +118,11 @@ namespace FineUIPro.Web.HSSE.HSSESystem
             {
                 hsseMainDuty.Duties = this.txtDuties.Text.Trim();
             }
-            else
-            {
-                ShowNotify("请输入职责！");
-                return;
-            }
             hsseMainDuty.Remark = this.txtRemark.Text.Trim();
             hsseMainDuty.SortIndex = this.txtSortIndex.Text.Trim();
             if (string.IsNullOrEmpty(this.HSSEMainDutyId))
             {
-                hsseMainDuty.HSSEMainDutyId = SQLHelper.GetNewID(typeof(Model.HSSESystem_HSSEMainDuty));
+                this.HSSEMainDutyId=hsseMainDuty.HSSEMainDutyId = SQLHelper.GetNewID();
                 BLL.HSSEMainDutyService.AddHSSEMainDuty(hsseMainDuty);
                 BLL.LogService.AddSys_Log(this.CurrUser, hsseMainDuty.SortIndex, hsseMainDuty.HSSEMainDutyId, BLL.Const.HSSEMainDutyMenuId, BLL.Const.BtnAdd);
             }
@@ -122,7 +132,6 @@ namespace FineUIPro.Web.HSSE.HSSESystem
                 BLL.HSSEMainDutyService.UpdateHSSEMainDuty(hsseMainDuty);
                 BLL.LogService.AddSys_Log(this.CurrUser, hsseMainDuty.SortIndex, hsseMainDuty.HSSEMainDutyId, BLL.Const.HSSEMainDutyMenuId, BLL.Const.BtnModify);
             }
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         #region 获取按钮权限
@@ -141,6 +150,29 @@ namespace FineUIPro.Web.HSSE.HSSESystem
                 {
                     this.btnSave.Hidden = false;
                 }
+            }
+        }
+        #endregion
+
+        #region 上传附件资源
+        /// <summary>
+        /// 上传附件资源
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnUploadResources_Click(object sender, EventArgs e)
+        {
+            if (this.btnSave.Hidden)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CompanyTraining&menuId={1}&type=-1", HSSEMainDutyId, BLL.Const.HSSEMainDutyMenuId)));
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(this.HSSEMainDutyId))
+                {
+                    SaveData();
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CompanyTraining&menuId={1}", HSSEMainDutyId, BLL.Const.HSSEMainDutyMenuId)));
             }
         }
         #endregion

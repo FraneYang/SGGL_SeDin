@@ -81,12 +81,12 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="unitWorkId"></param>
         /// <returns></returns>
-        public Model.ResponeData getWelderListByUnitWorkId(string unitWorkId)
+        public Model.ResponeData getWelderListByUnitWorkId(string unitWorkId,string weldJointId)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIPipeJointService.getWelderList(unitWorkId);
+                responeData.data = APIPipeJointService.getWelderList(unitWorkId, weldJointId);
             }
             catch (Exception ex)
             {

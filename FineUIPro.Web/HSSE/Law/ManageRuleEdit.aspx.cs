@@ -50,26 +50,11 @@ namespace FineUIPro.Web.Law
             if (!IsPostBack)
             {
                 this.GetButtonPower();//设置权限
-                LoadData();
-
-                //加载管理规定类别下拉选项
-                this.ddlManageRuleTypeId.DataTextField = "ManageRuleTypeName";
-                this.ddlManageRuleTypeId.DataValueField = "ManageRuleTypeId";
-                this.ddlManageRuleTypeId.DataSource = BLL.ManageRuleTypeService.GetManageRuleTypeList();
-                ddlManageRuleTypeId.DataBind();
-                Funs.FineUIPleaseSelect(this.ddlManageRuleTypeId);
-
-                //整理人下拉选项
-                this.ddlCompileMan.DataTextField = "UserName";
-                ddlCompileMan.DataValueField = "UserId";
-                ddlCompileMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
-                ddlCompileMan.DataBind();
-                Funs.FineUIPleaseSelect(this.ddlCompileMan);
-
-                //加载默认整理人、整理日期
-                this.ddlCompileMan.SelectedValue = this.CurrUser.UserId;
-                this.dpkCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-
+                btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                //加载类型下拉选项
+                BLL.ManageRuleTypeService.InitManageRuleTypeDropDownList(this.ddlManageRuleTypeId, true);
+                ConstValue.InitConstValueDropDownList(this.drpIndexesIds, ConstValue.Group_HSSE_Indexes, false);
+                ConstValue.InitConstValueDropDownList(this.drpReleaseStates, ConstValue.Group_HSSE_ReleaseStates, false);                
                 this.ManageRuleId = Request.Params["ManageRuleId"];
                 if (!string.IsNullOrEmpty(this.ManageRuleId))
                 {
@@ -78,29 +63,28 @@ namespace FineUIPro.Web.Law
                     {
                         this.txtManageRuleCode.Text = manageRule.ManageRuleCode;
                         this.txtManageRuleName.Text = manageRule.ManageRuleName;
-                        if (!string.IsNullOrEmpty(manageRule.ManageRuleTypeId))
+                        this.ddlManageRuleTypeId.SelectedValue = manageRule.ManageRuleTypeId;
+                        this.drpReleaseStates.SelectedValue =manageRule.ReleaseStates;
+                        this.txtReleaseUnit.Text =manageRule.ReleaseUnit;
+                        this.dpkApprovalDate.Text = string.Format("{0:yyyy-MM-dd}",manageRule.ApprovalDate);
+                        this.dpkEffectiveDate.Text = string.Format("{0:yyyy-MM-dd}",manageRule.EffectiveDate);
+                        this.txtAbolitionDate.Text = string.Format("{0:yyyy-MM-dd}",manageRule.AbolitionDate);
+                        this.txtReplaceInfo.Text =manageRule.ReplaceInfo;
+                        this.txtDescription.Text =manageRule.Description;
+                        if (!string.IsNullOrEmpty(manageRule.IndexesIds))
                         {
-                            this.ddlManageRuleTypeId.SelectedValue = manageRule.ManageRuleTypeId;
+                            this.drpIndexesIds.SelectedValueArray =manageRule.IndexesIds.Split(',');
                         }
-                        this.txtVersionNo.Text = manageRule.VersionNo;
-                        this.ddlCompileMan.SelectedItem.Text = manageRule.CompileMan;
-                        if (manageRule.CompileDate != null)
-                        {
-                            this.dpkCompileDate.Text = string.Format("{0:yyyy-MM-dd}", manageRule.CompileDate);
-                        }
-                        this.txtRemark.Text = manageRule.Remark;
-                        this.txtSeeFile.Text = HttpUtility.HtmlDecode(manageRule.SeeFile);
+                        this.txtCompileMan.Text = manageRule.CompileMan;
+                        this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", manageRule.CompileDate);
                     }
                 }
+                else
+                {
+                    txtCompileMan.Text = this.CurrUser.UserName;
+                    txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                }
             }
-        }
-
-        /// <summary>
-        /// 加载页面
-        /// </summary>
-        private void LoadData()
-        {
-            btnClose.OnClientClick = ActiveWindow.GetHideReference();
         }
         #endregion
 
@@ -123,17 +107,24 @@ namespace FineUIPro.Web.Law
             Model.Law_ManageRule manageRule = new Model.Law_ManageRule
             {
                 ManageRuleCode = this.txtManageRuleCode.Text.Trim(),
-                ManageRuleName = this.txtManageRuleName.Text.Trim()
+                ManageRuleName = this.txtManageRuleName.Text.Trim(),
+                ApprovalDate = Funs.GetNewDateTime(this.dpkApprovalDate.Text.Trim()),
+                EffectiveDate = Funs.GetNewDateTime(this.dpkEffectiveDate.Text.Trim()),
+                ReleaseUnit = this.txtReleaseUnit.Text.Trim(),
+                AbolitionDate = Funs.GetNewDateTime(this.txtAbolitionDate.Text.Trim()),
+                ReplaceInfo = this.txtReplaceInfo.Text.Trim(),
+                Description = this.txtDescription.Text.Trim(),
             };
             if (this.ddlManageRuleTypeId.SelectedValue != BLL.Const._Null)
             {
                 manageRule.ManageRuleTypeId = this.ddlManageRuleTypeId.SelectedValue;
             }
-            manageRule.VersionNo = this.txtVersionNo.Text.Trim();
-            manageRule.AttachUrl = this.FullAttachUrl;
-            manageRule.Remark = this.txtRemark.Text.Trim();
+            if (!string.IsNullOrEmpty(this.drpReleaseStates.SelectedValue))
+            {
+                manageRule.ReleaseStates = this.drpReleaseStates.SelectedValue;
+            }
+            manageRule.IndexesIds = Funs.GetStringByArray(this.drpIndexesIds.SelectedValueArray);
             manageRule.UnitId = string.IsNullOrEmpty(this.CurrUser.UnitId) ? Const.UnitId_SEDIN : this.CurrUser.UnitId;
-            manageRule.SeeFile = HttpUtility.HtmlEncode(this.txtSeeFile.Text);
             if (string.IsNullOrEmpty(this.ManageRuleId))
             {
                 manageRule.IsPass = true;

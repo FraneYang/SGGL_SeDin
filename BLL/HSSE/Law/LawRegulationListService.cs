@@ -64,7 +64,12 @@ namespace BLL
                 UnitId = lawRegulationList.UnitId,
                 IsPass = lawRegulationList.IsPass,
                 UpState = lawRegulationList.UpState,
-                IsBuild = false
+                IsBuild = false,
+                ReleaseStates=lawRegulationList.ReleaseStates,
+                ReleaseUnit=lawRegulationList.ReleaseUnit,
+                AbolitionDate=lawRegulationList.AbolitionDate,
+                ReplaceInfo=lawRegulationList.ReplaceInfo,
+                IndexesIds=lawRegulationList.IndexesIds,
             };
             db.Law_LawRegulationList.InsertOnSubmit(newLawRegulationList);
             db.SubmitChanges();
@@ -88,6 +93,11 @@ namespace BLL
                 newLawRegulationList.AttachUrl = lawRegulationList.AttachUrl;
                 newLawRegulationList.LawsRegulationsTypeId = lawRegulationList.LawsRegulationsTypeId;
                 newLawRegulationList.UpState = lawRegulationList.UpState;
+                newLawRegulationList.ReleaseStates = lawRegulationList.ReleaseStates;
+                newLawRegulationList.ReleaseUnit = lawRegulationList.ReleaseUnit;
+                newLawRegulationList.AbolitionDate = lawRegulationList.AbolitionDate;
+                newLawRegulationList.ReplaceInfo = lawRegulationList.ReplaceInfo;
+                newLawRegulationList.IndexesIds = lawRegulationList.IndexesIds;
                 db.SubmitChanges();
             }
         }

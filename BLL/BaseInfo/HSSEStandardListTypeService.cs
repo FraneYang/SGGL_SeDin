@@ -104,8 +104,28 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_HSSEStandardListType> GetHSSEStandardListTypeList()
         {
-            var list = (from x in Funs.DB.Base_HSSEStandardListType orderby x.TypeCode select x).ToList();               
+            var list = (from x in Funs.DB.Base_HSSEStandardListType orderby x.TypeCode select x).ToList();
             return list;
         }
+
+
+        #region 类型表下拉框
+        /// <summary>
+        ///  单位类型表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitStandardListTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "TypeId";
+            dropName.DataTextField = "TypeName";
+            dropName.DataSource = GetHSSEStandardListTypeList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

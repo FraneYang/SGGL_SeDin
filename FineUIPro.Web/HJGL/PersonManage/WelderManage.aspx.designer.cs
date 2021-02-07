@@ -166,15 +166,6 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         protected global::FineUIPro.Label txtCertificateCode;
         
         /// <summary>
-        /// txtCertificateLimitTime 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtCertificateLimitTime;
-        
-        /// <summary>
         /// txtWelderLevel 控件。
         /// </summary>
         /// <remarks>
@@ -191,6 +182,15 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.CheckBox cbIsOnDuty;
+        
+        /// <summary>
+        /// txtCertificateLimitTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtCertificateLimitTime;
         
         /// <summary>
         /// Grid1 控件。
@@ -281,6 +281,15 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Menu Menu1;
+        
+        /// <summary>
+        /// btnMenuAudit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnMenuAudit;
         
         /// <summary>
         /// btnMenuEdit 控件。

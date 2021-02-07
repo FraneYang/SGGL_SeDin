@@ -40,49 +40,121 @@ namespace FineUIPro.Web.HSSE.HSSESystem {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
-        /// txtTitle 控件。
+        /// drpReleaseStates 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtTitle;
+        protected global::FineUIPro.DropDownList drpReleaseStates;
         
         /// <summary>
-        /// txtEffectiveDate 控件。
+        /// txtName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtEffectiveDate;
+        protected global::FineUIPro.TextBox txtName;
         
         /// <summary>
-        /// txtScope 控件。
+        /// txtCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtScope;
+        protected global::FineUIPro.TextBox txtCode;
         
         /// <summary>
-        /// txtRemark 控件。
+        /// ddlManageRuleTypeId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtRemark;
+        protected global::FineUIPro.DropDownList ddlManageRuleTypeId;
         
         /// <summary>
-        /// txtSeeFile 控件。
+        /// txtReleaseUnit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.HtmlEditor txtSeeFile;
+        protected global::FineUIPro.TextBox txtReleaseUnit;
+        
+        /// <summary>
+        /// dpkApprovalDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker dpkApprovalDate;
+        
+        /// <summary>
+        /// dpkEffectiveDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker dpkEffectiveDate;
+        
+        /// <summary>
+        /// txtAbolitionDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtAbolitionDate;
+        
+        /// <summary>
+        /// txtReplaceInfo 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea txtReplaceInfo;
+        
+        /// <summary>
+        /// txtDescription 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea txtDescription;
+        
+        /// <summary>
+        /// drpIndexesIds 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpIndexesIds;
+        
+        /// <summary>
+        /// txtCompileMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtCompileMan;
+        
+        /// <summary>
+        /// txtCompileDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtCompileDate;
         
         /// <summary>
         /// Toolbar1 控件。

@@ -81,5 +81,25 @@ namespace BLL
             var list = (from x in Funs.DB.Base_ManageRuleType orderby x.ManageRuleTypeCode select x).ToList();           
             return list;
         }
+
+
+        #region 类型表下拉框
+        /// <summary>
+        ///  单位类型表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitManageRuleTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "ManageRuleTypeId";
+            dropName.DataTextField = "ManageRuleTypeName";
+            dropName.DataSource = GetManageRuleTypeList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

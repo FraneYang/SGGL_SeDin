@@ -511,7 +511,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             string canWeldingRodName = string.Empty;
             string canWeldingWireName = string.Empty;
             var projectWelder = from x in Funs.DB.SitePerson_Person
-                                where x.ProjectId == jot.ProjectId
+                                where x.ProjectId == jot.ProjectId && x.IsUsed == true
                                       && x.UnitId == iso.UnitId && x.WorkPostId == Const.WorkPost_Welder
                                       && x.WelderCode != null && x.WelderCode != ""
                                 select x;
@@ -523,7 +523,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                                                                    where x.WelderId == welder.PersonId && x.WeldingMethod != null
                                                                                   && x.MaterialType != null && x.WeldType != null
                                                                                   && x.ThicknessMax != null && x.SizesMin != null
-                                                                                  && x.LimitDate > DateTime.Now
+                                                                                  && x.LimitDate > DateTime.Now && x.IsAudit == true
                                                                    select x).ToList();
                 if (welderQualifys != null)
                 {
@@ -852,9 +852,9 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             string repairRecordId = tvControlItem.SelectedNodeID;
             Model.HJGL_RepairRecord repairRecord = BLL.RepairRecordService.GetRepairRecordById(repairRecordId);
             var trustItem1 = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
-                             join y in Funs.DB.HJGL_Batch_NDEItem on x.TrustBatchItemId equals y.TrustBatchItemId
-                             where y.NDEItemID == repairRecord.NDEItemID
-                             select x).FirstOrDefault();
+                              join y in Funs.DB.HJGL_Batch_NDEItem on x.TrustBatchItemId equals y.TrustBatchItemId
+                              where y.NDEItemID == repairRecord.NDEItemID
+                              select x).FirstOrDefault();
             if (trustItem1 != null)
             {
                 var trustItems2 = from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.TrustBatchId == trustItem1.TrustBatchId select x;

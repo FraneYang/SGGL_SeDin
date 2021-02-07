@@ -545,5 +545,56 @@ namespace WebAPI.Controllers
         #endregion
 
         #endregion
+
+        #region  获取安全合规列表
+        /// <summary>
+        /// 获取安全合规列表
+        /// </summary>
+        /// <param name="type">类型（1-法律啊法规；2-标准规范；3-集团制度；4-赛鼎制度）</param>
+        /// <param name="pageIndex">分页</param>/// 
+        /// <returns></returns>
+        public Model.ResponeData getSafeLawListByType(string type, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIResourcesService.getSafeLawListByType(type);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+
+        /// <summary>
+        /// 获取安全合规详细信息
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="id">主键</param>
+        /// <returns></returns>
+        public Model.ResponeData getSafeLawInfo(string type, string id)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIResourcesService.getSafeLawInfo(type, id);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }        
+        #endregion
     }
 }

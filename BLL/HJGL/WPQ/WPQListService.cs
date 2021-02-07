@@ -66,6 +66,7 @@ namespace BLL
             newWPQ.ToAttack = WPQ.ToAttack;
             newWPQ.Others = WPQ.Others;
             newWPQ.State = WPQ.State;
+            newWPQ.ApproveManId = WPQ.ApproveManId;
             db.WPQ_WPQList.InsertOnSubmit(newWPQ);
             db.SubmitChanges();
         }

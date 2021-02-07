@@ -43,6 +43,12 @@
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
+                    <f:Label runat="server" ID="lbTemp">
+                    </f:Label>
+                    <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnUploadResources_Click" ValidateForms="SimpleForm1">
+                    </f:Button>
+                    <f:ToolbarFill runat="server"></f:ToolbarFill>
                     <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm1" Hidden="true"
                         OnClick="btnSave_Click">
                     </f:Button>
@@ -52,6 +58,10 @@
             </f:Toolbar>
         </Toolbars>
     </f:Form>
+    <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
+        Height="500px">
+    </f:Window>
     </form>
 </body>
 </html>

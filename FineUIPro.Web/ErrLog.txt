@@ -1,5 +1,69 @@
 ﻿
 错误信息开始=====>
+错误类型:ChangeConflictException
+错误信息:找不到行或行已更改。
+错误堆栈:
+   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
+   在 BLL.UploadFileService.SaveAttachUrl(String source, String attachUrl, String menuId, String toKeyId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\UploadFileService.cs:行号 0
+   在 FineUIPro.Web.AttachFile.webuploader.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\AttachFile\webuploader.aspx.cs:行号 517
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:02/05/2021 15:29:13
+出错文件:http://localhost:8118/AttachFile/webuploader.aspx?toKeyId=554fa1ff-8138-4583-995b-5316a2f125d7&path=FileUpload/PersonBaseInfo&menuId=AD6FC259-CF40-41C7-BA3F-15AC50C1DD20&strParam=4
+IP地址:::1
+操作人员:JT
+
+出错时间:02/05/2021 15:29:13
+
+
+错误信息开始=====>
+错误类型:HttpCompileException
+错误信息:e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQList.aspx(151): error CS1061: “ASP.hjgl_wpq_wpqlist_aspx”不包含“btnMenuView_Click”的定义，并且找不到可接受类型为“ASP.hjgl_wpq_wpqlist_aspx”的第一个参数的扩展方法“btnMenuView_Click”(是否缺少 using 指令或程序集引用?)
+错误堆栈:
+   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:02/07/2021 09:44:33
+出错文件:http://localhost:8118/HJGL/WPQ/WPQList.aspx
+IP地址:::1
+
+出错时间:02/07/2021 09:44:33
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:02/07/2021 11:04:36
+出错时间:02/07/2021 11:04:36
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 485
+出错时间:02/07/2021 11:20:33
+出错时间:02/07/2021 11:20:33
+
+
+错误信息开始=====>
 错误类型:NullReferenceException
 错误信息:未将对象引用设置到对象的实例。
 错误堆栈:
@@ -12,71 +76,10 @@
    在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
    在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
    在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/28/2021 10:21:19
+出错时间:02/07/2021 14:36:11
 出错文件:http://localhost:8118/common/mainProject.aspx
 IP地址:::1
 操作人员:JT
 
-出错时间:01/28/2021 10:21:19
-
-
-错误信息开始=====>
-错误类型:SqlException
-错误信息:INSERT 语句与 FOREIGN KEY 约束"FK_WPQ_WPQListFlowOperate_WPQ_WPQList"冲突。该冲突发生于数据库"SGGLDB_SD"，表"dbo.WPQ_WPQList", column 'WPQId'。
-语句已终止。
-错误堆栈:
-   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
-   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
-   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
-   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
-   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
-   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
-   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
-   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
-   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
-   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
-   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicInsert(TrackedObject item)
-   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Insert(TrackedObject item)
-   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
-   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
-   在 FineUIPro.Web.HJGL.WPQ.WPQEdit.SaveFlowOperate(String WpqId, String OperateName) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQEdit.aspx.cs:行号 329
-   在 FineUIPro.Web.HJGL.WPQ.WPQEdit.SaveData(String type) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQEdit.aspx.cs:行号 309
-   在 FineUIPro.Web.HJGL.WPQ.WPQEdit.btnSubmit_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQEdit.aspx.cs:行号 196
-   在 FineUIPro.Button.OnClick(EventArgs e)
-   在 (Button , EventArgs )
-   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/28/2021 17:20:37
-出错文件:http://localhost:8118/HJGL/WPQ/WPQEdit.aspx?WPQId=
-IP地址:::1
-操作人员:JT
-
-出错时间:01/28/2021 17:20:38
-
-
-错误信息开始=====>
-错误类型:ChangeConflictException
-错误信息:找不到行或行已更改。
-错误堆栈:
-   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
-   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
-   在 BLL.WPQListServiceService.DeleteWPQById(String WPQId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\WPQ\WPQListService.cs:行号 140
-   在 FineUIPro.Web.HJGL.WPQ.WPQList.DeleteData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQList.aspx.cs:行号 216
-   在 FineUIPro.Web.HJGL.WPQ.WPQList.btnMenuDelete_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WPQ\WPQList.aspx.cs:行号 194
-   在 FineUIPro.MenuButton.OnClick(EventArgs e)
-   在 (MenuButton , EventArgs )
-   在 FineUIPro.MenuButton.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:01/28/2021 17:25:13
-出错文件:http://localhost:8118/HJGL/WPQ/WPQList.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:01/28/2021 17:25:13
+出错时间:02/07/2021 14:36:11
 

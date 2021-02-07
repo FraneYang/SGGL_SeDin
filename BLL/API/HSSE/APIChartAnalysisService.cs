@@ -39,7 +39,7 @@ namespace BLL
                         {
                             DataId = unitItem,
                             Type = type,
-                            DataName = UnitService.GetUnitCodeByUnitId(unitItem),
+                            DataName = UnitService.GetShortUnitNameByUnitId(unitItem),
                             DataSumCount = getUnitRegister.Count(),
                             DataCount1 = getUnitRegister.Where(x => x.States == "2" || x.States == "3").Count(),
                         };

@@ -52,7 +52,7 @@
                             <f:RadioItem Selected="true" Value="1" Text="男" />
                             <f:RadioItem Value="2" Text="女" />
                         </f:RadioButtonList>
-                        <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗" Enabled="false"
+                        <f:CheckBox ID="cbIsUsed" runat="server" Label="是否在岗" Enabled="false"
                             LabelWidth="120px">
                         </f:CheckBox>
                     </Items>
@@ -60,7 +60,7 @@
                 <f:FormRow>
                     <Items>
                         <f:LinkButton ID="UploadAttach" runat="server" Label="证书附件"
-                            Text="上传和查看" OnClick="btnAttachUrl_Click" LabelWidth="180px">
+                            Text="上传和查看" OnClick="btnAttachUrl_Click" LabelWidth="120px">
                         </f:LinkButton>
                     </Items>
                 </f:FormRow>

@@ -367,6 +367,14 @@ namespace BLL
         /// 项目菜单
         /// </summary>
         public const string Group_MenuType_P = "MenuType_P";
+        /// <summary>
+        /// 安全索引 组id
+        /// </summary>
+        public const string Group_HSSE_Indexes = "HSSE_Indexes";
+        /// <summary>
+        /// 安全合规状态 组id
+        /// </summary>
+        public const string Group_HSSE_ReleaseStates = "HSSE_ReleaseStates";
         #endregion
     }
 }

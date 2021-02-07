@@ -13,7 +13,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) {
+            if (!IsPostBack)
+            {
                 BindGrid();
             }
         }
@@ -27,8 +28,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             string diag = Request.Params["Dia"];
             string thickness = Request.Params["Thickness"];
             string unitId = Request.Params["UnitId"];
-            string weldingMethod= Request.Params["WeldingMethod"];
-            string weldType= Request.Params["WeldType"];
+            string weldingMethod = Request.Params["WeldingMethod"];
+            string weldType = Request.Params["WeldType"];
 
             decimal dia = Funs.GetNewDecimal(diag).HasValue ? Funs.GetNewDecimal(diag).Value : 0;
             decimal sch = Funs.GetNewDecimal(diag).HasValue ? Funs.GetNewDecimal(thickness).Value : 0;
@@ -39,7 +40,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             int m1 = SNClass(mat1.MaterialClass);
             int m2 = SNClass(mat2.MaterialClass);
 
-            int g1= SNGroup(mat1.MaterialGroup);
+            int g1 = SNGroup(mat1.MaterialGroup);
             int g2 = SNGroup(mat2.MaterialGroup);
 
             string preGroup1 = PreGroup(mat1.MaterialGroup);
@@ -53,7 +54,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             //                || (x.MaterialId1 == material2 && x.MaterialId2 == material1))
             //          select x;
             var wpq = from x in Funs.DB.View_HJGL_WPQ
-                      where x.UnitId == unitId
+                      where x.UnitId == unitId && x.State == BLL.Const.State_2
                       && (x.JointType == "对接焊缝" || (x.JointType != "对接焊缝" && weldType != "B"))
                             && ((x.Material1Group == mat1.MaterialGroup && x.Material2Group == mat2.MaterialGroup)
                             || (x.Material1Group == mat2.MaterialGroup && x.Material2Group == mat1.MaterialGroup))
@@ -84,7 +85,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             // 满足WPS第一个条件：焊接方法为“PAW、SMAW、SAW、GMAW、FCAW、GTAW”且材质类别属于Fe-1~Fe-5A
             var wpq3 = from x in wpq1
                        where (x.WeldingMethodCode == "PAW" || x.WeldingMethodCode == "SMAW" || x.WeldingMethodCode == "SAW" || x.WeldingMethodCode == "GMAW" || x.WeldingMethodCode == "FCAW" || x.WeldingMethodCode == "GTAW")
-                             && (x.SNClass1 == "1" || x.SNClass1 == "2" || x.SNClass1 == "3" || x.SNClass1 == "4" || x.SNClass1 == "5"+"A")
+                             && (x.SNClass1 == "1" || x.SNClass1 == "2" || x.SNClass1 == "3" || x.SNClass1 == "4" || x.SNClass1 == "5" + "A")
                        select x;
 
             // 满足:焊口材质1”等于且“焊口材质2”小于WPS材质类别 或“材质2”等于且“材质1”小于WPS材质类别
@@ -95,9 +96,9 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
             // 满足: 与WPS类别一致
             var wpq5 = from x in wpq2
-                   where ((x.Material1Class == mat1.MaterialClass && x.Material2Class == mat2.MaterialClass)
-                        || (x.Material1Class == mat2.MaterialClass && x.Material2Class == mat1.MaterialClass))
-                   select x;
+                       where ((x.Material1Class == mat1.MaterialClass && x.Material2Class == mat2.MaterialClass)
+                            || (x.Material1Class == mat2.MaterialClass && x.Material2Class == mat1.MaterialClass))
+                       select x;
 
             // 以下是组别
             // 组别相等
@@ -105,14 +106,14 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
             // 满足:焊口材质1”等于且“焊口材质2”小于WPS材质组别 或“材质2”等于且“材质1”小于WPS材质组别
             var wpq7 = from x in wpq6
-                       where (x.Material1Group == mat1.MaterialGroup && x.PreGroup1== preGroup2 && Convert.ToInt32(x.SNGroup1) >= g2)
+                       where (x.Material1Group == mat1.MaterialGroup && x.PreGroup1 == preGroup2 && Convert.ToInt32(x.SNGroup1) >= g2)
                              || (x.Material1Class == mat2.MaterialClass && x.PreGroup1 == preGroup1 && Convert.ToInt32(x.SNClass1) >= g1)
                        select x;
 
             // 满足: 当WPS组别等于Fe-1-2时
             var wpq8 = from x in wpq6
-                       where x.Material1Group == "Fe-1-2" 
-                             && (mat1.MaterialGroup== "Fe-1-2" || mat1.MaterialGroup== "Fe-1-1")
+                       where x.Material1Group == "Fe-1-2"
+                             && (mat1.MaterialGroup == "Fe-1-2" || mat1.MaterialGroup == "Fe-1-1")
                              && (mat2.MaterialGroup == "Fe-1-2" || mat2.MaterialGroup == "Fe-1-1")
                        select x;
 
@@ -140,7 +141,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             if (!string.IsNullOrEmpty(matClass))
             {
                 int m = matClass.IndexOf("-");
-                string mat = matClass.Substring(m+1, 1);
+                string mat = matClass.Substring(m + 1, 1);
                 sn = Funs.GetNewInt(mat).HasValue ? Funs.GetNewInt(mat).Value : 0;
             }
             return sn;
@@ -152,7 +153,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             int sn = 0;
             if (!string.IsNullOrEmpty(matGroup))
             {
-                string mat = matGroup.Substring(matGroup.Length-1, 1);
+                string mat = matGroup.Substring(matGroup.Length - 1, 1);
                 sn = Funs.GetNewInt(mat).HasValue ? Funs.GetNewInt(mat).Value : 0;
             }
             return sn;
@@ -163,7 +164,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             string pre = string.Empty;
             if (!string.IsNullOrEmpty(matGroup))
             {
-                pre = matGroup.Substring(0,matGroup.Length-2);
+                pre = matGroup.Substring(0, matGroup.Length - 2);
             }
             return pre;
         }

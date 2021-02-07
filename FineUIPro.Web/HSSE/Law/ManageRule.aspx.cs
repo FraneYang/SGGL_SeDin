@@ -25,8 +25,6 @@ namespace FineUIPro.Web.HSSE.Law
                 this.GetButtonPower();
                 Funs.DropDownPageSize(this.ddlPageSize);
                 btnNew.OnClientClick = Window1.GetShowReference("ManageRuleEdit.aspx") + "return false;";
-     
-                btnSelectColumns.OnClientClick = Window5.GetShowReference("ManageRuleSelectCloumn.aspx");
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
@@ -45,7 +43,10 @@ namespace FineUIPro.Web.HSSE.Law
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "select * from View_Law_ManageRule where 1=1";
+            string strSql = @"SELECT ManageRuleId,ManageRuleCode,ManageRuleName,ManageRuleTypeId,CompileMan
+                                    , CompileDate, UnitId, IsBuild, ManageRuleTypeCode, ManageRuleTypeName, ApprovalDate, EffectiveDate
+                                    , Description, ReleaseStates, ReleaseStatesName, ReleaseUnit, AbolitionDate, ReplaceInfo, IndexesNames
+                                    FROM dbo.View_Law_ManageRule WHERE 1 =1";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtManageRuleCode.Text.Trim()))
             {
@@ -67,7 +68,6 @@ namespace FineUIPro.Web.HSSE.Law
 
             Grid1.RecordCount = tb.Rows.Count;
             var table = this.GetPagedDataTable(Grid1, tb);
-
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
@@ -210,111 +210,22 @@ namespace FineUIPro.Web.HSSE.Law
         }
         #endregion
 
-        #region 导出
-        /// <summary>
-        /// 关闭导出窗口
+        #region 导出按钮
+        /// 导出按钮
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void Window5_Close(object sender, WindowCloseEventArgs e)
+        protected void btnOut_Click(object sender, EventArgs e)
         {
             Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("集团制度" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.Write(GetGridTableHtml(Grid1, e.CloseArgument.Split('#')));
+            Response.ContentEncoding = Encoding.UTF8;
+            this.Grid1.PageSize = this.Grid1.RecordCount;
+            this.BindGrid();
+            Response.Write(GetGridTableHtml(Grid1));
             Response.End();
-        }
-
-        /// <summary>
-        /// 导出
-        /// </summary>
-        /// <param name="grid"></param>
-        /// <param name="columns"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid, string[] columns)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            List<string> columnHeaderTexts = new List<string>(columns);
-            List<int> columnIndexs = new List<int>();
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
-            {
-                if (columnHeaderTexts.Contains(column.HeaderText))
-                {
-                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-                    columnIndexs.Add(column.ColumnIndex);
-                }
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-                sb.Append("<tr>");
-                int columnIndex = 0;
-                foreach (object value in row.Values)
-                {
-                    if (columnIndexs.Contains(columnIndex))
-                    {
-                        string html = value.ToString();
-                        if (html.StartsWith(Grid.TEMPLATE_PLACEHOLDER_PREFIX))
-                        {
-                            // 模板列                            
-                            string templateID = html.Substring(Grid.TEMPLATE_PLACEHOLDER_PREFIX.Length);
-                            Control templateCtrl = row.FindControl(templateID);
-                            html = GetRenderedHtmlSource(templateCtrl);
-                        }
-                        //else
-                        //{
-                        //    // 处理CheckBox             
-                        //    if (html.Contains("f-grid-static-checkbox"))
-                        //    {
-                        //        if (!html.Contains("f-checked"))
-                        //        {
-                        //            html = "×";
-                        //        }
-                        //        else
-                        //        {
-                        //            html = "√";
-                        //        }
-                        //    }
-                        //    // 处理图片                           
-                        //    if (html.Contains("<img"))
-                        //    {
-                        //        string prefix = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, ""); 
-                        //        html = html.Replace("src=\"", "src=\"" + prefix);
-                        //    }
-                        //}
-                        sb.AppendFormat("<td>{0}</td>", html);
-                    }
-                    columnIndex++;
-                }
-                sb.Append("</tr>");
-            }
-            sb.Append("</table>");
-            return sb.ToString();
-        }
-
-        /// <summary>        
-        /// 获取控件渲染后的HTML源代码        
-        /// </summary>        
-        /// <param name="ctrl"></param>        
-        /// <returns></returns>        
-        private string GetRenderedHtmlSource(Control ctrl)
-        {
-            if (ctrl != null)
-            {
-                using (StringWriter sw = new StringWriter())
-                {
-                    using (HtmlTextWriter htw = new HtmlTextWriter(sw))
-                    {
-                        ctrl.RenderControl(htw);
-                        return sw.ToString();
-                    }
-                }
-            }
-            return String.Empty;
         }
         #endregion
 
@@ -343,7 +254,7 @@ namespace FineUIPro.Web.HSSE.Law
                 }
                 if (buttonList.Contains(BLL.Const.BtnOut))
                 {
-                    this.btnSelectColumns.Hidden = false;
+                    this.btnOut.Hidden = false;
                 }
             }
         }

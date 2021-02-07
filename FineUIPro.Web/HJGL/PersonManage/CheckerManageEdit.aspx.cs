@@ -37,31 +37,32 @@ namespace FineUIPro.Web.HJGL.PersonManage
                         }
                         this.txtIdentityCard.Text = Checker.IdentityCard;
                         this.txtCertificateCode.Text = Checker.CertificateCode;
-                        if (string.IsNullOrEmpty(Checker.CertificateCode)) {
-                            this.txtCertificateCode.Text = Checker.IdentityCard;
-                        }
+                        //if (string.IsNullOrEmpty(Checker.CertificateCode)) {
+                        //    this.txtCertificateCode.Text = Checker.IdentityCard;
+                        //}
                         if (Checker.IsUsed == true)
                         {
-                            cbIsOnDuty.Checked = true;
+                            cbIsUsed.Checked = true;
                         }
                         else
                         {
-                            cbIsOnDuty.Checked = false;
+                            cbIsUsed.Checked = false;
                         }
                     }
                 }
                 else
                 {
-                    this.cbIsOnDuty.Checked = true;
+                    this.cbIsUsed.Checked = true;
                 }
             }
         }
-        
+
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-             string checkerId = Request.Params["CheckerId"];
-            if (!string.IsNullOrEmpty(this.txtCheckerCode.Text.Trim())) {
+            string checkerId = Request.Params["CheckerId"];
+            if (!string.IsNullOrEmpty(this.txtCheckerCode.Text.Trim()))
+            {
                 var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.WelderCode == this.txtCheckerCode.Text.Trim()
            && (x.PersonId != checkerId || (checkerId == null && checkerId != null)));
                 if (q != null)
@@ -69,7 +70,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                     Alert.ShowInTop("检测工号已经存在！", MessageBoxIcon.Warning);
                     return;
                 }
-               
+
             }
             if (this.drpUnitId.SelectedValue == BLL.Const._Null)
             {
@@ -96,7 +97,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             newChecker.Birthday = Funs.GetNewDateTime(this.txtBirthday.Text.Trim());
             newChecker.IdentityCard = this.txtIdentityCard.Text.Trim();
             newChecker.CertificateCode = this.txtCertificateCode.Text.Trim();
-            if (this.cbIsOnDuty.Checked)
+            if (this.cbIsUsed.Checked)
             {
                 newChecker.IsUsed = true;
             }
@@ -107,10 +108,10 @@ namespace FineUIPro.Web.HJGL.PersonManage
             newChecker.Isprint = "0";
             if (!string.IsNullOrEmpty(checkerId))
             {
-                    newChecker.PersonId = checkerId;
-                    BLL.CheckerService.UpdateChecker(newChecker);
-                    //BLL.Sys_LogService.AddLog(Const.System_1, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnModify, checkerId);
-               
+                newChecker.PersonId = checkerId;
+                BLL.CheckerService.UpdateChecker(newChecker);
+                //BLL.Sys_LogService.AddLog(Const.System_1, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.WelderManageMenuId, Const.BtnModify, checkerId);
+
             }
             return checkerId;
         }
@@ -144,7 +145,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             {
                 edit = "1";
             }
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/WelderManage&menuId={1}&edit={2}", PersonId, BLL.Const.WelderManageMenuId, edit)));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/WelderManage&menuId={1}&edit={2}&strParam=4", PersonId, BLL.Const.WelderManageMenuId, edit)));
         }
         #endregion
     }

@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIItem\BaseInfoItem.cs" />
+    <Compile Include="APIItem\DigData\SafeLawItem.cs" />
     <Compile Include="APIItem\HJGL\JointCompreInfoItem.cs" />
     <Compile Include="APIItem\HJGL\ReportQueryItem.cs" />
     <Compile Include="APIItem\HJGL\TestPackageItem.cs" />

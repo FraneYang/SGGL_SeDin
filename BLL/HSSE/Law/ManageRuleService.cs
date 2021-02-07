@@ -53,7 +53,16 @@ namespace BLL
                 IsPass = manageRule.IsPass,
                 UnitId = manageRule.UnitId,
                 UpState = manageRule.UpState,
-                SeeFile = manageRule.SeeFile
+                SeeFile = manageRule.SeeFile,
+
+                ApprovalDate = manageRule.ApprovalDate,
+                EffectiveDate = manageRule.EffectiveDate,
+                Description = manageRule.Description,
+                ReleaseStates = manageRule.ReleaseStates,
+                ReleaseUnit = manageRule.ReleaseUnit,
+                AbolitionDate = manageRule.AbolitionDate,
+                ReplaceInfo = manageRule.ReplaceInfo,
+                IndexesIds = manageRule.IndexesIds,
             };
             db.Law_ManageRule.InsertOnSubmit(newManageRule);
             db.SubmitChanges();
@@ -79,6 +88,15 @@ namespace BLL
                 newManageRule.Remark = manageRule.Remark;
                 newManageRule.UpState = manageRule.UpState;
                 newManageRule.SeeFile = manageRule.SeeFile;
+
+                newManageRule.ApprovalDate = manageRule.ApprovalDate;
+                newManageRule.EffectiveDate = manageRule.EffectiveDate;
+                newManageRule.Description = manageRule.Description;
+                newManageRule.ReleaseStates = manageRule.ReleaseStates;
+                newManageRule.ReleaseUnit = manageRule.ReleaseUnit;
+                newManageRule.AbolitionDate = manageRule.AbolitionDate;
+                newManageRule.ReplaceInfo = manageRule.ReplaceInfo;
+                newManageRule.IndexesIds = manageRule.IndexesIds;
                 db.SubmitChanges();
             }
         }

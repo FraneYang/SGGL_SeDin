@@ -81,14 +81,15 @@
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:Label ID="txtCertificateLimitTime" runat="server" Label="有效期"
-                                            LabelWidth="120px">
-                                        </f:Label>
+
                                         <f:Label ID="txtWelderLevel" runat="server" Label="焊工等级" LabelWidth="120px">
                                         </f:Label>
-                                        <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗"
+                                        <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗" Enabled="false"
                                             LabelWidth="120px">
                                         </f:CheckBox>
+                                        <f:Label ID="txtCertificateLimitTime" runat="server" Label="有效期"
+                                            LabelWidth="120px" Hidden="true">
+                                        </f:Label>
                                     </Items>
                                 </f:FormRow>
                             </Rows>
@@ -117,6 +118,9 @@
                                 </f:Toolbar>
                             </Toolbars>
                             <Columns>
+                                <f:CheckBoxField Width="50px" SortField="IsAudit" RenderAsStaticField="true" DataField="IsAudit"
+                                    HeaderText="审核" HeaderTextAlign="Center" TextAlign="Center">
+                                </f:CheckBoxField>
                                 <f:RenderField Width="280px" ColumnID="QualificationItem" DataField="QualificationItem"
                                     FieldType="String" HeaderText="合格项目" HeaderTextAlign="Center"
                                     TextAlign="Left" SortField="QualificationItem">
@@ -199,6 +203,9 @@
             IsModal="true" Width="960px" Height="620px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
+            <f:MenuButton ID="btnMenuAudit" OnClick="btnMenuAudit_Click" Icon="BulletTick" EnablePostBack="true"
+                runat="server" Text="审核">
+            </f:MenuButton>
             <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"
                 runat="server" Text="编辑">
             </f:MenuButton>

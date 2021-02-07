@@ -16,6 +16,14 @@ namespace FineUIPro.Web.HJGL.PersonManage
         {
             if (!IsPostBack)
             {
+                if (string.IsNullOrEmpty(Request.Params["IsAudit"]))
+                {
+                    this.btnSubmit.Hidden = true;
+                }
+                else
+                {
+                    this.btnSave.Hidden = true;
+                }
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 ///机动化程度
                 this.drpWeldingMode.DataTextField = "Text";
@@ -137,6 +145,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
             welderQualify.SizesMax2 = GetDecimalByStr(this.txtSizesMax2.Text.Trim());
             welderQualify.WeldType = txtWeldType.Text.Trim();
             welderQualify.IsCanWeldG = ckbIsCanWeldG.Checked;
+            welderQualify.IsAudit = null;
+            welderQualify.AuditMan = null;
+            welderQualify.AuditDate = null;
             if (this.drpWeldingMode.SelectedValue != BLL.Const._Null)
             {
                 welderQualify.WelderMode = drpWeldingMode.SelectedValue;
@@ -249,9 +260,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
                     }
 
                     // 1-对接，2-角焊缝，3-支管连接焊缝
-                    if (queProject[2].Contains("FG"))
+                    if (queProject[2].Contains("F"))
                     {
-                        weldType = "角焊缝,支管连接焊缝";
+                        weldType = "角焊缝";
                     }
                     else
                     {
@@ -438,6 +449,56 @@ namespace FineUIPro.Web.HJGL.PersonManage
             {
                 ShowNotify("请录入规范数据！", MessageBoxIcon.Warning);
             }
+        }
+        #endregion
+
+        #region 提交
+        /// <summary>
+        /// 提交按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string welderQualifyId = Request.Params["WelderQualifyId"];
+            Model.Welder_WelderQualify welderQualify = new Model.Welder_WelderQualify();
+            welderQualify.WelderId = this.hdWelderId.Text;
+            welderQualify.QualificationItem = txtQualificationItem.Text;
+            welderQualify.CheckDate = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim());
+            welderQualify.LimitDate = Funs.GetNewDateTime(this.txtLimitDate.Text.Trim());
+            //welderQualify.IsPrintShow = ckbIsPrintShow.Checked;
+            welderQualify.WeldingMethod = txtWeldingMethod.Text.Trim();
+            welderQualify.MaterialType = txtMaterialType.Text.Trim();
+            welderQualify.WeldingLocation = txtWeldingLocation.Text.Trim();
+            welderQualify.ThicknessMin = GetDecimalByStr(this.txtThicknessMin.Text.Trim());
+            welderQualify.ThicknessMax = GetDecimalByStr(this.txtThicknessMax.Text.Trim());
+            welderQualify.SizesMin = GetDecimalByStr(this.txtSizesMin.Text.Trim());
+            welderQualify.SizesMax = GetDecimalByStr(this.txtSizesMax.Text.Trim());
+            welderQualify.ThicknessMin2 = GetDecimalByStr(this.txtThicknessMin2.Text.Trim());
+            welderQualify.ThicknessMax2 = GetDecimalByStr(this.txtThicknessMax2.Text.Trim());
+            welderQualify.SizesMin2 = GetDecimalByStr(this.txtSizesMin2.Text.Trim());
+            welderQualify.SizesMax2 = GetDecimalByStr(this.txtSizesMax2.Text.Trim());
+            welderQualify.WeldType = txtWeldType.Text.Trim();
+            welderQualify.IsCanWeldG = ckbIsCanWeldG.Checked;
+            welderQualify.IsAudit = true;
+            welderQualify.AuditMan = this.CurrUser.UserId;
+            welderQualify.AuditDate = DateTime.Now;
+            if (this.drpWeldingMode.SelectedValue != BLL.Const._Null)
+            {
+                welderQualify.WelderMode = drpWeldingMode.SelectedValue;
+            }
+            if (!string.IsNullOrEmpty(welderQualifyId))
+            {
+                welderQualify.WelderQualifyId = welderQualifyId;
+                BLL.WelderQualifyService.UpdateWelderQualify(welderQualify);
+            }
+            else
+            {
+                welderQualify.WelderQualifyId = SQLHelper.GetNewID(typeof(Model.Welder_WelderQualify));
+                BLL.WelderQualifyService.AddWelderQualify(welderQualify);
+            }
+            ShowNotify("审核成功！", MessageBoxIcon.Success);
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
         #endregion
     }

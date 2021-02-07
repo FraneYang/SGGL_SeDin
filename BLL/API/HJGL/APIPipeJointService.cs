@@ -45,14 +45,14 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getData = (from x in db.View_HJGL_NoWeldJointFind
-                               where x.PipelineId == pipeLineId 
-                                    && x.WeldingDailyId == null 
-                                    orderby x.WeldJointCode
-                                    select new Model.BaseInfoItem
-                                    {
-                                        BaseInfoId = x.WeldJointId,
-                                        BaseInfoCode = x.WeldJointCode
-                                    }
+                               where x.PipelineId == pipeLineId
+                                    && x.WeldingDailyId == null
+                               orderby x.WeldJointCode
+                               select new Model.BaseInfoItem
+                               {
+                                   BaseInfoId = x.WeldJointId,
+                                   BaseInfoCode = x.WeldJointCode
+                               }
                                 ).ToList();
 
 
@@ -91,14 +91,67 @@ namespace BLL
         /// </summary>
         /// <param name="unitWorkId"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getWelderList(string unitWorkId)
+        public static List<Model.BaseInfoItem> getWelderList(string unitWorkId, string weldJointId)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
+                var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
+                var joty = BLL.Base_WeldTypeService.GetWeldTypeByWeldTypeId(jot.WeldTypeId);
+                string weldType = string.Empty;
+                if (joty != null && joty.WeldTypeCode.Contains("B"))
+                {
+                    weldType = "对接焊缝";
+                }
+                else
+                {
+                    weldType = "角焊缝";
+                }
+
+                decimal? dia = jot.Dia;
+                decimal? sch = Funs.GetNewDecimal(jot.Thickness.HasValue ? jot.Thickness.Value.ToString() : "");
+                string wmeCode = string.Empty;
+                var wm = BLL.Base_WeldingMethodService.GetWeldingMethodByWeldingMethodId(jot.WeldingMethodId);
+                if (wm != null)
+                {
+                    wmeCode = wm.WeldingMethodCode;
+                }
+                string[] wmeCodes = wmeCode.Split('+');
+                //string location = item.JOT_Location;
+                string ste = jot.Material1Id;
+                string jointAttribute = jot.JointAttribute;
                 var p = db.WBS_UnitWork.Where(x => x.UnitWorkId == unitWorkId).FirstOrDefault();
-                var getDataLists = (from x in db.SitePerson_Person
-                                    where x.UnitId == p.UnitId && x.WorkPostId == Const.WorkPost_Welder
-                                    && x.WelderCode != null
+                var projectWelder = from x in db.SitePerson_Person
+                                    where x.ProjectId == p.ProjectId && x.IsUsed == true &&
+                                    x.UnitId == p.UnitId && x.WorkPostId == Const.WorkPost_Welder
+                                    && x.WelderCode != null && x.WelderCode != ""
+                                    select x;
+                List<Model.SitePerson_Person> list = new List<Model.SitePerson_Person>();
+                foreach (var welder in projectWelder)
+                {
+                    bool canSave = false;
+                    List<Model.Welder_WelderQualify> welderQualifys = (from x in Funs.DB.Welder_WelderQualify
+                                                                       where x.WelderId == welder.PersonId && x.WeldingMethod != null
+                                                                                      && x.MaterialType != null && x.WeldType != null
+                                                                                      && x.ThicknessMax != null && x.SizesMin != null
+                                                                                      && x.LimitDate > DateTime.Now && x.IsAudit == true
+                                                                       select x).ToList();
+                    if (welderQualifys != null)
+                    {
+                        if (wmeCodes.Count() <= 1) // 一种焊接方法
+                        {
+                            canSave = OneWmeIsOK(welderQualifys, wmeCode, jointAttribute, weldType, ste, dia, sch);
+                        }
+                        else  // 大于一种焊接方法，如氩电联焊
+                        {
+                            canSave = TwoWmeIsOK(welderQualifys, wmeCodes[0], wmeCodes[1], jointAttribute, weldType, ste, dia, sch);
+                        }
+                        if (canSave)
+                        {
+                            list.Add(welder);
+                        }
+                    }
+                }
+                var getDataLists = (from x in list
                                     orderby x.WelderCode
                                     select new Model.BaseInfoItem
                                     {
@@ -109,7 +162,145 @@ namespace BLL
                 return getDataLists;
             }
         }
+
+        #region 焊工资质判断
+        /// <summary>
+        /// 一种焊接方法资质判断
+        /// </summary>
+        /// <param name="welderQualifys"></param>
+        /// <param name="wmeCode"></param>
+        /// <param name="jointAttribute"></param>
+        /// <param name="weldType"></param>
+        /// <param name="ste"></param>
+        /// <param name="dia"></param>
+        /// <param name="sch"></param>
+        /// <returns></returns>
+        public static bool OneWmeIsOK(List<Model.Welder_WelderQualify> welderQualifys, string wmeCode, string jointAttribute, string weldType, string ste, decimal? dia, decimal? sch)
+        {
+            bool isok = false;
+
+            var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(ste);
+            var welderQ = from x in welderQualifys
+                          where wmeCode.Contains(x.WeldingMethod)
+                          && (mat == null || x.MaterialType.Contains(mat.MetalType ?? ""))
+                          && x.WeldType.Contains(weldType)
+                          select x;
+
+            if (welderQ.Count() > 0)
+            {
+                if (jointAttribute == "固定口")
+                {
+                    welderQ = welderQ.Where(x => x.IsCanWeldG == true);
+                }
+                if (welderQ.Count() > 0)
+                {
+                    if (weldType == "1") // 1-对接焊缝 2-表示角焊缝，当为角焊缝时，管径和壁厚不限制
+                    {
+                        var welderDiaQ = welderQ.Where(x => x.SizesMin <= dia || x.SizesMax == 0);
+
+                        if (welderDiaQ.Count() > 0)
+                        {
+                            var welderThick = welderDiaQ.Where(x => x.ThicknessMax >= sch || x.ThicknessMax == 0);
+
+                            // 只要有一个不限（为0）就通过
+                            if (welderThick.Count() > 0)
+                            {
+                                isok = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        isok = true;
+                    }
+                }
+            }
+
+            return isok;
+        }
+        /// <summary>
+        /// 两种焊接方法资质判断
+        /// </summary>
+        /// <param name="floorWelderQualifys"></param>
+        /// <param name="cellWelderQualifys"></param>
+        /// <param name="wmeCode1"></param>
+        /// <param name="wmeCode2"></param>
+        /// <param name="jointAttribute"></param>
+        /// <param name="weldType"></param>
+        /// <param name="ste"></param>
+        /// <param name="dia"></param>
+        /// <param name="sch"></param>
+        /// <returns></returns>
+        public static bool TwoWmeIsOK(List<Model.Welder_WelderQualify> welderQualifys, string wmeCode1, string wmeCode2, string jointAttribute, string weldType, string ste, decimal? dia, decimal? sch)
+        {
+            bool isok = false;
+
+            decimal? fThicknessMax = 0;
+            decimal? cThicknessMax = 0;
+
+            var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(ste);
+            var floorQ = from x in welderQualifys
+                         where wmeCode1.Contains(x.WeldingMethod)
+                         && (mat == null || x.MaterialType.Contains(mat.MetalType ?? ""))
+                         && x.WeldType.Contains(weldType)
+                         // && (dia == null || x.SizesMin<=dia)
+                         select x;
+            var cellQ = from x in welderQualifys
+                        where wmeCode2.Contains(x.WeldingMethod)
+                         && (mat == null || x.MaterialType.Contains(mat.MetalType ?? ""))
+                         && x.WeldType.Contains(weldType)
+                        // && (dia == null || x.SizesMin <= dia)
+                        select x;
+            if (floorQ.Count() > 0 && cellQ.Count() > 0)
+            {
+                if (jointAttribute == "固定口")
+                {
+                    floorQ = floorQ.Where(x => x.IsCanWeldG == true);
+                    cellQ = cellQ.Where(x => x.IsCanWeldG == true);
+                }
+                if (floorQ.Count() > 0 && cellQ.Count() > 0)
+                {
+                    if (weldType == "1") // 1-对接焊缝 2-表示角焊缝，当为角焊缝时，管径和壁厚不限制
+                    {
+                        var floorDiaQ = floorQ.Where(x => x.SizesMin <= dia || x.SizesMax == 0);
+                        var cellDiaQ = cellQ.Where(x => x.SizesMin <= dia || x.SizesMax == 0);
+
+                        if (floorDiaQ.Count() > 0 && cellDiaQ.Count() > 0)
+                        {
+                            var fThick = floorDiaQ.Where(x => x.ThicknessMax == 0);
+                            var cThick = cellDiaQ.Where(x => x.ThicknessMax == 0);
+
+                            // 只要有一个不限（为0）就通过
+                            if (fThick.Count() > 0 || cThick.Count() > 0)
+                            {
+                                isok = true;
+                            }
+
+                            else
+                            {
+                                fThicknessMax = floorQ.Max(x => x.ThicknessMax);
+                                cThicknessMax = cellQ.Max(x => x.ThicknessMax);
+
+                                if ((fThicknessMax + cThicknessMax) >= sch)
+                                {
+                                    isok = true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        isok = true;
+                    }
+                }
+            }
+
+            return isok;
+        }
         #endregion
+        #endregion
+
+
 
         #region 根据焊口ID获取焊口信息
         /// <summary>

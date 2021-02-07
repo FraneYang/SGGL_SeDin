@@ -19,8 +19,7 @@ namespace FineUIPro.Web.HSSE.Law
             {
                 Funs.DropDownPageSize(this.ddlPageSize);
                 this.GetButtonPower();//设置权限
-                btnNew.OnClientClick = Window1.GetShowReference("HSSEStandardListSave.aspx") + "return false;";             
-                btnSelectColumns.OnClientClick = Window5.GetShowReference("HSSEStandardListSelectCloumn.aspx");
+                btnNew.OnClientClick = Window1.GetShowReference("HSSEStandardListSave.aspx") + "return false;";                             
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
@@ -39,13 +38,20 @@ namespace FineUIPro.Web.HSSE.Law
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT hsl.StandardId,hsl.StandardGrade,hsl.StandardNo,hsl.StandardName,hsl.TypeId,hslt.TypeCode,hslt.TypeName,hsl.AttachUrl,hsl.IsSelected1,hsl.IsSelected2,hsl.IsSelected3
-                                            ,hsl.IsSelected4,hsl.IsSelected5,hsl.IsSelected6,hsl.IsSelected7,hsl.IsSelected8,hsl.IsSelected9,hsl.IsSelected10,hsl.IsSelected11,hsl.IsSelected12,hsl.IsSelected13
-                                            ,hsl.IsSelected14,hsl.IsSelected15,hsl.IsSelected16,hsl.IsSelected17,hsl.IsSelected18,hsl.IsSelected19,hsl.IsSelected20,hsl.IsSelected21,hsl.IsSelected22,hsl.IsSelected23
-                                            ,hsl.IsSelected24,hsl.IsSelected25,hsl.IsSelected90,hsl.CompileMan,hsl.CompileDate,hsl.IsPass,(CASE WHEN IsBuild = 1 THEN '集团' ELSE '' END ) AS IsBuildName
-                                            ,hsl.UnitId,hsl.UpState,hsl.IsBuild,Substring(hsl.AttachUrl,charindex('~',hsl.AttachUrl)+1,LEN(hsl.AttachUrl)) as  AttachUrlName
-                                            FROM Law_HSSEStandardsList as hsl
-                                            LEFT JOIN Base_HSSEStandardListType AS hslt ON hslt.TypeId = hsl.TypeId WHERE 1=1";
+            string strSql = @"SELECT hsl.StandardId,sysConstStates.ConstText AS ReleaseStatesName 
+                            ,hsl.StandardName,hsl.StandardNo,hsl.TypeId,hslt.TypeCode,hslt.TypeName
+                            ,hsl.ReleaseUnit,hsl.ApprovalDate,hsl.EffectiveDate,hsl.AbolitionDate,hsl.ReplaceInfo,Description
+                            ,hsl.CompileMan,hsl.CompileDate,hsl.IsPass,(CASE WHEN IsBuild = 1 THEN '集团' ELSE '' END ) AS IsBuildName
+                            ,hsl.UnitId,hsl.UpState,hsl.IsBuild
+                            ,IndexesNames = STUFF((SELECT ',' + ConstText FROM Sys_Const as c
+				                                where c.GroupId='HSSE_Indexes' AND PATINDEX('%,' + RTRIM(C.ConstValue) + ',%',',' + hsl.IndexesIds + ',')>0
+					                            ORDER BY PATINDEX('%,' + RTRIM(hsl.IndexesIds) + ',%',',' + hsl.IndexesIds + ',')
+					                            FOR XML PATH('')), 1, 1,'')
+                            FROM Law_HSSEStandardsList as hsl
+                            LEFT JOIN Base_HSSEStandardListType AS hslt ON hslt.TypeId = hsl.TypeId 
+                            LEFT JOIN Sys_Const AS sysConstStates ON sysConstStates.GroupId='HSSE_ReleaseStates' 
+	                            AND hsl.ReleaseStates=sysConstStates.ConstValue
+                            WHERE 1=1";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtStandardNo.Text.Trim()))
             {
@@ -178,115 +184,7 @@ namespace FineUIPro.Web.HSSE.Law
         }
 
         #endregion
-
-        #region 导出
-        /// <summary>
-        /// 关闭导出窗口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Window5_Close(object sender, WindowCloseEventArgs e)
-        {
-            Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
-            Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.Write(GetGridTableHtml(Grid1, e.CloseArgument.Split('#')));
-            Response.End();
-        }
-
-        /// <summary>
-        /// 导出
-        /// </summary>
-        /// <param name="grid"></param>
-        /// <param name="columns"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid, string[] columns)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            List<string> columnHeaderTexts = new List<string>(columns);
-            List<int> columnIndexs = new List<int>();
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
-            {
-                if (columnHeaderTexts.Contains(column.HeaderText))
-                {
-                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-                    columnIndexs.Add(column.ColumnIndex);
-                }
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-                sb.Append("<tr>");
-                int columnIndex = 0;
-                foreach (object value in row.Values)
-                {
-                    if (columnIndexs.Contains(columnIndex))
-                    {
-                        string html = value.ToString();
-                        if (html.StartsWith(Grid.TEMPLATE_PLACEHOLDER_PREFIX))
-                        {
-                            // 模板列                            
-                            string templateID = html.Substring(Grid.TEMPLATE_PLACEHOLDER_PREFIX.Length);
-                            Control templateCtrl = row.FindControl(templateID);
-                            html = GetRenderedHtmlSource(templateCtrl);
-                        }
-                        //else
-                        //{
-                        //    // 处理CheckBox             
-                        //    if (html.Contains("f-grid-static-checkbox"))
-                        //    {
-                        //        if (!html.Contains("f-checked"))
-                        //        {
-                        //            html = "×";
-                        //        }
-                        //        else
-                        //        {
-                        //            html = "√";
-                        //        }
-                        //    }
-                        //    // 处理图片                           
-                        //    if (html.Contains("<img"))
-                        //    {
-                        //        string prefix = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, ""); 
-                        //        html = html.Replace("src=\"", "src=\"" + prefix);
-                        //    }
-                        //}
-                        sb.AppendFormat("<td>{0}</td>", html);
-                    }
-                    columnIndex++;
-                }
-                sb.Append("</tr>");
-            }
-            sb.Append("</table>");
-            return sb.ToString();
-        }
-
-        /// <summary>        
-        /// 获取控件渲染后的HTML源代码        
-        /// </summary>        
-        /// <param name="ctrl"></param>        
-        /// <returns></returns>        
-        private string GetRenderedHtmlSource(Control ctrl)
-        {
-            if (ctrl != null)
-            {
-                using (StringWriter sw = new StringWriter())
-                {
-                    using (HtmlTextWriter htw = new HtmlTextWriter(sw))
-                    {
-                        ctrl.RenderControl(htw);
-                        return sw.ToString();
-                    }
-                }
-            }
-            return String.Empty;
-        }
-        #endregion        
-
+        
         #region 文本框查询事件
         /// <summary>
         /// 查询
@@ -324,9 +222,28 @@ namespace FineUIPro.Web.HSSE.Law
                 }
                 if (buttonList.Contains(BLL.Const.BtnOut))
                 {
-                    this.btnSelectColumns.Hidden = false;
+                    this.btnOut.Hidden = false;
                 }
             }
+        }
+        #endregion
+
+        #region 导出按钮
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("标准规范" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = Encoding.UTF8;
+            this.Grid1.PageSize = this.Grid1.RecordCount;
+            this.BindGrid();
+            Response.Write(GetGridTableHtml(Grid1));
+            Response.End();
         }
         #endregion
     }

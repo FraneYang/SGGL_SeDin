@@ -49,6 +49,18 @@
                     <f:RenderField Width="160px" ColumnID="UnitName" DataField="UnitName"
                         FieldType="String" HeaderText="编制单位" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField> 
+                    <f:TemplateField ColumnID="State" Width="100px" HeaderText="审批状态" HeaderTextAlign="Center" TextAlign="Center"
+                            EnableLock="true" Locked="False">
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Text='<%# ConvertState(Eval("State")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField ColumnID="AuditMan" Width="80px" HeaderText="办理人" HeaderTextAlign="Center" TextAlign="Center"
+                            EnableLock="true" Locked="False">
+                            <ItemTemplate>
+                                <asp:Label ID="Label41" runat="server" Text='<%# ConvertMan(Eval("ApproveManId")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
                     <f:RenderField Width="120px" ColumnID="MaterialCode1" DataField="MaterialCode1" FieldType="String"
                         HeaderText="材质1" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -147,6 +159,9 @@
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
             runat="server" Text="编辑">
+        </f:MenuButton>
+        <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
+            runat="server" Text="查看">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
             ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">

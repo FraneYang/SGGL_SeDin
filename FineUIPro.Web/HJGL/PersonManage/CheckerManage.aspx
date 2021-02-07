@@ -65,10 +65,11 @@
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗"
+                                        <f:Label ID="txtCertificateCode" runat="server" Label="证书编号" LabelWidth="120px">
+                                        </f:Label>
+                                        <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗" Enabled="false"
                                             LabelWidth="120px" Readonly="true">
                                         </f:CheckBox>
-                                        <f:Label runat="server"></f:Label>
                                         <f:Label runat="server"></f:Label>
                                     </Items>
                                 </f:FormRow>

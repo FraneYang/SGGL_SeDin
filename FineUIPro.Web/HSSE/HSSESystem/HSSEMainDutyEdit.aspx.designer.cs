@@ -94,6 +94,24 @@ namespace FineUIPro.Web.HSSE.HSSESystem {
         protected global::FineUIPro.Toolbar Toolbar1;
         
         /// <summary>
+        /// lbTemp 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbTemp;
+        
+        /// <summary>
+        /// btnAttachUrl 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnAttachUrl;
+        
+        /// <summary>
         /// btnSave 控件。
         /// </summary>
         /// <remarks>
@@ -110,5 +128,14 @@ namespace FineUIPro.Web.HSSE.HSSESystem {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnClose;
+        
+        /// <summary>
+        /// WindowAtt 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window WindowAtt;
     }
 }

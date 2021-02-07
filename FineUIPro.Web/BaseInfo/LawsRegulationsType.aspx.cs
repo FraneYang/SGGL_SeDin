@@ -156,10 +156,10 @@ namespace FineUIPro.Web.BaseInfo
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            //if (Funs.DB.Law_LawRegulationList.FirstOrDefault(x => x.LawsRegulationsTypeId == id) != null)
-            //{
-            //    content = "该法律法规类型已在【安全法律法规】中使用，不能删除！";
-            //}
+            if (Funs.DB.Law_LawRegulationList.FirstOrDefault(x => x.LawsRegulationsTypeId == id) != null)
+            {
+                content = "该法律法规类型已在【安全法律法规】中使用，不能删除！";
+            }
             if (string.IsNullOrEmpty(content))
             {
                 return true;

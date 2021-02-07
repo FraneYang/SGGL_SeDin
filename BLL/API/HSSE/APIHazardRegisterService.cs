@@ -53,6 +53,7 @@ namespace BLL
                 Model.HSSE_Hazard_HazardRegister newHazardRegister = new Model.HSSE_Hazard_HazardRegister
                 {
                     HazardRegisterId = hazardRegister.HazardRegisterId,
+                    HazardCode = hazardRegister.HazardCode,
                     RegisterDef = hazardRegister.RegisterDef,
                     Rectification = hazardRegister.Rectification,
                     Place = hazardRegister.Place,
@@ -70,25 +71,15 @@ namespace BLL
                     ConfirmMan = hazardRegister.ConfirmMan,
                     ConfirmDate = hazardRegister.ConfirmDate,
                     HandleIdea = hazardRegister.HandleIdea,
+                    CutPayment = hazardRegister.CutPayment,
+                    ProblemTypes = hazardRegister.ProblemTypes,
                     RegisterTypesId = hazardRegister.RegisterTypesId,
+                    CheckCycle = hazardRegister.CheckCycle,
                     SafeSupervisionIsOK = hazardRegister.SafeSupervisionIsOK,
                     IsWx = "Y",
                     CCManIds = hazardRegister.CCManIds,
                     Requirements = hazardRegister.Requirements,
-                    HazardValue=hazardRegister.HazardValue,
                 };
-                if (!string.IsNullOrEmpty(hazardRegister.RegisterTypes2Id))
-                {
-                    newHazardRegister.RegisterTypes2Id = hazardRegister.RegisterTypes2Id;
-                }
-                if (!string.IsNullOrEmpty(hazardRegister.RegisterTypes3Id))
-                {
-                    newHazardRegister.RegisterTypes3Id = hazardRegister.RegisterTypes3Id;
-                }
-                if (!string.IsNullOrEmpty(hazardRegister.RegisterTypes4Id))
-                {
-                    newHazardRegister.RegisterTypes4Id = hazardRegister.RegisterTypes4Id;
-                }
                 var isUpdate = db.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == newHazardRegister.HazardRegisterId);
                 if (isUpdate == null)
                 {

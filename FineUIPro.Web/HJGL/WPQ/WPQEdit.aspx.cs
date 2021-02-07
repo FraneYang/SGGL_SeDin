@@ -81,7 +81,7 @@ namespace FineUIPro.Web.HJGL.WPQ
                         {
                             drpGrooveType.SelectedValue = wpq.GrooveType;
                         }
-                       
+
                         this.txtWeldingPosition.Text = wpq.WeldingPosition;
                         if (!string.IsNullOrEmpty(wpq.WeldingMethodId))
                         {
@@ -135,7 +135,8 @@ namespace FineUIPro.Web.HJGL.WPQ
                             drpWeldType.SelectedValue = wpq.JointType;
                         }
                         this.txtProtectiveGas.Text = wpq.ProtectiveGas;
-                        if (wpq.State == "1") {
+                        if (wpq.State == "1")
+                        {
                             rblFlowOperate.Hidden = false;
                             drpPerson.Hidden = true;
                         }
@@ -261,12 +262,12 @@ namespace FineUIPro.Web.HJGL.WPQ
             wpq.MaxCImpactDia = Funs.GetNewDecimal(this.txtMaxCImpactDia.Text.Trim());
             wpq.WPQStandard = this.txtWPQStandard.Text.Trim();
             wpq.JointType = this.drpWeldType.SelectedValue;
-           
+
             wpq.ProtectiveGas = this.txtProtectiveGas.Text.Trim();
-         
+
             string wpqId = Request.Params["WPQId"];
             var GetWpq = BLL.WPQListServiceService.GetWPQById(wpqId);
-            if (GetWpq!=null)
+            if (GetWpq != null)
             {
                 if (type == BLL.Const.BtnSubmit)
                 {
@@ -277,17 +278,22 @@ namespace FineUIPro.Web.HJGL.WPQ
                             Alert.ShowInTop("请选择下一步办理人", MessageBoxIcon.Warning);
                             return "";
                         }
-                        wpq.State = "1";
+                        wpq.State = BLL.Const.State_1;
                         wpq.ApproveManId = this.drpPerson.SelectedValue;
                         SaveFlowOperate(GetWpq.WPQId, "施工单位编制");
                     }
-                    else if (GetWpq.State == BLL.Const.State_1) {
-                        wpq.State = "2";
+                    else if (GetWpq.State == BLL.Const.State_1)
+                    {
+                        wpq.State = BLL.Const.State_2;
                         wpq.ApproveTime = DateTime.Now;
-                        wpq.ApproveManId = GetWpq.ApproveManId;
+                        wpq.ApproveManId = null;
                         SaveFlowOperate(GetWpq.WPQId, "总包用户审核");
                     }
-                    
+                }
+                else
+                {
+                    wpq.State = GetWpq.State;
+                    wpq.ApproveManId = GetWpq.ApproveManId;
                 }
                 wpq.WPQId = wpqId;
                 BLL.WPQListServiceService.UpdateWPQ(wpq);
@@ -297,7 +303,6 @@ namespace FineUIPro.Web.HJGL.WPQ
             {
                 string newId = SQLHelper.GetNewID(typeof(Model.WPQ_WPQList));
                 wpq.WPQId = newId;
-                BLL.WPQListServiceService.AddWPQ(wpq);
                 if (type == BLL.Const.BtnSubmit)
                 {
                     if (this.drpPerson.SelectedValue == BLL.Const._Null)
@@ -305,12 +310,19 @@ namespace FineUIPro.Web.HJGL.WPQ
                         Alert.ShowInTop("请选择下一步办理人", MessageBoxIcon.Warning);
                         return "";
                     }
-                    else {
+                    else
+                    {
                         wpq.ApproveManId = drpPerson.SelectedValue;
-                        wpq.State = "1";
+                        wpq.State = BLL.Const.State_1;
                         SaveFlowOperate(wpq.WPQId, "施工单位编制");
                     }
                 }
+                else
+                {
+                    wpq.ApproveManId = this.CurrUser.UserId;
+                    wpq.State = BLL.Const.State_0;
+                }
+                BLL.WPQListServiceService.AddWPQ(wpq);
                 //BLL.Sys_LogService.AddLog(Const.System_2, this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加焊接工艺评定台账");
             }
             return wpq.WPQId;
@@ -324,7 +336,7 @@ namespace FineUIPro.Web.HJGL.WPQ
         /// <param name="isClosed">是否关闭这步流程</param>
         /// <param name="content">单据内容</param>
         /// <param name="url">路径</param>
-        public void SaveFlowOperate(string WpqId,string OperateName)
+        public void SaveFlowOperate(string WpqId, string OperateName)
         {
             Model.WPQ_WPQListFlowOperate newFlowOperate = new Model.WPQ_WPQListFlowOperate();
             newFlowOperate.FlowOperateId = SQLHelper.GetNewID(typeof(Model.WPQ_WPQListFlowOperate));
@@ -426,6 +438,6 @@ namespace FineUIPro.Web.HJGL.WPQ
 
         }
 
-        
+
     }
 }

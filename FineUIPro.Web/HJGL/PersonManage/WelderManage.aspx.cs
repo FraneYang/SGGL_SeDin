@@ -49,16 +49,16 @@ namespace FineUIPro.Web.HJGL.PersonManage
                     {
                         this.drpUnitId.Text = UnitService.GetUnitNameByUnitId(welder.UnitId);
                     }
-                    this.rblSex.Text = welder.Sex=="1"?"男":"女";
+                    this.rblSex.Text = welder.Sex == "1" ? "男" : "女";
                     if (welder.Birthday.HasValue)
                     {
                         this.txtBirthday.Text = string.Format("{0:yyyy-MM-dd}", welder.Birthday);
                     }
                     this.txtCertificateCode.Text = welder.CertificateCode;
-                    if (string.IsNullOrEmpty(welder.CertificateCode))
-                    {
-                        this.txtCertificateCode.Text = welder.IdentityCard;
-                    }
+                    //if (string.IsNullOrEmpty(welder.CertificateCode))
+                    //{
+                    //    this.txtCertificateCode.Text = welder.IdentityCard;
+                    //}
                     if (welder.CertificateLimitTime.HasValue)
                     {
                         this.txtCertificateLimitTime.Text = string.Format("{0:yyyy-MM-dd}", welder.CertificateLimitTime);
@@ -75,7 +75,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 }
             }
         }
-        
+
         #endregion
         #region 绑定数据-资质信息
         /// <summary>
@@ -86,7 +86,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
             {
                 string strSql = @"SELECT WelderQualifyId, WelderId, QualificationItem, LimitDate, CheckDate,
-									 Thickness,Sizes,Thickness2,Sizes2,
+									 Thickness,Sizes,Thickness2,Sizes2,IsAudit,
 									 Remark,WelderCode,PersonName,WeldingMethod,
                                      WeldingLocation,MaterialType,IsPrintShow,WeldType,IsCanWeldG
                               FROM View_Welder_WelderQualify
@@ -109,9 +109,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 Grid1.DataBind();
                 for (int i = 0; i < this.Grid1.Rows.Count; i++)
                 {
-                    if (!string.IsNullOrEmpty(this.Grid1.Rows[i].Values[2].ToString()))
+                    if (!string.IsNullOrEmpty(this.Grid1.Rows[i].Values[3].ToString()))
                     {
-                        DateTime limitDate = Convert.ToDateTime(this.Grid1.Rows[i].Values[2].ToString());
+                        DateTime limitDate = Convert.ToDateTime(this.Grid1.Rows[i].Values[3].ToString());
                         if (DateTime.Now > limitDate)
                         {
                             this.Grid1.Rows[i].RowCssClass = "color3";
@@ -181,7 +181,14 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 {
                     TreeNode tn = new TreeNode();
                     tn.NodeID = sitem.PersonId;
-                    tn.Text = sitem.PersonName;
+                    if (sitem.IsUsed != true)
+                    {
+                        tn.Text = "<font color='#EE0000'>" + sitem.PersonName + "</font>";
+                    }
+                    else
+                    {
+                        tn.Text = sitem.PersonName;
+                    }
                     tn.EnableClickEvent = true;
                     rootNode.Nodes.Add(tn);
                 }
@@ -232,8 +239,8 @@ namespace FineUIPro.Web.HJGL.PersonManage
             StringBuilder sb = new StringBuilder();
             grid.PageSize = 10000;
             BindGrid();
-            this.Grid1.Columns[9].Hidden = true;
             this.Grid1.Columns[10].Hidden = true;
+            this.Grid1.Columns[11].Hidden = true;
             sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
             sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
             sb.Append("<tr>");
@@ -244,14 +251,14 @@ namespace FineUIPro.Web.HJGL.PersonManage
             sb.Append("</tr>");
             foreach (GridRow row in grid.Rows)
             {
-                
+
                 sb.Append("<tr>");
                 foreach (GridColumn column in grid.Columns)
                 {
                     string html = row.Values[column.ColumnIndex].ToString();
-                    
+
                     sb.AppendFormat("<td>{0}</td>", html);
-                    
+
                 }
                 sb.Append("</tr>");
             }
@@ -402,6 +409,29 @@ namespace FineUIPro.Web.HJGL.PersonManage
         }
 
         /// <summary>
+        /// 审核事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuAudit_Click(object sender, EventArgs e)
+        {
+            Model.Project_ProjectUnit projectUnit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
+            string unitType = string.Empty;
+            if (projectUnit != null)
+            {
+                unitType = projectUnit.UnitType;
+            }
+            if (this.CurrUser.UserId == BLL.Const.sysglyId || this.CurrUser.UserId == BLL.Const.hfnbdId || unitType == BLL.Const.ProjectUnitType_1)
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WelderItemEdit.aspx?WelderQualifyId={0}&IsAudit=1", Grid1.SelectedRowID, "审核 - ")));
+            }
+            else
+            {
+                Alert.ShowInTop("只有总包用户可以进行审核操作！", MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
         /// 右键编辑事件
         /// </summary>
         /// <param name="sender"></param>
@@ -483,7 +513,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 return;
             }
         }
-        
+
         #endregion
 
         #region 查询

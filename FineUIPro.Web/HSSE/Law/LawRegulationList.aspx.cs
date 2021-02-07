@@ -24,10 +24,7 @@
                 //权限设置
                 this.GetButtonPower();
                 Funs.DropDownPageSize(this.ddlPageSize);
-
-                btnNew.OnClientClick = Window1.GetShowReference("LawRegulationListEdit.aspx") + "return false;";
-                
-                btnSelectColumns.OnClientClick = Window5.GetShowReference("LawRegulationListSelectCloumn.aspx");
+                btnNew.OnClientClick = Window1.GetShowReference("LawRegulationListEdit.aspx") + "return false;";                
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 this.BindGrid();
@@ -46,16 +43,36 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Law.LawRegulationId,Law.LawRegulationCode,Law.LawRegulationName,Law.ApprovalDate,Law.EffectiveDate,Law.Description
-                                    ,(CASE WHEN LEN(Law.Description) > 45 THEN LEFT(Law.Description,45) + '...' ELSE Law.Description END) AS ShortDescription 
-                                    ,Law.AttachUrl,Law.LawsRegulationsTypeId,Law.CompileMan,CompileUser.UserName AS CompileManName,Law.CompileDate
-                                    ,Law.IsBuild,LawsRegulationsType.Code AS  LawsRegulationsTypeCode
-                                    ,LawsRegulationsType.Name AS LawsRegulationsTypeName,(CASE WHEN IsPass=1 THEN '' ELSE '' END) AS IsPassName, Substring(Law.AttachUrl,charindex('~',Law.AttachUrl)+1,LEN(Law.AttachUrl)) as  AttachUrlName
-                                    ,Law.UnitId,(CASE WHEN IsBuild = 1 THEN '集团' ELSE '' END ) AS IsBuildName
-                                    FROM dbo.Law_LawRegulationList AS Law
-                                    LEFT JOIN dbo.Base_LawsRegulationsType AS  LawsRegulationsType ON LawsRegulationsType.Id=Law.LawsRegulationsTypeId
-                                    LEFT JOIN Sys_User AS CompileUser ON CompileUser.UserId=Law.CompileMan
-                                    WHERE 1=1";
+            string strSql = @"SELECT Law.LawRegulationId
+                                                ,sysConstStates.ConstText AS ReleaseStatesName 
+                                                ,Law.LawRegulationName
+                                                ,Law.LawRegulationCode
+                                                ,Law.LawsRegulationsTypeId
+                                                ,LawType.Code AS  LawsRegulationsTypeCode
+                                                ,LawType.Name AS LawsRegulationsTypeName
+                                                ,Law.ReleaseUnit
+                                                ,Law.ApprovalDate
+                                                ,Law.EffectiveDate
+                                                ,Law.AbolitionDate
+                                                ,Law.ReplaceInfo
+                                                ,(CASE WHEN LEN(Law.ReplaceInfo) > 45 THEN LEFT(Law.ReplaceInfo,45) + '...' ELSE Law.ReplaceInfo END) AS ShortReplaceInfo
+                                                ,Law.Description
+                                                ,(CASE WHEN LEN(Law.Description) > 45 THEN LEFT(Law.Description,45) + '...' ELSE Law.Description END) AS ShortDescription 
+                                                ,Law.CompileMan
+                                                ,Law.CompileDate
+                                                ,Law.IsBuild
+                                                ,(CASE WHEN IsPass=1 THEN '' ELSE '' END) AS IsPassName
+                                                , Substring(Law.AttachUrl,charindex('~',Law.AttachUrl)+1,LEN(Law.AttachUrl)) as  AttachUrlName
+                                                ,Law.UnitId,(CASE WHEN IsBuild = 1 THEN '集团' ELSE '' END ) AS IsBuildName
+                                                ,IndexesNames = STUFF((SELECT ',' + ConstText FROM Sys_Const as c
+				                                                    where c.GroupId='HSSE_Indexes' AND PATINDEX('%,' + RTRIM(C.ConstValue) + ',%',',' + Law.IndexesIds + ',')>0
+					                                                ORDER BY PATINDEX('%,' + RTRIM(Law.IndexesIds) + ',%',',' + Law.IndexesIds + ',')
+					                                                FOR XML PATH('')), 1, 1,'')
+                                                FROM dbo.Law_LawRegulationList AS Law
+                                                LEFT JOIN dbo.Base_LawsRegulationsType AS  LawType ON LawType.Id=Law.LawsRegulationsTypeId                                                
+                                                LEFT JOIN Sys_Const AS sysConstStates ON sysConstStates.GroupId='HSSE_ReleaseStates' 
+	                                                AND Law.ReleaseStates=sysConstStates.ConstValue
+                                                WHERE 1=1";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtLawRegulationName.Text.Trim()))
             {
@@ -208,115 +225,7 @@
             BindGrid();
         }
         #endregion
-
-        #region 导出
-        /// <summary>
-        /// 关闭导出窗口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Window5_Close(object sender, WindowCloseEventArgs e)
-        {           
-            Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
-            Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.Write(GetGridTableHtml(Grid1, e.CloseArgument.Split('#')));
-            Response.End();
-        }
-
-        /// <summary>
-        /// 导出
-        /// </summary>
-        /// <param name="grid"></param>
-        /// <param name="columns"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid, string[] columns)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            List<string> columnHeaderTexts = new List<string>(columns);
-            List<int> columnIndexs = new List<int>();
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
-            {
-                if (columnHeaderTexts.Contains(column.HeaderText))
-                {
-                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-                    columnIndexs.Add(column.ColumnIndex);
-                }
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-                sb.Append("<tr>");
-                int columnIndex = 0;
-                foreach (object value in row.Values)
-                {
-                    if (columnIndexs.Contains(columnIndex))
-                    {
-                        string html = value.ToString();
-                        if (html.StartsWith(Grid.TEMPLATE_PLACEHOLDER_PREFIX))
-                        {
-                            // 模板列                            
-                            string templateID = html.Substring(Grid.TEMPLATE_PLACEHOLDER_PREFIX.Length);
-                            Control templateCtrl = row.FindControl(templateID);
-                            html = GetRenderedHtmlSource(templateCtrl);
-                        }
-                        //else
-                        //{
-                        //    // 处理CheckBox             
-                        //    if (html.Contains("f-grid-static-checkbox"))
-                        //    {
-                        //        if (!html.Contains("f-checked"))
-                        //        {
-                        //            html = "×";
-                        //        }
-                        //        else
-                        //        {
-                        //            html = "√";
-                        //        }
-                        //    }
-                        //    // 处理图片                           
-                        //    if (html.Contains("<img"))
-                        //    {
-                        //        string prefix = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, ""); 
-                        //        html = html.Replace("src=\"", "src=\"" + prefix);
-                        //    }
-                        //}
-                        sb.AppendFormat("<td>{0}</td>", html);
-                    }
-                    columnIndex++;
-                }
-                sb.Append("</tr>");
-            }
-            sb.Append("</table>");
-            return sb.ToString();
-        }
-
-        /// <summary>        
-        /// 获取控件渲染后的HTML源代码        
-        /// </summary>        
-        /// <param name="ctrl"></param>        
-        /// <returns></returns>        
-        private string GetRenderedHtmlSource(Control ctrl)
-        {
-            if (ctrl != null)
-            {
-                using (StringWriter sw = new StringWriter())
-                {
-                    using (HtmlTextWriter htw = new HtmlTextWriter(sw))
-                    {
-                        ctrl.RenderControl(htw);
-                        return sw.ToString();
-                    }
-                }
-            }
-            return String.Empty;
-        }
-        #endregion
-
+        
         #region 获取权限按钮
         /// <summary>
         /// 获取按钮权限
@@ -343,7 +252,7 @@
                 
                 if (buttonList.Contains(BLL.Const.BtnOut))
                 {
-                    this.btnSelectColumns.Hidden = false;
+                    this.btnOut.Hidden = false;
                 }
             }
         }
@@ -358,6 +267,25 @@
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+        }
+        #endregion
+
+        #region 导出按钮
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("法律法规" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = Encoding.UTF8;
+            this.Grid1.PageSize = this.Grid1.RecordCount;
+            this.BindGrid();
+            Response.Write(GetGridTableHtml(Grid1));
+            Response.End();
         }
         #endregion
     }

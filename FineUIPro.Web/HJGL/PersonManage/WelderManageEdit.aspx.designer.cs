@@ -103,13 +103,13 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         protected global::FineUIPro.DatePicker txtBirthday;
         
         /// <summary>
-        /// cbIsOnDuty 控件。
+        /// cbIsUsed 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.CheckBox cbIsOnDuty;
+        protected global::FineUIPro.CheckBox cbIsUsed;
         
         /// <summary>
         /// Panel4 控件。
@@ -146,15 +146,6 @@ namespace FineUIPro.Web.HJGL.PersonManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtIdentityCard;
-        
-        /// <summary>
-        /// txtCertificateLimitTime 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtCertificateLimitTime;
         
         /// <summary>
         /// txtWelderLevel 控件。

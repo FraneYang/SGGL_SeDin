@@ -194,6 +194,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             if (pds != null && ir > 0)
             {
+                var getPipeline = from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId select x;
                 var getMedium = from x in Funs.DB.Base_Medium where x.ProjectId == this.CurrUser.LoginProjectId select x;//介质
                 var getPipeLineClass = from x in Funs.DB.Base_PipingClass where x.ProjectId == this.CurrUser.LoginProjectId select x;//管道等级
                 var getDetectionRate = from x in Funs.DB.Base_DetectionRate select x;//探伤比例
@@ -220,10 +221,21 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     }
                     else
                     {
-                        if (BLL.PipelineService.IsExistPipelineCode(col0, Request.Params["UnitWorkId"], null))
+                        var oldPipeline = getPipeline.FirstOrDefault(x => x.PipelineCode == col0);
+                        if (oldPipeline != null)
                         {
-                            //Alert.ShowInTop("该管线号已存在！", MessageBoxIcon.Warning);
+                            string oldUnitWorkName = string.Empty;
+                            Model.WBS_UnitWork oldUnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(oldPipeline.UnitWorkId);
+                            if (oldUnitWork != null)
+                            {
+                                oldUnitWorkName = oldUnitWork.UnitWorkName;
+                            }
+                            result += "第" + (i + 2).ToString() + "行," + "管线号在" + oldUnitWorkName + "中已存在！" + "|";
                         }
+                        //if (BLL.PipelineService.IsExistPipelineCode(col0, Request.Params["UnitWorkId"], null))
+                        //{
+                        //Alert.ShowInTop("该管线号已存在！", MessageBoxIcon.Warning);
+                        //}
                         else
                         {
                             pipeline.PipelineCode = col0;

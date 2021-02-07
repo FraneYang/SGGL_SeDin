@@ -147,6 +147,16 @@ namespace FineUIPro.Web.HJGL.WPQ
         }
 
         /// <summary>
+        /// 查看按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuView_Click(object sender, EventArgs e)
+        {
+            this.EditData();
+        }
+
+        /// <summary>
         /// 编辑按钮
         /// </summary>
         /// <param name="sender"></param>
@@ -167,18 +177,33 @@ namespace FineUIPro.Web.HJGL.WPQ
                 return;
             }
             string id = Grid1.SelectedRowID;
-            string url = "WPQView.aspx?WPQId={0}";
+            string url = string.Empty;
+            //string url = "WPQView.aspx?WPQId={0}";
             var wpq = BLL.WPQListServiceService.GetWPQById(id);
-            if (wpq!=null)
+            if (wpq != null)
             {
-                if (wpq.State == BLL.Const.State_0 || string.IsNullOrEmpty(wpq.State))
+                if (wpq.State == BLL.Const.State_2)
+                {
+                    Alert.ShowInTop("已审批完成,请右键查看！", MessageBoxIcon.Warning);
+                    return;
+                }
+                else if (wpq.State == BLL.Const.State_1 || wpq.State == BLL.Const.State_0)
+                {
+                    if (wpq.ApproveManId == this.CurrUser.UserId || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId)
+                    {
+                        url = "WPQEdit.aspx?WPQId={0}";
+                    }
+                    else
+                    {
+                        Alert.ShowInTop("您不是当前办理人，无法编辑,请右键查看！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                else
                 {
                     url = "WPQEdit.aspx?WPQId={0}";
                 }
-                else if (wpq.State == BLL.Const.State_1 && (wpq.ApproveManId == this.CurrUser.UserId || this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId)) {
-                    url = "WPQEdit.aspx?WPQId={0}";
-                }
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, id, "操作 - ")));;
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, id, "操作 - "))); ;
             }
         }
         #endregion
@@ -322,5 +347,51 @@ namespace FineUIPro.Web.HJGL.WPQ
             return sb.ToString();
         }
         #endregion
+
+        /// <summary>
+        /// 把状态转换代号为文字形式
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        protected string ConvertState(object state)
+        {
+            if (state != null)
+            {
+                if (state.ToString() == BLL.Const.State_0)
+                {
+                    return "待提交";
+                }
+                else if (state.ToString() == BLL.Const.State_1)
+                {
+                    return "待审核";
+                }
+                else if (state.ToString() == BLL.Const.State_2)
+                {
+                    return "审批完成";
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            return "";
+        }
+        //<summary>
+        //获取办理人姓名
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        protected string ConvertMan(object ApproveManId)
+        {
+            if (ApproveManId != null)
+            {
+                var user = BLL.UserService.GetUserByUserId(ApproveManId.ToString());
+                if (user != null)
+                {
+                    return user.UserName;
+                }
+            }
+            return "";
+        }
     }
 }

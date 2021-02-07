@@ -235,17 +235,49 @@ namespace FineUIPro.Web.CQMS.Check
         private void BindNDTCheck()
         {
             List<Model.NDTCheckItem> nDTCheckItems = new List<Model.NDTCheckItem>();
+            var totalNDEItems = from x in Funs.DB.HJGL_Batch_NDEItem
+                                join y in Funs.DB.HJGL_Batch_NDE
+                                on x.NDEID equals y.NDEID
+                                where y.NDEDate <= endTime && y.ProjectId == CurrUser.LoginProjectId
+                                select new
+                                {
+                                    NDEItemID = x.NDEItemID,
+                                    UnitId = y.UnitId,
+                                    TotalFilm = x.TotalFilm,
+                                    PassFilm = x.PassFilm,
+                                };
+            var monthNDEItems = from x in Funs.DB.HJGL_Batch_NDEItem
+                                join y in Funs.DB.HJGL_Batch_NDE
+                                on x.NDEID equals y.NDEID
+                                where y.NDEDate >= startTime && y.NDEDate <= endTime && y.ProjectId == CurrUser.LoginProjectId
+                                select new
+                                {
+                                    NDEItemID = x.NDEItemID,
+                                    UnitId = y.UnitId,
+                                    TotalFilm = x.TotalFilm,
+                                    PassFilm = x.PassFilm,
+                                };
+            var totalRepairRecords = from x in Funs.DB.HJGL_RepairRecord
+                                     where x.ProjectId == this.CurrUser.LoginProjectId
+                                     select x;
             List<Model.Base_Unit> units = UnitService.GetUnitByProjectIdUnitTypeList(CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2);
             foreach (var unit in units)
             {
+                var unitTotalNDEItems = totalNDEItems.Where(x => x.UnitId == unit.UnitId);
+                var unitNDEItems = monthNDEItems.Where(x => x.UnitId == unit.UnitId);
                 Model.NDTCheckItem nDTCheckItem = new Model.NDTCheckItem();
                 nDTCheckItem.UnitName = unit.UnitName;
-                nDTCheckItem.FilmNum = "0";
-                nDTCheckItem.NotOKFileNum = "0";
+                int filmNum = unitNDEItems.Sum(x => x.TotalFilm ?? 0);
+                int totalFilmNum = unitTotalNDEItems.Sum(x => x.TotalFilm ?? 0);
+                nDTCheckItem.FilmNum = filmNum.ToString();
+                int passFilm = unitNDEItems.Sum(x => x.PassFilm ?? 0);
+                int totalPassFilm = unitTotalNDEItems.Sum(x => x.PassFilm ?? 0);
+                nDTCheckItem.NotOKFileNum = (filmNum - passFilm).ToString();
+
                 nDTCheckItem.RepairFileNum = "0";
                 nDTCheckItem.OneOKRate = "0";
-                nDTCheckItem.TotalFilmNum = "0";
-                nDTCheckItem.TotalNotOKFileNum = "0";
+                nDTCheckItem.TotalFilmNum = totalFilmNum.ToString();
+                nDTCheckItem.TotalNotOKFileNum = (totalFilmNum - totalPassFilm).ToString();
                 nDTCheckItem.TotalOneOKRate = "0";
                 nDTCheckItems.Add(nDTCheckItem);
             }

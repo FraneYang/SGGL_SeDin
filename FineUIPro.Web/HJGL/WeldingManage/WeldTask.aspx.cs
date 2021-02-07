@@ -396,7 +396,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 string canWeldingRodName = string.Empty;
                 string canWeldingWireName = string.Empty;
                 var projectWelder = from x in Funs.DB.SitePerson_Person
-                                    where x.ProjectId == jot.ProjectId
+                                    where x.ProjectId == jot.ProjectId && x.IsUsed == true
                                           && x.UnitId == iso.UnitId && x.WorkPostId == Const.WorkPost_Welder
                                           && x.WelderCode != null && x.WelderCode != ""
                                     select x;
@@ -408,7 +408,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                                                                        where x.WelderId == welder.PersonId && x.WeldingMethod != null
                                                                                       && x.MaterialType != null && x.WeldType != null
                                                                                       && x.ThicknessMax != null && x.SizesMin != null
-                                                                                      && x.LimitDate > DateTime.Now
+                                                                                      && x.LimitDate > DateTime.Now && x.IsAudit == true
                                                                        select x).ToList();
                     if (welderQualifys != null)
                     {

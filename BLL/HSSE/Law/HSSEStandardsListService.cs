@@ -72,7 +72,15 @@ namespace BLL
                 IsPass = hSSEStandardsList.IsPass,
                 UnitId = hSSEStandardsList.UnitId,
                 UpState = hSSEStandardsList.UpState,
-                IsBuild = false
+                IsBuild = false,
+                ApprovalDate = hSSEStandardsList.ApprovalDate,
+                EffectiveDate = hSSEStandardsList.EffectiveDate,
+                Description = hSSEStandardsList.Description,
+                ReleaseStates = hSSEStandardsList.ReleaseStates,
+                ReleaseUnit = hSSEStandardsList.ReleaseUnit,
+                AbolitionDate = hSSEStandardsList.AbolitionDate,
+                ReplaceInfo = hSSEStandardsList.ReplaceInfo,
+                IndexesIds = hSSEStandardsList.IndexesIds,
             };
             Funs.DB.Law_HSSEStandardsList.InsertOnSubmit(newHSSEStandardsList);
             Funs.DB.SubmitChanges();
@@ -119,6 +127,15 @@ namespace BLL
                 newHSSEStandardsList.IsSelected25 = hSSEStandardsList.IsSelected25;
                 newHSSEStandardsList.IsSelected90 = hSSEStandardsList.IsSelected90;
                 newHSSEStandardsList.UpState = hSSEStandardsList.UpState;
+
+                newHSSEStandardsList.ApprovalDate = hSSEStandardsList.ApprovalDate;
+                newHSSEStandardsList.EffectiveDate = hSSEStandardsList.EffectiveDate;
+                newHSSEStandardsList.Description = hSSEStandardsList.Description;
+                newHSSEStandardsList.ReleaseStates = hSSEStandardsList.ReleaseStates;
+                newHSSEStandardsList.ReleaseUnit = hSSEStandardsList.ReleaseUnit;
+                newHSSEStandardsList.AbolitionDate = hSSEStandardsList.AbolitionDate;
+                newHSSEStandardsList.ReplaceInfo = hSSEStandardsList.ReplaceInfo;
+                newHSSEStandardsList.IndexesIds = hSSEStandardsList.IndexesIds;
                 Funs.DB.SubmitChanges();
             }
         }
@@ -126,7 +143,7 @@ namespace BLL
         /// <summary>
         /// 修改标准规范 是否采用
         /// </summary>
-        /// <param name="lawRegulationList"></param>
+        /// <param name="hSSEStandardsList"></param>
         public static void UpdateHSSEStandardsListIsPass(Model.Law_HSSEStandardsList standardsList)
         {
             Model.SGGLDB db = Funs.DB;

@@ -37,19 +37,19 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtWeldingMethod" runat="server" Label="焊接方法" LabelWidth="160px"></f:TextBox>
-                        <f:TextBox ID="txtMaterialType" runat="server" Label="型号、牌号、级别" LabelWidth="160px"></f:TextBox>
+                        <f:TextBox ID="txtWeldingMethod" runat="server" Label="焊接方法" LabelWidth="160px" Enabled="false"></f:TextBox>
+                        <f:TextBox ID="txtMaterialType" runat="server" Label="型号、牌号、级别" LabelWidth="160px" Enabled="false"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtWeldingLocation" runat="server" Label="焊接位置" LabelWidth="160px"></f:TextBox>
-                        <f:TextBox ID="txtWeldType" runat="server" Label="可焊焊缝类型" LabelWidth="160px"></f:TextBox>
+                        <f:TextBox ID="txtWeldingLocation" runat="server" Label="焊接位置" LabelWidth="160px" Enabled="false"></f:TextBox>
+                        <f:TextBox ID="txtWeldType" runat="server" Label="可焊焊缝类型" LabelWidth="160px" Enabled="false"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:CheckBox ID="ckbIsCanWeldG" runat="server" Label="是否可焊固定口" LabelWidth="160px"></f:CheckBox>
+                        <f:CheckBox ID="ckbIsCanWeldG" runat="server" Label="是否可焊固定口" LabelWidth="160px" Enabled="false"></f:CheckBox>
                         <f:DropDownList ID="drpWeldingMode" runat="server" Label="机动化程度"
                             LabelAlign="Right">
                         </f:DropDownList>
@@ -64,14 +64,14 @@
                                     <Rows>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtThicknessMin" runat="server" Label="壁厚覆盖范围（最小值）" LabelWidth="200px" Readonly="true"></f:TextBox>
-                                                <f:TextBox ID="txtThicknessMax" runat="server" Label="壁厚覆盖范围（最大值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtThicknessMin" runat="server" Label="壁厚覆盖范围（最小值）" Enabled="false" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtThicknessMax" runat="server" Label="壁厚覆盖范围（最大值）" Enabled="false" LabelWidth="200px" Readonly="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtSizesMin" runat="server" Label="管径覆盖范围（最小值）" LabelWidth="200px" Readonly="true"></f:TextBox>
-                                                <f:TextBox ID="txtSizesMax" runat="server" Label="管径覆盖范围（最大值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtSizesMin" runat="server" Label="管径覆盖范围（最小值）" Enabled="false" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtSizesMax" runat="server" Label="管径覆盖范围（最大值）" Enabled="false" LabelWidth="200px" Readonly="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                     </Rows>
@@ -89,14 +89,14 @@
                                     <Rows>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtThicknessMin2" runat="server" Label="壁厚覆盖范围（最小值）" LabelWidth="200px" Readonly="true"></f:TextBox>
-                                                <f:TextBox ID="txtThicknessMax2" runat="server" Label="壁厚覆盖范围（最大值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtThicknessMin2" runat="server" Label="壁厚覆盖范围（最小值）" Enabled="false" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtThicknessMax2" runat="server" Label="壁厚覆盖范围（最大值）" Enabled="false" LabelWidth="200px" Readonly="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtSizesMin2" runat="server" Label="管径覆盖范围（最小值）" LabelWidth="200px" Readonly="true"></f:TextBox>
-                                                <f:TextBox ID="txtSizesMax2" runat="server" Label="管径覆盖范围（最大值）" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtSizesMin2" runat="server" Label="管径覆盖范围（最小值）" Enabled="false" LabelWidth="200px" Readonly="true"></f:TextBox>
+                                                <f:TextBox ID="txtSizesMax2" runat="server" Label="管径覆盖范围（最大值）" Enabled="false" LabelWidth="200px" Readonly="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                     </Rows>
@@ -122,6 +122,8 @@
                         </f:HiddenField>
                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" ValidateForms="SimpleForm1"
                             OnClick="btnSave_Click">
+                        </f:Button>
+                        <f:Button ID="btnSubmit" OnClick="btnSubmit_Click" Icon="SystemSaveNew" runat="server" ToolTip="审核" ValidateForms="SimpleForm1">
                         </f:Button>
                         <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭"
                             runat="server" Icon="SystemClose">

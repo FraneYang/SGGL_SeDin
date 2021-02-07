@@ -55,7 +55,7 @@
                                     <f:DatePicker ID="txtBirthday" runat="server" Label="出生日期" Enabled="false"
                                         LabelWidth="120px">
                                     </f:DatePicker>
-                                    <f:CheckBox ID="cbIsOnDuty" runat="server" Label="是否在岗" Enabled="false"
+                                    <f:CheckBox ID="cbIsUsed" runat="server" Label="是否在岗" Enabled="false"
                                         LabelWidth="120px">
                                     </f:CheckBox>
                                 </Items>
@@ -73,9 +73,9 @@
                                     <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证号" Enabled="false"
                                         MaxLength="18" LabelWidth="120px" Required="true" ShowRedStar="true">
                                     </f:TextBox>
-                                    <f:DatePicker ID="txtCertificateLimitTime" runat="server" Label="有效期"
+                                    <%--<f:DatePicker ID="txtCertificateLimitTime" runat="server" Label="有效期"
                                         LabelWidth="120px" Required="true" ShowRedStar="true">
-                                    </f:DatePicker>
+                                    </f:DatePicker>--%>
                                     <f:TextBox ID="txtWelderLevel" runat="server" Label="焊工等级"
                                         MaxLength="50" LabelWidth="120px">
                                     </f:TextBox> 

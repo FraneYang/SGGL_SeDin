@@ -35,12 +35,12 @@ namespace FineUIPro.Web.HJGL.PersonManage
                     this.btnDelete.Hidden = false;
                     this.txtCheckerCode.Text = Checker.WelderCode;
                     this.txtCheckerName.Text = Checker.PersonName;
-
+                    this.txtCertificateCode.Text = Checker.CertificateCode;
                     if (!string.IsNullOrEmpty(Checker.UnitId))
                     {
-                        this.drpUnitId.Text =UnitService.GetUnitNameByUnitId(Checker.UnitId);
+                        this.drpUnitId.Text = UnitService.GetUnitNameByUnitId(Checker.UnitId);
                     }
-                    this.txtSex.Text = Checker.Sex=="1"?"男":"女";
+                    this.txtSex.Text = Checker.Sex == "1" ? "男" : "女";
                     if (Checker.Birthday.HasValue)
                     {
                         this.txtBirthday.Text = string.Format("{0:yyyy-MM-dd}", Checker.Birthday);
@@ -57,7 +57,8 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 }
             }
         }
-        private void BindGvItem() {
+        private void BindGvItem()
+        {
             if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
             {
                 string strSql = @"SELECT WelderQualifyId, WelderId, 
@@ -66,21 +67,21 @@ namespace FineUIPro.Web.HJGL.PersonManage
                            LEFT JOIN SitePerson_Person AS Welder ON Welder.PersonId=Welder_WelderQualify.WelderId
                            WHERE WelderId=@WelderId";
 
-            List<SqlParameter> parms = new List<SqlParameter>();
-            parms.Add(new SqlParameter("@WelderId", this.tvControlItem.SelectedNodeID));
-            if (!string.IsNullOrEmpty(this.txtQualificationItem.Text))
-            {
-                strSql += " and QualificationItem LIKE  @QualificationItem";
-                parms.Add(new SqlParameter("@QualificationItem", "%" + this.txtQualificationItem.Text.Trim() + "%"));
-            }
-            SqlParameter[] parameter = parms.ToArray();
-            DataTable dt = SQLHelper.GetDataTableRunText(strSql, parameter);
+                List<SqlParameter> parms = new List<SqlParameter>();
+                parms.Add(new SqlParameter("@WelderId", this.tvControlItem.SelectedNodeID));
+                if (!string.IsNullOrEmpty(this.txtQualificationItem.Text))
+                {
+                    strSql += " and QualificationItem LIKE  @QualificationItem";
+                    parms.Add(new SqlParameter("@QualificationItem", "%" + this.txtQualificationItem.Text.Trim() + "%"));
+                }
+                SqlParameter[] parameter = parms.ToArray();
+                DataTable dt = SQLHelper.GetDataTableRunText(strSql, parameter);
 
-            Grid1.RecordCount = dt.Rows.Count;
-            var table = this.GetPagedDataTable(Grid1, dt);
+                Grid1.RecordCount = dt.Rows.Count;
+                var table = this.GetPagedDataTable(Grid1, dt);
 
-            Grid1.DataSource = table;
-            Grid1.DataBind();
+                Grid1.DataSource = table;
+                Grid1.DataBind();
             }
         }
         #region 加载树
@@ -102,7 +103,14 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 {
                     TreeNode tn = new TreeNode();
                     tn.NodeID = sitem.PersonId;
-                    tn.Text = sitem.PersonName;
+                    if (sitem.IsUsed != true)
+                    {
+                        tn.Text = "<font color='#EE0000'>" + sitem.PersonName + "</font>";
+                    }
+                    else
+                    {
+                        tn.Text = sitem.PersonName;
+                    }
                     tn.EnableClickEvent = true;
                     rootNode.Nodes.Add(tn);
                 }
@@ -125,7 +133,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             this.BindGvItem();
         }
         #endregion
-        
+
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
             BindGrid();
@@ -198,7 +206,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                         var welder = BLL.WelderQualifyService.GetWelderQualifyById(rowID);
                         if (welder != null)
                         {
-                                BLL.WelderQualifyService.DeleteWelderQualifyById(rowID);
+                            BLL.WelderQualifyService.DeleteWelderQualifyById(rowID);
                         }
                     }
 
@@ -301,6 +309,6 @@ namespace FineUIPro.Web.HJGL.PersonManage
 
         #endregion
 
-        
+
     }
 }
