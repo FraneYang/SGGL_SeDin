@@ -257,8 +257,8 @@ namespace FineUIPro.Web.CQMS.Check
                                     TotalFilm = x.TotalFilm,
                                     PassFilm = x.PassFilm,
                                 };
-            var totalRepairRecords = from x in Funs.DB.HJGL_RepairRecord
-                                     where x.ProjectId == this.CurrUser.LoginProjectId
+            var monthRepairRecords = from x in Funs.DB.HJGL_RepairRecord
+                                     where x.RepairDate >= startTime && x.RepairDate <= endTime && x.ProjectId == this.CurrUser.LoginProjectId
                                      select x;
             List<Model.Base_Unit> units = UnitService.GetUnitByProjectIdUnitTypeList(CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2);
             foreach (var unit in units)
@@ -267,18 +267,39 @@ namespace FineUIPro.Web.CQMS.Check
                 var unitNDEItems = monthNDEItems.Where(x => x.UnitId == unit.UnitId);
                 Model.NDTCheckItem nDTCheckItem = new Model.NDTCheckItem();
                 nDTCheckItem.UnitName = unit.UnitName;
-                int filmNum = unitNDEItems.Sum(x => x.TotalFilm ?? 0);
-                int totalFilmNum = unitTotalNDEItems.Sum(x => x.TotalFilm ?? 0);
+                int filmNum = 0, passFilm=0;
+                if (unitNDEItems.Count() > 0)
+                {
+                    filmNum = unitNDEItems.Sum(x => x.TotalFilm ?? 0);
+                    passFilm = unitNDEItems.Sum(x => x.PassFilm ?? 0);
+                }
+                int totalFilmNum = 0, totalPassFilm=0;
+                if (unitTotalNDEItems.Count() > 0)
+                {
+                    totalFilmNum = unitTotalNDEItems.Sum(x => x.TotalFilm ?? 0);
+                    totalPassFilm = unitTotalNDEItems.Sum(x => x.PassFilm ?? 0);
+                }
                 nDTCheckItem.FilmNum = filmNum.ToString();
-                int passFilm = unitNDEItems.Sum(x => x.PassFilm ?? 0);
-                int totalPassFilm = unitTotalNDEItems.Sum(x => x.PassFilm ?? 0);
                 nDTCheckItem.NotOKFileNum = (filmNum - passFilm).ToString();
-
-                nDTCheckItem.RepairFileNum = "0";
-                nDTCheckItem.OneOKRate = "0";
+                nDTCheckItem.RepairFileNum = monthRepairRecords.Where(x=>x.UnitId== unit.UnitId).Count().ToString();
+                if (filmNum > 0)
+                {
+                    nDTCheckItem.OneOKRate = decimal.Round(decimal.Parse((Convert.ToDouble(passFilm) / Convert.ToDouble(filmNum) * 100).ToString()), 2).ToString() + "%";
+                }
+                else
+                {
+                    nDTCheckItem.OneOKRate = "0%";
+                }
                 nDTCheckItem.TotalFilmNum = totalFilmNum.ToString();
                 nDTCheckItem.TotalNotOKFileNum = (totalFilmNum - totalPassFilm).ToString();
-                nDTCheckItem.TotalOneOKRate = "0";
+                if (totalFilmNum > 0)
+                {
+                    nDTCheckItem.TotalOneOKRate = decimal.Round(decimal.Parse((Convert.ToDouble(totalPassFilm) / Convert.ToDouble(totalFilmNum) * 100).ToString()), 2).ToString() + "%";
+                }
+                else
+                {
+                    nDTCheckItem.TotalOneOKRate = "0%";
+                }
                 nDTCheckItems.Add(nDTCheckItem);
             }
             GridNDTCheck.DataSource = nDTCheckItems;

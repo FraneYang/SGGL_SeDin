@@ -50,7 +50,7 @@
                             <Rows>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtWeldJointCode" Label="焊口号" ShowRedStar="true" Required="true"
+                                        <f:TextBox ID="txtWeldJointCode" Label="焊口号" Readonly="true"
                                             runat="server" FocusOnPageLoad="true" LabelWidth="100px" LabelAlign="Right">
                                         </f:TextBox>
                                         <f:DropDownList ID="drpMaterial1" Label="材质1"

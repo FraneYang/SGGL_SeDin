@@ -30,6 +30,7 @@ namespace FineUIPro.Web.HSSE.HSSESystem
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
                 }
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                BLL.ManageRuleTypeService.InitManageRuleTypeDropDownList(this.drpType, true);
                 // 绑定表格
                 this.BindGrid();
             }
@@ -59,6 +60,11 @@ namespace FineUIPro.Web.HSSE.HSSESystem
             {
                  strSql += " AND ApprovalDate <= @EndDate";
                 listStr.Add(new SqlParameter("@EndDate", this.txtEndDate.Text.Trim()));
+            }
+            if (this.drpType.SelectedValue != Const._Null)
+            {
+                strSql += " AND TypeId  =@TypeId";
+                listStr.Add(new SqlParameter("@TypeId", this.drpType.SelectedValue));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);

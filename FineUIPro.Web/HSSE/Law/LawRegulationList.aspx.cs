@@ -26,6 +26,7 @@
                 Funs.DropDownPageSize(this.ddlPageSize);
                 btnNew.OnClientClick = Window1.GetShowReference("LawRegulationListEdit.aspx") + "return false;";                
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                BLL.LawsRegulationsTypeService.InitLawsRegulationsTypeDropDownList(this.drpType, true);
                 // 绑定表格
                 this.BindGrid();
             }
@@ -79,10 +80,10 @@
                 strSql += " AND LawRegulationName LIKE @LawRegulationName";
                 listStr.Add(new SqlParameter("@LawRegulationName", "%" + this.txtLawRegulationName.Text.Trim() + "%"));
             }
-            if (!string.IsNullOrEmpty(this.txtLawsRegulationsTypeName.Text.Trim()))
+            if (this.drpType.SelectedValue != Const._Null)
             {
-                strSql += " AND LawsRegulationsType.Name LIKE @LawsRegulationsTypeName";
-                listStr.Add(new SqlParameter("@LawsRegulationsTypeName", "%" + this.txtLawsRegulationsTypeName.Text.Trim() + "%"));
+                strSql += " AND Law.LawsRegulationsTypeId   =@TypeId";
+                listStr.Add(new SqlParameter("@TypeId", this.drpType.SelectedValue));
             }
 
             SqlParameter[] parameter = listStr.ToArray();

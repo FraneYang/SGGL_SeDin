@@ -83,3 +83,180 @@ IP地址:::1
 
 出错时间:02/07/2021 14:36:11
 
+
+错误信息开始=====>
+错误类型:InvalidOperationException
+错误信息:不能将 Null 值赋给类型为 System.Int32 (不可为 null 的值类型)的成员。
+错误堆栈:
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Sum[TSource](IQueryable`1 source, Expression`1 selector)
+   在 FineUIPro.Web.CQMS.Check.EditCheckMonth.BindNDTCheck() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Check\EditCheckMonth.aspx.cs:行号 270
+   在 FineUIPro.Web.CQMS.Check.EditCheckMonth.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Check\EditCheckMonth.aspx.cs:行号 128
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:02/19/2021 10:17:46
+出错文件:http://localhost:8118/CQMS/Check/EditCheckMonth.aspx?months=2021-01-01
+IP地址:::1
+操作人员:JT
+
+出错时间:02/19/2021 10:17:46
+
+
+错误信息开始=====>
+错误类型:InvalidOperationException
+错误信息:不能将 Null 值赋给类型为 System.Int32 (不可为 null 的值类型)的成员。
+错误堆栈:
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Sum[TSource](IQueryable`1 source, Expression`1 selector)
+   在 FineUIPro.Web.CQMS.Check.EditCheckMonth.BindNDTCheck() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Check\EditCheckMonth.aspx.cs:行号 270
+   在 FineUIPro.Web.CQMS.Check.EditCheckMonth.Page_Load(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\CQMS\Check\EditCheckMonth.aspx.cs:行号 128
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:02/19/2021 10:20:44
+出错文件:http://localhost:8118/CQMS/Check/EditCheckMonth.aspx?months=2021-02-01
+IP地址:::1
+操作人员:JT
+
+出错时间:02/19/2021 10:20:44
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:执行超时已过期。完成操作之前已超时或服务器未响应。 
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 BLL.GetDataService.CorrectingPersonInOutNumber(String projectId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\GetDataService.cs:行号 139
+   在 BLL.MonitorService.DoSynchData() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 2180
+   在 BLL.MonitorService.ColligateFormConfirmProcessEve(Object sender, ElapsedEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\OpenService\MonitorService.cs:行号 112
+----错误类型:Win32Exception
+----错误信息:
+----等待的操作过时。
+----错误堆栈:
+    出错时间:02/19/2021 10:59:41
+出错时间:02/19/2021 10:59:41
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewIntOrZero(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 436
+出错时间:02/19/2021 14:59:00
+出错时间:02/19/2021 14:59:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewIntOrZero(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 436
+出错时间:02/19/2021 14:59:00
+出错时间:02/19/2021 14:59:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewIntOrZero(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 436
+出错时间:02/19/2021 15:13:13
+出错时间:02/19/2021 15:13:13
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewIntOrZero(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 436
+出错时间:02/19/2021 15:13:13
+出错时间:02/19/2021 15:13:13
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewIntOrZero(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 436
+出错时间:02/19/2021 15:16:25
+出错时间:02/19/2021 15:16:25
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewIntOrZero(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 436
+出错时间:02/19/2021 15:21:40
+出错时间:02/19/2021 15:21:40
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewIntOrZero(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 436
+出错时间:02/19/2021 16:08:58
+出错时间:02/19/2021 16:08:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewIntOrZero(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 436
+出错时间:02/19/2021 16:08:59
+出错时间:02/19/2021 16:08:59
+

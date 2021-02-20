@@ -29,9 +29,9 @@
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="90px"
                                 LabelAlign="Right">
                             </f:TextBox>
-                            <f:TextBox ID="txtTypeName" runat="server" Label="类型" EmptyText="输入查询条件" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="60px" LabelAlign="Right">
-                            </f:TextBox>
+                             <f:DropDownList ID="drpType" Label="类型" AutoPostBack="true"  OnSelectedIndexChanged="TextBox_TextChanged"
+                                 Width="250px" LabelWidth="60px" LabelAlign="Right" runat="server">
+                            </f:DropDownList>
                             <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                 Hidden="true">

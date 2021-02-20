@@ -22,17 +22,20 @@
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:TextBox runat="server" Label="名称" ID="txtSafetyInstitutionName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="80px"
                                 LabelAlign="right">
                             </f:TextBox>
-                            <f:DatePicker ID="txtStartDate" runat="server" Label="发布日期" LabelAlign="Right"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
+                            <f:DatePicker ID="txtStartDate" runat="server" Label="发布日期" LabelAlign="Right" LabelWidth="80px"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px">
                             </f:DatePicker>
                             <f:Label ID="lblTo" runat="server" Text="至">
                             </f:Label>
                             <f:DatePicker ID="txtEndDate" runat="server" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged">
+                                OnTextChanged="TextBox_TextChanged" Width="120px">
                             </f:DatePicker>
+                             <f:DropDownList ID="drpType" Label="类型" AutoPostBack="true"  OnSelectedIndexChanged="TextBox_TextChanged"
+                                 Width="250px" LabelWidth="60px" LabelAlign="Right" runat="server">
+                            </f:DropDownList>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"

@@ -67,13 +67,13 @@ namespace FineUIPro.Web.HSSE.Law {
         protected global::FineUIPro.TextBox txtLawRegulationName;
         
         /// <summary>
-        /// txtLawsRegulationsTypeName 控件。
+        /// drpType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtLawsRegulationsTypeName;
+        protected global::FineUIPro.DropDownList drpType;
         
         /// <summary>
         /// btnNew 控件。

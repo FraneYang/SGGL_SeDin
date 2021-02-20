@@ -419,7 +419,8 @@ namespace BLL
                                 ID = x.LawRegulationId,
                                 ReleaseStates = x.ReleaseStates,
                                 ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
-                                DataType=type,
+                                DataType = type,
+                                Name = x.LawRegulationName,
                             }).ToList();
                 }
                 else if (type == "2")
@@ -432,6 +433,7 @@ namespace BLL
                                 ReleaseStates = x.ReleaseStates,
                                 ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
                                 DataType = type,
+                                Name = x.StandardName,
                             }).ToList();
                 }
                 else if (type == "3")
@@ -444,6 +446,7 @@ namespace BLL
                                 ReleaseStates = x.ReleaseStates,
                                 ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
                                 DataType = type,
+                                Name = x.ManageRuleName,
                             }).ToList();
                 }
                 else if (type == "4")
@@ -456,6 +459,7 @@ namespace BLL
                                 ReleaseStates = x.ReleaseStates,
                                 ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
                                 DataType = type,
+                                Name = x.SafetyInstitutionName,
                             }).ToList();
                 }
                 else
