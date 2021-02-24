@@ -45,6 +45,8 @@ namespace FineUIPro.Web.HSSE.EduTrain
             {
                 this.GetButtonPower();
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                Funs.FineUIPleaseSelect(this.drpMenuType);
+
                 this.TrainingId = Request.QueryString["TrainingId"];
                 this.SupTrainingId = Request.QueryString["SupTrainingId"];
                 if (!String.IsNullOrEmpty(TrainingId))
@@ -62,6 +64,18 @@ namespace FineUIPro.Web.HSSE.EduTrain
                         else
                         {
                             ckIsEndLever.Checked = false;
+                        }
+                        if (q.IsOffice == true)
+                        {
+                            ckIsOffice.Checked = true;
+                        }
+                        else
+                        {
+                            ckIsOffice.Checked = false;
+                        }
+                        if (!string.IsNullOrEmpty(q.MenuType))
+                        {
+                            this.drpMenuType.SelectedValue = q.MenuType;
                         }
                     }
                 }
@@ -91,6 +105,11 @@ namespace FineUIPro.Web.HSSE.EduTrain
                 TrainingName = txtTrainingName.Text.Trim(),
                 SupTrainingId = this.SupTrainingId,
                 IsEndLever = this.ckIsEndLever.Checked,
+                IsOffice = this.ckIsOffice.Checked,
+            };
+            if (this.drpMenuType.SelectedValue != Const._Null)
+            {
+                training.MenuType = this.drpMenuType.SelectedValue;
             };
 
             if (String.IsNullOrEmpty(TrainingId))

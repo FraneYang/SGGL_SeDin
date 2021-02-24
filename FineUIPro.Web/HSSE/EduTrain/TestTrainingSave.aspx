@@ -16,14 +16,10 @@
             <f:FormRow>
                 <Items>
                    <f:TextBox ID="txtSupTraining" runat="server" Label="上级" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"></f:TextBox>
+                        <f:TextBox ID="txtTrainingCode" runat="server" Label="编号" 
+                       Required="true" ShowRedStar="true" FocusOnPageLoad="true" MaxLength="50"></f:TextBox>  
                 </Items>
             </f:FormRow>  
-            <f:FormRow>
-                <Items>
-                   <f:TextBox ID="txtTrainingCode" runat="server" Label="编号" 
-                       Required="true" ShowRedStar="true" FocusOnPageLoad="true" MaxLength="50"></f:TextBox>                    
-                </Items>
-            </f:FormRow>
             <f:FormRow>
                 <Items>
                    <f:TextArea ID="txtTrainingName" runat="server" Label="名称" Required="true" ShowRedStar="true" 
@@ -33,8 +29,17 @@
              <f:FormRow>
                 <Items>
                    <f:CheckBox ID="ckIsEndLever" runat="server" Label="末级" Checked="true"></f:CheckBox>
+                      <f:CheckBox ID="ckIsOffice" runat="server" Label="公司" Checked="true"></f:CheckBox>
                 </Items>
             </f:FormRow> 
+            <f:FormRow>
+                <Items>                    
+                      <f:DropDownList ID="drpMenuType" runat="server"  LabelAlign="Right"  Label="适用系统">                             
+                                <f:ListItem  Value="Menu_HSSE" Text="安全"/>
+                                <f:ListItem  Value="Menu_CQMS" Text="质量"/>
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
         </Rows>
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

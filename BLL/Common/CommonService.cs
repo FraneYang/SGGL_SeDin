@@ -284,10 +284,11 @@ namespace BLL
                     {
                         if (!string.IsNullOrEmpty(user.RoleId))
                         {
+                            string[] roleList = user.RoleId.Split(',');
                             var buttonToMenu = from x in db.Sys_ButtonToMenu
                                                join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
                                                join z in db.Sys_Menu on x.MenuId equals z.MenuId
-                                               where y.RoleId == user.RoleId && y.MenuId == menuId
+                                               where roleList.Contains(y.RoleId) && y.MenuId == menuId
                                                && x.ButtonName == buttonName && x.MenuId == menuId
                                                select x;
                             if (buttonToMenu.Count() > 0)

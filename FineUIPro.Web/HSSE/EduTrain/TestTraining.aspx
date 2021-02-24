@@ -130,7 +130,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="考试试题" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="600px" Height="350px">
+        Width="600px" Height="450px">
     </f:Window>
     <f:Window ID="Window2" Title="考试试题详情" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="false" runat="server" OnClose="Window2_Close" IsModal="true"

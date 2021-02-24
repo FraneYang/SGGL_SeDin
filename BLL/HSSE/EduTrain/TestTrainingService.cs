@@ -32,7 +32,9 @@ namespace BLL
                 TrainingCode = TestTraining.TrainingCode,
                 TrainingName = TestTraining.TrainingName,
                 SupTrainingId = TestTraining.SupTrainingId ?? "0",
-                IsEndLever = TestTraining.IsEndLever
+                IsEndLever = TestTraining.IsEndLever,
+                IsOffice=TestTraining.IsOffice,
+                MenuType = TestTraining.MenuType,
             };
             db.Training_TestTraining.InsertOnSubmit(newTestTraining);
             db.SubmitChanges();
@@ -52,6 +54,8 @@ namespace BLL
                 newTestTraining.TrainingName = TestTraining.TrainingName;
                 newTestTraining.SupTrainingId = TestTraining.SupTrainingId;
                 newTestTraining.IsEndLever = TestTraining.IsEndLever;
+                newTestTraining.IsOffice = TestTraining.IsOffice;
+                newTestTraining.MenuType = TestTraining.MenuType;
 
                 db.SubmitChanges();
             }

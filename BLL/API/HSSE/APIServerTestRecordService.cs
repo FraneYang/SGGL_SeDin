@@ -364,7 +364,10 @@ namespace BLL
                             int getDiffTestType3Count = sumTestType3Count - getTestTrainingItemList.Where(x => x.TestType == "3").Count();
                             if (getDiffTestType1Count > 0 || getDiffTestType2Count > 0 || getDiffTestType3Count > 0)
                             {
-                                var getTestTrainingItemNulls = db.Training_TestTrainingItem.Where(x => x.WorkPostIds == null).ToList();
+                                var getTestTrainingItemNulls = (from x in db.Training_TestTrainingItem
+                                                                join y in db.Training_TestTraining on x.TrainingId equals y.TrainingId
+                                                                where x.WorkPostIds == null &&  y.IsOffice == true
+                                                                select x).ToList();
                                 if (getTestTrainingItemNulls.Count() > 0)
                                 {
                                     /// 通用且未选择的题目
