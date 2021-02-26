@@ -168,11 +168,13 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 iso = (from x in iso where x.PipelineCode.Contains(this.txtPipelineCode.Text.Trim()) orderby x.PipelineCode select x).ToList();
             }
-
+            var joints = from x in Funs.DB.HJGL_WeldJoint where x.ProjectId == this.CurrUser.LoginProjectId select x;
             foreach (var item in iso)
             {
                 TreeNode newNode = new TreeNode();
-                newNode.Text = item.PipelineCode;
+                int totalJointNum = joints.Count(x => x.PipelineId == item.PipelineId);
+                int weldJointNum = joints.Count(x => x.PipelineId == item.PipelineId && x.WeldingDailyId != null);
+                newNode.Text = item.PipelineCode + "(" + (totalJointNum - weldJointNum).ToString() + ")";
                 newNode.NodeID = item.PipelineId;
                 newNode.ToolTip = item.PipelineCode;
                 newNode.EnableClickEvent = true;
@@ -341,42 +343,48 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(weldJoint.Material1Id);
                     string matClass = mat.MaterialClass;
                     var matRod = weldingRods.FirstOrDefault(x => x.ConsumablesId == weldJoint.WeldingRod);
-                    foreach (var item in weldingRods)
+                    if (matRod != null)
                     {
-                        if (matClass == "Fe-1" || matClass == "Fe-3")
+                        foreach (var item in weldingRods)
                         {
-                            if (IsCoverClass(matRod.SteelType, item.SteelType))
+                            if (matClass == "Fe-1" || matClass == "Fe-3")
+                            {
+                                if (IsCoverClass(matRod.SteelType, item.SteelType))
+                                {
+                                    canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
+                                }
+                            }
+                            else
                             {
                                 canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
                             }
                         }
-                        else
+                        if (!string.IsNullOrEmpty(canWeldingRodName))
                         {
-                            canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
+                            NewTask.CanWeldingRodName = canWeldingRodName.Substring(0, canWeldingRodName.Length - 1);
                         }
                     }
-                    if (!string.IsNullOrEmpty(canWeldingRodName))
-                    {
-                        NewTask.CanWeldingRodName = canWeldingRodName.Substring(0, canWeldingRodName.Length - 1);
-                    }
                     var matWire = weldingWires.FirstOrDefault(x => x.ConsumablesId == weldJoint.WeldingWire);
-                    foreach (var item in weldingWires)
+                    if (matWire != null)
                     {
-                        if (matClass == "Fe-1" || matClass == "Fe-3")
+                        foreach (var item in weldingWires)
                         {
-                            if (IsCoverClass(matWire.SteelType, item.SteelType))
+                            if (matClass == "Fe-1" || matClass == "Fe-3")
+                            {
+                                if (IsCoverClass(matWire.SteelType, item.SteelType))
+                                {
+                                    canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
+                                }
+                            }
+                            else
                             {
                                 canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
                             }
                         }
-                        else
+                        if (!string.IsNullOrEmpty(canWeldingWireName))
                         {
-                            canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
+                            NewTask.CanWeldingWireName = canWeldingWireName.Substring(0, canWeldingWireName.Length - 1);
                         }
-                    }
-                    if (!string.IsNullOrEmpty(canWeldingWireName))
-                    {
-                        NewTask.CanWeldingWireName = canWeldingWireName.Substring(0, canWeldingWireName.Length - 1);
                     }
                 }
                 NewTask.JointAttribute = drpJointAttribute.SelectedValue;

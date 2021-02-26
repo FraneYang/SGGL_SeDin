@@ -17,7 +17,7 @@
                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="项目HSE数据汇总表" EnableCollapse="true"
                     runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="HSEDataCollectItemId"  
                     DataParentIDField="ParentId"  EnableTree="true" TreeColumn="HSEContent"                  
-                    DataIDField="HSEDataCollectItemId" AllowSorting="true" SortField="SortIndex" SortDirection="ASC"
+                    DataIDField="HSEDataCollectItemId" AllowSorting="true" SortField="SortIndex,IntS" SortDirection="ASC"
                     AllowPaging="false" IsDatabasePaging="true" PageSize="100"  ForceFit="true"
                     EnableTextSelection="True">
                     <Toolbars>
@@ -34,11 +34,11 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Columns>
-                        <f:RenderField Width="60px" ColumnID="SortIndex" DataField="SortIndex"
+                        <f:RenderField Width="55px" ColumnID="SortIndex" DataField="SortIndex"
                             SortField="SortIndex" FieldType="Int" HeaderText="序号" HeaderTextAlign="Center"
                             TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="160px" ColumnID="HSEContent" DataField="HSEContent"
+                        <f:RenderField Width="200px" ColumnID="HSEContent" DataField="HSEContent"
                             FieldType="String" HeaderText="HSE管理内容" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="60px" ColumnID="MeasureUnit" DataField="MeasureUnit"

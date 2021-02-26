@@ -358,16 +358,19 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     string matClass = mat.MaterialClass;
                     if (matClass == "Fe-1" || matClass == "Fe-3")
                     {
-                        var wpsRod = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(wps.WeldingRod);
-                        var matRod = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(drpWeldingRod.SelectedValue);
-                        if (IsCoverClass(wpsRod.SteelType, matRod.SteelType))
+                        if (!string.IsNullOrEmpty(wps.WeldingRod))
                         {
+                            var wpsRod = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(wps.WeldingRod);
+                            var matRod = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(drpWeldingRod.SelectedValue);
+                            if (IsCoverClass(wpsRod.SteelType, matRod.SteelType))
+                            {
 
-                        }
-                        else
-                        {
-                            Alert.ShowInTop("焊口焊材强度需大于等于WPS焊材强度！", MessageBoxIcon.Warning);
-                            drpWeldingWire.SelectedValue = wps.WeldingRod;
+                            }
+                            else
+                            {
+                                Alert.ShowInTop("焊口焊材强度需大于等于WPS焊材强度！", MessageBoxIcon.Warning);
+                                drpWeldingRod.SelectedValue = wps.WeldingRod;
+                            }
                         }
                     }
 
@@ -375,7 +378,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 }
                 else
                 {
-                    drpWeldingWire.SelectedValue = wps.WeldingRod;
+                    drpWeldingRod.SelectedValue = wps.WeldingRod;
                 }
             }
         }
@@ -397,16 +400,19 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     string matClass = mat.MaterialClass;
                     if (matClass == "Fe-1" || matClass == "Fe-3")
                     {
-                        var wpsWire = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(wps.WeldingWire);
-                        var matWire = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(drpWeldingWire.SelectedValue);
-                        if (IsCoverClass(wpsWire.SteelType, matWire.SteelType))
+                        if (!string.IsNullOrEmpty(wps.WeldingWire))
                         {
+                            var wpsWire = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(wps.WeldingWire);
+                            var matWire = BLL.Base_ConsumablesService.GetConsumablesByConsumablesId(drpWeldingWire.SelectedValue);
+                            if (IsCoverClass(wpsWire.SteelType, matWire.SteelType))
+                            {
 
-                        }
-                        else
-                        {
-                            Alert.ShowInTop("焊口焊材强度需大于等于WPS焊材强度！", MessageBoxIcon.Warning);
-                            drpWeldingWire.SelectedValue = wps.WeldingWire;
+                            }
+                            else
+                            {
+                                Alert.ShowInTop("焊口焊材强度需大于等于WPS焊材强度！", MessageBoxIcon.Warning);
+                                drpWeldingWire.SelectedValue = wps.WeldingWire;
+                            }
                         }
                     }
 

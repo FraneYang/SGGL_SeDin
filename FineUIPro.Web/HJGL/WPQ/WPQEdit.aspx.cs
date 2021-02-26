@@ -303,6 +303,7 @@ namespace FineUIPro.Web.HJGL.WPQ
             {
                 string newId = SQLHelper.GetNewID(typeof(Model.WPQ_WPQList));
                 wpq.WPQId = newId;
+                
                 if (type == BLL.Const.BtnSubmit)
                 {
                     if (this.drpPerson.SelectedValue == BLL.Const._Null)
@@ -314,7 +315,7 @@ namespace FineUIPro.Web.HJGL.WPQ
                     {
                         wpq.ApproveManId = drpPerson.SelectedValue;
                         wpq.State = BLL.Const.State_1;
-                        SaveFlowOperate(wpq.WPQId, "施工单位编制");
+                        //SaveFlowOperate(wpq.WPQId, "施工单位编制");
                     }
                 }
                 else

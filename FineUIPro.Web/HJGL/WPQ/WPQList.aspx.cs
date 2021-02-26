@@ -153,7 +153,9 @@ namespace FineUIPro.Web.HJGL.WPQ
         /// <param name="e"></param>
         protected void btnMenuView_Click(object sender, EventArgs e)
         {
-            this.EditData();
+            string id = Grid1.SelectedRowID;
+            string url = "WPQView.aspx?WPQId={0}";
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, id, "操作 - ")));
         }
 
         /// <summary>
@@ -203,7 +205,7 @@ namespace FineUIPro.Web.HJGL.WPQ
                 {
                     url = "WPQEdit.aspx?WPQId={0}";
                 }
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, id, "操作 - "))); ;
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, id, "操作 - ")));
             }
         }
         #endregion

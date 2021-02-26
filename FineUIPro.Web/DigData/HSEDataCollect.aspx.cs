@@ -77,6 +77,7 @@ namespace FineUIPro.Web.DigData
             table.Columns.Add(new DataColumn("Month11", typeof(string)));
             table.Columns.Add(new DataColumn("Month12", typeof(string)));
             table.Columns.Add(new DataColumn("MonthSum", typeof(string)));
+            table.Columns.Add(new DataColumn("IntS", typeof(int)));
             DataRow row;
             for (int i = 1; i <= 11; i++)
             {
@@ -89,12 +90,13 @@ namespace FineUIPro.Web.DigData
             }
 
             foreach (var item in getData)
-            {
+            {                
                 row = table.NewRow();
                 row[0] = item.HSEDataCollectItemId;
                 row[1] = getSupID(item.SortIndex);
-                row[2] = item.SortIndex;
-                row[3] = item.HSEContent;
+                row[2] = DBNull.Value;
+                row[3] = row[1] .ToString() +"." + getNewSortIndex(item.SortIndex) + " "+ item.HSEContent;
+               
                 row[4] = item.MeasureUnit;
                 row[5] = item.Month1;
                 row[6] = item.Month2;
@@ -109,7 +111,8 @@ namespace FineUIPro.Web.DigData
                 row[15] = item.Month11;
                 row[16] = item.Month12;
                 row[17] = item.MonthSum;
-                table.Rows.Add(row);          
+                row[18] = item.SortIndex;
+                table.Rows.Add(row);
             }
             return table;
         }
@@ -166,6 +169,7 @@ namespace FineUIPro.Web.DigData
             return name;
         }
         #endregion
+
         #region 获取父级ID
         /// <summary>
         /// 获取父级名称
@@ -220,6 +224,36 @@ namespace FineUIPro.Web.DigData
                 supId = "11";
             }
             return supId;
+        }
+
+        private string getNewSortIndex(int sortIndex)
+        {
+            int supId = 1;
+            if (sortIndex <= 6)
+            {
+                supId = sortIndex;
+            }
+            else if (sortIndex >= 8 && sortIndex <= 18)
+            {
+                supId = sortIndex - 7;
+            }
+            else if (sortIndex >= 22 && sortIndex <= 24)
+            {
+                supId = sortIndex - 21;
+            }
+            else if (sortIndex >= 25 && sortIndex <= 35)
+            {
+                supId = sortIndex - 24;
+            }
+            else if (sortIndex >= 36 && sortIndex <= 37)
+            {
+                supId = sortIndex - 35;
+            }
+            else if (sortIndex >= 38 && sortIndex <= 39)
+            {
+                supId = sortIndex - 37;
+            }
+            return supId.ToString();
         }
         #endregion
         #endregion
