@@ -39,8 +39,8 @@ namespace FineUIPro.Web.HJGL.NDT
             if (!IsPostBack)
             {
                 this.NDEID = Request.Params["NDEID"];
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2,true);
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpNDEUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_5,true);
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpNDEUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_5, true);
                 BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);
                 ///探伤类型
                 BLL.Base_DetectionTypeService.InitDetectionTypeDropDownList(this.drpDetectionType, true, string.Empty);
@@ -238,7 +238,7 @@ namespace FineUIPro.Web.HJGL.NDT
                             drpUnit.SelectedValue = w.UnitId;
                         }
                     }
-                    
+
                     this.drpUnitWork.SelectedValue = w.UnitWorkId;
                 }
                 this.SimpleForm1.Reset(); ///重置所有字段
@@ -277,7 +277,7 @@ namespace FineUIPro.Web.HJGL.NDT
             this.drpBatchTrust.Items.Clear();
             if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
             {
-                BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue,this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
+                BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue, this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
                 this.drpBatchTrust.SelectedValue = BLL.Const._Null;
                 this.Grid1.DataSource = null;
                 this.Grid1.DataBind();
@@ -296,7 +296,7 @@ namespace FineUIPro.Web.HJGL.NDT
             this.drpBatchTrust.Items.Clear();
             if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
             {
-                BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue,this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
+                BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue, this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
                 this.drpBatchTrust.SelectedValue = BLL.Const._Null;
                 this.Grid1.DataSource = null;
                 this.Grid1.DataBind();
@@ -354,7 +354,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     }
                     else if (batchTrustItem.TrustType == "3")
                     {
-                        nDEItem.NDEReportNo = batchTrustItem.TrustBatchCode + "R1";
+                        nDEItem.NDEReportNo = batchTrustItem.TrustBatchCode + "A";
                     }
                     else
                     {
@@ -386,7 +386,7 @@ namespace FineUIPro.Web.HJGL.NDT
             Grid1.DataBind();
 
             CheckBoxField ckbIsSelected = (CheckBoxField)Grid1.FindColumn("ckbIsSelected");
-            
+
             for (int i = 0; i < this.Grid1.Rows.Count; i++)
             {
                 string id = Grid1.DataKeys[i][0].ToString();
@@ -451,6 +451,29 @@ namespace FineUIPro.Web.HJGL.NDT
                     ShowNotify("请选择要检测的委托单！", MessageBoxIcon.Warning);
                     return;
                 }
+                List<Model.View_Batch_NDEItem> GetNDEItem = this.CollectGridNDEItem();
+                if (this.Grid1.Rows.Count == 0)
+                {
+                    ShowNotify("没有要检测的焊口！", MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    bool noData = false;
+                    foreach (var item in GetNDEItem)
+                    {
+                        if (item.TotalFilm == null)
+                        {
+                            noData = true;
+                            break;
+                        }
+                    }
+                    if (noData)
+                    {
+                        ShowNotify("请勾选并录入焊口的检测信息！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
 
                 Model.HJGL_Batch_NDE newNDE = new Model.HJGL_Batch_NDE();
                 if (this.drpBatchTrust.SelectedValue != BLL.Const._Null)
@@ -476,7 +499,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     var trust = BLL.Batch_BatchTrustService.GetBatchTrustById(this.drpBatchTrust.SelectedValue);
                     newNDE.UnitWorkId = trust.UnitWorkId;
                 }
-                
+
                 newNDE.NDECode = this.txtNDECode.Text.Trim();
                 newNDE.NDEDate = Funs.GetNewDateTime(this.txtNDEDate.Text.Trim());
                 newNDE.NDEMan = this.CurrUser.UserId;
@@ -494,7 +517,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnSave, this.NDEID);
                 }
 
-                List<Model.View_Batch_NDEItem> GetNDEItem = this.CollectGridNDEItem();
+
                 string errlog = string.Empty;
                 foreach (var item in GetNDEItem)
                 {

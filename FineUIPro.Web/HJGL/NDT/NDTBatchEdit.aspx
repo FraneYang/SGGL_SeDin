@@ -69,7 +69,7 @@
                                     </f:DropDownList>
                                 </Items>
                             </f:FormRow>
-                            <f:FormRow ColumnWidths="67% 33%">
+                            <f:FormRow ColumnWidths="66% 34%">
                                 <Items>
                                     <f:TextBox ID="txtPipelineCode" Label="管线号" runat="server"
                                         LabelWidth="130px" AutoPostBack="true" OnTextChanged="txtPipelineCode_TextChanged">

@@ -60,8 +60,8 @@
                         <f:RenderField Width="120px" ColumnID="RequiredT" DataField="RequiredT" FieldType="String"
                             HeaderText="热处理温度℃(要求)" HeaderTextAlign="Center" TextAlign="Left">
                             <Editor>
-                                <f:NumberBox ID="txtRequiredT" runat="server">
-                                </f:NumberBox>
+                                <f:TextBox ID="txtRequiredT" runat="server">
+                                </f:TextBox>
                             </Editor>
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="ActualT" DataField="ActualT" FieldType="String"
@@ -74,8 +74,8 @@
                         <f:RenderField Width="100px" ColumnID="RequestTime" DataField="RequestTime" FieldType="String"
                             HeaderText="恒温时间h（要求）" HeaderTextAlign="Center" TextAlign="Left">
                             <Editor>
-                                <f:NumberBox ID="txtRequestTime" runat="server">
-                                </f:NumberBox>
+                                <f:TextBox ID="txtRequestTime" runat="server">
+                                </f:TextBox>
                             </Editor>
                         </f:RenderField>
                         <f:RenderField Width="100px" ColumnID="ActualTime" DataField="ActualTime" FieldType="String"

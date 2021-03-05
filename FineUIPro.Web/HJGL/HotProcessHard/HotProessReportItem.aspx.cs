@@ -161,6 +161,16 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 NewReport.HotProessReportId = SQLHelper.GetNewID(typeof(Model.HJGL_HotProess_Report));
                 NewReport.HotProessTrustItemId = hotProessTrustItemId;
                 NewReport.WeldJointId =WeldJointId;
+                Model.HJGL_WeldJoint weldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(WeldJointId);
+                if (weldJoint != null)
+                {
+                    Model.WPQ_WPQList wpq = BLL.WPQListServiceService.GetWPQById(weldJoint.WPQId);
+                    if (wpq != null)
+                    {
+                        NewReport.RequiredT = wpq.RequiredT;
+                        NewReport.RequestTime = wpq.RequestTime;
+                    }
+                }
                 HotProessReportList.Add(NewReport);
                 Grid1.DataSource = HotProessReportList;
                 Grid1.DataBind();

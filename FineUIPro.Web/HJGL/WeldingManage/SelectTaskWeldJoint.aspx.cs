@@ -96,7 +96,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             if (!IsPostBack)
             {
                 this.txtTaskDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now.AddDays(1));
-
+                this.txtTaskCode.Text = BLL.WeldTaskService.GetTaskCodeByDate(this.CurrUser.LoginProjectId, this.txtTaskDate.Text);
                 BLL.Base_WeldingLocationServie.InitWeldingLocationDropDownList(drpWeldingLocation, true);
                 ///焊接属性
                 this.drpJointAttribute.DataTextField = "Text";
@@ -356,7 +356,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             }
                             else
                             {
-                                canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
+                                if (matRod.SteelType == item.SteelType)
+                                {
+                                    canWeldingRodName = canWeldingRodName + item.ConsumablesName + ",";
+                                }
                             }
                         }
                         if (!string.IsNullOrEmpty(canWeldingRodName))
@@ -378,7 +381,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                             }
                             else
                             {
-                                canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
+                                if (matWire.SteelType == item.SteelType)
+                                {
+                                    canWeldingWireName = canWeldingWireName + item.ConsumablesName + ",";
+                                }
                             }
                         }
                         if (!string.IsNullOrEmpty(canWeldingWireName))
@@ -430,5 +436,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             return isCover;
         }
         #endregion
+
+        protected void txtTaskDate_TextChanged(object sender, EventArgs e)
+        {
+            this.txtTaskCode.Text = BLL.WeldTaskService.GetTaskCodeByDate(this.CurrUser.LoginProjectId, this.txtTaskDate.Text);
+        }
     }
 }

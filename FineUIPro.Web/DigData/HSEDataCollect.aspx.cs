@@ -61,7 +61,7 @@ namespace FineUIPro.Web.DigData
             DataTable table = new DataTable();
             table.Columns.Add(new DataColumn("HSEDataCollectItemId", typeof(string)));
             table.Columns.Add(new DataColumn("ParentId", typeof(string)));
-            table.Columns.Add(new DataColumn("SortIndex", typeof(int)));
+            table.Columns.Add(new DataColumn("SortIndex", typeof(string)));
             table.Columns.Add(new DataColumn("HSEContent", typeof(string)));
             table.Columns.Add(new DataColumn("MeasureUnit", typeof(string)));
             table.Columns.Add(new DataColumn("Month1", typeof(string)));
@@ -84,8 +84,9 @@ namespace FineUIPro.Web.DigData
                 row = table.NewRow();
                 row[0] = i.ToString();
                 row[1] = "-1";
-                row[2] = i;
+                row[2] = i.ToString();
                 row[3] = getSupHSEContent(i);
+                row[18] =i;
                 table.Rows.Add(row);
             }
 
@@ -94,9 +95,8 @@ namespace FineUIPro.Web.DigData
                 row = table.NewRow();
                 row[0] = item.HSEDataCollectItemId;
                 row[1] = getSupID(item.SortIndex);
-                row[2] = DBNull.Value;
-                row[3] = row[1] .ToString() +"." + getNewSortIndex(item.SortIndex) + " "+ item.HSEContent;
-               
+                row[2] = row[1].ToString() + "." + getNewSortIndex(item.SortIndex);
+                row[3] = item.HSEContent;               
                 row[4] = item.MeasureUnit;
                 row[5] = item.Month1;
                 row[6] = item.Month2;
@@ -253,6 +253,7 @@ namespace FineUIPro.Web.DigData
             {
                 supId = sortIndex - 37;
             }
+           
             return supId.ToString();
         }
         #endregion

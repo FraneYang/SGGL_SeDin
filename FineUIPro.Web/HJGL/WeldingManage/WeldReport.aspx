@@ -134,10 +134,10 @@
                                 </f:ToolbarText>
                                 <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                                    <f:ListItem Text="15" Value="10" />
-                                    <f:ListItem Text="25" Value="15" />
-                                    <f:ListItem Text="50" Value="20" />
-                                    <f:ListItem Text="100" Value="25" />
+                                    <f:ListItem Text="15" Value="15" />
+                                    <f:ListItem Text="25" Value="25" />
+                                    <f:ListItem Text="50" Value="50" />
+                                    <f:ListItem Text="100" Value="100" />
                                 </f:DropDownList>
                             </PageItems>
                         </f:Grid>

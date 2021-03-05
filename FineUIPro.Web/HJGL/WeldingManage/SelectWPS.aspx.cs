@@ -49,7 +49,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             // 单位、接头形式、材质的覆盖
             var wpq = from x in Funs.DB.View_HJGL_WPQ
                       where x.UnitId == unitId && x.State == BLL.Const.State_2
-                      && (x.JointType == "对接焊缝" || (x.JointType != "对接焊缝" && weldType != "B"))
+                      //&& (x.JointType == "对接焊缝" || (x.JointType != "对接焊缝" && weldType != "B"))
                       //&& ((x.Material1Group == mat1.MaterialGroup && x.Material2Group == mat2.MaterialGroup)
                       //|| (x.Material1Group == mat2.MaterialGroup && x.Material2Group == mat1.MaterialGroup))
                       select x;
@@ -276,7 +276,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             string wpqId = this.Grid1.SelectedRowID;
             Model.WPQ_WPQList wpq = BLL.WPQListServiceService.GetWPQById(wpqId);
             //PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(wpq.WPQId, wpq.WPQCode,wpq.WeldingRod,wpq.WeldingWire,wpq.WeldingMethodId,wpq.GrooveType,wpq.PreTemperature,wpq.MaterialId1,wpq.MaterialId2,wpq.IsHotProess.Value.ToString()) + ActiveWindow.GetHidePostBackReference());
-            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(wpq.WPQId, wpq.WPQCode, wpq.WeldingRod, wpq.WeldingWire, wpq.WeldingMethodId, wpq.GrooveType, wpq.PreTemperature, wpq.IsHotProess.Value.ToString()) + ActiveWindow.GetHidePostBackReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(wpq.WPQId, wpq.WPQCode, wpq.WeldingRod, wpq.WeldingWire, wpq.WeldingMethodId, wpq.WeldingMethodId, wpq.GrooveType, wpq.GrooveType, wpq.PreTemperature, wpq.IsHotProess.Value.ToString()) + ActiveWindow.GetHidePostBackReference());
         }
     }
 }

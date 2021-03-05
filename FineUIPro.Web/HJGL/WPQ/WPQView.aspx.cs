@@ -134,6 +134,8 @@ namespace FineUIPro.Web.HJGL.WPQ
                             this.cbkIsHotTreatment.Checked = false;
                         }
                         this.txtPreTemperature.Text = wpq.PreTemperature;
+                        this.txtRequiredT.Text = wpq.RequiredT;
+                        this.txtRequestTime.Text = wpq.RequestTime;
                         this.txtRemark.Text = wpq.Remark;
                         if (!string.IsNullOrEmpty(wpq.JointType))
                         {

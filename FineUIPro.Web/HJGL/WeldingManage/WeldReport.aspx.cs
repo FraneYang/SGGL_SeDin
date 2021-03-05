@@ -297,7 +297,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                                   join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                   where y.WeldingDailyId == weldingDailyId && x.PointState != null
                                   select x;
-                    if (isPoint.Count() > 0)
+                    if (isPoint.Count() > 1)
                     {
                         Alert.ShowInTop("该日报已点口，不能编辑！", MessageBoxIcon.Warning);
                         return;
@@ -337,7 +337,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                                   join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                   where y.WeldingDailyId == weldingDailyId && x.PointState != null
                                   select x;
-                    if (isPoint.Count() > 0)
+                    if (isPoint.Count() > 1)
                     {
                         Alert.ShowInTop("该日报已点口，不能删除！", MessageBoxIcon.Warning);
                         return;

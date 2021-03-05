@@ -129,7 +129,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     TreeNode newNode = new TreeNode();
                     newNode.CommandName = "Date";
                     newNode.Text = string.Format("{0:yyyy-MM-dd}", item);
-                    newNode.NodeID = string.Format("{0:yyyy-MM-dd}", item);
+                    newNode.NodeID = node.NodeID + "|" + string.Format("{0:yyyy-MM-dd}", item);
                     newNode.EnableClickEvent = true;
                     node.Nodes.Add(newNode);
                 }
@@ -465,12 +465,19 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 {
                     BLL.WeldTaskService.UpdateCanWelderTask(weldTaskId, canWelderId.Substring(0, canWelderId.Length - 1), canWelderCode.Substring(0, canWelderCode.Length - 1));
                 }
-
-                DateTime? taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID);
+                DateTime? taskTime = null;
+                if (tvControlItem.SelectedNodeID.Contains("|"))
+                {
+                    taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID.Split('|')[1]);
+                }
+                else
+                {
+                    taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID);
+                }
                 List<Model.View_HJGL_WeldingTask> GetWeldingTaskList = null;
                 if (taskTime != null)
                 {
-                    GetWeldingTaskList = BLL.WeldTaskService.GetWeldingTaskList(this.CurrUser.LoginProjectId, tvControlItem.SelectedNode.ParentNode.NodeID, Convert.ToDateTime(tvControlItem.SelectedNodeID));
+                    GetWeldingTaskList = BLL.WeldTaskService.GetWeldingTaskList(this.CurrUser.LoginProjectId, tvControlItem.SelectedNode.ParentNode.NodeID, Convert.ToDateTime(tvControlItem.SelectedNodeID.Split('|')[1]));
                 }
                 else
                 {
@@ -762,7 +769,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
             else
             {
-                Alert.ShowInTop("请选择单位和单位工程", MessageBoxIcon.Warning);
+                Alert.ShowInTop("请选择单位工程", MessageBoxIcon.Warning);
             }
         }
 
@@ -773,7 +780,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 string UnitId = w.UnitId;
                 string UnitWorkId = w.UnitWorkId;
-                string taskDate = tvControlItem.SelectedNodeID;
+                string taskDate = string.Empty;
+                if (tvControlItem.SelectedNodeID.Contains("|"))
+                {
+                    taskDate = tvControlItem.SelectedNodeID.Split('|')[1];
+                }
+                else
+                {
+                    taskDate = tvControlItem.SelectedNodeID;
+                }
                 string strList = UnitWorkId + "|" + UnitId + "|" + taskDate;
 
                 string window = String.Format("SelectTaskWeldJoint.aspx?strList={0}", strList, "编辑 - ");
@@ -810,6 +825,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         }
                     }
                     BindGrid(getNewWeldTaskItem);
+                    if (getNewWeldTaskItem.Count == 0)  //明细记录删除完，任务单即不存在
+                    {
+                        this.InitTreeMenu();//加载树
+                    }
                     ShowNotify("删除成功！", MessageBoxIcon.Success);
                 }
             }
@@ -828,10 +847,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(tvControlItem.SelectedNodeID);
             if (w == null)
             {
-                DateTime? taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID);
+                DateTime? taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID.Split('|')[1]);
                 if (taskTime != null)
                 {
-                    List<Model.View_HJGL_WeldingTask> GetWeldingTaskList = BLL.WeldTaskService.GetWeldingTaskList(this.CurrUser.LoginProjectId, tvControlItem.SelectedNode.ParentNode.NodeID, Convert.ToDateTime(tvControlItem.SelectedNodeID));
+                    List<Model.View_HJGL_WeldingTask> GetWeldingTaskList = BLL.WeldTaskService.GetWeldingTaskList(this.CurrUser.LoginProjectId, tvControlItem.SelectedNode.ParentNode.NodeID, Convert.ToDateTime(taskTime));
                     this.BindGrid(GetWeldingTaskList);
                     //GetCanWelderDropDownList(GetWeldingTaskList);
 
@@ -887,12 +906,19 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     //string weldTaskId = Grid1.DataKeys[i][0].ToString();
                     BLL.WeldTaskService.UpdateWelderTask(weldTaskId, drpCanWelder.SelectedValue);
                 }
-
-                DateTime? taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID);
+                DateTime? taskTime = null;
+                if (tvControlItem.SelectedNodeID.Contains("|"))
+                {
+                    taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID.Split('|')[1]);
+                }
+                else
+                {
+                    taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID);
+                }
                 List<Model.View_HJGL_WeldingTask> GetWeldingTaskList = null;
                 if (taskTime != null)
                 {
-                    GetWeldingTaskList = BLL.WeldTaskService.GetWeldingTaskList(this.CurrUser.LoginProjectId, tvControlItem.SelectedNode.ParentNode.NodeID, Convert.ToDateTime(tvControlItem.SelectedNodeID));
+                    GetWeldingTaskList = BLL.WeldTaskService.GetWeldingTaskList(this.CurrUser.LoginProjectId, tvControlItem.SelectedNode.ParentNode.NodeID, Convert.ToDateTime(taskTime));
                 }
                 else
                 {

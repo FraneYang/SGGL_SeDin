@@ -304,6 +304,28 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         }
 
         /// <summary>
+        /// 焊口信息插入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuInsert_Click(object sender, EventArgs e)
+        {
+            if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldJointMenuId, BLL.Const.BtnModify))
+            {
+                if (Grid1.SelectedRowIndexArray.Length == 0)
+                {
+                    Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                    return;
+                }
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldJointEdit.aspx?WeldJointId={0}&Type=add", Grid1.SelectedRowID, "维护 - ")));
+            }
+            else
+            {
+                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
         /// 删除按钮
         /// </summary>
         /// <param name="sender"></param>

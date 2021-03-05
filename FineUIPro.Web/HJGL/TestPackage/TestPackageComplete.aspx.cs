@@ -14,8 +14,38 @@ using BLL;using Newtonsoft.Json.Linq;namespace FineUIPro.Web.HJGL.TestPackage
                 ViewState["PTP_ID"] = value;
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         #endregion
-        #region 加载页面        /// <summary>                             /// 加载页面                             /// </summary>                             /// <param name="sender"></param>                             /// <param name="e"></param>        protected void Page_Load(object sender, EventArgs e)        {            if (!IsPostBack)            {                               this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();                this.PTP_ID = string.Empty;                this.InitTreeMenu();//加载树            }        }        #endregion        #region 加载树装置-单位-工作区
+        #region 加载页面        /// <summary>                             /// 加载页面                             /// </summary>                             /// <param name="sender"></param>                             /// <param name="e"></param>        protected void Page_Load(object sender, EventArgs e)        {            if (!IsPostBack)            {
+                this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();                this.PTP_ID = string.Empty;                this.InitTreeMenu();//加载树
+            }        }        #endregion        #region 加载树装置-单位-工作区
         /// <summary>
         /// 加载树
         /// </summary>
@@ -114,11 +144,12 @@ using BLL;using Newtonsoft.Json.Linq;namespace FineUIPro.Web.HJGL.TestPackage
                 var totalList = from x in Funs.DB.PTP_ItemEndCheckList select x;
                 foreach (var item in dReports)
                 {
-                    var list= from x in totalList where x.PTP_ID == item.PTP_ID select x;
-                    var notCompletelist = from x in totalList
-                                          where x.PTP_ID == item.PTP_ID && x.State != BLL.Const.TestPackage_Complete
-                                          select x;
-                    if (list.Count()>0 && notCompletelist.Count() == 0)   //不存在流程未闭合记录
+                    var list = from x in totalList where x.PTP_ID == item.PTP_ID select x;
+                    var notCompleteAlist = from x in totalList
+                                           where x.PTP_ID == item.PTP_ID && x.AOKState == null
+                                           select x;
+
+                    if (list.Count() > 0 && notCompleteAlist.Count() == 0)   //不存在流程未闭合记录
                     {
                         TreeNode newNode = new TreeNode();
                         if (!string.IsNullOrEmpty(item.TestPackageNo))
@@ -220,16 +251,165 @@ using BLL;using Newtonsoft.Json.Linq;namespace FineUIPro.Web.HJGL.TestPackage
             this.txtTestDate.Text = string.Empty;
             this.txtTestMediumTemperature.Text = string.Empty;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         #endregion
         #endregion
         #region 分页排序
-        #region 页索引改变事件        /// <summary>                                /// 页索引改变事件                                /// </summary>                                /// <param name="sender"></param>                                /// <param name="e"></param>        protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)        {            BindGrid();        }        #endregion        #region 排序        /// <summary>        /// 排序        /// </summary>        /// <param name="sender"></param>        /// <param name="e"></param>        protected void Grid1_Sort(object sender, GridSortEventArgs e)        {            BindGrid();        }        #endregion        #region 分页选择下拉改变事件        /// <summary>        /// 分页选择下拉改变事件        /// </summary>        /// <param name="sender"></param>        /// <param name="e"></param>        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)        {            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);            BindGrid();        }        #endregion        #endregion                #region 关闭弹出窗口及刷新页面        /// <summary>        /// 关闭弹出窗口        /// </summary>        /// <param name="sender"></param>        /// <param name="e"></param>        protected void Window1_Close(object sender, WindowCloseEventArgs e)        {            this.PTP_ID = this.hdPTP_ID.Text;            this.BindGrid();            this.InitTreeMenu();            this.hdPTP_ID.Text = string.Empty;        }                /// <summary>        /// 查询        /// </summary>        /// <param name="sender"></param>        /// <param name="e"></param>        protected void Tree_TextChanged(object sender, EventArgs e)        {            this.InitTreeMenu();            this.BindGrid();        }
+        #region 页索引改变事件        /// <summary>                                /// 页索引改变事件                                /// </summary>                                /// <param name="sender"></param>                                /// <param name="e"></param>        protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)        {            BindGrid();        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #endregion
+        #region 排序        /// <summary>                           /// 排序                           /// </summary>                           /// <param name="sender"></param>                           /// <param name="e"></param>        protected void Grid1_Sort(object sender, GridSortEventArgs e)        {            BindGrid();        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #endregion
+        #region 分页选择下拉改变事件        /// <summary>                                   /// 分页选择下拉改变事件                                   /// </summary>                                   /// <param name="sender"></param>                                   /// <param name="e"></param>        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)        {            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);            BindGrid();        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #endregion
+        #endregion
+
+        #region 关闭弹出窗口及刷新页面        /// <summary>                                    /// 关闭弹出窗口                                    /// </summary>                                    /// <param name="sender"></param>                                    /// <param name="e"></param>        protected void Window1_Close(object sender, WindowCloseEventArgs e)        {            this.PTP_ID = this.hdPTP_ID.Text;            this.BindGrid();            this.InitTreeMenu();            this.hdPTP_ID.Text = string.Empty;        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>        /// 查询        /// </summary>        /// <param name="sender"></param>        /// <param name="e"></param>        protected void Tree_TextChanged(object sender, EventArgs e)        {            this.InitTreeMenu();            this.BindGrid();        }
 
         #endregion
 
         protected void btnMenuModify_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID)+ Window1.GetShowReference(String.Format("TestPackageCompleteEdit.aspx?PTP_ID={0}", this.tvControlItem.SelectedNodeID, "操作 - ")));
+            PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdPTP_ID.ClientID) + Window1.GetShowReference(String.Format("TestPackageCompleteEdit.aspx?PTP_ID={0}", this.tvControlItem.SelectedNodeID, "操作 - ")));
         }
 
         protected void btnPrinter_Click(object sender, EventArgs e)

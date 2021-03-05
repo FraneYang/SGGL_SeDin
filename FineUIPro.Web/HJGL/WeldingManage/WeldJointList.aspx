@@ -55,7 +55,7 @@
                                 <f:Button ID="btnBatchAdd" Text="批量增加" Icon="TableAdd"
                                     runat="server" OnClick="btnBatchAdd_Click">
                                 </f:Button>
-                                <f:Button ID="btnOut2" runat="server" Text="导出" ToolTip="导出焊口初始数据信息"
+                                <f:Button ID="btnOut2" runat="server" Text="导出" ToolTip="导出焊口初始数据信息" Hidden="true"
                                     Icon="FolderUp" EnableAjax="false" DisableControlBeforePostBack="false" OnClick="btnOut2_Click">
                                 </f:Button>
                                 <f:Button ID="btnPrint" Text="打印" Icon="Printer" runat="server"
@@ -199,6 +199,9 @@
         <f:Menu ID="Menu1" runat="server">
             <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
                 runat="server" Text="编辑" Icon="TableEdit">
+            </f:MenuButton>
+            <f:MenuButton ID="btnMenuInsert" OnClick="btnMenuInsert_Click" EnablePostBack="true"
+                runat="server" Text="插入焊口" Icon="TableRowInsert">
             </f:MenuButton>
             <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
                 ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"

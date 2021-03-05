@@ -61,6 +61,7 @@ namespace BLL
             newItemEndCheckList.State = ItemEndCheckList.State;
             newItemEndCheckList.AIsOK = ItemEndCheckList.AIsOK;
             newItemEndCheckList.BIsOK = ItemEndCheckList.BIsOK;
+            newItemEndCheckList.AOKState = ItemEndCheckList.AOKState;
             db.SubmitChanges();
         }
 

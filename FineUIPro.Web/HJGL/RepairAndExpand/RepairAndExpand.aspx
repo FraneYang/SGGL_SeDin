@@ -88,9 +88,9 @@
                                         </f:Label>
                                         <f:Label ID="txtWeldJointCode" Label="焊口号" runat="server" LabelWidth="90px">
                                         </f:Label>
-                                        <f:Label ID="txtRepairLocation" Label="底片号" runat="server" LabelWidth="90px">
+                                        <f:Label ID="txtRepairLocation" Label="底片号" runat="server" LabelWidth="120px" >
                                         </f:Label>
-                                        <f:Label ID="txtWelder" Label="施焊焊工" runat="server" LabelWidth="90px">
+                                        <f:Label ID="txtWelder" Label="施焊焊工" runat="server" LabelWidth="120px" >
                                         </f:Label>
                                     </Items>
                                 </f:FormRow>

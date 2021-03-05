@@ -200,11 +200,19 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 var itemCheck = ItemEndCheckLists.FirstOrDefault(x => x.ItemCheckId == id);
                 if (itemCheck != null)
                 {
-                    ItemEndCheckLists.Remove(itemCheck);
-                    var olditemCheck = BLL.AItemEndCheckService.GetAItemEndCheckByID(id);
-                    if (olditemCheck != null)
+                    var thisPipelineItems = ItemEndCheckLists.Where(x=>x.PipelineId== itemCheck.PipelineId);
+                    if (thisPipelineItems.Count() > 1)   //当前管线记录大于1时可以删除
                     {
-                        AItemEndCheckService.DeleteAItemEndCheckByID(id);
+                        ItemEndCheckLists.Remove(itemCheck);
+                        var olditemCheck = BLL.AItemEndCheckService.GetAItemEndCheckByID(id);
+                        if (olditemCheck != null)
+                        {
+                            AItemEndCheckService.DeleteAItemEndCheckByID(id);
+                        }
+                    }
+                    else
+                    {
+                        Alert.ShowInTop("管线信息无法删除！", MessageBoxIcon.Warning);
                     }
                 }
                 ItemEndCheckLists = ItemEndCheckLists.OrderBy(x => x.PipelineId).ToList();

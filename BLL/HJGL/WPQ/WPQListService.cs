@@ -67,6 +67,8 @@ namespace BLL
             newWPQ.Others = WPQ.Others;
             newWPQ.State = WPQ.State;
             newWPQ.ApproveManId = WPQ.ApproveManId;
+            newWPQ.RequiredT = WPQ.RequiredT;
+            newWPQ.RequestTime = WPQ.RequestTime;
             db.WPQ_WPQList.InsertOnSubmit(newWPQ);
             db.SubmitChanges();
         }
@@ -116,6 +118,8 @@ namespace BLL
                 newWPQ.State = WPQ.State;
                 newWPQ.ApproveManId = WPQ.ApproveManId;
                 newWPQ.ApproveTime = WPQ.ApproveTime;
+                newWPQ.RequiredT = WPQ.RequiredT;
+                newWPQ.RequestTime = WPQ.RequestTime;
                 db.SubmitChanges();
             }
         }

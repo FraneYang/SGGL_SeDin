@@ -639,22 +639,33 @@ namespace FineUIPro.Web.HJGL.PointTrust
         {
             int r_num = 0;
             string newTrustCode = string.Empty;
-            if (code.Contains("R1") || code.Contains("R2") || code.Contains("R3") || code.Contains("R4"))
+            if (code.Contains("A") || code.Contains("B") || code.Contains("C"))
             {
-                int indexR = code.LastIndexOf("R");
-                if (indexR > 0)
+                //int indexR = code.LastIndexOf("R");
+                //if (indexR > 0)
+                //{
+                //    try
+                //    {
+                //        r_num = Convert.ToInt32(code.Substring(indexR + 1, 1)) + 1;
+                //        newTrustCode = code.Substring(0, code.Length - 1) + r_num.ToString();
+                //    }
+                //    catch { }
+                //}
+                string s = code.Substring(code.Length-1,1);
+                string m = string.Empty;
+                if (s == "A")
                 {
-                    try
-                    {
-                        r_num = Convert.ToInt32(code.Substring(indexR + 1, 1)) + 1;
-                        newTrustCode = code.Substring(0, code.Length - 1) + r_num.ToString();
-                    }
-                    catch { }
+                    m = "B";
                 }
+                else if(s == "B")
+                {
+                    m = "C";
+                }
+                newTrustCode = code.Substring(0, code.Length - 1) + m;
             }
             else
             {
-                newTrustCode = code + "R1";
+                newTrustCode = code + "A";
             }
 
             return newTrustCode;

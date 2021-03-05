@@ -249,6 +249,21 @@ namespace BLL
             return item;
         }
         /// <summary>
+        /// 获取安装工程单位工程名称项
+        /// </summary>
+        /// <param name="projectId">项目Id</param>
+        /// <returns></returns>
+        public static ListItem[] GetAZUnitWorkList(string projectId)
+        {
+            List<Model.WBS_UnitWork> q = (from x in Funs.DB.WBS_UnitWork where x.ProjectId == projectId && x.SuperUnitWork == null && x.ProjectType == "2" orderby x.UnitWorkCode select x).ToList();
+            ListItem[] item = new ListItem[q.Count()];
+            for (int i = 0; i < q.Count(); i++)
+            {
+                item[i] = new ListItem(q[i].UnitWorkCode + "-" + q[i].UnitWorkName, q[i].UnitWorkId.ToString());
+            }
+            return item;
+        }
+        /// <summary>
         /// 根据工程类型获取名称
         /// </summary>
         /// <param name="projectType"></param>
@@ -312,6 +327,22 @@ namespace BLL
             dropName.DataValueField = "Value";
             dropName.DataTextField = "Text";
             dropName.DataSource = BLL.UnitWorkService.GetUnitWorkList(projectId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        /// <summary>
+        ///  安装工程单位工程表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitAZUnitWorkDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = BLL.UnitWorkService.GetAZUnitWorkList(projectId);
             dropName.DataBind();
             if (isShowPlease)
             {

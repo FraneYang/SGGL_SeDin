@@ -91,7 +91,7 @@ namespace BLL
                 WPQId = weldJoint.WPQId,
                 HeartNo1 = weldJoint.HeartNo1,
                 HeartNo2 = weldJoint.HeartNo2,
-               
+                BaseWeldJointId = weldJoint.BaseWeldJointId,
                 Components1Id = weldJoint.Components1Id,
                 Components2Id = weldJoint.Components2Id,
                 PreTemperature = weldJoint.PreTemperature,
@@ -221,6 +221,17 @@ namespace BLL
         {
             Model.SGGLDB db = Funs.DB;
             return db.View_HJGL_WeldJoint.FirstOrDefault(e => e.WeldJointId == weldJointId);
+        }
+
+        /// <summary>
+        /// 根据焊口Id获取插入焊口数
+        /// </summary>
+        /// <param name="weldingDailyId"></param>
+        /// <returns></returns>
+        public static List<Model.HJGL_WeldJoint> GetBaseWeldJointsByWeldJointId(string weldJointId)
+        {
+            var q = (from x in Funs.DB.HJGL_WeldJoint where x.BaseWeldJointId == weldJointId orderby x.WeldJointCode select x).ToList();
+            return q;
         }
 
         /// <summary>

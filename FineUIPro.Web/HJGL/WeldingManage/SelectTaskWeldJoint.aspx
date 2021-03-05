@@ -52,7 +52,7 @@
                                             runat="server" LabelWidth="100px" Hidden="true"
                                             Width="180px" LabelAlign="Right">
                                         </f:DropDownList> 
-                                        <f:DatePicker ID="txtTaskDate" Label="计划焊接日期" runat="server"
+                                        <f:DatePicker ID="txtTaskDate" Label="计划焊接日期" runat="server" AutoPostBack="true" OnTextChanged="txtTaskDate_TextChanged"
                                             DateFormatString="yyyy-MM-dd" LabelAlign="Left" LabelWidth="110px" >
                                         </f:DatePicker>
                                         <f:TextBox ID="txtTaskCode" Label="焊接任务单编号" ShowRedStar="true" Required="true"

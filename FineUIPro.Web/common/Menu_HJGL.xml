@@ -41,7 +41,8 @@
 </TreeNode>
 <TreeNode id="3fa44880-96d1-46ab-84b2-1f975dbcf193" Text="吹扫/清洗管理" NavigateUrl=""><TreeNode id="e6da5ef9-aa42-49dd-b6a6-b54a3b922d68" Text="吹扫/清洗试验录入" NavigateUrl="HJGL/PurgingCleaning/PurgingCleaningEdit.aspx"></TreeNode>
 </TreeNode>
-<TreeNode id="F3B157B7-9BEE-4150-80CB-087828F1C51D" Text="焊接数据分析" NavigateUrl=""><TreeNode id="075232DC-7C0B-4A5D-B9E4-6B37CB1A9C69" Text="焊接一次合格率" NavigateUrl="HJGL/WeldingReport/FirstPassRate.aspx"></TreeNode>
+<TreeNode id="F3B157B7-9BEE-4150-80CB-087828F1C51D" Text="焊接数据分析" NavigateUrl=""><TreeNode id="CCB0FA44-A5F6-4598-8E96-20C2435776D2" Text="焊口信息导出" NavigateUrl="HJGL/WeldingReport/WeldJointOut.aspx"></TreeNode>
+<TreeNode id="075232DC-7C0B-4A5D-B9E4-6B37CB1A9C69" Text="焊接一次合格率" NavigateUrl="HJGL/WeldingReport/FirstPassRate.aspx"></TreeNode>
 <TreeNode id="66A76F90-96A7-4C1F-B8D9-125DDEACEF52" Text="单位工程进度分析" NavigateUrl="HJGL/WeldingReport/UnitWorkareaAnalyze.aspx"></TreeNode>
 <TreeNode id="88CDDC68-54DE-4E24-9524-A33B80EC0E12" Text="单位工程质量分析" NavigateUrl="HJGL/WeldingReport/UnitWorkAreaQuality.aspx"></TreeNode>
 <TreeNode id="41C22E63-36B7-4C44-89EC-F765BFBB7C55" Text="焊工业绩分析" NavigateUrl="HJGL/WeldingReport/WelderPerformance.aspx"></TreeNode>

@@ -198,22 +198,34 @@ namespace BLL
                 int pointNumA = 0;
 
                 var batch = PointBatchService.GetPointBatchById(pointBatchId);
-                var batchItemNum = PointBatchDetailService.GetBatchDetailByBatchId(pointBatchId);
-
-                if (batch.DetectionRateId != null && batchItemNum.Count() > 0)
+                //大于等于500的焊口全部点口
+                var batchItems500Up = from x in db.HJGL_Batch_PointBatchItem
+                                      join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                      where y.Dia >= 500 && x.PointBatchId == pointBatchId
+                                      select x;
+                foreach (var item in batchItems500Up)
+                {
+                    PointBatchDetailService.UpdatePointBatchDetail(item.PointBatchItemId, "1", System.DateTime.Now);
+                }
+                //小于500的焊口按比例及规则点口
+                var batchItems500Down = from x in db.HJGL_Batch_PointBatchItem
+                                      join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                      where y.Dia < 500 && x.PointBatchId == pointBatchId
+                                      select x;
+                if (batch.DetectionRateId != null && batchItems500Down.Count() > 0)
                 {
                     var rate = Base_DetectionRateService.GetDetectionRateByDetectionRateId(batch.DetectionRateId);
                     // 批里要检测的数量
-                    pointNum = Convert.ToInt32(Math.Ceiling((batchItemNum.Count() * rate.DetectionRateValue.Value) * 0.01));
+                    pointNum = Convert.ToInt32(Math.Ceiling((batchItems500Down.Count() * rate.DetectionRateValue.Value) * 0.01));
                 }
 
                 var weldG = from x in db.HJGL_Batch_PointBatchItem
                             join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                            where y.JointAttribute == "固定口" && x.PointBatchId==pointBatchId
+                            where y.JointAttribute == "固定口" && y.Dia < 500 && x.PointBatchId == pointBatchId
                             select x;
                 var weldA = from x in db.HJGL_Batch_PointBatchItem
                             join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                            where y.JointAttribute == "活动口" && x.PointBatchId == pointBatchId
+                            where y.JointAttribute == "活动口" && y.Dia < 500 && x.PointBatchId == pointBatchId
                             select x;
                 if (weldG.Count() > 0)
                 {

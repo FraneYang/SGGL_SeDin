@@ -120,6 +120,8 @@ namespace FineUIPro.Web.HJGL.WPQ
                             this.txtNoMaxImpactThickness.Text = Convert.ToString(wpq.NoMaxImpactThickness);
                         }
                         this.txtWPQStandard.Text = wpq.WPQStandard;
+                        this.txtRequiredT.Text = wpq.RequiredT;
+                        this.txtRequestTime.Text = wpq.RequestTime;
                         if (wpq.IsHotProess == true)
                         {
                             this.cbkIsHotTreatment.Checked = true;
@@ -243,6 +245,8 @@ namespace FineUIPro.Web.HJGL.WPQ
                 wpq.WeldingMethodId = this.drpWeldingMethodId.SelectedValue;
             }
             wpq.PreTemperature = this.txtPreTemperature.Text;
+            wpq.RequiredT = this.txtRequiredT.Text.Trim();
+            wpq.RequestTime = this.txtRequestTime.Text.Trim();
             wpq.Remark = this.txtRemark.Text.Trim();
             wpq.MinImpactThickness = Funs.GetNewDecimal(this.txtMinImpactThickness.Text.Trim());
             wpq.MaxImpactThickness = Funs.GetNewDecimal(this.txtMaxImpactThickness.Text.Trim());

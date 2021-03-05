@@ -16,7 +16,7 @@
 <TreeNode id="1390195D8-874B-4E7B-8DBF-D81A5984E973" Text="执业资格证书定义" NavigateUrl="BaseInfo/PracticeCertificate.aspx"></TreeNode>
 <TreeNode id="871A4DA2-2CE0-4049-8255-3759A269110E" Text="法律法规类型定义" NavigateUrl="BaseInfo/LawsRegulationsType.aspx"></TreeNode>
 <TreeNode id="ACA1906A-4A68-4632-A13A-342DECE32D3E" Text="标准规范类型定义" NavigateUrl="BaseInfo/HSSEStandardListType.aspx"></TreeNode>
-<TreeNode id="5DAADE2B-C2D2-4765-A47A-A1C3139775DC" Text="制度类型定义" NavigateUrl="BaseInfo/ManageRuleType.aspx"></TreeNode>
+<TreeNode id="5DAADE2B-C2D2-4765-A47A-A1C3139775DC" Text="管理规定类型定义" NavigateUrl="BaseInfo/ManageRuleType.aspx"></TreeNode>
 <TreeNode id="F7B600D2-999C-4C60-96D4-B7CB7129C0B5" Text="规章制度类型定义" NavigateUrl="BaseInfo/RulesRegulationsType.aspx"></TreeNode>
 <TreeNode id="179F286B-6DF8-414E-947F-82267076D4C8" Text="施工方案类型" NavigateUrl="BaseInfo/SolutionTempleteType.aspx"></TreeNode>
 <TreeNode id="2181FB42-22F2-4342-B604-96F5770FE892" Text="分部分项工程定义" NavigateUrl="BaseInfo/SpecialSchemeType.aspx"></TreeNode>
@@ -53,11 +53,11 @@
 <TreeNode id="F480545B-371A-4949-85F8-92B2CA75A044" Text="试验介质" NavigateUrl="HJGL/BaseInfo/TestMedium.aspx"></TreeNode>
 <TreeNode id="49852102-F148-44FB-95F6-EFBE32708276" Text="管道吹洗方法定义" NavigateUrl="HJGL/BaseInfo/PurgeMethod.aspx"></TreeNode>
 <TreeNode id="C587E930-4FBC-48CE-8BF9-7CB8164C207C" Text="压力管道级别定义" NavigateUrl="HJGL/BaseInfo/PressurePipingClass.aspx"></TreeNode>
+<TreeNode id="02C1F7EC-B08F-4D3A-801E-EDF8E19ED771" Text="气体保护方式定义" NavigateUrl="HJGL/BaseInfo/GasProtectionMode.aspx"></TreeNode>
+<TreeNode id="05336157-BECD-4BA1-989C-A86718574F5E" Text="保护气体定义" NavigateUrl="HJGL/BaseInfo/ProtectionGas.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="24A40837-0756-49B0-8B3C-EFB8A9879336" Text="合同设置" NavigateUrl=""><TreeNode id="E40C8FCE-3530-47D6-85EB-5C7E7E0A89FC" Text="施工分包方式定义" NavigateUrl=""></TreeNode>
 </TreeNode>
-</TreeNode>
-<TreeNode id="96D3FDDB-208C-45E1-BE52-C02F50ED277D" Text="报表设计" NavigateUrl=""><TreeNode id="7E741129-9FD7-4DE1-970B-375C3165E21F" Text="报表模板设计" NavigateUrl="ReportPrint/PrintDesigner.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="75AA6177-8AAD-4AA4-BC4E-3883FB095A65" Text="项目设置" NavigateUrl=""><TreeNode id="B830399C-CA36-4C23-A170-21E556D052DD" Text="项目成立" NavigateUrl="ProjectData/ProjectSet.aspx"></TreeNode>
 </TreeNode>

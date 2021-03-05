@@ -17,6 +17,46 @@ namespace BLL
             return Funs.DB.HJGL_WeldTask.FirstOrDefault(e => e.WeldTaskId == WeldTaskId);
         }
 
+        /// <summary>
+        ///获取焊接任务单编号
+        /// </summary>
+        /// <returns></returns>
+        public static string GetTaskCodeByDate(string projectId, string date)
+        {
+            string code = string.Empty;
+            var list = (from x in Funs.DB.HJGL_WeldTask where x.ProjectId == projectId && x.TaskDate == Convert.ToDateTime(date) orderby x.TaskCode descending select x.TaskCode).Distinct().ToList();
+            if (list.Count > 0)
+            {
+                string oldCode = list[0];
+                if (oldCode.Length > 4)
+                {
+                    string partCode = oldCode.Substring(oldCode.Length - 4);
+                    int num = Funs.GetNewIntOrZero(partCode) + 1;
+                    if (num < 10)
+                    {
+                        code = date + "-00" + num;
+                    }
+                    else if (num >= 10 && num < 100)
+                    {
+                        code = date + "-0" + num;
+                    }
+                    else
+                    {
+                        code = date + "-" + num;
+                    }
+                }
+                else
+                {
+                    code = date + "-001";
+                }
+            }
+            else
+            {
+                code = date + "-001";
+            }
+            return code;
+        }
+
         public static List<Model.View_HJGL_WeldingTask> GetWeldingTaskList(string ProjectId, string UnitWorkId, DateTime taskDate)
         {
             return (from x in Funs.DB.View_HJGL_WeldingTask

@@ -127,7 +127,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtRequiredT;
+        protected global::FineUIPro.TextBox txtRequiredT;
         
         /// <summary>
         /// txtActualT 控件。
@@ -145,7 +145,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtRequestTime;
+        protected global::FineUIPro.TextBox txtRequestTime;
         
         /// <summary>
         /// txtActualTime 控件。

@@ -30,10 +30,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT PointBatchItem.PointBatchItemId,PointBatch.PointBatchCode, WeldJoint.WeldJointCode,UnitWork.UnitWorkCode,unit.UnitCode,
-                                    (CASE PointBatchItem.IsAudit WHEN 1 THEN '是' ELSE '否' END) AS PointIsAudit,
-                                     WeldJoint.JointArea,WeldingDaily.WeldingDate,PipingClass.PipingClassName,
-                                     trustItem.TrustBatchItemId
+            string strSql = @"SELECT distinct PointBatch.PointBatchId,PointBatch.PointBatchCode, UnitWork.UnitWorkName,unit.UnitCode
                                FROM dbo.HJGL_Batch_PointBatchItem AS PointBatchItem
                                LEFT JOIN dbo.HJGL_Batch_PointBatch AS PointBatch ON PointBatch.PointBatchId=PointBatchItem.PointBatchId
                                LEFT JOIN dbo.HJGL_WeldJoint AS WeldJoint ON WeldJoint.WeldJointId=PointBatchItem.WeldJointId
@@ -56,12 +53,12 @@ namespace FineUIPro.Web.HJGL.PointTrust
             Grid1.DataSource = table;
             Grid1.DataBind();
 
-            DataRow[] rds=tb.Select("PointIsAudit='是'");
-            if (null != rds)
-            {
-                string[] ids = rds.Select(t => t.Field<string>("PointBatchItemId")).ToArray();
-                this.Grid1.SelectedRowIDArray = ids;
-            }
+            //DataRow[] rds=tb.Select("PointIsAudit='是'");
+            //if (null != rds)
+            //{
+            //    string[] ids = rds.Select(t => t.Field<string>("PointBatchItemId")).ToArray();
+            //    this.Grid1.SelectedRowIDArray = ids;
+            //}
 
 
         }
@@ -134,39 +131,14 @@ namespace FineUIPro.Web.HJGL.PointTrust
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_TrustBatchMenuId, Const.BtnGenerate))
             {
-                /////取当前项目所有未委托批
-                //var getViewPointBatchLists = (from x in Funs.DB.View_Batch_PointBatch
-                //                              where x.EndDate.HasValue && (!x.IsTrust.HasValue || !x.IsTrust.Value) && x.ProjectId == this.CurrUser.LoginProjectId
-                //                              select x).ToList();
-
-                var getViewGenerateTrustLists = (from x in Funs.DB.View_GenerateTrust where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
-                if (getViewGenerateTrustLists.Count() > 0)
+                if (this.Grid1.SelectedRowIDArray.Length > 0)
                 {
-                    var getUnit = BLL.UnitService.GetUnitByUnitId(this.CurrUser.UnitId);
-                    if (getUnit != null && getUnit.UnitTypeId == Const.ProjectUnitType_2)
-                    {
-                        var getUnitViewGenerateTrustLists = getViewGenerateTrustLists.Where(x => x.UnitId == this.CurrUser.UnitId);
-                        if (getUnitViewGenerateTrustLists.Count() > 0)
-                        {
-                            // 当前单位未委托批
-                            GenerateTrust(getUnitViewGenerateTrustLists.ToList());
-                        }
-                        else
-                        {
-                            Alert.ShowInTop("所属单位审核的点口已全部生成委托单！", MessageBoxIcon.Warning);
-                        }
-
-                    }
-                    else
-                    {
-                        GenerateTrust(getViewGenerateTrustLists);
-                    }
-                    //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_PointBatchMenuId, Const.BtnGenerate, null);
-                    this.BindGrid();
+                    GenerateTrust();
+                    BindGrid();
                 }
                 else
                 {
-                    Alert.ShowInTop("已全部生成委托单！", MessageBoxIcon.Warning);
+                    Alert.ShowInTop("请选择需要生成委托单的批！", MessageBoxIcon.Warning);
                 }
             }
             else
@@ -181,80 +153,83 @@ namespace FineUIPro.Web.HJGL.PointTrust
         /// 生成委托单
         /// </summary>
         /// <param name="unitId"></param>
-        private void GenerateTrust(List<Model.View_GenerateTrust> GenerateTrustLists)
+        private void GenerateTrust()
         {
             Model.SGGLDB db = Funs.DB;
-            foreach (var trust in GenerateTrustLists)
+            foreach (var batchId in this.Grid1.SelectedRowIDArray)
             {
-                Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust();
-                var project = BLL.ProjectService.GetProjectByProjectId(trust.ProjectId);
-                var unit = BLL.UnitService.GetUnitByUnitId(trust.UnitId);
-                var area = BLL.UnitWorkService.getUnitWorkByUnitWorkId(trust.UnitWorkId);
-                var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(trust.DetectionTypeId);
-                var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(trust.DetectionRateId);
-
-                string perfix = string.Empty;
-                perfix = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + rate.DetectionRateValue.ToString() + "%-" ;
-                newBatchTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", project.ProjectId, perfix);
-
-                string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
-                newBatchTrust.TrustBatchId = trustBatchId;
-
-                newBatchTrust.TrustDate = DateTime.Now;
-                newBatchTrust.ProjectId = trust.ProjectId;
-                newBatchTrust.UnitId = trust.UnitId;
-                newBatchTrust.UnitWorkId = trust.UnitWorkId;
-                newBatchTrust.DetectionTypeId = trust.DetectionTypeId;
-                newBatchTrust.NDEUuit = area.NDEUnit;
-
-                BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
-
-                // 生成委托条件对比
-                var generateTrustItem = from x in db.View_GenerateTrustItem
-                                        where x.ProjectId == trust.ProjectId 
-                                        && x.UnitWorkId == trust.UnitWorkId && x.UnitId == trust.UnitId
-                                        && x.DetectionTypeId == trust.DetectionTypeId
-                                        && x.DetectionRateId==trust.DetectionRateId
-                                        select x;
-
-                List<string> toPointBatchList = generateTrustItem.Select(x => x.PointBatchId).Distinct().ToList();
-
-                // 生成委托明细，并回写点口明细信息
-                foreach (var item in generateTrustItem)
+                Model.HJGL_Batch_PointBatch batch = BLL.PointBatchService.GetPointBatchById(batchId);
+                if (batch != null)
                 {
-                    if (BLL.Batch_BatchTrustItemService.GetIsGenerateTrust(item.PointBatchItemId)) ////生成委托单的条件判断
+                    Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust();
+                    var project = BLL.ProjectService.GetProjectByProjectId(batch.ProjectId);
+                    var unit = BLL.UnitService.GetUnitByUnitId(batch.UnitId);
+                    var area = BLL.UnitWorkService.getUnitWorkByUnitWorkId(batch.UnitWorkId);
+                    var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(batch.DetectionTypeId);
+                    var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(batch.DetectionRateId);
+
+                    string perfix = string.Empty;
+                    perfix = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + rate.DetectionRateValue.ToString() + "%-";
+                    newBatchTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", project.ProjectId, perfix);
+
+                    string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
+                    newBatchTrust.TrustBatchId = trustBatchId;
+
+                    newBatchTrust.TrustDate = DateTime.Now;
+                    newBatchTrust.ProjectId = batch.ProjectId;
+                    newBatchTrust.UnitId = batch.UnitId;
+                    newBatchTrust.UnitWorkId = batch.UnitWorkId;
+                    newBatchTrust.DetectionTypeId = batch.DetectionTypeId;
+                    newBatchTrust.NDEUuit = area.NDEUnit;
+
+                    BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
+
+                    // 生成委托条件对比
+                    var generateTrustItem = from x in db.View_GenerateTrustItem
+                                            where x.ProjectId == batch.ProjectId
+                                            && x.UnitWorkId == batch.UnitWorkId && x.UnitId == batch.UnitId
+                                            && x.DetectionTypeId == batch.DetectionTypeId
+                                            && x.DetectionRateId == batch.DetectionRateId
+                                            select x;
+
+                    List<string> toPointBatchList = generateTrustItem.Select(x => x.PointBatchId).Distinct().ToList();
+
+                    // 生成委托明细，并回写点口明细信息
+                    foreach (var item in generateTrustItem)
                     {
-                        Model.HJGL_Batch_BatchTrustItem trustItem = new Model.HJGL_Batch_BatchTrustItem
+                        if (BLL.Batch_BatchTrustItemService.GetIsGenerateTrust(item.PointBatchItemId)) ////生成委托单的条件判断
                         {
-                            TrustBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrustItem)),
-                            TrustBatchId = trustBatchId,
-                            PointBatchItemId = item.PointBatchItemId,
-                            WeldJointId = item.WeldJointId,
-                            CreateDate = DateTime.Now
-                        };
-                        Batch_BatchTrustItemService.AddBatchTrustItem(trustItem);
+                            Model.HJGL_Batch_BatchTrustItem trustItem = new Model.HJGL_Batch_BatchTrustItem
+                            {
+                                TrustBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrustItem)),
+                                TrustBatchId = trustBatchId,
+                                PointBatchItemId = item.PointBatchItemId,
+                                WeldJointId = item.WeldJointId,
+                                CreateDate = DateTime.Now
+                            };
+                            Batch_BatchTrustItemService.AddBatchTrustItem(trustItem);
+                        }
+
+                        Model.HJGL_Batch_PointBatchItem pointBatchItem = db.HJGL_Batch_PointBatchItem.First(e => e.PointBatchItemId == item.PointBatchItemId);
+
+                        pointBatchItem.IsBuildTrust = true;
+                        db.SubmitChanges();
                     }
 
-                    Model.HJGL_Batch_PointBatchItem pointBatchItem = db.HJGL_Batch_PointBatchItem.First(e => e.PointBatchItemId == item.PointBatchItemId);
-                   
-                    pointBatchItem.IsBuildTrust = true;
-                    db.SubmitChanges();
-                }
 
-               
-                // 回写委托批对应点口信息
-                if (toPointBatchList.Count()>0)
-                {
-                    string toPointBatch = String.Join(",", toPointBatchList);
-                    
-                    var updateTrut = BLL.Batch_BatchTrustService.GetBatchTrustById(trustBatchId);
-                    if (updateTrut != null)
+                    // 回写委托批对应点口信息
+                    if (toPointBatchList.Count() > 0)
                     {
-                        updateTrut.TopointBatch = toPointBatch;
-                        BLL.Batch_BatchTrustService.UpdateBatchTrust(updateTrut);
+                        string toPointBatch = String.Join(",", toPointBatchList);
+
+                        var updateTrut = BLL.Batch_BatchTrustService.GetBatchTrustById(trustBatchId);
+                        if (updateTrut != null)
+                        {
+                            updateTrut.TopointBatch = toPointBatch;
+                            BLL.Batch_BatchTrustService.UpdateBatchTrust(updateTrut);
+                        }
                     }
                 }
-
             }
 
             Alert.ShowInTop("已成功生成委托单！", MessageBoxIcon.Success);

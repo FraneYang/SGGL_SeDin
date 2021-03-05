@@ -114,19 +114,19 @@
                             <Rows>
                                 <f:FormRow>
                                     <Items>
-                                        <f:DropDownList ID="drpWeldingMethodId" Label="焊接方法"
+                                        <f:DropDownList ID="drpWeldingMethodId" Label="焊接方法" Enabled="false"
                                             runat="server" ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="100px" LabelAlign="Right">
                                         </f:DropDownList>
                                         <f:Panel ID="Panel3" Width="300px" ShowHeader="false" ShowBorder="false" Layout="Column" CssClass="" runat="server">
                                             <Items>
-                                                <f:TextBox ID="txtWPQCode" Label="WPS编号" runat="server" ShowRedStar="true" Required="true"
+                                                <f:TextBox ID="txtWPQCode" Label="WPS编号" runat="server" ShowRedStar="true" Required="true" Enabled="false"
                                                     LabelWidth="100px" Width="250px" LabelAlign="Right">
                                                 </f:TextBox>
                                                 <f:Button ID="search" OnClick="search_Click" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" runat="server">
                                                 </f:Button>
                                             </Items>
                                         </f:Panel>
-                                        <f:DropDownList ID="drpGrooveType" Label="坡口类型" runat="server"
+                                        <f:DropDownList ID="drpGrooveType" Label="坡口类型" runat="server" Enabled="false"
                                             EnableEdit="true" LabelWidth="100px" LabelAlign="Right">
                                         </f:DropDownList>
                                         <f:DropDownList ID="drpWeldingRod" Label="焊条" runat="server"
@@ -139,10 +139,10 @@
                                         <f:DropDownList ID="drpWeldingWire" Label="焊丝" runat="server"
                                             EnableEdit="true" LabelWidth="100px" AutoPostBack="true" OnSelectedIndexChanged="drpWeldingWire_SelectedIndexChanged" LabelAlign="Right">
                                         </f:DropDownList>
-                                        <f:TextBox ID="txtPreTemperature" runat="server" Label="预热温度" MaxLength="50" LabelAlign="Right"
+                                        <f:TextBox ID="txtPreTemperature" runat="server" Label="预热温度" MaxLength="50" LabelAlign="Right" Enabled="false"
                                             LabelWidth="100px">
                                         </f:TextBox>
-                                        <f:DropDownList ID="drpIsHotProess" runat="server" Label="是否热处理" LabelAlign="Right"
+                                        <f:DropDownList ID="drpIsHotProess" runat="server" Label="是否热处理" LabelAlign="Right" Enabled="false"
                                             LabelWidth="100px" >
                                             <f:ListItem Value="False" Text="否" Selected="true" />
                                             <f:ListItem Value="True" Text="是" />
@@ -158,6 +158,8 @@
                                             LabelWidth="100px" ShowRedStar="true" Required="true" Hidden="true">
                                         </f:TextBox>
                                         <f:TextBox runat="server" ID="txtIsHotProess" Hidden="true"></f:TextBox>
+                                        <f:TextBox runat="server" ID="hdWeldingMethodId" Hidden="true"></f:TextBox>
+                                        <f:TextBox runat="server" ID="hdGrooveType" Hidden="true"></f:TextBox>
                                     </Items>
                                 </f:FormRow>
                             </Rows>

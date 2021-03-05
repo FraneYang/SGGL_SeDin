@@ -158,5 +158,38 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+
+        /// <summary>
+        /// 获取管线名称项
+        /// </summary>
+        /// <param name="projectId">项目Id</param>
+        /// <returns></returns>
+        public static ListItem[] GetPipelineList(string unitWorkId)
+        {
+            List<Model.HJGL_Pipeline> q = (from x in Funs.DB.HJGL_Pipeline where x.UnitWorkId== unitWorkId orderby x.PipelineCode select x).ToList();
+            ListItem[] item = new ListItem[q.Count()];
+            for (int i = 0; i < q.Count(); i++)
+            {
+                item[i] = new ListItem(q[i].PipelineCode, q[i].PipelineId.ToString());
+            }
+            return item;
+        }
+
+        /// <summary>
+        ///  管线下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitPipelineDownList(FineUIPro.DropDownList dropName, string unitWorkId, bool isShowPlease)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = GetPipelineList(unitWorkId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
     }
 }

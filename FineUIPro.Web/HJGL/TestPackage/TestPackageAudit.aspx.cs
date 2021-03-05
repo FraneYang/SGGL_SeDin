@@ -87,7 +87,8 @@ namespace FineUIPro.Web.HJGL.TestPackage
                                       && x.SuperUnitWork == null && x.UnitId != null && x.ProjectType != null
                                 select x).ToList();
             List<Model.PTP_TestPackage> testPackageLists = (from x in Funs.DB.PTP_TestPackage
-                                                            where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
+                                                            where x.ProjectId == this.CurrUser.LoginProjectId
+                                                            select x).ToList();
             List<Model.WBS_UnitWork> unitWork1 = null;
             List<Model.WBS_UnitWork> unitWork2 = null;
 
@@ -225,6 +226,9 @@ namespace FineUIPro.Web.HJGL.TestPackage
             Count = 0;
             int Count1 = 0, Count2 = 0, Count3 = 0, Count4 = 0;
             int rowsCount = this.Grid1.Rows.Count;
+            var batchTrustItems = from x in Funs.DB.HJGL_Batch_BatchTrustItem select x;
+            var NDEs = from x in Funs.DB.HJGL_Batch_NDE where x.ProjectId == this.CurrUser.LoginProjectId select x;
+            var NDEItems = from x in Funs.DB.HJGL_Batch_NDEItem select x;
             for (int i = 0; i < rowsCount; i++)
             {
                 int IsoInfoCount = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[3].ToString()); //总焊口
@@ -234,6 +238,55 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 decimal Rate = 0;
                 bool convertible = decimal.TryParse(this.Grid1.Rows[i].Values[9].ToString(), out Rate); //应检测比例
                 decimal Ratio = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[10].ToString()); //实际检测比例
+                //不合格口
+                bool allNDEItemOK = true;  //返修口检测单是否合格
+                string pipelineId = this.Grid1.Rows[i].DataKeys[1].ToString();
+                var lastRepairRecord = (from x in Funs.DB.HJGL_RepairRecord
+                                        join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                        where x.ProjectId == this.CurrUser.LoginProjectId && y.PipelineId == pipelineId
+                                        orderby x.NoticeDate descending
+                                        select x).FirstOrDefault();
+                if (lastRepairRecord == null)   //不存在返修口
+                {
+
+                }
+                else  //存在返修口
+                {
+                    //返修委托明细
+                    var batchTrustItem = batchTrustItems.FirstOrDefault(x => x.RepairRecordId == lastRepairRecord.RepairRecordId);
+                    if (batchTrustItem != null)
+                    {
+                        //检测单
+                        var lastNDE = NDEs.FirstOrDefault(x => x.TrustBatchId == batchTrustItem.TrustBatchId);
+                        if (lastNDE != null)
+                        {
+                            var lastNDEItems = NDEItems.Where(x => x.NDEID == lastNDE.NDEID);
+                            if (lastNDEItems.Count() > 0)
+                            {
+                                foreach (var lastNDEItem in lastNDEItems)
+                                {
+                                    if (lastNDEItem.TotalFilm != null && lastNDEItem.PassFilm != null && lastNDEItem.TotalFilm != lastNDEItem.PassFilm)
+                                    {
+                                        allNDEItemOK = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                allNDEItemOK = false;
+                            }
+                        }
+                        else
+                        {
+                            allNDEItemOK = false;
+                        }
+                    }
+                    else
+                    {
+                        allNDEItemOK = false;
+                    }
+                }
 
                 if (IsoInfoCount > IsoInfoCountT) //未焊完
                 {
@@ -245,7 +298,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                     Count2 += 1;
                     this.Grid1.Rows[i].RowCssClass = "Yellow";
                 }
-                else if (CountU > 0) //已焊完，已达检测比例，但有不合格
+                else if (!allNDEItemOK) //已焊完，已达检测比例，但有不合格
                 {
                     Count3 += 1;
                     this.Grid1.Rows[i].RowCssClass = "Green";

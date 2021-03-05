@@ -5,7 +5,7 @@
 <head id="Head1" runat="server">
     <title>试压尾项检查</title>
     <style type="text/css">
-        .Yellow  {
+        .Yellow {
             background-color: #FFFF93;
         }
 
@@ -13,9 +13,9 @@
             background-color: red;
         }
 
-        .Green  {
+        .Green {
             background-color: Green;
-            color:white;
+            color: white;
         }
     </style>
 </head>
@@ -45,6 +45,13 @@
                             BoxFlex="1" DataKeyNames="ItemEndCheckListId" AllowCellEditing="true" EnableColumnLines="true"
                             ClicksToEdit="2" DataIDField="ItemEndCheckListId" AllowSorting="true" SortField="CompileDate" SortDirection="DESC"
                             OnSort="Grid1_Sort" EnableTextSelection="True" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">
+                            <Toolbars>
+                                <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
+                                    <Items>
+                                        <f:Label runat="server" Text="绿色：A项无/A项已完成/B项无/B项已完成    黄色：B项未完成    红色：A项未完成"></f:Label>
+                                    </Items>
+                                </f:Toolbar>
+                            </Toolbars>
                             <Columns>
                                 <f:RenderField Width="120px" ColumnID="TestPackageNo" DataField="TestPackageNo"
                                     HeaderTextAlign="Center" HeaderText="试压包编号" TextAlign="Left">
@@ -52,7 +59,7 @@
                                 <f:RenderField Width="120px" ColumnID="TestPackageName" DataField="TestPackageName"
                                     HeaderTextAlign="Center" HeaderText="试压包名称" TextAlign="Left" ExpandUnusedSpace="true">
                                 </f:RenderField>
-                                
+
                                 <f:TemplateField ColumnID="AState" Width="110px" HeaderText="A项整改状态" HeaderTextAlign="Center" TextAlign="Center"
                                     EnableLock="true" Locked="False">
                                     <ItemTemplate>
@@ -104,7 +111,7 @@
                 <f:MenuButton ID="btnMenuView" EnablePostBack="true" runat="server" Text="查看" Icon="ApplicationViewIcons" OnClick="btnMenuView_Click">
                 </f:MenuButton>
                 <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
-                    OnClick="btnMenuDel_Click" >
+                    OnClick="btnMenuDel_Click">
                 </f:MenuButton>
             </Items>
         </f:Menu>

@@ -72,7 +72,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 //    lbIsAudit.Text = "未审核";
                 //}
 
-                if (repairRecord.RepairMark == "R2")
+                if (repairRecord.RepairMark == "B")
                 {
                     //ckbdaily.Hidden = true;
                     //ckbMat.Hidden = true;
@@ -87,7 +87,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                     this.ckbRepairBefore.Checked = false;
                     this.ckbMat.Checked = false;
                     this.ckbSpec.Checked = false;
-                    var repairRecordR1 = Funs.DB.HJGL_RepairRecord.FirstOrDefault(x => x.WeldJointId == repairRecord.WeldJointId && x.RepairMark == "R1");
+                    var repairRecordR1 = Funs.DB.HJGL_RepairRecord.FirstOrDefault(x => x.WeldJointId == repairRecord.WeldJointId && x.RepairMark == "A");
                     if (repairRecordR1 != null)
                     {
                         if (repairRecordR1.Batch == true)
@@ -320,14 +320,14 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
 
                 string strSql = string.Empty;
                 DataTable dt = null;
-                if (repairRecord.RepairMark == "R1")
+                if (repairRecord.RepairMark == "A")
                 {
                     strSql = @"SELECT PointBatchItemId,PointBatchId,PointBatchCode,WeldJointId,PointState,PointDate,WeldJointCode,
                                      JointArea,Size,WeldingDate,PipelineCode,PipingClassName,PointIsAudit,UnitId,
                                      (case when PBackingWelderId is null then BackingWelderId else PBackingWelderId end) BackingWelderId,
                                      (case when PCoverWelderId is null then CoverWelderId else PCoverWelderId end) CoverWelderId    
                               FROM dbo.View_HJGL_Batch_PointBatchItem
-                              WHERE ProjectId=@ProjectId AND DetectionTypeId=@DetectionTypeId ";
+                              WHERE ProjectId=@ProjectId AND DetectionTypeId=@DetectionTypeId";
                     List<SqlParameter> listStr = new List<SqlParameter>();
                     listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
                     listStr.Add(new SqlParameter("@DetectionTypeId", repairRecord.DetectionTypeId));
@@ -339,7 +339,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                     }
                     else
                     {
-                        strSql += "AND (PointDate IS NULL OR(PointDate IS NOT NULL AND RepairRecordId = @RepairRecordId))";
+                        strSql += " AND (PointDate IS NULL OR(PointDate IS NOT NULL AND RepairRecordId = @RepairRecordId))";
                         listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
                     }
                     if (ckbWelder.Checked)
@@ -403,7 +403,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                     }
                     else
                     {
-                        strSql += "AND (PointDate IS NULL OR(PointDate IS NOT NULL AND RepairRecordId = @RepairRecordId))";
+                        strSql += " AND (PointDate IS NULL OR(PointDate IS NOT NULL AND RepairRecordId = @RepairRecordId))";
                         listStr.Add(new SqlParameter("@RepairRecordId", repairRecordId));
                     }
                     listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
@@ -745,12 +745,13 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                     //    repair.IsCut = true;
                     //}
                 }
-
+                string pointState = string.Empty;
                 // 更新返修口
                 var batchItem = db.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.WeldJointId == repairRecord.WeldJointId);
                 if (batchItem != null)
                 {
                     batchItem.RepairDate = Convert.ToDateTime(this.txtRepairDate.Text);
+                    pointState = batchItem.PointState;
                     //if (ckbIsCut.Checked)
                     //{
                     //    batchItem.CutDate = DateTime.Now.Date;
@@ -771,7 +772,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                     }
                 }
                 // 更新扩透口
-                RandomExport(repairRecord.RepairMark);
+                RandomExport(repairRecord.RepairMark, pointState);
                 string[] checkedRow = Grid1.SelectedRowIDArray;
                 if (checkedRow.Count() > 0)
                 {
@@ -1055,26 +1056,39 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             //}
         }
 
-        private void RandomExport(string mark)
+        private void RandomExport(string mark,string pointState)
         {
             int num = Grid1.Rows.Count;
-            if (mark == "R1")
+            if (mark == "A")
             {
-                if (num > 0 && num <= 2)
+                if (pointState != "2")   //非扩透口
                 {
-                    if (num == 1)
+                    if (num > 0 && num <= 2)
                     {
-                        Grid1.SelectedRowIndexArray = new int[] { 0 };
+                        if (num == 1)
+                        {
+                            Grid1.SelectedRowIndexArray = new int[] { 0 };
+                        }
+                        else
+                        {
+                            Grid1.SelectedRowIndexArray = new int[] { 0, 1 };
+                        }
                     }
                     else
                     {
-                        Grid1.SelectedRowIndexArray = new int[] { 0, 1 };
+                        int[] r = Funs.GetRandomNum(2, 0, num - 1);
+                        Grid1.SelectedRowIndexArray = r;
                     }
                 }
-                else
+                else   //扩透口
                 {
-                    int[] r = Funs.GetRandomNum(2, 0, num - 1);
-                    Grid1.SelectedRowIndexArray = r;
+                    int[] groupNum = new int[num];
+                    for (int i = 0; i < num; i++)
+                    {
+                        groupNum[i] = i;
+                    }
+
+                    Grid1.SelectedRowIndexArray = groupNum;
                 }
             }
             else

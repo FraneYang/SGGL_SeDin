@@ -17,10 +17,10 @@
                 TitleToolTip="焊口信息" AutoScroll="true">
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊口信息"
-                        EnableCollapse="true" KeepCurrentSelection="true" runat="server" BoxFlex="1"
-                        DataKeyNames="PointBatchItemId" AllowColumnLocking="true" EnableColumnLines="true"
-                        DataIDField="PointBatchItemId" EnableTextSelection="True" AllowSorting="true" SortField="PointBatchCode,WeldJointCode"
-                        SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="false" IsDatabasePaging="true"
+                        EnableCollapse="true" KeepCurrentSelection="true" runat="server" BoxFlex="1" ForceFit="true"
+                        DataKeyNames="PointBatchId" AllowColumnLocking="true" EnableColumnLines="true"
+                        DataIDField="PointBatchId" EnableTextSelection="True" AllowSorting="true" SortField="PointBatchCode"
+                        SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="false" IsDatabasePaging="true" EnableCheckBoxSelect="true"
                         PageSize="1000" >
                         <Toolbars>
                             <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Right">
@@ -40,8 +40,8 @@
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                            <f:RenderField HeaderText="单位工程编号" ColumnID="UnitWorkCode"
-                                DataField="UnitWorkCode" SortField="UnitWorkCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkName"
+                                DataField="UnitWorkName" SortField="UnitWorkName" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="100px">
                             </f:RenderField>
                             <f:RenderField HeaderText="单位" ColumnID="UnitCode"
@@ -52,26 +52,6 @@
                                 DataField="PointBatchCode" SortField="PointBatchCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="280px" >
                             </f:RenderField>
-                            <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode"
-                                DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="90px">
-                            </f:RenderField>
-                           <f:RenderField HeaderText="区域" ColumnID="JointArea" DataField="JointArea"
-                                SortField="JointArea" FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
-                                Width="100px">
-                            </f:RenderField>
-                           <f:RenderField HeaderText="焊接日期" ColumnID="WeldingDate"
-                                DataField="WeldingDate" SortField="WeldingDate" FieldType="Date" Renderer="Date"
-                                HeaderTextAlign="Center" TextAlign="Left" Width="100px">
-                            </f:RenderField>
-                             <f:RenderField HeaderText="管道等级" ColumnID="PipingClassName"
-                                DataField="PipingClassName" SortField="PipingClassName" FieldType="String" HeaderTextAlign="Center"
-                                TextAlign="Left" Width="100px">
-                            </f:RenderField>
-                           <%-- <f:RenderField HeaderText="点口审核" ColumnID="PointIsAudit" DataField="PointIsAudit"
-                                SortField="PointIsAudit" FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
-                                Width="90px">
-                            </f:RenderField>--%>
                         </Columns>
                     </f:Grid>
                 </Items>

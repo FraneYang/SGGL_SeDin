@@ -58,9 +58,17 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         if (list != null)
                         {
                             this.txtWPQCode.Text = list.WPQCode;
+                            this.txtWpqId.Text = list.WPQId;
                         }
-
-                        this.txtWeldJointCode.Text = joint.WeldJointCode;
+                        if (Request.Params["Type"] == "add")  //插入焊口
+                        {
+                            var baseWeldJoints = BLL.WeldJointService.GetBaseWeldJointsByWeldJointId(weldJointId);
+                            this.txtWeldJointCode.Text = joint.WeldJointCode + "Z" + (baseWeldJoints.Count + 1).ToString();
+                        }
+                        else
+                        {
+                            this.txtWeldJointCode.Text = joint.WeldJointCode;
+                        }
                         if (!string.IsNullOrEmpty(joint.Material1Id))
                         {
                             this.drpMaterial1.SelectedValue = joint.Material1Id;
@@ -75,6 +83,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         if (!string.IsNullOrEmpty(joint.WeldingMethodId))
                         {
                             drpWeldingMethodId.SelectedValue = joint.WeldingMethodId;
+                            hdWeldingMethodId.Text = joint.WeldingMethodId;
                         }
                         if (!string.IsNullOrEmpty(joint.WeldingRod))
                         {
@@ -87,6 +96,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         if (!string.IsNullOrEmpty(joint.GrooveTypeId))
                         {
                             drpGrooveType.SelectedValue = joint.GrooveTypeId;
+                            hdGrooveType.Text = joint.GrooveTypeId;
                         }
                         if (!string.IsNullOrEmpty(joint.WeldTypeId))
                         {
@@ -186,7 +196,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 Model.HJGL_Pipeline pipeline = BLL.PipelineService.GetPipelineByPipelineId(this.PipelineId);
                 //PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, drpMaterial1.ClientID,drpMaterial2.ClientID,txtIsHotProess.ClientID)
                 //    + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text,pipeline.UnitId,this.drpWeldingMethodId.SelectedText,this.drpWeldTypeCode.SelectedText, "维护 - ")));
-                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, drpGrooveType.ClientID, txtPreTemperature.ClientID, txtIsHotProess.ClientID)
+                PageContext.RegisterStartupScript(Window1.GetSaveStateReference(txtWpqId.ClientID, txtWPQCode.ClientID, drpWeldingRod.ClientID, drpWeldingWire.ClientID, drpWeldingMethodId.ClientID, hdWeldingMethodId.ClientID, drpGrooveType.ClientID, hdGrooveType.ClientID, txtPreTemperature.ClientID, txtIsHotProess.ClientID)
                    + Window1.GetShowReference(String.Format("SelectWPS.aspx?Material1={0}&Material2={1}&Dia={2}&Thickness={3}&UnitId={4}&WeldingMethod={5}&WeldType={6}", this.drpMaterial1.SelectedValue, this.drpMaterial2.SelectedValue, this.txtDia.Text, this.txtThickness.Text, pipeline.UnitId, this.drpWeldingMethodId.SelectedText, this.drpWeldTypeCode.SelectedText, "维护 - ")));
             }
             else
@@ -239,7 +249,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// </summary>
         private void SaveData()
         {
-            if (string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()) || this.drpPipingClass.SelectedValue == BLL.Const._Null || this.drpMaterial1.SelectedValue == BLL.Const._Null || this.drpMaterial2.SelectedValue == BLL.Const._Null || this.drpWeldTypeCode.SelectedValue == BLL.Const._Null || this.drpWeldingMethodId.SelectedValue==BLL.Const._Null || string.IsNullOrEmpty(this.txtWPQCode.Text.Trim()))
+            if (string.IsNullOrEmpty(this.txtWeldJointCode.Text.Trim()) || this.drpPipingClass.SelectedValue == BLL.Const._Null || this.drpMaterial1.SelectedValue == BLL.Const._Null || this.drpMaterial2.SelectedValue == BLL.Const._Null || this.drpWeldTypeCode.SelectedValue == BLL.Const._Null || string.IsNullOrEmpty(this.hdWeldingMethodId.Text) || string.IsNullOrEmpty(this.txtWpqId.Text.Trim()))
             {
                 Alert.ShowInTop("页面必填项不能为空", MessageBoxIcon.Warning);
                 Alert.ShowInTop("请完善必填项！", MessageBoxIcon.Warning);
@@ -292,9 +302,9 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 joint.Components2Id = this.drpComponent2.SelectedValue;
             }
-            if (this.drpWeldingMethodId.SelectedValue != BLL.Const._Null)
+            if (!string.IsNullOrEmpty(this.hdWeldingMethodId.Text.Trim()))
             {
-                joint.WeldingMethodId = drpWeldingMethodId.SelectedValue;
+                joint.WeldingMethodId = this.hdWeldingMethodId.Text.Trim();
             }
             if (this.drpWeldingRod.SelectedValue != BLL.Const._Null)
             {
@@ -304,9 +314,9 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 joint.WeldingWire = drpWeldingWire.SelectedValue;
             }
-            if (this.drpGrooveType.SelectedValue != BLL.Const._Null)
+            if (!string.IsNullOrEmpty(this.hdGrooveType.Text.Trim()))
             {
-                joint.GrooveTypeId = drpGrooveType.SelectedValue;
+                joint.GrooveTypeId = this.hdGrooveType.Text.Trim();
             }
             if (this.drpWeldTypeCode.SelectedValue != BLL.Const._Null)
             {
@@ -335,22 +345,27 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             joint.IsHotProess = Convert.ToBoolean(drpIsHotProess.SelectedValue);
             joint.DesignIsHotProess = Convert.ToBoolean(drpDesignIsHotProess.SelectedValue);
             joint.Remark = txtRemark.Text.Trim();
+            if (this.txtWpqId.Text != "")
+            {
+                joint.WPQId = this.txtWpqId.Text;
+            }
             if (!string.IsNullOrEmpty(weldJointId))
             {
-                if (this.txtWpqId.Text != "")
+                if (string.IsNullOrEmpty(Request.Params["Type"]))  //非插入焊口
                 {
-                    joint.WPQId = this.txtWpqId.Text;
+                    joint.WeldJointId = weldJointId;
+                    BLL.WeldJointService.UpdateWeldJoint(joint);
                 }
-
-                joint.WeldJointId = weldJointId;
-                BLL.WeldJointService.UpdateWeldJoint(joint);
+                else   //插入焊口
+                {
+                    string newId = SQLHelper.GetNewID(typeof(Model.HJGL_WeldJoint));
+                    joint.WeldJointId = newId;
+                    joint.BaseWeldJointId = weldJointId;
+                    BLL.WeldJointService.AddWeldJoint(joint);
+                }
             }
             else
             {
-                if (this.txtWpqId.Text != "")
-                {
-                    joint.WPQId = this.txtWpqId.Text;
-                }
                 string newId = SQLHelper.GetNewID(typeof(Model.HJGL_WeldJoint));
                 joint.WeldJointId = newId;
                 BLL.WeldJointService.AddWeldJoint(joint);
@@ -423,94 +438,122 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     this.drpDetectionTypeId.DataBind();
                     this.drpDetectionTypeId.SelectedValue = pt.DetectionTypeId;
                 }
-                //根据焊缝类型生成焊口号
-                var joints = BLL.WeldJointService.GetViewWeldJointsByPipelineId(this.PipelineId);
-                if (this.drpWeldTypeCode.SelectedItem.Text == "B")  //对接焊缝
+                if (string.IsNullOrEmpty(Request.Params["Type"]))  //非插入焊口
                 {
-                    var jointsB = joints.Where(x => x.WeldTypeCode == "B").OrderByDescending(x => x.WeldJointCode);
-                    if (jointsB.Count() > 0)
+                    //根据焊缝类型生成焊口号
+                    var joints = BLL.WeldJointService.GetViewWeldJointsByPipelineId(this.PipelineId);
+                    if (this.drpWeldTypeCode.SelectedItem.Text == "B")  //对接焊缝
                     {
-                        var joint = jointsB.First();
-                        int code = 0;
-                        try
+                        var jointsB = joints.Where(x => x.WeldTypeCode == "B").OrderByDescending(x => x.WeldJointCode);
+                        Model.Project_Sys_Set jointB = BLL.Project_SysSetService.GetSysSetBySetId("6", this.CurrUser.LoginProjectId);
+                        if (jointB != null && jointB.IsAuto==true) //加B前缀
                         {
-                            code = Convert.ToInt32(joint.WeldJointCode);
-                        }
-                        catch (Exception)
-                        {
+                            if (jointsB.Count() > 0)
+                            {
+                                var joint = jointsB.First();
+                                int code = 0;
+                                try
+                                {
+                                    code = Convert.ToInt32(joint.WeldJointCode.Substring(1));
+                                }
+                                catch (Exception)
+                                {
 
+                                }
+                                this.txtWeldJointCode.Text = "B" + (code + 1).ToString();
+                            }
+                            else
+                            {
+                                this.txtWeldJointCode.Text = "B1";
+                            }
                         }
-                        this.txtWeldJointCode.Text = (code + 1).ToString();
-                    }
-                    else
-                    {
-                        this.txtWeldJointCode.Text = "1";
-                    }
-                }
-                else if (this.drpWeldTypeCode.SelectedItem.Text == "D")
-                {
-                    var jointsD = joints.Where(x => x.WeldTypeCode == "D").OrderByDescending(x => x.WeldJointCode);
-                    if (jointsD.Count() > 0)
-                    {
-                        var joint = jointsD.First();
-                        int code = 0;
-                        try
+                        else
                         {
-                            code = Convert.ToInt32(joint.WeldJointCode.Substring(1));
-                        }
-                        catch (Exception)
-                        {
+                            if (jointsB.Count() > 0)
+                            {
+                                var joint = jointsB.First();
+                                int code = 0;
+                                try
+                                {
+                                    code = Convert.ToInt32(joint.WeldJointCode);
+                                }
+                                catch (Exception)
+                                {
 
+                                }
+                                this.txtWeldJointCode.Text = (code + 1).ToString();
+                            }
+                            else
+                            {
+                                this.txtWeldJointCode.Text = "1";
+                            }
                         }
-                        this.txtWeldJointCode.Text = "D" + (code + 1).ToString();
                     }
-                    else
+                    else if (this.drpWeldTypeCode.SelectedItem.Text == "D")
                     {
-                        this.txtWeldJointCode.Text = "D1";
-                    }
-                }
-                else if (this.drpWeldTypeCode.SelectedItem.Text == "C")
-                {
-                    var jointsC = joints.Where(x => x.WeldTypeCode == "C").OrderByDescending(x => x.WeldJointCode);
-                    if (jointsC.Count() > 0)
-                    {
-                        var joint = jointsC.First();
-                        int code = 0;
-                        try
+                        var jointsD = joints.Where(x => x.WeldTypeCode == "D").OrderByDescending(x => x.WeldJointCode);
+                        if (jointsD.Count() > 0)
                         {
-                            code = Convert.ToInt32(joint.WeldJointCode.Substring(1));
-                        }
-                        catch (Exception)
-                        {
+                            var joint = jointsD.First();
+                            int code = 0;
+                            try
+                            {
+                                code = Convert.ToInt32(joint.WeldJointCode.Substring(1));
+                            }
+                            catch (Exception)
+                            {
 
+                            }
+                            this.txtWeldJointCode.Text = "D" + (code + 1).ToString();
                         }
-                        this.txtWeldJointCode.Text = "C" + (code + 1).ToString();
-                    }
-                    else
-                    {
-                        this.txtWeldJointCode.Text = "C1";
-                    }
-                }
-                else if (this.drpWeldTypeCode.SelectedItem.Text == "E")
-                {
-                    var jointsE = joints.Where(x => x.WeldTypeCode == "E").OrderByDescending(x => x.WeldJointCode);
-                    if (jointsE.Count() > 0)
-                    {
-                        var joint = jointsE.First();
-                        int code = 0;
-                        try
+                        else
                         {
-                            code = Convert.ToInt32(joint.WeldJointCode.Substring(1));
+                            this.txtWeldJointCode.Text = "D1";
                         }
-                        catch (Exception)
+                    }
+                    else if (this.drpWeldTypeCode.SelectedItem.Text == "C")
+                    {
+                        var jointsC = joints.Where(x => x.WeldTypeCode == "C").OrderByDescending(x => x.WeldJointCode);
+                        if (jointsC.Count() > 0)
                         {
+                            var joint = jointsC.First();
+                            int code = 0;
+                            try
+                            {
+                                code = Convert.ToInt32(joint.WeldJointCode.Substring(1));
+                            }
+                            catch (Exception)
+                            {
 
+                            }
+                            this.txtWeldJointCode.Text = "C" + (code + 1).ToString();
                         }
-                        this.txtWeldJointCode.Text = "E" + (code + 1).ToString();
+                        else
+                        {
+                            this.txtWeldJointCode.Text = "C1";
+                        }
                     }
-                    else
+                    else if (this.drpWeldTypeCode.SelectedItem.Text == "E")
                     {
-                        this.txtWeldJointCode.Text = "E1";
+                        var jointsE = joints.Where(x => x.WeldTypeCode == "E").OrderByDescending(x => x.WeldJointCode);
+                        if (jointsE.Count() > 0)
+                        {
+                            var joint = jointsE.First();
+                            int code = 0;
+                            try
+                            {
+                                code = Convert.ToInt32(joint.WeldJointCode.Substring(1));
+                            }
+                            catch (Exception)
+                            {
+
+                            }
+                            this.txtWeldJointCode.Text = "E" + (code + 1).ToString();
+                        }
+                        else
+                        {
+                            this.txtWeldJointCode.Text = "E1";
+                        }
                     }
                 }
             }
@@ -663,6 +706,69 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 {
                     this.drpIsHotProess.SelectedValue = "False";
                 }
+            }
+            //获取可替代焊丝焊条
+            var weldingRods = from x in Funs.DB.Base_Consumables where x.ConsumablesType == "2" select x;
+            var weldingWires = from x in Funs.DB.Base_Consumables where x.ConsumablesType == "1" select x;
+            List<Model.Base_Consumables> weldingRodList = new List<Model.Base_Consumables>();
+            List<Model.Base_Consumables> weldingWireList = new List<Model.Base_Consumables>();
+            string weldingRodId = this.drpWeldingRod.SelectedValue;
+            var mat = BLL.Base_MaterialService.GetMaterialByMaterialId(this.drpMaterial1.SelectedValue);
+            string matClass = mat.MaterialClass;
+            var matRod = weldingRods.FirstOrDefault(x => x.ConsumablesId == weldingRodId);
+            if (matRod != null)
+            {
+                foreach (var item in weldingRods)
+                {
+                    if (matClass == "Fe-1" || matClass == "Fe-3")
+                    {
+                        if (IsCoverClass(matRod.SteelType, item.SteelType))
+                        {
+                            weldingRodList.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        if (matRod.SteelType == item.SteelType)
+                        {
+                            weldingRodList.Add(item);
+                        }
+                    }
+                }
+                weldingRodList.Add(matRod);
+                weldingRodList = weldingRodList.Distinct().ToList();
+                this.drpWeldingRod.DataSource = weldingRodList;
+                this.drpWeldingRod.DataBind();
+                Funs.FineUIPleaseSelect(this.drpWeldingRod);
+                this.drpWeldingRod.SelectedValue = weldingRodId;
+            }
+            string weldingWireId = this.drpWeldingWire.SelectedValue;
+            var matWire = weldingWires.FirstOrDefault(x => x.ConsumablesId == weldingWireId);
+            if (matWire != null)
+            {
+                foreach (var item in weldingWires)
+                {
+                    if (matClass == "Fe-1" || matClass == "Fe-3")
+                    {
+                        if (IsCoverClass(matWire.SteelType, item.SteelType))
+                        {
+                            weldingWireList.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        if (matWire.SteelType == item.SteelType)
+                        {
+                            weldingWireList.Add(item);
+                        }
+                    }
+                }
+                weldingWireList.Add(matWire);
+                weldingWireList = weldingWireList.Distinct().ToList();
+                this.drpWeldingWire.DataSource = weldingWireList;
+                this.drpWeldingWire.DataBind();
+                Funs.FineUIPleaseSelect(this.drpWeldingWire);
+                this.drpWeldingWire.SelectedValue = weldingWireId;
             }
         }
 

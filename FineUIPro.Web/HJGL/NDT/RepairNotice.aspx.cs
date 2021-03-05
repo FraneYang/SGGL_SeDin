@@ -27,20 +27,24 @@ namespace FineUIPro.Web.HJGL.NDT
                            select x;
                 if (mark.Count() == 0)
                 {
-                    txtRepairMark.Text = "R1";
+                    txtRepairMark.Text = "A";
                 }
                 else
                 {
                     string m = mark.First().RepairMark;
-                    string first = m.Substring(0, 1);
-                    string last = m.Substring(1, 1);
-                    int n = Convert.ToInt32(last) + 1;
-                    txtRepairMark.Text = first + n.ToString();
+                    if (m == "A")
+                    {
+                        txtRepairMark.Text = "B";
+                    }
+                    else if (m == "B")
+                    {
+                        txtRepairMark.Text = "C";
+                    }
                 }
             }
             else
             {
-                txtRepairMark.Text = "R1";
+                txtRepairMark.Text = "A";
                 if (!string.IsNullOrEmpty(repair.PhotoUrl))
                 {
                     imgPhoto.ImageUrl = repair.PhotoUrl;
@@ -69,17 +73,17 @@ namespace FineUIPro.Web.HJGL.NDT
                 }
                 else
                 {
-                    string repairCode = code + "R1";
+                    string repairCode = code + "A";
                     // 当一个委托单有多个返修时会暂时解决返修单重复问题
                     if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
                     {
-                        repairCode = code + "-01R1";
+                        repairCode = code + "-01A";
                         if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
                         {
-                            repairCode = code + "-02R1";
+                            repairCode = code + "-02A";
                             if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
                             {
-                                repairCode = code + "-03R1";
+                                repairCode = code + "-03A";
                             }
                         }
                        

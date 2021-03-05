@@ -55,6 +55,34 @@ namespace FineUIPro.Web.common.ProjectSet
             Model.Project_Sys_Set trust = BLL.Project_SysSetService.GetSysSetBySetId("3", projectId);
             Model.Project_Sys_Set pdms = BLL.Project_SysSetService.GetSysSetBySetId("4", projectId);
             Model.Project_Sys_Set batch = BLL.Project_SysSetService.GetSysSetBySetId("5", projectId);
+            Model.Project_Sys_Set jointB = BLL.Project_SysSetService.GetSysSetBySetId("6", projectId);
+            if (jointB != null)
+            {
+                if (this.ckbJointB.Checked)
+                {
+                    jointB.IsAuto = true;
+                }
+                else
+                {
+                    jointB.IsAuto = false;
+                }
+                BLL.Project_SysSetService.UpdateSet(jointB);
+            }
+            else
+            {
+                Model.Project_Sys_Set newJointB = new Model.Project_Sys_Set();
+                newJointB.SetId = "6";
+                newJointB.ProjectId = projectId;
+                if (this.ckbJointB.Checked)
+                {
+                    newJointB.IsAuto = true;
+                }
+                else
+                {
+                    newJointB.IsAuto = false;
+                }
+                BLL.Project_SysSetService.AddSet(newJointB);
+            }
             if (this.ckbPdms.Checked)
             {
                 pdms.IsAuto = true;
@@ -319,6 +347,17 @@ namespace FineUIPro.Web.common.ProjectSet
                             {
                                 cb7.Checked = true;
                             }
+                        }
+                    }
+                    else if (s.SetId == "6")
+                    {
+                        if (s.IsAuto == true)
+                        {
+                            this.ckbJointB.Checked = true;
+                        }
+                        else
+                        {
+                            this.ckbJointB.Checked = false;
                         }
                     }
                 }

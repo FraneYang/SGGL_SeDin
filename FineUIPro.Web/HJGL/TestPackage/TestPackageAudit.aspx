@@ -79,7 +79,7 @@
                     </Toolbars>
                     <Items>
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="试压包明细" EnableCollapse="true" Collapsed="false"
-                            runat="server" BoxFlex="1" DataKeyNames="PT_PipeId" AllowCellEditing="true"
+                            runat="server" BoxFlex="1" DataKeyNames="PT_PipeId,PipelineId" AllowCellEditing="true"
                             EnableColumnLines="true" ClicksToEdit="2" DataIDField="PT_PipeId" SortField="UnitWorkCode,PipelineCode" SortDirection="ASC" OnSort="Grid1_Sort" EnableTextSelection="True" IsDatabasePaging="true" PageSize="100" OnPageIndexChange="Grid1_PageIndexChange" ForceFit="true">
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar3" Position="Bottom" runat="server">

@@ -139,7 +139,16 @@
                         <f:TextBox ID="txtProtectiveGas" runat="server" Label="保护气体" LabelAlign="Right" MaxLength="50" LabelWidth="170px" Readonly="true"></f:TextBox>
                     </Items>
                 </f:FormRow>
-
+                <f:FormRow>
+                    <Items>
+                        <f:TextBox ID="txtRequiredT" runat="server" Label="热处理温度℃" LabelAlign="Right"
+                            LabelWidth="180px" Readonly="true">
+                        </f:TextBox>
+                        <f:TextBox ID="txtRequestTime" runat="server" Label="恒温时间h" LabelAlign="Right"
+                            LabelWidth="180px" Readonly="true">
+                        </f:TextBox>
+                    </Items>
+                </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:DatePicker ID="txtCompileDate" runat="server" Label="编制时间" LabelAlign="Right"

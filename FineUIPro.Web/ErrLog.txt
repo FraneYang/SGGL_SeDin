@@ -1,1 +1,43 @@
 ﻿
+错误信息开始=====>
+错误类型:InvalidOperationException
+错误信息:查询包含对不同数据上下文上所定义项的引用。
+错误堆栈:
+   在 System.Data.Linq.SqlClient.QueryConverter.TranslateConstantTable(ITable table, SqlLink link)
+   在 System.Data.Linq.SqlClient.QueryConverter.CoerceToSequence(SqlNode node)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitJoin(Expression outerSequence, Expression innerSequence, LambdaExpression outerKeySelector, LambdaExpression innerKeySelector, LambdaExpression resultSelector)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitSequenceOperatorCall(MethodCallExpression mc)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitWhere(Expression sequence, LambdaExpression predicate)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitSequenceOperatorCall(MethodCallExpression mc)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitSelect(Expression sequence, LambdaExpression selector)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitSequenceOperatorCall(MethodCallExpression mc)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitAggregate(Expression sequence, LambdaExpression lambda, SqlNodeType aggType, Type returnType)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitSequenceOperatorCall(MethodCallExpression mc)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
+   在 System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
+   在 System.Data.Linq.SqlClient.QueryConverter.ConvertOuter(Expression node)
+   在 System.Data.Linq.SqlClient.SqlProvider.BuildQuery(Expression query, SqlNodeAnnotations annotations)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   在 BLL.PointBatchDetailService.AutoPoint(String pointBatchId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\PointTrust\PointBatchDetailService.cs:行号 230
+   在 FineUIPro.Web.HJGL.PointTrust.PointBatch.btnAutoPoint_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\PointTrust\PointBatch.aspx.cs:行号 449
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/04/2021 10:30:01
+出错文件:http://localhost:8118/HJGL/PointTrust/PointBatch.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/04/2021 10:30:01
+

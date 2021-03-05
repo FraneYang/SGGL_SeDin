@@ -98,6 +98,21 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         this.IsAgree.Hidden = false;
                         this.Opinion.Hidden = false;
                         UserService.InitJLUserDropDownList(drpHandleMan, this.CurrUser.LoginProjectId, false);
+                        for (int i = 0; i < this.Grid1.Rows.Count; i++)
+                        {
+                            string itemCheckId = this.Grid1.Rows[i].DataKeys[1].ToString();
+                            Model.PTP_ItemEndCheck itemCheck = BLL.AItemEndCheckService.GetAItemEndCheckByID(itemCheckId);
+                            if (itemEndCheckList.BIsOK != true)   //未勾选B项全部整改完成，则B项内容不能操作是否合格
+                            {
+                                if (itemCheck.ItemType == "B")
+                                {
+                                    AspNet.Button btnOK = this.Grid1.Rows[i].FindControl("btnOK") as AspNet.Button;
+                                    AspNet.Button btnNotOK = this.Grid1.Rows[i].FindControl("btnNotOK") as AspNet.Button;
+                                    btnOK.Visible = false;
+                                    btnNotOK.Visible = false;
+                                }
+                            }
+                        }
                     }
                     if (State == Const.TestPackage_Audit3)
                     {
@@ -240,6 +255,14 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         var ItemEndCheckList = ItemEndCheckListService.GetItemEndCheckListByID(this.ItemEndCheckListId);
                         if (ItemEndCheckList != null)
                         {
+                            if (flag)
+                            {
+                                ItemEndCheckList.AOKState = true;
+                            }
+                            else
+                            {
+                                ItemEndCheckList.AOKState = null;
+                            }
                             if (State == Const.TestPackage_Complete)
                             {
                                 bool b = true;   //B项是否全部整改完成

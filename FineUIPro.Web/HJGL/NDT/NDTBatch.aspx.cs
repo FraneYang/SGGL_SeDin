@@ -248,14 +248,14 @@ namespace FineUIPro.Web.HJGL.NDT
                 foreach (var check in checks)
                 {
                     TreeNode newNode = new TreeNode();
-                    if (!check.AuditDate.HasValue)
-                    {
-                        newNode.Text = "<font color='#EE0000'>" + check.NDECode + "</font>";
-                    }
-                    else
-                    {
+                    //if (!check.AuditDate.HasValue)
+                    //{
+                    //    newNode.Text = "<font color='#EE0000'>" + check.NDECode + "</font>";
+                    //}
+                    //else
+                    //{
                         newNode.Text = check.NDECode;
-                    }
+                    //}
                     newNode.NodeID = check.NDEID;
                     newNode.ToolTip = "check";
                     newNode.CommandName = "检测单号";
@@ -485,9 +485,16 @@ namespace FineUIPro.Web.HJGL.NDT
                     Model.HJGL_Batch_NDE check = BLL.Batch_NDEService.GetNDEById(this.tvControlItem.SelectedNodeID);
                     if (check != null)
                     {
-                        string window = String.Format("NDTBatchEdit.aspx?NDEID={0}", this.NDEID, "编辑 - ");
-                        PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdNDEID.ClientID)
-                          + Window1.GetShowReference(window));
+                        if (check.AuditDate == null)
+                        {
+                            string window = String.Format("NDTBatchEdit.aspx?NDEID={0}", this.NDEID, "编辑 - ");
+                            PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdNDEID.ClientID)
+                              + Window1.GetShowReference(window));
+                        }
+                        else
+                        {
+                            ShowNotify("该单据已审核，无法编辑", MessageBoxIcon.Warning);
+                        }
                     }
                     else
                     {
@@ -687,51 +694,63 @@ namespace FineUIPro.Web.HJGL.NDT
             {
                 List<Model.HJGL_Batch_NDEItem> GetNDEItem = BLL.Batch_NDEItemService.GetNDEItemByNDEID(this.NDEID);
                 Model.SGGLDB db = Funs.DB;
-                //全部记录都已录入探伤报告编号
-                var isNull = GetNDEItem.FirstOrDefault(x => x.NDEReportNo == null);
-                if (isNull == null)
-                {
-                    foreach (var item in GetNDEItem)
-                    {
-                        if (!item.SubmitDate.HasValue)
-                        {
-                            if (!string.IsNullOrEmpty(item.CheckResult) && !String.IsNullOrEmpty(item.NDEReportNo))
-                            {
-                                var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(item.DetectionTypeId);
-                                if (ndt.DetectionTypeCode.Contains("RT") && (!item.PassFilm.HasValue || !item.TotalFilm.HasValue))
-                                {
-                                    ShowNotify("请填写拍片总数和拍片合格数！", MessageBoxIcon.Warning);
-                                    return;
-                                }
+                ////全部记录都已录入探伤报告编号
+                //var isNull = GetNDEItem.FirstOrDefault(x => x.NDEReportNo == null);
+                //if (isNull == null)
+                //{
+                //    foreach (var item in GetNDEItem)
+                //    {
+                //        if (!item.SubmitDate.HasValue)
+                //        {
+                //            if (!string.IsNullOrEmpty(item.CheckResult) && !String.IsNullOrEmpty(item.NDEReportNo))
+                //            {
+                //                var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(item.DetectionTypeId);
+                //                if (ndt.DetectionTypeCode.Contains("RT") && (!item.PassFilm.HasValue || !item.TotalFilm.HasValue))
+                //                {
+                //                    ShowNotify("请填写拍片总数和拍片合格数！", MessageBoxIcon.Warning);
+                //                    return;
+                //                }
 
-                                if (item.TotalFilm < item.PassFilm)
-                                {
-                                    ShowNotify("拍片合格数不能大于拍片总数！", MessageBoxIcon.Warning);
-                                    return;
-                                }
-                            }
-                            BLL.Batch_NDEItemService.NDEItemAudit(item.NDEItemID,DateTime.Now);
-                        }
+                //                if (item.TotalFilm < item.PassFilm)
+                //                {
+                //                    ShowNotify("拍片合格数不能大于拍片总数！", MessageBoxIcon.Warning);
+                //                    return;
+                //                }
+                //            }
+                //            BLL.Batch_NDEItemService.NDEItemAudit(item.NDEItemID,DateTime.Now);
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    ShowNotify("所有记录需填写探伤报告编号后才可审核！", MessageBoxIcon.Warning);
+                //    return;
+                //}
+
+                //未录入检测结果的焊口，取消委托状态，可重新委托检测
+                Model.HJGL_Batch_NDE nde = BLL.Batch_NDEService.GetNDEById(this.NDEID);
+                List<Model.HJGL_Batch_BatchTrustItem> list = (from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.TrustBatchId == nde.TrustBatchId select x).ToList();
+                foreach (var item in list)
+                {
+                    var ndeItem = GetNDEItem.FirstOrDefault(x=>x.TrustBatchItemId==item.TrustBatchItemId);
+                    if (ndeItem == null)   //未录入检测结果的焊口
+                    {
+                        BLL.Batch_BatchTrustItemService.DeleteTrustItemByTrustBatchItemId(item.TrustBatchItemId);
                     }
                 }
-                else
-                {
-                    ShowNotify("所有记录需填写探伤报告编号后才可审核！", MessageBoxIcon.Warning);
-                    return;
-                }
 
-                Model.HJGL_Batch_NDE nde = BLL.Batch_NDEService.GetNDEById(this.NDEID);
+            
                 if (nde != null)
                 {
                     nde.AuditDate = DateTime.Now;
                     BLL.Batch_NDEService.UpdateNDE(nde);
-                    int trustItemCount = BLL.Batch_BatchTrustItemService.GetBatchTrustItemByTrustBatchId(nde.TrustBatchId).Count;
-                    int checkItemCount = BLL.Batch_NDEItemService.GetNDEItemByNDEID(this.NDEID).Count;
-                    int noResultCheckItemCount = (from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == this.NDEID && x.CheckResult == null select x).Count();
-                    if (trustItemCount == checkItemCount && noResultCheckItemCount == 0)  //全部检测结果录入完毕，更新字段
-                    {
+                    //int trustItemCount = BLL.Batch_BatchTrustItemService.GetBatchTrustItemByTrustBatchId(nde.TrustBatchId).Count;
+                    //int checkItemCount = BLL.Batch_NDEItemService.GetNDEItemByNDEID(this.NDEID).Count;
+                    //int noResultCheckItemCount = (from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == this.NDEID && x.CheckResult == null select x).Count();
+                    //if (trustItemCount == checkItemCount && noResultCheckItemCount == 0)  //全部检测结果录入完毕，更新字段
+                    //{
                         BLL.Batch_BatchTrustService.UpdatTrustBatchtState(nde.TrustBatchId, true);
-                    }
+                    //}
                 }
 
                 ShowNotify("审核成功！", MessageBoxIcon.Success);

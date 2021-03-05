@@ -27,6 +27,12 @@
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
+                                                <f:CheckBox ID="ckbJointB" runat="server" Label="焊口编号" Text="对接焊缝是否带B前缀" LabelWidth="200">
+                                                </f:CheckBox>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
                                                 <f:CheckBox ID="ckbDayReport" runat="server" Label="焊接日报编号" Text="是否自动生成" LabelWidth="200">
                                                 </f:CheckBox>
                                             </Items>

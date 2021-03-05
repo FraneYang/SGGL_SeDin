@@ -125,6 +125,12 @@
                     <f:RenderField Width="150px" ColumnID="PreTemperature" DataField="PreTemperature" FieldType="String"
                         HeaderText="预热温度" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="RequiredT" DataField="RequiredT" FieldType="String"
+                        HeaderText="热处理温度℃" HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="RequestTime" DataField="RequestTime" FieldType="String"
+                        HeaderText="恒温时间h" HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
                     <f:RenderField Width="180px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

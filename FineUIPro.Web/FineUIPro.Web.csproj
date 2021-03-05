@@ -447,6 +447,7 @@
     <Content Include="HJGL\WeldingReport\FirstPassRate.aspx" />
     <Content Include="HJGL\WeldingReport\IsoCmprehensive.aspx" />
     <Content Include="HJGL\WeldingReport\IsoCompreInfo.aspx" />
+    <Content Include="HJGL\WeldingReport\JointShowColumn.aspx" />
     <Content Include="HJGL\WeldingReport\NDTMonthlyReport.aspx" />
     <Content Include="HJGL\WeldingReport\NDTWeeklyReport.aspx" />
     <Content Include="HJGL\WeldingReport\UnitWorkareaAnalyze.aspx" />
@@ -454,6 +455,7 @@
     <Content Include="HJGL\WeldingReport\UnitWorkAreaShowColumn.aspx" />
     <Content Include="HJGL\WeldingReport\WelderAvgPerformance.aspx" />
     <Content Include="HJGL\WeldingReport\WelderPerformance.aspx" />
+    <Content Include="HJGL\WeldingReport\WeldJointOut.aspx" />
     <Content Include="HJGL\WPQ\WPQEdit.aspx" />
     <Content Include="HJGL\WPQ\WPQIn.aspx" />
     <Content Include="HJGL\WPQ\WPQList.aspx" />
@@ -6792,6 +6794,13 @@
     <Compile Include="HJGL\WeldingReport\IsoCompreInfo.aspx.designer.cs">
       <DependentUpon>IsoCompreInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\WeldingReport\JointShowColumn.aspx.cs">
+      <DependentUpon>JointShowColumn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingReport\JointShowColumn.aspx.designer.cs">
+      <DependentUpon>JointShowColumn.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\WeldingReport\NDTMonthlyReport.aspx.cs">
       <DependentUpon>NDTMonthlyReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6840,6 +6849,13 @@
     </Compile>
     <Compile Include="HJGL\WeldingReport\WelderPerformance.aspx.designer.cs">
       <DependentUpon>WelderPerformance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\WeldingReport\WeldJointOut.aspx.cs">
+      <DependentUpon>WeldJointOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingReport\WeldJointOut.aspx.designer.cs">
+      <DependentUpon>WeldJointOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\WPQ\WPQEdit.aspx.cs">
       <DependentUpon>WPQEdit.aspx</DependentUpon>
