@@ -2427,6 +2427,14 @@ namespace BLL
         /// 试验介质
         /// </summary>
         public const string Base_TestMediumMenuId = "F480545B-371A-4949-85F8-92B2CA75A044";
+        /// <summary>
+        /// 气体保护方式
+        /// </summary>
+        public const string Base_GasProtectionModeMenuId = "02C1F7EC-B08F-4D3A-801E-EDF8E19ED771";
+        /// <summary>
+        /// 保护气体
+        /// </summary>
+        public const string Base_ProtectionGasMenuId = "05336157-BECD-4BA1-989C-A86718574F5E";
         #endregion
 
         #region 人员管理

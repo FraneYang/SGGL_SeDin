@@ -56,20 +56,32 @@
                         <f:TextBox ID="txtSpecifications" runat="server" Label="规格" LabelAlign="Right" MaxLength="100"
                             LabelWidth="180px">
                         </f:TextBox>
-                        <f:DropDownList ID="drpWeldingWire" runat="server" Label="焊丝" LabelAlign="Right" Required="true"
-                            ShowRedStar="true" LabelWidth="180px" AutoPostBack="true" OnSelectedIndexChanged="drpWeldingWire_SelectedIndexChanged">
+                        <f:DropDownList ID="drpGrooveType" runat="server" Label="坡口类型" LabelAlign="Right"
+                            AutoPostBack="true" OnSelectedIndexChanged="drpGrooveType_SelectedIndexChanged" LabelWidth="180px" Required="true" ShowRedStar="true">
                         </f:DropDownList>
+                        
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList ID="drpWeldingRod" runat="server" Label="焊条" LabelAlign="Right"
+                        <f:DropDownList ID="drpWeldingWire" runat="server" Label="焊丝" LabelAlign="Right" Required="true"
+                            ShowRedStar="true" LabelWidth="180px" AutoPostBack="true" OnSelectedIndexChanged="drpWeldingWire_SelectedIndexChanged">
+                        </f:DropDownList>
+                        <f:TextBox ID="txtWeldingWireSpecification" runat="server" Label="焊丝规格" LabelAlign="Right" MaxLength="50"
+                            LabelWidth="180px">
+                        </f:TextBox>
+                        
+
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                       <f:DropDownList ID="drpWeldingRod" runat="server" Label="焊条" LabelAlign="Right"
                             AutoPostBack="true" OnSelectedIndexChanged="drpWeldingRod_SelectedIndexChanged" LabelWidth="180px" Required="true" ShowRedStar="true">
                         </f:DropDownList>
-                        <f:DropDownList ID="drpGrooveType" runat="server" Label="坡口类型" LabelAlign="Right"
-                            AutoPostBack="true" OnSelectedIndexChanged="drpGrooveType_SelectedIndexChanged" LabelWidth="180px" Required="true" ShowRedStar="true">
-                        </f:DropDownList>
-
+                        <f:TextBox ID="txtWeldingRodSpecification" runat="server" Label="焊条规格" LabelAlign="Right" MaxLength="50"
+                            LabelWidth="180px">
+                        </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
@@ -137,16 +149,28 @@
 
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtWPQStandard" runat="server" Label="评定标准" LabelAlign="Right" MaxLength="50" LabelWidth="170px"></f:TextBox>
-                        <f:TextBox ID="txtProtectiveGas" runat="server" Label="保护气体" LabelAlign="Right" MaxLength="50" LabelWidth="170px"></f:TextBox>
+                        <f:TextBox ID="txtWPQStandard" runat="server" Label="评定标准" LabelAlign="Right" MaxLength="50" LabelWidth="180px"></f:TextBox>
+                        <f:TextBox ID="txtRequiredT" runat="server" Label="热处理温度℃" LabelAlign="Right"
+                            LabelWidth="180px">
+                        </f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtRequiredT" runat="server" Label="热处理温度℃" LabelAlign="Right"
+                        <f:DropDownList ID="drpGasProtectionModeId" runat="server" Label="气体保护方式" LabelAlign="Right"
+                            LabelWidth="180px">
+                        </f:DropDownList>
+                        <f:DropDownList ID="drpProtectionGasId" runat="server" Label="保护气体" LabelAlign="Right"
+                            LabelWidth="180px">
+                        </f:DropDownList>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:TextBox ID="txtRequestTime" runat="server" Label="恒温时间h" LabelAlign="Right"
                             LabelWidth="180px">
                         </f:TextBox>
-                        <f:TextBox ID="txtRequestTime" runat="server" Label="恒温时间h" LabelAlign="Right"
+                        <f:TextBox ID="txtPreTemperature" runat="server" Label="预热温度" MaxLength="500" LabelAlign="Right"
                             LabelWidth="180px">
                         </f:TextBox>
                     </Items>
@@ -154,17 +178,10 @@
                 <f:FormRow>
                     <Items>
                         <f:DatePicker ID="txtCompileDate" runat="server" Label="编制时间" LabelAlign="Right"
-                            LabelWidth="170px">
+                            LabelWidth="180px">
                         </f:DatePicker>
-                        <f:TextBox ID="txtPreTemperature" runat="server" Label="预热温度" MaxLength="500" LabelAlign="Right"
-                            LabelWidth="170px">
-                        </f:TextBox>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow>
-                    <Items>
                         <f:TextBox ID="txtRemark" runat="server" Label="备注" MaxLength="500" LabelAlign="Right"
-                            LabelWidth="170px">
+                            LabelWidth="180px">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>

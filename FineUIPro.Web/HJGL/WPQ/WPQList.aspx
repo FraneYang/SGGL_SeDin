@@ -85,8 +85,14 @@
                     <f:RenderField Width="120px" ColumnID="WeldingWire" DataField="WeldingWire" FieldType="String"
                         HeaderText="焊丝类别" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
+                    <f:RenderField Width="120px" ColumnID="WeldingWireSpecification" DataField="WeldingWireSpecification" FieldType="String"
+                        HeaderText="焊丝规格" HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="WeldingRod" DataField="WeldingRod" FieldType="String"
                         HeaderText="焊条类别" HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                    <f:RenderField Width="120px" ColumnID="WeldingRodSpecification" DataField="WeldingRodSpecification" FieldType="String"
+                        HeaderText="焊条规格" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="GrooveType" DataField="GrooveTypeName"
                         FieldType="String" HeaderText="坡口类型" HeaderTextAlign="Center" TextAlign="Center">
@@ -116,7 +122,10 @@
                     <f:RenderField Width="100px" ColumnID="IsHotProess" DataField="IsHotProess"
                         FieldType="String" HeaderText="是否热处理" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="ProtectiveGas" DataField="ProtectiveGas"
+                    <f:RenderField Width="120px" ColumnID="GasProtectionModeName" DataField="GasProtectionModeName"
+                        FieldType="String" HeaderText="气体保护方式" HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="ProtectionGasName" DataField="ProtectionGasName"
                         FieldType="String" HeaderText="保护气体" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="WPQStandard" DataField="WPQStandard" FieldType="String"
@@ -125,7 +134,7 @@
                     <f:RenderField Width="150px" ColumnID="PreTemperature" DataField="PreTemperature" FieldType="String"
                         HeaderText="预热温度" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="RequiredT" DataField="RequiredT" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="RequiredT" DataField="RequiredT" FieldType="String"
                         HeaderText="热处理温度℃" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="RequestTime" DataField="RequestTime" FieldType="String"

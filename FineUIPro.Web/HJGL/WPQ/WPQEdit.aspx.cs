@@ -23,6 +23,8 @@ namespace FineUIPro.Web.HJGL.WPQ
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingRod, true, "2", "请选择");//焊材类型
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingWire, true, "1", "请选择");//焊材类型
                 BLL.Base_GrooveTypeService.InitGrooveTypeDropDownList(this.drpGrooveType, true, "请选择");//焊材类型
+                BLL.Base_GasProtectionModeService.InitGasProtectionModeDropDownList(this.drpGasProtectionModeId, true, "请选择");//气体保护方式
+                BLL.Base_ProtectionGasService.InitProtectionGasDropDownList(this.drpProtectionGasId, true, "请选择");//保护气体
                 BLL.UserService.InitUsersDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, false, null);//审批人
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 string wpqId = Request.Params["WPQId"];
@@ -73,10 +75,12 @@ namespace FineUIPro.Web.HJGL.WPQ
                         {
                             drpWeldingRod.SelectedValue = wpq.WeldingRod;
                         }
+                        this.txtWeldingRodSpecification.Text = wpq.WeldingRodSpecification;
                         if (!string.IsNullOrEmpty(wpq.WeldingWire))
                         {
                             drpWeldingWire.SelectedValue = wpq.WeldingWire;
                         }
+                        this.txtWeldingWireSpecification.Text = wpq.WeldingWireSpecification;
                         if (!string.IsNullOrEmpty(wpq.GrooveType))
                         {
                             drpGrooveType.SelectedValue = wpq.GrooveType;
@@ -136,7 +140,14 @@ namespace FineUIPro.Web.HJGL.WPQ
                         {
                             drpWeldType.SelectedValue = wpq.JointType;
                         }
-                        this.txtProtectiveGas.Text = wpq.ProtectiveGas;
+                        if (!string.IsNullOrEmpty(wpq.GasProtectionModeId))
+                        {
+                            this.drpGasProtectionModeId.SelectedValue = wpq.GasProtectionModeId;
+                        }
+                        if (!string.IsNullOrEmpty(wpq.ProtectionGasId))
+                        {
+                            this.drpProtectionGasId.SelectedValue = wpq.ProtectionGasId;
+                        }
                         if (wpq.State == "1")
                         {
                             rblFlowOperate.Hidden = false;
@@ -228,10 +239,12 @@ namespace FineUIPro.Web.HJGL.WPQ
             {
                 wpq.WeldingRod = this.drpWeldingRod.SelectedValue;
             }
+            wpq.WeldingRodSpecification = this.txtWeldingRodSpecification.Text.Trim();
             if (this.drpWeldingWire.SelectedValue != BLL.Const._Null)
             {
                 wpq.WeldingWire = this.drpWeldingWire.SelectedValue;
             }
+            wpq.WeldingWireSpecification = this.txtWeldingWireSpecification.Text.Trim();
             if (this.drpGrooveType.SelectedValue != BLL.Const._Null)
             {
                 wpq.GrooveType = this.drpGrooveType.SelectedValue;
@@ -266,9 +279,14 @@ namespace FineUIPro.Web.HJGL.WPQ
             wpq.MaxCImpactDia = Funs.GetNewDecimal(this.txtMaxCImpactDia.Text.Trim());
             wpq.WPQStandard = this.txtWPQStandard.Text.Trim();
             wpq.JointType = this.drpWeldType.SelectedValue;
-
-            wpq.ProtectiveGas = this.txtProtectiveGas.Text.Trim();
-
+            if (this.drpGasProtectionModeId.SelectedValue != BLL.Const._Null)
+            {
+                wpq.GasProtectionModeId = this.drpGasProtectionModeId.SelectedValue;
+            }
+            if (this.drpProtectionGasId.SelectedValue != BLL.Const._Null)
+            {
+                wpq.ProtectionGasId = this.drpProtectionGasId.SelectedValue;
+            }
             string wpqId = Request.Params["WPQId"];
             var GetWpq = BLL.WPQListServiceService.GetWPQById(wpqId);
             if (GetWpq != null)

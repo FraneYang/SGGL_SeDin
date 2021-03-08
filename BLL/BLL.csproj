@@ -215,6 +215,8 @@
     <Compile Include="HJGL\BaseInfo\Base_WeldingLocationServie.cs" />
     <Compile Include="HJGL\BaseInfo\Base_WeldingMethodService.cs" />
     <Compile Include="HJGL\BaseInfo\Base_WeldTypeService.cs" />
+    <Compile Include="HJGL\BaseInfo\Base_GasProtectionModeService.cs" />
+    <Compile Include="HJGL\BaseInfo\Base_ProtectionGasService.cs" />
     <Compile Include="HJGL\HotProcessHard\Hard_ReportService.cs" />
     <Compile Include="HJGL\HotProcessHard\Hard_TrustItemService.cs" />
     <Compile Include="HJGL\HotProcessHard\Hard_TrustService.cs" />

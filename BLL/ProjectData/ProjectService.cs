@@ -251,8 +251,9 @@
             var getUser = UserService.GetUserByUserId(userId);
             if (getUser != null)
             {
+                List<string> roleidList = Funs.GetStrListByStr(getUser.RoleId,',');
                 /// 获取角色类型
-                var getRoleP = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.RoleId == getUser.RoleId && x.IsOffice == false);
+                var getRoleP = Funs.DB.Sys_RolePower.FirstOrDefault(x => roleidList.Contains(x.RoleId) && x.IsOffice == false);
                 if (getRoleP != null)
                 {
                     return (from x in Funs.DB.Base_Project

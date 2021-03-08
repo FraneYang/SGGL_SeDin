@@ -29,6 +29,9 @@ namespace FineUIPro.Web.HJGL.WPQ
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingRod, true, "2", "请选择");//焊材类型
                 BLL.Base_ConsumablesService.InitConsumablesDropDownList(this.drpWeldingWire, true, "1", "请选择");//焊材类型
                 BLL.Base_GrooveTypeService.InitGrooveTypeDropDownList(this.drpGrooveType, true, "请选择");//焊材类型
+                BLL.Base_GasProtectionModeService.InitGasProtectionModeDropDownList(this.drpGasProtectionModeId, true, "请选择");//气体保护方式
+                BLL.Base_ProtectionGasService.InitProtectionGasDropDownList(this.drpProtectionGasId, true, "请选择");//保护气体
+
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 string wpqId = Request.Params["WPQId"];
                 if (!string.IsNullOrEmpty(wpqId))
@@ -78,10 +81,12 @@ namespace FineUIPro.Web.HJGL.WPQ
                         {
                             drpWeldingRod.SelectedValue = wpq.WeldingRod;
                         }
+                        this.txtWeldingRodSpecification.Text = wpq.WeldingRodSpecification;
                         if (!string.IsNullOrEmpty(wpq.WeldingWire))
                         {
                             drpWeldingWire.SelectedValue = wpq.WeldingWire;
                         }
+                        this.txtWeldingWireSpecification.Text = wpq.WeldingWireSpecification;
                         if (!string.IsNullOrEmpty(wpq.GrooveType))
                         {
                             drpGrooveType.SelectedValue = wpq.GrooveType;
@@ -141,7 +146,14 @@ namespace FineUIPro.Web.HJGL.WPQ
                         {
                             drpWeldType.SelectedValue = wpq.JointType;
                         }
-                        this.txtProtectiveGas.Text = wpq.ProtectiveGas;
+                        if (!string.IsNullOrEmpty(wpq.GasProtectionModeId))
+                        {
+                            this.drpGasProtectionModeId.SelectedValue = wpq.GasProtectionModeId;
+                        }
+                        if (!string.IsNullOrEmpty(wpq.ProtectionGasId))
+                        {
+                            this.drpProtectionGasId.SelectedValue = wpq.ProtectionGasId;
+                        }
                         BindGrid(wpq.WPQId);
                     }
                 }

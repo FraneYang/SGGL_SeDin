@@ -331,6 +331,9 @@
     <Content Include="HJGL\BaseInfo\Detection.aspx" />
     <Content Include="HJGL\BaseInfo\DetectionEdit.aspx" />
     <Content Include="HJGL\BaseInfo\DetectionView.aspx" />
+    <Content Include="HJGL\BaseInfo\GasProtectionMode.aspx" />
+    <Content Include="HJGL\BaseInfo\GasProtectionModeEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\GasProtectionModeView.aspx" />
     <Content Include="HJGL\BaseInfo\Groove.aspx" />
     <Content Include="HJGL\BaseInfo\GrooveEdit.aspx" />
     <Content Include="HJGL\BaseInfo\GrooveView.aspx" />
@@ -351,6 +354,9 @@
     <Content Include="HJGL\BaseInfo\PressurePipingClassEdit.aspx" />
     <Content Include="HJGL\BaseInfo\PressurePipingClassView.aspx" />
     <Content Include="HJGL\BaseInfo\PressureView.aspx" />
+    <Content Include="HJGL\BaseInfo\ProtectionGas.aspx" />
+    <Content Include="HJGL\BaseInfo\ProtectionGasEdit.aspx" />
+    <Content Include="HJGL\BaseInfo\ProtectionGasView.aspx" />
     <Content Include="HJGL\BaseInfo\PurgeMethod.aspx" />
     <Content Include="HJGL\BaseInfo\PurgeMethodEdit.aspx" />
     <Content Include="HJGL\BaseInfo\PurgeMethodView.aspx" />
@@ -5979,6 +5985,27 @@
     <Compile Include="HJGL\BaseInfo\DetectionView.aspx.designer.cs">
       <DependentUpon>DetectionView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\BaseInfo\GasProtectionMode.aspx.cs">
+      <DependentUpon>GasProtectionMode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\GasProtectionMode.aspx.designer.cs">
+      <DependentUpon>GasProtectionMode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\GasProtectionModeEdit.aspx.cs">
+      <DependentUpon>GasProtectionModeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\GasProtectionModeEdit.aspx.designer.cs">
+      <DependentUpon>GasProtectionModeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\GasProtectionModeView.aspx.cs">
+      <DependentUpon>GasProtectionModeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\GasProtectionModeView.aspx.designer.cs">
+      <DependentUpon>GasProtectionModeView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\BaseInfo\Groove.aspx.cs">
       <DependentUpon>Groove.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6118,6 +6145,27 @@
     </Compile>
     <Compile Include="HJGL\BaseInfo\PressureView.aspx.designer.cs">
       <DependentUpon>PressureView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\ProtectionGas.aspx.cs">
+      <DependentUpon>ProtectionGas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\ProtectionGas.aspx.designer.cs">
+      <DependentUpon>ProtectionGas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\ProtectionGasEdit.aspx.cs">
+      <DependentUpon>ProtectionGasEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\ProtectionGasEdit.aspx.designer.cs">
+      <DependentUpon>ProtectionGasEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\ProtectionGasView.aspx.cs">
+      <DependentUpon>ProtectionGasView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\BaseInfo\ProtectionGasView.aspx.designer.cs">
+      <DependentUpon>ProtectionGasView.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\BaseInfo\PurgeMethod.aspx.cs">
       <DependentUpon>PurgeMethod.aspx</DependentUpon>

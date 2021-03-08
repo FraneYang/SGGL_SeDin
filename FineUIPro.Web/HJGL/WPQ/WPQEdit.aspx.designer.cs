@@ -121,6 +121,15 @@ namespace FineUIPro.Web.HJGL.WPQ {
         protected global::FineUIPro.TextBox txtSpecifications;
         
         /// <summary>
+        /// drpGrooveType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpGrooveType;
+        
+        /// <summary>
         /// drpWeldingWire 控件。
         /// </summary>
         /// <remarks>
@@ -128,6 +137,15 @@ namespace FineUIPro.Web.HJGL.WPQ {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList drpWeldingWire;
+        
+        /// <summary>
+        /// txtWeldingWireSpecification 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtWeldingWireSpecification;
         
         /// <summary>
         /// drpWeldingRod 控件。
@@ -139,13 +157,13 @@ namespace FineUIPro.Web.HJGL.WPQ {
         protected global::FineUIPro.DropDownList drpWeldingRod;
         
         /// <summary>
-        /// drpGrooveType 控件。
+        /// txtWeldingRodSpecification 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpGrooveType;
+        protected global::FineUIPro.TextBox txtWeldingRodSpecification;
         
         /// <summary>
         /// drpWeldType 控件。
@@ -265,15 +283,6 @@ namespace FineUIPro.Web.HJGL.WPQ {
         protected global::FineUIPro.TextBox txtWPQStandard;
         
         /// <summary>
-        /// txtProtectiveGas 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtProtectiveGas;
-        
-        /// <summary>
         /// txtRequiredT 控件。
         /// </summary>
         /// <remarks>
@@ -281,6 +290,24 @@ namespace FineUIPro.Web.HJGL.WPQ {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtRequiredT;
+        
+        /// <summary>
+        /// drpGasProtectionModeId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpGasProtectionModeId;
+        
+        /// <summary>
+        /// drpProtectionGasId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpProtectionGasId;
         
         /// <summary>
         /// txtRequestTime 控件。
@@ -292,15 +319,6 @@ namespace FineUIPro.Web.HJGL.WPQ {
         protected global::FineUIPro.TextBox txtRequestTime;
         
         /// <summary>
-        /// txtCompileDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtCompileDate;
-        
-        /// <summary>
         /// txtPreTemperature 控件。
         /// </summary>
         /// <remarks>
@@ -308,6 +326,15 @@ namespace FineUIPro.Web.HJGL.WPQ {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtPreTemperature;
+        
+        /// <summary>
+        /// txtCompileDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtCompileDate;
         
         /// <summary>
         /// txtRemark 控件。

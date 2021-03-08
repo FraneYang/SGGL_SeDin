@@ -31,7 +31,7 @@ namespace FineUIPro.Web.HJGL.WPQ
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT * FROM View_HJGL_WPQ  WHERE 1 = 1 ";
+            string strSql = @"SELECT * FROM View_HJGL_WPQ WHERE 1 = 1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtWeldingProcedureCode.Text.Trim()))
             {

@@ -69,6 +69,10 @@ namespace BLL
             newWPQ.ApproveManId = WPQ.ApproveManId;
             newWPQ.RequiredT = WPQ.RequiredT;
             newWPQ.RequestTime = WPQ.RequestTime;
+            newWPQ.WeldingWireSpecification = WPQ.WeldingWireSpecification;
+            newWPQ.WeldingRodSpecification = WPQ.WeldingRodSpecification;
+            newWPQ.GasProtectionModeId = WPQ.GasProtectionModeId;
+            newWPQ.ProtectionGasId = WPQ.ProtectionGasId;
             db.WPQ_WPQList.InsertOnSubmit(newWPQ);
             db.SubmitChanges();
         }
@@ -120,6 +124,10 @@ namespace BLL
                 newWPQ.ApproveTime = WPQ.ApproveTime;
                 newWPQ.RequiredT = WPQ.RequiredT;
                 newWPQ.RequestTime = WPQ.RequestTime;
+                newWPQ.WeldingWireSpecification = WPQ.WeldingWireSpecification;
+                newWPQ.WeldingRodSpecification = WPQ.WeldingRodSpecification;
+                newWPQ.GasProtectionModeId = WPQ.GasProtectionModeId;
+                newWPQ.ProtectionGasId = WPQ.ProtectionGasId;
                 db.SubmitChanges();
             }
         }
