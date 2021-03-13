@@ -99,11 +99,10 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                                  join y in Funs.DB.HJGL_HotProess_Trust on x.HotProessTrustId equals y.HotProessTrustId
                                  where y.ProjectId == this.CurrUser.LoginProjectId
                                  select new { x.WeldJointId, y.UnitWorkId }).ToList();
-            var ReportList = (from x in Funs.DB.HJGL_HotProess_Report
-                                 join y in Funs.DB.HJGL_HotProess_TrustItem on x.HotProessTrustItemId equals y.HotProessTrustItemId
-                                 join z in Funs.DB.HJGL_HotProess_Trust on y.HotProessTrustId equals z.HotProessTrustId
-                                 where z.ProjectId == this.CurrUser.LoginProjectId
-                                 select new { x.WeldJointId, z.UnitWorkId }).Distinct().ToList();
+            var ReportList = (from x in Funs.DB.HJGL_HotProess_TrustItem
+                              join y in Funs.DB.HJGL_HotProess_Trust on x.HotProessTrustId equals y.HotProessTrustId
+                              where y.ProjectId == this.CurrUser.LoginProjectId && x.IsCompleted == true
+                              select new { x.WeldJointId, y.UnitWorkId }).ToList();
             if (unitWork1.Count() > 0)
             {
                 foreach (var q in unitWork1)
@@ -420,7 +419,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             var trust = BLL.HotProess_TrustService.GetHotProessTrustById(this.tvControlItem.SelectedNodeID);
             if (trust != null)
             {
-                if (string.IsNullOrEmpty(trust.ReportNo)) {
+                if (string.IsNullOrEmpty(trust.ReportNo))
+                {
                     ShowNotify("请先完善热处理报告信息，保存报告编号", MessageBoxIcon.Warning);
                     return;
                 }

@@ -17,6 +17,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (!IsPostBack)
             {
+                GetButtonPower();
                 txtTaskDate.MinDate = DateTime.Now;
                 this.txtTaskDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now.AddDays(1));
                 this.txtTaskDateMonth.Text = string.Format("{0:yyyy-MM}", DateTime.Now);
@@ -35,6 +36,37 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
         }
 
+        #region 获取按钮权限
+        /// <summary>
+        /// 获取按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
+        private void GetButtonPower()
+        {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldTaskMenuId);
+            if (buttonList.Count() > 0)
+            {
+                if (buttonList.Contains(BLL.Const.BtnAdd))
+                {
+                    this.btnMenuAdd.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnModify) || buttonList.Contains(BLL.Const.BtnSave))
+                {
+                    this.btnMotify.Hidden = false;
+                }
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
+                    this.btnMenuDelete.Hidden = false;
+                }
+            }
+        }
+        #endregion
+
         #region 加载树装置-单位
         /// <summary>
         /// 加载树
@@ -48,12 +80,14 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             rootNode1.NodeID = "1";
             rootNode1.Text = "建筑工程";
             rootNode1.CommandName = "建筑工程";
+            rootNode1.EnableClickEvent = true;
             this.tvControlItem.Nodes.Add(rootNode1);
 
             TreeNode rootNode2 = new TreeNode();
             rootNode2.NodeID = "2";
             rootNode2.Text = "安装工程";
             rootNode2.CommandName = "安装工程";
+            rootNode2.EnableClickEvent = true;
             rootNode2.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode2);
 
@@ -92,6 +126,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     TreeNode tn1 = new TreeNode();
                     tn1.NodeID = q.UnitWorkId;
                     tn1.Text = q.UnitWorkName;
+                    tn1.CommandName = "单位工程";
                     tn1.ToolTip = "施工单位：" + u.UnitName;
                     tn1.EnableClickEvent = true;
                     rootNode1.Nodes.Add(tn1);
@@ -106,6 +141,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
                     tn2.Text = q.UnitWorkName;
+                    tn2.CommandName = "单位工程";
                     tn2.ToolTip = "施工单位：" + u.UnitName;
                     tn2.EnableClickEvent = true;
                     rootNode2.Nodes.Add(tn2);
@@ -344,6 +380,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                                 jot.WeldingWire = NewTask.WeldingWire;
                             }
                             jot.WeldingMode = NewTask.WeldingMode;
+                            if (!string.IsNullOrEmpty(item.JointAttribute))
+                            {
+                                jot.JointAttribute = item.JointAttribute;
+                            }
                             BLL.WeldJointService.UpdateWeldJoint(jot);
                         }
                     }
@@ -844,8 +884,30 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         #region 点击TreeView
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldTaskMenuId);
+            if (this.tvControlItem.SelectedNode.CommandName == "建筑工程" || this.tvControlItem.SelectedNode.CommandName == "安装工程")
+            {
+                this.btnMenuAdd.Hidden = true;
+                this.btnMotify.Hidden = true;
+            }
+            else if (this.tvControlItem.SelectedNode.CommandName == "单位工程")
+            {
+                if (buttonList.Contains(BLL.Const.BtnAdd))
+                {
+                    this.btnMenuAdd.Hidden = false;
+                }
+                this.btnMotify.Hidden = true;
+            }
+            else if (this.tvControlItem.SelectedNode.CommandName == "Date")
+            {
+                if (buttonList.Contains(BLL.Const.BtnModify) || buttonList.Contains(BLL.Const.BtnSave))
+                {
+                    this.btnMotify.Hidden = false;
+                }
+                this.btnMenuAdd.Hidden = true;
+            }
             var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(tvControlItem.SelectedNodeID);
-            if (w == null)
+            if (w == null && this.tvControlItem.SelectedNode.CommandName != "建筑工程" && this.tvControlItem.SelectedNode.CommandName != "安装工程")
             {
                 DateTime? taskTime = Funs.GetNewDateTime(tvControlItem.SelectedNodeID.Split('|')[1]);
                 if (taskTime != null)
@@ -945,9 +1007,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             drpCanWelder.Items.Clear();
             string[] selectedRowId = Grid1.SelectedRowIDArray;
             List<string> canWelder = null;
+            var taskList = from x in Funs.DB.HJGL_WeldTask where x.ProjectId == this.CurrUser.LoginProjectId select x;
             for (int i = 0; i < selectedRowId.Count(); i++)
             {
-                Model.HJGL_WeldTask task = BLL.WeldTaskService.GetWeldTaskById(selectedRowId[i]);
+                Model.HJGL_WeldTask task = taskList.FirstOrDefault(x => x.WeldTaskId == selectedRowId[i]);
                 if (!string.IsNullOrEmpty(task.CanWelderId))
                 {
                     List<string> jotCanWelder = task.CanWelderId.Split(',').ToList();

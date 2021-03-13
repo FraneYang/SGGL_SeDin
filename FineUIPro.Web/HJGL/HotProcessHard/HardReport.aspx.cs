@@ -97,11 +97,10 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                                  join y in Funs.DB.HJGL_Hard_Trust on x.HardTrustID equals y.HardTrustID
                                  where y.ProjectId == this.CurrUser.LoginProjectId
                                  select new { x.WeldJointId, y.UnitWorkId }).ToList();
-            var ReportList = (from x in Funs.DB.HJGL_Hard_Report
-                              join y in Funs.DB.HJGL_Hard_TrustItem on x.HardTrustItemID equals y.HardTrustItemID
-                              join z in Funs.DB.HJGL_Hard_Trust on y.HardTrustID equals z.HardTrustID
-                              where z.ProjectId == this.CurrUser.LoginProjectId
-                              select new { x.WeldJointId, z.UnitWorkId }).Distinct().ToList();
+            var ReportList = (from x in Funs.DB.HJGL_Hard_TrustItem
+                              join y in Funs.DB.HJGL_Hard_Trust on x.HardTrustID equals y.HardTrustID
+                              where y.ProjectId == this.CurrUser.LoginProjectId && x.IsPass == true
+                              select new { x.WeldJointId, y.UnitWorkId }).ToList();
             if (unitWork1.Count() > 0)
             {
                 foreach (var q in unitWork1)

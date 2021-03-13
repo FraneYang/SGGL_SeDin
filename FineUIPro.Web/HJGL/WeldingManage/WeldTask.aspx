@@ -52,6 +52,7 @@
                                     <Items>
                                         <f:HiddenField runat="server" ID="hdItemsString"></f:HiddenField>
                                         <f:HiddenField runat="server" ID="hdTaskWeldJoint"></f:HiddenField>
+                                        <f:Button runat="server" ID="CreatWeldableWeldJoint" Icon="ChartPie" Text="生成可焊焊工" OnClick="CreatWeldableWeldJoint_Click"></f:Button>
                                         <f:Button ID="btnSelectWelder" runat="server" Text="选择焊工批量填充" OnClick="btnSelectWelder_Click">
                                         </f:Button>
                                         <f:DropDownList ID="drpCanWelder" EnableEdit="true" runat="server" LabelWidth="140px">
@@ -66,7 +67,7 @@
                                         </f:Button>
                                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存" OnClick="btnSave_Click">
                                         </f:Button>
-                                        <f:Button runat="server" ID="CreatWeldableWeldJoint" Icon="ChartPie" Text="生成可焊焊工" OnClick="CreatWeldableWeldJoint_Click"></f:Button>
+                                        
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>
@@ -199,14 +200,14 @@
             IsModal="true" Width="1200px" Height="650px" OnClose="Window1_Close">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
-            <f:MenuButton ID="btnMenuAdd" EnablePostBack="true" runat="server" Text="新增" Icon="Add" OnClick="btnMenuAdd_Click">
+            <f:MenuButton ID="btnMenuAdd" EnablePostBack="true" runat="server" Text="新增" Hidden="true" Icon="Add" OnClick="btnMenuAdd_Click">
             </f:MenuButton>
-            <f:MenuButton ID="btnMotify" EnablePostBack="true" runat="server" Text="修改" Icon="ApplicationEdit" OnClick="btnMotify_Click">
+            <f:MenuButton ID="btnMotify" EnablePostBack="true" runat="server" Text="修改" Hidden="true" Icon="ApplicationEdit" OnClick="btnMotify_Click">
             </f:MenuButton>
         </f:Menu>
         <f:Menu ID="Menu2" runat="server">
             <f:MenuButton ID="btnMenuDelete"
-                EnablePostBack="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" OnClick="btnMenuDelete_Click">
+                EnablePostBack="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Hidden="true" OnClick="btnMenuDelete_Click">
             </f:MenuButton>
         </f:Menu>
     </form>

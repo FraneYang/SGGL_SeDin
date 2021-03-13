@@ -56,7 +56,8 @@ namespace FineUIPro.Web.ProjectData
             if (this.drpProject.Items.Count() > 0)
             {
                 string strSql = @"SELECT DISTINCT ProjectUser.ProjectUserId,ProjectUser.ProjectId,ProjectUser.UserId,ProjectUser.WorkAreaId,Users.UserCode,Users.UserName,ProjectUser.UnitId,Unit.UnitCode,Unit.UnitName,ProjectUnit.UnitType,sysConst.ConstText AS UnitTypeName,ProjectUser.RoleId,ProjectUser.IsPost,(CASE WHEN ProjectUser.IsPost = 1 THEN '在岗' ELSE '离岗' END) AS IsPostName,WorkPost.WorkPostName"
-                                + @" ,RoleName= STUFF(( SELECT ',' + RoleName FROM dbo.Sys_Role where PATINDEX('%,' + RTRIM(RoleId) + ',%',',' +ProjectUser.RoleId + ',')>0 FOR XML PATH('')), 1, 1,'')"
+                                + @" ,CRoleName=ISNULL(STUFF((SELECT ',' + RoleName FROM dbo.Sys_Role where PATINDEX('%,' + RTRIM(RoleId) + ',%',',' +Users.RoleId + ',')>0 FOR XML PATH('')), 1, 1,''),'') 
+                                    ,RoleName=ISNULL(STUFF(( SELECT ',' + RoleName FROM dbo.Sys_Role where PATINDEX('%,' + RTRIM(RoleId) + ',%',',' +ProjectUser.RoleId + ',')>0 FOR XML PATH('')), 1, 1,''),'') "
                                 + @" FROM Project_ProjectUser AS ProjectUser "
                                 + @" LEFT JOIN Base_Project AS Project ON ProjectUser.ProjectId = Project.ProjectId "
                                 + @" LEFT JOIN Sys_User AS Users ON ProjectUser.UserId = Users.UserId "

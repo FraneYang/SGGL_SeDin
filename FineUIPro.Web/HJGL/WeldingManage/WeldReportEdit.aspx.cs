@@ -54,10 +54,10 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             {
                 this.WeldingDailyId = Request.Params["WeldingDailyId"];
                 ///焊口属性
-                this.drpJointAttribute.DataTextField = "Text";
-                this.drpJointAttribute.DataValueField = "Value";
-                this.drpJointAttribute.DataSource = BLL.DropListService.HJGL_JointAttribute();
-                this.drpJointAttribute.DataBind();
+                //this.drpJointAttribute.DataTextField = "Text";
+                //this.drpJointAttribute.DataValueField = "Value";
+                //this.drpJointAttribute.DataSource = BLL.DropListService.HJGL_JointAttribute();
+                //this.drpJointAttribute.DataBind();
                 this.PageInfoLoad(); // 加载页面 
 
                 if (!string.IsNullOrEmpty(this.WeldingDailyId))
@@ -180,7 +180,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 this.txtTabler.Text = this.CurrUser.UserName;
                 this.hdTablerId.Text = this.CurrUser.UserId;
 
-                txtWeldingDate.MaxDate = DateTime.Now;
+                //txtWeldingDate.MaxDate = DateTime.Now;
                 this.txtWeldingDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
                 this.txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
                 string perfix = string.Format("{0:yyyyMMdd}", System.DateTime.Now) + "-";
@@ -196,7 +196,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         private void BindGrid(List<Model.SpWeldingDailyItem> weldingDailyItem)
         {
             DataTable dt = null;
-            //if (weldingDailyItem != null)
+            //if (weldingDailyItem != null) 
             //{
             //    var task = from x in Funs.DB.View_HJGL_WeldingTask
             //               where (x.UnitWorkId == this.UnitWorkId && x.TaskDate.Value.Date == Convert.ToDateTime(txtWeldingDate.Text)
@@ -556,11 +556,11 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                             var newWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(t.WeldJointId);
                             if (newWeldJoint != null)
                             {
-                                if (!string.IsNullOrEmpty(values.Value<string>("JointAttribute").ToString()))
-                                {
-                                    newWeldJoint.JointAttribute = values.Value<string>("JointAttribute").ToString();
-                                }
-                                BLL.WeldJointService.UpdateWeldJoint(newWeldJoint);
+                                //if (!string.IsNullOrEmpty(values.Value<string>("JointAttribute").ToString()))
+                                //{
+                                //    newWeldJoint.JointAttribute = values.Value<string>("JointAttribute").ToString();
+                                //}
+                                //BLL.WeldJointService.UpdateWeldJoint(newWeldJoint);
                                 BLL.WeldJointService.UpdateWeldJointAddG(newWeldJoint.WeldJointId, newWeldJoint.JointAttribute, Const.BtnAdd);
                             }
                         }

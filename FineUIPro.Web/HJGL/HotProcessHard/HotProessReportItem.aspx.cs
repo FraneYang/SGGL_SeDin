@@ -49,6 +49,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             if (!IsPostBack)
             {
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                Funs.FineUIPleaseSelect(this.drpIsCompleted);
                 this.hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
                 var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
                 if (hotProessFeedback != null) {
@@ -217,12 +218,23 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         #region 保存
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            if (this.drpIsCompleted.SelectedValue == BLL.Const._Null)
+            {
+                ShowNotify("请选择是否完成！", MessageBoxIcon.Warning);
+                return;
+            }
             string hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
             var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
-
-            hotProessFeedback.IsCompleted = Convert.ToBoolean(drpIsCompleted.SelectedValue);
-            hotProessFeedback.IsHardness = Convert.ToBoolean(drpIsCompleted.SelectedValue);
-            
+            if (this.drpIsCompleted.SelectedValue != BLL.Const._Null)
+            {
+                hotProessFeedback.IsCompleted = Convert.ToBoolean(drpIsCompleted.SelectedValue);
+                hotProessFeedback.IsHardness = Convert.ToBoolean(drpIsCompleted.SelectedValue);
+            }
+            else
+            {
+                hotProessFeedback.IsCompleted = null;
+                hotProessFeedback.IsHardness = null;
+            }
             BLL.HotProessTrustItemService.UpdateHotProessFeedback(hotProessFeedback);
             ///保存热处理报告
             HotProessReportService.DeleteAllHotProessReportById(hotProessTrustItemId);

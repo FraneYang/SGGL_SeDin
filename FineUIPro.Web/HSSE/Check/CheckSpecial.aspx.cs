@@ -467,7 +467,7 @@ namespace FineUIPro.Web.HSSE.Check
                 builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                builder.CellFormat.Width = 120;
+                builder.CellFormat.Width = 60;
                 builder.Write(string.IsNullOrEmpty(detail.UnitName) ? "" : detail.UnitName);
                 //问题描述
                 builder.InsertCell();
@@ -475,7 +475,7 @@ namespace FineUIPro.Web.HSSE.Check
                 builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                builder.CellFormat.Width = 40;
+                builder.CellFormat.Width = 140;
                 builder.Write(string.IsNullOrEmpty(detail.Unqualified) ? "" : detail.Unqualified);
                 //问题类型
                 builder.InsertCell();
@@ -483,7 +483,7 @@ namespace FineUIPro.Web.HSSE.Check
                 builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                builder.CellFormat.Width = 100;
+                builder.CellFormat.Width = 60;
                 builder.Write(string.IsNullOrEmpty(detail.CheckItemName)?"": detail.CheckItemName);
 
                 //处理结果

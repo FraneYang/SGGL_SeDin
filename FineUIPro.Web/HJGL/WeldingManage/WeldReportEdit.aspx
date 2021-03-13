@@ -110,13 +110,9 @@
                                 TextAlign="Left" Width="100px">
                             </f:RenderField>--%>
                             <f:RenderField HeaderText="焊口属性" ColumnID="JointAttribute"
-                                    DataField="JointAttribute" SortField="JointAttribute" FieldType="String" HeaderTextAlign="Center"
-                                    TextAlign="Left" Width="100px">
-                                    <Editor>
-                                        <f:DropDownList ID="drpJointAttribute" Required="true" runat="server" ShowRedStar="true">
-                                        </f:DropDownList>
-                                    </Editor>
-                                </f:RenderField>
+                                DataField="JointAttribute" SortField="JointAttribute" FieldType="String" HeaderTextAlign="Center"
+                                TextAlign="Left" Width="100px">
+                            </f:RenderField>
                              <f:RenderField HeaderText="焊接类型" ColumnID="WeldTypeCode"
                                 DataField="WeldTypeCode" SortField="WeldTypeCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="70px">

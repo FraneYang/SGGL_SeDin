@@ -187,15 +187,17 @@ namespace FineUIPro.Web.ProjectData
                         ProjectId = this.ProjectId,
                         UserId = userId,
                         UnitId = user.UnitId,
-                        RoleId = user.RoleId,
+                        //RoleId = user.RoleId,
                         IsPost = true
                     };
                     BLL.ProjectUserService.AddProjectUser(newProjectUser);
-                    Model.Sys_RoleItem roleItem = new Model.Sys_RoleItem();
-                    roleItem.ProjectId = this.ProjectId;
-                    roleItem.UserId = userId;
-                    roleItem.RoleId = user.RoleId;
-                    roleItem.IntoDate = DateTime.Now;
+                    Model.Sys_RoleItem roleItem = new Model.Sys_RoleItem
+                    {
+                        ProjectId = this.ProjectId,
+                        UserId = userId,
+                        RoleId = user.RoleId,
+                        IntoDate = DateTime.Now
+                    };
                     BLL.RoleItemService.AddRoleItem(roleItem);
                     if (!string.IsNullOrEmpty(user.IdentityCard))
                     {

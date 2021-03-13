@@ -34,8 +34,8 @@
                             <Items>
                                 <f:Label runat="server" ID="lbPipeLineCode" Label="管线号" LabelAlign="Right"></f:Label>
                                 <f:Label runat="server" ID="lbWeldJointCode" Label="焊口号"  LabelAlign="Right"></f:Label>
-                                <f:DropDownList ID="drpIsCompleted" runat="server" Label="是否完成" LabelWidth="80px">
-                                    <f:ListItem Value="True" Text="完成" Selected="true" />
+                                <f:DropDownList ID="drpIsCompleted" runat="server" Label="是否完成" LabelWidth="100px" ShowRedStar="true" LabelAlign="Right">
+                                    <f:ListItem Value="True" Text="完成" />
                                     <f:ListItem Value="False" Text="未完成" />
                                 </f:DropDownList>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>

@@ -69,11 +69,14 @@
                     <f:RenderField Width="90px" ColumnID="UnitTypeName" DataField="UnitTypeName" SortField="UnitTypeName" FieldType="String"
                         HeaderText="单位类型"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName" FieldType="String"
+                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName" FieldType="String"
                         HeaderText="单位名称"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                         FieldType="String" HeaderText="用户名称"  HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                     <f:RenderField Width="150px" ColumnID="CRoleName" DataField="CRoleName" SortField="CRoleName"
+                        FieldType="String" HeaderText="部门角色"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
                         FieldType="String" HeaderText="项目角色"  HeaderTextAlign="Center" TextAlign="Left">
@@ -81,7 +84,7 @@
                     <f:RenderField Width="120px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
                         FieldType="String" HeaderText="项目岗位"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="WorkAreaId" Width="200px" HeaderText="分管范围" HeaderTextAlign="Center" TextAlign="Center"
+                    <f:TemplateField ColumnID="WorkAreaId" Width="180px" HeaderText="分管范围" HeaderTextAlign="Center" TextAlign="Center"
                             EnableLock="true" Locked="False">
                             <ItemTemplate>
                                 <asp:Label ID="Label2" runat="server" Text='<%# ConvertWorkAreaId(Eval("WorkAreaId")) %>'></asp:Label>

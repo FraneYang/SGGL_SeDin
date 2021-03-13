@@ -129,10 +129,12 @@ namespace FineUIPro.Web.HSSE.ActionPlan
         /// </summary>
         private void SaveData(string type)
         {
-            Model.ActionPlan_ProjectManagerRule newManagerRule = new Model.ActionPlan_ProjectManagerRule();
-            newManagerRule.ManageRuleCode = this.txtManageRuleCode.Text.Trim();
-            newManagerRule.ManageRuleName = this.txtManageRuleName.Text.Trim();
-            newManagerRule.SeeFile = HttpUtility.HtmlEncode(this.txtSeeFile.Text);
+            Model.ActionPlan_ProjectManagerRule newManagerRule = new Model.ActionPlan_ProjectManagerRule
+            {
+                ManageRuleCode = this.txtManageRuleCode.Text.Trim(),
+                ManageRuleName = this.txtManageRuleName.Text.Trim(),
+                SeeFile = HttpUtility.HtmlEncode(this.txtSeeFile.Text)
+            };
             if (this.ddlManageRuleTypeId.SelectedValue != BLL.Const._Null)
             {
                 newManagerRule.ManageRuleTypeId = this.ddlManageRuleTypeId.SelectedValue;
@@ -146,7 +148,7 @@ namespace FineUIPro.Web.HSSE.ActionPlan
             var manageRule = BLL.ActionPlan_ProjectManagerRuleService.GetManagerRuleById(this.ProjectManageRuleId);
             if (manageRule == null)
             {
-                newManagerRule.ManagerRuleId = SQLHelper.GetNewID(typeof(Model.ActionPlan_ProjectManagerRule));
+                this.ProjectManageRuleId= newManagerRule.ManagerRuleId = SQLHelper.GetNewID(typeof(Model.ActionPlan_ProjectManagerRule));
                 newManagerRule.ProjectId = this.CurrUser.LoginProjectId;
                 newManagerRule.CompileDate = DateTime.Now;
                 newManagerRule.CompileMan = this.CurrUser.UserId;

@@ -131,6 +131,7 @@ namespace FineUIPro.Web.ProjectData
                 Model.Sys_RoleItem roleItem = BLL.RoleItemService.GeRoleItemByUserIdAndProjectId(newProjectUser.UserId,newProjectUser.ProjectId);
                 if (roleItem != null)
                 {
+                    roleItem.RoleId = newProjectUser.RoleId;
                     if (newProjectUser.IsPost == false) //离岗
                     {
                         roleItem.OutDate = DateTime.Now;

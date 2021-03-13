@@ -62,3 +62,447 @@ IP地址:::1
 
 出错时间:03/06/2021 10:15:22
 
+
+错误信息开始=====>
+错误类型:FileCorruptedException
+错误信息:The document appears to be corrupted and cannot be loaded.
+错误堆栈:
+   在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+   在 Aspose.Words.Document.x5d95f5f98c940295(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+   在 Aspose.Words.Document..ctor(String fileName, LoadOptions loadOptions)
+   在 FineUIPro.Web.HSSE.Check.CheckSpecial.btnPrinter_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HSSE\Check\CheckSpecial.aspx.cs:行号 366
+   在 FineUIPro.MenuButton.OnClick(EventArgs e)
+   在 (MenuButton , EventArgs )
+   在 FineUIPro.MenuButton.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+----错误类型:ArgumentOutOfRangeException
+----错误信息:
+----索引超出范围。必须为非负值并小于集合大小。
+参数名: startIndex
+----错误堆栈:
+       在 System.String.CtorCharArrayStartLength(Char[] value, Int32 startIndex, Int32 length)
+       在 xa604c4d210ae0581.x1f93754c360623ac.x06b0e25aa6ad68a9(BinaryReader xe134235b3526fa75, Int32 xde3de5b024452f3d, Int32 x8e15aa2edd06439a, Document x6beba47238e0ade6)
+       在 x16f9a31f749b8bb1.x0f8a9a895bdf560e.x06b0e25aa6ad68a9()
+       在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+出错时间:03/11/2021 11:05:19
+出错文件:http://localhost:8118/HSSE/Check/CheckSpecial.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/11/2021 11:05:19
+
+
+错误信息开始=====>
+错误类型:FileCorruptedException
+错误信息:The document appears to be corrupted and cannot be loaded.
+错误堆栈:
+   在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+   在 Aspose.Words.Document.x5d95f5f98c940295(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+   在 Aspose.Words.Document..ctor(String fileName, LoadOptions loadOptions)
+   在 FineUIPro.Web.HSSE.Check.CheckSpecial.btnPrinter_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HSSE\Check\CheckSpecial.aspx.cs:行号 366
+   在 FineUIPro.MenuButton.OnClick(EventArgs e)
+   在 (MenuButton , EventArgs )
+   在 FineUIPro.MenuButton.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+----错误类型:ArgumentOutOfRangeException
+----错误信息:
+----索引超出范围。必须为非负值并小于集合大小。
+参数名: startIndex
+----错误堆栈:
+       在 System.String.CtorCharArrayStartLength(Char[] value, Int32 startIndex, Int32 length)
+       在 xa604c4d210ae0581.x1f93754c360623ac.x06b0e25aa6ad68a9(BinaryReader xe134235b3526fa75, Int32 xde3de5b024452f3d, Int32 x8e15aa2edd06439a, Document x6beba47238e0ade6)
+       在 x16f9a31f749b8bb1.x0f8a9a895bdf560e.x06b0e25aa6ad68a9()
+       在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+出错时间:03/11/2021 11:07:00
+出错文件:http://localhost:8118/HSSE/Check/CheckSpecial.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/11/2021 11:07:00
+
+
+错误信息开始=====>
+错误类型:FileCorruptedException
+错误信息:The document appears to be corrupted and cannot be loaded.
+错误堆栈:
+   在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+   在 Aspose.Words.Document.x5d95f5f98c940295(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+   在 Aspose.Words.Document..ctor(String fileName, LoadOptions loadOptions)
+   在 FineUIPro.Web.HSSE.Check.CheckSpecial.btnPrinter_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HSSE\Check\CheckSpecial.aspx.cs:行号 366
+   在 FineUIPro.MenuButton.OnClick(EventArgs e)
+   在 (MenuButton , EventArgs )
+   在 FineUIPro.MenuButton.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+----错误类型:ArgumentOutOfRangeException
+----错误信息:
+----索引超出范围。必须为非负值并小于集合大小。
+参数名: startIndex
+----错误堆栈:
+       在 System.String.CtorCharArrayStartLength(Char[] value, Int32 startIndex, Int32 length)
+       在 xa604c4d210ae0581.x1f93754c360623ac.x06b0e25aa6ad68a9(BinaryReader xe134235b3526fa75, Int32 xde3de5b024452f3d, Int32 x8e15aa2edd06439a, Document x6beba47238e0ade6)
+       在 x16f9a31f749b8bb1.x0f8a9a895bdf560e.x06b0e25aa6ad68a9()
+       在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
+出错时间:03/11/2021 11:07:35
+出错文件:http://localhost:8118/HSSE/Check/CheckSpecial.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/11/2021 11:07:35
+
+
+错误信息开始=====>
+错误类型:IndexOutOfRangeException
+错误信息:索引超出了数组界限。
+错误堆栈:
+   在 FineUIPro.Web.HJGL.WeldingManage.WeldTask.tvControlItem_NodeCommand(Object sender, TreeCommandEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\WeldTask.aspx.cs:行号 883
+   在 FineUIPro.Tree.OnNodeCommand(TreeCommandEventArgs e)
+   在 (Tree , TreeCommandEventArgs )
+   在 FineUIPro.Tree.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/11/2021 11:43:57
+出错文件:http://localhost:8118/HJGL/WeldingManage/WeldTask.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/11/2021 11:43:57
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:50
+出错时间:03/11/2021 12:23:50
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:50
+出错时间:03/11/2021 12:23:50
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:50
+出错时间:03/11/2021 12:23:50
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:50
+出错时间:03/11/2021 12:23:50
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:50
+出错时间:03/11/2021 12:23:50
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:50
+出错时间:03/11/2021 12:23:50
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:50
+出错时间:03/11/2021 12:23:50
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:51
+出错时间:03/11/2021 12:23:51
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:52
+出错时间:03/11/2021 12:23:52
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:52
+出错时间:03/11/2021 12:23:52
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:52
+出错时间:03/11/2021 12:23:52
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:52
+出错时间:03/11/2021 12:23:52
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:23:52
+出错时间:03/11/2021 12:23:52
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
+出错时间:03/11/2021 12:24:04
+出错时间:03/11/2021 12:24:05
+
+
+错误信息开始=====>
+错误类型:ChangeConflictException
+错误信息:找不到行或行已更改。
+错误堆栈:
+   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
+   在 BLL.WeldingDailyService.UpdateWeldingDaily(HJGL_WeldingDaily WeldingDaily) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\WeldingManage\WeldingDailyService.cs:行号 253
+   在 FineUIPro.Web.WeldingProcess.WeldingManage.WeldReportEdit.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\WeldReportEdit.aspx.cs:行号 421
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/11/2021 14:11:43
+出错文件:http://localhost:8118/HJGL/WeldingManage/WeldReportEdit.aspx?unitWorkId=a86b3d72-eb73-4380-9a1f-6df767486e8f
+IP地址:::1
+操作人员:JT
+
+出错时间:03/11/2021 14:11:43
+

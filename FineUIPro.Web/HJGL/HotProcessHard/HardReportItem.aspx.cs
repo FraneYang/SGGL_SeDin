@@ -82,7 +82,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                             {
                                 this.lbPipeLineCode.Text = getPipeline.PipelineCode;
                                 var getUnitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(getPipeline.UnitWorkId);
-                                if (getUnitWork != null) {
+                                if (getUnitWork != null)
+                                {
                                     this.lbUnitWork.Text = getUnitWork.UnitWorkName;
                                 }
                             }
@@ -216,8 +217,9 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 NewReport.HardTrustItemID = HardTrustItemID;
                 NewReport.WeldJointId = Grid1.Rows[i].DataKeys[1].ToString();
                 NewReport.TestingPointNo = TestingPointNo;
-                if (!string.IsNullOrEmpty(HardNessValue1)) {
-                    NewReport.HardNessValue1 =Convert.ToInt32(HardNessValue1);
+                if (!string.IsNullOrEmpty(HardNessValue1))
+                {
+                    NewReport.HardNessValue1 = Convert.ToInt32(HardNessValue1);
                 }
                 if (!string.IsNullOrEmpty(HardNessValue2))
                 {
@@ -241,7 +243,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             if (hardFeedback != null)
             {
                 var hotProessTrustItem = Funs.DB.HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == hardFeedback.WeldJointId && x.HotProessTrustItemId == hardFeedback.HotProessTrustItemId);
-                if (drpIsPass.SelectedValue=="1")
+                if (drpIsPass.SelectedValue == "1")
                 {
                     hardFeedback.IsPass = true;
                     if (hotProessTrustItem != null)   //更新热处理委托硬度不合格记录id为空
@@ -280,7 +282,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     NewReport1.TestingPointNo = item.TestingPointNo;
                     NewReport1.HardNessValue1 = item.HardNessValue1;
                     NewReport1.Remark = item.Remark;
-                    NewReport1.SortIndex =num;
+                    NewReport1.SortIndex = num;
                     NewReport1.IsShow = true;
                     BLL.Hard_ReportService.AddHard_Report(NewReport1);
                     Model.HJGL_Hard_Report NewReport2 = new Model.HJGL_Hard_Report();
@@ -338,7 +340,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                             }
                             else
                             {
-                                strShowNotify += "硬度报告"+"：" + hardReport.TestingPointNo + cont;
+                                strShowNotify += "硬度报告" + "：" + hardReport.TestingPointNo + cont;
                             }
                         }
                     }

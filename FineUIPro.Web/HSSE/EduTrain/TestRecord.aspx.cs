@@ -490,6 +490,10 @@ namespace FineUIPro.Web.HSSE.EduTrain
                             {
                                 str += "    D." + item.DItem;
                             }
+                            if (!string.IsNullOrEmpty(item.EItem))
+                            {
+                                str += "    E." + item.EItem;
+                            }
                             builder.InsertCell();
                             builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
                             builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;

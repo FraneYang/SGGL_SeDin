@@ -101,15 +101,15 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                if (CommonService.IsMainUnitOrAdmin(trainingPlan.DesignerId))
-                {
+                //if (CommonService.IsMainUnitOrAdmin(trainingPlan.DesignerId))
+                //{
                     APITrainingPlanService.SaveTrainingPlan(trainingPlan);
-                }
-                else
-                {
-                    responeData.code = 0;
-                    responeData.message = "非本单位用户，不能制定培训计划！";
-                }
+                //}
+                //else
+                //{
+                //    responeData.code = 0;
+                //    responeData.message = "非本单位用户，不能制定培训计划！";
+                //}
             }
             catch (Exception ex)
             {
