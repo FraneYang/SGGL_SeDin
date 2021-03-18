@@ -169,9 +169,12 @@
                                     HeaderText="可焊焊缝类型" HeaderTextAlign="Center"
                                     TextAlign="Left">
                                 </f:RenderField>
-                                <f:RenderCheckField Width="120px" ColumnID="IsCanWeldG" DataField="IsCanWeldG" HeaderText="是否可焊固定口"
+                                <%--<f:RenderCheckField Width="120px" ColumnID="IsCanWeldG" DataField="IsCanWeldG" HeaderText="是否可焊固定口" 
                                     HeaderTextAlign="Center" TextAlign="Center">
-                                </f:RenderCheckField>
+                                </f:RenderCheckField>--%>
+                                <f:CheckBoxField Width="120px" SortField="IsCanWeldG" RenderAsStaticField="true" DataField="IsCanWeldG"
+                                    HeaderText="是否可焊固定口" HeaderTextAlign="Center" TextAlign="Center">
+                                </f:CheckBoxField>
                                 <f:RenderField Width="110px" ColumnID="Remark" DataField="Remark" FieldType="String"
                                     HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
                                 </f:RenderField>

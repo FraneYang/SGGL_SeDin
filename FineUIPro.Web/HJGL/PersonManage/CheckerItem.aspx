@@ -54,6 +54,10 @@
                         HeaderText="有效日期" HeaderTextAlign="Center" TextAlign="Left"
                         Renderer="Date">
                     </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="Level" DataField="Level"
+                        FieldType="String" HeaderText="等级" HeaderTextAlign="Center"
+                        TextAlign="Left" SortField="Level">
+                    </f:RenderField>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

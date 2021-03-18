@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using BLL;
+using Newtonsoft.Json.Linq;
 
 namespace FineUIPro.Web.HJGL.HotProcessHard
 {
@@ -236,9 +237,9 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     //BLL.Sys_LogService.AddLog(BLL.Const.System_3, this.ProjectId, this.CurrUser.UserId, Resources.Lan.AddHardTrust);
                 }
 
-                List<Model.View_HJGL_Hard_TrustItem> GetHardTrustItem = this.CollectGridJointInfo();
+                List<Model.HJGL_Hard_TrustItem> GetHardTrustItem = this.SaveGrid();
                 string errlog = string.Empty;
-                BLL.Hard_TrustItemService.DeleteHardTrustItemById(this.HardTrustID);
+                //BLL.Hard_TrustItemService.DeleteHardTrustItemById(this.HardTrustID);
                 foreach (var item in GetHardTrustItem)
                 {
                     Model.HJGL_Hard_TrustItem trustItem = new Model.HJGL_Hard_TrustItem();
@@ -276,6 +277,28 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         #endregion
 
         #region 收集Grid页面信息
+        private List<Model.HJGL_Hard_TrustItem> SaveGrid()
+        {
+            JArray mergedData = Grid1.GetMergedData();
+            List<Model.HJGL_Hard_TrustItem> GetHardTrustItem = new List<Model.HJGL_Hard_TrustItem>();
+            var items = from x in Funs.DB.HJGL_Hard_TrustItem select x;
+            foreach (JObject mergedRow in mergedData)
+            {
+                JObject values = mergedRow.Value<JObject>("values");
+
+                Model.HJGL_Hard_TrustItem newTrustItem = new Model.HJGL_Hard_TrustItem();
+                newTrustItem.HardTrustItemID = values.Value<string>("HardTrustItemID").ToString();
+                newTrustItem.HotProessTrustItemId = values.Value<string>("HotProessTrustItemId").ToString();
+                newTrustItem.WeldJointId = values.Value<string>("WeldJointId").ToString();
+                var item = items.FirstOrDefault(x => x.HardTrustItemID == newTrustItem.HardTrustItemID);
+                if (item == null)
+                {
+                    GetHardTrustItem.Add(newTrustItem);
+                }
+            }
+            return GetHardTrustItem;
+        }
+
         /// <summary>
         /// 收集Grid页面信息
         /// </summary>

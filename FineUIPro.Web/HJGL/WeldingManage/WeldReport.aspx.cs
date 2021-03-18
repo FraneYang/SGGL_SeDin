@@ -42,7 +42,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 rootNode2.Expanded = true;
                 this.tvControlItem.Nodes.Add(rootNode2);
 
-                
+
                 var pUnits = (from x in Funs.DB.Project_ProjectUnit where x.ProjectId == this.CurrUser.LoginProjectId select x).ToList();
                 // 获取当前用户所在单位
                 var currUnit = pUnits.FirstOrDefault(x => x.UnitId == this.CurrUser.UnitId);
@@ -76,7 +76,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                         var u = BLL.UnitService.GetUnitByUnitId(q.UnitId);
                         TreeNode tn1 = new TreeNode();
                         tn1.NodeID = q.UnitWorkId;
-                        tn1.Text = q.UnitWorkName ;
+                        tn1.Text = q.UnitWorkName;
                         tn1.ToolTip = "施工单位：" + u.UnitName;
                         rootNode1.Nodes.Add(tn1);
                         BindNodes(tn1);
@@ -110,7 +110,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                          && x.WeldingDate >= Convert.ToDateTime(this.txtMonth.Text.Trim() + "-01")
                     orderby x.WeldingDailyCode descending
                     select x;
-                     
+
             if (p.Count() > 0)
             {
                 foreach (var item in p)
@@ -143,7 +143,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
                 txtTabler.Text = BLL.UserService.GetUserNameByUserId(daily.Tabler);
                 txtTableDate.Text = string.Format("{0:yyyy-MM-dd}", daily.TableDate);
-                txtWeldingDate.Text= string.Format("{0:yyyy-MM-dd}", daily.WeldingDate);
+                txtWeldingDate.Text = string.Format("{0:yyyy-MM-dd}", daily.WeldingDate);
             }
         }
         #endregion
@@ -293,15 +293,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 if (!string.IsNullOrEmpty(tvControlItem.SelectedNodeID) && daily != null)
                 {
                     string weldingDailyId = tvControlItem.SelectedNodeID;
-                    var isPoint = from x in Funs.DB.HJGL_Batch_PointBatchItem
-                                  join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                  where y.WeldingDailyId == weldingDailyId && x.PointState != null
-                                  select x;
-                    if (isPoint.Count() > 1)
-                    {
-                        Alert.ShowInTop("该日报已点口，不能编辑！", MessageBoxIcon.Warning);
-                        return;
-                    }
+                    //var isPoint = from x in Funs.DB.HJGL_Batch_PointBatchItem
+                    //              join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                    //              where y.WeldingDailyId == weldingDailyId && x.PointState != null
+                    //              select x;
+                    //if (isPoint.Count() > 1)
+                    //{
+                    //    Alert.ShowInTop("该日报已点口，不能编辑！", MessageBoxIcon.Warning);
+                    //    return;
+                    //}
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldReportEdit.aspx?WeldingDailyId={0}", tvControlItem.SelectedNodeID, "维护 - ")));
                 }
                 else
@@ -333,6 +333,15 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                 else
                 {
                     string weldingDailyId = tvControlItem.SelectedNodeID;
+                    var isHotProess = from x in Funs.DB.HJGL_HotProess_TrustItem
+                                      join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                      where y.WeldingDailyId == weldingDailyId
+                                      select x;
+                    if (isHotProess.Count() > 0)
+                    {
+                        Alert.ShowInTop("该日报已有焊口生成热处理委托，不能删除！", MessageBoxIcon.Warning);
+                        return;
+                    }
                     var isPoint = from x in Funs.DB.HJGL_Batch_PointBatchItem
                                   join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                   where y.WeldingDailyId == weldingDailyId && x.PointState != null
@@ -345,7 +354,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     var isTrust = from x in Funs.DB.HJGL_Batch_BatchTrustItem
                                   join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                   where y.WeldingDailyId == weldingDailyId
-                                  select x; ;
+                                  select x;
                     if (isTrust.Count() == 0)
                     {
                         var weldJoints = BLL.WeldJointService.GetWeldlinesByWeldingDailyId(weldingDailyId);

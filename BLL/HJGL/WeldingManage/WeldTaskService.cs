@@ -18,6 +18,15 @@ namespace BLL
         }
 
         /// <summary>
+        ///根据焊口id获取焊接任务单信息
+        /// </summary>
+        /// <returns></returns>
+        public static Model.HJGL_WeldTask GetWeldTaskByWeldJointId(string weldJointId)
+        {
+            return Funs.DB.HJGL_WeldTask.FirstOrDefault(e => e.WeldJointId == weldJointId);
+        }
+
+        /// <summary>
         ///获取焊接任务单编号
         /// </summary>
         /// <returns></returns>

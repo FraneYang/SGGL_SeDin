@@ -98,7 +98,7 @@
                                 FieldType="String" HeaderText="主键"  Hidden="true" HeaderTextAlign="Center">                                        
                             </f:RenderField>
                              <f:WindowField TextAlign="Center" Width="80px" WindowID="WindowAtt" 
-                                 Text="附件" ToolTip="附件上传查看" DataIFrameUrlFields="LawRegulationId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&type=-1&path=FileUpload/LawRegulation&menuId=F4B02718-0616-4623-ABCE-885698DDBEB1"/>                           
+                                 Text="附件" ToolTip="附件上传查看" DataIFrameUrlFields="LawRegulationId" DataIFrameUrlFormatString="../../AttachFile/webuploader.aspx?toKeyId={0}&type=-1&path=FileUpload/LawRegulation&menuId=F4B02718-0616-4623-ABCE-885698DDBEB1"/>                           
                         </Columns>
                     </f:Grid>
                 </Items>

@@ -108,6 +108,7 @@ namespace BLL
         public static List<Model.View_HJGL_HotProess_TrustItem> GetHotProessTrustAddItem(string hdItemsString)
         {
             var jointInfos = from x in Funs.DB.View_HJGL_WeldJoint select x;
+            var trustItems = from x in Funs.DB.HJGL_HotProess_TrustItem select x;
             List<Model.View_HJGL_HotProess_TrustItem> returnViewMatch = new List<Model.View_HJGL_HotProess_TrustItem>();
             if (!string.IsNullOrEmpty(hdItemsString))
             {
@@ -117,7 +118,15 @@ namespace BLL
                     string[] strs = jotItem.Split(',');
                     var jotInfo = jointInfos.FirstOrDefault(x => x.WeldJointId == strs[0]);
                     Model.View_HJGL_HotProess_TrustItem newItem = new Model.View_HJGL_HotProess_TrustItem();
-                    newItem.HotProessTrustItemId = SQLHelper.GetNewID(typeof(Model.View_HJGL_HotProess_TrustItem));
+                    var oldItem = trustItems.FirstOrDefault(x=>x.WeldJointId== strs[0]);
+                    if (oldItem == null)
+                    {
+                        newItem.HotProessTrustItemId = SQLHelper.GetNewID(typeof(Model.View_HJGL_HotProess_TrustItem));
+                    }
+                    else
+                    {
+                        newItem.HotProessTrustItemId = oldItem.HotProessTrustItemId;
+                    }
                     newItem.WeldJointId = jotInfo.WeldJointId;
                     newItem.WeldJointCode = jotInfo.WeldJointCode;
                     newItem.PipelineCode = jotInfo.PipelineCode;

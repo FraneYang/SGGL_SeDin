@@ -853,15 +853,24 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     {
                         string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                         var item = getNewWeldTaskItem.FirstOrDefault(x => x.WeldTaskId == rowID);
-                        if (item != null)
+                        var joint = Funs.DB.HJGL_WeldJoint.FirstOrDefault(x=>x.WeldJointId==item.WeldJointId);
+                        if (string.IsNullOrEmpty(joint.WeldingDailyId))   //焊口尚未焊接，任务单信息可以删除
                         {
-                            getNewWeldTaskItem.Remove(item);
-                            // 删除明细信息
-                            var task = Funs.DB.HJGL_WeldTask.FirstOrDefault(x => x.WeldTaskId == rowID);
-                            if (task != null)
+                            if (item != null)
                             {
-                                BLL.WeldTaskService.DeleteWeldingTask(task.WeldTaskId);
+                                getNewWeldTaskItem.Remove(item);
+                                // 删除明细信息
+                                var task = Funs.DB.HJGL_WeldTask.FirstOrDefault(x => x.WeldTaskId == rowID);
+                                if (task != null)
+                                {
+                                    BLL.WeldTaskService.DeleteWeldingTask(task.WeldTaskId);
+                                }
                             }
+                            ShowNotify("删除成功！", MessageBoxIcon.Success);
+                        }
+                        else
+                        {
+                            ShowNotify("该焊口焊接日报已生成，无法删除任务单信息！", MessageBoxIcon.Warning);
                         }
                     }
                     BindGrid(getNewWeldTaskItem);
@@ -869,7 +878,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     {
                         this.InitTreeMenu();//加载树
                     }
-                    ShowNotify("删除成功！", MessageBoxIcon.Success);
+                  
                 }
             }
             else

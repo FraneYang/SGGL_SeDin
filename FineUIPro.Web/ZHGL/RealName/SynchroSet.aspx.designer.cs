@@ -49,13 +49,13 @@ namespace FineUIPro.Web.ZHGL.RealName {
         protected global::FineUIPro.TextBox txtapiUrl;
         
         /// <summary>
-        /// txt1 控件。
+        /// txtUserName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txt1;
+        protected global::FineUIPro.TextBox txtUserName;
         
         /// <summary>
         /// txtword 控件。

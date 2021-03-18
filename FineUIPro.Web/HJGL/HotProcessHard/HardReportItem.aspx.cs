@@ -54,7 +54,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 HardTrustItemID = Request.Params["HardTrustItemID"];
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
-
+                Funs.FineUIPleaseSelect(this.drpIsPass);
                 var hardFeedback = BLL.Hard_TrustItemService.GetHardTrustItemById(HardTrustItemID);
                 if (hardFeedback != null)
                 {
@@ -65,10 +65,6 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     else if (hardFeedback.IsPass == false)
                     {
                         drpIsPass.SelectedValue = "0";
-                    }
-                    else
-                    {
-                        drpIsPass.SelectedValue = "2";
                     }
                     if (!string.IsNullOrEmpty(hardFeedback.WeldJointId))
                     {
@@ -238,6 +234,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         #region 保存
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            if (this.drpIsPass.SelectedValue == BLL.Const._Null)
+            {
+                ShowNotify("请选择检测结果！", MessageBoxIcon.Warning);
+                return;
+            }
             string hardTrustItemId = Request.Params["HardTrustItemID"];
             var hardFeedback = BLL.Hard_TrustItemService.GetHardTrustItemById(hardTrustItemId);
             if (hardFeedback != null)

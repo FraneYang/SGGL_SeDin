@@ -255,6 +255,19 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                 var weldTaskIds = task.Select(x => x.WeldTaskId).ToArray();
                 this.Grid1.SelectedRowIDArray = weldTaskIds;
             }
+            for (int i = 0; i < this.Grid1.Rows.Count; i++)
+            {
+                var hotProesssItem = Funs.DB.HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == this.Grid1.Rows[i].DataKeys[1].ToString());
+                if (hotProesssItem != null)   //已生成热处理委托，不能编辑或删除
+                {
+                    Grid1.Rows[i].RowSelectable = false;
+                }
+                var pointBatchItem = Funs.DB.HJGL_Batch_PointBatchItem.FirstOrDefault(x => x.WeldJointId == this.Grid1.Rows[i].DataKeys[1].ToString() && x.PointState != null);
+                if (pointBatchItem != null)   //已生成委托，不能编辑或删除
+                {
+                    Grid1.Rows[i].RowSelectable = false;
+                }
+            }
         }
         #endregion
 

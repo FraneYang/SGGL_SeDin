@@ -1,508 +1,114 @@
 ﻿
 错误信息开始=====>
-错误类型:InvalidOperationException
-错误信息:查询包含对不同数据上下文上所定义项的引用。
+错误类型:SqlException
+错误信息:DELETE 语句与 REFERENCE 约束"FK_HJGL_Hard_TrustItem_HJGL_HotProess_TrustItem"冲突。该冲突发生于数据库"SGGLDB_SD"，表"dbo.HJGL_Hard_TrustItem", column 'HotProessTrustItemId'。
+语句已终止。
 错误堆栈:
-   在 System.Data.Linq.SqlClient.QueryConverter.TranslateConstantTable(ITable table, SqlLink link)
-   在 System.Data.Linq.SqlClient.QueryConverter.CoerceToSequence(SqlNode node)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitJoin(Expression outerSequence, Expression innerSequence, LambdaExpression outerKeySelector, LambdaExpression innerKeySelector, LambdaExpression resultSelector)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitSequenceOperatorCall(MethodCallExpression mc)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitWhere(Expression sequence, LambdaExpression predicate)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitSequenceOperatorCall(MethodCallExpression mc)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitSelect(Expression sequence, LambdaExpression selector)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitSequenceOperatorCall(MethodCallExpression mc)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitAggregate(Expression sequence, LambdaExpression lambda, SqlNodeType aggType, Type returnType)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitSequenceOperatorCall(MethodCallExpression mc)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitMethodCall(MethodCallExpression mc)
-   在 System.Data.Linq.SqlClient.QueryConverter.VisitInner(Expression node)
-   在 System.Data.Linq.SqlClient.QueryConverter.ConvertOuter(Expression node)
-   在 System.Data.Linq.SqlClient.SqlProvider.BuildQuery(Expression query, SqlNodeAnnotations annotations)
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
    在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
-   在 System.Data.Linq.DataQuery`1.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   在 System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   在 BLL.PointBatchDetailService.AutoPoint(String pointBatchId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\PointTrust\PointBatchDetailService.cs:行号 230
-   在 FineUIPro.Web.HJGL.PointTrust.PointBatch.btnAutoPoint_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\PointTrust\PointBatch.aspx.cs:行号 449
-   在 FineUIPro.Button.OnClick(EventArgs e)
-   在 (Button , EventArgs )
-   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:03/04/2021 10:30:01
-出错文件:http://localhost:8118/HJGL/PointTrust/PointBatch.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:03/04/2021 10:30:01
-
-
-错误信息开始=====>
-错误类型:HttpCompileException
-错误信息:e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\BaseInfo\ProtectionGasView.aspx(42): error CS1061: “ASP.hjgl_baseinfo_protectiongasview_aspx”不包含“btnSave_Click”的定义，并且找不到可接受类型为“ASP.hjgl_baseinfo_protectiongasview_aspx”的第一个参数的扩展方法“btnSave_Click”(是否缺少 using 指令或程序集引用?)
-错误堆栈:
-   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
-   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
-   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
-   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
-   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
-   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-出错时间:03/06/2021 10:15:22
-出错文件:http://localhost:8118/HJGL/BaseInfo/ProtectionGasView.aspx?ProtectionGasId=01ebec06-26de-480b-a3bf-57ea5572986d
-IP地址:::1
-
-出错时间:03/06/2021 10:15:22
-
-
-错误信息开始=====>
-错误类型:FileCorruptedException
-错误信息:The document appears to be corrupted and cannot be loaded.
-错误堆栈:
-   在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-   在 Aspose.Words.Document.x5d95f5f98c940295(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-   在 Aspose.Words.Document..ctor(String fileName, LoadOptions loadOptions)
-   在 FineUIPro.Web.HSSE.Check.CheckSpecial.btnPrinter_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HSSE\Check\CheckSpecial.aspx.cs:行号 366
-   在 FineUIPro.MenuButton.OnClick(EventArgs e)
-   在 (MenuButton , EventArgs )
-   在 FineUIPro.MenuButton.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-----错误类型:ArgumentOutOfRangeException
-----错误信息:
-----索引超出范围。必须为非负值并小于集合大小。
-参数名: startIndex
-----错误堆栈:
-       在 System.String.CtorCharArrayStartLength(Char[] value, Int32 startIndex, Int32 length)
-       在 xa604c4d210ae0581.x1f93754c360623ac.x06b0e25aa6ad68a9(BinaryReader xe134235b3526fa75, Int32 xde3de5b024452f3d, Int32 x8e15aa2edd06439a, Document x6beba47238e0ade6)
-       在 x16f9a31f749b8bb1.x0f8a9a895bdf560e.x06b0e25aa6ad68a9()
-       在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-出错时间:03/11/2021 11:05:19
-出错文件:http://localhost:8118/HSSE/Check/CheckSpecial.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:03/11/2021 11:05:19
-
-
-错误信息开始=====>
-错误类型:FileCorruptedException
-错误信息:The document appears to be corrupted and cannot be loaded.
-错误堆栈:
-   在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-   在 Aspose.Words.Document.x5d95f5f98c940295(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-   在 Aspose.Words.Document..ctor(String fileName, LoadOptions loadOptions)
-   在 FineUIPro.Web.HSSE.Check.CheckSpecial.btnPrinter_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HSSE\Check\CheckSpecial.aspx.cs:行号 366
-   在 FineUIPro.MenuButton.OnClick(EventArgs e)
-   在 (MenuButton , EventArgs )
-   在 FineUIPro.MenuButton.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-----错误类型:ArgumentOutOfRangeException
-----错误信息:
-----索引超出范围。必须为非负值并小于集合大小。
-参数名: startIndex
-----错误堆栈:
-       在 System.String.CtorCharArrayStartLength(Char[] value, Int32 startIndex, Int32 length)
-       在 xa604c4d210ae0581.x1f93754c360623ac.x06b0e25aa6ad68a9(BinaryReader xe134235b3526fa75, Int32 xde3de5b024452f3d, Int32 x8e15aa2edd06439a, Document x6beba47238e0ade6)
-       在 x16f9a31f749b8bb1.x0f8a9a895bdf560e.x06b0e25aa6ad68a9()
-       在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-出错时间:03/11/2021 11:07:00
-出错文件:http://localhost:8118/HSSE/Check/CheckSpecial.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:03/11/2021 11:07:00
-
-
-错误信息开始=====>
-错误类型:FileCorruptedException
-错误信息:The document appears to be corrupted and cannot be loaded.
-错误堆栈:
-   在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-   在 Aspose.Words.Document.x5d95f5f98c940295(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-   在 Aspose.Words.Document..ctor(String fileName, LoadOptions loadOptions)
-   在 FineUIPro.Web.HSSE.Check.CheckSpecial.btnPrinter_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HSSE\Check\CheckSpecial.aspx.cs:行号 366
-   在 FineUIPro.MenuButton.OnClick(EventArgs e)
-   在 (MenuButton , EventArgs )
-   在 FineUIPro.MenuButton.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-----错误类型:ArgumentOutOfRangeException
-----错误信息:
-----索引超出范围。必须为非负值并小于集合大小。
-参数名: startIndex
-----错误堆栈:
-       在 System.String.CtorCharArrayStartLength(Char[] value, Int32 startIndex, Int32 length)
-       在 xa604c4d210ae0581.x1f93754c360623ac.x06b0e25aa6ad68a9(BinaryReader xe134235b3526fa75, Int32 xde3de5b024452f3d, Int32 x8e15aa2edd06439a, Document x6beba47238e0ade6)
-       在 x16f9a31f749b8bb1.x0f8a9a895bdf560e.x06b0e25aa6ad68a9()
-       在 Aspose.Words.Document.x5d4db34d48fb3129(Stream xcf18e5243f8d5fd3, LoadOptions x27aceb70372bde46)
-出错时间:03/11/2021 11:07:35
-出错文件:http://localhost:8118/HSSE/Check/CheckSpecial.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:03/11/2021 11:07:35
-
-
-错误信息开始=====>
-错误类型:IndexOutOfRangeException
-错误信息:索引超出了数组界限。
-错误堆栈:
-   在 FineUIPro.Web.HJGL.WeldingManage.WeldTask.tvControlItem_NodeCommand(Object sender, TreeCommandEventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\WeldTask.aspx.cs:行号 883
-   在 FineUIPro.Tree.OnNodeCommand(TreeCommandEventArgs e)
-   在 (Tree , TreeCommandEventArgs )
-   在 FineUIPro.Tree.RaisePostBackEvent(String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
-   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
-   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:03/11/2021 11:43:57
-出错文件:http://localhost:8118/HJGL/WeldingManage/WeldTask.aspx
-IP地址:::1
-操作人员:JT
-
-出错时间:03/11/2021 11:43:57
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:50
-出错时间:03/11/2021 12:23:50
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:50
-出错时间:03/11/2021 12:23:50
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:50
-出错时间:03/11/2021 12:23:50
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:50
-出错时间:03/11/2021 12:23:50
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:50
-出错时间:03/11/2021 12:23:50
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:50
-出错时间:03/11/2021 12:23:50
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:50
-出错时间:03/11/2021 12:23:50
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:51
-出错时间:03/11/2021 12:23:51
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:52
-出错时间:03/11/2021 12:23:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:52
-出错时间:03/11/2021 12:23:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:52
-出错时间:03/11/2021 12:23:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:52
-出错时间:03/11/2021 12:23:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:23:52
-出错时间:03/11/2021 12:23:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 0 处开始)。
-错误堆栈:
-   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
-   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 483
-出错时间:03/11/2021 12:24:04
-出错时间:03/11/2021 12:24:05
-
-
-错误信息开始=====>
-错误类型:ChangeConflictException
-错误信息:找不到行或行已更改。
-错误堆栈:
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicDelete(TrackedObject item)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Delete(TrackedObject item)
    在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
    在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
-   在 BLL.WeldingDailyService.UpdateWeldingDaily(HJGL_WeldingDaily WeldingDaily) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\WeldingManage\WeldingDailyService.cs:行号 253
-   在 FineUIPro.Web.WeldingProcess.WeldingManage.WeldReportEdit.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\WeldingManage\WeldReportEdit.aspx.cs:行号 421
+   在 System.Data.Linq.DataContext.SubmitChanges()
+   在 BLL.HotProessTrustItemService.DeleteHotProessTrustItemById(String hotProessTrustId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\HotProcessHard\HotProessTrustItemService.cs:行号 99
+   在 FineUIPro.Web.HJGL.HotProcessHard.HotProessTrustEdit.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\HotProcessHard\HotProessTrustEdit.aspx.cs:行号 231
    在 FineUIPro.Button.OnClick(EventArgs e)
    在 (Button , EventArgs )
    在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
    在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
    在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
    在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
-出错时间:03/11/2021 14:11:43
-出错文件:http://localhost:8118/HJGL/WeldingManage/WeldReportEdit.aspx?unitWorkId=a86b3d72-eb73-4380-9a1f-6df767486e8f
+出错时间:03/18/2021 10:38:27
+出错文件:http://localhost:8118/HJGL/HotProcessHard/HotProessTrustEdit.aspx?HotProessTrustId=de51bd1d-1f6a-4cdc-bb68-d3a512b517cb
 IP地址:::1
 操作人员:JT
 
-出错时间:03/11/2021 14:11:43
+出错时间:03/18/2021 10:38:27
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:DELETE 语句与 REFERENCE 约束"FK_HJGL_Hard_TrustItem_HJGL_HotProess_TrustItem"冲突。该冲突发生于数据库"SGGLDB_SD"，表"dbo.HJGL_Hard_TrustItem", column 'HotProessTrustItemId'。
+语句已终止。
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicDelete(TrackedObject item)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Delete(TrackedObject item)
+   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges()
+   在 BLL.HotProessTrustItemService.DeleteHotProessTrustItemById(String hotProessTrustId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\HotProcessHard\HotProessTrustItemService.cs:行号 99
+   在 FineUIPro.Web.HJGL.HotProcessHard.HotProessTrustEdit.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\HotProcessHard\HotProessTrustEdit.aspx.cs:行号 231
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/18/2021 10:38:30
+出错文件:http://localhost:8118/HJGL/HotProcessHard/HotProessTrustEdit.aspx?HotProessTrustId=de51bd1d-1f6a-4cdc-bb68-d3a512b517cb
+IP地址:::1
+操作人员:JT
+
+出错时间:03/18/2021 10:38:30
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:DELETE 语句与 REFERENCE 约束"FK_HJGL_Hard_Report_HJGL_Hard_TrustItem"冲突。该冲突发生于数据库"SGGLDB_SD"，表"dbo.HJGL_Hard_Report", column 'HardTrustItemID'。
+语句已终止。
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicDelete(TrackedObject item)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Delete(TrackedObject item)
+   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges()
+   在 BLL.Hard_TrustItemService.DeleteHardTrustItemById(String hardTrustId) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\HJGL\HotProcessHard\Hard_TrustItemService.cs:行号 78
+   在 FineUIPro.Web.HJGL.HotProcessHard.HardTrustEdit.btnSave_Click(Object sender, EventArgs e) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\HJGL\HotProcessHard\HardTrustEdit.aspx.cs:行号 241
+   在 FineUIPro.Button.OnClick(EventArgs e)
+   在 (Button , EventArgs )
+   在 FineUIPro.Button.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/18/2021 16:11:03
+出错文件:http://localhost:8118/HJGL/HotProcessHard/HardTrustEdit.aspx?HardTrustID=35d7723b-4a53-46b3-bc20-d268dd384edb
+IP地址:::1
+操作人员:JT
+
+出错时间:03/18/2021 16:11:05
 

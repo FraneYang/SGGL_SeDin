@@ -251,7 +251,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 j++;
             }
             var select = selections.Distinct();
-            string jotIds = Request.Params["jotIds"];
+            string jotIds = Request.Params["weldJointIds"];
             if (!string.IsNullOrEmpty(jotIds))
             {
                 string[] jots = jotIds.Split('|');

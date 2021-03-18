@@ -19,7 +19,7 @@ namespace FineUIPro.Web.ZHGL.RealName
         {
             if (!IsPostBack)
             {
-              
+                Funs.DropDownPageSize(this.ddlPageSize);
                 this.txtStartDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                 this.txtEndDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)

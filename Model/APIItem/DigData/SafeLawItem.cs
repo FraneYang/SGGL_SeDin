@@ -27,6 +27,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// DataType 类型
+        /// </summary>
+        public string DataTypeName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 发布状态ID
         /// </summary>
         public string ReleaseStates

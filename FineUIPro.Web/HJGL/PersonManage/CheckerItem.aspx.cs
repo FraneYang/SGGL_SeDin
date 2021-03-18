@@ -39,7 +39,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT WelderQualifyId, WelderId, 
+            string strSql = @"SELECT WelderQualifyId, WelderId,Level,
                                      QualificationItem, LimitDate, CheckDate 
                            FROM Welder_WelderQualify
                            LEFT JOIN SitePerson_Person AS Welder ON Welder.PersonId=Welder_WelderQualify.WelderId

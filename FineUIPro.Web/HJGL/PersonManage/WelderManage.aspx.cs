@@ -330,7 +330,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                     }
                     else
                     {
-                        strShowNotify += "焊工管理" + "：" + welder.WelderCode + cont;
+                        strShowNotify += "焊工管理" + "：" + welder.PersonName + cont;
                     }
                 }
                 if (!string.IsNullOrEmpty(strShowNotify))
@@ -358,9 +358,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectUserId == id) != null)
+            if (Funs.DB.HJGL_WeldTask.FirstOrDefault(x => x.BackingWelderId == id || x.CoverWelderId == id) != null)
             {
-                content += "已在【项目焊工】中使用，不能删除！";
+                content += "已在【焊接任务单】中使用，不能删除！";
             }
 
             //if (Funs.DB.Pipeline_WeldJoint.FirstOrDefault(x => x.BackingWelderId == id) != null)

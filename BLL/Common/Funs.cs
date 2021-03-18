@@ -36,7 +36,7 @@ namespace BLL
         /// 数据库连接字符串
         /// </summary>
         private static string connString;
-        
+
         /// <summary>
         /// 数据库连结字符串。
         /// </summary>
@@ -89,7 +89,15 @@ namespace BLL
             get;
             set;
         }
-    public static string SGGLUrl
+        public static string SGGLUrl
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 实名制地址
+        /// </summary>
+        public static string RealNameApiUrl
         {
             get;
             set;
@@ -161,7 +169,7 @@ namespace BLL
             DDL.Items.Insert(0, new FineUIPro.ListItem("- 请选择 -", BLL.Const._Null));
             return;
         }
-              
+
         /// <summary>
         /// 为目标下拉框加上选择内容
         /// </summary>
@@ -466,7 +474,7 @@ namespace BLL
             Random rm = new Random(System.Environment.TickCount);
             if (dateTime.HasValue)
             {
-                str= dateTime.Value.ToString("yyyyMMddhhmmss") + rm.Next(1000, 9999).ToString();
+                str = dateTime.Value.ToString("yyyyMMddhhmmss") + rm.Next(1000, 9999).ToString();
             }
             return str;
         }
@@ -763,7 +771,7 @@ namespace BLL
         }
 
         #region  获取大写金额事件
-            public static string NumericCapitalization(decimal num)
+        public static string NumericCapitalization(decimal num)
         {
             string str1 = "零壹贰叁肆伍陆柒捌玖";            //0-9所对应的汉字 
             string str2 = "万仟佰拾亿仟佰拾万仟佰拾元角分"; //数字位所对应的汉字 
@@ -894,7 +902,7 @@ namespace BLL
             return str.ToArray();
         }
 
-        public static string  GetStringByArray(string[] array)
+        public static string GetStringByArray(string[] array)
         {
             string str = string.Empty;
             foreach (var item in array)

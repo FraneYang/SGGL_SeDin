@@ -674,6 +674,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             string dn = string.Empty;
             string s = string.Empty;
+            this.txtSize.Text = string.Empty;
+            this.txtSpecification.Text = string.Empty;
             if (!string.IsNullOrEmpty(this.txtDia.Text.Trim()))
             {
                 dn = this.txtDia.Text.Trim();

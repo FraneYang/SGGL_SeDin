@@ -25,7 +25,8 @@
                 ErrLogInfo.DefaultErrLogFullPath = Server.MapPath("~/ErrLog.txt");
                 Funs.ConnString = ConfigurationManager.AppSettings["ConnectionString"];
                 Funs.SystemName = ConfigurationManager.AppSettings["SystemName"];
-                Funs.SGGLUrl = ConfigurationManager.AppSettings["SGGLUrl"];            
+                Funs.SGGLUrl = ConfigurationManager.AppSettings["SGGLUrl"];
+                Funs.RealNameApiUrl = ConfigurationManager.AppSettings["RealNameApiUrl"];
             }
             catch (Exception ex)
             {
@@ -46,7 +47,10 @@
             ////实名制同步定时器
             try
             {
-                BLL.RealNameMonitorService.StartMonitor();
+                if (ConfigurationManager.AppSettings["EnableRealName"] == "True")
+                {
+                    BLL.RealNameMonitorService.StartMonitor();
+                }
             }
             catch (Exception ex)
             {

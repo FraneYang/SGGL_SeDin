@@ -25,8 +25,8 @@
                                 <f:Label runat="server" ID="lbWeldJointCode" Label="焊口号" LabelAlign="Right"></f:Label>
                                 <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                 </f:ToolbarFill>
-                                <f:DropDownList ID="drpIsPass" runat="server" Label="检测结果" LabelAlign="Right">
-                                    <f:ListItem Text="待检测" Value="2" />
+                                <f:DropDownList ID="drpIsPass" runat="server" Label="检测结果" LabelAlign="Right" ShowRedStar="true">
+                                    <%--<f:ListItem Text="待检测" Value="2" />--%>
                                     <f:ListItem Text="合格" Value="1" />
                                     <f:ListItem Text="不合格" Value="0" />
                                 </f:DropDownList>

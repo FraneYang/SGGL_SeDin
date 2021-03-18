@@ -378,20 +378,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             string content = string.Empty;
 
             string jotInfo = string.Empty;
-            var q = from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == id && x.WeldingDailyId != null select x;
+            var q = from x in Funs.DB.HJGL_WeldJoint where x.PipelineId == id select x;
             if (q.Count() > 0)
             {
-                foreach (var item in q)
-                {
-                    jotInfo += "焊口号" + "：" + item.WeldJointCode;
-                    var dr = Funs.DB.HJGL_WeldingDaily.FirstOrDefault(x => x.WeldingDailyId == item.WeldingDailyId);
-                    if (dr != null)
-                    {
-                        jotInfo += "；" + "焊接日报告号" + ":" + dr.WeldingDailyCode;
-                    }
-                }
-
-                content = "该管线已焊焊口" + ":" + jotInfo;
+                content = "该管线已有焊口，无法删除！";
             }
             if (string.IsNullOrEmpty(content))
             {
@@ -422,6 +412,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
 
         protected void Window2_Close(object sender, WindowCloseEventArgs e)
         {
+            this.InitTreeMenu();//加载树
+            BindGrid();
             //this.BindGrid();
             ////显示列
             //Model.Sys_UserShowColumns c = BLL.UserShowColumnsService.GetColumnsByUserId(this.CurrUser.UserId, "Pipeline");

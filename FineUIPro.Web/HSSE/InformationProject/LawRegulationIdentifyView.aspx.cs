@@ -66,7 +66,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/LawRegulationIdentify&menuId={1}&type=-1", this.LawRegulationIdentifyId, BLL.Const.LawRegulationIdentifyMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/LawRegulationIdentify&menuId={1}&type=-1", this.LawRegulationIdentifyId, BLL.Const.LawRegulationIdentifyMenuId)));
         }
         #endregion
 

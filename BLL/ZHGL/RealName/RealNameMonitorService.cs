@@ -1,9 +1,7 @@
-﻿using System;
+﻿using System.Linq;
 using System.Timers;
-using System.DirectoryServices;
-using System.Linq;
-using System.Web.UI.WebControls;
-using System.Collections.Generic;
+using System.Configuration;
+using System;
 
 namespace BLL
 {
@@ -21,12 +19,12 @@ namespace BLL
         /// </summary>
         public static void StartMonitor()
         {
-            int adTimeJ = 0;
-            var getSynchroSet = Funs.DB.RealName_SynchroSet.FirstOrDefault();
-            if (getSynchroSet != null && getSynchroSet.Intervaltime.HasValue)
-            {
-                adTimeJ = getSynchroSet.Intervaltime.Value;
-            }
+            int adTimeJ = Funs.GetNewInt(ConfigurationManager.AppSettings["Intervaltime"]) ?? 30;
+            //var getSynchroSet = Funs.DB.RealName_SynchroSet.FirstOrDefault();
+            //if (getSynchroSet != null && getSynchroSet.Intervaltime.HasValue)
+            //{
+            //    adTimeJ = getSynchroSet.Intervaltime.Value;
+            //}
             if (messageTimer != null)
             {
                 messageTimer.Stop();
@@ -52,22 +50,32 @@ namespace BLL
         /// <param name="e">事件参数</param>
         private static void AdUserInProcess(object sender, ElapsedEventArgs e)
         {
-            var getRProjects = from x in Funs.DB.RealName_Project select x;
-            if (getRProjects.Count() > 0)
+            try
             {
-                foreach (var item in getRProjects)
+                SynchroSetService.PushCollCompany();
+                var getRProjects = from x in Funs.DB.RealName_Project
+                                   select x;
+                if (getRProjects.Count() > 0)
                 {
-                    if (!string.IsNullOrEmpty(item.ProCode))
+                    foreach (var item in getRProjects)
                     {
-                        SynchroSetService.PushCollCompany();
-                        SynchroSetService.PushProCollCompany(item.ProCode);
-                        SynchroSetService.PushCollTeam(item.ProCode);
-                        SynchroSetService.getCollTeam(item.ProCode);
-                        SynchroSetService.PushPersons(Const.BtnAdd, item.ProCode);
-                        SynchroSetService.PushPersons(Const.BtnModify, item.ProCode);
-                        SynchroSetService.PushAttendance(item.ProCode);
+                        var getSynchroSet = Funs.DB.RealName_SynchroSet.FirstOrDefault(x => x.ProCode == item.ProCode);
+                        if (getSynchroSet != null && !string.IsNullOrEmpty(item.ProCode))
+                        {
+                            SynchroSetService.PushProCollCompany(item.ProCode);
+                            //SynchroSetService.PushCollTeam(item.ProCode);
+                            //SynchroSetService.getCollTeam(item.ProCode);
+                            //SynchroSetService.PushPersons(Const.BtnAdd, item.ProCode);
+                            //SynchroSetService.PushPersons(Const.BtnModify, item.ProCode);
+                            SynchroSetService.PushAttendance(item.ProCode);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                StartMonitor();
+                ErrLogInfo.WriteLog(ex, "数据接口定时器", "RealNameMonitorService.AdUserInProcess");
             }
         }
         #endregion

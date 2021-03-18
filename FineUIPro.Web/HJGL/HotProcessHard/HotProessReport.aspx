@@ -136,9 +136,9 @@
                                 <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
                                     <f:ListItem Text="10" Value="10" />
-                                    <f:ListItem Text="15" Value="15" />
                                     <f:ListItem Text="20" Value="20" />
-                                    <f:ListItem Text="25" Value="25" />
+                                    <f:ListItem Text="30" Value="30" />
+                                    <f:ListItem Text="所有行" Value="1000" />
                                 </f:DropDownList>
                             </PageItems>
                         </f:Grid>

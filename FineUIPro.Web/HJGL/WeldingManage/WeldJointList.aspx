@@ -22,6 +22,7 @@
                                     EmptyText="输入查询条件" AutoPostBack="true" OnTextChanged="Tree_TextChanged"
                                     Width="280px" LabelWidth="60px">
                                 </f:TextBox>
+                                <f:HiddenField runat="server" ID="hdUnitWorkId"></f:HiddenField>
                                 <%--<f:Button ID="btnOut" runat="server" Text="导出" ToolTip="导出焊口情况信息" Icon="FolderUp" OnClick="btnOut_Click">
                             </f:Button>--%>
                             </Items>

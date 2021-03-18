@@ -59,7 +59,7 @@
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtCheckName" Label="检件名称" runat="server"
+                                        <f:TextBox ID="txtCheckName" Label="检件名称" runat="server" Readonly="true"
                                             LabelWidth="190px">
                                         </f:TextBox>
                                         <f:TextBox ID="txtHardnessRate" Label="检测比例" runat="server"
@@ -72,7 +72,7 @@
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtAcceptStandard" Label="验收标准" runat="server"
+                                        <f:TextBox ID="txtAcceptStandard" Label="验收标准" runat="server" Readonly="true"
                                             LabelWidth="190px">
                                         </f:TextBox>
                                         <f:TextBox ID="txtCheckNum" Label="外观检查合格焊口数" runat="server"
@@ -85,7 +85,7 @@
                                 </f:FormRow>
                                 <f:FormRow ColumnWidths="67% 33%">
                                     <Items>
-                                        <f:RadioButtonList runat="server" ID="rblDetectionTime" Label="检测时机"
+                                        <f:RadioButtonList runat="server" ID="rblDetectionTime" Label="检测时机" Enabled="false"
                                             LabelWidth="190px" Readonly="true">
                                             <f:RadioItem Value="0" Text="工厂化预制焊口" />
                                             <f:RadioItem Value="1" Text="安装施工焊口" />

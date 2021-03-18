@@ -74,7 +74,7 @@
                                             LabelWidth="100px" DecimalPrecision="4" NoNegative="true" ShowRedStar="true" Required="true"
                                             EnableBlurEvent="true" OnBlur="txtText_TextChanged" LabelAlign="Right">
                                         </f:NumberBox>
-                                        <f:TextBox ID="txtSpecification" Label="规格" runat="server"
+                                        <f:TextBox ID="txtSpecification" Label="规格" runat="server" Readonly="true"
                                             LabelWidth="100px" ShowRedStar="true" Required="true" LabelAlign="Right">
                                         </f:TextBox>
                                         <f:DropDownList ID="drpWeldTypeCode" Label="焊缝类型"

@@ -67,7 +67,7 @@
                                         </f:Button>
                                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存" OnClick="btnSave_Click">
                                         </f:Button>
-                                        
+
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>
@@ -175,6 +175,7 @@
                             <Listeners>
                                 <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
                                 <f:Listener Event="beforeedit" Handler="onGridBeforeEdit" />
+                                <f:Listener Event="afteredit" Handler="onGridAfterEdit" />
                             </Listeners>
                             <PageItems>
                                 <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
@@ -301,6 +302,13 @@
             }
         }
 
+        function onGridAfterEdit(event, value, params) {
+            var me = this, columnId = params.columnId, rowId = params.rowId;
+            if (columnId === 'BackingWelderCode') {
+                var backingWelderCode = me.getCellValue(rowId, 'BackingWelderCode');
+                me.updateCellValue(rowId, 'CoverWelderCode', backingWelderCode);
+            }
+        }
     </script>
 </body>
 </html>

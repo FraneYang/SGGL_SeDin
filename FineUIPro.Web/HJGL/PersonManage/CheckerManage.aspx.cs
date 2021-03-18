@@ -61,7 +61,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         {
             if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
             {
-                string strSql = @"SELECT WelderQualifyId, WelderId, 
+                string strSql = @"SELECT WelderQualifyId, WelderId, Level,
                                      QualificationItem, LimitDate, CheckDate 
                            FROM Welder_WelderQualify
                            LEFT JOIN SitePerson_Person AS Welder ON Welder.PersonId=Welder_WelderQualify.WelderId
@@ -137,6 +137,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
             BindGrid();
+            this.BindGvItem();
         }
         #region 获取按钮权限
         /// <summary>

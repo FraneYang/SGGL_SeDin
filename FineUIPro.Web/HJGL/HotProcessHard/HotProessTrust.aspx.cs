@@ -130,12 +130,16 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                                  join y in Funs.DB.HJGL_Pipeline on x.PipelineId equals y.PipelineId
                                  where x.ProjectId == this.CurrUser.LoginProjectId && x.WeldingDailyId != null && x.IsHotProess == true
                                  select new { x.WeldJointId, y.UnitWorkId }).ToList();
-            var Trustitems = (from x in WeldJointList
-                              where (from y in Funs.DB.HJGL_HotProess_TrustItem
-                                     join z in Funs.DB.HJGL_HotProess_Trust on y.HotProessTrustId equals z.HotProessTrustId
-                                     where y.WeldJointId == x.WeldJointId && z.UnitWorkId == x.UnitWorkId
-                                     select y).Count() == 0
-                              select new { x.WeldJointId, x.UnitWorkId }).ToList();
+            //var Trustitems = (from x in WeldJointList
+            //                  where (from y in Funs.DB.HJGL_HotProess_TrustItem
+            //                         join z in Funs.DB.HJGL_HotProess_Trust on y.HotProessTrustId equals z.HotProessTrustId
+            //                         where y.WeldJointId == x.WeldJointId && z.UnitWorkId == x.UnitWorkId
+            //                         select y).Count() == 0
+            //                  select new { x.WeldJointId, x.UnitWorkId }).ToList();
+            var Trustitems = (from x in Funs.DB.HJGL_HotProess_TrustItem
+                              join y in Funs.DB.HJGL_HotProess_Trust on x.HotProessTrustId equals y.HotProessTrustId
+                              where y.ProjectId == this.CurrUser.LoginProjectId
+                              select new { x.WeldJointId, y.UnitWorkId }).ToList();
             if (unitWork1.Count() > 0)
             {
                 foreach (var q in unitWork1)

@@ -558,7 +558,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIResourcesService.getSafeLawListByType(type);
+                var getDataList = APIResourcesService.getSafeLawListByType(type, null);
                 int pageCount = getDataList.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -573,6 +573,35 @@ namespace WebAPI.Controllers
             }
             return responeData;
         }
+
+        /// <summary>
+        /// 获取安全合规列表
+        /// </summary>
+        /// <param name="type">类型（1-法律啊法规；2-标准规范；3-集团制度；4-赛鼎制度）</param>
+        /// <param name="strParams">参数</param>
+        /// <param name="pageIndex">分页</param>
+        /// <returns></returns>
+        public Model.ResponeData getSafeLawListByType(string type,string strParams, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIResourcesService.getSafeLawListByType(type, strParams);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+
 
         /// <summary>
         /// 获取安全合规详细信息

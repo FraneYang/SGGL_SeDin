@@ -109,8 +109,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     drpUnitId.SelectedValue = w.UnitId;
                     this.drpUnitWork.SelectedValue = w.UnitWorkId;
                 }
-                
-                    
+
+
                 this.txtTabler.Text = this.CurrUser.UserName;
                 this.SimpleForm1.Reset(); //重置所有字段
             }
@@ -228,7 +228,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     BLL.HotProess_TrustService.AddHotProessTrust(newHotProessTrust);
                     //BLL.Sys_LogService.AddLog(BLL.Const.System_3,this.CurrUser.LoginProjectId, this.CurrUser.UserId, Resources.Lan.AddPWHT);
                 }
-                BLL.HotProessTrustItemService.DeleteHotProessTrustItemById(this.HotProessTrustId);
+                //BLL.HotProessTrustItemService.DeleteHotProessTrustItemById(this.HotProessTrustId);
                 this.CollectGridJointInfo();//收集Grid页面信息,增加明细
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
                 PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(newHotProessTrust.HotProessTrustId)
@@ -250,6 +250,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         private void CollectGridJointInfo()
         {
             JArray mergedData = Grid1.GetMergedData();
+            var items = from x in Funs.DB.HJGL_HotProess_TrustItem select x;
             foreach (JObject mergedRow in mergedData)
             {
                 JObject values = mergedRow.Value<JObject>("values");
@@ -258,11 +259,11 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 newTrustItem.HotProessTrustId = this.HotProessTrustId;
                 newTrustItem.WeldJointId = values.Value<string>("WeldJointId").ToString();
                 string hotProessTrustItemId = values.Value<string>("HotProessTrustItemId").ToString();
-                if (!string.IsNullOrEmpty(hotProessTrustItemId))
+                var item = items.FirstOrDefault(x => x.HotProessTrustItemId == hotProessTrustItemId);
+                if (item == null)
                 {
-                    newTrustItem.HotProessTrustItemId = hotProessTrustItemId;
+                    BLL.HotProessTrustItemService.AddHotProessTrustItem(newTrustItem);
                 }
-                BLL.HotProessTrustItemService.AddHotProessTrustItem(newTrustItem);
             }
         }
         #endregion     
@@ -300,6 +301,20 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                         if (string.IsNullOrEmpty(this.HotProessTrustId))   //新增记录可直接删除
                         {
                             GetHotProessTrustItem.Remove(item);
+                        }
+                        else
+                        {
+                            var hotReort = (from x in Funs.DB.HJGL_HotProess_Report where x.HotProessTrustItemId == item.HotProessTrustItemId select x).ToList();
+                            if (hotReort.Count() > 0)
+                            {
+                                ShowNotify("已生成热处理报告，不能删除！", MessageBoxIcon.Warning);
+                                return;
+                            }
+                            else
+                            {
+                                GetHotProessTrustItem.Remove(item);
+                                BLL.HotProessTrustItemService.DeleteHotProessTrustItemByItemId(item.HotProessTrustItemId);
+                            }
                         }
                     }
                 }

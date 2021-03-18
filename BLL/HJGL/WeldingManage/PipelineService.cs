@@ -150,10 +150,10 @@ namespace BLL
         {
             Model.SGGLDB db = Funs.DB;
             Model.HJGL_Pipeline pipeline = db.HJGL_Pipeline.FirstOrDefault(e => e.PipelineId == pipelineId);
-            var jot = db.HJGL_Pipeline.Where(e => e.PipelineId == pipelineId);
+            //var jot = db.HJGL_Pipeline.Where(e => e.PipelineId == pipelineId);
             if (pipeline != null)
             {
-                db.HJGL_Pipeline.DeleteAllOnSubmit(jot);
+                //db.HJGL_Pipeline.DeleteAllOnSubmit(jot);
                 db.HJGL_Pipeline.DeleteOnSubmit(pipeline);
                 db.SubmitChanges();
             }

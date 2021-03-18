@@ -30,9 +30,9 @@
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Right">
                             <Items>
                                 <f:ToolbarFill ID="ToolbarFill2" runat="server"></f:ToolbarFill>
-                                <f:Button ID="btnEdit" Text="编辑"  Icon="TableEdit" runat="server" OnClick="btnEdit_Click" Hidden="true">
+                                <f:Button ID="btnEdit" Text="编辑" Icon="TableEdit" runat="server" OnClick="btnEdit_Click" Hidden="true">
                                 </f:Button>
-                                <f:Button ID="btnDelete" Text="删除"  ConfirmText="删除选中行？" ConfirmTarget="Top" Hidden="true"
+                                <f:Button ID="btnDelete" Text="删除" ConfirmText="删除选中行？" ConfirmTarget="Top" Hidden="true"
                                     Icon="Delete" runat="server" OnClick="btnDelete_Click">
                                 </f:Button>
                             </Items>
@@ -80,7 +80,7 @@
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="检测工资质" EnableCollapse="true" runat="server"
                             BoxFlex="1" EnableColumnLines="true" DataKeyNames="WelderQualifyId" AllowCellEditing="true"
                             ClicksToEdit="2" DataIDField="WelderQualifyId" AllowSorting="true" SortField="LimitDate"
-                            SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
+                            SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" ForceFit="true"
                             PageSize="15" OnRowDoubleClick="Grid1_RowDoubleClick" EnableRowDoubleClickEvent="true"
                             EnableTextSelection="True">
                             <Toolbars>
@@ -110,6 +110,10 @@
                                 <f:RenderField Width="100px" ColumnID="LimitDate" DataField="LimitDate" FieldType="Date"
                                     HeaderText="有效日期" HeaderTextAlign="Center" TextAlign="Left"
                                     Renderer="Date">
+                                </f:RenderField>
+                                <f:RenderField Width="100px" ColumnID="Level" DataField="Level"
+                                    FieldType="String" HeaderText="等级" HeaderTextAlign="Center"
+                                    TextAlign="Left" SortField="Level">
                                 </f:RenderField>
                             </Columns>
                             <Listeners>

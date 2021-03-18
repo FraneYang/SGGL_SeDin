@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace FineUIPro.Web.HJGL.HotProcessHard
 {
@@ -38,6 +39,15 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             {
                 this.HardTrustID = Request.Params["HardTrustID"];
                 var trust = BLL.Hard_TrustService.GetHardTrustById(this.HardTrustID);
+                ///委托人
+                this.drpHardTrustMan.DataValueField = "UserId";
+                this.drpHardTrustMan.DataTextField = "UserName";
+                this.drpHardTrustMan.DataSource = from x in Funs.DB.Sys_User
+                                                  join y in Funs.DB.Project_ProjectUser
+                                                  on x.UserId equals y.UserId
+                                                  where y.ProjectId == this.CurrUser.LoginProjectId
+                                                  select x;
+                this.drpHardTrustMan.DataBind();
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpHardTrustUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
                 BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpCheckUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_5, true);
                 BLL.UnitWorkService.InitUnitWorkDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);
@@ -57,7 +67,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     {
                         this.drpCheckUnit.SelectedValue = trust.CheckUnit;
                     }
-                    if (!string.IsNullOrEmpty(trust.HardTrustMan))
+                    if (!string.IsNullOrEmpty(trust.HardTrustMan) && trust.HardTrustMan != BLL.Const._Null)
                     {
                         this.drpHardTrustMan.SelectedValue = trust.HardTrustMan;
                     }
@@ -97,10 +107,10 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
         {
             string strSql = string.Empty;
             List<SqlParameter> listStr = new List<SqlParameter>();
-                strSql = @"SELECT * ,(CASE WHEN IsPass=1 THEN '合格' WHEN IsPass=0 THEN '不合格' WHEN IsPass IS NULL THEN '待检测' END) AS checkResult
+            strSql = @"SELECT * ,(CASE WHEN IsPass=1 THEN '合格' WHEN IsPass=0 THEN '不合格' WHEN IsPass IS NULL THEN '待检测' END) AS checkResult
                            FROM dbo.View_HJGL_Hard_TrustItem
                            WHERE HardTrustID=@HardTrustID";
-                listStr.Add(new SqlParameter("@HardTrustID", this.HardTrustID));
+            listStr.Add(new SqlParameter("@HardTrustID", this.HardTrustID));
             if (!string.IsNullOrEmpty(this.txtPipelineCode.Text.Trim()))
             {
                 strSql += @" and PipelineCode like @PipelineCode ";

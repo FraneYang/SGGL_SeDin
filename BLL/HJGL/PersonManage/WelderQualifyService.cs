@@ -73,6 +73,7 @@ namespace BLL
             newWelderQualify.Remark = welderQualify.Remark;
             newWelderQualify.IsPrintShow = welderQualify.IsPrintShow;
             newWelderQualify.WelderMode = welderQualify.WelderMode;
+            newWelderQualify.Level = welderQualify.Level;
             Funs.DB.Welder_WelderQualify.InsertOnSubmit(newWelderQualify);
             Funs.DB.SubmitChanges();
         }
@@ -108,6 +109,7 @@ namespace BLL
                 newWelderQualify.IsAudit = welderQualify.IsAudit;
                 newWelderQualify.AuditMan = welderQualify.AuditMan;
                 newWelderQualify.AuditDate = welderQualify.AuditDate;
+                newWelderQualify.Level = welderQualify.Level;
                 Funs.DB.SubmitChanges();
             }
         }

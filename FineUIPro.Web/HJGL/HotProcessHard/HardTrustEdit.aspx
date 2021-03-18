@@ -166,6 +166,18 @@
                                 SortField="Remark" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="130px" ExpandUnusedSpace="true">
                             </f:RenderField>
+                            <f:RenderField HeaderText="键1" ColumnID="HardTrustItemID" DataField="HardTrustItemID"
+                                SortField="HardTrustItemID" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
+                                Width="10px" Hidden="true">
+                            </f:RenderField>
+                            <f:RenderField HeaderText="键2" ColumnID="HotProessTrustItemId" DataField="HotProessTrustItemId"
+                                SortField="HotProessTrustItemId" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
+                                Width="10px" Hidden="true">
+                            </f:RenderField>
+                            <f:RenderField HeaderText="键3" ColumnID="WeldJointId" DataField="WeldJointId"
+                                SortField="WeldJointId" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
+                                Width="10px" Hidden="true">
+                            </f:RenderField>
                         </Columns>
                         <Listeners>
                             <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

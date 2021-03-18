@@ -106,6 +106,10 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     TreeNode tn2 = new TreeNode();
                     tn2.NodeID = q.UnitWorkId;
                     tn2.Text = q.UnitWorkName + "【" + a.ToString() + "】" + "管线";
+                    if (q.UnitWorkId == this.hdUnitWorkId.Text)
+                    {
+                        tn2.Expanded = true;
+                    }
                     tn2.ToolTip = "施工单位：" + u.UnitName;
                     rootNode2.Nodes.Add(tn2);
                     if (a > 0)
@@ -153,6 +157,12 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
+            Model.HJGL_Pipeline pipeline = BLL.PipelineService.GetPipelineByPipelineId(this.tvControlItem.SelectedNodeID);
+            this.hdUnitWorkId.Text = string.Empty;
+            if (pipeline != null)
+            {
+                this.hdUnitWorkId.Text = this.tvControlItem.SelectedNode.ParentNode.NodeID;
+            }
             this.BindGrid();
         }
         #endregion
@@ -351,11 +361,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     if (judgementDelete(rowID, isShow))
                     {
                         BLL.WeldJointService.DeleteWeldJointById(rowID);
+                        ShowNotify("删除成功！", MessageBoxIcon.Success);
                         //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_WeldJointMenuId, Const.BtnDelete, rowID);
                     }
                 }
-
-                ShowNotify("删除成功！", MessageBoxIcon.Success);
+                this.InitTreeMenu();//加载树
                 this.BindGrid();
             }
             else
@@ -474,14 +484,18 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         private bool judgementDelete(string id, bool isShow)
         {
             string content = string.Empty;
-            if (!string.IsNullOrEmpty(BLL.WeldJointService.GetWeldJointByWeldJointId(id).WeldingDailyId))
+            if (BLL.WeldTaskService.GetWeldTaskByWeldJointId(id) != null)
             {
-                content = "该焊口已焊接，不能删除！";
+                content = "该焊口已生成焊接任务单，不能删除！";
             }
-            if (BLL.Funs.DB.HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == id) != null)
-            {
-                content = "热处理已经使用了该焊口，不能删除！";
-            }
+            //if (!string.IsNullOrEmpty(BLL.WeldJointService.GetWeldJointByWeldJointId(id).WeldingDailyId))
+            //{
+            //    content = "该焊口已焊接，不能删除！";
+            //}
+            //if (BLL.Funs.DB.HJGL_HotProess_TrustItem.FirstOrDefault(x => x.WeldJointId == id) != null)
+            //{
+            //    content = "热处理已经使用了该焊口，不能删除！";
+            //}
 
             if (string.IsNullOrEmpty(content))
             {

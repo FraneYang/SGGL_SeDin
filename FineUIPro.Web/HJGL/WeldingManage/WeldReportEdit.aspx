@@ -81,7 +81,7 @@
                 </Items>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="焊接日报"
-                        EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="WeldTaskId" EnableColumnLines="true"
+                        EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="WeldTaskId,WeldJointId" EnableColumnLines="true"
                         AllowCellEditing="true" ClicksToEdit="1" DataIDField="WeldTaskId" AllowSorting="true" KeepCurrentSelection="true"
                         SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort" EnableCheckBoxSelect="true"
                         AllowPaging="false" IsDatabasePaging="true" PageSize="10000" EnableTextSelection="True">

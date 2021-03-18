@@ -89,6 +89,21 @@ namespace BLL
         /// 根据热处理主键删除相关明细信息
         /// </summary>
         /// <param name="hotProessTrustId"></param>
+        public static void DeleteHotProessTrustItemByItemId(string hotProessTrustItemId)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var hotProessTrustItem = (from x in db.HJGL_HotProess_TrustItem where x.HotProessTrustItemId == hotProessTrustItemId select x).FirstOrDefault();
+            if (hotProessTrustItem != null)
+            {
+                db.HJGL_HotProess_TrustItem.DeleteOnSubmit(hotProessTrustItem);
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据热处理主键删除相关明细信息
+        /// </summary>
+        /// <param name="hotProessTrustId"></param>
         public static void DeleteHotProessTrustItemById(string hotProessTrustId)
         {
             Model.SGGLDB db = Funs.DB;

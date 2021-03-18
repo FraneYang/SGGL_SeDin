@@ -157,5 +157,73 @@ namespace BLL
             return String.Empty;
         }
         #endregion
+
+        #region 写入错误日志表
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ex"></param>
+        /// <returns></returns>
+        public static void WriteLog(Exception ex, string name, string url)
+        {
+            StringBuilder errLog = new StringBuilder();
+            if (ex != null)
+            {
+                using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+                {
+                    Exception innerEx = ex.InnerException;
+                    errLog.Append("\r\n");
+                    errLog.Append("错误信息开始=====>\r\n");
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误类型:{0}\r\n", ex.GetType().Name));
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误信息:{0}\r\n", ex.Message));
+                    errLog.Append("错误堆栈:\r\n");
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "{0}\r\n", ex.StackTrace));
+                    Sys_ErrLogInfo newErr = new Sys_ErrLogInfo
+                    {
+                        ErrType = ex.GetType().Name,
+                        ErrMessage = ex.Message,
+                        ErrStackTrace = ex.StackTrace
+                    };
+
+                    int level = 1;
+                    while (innerEx != null)
+                    {
+                        string preString = new string('-', level * 4);
+                        errLog.Append(preString);
+                        if (innerEx.GetType() != null)
+                        {
+                            errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误类型:{0}\r\n", innerEx.GetType().Name));
+                        }
+                        errLog.Append(preString);
+                        errLog.Append("错误信息:\r\n");
+                        errLog.Append(preString);
+                        errLog.Append(innerEx.Message + "\r\n");
+                        errLog.Append(preString);
+                        errLog.Append("错误堆栈:\r\n");
+                        errLog.Append(new string(' ', level * 4));
+                        if (innerEx.StackTrace != null)
+                        {
+                            errLog.Append(String.Format(CultureInfo.InvariantCulture, "{0}\r\n", innerEx.StackTrace.Replace("\r\n", "\r\n" + new string(' ', level * 4))));
+                        }
+                        newErr.ErrType += innerEx.GetType().Name;
+                        newErr.ErrMessage += innerEx.Message;
+                        newErr.ErrStackTrace += innerEx.StackTrace;
+
+                        innerEx = innerEx.InnerException;
+                        level++;
+                    }
+
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "出错时间:{0}\r\n", DateTime.Now));
+                    newErr.ErrTime = DateTime.Now;
+                    newErr.UserName = name;
+                    newErr.ErrUrl = url;
+                    newErr.ErrLogId = SQLHelper.GetNewID(typeof(Sys_ErrLogInfo));
+                    db.Sys_ErrLogInfo.InsertOnSubmit(newErr);
+                    db.SubmitChanges();
+                }
+            }
+        }
+        #endregion
     }
 }

@@ -38,7 +38,7 @@ namespace BLL
         /// <param name="isShowPlease">是否显示请选择</param>
         public static void InitCountryDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
-            dropName.DataValueField = "ID";
+            dropName.DataValueField = "CountryId";
             dropName.DataTextField = "Cname";
             dropName.DataSource = GetCountryList();
             dropName.DataBind();

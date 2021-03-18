@@ -404,68 +404,147 @@ namespace BLL
         /// <summary>
         /// 获取安全合规列表
         /// </summary>
-        /// <param name="type">类型（1-法律啊法规；2-标准规范；3-集团制度；4-赛鼎制度）</param>
+        /// <param name="type">类型（1-法律法规；2-标准规范；3-集团制度；4-赛鼎制度）</param>
         /// <returns></returns>
-        public static List<Model.SafeLawItem> getSafeLawListByType(string type)
+        public static List<Model.SafeLawItem> getSafeLawListByType(string type, string strParams)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                if (type == "1")
+                List<Model.SafeLawItem> returnList = new List<Model.SafeLawItem>();
+                if (!string.IsNullOrEmpty(type))
                 {
-                    return (from x in db.Law_LawRegulationList
-                            orderby x.ApprovalDate descending
-                            select new Model.SafeLawItem
-                            {
-                                ID = x.LawRegulationId,
-                                ReleaseStates = x.ReleaseStates,
-                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
-                                DataType = type,
-                                Name = x.LawRegulationName,
-                            }).ToList();
-                }
-                else if (type == "2")
-                {
-                    return (from x in db.Law_HSSEStandardsList
-                            orderby x.ApprovalDate descending
-                            select new Model.SafeLawItem
-                            {
-                                ID = x.StandardId,
-                                ReleaseStates = x.ReleaseStates,
-                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
-                                DataType = type,
-                                Name = x.StandardName,
-                            }).ToList();
-                }
-                else if (type == "3")
-                {
-                    return (from x in db.Law_ManageRule
-                            orderby x.ApprovalDate descending
-                            select new Model.SafeLawItem
-                            {
-                                ID = x.ManageRuleId,
-                                ReleaseStates = x.ReleaseStates,
-                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
-                                DataType = type,
-                                Name = x.ManageRuleName,
-                            }).ToList();
-                }
-                else if (type == "4")
-                {
-                    return (from x in db.HSSESystem_SafetyInstitution
-                            orderby x.ApprovalDate descending
-                            select new Model.SafeLawItem
-                            {
-                                ID = x.SafetyInstitutionId,
-                                ReleaseStates = x.ReleaseStates,
-                                ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
-                                DataType = type,
-                                Name = x.SafetyInstitutionName,
-                            }).ToList();
+                    if (type == "1")
+                    {
+                        returnList = (from x in db.Law_LawRegulationList
+                                      where strParams==null || x.LawRegulationName.Contains(strParams)
+                                      orderby x.ApprovalDate descending
+                                      select new Model.SafeLawItem
+                                      {
+                                          ID = x.LawRegulationId,
+                                          ReleaseStates = x.ReleaseStates,
+                                          ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                          DataType = type,
+                                          DataTypeName= "法律法规",
+                                          Name = x.LawRegulationName,
+                                      }).ToList();
+                    }
+                    else if (type == "2")
+                    {
+                        returnList = (from x in db.Law_HSSEStandardsList
+                                      where strParams == null || x.StandardName.Contains(strParams)
+                                      orderby x.ApprovalDate descending
+                                      select new Model.SafeLawItem
+                                      {
+                                          ID = x.StandardId,
+                                          ReleaseStates = x.ReleaseStates,
+                                          ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                          DataType = type,
+                                          DataTypeName = "标准规范",
+                                          Name = x.StandardName,
+                                      }).ToList();
+                    }
+                    else if (type == "3")
+                    {
+                        returnList = (from x in db.Law_ManageRule
+                                      where strParams == null || x.ManageRuleName.Contains(strParams)
+                                      orderby x.ApprovalDate descending
+                                      select new Model.SafeLawItem
+                                      {
+                                          ID = x.ManageRuleId,
+                                          ReleaseStates = x.ReleaseStates,
+                                          ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                          DataType = type,
+                                          DataTypeName = "集团制度",
+                                          Name = x.ManageRuleName,
+                                      }).ToList();
+                    }
+                    else if (type == "4")
+                    {
+                        returnList = (from x in db.HSSESystem_SafetyInstitution
+                                      where strParams == null || x.SafetyInstitutionName.Contains(strParams)
+                                      orderby x.ApprovalDate descending
+                                      select new Model.SafeLawItem
+                                      {
+                                          ID = x.SafetyInstitutionId,
+                                          ReleaseStates = x.ReleaseStates,
+                                          ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                          DataType = type,
+                                          DataTypeName = "赛鼎制度",
+                                          Name = x.SafetyInstitutionName,
+                                      }).ToList();
+                    }                  
                 }
                 else
                 {
-                    return null;
+                   var returnList1 = (from x in db.Law_LawRegulationList
+                                  where strParams == null || x.LawRegulationName.Contains(strParams)
+                                  orderby x.ApprovalDate descending
+                                  select new Model.SafeLawItem
+                                  {
+                                      ID = x.LawRegulationId,
+                                      ReleaseStates = x.ReleaseStates,
+                                      ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                      DataType = "1",
+                                      DataTypeName = "法律法规",
+                                      Name = x.LawRegulationName,
+                                  }).ToList();
+                    if (returnList1.Count() > 0)
+                    {
+                        returnList.AddRange(returnList1);
+                    }
+
+                   var  returnList2 = (from x in db.Law_HSSEStandardsList
+                                  where strParams == null || x.StandardName.Contains(strParams)
+                                  orderby x.ApprovalDate descending
+                                  select new Model.SafeLawItem
+                                  {
+                                      ID = x.StandardId,
+                                      ReleaseStates = x.ReleaseStates,
+                                      ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                      DataType = "2",
+                                      DataTypeName = "标准规范",
+                                      Name = x.StandardName,
+                                  }).ToList();
+                    if (returnList2.Count() > 0)
+                    {
+                        returnList.AddRange(returnList2);
+                    }
+
+                   var returnList3 = (from x in db.Law_ManageRule
+                                  where strParams == null || x.ManageRuleName.Contains(strParams)
+                                  orderby x.ApprovalDate descending
+                                  select new Model.SafeLawItem
+                                  {
+                                      ID = x.ManageRuleId,
+                                      ReleaseStates = x.ReleaseStates,
+                                      ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                      DataType = "3",
+                                      DataTypeName = "集团制度",
+                                      Name = x.ManageRuleName,
+                                  }).ToList();
+                    if (returnList3.Count() > 0)
+                    {
+                        returnList.AddRange(returnList3);
+                    }
+                    var returnList4 = (from x in db.HSSESystem_SafetyInstitution
+                                  where strParams == null || x.SafetyInstitutionName.Contains(strParams)
+                                  orderby x.ApprovalDate descending
+                                  select new Model.SafeLawItem
+                                  {
+                                      ID = x.SafetyInstitutionId,
+                                      ReleaseStates = x.ReleaseStates,
+                                      ReleaseStatesName = db.Sys_Const.First(u => u.GroupId == ConstValue.Group_HSSE_ReleaseStates && u.ConstValue == x.ReleaseStates).ConstText,
+                                      DataType = "4",
+                                      DataTypeName = "赛鼎制度",
+                                      Name = x.SafetyInstitutionName,
+                                  }).ToList();
+                    if (returnList4.Count() > 0)
+                    {
+                        returnList.AddRange(returnList4);
+                    }
+
                 }
+                return returnList;
             }
         }
 

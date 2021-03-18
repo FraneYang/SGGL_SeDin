@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.HJGL.PersonManage
 {
-    public partial class CheckerItemEdit : System.Web.UI.Page
+    public partial class CheckerItemEdit : PageBase
     {
         #region 加载
         /// <summary>
@@ -38,7 +38,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                         {
                             this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", welderQualify.LimitDate);
                         }
-
+                        this.txtlevel.Text = welderQualify.Level;
                     }
                 }
                 var w = BLL.WelderService.GetWelderById(this.hdWelderId.Text);
@@ -64,7 +64,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
             welderQualify.QualificationItem = txtQualificationItem.Text;
             welderQualify.CheckDate = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim());
             welderQualify.LimitDate = Funs.GetNewDateTime(this.txtLimitDate.Text.Trim());
-            
+            welderQualify.Level = this.txtlevel.Text.Trim();
             if (!string.IsNullOrEmpty(welderQualifyId))
             {
                 welderQualify.WelderQualifyId = welderQualifyId;
@@ -75,11 +75,9 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 welderQualify.WelderQualifyId = SQLHelper.GetNewID(typeof(Model.Welder_WelderQualify));
                 BLL.WelderQualifyService.AddWelderQualify(welderQualify);
             }
-            Alert.ShowInTop("保存成功！", MessageBoxIcon.Success);
+            ShowNotify("保存成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
-
-        
         #endregion
     }
 }

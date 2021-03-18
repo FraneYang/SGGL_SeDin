@@ -51,7 +51,7 @@
                         SortField="ProjectCode" FieldType="String" HeaderText="项目号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="PushType" DataField="PushType" 
+                    <f:RenderField Width="230px" ColumnID="PushType" DataField="PushType" 
                         SortField="PushType" FieldType="String" HeaderText="数据类型" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -66,7 +66,7 @@
                         SortField="Code" FieldType="String" HeaderText="返回代号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="300px" ColumnID="Message" DataField="Message" SortField="Message"
+                    <f:RenderField Width="250px" ColumnID="Message" DataField="Message" SortField="Message"
                         HeaderText="返回信息" HeaderTextAlign="Center" TextAlign="Left" FieldType="String">
                     </f:RenderField>                   
                 </Columns>

@@ -208,7 +208,7 @@ namespace FineUIPro.Web.HSSE.InformationProject
             {
                 SaveData(BLL.Const.BtnSave);
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/LawRegulationIdentify&menuId={1}", this.LawRegulationIdentifyId, BLL.Const.LawRegulationIdentifyMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/LawRegulationIdentify&menuId={1}", this.LawRegulationIdentifyId, BLL.Const.LawRegulationIdentifyMenuId)));
         }
         #endregion
 
