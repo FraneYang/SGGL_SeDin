@@ -489,64 +489,53 @@ namespace BLL
             string code = string.Empty;
             string proCode = string.Empty;
             string contenttype = "application/json;charset=unicode";
-            var getTokens = from x in Funs.DB.RealName_SynchroSet
-                            select x;
-            if (getTokens.Count() > 0)
-            {
-                foreach (var itemT in getTokens)
+
+            string url = Funs.RealNameApiUrl + "/foreignApi/baseData/getProjectList";
+            Hashtable newToken = new Hashtable
                 {
-                    var getNameProject = Funs.DB.RealName_Project.FirstOrDefault(x => x.ProCode == itemT.ProCode);
-                    if (getNameProject == null)
-                    {
-                        string url = Funs.RealNameApiUrl + "/foreignApi/baseData/getProjectList";
-                        Hashtable newToken = new Hashtable
-                {
-                    { "token", getaccess_token(itemT.ProCode) }
+                    { "token", getaccess_token(null) }
                 };
-                        var returndata = BLL.APIGetHttpService.OutsideHttp(url, "POST", contenttype, newToken, null);
-                        if (!string.IsNullOrEmpty(returndata))
+            var returndata = BLL.APIGetHttpService.OutsideHttp(url, "POST", contenttype, newToken, null);
+            if (!string.IsNullOrEmpty(returndata))
+            {
+                JObject obj = JObject.Parse(returndata);
+                mess = obj["message"].ToString();
+                code = obj["code"].ToString();
+                sucess = obj["success"].ToString();
+                if (Convert.ToBoolean(obj["success"].ToString()))
+                {
+                    JArray arr = JArray.Parse(obj["data"].ToString());
+                    foreach (var item in arr)
+                    {
+                        proCode = item["proCode"].ToString();
+                        string proName = item["proName"].ToString();
+                        string proShortName = item["proShortName"].ToString();
+                        if (!string.IsNullOrEmpty(proCode))
                         {
-                            JObject obj = JObject.Parse(returndata);
-                            mess += obj["message"].ToString();
-                            code = obj["code"].ToString();
-                            sucess = obj["success"].ToString();
-                            if (Convert.ToBoolean(obj["success"].ToString()))
+                            var getProject = db.RealName_Project.FirstOrDefault(x => x.ProCode == proCode);
+                            if (getProject != null)
                             {
-                                JArray arr = JArray.Parse(obj["data"].ToString());
-                                foreach (var item in arr)
+                                getProject.ProName = proName;
+                                getProject.ProShortName = proShortName;
+                                db.SubmitChanges();
+                            }
+                            else
+                            {
+                                Model.RealName_Project newProject = new Model.RealName_Project
                                 {
-                                    proCode = item["proCode"].ToString();
-                                    string proName = item["proName"].ToString();
-                                    string proShortName = item["proShortName"].ToString();
-                                    if (!string.IsNullOrEmpty(proCode))
-                                    {
-                                        var getProject = db.RealName_Project.FirstOrDefault(x => x.ProCode == proCode);
-                                        if (getProject != null)
-                                        {
-                                            getProject.ProName = proName;
-                                            getProject.ProShortName = proShortName;
-                                            db.SubmitChanges();
-                                        }
-                                        else
-                                        {
-                                            Model.RealName_Project newProject = new Model.RealName_Project
-                                            {
-                                                ID = SQLHelper.GetNewID(),
-                                                ProCode = proCode,
-                                                ProName = proName,
-                                                ProShortName = proShortName
-                                            };
-                                            db.RealName_Project.InsertOnSubmit(newProject);
-                                            db.SubmitChanges();
-                                        }
-                                    }
-                                }
+                                    ID = SQLHelper.GetNewID(),
+                                    ProCode = proCode,
+                                    ProName = proName,
+                                    ProShortName = proShortName
+                                };
+                                db.RealName_Project.InsertOnSubmit(newProject);
+                                db.SubmitChanges();
                             }
                         }
-                        InsertRealNamePushLog(null, proCode, "获取项目数据", sucess, code, mess);
                     }
                 }
             }
+            InsertRealNamePushLog(null, proCode, "获取项目数据", sucess, code, mess);
             return mess;
         }
         #endregion
@@ -624,7 +613,7 @@ namespace BLL
                                             }
                                         }
 
-                                        var getTeamGroup = db.ProjectData_TeamGroup.FirstOrDefault(x => x.TeamGroupId == thirdTeamCode && x.TeamId != teamId);
+                                        var getTeamGroup = db.ProjectData_TeamGroup.FirstOrDefault(x => x.TeamGroupId == thirdTeamCode && (x.TeamId != teamId || x.TeamId == null));
                                         if (getTeamGroup != null)
                                         {
                                             getTeamGroup.TeamId = teamId;
@@ -878,21 +867,22 @@ namespace BLL
         {
             try
             {
-
                 string mess = string.Empty;
                 string sucess = string.Empty;
                 string code = string.Empty;
                 string contenttype = "application/json;charset=unicode";
                 var getData = (from x in Funs.DB.SitePerson_Person
                                join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId
-                               join z in Funs.DB.RealName_Project on y.ProjectCode equals z.ProCode
+                            //   join z in Funs.DB.RealName_Project on y.ProjectCode equals z.ProCode
                                join u in Funs.DB.Base_Unit on x.UnitId equals u.UnitId
                                join v in Funs.DB.ProjectData_TeamGroup on x.TeamGroupId equals v.TeamGroupId
                                join w in Funs.DB.Base_WorkPost on x.WorkPostId equals w.WorkPostId
-                               where z.ProCode != null && x.IdentityCard != null && x.IdentityCard != ""
-                                && (proCode == null || y.ProjectCode == proCode) && v.TeamId.HasValue && x.HeadImage != null
+                               where x.IdentityCard != null && x.IdentityCard != ""
+                                && y.ProjectCode == proCode
+                                && v.TeamId.HasValue && x.HeadImage != null
                                && ((type == Const.BtnModify && !x.RealNameUpdateTime.HasValue) || (type != Const.BtnModify && !x.RealNameAddTime.HasValue))
-                               && ((x.IdcardType == null || x.IdcardType == "SHENFEN_ZHENGJIAN") && (x.IdentityCard.Length == 15 || x.IdentityCard.Length == 18))
+                               && ((x.IdcardType == null || x.IdcardType == "SHENFEN_ZHENGJIAN") 
+                               && (x.IdentityCard.Length == 15 || x.IdentityCard.Length == 18))
                                select new
                                {
                                    name = x.PersonName,
@@ -1134,7 +1124,7 @@ namespace BLL
                                     db.SubmitChanges();
                                 }
 
-                                var getTeamGroup = db.ProjectData_TeamGroup.FirstOrDefault(x => x.TeamGroupId == thirdTeamCode && x.TeamId != teamId);
+                                var getTeamGroup = db.ProjectData_TeamGroup.FirstOrDefault(x => x.TeamGroupId == thirdTeamCode && (x.TeamId != teamId || x.TeamId == null));
                                 if (getTeamGroup != null)
                                 {
                                     getTeamGroup.TeamId = teamId;

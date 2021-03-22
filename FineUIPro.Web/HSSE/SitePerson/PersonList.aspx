@@ -13,6 +13,11 @@
             color: Red;
             font-size: small;
         }
+      .LabelGreen{
+            font-size: larger;
+            font-weight:200;
+            background-color: green;
+        }
     </style>
 </head>
 <body>

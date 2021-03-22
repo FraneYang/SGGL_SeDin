@@ -266,6 +266,13 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         {
                             Grid1.Rows[i].RowCssClass = "Red";
                         }
+
+                        var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == personId && x.RealNameAddTime.HasValue);
+                        if (getPerson != null)
+                        {
+                            int j = this.Grid1.Columns.Count - 1;
+                            Grid1.Rows[i].CellCssClasses[j] = "LabelGreen";
+                        }                        
                     }
                 }
                 else
@@ -346,6 +353,12 @@ namespace FineUIPro.Web.HSSE.SitePerson
                         if (isNull.Count() == 0) ////未参加过培训的人员
                         {
                             Grid1.Rows[i].RowCssClass = "Red";
+                        }
+                        var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == personId && x.RealNameAddTime.HasValue);
+                        if (getPerson != null)
+                        {
+                            int j = this.Grid1.Columns.Count - 1;
+                            Grid1.Rows[i].CellCssClasses[j] = "LabelGreen";
                         }
                     }
                 }

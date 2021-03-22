@@ -181,3 +181,279 @@ IP地址:::1
 
 出错时间:03/19/2021 15:17:47
 
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx:行号 734
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 12:42:48
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 12:42:49
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx:行号 734
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 12:45:49
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 12:45:50
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx:行号 734
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 13:12:24
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 13:12:24
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx:行号 734
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 13:13:33
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 13:13:33
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx:行号 734
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 13:19:28
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 13:19:28
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx:行号 734
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 13:28:46
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 13:28:46
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx:行号 734
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 13:29:01
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 13:29:01
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 e:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx:行号 734
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 13:29:09
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 13:29:09
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer)
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 14:06:33
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 14:06:33
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer)
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 14:25:20
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 14:25:20
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer)
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 14:46:26
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 14:46:26
+
+
+错误信息开始=====>
+错误类型:ArgumentOutOfRangeException
+错误信息:“minValue”不能大于 maxValue。
+参数名: minValue
+错误堆栈:
+   在 System.Random.Next(Int32 minValue, Int32 maxValue)
+   在 FineUIPro.Web.common.main.get_Five() 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\FineUIPro.Web\common\main.aspx.cs:行号 534
+   在 ASP.common_main_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer)
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/22/2021 14:46:44
+出错文件:http://localhost:8118/common/main.aspx
+IP地址:::1
+操作人员:JT
+
+出错时间:03/22/2021 14:46:44
+

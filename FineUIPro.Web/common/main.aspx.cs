@@ -529,16 +529,19 @@ namespace FineUIPro.Web.common
                 int i = 1, e = 40;
                 foreach (var project in projects)
                 {
-                    listCategories.Add(project.ShortName);
-                    Random ran = new Random();
-                    int RandKey1 = ran.Next(i, e);
-                    i++;
-                    e--;
-                    int RandKey2 = ran.Next(i, e);
-                    i++;
-                    e--;
-                    listdata.Add(RandKey1);
-                    listdata2.Add(RandKey2);
+                    if (i <= e)
+                    {
+                        listCategories.Add(project.ShortName);
+                        Random ran = new Random();
+                        int RandKey1 = ran.Next(i, e);
+                        i++;
+                        e--;
+                        int RandKey2 = ran.Next(i, e);
+                        i++;
+                        e--;
+                        listdata.Add(RandKey1);
+                        listdata2.Add(RandKey2);
+                    }
                 }
                 s.data = listdata;
                 s2.data = listdata2;

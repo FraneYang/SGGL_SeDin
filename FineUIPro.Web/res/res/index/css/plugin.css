@@ -1,0 +1,46 @@
+body {
+  color: #FBFBFB;
+}
+body input {
+  color: #9ea6b2;
+}
+.login-area {
+  min-width: 270px;
+  max-width: 370px;
+}
+.login-area .edit-area {
+  background-color: rgba(17, 34, 78, 0.81);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#b511224e,endColorstr=#b511224e);
+  border: 1px solid rgba(131, 194, 255, 0.22);
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+.login-area .edit-area .dec-login-demo-title {
+  font-size: 16px;
+}
+.login-area .edit-area .dec-login-item .bi-border-top.bi-text {
+  border-color: #3d4d66;
+}
+
+
+.dec-login-fresh {
+  background: url('../images/bg.jpg') no-repeat center center;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/bg.jpg');
+  background-size: contain;
+  _background: none;
+}
+.dec-login-fresh.hack {
+  background: url('../images/bg.jpg') no-repeat center center;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/bg.jpg');
+  _background: none;
+}
+.dec-login-fresh {
+  background-size: cover;
+}
+.dec-copyright-beian a {
+  color: #3685f2;
+}
+
+
+
