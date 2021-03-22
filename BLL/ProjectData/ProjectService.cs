@@ -452,5 +452,27 @@
             }
             return unitName;
         }
+
+        /// <summary>
+        /// 获取所有项目号
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitAllProjectCodeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "ProjectId";
+            dropName.DataTextField = "ProjectCode";
+            var projectlist = BLL.ProjectService.GetAllProjectDropDownList();
+            dropName.DataSource = projectlist;
+            dropName.DataBind();
+            if (projectlist.Count() == 0)
+            {
+                isShowPlease = true;
+            }
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
     }
 }

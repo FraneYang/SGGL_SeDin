@@ -407,6 +407,8 @@
     <Compile Include="Person\Person_ShuntDetailService.cs" />
     <Compile Include="Person\Person_ShuntService.cs" />
     <Compile Include="Person\Person_TrainingPlanService.cs" />
+    <Compile Include="PHTGL\ContractCompile\ContractService.cs" />
+    <Compile Include="PHTGL\ContractCompile\SubcontractAgreementService.cs" />
     <Compile Include="ProjectData\MainItemService.cs" />
     <Compile Include="ProjectData\ProjectData_CodeTemplateRuleService.cs" />
     <Compile Include="ProjectData\ProjectSateService.cs" />

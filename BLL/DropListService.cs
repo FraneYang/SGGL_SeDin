@@ -160,5 +160,36 @@
         #endregion
 
         #endregion
+
+        #region 合同管理
+        /// <summary>
+        /// 币种
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] GetCurrency()
+        {
+            ListItem[] list = new ListItem[4];
+            list[0] = new ListItem("人民币", "人民币");
+            list[1] = new ListItem("美元", "美元");
+            list[2] = new ListItem("欧元", "欧元");
+            list[3] = new ListItem("印尼盾", "印尼盾");
+            return list;
+        }
+
+        /// <summary>
+        /// 合同类型
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] GetContractType()
+        {
+            ListItem[] list = new ListItem[5];
+            list[0] = new ListItem("施工总承包分包合同", "1");
+            list[1] = new ListItem("施工专业分包合同", "2");
+            list[2] = new ListItem("上官红劳务分包合同", "3");
+            list[3] = new ListItem("试车服务合同", "4");
+            list[4] = new ListItem("租赁合同", "5");
+            return list;
+        }
+        #endregion
     }
 }

@@ -904,6 +904,11 @@
     <Content Include="Person\ShuntEdit.aspx" />
     <Content Include="Person\ShuntList.aspx" />
     <Content Include="Person\ShuntView.aspx" />
+    <Content Include="PHTGL\ContractCompile\Contract.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractAgreement.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractAgreementEdit.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractEdit.aspx" />
+    <Content Include="PHTGL\ContractCompile\GeneralTermsConditions.aspx" />
     <Content Include="ProjectData\MainItem.aspx" />
     <Content Include="ProjectData\MainItemEdit.aspx" />
     <Content Include="ProjectData\MainItemView.aspx" />
@@ -9704,6 +9709,41 @@
     </Compile>
     <Compile Include="Person\ShuntView.aspx.designer.cs">
       <DependentUpon>ShuntView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\Contract.aspx.cs">
+      <DependentUpon>Contract.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\Contract.aspx.designer.cs">
+      <DependentUpon>Contract.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractAgreement.aspx.cs">
+      <DependentUpon>ContractAgreement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractAgreement.aspx.designer.cs">
+      <DependentUpon>ContractAgreement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractAgreementEdit.aspx.cs">
+      <DependentUpon>ContractAgreementEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractAgreementEdit.aspx.designer.cs">
+      <DependentUpon>ContractAgreementEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractEdit.aspx.cs">
+      <DependentUpon>ContractEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractEdit.aspx.designer.cs">
+      <DependentUpon>ContractEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\GeneralTermsConditions.aspx.cs">
+      <DependentUpon>GeneralTermsConditions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\GeneralTermsConditions.aspx.designer.cs">
+      <DependentUpon>GeneralTermsConditions.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\MainItem.aspx.cs">
       <DependentUpon>MainItem.aspx</DependentUpon>

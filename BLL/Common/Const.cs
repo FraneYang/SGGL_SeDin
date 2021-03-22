@@ -2586,6 +2586,18 @@ namespace BLL
 
         #endregion
 
+        #region 合同管理 菜单Id
+        /// <summary>
+        /// 基本信息
+        /// </summary>
+        public const string ContractMenuId = "C141ABE5-E377-45C1-9507-E723C40099B8";
+
+        /// <summary>
+        /// 合同协议书
+        /// </summary>
+        public const string ContractAgreementMenuId = "C5560FF5-8181-4BA2-8326-D2B49E45660C";
+        #endregion
+
         #region 模版文件原始的虚拟路径
         /// <summary>
         /// 数据导入模版文件原始的虚拟路径
